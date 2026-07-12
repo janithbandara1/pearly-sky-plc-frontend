@@ -12,13 +12,13 @@ const REVIEWS: { name: string; image: string; textKey: TranslationKey }[] = [
   { name: "Lucas Meyer", image: "/images/testimonials/reviewer-3.webp", textKey: "review3Text" },
 ];
 
-export function Testimonials() {
+export function Testimonials({ titleKey = "testimonialsTitle" }: { titleKey?: TranslationKey }) {
   const { translate } = useLanguage();
 
   return (
     <section className="mx-auto w-full max-w-6xl px-4 py-16 sm:px-6">
       <h2 className="mb-10 text-center text-2xl font-bold tracking-tight sm:text-3xl">
-        {translate("testimonialsTitle")}
+        {translate(titleKey)}
       </h2>
 
       <div className="grid gap-6 sm:grid-cols-3">

@@ -2,10 +2,21 @@ import type { TranslationKey } from "./en";
 
 export const fr: Record<TranslationKey, string> = {
   // Nav / footer
+  navHome: "Accueil",
   navServices: "Services",
+  navAbout: "À Propos",
+  navCustomers: "Nos Clients",
+  navLocations: "Nos Implantations",
+  navBlog: "Blog",
+  navCareers: "Carrières",
   navLogin: "Connexion",
   navSignup: "Inscription",
-  navContact: "Contact",
+  navContact: "Contactez-Nous",
+  navViewAllServices: "Voir tous les services",
+  navServicesPricingSoon: "Tarif à venir",
+  navServicesBookNow: "Réserver",
+  navServicesComingSoon: "Bientôt disponible",
+  navMenu: "Menu",
 
   // Hero
   heroTitle: "PEARLY SKY",
@@ -108,4 +119,70 @@ export const fr: Record<TranslationKey, string> = {
   // Footer
   footerTagline: "Services de nettoyage et de soin éco-luxe partout en France.",
   footerRights: "Tous droits réservés.",
+
+  // About Us page
+  aboutPageEyebrow: "À PROPOS DE PEARLY SKY CLEANING SERVICES",
+  aboutPageHeroTitle: "Votre Partenaire de Confiance",
+  aboutPageIdentityTitle: "Notre Identité",
+  aboutPageIdentitySubtitle: "Là où la Propreté Rencontre le Luxe",
+  aboutPageStoryTitle: "Notre Histoire",
+  aboutPageStorySubtitle: "D'une Vision à une Portée Mondiale",
+  aboutPageWhyTitle: "Pourquoi Choisir Pearly Sky ?",
+  aboutPageWhySubtitle: "Les Piliers de l'Éco-Luxe",
+  aboutPageVisionMissionTitle: "Vision, Mission & Valeurs",
+  aboutPageVisionTitle: "Notre Vision",
+  aboutPageMissionTitle: "Notre Mission",
+  aboutPageValuesTitle: "Nos Valeurs Fondamentales",
+  aboutPageObjectivesTitle: "Nos Objectifs",
+  aboutPageCtaTitle: "Prêt à découvrir l'Art du Soin Impeccable ?",
+  aboutPageCtaSubtitle: "Contactez-nous dès aujourd'hui pour planifier votre service de nettoyage ou de transport éco-luxe personnalisé.",
+  aboutPageCtaButton: "Contactez-Nous",
+
+  // Our Customers page
+  customersPageTitle: "Nos Clients",
+  customersPageSubtitle: "La confiance d'une clientèle exigeante à travers la France",
+  customersClienteleTitle: "Notre clientèle comprend",
+  customersGalleryTitle: "Moments d'Excellence",
+  customersTestimonialsTitle: "Ce Que Disent Nos Clients",
+
+  // Our Locations page
+  locationsPageTitle: "Nos Implantations Mondiales",
+  locationsPageSubtitle: "Trouvez Votre Pays et Ville",
+  locationsSearchCountryPlaceholder: "Rechercher un pays...",
+  locationsSearchCityPlaceholder: "Rechercher une ville...",
+  locationsNoResults: "Aucune implantation trouvée.",
+  locationsViewMap: "Voir sur la carte",
+  locationsEurope: "Europe",
+  locationsAsiaPacific: "Asie-Pacifique",
+  locationsAmericas: "Amériques",
+
+  // Blog
+  blogPageTitle: "Regards Pearly Sky : Le Blog",
+  blogPageSubtitle: "Derniers conseils de nettoyage, tendances du secteur et actualités sur le soin éco-luxe.",
+  blogRecentArticles: "Articles Récents",
+  blogReadArticle: "Lire l'Article",
+  blogBackToBlog: "Retour au Blog",
+
+  // Careers
+  careersPageTitle: "Rejoignez Notre Équipe",
+  careersPageSubtitle: "Construisez votre carrière avec Pearly Sky",
+  careersSearchTitlePlaceholder: "Intitulé du poste...",
+  careersSearchLocationPlaceholder: "Lieu...",
+  careersNoJobs: "Aucune offre trouvée.",
+  careersApplyNow: "Postuler",
+  careersBackToCareers: "Retour aux Carrières",
+  careersResponsibilities: "Responsabilités",
+  careersRequirements: "Exigences",
+  careersBenefits: "Pourquoi Nous Rejoindre",
+  careersAboutCompany: "À Propos de Pearly Sky",
+  careersApplyPageTitle: "Postuler à ce Poste",
+  careersApplyInstructions:
+    "Renseignez vos coordonnées ci-dessous. Lorsque votre messagerie s'ouvrira, veuillez joindre votre CV avant l'envoi — ce formulaire ne permet pas de téléverser de fichiers directement.",
+  careersApplySend: "ENVOYER LA CANDIDATURE",
+  careersRoleLabel: "Poste *",
+
+  // Contact Us page
+  contactPageTitle: "Contactez Notre Équipe Concierge",
+  contactPageSubtitle: "Nous sommes là pour vous aider, où que vous soyez en France.",
+  contactOfficesTitle: "Nos Bureaux",
 };

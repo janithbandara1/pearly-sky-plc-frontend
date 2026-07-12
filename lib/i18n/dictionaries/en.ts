@@ -1,9 +1,20 @@
 export const en = {
   // Nav / footer
+  navHome: "Home",
   navServices: "Services",
+  navAbout: "About Us",
+  navCustomers: "Our Customers",
+  navLocations: "Our Locations",
+  navBlog: "Blog",
+  navCareers: "Careers",
   navLogin: "Log in",
   navSignup: "Sign up",
-  navContact: "Contact",
+  navContact: "Contact Us",
+  navViewAllServices: "View all services",
+  navServicesPricingSoon: "Pricing coming soon",
+  navServicesBookNow: "Book now",
+  navServicesComingSoon: "Coming soon",
+  navMenu: "Menu",
 
   // Hero
   heroTitle: "PEARLY SKY",
@@ -106,6 +117,72 @@ export const en = {
   // Footer
   footerTagline: "Eco-luxury cleaning & care services across France.",
   footerRights: "All rights reserved.",
+
+  // About Us page
+  aboutPageEyebrow: "ABOUT PEARLY SKY CLEANING SERVICES",
+  aboutPageHeroTitle: "Your Trusted Cleaning Partner",
+  aboutPageIdentityTitle: "Our Core Identity",
+  aboutPageIdentitySubtitle: "Where Cleanliness Meets Luxury",
+  aboutPageStoryTitle: "Our Story",
+  aboutPageStorySubtitle: "From Vision to Global Reach",
+  aboutPageWhyTitle: "Why Choose Pearly Sky?",
+  aboutPageWhySubtitle: "The Pillars of Eco-Luxury",
+  aboutPageVisionMissionTitle: "Vision, Mission & Values",
+  aboutPageVisionTitle: "Our Vision",
+  aboutPageMissionTitle: "Our Mission",
+  aboutPageValuesTitle: "Our Core Values",
+  aboutPageObjectivesTitle: "Our Objectives",
+  aboutPageCtaTitle: "Ready to experience the Art of Pristine Care?",
+  aboutPageCtaSubtitle: "Contact us today to schedule your customized eco-luxury cleaning or transport service.",
+  aboutPageCtaButton: "Contact Us",
+
+  // Our Customers page
+  customersPageTitle: "Our Customers",
+  customersPageSubtitle: "Trusted by discerning clients across France",
+  customersClienteleTitle: "Our clientele includes",
+  customersGalleryTitle: "Moments of Excellence",
+  customersTestimonialsTitle: "What Our Clients Say",
+
+  // Our Locations page
+  locationsPageTitle: "Our Global Locations",
+  locationsPageSubtitle: "Find Your Country & City",
+  locationsSearchCountryPlaceholder: "Search country...",
+  locationsSearchCityPlaceholder: "Search city...",
+  locationsNoResults: "No locations found.",
+  locationsViewMap: "View in map",
+  locationsEurope: "Europe",
+  locationsAsiaPacific: "Asia-Pacific",
+  locationsAmericas: "Americas",
+
+  // Blog
+  blogPageTitle: "Pristine Insights: The Pearly Sky Blog",
+  blogPageSubtitle: "Latest cleaning tips, industry insights, and company news on eco-luxury care.",
+  blogRecentArticles: "Recent Articles",
+  blogReadArticle: "Read Full Article",
+  blogBackToBlog: "Back to Blog",
+
+  // Careers
+  careersPageTitle: "Join Our Team",
+  careersPageSubtitle: "Build your career with Pearly Sky",
+  careersSearchTitlePlaceholder: "Job title...",
+  careersSearchLocationPlaceholder: "Location...",
+  careersNoJobs: "No jobs found.",
+  careersApplyNow: "Apply Now",
+  careersBackToCareers: "Back to Careers",
+  careersResponsibilities: "Job Responsibilities",
+  careersRequirements: "Requirements",
+  careersBenefits: "Why Join Us",
+  careersAboutCompany: "About Pearly Sky",
+  careersApplyPageTitle: "Apply for this Role",
+  careersApplyInstructions:
+    "Fill in your details below. When your email app opens, please attach your CV/resume before sending — this form can't upload files directly.",
+  careersApplySend: "SEND APPLICATION",
+  careersRoleLabel: "Role *",
+
+  // Contact Us page
+  contactPageTitle: "Contact Our Concierge Team",
+  contactPageSubtitle: "We're here to help, wherever you are in France.",
+  contactOfficesTitle: "Our Offices",
 } as const;
 
 export type TranslationKey = keyof typeof en;
