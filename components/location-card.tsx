@@ -10,8 +10,8 @@ export function LocationCard({ location }: { location: Location }) {
   return (
     <div className="flex flex-col gap-3 rounded-xl border border-border bg-card p-4">
       <div className="flex items-center gap-3">
-        <div className="relative h-8 w-12 shrink-0 overflow-hidden rounded">
-          <Image src={location.flag} alt={location.name} fill sizes="48px" className="object-cover" />
+        <div className="relative h-10 w-10 shrink-0 overflow-hidden rounded-full border border-border">
+          <Image src={location.flag} alt={location.name} fill sizes="40px" className="object-cover" />
         </div>
         <span className="font-semibold">{location.name}</span>
       </div>
