@@ -2,7 +2,6 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
-import { Sparkles } from "lucide-react";
 import { getServices } from "@/lib/catalog-api";
 import type { CatalogService } from "@/lib/catalog-api";
 import { useLanguage } from "@/lib/i18n/language-context";
@@ -58,7 +57,6 @@ export function ServicesNavList({
             onClick={onNavigate}
             className="flex min-w-0 items-start gap-2 rounded-lg p-2 text-sm hover:bg-muted"
           >
-            <Sparkles className="mt-0.5 h-4 w-4 shrink-0 text-brand-gold-dark" />
             <span className="flex min-w-0 flex-col">
               <span className="font-medium leading-snug break-words">{service.label}</span>
               <span className="text-xs text-muted-foreground">

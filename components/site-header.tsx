@@ -70,14 +70,6 @@ export function SiteHeader() {
               </NavigationMenuTrigger>
               <NavigationMenuContent>
                 <ServicesNavList />
-                <div className="border-t p-2">
-                  <Link
-                    href="/services"
-                    className="block rounded-lg p-2 text-center text-sm font-semibold text-brand-gold-dark hover:bg-muted"
-                  >
-                    {translate("navViewAllServices")}
-                  </Link>
-                </div>
               </NavigationMenuContent>
             </NavigationMenuItem>
 
