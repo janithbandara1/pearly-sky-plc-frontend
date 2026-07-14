@@ -32,10 +32,11 @@ export const fr: Record<TranslationKey, string> = {
   // Services
   servicesHeading: "Nos Services",
   servicesSubheading: "Entretien de propriété, art de vivre et bien-être — réservés en moins d'une minute.",
-  servicesViewAll: "Voir tous les services",
-  servicesBookNow: "Réserver",
+  servicesBookNow: "Planifier le Service",
   servicesComingSoon: "Bientôt disponible",
   servicesPricingSoon: "Tarif à venir",
+  servicesCategoryPropertyCare: "GESTION & ENTRETIEN DE PROPRIÉTÉ",
+  servicesCategoryBespokeLifestyle: "CURATION BIEN-ÊTRE & STYLE DE VIE SUR MESURE",
 
   // About / why choose us
   aboutTitle: "BIENVENUE CHEZ PEARLY SKY",

@@ -30,10 +30,11 @@ export const en = {
   // Services
   servicesHeading: "Our Services",
   servicesSubheading: "Property care, lifestyle, and wellness — booked in under a minute.",
-  servicesViewAll: "View all services",
-  servicesBookNow: "Book now",
+  servicesBookNow: "Schedule Service",
   servicesComingSoon: "Coming soon",
   servicesPricingSoon: "Pricing coming soon",
+  servicesCategoryPropertyCare: "PROPERTY CARE & MANAGEMENT",
+  servicesCategoryBespokeLifestyle: "BESPOKE LIFESTYLE & WELLNESS CURATION",
 
   // About / why choose us
   aboutTitle: "WELCOME TO PEARLY SKY",
