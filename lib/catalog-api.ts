@@ -13,6 +13,49 @@ export interface CatalogService {
   imageUrl: string | null;
 }
 
+export interface ServiceAddOnPackage {
+  id: number;
+  name: string;
+  price: string | null;
+}
+
+export interface CatalogServiceDetail extends CatalogService {
+  servicePackages: { package: ServiceAddOnPackage }[];
+}
+
+export interface SizeQuote {
+  bookable: boolean;
+  minHours?: number;
+  maxHours?: number;
+  cleanerCount?: number;
+  extraCleanerCount?: number;
+  priceMin?: number | null;
+  priceMax?: number | null;
+}
+
+export interface CatalogItem {
+  id: number;
+  name: string;
+  sku: string;
+  price: string;
+  type: string;
+  image: string | null;
+}
+
 export function getServices() {
   return apiFetch<CatalogService[]>("/catalog/services");
+}
+
+export function getService(id: number) {
+  return apiFetch<CatalogServiceDetail>(`/catalog/services/${id}`);
+}
+
+export function getServiceQuote(id: number, propertySizeSqm: number) {
+  return apiFetch<SizeQuote>(
+    `/catalog/services/${id}/quote?propertySizeSqm=${propertySizeSqm}`,
+  );
+}
+
+export function getItems() {
+  return apiFetch<CatalogItem[]>("/catalog/items");
 }

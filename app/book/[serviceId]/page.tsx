@@ -1,21 +1,28 @@
 "use client";
 
+import Link from "next/link";
+import { Poppins } from "next/font/google";
 import { useRouter } from "next/navigation";
 import { use, useEffect, useState } from "react";
-import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
+import { ArrowLeft } from "lucide-react";
+import { DateTimeSection } from "@/components/booking/date-time-section";
+import { EquipmentSection, SupplySource } from "@/components/booking/equipment-section";
+import { JobCardSection } from "@/components/booking/job-card-section";
+import { PropertyScaleSlider } from "@/components/booking/property-scale-slider";
+import { SelectedServicesSummary } from "@/components/booking/selected-services-summary";
+import { PageHero } from "@/components/page-hero";
 import { ApiError, useAuth } from "@/lib/auth-context";
 import { BookingFrequency, createBooking } from "@/lib/booking-api";
-import { getServices } from "@/lib/catalog-api";
+import {
+  CatalogItem,
+  CatalogServiceDetail,
+  getItems,
+  getService,
+  getServiceQuote,
+  SizeQuote,
+} from "@/lib/catalog-api";
 
-const FREQUENCIES: { value: BookingFrequency; label: string }[] = [
-  { value: "one-time", label: "One-time" },
-  { value: "weekly", label: "Weekly" },
-  { value: "bi-weekly", label: "Bi-weekly" },
-  { value: "monthly", label: "Monthly" },
-];
+const poppins = Poppins({ subsets: ["latin"], weight: ["400", "500", "600", "700", "800"] });
 
 export default function BookServicePage({
   params,
@@ -26,14 +33,24 @@ export default function BookServicePage({
   const router = useRouter();
   const { status, accessToken } = useAuth();
 
-  const [propertySizeSqm, setPropertySizeSqm] = useState("90");
+  const [service, setService] = useState<CatalogServiceDetail | null>(null);
+  const [serviceError, setServiceError] = useState<string | null>(null);
+
+  const [items, setItems] = useState<CatalogItem[]>([]);
+  const [supplySource, setSupplySource] = useState<SupplySource>("");
+  const [selectedItemIds, setSelectedItemIds] = useState<Set<number>>(new Set());
+
+  const [propertySizeSqm, setPropertySizeSqm] = useState(20);
+  const [quote, setQuote] = useState<SizeQuote | null>(null);
+  const [quoteLoading, setQuoteLoading] = useState(false);
+
+  const [selectedPackageIds, setSelectedPackageIds] = useState<Set<number>>(new Set());
   const [date, setDate] = useState("");
-  const [time, setTime] = useState("09:00");
-  const [frequency, setFrequency] = useState<BookingFrequency>("one-time");
-  const [note, setNote] = useState("");
+  const [time, setTime] = useState("");
+  const frequency: BookingFrequency = "one-time";
+
   const [error, setError] = useState<string | null>(null);
   const [submitting, setSubmitting] = useState(false);
-  const [serviceLabel, setServiceLabel] = useState<string | null>(null);
 
   useEffect(() => {
     if (status === "unauthenticated") {
@@ -42,27 +59,87 @@ export default function BookServicePage({
   }, [status, router, serviceId]);
 
   useEffect(() => {
-    getServices()
-      .then((services) => {
-        const match = services.find((s) => s.id === Number(serviceId));
-        setServiceLabel(match?.label ?? null);
-      })
-      .catch(() => setServiceLabel(null));
+    getService(Number(serviceId))
+      .then(setService)
+      .catch((err) => setServiceError(err instanceof ApiError ? err.message : "Service not found."));
   }, [serviceId]);
 
-  async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
-    event.preventDefault();
+  useEffect(() => {
+    getItems()
+      .then(setItems)
+      .catch(() => setItems([]));
+  }, []);
+
+  useEffect(() => {
+    let cancelled = false;
+    const timer = setTimeout(() => {
+      setQuoteLoading(true);
+      getServiceQuote(Number(serviceId), propertySizeSqm)
+        .then((q) => {
+          if (!cancelled) setQuote(q);
+        })
+        .catch(() => {
+          if (!cancelled) setQuote({ bookable: false });
+        })
+        .finally(() => {
+          if (!cancelled) setQuoteLoading(false);
+        });
+    }, 150);
+    return () => {
+      cancelled = true;
+      clearTimeout(timer);
+    };
+  }, [serviceId, propertySizeSqm]);
+
+  function togglePackage(id: number) {
+    setSelectedPackageIds((prev) => {
+      const next = new Set(prev);
+      if (next.has(id)) next.delete(id);
+      else next.add(id);
+      return next;
+    });
+  }
+
+  function toggleItem(id: number) {
+    setSelectedItemIds((prev) => {
+      const next = new Set(prev);
+      if (next.has(id)) next.delete(id);
+      else next.add(id);
+      return next;
+    });
+  }
+
+  const selectedPackages = (service?.servicePackages ?? [])
+    .map((sp) => sp.package)
+    .filter((pkg) => selectedPackageIds.has(pkg.id));
+  const selectedItems = items.filter((item) => selectedItemIds.has(item.id));
+
+  const addOnsTotal = [...selectedPackages, ...selectedItems].reduce((sum, entry) => {
+    const price = entry.price !== null ? Number(entry.price) : NaN;
+    return Number.isFinite(price) ? sum + price : sum;
+  }, 0);
+
+  async function handleBookNow() {
     if (!accessToken) return;
+    if (!date || !time) {
+      setError("Please select a date and time above.");
+      return;
+    }
     setError(null);
     setSubmitting(true);
     try {
+      const noteParts = [
+        selectedPackages.length ? `Add-ons: ${selectedPackages.map((p) => p.name).join(", ")}` : "",
+        selectedItems.length ? `Equipment: ${selectedItems.map((i) => i.name).join(", ")}` : "",
+        supplySource ? `Cleaning solvents & equipment: ${supplySource === "company" ? "Request the Company" : "Provided by the Customer"}` : "",
+      ].filter(Boolean);
       const booking = await createBooking(accessToken, {
         serviceId: Number(serviceId),
-        propertySizeSqm: Number(propertySizeSqm),
+        propertySizeSqm,
         date,
         time,
         frequency,
-        note: note || undefined,
+        note: noteParts.length ? noteParts.join(" — ") : undefined,
       });
       router.push(`/dashboard?booked=${booking.referenceNumber}`);
     } catch (err) {
@@ -80,83 +157,72 @@ export default function BookServicePage({
     );
   }
 
+  if (serviceError) {
+    return (
+      <div className="flex flex-1 items-center justify-center p-6 text-sm text-destructive">{serviceError}</div>
+    );
+  }
+
+  if (!service) {
+    return (
+      <div className="flex flex-1 items-center justify-center p-6 text-sm text-muted-foreground">
+        Loading…
+      </div>
+    );
+  }
+
+  const bookDisabledReason = !date || !time ? "Select a date and time above to continue." : undefined;
+
   return (
-    <div className="flex flex-1 items-center justify-center p-6">
-      <Card className="w-full max-w-md">
-        <CardHeader>
-          <CardTitle>Book {serviceLabel ?? "this service"}</CardTitle>
-        </CardHeader>
-        <CardContent>
-          <form className="flex flex-col gap-4" onSubmit={handleSubmit}>
-            <div className="flex flex-col gap-2">
-              <Label htmlFor="propertySizeSqm">Property size (m²)</Label>
-              <Input
-                id="propertySizeSqm"
-                type="number"
-                min={20}
-                max={1000}
-                required
-                value={propertySizeSqm}
-                onChange={(e) => setPropertySizeSqm(e.target.value)}
-              />
-              <p className="text-xs text-muted-foreground">
-                We&rsquo;ll work out how long the clean takes and how many cleaners
-                you need from this — no need to guess.
-              </p>
-            </div>
-            <div className="grid grid-cols-2 gap-3">
-              <div className="flex flex-col gap-2">
-                <Label htmlFor="date">Date</Label>
-                <Input
-                  id="date"
-                  type="date"
-                  required
-                  value={date}
-                  onChange={(e) => setDate(e.target.value)}
-                />
-              </div>
-              <div className="flex flex-col gap-2">
-                <Label htmlFor="time">Time</Label>
-                <Input
-                  id="time"
-                  type="time"
-                  required
-                  value={time}
-                  onChange={(e) => setTime(e.target.value)}
-                />
-              </div>
-            </div>
-            <div className="flex flex-col gap-2">
-              <Label htmlFor="frequency">Frequency</Label>
-              <select
-                id="frequency"
-                className="h-9 rounded-lg border border-border bg-background px-3 text-sm"
-                value={frequency}
-                onChange={(e) => setFrequency(e.target.value as BookingFrequency)}
-              >
-                {FREQUENCIES.map((f) => (
-                  <option key={f.value} value={f.value}>
-                    {f.label}
-                  </option>
-                ))}
-              </select>
-            </div>
-            <div className="flex flex-col gap-2">
-              <Label htmlFor="note">Notes (optional)</Label>
-              <Input
-                id="note"
-                value={note}
-                onChange={(e) => setNote(e.target.value)}
-                placeholder="e.g. pet in the house, gate code, etc."
-              />
-            </div>
-            {error && <p className="text-sm text-destructive">{error}</p>}
-            <Button type="submit" disabled={submitting}>
-              {submitting ? "Booking…" : "Confirm booking"}
-            </Button>
-          </form>
-        </CardContent>
-      </Card>
+    <div className={poppins.className}>
+      <PageHero
+        image={service.imageUrl ?? "/images/services/updated-home-property-cleaning-services-1-standard-residential-cleaning.webp"}
+        eyebrow="Book a service"
+        title={service.label}
+        subtitle={service.description ?? undefined}
+      />
+
+      <div className="mx-auto flex w-full max-w-[1150px] flex-1 flex-col gap-6 p-4 sm:p-6">
+        <JobCardSection
+          packages={(service.servicePackages ?? []).map((sp) => sp.package)}
+          selectedIds={selectedPackageIds}
+          onToggle={togglePackage}
+        />
+
+        <EquipmentSection
+          items={items}
+          supplySource={supplySource}
+          onSupplySourceChange={setSupplySource}
+          selectedItemIds={selectedItemIds}
+          onToggleItem={toggleItem}
+        />
+
+        <DateTimeSection date={date} onDateChange={setDate} time={time} onTimeChange={setTime} />
+
+        <PropertyScaleSlider value={propertySizeSqm} onChange={setPropertySizeSqm} />
+
+        {error && <p className="text-sm text-destructive">{error}</p>}
+
+        <SelectedServicesSummary
+          value={propertySizeSqm}
+          quote={quote}
+          quoteLoading={quoteLoading}
+          addOnsTotal={addOnsTotal}
+          onBookNow={handleBookNow}
+          submitting={submitting}
+          bookDisabledReason={bookDisabledReason}
+        />
+
+        <div className="flex justify-center">
+          <Link
+            href="/services"
+            className="inline-flex h-9 items-center gap-1.5 rounded-lg border-[1.5px] border-[#A98B4B] bg-secondary px-4 text-sm font-medium text-secondary-foreground transition-colors hover:bg-[color-mix(in_oklch,var(--secondary),var(--foreground)_5%)]"
+          >
+            <ArrowLeft className="size-4" />
+            Back
+          </Link>
+        </div>
+      </div>
     </div>
   );
 }
