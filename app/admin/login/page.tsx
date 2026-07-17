@@ -29,7 +29,7 @@ export default function AdminLoginPage() {
     setPending(true);
     try {
       await login(email, password);
-      router.push("/admin/orders");
+      router.push("/admin");
     } catch (err) {
       setError(err instanceof ApiError ? err.message : "Something went wrong.");
     } finally {
