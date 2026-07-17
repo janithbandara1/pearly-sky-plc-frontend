@@ -1,5 +1,10 @@
 import { apiFetch } from "./api";
-import type { CatalogItem, CatalogService, ServiceCategory } from "./catalog-api";
+import type {
+  CatalogItem,
+  CatalogService,
+  CatalogServiceDetail,
+  ServiceCategory,
+} from "./catalog-api";
 
 export interface AdminPackage {
   id: number;
@@ -115,6 +120,15 @@ export function deleteService(accessToken: string, id: number) {
   return apiFetch<{ success: boolean }>(`/admin/catalog/services/${id}`, {
     method: "DELETE",
     accessToken,
+  });
+}
+
+/** Replaces the full set of packages linked to a service (the "Service Upgrade Option" list shown at booking time). */
+export function setServicePackages(accessToken: string, serviceId: number, packageIds: number[]) {
+  return apiFetch<CatalogServiceDetail>(`/admin/catalog/services/${serviceId}/packages`, {
+    method: "PATCH",
+    accessToken,
+    body: { packageIds },
   });
 }
 

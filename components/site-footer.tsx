@@ -1,6 +1,5 @@
 "use client";
 
-import Link from "next/link";
 import {
   AiOutlineTikTok,
   AiFillInstagram,
@@ -30,21 +29,6 @@ export function SiteFooter() {
             {translate("footerTagline")}
           </p>
         </div>
-
-        <nav className="flex flex-wrap gap-x-6 gap-y-2 text-sm">
-          <Link href="/services" className="hover:text-brand-gold">
-            {translate("navServices")}
-          </Link>
-          <Link href="/login" className="hover:text-brand-gold">
-            {translate("navLogin")}
-          </Link>
-          <Link href="/signup" className="hover:text-brand-gold">
-            {translate("navSignup")}
-          </Link>
-          <a href="mailto:info@pearlyskyglobalclean.com" className="hover:text-brand-gold">
-            info@pearlyskyglobalclean.com
-          </a>
-        </nav>
 
         <div className="flex gap-3">
           {SOCIAL_LINKS.map(({ href, label, Icon }) => (

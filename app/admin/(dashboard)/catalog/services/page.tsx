@@ -5,6 +5,7 @@ import { useCallback, useEffect, useState } from "react";
 import { toast } from "sonner";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
+import { Checkbox } from "@/components/ui/checkbox";
 import {
   Dialog,
   DialogContent,
@@ -25,12 +26,16 @@ import {
 import { DataTable } from "@/components/admin/data-table";
 import { ConfirmDeleteDialog } from "@/components/admin/confirm-delete-dialog";
 import { ApiError } from "@/lib/auth-context";
+import { getService } from "@/lib/catalog-api";
 import type { CatalogService } from "@/lib/catalog-api";
 import {
+  AdminPackage,
   CreateServicePayload,
   createService,
   deleteService,
+  listPackagesAdmin,
   listServicesAdmin,
+  setServicePackages,
   updateService,
 } from "@/lib/admin-catalog-api";
 import { useStaffAuth } from "@/lib/staff-auth-context";
@@ -54,9 +59,19 @@ export default function AdminCatalogServicesPage() {
   const [form, setForm] = useState<CreateServicePayload>(emptyForm);
   const [saving, setSaving] = useState(false);
 
+  const [allPackages, setAllPackages] = useState<AdminPackage[]>([]);
+  const [packagesEditingFor, setPackagesEditingFor] = useState<CatalogService | null>(null);
+  const [editPackageIds, setEditPackageIds] = useState<number[]>([]);
+  const [loadingPackages, setLoadingPackages] = useState(false);
+  const [savingPackages, setSavingPackages] = useState(false);
+
   const load = useCallback(async () => {
-    const data = await listServicesAdmin();
-    setServices(data);
+    const [servicesData, packagesData] = await Promise.all([
+      listServicesAdmin(),
+      listPackagesAdmin(),
+    ]);
+    setServices(servicesData);
+    setAllPackages(packagesData);
   }, []);
 
   useEffect(() => {
@@ -117,6 +132,34 @@ export default function AdminCatalogServicesPage() {
     }
   }
 
+  async function openPackagesEditor(service: CatalogService) {
+    setPackagesEditingFor(service);
+    setEditPackageIds([]);
+    setLoadingPackages(true);
+    try {
+      const detail = await getService(service.id);
+      setEditPackageIds(detail.servicePackages.map((sp) => sp.package.id));
+    } catch (err) {
+      toast.error(err instanceof ApiError ? err.message : "Failed to load linked packages.");
+    } finally {
+      setLoadingPackages(false);
+    }
+  }
+
+  async function handleSavePackages() {
+    if (!accessToken || !packagesEditingFor) return;
+    setSavingPackages(true);
+    try {
+      await setServicePackages(accessToken, packagesEditingFor.id, editPackageIds);
+      toast.success(`Upgrade options updated for "${packagesEditingFor.label}".`);
+      setPackagesEditingFor(null);
+    } catch (err) {
+      toast.error(err instanceof ApiError ? err.message : "Failed to update packages.");
+    } finally {
+      setSavingPackages(false);
+    }
+  }
+
   const columns: ColumnDef<CatalogService>[] = [
     { accessorKey: "label", header: "Label" },
     { accessorKey: "name", header: "Slug" },
@@ -144,6 +187,9 @@ export default function AdminCatalogServicesPage() {
       header: "",
       cell: ({ row }) => (
         <div className="flex justify-end gap-2">
+          <Button size="sm" variant="outline" onClick={() => openPackagesEditor(row.original)}>
+            Upgrade options
+          </Button>
           <Button size="sm" variant="outline" onClick={() => openEdit(row.original)}>
             Edit
           </Button>
@@ -264,6 +310,56 @@ export default function AdminCatalogServicesPage() {
       {error && <p className="text-sm text-destructive">{error}</p>}
 
       <DataTable columns={columns} data={services} emptyMessage="No services yet." />
+
+      <Dialog
+        open={!!packagesEditingFor}
+        onOpenChange={(isOpen) => !isOpen && setPackagesEditingFor(null)}
+      >
+        <DialogContent>
+          <DialogHeader>
+            <DialogTitle>Upgrade options for {packagesEditingFor?.label}</DialogTitle>
+          </DialogHeader>
+          {loadingPackages ? (
+            <p className="text-sm text-muted-foreground">Loading…</p>
+          ) : (
+            <div className="flex flex-col gap-2">
+              {allPackages.map((pkg) => (
+                <label key={pkg.id} className="flex items-center gap-2 text-sm">
+                  <Checkbox
+                    checked={editPackageIds.includes(pkg.id)}
+                    onCheckedChange={(checked) =>
+                      setEditPackageIds((prev) =>
+                        checked ? [...prev, pkg.id] : prev.filter((id) => id !== pkg.id),
+                      )
+                    }
+                  />
+                  {pkg.name}
+                  {pkg.price && (
+                    <span className="text-muted-foreground">+€{pkg.price}</span>
+                  )}
+                </label>
+              ))}
+              {allPackages.length === 0 && (
+                <p className="text-sm text-muted-foreground">
+                  No packages exist yet — create one under Catalog → Packages first.
+                </p>
+              )}
+            </div>
+          )}
+          <DialogFooter>
+            <Button
+              variant="outline"
+              onClick={() => setPackagesEditingFor(null)}
+              disabled={savingPackages}
+            >
+              Cancel
+            </Button>
+            <Button onClick={handleSavePackages} disabled={savingPackages || loadingPackages}>
+              {savingPackages ? "Saving…" : "Save upgrade options"}
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 }
