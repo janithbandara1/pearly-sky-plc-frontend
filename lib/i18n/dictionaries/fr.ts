@@ -39,10 +39,7 @@ export const fr: Record<TranslationKey, string> = {
   servicesCategoryBespokeLifestyle: "CURATION BIEN-ÊTRE & STYLE DE VIE SUR MESURE",
 
   // About / why choose us
-  aboutTitle: "BIENVENUE CHEZ PEARLY SKY",
-  aboutSubtitle: "Nettoyage Éco-Luxe, Conçu Pour Vous",
-  aboutParagraph:
-    "Bienvenue chez Pearly Sky, votre partenaire de premier choix pour les services de nettoyage éco-luxe à travers la France. Nous sommes spécialisés dans la fourniture de solutions de nettoyage méticuleux et respectueux de l'environnement pour les maisons et bureaux, répondant aux clients les plus exigeants. Nos équipes dédiées de professionnels anglophones et francophones s'engagent à s'assurer que vos espaces sont non seulement impeccables, mais maintiennent également un environnement sain et durable.",
+  aboutWhyChooseUsTitle: "Pourquoi nous choisir",
   aboutBilingualLabel: "Équipes Bilingues Français & Anglais",
   aboutBilingualDesc: "Communication fluide pour une clientèle diverse.",
   aboutEcoLabel: "Produits de Nettoyage Écologiques",
@@ -90,13 +87,6 @@ export const fr: Record<TranslationKey, string> = {
   review2Text:
     "J'ai réservé un service de nettoyage en septembre 2024. Deux agents ont fait un excellent travail pendant 5 heures. Les fenêtres et le réfrigérateur ont également été nettoyés.",
   review3Text: "Équipe professionnelle, service ponctuel et résultats impeccables. Hautement recommandé.",
-
-  // Team
-  teamTitle: "Notre Équipe Visionnaire",
-  teamCustomerService: "Service Client",
-  teamMarketing: "Équipe Marketing",
-  teamHumanResources: "Ressources Humaines",
-  teamFinance: "Département Finances",
 
   // Contact
   contactTitle: "CONTACTEZ-NOUS",

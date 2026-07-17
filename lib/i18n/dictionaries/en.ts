@@ -37,10 +37,7 @@ export const en = {
   servicesCategoryBespokeLifestyle: "BESPOKE LIFESTYLE & WELLNESS CURATION",
 
   // About / why choose us
-  aboutTitle: "WELCOME TO PEARLY SKY",
-  aboutSubtitle: "Eco-Luxury Cleaning, Tailored for You",
-  aboutParagraph:
-    "Welcome to Pearly Sky, your premier partner for eco-luxury cleaning services across France. We specialize in providing meticulous, environmentally conscious home and office cleaning solutions that cater to the most discerning clients. Our dedicated teams of English and French-speaking professionals are committed to ensuring your spaces are not only spotless but also maintain a healthy, sustainable environment.",
+  aboutWhyChooseUsTitle: "Why Choose Us",
   aboutBilingualLabel: "Bilingual French & English Teams",
   aboutBilingualDesc: "Seamless communication for a diverse clientele.",
   aboutEcoLabel: "Eco-Friendly Cleaning Products",
@@ -88,13 +85,6 @@ export const en = {
   review2Text:
     "I booked a cleaning service in September 2024. Two cleaners did a great job for a 5-hour work. Windows and fridge were also cleaned.",
   review3Text: "Professional team, punctual service, and spotless results. Highly recommended.",
-
-  // Team
-  teamTitle: "Our Visionary Team",
-  teamCustomerService: "Customer Service",
-  teamMarketing: "Marketing Team",
-  teamHumanResources: "Human Resources",
-  teamFinance: "Finance Department",
 
   // Contact
   contactTitle: "GET IN TOUCH WITH US",

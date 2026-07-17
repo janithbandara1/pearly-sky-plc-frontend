@@ -7,7 +7,6 @@ import { AboutSection } from "@/components/home/about-section";
 import { CoverageStrip } from "@/components/home/coverage-strip";
 import { SectorsMarquee } from "@/components/home/sectors-marquee";
 import { Testimonials } from "@/components/home/testimonials";
-import { TeamSection } from "@/components/home/team-section";
 import { ContactSection } from "@/components/home/contact-section";
 
 export const dynamic = "force-dynamic";
@@ -30,7 +29,6 @@ export default async function Home() {
       <CoverageStrip />
       <SectorsMarquee />
       <Testimonials />
-      <TeamSection />
       <ContactSection />
     </main>
   );
