@@ -50,6 +50,10 @@ export function getService(id: number) {
   return apiFetch<CatalogServiceDetail>(`/catalog/services/${id}`);
 }
 
+export function getServiceBySlug(slug: string) {
+  return apiFetch<CatalogServiceDetail>(`/catalog/services/by-name/${encodeURIComponent(slug)}`);
+}
+
 export function getServiceQuote(id: number, propertySizeSqm: number) {
   return apiFetch<SizeQuote>(
     `/catalog/services/${id}/quote?propertySizeSqm=${propertySizeSqm}`,

@@ -51,7 +51,7 @@ export function ServicesNavList({
           <Link
             href={
               BOOKABLE_SERVICES.has(service.name)
-                ? `/book/${service.id}`
+                ? `/services/${service.name}`
                 : "/services"
             }
             onClick={onNavigate}

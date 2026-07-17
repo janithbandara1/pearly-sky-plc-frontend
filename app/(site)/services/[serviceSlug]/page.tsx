@@ -17,7 +17,7 @@ import {
   CatalogItem,
   CatalogServiceDetail,
   getItems,
-  getService,
+  getServiceBySlug,
   getServiceQuote,
   SizeQuote,
 } from "@/lib/catalog-api";
@@ -27,9 +27,9 @@ const poppins = Poppins({ subsets: ["latin"], weight: ["400", "500", "600", "700
 export default function BookServicePage({
   params,
 }: {
-  params: Promise<{ serviceId: string }>;
+  params: Promise<{ serviceSlug: string }>;
 }) {
-  const { serviceId } = use(params);
+  const { serviceSlug } = use(params);
   const router = useRouter();
   const { status, accessToken } = useAuth();
 
@@ -54,15 +54,15 @@ export default function BookServicePage({
 
   useEffect(() => {
     if (status === "unauthenticated") {
-      router.replace(`/login?next=/book/${serviceId}`);
+      router.replace(`/login?next=/services/${serviceSlug}`);
     }
-  }, [status, router, serviceId]);
+  }, [status, router, serviceSlug]);
 
   useEffect(() => {
-    getService(Number(serviceId))
+    getServiceBySlug(serviceSlug)
       .then(setService)
       .catch((err) => setServiceError(err instanceof ApiError ? err.message : "Service not found."));
-  }, [serviceId]);
+  }, [serviceSlug]);
 
   useEffect(() => {
     getItems()
@@ -71,10 +71,11 @@ export default function BookServicePage({
   }, []);
 
   useEffect(() => {
+    if (!service) return;
     let cancelled = false;
     const timer = setTimeout(() => {
       setQuoteLoading(true);
-      getServiceQuote(Number(serviceId), propertySizeSqm)
+      getServiceQuote(service.id, propertySizeSqm)
         .then((q) => {
           if (!cancelled) setQuote(q);
         })
@@ -89,7 +90,7 @@ export default function BookServicePage({
       cancelled = true;
       clearTimeout(timer);
     };
-  }, [serviceId, propertySizeSqm]);
+  }, [service, propertySizeSqm]);
 
   function togglePackage(id: number) {
     setSelectedPackageIds((prev) => {
@@ -120,7 +121,7 @@ export default function BookServicePage({
   }, 0);
 
   async function handleBookNow() {
-    if (!accessToken) return;
+    if (!accessToken || !service) return;
     if (!date || !time) {
       setError("Please select a date and time above.");
       return;
@@ -134,7 +135,7 @@ export default function BookServicePage({
         supplySource ? `Cleaning solvents & equipment: ${supplySource === "company" ? "Request the Company" : "Provided by the Customer"}` : "",
       ].filter(Boolean);
       const booking = await createBooking(accessToken, {
-        serviceId: Number(serviceId),
+        serviceId: service.id,
         propertySizeSqm,
         date,
         time,

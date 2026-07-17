@@ -46,7 +46,7 @@ export default async function ServicesPage() {
               </p>
               {BOOKABLE_SERVICES.has(service.name) ? (
                 <Button size="sm" asChild>
-                  <Link href={`/book/${service.id}`}>Book now</Link>
+                  <Link href={`/services/${service.name}`}>Book now</Link>
                 </Button>
               ) : (
                 <span className="text-xs text-muted-foreground">Coming soon</span>

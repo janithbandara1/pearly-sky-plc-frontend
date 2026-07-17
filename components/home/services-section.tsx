@@ -63,7 +63,7 @@ function ServiceCard({ service }: { service: CatalogService }) {
 
         {BOOKABLE_SERVICES.has(service.name) ? (
           <Link
-            href={`/book/${service.id}`}
+            href={`/services/${service.name}`}
             className="mt-2 flex w-full items-center justify-center gap-1.5 rounded-full border border-brand-gold px-4 py-2 text-xs font-semibold text-brand-gold transition-colors hover:bg-brand-gold/10"
           >
             {translate("servicesBookNow")}
