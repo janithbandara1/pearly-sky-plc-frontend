@@ -200,19 +200,22 @@ export default function BookServicePage({
 
         <DateTimeSection date={date} onDateChange={setDate} time={time} onTimeChange={setTime} />
 
-        <PropertyScaleSlider value={propertySizeSqm} onChange={setPropertySizeSqm} />
+        <div className="overflow-hidden rounded-[14px] border-2 border-[#A98B4B]">
+          <div className="flex flex-col divide-y-2 divide-[#A98B4B]">
+            <PropertyScaleSlider value={propertySizeSqm} onChange={setPropertySizeSqm} />
+            <SelectedServicesSummary
+              value={propertySizeSqm}
+              quote={quote}
+              quoteLoading={quoteLoading}
+              addOnsTotal={addOnsTotal}
+              onBookNow={handleBookNow}
+              submitting={submitting}
+              bookDisabledReason={bookDisabledReason}
+            />
+          </div>
+        </div>
 
         {error && <p className="text-sm text-destructive">{error}</p>}
-
-        <SelectedServicesSummary
-          value={propertySizeSqm}
-          quote={quote}
-          quoteLoading={quoteLoading}
-          addOnsTotal={addOnsTotal}
-          onBookNow={handleBookNow}
-          submitting={submitting}
-          bookDisabledReason={bookDisabledReason}
-        />
 
         <div className="flex justify-center">
           <Link

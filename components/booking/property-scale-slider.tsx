@@ -60,7 +60,7 @@ export function PropertyScaleSlider({ value, onChange }: PropertyScaleSliderProp
   };
 
   return (
-    <div className="overflow-hidden rounded-[14px] border-2 border-[#A98B4B]">
+    <div className="flex h-full flex-col">
       <div className="flex items-center justify-between gap-2 border-b border-[#A98B4B]/35 bg-[#0B1B34] px-5 py-[18px]">
         <span className="text-[16px] font-bold text-[#FFFDF4]">
           {cat.icon} {cat.label}
@@ -70,7 +70,7 @@ export function PropertyScaleSlider({ value, onChange }: PropertyScaleSliderProp
         <span className="text-[16px] font-bold text-[#FFFDF4]">{value} m²</span>
       </div>
 
-      <div className="bg-[#060E1A] px-4 py-7">
+      <div className="flex-1 bg-[#060E1A] px-4 py-7">
         <div className="flex items-center gap-6">
           <button
             type="button"

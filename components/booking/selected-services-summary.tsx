@@ -45,7 +45,7 @@ export function SelectedServicesSummary({
   const bookNowDisabled = submitting || !!bookDisabledReason || quoteLoading || !quote?.bookable;
 
   return (
-    <div className="overflow-hidden rounded-[14px] border-2 border-[#A98B4B] bg-[#0B1B34]">
+    <div className="flex h-full flex-col bg-[#0B1B34]">
       <div className="flex items-center justify-between px-[22px] py-[18px]">
         <span className="text-base font-extrabold tracking-[1.5px] text-[#FFFDF4] uppercase">
           Selected Services
@@ -104,7 +104,7 @@ export function SelectedServicesSummary({
         </div>
       ) : null}
 
-      <div className="px-[18px] pt-4 pb-5">
+      <div className="mt-auto px-[18px] pt-4 pb-5">
         <Button
           type="button"
           onClick={onBookNow}
