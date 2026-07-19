@@ -43,11 +43,11 @@ export function JobCardSection({ packages, selectedIds, onToggle }: JobCardSecti
                   )}
                 </div>
                 <span
-                  className={`flex size-7 shrink-0 items-center justify-center rounded-full border-2 border-[#A98B4B] text-lg leading-none ${
+                  className={`shrink-0 rounded-[6px] border-[1.5px] border-[#A98B4B] px-2.5 py-1 text-xs font-semibold ${
                     isChecked ? "bg-[#A98B4B] text-white" : "text-[#A98B4B]"
                   }`}
                 >
-                  {isChecked ? "✓" : "+"}
+                  {isChecked ? "Added" : "Add"}
                 </span>
               </button>
             );

@@ -201,8 +201,9 @@ export default function BookServicePage({
         <DateTimeSection date={date} onDateChange={setDate} time={time} onTimeChange={setTime} />
 
         <div className="overflow-hidden rounded-[14px] border-2 border-[#A98B4B]">
-          <div className="flex flex-col divide-y-2 divide-[#A98B4B]">
+          <div className="flex flex-col">
             <PropertyScaleSlider value={propertySizeSqm} onChange={setPropertySizeSqm} />
+            <div className="h-0.5 shrink-0 bg-[#A98B4B]" />
             <SelectedServicesSummary
               value={propertySizeSqm}
               quote={quote}
