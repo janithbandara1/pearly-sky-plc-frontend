@@ -29,7 +29,7 @@ import { useStaffAuth } from "@/lib/staff-auth-context";
 
 const NAV_ITEMS = [
   { href: "/admin", label: "Dashboard", icon: LayoutDashboard },
-  { href: "/admin/orders", label: "Bookings", icon: ClipboardList },
+  { href: "/admin/bookings", label: "Bookings", icon: ClipboardList },
   { href: "/admin/customers", label: "Customers", icon: Users },
   { href: "/admin/catalog/services", label: "Services", icon: Layers },
   { href: "/admin/catalog/packages", label: "Packages", icon: Layers },

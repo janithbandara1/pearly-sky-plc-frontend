@@ -1,6 +1,7 @@
 "use client";
 
 import { ColumnDef } from "@tanstack/react-table";
+import { Pencil } from "lucide-react";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
@@ -156,8 +157,13 @@ export default function AdminOrdersPage() {
       id: "actions",
       header: "",
       cell: ({ row }) => (
-        <Button size="sm" variant="outline" onClick={() => openEdit(row.original)}>
-          Edit
+        <Button
+          size="icon-sm"
+          variant="outline"
+          onClick={() => openEdit(row.original)}
+        >
+          <Pencil />
+          <span className="sr-only">Edit</span>
         </Button>
       ),
     },
@@ -182,7 +188,7 @@ export default function AdminOrdersPage() {
           className="max-w-xs"
         />
         <Select value={statusFilter} onValueChange={setStatusFilter}>
-          <SelectTrigger className="w-40">
+          <SelectTrigger className="ml-auto w-40">
             <SelectValue placeholder="Status" />
           </SelectTrigger>
           <SelectContent>
