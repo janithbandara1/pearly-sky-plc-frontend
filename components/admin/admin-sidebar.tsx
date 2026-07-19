@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import {
@@ -22,6 +23,7 @@ import {
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
+  SidebarRail,
 } from "@/components/ui/sidebar";
 import { useStaffAuth } from "@/lib/staff-auth-context";
 
@@ -29,23 +31,37 @@ const NAV_ITEMS = [
   { href: "/admin", label: "Dashboard", icon: LayoutDashboard },
   { href: "/admin/orders", label: "Bookings", icon: ClipboardList },
   { href: "/admin/customers", label: "Customers", icon: Users },
+  { href: "/admin/catalog/services", label: "Services", icon: Layers },
+  { href: "/admin/catalog/packages", label: "Packages", icon: Layers },
+  { href: "/admin/catalog/items", label: "Items", icon: Layers },
   { href: "/admin/staff", label: "Staff", icon: UserCog },
   { href: "/admin/roles", label: "Roles & Permissions", icon: ShieldCheck },
-  { href: "/admin/catalog/services", label: "Catalog", icon: Layers },
   { href: "/admin/payments", label: "Payments", icon: CreditCard },
 ];
 
 export function AdminSidebar() {
   const pathname = usePathname();
   const router = useRouter();
-  const { staff, logout } = useStaffAuth();
+  const { logout } = useStaffAuth();
 
   return (
     <Sidebar>
       <SidebarHeader>
-        <Link href="/admin" className="px-2 py-1.5 text-sm font-semibold">
-          Pearly Sky Admin
-        </Link>
+        <SidebarMenu>
+          <SidebarMenuItem>
+            <SidebarMenuButton asChild size="lg">
+              <Link href="/admin">
+                <div className="flex aspect-square size-8 items-center justify-center rounded-lg bg-sidebar-primary text-sidebar-primary-foreground">
+                  <Image src="/vercel.svg" alt="" width={16} height={14} />
+                </div>
+                <div className="flex flex-col gap-0.5 leading-none">
+                  <span className="font-medium">Pearly Sky</span>
+                  <span className="text-xs text-muted-foreground">Admin</span>
+                </div>
+              </Link>
+            </SidebarMenuButton>
+          </SidebarMenuItem>
+        </SidebarMenu>
       </SidebarHeader>
       <SidebarContent>
         <SidebarGroup>
@@ -72,23 +88,21 @@ export function AdminSidebar() {
         </SidebarGroup>
       </SidebarContent>
       <SidebarFooter>
-        <div className="flex flex-col gap-2 px-2 py-1.5 text-xs text-muted-foreground">
-          <span className="truncate">
-            {staff?.roles.join(", ") ?? "Staff"} · #{staff?.id}
-          </span>
-          <button
-            type="button"
-            className="flex items-center gap-2 text-sm text-foreground hover:underline"
-            onClick={async () => {
-              await logout();
-              router.push("/admin/login");
-            }}
-          >
-            <LogOut className="size-4" />
-            Log out
-          </button>
-        </div>
+        <SidebarMenu>
+          <SidebarMenuItem>
+            <SidebarMenuButton
+              onClick={async () => {
+                await logout();
+                router.push("/admin/login");
+              }}
+            >
+              <LogOut />
+              <span>Log out</span>
+            </SidebarMenuButton>
+          </SidebarMenuItem>
+        </SidebarMenu>
       </SidebarFooter>
+      <SidebarRail />
     </Sidebar>
   );
 }
