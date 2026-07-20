@@ -5,7 +5,6 @@ import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
 
 const TABS = [
-  { href: "/admin/catalog/services", label: "Services" },
   { href: "/admin/catalog/packages", label: "Packages" },
   { href: "/admin/catalog/items", label: "Items" },
 ];
@@ -22,7 +21,7 @@ export default function AdminCatalogLayout({
       <div>
         <h1 className="text-2xl font-semibold tracking-tight">Catalog</h1>
         <p className="text-sm text-muted-foreground">
-          Manage the services, add-on packages, and items customers can book.
+          Manage the add-on packages and items customers can book.
         </p>
       </div>
       <div className="flex gap-1 border-b">

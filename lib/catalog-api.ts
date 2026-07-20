@@ -21,6 +21,7 @@ export interface ServiceAddOnPackage {
 
 export interface CatalogServiceDetail extends CatalogService {
   servicePackages: { package: ServiceAddOnPackage }[];
+  serviceItems: { item: CatalogItem }[];
 }
 
 export interface SizeQuote {

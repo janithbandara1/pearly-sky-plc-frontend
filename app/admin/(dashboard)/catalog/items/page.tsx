@@ -1,6 +1,7 @@
 "use client";
 
 import { ColumnDef } from "@tanstack/react-table";
+import { Pencil, Trash2 } from "lucide-react";
 import { useCallback, useEffect, useState } from "react";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
@@ -103,13 +104,15 @@ export default function AdminCatalogItemsPage() {
       header: "",
       cell: ({ row }) => (
         <div className="flex justify-end gap-2">
-          <Button size="sm" variant="outline" onClick={() => openEdit(row.original)}>
-            Edit
+          <Button size="icon-sm" variant="ghost" onClick={() => openEdit(row.original)}>
+            <Pencil />
+            <span className="sr-only">Edit</span>
           </Button>
           <ConfirmDeleteDialog
             trigger={
-              <Button size="sm" variant="destructive">
-                Delete
+              <Button size="icon-sm" variant="ghost">
+                <Trash2 />
+                <span className="sr-only">Delete</span>
               </Button>
             }
             title={`Delete "${row.original.name}"?`}

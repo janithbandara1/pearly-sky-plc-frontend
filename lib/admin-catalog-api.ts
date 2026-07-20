@@ -132,6 +132,15 @@ export function setServicePackages(accessToken: string, serviceId: number, packa
   });
 }
 
+/** Replaces the full set of items linked to a service. */
+export function setServiceItems(accessToken: string, serviceId: number, itemIds: number[]) {
+  return apiFetch<CatalogServiceDetail>(`/admin/catalog/services/${serviceId}/items`, {
+    method: "PATCH",
+    accessToken,
+    body: { itemIds },
+  });
+}
+
 // ---------- Packages ----------
 
 export function createPackage(accessToken: string, payload: CreatePackagePayload) {

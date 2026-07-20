@@ -30,9 +30,8 @@ const NAV_ITEMS = [
   { href: "/admin", label: "Dashboard", icon: LayoutDashboard },
   { href: "/admin/bookings", label: "Bookings", icon: ClipboardList },
   { href: "/admin/customers", label: "Customers", icon: Users },
-  { href: "/admin/catalog/services", label: "Services", icon: Layers },
-  { href: "/admin/catalog/packages", label: "Packages", icon: Layers },
-  { href: "/admin/catalog/items", label: "Items", icon: Layers },
+  { href: "/admin/services", label: "Services", icon: Layers },
+  { href: "/admin/catalog/packages", matchPrefix: "/admin/catalog", label: "Catalog", icon: Layers },
   { href: "/admin/staff", label: "Staff", icon: UserCog },
   { href: "/admin/roles", label: "Roles & Permissions", icon: ShieldCheck },
   { href: "/admin/payments", label: "Payments", icon: CreditCard },
@@ -70,7 +69,7 @@ export function AdminSidebar() {
                 const isActive =
                   item.href === "/admin"
                     ? pathname === "/admin"
-                    : pathname.startsWith(item.href);
+                    : pathname.startsWith(item.matchPrefix ?? item.href);
                 return (
                   <SidebarMenuItem key={item.href}>
                     <SidebarMenuButton asChild isActive={isActive}>
