@@ -14,6 +14,7 @@ export interface SignupPayload {
   lastName?: string;
   email: string;
   password: string;
+  contact?: string;
 }
 
 export interface LoginPayload {
