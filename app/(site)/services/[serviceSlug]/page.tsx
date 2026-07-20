@@ -12,7 +12,8 @@ import { PropertyScaleSlider } from "@/components/booking/property-scale-slider"
 import { SelectedServicesSummary } from "@/components/booking/selected-services-summary";
 import { PageHero } from "@/components/page-hero";
 import { ApiError, useAuth } from "@/lib/auth-context";
-import { BookingFrequency, createBooking } from "@/lib/booking-api";
+import { BookingFrequency } from "@/lib/booking-api";
+import { saveBookingDraft } from "@/lib/booking-draft";
 import {
   CatalogItem,
   CatalogServiceDetail,
@@ -31,7 +32,7 @@ export default function BookServicePage({
 }) {
   const { serviceSlug } = use(params);
   const router = useRouter();
-  const { status, accessToken } = useAuth();
+  const { status } = useAuth();
 
   const [service, setService] = useState<CatalogServiceDetail | null>(null);
   const [serviceError, setServiceError] = useState<string | null>(null);
@@ -120,34 +121,37 @@ export default function BookServicePage({
     return Number.isFinite(price) ? sum + price : sum;
   }, 0);
 
-  async function handleBookNow() {
-    if (!accessToken || !service) return;
+  function handleBookNow() {
+    if (!service) return;
     if (!date || !time) {
       setError("Please select a date and time above.");
       return;
     }
     setError(null);
     setSubmitting(true);
-    try {
-      const noteParts = [
-        selectedPackages.length ? `Add-ons: ${selectedPackages.map((p) => p.name).join(", ")}` : "",
-        selectedItems.length ? `Equipment: ${selectedItems.map((i) => i.name).join(", ")}` : "",
-        supplySource ? `Cleaning solvents & equipment: ${supplySource === "company" ? "Request the Company" : "Provided by the Customer"}` : "",
-      ].filter(Boolean);
-      const booking = await createBooking(accessToken, {
-        serviceId: service.id,
-        propertySizeSqm,
-        date,
-        time,
-        frequency,
-        note: noteParts.length ? noteParts.join(" — ") : undefined,
-      });
-      router.push(`/dashboard?booked=${booking.referenceNumber}`);
-    } catch (err) {
-      setError(err instanceof ApiError ? err.message : "Failed to create booking.");
-    } finally {
-      setSubmitting(false);
-    }
+    const noteParts = [
+      selectedPackages.length ? `Add-ons: ${selectedPackages.map((p) => p.name).join(", ")}` : "",
+      selectedItems.length ? `Equipment: ${selectedItems.map((i) => i.name).join(", ")}` : "",
+      supplySource ? `Cleaning solvents & equipment: ${supplySource === "company" ? "Request the Company" : "Provided by the Customer"}` : "",
+    ].filter(Boolean);
+    saveBookingDraft({
+      serviceId: service.id,
+      serviceSlug,
+      serviceLabel: service.label,
+      propertySizeSqm,
+      date,
+      time,
+      frequency,
+      packages: selectedPackages.map((p) => ({
+        name: p.name,
+        price: p.price !== null ? Number(p.price) : null,
+      })),
+      items: selectedItems.map((i) => ({ name: i.name })),
+      supplySource,
+      addOnsTotal,
+      note: noteParts.length ? noteParts.join(" — ") : undefined,
+    });
+    router.push(`/services/${serviceSlug}/checkout`);
   }
 
   if (status !== "authenticated") {

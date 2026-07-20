@@ -34,7 +34,7 @@ function BookingConfirmationBanner() {
 
 export default function DashboardPage() {
   const router = useRouter();
-  const { status, customer, accessToken, logout } = useAuth();
+  const { status, accessToken, logout } = useAuth();
 
   const [profile, setProfile] = useState<CustomerProfile | null>(null);
   const [addresses, setAddresses] = useState<CustomerAddress[]>([]);
@@ -42,8 +42,6 @@ export default function DashboardPage() {
   const [profileForm, setProfileForm] = useState({
     firstName: "",
     lastName: "",
-    company: "",
-    country: "",
     contact: "",
   });
   const [addressForm, setAddressForm] = useState<AddressPayload>({
@@ -70,8 +68,6 @@ export default function DashboardPage() {
     setProfileForm({
       firstName: profileData.firstName,
       lastName: profileData.lastName ?? "",
-      company: profileData.company ?? "",
-      country: profileData.country ?? "",
       contact: profileData.contact ?? "",
     });
   }, [accessToken]);
@@ -149,15 +145,6 @@ export default function DashboardPage() {
     <div className="mx-auto flex w-full max-w-2xl flex-1 flex-col gap-6 p-6">
       <div className="flex items-center justify-between">
         <h1 className="text-2xl font-semibold tracking-tight">Dashboard</h1>
-        <Button
-          variant="outline"
-          onClick={async () => {
-            await logout();
-            router.push("/login");
-          }}
-        >
-          Log out
-        </Button>
       </div>
 
       <Suspense fallback={null}>
@@ -230,9 +217,10 @@ export default function DashboardPage() {
         </CardHeader>
         <CardContent>
           <form className="flex flex-col gap-4" onSubmit={handleProfileSave}>
-            <p className="text-sm text-muted-foreground">
-              Signed in as <strong>{profile.email}</strong> (customer #{customer?.id})
-            </p>
+            <div className="flex flex-col gap-2">
+              <Label htmlFor="email">Email</Label>
+              <Input id="email" value={profile.email} disabled readOnly />
+            </div>
             <div className="grid grid-cols-2 gap-3">
               <div className="flex flex-col gap-2">
                 <Label htmlFor="firstName">First name</Label>
@@ -256,34 +244,14 @@ export default function DashboardPage() {
               </div>
             </div>
             <div className="flex flex-col gap-2">
-              <Label htmlFor="company">Company</Label>
+              <Label htmlFor="contact">Contact number</Label>
               <Input
-                id="company"
-                value={profileForm.company}
-                onChange={(e) => setProfileForm((f) => ({ ...f, company: e.target.value }))}
+                id="contact"
+                value={profileForm.contact}
+                onChange={(e) =>
+                  setProfileForm((f) => ({ ...f, contact: e.target.value }))
+                }
               />
-            </div>
-            <div className="grid grid-cols-2 gap-3">
-              <div className="flex flex-col gap-2">
-                <Label htmlFor="country">Country</Label>
-                <Input
-                  id="country"
-                  value={profileForm.country}
-                  onChange={(e) =>
-                    setProfileForm((f) => ({ ...f, country: e.target.value }))
-                  }
-                />
-              </div>
-              <div className="flex flex-col gap-2">
-                <Label htmlFor="contact">Contact number</Label>
-                <Input
-                  id="contact"
-                  value={profileForm.contact}
-                  onChange={(e) =>
-                    setProfileForm((f) => ({ ...f, contact: e.target.value }))
-                  }
-                />
-              </div>
             </div>
             <Button type="submit" disabled={savingProfile}>
               {savingProfile ? "Saving…" : "Save profile"}
