@@ -24,6 +24,7 @@ import {
 import { DataTable } from "@/components/admin/data-table";
 import { ApiError } from "@/lib/auth-context";
 import { AdminOrder, listAllOrdersAdmin, updateOrderAdmin } from "@/lib/admin-api";
+import { StaffUser, listStaff } from "@/lib/admin-staff-api";
 import { useStaffAuth } from "@/lib/staff-auth-context";
 
 interface EditState {
@@ -47,6 +48,7 @@ const STATUS_OPTIONS: AdminOrder["status"][] = ["pending", "confirmed", "cancell
 export default function AdminOrdersPage() {
   const { accessToken } = useStaffAuth();
   const [orders, setOrders] = useState<AdminOrder[]>([]);
+  const [staff, setStaff] = useState<StaffUser[]>([]);
   const [statusFilter, setStatusFilter] = useState<string>("all");
   const [search, setSearch] = useState("");
   const [editing, setEditing] = useState<AdminOrder | null>(null);
@@ -65,6 +67,13 @@ export default function AdminOrdersPage() {
       setError(err instanceof ApiError ? err.message : "Failed to load bookings."),
     );
   }, [load]);
+
+  useEffect(() => {
+    if (!accessToken) return;
+    listStaff(accessToken)
+      .then(setStaff)
+      .catch(() => undefined);
+  }, [accessToken]);
 
   const filtered = useMemo(() => {
     return orders.filter((order) => {
@@ -159,7 +168,7 @@ export default function AdminOrdersPage() {
       cell: ({ row }) => (
         <Button
           size="icon-sm"
-          variant="outline"
+          variant="ghost"
           onClick={() => openEdit(row.original)}
         >
           <Pencil />
@@ -253,13 +262,22 @@ export default function AdminOrdersPage() {
                 </Select>
               </div>
               <div className="flex flex-col gap-1">
-                <Label htmlFor="cleanerId">Cleaner (staff ID)</Label>
-                <Input
-                  id="cleanerId"
-                  type="number"
+                <Label htmlFor="cleanerId">Cleaner</Label>
+                <Select
                   value={edit.cleanerId}
-                  onChange={(e) => setEdit({ ...edit, cleanerId: e.target.value })}
-                />
+                  onValueChange={(value) => setEdit({ ...edit, cleanerId: value })}
+                >
+                  <SelectTrigger id="cleanerId">
+                    <SelectValue placeholder="Unassigned" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {staff.map((s) => (
+                      <SelectItem key={s.id} value={String(s.id)}>
+                        {s.firstName} {s.lastName ?? ""}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
               </div>
             </div>
           )}
