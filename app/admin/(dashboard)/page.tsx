@@ -51,7 +51,7 @@ export default function AdminDashboardPage() {
         <StatCard label="Confirmed" value={String(summary.orders.confirmed)} />
         <StatCard label="Cancelled" value={String(summary.orders.cancelled)} />
         <StatCard label="Customers" value={String(summary.customers.total)} />
-        <StatCard label="Staff" value={String(summary.staff.total)} />
+        <StatCard label="Users" value={String(summary.staff.total)} />
       </div>
 
       <Card>

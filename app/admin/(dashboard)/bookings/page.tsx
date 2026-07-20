@@ -24,7 +24,7 @@ import {
 import { DataTable } from "@/components/admin/data-table";
 import { ApiError } from "@/lib/auth-context";
 import { AdminOrder, listAllOrdersAdmin, updateOrderAdmin } from "@/lib/admin-api";
-import { StaffUser, listStaff } from "@/lib/admin-staff-api";
+import { AdminUser, listUsers } from "@/lib/admin-users-api";
 import { useStaffAuth } from "@/lib/staff-auth-context";
 
 interface EditState {
@@ -48,7 +48,7 @@ const STATUS_OPTIONS: AdminOrder["status"][] = ["pending", "confirmed", "cancell
 export default function AdminOrdersPage() {
   const { accessToken } = useStaffAuth();
   const [orders, setOrders] = useState<AdminOrder[]>([]);
-  const [staff, setStaff] = useState<StaffUser[]>([]);
+  const [cleaners, setCleaners] = useState<AdminUser[]>([]);
   const [statusFilter, setStatusFilter] = useState<string>("all");
   const [search, setSearch] = useState("");
   const [editing, setEditing] = useState<AdminOrder | null>(null);
@@ -70,8 +70,8 @@ export default function AdminOrdersPage() {
 
   useEffect(() => {
     if (!accessToken) return;
-    listStaff(accessToken)
-      .then(setStaff)
+    listUsers(accessToken)
+      .then((users) => setCleaners(users.filter((u) => u.type === "cleaner")))
       .catch(() => undefined);
   }, [accessToken]);
 
@@ -271,9 +271,9 @@ export default function AdminOrdersPage() {
                     <SelectValue placeholder="Unassigned" />
                   </SelectTrigger>
                   <SelectContent>
-                    {staff.map((s) => (
-                      <SelectItem key={s.id} value={String(s.id)}>
-                        {s.firstName} {s.lastName ?? ""}
+                    {cleaners.map((c) => (
+                      <SelectItem key={c.id} value={String(c.id)}>
+                        {c.firstName} {c.lastName ?? ""}
                       </SelectItem>
                     ))}
                   </SelectContent>

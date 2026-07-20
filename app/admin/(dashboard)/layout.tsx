@@ -1,10 +1,12 @@
 "use client";
 
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { useEffect } from "react";
 import { AdminSidebar } from "@/components/admin/admin-sidebar";
 import { SidebarInset, SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
 import { useStaffAuth } from "@/lib/staff-auth-context";
+
+const CLEANER_HOME = "/admin/my-bookings";
 
 export default function AdminDashboardLayout({
   children,
@@ -12,7 +14,9 @@ export default function AdminDashboardLayout({
   children: React.ReactNode;
 }) {
   const router = useRouter();
-  const { status } = useStaffAuth();
+  const pathname = usePathname();
+  const { status, staff } = useStaffAuth();
+  const isAdmin = staff?.roles.includes("admin") ?? false;
 
   useEffect(() => {
     if (status === "unauthenticated") {
@@ -20,7 +24,13 @@ export default function AdminDashboardLayout({
     }
   }, [status, router]);
 
-  if (status !== "authenticated") {
+  useEffect(() => {
+    if (status === "authenticated" && !isAdmin && !pathname.startsWith(CLEANER_HOME)) {
+      router.replace(CLEANER_HOME);
+    }
+  }, [status, isAdmin, pathname, router]);
+
+  if (status !== "authenticated" || (!isAdmin && !pathname.startsWith(CLEANER_HOME))) {
     return (
       <div className="flex flex-1 items-center justify-center p-6 text-sm text-muted-foreground">
         Loading…

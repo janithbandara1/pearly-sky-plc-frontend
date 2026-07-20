@@ -53,6 +53,22 @@ export function listAllOrdersAdmin(accessToken: string) {
   return apiFetch<AdminOrder[]>("/admin/orders", { accessToken });
 }
 
+export interface MyOrder {
+  id: number;
+  referenceNumber: string;
+  status: "pending" | "confirmed" | "cancelled";
+  price: string | null;
+  currency: string | null;
+  customer: AdminOrderCustomer;
+  serviceDetails: AdminOrderServiceDetails[];
+  createdAt: string;
+}
+
+/** A cleaner's own assigned bookings. */
+export function listMyOrders(accessToken: string) {
+  return apiFetch<MyOrder[]>("/me/orders", { accessToken });
+}
+
 export function updateOrderAdmin(
   accessToken: string,
   orderId: number,

@@ -11,7 +11,9 @@ import {
   Layers,
   CreditCard,
   LogOut,
+  type LucideIcon,
 } from "lucide-react";
+import { useMemo } from "react";
 import {
   Sidebar,
   SidebarContent,
@@ -26,21 +28,36 @@ import {
 } from "@/components/ui/sidebar";
 import { useStaffAuth } from "@/lib/staff-auth-context";
 
-const NAV_ITEMS = [
+interface NavItem {
+  href: string;
+  label: string;
+  icon: LucideIcon;
+  matchPrefix?: string;
+}
+
+const ADMIN_NAV_ITEMS: NavItem[] = [
   { href: "/admin", label: "Dashboard", icon: LayoutDashboard },
   { href: "/admin/bookings", label: "Bookings", icon: ClipboardList },
   { href: "/admin/customers", label: "Customers", icon: Users },
   { href: "/admin/services", label: "Services", icon: Layers },
   { href: "/admin/catalog/packages", matchPrefix: "/admin/catalog", label: "Catalog", icon: Layers },
-  { href: "/admin/staff", label: "Staff", icon: UserCog },
-  { href: "/admin/roles", label: "Roles & Permissions", icon: ShieldCheck },
+  { href: "/admin/users", label: "Users", icon: UserCog },
   { href: "/admin/payments", label: "Payments", icon: CreditCard },
+];
+
+const CLEANER_NAV_ITEMS: NavItem[] = [
+  { href: "/admin/my-bookings", label: "My Bookings", icon: ClipboardList },
 ];
 
 export function AdminSidebar() {
   const pathname = usePathname();
   const router = useRouter();
-  const { logout } = useStaffAuth();
+  const { logout, staff } = useStaffAuth();
+  const isAdmin = staff?.roles.includes("admin") ?? false;
+  const navItems = useMemo(
+    () => (isAdmin ? ADMIN_NAV_ITEMS : CLEANER_NAV_ITEMS),
+    [isAdmin],
+  );
 
   return (
     <Sidebar>
@@ -65,7 +82,7 @@ export function AdminSidebar() {
         <SidebarGroup>
           <SidebarGroupContent>
             <SidebarMenu>
-              {NAV_ITEMS.map((item) => {
+              {navItems.map((item) => {
                 const isActive =
                   item.href === "/admin"
                     ? pathname === "/admin"
