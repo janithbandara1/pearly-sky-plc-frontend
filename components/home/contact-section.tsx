@@ -66,7 +66,7 @@ export function ContactSection() {
         {translate("contactTitle")}
       </h2>
 
-      <div className="grid gap-0 overflow-hidden rounded-2xl border-2 border-brand-gold lg:grid-cols-[1.4fr_1fr]">
+      <div className="grid gap-0 overflow-hidden rounded-2xl border-2 border-brand-gold lg:grid-cols-2">
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-4 p-6 sm:p-8" noValidate>
           <div className="space-y-1.5">
             <Label htmlFor="contact-name">{translate("contactNameLabel")}</Label>
@@ -130,7 +130,7 @@ export function ContactSection() {
           )}
         </form>
 
-        <div className="flex flex-col gap-6 bg-brand-navy p-6 text-brand-navy-foreground sm:p-8">
+        <div className="flex flex-col items-center justify-center gap-6 bg-brand-navy p-6 text-center text-brand-navy-foreground sm:p-8">
           <h3 className="text-sm font-bold tracking-widest">{translate("contactSupportTitle")}</h3>
 
           <div>
@@ -192,7 +192,7 @@ export function ContactSection() {
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label={label}
-                  className="flex h-8 w-8 items-center justify-center rounded-full border border-brand-gold/50 transition-colors hover:bg-brand-gold hover:text-brand-navy"
+                  className="flex h-8 w-8 items-center justify-center rounded-full border border-brand-gold/50 text-brand-navy-foreground transition-colors hover:bg-brand-gold hover:text-brand-navy"
                 >
                   <Icon className="h-3.5 w-3.5" />
                 </a>
