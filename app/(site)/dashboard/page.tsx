@@ -217,10 +217,6 @@ export default function DashboardPage() {
         </CardHeader>
         <CardContent>
           <form className="flex flex-col gap-4" onSubmit={handleProfileSave}>
-            <div className="flex flex-col gap-2">
-              <Label htmlFor="email">Email</Label>
-              <Input id="email" value={profile.email} disabled readOnly />
-            </div>
             <div className="grid grid-cols-2 gap-3">
               <div className="flex flex-col gap-2">
                 <Label htmlFor="firstName">First name</Label>
@@ -242,6 +238,10 @@ export default function DashboardPage() {
                   }
                 />
               </div>
+            </div>
+            <div className="flex flex-col gap-2">
+              <Label htmlFor="email">Email</Label>
+              <Input id="email" value={profile.email} disabled readOnly />
             </div>
             <div className="flex flex-col gap-2">
               <Label htmlFor="contact">Contact number</Label>

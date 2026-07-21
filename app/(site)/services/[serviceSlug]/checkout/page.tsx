@@ -1,6 +1,5 @@
 "use client";
 
-import Link from "next/link";
 import { Poppins } from "next/font/google";
 import { useRouter } from "next/navigation";
 import { use, useCallback, useEffect, useState } from "react";
@@ -284,19 +283,6 @@ export default function CheckoutPage({
                   onChange={(e) => setContactForm((f) => ({ ...f, contact: e.target.value }))}
                 />
               </div>
-              {isAuthenticated ? (
-                <Link href="/dashboard" className="mt-1 text-xs underline underline-offset-2">
-                  Edit profile
-                </Link>
-              ) : (
-                <p className="mt-1 text-xs text-muted-foreground">
-                  Already have an account?{" "}
-                  <Link href={`/login?next=/services/${serviceSlug}/checkout`} className="underline underline-offset-2">
-                    Log in
-                  </Link>{" "}
-                  to use your saved details.
-                </p>
-              )}
             </CardContent>
           </Card>
 
