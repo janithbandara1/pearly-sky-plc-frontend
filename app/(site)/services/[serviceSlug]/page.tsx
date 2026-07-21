@@ -11,7 +11,7 @@ import { JobCardSection } from "@/components/booking/job-card-section";
 import { PropertyScaleSlider } from "@/components/booking/property-scale-slider";
 import { SelectedServicesSummary } from "@/components/booking/selected-services-summary";
 import { PageHero } from "@/components/page-hero";
-import { ApiError, useAuth } from "@/lib/auth-context";
+import { ApiError } from "@/lib/auth-context";
 import { BookingFrequency } from "@/lib/booking-api";
 import { saveBookingDraft } from "@/lib/booking-draft";
 import {
@@ -32,7 +32,6 @@ export default function BookServicePage({
 }) {
   const { serviceSlug } = use(params);
   const router = useRouter();
-  const { status } = useAuth();
 
   const [service, setService] = useState<CatalogServiceDetail | null>(null);
   const [serviceError, setServiceError] = useState<string | null>(null);
@@ -52,12 +51,6 @@ export default function BookServicePage({
 
   const [error, setError] = useState<string | null>(null);
   const [submitting, setSubmitting] = useState(false);
-
-  useEffect(() => {
-    if (status === "unauthenticated") {
-      router.replace(`/login?next=/services/${serviceSlug}`);
-    }
-  }, [status, router, serviceSlug]);
 
   useEffect(() => {
     getServiceBySlug(serviceSlug)
@@ -152,14 +145,6 @@ export default function BookServicePage({
       note: noteParts.length ? noteParts.join(" — ") : undefined,
     });
     router.push(`/services/${serviceSlug}/checkout`);
-  }
-
-  if (status !== "authenticated") {
-    return (
-      <div className="flex flex-1 items-center justify-center p-6 text-sm text-muted-foreground">
-        Loading…
-      </div>
-    );
   }
 
   if (serviceError) {

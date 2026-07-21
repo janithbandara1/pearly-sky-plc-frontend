@@ -11,7 +11,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { ApiError, useAuth } from "@/lib/auth-context";
-import { createBooking } from "@/lib/booking-api";
+import { createBooking, createGuestBooking } from "@/lib/booking-api";
 import { BookingDraft, clearBookingDraft, loadBookingDraft } from "@/lib/booking-draft";
 import {
   CatalogServiceDetail,
@@ -37,6 +37,20 @@ const emptyAddressForm: AddressPayload = {
   postalCode: "",
 };
 
+interface ContactForm {
+  firstName: string;
+  lastName: string;
+  email: string;
+  contact: string;
+}
+
+const emptyContactForm: ContactForm = {
+  firstName: "",
+  lastName: "",
+  email: "",
+  contact: "",
+};
+
 export default function CheckoutPage({
   params,
 }: {
@@ -45,6 +59,7 @@ export default function CheckoutPage({
   const { serviceSlug } = use(params);
   const router = useRouter();
   const { status, accessToken } = useAuth();
+  const isAuthenticated = status === "authenticated";
 
   const [draft, setDraft] = useState<BookingDraft | null>(null);
   const [draftChecked, setDraftChecked] = useState(false);
@@ -54,6 +69,7 @@ export default function CheckoutPage({
   const [quoteLoading, setQuoteLoading] = useState(true);
 
   const [profile, setProfile] = useState<CustomerProfile | null>(null);
+  const [contactForm, setContactForm] = useState<ContactForm>(emptyContactForm);
   const [addresses, setAddresses] = useState<CustomerAddress[]>([]);
   const [selectedAddressId, setSelectedAddressId] = useState<number | null>(null);
   const [addressForm, setAddressForm] = useState<AddressPayload>(emptyAddressForm);
@@ -61,12 +77,6 @@ export default function CheckoutPage({
 
   const [error, setError] = useState<string | null>(null);
   const [submitting, setSubmitting] = useState(false);
-
-  useEffect(() => {
-    if (status === "unauthenticated") {
-      router.replace(`/login?next=/services/${serviceSlug}/checkout`);
-    }
-  }, [status, router, serviceSlug]);
 
   useEffect(() => {
     const stored = loadBookingDraft();
@@ -100,6 +110,12 @@ export default function CheckoutPage({
       listMyAddresses(accessToken),
     ]);
     setProfile(profileData);
+    setContactForm({
+      firstName: profileData.firstName,
+      lastName: profileData.lastName ?? "",
+      email: profileData.email,
+      contact: profileData.contact ?? "",
+    });
     setAddresses(addressData);
     setSelectedAddressId((prev) => prev ?? addressData[0]?.id ?? null);
   }, [accessToken]);
@@ -128,21 +144,42 @@ export default function CheckoutPage({
   }
 
   async function handleConfirm() {
-    if (!accessToken || !draft) return;
+    if (!draft) return;
     setError(null);
     setSubmitting(true);
     try {
-      const booking = await createBooking(accessToken, {
-        serviceId: draft.serviceId,
-        propertySizeSqm: draft.propertySizeSqm,
-        date: draft.date,
-        time: draft.time,
-        frequency: draft.frequency,
-        addressId: selectedAddressId ?? undefined,
-        note: draft.note,
-      });
-      clearBookingDraft();
-      router.push(`/dashboard?booked=${booking.referenceNumber}`);
+      if (isAuthenticated && accessToken) {
+        const booking = await createBooking(accessToken, {
+          serviceId: draft.serviceId,
+          propertySizeSqm: draft.propertySizeSqm,
+          date: draft.date,
+          time: draft.time,
+          frequency: draft.frequency,
+          addressId: selectedAddressId ?? undefined,
+          note: draft.note,
+        });
+        clearBookingDraft();
+        router.push(`/dashboard?booked=${booking.referenceNumber}`);
+      } else {
+        const booking = await createGuestBooking({
+          serviceId: draft.serviceId,
+          propertySizeSqm: draft.propertySizeSqm,
+          date: draft.date,
+          time: draft.time,
+          frequency: draft.frequency,
+          note: draft.note,
+          firstName: contactForm.firstName.trim(),
+          lastName: contactForm.lastName.trim() || undefined,
+          email: contactForm.email.trim(),
+          contact: contactForm.contact.trim(),
+          streetAddress: addressForm.streetAddress.trim(),
+          city: addressForm.city.trim(),
+          country: addressForm.country?.trim() || undefined,
+          postalCode: addressForm.postalCode?.trim() || undefined,
+        });
+        clearBookingDraft();
+        router.push(`/booking-confirmation?ref=${booking.referenceNumber}`);
+      }
     } catch (err) {
       setError(err instanceof ApiError ? err.message : "Failed to create booking.");
     } finally {
@@ -150,7 +187,13 @@ export default function CheckoutPage({
     }
   }
 
-  if (status !== "authenticated" || !draftChecked || !draft || !service || !profile) {
+  if (
+    status === "loading" ||
+    !draftChecked ||
+    !draft ||
+    !service ||
+    (isAuthenticated && !profile)
+  ) {
     return (
       <div className="flex flex-1 items-center justify-center p-6 text-sm text-muted-foreground">
         Loading…
@@ -158,9 +201,20 @@ export default function CheckoutPage({
     );
   }
 
-  const bookDisabledReason = !selectedAddressId
-    ? "Select or add an address to continue."
-    : undefined;
+  const guestDetailsMissing =
+    !contactForm.firstName.trim() ||
+    !contactForm.email.trim() ||
+    !contactForm.contact.trim() ||
+    !addressForm.streetAddress.trim() ||
+    !addressForm.city.trim();
+
+  const bookDisabledReason = isAuthenticated
+    ? !selectedAddressId
+      ? "Select or add an address to continue."
+      : undefined
+    : guestDetailsMissing
+      ? "Fill in your contact details and address to continue."
+      : undefined;
 
   return (
     <div className={poppins.className}>
@@ -180,17 +234,69 @@ export default function CheckoutPage({
 
           <Card>
             <CardHeader>
-              <CardTitle>Profile</CardTitle>
+              <CardTitle>Contact information</CardTitle>
             </CardHeader>
-            <CardContent className="flex flex-col gap-1 text-sm">
-              <p className="font-medium">
-                {profile.firstName} {profile.lastName ?? ""}
-              </p>
-              <p className="text-muted-foreground">{profile.email}</p>
-              {profile.contact && <p className="text-muted-foreground">{profile.contact}</p>}
-              <Link href="/dashboard" className="mt-2 text-xs underline underline-offset-2">
-                Edit profile
-              </Link>
+            <CardContent className="flex flex-col gap-3">
+              <div className="grid grid-cols-2 gap-3">
+                <div className="flex flex-col gap-2">
+                  <Label htmlFor="contact-first-name">First name</Label>
+                  <Input
+                    id="contact-first-name"
+                    required
+                    disabled={isAuthenticated}
+                    value={contactForm.firstName}
+                    onChange={(e) =>
+                      setContactForm((f) => ({ ...f, firstName: e.target.value }))
+                    }
+                  />
+                </div>
+                <div className="flex flex-col gap-2">
+                  <Label htmlFor="contact-last-name">Last name</Label>
+                  <Input
+                    id="contact-last-name"
+                    disabled={isAuthenticated}
+                    value={contactForm.lastName}
+                    onChange={(e) =>
+                      setContactForm((f) => ({ ...f, lastName: e.target.value }))
+                    }
+                  />
+                </div>
+              </div>
+              <div className="flex flex-col gap-2">
+                <Label htmlFor="contact-email">Email</Label>
+                <Input
+                  id="contact-email"
+                  type="email"
+                  required
+                  disabled={isAuthenticated}
+                  value={contactForm.email}
+                  onChange={(e) => setContactForm((f) => ({ ...f, email: e.target.value }))}
+                />
+              </div>
+              <div className="flex flex-col gap-2">
+                <Label htmlFor="contact-phone">Phone</Label>
+                <Input
+                  id="contact-phone"
+                  type="tel"
+                  required
+                  disabled={isAuthenticated}
+                  value={contactForm.contact}
+                  onChange={(e) => setContactForm((f) => ({ ...f, contact: e.target.value }))}
+                />
+              </div>
+              {isAuthenticated ? (
+                <Link href="/dashboard" className="mt-1 text-xs underline underline-offset-2">
+                  Edit profile
+                </Link>
+              ) : (
+                <p className="mt-1 text-xs text-muted-foreground">
+                  Already have an account?{" "}
+                  <Link href={`/login?next=/services/${serviceSlug}/checkout`} className="underline underline-offset-2">
+                    Log in
+                  </Link>{" "}
+                  to use your saved details.
+                </p>
+              )}
             </CardContent>
           </Card>
 
@@ -199,77 +305,126 @@ export default function CheckoutPage({
               <CardTitle>Address</CardTitle>
             </CardHeader>
             <CardContent className="flex flex-col gap-3">
-              {addresses.length === 0 && (
-                <p className="text-sm text-muted-foreground">
-                  No saved addresses yet — add one below.
-                </p>
-              )}
-              {addresses.map((address) => (
-                <button
-                  key={address.id}
-                  type="button"
-                  onClick={() => setSelectedAddressId(address.id)}
-                  className={`rounded-lg border p-3 text-left text-sm transition-colors ${
-                    selectedAddressId === address.id
-                      ? "border-primary bg-primary/5"
-                      : "hover:bg-muted"
-                  }`}
-                >
-                  {address.streetAddress}
-                  {address.unit ? `, ${address.unit}` : ""}, {address.city}
-                  {address.country ? `, ${address.country}` : ""}
-                  {address.postalCode ? ` ${address.postalCode}` : ""}
-                </button>
-              ))}
+              {isAuthenticated ? (
+                <>
+                  {addresses.length === 0 && (
+                    <p className="text-sm text-muted-foreground">
+                      No saved addresses yet — add one below.
+                    </p>
+                  )}
+                  {addresses.map((address) => (
+                    <button
+                      key={address.id}
+                      type="button"
+                      onClick={() => setSelectedAddressId(address.id)}
+                      className={`rounded-lg border p-3 text-left text-sm transition-colors ${
+                        selectedAddressId === address.id
+                          ? "border-primary bg-primary/5"
+                          : "hover:bg-muted"
+                      }`}
+                    >
+                      {address.streetAddress}
+                      {address.unit ? `, ${address.unit}` : ""}, {address.city}
+                      {address.country ? `, ${address.country}` : ""}
+                      {address.postalCode ? ` ${address.postalCode}` : ""}
+                    </button>
+                  ))}
 
-              <form className="flex flex-col gap-3 border-t pt-4" onSubmit={handleAddAddress}>
-                <p className="text-sm font-medium">Add a new address</p>
-                <div className="flex flex-col gap-2">
-                  <Label htmlFor="streetAddress">Street address</Label>
-                  <Input
-                    id="streetAddress"
-                    required
-                    value={addressForm.streetAddress}
-                    onChange={(e) =>
-                      setAddressForm((f) => ({ ...f, streetAddress: e.target.value }))
-                    }
-                  />
-                </div>
-                <div className="grid grid-cols-2 gap-3">
+                  <form className="flex flex-col gap-3 border-t pt-4" onSubmit={handleAddAddress}>
+                    <p className="text-sm font-medium">Add a new address</p>
+                    <div className="flex flex-col gap-2">
+                      <Label htmlFor="streetAddress">Street address</Label>
+                      <Input
+                        id="streetAddress"
+                        required
+                        value={addressForm.streetAddress}
+                        onChange={(e) =>
+                          setAddressForm((f) => ({ ...f, streetAddress: e.target.value }))
+                        }
+                      />
+                    </div>
+                    <div className="grid grid-cols-2 gap-3">
+                      <div className="flex flex-col gap-2">
+                        <Label htmlFor="city">City</Label>
+                        <Input
+                          id="city"
+                          required
+                          value={addressForm.city}
+                          onChange={(e) => setAddressForm((f) => ({ ...f, city: e.target.value }))}
+                        />
+                      </div>
+                      <div className="flex flex-col gap-2">
+                        <Label htmlFor="postalCode">Postal code</Label>
+                        <Input
+                          id="postalCode"
+                          value={addressForm.postalCode}
+                          onChange={(e) =>
+                            setAddressForm((f) => ({ ...f, postalCode: e.target.value }))
+                          }
+                        />
+                      </div>
+                    </div>
+                    <div className="flex flex-col gap-2">
+                      <Label htmlFor="addressCountry">Country</Label>
+                      <Input
+                        id="addressCountry"
+                        value={addressForm.country}
+                        onChange={(e) =>
+                          setAddressForm((f) => ({ ...f, country: e.target.value }))
+                        }
+                      />
+                    </div>
+                    <Button type="submit" disabled={addingAddress} variant="outline">
+                      {addingAddress ? "Adding…" : "Add address"}
+                    </Button>
+                  </form>
+                </>
+              ) : (
+                <>
                   <div className="flex flex-col gap-2">
-                    <Label htmlFor="city">City</Label>
+                    <Label htmlFor="streetAddress">Street address</Label>
                     <Input
-                      id="city"
+                      id="streetAddress"
                       required
-                      value={addressForm.city}
-                      onChange={(e) => setAddressForm((f) => ({ ...f, city: e.target.value }))}
-                    />
-                  </div>
-                  <div className="flex flex-col gap-2">
-                    <Label htmlFor="postalCode">Postal code</Label>
-                    <Input
-                      id="postalCode"
-                      value={addressForm.postalCode}
+                      value={addressForm.streetAddress}
                       onChange={(e) =>
-                        setAddressForm((f) => ({ ...f, postalCode: e.target.value }))
+                        setAddressForm((f) => ({ ...f, streetAddress: e.target.value }))
                       }
                     />
                   </div>
-                </div>
-                <div className="flex flex-col gap-2">
-                  <Label htmlFor="addressCountry">Country</Label>
-                  <Input
-                    id="addressCountry"
-                    value={addressForm.country}
-                    onChange={(e) =>
-                      setAddressForm((f) => ({ ...f, country: e.target.value }))
-                    }
-                  />
-                </div>
-                <Button type="submit" disabled={addingAddress} variant="outline">
-                  {addingAddress ? "Adding…" : "Add address"}
-                </Button>
-              </form>
+                  <div className="grid grid-cols-2 gap-3">
+                    <div className="flex flex-col gap-2">
+                      <Label htmlFor="city">City</Label>
+                      <Input
+                        id="city"
+                        required
+                        value={addressForm.city}
+                        onChange={(e) => setAddressForm((f) => ({ ...f, city: e.target.value }))}
+                      />
+                    </div>
+                    <div className="flex flex-col gap-2">
+                      <Label htmlFor="postalCode">Postal code</Label>
+                      <Input
+                        id="postalCode"
+                        value={addressForm.postalCode}
+                        onChange={(e) =>
+                          setAddressForm((f) => ({ ...f, postalCode: e.target.value }))
+                        }
+                      />
+                    </div>
+                  </div>
+                  <div className="flex flex-col gap-2">
+                    <Label htmlFor="addressCountry">Country</Label>
+                    <Input
+                      id="addressCountry"
+                      value={addressForm.country}
+                      onChange={(e) =>
+                        setAddressForm((f) => ({ ...f, country: e.target.value }))
+                      }
+                    />
+                  </div>
+                </>
+              )}
             </CardContent>
           </Card>
         </div>

@@ -66,7 +66,7 @@ export function OrderSummaryCard({
   const bookNowDisabled = submitting || !!bookDisabledReason || quoteLoading || !quote?.bookable;
 
   return (
-    <Card>
+    <Card className="bg-brand-navy text-brand-navy-foreground">
       <CardHeader>
         <CardTitle>Order summary</CardTitle>
       </CardHeader>
@@ -84,7 +84,7 @@ export function OrderSummaryCard({
           <SummaryRow label="Price per cleaner" value={hourlyRate ? `${money(Number(hourlyRate))}/h` : "—"} last />
         </div>
 
-        <div className="flex flex-col border-t">
+        <div className="flex flex-col border-t border-brand-gold/20">
           <SummaryRow label="Property size" value={`${propertySizeSqm} m²`} />
           {packages.map((pkg) => (
             <SummaryRow
@@ -108,7 +108,7 @@ export function OrderSummaryCard({
           )}
         </div>
 
-        <div className="flex flex-col border-t">
+        <div className="flex flex-col border-t border-brand-gold/20">
           {hasPrice ? (
             <SummaryRow
               label="Total price (estimate)"
@@ -117,7 +117,7 @@ export function OrderSummaryCard({
               last
             />
           ) : (
-            <div className="px-4 py-3 text-sm text-muted-foreground">
+            <div className="px-4 py-3 text-sm text-brand-navy-foreground/70">
               {quote?.bookable
                 ? "Your cleaning professional will confirm exact pricing after reviewing your space."
                 : "Online booking isn't available for this property size yet — please contact us directly for a quote."}
@@ -126,11 +126,16 @@ export function OrderSummaryCard({
         </div>
 
         <div className="p-4">
-          <Button type="button" onClick={onBookNow} disabled={bookNowDisabled} className="w-full">
+          <Button
+            type="button"
+            onClick={onBookNow}
+            disabled={bookNowDisabled}
+            className="w-full bg-brand-gold text-brand-navy hover:bg-brand-gold/90"
+          >
             {submitting ? "Booking…" : "Confirm booking"}
           </Button>
           {bookDisabledReason && (
-            <p className="mt-2 text-center text-xs text-muted-foreground">{bookDisabledReason}</p>
+            <p className="mt-2 text-center text-xs text-brand-navy-foreground/70">{bookDisabledReason}</p>
           )}
         </div>
       </CardContent>
@@ -151,9 +156,9 @@ function SummaryRow({
 }) {
   return (
     <div
-      className={`flex items-center justify-between gap-3 px-4 py-2.5 text-sm ${last ? "" : "border-b"}`}
+      className={`flex items-center justify-between gap-3 px-4 py-2.5 text-sm ${last ? "" : "border-b border-brand-gold/20"}`}
     >
-      <span className="text-muted-foreground">{label}</span>
+      <span className="text-brand-navy-foreground/70">{label}</span>
       <span className={emphasize ? "font-semibold" : ""}>{value}</span>
     </div>
   );

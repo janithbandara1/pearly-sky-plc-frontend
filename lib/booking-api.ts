@@ -44,6 +44,32 @@ export function createBooking(accessToken: string, payload: CreateBookingPayload
   });
 }
 
+export interface CreateGuestBookingPayload {
+  serviceId: number;
+  propertySizeSqm: number;
+  date: string;
+  time: string;
+  frequency: BookingFrequency;
+  note?: string;
+  firstName: string;
+  lastName?: string;
+  email: string;
+  contact: string;
+  streetAddress: string;
+  unit?: string;
+  city: string;
+  state?: string;
+  country?: string;
+  postalCode?: string;
+}
+
+export function createGuestBooking(payload: CreateGuestBookingPayload) {
+  return apiFetch<Booking>("/bookings/guest", {
+    method: "POST",
+    body: payload,
+  });
+}
+
 export function listMyBookings(accessToken: string) {
   return apiFetch<Booking[]>("/bookings", { accessToken });
 }
