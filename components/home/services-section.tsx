@@ -84,7 +84,7 @@ export function ServicesSection({ services }: { services: CatalogService[] }) {
   const active = services.filter((service) => service.status === "active");
 
   return (
-    <section className="bg-brand-navy py-16 text-brand-navy-foreground">
+    <section id="services" className="scroll-mt-16 bg-brand-navy py-16 text-brand-navy-foreground">
       <div className="mx-auto w-full max-w-6xl px-4 sm:px-6">
         <div className="mb-10 text-center">
           <h2 className="text-2xl font-bold tracking-tight sm:text-3xl">

@@ -61,7 +61,7 @@ export function ContactSection() {
   };
 
   return (
-    <section id="contact" className="mx-auto w-full max-w-6xl px-4 py-16 sm:px-6">
+    <section id="contact" className="mx-auto w-full max-w-6xl scroll-mt-16 px-4 py-16 sm:px-6">
       <h2 className="mb-8 text-center text-2xl font-bold tracking-tight text-brand-navy sm:text-3xl">
         {translate("contactTitle")}
       </h2>
