@@ -90,9 +90,6 @@ export function ServicesSection({ services }: { services: CatalogService[] }) {
           <h2 className="text-2xl font-bold tracking-tight sm:text-3xl">
             {translate("servicesHeading")}
           </h2>
-          <p className="mt-2 text-brand-navy-foreground/70">
-            {translate("servicesSubheading")}
-          </p>
         </div>
 
         {CATEGORIES.map(({ key, headingKey }) => {
