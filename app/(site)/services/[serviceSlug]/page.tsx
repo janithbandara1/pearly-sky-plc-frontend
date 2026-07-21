@@ -224,7 +224,7 @@ export default function BookServicePage({
 
         <div className="flex justify-center">
           <Link
-            href="/services"
+            href="/"
             className="inline-flex h-9 items-center gap-1.5 rounded-lg border-[1.5px] border-[#A98B4B] bg-secondary px-4 text-sm font-medium text-secondary-foreground transition-colors hover:bg-[color-mix(in_oklch,var(--secondary),var(--foreground)_5%)]"
           >
             <ArrowLeft className="size-4" />

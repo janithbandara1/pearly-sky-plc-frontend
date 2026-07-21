@@ -60,7 +60,7 @@ export function Hero() {
             variant="outline"
             className="border-2 border-brand-gold bg-brand-navy/40 text-brand-navy-foreground hover:bg-brand-navy/60"
           >
-            <Link href="/services">{translate("heroCtaSecondary")}</Link>
+            <Link href="/">{translate("heroCtaSecondary")}</Link>
           </Button>
         </div>
       </div>

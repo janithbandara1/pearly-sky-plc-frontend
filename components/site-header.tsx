@@ -159,7 +159,7 @@ export function SiteHeader() {
                   className="w-full grid-cols-1"
                 />
                 <Link
-                  href="/services"
+                  href="/"
                   onClick={() => setMobileOpen(false)}
                   className="rounded-lg p-2 text-brand-gold-dark hover:bg-muted"
                 >

@@ -160,7 +160,7 @@ export default function DashboardPage() {
           {bookings.length === 0 && (
             <p className="text-sm text-muted-foreground">
               No bookings yet.{" "}
-              <Link href="/services" className="underline underline-offset-2">
+              <Link href="/" className="underline underline-offset-2">
                 Browse services
               </Link>
               .
