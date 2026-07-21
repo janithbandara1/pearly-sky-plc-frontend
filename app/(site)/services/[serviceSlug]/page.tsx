@@ -15,9 +15,7 @@ import { ApiError } from "@/lib/auth-context";
 import { BookingFrequency } from "@/lib/booking-api";
 import { saveBookingDraft } from "@/lib/booking-draft";
 import {
-  CatalogItem,
   CatalogServiceDetail,
-  getItems,
   getServiceBySlug,
   getServiceQuote,
   SizeQuote,
@@ -36,7 +34,6 @@ export default function BookServicePage({
   const [service, setService] = useState<CatalogServiceDetail | null>(null);
   const [serviceError, setServiceError] = useState<string | null>(null);
 
-  const [items, setItems] = useState<CatalogItem[]>([]);
   const [supplySource, setSupplySource] = useState<SupplySource>("");
   const [selectedItemIds, setSelectedItemIds] = useState<Set<number>>(new Set());
 
@@ -57,12 +54,6 @@ export default function BookServicePage({
       .then(setService)
       .catch((err) => setServiceError(err instanceof ApiError ? err.message : "Service not found."));
   }, [serviceSlug]);
-
-  useEffect(() => {
-    getItems()
-      .then(setItems)
-      .catch(() => setItems([]));
-  }, []);
 
   useEffect(() => {
     if (!service) return;
@@ -107,6 +98,7 @@ export default function BookServicePage({
   const selectedPackages = (service?.servicePackages ?? [])
     .map((sp) => sp.package)
     .filter((pkg) => selectedPackageIds.has(pkg.id));
+  const items = (service?.serviceItems ?? []).map((si) => si.item);
   const selectedItems = items.filter((item) => selectedItemIds.has(item.id));
 
   const addOnsTotal = [...selectedPackages, ...selectedItems].reduce((sum, entry) => {

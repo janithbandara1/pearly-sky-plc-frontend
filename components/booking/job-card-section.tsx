@@ -17,7 +17,7 @@ export function JobCardSection({ packages, selectedIds, onToggle }: JobCardSecti
 
       {packages.length === 0 ? (
         <p className="mx-auto max-w-[1150px] rounded-[10px] border border-dashed border-[#A98B4B]/50 bg-white p-6 text-center text-sm text-[#555]">
-          No add-on services are configured for this service yet.
+          No service upgrade options are configured yet.
         </p>
       ) : (
         <div className="mx-auto grid max-w-[1150px] grid-cols-1 gap-2.5 sm:grid-cols-2">

@@ -91,7 +91,7 @@ export function EquipmentSection({
 
         {items.length === 0 ? (
           <p className="rounded-[10px] border border-dashed border-[#A98B4B]/50 bg-white p-6 text-center text-sm text-[#555]">
-            No cleaning solvents or equipment are configured yet.
+            No cleaning solvents & equipments are configured yet.
           </p>
         ) : (
           <div className="grid grid-cols-1 gap-2.5 sm:grid-cols-2">
