@@ -38,7 +38,7 @@ function CustomSelect({ value, onChange }: CustomSelectProps) {
         onKeyDown={(e) => e.key === "Enter" && setOpen((p) => !p)}
         className="flex cursor-pointer items-center justify-between rounded-lg border border-[#A98B4B] bg-[#121E2D] px-4 py-3"
       >
-        <span className="text-sm text-white/60">{selected?.label ?? "Please select relevant option"}</span>
+        <span className="text-sm text-white/60">{selected?.label ?? "Select a cleaning solvents & equipment option"}</span>
         <ChevronDown className={`h-4 w-4 text-[#A98B4B] transition-transform ${open ? "rotate-180" : ""}`} />
       </div>
 
@@ -86,7 +86,6 @@ export function EquipmentSection({
 
       <div className="p-4 sm:p-5">
         <div className="mb-4">
-          <label className="mb-1.5 block text-[13px] font-medium text-[#121E2D]">Cleaning Solvents &amp; Equipment</label>
           <CustomSelect value={supplySource} onChange={onSupplySourceChange} />
         </div>
 
@@ -99,13 +98,17 @@ export function EquipmentSection({
             {items.map((item) => {
               const isChecked = selectedItemIds.has(item.id);
               const price = Number(item.price);
+              const isDisabled = supplySource !== "company" && !isChecked;
               return (
                 <button
                   key={item.id}
                   type="button"
                   onClick={() => onToggleItem(item.id)}
+                  disabled={isDisabled}
                   aria-pressed={isChecked}
                   className={`flex items-center gap-2.5 rounded-[10px] bg-white px-3 py-2.5 text-left transition ${
+                    isDisabled ? "cursor-not-allowed opacity-50" : ""
+                  } ${
                     isChecked
                       ? "border-2 border-[#A98B4B] shadow-[0_0_8px_rgba(169,139,75,0.3)]"
                       : "border-[1.5px] border-[#A98B4B]"

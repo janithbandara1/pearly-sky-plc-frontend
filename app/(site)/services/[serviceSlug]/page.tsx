@@ -116,6 +116,10 @@ export default function BookServicePage({
 
   function handleBookNow() {
     if (!service) return;
+    if (!supplySource) {
+      setError("Please select a cleaning solvents & equipment option.");
+      return;
+    }
     if (!date || !time) {
       setError("Please select a date and time above.");
       return;
@@ -161,7 +165,11 @@ export default function BookServicePage({
     );
   }
 
-  const bookDisabledReason = !date || !time ? "Select a date and time above to continue." : undefined;
+  const bookDisabledReason = !supplySource
+    ? "Select a cleaning solvents & equipment option above to continue."
+    : !date || !time
+      ? "Select a date and time above to continue."
+      : undefined;
 
   return (
     <div className={poppins.className}>

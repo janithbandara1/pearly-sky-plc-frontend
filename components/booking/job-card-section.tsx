@@ -39,7 +39,7 @@ export function JobCardSection({ packages, selectedIds, onToggle }: JobCardSecti
                 <div className="min-w-0 flex-1">
                   <p className="truncate text-sm font-medium text-[#121E2D]">{pkg.name}</p>
                   {price !== null && !Number.isNaN(price) && (
-                    <p className="text-xs text-[#555]">+€{price.toFixed(2)}</p>
+                    <p className="text-xs text-[#555]">Price: €{price.toFixed(2)}</p>
                   )}
                 </div>
                 <span
