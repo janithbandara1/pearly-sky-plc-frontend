@@ -117,7 +117,7 @@ export default function BookServicePage({
   function handleBookNow() {
     if (!service) return;
     if (!supplySource) {
-      setError("Please select a cleaning solvents & equipment option.");
+      setError("Please select a cleaning solvents & equipments option.");
       return;
     }
     if (!date || !time) {
@@ -166,7 +166,7 @@ export default function BookServicePage({
   }
 
   const bookDisabledReason = !supplySource
-    ? "Select a cleaning solvents & equipment option above to continue."
+    ? "Select a cleaning solvents & equipments option above to continue."
     : !date || !time
       ? "Select a date and time above to continue."
       : undefined;

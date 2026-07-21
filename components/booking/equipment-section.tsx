@@ -38,7 +38,7 @@ function CustomSelect({ value, onChange }: CustomSelectProps) {
         onKeyDown={(e) => e.key === "Enter" && setOpen((p) => !p)}
         className="flex cursor-pointer items-center justify-between rounded-lg border border-[#A98B4B] bg-[#121E2D] px-4 py-3"
       >
-        <span className="text-sm text-white/60">{selected?.label ?? "Select a cleaning solvents & equipment option"}</span>
+        <span className="text-sm text-white/60">{selected?.label ?? "Select a cleaning solvents & equipments option"}</span>
         <ChevronDown className={`h-4 w-4 text-[#A98B4B] transition-transform ${open ? "rotate-180" : ""}`} />
       </div>
 
@@ -81,7 +81,7 @@ export function EquipmentSection({
   return (
     <section className="overflow-hidden rounded-[10px] bg-[#C7D1D9]">
       <div className="bg-[#121E2D] px-5 py-3.5 text-center">
-        <p className="text-sm font-semibold text-white">Cleaning Solvents &amp; Equipment</p>
+        <p className="text-sm font-semibold text-white">Cleaning Solvents &amp; Equipments</p>
       </div>
 
       <div className="p-4 sm:p-5">
