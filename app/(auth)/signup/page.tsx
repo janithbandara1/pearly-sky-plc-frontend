@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import { ArrowLeft } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -52,7 +53,16 @@ export default function SignupPage() {
   }
 
   return (
-    <div className="flex flex-1 items-center justify-center p-6">
+    <div className="relative flex flex-1 items-center justify-center p-6">
+      <Button
+        variant="ghost"
+        size="icon"
+        className="absolute top-4 left-4"
+        aria-label="Go back"
+        onClick={() => router.back()}
+      >
+        <ArrowLeft className="size-4" />
+      </Button>
       <Card className="w-full max-w-sm">
         <CardHeader>
           <CardTitle>Create your account</CardTitle>
