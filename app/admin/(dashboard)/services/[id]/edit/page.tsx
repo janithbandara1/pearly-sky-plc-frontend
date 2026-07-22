@@ -8,6 +8,12 @@ import { Button } from "@/components/ui/button";
 import { ServiceFormFields } from "@/components/admin/service-form-fields";
 import { ServiceItemsField } from "@/components/admin/service-items-field";
 import { ServicePackagesField } from "@/components/admin/service-packages-field";
+import {
+  fromCountryPricesPayload,
+  CountryPricesField,
+  CountryPricesForm,
+  toCountryPricesPayload,
+} from "@/components/admin/country-prices-field";
 import { ApiError } from "@/lib/auth-context";
 import { getService } from "@/lib/catalog-api";
 import type { CatalogItem } from "@/lib/catalog-api";
@@ -18,6 +24,7 @@ import {
   listPackagesAdmin,
   setServiceItems,
   setServicePackages,
+  setServicePrices,
   updateService,
 } from "@/lib/admin-catalog-api";
 import { useStaffAuth } from "@/lib/staff-auth-context";
@@ -28,6 +35,7 @@ export default function EditServicePage() {
   const router = useRouter();
   const { accessToken } = useStaffAuth();
   const [form, setForm] = useState<CreateServicePayload | null>(null);
+  const [prices, setPrices] = useState<CountryPricesForm | null>(null);
   const [allPackages, setAllPackages] = useState<AdminPackage[]>([]);
   const [packageIds, setPackageIds] = useState<number[]>([]);
   const [allItems, setAllItems] = useState<CatalogItem[]>([]);
@@ -45,12 +53,12 @@ export default function EditServicePage() {
     setForm({
       name: detail.name,
       label: detail.label,
-      price: detail.price ?? "",
       status: detail.status,
       category: detail.category,
       description: detail.description ?? "",
       imageUrl: detail.imageUrl ?? "",
     });
+    setPrices(fromCountryPricesPayload(detail.prices));
     setAllPackages(packagesData);
     setPackageIds(detail.servicePackages.map((sp) => sp.package.id));
     setAllItems(itemsData);
@@ -65,10 +73,11 @@ export default function EditServicePage() {
   }, [load]);
 
   async function handleSubmit() {
-    if (!accessToken || !form) return;
+    if (!accessToken || !form || !prices) return;
     setSaving(true);
     try {
       const updated = await updateService(accessToken, serviceId, form);
+      await setServicePrices(accessToken, serviceId, toCountryPricesPayload(prices));
       await setServicePackages(accessToken, serviceId, packageIds);
       await setServiceItems(accessToken, serviceId, itemIds);
       toast.success(`Service "${updated.label}" updated.`);
@@ -90,9 +99,11 @@ export default function EditServicePage() {
       {loading && <p className="text-sm text-muted-foreground">Loading…</p>}
       {error && <p className="text-sm text-destructive">{error}</p>}
 
-      {form && (
+      {form && prices && (
         <>
           <ServiceFormFields form={form} onChange={setForm} />
+
+          <CountryPricesField prices={prices} onChange={setPrices} label="Hourly rate by country" />
 
           <ServicePackagesField
             allPackages={allPackages}

@@ -4,12 +4,15 @@ import type {
   CatalogService,
   CatalogServiceDetail,
   ServiceCategory,
+  ServicePriceEntry,
 } from "./catalog-api";
 
 export interface AdminPackage {
   id: number;
   name: string;
+  /** Resolved for the request's country; null if unset or no country. */
   price: string | null;
+  prices: ServicePriceEntry[];
   status: "active" | "inactive";
 }
 
@@ -34,7 +37,6 @@ export interface AdminCurrency {
 export interface CreateServicePayload {
   name: string;
   label: string;
-  price?: string;
   status?: "active" | "inactive";
   category?: ServiceCategory;
   description?: string;
@@ -42,9 +44,13 @@ export interface CreateServicePayload {
 }
 export type UpdateServicePayload = Partial<CreateServicePayload>;
 
+export interface ServicePriceInput {
+  country: string;
+  price: string | null;
+}
+
 export interface CreatePackagePayload {
   name: string;
-  price?: string;
   status?: "active" | "inactive";
 }
 export type UpdatePackagePayload = Partial<CreatePackagePayload>;
@@ -52,7 +58,6 @@ export type UpdatePackagePayload = Partial<CreatePackagePayload>;
 export interface CreateItemPayload {
   name: string;
   sku: string;
-  price: string;
   type: string;
   image?: string;
 }
@@ -141,6 +146,19 @@ export function setServiceItems(accessToken: string, serviceId: number, itemIds:
   });
 }
 
+/** Replaces the full set of per-country hourly rates for a service. */
+export function setServicePrices(
+  accessToken: string,
+  serviceId: number,
+  prices: ServicePriceInput[],
+) {
+  return apiFetch<CatalogServiceDetail>(`/admin/catalog/services/${serviceId}/prices`, {
+    method: "PATCH",
+    accessToken,
+    body: { prices },
+  });
+}
+
 // ---------- Packages ----------
 
 export function createPackage(accessToken: string, payload: CreatePackagePayload) {
@@ -170,6 +188,15 @@ export function deletePackage(accessToken: string, id: number) {
   });
 }
 
+/** Replaces the full set of per-country prices for a package. */
+export function setPackagePrices(accessToken: string, id: number, prices: ServicePriceInput[]) {
+  return apiFetch<AdminPackage>(`/admin/catalog/packages/${id}/prices`, {
+    method: "PATCH",
+    accessToken,
+    body: { prices },
+  });
+}
+
 // ---------- Items ----------
 
 export function createItem(accessToken: string, payload: CreateItemPayload) {
@@ -192,6 +219,15 @@ export function deleteItem(accessToken: string, id: number) {
   return apiFetch<{ success: boolean }>(`/admin/catalog/items/${id}`, {
     method: "DELETE",
     accessToken,
+  });
+}
+
+/** Replaces the full set of per-country prices for an item. */
+export function setItemPrices(accessToken: string, id: number, prices: ServicePriceInput[]) {
+  return apiFetch<CatalogItem>(`/admin/catalog/items/${id}/prices`, {
+    method: "PATCH",
+    accessToken,
+    body: { prices },
   });
 }
 

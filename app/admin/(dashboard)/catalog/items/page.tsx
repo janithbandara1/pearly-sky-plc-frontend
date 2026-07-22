@@ -17,18 +17,27 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { DataTable } from "@/components/admin/data-table";
 import { ConfirmDeleteDialog } from "@/components/admin/confirm-delete-dialog";
+import {
+  CountryPricesField,
+  CountryPricesForm,
+  EMPTY_COUNTRY_PRICES,
+  fromCountryPricesPayload,
+  toCountryPricesPayload,
+} from "@/components/admin/country-prices-field";
 import { ApiError } from "@/lib/auth-context";
 import type { CatalogItem } from "@/lib/catalog-api";
+import { SUPPORTED_COUNTRIES } from "@/lib/countries/config";
 import {
   CreateItemPayload,
   createItem,
   deleteItem,
   listItemsAdmin,
+  setItemPrices,
   updateItem,
 } from "@/lib/admin-catalog-api";
 import { useStaffAuth } from "@/lib/staff-auth-context";
 
-const emptyForm: CreateItemPayload = { name: "", sku: "", price: "", type: "", image: "" };
+const emptyForm: CreateItemPayload = { name: "", sku: "", type: "", image: "" };
 
 export default function AdminCatalogItemsPage() {
   const { accessToken } = useStaffAuth();
@@ -37,6 +46,7 @@ export default function AdminCatalogItemsPage() {
   const [open, setOpen] = useState(false);
   const [editing, setEditing] = useState<CatalogItem | null>(null);
   const [form, setForm] = useState<CreateItemPayload>(emptyForm);
+  const [prices, setPrices] = useState<CountryPricesForm>(EMPTY_COUNTRY_PRICES);
   const [saving, setSaving] = useState(false);
 
   const load = useCallback(async () => {
@@ -53,12 +63,14 @@ export default function AdminCatalogItemsPage() {
   function openCreate() {
     setEditing(null);
     setForm(emptyForm);
+    setPrices(EMPTY_COUNTRY_PRICES);
     setOpen(true);
   }
 
   function openEdit(item: CatalogItem) {
     setEditing(item);
-    setForm({ name: item.name, sku: item.sku, price: item.price, type: item.type, image: item.image ?? "" });
+    setForm({ name: item.name, sku: item.sku, type: item.type, image: item.image ?? "" });
+    setPrices(fromCountryPricesPayload(item.prices));
     setOpen(true);
   }
 
@@ -66,15 +78,14 @@ export default function AdminCatalogItemsPage() {
     if (!accessToken) return;
     setSaving(true);
     try {
-      if (editing) {
-        const updated = await updateItem(accessToken, editing.id, form);
-        setItems((prev) => prev.map((i) => (i.id === updated.id ? updated : i)));
-        toast.success(`Item "${updated.name}" updated.`);
-      } else {
-        const created = await createItem(accessToken, form);
-        setItems((prev) => [...prev, created]);
-        toast.success(`Item "${created.name}" created.`);
-      }
+      const saved = editing
+        ? await updateItem(accessToken, editing.id, form)
+        : await createItem(accessToken, form);
+      const updated = await setItemPrices(accessToken, saved.id, toCountryPricesPayload(prices));
+      setItems((prev) =>
+        editing ? prev.map((i) => (i.id === updated.id ? updated : i)) : [...prev, updated],
+      );
+      toast.success(`Item "${updated.name}" ${editing ? "updated" : "created"}.`);
       setOpen(false);
     } catch (err) {
       toast.error(err instanceof ApiError ? err.message : "Failed to save item.");
@@ -98,7 +109,18 @@ export default function AdminCatalogItemsPage() {
     { accessorKey: "name", header: "Name" },
     { accessorKey: "sku", header: "SKU" },
     { accessorKey: "type", header: "Type" },
-    { accessorKey: "price", header: "Price" },
+    {
+      accessorKey: "prices",
+      header: "Price",
+      cell: ({ row }) => (
+        <span className="text-sm">
+          {SUPPORTED_COUNTRIES.map((code) => {
+            const price = row.original.prices.find((p) => p.country === code)?.price;
+            return `${code.toUpperCase()} ${price ?? "—"}`;
+          }).join(" · ")}
+        </span>
+      ),
+    },
     {
       id: "actions",
       header: "",
@@ -145,16 +167,11 @@ export default function AdminCatalogItemsPage() {
                 <Input id="sku" value={form.sku} onChange={(e) => setForm({ ...form, sku: e.target.value })} />
               </div>
               <div className="flex flex-col gap-1">
-                <Label htmlFor="price">Price</Label>
-                <Input
-                  id="price"
-                  value={form.price}
-                  onChange={(e) => setForm({ ...form, price: e.target.value })}
-                />
-              </div>
-              <div className="flex flex-col gap-1">
                 <Label htmlFor="type">Type</Label>
                 <Input id="type" value={form.type} onChange={(e) => setForm({ ...form, type: e.target.value })} />
+              </div>
+              <div className="col-span-2">
+                <CountryPricesField prices={prices} onChange={setPrices} />
               </div>
               <div className="col-span-2 flex flex-col gap-1">
                 <Label htmlFor="image">Image URL</Label>

@@ -36,14 +36,6 @@ export function ServiceFormFields({ form, onChange }: ServiceFormFieldsProps) {
         />
       </div>
       <div className="flex flex-col gap-1">
-        <Label htmlFor="price">Hourly rate</Label>
-        <Input
-          id="price"
-          value={form.price}
-          onChange={(e) => onChange({ ...form, price: e.target.value })}
-        />
-      </div>
-      <div className="flex flex-col gap-1">
         <Label htmlFor="category">Category</Label>
         <Select
           value={form.category}

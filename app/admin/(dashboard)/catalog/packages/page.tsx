@@ -25,18 +25,27 @@ import {
 } from "@/components/ui/select";
 import { DataTable } from "@/components/admin/data-table";
 import { ConfirmDeleteDialog } from "@/components/admin/confirm-delete-dialog";
+import {
+  CountryPricesField,
+  CountryPricesForm,
+  EMPTY_COUNTRY_PRICES,
+  fromCountryPricesPayload,
+  toCountryPricesPayload,
+} from "@/components/admin/country-prices-field";
 import { ApiError } from "@/lib/auth-context";
+import { SUPPORTED_COUNTRIES } from "@/lib/countries/config";
 import {
   AdminPackage,
   CreatePackagePayload,
   createPackage,
   deletePackage,
   listPackagesAdmin,
+  setPackagePrices,
   updatePackage,
 } from "@/lib/admin-catalog-api";
 import { useStaffAuth } from "@/lib/staff-auth-context";
 
-const emptyForm: CreatePackagePayload = { name: "", price: "", status: "active" };
+const emptyForm: CreatePackagePayload = { name: "", status: "active" };
 
 export default function AdminCatalogPackagesPage() {
   const { accessToken } = useStaffAuth();
@@ -45,6 +54,7 @@ export default function AdminCatalogPackagesPage() {
   const [open, setOpen] = useState(false);
   const [editing, setEditing] = useState<AdminPackage | null>(null);
   const [form, setForm] = useState<CreatePackagePayload>(emptyForm);
+  const [prices, setPrices] = useState<CountryPricesForm>(EMPTY_COUNTRY_PRICES);
   const [saving, setSaving] = useState(false);
 
   const load = useCallback(async () => {
@@ -61,12 +71,14 @@ export default function AdminCatalogPackagesPage() {
   function openCreate() {
     setEditing(null);
     setForm(emptyForm);
+    setPrices(EMPTY_COUNTRY_PRICES);
     setOpen(true);
   }
 
   function openEdit(pkg: AdminPackage) {
     setEditing(pkg);
-    setForm({ name: pkg.name, price: pkg.price ?? "", status: pkg.status });
+    setForm({ name: pkg.name, status: pkg.status });
+    setPrices(fromCountryPricesPayload(pkg.prices));
     setOpen(true);
   }
 
@@ -74,15 +86,16 @@ export default function AdminCatalogPackagesPage() {
     if (!accessToken) return;
     setSaving(true);
     try {
-      if (editing) {
-        const updated = await updatePackage(accessToken, editing.id, form);
-        setPackages((prev) => prev.map((p) => (p.id === updated.id ? updated : p)));
-        toast.success(`Package "${updated.name}" updated.`);
-      } else {
-        const created = await createPackage(accessToken, form);
-        setPackages((prev) => [...prev, created]);
-        toast.success(`Package "${created.name}" created.`);
-      }
+      const saved = editing
+        ? await updatePackage(accessToken, editing.id, form)
+        : await createPackage(accessToken, form);
+      const updated = await setPackagePrices(accessToken, saved.id, toCountryPricesPayload(prices));
+      setPackages((prev) =>
+        editing
+          ? prev.map((p) => (p.id === updated.id ? updated : p))
+          : [...prev, updated],
+      );
+      toast.success(`Package "${updated.name}" ${editing ? "updated" : "created"}.`);
       setOpen(false);
     } catch (err) {
       toast.error(err instanceof ApiError ? err.message : "Failed to save package.");
@@ -105,9 +118,16 @@ export default function AdminCatalogPackagesPage() {
   const columns: ColumnDef<AdminPackage>[] = [
     { accessorKey: "name", header: "Name" },
     {
-      accessorKey: "price",
+      accessorKey: "prices",
       header: "Price",
-      cell: ({ row }) => row.original.price ?? <span className="text-muted-foreground">Unset</span>,
+      cell: ({ row }) => (
+        <span className="text-sm">
+          {SUPPORTED_COUNTRIES.map((code) => {
+            const price = row.original.prices.find((p) => p.country === code)?.price;
+            return `${code.toUpperCase()} ${price ?? "—"}`;
+          }).join(" · ")}
+        </span>
+      ),
     },
     {
       accessorKey: "status",
@@ -159,14 +179,7 @@ export default function AdminCatalogPackagesPage() {
                 <Label htmlFor="name">Name</Label>
                 <Input id="name" value={form.name} onChange={(e) => setForm({ ...form, name: e.target.value })} />
               </div>
-              <div className="flex flex-col gap-1">
-                <Label htmlFor="price">Price</Label>
-                <Input
-                  id="price"
-                  value={form.price}
-                  onChange={(e) => setForm({ ...form, price: e.target.value })}
-                />
-              </div>
+              <CountryPricesField prices={prices} onChange={setPrices} />
               <div className="flex flex-col gap-1">
                 <Label htmlFor="status">Status</Label>
                 <Select

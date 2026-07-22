@@ -8,6 +8,12 @@ import { Button } from "@/components/ui/button";
 import { ServiceFormFields } from "@/components/admin/service-form-fields";
 import { ServiceItemsField } from "@/components/admin/service-items-field";
 import { ServicePackagesField } from "@/components/admin/service-packages-field";
+import {
+  EMPTY_COUNTRY_PRICES,
+  CountryPricesField,
+  CountryPricesForm,
+  toCountryPricesPayload,
+} from "@/components/admin/country-prices-field";
 import { ApiError } from "@/lib/auth-context";
 import type { CatalogItem } from "@/lib/catalog-api";
 import {
@@ -18,13 +24,13 @@ import {
   listPackagesAdmin,
   setServiceItems,
   setServicePackages,
+  setServicePrices,
 } from "@/lib/admin-catalog-api";
 import { useStaffAuth } from "@/lib/staff-auth-context";
 
 const emptyForm: CreateServicePayload = {
   name: "",
   label: "",
-  price: "",
   status: "active",
   category: "property_care",
   description: "",
@@ -35,6 +41,7 @@ export default function AddServicePage() {
   const router = useRouter();
   const { accessToken } = useStaffAuth();
   const [form, setForm] = useState<CreateServicePayload>(emptyForm);
+  const [prices, setPrices] = useState<CountryPricesForm>(EMPTY_COUNTRY_PRICES);
   const [allPackages, setAllPackages] = useState<AdminPackage[]>([]);
   const [packageIds, setPackageIds] = useState<number[]>([]);
   const [allItems, setAllItems] = useState<CatalogItem[]>([]);
@@ -56,6 +63,7 @@ export default function AddServicePage() {
     setSaving(true);
     try {
       const created = await createService(accessToken, form);
+      await setServicePrices(accessToken, created.id, toCountryPricesPayload(prices));
       if (packageIds.length > 0) {
         await setServicePackages(accessToken, created.id, packageIds);
       }
@@ -81,6 +89,8 @@ export default function AddServicePage() {
       </div>
 
       <ServiceFormFields form={form} onChange={setForm} />
+
+      <CountryPricesField prices={prices} onChange={setPrices} label="Hourly rate by country" />
 
       <ServicePackagesField
         allPackages={allPackages}

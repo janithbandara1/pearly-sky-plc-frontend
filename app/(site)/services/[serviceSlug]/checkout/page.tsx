@@ -26,6 +26,7 @@ import {
   getMyProfile,
   listMyAddresses,
 } from "@/lib/customers-api";
+import { useCountry } from "@/lib/countries/country-context";
 
 const poppins = Poppins({ subsets: ["latin"], weight: ["400", "500", "600", "700", "800"] });
 
@@ -59,6 +60,7 @@ export default function CheckoutPage({
   const router = useRouter();
   const { status, accessToken } = useAuth();
   const isAuthenticated = status === "authenticated";
+  const { country: currentCountry } = useCountry();
 
   const [draft, setDraft] = useState<BookingDraft | null>(null);
   const [draftChecked, setDraftChecked] = useState(false);
@@ -88,19 +90,19 @@ export default function CheckoutPage({
   }, [serviceSlug, router]);
 
   useEffect(() => {
-    getServiceBySlug(serviceSlug)
+    getServiceBySlug(serviceSlug, currentCountry)
       .then(setService)
       .catch(() => undefined);
-  }, [serviceSlug]);
+  }, [serviceSlug, currentCountry]);
 
   useEffect(() => {
     if (!draft) return;
     setQuoteLoading(true);
-    getServiceQuote(draft.serviceId, draft.propertySizeSqm)
+    getServiceQuote(draft.serviceId, draft.propertySizeSqm, currentCountry)
       .then(setQuote)
       .catch(() => setQuote({ bookable: false }))
       .finally(() => setQuoteLoading(false));
-  }, [draft]);
+  }, [draft, currentCountry]);
 
   const loadCustomerData = useCallback(async () => {
     if (!accessToken) return;

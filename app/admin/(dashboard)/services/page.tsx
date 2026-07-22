@@ -12,6 +12,7 @@ import { ConfirmDeleteDialog } from "@/components/admin/confirm-delete-dialog";
 import { ApiError } from "@/lib/auth-context";
 import type { CatalogService } from "@/lib/catalog-api";
 import { deleteService, listServicesAdmin } from "@/lib/admin-catalog-api";
+import { SUPPORTED_COUNTRIES } from "@/lib/countries/config";
 import { useStaffAuth } from "@/lib/staff-auth-context";
 
 export default function AdminServicesPage() {
@@ -50,9 +51,16 @@ export default function AdminServicesPage() {
       cell: ({ row }) => row.original.category.replace("_", " "),
     },
     {
-      accessorKey: "price",
+      accessorKey: "prices",
       header: "Hourly rate",
-      cell: ({ row }) => row.original.price ?? <span className="text-muted-foreground">Unset</span>,
+      cell: ({ row }) => (
+        <span className="text-sm">
+          {SUPPORTED_COUNTRIES.map((code) => {
+            const price = row.original.prices.find((p) => p.country === code)?.price;
+            return `${code.toUpperCase()} ${price ?? "—"}`;
+          }).join(" · ")}
+        </span>
+      ),
     },
     {
       accessorKey: "status",

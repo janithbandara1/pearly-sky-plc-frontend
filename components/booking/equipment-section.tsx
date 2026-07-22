@@ -97,7 +97,7 @@ export function EquipmentSection({
           <div className="grid grid-cols-1 gap-2.5 sm:grid-cols-2">
             {items.map((item) => {
               const isChecked = selectedItemIds.has(item.id);
-              const price = Number(item.price);
+              const price = item.price !== null ? Number(item.price) : NaN;
               const isDisabled = supplySource !== "company" && !isChecked;
               return (
                 <button

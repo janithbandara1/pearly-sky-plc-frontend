@@ -20,6 +20,7 @@ import {
   getServiceQuote,
   SizeQuote,
 } from "@/lib/catalog-api";
+import { useCountry } from "@/lib/countries/country-context";
 
 const poppins = Poppins({ subsets: ["latin"], weight: ["400", "500", "600", "700", "800"] });
 
@@ -30,6 +31,7 @@ export default function BookServicePage({
 }) {
   const { serviceSlug } = use(params);
   const router = useRouter();
+  const { country } = useCountry();
 
   const [service, setService] = useState<CatalogServiceDetail | null>(null);
   const [serviceError, setServiceError] = useState<string | null>(null);
@@ -50,17 +52,17 @@ export default function BookServicePage({
   const [submitting, setSubmitting] = useState(false);
 
   useEffect(() => {
-    getServiceBySlug(serviceSlug)
+    getServiceBySlug(serviceSlug, country)
       .then(setService)
       .catch((err) => setServiceError(err instanceof ApiError ? err.message : "Service not found."));
-  }, [serviceSlug]);
+  }, [serviceSlug, country]);
 
   useEffect(() => {
     if (!service) return;
     let cancelled = false;
     const timer = setTimeout(() => {
       setQuoteLoading(true);
-      getServiceQuote(service.id, propertySizeSqm)
+      getServiceQuote(service.id, propertySizeSqm, country)
         .then((q) => {
           if (!cancelled) setQuote(q);
         })
@@ -75,7 +77,7 @@ export default function BookServicePage({
       cancelled = true;
       clearTimeout(timer);
     };
-  }, [service, propertySizeSqm]);
+  }, [service, propertySizeSqm, country]);
 
   function togglePackage(id: number) {
     setSelectedPackageIds((prev) => {
