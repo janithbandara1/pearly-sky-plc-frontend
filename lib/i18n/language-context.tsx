@@ -1,10 +1,14 @@
 "use client";
 
-import { createContext, useContext, useEffect, useState, type ReactNode } from "react";
+import { createContext, useContext, useMemo, type ReactNode } from "react";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import { extractCountryPrefix } from "@/lib/countries/geo";
 import { en, type TranslationKey } from "./dictionaries/en";
 import { fr } from "./dictionaries/fr";
+import { LANGUAGE_COOKIE_MAX_AGE, LANGUAGE_COOKIE_NAME, type LanguageCode } from "./config";
+import { extractLanguagePrefix } from "./geo";
 
-export type SupportedLanguage = "en" | "fr";
+export type SupportedLanguage = LanguageCode;
 
 export const SUPPORTED_LANGUAGES: { code: SupportedLanguage; label: string }[] = [
   { code: "en", label: "English" },
@@ -18,6 +22,7 @@ const dictionaries: Record<SupportedLanguage, Record<TranslationKey, string>> = 
 
 type LanguageContextType = {
   language: SupportedLanguage;
+  /** No-op when there's no country in the URL to pair a language segment with. */
   setLanguage: (language: SupportedLanguage) => void;
   translate: (key: TranslationKey) => string;
 };
@@ -28,34 +33,44 @@ const LanguageContext = createContext<LanguageContextType>({
   translate: (key) => key,
 });
 
-const STORAGE_KEY = "preferredLanguage";
+export function LanguageProvider({
+  language,
+  children,
+}: {
+  /** Resolved by proxy.ts for the current request; null on the unprefixed/global site. */
+  language: SupportedLanguage | null;
+  children: ReactNode;
+}) {
+  const router = useRouter();
+  const pathname = usePathname();
+  const searchParams = useSearchParams();
+  const resolvedLanguage = language ?? "en";
 
-export function LanguageProvider({ children }: { children: ReactNode }) {
-  const [language, setLanguageState] = useState<SupportedLanguage>("en");
+  const value = useMemo<LanguageContextType>(
+    () => ({
+      language: resolvedLanguage,
+      setLanguage: (next) => {
+        document.cookie = `${LANGUAGE_COOKIE_NAME}=${next}; path=/; max-age=${LANGUAGE_COOKIE_MAX_AGE}; samesite=lax`;
 
-  useEffect(() => {
-    const saved = localStorage.getItem(STORAGE_KEY);
-    if (saved === "en" || saved === "fr") {
-      setLanguageState(saved);
-      return;
-    }
-    const browserLang = navigator.language.split("-")[0];
-    if (browserLang === "fr") setLanguageState("fr");
-  }, []);
+        const country = extractCountryPrefix(pathname);
+        if (!country) return;
 
-  const setLanguage = (next: SupportedLanguage) => {
-    setLanguageState(next);
-    localStorage.setItem(STORAGE_KEY, next);
-    document.documentElement.lang = next;
-  };
+        const languagePrefixed = extractLanguagePrefix(country.rest);
+        const unprefixedPath = languagePrefixed ? languagePrefixed.rest : country.rest;
+        const search = searchParams.toString();
 
-  const translate = (key: TranslationKey): string => dictionaries[language][key] ?? key;
+        const prefix = `/${country.country}/${next}`;
+        const target = unprefixedPath === "/" ? prefix : `${prefix}${unprefixedPath}`;
 
-  return (
-    <LanguageContext.Provider value={{ language, setLanguage, translate }}>
-      {children}
-    </LanguageContext.Provider>
+        router.push(`${target}${search ? `?${search}` : ""}`);
+        router.refresh();
+      },
+      translate: (key: TranslationKey) => dictionaries[resolvedLanguage][key] ?? key,
+    }),
+    [resolvedLanguage, pathname, router, searchParams],
   );
+
+  return <LanguageContext.Provider value={value}>{children}</LanguageContext.Provider>;
 }
 
 export const useLanguage = () => useContext(LanguageContext);

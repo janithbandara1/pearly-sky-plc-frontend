@@ -5,6 +5,7 @@ import Link from "next/link";
 import { getServices } from "@/lib/catalog-api";
 import type { CatalogService } from "@/lib/catalog-api";
 import { useLanguage } from "@/lib/i18n/language-context";
+import { useCountry } from "@/lib/countries/country-context";
 
 // Mirrors the backend's PRICING_TABLES registry — kept in sync with
 // components/home/services-section.tsx and app/services/page.tsx.
@@ -23,13 +24,14 @@ const BOOKABLE_SERVICES = new Set([
 ]);
 
 export function useCatalogServices() {
+  const { country } = useCountry();
   const [services, setServices] = useState<CatalogService[]>([]);
 
   useEffect(() => {
-    getServices()
+    getServices(country)
       .then((data) => setServices(data.filter((s) => s.status === "active")))
       .catch(() => setServices([]));
-  }, []);
+  }, [country]);
 
   return services;
 }

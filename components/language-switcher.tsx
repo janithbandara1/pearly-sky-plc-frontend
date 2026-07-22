@@ -1,32 +1,37 @@
 "use client";
 
+import { Globe } from "lucide-react";
 import { SUPPORTED_LANGUAGES, useLanguage } from "@/lib/i18n/language-context";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import { cn } from "@/lib/utils";
 
 export function LanguageSwitcher({ className }: { className?: string }) {
   const { language, setLanguage } = useLanguage();
 
   return (
-    <div className={cn("flex items-center gap-1 text-sm", className)}>
-      {SUPPORTED_LANGUAGES.map(({ code, label }, index) => (
-        <div key={code} className="flex items-center gap-1">
-          {index > 0 && <span className="text-muted-foreground">/</span>}
-          <button
-            type="button"
-            onClick={() => setLanguage(code)}
-            aria-current={language === code}
-            className={cn(
-              "rounded px-1 font-medium transition-colors",
-              language === code
-                ? "text-brand-gold"
-                : "text-muted-foreground hover:text-foreground",
-            )}
-          >
-            {code.toUpperCase()}
-          </button>
-          <span className="sr-only">{label}</span>
-        </div>
-      ))}
-    </div>
+    <Select value={language} onValueChange={(value) => setLanguage(value as typeof language)}>
+      <SelectTrigger
+        className={cn(
+          "h-9 gap-2 rounded-md border-white/15 bg-white/5 px-3 py-1.5 text-brand-navy-foreground hover:border-brand-gold/50 data-[state=open]:border-brand-gold/50 [&_svg]:text-brand-navy-foreground/60",
+          className,
+        )}
+      >
+        <Globe className="h-4 w-4 shrink-0" />
+        <SelectValue />
+      </SelectTrigger>
+      <SelectContent>
+        {SUPPORTED_LANGUAGES.map(({ code, label }) => (
+          <SelectItem key={code} value={code}>
+            {label}
+          </SelectItem>
+        ))}
+      </SelectContent>
+    </Select>
   );
 }

@@ -6,7 +6,6 @@ import Link from "next/link";
 import { Menu } from "lucide-react";
 import { useAuth } from "@/lib/auth-context";
 import { useLanguage } from "@/lib/i18n/language-context";
-import { LanguageSwitcher } from "@/components/language-switcher";
 import { ServicesNavList } from "@/components/services-nav-list";
 import { Button } from "@/components/ui/button";
 import {
@@ -87,7 +86,6 @@ export function SiteHeader() {
         </NavigationMenu>
 
         <div className="flex items-center gap-2 sm:gap-3">
-          <LanguageSwitcher />
           {status === "authenticated" ? (
             <>
               <Button

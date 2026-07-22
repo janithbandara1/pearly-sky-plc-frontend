@@ -8,6 +8,8 @@ import { CoverageStrip } from "@/components/home/coverage-strip";
 import { SectorsMarquee } from "@/components/home/sectors-marquee";
 import { Testimonials } from "@/components/home/testimonials";
 import { ContactSection } from "@/components/home/contact-section";
+import { buildCountryAlternates } from "@/lib/countries/seo";
+import { getRequestCountry } from "@/lib/countries/server";
 
 export const dynamic = "force-dynamic";
 
@@ -15,10 +17,12 @@ export const metadata: Metadata = {
   title: "Pearly Sky | Eco-Luxury Home & Office Cleaning in France",
   description:
     "Experience premium, eco-friendly luxury cleaning services for elite residences and offices across France. Request an instant bespoke quote from Pearly Sky today.",
+  alternates: buildCountryAlternates("/"),
 };
 
 export default async function Home() {
-  const services = await getServices();
+  const country = await getRequestCountry();
+  const services = await getServices(country);
 
   return (
     <main className="flex-1">

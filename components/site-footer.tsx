@@ -7,6 +7,8 @@ import {
 import { FaFacebookF, FaYoutube, FaLinkedinIn } from "react-icons/fa";
 import { RiTwitterXFill } from "react-icons/ri";
 import { useLanguage } from "@/lib/i18n/language-context";
+import { LanguageSwitcher } from "@/components/language-switcher";
+import { CountrySwitcher } from "@/components/country-switcher";
 
 const SOCIAL_LINKS = [
   { href: "https://www.tiktok.com", label: "TikTok", Icon: AiOutlineTikTok },
@@ -22,6 +24,13 @@ export function SiteFooter() {
 
   return (
     <footer className="border-t border-border/60 bg-brand-navy text-brand-navy-foreground">
+      <div className="flex justify-center border-b border-brand-gold/20 px-4 py-3 sm:px-6">
+        <div className="flex flex-wrap items-center gap-3">
+          <LanguageSwitcher />
+          <CountrySwitcher />
+        </div>
+      </div>
+
       <div className="mx-auto flex w-full max-w-7xl flex-col gap-6 px-4 py-10 sm:px-6 md:flex-row md:items-start md:justify-between">
         <div className="space-y-2">
           <span className="text-lg font-semibold tracking-wide">Pearly Sky</span>

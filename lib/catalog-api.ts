@@ -43,8 +43,8 @@ export interface CatalogItem {
   image: string | null;
 }
 
-export function getServices() {
-  return apiFetch<CatalogService[]>("/catalog/services");
+export function getServices(country?: string | null) {
+  return apiFetch<CatalogService[]>("/catalog/services", { country });
 }
 
 export function getService(id: number) {
