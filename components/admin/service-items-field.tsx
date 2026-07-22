@@ -3,6 +3,16 @@
 import { Checkbox } from "@/components/ui/checkbox";
 import { Label } from "@/components/ui/label";
 import type { CatalogItem } from "@/lib/catalog-api";
+import { SUPPORTED_COUNTRIES } from "@/lib/countries/config";
+
+function priceSummary(prices: CatalogItem["prices"]): string | null {
+  const set = prices.filter((p) => p.price !== null);
+  if (set.length === 0) return null;
+  return SUPPORTED_COUNTRIES.map((code) => {
+    const price = prices.find((p) => p.country === code)?.price;
+    return `${code.toUpperCase()} ${price ?? "—"}`;
+  }).join(" · ");
+}
 
 interface ServiceItemsFieldProps {
   allItems: CatalogItem[];
@@ -28,7 +38,9 @@ export function ServiceItemsField({ allItems, selectedIds, onChange }: ServiceIt
               }
             />
             {item.name}
-            {item.price && <span className="text-muted-foreground">+€{item.price}</span>}
+            {priceSummary(item.prices) && (
+              <span className="text-muted-foreground">{priceSummary(item.prices)}</span>
+            )}
           </label>
         ))}
         {allItems.length === 0 && (

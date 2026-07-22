@@ -4,6 +4,7 @@ import { getRequestCountry } from "@/lib/countries/server";
 import { CountryProvider } from "@/lib/countries/country-context";
 import { getRequestLanguage } from "@/lib/i18n/server";
 import { LanguageProvider } from "@/lib/i18n/language-context";
+import { CurrencyProvider } from "@/lib/currency-context";
 
 export default async function SiteLayout({
   children,
@@ -14,11 +15,13 @@ export default async function SiteLayout({
 
   return (
     <CountryProvider country={country}>
-      <LanguageProvider language={language}>
-        <SiteHeader />
-        <div className="flex flex-1 flex-col">{children}</div>
-        <SiteFooter />
-      </LanguageProvider>
+      <CurrencyProvider>
+        <LanguageProvider language={language}>
+          <SiteHeader />
+          <div className="flex flex-1 flex-col">{children}</div>
+          <SiteFooter />
+        </LanguageProvider>
+      </CurrencyProvider>
     </CountryProvider>
   );
 }

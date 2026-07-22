@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import { ChevronDown } from "lucide-react";
 import type { CatalogItem } from "@/lib/catalog-api";
+import { useCurrency } from "@/lib/currency-context";
 
 export type SupplySource = "" | "customer" | "company";
 
@@ -78,6 +79,8 @@ export function EquipmentSection({
   selectedItemIds,
   onToggleItem,
 }: EquipmentSectionProps) {
+  const { symbol } = useCurrency();
+
   return (
     <section className="overflow-hidden rounded-[10px] bg-[#C7D1D9]">
       <div className="bg-[#121E2D] px-5 py-3.5 text-center">
@@ -116,7 +119,7 @@ export function EquipmentSection({
                 >
                   <div className="min-w-0 flex-1">
                     <p className="truncate text-sm font-medium text-[#121E2D]">{item.name}</p>
-                    {!Number.isNaN(price) && <p className="text-xs text-[#555]">Price: €{price.toFixed(2)}</p>}
+                    {!Number.isNaN(price) && <p className="text-xs text-[#555]">Price: {symbol}{price.toFixed(2)}</p>}
                   </div>
                   <span
                     className={`shrink-0 rounded-[6px] border-[1.5px] border-[#A98B4B] px-2.5 py-1 text-xs font-semibold ${

@@ -1,6 +1,7 @@
 "use client";
 
 import type { ServiceAddOnPackage } from "@/lib/catalog-api";
+import { useCurrency } from "@/lib/currency-context";
 
 export interface JobCardSectionProps {
   packages: ServiceAddOnPackage[];
@@ -9,6 +10,8 @@ export interface JobCardSectionProps {
 }
 
 export function JobCardSection({ packages, selectedIds, onToggle }: JobCardSectionProps) {
+  const { symbol } = useCurrency();
+
   return (
     <section className="rounded-[10px] bg-[#f5f5f5] px-4 py-6 sm:px-6">
       <p className="mx-auto mb-4 max-w-[1150px] px-4 text-center text-[24px] font-semibold text-[#121E2D]">
@@ -39,7 +42,7 @@ export function JobCardSection({ packages, selectedIds, onToggle }: JobCardSecti
                 <div className="min-w-0 flex-1">
                   <p className="truncate text-sm font-medium text-[#121E2D]">{pkg.name}</p>
                   {price !== null && !Number.isNaN(price) && (
-                    <p className="text-xs text-[#555]">Price: €{price.toFixed(2)}</p>
+                    <p className="text-xs text-[#555]">Price: {symbol}{price.toFixed(2)}</p>
                   )}
                 </div>
                 <span

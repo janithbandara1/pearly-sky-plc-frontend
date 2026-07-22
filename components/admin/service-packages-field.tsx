@@ -3,6 +3,16 @@
 import { Checkbox } from "@/components/ui/checkbox";
 import { Label } from "@/components/ui/label";
 import type { AdminPackage } from "@/lib/admin-catalog-api";
+import { SUPPORTED_COUNTRIES } from "@/lib/countries/config";
+
+function priceSummary(prices: AdminPackage["prices"]): string | null {
+  const set = prices.filter((p) => p.price !== null);
+  if (set.length === 0) return null;
+  return SUPPORTED_COUNTRIES.map((code) => {
+    const price = prices.find((p) => p.country === code)?.price;
+    return `${code.toUpperCase()} ${price ?? "—"}`;
+  }).join(" · ");
+}
 
 interface ServicePackagesFieldProps {
   allPackages: AdminPackage[];
@@ -32,7 +42,9 @@ export function ServicePackagesField({
               }
             />
             {pkg.name}
-            {pkg.price && <span className="text-muted-foreground">+€{pkg.price}</span>}
+            {priceSummary(pkg.prices) && (
+              <span className="text-muted-foreground">{priceSummary(pkg.prices)}</span>
+            )}
           </label>
         ))}
         {allPackages.length === 0 && (

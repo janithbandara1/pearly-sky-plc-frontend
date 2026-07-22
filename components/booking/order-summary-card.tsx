@@ -7,15 +7,12 @@ import type { SupplySource } from "@/components/booking/equipment-section";
 import type { BookingDraftItem, BookingDraftPackage } from "@/lib/booking-draft";
 import type { BookingFrequency } from "@/lib/booking-api";
 import type { SizeQuote } from "@/lib/catalog-api";
+import { useCurrency } from "@/lib/currency-context";
 
 function formatHM(hours: number): string {
   const h = Math.floor(hours);
   const m = Math.round((hours - h) * 60);
   return m === 0 ? `${h}h` : `${h}h ${m}m`;
-}
-
-function money(n: number): string {
-  return `€${n.toFixed(2)}`;
 }
 
 const SUPPLY_SOURCE_LABEL: Record<Exclude<SupplySource, "">, string> = {
@@ -58,6 +55,9 @@ export function OrderSummaryCard({
   submitting,
   bookDisabledReason,
 }: OrderSummaryCardProps) {
+  const { symbol } = useCurrency();
+  const money = (n: number) => `${symbol}${n.toFixed(2)}`;
+
   const hasDuration = quote?.bookable && quote.minHours !== undefined && quote.maxHours !== undefined;
   const hasPrice = hasDuration && quote?.priceMin != null && quote?.priceMax != null;
   const estimatedMin = hasPrice ? (quote!.priceMin as number) + addOnsTotal : null;

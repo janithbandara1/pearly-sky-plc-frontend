@@ -3,15 +3,12 @@
 import type { ReactNode } from "react";
 import { Button } from "@/components/ui/button";
 import type { SizeQuote } from "@/lib/catalog-api";
+import { useCurrency } from "@/lib/currency-context";
 
 function formatHM(hours: number): string {
   const h = Math.floor(hours);
   const m = Math.round((hours - h) * 60);
   return m === 0 ? `${h}h` : `${h}h ${m}m`;
-}
-
-function money(n: number): string {
-  return `€${n.toFixed(2)}`;
 }
 
 export interface SelectedServicesSummaryProps {
@@ -33,6 +30,9 @@ export function SelectedServicesSummary({
   submitting,
   bookDisabledReason,
 }: SelectedServicesSummaryProps) {
+  const { symbol } = useCurrency();
+  const money = (n: number) => `${symbol}${n.toFixed(2)}`;
+
   const hasDuration = quote?.bookable && quote.minHours !== undefined && quote.maxHours !== undefined;
   const hasPrice = hasDuration && quote?.priceMin != null && quote?.priceMax != null;
   const cleanerCount = quote?.cleanerCount ?? 1;
