@@ -36,6 +36,8 @@ export const fr: Record<TranslationKey, string> = {
   servicesComingSoon: "Bientôt disponible",
   servicesPricingSoon: "Tarif à venir",
   servicesPricePerCleaner: "/h par nettoyeur",
+  servicesSeeMore: "Voir plus",
+  servicesSeeLess: "Voir moins",
   servicesCategoryPropertyCare: "GESTION & ENTRETIEN DE PROPRIÉTÉ",
   servicesCategoryBespokeLifestyle: "CURATION BIEN-ÊTRE & STYLE DE VIE SUR MESURE",
 

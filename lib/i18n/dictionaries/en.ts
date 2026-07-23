@@ -34,6 +34,8 @@ export const en = {
   servicesComingSoon: "Coming soon",
   servicesPricingSoon: "Pricing coming soon",
   servicesPricePerCleaner: "/h per cleaner",
+  servicesSeeMore: "See more",
+  servicesSeeLess: "See less",
   servicesCategoryPropertyCare: "PROPERTY CARE & MANAGEMENT",
   servicesCategoryBespokeLifestyle: "BESPOKE LIFESTYLE & WELLNESS CURATION",
 

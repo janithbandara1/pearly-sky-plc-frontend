@@ -2,7 +2,8 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowRight } from "lucide-react";
+import { useState } from "react";
+import { ArrowRight, ChevronDown, ChevronUp } from "lucide-react";
 import type { CatalogService, ServiceCategory } from "@/lib/catalog-api";
 import { useCurrency } from "@/lib/currency-context";
 import { useLanguage } from "@/lib/i18n/language-context";
@@ -25,8 +26,8 @@ const BOOKABLE_SERVICES = new Set([
   "post-event-cleaning",
 ]);
 
-const CATEGORIES: { key: ServiceCategory; headingKey: TranslationKey }[] = [
-  { key: "property_care", headingKey: "servicesCategoryPropertyCare" },
+const CATEGORIES: { key: ServiceCategory; headingKey: TranslationKey; limit?: number }[] = [
+  { key: "property_care", headingKey: "servicesCategoryPropertyCare", limit: 4 },
   { key: "bespoke_lifestyle", headingKey: "servicesCategoryBespokeLifestyle" },
 ];
 
@@ -83,6 +84,36 @@ function ServiceCard({ service }: { service: CatalogService }) {
   );
 }
 
+function CategoryGrid({ services, limit }: { services: CatalogService[]; limit?: number }) {
+  const { translate } = useLanguage();
+  const [expanded, setExpanded] = useState(false);
+
+  const canCollapse = limit !== undefined && services.length > limit;
+  const visible = canCollapse && !expanded ? services.slice(0, limit) : services;
+
+  return (
+    <>
+      <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+        {visible.map((service) => (
+          <ServiceCard key={service.id} service={service} />
+        ))}
+      </div>
+      {canCollapse && (
+        <div className="mt-6 flex justify-center">
+          <button
+            type="button"
+            onClick={() => setExpanded((prev) => !prev)}
+            className="flex items-center gap-1.5 rounded-full border border-brand-gold px-5 py-2 text-sm font-semibold text-brand-gold transition-colors hover:bg-brand-gold/10"
+          >
+            {translate(expanded ? "servicesSeeLess" : "servicesSeeMore")}
+            {expanded ? <ChevronUp className="h-4 w-4" /> : <ChevronDown className="h-4 w-4" />}
+          </button>
+        </div>
+      )}
+    </>
+  );
+}
+
 export function ServicesSection({ services }: { services: CatalogService[] }) {
   const { translate } = useLanguage();
   const active = services.filter((service) => service.status === "active");
@@ -96,7 +127,7 @@ export function ServicesSection({ services }: { services: CatalogService[] }) {
           </h2>
         </div>
 
-        {CATEGORIES.map(({ key, headingKey }) => {
+        {CATEGORIES.map(({ key, headingKey, limit }) => {
           const categoryServices = active.filter((service) => service.category === key);
           if (categoryServices.length === 0) return null;
 
@@ -105,11 +136,7 @@ export function ServicesSection({ services }: { services: CatalogService[] }) {
               <h3 className="mb-6 text-center text-xl font-bold tracking-tight text-brand-navy-foreground sm:text-2xl">
                 {translate(headingKey)}
               </h3>
-              <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
-                {categoryServices.map((service) => (
-                  <ServiceCard key={service.id} service={service} />
-                ))}
-              </div>
+              <CategoryGrid services={categoryServices} limit={limit} />
             </div>
           );
         })}
