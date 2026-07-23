@@ -4,7 +4,6 @@ import { ColumnDef } from "@tanstack/react-table";
 import { Pencil, Trash2 } from "lucide-react";
 import { useCallback, useEffect, useState } from "react";
 import { toast } from "sonner";
-import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -16,13 +15,6 @@ import {
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
 import { DataTable } from "@/components/admin/data-table";
 import { ConfirmDeleteDialog } from "@/components/admin/confirm-delete-dialog";
 import {
@@ -33,7 +25,6 @@ import {
   toCountryPricesPayload,
 } from "@/components/admin/country-prices-field";
 import { ApiError } from "@/lib/auth-context";
-import { SUPPORTED_COUNTRIES } from "@/lib/countries/config";
 import {
   AdminPackage,
   CreatePackagePayload,
@@ -45,7 +36,7 @@ import {
 } from "@/lib/admin-catalog-api";
 import { useStaffAuth } from "@/lib/staff-auth-context";
 
-const emptyForm: CreatePackagePayload = { name: "", status: "active" };
+const emptyForm: CreatePackagePayload = { name: "", image: "" };
 
 export default function AdminCatalogPackagesPage() {
   const { accessToken } = useStaffAuth();
@@ -77,7 +68,7 @@ export default function AdminCatalogPackagesPage() {
 
   function openEdit(pkg: AdminPackage) {
     setEditing(pkg);
-    setForm({ name: pkg.name, status: pkg.status });
+    setForm({ name: pkg.name, image: pkg.image ?? "" });
     setPrices(fromCountryPricesPayload(pkg.prices));
     setOpen(true);
   }
@@ -117,27 +108,6 @@ export default function AdminCatalogPackagesPage() {
 
   const columns: ColumnDef<AdminPackage>[] = [
     { accessorKey: "name", header: "Name" },
-    {
-      accessorKey: "prices",
-      header: "Price",
-      cell: ({ row }) => (
-        <span className="text-sm">
-          {SUPPORTED_COUNTRIES.map((code) => {
-            const price = row.original.prices.find((p) => p.country === code)?.price;
-            return `${code.toUpperCase()} ${price ?? "—"}`;
-          }).join(" · ")}
-        </span>
-      ),
-    },
-    {
-      accessorKey: "status",
-      header: "Status",
-      cell: ({ row }) => (
-        <Badge variant={row.original.status === "active" ? "default" : "outline"}>
-          {row.original.status}
-        </Badge>
-      ),
-    },
     {
       id: "actions",
       header: "",
@@ -181,21 +151,12 @@ export default function AdminCatalogPackagesPage() {
               </div>
               <CountryPricesField prices={prices} onChange={setPrices} />
               <div className="flex flex-col gap-1">
-                <Label htmlFor="status">Status</Label>
-                <Select
-                  value={form.status}
-                  onValueChange={(value) =>
-                    setForm({ ...form, status: value as CreatePackagePayload["status"] })
-                  }
-                >
-                  <SelectTrigger id="status">
-                    <SelectValue />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="active">Active</SelectItem>
-                    <SelectItem value="inactive">Inactive</SelectItem>
-                  </SelectContent>
-                </Select>
+                <Label htmlFor="image">Image URL</Label>
+                <Input
+                  id="image"
+                  value={form.image}
+                  onChange={(e) => setForm({ ...form, image: e.target.value })}
+                />
               </div>
             </div>
             <DialogFooter>

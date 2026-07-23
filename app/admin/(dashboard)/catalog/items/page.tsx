@@ -15,6 +15,13 @@ import {
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import { DataTable } from "@/components/admin/data-table";
 import { ConfirmDeleteDialog } from "@/components/admin/confirm-delete-dialog";
 import {
@@ -26,7 +33,6 @@ import {
 } from "@/components/admin/country-prices-field";
 import { ApiError } from "@/lib/auth-context";
 import type { CatalogItem } from "@/lib/catalog-api";
-import { SUPPORTED_COUNTRIES } from "@/lib/countries/config";
 import {
   CreateItemPayload,
   createItem,
@@ -36,6 +42,8 @@ import {
   updateItem,
 } from "@/lib/admin-catalog-api";
 import { useStaffAuth } from "@/lib/staff-auth-context";
+
+const ITEM_TYPES = ["Cleaning Solvents", "Cleaning Equipments"] as const;
 
 const emptyForm: CreateItemPayload = { name: "", sku: "", type: "", image: "" };
 
@@ -110,18 +118,6 @@ export default function AdminCatalogItemsPage() {
     { accessorKey: "sku", header: "SKU" },
     { accessorKey: "type", header: "Type" },
     {
-      accessorKey: "prices",
-      header: "Price",
-      cell: ({ row }) => (
-        <span className="text-sm">
-          {SUPPORTED_COUNTRIES.map((code) => {
-            const price = row.original.prices.find((p) => p.country === code)?.price;
-            return `${code.toUpperCase()} ${price ?? "—"}`;
-          }).join(" · ")}
-        </span>
-      ),
-    },
-    {
       id: "actions",
       header: "",
       cell: ({ row }) => (
@@ -168,7 +164,21 @@ export default function AdminCatalogItemsPage() {
               </div>
               <div className="flex flex-col gap-1">
                 <Label htmlFor="type">Type</Label>
-                <Input id="type" value={form.type} onChange={(e) => setForm({ ...form, type: e.target.value })} />
+                <Select
+                  value={form.type}
+                  onValueChange={(value) => setForm({ ...form, type: value })}
+                >
+                  <SelectTrigger id="type">
+                    <SelectValue placeholder="Select a type" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {ITEM_TYPES.map((type) => (
+                      <SelectItem key={type} value={type}>
+                        {type}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
               </div>
               <div className="col-span-2">
                 <CountryPricesField prices={prices} onChange={setPrices} />

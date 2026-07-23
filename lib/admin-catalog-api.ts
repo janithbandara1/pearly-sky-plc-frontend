@@ -10,10 +10,10 @@ import type {
 export interface AdminPackage {
   id: number;
   name: string;
+  image: string | null;
   /** Resolved for the request's country; null if unset or no country. */
   price: string | null;
   prices: ServicePriceEntry[];
-  status: "active" | "inactive";
 }
 
 export interface AdminJobType {
@@ -51,7 +51,7 @@ export interface ServicePriceInput {
 
 export interface CreatePackagePayload {
   name: string;
-  status?: "active" | "inactive";
+  image?: string;
 }
 export type UpdatePackagePayload = Partial<CreatePackagePayload>;
 

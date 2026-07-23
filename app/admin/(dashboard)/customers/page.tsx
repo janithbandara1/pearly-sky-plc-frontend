@@ -1,7 +1,6 @@
 "use client";
 
 import { ColumnDef } from "@tanstack/react-table";
-import Link from "next/link";
 import { useCallback, useEffect, useState } from "react";
 import { Input } from "@/components/ui/input";
 import { DataTable } from "@/components/admin/data-table";
@@ -42,11 +41,7 @@ export default function AdminCustomersPage() {
     {
       id: "name",
       header: "Name",
-      cell: ({ row }) => (
-        <Link href={`/admin/customers/${row.original.id}`} className="hover:underline">
-          {row.original.firstName} {row.original.lastName ?? ""}
-        </Link>
-      ),
+      cell: ({ row }) => `${row.original.firstName} ${row.original.lastName ?? ""}`,
     },
     { accessorKey: "email", header: "Email" },
     {
