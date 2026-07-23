@@ -90,7 +90,7 @@ export function OrderSummaryCard({
             <SummaryRow
               key={pkg.name}
               label={pkg.name}
-              value={pkg.price !== null ? `+${money(pkg.price)}` : "Included"}
+              value={pkg.price !== null ? money(pkg.price) : "Included"}
             />
           ))}
           {items.length > 0 && (

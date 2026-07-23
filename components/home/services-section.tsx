@@ -4,6 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import type { CatalogService, ServiceCategory } from "@/lib/catalog-api";
+import { useCurrency } from "@/lib/currency-context";
 import { useLanguage } from "@/lib/i18n/language-context";
 import type { TranslationKey } from "@/lib/i18n/dictionaries/en";
 
@@ -31,6 +32,7 @@ const CATEGORIES: { key: ServiceCategory; headingKey: TranslationKey }[] = [
 
 function ServiceCard({ service }: { service: CatalogService }) {
   const { translate } = useLanguage();
+  const { symbol } = useCurrency();
 
   return (
     <div className="flex h-full flex-col overflow-hidden rounded-xl border-2 border-brand-gold bg-brand-navy shadow-md transition-transform duration-200 hover:scale-[1.03] hover:shadow-xl">
@@ -57,7 +59,9 @@ function ServiceCard({ service }: { service: CatalogService }) {
             </p>
           )}
           <p className="text-sm font-semibold text-brand-gold">
-            {service.price ? service.price : translate("servicesPricingSoon")}
+            {service.price
+              ? `${symbol}${service.price}${translate("servicesPricePerCleaner")}`
+              : translate("servicesPricingSoon")}
           </p>
         </div>
 

@@ -33,6 +33,7 @@ export const en = {
   servicesBookNow: "Schedule Service",
   servicesComingSoon: "Coming soon",
   servicesPricingSoon: "Pricing coming soon",
+  servicesPricePerCleaner: "/h per cleaner",
   servicesCategoryPropertyCare: "PROPERTY CARE & MANAGEMENT",
   servicesCategoryBespokeLifestyle: "BESPOKE LIFESTYLE & WELLNESS CURATION",
 
