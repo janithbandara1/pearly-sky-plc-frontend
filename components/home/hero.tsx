@@ -2,13 +2,16 @@
 
 import { useState } from "react";
 import Image from "next/image";
-import Link from "next/link";
 import Autoplay from "embla-carousel-autoplay";
 import { Carousel, CarouselContent, CarouselItem } from "@/components/ui/carousel";
 import { Button } from "@/components/ui/button";
 import { useLanguage } from "@/lib/i18n/language-context";
 
 const HERO_IMAGES = ["/images/hero/hero-1.webp", "/images/hero/hero-2.webp"];
+
+function scrollToId(id: string) {
+  document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
+}
 
 export function Hero() {
   const { translate } = useLanguage();
@@ -48,19 +51,11 @@ export function Hero() {
         </p>
         <div className="flex flex-wrap gap-3 pt-2">
           <Button
-            asChild
             size="lg"
+            onClick={() => scrollToId("services")}
             className="border-2 border-brand-gold bg-brand-navy text-brand-navy-foreground hover:bg-brand-navy/80"
           >
-            <Link href="#contact">{translate("heroCtaPrimary")}</Link>
-          </Button>
-          <Button
-            asChild
-            size="lg"
-            variant="outline"
-            className="border-2 border-brand-gold bg-brand-navy/40 text-brand-navy-foreground hover:bg-brand-navy/60"
-          >
-            <Link href="#services">{translate("heroCtaSecondary")}</Link>
+            {translate("heroCtaSecondary")}
           </Button>
         </div>
       </div>

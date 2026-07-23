@@ -19,7 +19,6 @@ export const en = {
   // Hero
   heroTitle: "PEARLY SKY",
   heroSubtitle: "Pearly Sky Eco-Luxury Home & Office Cleaning Services — France.",
-  heroCtaPrimary: "REQUEST SERVICE NOW",
   heroCtaSecondary: "VIEW OUR SERVICES",
 
   // Trust bar

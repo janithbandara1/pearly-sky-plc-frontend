@@ -21,7 +21,6 @@ export const fr: Record<TranslationKey, string> = {
   // Hero
   heroTitle: "PEARLY SKY",
   heroSubtitle: "Services de Nettoyage Éco-Luxe Pearly Sky pour Maisons et Bureaux — France.",
-  heroCtaPrimary: "DEMANDER UN SERVICE MAINTENANT",
   heroCtaSecondary: "VOIR NOS SERVICES",
 
   // Trust bar
