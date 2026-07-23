@@ -69,13 +69,13 @@ function ServiceCard({ service }: { service: CatalogService }) {
         {BOOKABLE_SERVICES.has(service.name) ? (
           <Link
             href={`/services/${service.name}`}
-            className="mt-2 flex w-full items-center justify-center gap-1.5 rounded-full border border-brand-gold px-4 py-2 text-xs font-semibold text-brand-gold transition-colors hover:bg-brand-gold/10"
+            className="mt-2 flex w-full items-center justify-center gap-1.5 rounded-lg bg-brand-gold px-4 py-2 text-xs font-semibold text-brand-navy transition-colors hover:bg-brand-gold/90"
           >
             {translate("servicesBookNow")}
             <ArrowRight className="h-3.5 w-3.5" />
           </Link>
         ) : (
-          <span className="mt-2 block w-full rounded-full border border-brand-navy-foreground/20 px-4 py-2 text-xs font-medium text-brand-navy-foreground/50">
+          <span className="mt-2 block w-full rounded-lg border border-brand-navy-foreground/20 px-4 py-2 text-xs font-medium text-brand-navy-foreground/50">
             {translate("servicesComingSoon")}
           </span>
         )}
@@ -103,7 +103,7 @@ function CategoryGrid({ services, limit }: { services: CatalogService[]; limit?:
           <button
             type="button"
             onClick={() => setExpanded((prev) => !prev)}
-            className="flex items-center gap-1.5 rounded-full border border-brand-gold px-5 py-2 text-sm font-semibold text-brand-gold transition-colors hover:bg-brand-gold/10"
+            className="flex items-center gap-1.5 rounded-lg border border-brand-gold px-5 py-2 text-sm font-semibold text-brand-gold transition-colors hover:bg-brand-gold/10"
           >
             {translate(expanded ? "servicesSeeLess" : "servicesSeeMore")}
             {expanded ? <ChevronUp className="h-4 w-4" /> : <ChevronDown className="h-4 w-4" />}
