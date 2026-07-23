@@ -10,6 +10,8 @@ export interface CreateBookingPayload {
   frequency: BookingFrequency;
   addressId?: number;
   note?: string;
+  /** Pricing country — the backend uses it to price the order for Stripe checkout. */
+  country?: string;
 }
 
 export interface BookingServiceDetails {
@@ -61,6 +63,8 @@ export interface CreateGuestBookingPayload {
   state?: string;
   country?: string;
   postalCode?: string;
+  /** Pricing country code (site selector) — separate from the free-text address country. */
+  pricingCountry?: string;
 }
 
 export function createGuestBooking(payload: CreateGuestBookingPayload) {
@@ -74,10 +78,21 @@ export function listMyBookings(accessToken: string) {
   return apiFetch<Booking[]>("/bookings", { accessToken });
 }
 
+export function getMyBooking(accessToken: string, bookingId: number) {
+  return apiFetch<Booking>(`/bookings/${bookingId}`, { accessToken });
+}
+
 export function initiateCheckout(accessToken: string, orderId: number) {
   return apiFetch<{ redirectUrl: string }>(`/payments/orders/${orderId}/checkout`, {
     method: "POST",
     accessToken,
     body: { provider: "stripe" },
+  });
+}
+
+export function initiateGuestCheckout(orderId: number, referenceNumber: string) {
+  return apiFetch<{ redirectUrl: string }>(`/payments/orders/${orderId}/checkout/guest`, {
+    method: "POST",
+    body: { provider: "stripe", referenceNumber },
   });
 }

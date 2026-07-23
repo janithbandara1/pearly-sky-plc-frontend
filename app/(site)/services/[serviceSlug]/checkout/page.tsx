@@ -10,7 +10,12 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { ApiError, useAuth } from "@/lib/auth-context";
-import { createBooking, createGuestBooking } from "@/lib/booking-api";
+import {
+  createBooking,
+  createGuestBooking,
+  initiateCheckout,
+  initiateGuestCheckout,
+} from "@/lib/booking-api";
 import { BookingDraft, clearBookingDraft, loadBookingDraft } from "@/lib/booking-draft";
 import {
   CatalogServiceDetail,
@@ -158,9 +163,17 @@ export default function CheckoutPage({
           frequency: draft.frequency,
           addressId: selectedAddressId ?? undefined,
           note: draft.note,
+          country: currentCountry ?? undefined,
         });
         clearBookingDraft();
-        router.push(`/dashboard?booked=${booking.referenceNumber}`);
+        try {
+          const { redirectUrl } = await initiateCheckout(accessToken, booking.id);
+          window.location.assign(redirectUrl);
+        } catch {
+          // Booking exists but payment couldn't start (e.g. no rate configured
+          // for this country) — land on the booking page in its pending state.
+          router.push(`/booking/${booking.id}?ref=${booking.referenceNumber}`);
+        }
       } else {
         const booking = await createGuestBooking({
           serviceId: draft.serviceId,
@@ -177,13 +190,22 @@ export default function CheckoutPage({
           city: addressForm.city.trim(),
           country: addressForm.country?.trim() || undefined,
           postalCode: addressForm.postalCode?.trim() || undefined,
+          pricingCountry: currentCountry ?? undefined,
         });
         clearBookingDraft();
-        router.push(`/booking-confirmation?ref=${booking.referenceNumber}`);
+        try {
+          const { redirectUrl } = await initiateGuestCheckout(
+            booking.id,
+            booking.referenceNumber,
+          );
+          window.location.assign(redirectUrl);
+        } catch {
+          router.push(`/booking-confirmation?ref=${booking.referenceNumber}`);
+        }
       }
+      // Keep `submitting` true — we're navigating away to Stripe or the booking page.
     } catch (err) {
       setError(err instanceof ApiError ? err.message : "Failed to create booking.");
-    } finally {
       setSubmitting(false);
     }
   }
