@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import {
@@ -7,7 +8,6 @@ import {
   ClipboardList,
   Users,
   UserCog,
-  ShieldCheck,
   Layers,
   CreditCard,
   LogOut,
@@ -66,11 +66,16 @@ export function AdminSidebar() {
           <SidebarMenuItem>
             <SidebarMenuButton asChild size="lg">
               <Link href="/admin">
-                <div className="flex aspect-square size-8 items-center justify-center rounded-lg bg-sidebar-primary text-sidebar-primary-foreground">
-                  <ShieldCheck className="size-4" />
+                <div className="relative aspect-square size-8 shrink-0 overflow-hidden rounded-full">
+                  <Image
+                    src="/images/brand/logo.webp"
+                    alt="Pearly Sky"
+                    fill
+                    className="object-cover"
+                  />
                 </div>
                 <div className="flex flex-col gap-0.5 leading-none">
-                  <span className="font-medium">Pearly Sky</span>
+                  <span className="font-medium">Pearly Sky Cleaning</span>
                   <span className="text-xs text-muted-foreground">Admin</span>
                 </div>
               </Link>
