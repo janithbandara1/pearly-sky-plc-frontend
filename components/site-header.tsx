@@ -1,21 +1,15 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { Menu } from "lucide-react";
+import { usePathname } from "next/navigation";
+import { ChevronDown, Menu } from "lucide-react";
 import { useAuth } from "@/lib/auth-context";
 import { useLanguage } from "@/lib/i18n/language-context";
+import { cn } from "@/lib/utils";
 import { ServicesNavList } from "@/components/services-nav-list";
 import { Button } from "@/components/ui/button";
-import {
-  NavigationMenu,
-  NavigationMenuContent,
-  NavigationMenuItem,
-  NavigationMenuLink,
-  NavigationMenuList,
-  NavigationMenuTrigger,
-} from "@/components/ui/navigation-menu";
 import {
   Sheet,
   SheetContent,
@@ -24,10 +18,17 @@ import {
   SheetTrigger,
 } from "@/components/ui/sheet";
 
+const navLinkClass =
+  "rounded-lg p-2 text-sm font-medium text-brand-navy-foreground transition-colors hover:bg-brand-gold/10 hover:text-brand-gold";
+const navLinkActiveClass = "bg-brand-gold/10 text-brand-gold";
+
 export function SiteHeader() {
   const { translate } = useLanguage();
   const { status, logout } = useAuth();
+  const pathname = usePathname();
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [servicesOpen, setServicesOpen] = useState(false);
+  const servicesRef = useRef<HTMLDivElement>(null);
 
   const navLinks = [
     { href: "/about", label: translate("navAbout") },
@@ -37,6 +38,28 @@ export function SiteHeader() {
     { href: "/careers", label: translate("navCareers") },
     { href: "/contact", label: translate("navContact") },
   ];
+
+  useEffect(() => {
+    setServicesOpen(false);
+  }, [pathname]);
+
+  useEffect(() => {
+    if (!servicesOpen) return;
+    function handlePointerDown(event: MouseEvent) {
+      if (!servicesRef.current?.contains(event.target as Node)) {
+        setServicesOpen(false);
+      }
+    }
+    function handleKeyDown(event: KeyboardEvent) {
+      if (event.key === "Escape") setServicesOpen(false);
+    }
+    document.addEventListener("mousedown", handlePointerDown);
+    document.addEventListener("keydown", handleKeyDown);
+    return () => {
+      document.removeEventListener("mousedown", handlePointerDown);
+      document.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [servicesOpen]);
 
   return (
     <header className="sticky top-0 z-50 bg-brand-navy text-brand-navy-foreground">
@@ -52,38 +75,50 @@ export function SiteHeader() {
           />
         </Link>
 
-        <NavigationMenu viewport={false} className="hidden lg:flex">
-          <NavigationMenuList className="gap-1">
-            <NavigationMenuItem>
-              <NavigationMenuLink
-                asChild
-                className="bg-transparent text-sm font-medium text-brand-navy-foreground hover:bg-brand-gold/10 hover:text-brand-gold data-active:bg-brand-gold/10"
-              >
-                <Link href="/">{translate("navHome")}</Link>
-              </NavigationMenuLink>
-            </NavigationMenuItem>
+        <nav className="hidden items-center gap-1 lg:flex">
+          <Link
+            href="/"
+            className={cn(navLinkClass, pathname === "/" && navLinkActiveClass)}
+          >
+            {translate("navHome")}
+          </Link>
 
-            <NavigationMenuItem>
-              <NavigationMenuTrigger className="bg-transparent text-sm font-medium text-brand-navy-foreground hover:bg-brand-gold/10 hover:text-brand-gold data-open:bg-brand-gold/10 data-open:text-brand-gold">
-                {translate("navServices")}
-              </NavigationMenuTrigger>
-              <NavigationMenuContent>
-                <ServicesNavList />
-              </NavigationMenuContent>
-            </NavigationMenuItem>
+          <div className="relative" ref={servicesRef}>
+            <button
+              type="button"
+              onClick={() => setServicesOpen((open) => !open)}
+              aria-expanded={servicesOpen}
+              className={cn(
+                navLinkClass,
+                "inline-flex items-center gap-1",
+                servicesOpen && navLinkActiveClass,
+              )}
+            >
+              {translate("navServices")}
+              <ChevronDown
+                className={cn("size-3 transition-transform", servicesOpen && "rotate-180")}
+              />
+            </button>
+            {servicesOpen && (
+              <div className="absolute top-full left-0 z-50 mt-1.5 w-[320px] overflow-hidden rounded-lg bg-popover text-popover-foreground shadow ring-1 ring-foreground/10 sm:w-[420px]">
+                <ServicesNavList
+                  onNavigate={() => setServicesOpen(false)}
+                  className="w-full sm:grid-cols-2"
+                />
+              </div>
+            )}
+          </div>
 
-            {navLinks.map((link) => (
-              <NavigationMenuItem key={link.href}>
-                <NavigationMenuLink
-                  asChild
-                  className="bg-transparent text-sm font-medium text-brand-navy-foreground hover:bg-brand-gold/10 hover:text-brand-gold data-active:bg-brand-gold/10"
-                >
-                  <Link href={link.href}>{link.label}</Link>
-                </NavigationMenuLink>
-              </NavigationMenuItem>
-            ))}
-          </NavigationMenuList>
-        </NavigationMenu>
+          {navLinks.map((link) => (
+            <Link
+              key={link.href}
+              href={link.href}
+              className={cn(navLinkClass, pathname === link.href && navLinkActiveClass)}
+            >
+              {link.label}
+            </Link>
+          ))}
+        </nav>
 
         <div className="flex items-center gap-2 sm:gap-3">
           {status === "authenticated" ? (
@@ -111,7 +146,7 @@ export function SiteHeader() {
                 asChild
                 size="sm"
                 variant="outline"
-                className="border-brand-gold bg-transparent text-brand-navy-foreground hover:bg-brand-gold/10"
+                className="border-brand-gold bg-transparent font-semibold text-brand-gold hover:bg-brand-gold/10 hover:text-brand-gold"
               >
                 <Link href="/login">{translate("navLogin")}</Link>
               </Button>
@@ -144,7 +179,10 @@ export function SiteHeader() {
                 <Link
                   href="/"
                   onClick={() => setMobileOpen(false)}
-                  className="rounded-lg p-2 hover:bg-muted"
+                  className={cn(
+                    "rounded-lg p-2 hover:bg-muted",
+                    pathname === "/" && "bg-muted/50 text-brand-gold-dark",
+                  )}
                 >
                   {translate("navHome")}
                 </Link>
@@ -157,7 +195,7 @@ export function SiteHeader() {
                   className="w-full grid-cols-1"
                 />
                 <Link
-                  href="/"
+                  href="/#services"
                   onClick={() => setMobileOpen(false)}
                   className="rounded-lg p-2 text-brand-gold-dark hover:bg-muted"
                 >
@@ -171,7 +209,10 @@ export function SiteHeader() {
                     key={link.href}
                     href={link.href}
                     onClick={() => setMobileOpen(false)}
-                    className="rounded-lg p-2 hover:bg-muted"
+                    className={cn(
+                      "rounded-lg p-2 hover:bg-muted",
+                      pathname === link.href && "bg-muted/50 text-brand-gold-dark",
+                    )}
                   >
                     {link.label}
                   </Link>

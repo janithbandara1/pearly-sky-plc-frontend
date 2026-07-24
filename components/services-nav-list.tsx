@@ -4,7 +4,6 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import { getServices } from "@/lib/catalog-api";
 import type { CatalogService } from "@/lib/catalog-api";
-import { useLanguage } from "@/lib/i18n/language-context";
 import { useCountry } from "@/lib/countries/country-context";
 
 // Mirrors the backend's PRICING_TABLES registry — kept in sync with
@@ -43,7 +42,6 @@ export function ServicesNavList({
   onNavigate?: () => void;
   className?: string;
 }) {
-  const { translate } = useLanguage();
   const services = useCatalogServices();
 
   return (
@@ -54,19 +52,12 @@ export function ServicesNavList({
             href={
               BOOKABLE_SERVICES.has(service.name)
                 ? `/services/${service.name}`
-                : "/services"
+                : "/#services"
             }
             onClick={onNavigate}
             className="flex min-w-0 items-start gap-2 rounded-lg p-2 text-sm hover:bg-muted"
           >
-            <span className="flex min-w-0 flex-col">
-              <span className="font-medium leading-snug break-words">{service.label}</span>
-              <span className="text-xs text-muted-foreground">
-                {BOOKABLE_SERVICES.has(service.name)
-                  ? translate("navServicesBookNow")
-                  : translate("navServicesComingSoon")}
-              </span>
-            </span>
+            <span className="min-w-0 break-words font-medium leading-snug">{service.label}</span>
           </Link>
         </li>
       ))}
