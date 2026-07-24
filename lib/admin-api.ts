@@ -53,6 +53,10 @@ export function listAllOrdersAdmin(accessToken: string) {
   return apiFetch<AdminOrder[]>("/admin/orders", { accessToken });
 }
 
+export function getOrderAdmin(accessToken: string, orderId: number) {
+  return apiFetch<AdminOrder>(`/admin/orders/${orderId}`, { accessToken });
+}
+
 export interface MyOrder {
   id: number;
   referenceNumber: string;

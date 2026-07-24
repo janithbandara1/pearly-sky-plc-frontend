@@ -1,7 +1,8 @@
 "use client";
 
 import { ColumnDef } from "@tanstack/react-table";
-import { Pencil } from "lucide-react";
+import { Eye, Pencil } from "lucide-react";
+import Link from "next/link";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
@@ -28,17 +29,11 @@ import { AdminUser, listUsers } from "@/lib/admin-users-api";
 import { useStaffAuth } from "@/lib/staff-auth-context";
 
 interface EditState {
-  price: string;
-  currency: string;
-  status: AdminOrder["status"];
   cleanerId: string;
 }
 
 function toEditState(order: AdminOrder): EditState {
   return {
-    price: order.price ?? "",
-    currency: order.currency ?? "",
-    status: order.status,
     cleanerId: order.cleanerId ? String(order.cleanerId) : "",
   };
 }
@@ -94,9 +89,7 @@ export default function AdminOrdersPage() {
     setSaving(true);
     setError(null);
     try {
-      const payload: Parameters<typeof updateOrderAdmin>[2] = { status: edit.status };
-      if (edit.price !== "") payload.price = Number(edit.price);
-      if (edit.currency !== "") payload.currency = edit.currency;
+      const payload: Parameters<typeof updateOrderAdmin>[2] = {};
       if (edit.cleanerId !== "") payload.cleanerId = Number(edit.cleanerId);
 
       const updated = await updateOrderAdmin(accessToken, editing.id, payload);
@@ -119,12 +112,7 @@ export default function AdminOrdersPage() {
       header: "Customer",
       cell: ({ row }) => {
         const c = row.original.customer;
-        return (
-          <div>
-            <p>{c.firstName} {c.lastName ?? ""}</p>
-            <p className="text-xs text-muted-foreground">{c.email}</p>
-          </div>
-        );
+        return `${c.firstName} ${c.lastName ?? ""}`.trim();
       },
     },
     {
@@ -132,26 +120,21 @@ export default function AdminOrdersPage() {
       header: "Service",
       cell: ({ row }) => {
         const details = row.original.serviceDetails[0];
-        if (!details) return <span className="text-muted-foreground">—</span>;
-        return (
-          <div>
-            <p>{details.service.label}</p>
-            <p className="text-xs text-muted-foreground">
-              {details.date} · {details.time}
-            </p>
-          </div>
-        );
+        return details?.service.label ?? <span className="text-muted-foreground">—</span>;
       },
     },
     {
-      id: "price",
-      header: "Price",
-      cell: ({ row }) =>
-        row.original.price ? (
-          `${row.original.price} ${row.original.currency?.toUpperCase() ?? ""}`
-        ) : (
-          <span className="text-muted-foreground">Unpriced</span>
-        ),
+      id: "datetime",
+      header: "Date & time",
+      cell: ({ row }) => {
+        const details = row.original.serviceDetails[0];
+        if (!details) return <span className="text-muted-foreground">—</span>;
+        return (
+          <span className="text-muted-foreground">
+            {details.date} · {details.time}
+          </span>
+        );
+      },
     },
     {
       accessorKey: "status",
@@ -166,14 +149,23 @@ export default function AdminOrdersPage() {
       id: "actions",
       header: "",
       cell: ({ row }) => (
-        <Button
-          size="icon-sm"
-          variant="ghost"
-          onClick={() => openEdit(row.original)}
-        >
-          <Pencil />
-          <span className="sr-only">Edit</span>
-        </Button>
+        <div className="flex justify-end gap-1">
+          <Button size="icon-sm" variant="ghost" asChild title="View details">
+            <Link href={`/staff/bookings/${row.original.id}`}>
+              <Eye />
+              <span className="sr-only">View details</span>
+            </Link>
+          </Button>
+          <Button
+            size="icon-sm"
+            variant="ghost"
+            onClick={() => openEdit(row.original)}
+            title="Edit"
+          >
+            <Pencil />
+            <span className="sr-only">Edit</span>
+          </Button>
+        </div>
       ),
     },
   ];
@@ -218,67 +210,26 @@ export default function AdminOrdersPage() {
       <Dialog open={!!editing} onOpenChange={(open) => !open && setEditing(null)}>
         <DialogContent>
           <DialogHeader>
-            <DialogTitle>Edit booking {editing?.referenceNumber}</DialogTitle>
+            <DialogTitle>Edit booking</DialogTitle>
           </DialogHeader>
           {edit && (
-            <div className="grid grid-cols-2 gap-3">
-              <div className="flex flex-col gap-1">
-                <Label htmlFor="price">Price</Label>
-                <Input
-                  id="price"
-                  type="number"
-                  step="0.01"
-                  value={edit.price}
-                  onChange={(e) => setEdit({ ...edit, price: e.target.value })}
-                />
-              </div>
-              <div className="flex flex-col gap-1">
-                <Label htmlFor="currency">Currency</Label>
-                <Input
-                  id="currency"
-                  placeholder="eur"
-                  value={edit.currency}
-                  onChange={(e) => setEdit({ ...edit, currency: e.target.value })}
-                />
-              </div>
-              <div className="flex flex-col gap-1">
-                <Label htmlFor="status">Status</Label>
-                <Select
-                  value={edit.status}
-                  onValueChange={(value) =>
-                    setEdit({ ...edit, status: value as AdminOrder["status"] })
-                  }
-                >
-                  <SelectTrigger id="status">
-                    <SelectValue />
-                  </SelectTrigger>
-                  <SelectContent>
-                    {STATUS_OPTIONS.map((s) => (
-                      <SelectItem key={s} value={s} className="capitalize">
-                        {s}
-                      </SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
-              </div>
-              <div className="flex flex-col gap-1">
-                <Label htmlFor="cleanerId">Cleaner</Label>
-                <Select
-                  value={edit.cleanerId}
-                  onValueChange={(value) => setEdit({ ...edit, cleanerId: value })}
-                >
-                  <SelectTrigger id="cleanerId">
-                    <SelectValue placeholder="Unassigned" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    {cleaners.map((c) => (
-                      <SelectItem key={c.id} value={String(c.id)}>
-                        {c.firstName} {c.lastName ?? ""}
-                      </SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
-              </div>
+            <div className="flex flex-col gap-1">
+              <Label htmlFor="cleanerId">Cleaner</Label>
+              <Select
+                value={edit.cleanerId}
+                onValueChange={(value) => setEdit({ ...edit, cleanerId: value })}
+              >
+                <SelectTrigger id="cleanerId">
+                  <SelectValue placeholder="Unassigned" />
+                </SelectTrigger>
+                <SelectContent>
+                  {cleaners.map((c) => (
+                    <SelectItem key={c.id} value={String(c.id)}>
+                      {c.firstName} {c.lastName ?? ""}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
             </div>
           )}
           <DialogFooter>

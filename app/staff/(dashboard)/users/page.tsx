@@ -266,7 +266,7 @@ export default function AdminUsersPage() {
       <Dialog open={!!editing} onOpenChange={(open) => !open && setEditing(null)}>
         <DialogContent>
           <DialogHeader>
-            <DialogTitle>Edit {editing?.firstName}</DialogTitle>
+            <DialogTitle>Edit user</DialogTitle>
           </DialogHeader>
           {edit && (
             <div className="flex flex-col gap-3">
