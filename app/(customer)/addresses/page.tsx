@@ -98,7 +98,7 @@ export default function AddressesPage() {
           </DialogTrigger>
           <DialogContent>
             <DialogHeader>
-              <DialogTitle>Add a new address</DialogTitle>
+              <DialogTitle>Add address</DialogTitle>
             </DialogHeader>
             <form
               id="add-address-form"

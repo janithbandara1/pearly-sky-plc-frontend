@@ -4,6 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import {
+  ClipboardList,
   LayoutDashboard,
   MapPin,
   User,
@@ -31,9 +32,10 @@ interface NavItem {
 }
 
 const NAV_ITEMS: NavItem[] = [
-  { href: "/dashboard", label: "My bookings", icon: LayoutDashboard },
-  { href: "/dashboard/profile", label: "Profile", icon: User },
-  { href: "/dashboard/addresses", label: "Addresses", icon: MapPin },
+  { href: "/dashboard", label: "Dashboard", icon: LayoutDashboard },
+  { href: "/bookings", label: "Bookings", icon: ClipboardList },
+  { href: "/profile", label: "Profile", icon: User },
+  { href: "/addresses", label: "Addresses", icon: MapPin },
 ];
 
 export function CustomerSidebar() {
@@ -58,7 +60,7 @@ export function CustomerSidebar() {
                 </div>
                 <div className="flex flex-col gap-0.5 leading-none">
                   <span className="font-medium">Pearly Sky Cleaning</span>
-                  <span className="text-xs text-muted-foreground">My account</span>
+                  <span className="text-xs text-muted-foreground">Customer</span>
                 </div>
               </Link>
             </SidebarMenuButton>

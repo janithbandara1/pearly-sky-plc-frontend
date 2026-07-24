@@ -124,6 +124,6 @@ export const config = {
     // Skip API routes, staff/customer account areas and auth (internal, not
     // geo-targeted), Next internals, and any path with a file extension
     // (static assets, sitemap.xml, robots.txt, favicon.ico, etc).
-    "/((?!api|staff|dashboard|login|signup|_next/static|_next/image|.*\\..*).*)",
+    "/((?!api|staff|dashboard|bookings|profile|addresses|login|signup|_next/static|_next/image|.*\\..*).*)",
   ],
 };

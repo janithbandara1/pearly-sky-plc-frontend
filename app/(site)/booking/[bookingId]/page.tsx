@@ -122,7 +122,7 @@ function BookingStatus({ bookingId }: { bookingId: number }) {
           )}
           {authStatus === "authenticated" ? (
             <Button asChild variant={canRetryPayment ? "outline" : "default"}>
-              <Link href="/dashboard">Go to my bookings</Link>
+              <Link href="/bookings">Go to my bookings</Link>
             </Button>
           ) : (
             <Button asChild variant={canRetryPayment ? "outline" : "default"}>

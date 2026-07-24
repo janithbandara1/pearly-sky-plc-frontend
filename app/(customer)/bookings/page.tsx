@@ -3,8 +3,7 @@
 import { ColumnDef } from "@tanstack/react-table";
 import { CreditCard, Eye } from "lucide-react";
 import Link from "next/link";
-import { useSearchParams } from "next/navigation";
-import { Suspense, useCallback, useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -27,19 +26,7 @@ const STATUS_VARIANT: Record<Booking["status"], "default" | "secondary" | "destr
 
 const STATUS_OPTIONS: Booking["status"][] = ["pending", "confirmed", "cancelled"];
 
-function BookingConfirmationBanner() {
-  const searchParams = useSearchParams();
-  const justBooked = searchParams.get("booked");
-  if (!justBooked) return null;
-  return (
-    <p className="rounded-lg border border-primary/30 bg-primary/5 p-3 text-sm">
-      Booking confirmed — reference <strong>{justBooked}</strong>. We&rsquo;ll be in
-      touch to confirm your price.
-    </p>
-  );
-}
-
-export default function DashboardPage() {
+export default function BookingsPage() {
   const { accessToken } = useAuth();
 
   const [bookings, setBookings] = useState<Booking[]>([]);
@@ -128,7 +115,7 @@ export default function DashboardPage() {
         return (
           <div className="flex justify-end gap-1">
             <Button size="icon-sm" variant="ghost" asChild title="View details">
-              <Link href={`/dashboard/bookings/${booking.id}`}>
+              <Link href={`/bookings/${booking.id}`}>
                 <Eye />
                 <span className="sr-only">View details</span>
               </Link>
@@ -158,15 +145,12 @@ export default function DashboardPage() {
   return (
     <div className="flex flex-col gap-6">
       <div>
-        <h1 className="text-2xl font-semibold tracking-tight">My bookings</h1>
+        <h1 className="text-2xl font-semibold tracking-tight">Bookings</h1>
         <p className="text-sm text-muted-foreground">
           {filtered.length} of {bookings.length} bookings
         </p>
       </div>
 
-      <Suspense fallback={null}>
-        <BookingConfirmationBanner />
-      </Suspense>
       {error && <p className="text-sm text-destructive">{error}</p>}
 
       <div className="flex flex-wrap items-center gap-3">
