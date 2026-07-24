@@ -71,7 +71,7 @@ export default function AddServicePage() {
         await setServiceItems(accessToken, created.id, itemIds);
       }
       toast.success(`Service "${created.label}" created.`);
-      router.push("/admin/services");
+      router.push("/staff/services");
     } catch (err) {
       toast.error(err instanceof ApiError ? err.message : "Failed to save service.");
     } finally {
@@ -102,7 +102,7 @@ export default function AddServicePage() {
 
       <div className="flex justify-end gap-2">
         <Button variant="outline" asChild>
-          <Link href="/admin/services">Cancel</Link>
+          <Link href="/staff/services">Cancel</Link>
         </Button>
         <Button onClick={handleSubmit} disabled={saving}>
           {saving ? "Saving…" : "Create service"}

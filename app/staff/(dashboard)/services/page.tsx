@@ -64,7 +64,7 @@ export default function AdminServicesPage() {
       cell: ({ row }) => (
         <div className="flex justify-end gap-2">
           <Button size="icon-sm" variant="ghost" asChild>
-            <Link href={`/admin/services/${row.original.id}/edit`}>
+            <Link href={`/staff/services/${row.original.id}/edit`}>
               <Pencil />
               <span className="sr-only">Edit</span>
             </Link>
@@ -95,7 +95,7 @@ export default function AdminServicesPage() {
           </p>
         </div>
         <Button asChild>
-          <Link href="/admin/services/add">Add service</Link>
+          <Link href="/staff/services/add">Add service</Link>
         </Button>
       </div>
 

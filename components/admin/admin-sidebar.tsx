@@ -36,17 +36,17 @@ interface NavItem {
 }
 
 const ADMIN_NAV_ITEMS: NavItem[] = [
-  { href: "/admin", label: "Dashboard", icon: LayoutDashboard },
-  { href: "/admin/bookings", label: "Bookings", icon: ClipboardList },
-  { href: "/admin/customers", label: "Customers", icon: Users },
-  { href: "/admin/services", label: "Services", icon: Layers },
-  { href: "/admin/catalog/packages", matchPrefix: "/admin/catalog", label: "Catalog", icon: Layers },
-  { href: "/admin/users", label: "Users", icon: UserCog },
-  { href: "/admin/payments", label: "Payments", icon: CreditCard },
+  { href: "/staff/dashboard", label: "Dashboard", icon: LayoutDashboard },
+  { href: "/staff/bookings", label: "Bookings", icon: ClipboardList },
+  { href: "/staff/customers", label: "Customers", icon: Users },
+  { href: "/staff/services", label: "Services", icon: Layers },
+  { href: "/staff/catalog/packages", matchPrefix: "/staff/catalog", label: "Catalog", icon: Layers },
+  { href: "/staff/users", label: "Users", icon: UserCog },
+  { href: "/staff/payments", label: "Payments", icon: CreditCard },
 ];
 
 const CLEANER_NAV_ITEMS: NavItem[] = [
-  { href: "/admin/my-bookings", label: "My Bookings", icon: ClipboardList },
+  { href: "/staff/my-bookings", label: "My Bookings", icon: ClipboardList },
 ];
 
 export function AdminSidebar() {
@@ -65,7 +65,7 @@ export function AdminSidebar() {
         <SidebarMenu>
           <SidebarMenuItem>
             <SidebarMenuButton asChild size="lg">
-              <Link href="/admin">
+              <Link href="/staff/dashboard">
                 <div className="relative aspect-square size-8 shrink-0 overflow-hidden rounded-full">
                   <Image
                     src="/images/brand/logo.webp"
@@ -89,8 +89,8 @@ export function AdminSidebar() {
             <SidebarMenu>
               {navItems.map((item) => {
                 const isActive =
-                  item.href === "/admin"
-                    ? pathname === "/admin"
+                  item.href === "/staff/dashboard"
+                    ? pathname === "/staff/dashboard"
                     : pathname.startsWith(item.matchPrefix ?? item.href);
                 return (
                   <SidebarMenuItem key={item.href}>
@@ -113,7 +113,7 @@ export function AdminSidebar() {
             <SidebarMenuButton
               onClick={async () => {
                 await logout();
-                router.push("/admin/login");
+                router.push("/staff/login");
               }}
             >
               <LogOut />

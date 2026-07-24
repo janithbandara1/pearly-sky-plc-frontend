@@ -5,8 +5,8 @@ import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
 
 const TABS = [
-  { href: "/admin/catalog/packages", label: "Packages" },
-  { href: "/admin/catalog/items", label: "Items" },
+  { href: "/staff/catalog/packages", label: "Packages" },
+  { href: "/staff/catalog/items", label: "Items" },
 ];
 
 export default function AdminCatalogLayout({

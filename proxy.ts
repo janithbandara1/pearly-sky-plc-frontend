@@ -121,9 +121,9 @@ export function proxy(request: NextRequest) {
 
 export const config = {
   matcher: [
-    // Skip API routes, admin/auth (internal, not geo-targeted), Next
-    // internals, and any path with a file extension (static assets,
-    // sitemap.xml, robots.txt, favicon.ico, etc).
-    "/((?!api|admin|login|signup|_next/static|_next/image|.*\\..*).*)",
+    // Skip API routes, staff/customer account areas and auth (internal, not
+    // geo-targeted), Next internals, and any path with a file extension
+    // (static assets, sitemap.xml, robots.txt, favicon.ico, etc).
+    "/((?!api|staff|dashboard|login|signup|_next/static|_next/image|.*\\..*).*)",
   ],
 };

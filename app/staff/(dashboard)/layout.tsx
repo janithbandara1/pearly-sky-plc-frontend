@@ -6,7 +6,7 @@ import { AdminSidebar } from "@/components/admin/admin-sidebar";
 import { SidebarInset, SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
 import { useStaffAuth } from "@/lib/staff-auth-context";
 
-const CLEANER_HOME = "/admin/my-bookings";
+const CLEANER_HOME = "/staff/my-bookings";
 
 export default function AdminDashboardLayout({
   children,
@@ -20,7 +20,7 @@ export default function AdminDashboardLayout({
 
   useEffect(() => {
     if (status === "unauthenticated") {
-      router.replace("/admin/login");
+      router.replace("/staff/login");
     }
   }, [status, router]);
 
