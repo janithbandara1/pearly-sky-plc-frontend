@@ -317,6 +317,7 @@ export default function CheckoutPage({
             <CardContent className="flex flex-col gap-3">
               {isAuthenticated ? (
                 <>
+                  <p className="text-sm font-medium">Select an address</p>
                   {addresses.length === 0 && (
                     <p className="text-sm text-muted-foreground">
                       No saved addresses yet — add one below.
