@@ -31,7 +31,8 @@ export const fr: Record<TranslationKey, string> = {
   // Services
   servicesHeading: "Nos Services",
   servicesSubheading: "Entretien de propriété, art de vivre et bien-être — réservés en moins d'une minute.",
-  servicesBookNow: "Planifier le Service",
+  servicesBookNow: "Réserver Maintenant",
+  servicesRequestQuotation: "Demander un Devis",
   servicesComingSoon: "Bientôt disponible",
   servicesPricingSoon: "Tarif à venir",
   servicesPricePerCleaner: "/h par nettoyeur",

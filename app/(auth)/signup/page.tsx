@@ -1,19 +1,18 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
-import { ArrowLeft } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
+  Field,
+  FieldDescription,
+  FieldError,
+  FieldGroup,
+  FieldLabel,
+} from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
 import { ApiError, useAuth } from "@/lib/auth-context";
 
 export default function SignupPage() {
@@ -53,96 +52,119 @@ export default function SignupPage() {
   }
 
   return (
-    <div className="relative flex flex-1 items-center justify-center p-6">
-      <Button
-        variant="ghost"
-        size="icon"
-        className="absolute top-4 left-4"
-        aria-label="Go back"
-        onClick={() => router.back()}
-      >
-        <ArrowLeft className="size-4" />
-      </Button>
-      <Card className="w-full max-w-sm">
-        <CardHeader>
-          <CardTitle>Create your account</CardTitle>
-          <CardDescription>Book cleaning services faster next time.</CardDescription>
-        </CardHeader>
-        <CardContent>
-          <form className="flex flex-col gap-4" onSubmit={handleSubmit}>
-            <div className="grid grid-cols-2 gap-3">
-              <div className="flex flex-col gap-2">
-                <Label htmlFor="firstName">First name</Label>
-                <Input
-                  id="firstName"
-                  required
-                  value={firstName}
-                  onChange={(e) => setFirstName(e.target.value)}
-                />
-              </div>
-              <div className="flex flex-col gap-2">
-                <Label htmlFor="lastName">Last name</Label>
-                <Input
-                  id="lastName"
-                  value={lastName}
-                  onChange={(e) => setLastName(e.target.value)}
-                />
-              </div>
-            </div>
-            <div className="flex flex-col gap-2">
-              <Label htmlFor="email">Email</Label>
-              <Input
-                id="email"
-                type="email"
-                required
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-              />
-            </div>
-            <div className="flex flex-col gap-2">
-              <Label htmlFor="phone">Phone</Label>
-              <Input
-                id="phone"
-                type="tel"
-                value={phone}
-                onChange={(e) => setPhone(e.target.value)}
-              />
-            </div>
-            <div className="flex flex-col gap-2">
-              <Label htmlFor="password">Password</Label>
-              <Input
-                id="password"
-                type="password"
-                required
-                minLength={8}
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-              />
-            </div>
-            <div className="flex flex-col gap-2">
-              <Label htmlFor="confirmPassword">Confirm password</Label>
-              <Input
-                id="confirmPassword"
-                type="password"
-                required
-                minLength={8}
-                value={confirmPassword}
-                onChange={(e) => setConfirmPassword(e.target.value)}
-              />
-            </div>
-            {error && <p className="text-sm text-destructive">{error}</p>}
-            <Button type="submit" disabled={pending}>
-              {pending ? "Creating account…" : "Sign up"}
-            </Button>
-          </form>
-          <p className="mt-4 text-sm text-muted-foreground">
-            Already have an account?{" "}
-            <Link href="/login" className="underline underline-offset-2">
-              Log in
-            </Link>
-          </p>
-        </CardContent>
-      </Card>
+    <div className="grid min-h-svh lg:grid-cols-2">
+      <div className="flex flex-col gap-4 p-6 md:p-10">
+        <div className="flex justify-center gap-2 md:justify-start">
+          <Link href="/" className="flex items-center gap-2 font-medium">
+            <Image
+              src="/images/brand/logo.webp"
+              alt="Pearly Sky"
+              width={24}
+              height={24}
+              className="rounded-full"
+            />
+            Pearly Sky Cleaning
+          </Link>
+        </div>
+        <div className="flex flex-1 items-center justify-center">
+          <div className="w-full max-w-xs">
+            <form className="flex flex-col gap-6" onSubmit={handleSubmit}>
+              <FieldGroup>
+                <div className="flex flex-col items-center gap-1 text-center">
+                  <h1 className="text-2xl font-bold">Create your account</h1>
+                  <p className="text-sm text-balance text-muted-foreground">
+                    Fill in the form below to create your account
+                  </p>
+                </div>
+                <div className="grid grid-cols-2 gap-3">
+                  <Field>
+                    <FieldLabel htmlFor="firstName">First name</FieldLabel>
+                    <Input
+                      id="firstName"
+                      required
+                      value={firstName}
+                      onChange={(e) => setFirstName(e.target.value)}
+                    />
+                  </Field>
+                  <Field>
+                    <FieldLabel htmlFor="lastName">Last name</FieldLabel>
+                    <Input
+                      id="lastName"
+                      value={lastName}
+                      onChange={(e) => setLastName(e.target.value)}
+                    />
+                  </Field>
+                </div>
+                <Field>
+                  <FieldLabel htmlFor="email">Email</FieldLabel>
+                  <Input
+                    id="email"
+                    type="email"
+                    placeholder="m@example.com"
+                    required
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                  />
+                </Field>
+                <Field>
+                  <FieldLabel htmlFor="phone">Phone</FieldLabel>
+                  <Input
+                    id="phone"
+                    type="tel"
+                    value={phone}
+                    onChange={(e) => setPhone(e.target.value)}
+                  />
+                </Field>
+                <Field>
+                  <FieldLabel htmlFor="password">Password</FieldLabel>
+                  <Input
+                    id="password"
+                    type="password"
+                    required
+                    minLength={8}
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                  />
+                </Field>
+                <Field>
+                  <FieldLabel htmlFor="confirmPassword">
+                    Confirm password
+                  </FieldLabel>
+                  <Input
+                    id="confirmPassword"
+                    type="password"
+                    required
+                    minLength={8}
+                    value={confirmPassword}
+                    onChange={(e) => setConfirmPassword(e.target.value)}
+                  />
+                </Field>
+                {error && <FieldError>{error}</FieldError>}
+                <Field>
+                  <Button type="submit" disabled={pending}>
+                    {pending ? "Creating account…" : "Sign up"}
+                  </Button>
+                  <FieldDescription className="text-center">
+                    Already have an account?{" "}
+                    <Link href="/login" className="underline underline-offset-4">
+                      Log in
+                    </Link>
+                  </FieldDescription>
+                </Field>
+              </FieldGroup>
+            </form>
+          </div>
+        </div>
+      </div>
+      <div className="relative hidden bg-muted lg:block">
+        <Image
+          src="/images/hero/hero-1.webp"
+          alt="Pearly Sky cleaning service"
+          fill
+          className="object-cover dark:brightness-[0.2] dark:grayscale"
+          priority
+        />
+      </div>
     </div>
   );
 }

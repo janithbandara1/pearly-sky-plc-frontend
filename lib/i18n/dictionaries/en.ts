@@ -29,7 +29,8 @@ export const en = {
   // Services
   servicesHeading: "Our Services",
   servicesSubheading: "Property care, lifestyle, and wellness — booked in under a minute.",
-  servicesBookNow: "Schedule Service",
+  servicesBookNow: "Book Now",
+  servicesRequestQuotation: "Request Quotation",
   servicesComingSoon: "Coming soon",
   servicesPricingSoon: "Pricing coming soon",
   servicesPricePerCleaner: "/h per cleaner",

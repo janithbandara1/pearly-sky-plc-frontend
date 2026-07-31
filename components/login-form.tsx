@@ -4,13 +4,6 @@ import { useState } from "react";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
-import {
   Field,
   FieldDescription,
   FieldError,
@@ -21,14 +14,14 @@ import { Input } from "@/components/ui/input";
 
 export function LoginForm({
   className,
-  title = "Log in",
+  title = "Login to your account",
   description,
-  submitLabel = "Log in",
+  submitLabel = "Login",
   pendingLabel = "Logging in…",
   footer,
   onLogin,
   ...props
-}: Omit<React.ComponentProps<"div">, "onSubmit"> & {
+}: Omit<React.ComponentProps<"form">, "onSubmit"> & {
   title?: string;
   description?: string;
   submitLabel?: string;
@@ -55,51 +48,51 @@ export function LoginForm({
   }
 
   return (
-    <div className={cn("flex flex-col gap-6", className)} {...props}>
-      <Card>
-        <CardHeader>
-          <CardTitle>{title}</CardTitle>
-          {description && <CardDescription>{description}</CardDescription>}
-        </CardHeader>
-        <CardContent>
-          <form onSubmit={handleSubmit}>
-            <FieldGroup>
-              <Field>
-                <FieldLabel htmlFor="email">Email</FieldLabel>
-                <Input
-                  id="email"
-                  type="email"
-                  placeholder="m@example.com"
-                  required
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                />
-              </Field>
-              <Field>
-                <FieldLabel htmlFor="password">Password</FieldLabel>
-                <Input
-                  id="password"
-                  type="password"
-                  required
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                />
-              </Field>
-              {error && <FieldError>{error}</FieldError>}
-              <Field>
-                <Button type="submit" disabled={pending}>
-                  {pending ? pendingLabel : submitLabel}
-                </Button>
-                {footer && (
-                  <FieldDescription className="text-center">
-                    {footer}
-                  </FieldDescription>
-                )}
-              </Field>
-            </FieldGroup>
-          </form>
-        </CardContent>
-      </Card>
-    </div>
+    <form
+      className={cn("flex flex-col gap-6", className)}
+      onSubmit={handleSubmit}
+      {...props}
+    >
+      <FieldGroup>
+        <div className="flex flex-col items-center gap-1 text-center">
+          <h1 className="text-2xl font-bold">{title}</h1>
+          {description && (
+            <p className="text-sm text-balance text-muted-foreground">
+              {description}
+            </p>
+          )}
+        </div>
+        <Field>
+          <FieldLabel htmlFor="email">Email</FieldLabel>
+          <Input
+            id="email"
+            type="email"
+            placeholder="m@example.com"
+            required
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+          />
+        </Field>
+        <Field>
+          <FieldLabel htmlFor="password">Password</FieldLabel>
+          <Input
+            id="password"
+            type="password"
+            required
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+          />
+        </Field>
+        {error && <FieldError>{error}</FieldError>}
+        <Field>
+          <Button type="submit" disabled={pending}>
+            {pending ? pendingLabel : submitLabel}
+          </Button>
+        </Field>
+        {footer && (
+          <FieldDescription className="text-center">{footer}</FieldDescription>
+        )}
+      </FieldGroup>
+    </form>
   );
 }

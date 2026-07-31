@@ -26,6 +26,18 @@ const BOOKABLE_SERVICES = new Set([
   "post-event-cleaning",
 ]);
 
+// Services with a "Request Quotation" flow (services/<slug>/request-quotation)
+const QUOTABLE_SERVICES = new Set([
+  "standard-residential-cleaning",
+  "deep-cleaning",
+  "end-of-tenancy-cleaning",
+  "last-minute-cleaning",
+  "express-refresh-cleaning",
+  "post-construction-renovation-cleaning",
+  "premium-rental-concierge-cleaning",
+  "commercial-office-cleaning",
+]);
+
 const CATEGORIES: { key: ServiceCategory; headingKey: TranslationKey; limit?: number }[] = [
   { key: "property_care", headingKey: "servicesCategoryPropertyCare", limit: 4 },
   { key: "bespoke_lifestyle", headingKey: "servicesCategoryBespokeLifestyle" },
@@ -67,13 +79,23 @@ function ServiceCard({ service }: { service: CatalogService }) {
         </div>
 
         {BOOKABLE_SERVICES.has(service.name) ? (
-          <Link
-            href={`/services/${service.name}`}
-            className="mt-2 flex w-full items-center justify-center gap-1.5 rounded-lg bg-brand-gold px-4 py-2 text-xs font-semibold text-brand-navy transition-colors hover:bg-brand-gold/90"
-          >
-            {translate("servicesBookNow")}
-            <ArrowRight className="h-3.5 w-3.5" />
-          </Link>
+          <div className="mt-2 flex w-full flex-col gap-2">
+            <Link
+              href={`/services/${service.name}`}
+              className="flex w-full items-center justify-center gap-1.5 rounded-lg bg-brand-gold px-4 py-2 text-xs font-semibold text-brand-navy transition-colors hover:bg-brand-gold/90"
+            >
+              {translate("servicesBookNow")}
+              <ArrowRight className="h-3.5 w-3.5" />
+            </Link>
+            {QUOTABLE_SERVICES.has(service.name) && (
+              <Link
+                href={`/services/${service.name}/request-quotation`}
+                className="flex w-full items-center justify-center gap-1.5 rounded-lg border border-brand-gold px-4 py-2 text-xs font-semibold text-brand-gold transition-colors hover:bg-brand-gold/10"
+              >
+                {translate("servicesRequestQuotation")}
+              </Link>
+            )}
+          </div>
         ) : (
           <span className="mt-2 block w-full rounded-lg border border-brand-navy-foreground/20 px-4 py-2 text-xs font-medium text-brand-navy-foreground/50">
             {translate("servicesComingSoon")}

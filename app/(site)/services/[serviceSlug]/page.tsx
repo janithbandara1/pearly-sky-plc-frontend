@@ -8,8 +8,10 @@ import { ArrowLeft } from "lucide-react";
 import { DateTimeSection } from "@/components/booking/date-time-section";
 import { EquipmentSection, SupplySource } from "@/components/booking/equipment-section";
 import { JobCardSection } from "@/components/booking/job-card-section";
+import { GENDER_OPTIONS, LANGUAGE_OPTIONS } from "@/components/booking/quotation-preferences-section";
 import { PropertyScaleSlider } from "@/components/booking/property-scale-slider";
 import { SelectedServicesSummary } from "@/components/booking/selected-services-summary";
+import { ServicePreferencesSection } from "@/components/booking/service-preferences-section";
 import { PageHero } from "@/components/page-hero";
 import { ApiError } from "@/lib/auth-context";
 import { BookingFrequency } from "@/lib/booking-api";
@@ -47,6 +49,9 @@ export default function BookServicePage({
   const [date, setDate] = useState("");
   const [time, setTime] = useState("");
   const frequency: BookingFrequency = "one-time";
+  const [gender, setGender] = useState(GENDER_OPTIONS[0].value);
+  const [language, setLanguage] = useState("");
+  const [requirements, setRequirements] = useState("");
 
   const [error, setError] = useState<string | null>(null);
   const [submitting, setSubmitting] = useState(false);
@@ -120,10 +125,15 @@ export default function BookServicePage({
     }
     setError(null);
     setSubmitting(true);
+    const genderLabel = GENDER_OPTIONS.find((o) => o.value === gender)?.label;
+    const languageLabel = LANGUAGE_OPTIONS.find((o) => o.value === language)?.label;
     const noteParts = [
       selectedPackages.length ? `Add-ons: ${selectedPackages.map((p) => p.name).join(", ")}` : "",
       selectedItems.length ? `Equipment: ${selectedItems.map((i) => i.name).join(", ")}` : "",
       supplySource ? `Cleaning solvents & equipment: ${supplySource === "company" ? "Request the Company" : "Provided by the Customer"}` : "",
+      genderLabel ? `Gender preference: ${genderLabel}` : "",
+      languageLabel ? `Language preference: ${languageLabel}` : "",
+      requirements.trim() ? `Requirements: ${requirements.trim()}` : "",
     ].filter(Boolean);
     saveBookingDraft({
       serviceId: service.id,
@@ -175,6 +185,16 @@ export default function BookServicePage({
       />
 
       <div className="mx-auto flex w-full max-w-[1150px] flex-1 flex-col gap-6 p-4 sm:p-6">
+        <div className="flex justify-start">
+          <Link
+            href="/"
+            className="inline-flex h-9 items-center gap-1.5 rounded-lg border-[1.5px] border-[#A98B4B] bg-secondary px-4 text-sm font-medium text-secondary-foreground transition-colors hover:bg-[color-mix(in_oklch,var(--secondary),var(--foreground)_5%)]"
+          >
+            <ArrowLeft className="size-4" />
+            Back
+          </Link>
+        </div>
+
         <JobCardSection
           packages={(service.servicePackages ?? []).map((sp) => sp.package)}
           selectedIds={selectedPackageIds}
@@ -190,6 +210,15 @@ export default function BookServicePage({
         />
 
         <DateTimeSection date={date} onDateChange={setDate} time={time} onTimeChange={setTime} />
+
+        <ServicePreferencesSection
+          gender={gender}
+          onGenderChange={setGender}
+          language={language}
+          onLanguageChange={setLanguage}
+          requirements={requirements}
+          onRequirementsChange={setRequirements}
+        />
 
         <div className="overflow-hidden rounded-[14px] border-2 border-[#A98B4B]">
           <div className="flex flex-col">
@@ -208,16 +237,6 @@ export default function BookServicePage({
         </div>
 
         {error && <p className="text-sm text-destructive">{error}</p>}
-
-        <div className="flex justify-center">
-          <Link
-            href="/"
-            className="inline-flex h-9 items-center gap-1.5 rounded-lg border-[1.5px] border-[#A98B4B] bg-secondary px-4 text-sm font-medium text-secondary-foreground transition-colors hover:bg-[color-mix(in_oklch,var(--secondary),var(--foreground)_5%)]"
-          >
-            <ArrowLeft className="size-4" />
-            Back
-          </Link>
-        </div>
       </div>
     </div>
   );
