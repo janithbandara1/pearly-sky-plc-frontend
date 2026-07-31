@@ -9,8 +9,11 @@ import { DateTimeSection } from "@/components/booking/date-time-section";
 import { EquipmentSection, SupplySource } from "@/components/booking/equipment-section";
 import { JobCardSection } from "@/components/booking/job-card-section";
 import { GENDER_OPTIONS, LANGUAGE_OPTIONS } from "@/components/booking/quotation-preferences-section";
-import { PropertyScaleSlider } from "@/components/booking/property-scale-slider";
-import { SelectedServicesSummary } from "@/components/booking/selected-services-summary";
+import {
+  getPropertyCategoriesForService,
+  PropertyTypeSizeSelector,
+} from "@/components/booking/property-type-size-selector";
+import { OrderSummaryCard } from "@/components/booking/order-summary-card";
 import { ServicePreferencesSection } from "@/components/booking/service-preferences-section";
 import { PageHero } from "@/components/page-hero";
 import { ApiError } from "@/lib/auth-context";
@@ -220,21 +223,32 @@ export default function BookServicePage({
           onRequirementsChange={setRequirements}
         />
 
-        <div className="overflow-hidden rounded-[14px] border-2 border-[#A98B4B]">
-          <div className="flex flex-col">
-            <PropertyScaleSlider value={propertySizeSqm} onChange={setPropertySizeSqm} />
-            <div className="h-0.5 shrink-0 bg-[#A98B4B]" />
-            <SelectedServicesSummary
-              value={propertySizeSqm}
-              quote={quote}
-              quoteLoading={quoteLoading}
-              addOnsTotal={addOnsTotal}
-              onBookNow={handleBookNow}
-              submitting={submitting}
-              bookDisabledReason={bookDisabledReason}
-            />
-          </div>
-        </div>
+        <PropertyTypeSizeSelector
+          value={propertySizeSqm}
+          onChange={setPropertySizeSqm}
+          categories={getPropertyCategoriesForService(serviceSlug)}
+        />
+
+        <OrderSummaryCard
+          serviceLabel={service.label}
+          frequency={frequency}
+          hourlyRate={service.price}
+          quote={quote}
+          quoteLoading={quoteLoading}
+          date={date}
+          time={time}
+          propertySizeSqm={propertySizeSqm}
+          packages={selectedPackages.map((p) => ({
+            name: p.name,
+            price: p.price !== null ? Number(p.price) : null,
+          }))}
+          items={selectedItems.map((i) => ({ name: i.name }))}
+          supplySource={supplySource}
+          addOnsTotal={addOnsTotal}
+          onBookNow={handleBookNow}
+          submitting={submitting}
+          bookDisabledReason={bookDisabledReason}
+        />
 
         {error && <p className="text-sm text-destructive">{error}</p>}
       </div>

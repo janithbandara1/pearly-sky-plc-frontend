@@ -2,7 +2,7 @@
 
 import type { ReactNode } from "react";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent } from "@/components/ui/card";
 import type { SupplySource } from "@/components/booking/equipment-section";
 import type { BookingDraftItem, BookingDraftPackage } from "@/lib/booking-draft";
 import type { BookingFrequency } from "@/lib/booking-api";
@@ -67,9 +67,6 @@ export function OrderSummaryCard({
 
   return (
     <Card className="bg-brand-navy text-brand-navy-foreground">
-      <CardHeader>
-        <CardTitle>Order summary</CardTitle>
-      </CardHeader>
       <CardContent className="flex flex-col gap-0 p-0">
         <div className="flex flex-col">
           <SummaryRow label="Service" value={<span className="font-semibold">{serviceLabel}</span>} />
@@ -132,7 +129,7 @@ export function OrderSummaryCard({
             disabled={bookNowDisabled}
             className="w-full bg-brand-gold text-brand-navy hover:bg-brand-gold/90"
           >
-            {submitting ? "Booking…" : "Confirm booking"}
+            {submitting ? "Booking…" : "Book Now"}
           </Button>
           {bookDisabledReason && (
             <p className="mt-2 text-center text-xs text-brand-navy-foreground/70">{bookDisabledReason}</p>

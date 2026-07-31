@@ -1,0 +1,175 @@
+"use client";
+
+import { useState } from "react";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+
+interface PropertyCategory {
+  id: string;
+  label: string;
+  sublabel?: string;
+  icon: string;
+  min: number;
+  max: number;
+  step: number;
+  locked: boolean;
+  /** Explicit, non-uniform size list. When present, overrides min/max/step for building options. */
+  sizes?: number[];
+}
+
+/** Generic scale used by services without a dedicated sizing scheme (e.g. commercial, post-construction). */
+export const PROPERTY_CATEGORIES: PropertyCategory[] = [
+  { id: "studio", label: "Studio", sublabel: "Apt", icon: "🏢", min: 20, max: 80, step: 1, locked: false },
+  { id: "home", label: "Home", icon: "🏡", min: 81, max: 400, step: 5, locked: false },
+  { id: "villa", label: "Villa", icon: "🏰", min: 401, max: 1000, step: 20, locked: false },
+  { id: "estate", label: "Estate", icon: "🏛️", min: 1001, max: 5000, step: 50, locked: true },
+  { id: "vip", label: "VIP", sublabel: "Diamond", icon: "💎", min: 5001, max: 9999, step: 100, locked: true },
+];
+
+/**
+ * Residential sizing scheme (m² / ft²) for standard-residential, deep-cleaning, end-of-tenancy,
+ * last-minute, express-refresh, premium-rental-concierge, and steam-cleaning services.
+ * Ranges intentionally overlap (e.g. a 120m² unit is both a "Home" and a "Townhouse") so the
+ * active category is tracked explicitly rather than re-derived from the size on every render.
+ */
+export const RESIDENTIAL_PROPERTY_CATEGORIES: PropertyCategory[] = [
+  { id: "studio", label: "Studio", icon: "🏢", min: 20, max: 50, step: 1, locked: false },
+  { id: "apartment", label: "Apartment / Flat", icon: "🏬", min: 40, max: 120, step: 1, locked: false },
+  { id: "townhouse", label: "Townhouse", icon: "🏘️", min: 100, max: 250, step: 5, locked: false },
+  { id: "home", label: "Home / House", icon: "🏡", min: 120, max: 350, step: 10, locked: false },
+  {
+    id: "penthouse",
+    label: "Penthouse",
+    icon: "🏙️",
+    min: 150,
+    max: 400,
+    step: 0,
+    sizes: [150, 175, 200, 225, 250, 275, 300, 350, 400],
+    locked: false,
+  },
+  {
+    id: "villa",
+    label: "Villa",
+    icon: "🏰",
+    min: 250,
+    max: 800,
+    step: 0,
+    sizes: [250, 300, 350, 400, 450, 500, 600, 700, 800],
+    locked: false,
+  },
+];
+
+const RESIDENTIAL_SCHEME_SERVICE_SLUGS = new Set([
+  "standard-residential-cleaning",
+  "deep-cleaning",
+  "end-of-tenancy-cleaning",
+  "last-minute-cleaning",
+  "express-refresh-cleaning",
+  "premium-rental-concierge-cleaning",
+  "steam-cleaning",
+]);
+
+export function getPropertyCategoriesForService(serviceSlug: string): PropertyCategory[] {
+  return RESIDENTIAL_SCHEME_SERVICE_SLUGS.has(serviceSlug) ? RESIDENTIAL_PROPERTY_CATEGORIES : PROPERTY_CATEGORIES;
+}
+
+function getPropertyCategory(value: number, categories: PropertyCategory[]): PropertyCategory {
+  return categories.find((c) => value >= c.min && value <= c.max) ?? categories[0];
+}
+
+function buildSizeOptions(cat: PropertyCategory): number[] {
+  if (cat.sizes) return cat.sizes;
+  const sizes: number[] = [];
+  for (let s = cat.min; s <= cat.max; s += cat.step) sizes.push(s);
+  if (sizes[sizes.length - 1] !== cat.max) sizes.push(cat.max);
+  return sizes;
+}
+
+function formatSizeRange(cat: PropertyCategory): string {
+  if (cat.sizes) {
+    const last = cat.sizes[cat.sizes.length - 1];
+    return `${cat.sizes[0]} m² - ${last} m²`;
+  }
+  return `${cat.min} m² - ${cat.max} m²`;
+}
+
+function formatFt2(m2: number): string {
+  return Math.round(m2 * 10.7639).toLocaleString();
+}
+
+export interface PropertyTypeSizeSelectorProps {
+  value: number;
+  onChange: (value: number) => void;
+  categories?: PropertyCategory[];
+}
+
+export function PropertyTypeSizeSelector({
+  value,
+  onChange,
+  categories = PROPERTY_CATEGORIES,
+}: PropertyTypeSizeSelectorProps) {
+  const selectableCategories = categories.filter((c) => !c.locked);
+
+  // Tracked explicitly (not re-derived from `value` every render) because some schemes have
+  // overlapping category ranges — re-deriving would silently snap back to a different category.
+  const [activeCategoryId, setActiveCategoryId] = useState(() => getPropertyCategory(value, categories).id);
+  const [categoriesForActiveId, setCategoriesForActiveId] = useState(categories);
+
+  if (categories !== categoriesForActiveId) {
+    setCategoriesForActiveId(categories);
+    setActiveCategoryId(getPropertyCategory(value, categories).id);
+  }
+
+  const activeCategory = categories.find((c) => c.id === activeCategoryId) ?? categories[0];
+  const sizeOptions = buildSizeOptions(activeCategory);
+
+  function handleTypeChange(id: string) {
+    const nextCat = selectableCategories.find((c) => c.id === id);
+    if (nextCat) {
+      setActiveCategoryId(nextCat.id);
+      onChange(nextCat.sizes ? nextCat.sizes[0] : nextCat.min);
+    }
+  }
+
+  return (
+    <section className="overflow-hidden rounded-[12px] border border-[#A98B4B]">
+      <div className="bg-[#121E2D] px-5 py-4 text-center">
+        <h2 className="text-[1.1rem] font-bold text-[#FFFDF4] sm:text-[1.3rem]">Property Type &amp; Size</h2>
+      </div>
+
+      <div className="grid grid-cols-1 gap-4 bg-[#F8F9FA] p-4 sm:grid-cols-2 sm:p-5">
+        <div>
+          <p className="mb-2 text-sm font-semibold text-[#121E2D]">Property Type</p>
+          <Select value={activeCategory.id} onValueChange={handleTypeChange}>
+            <SelectTrigger className="w-full bg-white">
+              <SelectValue />
+            </SelectTrigger>
+            <SelectContent>
+              {selectableCategories.map((cat) => (
+                <SelectItem key={cat.id} value={cat.id}>
+                  {cat.icon} {cat.label}
+                  {cat.sublabel ? `/${cat.sublabel}` : ""} ({formatSizeRange(cat)})
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
+        </div>
+
+        <div>
+          <p className="mb-2 text-sm font-semibold text-[#121E2D]">Property Size</p>
+          <Select value={String(value)} onValueChange={(v) => onChange(Number(v))}>
+            <SelectTrigger className="w-full bg-white">
+              <SelectValue />
+            </SelectTrigger>
+            <SelectContent>
+              {sizeOptions.map((s) => (
+                <SelectItem key={s} value={String(s)}>
+                  {s} m² / {formatFt2(s)} ft²
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
+        </div>
+      </div>
+    </section>
+  );
+}

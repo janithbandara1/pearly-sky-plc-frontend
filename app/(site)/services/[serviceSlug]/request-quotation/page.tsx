@@ -5,7 +5,10 @@ import { use, useEffect, useState } from "react";
 import { ArrowLeft } from "lucide-react";
 import { DateTimeSection } from "@/components/booking/date-time-section";
 import { EquipmentSection, SupplySource } from "@/components/booking/equipment-section";
-import { PropertyScaleSlider } from "@/components/booking/property-scale-slider";
+import {
+  getPropertyCategoriesForService,
+  PropertyTypeSizeSelector,
+} from "@/components/booking/property-type-size-selector";
 import {
   GENDER_OPTIONS,
   LANGUAGE_OPTIONS,
@@ -185,9 +188,11 @@ export default function RequestQuotationPage({
             onToggleItem={toggleItem}
           />
 
-          <div className="overflow-hidden rounded-[14px] border-2 border-brand-gold-dark">
-            <PropertyScaleSlider value={propertySizeSqm} onChange={setPropertySizeSqm} />
-          </div>
+          <PropertyTypeSizeSelector
+            value={propertySizeSqm}
+            onChange={setPropertySizeSqm}
+            categories={getPropertyCategoriesForService(serviceSlug)}
+          />
 
           <QuotationPreferencesSection
             numCleaners={numCleaners}
