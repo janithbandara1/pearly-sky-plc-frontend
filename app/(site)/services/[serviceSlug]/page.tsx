@@ -53,7 +53,7 @@ export default function BookServicePage({
   const [time, setTime] = useState("");
   const frequency: BookingFrequency = "one-time";
   const [gender, setGender] = useState(GENDER_OPTIONS[0].value);
-  const [language, setLanguage] = useState("");
+  const [language, setLanguage] = useState(LANGUAGE_OPTIONS[0].value);
   const [requirements, setRequirements] = useState("");
 
   const [error, setError] = useState<string | null>(null);

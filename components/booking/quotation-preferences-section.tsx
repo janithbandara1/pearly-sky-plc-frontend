@@ -53,6 +53,7 @@ export const GENDER_OPTIONS = [
 ];
 
 export const LANGUAGE_OPTIONS = [
+  { value: "no-preference", label: "No Preference" },
   { value: "english", label: "English" },
   { value: "french", label: "French" },
   { value: "german", label: "German" },

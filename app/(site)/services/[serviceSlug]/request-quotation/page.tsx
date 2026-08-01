@@ -62,7 +62,7 @@ export default function RequestQuotationPage({
   const [numCleaners, setNumCleaners] = useState(0);
   const [durationHours, setDurationHours] = useState(0);
   const [gender, setGender] = useState(GENDER_OPTIONS[0].value);
-  const [language, setLanguage] = useState("");
+  const [language, setLanguage] = useState(LANGUAGE_OPTIONS[0].value);
   const [requirements, setRequirements] = useState("");
 
   const [firstName, setFirstName] = useState("");
