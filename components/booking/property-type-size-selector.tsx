@@ -14,6 +14,8 @@ interface PropertyCategory {
   locked: boolean;
   /** Explicit, non-uniform size list. When present, overrides min/max/step for building options. */
   sizes?: number[];
+  /** Fully pre-formatted dropdown text. When present, overrides the default "label/sublabel (range)" rendering. */
+  dropdownLabel?: string;
 }
 
 /** Generic scale used by services without a dedicated sizing scheme (e.g. commercial, post-construction). */
@@ -68,8 +70,56 @@ const RESIDENTIAL_SCHEME_SERVICE_SLUGS = new Set([
   "steam-cleaning",
 ]);
 
+/** Post-construction sizing scheme, tracked by clean-up phase rather than property type. */
+export const POST_CONSTRUCTION_PROPERTY_CATEGORIES: PropertyCategory[] = [
+  {
+    id: "rough-clean",
+    label: "Rough Clean",
+    dropdownLabel: "Rough Clean (Initial Debris & Dust Removal)",
+    icon: "🧱",
+    min: 20,
+    max: 1000,
+    step: 20,
+    locked: false,
+  },
+  {
+    id: "touch-up-clean",
+    label: "Touch-Up Clean",
+    dropdownLabel: "Touch-Up Clean (20 m² - 100 m² / 215 ft² - 1,076 ft²)",
+    icon: "🧽",
+    min: 20,
+    max: 100,
+    step: 5,
+    locked: false,
+  },
+  {
+    id: "final-post-build-clean",
+    label: "Final Post-Build Clean",
+    dropdownLabel: "Final Post-Build Clean (101 m² - 300 m² / 1,087 ft² - 3,229 ft²)",
+    icon: "✨",
+    min: 101,
+    max: 300,
+    step: 10,
+    locked: false,
+  },
+  {
+    id: "heavy-duty-construction-clean",
+    label: "Heavy-Duty Deep Clean",
+    dropdownLabel: "Heavy-Duty Deep Clean (301 m² - 1,000 m² / 3,240 ft² - 10,764 ft²)",
+    icon: "🏗️",
+    min: 301,
+    max: 1000,
+    step: 20,
+    locked: false,
+  },
+];
+
+const POST_CONSTRUCTION_SERVICE_SLUGS = new Set(["post-construction-renovation-cleaning"]);
+
 export function getPropertyCategoriesForService(serviceSlug: string): PropertyCategory[] {
-  return RESIDENTIAL_SCHEME_SERVICE_SLUGS.has(serviceSlug) ? RESIDENTIAL_PROPERTY_CATEGORIES : PROPERTY_CATEGORIES;
+  if (RESIDENTIAL_SCHEME_SERVICE_SLUGS.has(serviceSlug)) return RESIDENTIAL_PROPERTY_CATEGORIES;
+  if (POST_CONSTRUCTION_SERVICE_SLUGS.has(serviceSlug)) return POST_CONSTRUCTION_PROPERTY_CATEGORIES;
+  return PROPERTY_CATEGORIES;
 }
 
 function getPropertyCategory(value: number, categories: PropertyCategory[]): PropertyCategory {
@@ -146,8 +196,16 @@ export function PropertyTypeSizeSelector({
             <SelectContent>
               {selectableCategories.map((cat) => (
                 <SelectItem key={cat.id} value={cat.id}>
-                  {cat.icon} {cat.label}
-                  {cat.sublabel ? `/${cat.sublabel}` : ""} ({formatSizeRange(cat)})
+                  {cat.dropdownLabel ? (
+                    <>
+                      {cat.icon} {cat.dropdownLabel}
+                    </>
+                  ) : (
+                    <>
+                      {cat.icon} {cat.label}
+                      {cat.sublabel ? `/${cat.sublabel}` : ""} ({formatSizeRange(cat)})
+                    </>
+                  )}
                 </SelectItem>
               ))}
             </SelectContent>
