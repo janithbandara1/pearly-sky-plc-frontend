@@ -1,9 +1,9 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 
-interface PropertyCategory {
+export interface PropertyCategory {
   id: string;
   label: string;
   sublabel?: string;
@@ -150,12 +150,15 @@ export interface PropertyTypeSizeSelectorProps {
   value: number;
   onChange: (value: number) => void;
   categories?: PropertyCategory[];
+  /** Fires with the active category whenever it changes (including on mount). */
+  onCategoryChange?: (category: PropertyCategory) => void;
 }
 
 export function PropertyTypeSizeSelector({
   value,
   onChange,
   categories = PROPERTY_CATEGORIES,
+  onCategoryChange,
 }: PropertyTypeSizeSelectorProps) {
   const selectableCategories = categories.filter((c) => !c.locked);
 
@@ -171,6 +174,11 @@ export function PropertyTypeSizeSelector({
 
   const activeCategory = categories.find((c) => c.id === activeCategoryId) ?? categories[0];
   const sizeOptions = buildSizeOptions(activeCategory);
+
+  useEffect(() => {
+    onCategoryChange?.(activeCategory);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [activeCategory]);
 
   function handleTypeChange(id: string) {
     const nextCat = selectableCategories.find((c) => c.id === id);

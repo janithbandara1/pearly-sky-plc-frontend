@@ -24,6 +24,10 @@ export interface BookingDraft {
   items: BookingDraftItem[];
   supplySource: SupplySource;
   addOnsTotal: number;
+  genderPreference: string;
+  languagePreference: string;
+  specialRequirements?: string;
+  propertyType?: string;
   note?: string;
 }
 

@@ -11,6 +11,7 @@ import { JobCardSection } from "@/components/booking/job-card-section";
 import { GENDER_OPTIONS, LANGUAGE_OPTIONS } from "@/components/booking/quotation-preferences-section";
 import {
   getPropertyCategoriesForService,
+  PropertyCategory,
   PropertyTypeSizeSelector,
 } from "@/components/booking/property-type-size-selector";
 import { OrderSummaryCard } from "@/components/booking/order-summary-card";
@@ -45,6 +46,7 @@ export default function BookServicePage({
   const [selectedItemIds, setSelectedItemIds] = useState<Set<number>>(new Set());
 
   const [propertySizeSqm, setPropertySizeSqm] = useState(20);
+  const [propertyType, setPropertyType] = useState("");
   const [quote, setQuote] = useState<SizeQuote | null>(null);
   const [quoteLoading, setQuoteLoading] = useState(false);
 
@@ -128,16 +130,6 @@ export default function BookServicePage({
     }
     setError(null);
     setSubmitting(true);
-    const genderLabel = GENDER_OPTIONS.find((o) => o.value === gender)?.label;
-    const languageLabel = LANGUAGE_OPTIONS.find((o) => o.value === language)?.label;
-    const noteParts = [
-      selectedPackages.length ? `Add-ons: ${selectedPackages.map((p) => p.name).join(", ")}` : "",
-      selectedItems.length ? `Equipment: ${selectedItems.map((i) => i.name).join(", ")}` : "",
-      supplySource ? `Cleaning solvents & equipment: ${supplySource === "company" ? "Request the Company" : "Provided by the Customer"}` : "",
-      genderLabel ? `Gender preference: ${genderLabel}` : "",
-      languageLabel ? `Language preference: ${languageLabel}` : "",
-      requirements.trim() ? `Requirements: ${requirements.trim()}` : "",
-    ].filter(Boolean);
     saveBookingDraft({
       serviceId: service.id,
       serviceSlug,
@@ -153,7 +145,10 @@ export default function BookServicePage({
       items: selectedItems.map((i) => ({ name: i.name })),
       supplySource,
       addOnsTotal,
-      note: noteParts.length ? noteParts.join(" — ") : undefined,
+      genderPreference: gender,
+      languagePreference: language,
+      specialRequirements: requirements.trim() || undefined,
+      propertyType: propertyType || undefined,
     });
     router.push(`/services/${serviceSlug}/checkout`);
   }
@@ -227,6 +222,7 @@ export default function BookServicePage({
           value={propertySizeSqm}
           onChange={setPropertySizeSqm}
           categories={getPropertyCategoriesForService(serviceSlug)}
+          onCategoryChange={(cat: PropertyCategory) => setPropertyType(cat.dropdownLabel ?? cat.label)}
         />
 
         <OrderSummaryCard

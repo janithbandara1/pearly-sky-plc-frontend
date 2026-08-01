@@ -21,10 +21,21 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { GENDER_OPTIONS, LANGUAGE_OPTIONS } from "@/components/booking/quotation-preferences-section";
 import { ApiError } from "@/lib/auth-context";
 import { AdminOrder, getOrderAdmin, updateOrderAdmin } from "@/lib/admin-api";
 import { AdminUser, listUsers } from "@/lib/admin-users-api";
 import { useStaffAuth } from "@/lib/staff-auth-context";
+
+const SUPPLY_SOURCE_LABEL: Record<string, string> = {
+  customer: "Provided by the Customer",
+  company: "Request the Company",
+};
+
+function optionLabel(options: { value: string; label: string }[], value: string | null): string {
+  if (!value) return "No Preference";
+  return options.find((o) => o.value === value)?.label ?? value;
+}
 
 const STATUS_VARIANT: Record<AdminOrder["status"], "default" | "secondary" | "destructive"> = {
   confirmed: "default",
@@ -173,6 +184,10 @@ export default function StaffBookingDetailsPage() {
                 <p>{order.serviceDetails[0].propertySizeSqm} m²</p>
               </div>
               <div>
+                <p className="text-xs text-muted-foreground">Property type</p>
+                <p>{order.serviceDetails[0].propertyType ?? "—"}</p>
+              </div>
+              <div>
                 <p className="text-xs text-muted-foreground">Duration</p>
                 <p>
                   {order.serviceDetails[0].minHours}-{order.serviceDetails[0].maxHours} hours
@@ -197,6 +212,57 @@ export default function StaffBookingDetailsPage() {
               )}
             </>
           )}
+        </div>
+      )}
+
+      {!loading && order && order.serviceDetails[0] && (
+        <div className="grid grid-cols-1 gap-4 text-sm sm:grid-cols-2">
+          <div>
+            <p className="text-xs text-muted-foreground">Add-ons</p>
+            {order.serviceDetails[0].addOns?.length ? (
+              <ul className="list-inside list-disc">
+                {order.serviceDetails[0].addOns.map((addOn) => (
+                  <li key={addOn.name}>
+                    {addOn.name}
+                    {addOn.price !== null ? ` — ${addOn.price}` : ""}
+                  </li>
+                ))}
+              </ul>
+            ) : (
+              <p>None</p>
+            )}
+          </div>
+
+          <div>
+            <p className="text-xs text-muted-foreground">Cleaning Solvents & Equipments</p>
+            <p>
+              {order.serviceDetails[0].supplySource
+                ? (SUPPLY_SOURCE_LABEL[order.serviceDetails[0].supplySource] ?? order.serviceDetails[0].supplySource)
+                : "Not specified"}
+            </p>
+            {order.serviceDetails[0].equipmentItems?.length ? (
+              <ul className="list-inside list-disc">
+                {order.serviceDetails[0].equipmentItems.map((item) => (
+                  <li key={item.name}>{item.name}</li>
+                ))}
+              </ul>
+            ) : null}
+          </div>
+
+          <div>
+            <p className="text-xs text-muted-foreground">Gender Preference</p>
+            <p>{optionLabel(GENDER_OPTIONS, order.serviceDetails[0].genderPreference)}</p>
+          </div>
+
+          <div>
+            <p className="text-xs text-muted-foreground">Language Preference</p>
+            <p>{optionLabel(LANGUAGE_OPTIONS, order.serviceDetails[0].languagePreference)}</p>
+          </div>
+
+          <div className="sm:col-span-2">
+            <p className="text-xs text-muted-foreground">Special Requirements</p>
+            <p>{order.serviceDetails[0].specialRequirements || "—"}</p>
+          </div>
         </div>
       )}
 

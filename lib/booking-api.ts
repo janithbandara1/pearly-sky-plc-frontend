@@ -1,8 +1,24 @@
 import { apiFetch } from "./api";
 
 export type BookingFrequency = "one-time" | "weekly" | "bi-weekly" | "monthly";
+export type BookingSupplySource = "customer" | "company";
 
-export interface CreateBookingPayload {
+export interface BookingLineItem {
+  name: string;
+  price?: number;
+}
+
+interface BookingPreferencesPayload {
+  addOns?: BookingLineItem[];
+  equipmentItems?: BookingLineItem[];
+  supplySource?: BookingSupplySource;
+  genderPreference?: string;
+  languagePreference?: string;
+  specialRequirements?: string;
+  propertyType?: string;
+}
+
+export interface CreateBookingPayload extends BookingPreferencesPayload {
   serviceId: number;
   propertySizeSqm: number;
   date: string;
@@ -25,6 +41,13 @@ export interface BookingServiceDetails {
   extraCleanerCount: number;
   frequency: BookingFrequency;
   note: string | null;
+  addOns: BookingLineItem[] | null;
+  equipmentItems: BookingLineItem[] | null;
+  supplySource: string | null;
+  genderPreference: string | null;
+  languagePreference: string | null;
+  specialRequirements: string | null;
+  propertyType: string | null;
   service: { id: number; label: string; name: string };
 }
 
@@ -46,7 +69,7 @@ export function createBooking(accessToken: string, payload: CreateBookingPayload
   });
 }
 
-export interface CreateGuestBookingPayload {
+export interface CreateGuestBookingPayload extends BookingPreferencesPayload {
   serviceId: number;
   propertySizeSqm: number;
   date: string;

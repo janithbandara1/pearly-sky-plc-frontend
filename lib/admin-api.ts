@@ -15,6 +15,11 @@ export interface AdminOrderStaff {
   email: string;
 }
 
+export interface AdminOrderLineItem {
+  name: string;
+  price: number | null;
+}
+
 export interface AdminOrderServiceDetails {
   id: number;
   date: string;
@@ -26,6 +31,13 @@ export interface AdminOrderServiceDetails {
   extraCleanerCount: number;
   frequency: string;
   note: string | null;
+  addOns: AdminOrderLineItem[] | null;
+  equipmentItems: AdminOrderLineItem[] | null;
+  supplySource: string | null;
+  genderPreference: string | null;
+  languagePreference: string | null;
+  specialRequirements: string | null;
+  propertyType: string | null;
   service: { id: number; label: string };
 }
 

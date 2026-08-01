@@ -164,6 +164,13 @@ export default function CheckoutPage({
           addressId: selectedAddressId ?? undefined,
           note: draft.note,
           country: currentCountry ?? undefined,
+          addOns: draft.packages.map((p) => ({ name: p.name, price: p.price ?? undefined })),
+          equipmentItems: draft.items.map((i) => ({ name: i.name })),
+          supplySource: draft.supplySource || undefined,
+          genderPreference: draft.genderPreference,
+          languagePreference: draft.languagePreference,
+          specialRequirements: draft.specialRequirements,
+          propertyType: draft.propertyType,
         });
         clearBookingDraft();
         try {
@@ -182,6 +189,13 @@ export default function CheckoutPage({
           time: draft.time,
           frequency: draft.frequency,
           note: draft.note,
+          addOns: draft.packages.map((p) => ({ name: p.name, price: p.price ?? undefined })),
+          equipmentItems: draft.items.map((i) => ({ name: i.name })),
+          supplySource: draft.supplySource || undefined,
+          genderPreference: draft.genderPreference,
+          languagePreference: draft.languagePreference,
+          specialRequirements: draft.specialRequirements,
+          propertyType: draft.propertyType,
           firstName: contactForm.firstName.trim(),
           lastName: contactForm.lastName.trim() || undefined,
           email: contactForm.email.trim(),
