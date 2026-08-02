@@ -15,7 +15,7 @@ export function JobCardSection({ packages, selectedIds, onToggle }: JobCardSecti
   return (
     <section className="overflow-hidden rounded-[12px] border border-[#A98B4B]">
       <div className="bg-[#121E2D] px-5 py-4 text-center">
-        <h2 className="text-[1.1rem] font-bold text-[#FFFDF4] sm:text-[1.3rem]">Service Upgrade Options</h2>
+        <h2 className="text-[1.1rem] font-bold text-[#FFFDF4] sm:text-[1.3rem]">Add-Ons</h2>
       </div>
 
       <div className="bg-[#F8F9FA] p-4 sm:p-5">
