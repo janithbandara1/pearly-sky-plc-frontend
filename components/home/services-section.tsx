@@ -26,6 +26,16 @@ const BOOKABLE_SERVICES = new Set([
   "post-event-cleaning",
 ]);
 
+// Services priced on a per-project basis rather than an hourly rate — the
+// homepage card shows "Request Quotation" instead of an "/h" price for these.
+const QUOTE_ONLY_PRICING_SERVICES = new Set([
+  "carpet-upholstery-cleaning",
+  "pool-cleaning",
+  "precision-pressure-washing",
+  "laundry-services",
+  "move-in-out-transport-service",
+]);
+
 // Services with a "Request Quotation" flow (services/<slug>/request-quotation)
 const QUOTABLE_SERVICES = new Set([
   "standard-residential-cleaning",
@@ -72,9 +82,11 @@ function ServiceCard({ service }: { service: CatalogService }) {
             </p>
           )}
           <p className="text-sm font-semibold text-brand-gold">
-            {service.price
-              ? `${symbol}${service.price}${translate("servicesPricePerCleaner")}`
-              : translate("servicesPricingSoon")}
+            {QUOTE_ONLY_PRICING_SERVICES.has(service.name)
+              ? translate("servicesRequestQuotation")
+              : service.price
+                ? `${symbol}${service.price}${translate("servicesPricePerCleaner")}`
+                : translate("servicesPricingSoon")}
           </p>
         </div>
 
