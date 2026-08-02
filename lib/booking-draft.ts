@@ -32,6 +32,8 @@ export interface BookingDraft {
   facilities?: string[];
   /** healthguard-sanitization only. */
   disinfectionLevel?: BookingDraftPackage;
+  /** steam-cleaning only. */
+  steamItems?: string[];
   note?: string;
 }
 

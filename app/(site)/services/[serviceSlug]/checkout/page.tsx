@@ -175,6 +175,7 @@ export default function CheckoutPage({
           disinfectionLevel: draft.disinfectionLevel
             ? { name: draft.disinfectionLevel.name, price: draft.disinfectionLevel.price ?? undefined }
             : undefined,
+          steamItems: draft.steamItems,
         });
         clearBookingDraft();
         try {
@@ -204,6 +205,7 @@ export default function CheckoutPage({
           disinfectionLevel: draft.disinfectionLevel
             ? { name: draft.disinfectionLevel.name, price: draft.disinfectionLevel.price ?? undefined }
             : undefined,
+          steamItems: draft.steamItems,
           firstName: contactForm.firstName.trim(),
           lastName: contactForm.lastName.trim() || undefined,
           email: contactForm.email.trim(),

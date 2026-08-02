@@ -20,6 +20,8 @@ interface BookingPreferencesPayload {
   facilities?: string[];
   /** healthguard-sanitization only. */
   disinfectionLevel?: BookingLineItem;
+  /** steam-cleaning only. */
+  steamItems?: string[];
 }
 
 export interface CreateBookingPayload extends BookingPreferencesPayload {
@@ -54,6 +56,7 @@ export interface BookingServiceDetails {
   propertyType: string | null;
   facilities: string[] | null;
   disinfectionLevel: BookingLineItem | null;
+  steamItems: string[] | null;
   service: { id: number; label: string; name: string };
 }
 

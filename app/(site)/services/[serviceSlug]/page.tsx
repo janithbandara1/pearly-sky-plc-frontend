@@ -3,13 +3,16 @@
 import Link from "next/link";
 import { Poppins } from "next/font/google";
 import { useRouter } from "next/navigation";
-import { use, useEffect, useState } from "react";
+import { use, useEffect, useState, type Dispatch, type SetStateAction } from "react";
 import { ArrowLeft } from "lucide-react";
 import { DateTimeSection } from "@/components/booking/date-time-section";
 import { DISINFECTION_LEVELS, DisinfectionLevelSection } from "@/components/booking/disinfection-level-section";
 import { EquipmentSection, SupplySource } from "@/components/booking/equipment-section";
 import { FACILITY_CARDS, FacilitySelectionSection } from "@/components/booking/facility-selection-section";
 import { JobCardSection } from "@/components/booking/job-card-section";
+import { GeneralSteamSection } from "@/components/booking/steam/general-steam-section";
+import { IndustrialCommercialSteamSection } from "@/components/booking/steam/industrial-commercial-steam-section";
+import { SteamEquipmentSection } from "@/components/booking/steam/steam-equipment-section";
 import { GENDER_OPTIONS, LANGUAGE_OPTIONS } from "@/components/booking/quotation-preferences-section";
 import {
   getPropertyCategoriesForService,
@@ -35,6 +38,9 @@ const poppins = Poppins({ subsets: ["latin"], weight: ["400", "500", "600", "700
 /** Only healthguard-sanitization collects facility type + disinfection level. */
 const SANITIZATION_SLUG = "healthguard-sanitization";
 
+/** Only steam-cleaning collects General/Industrial & Commercial/Equipment category selections. */
+const STEAM_SLUG = "steam-cleaning";
+
 export default function BookServicePage({
   params,
 }: {
@@ -44,6 +50,7 @@ export default function BookServicePage({
   const router = useRouter();
   const { country } = useCountry();
   const isSanitization = serviceSlug === SANITIZATION_SLUG;
+  const isSteam = serviceSlug === STEAM_SLUG;
 
   const [service, setService] = useState<CatalogServiceDetail | null>(null);
   const [serviceError, setServiceError] = useState<string | null>(null);
@@ -66,6 +73,10 @@ export default function BookServicePage({
 
   const [selectedFacilityIds, setSelectedFacilityIds] = useState<Set<string>>(new Set());
   const [disinfectionLevelId, setDisinfectionLevelId] = useState("");
+
+  const [selectedGeneralSteam, setSelectedGeneralSteam] = useState<Set<string>>(new Set());
+  const [selectedIndustrialSteam, setSelectedIndustrialSteam] = useState<Set<string>>(new Set());
+  const [selectedSteamEquipment, setSelectedSteamEquipment] = useState<Set<string>>(new Set());
 
   const [error, setError] = useState<string | null>(null);
   const [submitting, setSubmitting] = useState(false);
@@ -125,6 +136,15 @@ export default function BookServicePage({
     });
   }
 
+  function toggleSteamSetEntry(setter: Dispatch<SetStateAction<Set<string>>>, value: string) {
+    setter((prev) => {
+      const next = new Set(prev);
+      if (next.has(value)) next.delete(value);
+      else next.add(value);
+      return next;
+    });
+  }
+
   const selectedPackages = (service?.servicePackages ?? [])
     .map((sp) => sp.package)
     .filter((pkg) => selectedPackageIds.has(pkg.id));
@@ -140,7 +160,7 @@ export default function BookServicePage({
 
   function handleBookNow() {
     if (!service) return;
-    if (!isSanitization && !supplySource) {
+    if (!isSanitization && !isSteam && !supplySource) {
       setError("Please select a cleaning solvents & equipments option.");
       return;
     }
@@ -184,6 +204,9 @@ export default function BookServicePage({
       disinfectionLevel: selectedDisinfectionLevel
         ? { name: selectedDisinfectionLevel.title, price: selectedDisinfectionLevel.priceAdder }
         : undefined,
+      steamItems: isSteam
+        ? [...selectedGeneralSteam, ...selectedIndustrialSteam, ...selectedSteamEquipment]
+        : undefined,
     });
     router.push(`/services/${serviceSlug}/checkout`);
   }
@@ -202,7 +225,7 @@ export default function BookServicePage({
     );
   }
 
-  const bookDisabledReason = !isSanitization && !supplySource
+  const bookDisabledReason = !isSanitization && !isSteam && !supplySource
     ? "Select a cleaning solvents & equipments option above to continue."
     : isSanitization && selectedFacilityIds.size === 0
       ? "Select at least one facility above to continue."
@@ -240,7 +263,28 @@ export default function BookServicePage({
           <DisinfectionLevelSection selectedId={disinfectionLevelId} onSelect={(level) => setDisinfectionLevelId(level.id)} />
         )}
 
-        {!isSanitization && (
+        {isSteam && (
+          <GeneralSteamSection
+            selectedTitles={selectedGeneralSteam}
+            onToggle={(title) => toggleSteamSetEntry(setSelectedGeneralSteam, title)}
+          />
+        )}
+
+        {isSteam && (
+          <IndustrialCommercialSteamSection
+            selectedTitles={selectedIndustrialSteam}
+            onToggle={(title) => toggleSteamSetEntry(setSelectedIndustrialSteam, title)}
+          />
+        )}
+
+        {isSteam && (
+          <SteamEquipmentSection
+            selectedNames={selectedSteamEquipment}
+            onToggle={(name) => toggleSteamSetEntry(setSelectedSteamEquipment, name)}
+          />
+        )}
+
+        {!isSanitization && !isSteam && (
           <JobCardSection
             packages={(service.servicePackages ?? []).map((sp) => sp.package)}
             selectedIds={selectedPackageIds}
@@ -248,7 +292,7 @@ export default function BookServicePage({
           />
         )}
 
-        {!isSanitization && (
+        {!isSanitization && !isSteam && (
           <EquipmentSection
             items={items}
             supplySource={supplySource}
