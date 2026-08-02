@@ -38,6 +38,8 @@ export interface AdminOrderServiceDetails {
   languagePreference: string | null;
   specialRequirements: string | null;
   propertyType: string | null;
+  facilities: string[] | null;
+  disinfectionLevel: AdminOrderLineItem | null;
   service: { id: number; label: string };
 }
 

@@ -171,6 +171,10 @@ export default function CheckoutPage({
           languagePreference: draft.languagePreference,
           specialRequirements: draft.specialRequirements,
           propertyType: draft.propertyType,
+          facilities: draft.facilities,
+          disinfectionLevel: draft.disinfectionLevel
+            ? { name: draft.disinfectionLevel.name, price: draft.disinfectionLevel.price ?? undefined }
+            : undefined,
         });
         clearBookingDraft();
         try {
@@ -196,6 +200,10 @@ export default function CheckoutPage({
           languagePreference: draft.languagePreference,
           specialRequirements: draft.specialRequirements,
           propertyType: draft.propertyType,
+          facilities: draft.facilities,
+          disinfectionLevel: draft.disinfectionLevel
+            ? { name: draft.disinfectionLevel.name, price: draft.disinfectionLevel.price ?? undefined }
+            : undefined,
           firstName: contactForm.firstName.trim(),
           lastName: contactForm.lastName.trim() || undefined,
           email: contactForm.email.trim(),

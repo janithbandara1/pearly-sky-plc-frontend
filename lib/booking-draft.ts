@@ -28,6 +28,10 @@ export interface BookingDraft {
   languagePreference: string;
   specialRequirements?: string;
   propertyType?: string;
+  /** healthguard-sanitization only. */
+  facilities?: string[];
+  /** healthguard-sanitization only. */
+  disinfectionLevel?: BookingDraftPackage;
   note?: string;
 }
 

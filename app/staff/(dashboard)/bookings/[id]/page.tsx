@@ -249,6 +249,29 @@ export default function StaffBookingDetailsPage() {
             ) : null}
           </div>
 
+          {order.serviceDetails[0].facilities?.length ? (
+            <div>
+              <p className="text-xs text-muted-foreground">Facilities</p>
+              <ul className="list-inside list-disc">
+                {order.serviceDetails[0].facilities.map((facility) => (
+                  <li key={facility}>{facility}</li>
+                ))}
+              </ul>
+            </div>
+          ) : null}
+
+          {order.serviceDetails[0].disinfectionLevel ? (
+            <div>
+              <p className="text-xs text-muted-foreground">Disinfection Level</p>
+              <p>
+                {order.serviceDetails[0].disinfectionLevel.name}
+                {order.serviceDetails[0].disinfectionLevel.price
+                  ? ` — +${order.serviceDetails[0].disinfectionLevel.price}`
+                  : ""}
+              </p>
+            </div>
+          ) : null}
+
           <div>
             <p className="text-xs text-muted-foreground">Gender Preference</p>
             <p>{optionLabel(GENDER_OPTIONS, order.serviceDetails[0].genderPreference)}</p>

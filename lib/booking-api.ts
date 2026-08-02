@@ -16,6 +16,10 @@ interface BookingPreferencesPayload {
   languagePreference?: string;
   specialRequirements?: string;
   propertyType?: string;
+  /** healthguard-sanitization only. */
+  facilities?: string[];
+  /** healthguard-sanitization only. */
+  disinfectionLevel?: BookingLineItem;
 }
 
 export interface CreateBookingPayload extends BookingPreferencesPayload {
@@ -48,6 +52,8 @@ export interface BookingServiceDetails {
   languagePreference: string | null;
   specialRequirements: string | null;
   propertyType: string | null;
+  facilities: string[] | null;
+  disinfectionLevel: BookingLineItem | null;
   service: { id: number; label: string; name: string };
 }
 

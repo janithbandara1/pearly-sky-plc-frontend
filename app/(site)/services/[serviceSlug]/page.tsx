@@ -6,7 +6,9 @@ import { useRouter } from "next/navigation";
 import { use, useEffect, useState } from "react";
 import { ArrowLeft } from "lucide-react";
 import { DateTimeSection } from "@/components/booking/date-time-section";
+import { DISINFECTION_LEVELS, DisinfectionLevelSection } from "@/components/booking/disinfection-level-section";
 import { EquipmentSection, SupplySource } from "@/components/booking/equipment-section";
+import { FACILITY_CARDS, FacilitySelectionSection } from "@/components/booking/facility-selection-section";
 import { JobCardSection } from "@/components/booking/job-card-section";
 import { GENDER_OPTIONS, LANGUAGE_OPTIONS } from "@/components/booking/quotation-preferences-section";
 import {
@@ -30,6 +32,9 @@ import { useCountry } from "@/lib/countries/country-context";
 
 const poppins = Poppins({ subsets: ["latin"], weight: ["400", "500", "600", "700", "800"] });
 
+/** Only healthguard-sanitization collects facility type + disinfection level. */
+const SANITIZATION_SLUG = "healthguard-sanitization";
+
 export default function BookServicePage({
   params,
 }: {
@@ -38,6 +43,7 @@ export default function BookServicePage({
   const { serviceSlug } = use(params);
   const router = useRouter();
   const { country } = useCountry();
+  const isSanitization = serviceSlug === SANITIZATION_SLUG;
 
   const [service, setService] = useState<CatalogServiceDetail | null>(null);
   const [serviceError, setServiceError] = useState<string | null>(null);
@@ -57,6 +63,9 @@ export default function BookServicePage({
   const [gender, setGender] = useState(GENDER_OPTIONS[0].value);
   const [language, setLanguage] = useState(LANGUAGE_OPTIONS[0].value);
   const [requirements, setRequirements] = useState("");
+
+  const [selectedFacilityIds, setSelectedFacilityIds] = useState<Set<string>>(new Set());
+  const [disinfectionLevelId, setDisinfectionLevelId] = useState("");
 
   const [error, setError] = useState<string | null>(null);
   const [submitting, setSubmitting] = useState(false);
@@ -107,11 +116,22 @@ export default function BookServicePage({
     });
   }
 
+  function toggleFacility(id: string) {
+    setSelectedFacilityIds((prev) => {
+      const next = new Set(prev);
+      if (next.has(id)) next.delete(id);
+      else next.add(id);
+      return next;
+    });
+  }
+
   const selectedPackages = (service?.servicePackages ?? [])
     .map((sp) => sp.package)
     .filter((pkg) => selectedPackageIds.has(pkg.id));
   const items = (service?.serviceItems ?? []).map((si) => si.item);
   const selectedItems = items.filter((item) => selectedItemIds.has(item.id));
+
+  const selectedDisinfectionLevel = DISINFECTION_LEVELS.find((l) => l.id === disinfectionLevelId);
 
   const addOnsTotal = [...selectedPackages, ...selectedItems].reduce((sum, entry) => {
     const price = entry.price !== null ? Number(entry.price) : NaN;
@@ -120,8 +140,16 @@ export default function BookServicePage({
 
   function handleBookNow() {
     if (!service) return;
-    if (!supplySource) {
+    if (!isSanitization && !supplySource) {
       setError("Please select a cleaning solvents & equipments option.");
+      return;
+    }
+    if (isSanitization && selectedFacilityIds.size === 0) {
+      setError("Please select at least one facility to continue.");
+      return;
+    }
+    if (isSanitization && !disinfectionLevelId) {
+      setError("Please select a desired service level to continue.");
       return;
     }
     if (!date || !time) {
@@ -130,6 +158,9 @@ export default function BookServicePage({
     }
     setError(null);
     setSubmitting(true);
+    const facilityNames = Array.from(selectedFacilityIds)
+      .map((id) => FACILITY_CARDS.find((c) => c.id === id)?.title)
+      .filter((name): name is string => Boolean(name));
     saveBookingDraft({
       serviceId: service.id,
       serviceSlug,
@@ -144,11 +175,15 @@ export default function BookServicePage({
       })),
       items: selectedItems.map((i) => ({ name: i.name })),
       supplySource,
-      addOnsTotal,
+      addOnsTotal: addOnsTotal + (selectedDisinfectionLevel?.priceAdder ?? 0),
       genderPreference: gender,
       languagePreference: language,
       specialRequirements: requirements.trim() || undefined,
       propertyType: propertyType || undefined,
+      facilities: isSanitization ? facilityNames : undefined,
+      disinfectionLevel: selectedDisinfectionLevel
+        ? { name: selectedDisinfectionLevel.title, price: selectedDisinfectionLevel.priceAdder }
+        : undefined,
     });
     router.push(`/services/${serviceSlug}/checkout`);
   }
@@ -167,11 +202,15 @@ export default function BookServicePage({
     );
   }
 
-  const bookDisabledReason = !supplySource
+  const bookDisabledReason = !isSanitization && !supplySource
     ? "Select a cleaning solvents & equipments option above to continue."
-    : !date || !time
-      ? "Select a date and time above to continue."
-      : undefined;
+    : isSanitization && selectedFacilityIds.size === 0
+      ? "Select at least one facility above to continue."
+      : isSanitization && !disinfectionLevelId
+        ? "Select a desired service level above to continue."
+        : !date || !time
+          ? "Select a date and time above to continue."
+          : undefined;
 
   return (
     <div className={poppins.className}>
@@ -193,19 +232,31 @@ export default function BookServicePage({
           </Link>
         </div>
 
-        <JobCardSection
-          packages={(service.servicePackages ?? []).map((sp) => sp.package)}
-          selectedIds={selectedPackageIds}
-          onToggle={togglePackage}
-        />
+        {isSanitization && (
+          <FacilitySelectionSection selectedIds={selectedFacilityIds} onToggle={toggleFacility} />
+        )}
 
-        <EquipmentSection
-          items={items}
-          supplySource={supplySource}
-          onSupplySourceChange={setSupplySource}
-          selectedItemIds={selectedItemIds}
-          onToggleItem={toggleItem}
-        />
+        {isSanitization && (
+          <DisinfectionLevelSection selectedId={disinfectionLevelId} onSelect={(level) => setDisinfectionLevelId(level.id)} />
+        )}
+
+        {!isSanitization && (
+          <JobCardSection
+            packages={(service.servicePackages ?? []).map((sp) => sp.package)}
+            selectedIds={selectedPackageIds}
+            onToggle={togglePackage}
+          />
+        )}
+
+        {!isSanitization && (
+          <EquipmentSection
+            items={items}
+            supplySource={supplySource}
+            onSupplySourceChange={setSupplySource}
+            selectedItemIds={selectedItemIds}
+            onToggleItem={toggleItem}
+          />
+        )}
 
         <DateTimeSection date={date} onDateChange={setDate} time={time} onTimeChange={setTime} />
 
@@ -234,13 +285,18 @@ export default function BookServicePage({
           date={date}
           time={time}
           propertySizeSqm={propertySizeSqm}
-          packages={selectedPackages.map((p) => ({
-            name: p.name,
-            price: p.price !== null ? Number(p.price) : null,
-          }))}
+          packages={[
+            ...selectedPackages.map((p) => ({
+              name: p.name,
+              price: p.price !== null ? Number(p.price) : null,
+            })),
+            ...(selectedDisinfectionLevel
+              ? [{ name: selectedDisinfectionLevel.title, price: selectedDisinfectionLevel.priceAdder || null }]
+              : []),
+          ]}
           items={selectedItems.map((i) => ({ name: i.name }))}
           supplySource={supplySource}
-          addOnsTotal={addOnsTotal}
+          addOnsTotal={addOnsTotal + (selectedDisinfectionLevel?.priceAdder ?? 0)}
           onBookNow={handleBookNow}
           submitting={submitting}
           bookDisabledReason={bookDisabledReason}
