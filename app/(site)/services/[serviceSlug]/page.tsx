@@ -13,6 +13,11 @@ import { JobCardSection } from "@/components/booking/job-card-section";
 import { GeneralSteamSection } from "@/components/booking/steam/general-steam-section";
 import { IndustrialCommercialSteamSection } from "@/components/booking/steam/industrial-commercial-steam-section";
 import { SteamEquipmentSection } from "@/components/booking/steam/steam-equipment-section";
+import { EventTypeSection } from "@/components/booking/event/event-type-section";
+import {
+  ProductsSuppliesSection,
+  selectedEventProductsFromQuantities,
+} from "@/components/booking/event/products-supplies-section";
 import { GENDER_OPTIONS, LANGUAGE_OPTIONS } from "@/components/booking/quotation-preferences-section";
 import {
   getPropertyCategoriesForService,
@@ -41,6 +46,9 @@ const SANITIZATION_SLUG = "healthguard-sanitization";
 /** Only steam-cleaning collects General/Industrial & Commercial/Equipment category selections. */
 const STEAM_SLUG = "steam-cleaning";
 
+/** Only post-event-cleaning collects event type + products & supplies selections. */
+const EVENT_SLUG = "post-event-cleaning";
+
 export default function BookServicePage({
   params,
 }: {
@@ -51,6 +59,7 @@ export default function BookServicePage({
   const { country } = useCountry();
   const isSanitization = serviceSlug === SANITIZATION_SLUG;
   const isSteam = serviceSlug === STEAM_SLUG;
+  const isEvent = serviceSlug === EVENT_SLUG;
 
   const [service, setService] = useState<CatalogServiceDetail | null>(null);
   const [serviceError, setServiceError] = useState<string | null>(null);
@@ -77,6 +86,9 @@ export default function BookServicePage({
   const [selectedGeneralSteam, setSelectedGeneralSteam] = useState<Set<string>>(new Set());
   const [selectedIndustrialSteam, setSelectedIndustrialSteam] = useState<Set<string>>(new Set());
   const [selectedSteamEquipment, setSelectedSteamEquipment] = useState<Set<string>>(new Set());
+
+  const [selectedEventTypes, setSelectedEventTypes] = useState<Set<string>>(new Set());
+  const [eventProductQuantities, setEventProductQuantities] = useState<Record<string, number>>({});
 
   const [error, setError] = useState<string | null>(null);
   const [submitting, setSubmitting] = useState(false);
@@ -136,7 +148,7 @@ export default function BookServicePage({
     });
   }
 
-  function toggleSteamSetEntry(setter: Dispatch<SetStateAction<Set<string>>>, value: string) {
+  function toggleSetEntry(setter: Dispatch<SetStateAction<Set<string>>>, value: string) {
     setter((prev) => {
       const next = new Set(prev);
       if (next.has(value)) next.delete(value);
@@ -153,6 +165,9 @@ export default function BookServicePage({
 
   const selectedDisinfectionLevel = DISINFECTION_LEVELS.find((l) => l.id === disinfectionLevelId);
 
+  const selectedEventProducts = selectedEventProductsFromQuantities(eventProductQuantities);
+  const eventProductsTotal = selectedEventProducts.reduce((sum, p) => sum + p.price, 0);
+
   const addOnsTotal = [...selectedPackages, ...selectedItems].reduce((sum, entry) => {
     const price = entry.price !== null ? Number(entry.price) : NaN;
     return Number.isFinite(price) ? sum + price : sum;
@@ -160,7 +175,7 @@ export default function BookServicePage({
 
   function handleBookNow() {
     if (!service) return;
-    if (!isSanitization && !isSteam && !supplySource) {
+    if (!isSanitization && !isSteam && !isEvent && !supplySource) {
       setError("Please select a cleaning solvents & equipments option.");
       return;
     }
@@ -193,9 +208,12 @@ export default function BookServicePage({
         name: p.name,
         price: p.price !== null ? Number(p.price) : null,
       })),
-      items: selectedItems.map((i) => ({ name: i.name })),
+      items: isEvent
+        ? selectedEventProducts.map((p) => ({ name: p.name }))
+        : selectedItems.map((i) => ({ name: i.name })),
       supplySource,
-      addOnsTotal: addOnsTotal + (selectedDisinfectionLevel?.priceAdder ?? 0),
+      addOnsTotal:
+        addOnsTotal + (selectedDisinfectionLevel?.priceAdder ?? 0) + (isEvent ? eventProductsTotal : 0),
       genderPreference: gender,
       languagePreference: language,
       specialRequirements: requirements.trim() || undefined,
@@ -207,6 +225,7 @@ export default function BookServicePage({
       steamItems: isSteam
         ? [...selectedGeneralSteam, ...selectedIndustrialSteam, ...selectedSteamEquipment]
         : undefined,
+      eventTypes: isEvent ? [...selectedEventTypes] : undefined,
     });
     router.push(`/services/${serviceSlug}/checkout`);
   }
@@ -225,7 +244,7 @@ export default function BookServicePage({
     );
   }
 
-  const bookDisabledReason = !isSanitization && !isSteam && !supplySource
+  const bookDisabledReason = !isSanitization && !isSteam && !isEvent && !supplySource
     ? "Select a cleaning solvents & equipments option above to continue."
     : isSanitization && selectedFacilityIds.size === 0
       ? "Select at least one facility above to continue."
@@ -266,25 +285,39 @@ export default function BookServicePage({
         {isSteam && (
           <GeneralSteamSection
             selectedTitles={selectedGeneralSteam}
-            onToggle={(title) => toggleSteamSetEntry(setSelectedGeneralSteam, title)}
+            onToggle={(title) => toggleSetEntry(setSelectedGeneralSteam, title)}
           />
         )}
 
         {isSteam && (
           <IndustrialCommercialSteamSection
             selectedTitles={selectedIndustrialSteam}
-            onToggle={(title) => toggleSteamSetEntry(setSelectedIndustrialSteam, title)}
+            onToggle={(title) => toggleSetEntry(setSelectedIndustrialSteam, title)}
           />
         )}
 
         {isSteam && (
           <SteamEquipmentSection
             selectedNames={selectedSteamEquipment}
-            onToggle={(name) => toggleSteamSetEntry(setSelectedSteamEquipment, name)}
+            onToggle={(name) => toggleSetEntry(setSelectedSteamEquipment, name)}
           />
         )}
 
-        {!isSanitization && !isSteam && (
+        {isEvent && (
+          <EventTypeSection
+            selectedLabels={selectedEventTypes}
+            onToggle={(label) => toggleSetEntry(setSelectedEventTypes, label)}
+          />
+        )}
+
+        {isEvent && (
+          <ProductsSuppliesSection
+            quantities={eventProductQuantities}
+            onQuantitiesChange={setEventProductQuantities}
+          />
+        )}
+
+        {!isSanitization && !isSteam && !isEvent && (
           <JobCardSection
             packages={(service.servicePackages ?? []).map((sp) => sp.package)}
             selectedIds={selectedPackageIds}
@@ -292,7 +325,7 @@ export default function BookServicePage({
           />
         )}
 
-        {!isSanitization && !isSteam && (
+        {!isSanitization && !isSteam && !isEvent && (
           <EquipmentSection
             items={items}
             supplySource={supplySource}
@@ -338,9 +371,15 @@ export default function BookServicePage({
               ? [{ name: selectedDisinfectionLevel.title, price: selectedDisinfectionLevel.priceAdder || null }]
               : []),
           ]}
-          items={selectedItems.map((i) => ({ name: i.name }))}
+          items={
+            isEvent
+              ? selectedEventProducts.map((p) => ({ name: p.name }))
+              : selectedItems.map((i) => ({ name: i.name }))
+          }
           supplySource={supplySource}
-          addOnsTotal={addOnsTotal + (selectedDisinfectionLevel?.priceAdder ?? 0)}
+          addOnsTotal={
+            addOnsTotal + (selectedDisinfectionLevel?.priceAdder ?? 0) + (isEvent ? eventProductsTotal : 0)
+          }
           onBookNow={handleBookNow}
           submitting={submitting}
           bookDisabledReason={bookDisabledReason}

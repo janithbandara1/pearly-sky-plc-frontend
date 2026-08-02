@@ -34,6 +34,8 @@ export interface BookingDraft {
   disinfectionLevel?: BookingDraftPackage;
   /** steam-cleaning only. */
   steamItems?: string[];
+  /** post-event-cleaning only. */
+  eventTypes?: string[];
   note?: string;
 }
 

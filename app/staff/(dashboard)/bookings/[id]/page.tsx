@@ -283,6 +283,17 @@ export default function StaffBookingDetailsPage() {
             </div>
           ) : null}
 
+          {order.serviceDetails[0].eventTypes?.length ? (
+            <div>
+              <p className="text-xs text-muted-foreground">Event Types</p>
+              <ul className="list-inside list-disc">
+                {order.serviceDetails[0].eventTypes.map((type) => (
+                  <li key={type}>{type}</li>
+                ))}
+              </ul>
+            </div>
+          ) : null}
+
           <div>
             <p className="text-xs text-muted-foreground">Gender Preference</p>
             <p>{optionLabel(GENDER_OPTIONS, order.serviceDetails[0].genderPreference)}</p>

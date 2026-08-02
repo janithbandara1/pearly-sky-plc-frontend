@@ -22,6 +22,8 @@ interface BookingPreferencesPayload {
   disinfectionLevel?: BookingLineItem;
   /** steam-cleaning only. */
   steamItems?: string[];
+  /** post-event-cleaning only. */
+  eventTypes?: string[];
 }
 
 export interface CreateBookingPayload extends BookingPreferencesPayload {
@@ -57,6 +59,7 @@ export interface BookingServiceDetails {
   facilities: string[] | null;
   disinfectionLevel: BookingLineItem | null;
   steamItems: string[] | null;
+  eventTypes: string[] | null;
   service: { id: number; label: string; name: string };
 }
 
