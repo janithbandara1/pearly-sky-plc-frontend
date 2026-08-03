@@ -58,8 +58,8 @@ export default function RequestQuotationPage({
 
   const [propertySizeSqm, setPropertySizeSqm] = useState(20);
 
-  const [numCleaners, setNumCleaners] = useState(0);
-  const [durationHours, setDurationHours] = useState(0);
+  const [numCleaners, setNumCleaners] = useState(1);
+  const [durationHours, setDurationHours] = useState(3);
   const [gender, setGender] = useState(GENDER_OPTIONS[0].value);
   const [language, setLanguage] = useState(LANGUAGE_OPTIONS[0].value);
   const [requirements, setRequirements] = useState("");
@@ -157,7 +157,7 @@ export default function RequestQuotationPage({
       <div className="mx-auto flex w-full max-w-[1150px] flex-1 flex-col gap-6 p-4 sm:p-6">
         <div className="flex justify-start">
           <Link
-            href={`/services/${serviceSlug}`}
+            href="/"
             className="inline-flex h-9 items-center gap-1.5 rounded-lg border-[1.5px] border-brand-gold-dark bg-secondary px-4 text-sm font-medium text-secondary-foreground transition-colors hover:bg-[color-mix(in_oklch,var(--secondary),var(--foreground)_5%)]"
           >
             <ArrowLeft className="size-4" />
@@ -305,10 +305,7 @@ export default function RequestQuotationPage({
             </div>
           </section>
 
-          <Button
-            type="submit"
-            className="h-auto w-full rounded-[10px] bg-brand-gold-dark py-[15px] text-[15px] font-extrabold tracking-[2px] text-brand-navy uppercase transition-colors hover:bg-[#8F7440]"
-          >
+          <Button type="submit" className="w-full bg-brand-gold text-brand-navy hover:bg-brand-gold/90">
             {translate("servicesRequestQuotation")}
           </Button>
 

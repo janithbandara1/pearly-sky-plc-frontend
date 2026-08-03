@@ -167,6 +167,9 @@ export default function BookServicePage({
     .filter((pkg) => selectedPackageIds.has(pkg.id));
   const items = (service?.serviceItems ?? []).map((si) => si.item);
   const selectedItems = items.filter((item) => selectedItemIds.has(item.id));
+  // Customer-supplied equipment is disclosed in full (no picking, no charge);
+  // company-supplied equipment is whatever the customer has actually added.
+  const displayedEquipmentItems = supplySource === "customer" ? items : selectedItems;
 
   const selectedDisinfectionLevel = DISINFECTION_LEVELS.find((l) => l.id === disinfectionLevelId);
 
@@ -214,7 +217,7 @@ export default function BookServicePage({
       })),
       items: isEvent
         ? selectedEventProducts.map((p) => ({ name: p.name }))
-        : selectedItems.map((i) => ({ name: i.name })),
+        : displayedEquipmentItems.map((i) => ({ name: i.name })),
       supplySource,
       addOnsTotal:
         addOnsTotal + (selectedDisinfectionLevel?.priceAdder ?? 0) + (isEvent ? eventProductsTotal : 0),
@@ -371,8 +374,9 @@ export default function BookServicePage({
           items={
             isEvent
               ? selectedEventProducts.map((p) => ({ name: p.name }))
-              : selectedItems.map((i) => ({ name: i.name }))
+              : displayedEquipmentItems.map((i) => ({ name: i.name }))
           }
+          supplySource={supplySource}
           equipmentOptions={!isEvent && supplySource === "company" ? items : undefined}
           selectedEquipmentIds={selectedItemIds}
           onToggleEquipment={toggleItem}

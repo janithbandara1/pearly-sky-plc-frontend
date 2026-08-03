@@ -66,7 +66,6 @@ export function ServicePreferencesSection({
             rows={4}
             value={requirements}
             onChange={(e) => onRequirementsChange(e.target.value)}
-            placeholder="Anything else we should know about the job?"
             className="bg-white"
           />
         </div>

@@ -1,5 +1,6 @@
 "use client";
 
+import { Minus, Plus } from "lucide-react";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
 
@@ -25,21 +26,21 @@ function CounterField({ label, value, onChange, min = 0, step = 1, formatValue }
   return (
     <div>
       <p className="mb-2 text-sm font-semibold text-brand-navy">{label}</p>
-      <div className="flex h-[50px] items-center justify-between rounded-lg border-2 border-brand-gold-dark bg-brand-cream px-3">
+      <div className="flex h-8 items-center justify-between rounded-lg border border-brand-gold-dark bg-brand-cream px-1.5">
         <button
           type="button"
           onClick={() => onChange(round(Math.max(min, value - step)))}
-          className="flex size-9 items-center justify-center rounded-full bg-brand-gold/40 font-bold text-brand-navy transition hover:brightness-95"
+          className="flex size-6 items-center justify-center rounded-full bg-brand-gold/40 text-brand-navy transition hover:brightness-95"
         >
-          −
+          <Minus className="size-3" />
         </button>
-        <span className="font-semibold text-brand-navy">{formatValue ? formatValue(value) : value}</span>
+        <span className="text-sm font-semibold text-brand-navy">{formatValue ? formatValue(value) : value}</span>
         <button
           type="button"
           onClick={() => onChange(round(value + step))}
-          className="flex size-9 items-center justify-center rounded-full bg-brand-gold-dark text-white font-bold transition hover:brightness-95"
+          className="flex size-6 items-center justify-center rounded-full bg-brand-gold-dark text-white transition hover:brightness-95"
         >
-          +
+          <Plus className="size-3" />
         </button>
       </div>
     </div>
@@ -97,7 +98,7 @@ export function QuotationPreferencesSection({
           label="Cleaners"
           value={numCleaners}
           onChange={onNumCleanersChange}
-          min={0}
+          min={1}
           step={1}
         />
 
@@ -105,7 +106,7 @@ export function QuotationPreferencesSection({
           label="Duration"
           value={durationHours}
           onChange={onDurationHoursChange}
-          min={0}
+          min={3}
           step={0.5}
           formatValue={formatHM}
         />
@@ -148,7 +149,6 @@ export function QuotationPreferencesSection({
             rows={4}
             value={requirements}
             onChange={(e) => onRequirementsChange(e.target.value)}
-            placeholder="Anything else we should know about the job?"
             className="bg-brand-cream"
           />
         </div>

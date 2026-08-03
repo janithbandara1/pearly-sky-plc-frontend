@@ -3,6 +3,7 @@
 import type { ReactNode } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
+import type { SupplySource } from "@/components/booking/equipment-section";
 import type { BookingDraftItem, BookingDraftPackage } from "@/lib/booking-draft";
 import type { CatalogItem, SizeQuote } from "@/lib/catalog-api";
 import { useCurrency } from "@/lib/currency-context";
@@ -23,6 +24,12 @@ export interface OrderSummaryCardProps {
   propertySizeSqm: number;
   packages: BookingDraftPackage[];
   items: BookingDraftItem[];
+  /**
+   * Drives the read-only `items` list's value text: "Provided by you" when the
+   * customer supplies their own equipment, blank otherwise. Not used once
+   * `equipmentOptions` takes over (the interactive "Request the Company" picker).
+   */
+  supplySource?: SupplySource;
   /**
    * Cleaning solvents & equipment catalog, shown as add/remove toggles instead of
    * the plain `items` list when present — used on the live booking page once
@@ -48,6 +55,7 @@ export function OrderSummaryCard({
   propertySizeSqm,
   packages,
   items,
+  supplySource,
   equipmentOptions,
   selectedEquipmentIds,
   onToggleEquipment,
@@ -137,13 +145,18 @@ export function OrderSummaryCard({
             <div className="flex flex-col border-t border-brand-gold/20">
               <SectionHeading label="Cleaning Solvents & Equipments" />
               {items.map((item, i) => (
-                <SummaryRow key={item.name} label={item.name} value="" last={i === items.length - 1} />
+                <SummaryRow
+                  key={item.name}
+                  label={item.name}
+                  value={supplySource === "customer" ? "Provided by you" : ""}
+                  last={i === items.length - 1}
+                />
               ))}
             </div>
           )
         )}
 
-        <div className="flex flex-col border-t border-brand-gold/20 bg-white/5">
+        <div className="flex flex-col border-t border-brand-gold/20">
           {hasPrice ? (
             <SummaryRow
               label="Total price (estimate)"

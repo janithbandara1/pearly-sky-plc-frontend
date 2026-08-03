@@ -475,6 +475,7 @@ export default function CheckoutPage({
             propertySizeSqm={draft.propertySizeSqm}
             packages={draft.packages}
             items={draft.items}
+            supplySource={draft.supplySource}
             addOnsTotal={draft.addOnsTotal}
             onBookNow={handleConfirm}
             submitting={submitting}
