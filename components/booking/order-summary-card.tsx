@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import type { BookingDraftItem, BookingDraftPackage } from "@/lib/booking-draft";
 import type { BookingFrequency } from "@/lib/booking-api";
-import type { SizeQuote } from "@/lib/catalog-api";
+import type { CatalogItem, SizeQuote } from "@/lib/catalog-api";
 import { useCurrency } from "@/lib/currency-context";
 
 function formatHM(hours: number): string {
@@ -25,6 +25,15 @@ export interface OrderSummaryCardProps {
   propertySizeSqm: number;
   packages: BookingDraftPackage[];
   items: BookingDraftItem[];
+  /**
+   * Cleaning solvents & equipment catalog, shown as add/remove toggles instead of
+   * the plain `items` list when present — used on the live booking page once
+   * "Request the Company" is selected. Omitted (checkout's frozen summary) falls
+   * back to the read-only `items` list.
+   */
+  equipmentOptions?: CatalogItem[];
+  selectedEquipmentIds?: Set<number>;
+  onToggleEquipment?: (id: number) => void;
   addOnsTotal: number;
   onBookNow: () => void;
   submitting: boolean;
@@ -42,6 +51,9 @@ export function OrderSummaryCard({
   propertySizeSqm,
   packages,
   items,
+  equipmentOptions,
+  selectedEquipmentIds,
+  onToggleEquipment,
   addOnsTotal,
   onBookNow,
   submitting,
@@ -75,20 +87,59 @@ export function OrderSummaryCard({
 
         <div className="flex flex-col border-t border-brand-gold/20">
           <SummaryRow label="Property size" value={`${propertySizeSqm} m²`} />
-          {packages.map((pkg) => (
-            <SummaryRow
-              key={pkg.name}
-              label={pkg.name}
-              value={pkg.price !== null ? money(pkg.price) : "Included"}
-            />
-          ))}
-          {items.length > 0 && (
+          {packages.length > 0 && (
             <>
-              <SummaryRow label="Cleaning Solvents & Equipments" value="" />
-              {items.map((item, i) => (
-                <SummaryRow key={item.name} label={item.name} value="" last={i === items.length - 1} />
+              <SummaryRow label="Add-Ons" value="" />
+              {packages.map((pkg) => (
+                <SummaryRow
+                  key={pkg.name}
+                  label={pkg.name}
+                  value={pkg.price !== null ? money(pkg.price) : "Included"}
+                />
               ))}
             </>
+          )}
+          {equipmentOptions && equipmentOptions.length > 0 ? (
+            <>
+              <SummaryRow label="Cleaning Solvents & Equipments" value="" />
+              {equipmentOptions.map((item, i) => {
+                const isSelected = selectedEquipmentIds?.has(item.id) ?? false;
+                const price = item.price !== null ? Number(item.price) : NaN;
+                return (
+                  <SummaryRow
+                    key={item.id}
+                    label={item.name}
+                    value={
+                      <div className="flex items-center gap-2">
+                        {!Number.isNaN(price) && (
+                          <span className="text-brand-navy-foreground/70">{money(price)}</span>
+                        )}
+                        <button
+                          type="button"
+                          onClick={() => onToggleEquipment?.(item.id)}
+                          aria-pressed={isSelected}
+                          className={`shrink-0 rounded-[6px] border-[1.5px] border-brand-gold px-2.5 py-1 text-xs font-semibold ${
+                            isSelected ? "bg-brand-gold text-brand-navy" : "text-brand-gold"
+                          }`}
+                        >
+                          {isSelected ? "Added" : "Add"}
+                        </button>
+                      </div>
+                    }
+                    last={i === equipmentOptions.length - 1}
+                  />
+                );
+              })}
+            </>
+          ) : (
+            items.length > 0 && (
+              <>
+                <SummaryRow label="Cleaning Solvents & Equipments" value="" />
+                {items.map((item, i) => (
+                  <SummaryRow key={item.name} label={item.name} value="" last={i === items.length - 1} />
+                ))}
+              </>
+            )
           )}
         </div>
 

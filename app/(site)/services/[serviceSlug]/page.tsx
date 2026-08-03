@@ -65,6 +65,7 @@ export default function BookServicePage({
   const [serviceError, setServiceError] = useState<string | null>(null);
 
   const [supplySource, setSupplySource] = useState<SupplySource>("");
+  const [selectedItemIds, setSelectedItemIds] = useState<Set<number>>(new Set());
 
   const [propertySizeSqm, setPropertySizeSqm] = useState(20);
   const [propertyType, setPropertyType] = useState("");
@@ -129,6 +130,22 @@ export default function BookServicePage({
     });
   }
 
+  function handleSupplySourceChange(value: SupplySource) {
+    setSupplySource(value);
+    // Added items only make sense once the company is supplying equipment —
+    // drop any leftover picks so they don't silently linger in the total.
+    if (value !== "company") setSelectedItemIds(new Set());
+  }
+
+  function toggleItem(id: number) {
+    setSelectedItemIds((prev) => {
+      const next = new Set(prev);
+      if (next.has(id)) next.delete(id);
+      else next.add(id);
+      return next;
+    });
+  }
+
   function toggleFacility(id: string) {
     setSelectedFacilityIds((prev) => {
       const next = new Set(prev);
@@ -151,7 +168,7 @@ export default function BookServicePage({
     .map((sp) => sp.package)
     .filter((pkg) => selectedPackageIds.has(pkg.id));
   const items = (service?.serviceItems ?? []).map((si) => si.item);
-  const selectedItems = supplySource === "company" ? items : [];
+  const selectedItems = items.filter((item) => selectedItemIds.has(item.id));
 
   const selectedDisinfectionLevel = DISINFECTION_LEVELS.find((l) => l.id === disinfectionLevelId);
 
@@ -316,7 +333,7 @@ export default function BookServicePage({
         )}
 
         {!isSanitization && !isSteam && !isEvent && (
-          <EquipmentSection supplySource={supplySource} onSupplySourceChange={setSupplySource} />
+          <EquipmentSection supplySource={supplySource} onSupplySourceChange={handleSupplySourceChange} />
         )}
 
         <DateTimeSection date={date} onDateChange={setDate} time={time} onTimeChange={setTime} />
@@ -360,6 +377,9 @@ export default function BookServicePage({
               ? selectedEventProducts.map((p) => ({ name: p.name }))
               : selectedItems.map((i) => ({ name: i.name }))
           }
+          equipmentOptions={!isEvent && supplySource === "company" ? items : undefined}
+          selectedEquipmentIds={selectedItemIds}
+          onToggleEquipment={toggleItem}
           addOnsTotal={
             addOnsTotal + (selectedDisinfectionLevel?.priceAdder ?? 0) + (isEvent ? eventProductsTotal : 0)
           }
