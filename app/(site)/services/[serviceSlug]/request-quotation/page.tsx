@@ -55,7 +55,6 @@ export default function RequestQuotationPage({
   const [time, setTime] = useState("");
 
   const [supplySource, setSupplySource] = useState<SupplySource>("");
-  const [selectedItemIds, setSelectedItemIds] = useState<Set<number>>(new Set());
 
   const [propertySizeSqm, setPropertySizeSqm] = useState(20);
 
@@ -84,15 +83,6 @@ export default function RequestQuotationPage({
       .catch((err) => setServiceError(err instanceof ApiError ? err.message : "Service not found."));
   }, [serviceSlug, country]);
 
-  function toggleItem(id: number) {
-    setSelectedItemIds((prev) => {
-      const next = new Set(prev);
-      if (next.has(id)) next.delete(id);
-      else next.add(id);
-      return next;
-    });
-  }
-
   function validate(): boolean {
     const next: Record<string, string> = {};
     if (!firstName.trim()) next.firstName = "First name is required.";
@@ -112,7 +102,7 @@ export default function RequestQuotationPage({
     if (!service || !validate()) return;
 
     const items = (service.serviceItems ?? []).map((si) => si.item);
-    const selectedItems = items.filter((item) => selectedItemIds.has(item.id));
+    const selectedItems = supplySource === "company" ? items : [];
     const supplySourceLabel =
       supplySource === "company" ? "Request the Company" : supplySource === "customer" ? "Provided by the Customer" : "Not specified";
     const genderLabel = GENDER_OPTIONS.find((o) => o.value === gender)?.label ?? "No Preference";
@@ -155,8 +145,6 @@ export default function RequestQuotationPage({
     );
   }
 
-  const items = (service.serviceItems ?? []).map((si) => si.item);
-
   return (
     <main className="flex-1">
       <PageHero
@@ -180,13 +168,7 @@ export default function RequestQuotationPage({
         <form onSubmit={handleSubmit} className="flex flex-col gap-6" noValidate>
           <DateTimeSection date={date} onDateChange={setDate} time={time} onTimeChange={setTime} />
 
-          <EquipmentSection
-            items={items}
-            supplySource={supplySource}
-            onSupplySourceChange={setSupplySource}
-            selectedItemIds={selectedItemIds}
-            onToggleItem={toggleItem}
-          />
+          <EquipmentSection supplySource={supplySource} onSupplySourceChange={setSupplySource} />
 
           <PropertyTypeSizeSelector
             value={propertySizeSqm}

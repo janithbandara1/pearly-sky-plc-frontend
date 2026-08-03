@@ -65,7 +65,6 @@ export default function BookServicePage({
   const [serviceError, setServiceError] = useState<string | null>(null);
 
   const [supplySource, setSupplySource] = useState<SupplySource>("");
-  const [selectedItemIds, setSelectedItemIds] = useState<Set<number>>(new Set());
 
   const [propertySizeSqm, setPropertySizeSqm] = useState(20);
   const [propertyType, setPropertyType] = useState("");
@@ -130,15 +129,6 @@ export default function BookServicePage({
     });
   }
 
-  function toggleItem(id: number) {
-    setSelectedItemIds((prev) => {
-      const next = new Set(prev);
-      if (next.has(id)) next.delete(id);
-      else next.add(id);
-      return next;
-    });
-  }
-
   function toggleFacility(id: string) {
     setSelectedFacilityIds((prev) => {
       const next = new Set(prev);
@@ -161,7 +151,7 @@ export default function BookServicePage({
     .map((sp) => sp.package)
     .filter((pkg) => selectedPackageIds.has(pkg.id));
   const items = (service?.serviceItems ?? []).map((si) => si.item);
-  const selectedItems = items.filter((item) => selectedItemIds.has(item.id));
+  const selectedItems = supplySource === "company" ? items : [];
 
   const selectedDisinfectionLevel = DISINFECTION_LEVELS.find((l) => l.id === disinfectionLevelId);
 
@@ -326,13 +316,7 @@ export default function BookServicePage({
         )}
 
         {!isSanitization && !isSteam && !isEvent && (
-          <EquipmentSection
-            items={items}
-            supplySource={supplySource}
-            onSupplySourceChange={setSupplySource}
-            selectedItemIds={selectedItemIds}
-            onToggleItem={toggleItem}
-          />
+          <EquipmentSection supplySource={supplySource} onSupplySourceChange={setSupplySource} />
         )}
 
         <DateTimeSection date={date} onDateChange={setDate} time={time} onTimeChange={setTime} />
@@ -376,7 +360,6 @@ export default function BookServicePage({
               ? selectedEventProducts.map((p) => ({ name: p.name }))
               : selectedItems.map((i) => ({ name: i.name }))
           }
-          supplySource={supplySource}
           addOnsTotal={
             addOnsTotal + (selectedDisinfectionLevel?.priceAdder ?? 0) + (isEvent ? eventProductsTotal : 0)
           }

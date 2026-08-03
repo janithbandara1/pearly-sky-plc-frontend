@@ -3,7 +3,6 @@
 import type { ReactNode } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import type { SupplySource } from "@/components/booking/equipment-section";
 import type { BookingDraftItem, BookingDraftPackage } from "@/lib/booking-draft";
 import type { BookingFrequency } from "@/lib/booking-api";
 import type { SizeQuote } from "@/lib/catalog-api";
@@ -14,11 +13,6 @@ function formatHM(hours: number): string {
   const m = Math.round((hours - h) * 60);
   return m === 0 ? `${h}h` : `${h}h ${m}m`;
 }
-
-const SUPPLY_SOURCE_LABEL: Record<Exclude<SupplySource, "">, string> = {
-  customer: "Provided by you",
-  company: "Provided by the company",
-};
 
 export interface OrderSummaryCardProps {
   serviceLabel: string;
@@ -31,7 +25,6 @@ export interface OrderSummaryCardProps {
   propertySizeSqm: number;
   packages: BookingDraftPackage[];
   items: BookingDraftItem[];
-  supplySource: SupplySource;
   addOnsTotal: number;
   onBookNow: () => void;
   submitting: boolean;
@@ -49,7 +42,6 @@ export function OrderSummaryCard({
   propertySizeSqm,
   packages,
   items,
-  supplySource,
   addOnsTotal,
   onBookNow,
   submitting,
@@ -92,14 +84,9 @@ export function OrderSummaryCard({
           ))}
           {items.length > 0 && (
             <>
-              <SummaryRow label="Equipment" value="" />
+              <SummaryRow label="Cleaning Solvents & Equipments" value="" />
               {items.map((item, i) => (
-                <SummaryRow
-                  key={item.name}
-                  label={item.name}
-                  value={supplySource ? SUPPLY_SOURCE_LABEL[supplySource] : "—"}
-                  last={i === items.length - 1}
-                />
+                <SummaryRow key={item.name} label={item.name} value="" last={i === items.length - 1} />
               ))}
             </>
           )}
