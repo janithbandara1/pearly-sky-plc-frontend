@@ -1,6 +1,5 @@
 import { apiFetch } from "./api";
 
-export type BookingFrequency = "one-time" | "weekly" | "bi-weekly" | "monthly";
 export type BookingSupplySource = "customer" | "company";
 
 export interface BookingLineItem {
@@ -31,7 +30,6 @@ export interface CreateBookingPayload extends BookingPreferencesPayload {
   propertySizeSqm: number;
   date: string;
   time: string;
-  frequency: BookingFrequency;
   addressId?: number;
   note?: string;
   /** Pricing country — the backend uses it to price the order for Stripe checkout. */
@@ -47,7 +45,6 @@ export interface BookingServiceDetails {
   maxHours: string;
   cleanerCount: number;
   extraCleanerCount: number;
-  frequency: BookingFrequency;
   note: string | null;
   addOns: BookingLineItem[] | null;
   equipmentItems: BookingLineItem[] | null;
@@ -86,7 +83,6 @@ export interface CreateGuestBookingPayload extends BookingPreferencesPayload {
   propertySizeSqm: number;
   date: string;
   time: string;
-  frequency: BookingFrequency;
   note?: string;
   firstName: string;
   lastName?: string;

@@ -4,7 +4,6 @@ import type { ReactNode } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import type { BookingDraftItem, BookingDraftPackage } from "@/lib/booking-draft";
-import type { BookingFrequency } from "@/lib/booking-api";
 import type { CatalogItem, SizeQuote } from "@/lib/catalog-api";
 import { useCurrency } from "@/lib/currency-context";
 
@@ -16,7 +15,6 @@ function formatHM(hours: number): string {
 
 export interface OrderSummaryCardProps {
   serviceLabel: string;
-  frequency: BookingFrequency;
   hourlyRate: string | null;
   quote: SizeQuote | null;
   quoteLoading: boolean;
@@ -42,7 +40,6 @@ export interface OrderSummaryCardProps {
 
 export function OrderSummaryCard({
   serviceLabel,
-  frequency,
   hourlyRate,
   quote,
   quoteLoading,
@@ -72,78 +69,81 @@ export function OrderSummaryCard({
   return (
     <Card className="bg-brand-navy text-brand-navy-foreground">
       <CardContent className="flex flex-col gap-0 p-0">
-        <div className="flex flex-col">
+        <div className="px-4 py-3">
+          <h3 className="text-base font-bold text-brand-gold">Booking Details</h3>
+        </div>
+
+        <div className="flex flex-col border-t border-brand-gold/20">
           <SummaryRow label="Service" value={<span className="font-semibold">{serviceLabel}</span>} />
-          <SummaryRow label="Frequency" value={<span className="capitalize">{frequency}</span>} />
-          <SummaryRow label="Cleaners" value={quote?.cleanerCount ?? "—"} />
+          <SummaryRow label="Property size" value={`${propertySizeSqm} m²`} />
           <SummaryRow label="Date" value={date} />
           <SummaryRow label="Time" value={time} />
           <SummaryRow
             label="Duration"
             value={hasDuration ? `${formatHM(quote!.minHours as number)} – ${formatHM(quote!.maxHours as number)}` : "—"}
           />
+          <SummaryRow label="Cleaners" value={quote?.cleanerCount ?? "—"} />
           <SummaryRow label="Price per cleaner" value={hourlyRate ? `${money(Number(hourlyRate))}/h` : "—"} last />
         </div>
 
-        <div className="flex flex-col border-t border-brand-gold/20">
-          <SummaryRow label="Property size" value={`${propertySizeSqm} m²`} />
-          {packages.length > 0 && (
-            <>
-              <SummaryRow label="Add-Ons" value="" />
-              {packages.map((pkg) => (
-                <SummaryRow
-                  key={pkg.name}
-                  label={pkg.name}
-                  value={pkg.price !== null ? money(pkg.price) : "Included"}
-                />
-              ))}
-            </>
-          )}
-          {equipmentOptions && equipmentOptions.length > 0 ? (
-            <>
-              <SummaryRow label="Cleaning Solvents & Equipments" value="" />
-              {equipmentOptions.map((item, i) => {
-                const isSelected = selectedEquipmentIds?.has(item.id) ?? false;
-                const price = item.price !== null ? Number(item.price) : NaN;
-                return (
-                  <SummaryRow
-                    key={item.id}
-                    label={item.name}
-                    value={
-                      <div className="flex items-center gap-2">
-                        {!Number.isNaN(price) && (
-                          <span className="text-brand-navy-foreground/70">{money(price)}</span>
-                        )}
-                        <button
-                          type="button"
-                          onClick={() => onToggleEquipment?.(item.id)}
-                          aria-pressed={isSelected}
-                          className={`shrink-0 rounded-[6px] border-[1.5px] border-brand-gold px-2.5 py-1 text-xs font-semibold ${
-                            isSelected ? "bg-brand-gold text-brand-navy" : "text-brand-gold"
-                          }`}
-                        >
-                          {isSelected ? "Added" : "Add"}
-                        </button>
-                      </div>
-                    }
-                    last={i === equipmentOptions.length - 1}
-                  />
-                );
-              })}
-            </>
-          ) : (
-            items.length > 0 && (
-              <>
-                <SummaryRow label="Cleaning Solvents & Equipments" value="" />
-                {items.map((item, i) => (
-                  <SummaryRow key={item.name} label={item.name} value="" last={i === items.length - 1} />
-                ))}
-              </>
-            )
-          )}
-        </div>
+        {packages.length > 0 && (
+          <div className="flex flex-col border-t border-brand-gold/20">
+            <SectionHeading label="Add-Ons" />
+            {packages.map((pkg, i) => (
+              <SummaryRow
+                key={pkg.name}
+                label={pkg.name}
+                value={pkg.price !== null ? money(pkg.price) : "Included"}
+                last={i === packages.length - 1}
+              />
+            ))}
+          </div>
+        )}
 
-        <div className="flex flex-col border-t border-brand-gold/20">
+        {equipmentOptions && equipmentOptions.length > 0 ? (
+          <div className="flex flex-col border-t border-brand-gold/20">
+            <SectionHeading label="Cleaning Solvents & Equipments" />
+            {equipmentOptions.map((item, i) => {
+              const isSelected = selectedEquipmentIds?.has(item.id) ?? false;
+              const price = item.price !== null ? Number(item.price) : NaN;
+              return (
+                <SummaryRow
+                  key={item.id}
+                  label={item.name}
+                  value={
+                    <div className="flex items-center gap-2">
+                      {!Number.isNaN(price) && (
+                        <span className="text-brand-navy-foreground/70">{money(price)}</span>
+                      )}
+                      <button
+                        type="button"
+                        onClick={() => onToggleEquipment?.(item.id)}
+                        aria-pressed={isSelected}
+                        className={`shrink-0 rounded-[6px] border-[1.5px] border-brand-gold px-2.5 py-1 text-xs font-semibold ${
+                          isSelected ? "bg-brand-gold text-brand-navy" : "text-brand-gold"
+                        }`}
+                      >
+                        {isSelected ? "Added" : "Add"}
+                      </button>
+                    </div>
+                  }
+                  last={i === equipmentOptions.length - 1}
+                />
+              );
+            })}
+          </div>
+        ) : (
+          items.length > 0 && (
+            <div className="flex flex-col border-t border-brand-gold/20">
+              <SectionHeading label="Cleaning Solvents & Equipments" />
+              {items.map((item, i) => (
+                <SummaryRow key={item.name} label={item.name} value="" last={i === items.length - 1} />
+              ))}
+            </div>
+          )
+        )}
+
+        <div className="flex flex-col border-t border-brand-gold/20 bg-white/5">
           {hasPrice ? (
             <SummaryRow
               label="Total price (estimate)"
@@ -175,6 +175,14 @@ export function OrderSummaryCard({
         </div>
       </CardContent>
     </Card>
+  );
+}
+
+function SectionHeading({ label }: { label: string }) {
+  return (
+    <div className="px-4 pt-3 pb-1">
+      <span className="text-xs font-semibold tracking-wide text-brand-gold/80 uppercase">{label}</span>
+    </div>
   );
 }
 

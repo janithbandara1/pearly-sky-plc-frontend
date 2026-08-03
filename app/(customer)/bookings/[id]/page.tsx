@@ -119,10 +119,6 @@ export default function BookingDetailsPage() {
                     booking.serviceDetails[0].extraCleanerCount}
                 </p>
               </div>
-              <div>
-                <p className="text-xs text-muted-foreground">Frequency</p>
-                <p className="capitalize">{booking.serviceDetails[0].frequency}</p>
-              </div>
               {booking.serviceDetails[0].note && (
                 <div className="col-span-2">
                   <p className="text-xs text-muted-foreground">Note</p>

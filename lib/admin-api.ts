@@ -29,7 +29,6 @@ export interface AdminOrderServiceDetails {
   maxHours: string;
   cleanerCount: number;
   extraCleanerCount: number;
-  frequency: string;
   note: string | null;
   addOns: AdminOrderLineItem[] | null;
   equipmentItems: AdminOrderLineItem[] | null;

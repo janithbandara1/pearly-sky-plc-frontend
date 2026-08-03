@@ -1,5 +1,4 @@
 import type { SupplySource } from "@/components/booking/equipment-section";
-import type { BookingFrequency } from "./booking-api";
 
 const STORAGE_KEY = "booking-draft";
 
@@ -19,7 +18,6 @@ export interface BookingDraft {
   propertySizeSqm: number;
   date: string;
   time: string;
-  frequency: BookingFrequency;
   packages: BookingDraftPackage[];
   items: BookingDraftItem[];
   supplySource: SupplySource;

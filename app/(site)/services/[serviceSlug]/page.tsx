@@ -28,7 +28,6 @@ import { OrderSummaryCard } from "@/components/booking/order-summary-card";
 import { ServicePreferencesSection } from "@/components/booking/service-preferences-section";
 import { PageHero } from "@/components/page-hero";
 import { ApiError } from "@/lib/auth-context";
-import { BookingFrequency } from "@/lib/booking-api";
 import { saveBookingDraft } from "@/lib/booking-draft";
 import {
   CatalogServiceDetail,
@@ -75,7 +74,6 @@ export default function BookServicePage({
   const [selectedPackageIds, setSelectedPackageIds] = useState<Set<number>>(new Set());
   const [date, setDate] = useState("");
   const [time, setTime] = useState("");
-  const frequency: BookingFrequency = "one-time";
   const [gender, setGender] = useState(GENDER_OPTIONS[0].value);
   const [language, setLanguage] = useState(LANGUAGE_OPTIONS[0].value);
   const [requirements, setRequirements] = useState("");
@@ -210,7 +208,6 @@ export default function BookServicePage({
       propertySizeSqm,
       date,
       time,
-      frequency,
       packages: selectedPackages.map((p) => ({
         name: p.name,
         price: p.price !== null ? Number(p.price) : null,
@@ -356,7 +353,6 @@ export default function BookServicePage({
 
         <OrderSummaryCard
           serviceLabel={service.label}
-          frequency={frequency}
           hourlyRate={service.price}
           quote={quote}
           quoteLoading={quoteLoading}

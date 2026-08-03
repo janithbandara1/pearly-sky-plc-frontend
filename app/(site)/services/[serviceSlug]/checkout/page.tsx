@@ -160,7 +160,6 @@ export default function CheckoutPage({
           propertySizeSqm: draft.propertySizeSqm,
           date: draft.date,
           time: draft.time,
-          frequency: draft.frequency,
           addressId: selectedAddressId ?? undefined,
           note: draft.note,
           country: currentCountry ?? undefined,
@@ -193,7 +192,6 @@ export default function CheckoutPage({
           propertySizeSqm: draft.propertySizeSqm,
           date: draft.date,
           time: draft.time,
-          frequency: draft.frequency,
           note: draft.note,
           addOns: draft.packages.map((p) => ({ name: p.name, price: p.price ?? undefined })),
           equipmentItems: draft.items.map((i) => ({ name: i.name })),
@@ -469,7 +467,6 @@ export default function CheckoutPage({
         <div className="lg:sticky lg:top-6">
           <OrderSummaryCard
             serviceLabel={service.label}
-            frequency={draft.frequency}
             hourlyRate={service.price}
             quote={quote}
             quoteLoading={quoteLoading}

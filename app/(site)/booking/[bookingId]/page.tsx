@@ -156,7 +156,6 @@ function BookingStatus({ bookingId }: { bookingId: number }) {
               <>
                 <DetailRow label="Service" value={details.service.label} />
                 <DetailRow label="Date & time" value={`${details.date} at ${details.time}`} />
-                <DetailRow label="Frequency" value={details.frequency} capitalize />
               </>
             )}
             {booking?.price && <DetailRow label="Price" value={formatPrice(booking.price)} />}
