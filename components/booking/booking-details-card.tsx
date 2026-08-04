@@ -14,7 +14,7 @@ function formatHM(hours: number): string {
   return m === 0 ? `${h}h` : `${h}h ${m}m`;
 }
 
-export interface OrderSummaryCardProps {
+export interface BookingDetailsCardProps {
   serviceLabel: string;
   hourlyRate: string | null;
   quote: SizeQuote | null;
@@ -45,7 +45,7 @@ export interface OrderSummaryCardProps {
   bookDisabledReason?: string;
 }
 
-export function OrderSummaryCard({
+export function BookingDetailsCard({
   serviceLabel,
   hourlyRate,
   quote,
@@ -63,7 +63,7 @@ export function OrderSummaryCard({
   onBookNow,
   submitting,
   bookDisabledReason,
-}: OrderSummaryCardProps) {
+}: BookingDetailsCardProps) {
   const { symbol } = useCurrency();
   const money = (n: number) => `${symbol}${n.toFixed(2)}`;
 
@@ -157,11 +157,13 @@ export function OrderSummaryCard({
         )}
 
         <div className="flex flex-col border-t border-brand-gold/20">
+          {hourlyRate && (
+            <SummaryRow label="Due at booking" value={money(Number(hourlyRate))} emphasize />
+          )}
           {hasPrice ? (
             <SummaryRow
               label="Total price (estimate)"
               value={`${money(estimatedMin as number)} – ${money(estimatedMax as number)}`}
-              emphasize
               last
             />
           ) : (

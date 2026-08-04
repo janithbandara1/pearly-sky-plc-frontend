@@ -24,7 +24,7 @@ import {
   PropertyCategory,
   PropertyTypeSizeSelector,
 } from "@/components/booking/property-type-size-selector";
-import { OrderSummaryCard } from "@/components/booking/order-summary-card";
+import { BookingDetailsCard } from "@/components/booking/booking-details-card";
 import { ServicePreferencesSection } from "@/components/booking/service-preferences-section";
 import { PageHero } from "@/components/page-hero";
 import { ApiError } from "@/lib/auth-context";
@@ -354,7 +354,7 @@ export default function BookServicePage({
           onCategoryChange={(cat: PropertyCategory) => setPropertyType(cat.dropdownLabel ?? cat.label)}
         />
 
-        <OrderSummaryCard
+        <BookingDetailsCard
           serviceLabel={service.label}
           hourlyRate={service.price}
           quote={quote}

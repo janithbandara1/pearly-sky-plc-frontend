@@ -111,6 +111,22 @@ export default function StaffBookingDetailsPage() {
     }
   }
 
+  // `order.price` is the flat per-country rate charged up front ("due at
+  // booking"). The full job cost isn't known until minHours/maxHours × that
+  // rate (plus any priced add-ons) is estimated — the remaining balance is
+  // that estimate minus what's already been paid.
+  const details = order?.serviceDetails?.[0];
+  const dueAtBooking = order?.price ? Number(order.price) : null;
+  const minHours = details ? Number(details.minHours) : null;
+  const maxHours = details ? Number(details.maxHours) : null;
+  const addOnsTotal = details?.addOns?.reduce((sum, a) => sum + (a.price ?? 0), 0) ?? 0;
+  const hasEstimate = dueAtBooking !== null && minHours !== null && maxHours !== null;
+  const estimatedMin = hasEstimate ? minHours! * dueAtBooking! + addOnsTotal : null;
+  const estimatedMax = hasEstimate ? maxHours! * dueAtBooking! + addOnsTotal : null;
+  const remainingMin = hasEstimate ? (estimatedMin as number) - (dueAtBooking as number) : null;
+  const remainingMax = hasEstimate ? (estimatedMax as number) - (dueAtBooking as number) : null;
+  const money = (n: number) => `${n.toFixed(2)} ${order?.currency?.toUpperCase() ?? ""}`.trim();
+
   return (
     <div className="flex flex-col gap-6">
       <Button
@@ -144,11 +160,25 @@ export default function StaffBookingDetailsPage() {
             </Badge>
           </div>
           <div>
-            <p className="text-xs text-muted-foreground">Price</p>
-            <p>
-              {order.price ? `${order.price} ${order.currency?.toUpperCase() ?? ""}` : "Unpriced"}
-            </p>
+            <p className="text-xs text-muted-foreground">Due at booking</p>
+            <p>{dueAtBooking !== null ? money(dueAtBooking) : "Unpriced"}</p>
           </div>
+          {hasEstimate && (
+            <div>
+              <p className="text-xs text-muted-foreground">Total price (estimate)</p>
+              <p>
+                {money(estimatedMin as number)} – {money(estimatedMax as number)}
+              </p>
+            </div>
+          )}
+          {hasEstimate && (
+            <div>
+              <p className="text-xs text-muted-foreground">Remaining balance</p>
+              <p>
+                {money(remainingMin as number)} – {money(remainingMax as number)}
+              </p>
+            </div>
+          )}
           <div>
             <p className="text-xs text-muted-foreground">Cleaner</p>
             <p>

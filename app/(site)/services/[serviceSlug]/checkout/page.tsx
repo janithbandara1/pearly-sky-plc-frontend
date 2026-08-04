@@ -3,7 +3,7 @@
 import { Poppins } from "next/font/google";
 import { useRouter } from "next/navigation";
 import { use, useCallback, useEffect, useState } from "react";
-import { OrderSummaryCard } from "@/components/booking/order-summary-card";
+import { BookingDetailsCard } from "@/components/booking/booking-details-card";
 import { PageHero } from "@/components/page-hero";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -465,7 +465,7 @@ export default function CheckoutPage({
         </div>
 
         <div className="lg:sticky lg:top-6">
-          <OrderSummaryCard
+          <BookingDetailsCard
             serviceLabel={service.label}
             hourlyRate={service.price}
             quote={quote}
