@@ -22,7 +22,11 @@ export interface BookingDetailsCardProps {
   quoteLoading: boolean;
   date: string;
   time: string;
+  propertyType?: string;
   propertySizeSqm: number;
+  genderLabel: string;
+  languageLabel: string;
+  specialRequirements?: string;
   packages: BookingDraftPackage[];
   /** healthguard-sanitization only — the facility types selected above. */
   facilities?: string[];
@@ -61,7 +65,11 @@ export function BookingDetailsCard({
   quoteLoading,
   date,
   time,
+  propertyType,
   propertySizeSqm,
+  genderLabel,
+  languageLabel,
+  specialRequirements,
   packages,
   facilities,
   items,
@@ -94,15 +102,23 @@ export function BookingDetailsCard({
 
         <div className="flex flex-col border-t border-brand-gold/20">
           <SummaryRow label="Service" value={<span className="font-semibold">{serviceLabel}</span>} />
-          <SummaryRow label="Property size" value={`${propertySizeSqm} m²`} />
           <SummaryRow label="Date" value={date} />
           <SummaryRow label="Time" value={time} />
+          {propertyType && <SummaryRow label="Property type" value={propertyType} />}
+          <SummaryRow label="Property size" value={`${propertySizeSqm} m²`} />
           <SummaryRow
             label="Duration"
             value={hasDuration ? `${formatHM(quote!.minHours as number)} – ${formatHM(quote!.maxHours as number)}` : "—"}
           />
           <SummaryRow label="Cleaners" value={quote?.cleanerCount ?? "—"} />
           <SummaryRow label="Price per cleaner" value={hourlyRate ? `${money(Number(hourlyRate))}/h` : "—"} last />
+        </div>
+
+        <div className="flex flex-col border-t border-brand-gold/20">
+          <SectionHeading label="Preferences" />
+          <SummaryRow label="Gender Preference" value={genderLabel} />
+          <SummaryRow label="Language Preference" value={languageLabel} />
+          <SummaryRow label="Special Requirements" value={specialRequirements || "—"} last />
         </div>
 
         {packages.length > 0 && (

@@ -19,6 +19,7 @@ export interface QuotationDetailsCardProps {
   /** Present for custom-quote services (pool, pressure washing, carpet) instead of property size. */
   quoteItemLines?: string[];
   quoteItemsTitle?: string;
+  propertyType?: string;
   propertySizeSqm?: number;
   supplySource: SupplySource;
   onSupplySourceChange: (value: SupplySource) => void;
@@ -39,6 +40,7 @@ export function QuotationDetailsCard({
   time,
   quoteItemLines,
   quoteItemsTitle,
+  propertyType,
   propertySizeSqm,
   supplySource,
   onSupplySourceChange,
@@ -80,7 +82,10 @@ export function QuotationDetailsCard({
               )}
             </>
           ) : (
-            <SummaryRow label="Property size" value={`${propertySizeSqm} m²`} last />
+            <>
+              {propertyType && <SummaryRow label="Property type" value={propertyType} />}
+              <SummaryRow label="Property size" value={`${propertySizeSqm} m²`} last />
+            </>
           )}
         </div>
 

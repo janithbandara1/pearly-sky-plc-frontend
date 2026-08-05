@@ -4,6 +4,7 @@ import { Poppins } from "next/font/google";
 import { useRouter } from "next/navigation";
 import { use, useCallback, useEffect, useState } from "react";
 import { BookingDetailsCard } from "@/components/booking/booking-details-card";
+import { GENDER_OPTIONS, LANGUAGE_OPTIONS } from "@/components/booking/quotation-preferences-section";
 import { PageHero } from "@/components/page-hero";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -248,6 +249,9 @@ export default function CheckoutPage({
     );
   }
 
+  const genderLabel = GENDER_OPTIONS.find((o) => o.value === draft.genderPreference)?.label ?? "No Preference";
+  const languageLabel = LANGUAGE_OPTIONS.find((o) => o.value === draft.languagePreference)?.label ?? "None";
+
   const guestDetailsMissing =
     !contactForm.firstName.trim() ||
     !contactForm.email.trim() ||
@@ -472,7 +476,11 @@ export default function CheckoutPage({
             quoteLoading={quoteLoading}
             date={draft.date}
             time={draft.time}
+            propertyType={draft.propertyType}
             propertySizeSqm={draft.propertySizeSqm}
+            genderLabel={genderLabel}
+            languageLabel={languageLabel}
+            specialRequirements={draft.specialRequirements}
             packages={draft.packages}
             items={draft.items}
             supplySource={draft.supplySource}

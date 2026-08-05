@@ -7,6 +7,7 @@ import { DateTimeSection } from "@/components/booking/date-time-section";
 import type { SupplySource } from "@/components/booking/equipment-section";
 import {
   getPropertyCategoriesForService,
+  PropertyCategory,
   PropertyTypeSizeSelector,
 } from "@/components/booking/property-type-size-selector";
 import {
@@ -79,6 +80,7 @@ export default function RequestQuotationPage({
   const [supplySource, setSupplySource] = useState<SupplySource>("");
 
   const [propertySizeSqm, setPropertySizeSqm] = useState(20);
+  const [propertyType, setPropertyType] = useState("");
   const [quoteItems, setQuoteItems] = useState<QuoteItem[]>([]);
 
   const [numCleaners, setNumCleaners] = useState(1);
@@ -142,7 +144,7 @@ export default function RequestQuotationPage({
       selectedItems.length ? `Equipment: ${selectedItems.map((i) => i.name).join(", ")}` : "",
       customQuote
         ? `${customQuote.title}:\n${quoteItemLines.length ? quoteItemLines.join("\n") : "Not specified"}`
-        : `Property Scale: ${propertySizeSqm} m²`,
+        : `Property Type: ${propertyType || "Not specified"}\nProperty Scale: ${propertySizeSqm} m²`,
       `Cleaners: ${numCleaners}`,
       `Duration: ${formatHM(durationHours)}`,
       `Gender Preference: ${genderLabel}`,
@@ -224,6 +226,7 @@ export default function RequestQuotationPage({
               value={propertySizeSqm}
               onChange={setPropertySizeSqm}
               categories={getPropertyCategoriesForService(serviceSlug)}
+              onCategoryChange={(cat: PropertyCategory) => setPropertyType(cat.dropdownLabel ?? cat.label)}
             />
           )}
 
@@ -362,6 +365,7 @@ export default function RequestQuotationPage({
             time={time}
             quoteItemLines={quoteItemLines}
             quoteItemsTitle={customQuote?.title}
+            propertyType={propertyType || undefined}
             propertySizeSqm={propertySizeSqm}
             supplySource={supplySource}
             onSupplySourceChange={setSupplySource}

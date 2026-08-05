@@ -256,6 +256,9 @@ export default function BookServicePage({
     );
   }
 
+  const genderLabel = GENDER_OPTIONS.find((o) => o.value === gender)?.label ?? "No Preference";
+  const languageLabel = LANGUAGE_OPTIONS.find((o) => o.value === language)?.label ?? "None";
+
   const bookDisabledReason = !isSanitization && !isSteam && !isEvent && !supplySource
     ? "Select a cleaning solvents & equipments option above to continue."
     : isSanitization && selectedFacilityIds.size === 0
@@ -368,6 +371,10 @@ export default function BookServicePage({
           quoteLoading={quoteLoading}
           date={date}
           time={time}
+          propertyType={propertyType || undefined}
+          genderLabel={genderLabel}
+          languageLabel={languageLabel}
+          specialRequirements={requirements.trim() || undefined}
           propertySizeSqm={propertySizeSqm}
           packages={[
             ...selectedPackages.map((p) => ({
