@@ -64,9 +64,9 @@ export function QuotationDetailsCard({
         </div>
 
         <div className="flex flex-col border-t border-brand-gold/20">
-          <SummaryRow label="Service" value={<span className="font-semibold">{serviceLabel}</span>} />
+          <SummaryRow label="Service" value={serviceLabel} />
           <SummaryRow label="Date" value={date || "—"} />
-          <SummaryRow label="Time" value={time || "—"} last />
+          <SummaryRow label="Time" value={time || "—"} />
         </div>
 
         <div className="flex flex-col border-t border-brand-gold/20">
@@ -74,17 +74,15 @@ export function QuotationDetailsCard({
             <>
               <SectionHeading label={quoteItemsTitle ?? "Job Details"} />
               {quoteItemLines.length > 0 ? (
-                quoteItemLines.map((line, i) => (
-                  <SummaryRow key={i} label={line} value="" last={i === quoteItemLines.length - 1} />
-                ))
+                quoteItemLines.map((line, i) => <SummaryRow key={i} label={line} value="" />)
               ) : (
-                <SummaryRow label="Not specified" value="" last />
+                <SummaryRow label="Not specified" value="" />
               )}
             </>
           ) : (
             <>
               {propertyType && <SummaryRow label="Property type" value={propertyType} />}
-              <SummaryRow label="Property size" value={`${propertySizeSqm} m²`} last />
+              <SummaryRow label="Property size" value={`${propertySizeSqm} m²`} />
             </>
           )}
         </div>
@@ -95,7 +93,7 @@ export function QuotationDetailsCard({
           <SummaryRow label="Cleaners" value={numCleaners} />
           <SummaryRow label="Gender Preference" value={genderLabel} />
           <SummaryRow label="Language Preference" value={languageLabel} />
-          <SummaryRow label="Special Requirements" value={requirements || "—"} last />
+          <SummaryRow label="Special Requirements" value={requirements || "—"} />
         </div>
 
         <div className="flex flex-col border-t border-brand-gold/20">
@@ -104,7 +102,7 @@ export function QuotationDetailsCard({
             <label
               key={opt.value}
               htmlFor={`quote-supply-source-${opt.value}`}
-              className="flex cursor-pointer items-center justify-between gap-3 border-b border-brand-gold/20 px-4 py-2.5 text-sm"
+              className="flex cursor-pointer items-center justify-between gap-3 px-4 py-2.5 text-sm"
             >
               <span className="text-brand-navy-foreground/70">{opt.label}</span>
               <Checkbox
@@ -117,13 +115,8 @@ export function QuotationDetailsCard({
           ))}
 
           {supplySource &&
-            equipmentItems.map((item, i) => (
-              <SummaryRow
-                key={item.name}
-                label={item.name}
-                value={equipmentValueLabel}
-                last={i === equipmentItems.length - 1}
-              />
+            equipmentItems.map((item) => (
+              <SummaryRow key={item.name} label={item.name} value={equipmentValueLabel} />
             ))}
         </div>
 
@@ -154,19 +147,9 @@ function SectionHeading({ label }: { label: string }) {
   );
 }
 
-function SummaryRow({
-  label,
-  value,
-  last = false,
-}: {
-  label: string;
-  value: ReactNode;
-  last?: boolean;
-}) {
+function SummaryRow({ label, value }: { label: string; value: ReactNode }) {
   return (
-    <div
-      className={`flex items-center justify-between gap-3 px-4 py-2.5 text-sm ${last ? "" : "border-b border-brand-gold/20"}`}
-    >
+    <div className="flex items-center justify-between gap-3 px-4 py-2.5 text-sm">
       <span className="text-brand-navy-foreground/70">{label}</span>
       <span className="text-right">{value}</span>
     </div>

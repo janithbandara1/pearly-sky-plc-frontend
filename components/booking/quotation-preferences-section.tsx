@@ -95,20 +95,20 @@ export function QuotationPreferencesSection({
 
       <div className="grid grid-cols-1 gap-5 bg-[#F8F9FA] p-4 sm:p-5 md:grid-cols-2">
         <CounterField
-          label="Cleaners"
-          value={numCleaners}
-          onChange={onNumCleanersChange}
-          min={1}
-          step={1}
-        />
-
-        <CounterField
           label="Duration"
           value={durationHours}
           onChange={onDurationHoursChange}
           min={3}
           step={0.5}
           formatValue={formatHM}
+        />
+
+        <CounterField
+          label="Cleaners"
+          value={numCleaners}
+          onChange={onNumCleanersChange}
+          min={1}
+          step={1}
         />
 
         <div>

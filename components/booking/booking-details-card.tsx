@@ -101,7 +101,7 @@ export function BookingDetailsCard({
         </div>
 
         <div className="flex flex-col border-t border-brand-gold/20">
-          <SummaryRow label="Service" value={<span className="font-semibold">{serviceLabel}</span>} />
+          <SummaryRow label="Service" value={serviceLabel} />
           <SummaryRow label="Date" value={date} />
           <SummaryRow label="Time" value={time} />
           {propertyType && <SummaryRow label="Property type" value={propertyType} />}
@@ -111,25 +111,24 @@ export function BookingDetailsCard({
             value={hasDuration ? `${formatHM(quote!.minHours as number)} – ${formatHM(quote!.maxHours as number)}` : "—"}
           />
           <SummaryRow label="Cleaners" value={quote?.cleanerCount ?? "—"} />
-          <SummaryRow label="Price per cleaner" value={hourlyRate ? `${money(Number(hourlyRate))}/h` : "—"} last />
+          <SummaryRow label="Price per cleaner" value={hourlyRate ? `${money(Number(hourlyRate))}/h` : "—"} />
         </div>
 
         <div className="flex flex-col border-t border-brand-gold/20">
           <SectionHeading label="Preferences" />
           <SummaryRow label="Gender Preference" value={genderLabel} />
           <SummaryRow label="Language Preference" value={languageLabel} />
-          <SummaryRow label="Special Requirements" value={specialRequirements || "—"} last />
+          <SummaryRow label="Special Requirements" value={specialRequirements || "—"} />
         </div>
 
         {packages.length > 0 && (
           <div className="flex flex-col border-t border-brand-gold/20">
             <SectionHeading label="Add-Ons" />
-            {packages.map((pkg, i) => (
+            {packages.map((pkg) => (
               <SummaryRow
                 key={pkg.name}
                 label={pkg.name}
                 value={pkg.price !== null ? money(pkg.price) : "Included"}
-                last={i === packages.length - 1}
               />
             ))}
           </div>
@@ -138,92 +137,77 @@ export function BookingDetailsCard({
         {facilities && facilities.length > 0 && (
           <div className="flex flex-col border-t border-brand-gold/20">
             <SectionHeading label="Facilities" />
-            {facilities.map((facility, i) => (
-              <SummaryRow key={facility} label={facility} value="" last={i === facilities.length - 1} />
+            {facilities.map((facility) => (
+              <SummaryRow key={facility} label={facility} value="" />
             ))}
           </div>
         )}
 
-        {onSupplySourceChange && (
+        {(onSupplySourceChange || (equipmentOptions && equipmentOptions.length > 0) || items.length > 0) && (
           <div className="flex flex-col border-t border-brand-gold/20">
             <SectionHeading label="Cleaning Solvents & Equipments" />
-            {SUPPLY_SOURCE_OPTIONS.map((opt, index) => (
-              <label
-                key={opt.value}
-                htmlFor={`supply-source-${opt.value}`}
-                className={`flex cursor-pointer items-center justify-between gap-3 px-4 py-2.5 text-sm ${
-                  index === SUPPLY_SOURCE_OPTIONS.length - 1 ? "" : "border-b border-brand-gold/20"
-                }`}
-              >
-                <span className="text-brand-navy-foreground/70">{opt.label}</span>
-                <Checkbox
-                  id={`supply-source-${opt.value}`}
-                  checked={supplySource === opt.value}
-                  onCheckedChange={(checked) => onSupplySourceChange(checked ? opt.value : "")}
-                  className="border-brand-gold data-checked:border-brand-gold data-checked:bg-brand-gold"
-                />
-              </label>
-            ))}
-          </div>
-        )}
 
-        {equipmentOptions && equipmentOptions.length > 0 ? (
-          <div className="flex flex-col border-t border-brand-gold/20">
-            {!onSupplySourceChange && <SectionHeading label="Cleaning Solvents & Equipments" />}
-            {equipmentOptions.map((item, i) => {
-              const isSelected = selectedEquipmentIds?.has(item.id) ?? false;
-              const price = item.price !== null ? Number(item.price) : NaN;
-              return (
-                <SummaryRow
-                  key={item.id}
-                  label={item.name}
-                  value={
-                    <div className="flex items-center gap-2">
-                      {!Number.isNaN(price) && (
-                        <span className="text-brand-navy-foreground/70">{money(price)}</span>
-                      )}
-                      <button
-                        type="button"
-                        onClick={() => onToggleEquipment?.(item.id)}
-                        aria-pressed={isSelected}
-                        className={`shrink-0 rounded-[6px] border-[1.5px] border-brand-gold px-2.5 py-1 text-xs font-semibold ${
-                          isSelected ? "bg-brand-gold text-brand-navy" : "text-brand-gold"
-                        }`}
-                      >
-                        {isSelected ? "Added" : "Add"}
-                      </button>
-                    </div>
-                  }
-                  last={i === equipmentOptions.length - 1}
-                />
-              );
-            })}
-          </div>
-        ) : (
-          items.length > 0 && (
-            <div className="flex flex-col border-t border-brand-gold/20">
-              {!onSupplySourceChange && <SectionHeading label="Cleaning Solvents & Equipments" />}
-              {items.map((item, i) => (
-                <SummaryRow
-                  key={item.name}
-                  label={item.name}
-                  value={supplySource === "customer" ? "Provided by you" : ""}
-                  last={i === items.length - 1}
-                />
+            {onSupplySourceChange &&
+              SUPPLY_SOURCE_OPTIONS.map((opt) => (
+                <label
+                  key={opt.value}
+                  htmlFor={`supply-source-${opt.value}`}
+                  className="flex cursor-pointer items-center justify-between gap-3 px-4 py-2.5 text-sm"
+                >
+                  <span className="text-brand-navy-foreground/70">{opt.label}</span>
+                  <Checkbox
+                    id={`supply-source-${opt.value}`}
+                    checked={supplySource === opt.value}
+                    onCheckedChange={(checked) => onSupplySourceChange(checked ? opt.value : "")}
+                    className="border-brand-gold data-checked:border-brand-gold data-checked:bg-brand-gold"
+                  />
+                </label>
               ))}
-            </div>
-          )
+
+            {equipmentOptions && equipmentOptions.length > 0
+              ? equipmentOptions.map((item) => {
+                  const isSelected = selectedEquipmentIds?.has(item.id) ?? false;
+                  const price = item.price !== null ? Number(item.price) : NaN;
+                  return (
+                    <SummaryRow
+                      key={item.id}
+                      label={item.name}
+                      value={
+                        <div className="flex items-center gap-2">
+                          {!Number.isNaN(price) && (
+                            <span className="text-brand-navy-foreground">{money(price)}</span>
+                          )}
+                          <button
+                            type="button"
+                            onClick={() => onToggleEquipment?.(item.id)}
+                            aria-pressed={isSelected}
+                            className={`shrink-0 rounded-[6px] border-[1.5px] border-brand-gold px-2.5 py-1 text-xs ${
+                              isSelected ? "bg-brand-gold text-brand-navy" : "text-brand-gold"
+                            }`}
+                          >
+                            {isSelected ? "Added" : "Add"}
+                          </button>
+                        </div>
+                      }
+                    />
+                  );
+                })
+              : items.map((item) => (
+                  <SummaryRow
+                    key={item.name}
+                    label={item.name}
+                    value={supplySource === "customer" ? "Provided by you" : ""}
+                  />
+                ))}
+          </div>
         )}
 
         <div className="flex flex-col border-t border-brand-gold/20">
-          {hourlyRate && (
-            <SummaryRow label="Due at booking" value={money(Number(hourlyRate))} emphasize />
-          )}
+          {hourlyRate && <SummaryRow label="Due at booking" value={money(Number(hourlyRate))} />}
           {hasPrice ? (
             <SummaryRow
               label="Total price (estimate)"
               value={`${money(estimatedMin as number)} – ${money(estimatedMax as number)}`}
-              last
             />
           ) : (
             <div className="px-4 py-3 text-sm text-brand-navy-foreground/70">
@@ -260,23 +244,11 @@ function SectionHeading({ label }: { label: string }) {
   );
 }
 
-function SummaryRow({
-  label,
-  value,
-  last = false,
-  emphasize = false,
-}: {
-  label: string;
-  value: ReactNode;
-  last?: boolean;
-  emphasize?: boolean;
-}) {
+function SummaryRow({ label, value }: { label: string; value: ReactNode }) {
   return (
-    <div
-      className={`flex items-center justify-between gap-3 px-4 py-2.5 text-sm ${last ? "" : "border-b border-brand-gold/20"}`}
-    >
+    <div className="flex items-center justify-between gap-3 px-4 py-2.5 text-sm">
       <span className="text-brand-navy-foreground/70">{label}</span>
-      <span className={emphasize ? "font-semibold" : ""}>{value}</span>
+      <span>{value}</span>
     </div>
   );
 }
