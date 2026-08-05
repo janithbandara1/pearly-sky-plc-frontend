@@ -116,6 +116,7 @@ export const fr: Record<TranslationKey, string> = {
   // Footer
   footerTagline: "Services de nettoyage et de soin éco-luxe partout en France.",
   footerRights: "Tous droits réservés.",
+  footerQuickLinksTitle: "Liens Rapides",
 
   // About Us page
   aboutPageEyebrow: "À PROPOS DE PEARLY SKY CLEANING SERVICES",

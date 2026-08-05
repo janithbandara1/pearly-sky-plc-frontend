@@ -112,8 +112,10 @@ export const en = {
   contactConnect: "CONNECT WITH US:",
 
   // Footer
-  footerTagline: "Eco-luxury cleaning & care services across France.",
+  footerTagline:
+    "Pearly Sky Cleaning offers professional, eco-friendly cleaning services for homes, offices, and hotels across France. We focus on quality and customer satisfaction, delivering tailored solutions to keep your space spotless.",
   footerRights: "All rights reserved.",
+  footerQuickLinksTitle: "Quick Links",
 
   // About Us page
   aboutPageEyebrow: "ABOUT PEARLY SKY CLEANING SERVICES",
