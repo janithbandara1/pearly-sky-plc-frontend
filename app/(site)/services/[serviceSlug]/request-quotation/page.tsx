@@ -4,7 +4,7 @@ import Link from "next/link";
 import { use, useEffect, useState } from "react";
 import { ArrowLeft } from "lucide-react";
 import { DateTimeSection } from "@/components/booking/date-time-section";
-import { EquipmentSection, SupplySource } from "@/components/booking/equipment-section";
+import type { SupplySource } from "@/components/booking/equipment-section";
 import {
   getPropertyCategoriesForService,
   PropertyTypeSizeSelector,
@@ -16,8 +16,10 @@ import {
 } from "@/components/booking/quotation-preferences-section";
 import { QuoteItemsSection } from "@/components/booking/quote-items-section";
 import { CarpetItemCards } from "@/components/booking/carpet-item-cards";
+import { QuotationDetailsCard } from "@/components/booking/quotation-details-card";
+import { ServiceIntroduction } from "@/components/booking/service-introduction";
+import { ServiceHighlights } from "@/components/booking/service-highlights";
 import { PageHero } from "@/components/page-hero";
-import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
@@ -26,6 +28,7 @@ import { CatalogServiceDetail, getServiceBySlug } from "@/lib/catalog-api";
 import { SUPPORTED_COUNTRIES, type CountryCode } from "@/lib/countries/config";
 import { useCountry } from "@/lib/countries/country-context";
 import { useLanguage } from "@/lib/i18n/language-context";
+import { SERVICE_CONTENT } from "@/lib/content/service-details";
 import {
   CARPET_ITEM_OPTIONS,
   formatQuoteItem,
@@ -65,6 +68,7 @@ export default function RequestQuotationPage({
   const { translate } = useLanguage();
   const { country } = useCountry();
   const customQuote = CUSTOM_QUOTE_ITEMS[serviceSlug];
+  const serviceContent = SERVICE_CONTENT[serviceSlug];
 
   const [service, setService] = useState<CatalogServiceDetail | null>(null);
   const [serviceError, setServiceError] = useState<string | null>(null);
@@ -121,7 +125,7 @@ export default function RequestQuotationPage({
     if (!service || !validate()) return;
 
     const items = (service.serviceItems ?? []).map((si) => si.item);
-    const selectedItems = supplySource === "company" ? items : [];
+    const selectedItems = supplySource === "company" || supplySource === "customer" ? items : [];
     const supplySourceLabel =
       supplySource === "company" ? "Request the Company" : supplySource === "customer" ? "Provided by the Customer" : "Not specified";
     const genderLabel = GENDER_OPTIONS.find((o) => o.value === gender)?.label ?? "No Preference";
@@ -135,7 +139,7 @@ export default function RequestQuotationPage({
       `Service: ${service.label}`,
       `Preferred Date & Time: ${date || "Not specified"} ${time}`.trim(),
       `Cleaning Solvents & Equipment: ${supplySourceLabel}`,
-      selectedItems.length ? `Requested Equipment: ${selectedItems.map((i) => i.name).join(", ")}` : "",
+      selectedItems.length ? `Equipment: ${selectedItems.map((i) => i.name).join(", ")}` : "",
       customQuote
         ? `${customQuote.title}:\n${quoteItemLines.length ? quoteItemLines.join("\n") : "Not specified"}`
         : `Property Scale: ${propertySizeSqm} m²`,
@@ -170,6 +174,13 @@ export default function RequestQuotationPage({
     );
   }
 
+  const genderLabel = GENDER_OPTIONS.find((o) => o.value === gender)?.label ?? "No Preference";
+  const languageLabel = LANGUAGE_OPTIONS.find((o) => o.value === language)?.label ?? "None";
+  const quoteItemLines = customQuote
+    ? quoteItems.map((item) => formatQuoteItem(item, customQuote.options))
+    : undefined;
+  const equipmentItems = (service.serviceItems ?? []).map((si) => si.item);
+
   return (
     <main className="flex-1">
       <PageHero
@@ -190,10 +201,14 @@ export default function RequestQuotationPage({
           </Link>
         </div>
 
+        {serviceContent?.introduction && <ServiceIntroduction {...serviceContent.introduction} />}
+
+        {serviceContent?.highlights?.map((group, index) => (
+          <ServiceHighlights key={index} title={group.title} cards={group.cards} />
+        ))}
+
         <form onSubmit={handleSubmit} className="flex flex-col gap-6" noValidate>
           <DateTimeSection date={date} onDateChange={setDate} time={time} onTimeChange={setTime} />
-
-          <EquipmentSection supplySource={supplySource} onSupplySourceChange={setSupplySource} />
 
           {serviceSlug === "carpet-upholstery-cleaning" ? (
             <CarpetItemCards items={quoteItems} onItemsChange={setQuoteItems} />
@@ -341,15 +356,24 @@ export default function RequestQuotationPage({
             </div>
           </section>
 
-          <Button type="submit" className="w-full bg-brand-gold text-brand-navy hover:bg-brand-gold/90">
-            {translate("servicesRequestQuotation")}
-          </Button>
-
-          {sent && (
-            <p className="text-sm text-muted-foreground">
-              Your email app should have opened with your quotation request pre-filled — just hit send.
-            </p>
-          )}
+          <QuotationDetailsCard
+            serviceLabel={service.label}
+            date={date}
+            time={time}
+            quoteItemLines={quoteItemLines}
+            quoteItemsTitle={customQuote?.title}
+            propertySizeSqm={propertySizeSqm}
+            supplySource={supplySource}
+            onSupplySourceChange={setSupplySource}
+            equipmentItems={equipmentItems}
+            numCleaners={numCleaners}
+            durationHours={durationHours}
+            genderLabel={genderLabel}
+            languageLabel={languageLabel}
+            requirements={requirements}
+            ctaLabel={translate("servicesRequestQuotation")}
+            sent={sent}
+          />
         </form>
       </div>
     </main>
