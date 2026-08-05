@@ -7,7 +7,7 @@ import { use, useEffect, useState, type Dispatch, type SetStateAction } from "re
 import { ArrowLeft } from "lucide-react";
 import { DateTimeSection } from "@/components/booking/date-time-section";
 import { DISINFECTION_LEVELS, DisinfectionLevelSection } from "@/components/booking/disinfection-level-section";
-import { EquipmentSection, SupplySource } from "@/components/booking/equipment-section";
+import type { SupplySource } from "@/components/booking/equipment-section";
 import { FACILITY_CARDS, FacilitySelectionSection } from "@/components/booking/facility-selection-section";
 import { JobCardSection } from "@/components/booking/job-card-section";
 import { GeneralSteamSection } from "@/components/booking/steam/general-steam-section";
@@ -342,10 +342,6 @@ export default function BookServicePage({
           />
         )}
 
-        {!isSanitization && !isSteam && !isEvent && (
-          <EquipmentSection supplySource={supplySource} onSupplySourceChange={handleSupplySourceChange} />
-        )}
-
         <DateTimeSection date={date} onDateChange={setDate} time={time} onTimeChange={setTime} />
 
         <ServicePreferencesSection
@@ -387,6 +383,9 @@ export default function BookServicePage({
               : displayedEquipmentItems.map((i) => ({ name: i.name }))
           }
           supplySource={supplySource}
+          onSupplySourceChange={
+            !isSanitization && !isSteam && !isEvent ? handleSupplySourceChange : undefined
+          }
           equipmentOptions={!isEvent && supplySource === "company" ? items : undefined}
           selectedEquipmentIds={selectedItemIds}
           onToggleEquipment={toggleItem}

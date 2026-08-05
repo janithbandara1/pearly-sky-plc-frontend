@@ -3,7 +3,8 @@
 import type { ReactNode } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import type { SupplySource } from "@/components/booking/equipment-section";
+import { Checkbox } from "@/components/ui/checkbox";
+import { SUPPLY_SOURCE_OPTIONS, type SupplySource } from "@/components/booking/equipment-section";
 import type { BookingDraftItem, BookingDraftPackage } from "@/lib/booking-draft";
 import type { CatalogItem, SizeQuote } from "@/lib/catalog-api";
 import { useCurrency } from "@/lib/currency-context";
@@ -31,6 +32,12 @@ export interface BookingDetailsCardProps {
    */
   supplySource?: SupplySource;
   /**
+   * Present only on the live booking page — renders the interactive
+   * "Provided by the Customer" / "Request the Company" picker inline instead of
+   * the read-only summary used by checkout/staff/customer views.
+   */
+  onSupplySourceChange?: (value: SupplySource) => void;
+  /**
    * Cleaning solvents & equipment catalog, shown as add/remove toggles instead of
    * the plain `items` list when present — used on the live booking page once
    * "Request the Company" is selected. Omitted (checkout's frozen summary) falls
@@ -56,6 +63,7 @@ export function BookingDetailsCard({
   packages,
   items,
   supplySource,
+  onSupplySourceChange,
   equipmentOptions,
   selectedEquipmentIds,
   onToggleEquipment,
@@ -108,9 +116,32 @@ export function BookingDetailsCard({
           </div>
         )}
 
-        {equipmentOptions && equipmentOptions.length > 0 ? (
+        {onSupplySourceChange && (
           <div className="flex flex-col border-t border-brand-gold/20">
             <SectionHeading label="Cleaning Solvents & Equipments" />
+            {SUPPLY_SOURCE_OPTIONS.map((opt, index) => (
+              <label
+                key={opt.value}
+                htmlFor={`supply-source-${opt.value}`}
+                className={`flex cursor-pointer items-center justify-between gap-3 px-4 py-2.5 text-sm ${
+                  index === SUPPLY_SOURCE_OPTIONS.length - 1 ? "" : "border-b border-brand-gold/20"
+                }`}
+              >
+                <span className="text-brand-navy-foreground/70">{opt.label}</span>
+                <Checkbox
+                  id={`supply-source-${opt.value}`}
+                  checked={supplySource === opt.value}
+                  onCheckedChange={(checked) => onSupplySourceChange(checked ? opt.value : "")}
+                  className="border-brand-gold data-checked:border-brand-gold data-checked:bg-brand-gold"
+                />
+              </label>
+            ))}
+          </div>
+        )}
+
+        {equipmentOptions && equipmentOptions.length > 0 ? (
+          <div className="flex flex-col border-t border-brand-gold/20">
+            {!onSupplySourceChange && <SectionHeading label="Cleaning Solvents & Equipments" />}
             {equipmentOptions.map((item, i) => {
               const isSelected = selectedEquipmentIds?.has(item.id) ?? false;
               const price = item.price !== null ? Number(item.price) : NaN;
@@ -143,7 +174,7 @@ export function BookingDetailsCard({
         ) : (
           items.length > 0 && (
             <div className="flex flex-col border-t border-brand-gold/20">
-              <SectionHeading label="Cleaning Solvents & Equipments" />
+              {!onSupplySourceChange && <SectionHeading label="Cleaning Solvents & Equipments" />}
               {items.map((item, i) => (
                 <SummaryRow
                   key={item.name}

@@ -5,7 +5,8 @@ import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 
 export type SupplySource = "" | "customer" | "company";
 
-const OPTIONS = [
+/** Also reused inline by `BookingDetailsCard` on the main booking page. */
+export const SUPPLY_SOURCE_OPTIONS = [
   { value: "customer" as const, label: "Provided by the Customer" },
   { value: "company" as const, label: "Request the Company" },
 ];
@@ -28,7 +29,7 @@ export function EquipmentSection({ supplySource, onSupplySourceChange }: Equipme
           onValueChange={(value) => onSupplySourceChange(value as SupplySource)}
           className="gap-2.5"
         >
-          {OPTIONS.map((opt) => (
+          {SUPPLY_SOURCE_OPTIONS.map((opt) => (
             <FieldLabel
               key={opt.value}
               htmlFor={`supply-source-${opt.value}`}
