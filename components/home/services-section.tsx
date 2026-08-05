@@ -48,6 +48,14 @@ const QUOTABLE_SERVICES = new Set([
   "commercial-office-cleaning",
 ]);
 
+// Per-project services with a customized quotation form (no hourly booking flow) —
+// these get a "Request Quotation" card action instead of "Coming Soon".
+const CUSTOM_QUOTE_SERVICES = new Set([
+  "carpet-upholstery-cleaning",
+  "pool-cleaning",
+  "precision-pressure-washing",
+]);
+
 const CATEGORIES: { key: ServiceCategory; headingKey: TranslationKey; limit?: number }[] = [
   { key: "property_care", headingKey: "servicesCategoryPropertyCare", limit: 4 },
   { key: "bespoke_lifestyle", headingKey: "servicesCategoryBespokeLifestyle" },
@@ -108,6 +116,14 @@ function ServiceCard({ service }: { service: CatalogService }) {
               </Link>
             )}
           </div>
+        ) : CUSTOM_QUOTE_SERVICES.has(service.name) ? (
+          <Link
+            href={`/services/${service.name}/request-quotation`}
+            className="mt-2 flex w-full items-center justify-center gap-1.5 rounded-lg bg-brand-gold px-4 py-2 text-xs font-semibold text-brand-navy transition-colors hover:bg-brand-gold/90"
+          >
+            {translate("servicesRequestQuotation")}
+            <ArrowRight className="h-3.5 w-3.5" />
+          </Link>
         ) : (
           <span className="mt-2 block w-full rounded-lg border border-brand-navy-foreground/20 px-4 py-2 text-xs font-medium text-brand-navy-foreground/50">
             {translate("servicesComingSoon")}

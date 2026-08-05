@@ -14,6 +14,8 @@ import {
   LANGUAGE_OPTIONS,
   QuotationPreferencesSection,
 } from "@/components/booking/quotation-preferences-section";
+import { QuoteItemsSection } from "@/components/booking/quote-items-section";
+import { CarpetItemCards } from "@/components/booking/carpet-item-cards";
 import { PageHero } from "@/components/page-hero";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -24,8 +26,23 @@ import { CatalogServiceDetail, getServiceBySlug } from "@/lib/catalog-api";
 import { SUPPORTED_COUNTRIES, type CountryCode } from "@/lib/countries/config";
 import { useCountry } from "@/lib/countries/country-context";
 import { useLanguage } from "@/lib/i18n/language-context";
+import {
+  CARPET_ITEM_OPTIONS,
+  formatQuoteItem,
+  POOL_ITEM_OPTIONS,
+  PRESSURE_WASHING_ITEM_OPTIONS,
+  type QuoteItem,
+  type QuoteItemOption,
+} from "@/lib/content/quote-items";
 
 const CONTACT_EMAIL = "info@pearlyskyglobalclean.com";
+
+/** These services are priced per-project — they get a domain-specific item picker instead of the generic property size/type fields. */
+const CUSTOM_QUOTE_ITEMS: Record<string, { title: string; options: QuoteItemOption[] }> = {
+  "pool-cleaning": { title: "Pool Details", options: POOL_ITEM_OPTIONS },
+  "precision-pressure-washing": { title: "Pressure Washing Job Details", options: PRESSURE_WASHING_ITEM_OPTIONS },
+  "carpet-upholstery-cleaning": { title: "Carpet & Upholstery Items", options: CARPET_ITEM_OPTIONS },
+};
 
 const COUNTRY_NAMES: Record<CountryCode, string> = {
   fr: "France",
@@ -47,6 +64,7 @@ export default function RequestQuotationPage({
   const { serviceSlug } = use(params);
   const { translate } = useLanguage();
   const { country } = useCountry();
+  const customQuote = CUSTOM_QUOTE_ITEMS[serviceSlug];
 
   const [service, setService] = useState<CatalogServiceDetail | null>(null);
   const [serviceError, setServiceError] = useState<string | null>(null);
@@ -57,6 +75,7 @@ export default function RequestQuotationPage({
   const [supplySource, setSupplySource] = useState<SupplySource>("");
 
   const [propertySizeSqm, setPropertySizeSqm] = useState(20);
+  const [quoteItems, setQuoteItems] = useState<QuoteItem[]>([]);
 
   const [numCleaners, setNumCleaners] = useState(1);
   const [durationHours, setDurationHours] = useState(3);
@@ -108,12 +127,18 @@ export default function RequestQuotationPage({
     const genderLabel = GENDER_OPTIONS.find((o) => o.value === gender)?.label ?? "No Preference";
     const languageLabel = LANGUAGE_OPTIONS.find((o) => o.value === language)?.label ?? "None";
 
+    const quoteItemLines = customQuote
+      ? quoteItems.map((item) => `- ${formatQuoteItem(item, customQuote.options)}`)
+      : [];
+
     const bodyLines = [
       `Service: ${service.label}`,
       `Preferred Date & Time: ${date || "Not specified"} ${time}`.trim(),
       `Cleaning Solvents & Equipment: ${supplySourceLabel}`,
       selectedItems.length ? `Requested Equipment: ${selectedItems.map((i) => i.name).join(", ")}` : "",
-      `Property Scale: ${propertySizeSqm} m²`,
+      customQuote
+        ? `${customQuote.title}:\n${quoteItemLines.length ? quoteItemLines.join("\n") : "Not specified"}`
+        : `Property Scale: ${propertySizeSqm} m²`,
       `Cleaners: ${numCleaners}`,
       `Duration: ${formatHM(durationHours)}`,
       `Gender Preference: ${genderLabel}`,
@@ -170,11 +195,22 @@ export default function RequestQuotationPage({
 
           <EquipmentSection supplySource={supplySource} onSupplySourceChange={setSupplySource} />
 
-          <PropertyTypeSizeSelector
-            value={propertySizeSqm}
-            onChange={setPropertySizeSqm}
-            categories={getPropertyCategoriesForService(serviceSlug)}
-          />
+          {serviceSlug === "carpet-upholstery-cleaning" ? (
+            <CarpetItemCards items={quoteItems} onItemsChange={setQuoteItems} />
+          ) : customQuote ? (
+            <QuoteItemsSection
+              title={customQuote.title}
+              itemOptions={customQuote.options}
+              items={quoteItems}
+              onItemsChange={setQuoteItems}
+            />
+          ) : (
+            <PropertyTypeSizeSelector
+              value={propertySizeSqm}
+              onChange={setPropertySizeSqm}
+              categories={getPropertyCategoriesForService(serviceSlug)}
+            />
+          )}
 
           <QuotationPreferencesSection
             numCleaners={numCleaners}
