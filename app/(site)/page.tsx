@@ -6,7 +6,9 @@ import { ServicesSection } from "@/components/home/services-section";
 import { AboutSection } from "@/components/home/about-section";
 import { CoverageStrip } from "@/components/home/coverage-strip";
 import { SectorsMarquee } from "@/components/home/sectors-marquee";
+import { MomentsOfExcellence } from "@/components/home/moments-of-excellence";
 import { Testimonials } from "@/components/home/testimonials";
+import { RecentArticles } from "@/components/home/recent-articles";
 import { ContactSection } from "@/components/home/contact-section";
 import { buildCountryAlternates } from "@/lib/countries/seo";
 import { getRequestCountry } from "@/lib/countries/server";
@@ -32,7 +34,9 @@ export default async function Home() {
       <AboutSection />
       <CoverageStrip />
       <SectorsMarquee />
+      <MomentsOfExcellence />
       <Testimonials />
+      <RecentArticles />
       <ContactSection />
     </main>
   );

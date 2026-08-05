@@ -82,6 +82,9 @@ export const fr: Record<TranslationKey, string> = {
   sectorRetailTitle: "Commerce de Détail",
   sectorRetailDesc: "Redéfinir l'expérience d'achat avec innovation et commodité.",
 
+  // Moments of Excellence
+  momentsOfExcellenceTitle: "Moments d'Excellence",
+
   // Testimonials
   testimonialsTitle: "Expériences Clients",
   testimonialsReadAll: "Lire Tous les Avis",
@@ -156,6 +159,7 @@ export const fr: Record<TranslationKey, string> = {
   blogRecentArticles: "Articles Récents",
   blogReadArticle: "Lire l'Article",
   blogBackToBlog: "Retour au Blog",
+  blogViewAll: "Voir Tous les Articles",
 
   // Careers
   careersPageTitle: "Rejoignez Notre Équipe",

@@ -80,6 +80,9 @@ export const en = {
   sectorRetailTitle: "Retail",
   sectorRetailDesc: "Redefining the shopping experience with innovation and convenience.",
 
+  // Moments of Excellence
+  momentsOfExcellenceTitle: "Moments of Excellence",
+
   // Testimonials
   testimonialsTitle: "Client Experiences",
   testimonialsReadAll: "Read All Reviews",
@@ -90,7 +93,7 @@ export const en = {
   review3Text: "Professional team, punctual service, and spotless results. Highly recommended.",
 
   // Contact
-  contactTitle: "GET IN TOUCH WITH US",
+  contactTitle: "Get in Touch with Us",
   contactNameLabel: "Name *",
   contactNamePlaceholder: "Enter your full name",
   contactEmailLabel: "Email *",
@@ -154,6 +157,7 @@ export const en = {
   blogRecentArticles: "Recent Articles",
   blogReadArticle: "Read Full Article",
   blogBackToBlog: "Back to Blog",
+  blogViewAll: "View All Articles",
 
   // Careers
   careersPageTitle: "Join Our Team",
