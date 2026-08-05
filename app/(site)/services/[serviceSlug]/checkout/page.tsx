@@ -482,6 +482,7 @@ export default function CheckoutPage({
             languageLabel={languageLabel}
             specialRequirements={draft.specialRequirements}
             packages={draft.packages}
+            serviceLevel={draft.disinfectionLevel}
             items={draft.items}
             supplySource={draft.supplySource}
             addOnsTotal={draft.addOnsTotal}

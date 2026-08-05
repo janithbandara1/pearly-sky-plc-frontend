@@ -376,16 +376,16 @@ export default function BookServicePage({
           languageLabel={languageLabel}
           specialRequirements={requirements.trim() || undefined}
           propertySizeSqm={propertySizeSqm}
-          packages={[
-            ...selectedPackages.map((p) => ({
-              name: p.name,
-              price: p.price !== null ? Number(p.price) : null,
-            })),
-            ...(selectedDisinfectionLevel
-              ? [{ name: selectedDisinfectionLevel.title, price: selectedDisinfectionLevel.priceAdder || null }]
-              : []),
-          ]}
+          packages={selectedPackages.map((p) => ({
+            name: p.name,
+            price: p.price !== null ? Number(p.price) : null,
+          }))}
           facilities={isSanitization ? facilityNames : undefined}
+          serviceLevel={
+            selectedDisinfectionLevel
+              ? { name: selectedDisinfectionLevel.title, price: selectedDisinfectionLevel.priceAdder || null }
+              : undefined
+          }
           items={
             isEvent
               ? selectedEventProducts.map((p) => ({ name: p.name }))

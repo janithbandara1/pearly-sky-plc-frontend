@@ -30,6 +30,8 @@ export interface BookingDetailsCardProps {
   packages: BookingDraftPackage[];
   /** healthguard-sanitization only — the facility types selected above. */
   facilities?: string[];
+  /** healthguard-sanitization only — the disinfection level selected above. */
+  serviceLevel?: BookingDraftPackage;
   items: BookingDraftItem[];
   /**
    * Drives the read-only `items` list's value text: "Provided by you" when the
@@ -72,6 +74,7 @@ export function BookingDetailsCard({
   specialRequirements,
   packages,
   facilities,
+  serviceLevel,
   items,
   supplySource,
   onSupplySourceChange,
@@ -140,6 +143,16 @@ export function BookingDetailsCard({
             {facilities.map((facility) => (
               <SummaryRow key={facility} label={facility} value="" />
             ))}
+          </div>
+        )}
+
+        {serviceLevel && (
+          <div className="flex flex-col border-t border-brand-gold/20">
+            <SectionHeading label="Service Level" />
+            <SummaryRow
+              label={serviceLevel.name}
+              value={serviceLevel.price !== null ? money(serviceLevel.price) : "Included"}
+            />
           </div>
         )}
 
