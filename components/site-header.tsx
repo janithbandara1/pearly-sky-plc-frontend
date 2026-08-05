@@ -4,11 +4,12 @@ import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { ChevronDown, Menu } from "lucide-react";
+import { CalendarDays, ChevronDown, LayoutDashboard, LogOut, MapPin, Menu, UserRound } from "lucide-react";
 import { useAuth } from "@/lib/auth-context";
 import { useLanguage } from "@/lib/i18n/language-context";
 import { cn } from "@/lib/utils";
 import { ServicesNavList } from "@/components/services-nav-list";
+import { LocaleSwitcher } from "@/components/locale-switcher";
 import { Button } from "@/components/ui/button";
 import {
   Sheet,
@@ -28,7 +29,9 @@ export function SiteHeader() {
   const pathname = usePathname();
   const [mobileOpen, setMobileOpen] = useState(false);
   const [servicesOpen, setServicesOpen] = useState(false);
+  const [accountOpen, setAccountOpen] = useState(false);
   const servicesRef = useRef<HTMLDivElement>(null);
+  const accountRef = useRef<HTMLDivElement>(null);
 
   const navLinks = [
     { href: "/about", label: translate("navAbout") },
@@ -41,6 +44,7 @@ export function SiteHeader() {
 
   useEffect(() => {
     setServicesOpen(false);
+    setAccountOpen(false);
   }, [pathname]);
 
   useEffect(() => {
@@ -60,6 +64,24 @@ export function SiteHeader() {
       document.removeEventListener("keydown", handleKeyDown);
     };
   }, [servicesOpen]);
+
+  useEffect(() => {
+    if (!accountOpen) return;
+    function handlePointerDown(event: MouseEvent) {
+      if (!accountRef.current?.contains(event.target as Node)) {
+        setAccountOpen(false);
+      }
+    }
+    function handleKeyDown(event: KeyboardEvent) {
+      if (event.key === "Escape") setAccountOpen(false);
+    }
+    document.addEventListener("mousedown", handlePointerDown);
+    document.addEventListener("keydown", handleKeyDown);
+    return () => {
+      document.removeEventListener("mousedown", handlePointerDown);
+      document.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [accountOpen]);
 
   return (
     <header className="sticky top-0 z-50 bg-brand-navy text-brand-navy-foreground">
@@ -121,25 +143,71 @@ export function SiteHeader() {
         </nav>
 
         <div className="flex items-center gap-2 sm:gap-3">
+          <LocaleSwitcher className="hidden sm:block" />
+
           {status === "authenticated" ? (
-            <>
-              <Button
-                asChild
-                size="sm"
-                variant="outline"
-                className="hidden border-brand-gold bg-transparent text-brand-navy-foreground hover:bg-brand-gold/10 sm:inline-flex"
+            <div className="relative hidden sm:block" ref={accountRef}>
+              <button
+                type="button"
+                onClick={() => setAccountOpen((open) => !open)}
+                aria-expanded={accountOpen}
+                aria-label="Account menu"
+                className={cn(
+                  "flex size-9 items-center justify-center rounded-full border border-brand-gold bg-brand-gold/10 text-brand-gold transition-colors hover:bg-brand-gold/20",
+                  accountOpen && "bg-brand-gold/20",
+                )}
               >
-                <Link href="/dashboard">Dashboard</Link>
-              </Button>
-              <Button
-                size="sm"
-                variant="ghost"
-                className="hidden text-brand-navy-foreground hover:bg-brand-gold/10 sm:inline-flex"
-                onClick={() => logout()}
-              >
-                Log out
-              </Button>
-            </>
+                <UserRound className="size-5" />
+              </button>
+              {accountOpen && (
+                <div className="absolute top-full right-0 z-50 mt-1.5 flex w-56 flex-col gap-1 rounded-lg bg-popover p-1 text-popover-foreground shadow ring-1 ring-foreground/10">
+                  <Link
+                    href="/dashboard"
+                    onClick={() => setAccountOpen(false)}
+                    className="flex items-center gap-2.5 rounded-lg p-2 text-sm hover:bg-muted"
+                  >
+                    <LayoutDashboard className="size-4" />
+                    Dashboard
+                  </Link>
+                  <Link
+                    href="/bookings"
+                    onClick={() => setAccountOpen(false)}
+                    className="flex items-center gap-2.5 rounded-lg p-2 text-sm hover:bg-muted"
+                  >
+                    <CalendarDays className="size-4" />
+                    Bookings
+                  </Link>
+                  <Link
+                    href="/profile"
+                    onClick={() => setAccountOpen(false)}
+                    className="flex items-center gap-2.5 rounded-lg p-2 text-sm hover:bg-muted"
+                  >
+                    <UserRound className="size-4" />
+                    Profile
+                  </Link>
+                  <Link
+                    href="/addresses"
+                    onClick={() => setAccountOpen(false)}
+                    className="flex items-center gap-2.5 rounded-lg p-2 text-sm hover:bg-muted"
+                  >
+                    <MapPin className="size-4" />
+                    Addresses
+                  </Link>
+                  <div className="my-1 border-t" />
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setAccountOpen(false);
+                      logout();
+                    }}
+                    className="flex w-full items-center gap-2.5 rounded-lg p-2 text-left text-sm text-destructive hover:bg-muted"
+                  >
+                    <LogOut className="size-4" />
+                    Log out
+                  </button>
+                </div>
+              )}
+            </div>
           ) : (
             <>
               <Button
@@ -227,6 +295,27 @@ export function SiteHeader() {
                       className="rounded-lg p-2 hover:bg-muted"
                     >
                       Dashboard
+                    </Link>
+                    <Link
+                      href="/bookings"
+                      onClick={() => setMobileOpen(false)}
+                      className="rounded-lg p-2 hover:bg-muted"
+                    >
+                      Bookings
+                    </Link>
+                    <Link
+                      href="/profile"
+                      onClick={() => setMobileOpen(false)}
+                      className="rounded-lg p-2 hover:bg-muted"
+                    >
+                      Profile
+                    </Link>
+                    <Link
+                      href="/addresses"
+                      onClick={() => setMobileOpen(false)}
+                      className="rounded-lg p-2 hover:bg-muted"
+                    >
+                      Addresses
                     </Link>
                     <button
                       type="button"

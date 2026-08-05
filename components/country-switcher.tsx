@@ -14,13 +14,13 @@ import {
 } from "@/components/ui/select";
 import { cn } from "@/lib/utils";
 
-const FALLBACK_NAMES: Record<CountryCode, string> = {
+export const FALLBACK_COUNTRY_NAMES: Record<CountryCode, string> = {
   fr: "France",
   de: "Germany",
   lk: "Sri Lanka",
 };
 
-const FLAGS: Record<CountryCode, typeof FR> = {
+export const COUNTRY_FLAGS: Record<CountryCode, typeof FR> = {
   fr: FR,
   de: DE,
   lk: LK,
@@ -52,12 +52,12 @@ export function CountrySwitcher({ className }: { className?: string }) {
       </SelectTrigger>
       <SelectContent>
         {SUPPORTED_COUNTRIES.map((code) => {
-          const Flag = FLAGS[code];
+          const Flag = COUNTRY_FLAGS[code];
           return (
             <SelectItem key={code} value={code}>
               <span className="flex items-center gap-2">
                 <Flag className="shrink-0 object-cover" style={{ width: 20, height: 15 }} />
-                {metaByCode[code]?.name ?? FALLBACK_NAMES[code]}
+                {metaByCode[code]?.name ?? FALLBACK_COUNTRY_NAMES[code]}
               </span>
             </SelectItem>
           );
