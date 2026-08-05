@@ -26,7 +26,10 @@ import {
 } from "@/components/booking/property-type-size-selector";
 import { BookingDetailsCard } from "@/components/booking/booking-details-card";
 import { ServicePreferencesSection } from "@/components/booking/service-preferences-section";
+import { ServiceIntroduction } from "@/components/booking/service-introduction";
+import { ServiceHighlights } from "@/components/booking/service-highlights";
 import { PageHero } from "@/components/page-hero";
+import { SERVICE_CONTENT } from "@/lib/content/service-details";
 import { ApiError } from "@/lib/auth-context";
 import { saveBookingDraft } from "@/lib/booking-draft";
 import {
@@ -59,6 +62,7 @@ export default function BookServicePage({
   const isSanitization = serviceSlug === SANITIZATION_SLUG;
   const isSteam = serviceSlug === STEAM_SLUG;
   const isEvent = serviceSlug === EVENT_SLUG;
+  const serviceContent = SERVICE_CONTENT[serviceSlug];
 
   const [service, setService] = useState<CatalogServiceDetail | null>(null);
   const [serviceError, setServiceError] = useState<string | null>(null);
@@ -280,6 +284,12 @@ export default function BookServicePage({
             Back
           </Link>
         </div>
+
+        {serviceContent?.introduction && <ServiceIntroduction {...serviceContent.introduction} />}
+
+        {serviceContent?.highlights?.map((group, index) => (
+          <ServiceHighlights key={index} title={group.title} cards={group.cards} />
+        ))}
 
         {isSanitization && (
           <FacilitySelectionSection selectedIds={selectedFacilityIds} onToggle={toggleFacility} />
