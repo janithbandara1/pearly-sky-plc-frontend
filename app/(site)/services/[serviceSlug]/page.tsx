@@ -175,6 +175,10 @@ export default function BookServicePage({
   // company-supplied equipment is whatever the customer has actually added.
   const displayedEquipmentItems = supplySource === "customer" ? items : selectedItems;
 
+  const facilityNames = Array.from(selectedFacilityIds)
+    .map((id) => FACILITY_CARDS.find((c) => c.id === id)?.title)
+    .filter((name): name is string => Boolean(name));
+
   const selectedDisinfectionLevel = DISINFECTION_LEVELS.find((l) => l.id === disinfectionLevelId);
 
   const selectedEventProducts = selectedEventProductsFromQuantities(eventProductQuantities);
@@ -205,9 +209,6 @@ export default function BookServicePage({
     }
     setError(null);
     setSubmitting(true);
-    const facilityNames = Array.from(selectedFacilityIds)
-      .map((id) => FACILITY_CARDS.find((c) => c.id === id)?.title)
-      .filter((name): name is string => Boolean(name));
     saveBookingDraft({
       serviceId: service.id,
       serviceSlug,
@@ -377,6 +378,7 @@ export default function BookServicePage({
               ? [{ name: selectedDisinfectionLevel.title, price: selectedDisinfectionLevel.priceAdder || null }]
               : []),
           ]}
+          facilities={isSanitization ? facilityNames : undefined}
           items={
             isEvent
               ? selectedEventProducts.map((p) => ({ name: p.name }))

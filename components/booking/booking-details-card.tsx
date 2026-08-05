@@ -24,6 +24,8 @@ export interface BookingDetailsCardProps {
   time: string;
   propertySizeSqm: number;
   packages: BookingDraftPackage[];
+  /** healthguard-sanitization only — the facility types selected above. */
+  facilities?: string[];
   items: BookingDraftItem[];
   /**
    * Drives the read-only `items` list's value text: "Provided by you" when the
@@ -61,6 +63,7 @@ export function BookingDetailsCard({
   time,
   propertySizeSqm,
   packages,
+  facilities,
   items,
   supplySource,
   onSupplySourceChange,
@@ -112,6 +115,15 @@ export function BookingDetailsCard({
                 value={pkg.price !== null ? money(pkg.price) : "Included"}
                 last={i === packages.length - 1}
               />
+            ))}
+          </div>
+        )}
+
+        {facilities && facilities.length > 0 && (
+          <div className="flex flex-col border-t border-brand-gold/20">
+            <SectionHeading label="Facilities" />
+            {facilities.map((facility, i) => (
+              <SummaryRow key={facility} label={facility} value="" last={i === facilities.length - 1} />
             ))}
           </div>
         )}
