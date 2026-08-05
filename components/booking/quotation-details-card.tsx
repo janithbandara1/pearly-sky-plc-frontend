@@ -90,6 +90,15 @@ export function QuotationDetailsCard({
         </div>
 
         <div className="flex flex-col border-t border-brand-gold/20">
+          <SectionHeading label="Preferences" />
+          <SummaryRow label="Duration" value={formatHM(durationHours)} />
+          <SummaryRow label="Cleaners" value={numCleaners} />
+          <SummaryRow label="Gender Preference" value={genderLabel} />
+          <SummaryRow label="Language Preference" value={languageLabel} />
+          <SummaryRow label="Special Requirements" value={requirements || "—"} last />
+        </div>
+
+        <div className="flex flex-col border-t border-brand-gold/20">
           <SectionHeading label="Cleaning Solvents & Equipments" />
           {SUPPLY_SOURCE_OPTIONS.map((opt) => (
             <label
@@ -116,18 +125,6 @@ export function QuotationDetailsCard({
                 last={i === equipmentItems.length - 1}
               />
             ))}
-        </div>
-
-        <div className="flex flex-col border-t border-brand-gold/20">
-          <SectionHeading label="Preferences" />
-          <SummaryRow label="Cleaners" value={numCleaners} />
-          <SummaryRow label="Duration" value={formatHM(durationHours)} />
-          <SummaryRow label="Gender Preference" value={genderLabel} />
-          <SummaryRow label="Language Preference" value={languageLabel} last />
-        </div>
-
-        <div className="flex flex-col border-t border-brand-gold/20">
-          <SummaryRow label="Special Requirements" value={requirements || "—"} last />
         </div>
 
         <div className="p-4">
