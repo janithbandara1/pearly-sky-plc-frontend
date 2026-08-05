@@ -90,7 +90,7 @@ export function QuotationPreferencesSection({
   return (
     <section className="overflow-hidden rounded-[12px] border border-brand-gold-dark">
       <div className="bg-brand-navy px-5 py-4 text-center">
-        <h2 className="text-[1.1rem] font-bold text-brand-cream sm:text-[1.3rem]">Service Preferences</h2>
+        <h2 className="text-[1.1rem] font-bold text-brand-cream sm:text-[1.3rem]">Preferences</h2>
       </div>
 
       <div className="grid grid-cols-1 gap-5 bg-[#F8F9FA] p-4 sm:p-5 md:grid-cols-2">
