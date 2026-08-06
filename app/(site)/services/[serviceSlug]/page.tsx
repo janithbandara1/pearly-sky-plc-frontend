@@ -190,7 +190,7 @@ export default function BookServicePage({
       return;
     }
     if (isSanitization && !disinfectionLevelId) {
-      setError("Please select a desired service level to continue.");
+      setError("Please select a desired package to continue.");
       return;
     }
     if (!date || !time) {
@@ -249,7 +249,7 @@ export default function BookServicePage({
     : isSanitization && selectedFacilityIds.size === 0
       ? "Select at least one facility above to continue."
       : isSanitization && !disinfectionLevelId
-        ? "Select a desired service level above to continue."
+        ? "Select a desired package above to continue."
         : !date || !time
           ? "Select a date and time above to continue."
           : undefined;

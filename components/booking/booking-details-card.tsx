@@ -148,7 +148,7 @@ export function BookingDetailsCard({
 
         {serviceLevel && (
           <div className="flex flex-col border-t border-brand-gold/20">
-            <SectionHeading label="Service Level" />
+            <SectionHeading label="Package" />
             <SummaryRow
               label={serviceLevel.name}
               value={serviceLevel.price !== null ? money(serviceLevel.price) : "Included"}
