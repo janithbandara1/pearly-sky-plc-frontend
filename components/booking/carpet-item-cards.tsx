@@ -63,23 +63,21 @@ function CarpetItemCard({
         <span className="text-sm font-bold whitespace-nowrap text-[#A98B4B]">{option.label}</span>
       </div>
 
-      <div className="absolute inset-x-2 bottom-2 z-10 flex flex-col items-center gap-2">
-        {added && !open && (
+      {added && !open && (
+        <div className="absolute inset-0 z-10 flex items-center justify-center px-6">
           <p className="rounded bg-white/90 px-2.5 py-1 text-center text-sm text-[#555]">
             {formatQuoteItem(added, CARPET_ITEM_OPTIONS)}
           </p>
-        )}
+        </div>
+      )}
 
+      <div className="absolute inset-x-2 bottom-2 z-10 flex flex-col items-center gap-2">
         <Button
           type="button"
           onClick={handleToggle}
           size="lg"
           variant="outline"
-          className={`px-8 text-sm font-bold ${
-            added
-              ? "border-2 border-[#A98B4B] bg-[#FFFDF4] text-[#A98B4B] hover:bg-[#FFFDF4]"
-              : "border-2 border-[#A98B4B] bg-[#A98B4B] text-white hover:bg-[#A98B4B]/90"
-          }`}
+          className="border-0 bg-[#A98B4B] px-8 text-sm font-bold text-white hover:bg-[#A98B4B]/90"
         >
           {added ? "Remove" : "Add"}
         </Button>
@@ -164,7 +162,7 @@ export function CarpetItemCards({ items, onItemsChange }: CarpetItemCardsProps) 
   return (
     <section className="overflow-hidden rounded-[12px] border border-brand-gold-dark">
       <div className="bg-brand-navy px-5 py-4 text-center">
-        <h2 className="text-[1.1rem] font-bold text-brand-cream sm:text-[1.3rem]">Carpet &amp; Upholstery Items</h2>
+        <h2 className="text-[1.1rem] font-bold text-brand-cream sm:text-[1.3rem]">Carpet &amp; Upholstery Details</h2>
       </div>
 
       <div className="bg-[#F8F9FA] p-4 sm:p-5">

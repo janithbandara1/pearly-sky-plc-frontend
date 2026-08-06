@@ -46,7 +46,7 @@ const CONTACT_EMAIL = "info@pearlyskyglobalclean.com";
 const CUSTOM_QUOTE_ITEMS: Record<string, { title: string; options: QuoteItemOption[] }> = {
   "pool-cleaning": { title: "Pool Details", options: POOL_ITEM_OPTIONS },
   "precision-pressure-washing": { title: "Pressure Washing Job Details", options: PRESSURE_WASHING_ITEM_OPTIONS },
-  "carpet-upholstery-cleaning": { title: "Carpet & Upholstery Items", options: CARPET_ITEM_OPTIONS },
+  "carpet-upholstery-cleaning": { title: "Carpet & Upholstery Details", options: CARPET_ITEM_OPTIONS },
 };
 
 const COUNTRY_NAMES: Record<CountryCode, string> = {
