@@ -12,7 +12,6 @@ import { FACILITY_CARDS, FacilitySelectionSection } from "@/components/booking/f
 import { JobCardSection } from "@/components/booking/job-card-section";
 import { GeneralSteamSection } from "@/components/booking/steam/general-steam-section";
 import { IndustrialCommercialSteamSection } from "@/components/booking/steam/industrial-commercial-steam-section";
-import { EventTypeSection } from "@/components/booking/event/event-type-section";
 import { GENDER_OPTIONS, LANGUAGE_OPTIONS } from "@/components/booking/quotation-preferences-section";
 import {
   getPropertyCategoriesForService,
@@ -82,8 +81,6 @@ export default function BookServicePage({
 
   const [selectedGeneralSteam, setSelectedGeneralSteam] = useState<Set<string>>(new Set());
   const [selectedIndustrialSteam, setSelectedIndustrialSteam] = useState<Set<string>>(new Set());
-
-  const [selectedEventTypes, setSelectedEventTypes] = useState<Set<string>>(new Set());
 
   const [error, setError] = useState<string | null>(null);
   const [submitting, setSubmitting] = useState(false);
@@ -222,7 +219,6 @@ export default function BookServicePage({
         ? { name: selectedDisinfectionLevel.title, price: selectedDisinfectionLevel.priceAdder }
         : undefined,
       steamItems: isSteam ? [...selectedGeneralSteam, ...selectedIndustrialSteam] : undefined,
-      eventTypes: isEvent ? [...selectedEventTypes] : undefined,
     });
     router.push(`/services/${serviceSlug}/checkout`);
   }
@@ -299,13 +295,6 @@ export default function BookServicePage({
           <IndustrialCommercialSteamSection
             selectedTitles={selectedIndustrialSteam}
             onToggle={(title) => toggleSetEntry(setSelectedIndustrialSteam, title)}
-          />
-        )}
-
-        {isEvent && (
-          <EventTypeSection
-            selectedLabels={selectedEventTypes}
-            onToggle={(label) => toggleSetEntry(setSelectedEventTypes, label)}
           />
         )}
 
