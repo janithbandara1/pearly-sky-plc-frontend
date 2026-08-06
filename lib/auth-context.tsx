@@ -8,7 +8,7 @@ import {
   useMemo,
   useState,
 } from "react";
-import { ApiError } from "./api";
+import { ApiError, setUnauthorizedHandler } from "./api";
 import {
   CustomerMe,
   getCustomerMe,
@@ -51,6 +51,26 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       .then(({ accessToken: token }) => applySession(token))
       .catch(() => setStatus("unauthenticated"));
   }, [applySession]);
+
+  // Access tokens are short-lived and can expire while the user lingers on a
+  // page — e.g. browsing a service, then landing on checkout well after the
+  // token issued at initial load has gone stale. Without this, a 401 there
+  // just leaves the page stuck (see apiFetch's retry-on-401 in ./api).
+  useEffect(() => {
+    setUnauthorizedHandler(async () => {
+      try {
+        const { accessToken: token } = await refreshCustomer();
+        setAccessToken(token);
+        return token;
+      } catch {
+        setAccessToken(null);
+        setCustomer(null);
+        setStatus("unauthenticated");
+        return null;
+      }
+    });
+    return () => setUnauthorizedHandler(null);
+  }, []);
 
   const login = useCallback(
     async (email: string, password: string) => {
