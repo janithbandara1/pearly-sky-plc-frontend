@@ -17,6 +17,7 @@ import {
 } from "@/components/booking/quotation-preferences-section";
 import { QuoteItemsSection } from "@/components/booking/quote-items-section";
 import { CarpetItemCards } from "@/components/booking/carpet-item-cards";
+import { PoolJobSelection } from "@/components/booking/pool-job-selection";
 import { QuotationDetailsCard } from "@/components/booking/quotation-details-card";
 import { ServiceIntroduction } from "@/components/booking/service-introduction";
 import { ServiceHighlights } from "@/components/booking/service-highlights";
@@ -212,6 +213,8 @@ export default function RequestQuotationPage({
         <form onSubmit={handleSubmit} className="flex flex-col gap-6" noValidate>
           {serviceSlug === "carpet-upholstery-cleaning" ? (
             <CarpetItemCards items={quoteItems} onItemsChange={setQuoteItems} />
+          ) : serviceSlug === "pool-cleaning" ? (
+            <PoolJobSelection items={quoteItems} onItemsChange={setQuoteItems} />
           ) : customQuote ? (
             <QuoteItemsSection
               title={customQuote.title}

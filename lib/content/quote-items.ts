@@ -26,13 +26,6 @@ const POOL_SIZE_FIELD: QuoteFieldSpec = {
   units: ["m²", "cm²", "gal"],
 };
 
-const POOL_FREQUENCY_FIELD: QuoteFieldSpec = {
-  kind: "radio",
-  key: "frequency",
-  label: "Service Frequency",
-  options: ["Weekly", "Bi-Weekly", "One-Time"],
-};
-
 const POOL_CONDITION_FIELD: QuoteFieldSpec = {
   kind: "radio",
   key: "condition",
@@ -63,7 +56,7 @@ export const POOL_ITEM_OPTIONS: QuoteItemOption[] = [
     value: label,
     label,
     group: "Pool Type",
-    fields: [POOL_SIZE_FIELD, POOL_FREQUENCY_FIELD, POOL_CONDITION_FIELD],
+    fields: [POOL_SIZE_FIELD, POOL_CONDITION_FIELD],
   })),
   ...POOL_ADD_ONS.map((label) => ({
     value: label,
