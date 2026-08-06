@@ -87,7 +87,7 @@ export function FieldInput({
     return (
       <div className="space-y-1.5">
         <Label>{field.label}</Label>
-        <div className="flex flex-wrap gap-2">
+        <div className="grid gap-2" style={{ gridTemplateColumns: `repeat(${field.options.length}, minmax(0, 1fr))` }}>
           {field.options.map((option) => {
             const checked = values[field.key] === option;
             return (
@@ -95,7 +95,7 @@ export function FieldInput({
                 key={option}
                 type="button"
                 onClick={() => onChange(field.key, option)}
-                className={`rounded-[10px] bg-white px-3 py-2 text-xs font-medium text-[#121E2D] transition ${
+                className={`w-full rounded-[10px] bg-white px-3 py-2 text-xs font-medium text-[#121E2D] transition ${
                   checked ? "border-2 border-[#A98B4B] shadow-[0_0_8px_rgba(169,139,75,0.3)]" : "border-[1.5px] border-[#A98B4B]"
                 }`}
               >
@@ -135,6 +135,9 @@ export function QuoteItemsSection({ title, itemOptions, items, onItemsChange }: 
 
   const selectedOption = itemOptions.find((opt) => opt.value === selectedValue);
   const groups = Array.from(new Set(itemOptions.map((opt) => opt.group).filter(Boolean))) as string[];
+  const fields = selectedOption?.fields ?? [];
+  const leadingFields = fields.slice(0, -1);
+  const lastField = fields[fields.length - 1];
 
   function handleSelectChange(value: string) {
     setSelectedValue(value);
@@ -191,7 +194,7 @@ export function QuoteItemsSection({ title, itemOptions, items, onItemsChange }: 
           </Select>
         </div>
 
-        {selectedOption?.fields.map((field) => (
+        {leadingFields.map((field) => (
           <FieldInput
             key={field.key}
             field={field}
@@ -200,33 +203,43 @@ export function QuoteItemsSection({ title, itemOptions, items, onItemsChange }: 
           />
         ))}
 
-        <div className="space-y-1.5">
-          <Label>Quantity</Label>
-          <div className="flex h-9 w-32 items-center justify-between rounded-lg border border-brand-gold-dark bg-white px-1.5">
-            <button
-              type="button"
-              onClick={() => setQuantity((q) => Math.max(1, q - 1))}
-              className="flex size-6 items-center justify-center rounded-full bg-brand-gold/40 text-brand-navy transition hover:brightness-95"
-            >
-              <Minus className="size-3" />
-            </button>
-            <span className="text-sm font-semibold text-brand-navy">{quantity}</span>
-            <button
-              type="button"
-              onClick={() => setQuantity((q) => q + 1)}
-              className="flex size-6 items-center justify-center rounded-full bg-brand-gold-dark text-white transition hover:brightness-95"
-            >
-              <Plus className="size-3" />
-            </button>
+        <div className={lastField ? "grid grid-cols-2 gap-4" : ""}>
+          {lastField && (
+            <FieldInput
+              field={lastField}
+              values={fieldValues}
+              onChange={(key, value) => setFieldValues((prev) => ({ ...prev, [key]: value }))}
+            />
+          )}
+
+          <div className="space-y-1.5">
+            <Label>Quantity</Label>
+            <div className="flex h-9 w-full items-center justify-between rounded-lg border border-brand-gold-dark bg-white px-1.5">
+              <button
+                type="button"
+                onClick={() => setQuantity((q) => Math.max(1, q - 1))}
+                className="flex size-6 items-center justify-center rounded-full bg-brand-gold/40 text-brand-navy transition hover:brightness-95"
+              >
+                <Minus className="size-3" />
+              </button>
+              <span className="text-sm font-semibold text-brand-navy">{quantity}</span>
+              <button
+                type="button"
+                onClick={() => setQuantity((q) => q + 1)}
+                className="flex size-6 items-center justify-center rounded-full bg-brand-gold-dark text-white transition hover:brightness-95"
+              >
+                <Plus className="size-3" />
+              </button>
+            </div>
           </div>
         </div>
 
         <button
           type="button"
           onClick={handleAdd}
-          className="self-start rounded-lg border-[1.5px] border-brand-gold-dark px-4 py-2 text-sm font-semibold text-brand-gold-dark transition-colors hover:bg-brand-gold/10"
+          className="w-full rounded-lg bg-brand-gold px-4 py-2 text-sm font-semibold text-brand-navy transition-colors hover:bg-brand-gold/90"
         >
-          Add Item
+          Add
         </button>
 
         {items.length > 0 && (
