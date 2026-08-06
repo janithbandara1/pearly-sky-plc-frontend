@@ -1,5 +1,7 @@
 "use client";
 
+import { Checkbox } from "@/components/ui/checkbox";
+
 export interface FacilityCategory {
   key: string;
   title: string;
@@ -65,7 +67,7 @@ export function FacilitySelectionSection({ selectedIds, onToggle }: FacilitySele
   return (
     <section className="overflow-hidden rounded-[12px] border border-[#A98B4B]">
       <div className="bg-[#121E2D] px-5 py-4 text-center">
-        <h2 className="text-[1.1rem] font-bold text-[#FFFDF4] sm:text-[1.3rem]">Facility</h2>
+        <h2 className="text-[1.1rem] font-bold text-[#FFFDF4] sm:text-[1.3rem]">Facilities</h2>
       </div>
 
       <div className="flex flex-col gap-6 bg-[#F8F9FA] p-4 sm:p-5">
@@ -79,21 +81,34 @@ export function FacilitySelectionSection({ selectedIds, onToggle }: FacilitySele
                 {cards.map((card) => {
                   const isChecked = selectedIds.has(card.id);
                   return (
-                    <button
+                    <div
                       key={card.id}
-                      type="button"
+                      role="button"
+                      tabIndex={0}
                       onClick={() => onToggle(card.id)}
+                      onKeyDown={(e) => {
+                        if (e.key === "Enter" || e.key === " ") {
+                          e.preventDefault();
+                          onToggle(card.id);
+                        }
+                      }}
                       aria-pressed={isChecked}
-                      className={`flex flex-col items-start gap-1 rounded-[10px] bg-white px-3 py-2.5 text-left transition ${
+                      className={`relative flex cursor-pointer flex-col items-start gap-1 rounded-[10px] bg-white px-3 py-2.5 text-left transition ${
                         isChecked
                           ? "border-2 border-[#A98B4B] shadow-[0_0_8px_rgba(169,139,75,0.3)]"
                           : "border-[1.5px] border-[#A98B4B]"
                       }`}
                     >
+                      <Checkbox
+                        checked={isChecked}
+                        onCheckedChange={() => onToggle(card.id)}
+                        onClick={(e) => e.stopPropagation()}
+                        className="absolute top-2 right-2 border-[#A98B4B] data-checked:border-[#A98B4B] data-checked:bg-[#A98B4B]"
+                      />
                       <span className="text-xl">{card.icon}</span>
-                      <p className="text-sm font-medium text-[#121E2D]">{card.title}</p>
+                      <p className="pr-6 text-sm font-medium text-[#121E2D]">{card.title}</p>
                       <p className="text-xs text-[#555]">{card.description}</p>
-                    </button>
+                    </div>
                   );
                 })}
               </div>

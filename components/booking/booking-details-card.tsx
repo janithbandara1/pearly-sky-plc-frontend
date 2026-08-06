@@ -117,6 +117,25 @@ export function BookingDetailsCard({
           <SummaryRow label="Price per cleaner" value={hourlyRate ? `${money(Number(hourlyRate))}/h` : "—"} />
         </div>
 
+        {facilities && facilities.length > 0 && (
+          <div className="flex flex-col border-t border-brand-gold/20">
+            <SectionHeading label="Facilities" />
+            {facilities.map((facility) => (
+              <SummaryRow key={facility} label={facility} value="" />
+            ))}
+          </div>
+        )}
+
+        {serviceLevel && (
+          <div className="flex flex-col border-t border-brand-gold/20">
+            <SectionHeading label="Package" />
+            <SummaryRow
+              label={serviceLevel.name}
+              value={serviceLevel.price !== null ? money(serviceLevel.price) : "Included"}
+            />
+          </div>
+        )}
+
         <div className="flex flex-col border-t border-brand-gold/20">
           <SectionHeading label="Preferences" />
           <SummaryRow label="Gender Preference" value={genderLabel} />
@@ -134,25 +153,6 @@ export function BookingDetailsCard({
                 value={pkg.price !== null ? money(pkg.price) : "Included"}
               />
             ))}
-          </div>
-        )}
-
-        {facilities && facilities.length > 0 && (
-          <div className="flex flex-col border-t border-brand-gold/20">
-            <SectionHeading label="Facilities" />
-            {facilities.map((facility) => (
-              <SummaryRow key={facility} label={facility} value="" />
-            ))}
-          </div>
-        )}
-
-        {serviceLevel && (
-          <div className="flex flex-col border-t border-brand-gold/20">
-            <SectionHeading label="Package" />
-            <SummaryRow
-              label={serviceLevel.name}
-              value={serviceLevel.price !== null ? money(serviceLevel.price) : "Included"}
-            />
           </div>
         )}
 

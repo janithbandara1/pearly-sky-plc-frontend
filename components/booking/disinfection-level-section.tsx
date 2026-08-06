@@ -1,5 +1,6 @@
 "use client";
 
+import { Checkbox } from "@/components/ui/checkbox";
 import { useCurrency } from "@/lib/currency-context";
 
 export interface DisinfectionLevel {
@@ -54,12 +55,19 @@ export function DisinfectionLevelSection({ selectedId, onSelect }: DisinfectionL
         {DISINFECTION_LEVELS.map((level) => {
           const isChecked = level.id === selectedId;
           return (
-            <button
+            <div
               key={level.id}
-              type="button"
+              role="button"
+              tabIndex={0}
               onClick={() => onSelect(level)}
+              onKeyDown={(e) => {
+                if (e.key === "Enter" || e.key === " ") {
+                  e.preventDefault();
+                  onSelect(level);
+                }
+              }}
               aria-pressed={isChecked}
-              className={`flex items-center gap-3 rounded-[10px] bg-white px-4 py-3 text-left transition ${
+              className={`flex cursor-pointer items-center gap-3 rounded-[10px] bg-white px-4 py-3 text-left transition ${
                 isChecked
                   ? "border-2 border-[#A98B4B] shadow-[0_0_8px_rgba(169,139,75,0.3)]"
                   : "border-[1.5px] border-[#A98B4B]"
@@ -77,7 +85,13 @@ export function DisinfectionLevelSection({ selectedId, onSelect }: DisinfectionL
                   )}
                 </p>
               </div>
-            </button>
+              <Checkbox
+                checked={isChecked}
+                onCheckedChange={() => onSelect(level)}
+                onClick={(e) => e.stopPropagation()}
+                className="shrink-0 border-[#A98B4B] data-checked:border-[#A98B4B] data-checked:bg-[#A98B4B]"
+              />
+            </div>
           );
         })}
       </div>
