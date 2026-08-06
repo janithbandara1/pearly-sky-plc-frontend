@@ -7,7 +7,7 @@ import { FieldInput } from "@/components/booking/quote-items-section";
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from "@/components/ui/dialog";
-import { POOL_ITEM_OPTIONS, type QuoteItem, type QuoteItemOption } from "@/lib/content/quote-items";
+import { formatQuoteItem, POOL_ITEM_OPTIONS, type QuoteItem, type QuoteItemOption } from "@/lib/content/quote-items";
 
 const POOL_TYPE_OPTIONS = POOL_ITEM_OPTIONS.filter((o) => o.group === "Pool Type");
 const ADDITIONAL_SERVICE_OPTIONS = POOL_ITEM_OPTIONS.filter((o) => o.group === "Additional Services");
@@ -86,9 +86,6 @@ export function PoolJobSelection({ items, onItemsChange }: PoolJobSelectionProps
       <div className="flex flex-col gap-4 bg-[#F8F9FA] p-4 sm:p-5">
         <div className="grid grid-cols-1 gap-4 md:grid-cols-[1fr_1.1fr_1fr]">
           <div className="flex flex-col gap-2.5">
-            <p className="text-center text-xs font-semibold tracking-wide text-[#A98B4B] uppercase">
-              Our Expertise
-            </p>
             {LEFT_TYPES.map((option) => (
               <CheckRow
                 key={option.value}
@@ -106,6 +103,18 @@ export function PoolJobSelection({ items, onItemsChange }: PoolJobSelectionProps
               fill
               className="object-cover"
             />
+            {items.length > 0 && (
+              <div className="absolute inset-0 flex flex-col items-center justify-center gap-1.5 overflow-y-auto p-4">
+                {items.map((item) => (
+                  <div
+                    key={item.id}
+                    className="rounded-lg bg-white/90 px-3 py-1.5 text-center text-xs text-[#121E2D]"
+                  >
+                    {formatQuoteItem(item, POOL_ITEM_OPTIONS)}
+                  </div>
+                ))}
+              </div>
+            )}
           </div>
 
           <div className="flex flex-col gap-2.5">
@@ -117,9 +126,6 @@ export function PoolJobSelection({ items, onItemsChange }: PoolJobSelectionProps
                 onToggle={() => handleRowToggle(option)}
               />
             ))}
-            <p className="mt-2 text-center text-xs font-semibold tracking-wide text-[#A98B4B] uppercase">
-              Additional Services
-            </p>
             {ADDITIONAL_SERVICE_OPTIONS.map((option) => (
               <CheckRow
                 key={option.value}
