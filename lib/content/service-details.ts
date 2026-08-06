@@ -449,6 +449,13 @@ export const SERVICE_CONTENT: Partial<Record<string, ServiceContentEntry>> = {
   },
 
   "carpet-upholstery-cleaning": {
+    introduction: {
+      headline: "Deep Fiber Renewal: Restoring Softness, Color, and Freshness to Every Surface You Sit On.",
+      body: [
+        "Our Fiber Renewal service uses professional hot-water extraction and fabric-safe treatments to lift embedded dirt, allergens, and odors from carpets, rugs, upholstery, mattresses, and curtains — going far deeper than a standard vacuum ever could. Every fabric type is assessed before treatment, so delicate rugs and fine upholstery get the gentle care they need while heavy-traffic carpets get the deep clean they demand.",
+        "The result is softer, brighter, and healthier fabric throughout your home — with faster dry times and no harsh chemical residue left behind.",
+      ],
+    },
     highlights: [
       {
         title: "Carpet & Upholstery Cleaning Highlights",
@@ -481,10 +488,6 @@ export const SERVICE_CONTENT: Partial<Record<string, ServiceContentEntry>> = {
           {
             title: "Mattress Cleaning",
             features: ["Removes dust mites & allergens.", "Improves sleep hygiene.", "Deep sanitation process."],
-          },
-          {
-            title: "Curtain Cleaning",
-            features: ["No removal needed.", "Fabric-safe steam cleaning.", "Freshens indoor air."],
           },
         ],
       },

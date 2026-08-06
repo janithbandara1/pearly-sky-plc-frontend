@@ -210,8 +210,6 @@ export default function RequestQuotationPage({
         ))}
 
         <form onSubmit={handleSubmit} className="flex flex-col gap-6" noValidate>
-          <DateTimeSection date={date} onDateChange={setDate} time={time} onTimeChange={setTime} />
-
           {serviceSlug === "carpet-upholstery-cleaning" ? (
             <CarpetItemCards items={quoteItems} onItemsChange={setQuoteItems} />
           ) : customQuote ? (
@@ -229,6 +227,8 @@ export default function RequestQuotationPage({
               onCategoryChange={(cat: PropertyCategory) => setPropertyType(cat.dropdownLabel ?? cat.label)}
             />
           )}
+
+          <DateTimeSection date={date} onDateChange={setDate} time={time} onTimeChange={setTime} />
 
           <QuotationPreferencesSection
             numCleaners={numCleaners}
