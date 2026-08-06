@@ -32,6 +32,10 @@ export interface BookingDetailsCardProps {
   facilities?: string[];
   /** healthguard-sanitization only — the disinfection level selected above. */
   serviceLevel?: BookingDraftPackage;
+  /** steam-cleaning only — the General Steam items selected above. */
+  generalSteamItems?: string[];
+  /** steam-cleaning only — the Industrial & Commercial Steam items selected above. */
+  industrialSteamItems?: string[];
   items: BookingDraftItem[];
   /**
    * Drives the read-only `items` list's value text: "Provided by you" when the
@@ -75,6 +79,8 @@ export function BookingDetailsCard({
   packages,
   facilities,
   serviceLevel,
+  generalSteamItems,
+  industrialSteamItems,
   items,
   supplySource,
   onSupplySourceChange,
@@ -133,6 +139,24 @@ export function BookingDetailsCard({
               label={serviceLevel.name}
               value={serviceLevel.price !== null ? money(serviceLevel.price) : "Included"}
             />
+          </div>
+        )}
+
+        {generalSteamItems && generalSteamItems.length > 0 && (
+          <div className="flex flex-col border-t border-brand-gold/20">
+            <SectionHeading label="General Steam Cleaning Services" />
+            {generalSteamItems.map((item) => (
+              <SummaryRow key={item} label={item} value="" />
+            ))}
+          </div>
+        )}
+
+        {industrialSteamItems && industrialSteamItems.length > 0 && (
+          <div className="flex flex-col border-t border-brand-gold/20">
+            <SectionHeading label="Industrial & Commercial Steam Cleaning Services" />
+            {industrialSteamItems.map((item) => (
+              <SummaryRow key={item} label={item} value="" />
+            ))}
           </div>
         )}
 

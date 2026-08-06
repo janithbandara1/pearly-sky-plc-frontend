@@ -357,6 +357,8 @@ export default function BookServicePage({
               ? { name: selectedDisinfectionLevel.title, price: selectedDisinfectionLevel.priceAdder || null }
               : undefined
           }
+          generalSteamItems={isSteam ? [...selectedGeneralSteam] : undefined}
+          industrialSteamItems={isSteam ? [...selectedIndustrialSteam] : undefined}
           items={displayedEquipmentItems.map((i) => ({ name: i.name }))}
           supplySource={supplySource}
           onSupplySourceChange={!isSanitization ? handleSupplySourceChange : undefined}

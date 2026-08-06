@@ -5,6 +5,8 @@ import { useRouter } from "next/navigation";
 import { use, useCallback, useEffect, useState } from "react";
 import { BookingDetailsCard } from "@/components/booking/booking-details-card";
 import { GENDER_OPTIONS, LANGUAGE_OPTIONS } from "@/components/booking/quotation-preferences-section";
+import { GENERAL_STEAM_CARDS } from "@/components/booking/steam/general-steam-section";
+import { INDUSTRIAL_STEAM_CATEGORIES } from "@/components/booking/steam/industrial-commercial-steam-section";
 import { PageHero } from "@/components/page-hero";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -252,6 +254,11 @@ export default function CheckoutPage({
   const genderLabel = GENDER_OPTIONS.find((o) => o.value === draft.genderPreference)?.label ?? "No Preference";
   const languageLabel = LANGUAGE_OPTIONS.find((o) => o.value === draft.languagePreference)?.label ?? "None";
 
+  const generalSteamTitles = new Set(GENERAL_STEAM_CARDS.map((c) => c.title));
+  const industrialSteamTitles = new Set(INDUSTRIAL_STEAM_CATEGORIES.map((c) => c.title));
+  const generalSteamItems = draft.steamItems?.filter((item) => generalSteamTitles.has(item));
+  const industrialSteamItems = draft.steamItems?.filter((item) => industrialSteamTitles.has(item));
+
   const guestDetailsMissing =
     !contactForm.firstName.trim() ||
     !contactForm.email.trim() ||
@@ -483,6 +490,8 @@ export default function CheckoutPage({
             specialRequirements={draft.specialRequirements}
             packages={draft.packages}
             serviceLevel={draft.disinfectionLevel}
+            generalSteamItems={generalSteamItems}
+            industrialSteamItems={industrialSteamItems}
             items={draft.items}
             supplySource={draft.supplySource}
             addOnsTotal={draft.addOnsTotal}
