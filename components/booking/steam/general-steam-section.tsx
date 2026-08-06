@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import { Checkbox } from "@/components/ui/checkbox";
 
 export interface GeneralSteamCard {
   title: string;
@@ -8,11 +9,11 @@ export interface GeneralSteamCard {
 }
 
 export const GENERAL_STEAM_CARDS: GeneralSteamCard[] = [
-  { title: "Rooms & Areas", image: "/images/steam/roomsareas.jpeg" },
-  { title: "Kitchen & Appliances", image: "/images/steam/kitchen.jpeg" },
-  { title: "Furniture & Soft Furnishings", image: "/images/steam/furniture.jpeg" },
-  { title: "Surface Cleaning", image: "/images/steam/surface.jpeg" },
-  { title: "Speciality Cleaning", image: "/images/steam/speciality.jpeg" },
+  { title: "Rooms & Areas", image: "/images/steam/rooms-and-areas.webp" },
+  { title: "Kitchen & Appliances", image: "/images/steam/kitchen-and-appliances.webp" },
+  { title: "Furniture & Soft Furnishings", image: "/images/steam/furniture-and-soft-furnishings.webp" },
+  { title: "Surface Cleaning", image: "/images/steam/surface-cleaning.webp" },
+  { title: "Speciality Cleaning", image: "/images/steam/speciality-cleaning.webp" },
 ];
 
 export interface GeneralSteamSectionProps {
@@ -34,29 +35,37 @@ export function GeneralSteamSection({ selectedTitles, onToggle }: GeneralSteamSe
           {GENERAL_STEAM_CARDS.map((card) => {
             const isChecked = selectedTitles.has(card.title);
             return (
-              <button
+              <div
                 key={card.title}
-                type="button"
+                role="button"
+                tabIndex={0}
                 onClick={() => onToggle(card.title)}
+                onKeyDown={(e) => {
+                  if (e.key === "Enter" || e.key === " ") {
+                    e.preventDefault();
+                    onToggle(card.title);
+                  }
+                }}
                 aria-pressed={isChecked}
-                className={`flex flex-col overflow-hidden rounded-[10px] bg-white text-left transition ${
-                  isChecked
-                    ? "border-2 border-[#A98B4B] shadow-[0_0_8px_rgba(169,139,75,0.3)]"
-                    : "border-[1.5px] border-[#A98B4B]"
-                }`}
+                className="flex cursor-pointer flex-col items-center gap-1.5 text-center transition"
               >
-                <div className="relative aspect-square w-full">
+                <div
+                  className={`relative aspect-square w-full overflow-hidden rounded-[10px] ${
+                    isChecked
+                      ? "border-2 border-[#A98B4B] shadow-[0_0_8px_rgba(169,139,75,0.3)]"
+                      : "border-[1.5px] border-[#A98B4B]"
+                  }`}
+                >
                   <Image src={card.image} alt={card.title} fill className="object-cover" />
-                  <span
-                    className={`absolute top-2 right-2 flex h-5 w-5 items-center justify-center rounded-md border-2 shadow-sm ${
-                      isChecked ? "border-[#A98B4B] bg-[#A98B4B]" : "border-[#9CA3AF] bg-[#F3F4F6]"
-                    }`}
-                  >
-                    {isChecked && <span className="text-xs font-bold text-[#121E2D]">✓</span>}
-                  </span>
+                  <Checkbox
+                    checked={isChecked}
+                    onCheckedChange={() => onToggle(card.title)}
+                    onClick={(e) => e.stopPropagation()}
+                    className="absolute top-2 right-2 border-white bg-white/80 shadow-sm data-checked:border-[#A98B4B] data-checked:bg-[#A98B4B]"
+                  />
                 </div>
-                <p className="px-2 py-2 text-xs font-medium text-[#121E2D]">{card.title}</p>
-              </button>
+                <p className="px-0.5 text-xs font-medium text-[#121E2D]">{card.title}</p>
+              </div>
             );
           })}
         </div>

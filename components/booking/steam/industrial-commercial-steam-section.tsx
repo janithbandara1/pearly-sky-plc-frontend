@@ -117,9 +117,6 @@ export function IndustrialCommercialSteamSection({
         <h2 className="text-[1.1rem] font-bold text-[#FFFDF4] sm:text-[1.3rem]">
           Industrial & Commercial Steam Cleaning Services
         </h2>
-        <p className="mt-1 text-xs text-[#FFFDF4]/70 sm:text-sm">
-          We provide deep sanitization, degreasing, and restoration for critical surfaces.
-        </p>
       </div>
 
       <div className="bg-[#F8F9FA] p-4 sm:p-5">
