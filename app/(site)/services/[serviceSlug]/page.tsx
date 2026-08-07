@@ -207,7 +207,10 @@ export default function BookServicePage({
         name: p.name,
         price: p.price !== null ? Number(p.price) : null,
       })),
-      items: displayedEquipmentItems.map((i) => ({ name: i.name })),
+      items: displayedEquipmentItems.map((i) => ({
+        name: i.name,
+        price: i.price !== null ? Number(i.price) : null,
+      })),
       supplySource,
       addOnsTotal: addOnsTotal + (selectedDisinfectionLevel?.priceAdder ?? 0),
       genderPreference: gender,
@@ -348,7 +351,10 @@ export default function BookServicePage({
           }
           generalSteamItems={isSteam ? [...selectedGeneralSteam] : undefined}
           industrialSteamItems={isSteam ? [...selectedIndustrialSteam] : undefined}
-          items={displayedEquipmentItems.map((i) => ({ name: i.name }))}
+          items={displayedEquipmentItems.map((i) => ({
+            name: i.name,
+            price: i.price !== null ? Number(i.price) : null,
+          }))}
           supplySource={supplySource}
           onSupplySourceChange={!isSanitization ? handleSupplySourceChange : undefined}
           equipmentOptions={supplySource === "company" ? items : undefined}

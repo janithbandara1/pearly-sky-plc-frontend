@@ -233,7 +233,13 @@ export function BookingDetailsCard({
                   <SummaryRow
                     key={item.name}
                     label={item.name}
-                    value={supplySource === "customer" ? "Provided by you" : ""}
+                    value={
+                      supplySource === "customer"
+                        ? "Provided by you"
+                        : item.price !== null
+                          ? money(item.price)
+                          : ""
+                    }
                   />
                 ))}
           </div>

@@ -60,12 +60,31 @@ export interface BookingServiceDetails {
   service: { id: number; label: string; name: string };
 }
 
+export interface BookingCustomer {
+  id: number;
+  firstName: string;
+  lastName: string | null;
+  email: string;
+  contact: string | null;
+}
+
+export interface BookingAddress {
+  streetAddress: string;
+  unit: string | null;
+  city: string;
+  state: string | null;
+  country: string | null;
+  postalCode: string | null;
+}
+
 export interface Booking {
   id: number;
   referenceNumber: string;
   status: "pending" | "confirmed" | "cancelled";
   price: string | null;
   currency: string | null;
+  customer: BookingCustomer;
+  address: BookingAddress | null;
   serviceDetails: BookingServiceDetails[];
   createdAt: string;
 }

@@ -9,6 +9,7 @@ export interface BookingDraftPackage {
 
 export interface BookingDraftItem {
   name: string;
+  price: number | null;
 }
 
 export interface BookingDraft {

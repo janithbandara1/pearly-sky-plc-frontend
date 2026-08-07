@@ -4,7 +4,6 @@ import { ArrowLeft } from "lucide-react";
 import { useParams, useRouter } from "next/navigation";
 import { useCallback, useEffect, useState } from "react";
 import { toast } from "sonner";
-import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -21,27 +20,12 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { GENDER_OPTIONS, LANGUAGE_OPTIONS } from "@/components/booking/quotation-preferences-section";
+import { Skeleton } from "@/components/ui/skeleton";
+import { BookingSummaryCard } from "@/components/booking/booking-summary-card";
 import { ApiError } from "@/lib/auth-context";
 import { AdminOrder, getOrderAdmin, updateOrderAdmin } from "@/lib/admin-api";
 import { AdminUser, listUsers } from "@/lib/admin-users-api";
 import { useStaffAuth } from "@/lib/staff-auth-context";
-
-const SUPPLY_SOURCE_LABEL: Record<string, string> = {
-  customer: "Provided by the Customer",
-  company: "Request the Company",
-};
-
-function optionLabel(options: { value: string; label: string }[], value: string | null): string {
-  if (!value) return "No Preference";
-  return options.find((o) => o.value === value)?.label ?? value;
-}
-
-const STATUS_VARIANT: Record<AdminOrder["status"], "default" | "secondary" | "destructive"> = {
-  confirmed: "default",
-  pending: "secondary",
-  cancelled: "destructive",
-};
 
 interface EditState {
   cleanerId: string;
@@ -113,16 +97,18 @@ export default function StaffBookingDetailsPage() {
 
   // `order.price` is the flat per-country rate charged up front ("due at
   // booking"). The full job cost isn't known until minHours/maxHours × that
-  // rate (plus any priced add-ons) is estimated — the remaining balance is
-  // that estimate minus what's already been paid.
+  // rate (plus any priced add-ons/equipment) is estimated — the remaining
+  // balance is that estimate minus what's already been paid.
   const details = order?.serviceDetails?.[0];
   const dueAtBooking = order?.price ? Number(order.price) : null;
   const minHours = details ? Number(details.minHours) : null;
   const maxHours = details ? Number(details.maxHours) : null;
   const addOnsTotal = details?.addOns?.reduce((sum, a) => sum + (a.price ?? 0), 0) ?? 0;
+  const equipmentTotal = details?.equipmentItems?.reduce((sum, i) => sum + (i.price ?? 0), 0) ?? 0;
+  const extrasTotal = addOnsTotal + equipmentTotal;
   const hasEstimate = dueAtBooking !== null && minHours !== null && maxHours !== null;
-  const estimatedMin = hasEstimate ? minHours! * dueAtBooking! + addOnsTotal : null;
-  const estimatedMax = hasEstimate ? maxHours! * dueAtBooking! + addOnsTotal : null;
+  const estimatedMin = hasEstimate ? minHours! * dueAtBooking! + extrasTotal : null;
+  const estimatedMax = hasEstimate ? maxHours! * dueAtBooking! + extrasTotal : null;
   const remainingMin = hasEstimate ? (estimatedMin as number) - (dueAtBooking as number) : null;
   const remainingMax = hasEstimate ? (estimatedMax as number) - (dueAtBooking as number) : null;
   const money = (n: number) => `${n.toFixed(2)} ${order?.currency?.toUpperCase() ?? ""}`.trim();
@@ -145,196 +131,36 @@ export default function StaffBookingDetailsPage() {
 
       {error && <p className="text-sm text-destructive">{error}</p>}
 
-      {loading && <p className="text-sm text-muted-foreground">Loading…</p>}
-
-      {!loading && order && (
-        <div className="grid grid-cols-2 gap-4 text-sm">
-          <div>
-            <p className="text-xs text-muted-foreground">Reference</p>
-            <p>{order.referenceNumber}</p>
+      {loading && (
+        <div className="grid grid-cols-1 gap-6 lg:grid-cols-3">
+          <div className="flex flex-col gap-6 lg:col-start-3">
+            <Skeleton className="h-32 w-full" />
+            <Skeleton className="h-40 w-full" />
           </div>
-          <div>
-            <p className="text-xs text-muted-foreground">Status</p>
-            <Badge variant={STATUS_VARIANT[order.status]} className="capitalize">
-              {order.status}
-            </Badge>
+          <div className="flex flex-col gap-6 lg:col-span-2 lg:col-start-1 lg:row-start-1">
+            <Skeleton className="h-48 w-full" />
+            <Skeleton className="h-32 w-full" />
           </div>
-          <div>
-            <p className="text-xs text-muted-foreground">Due at booking</p>
-            <p>{dueAtBooking !== null ? money(dueAtBooking) : "Unpriced"}</p>
-          </div>
-          {hasEstimate && (
-            <div>
-              <p className="text-xs text-muted-foreground">Total price (estimate)</p>
-              <p>
-                {money(estimatedMin as number)} – {money(estimatedMax as number)}
-              </p>
-            </div>
-          )}
-          {hasEstimate && (
-            <div>
-              <p className="text-xs text-muted-foreground">Remaining balance</p>
-              <p>
-                {money(remainingMin as number)} – {money(remainingMax as number)}
-              </p>
-            </div>
-          )}
-          <div>
-            <p className="text-xs text-muted-foreground">Cleaner</p>
-            <p>
-              {order.cleaner
-                ? `${order.cleaner.firstName} ${order.cleaner.lastName ?? ""}`
-                : "Unassigned"}
-            </p>
-          </div>
-          <div>
-            <p className="text-xs text-muted-foreground">Customer</p>
-            <p>
-              {order.customer.firstName} {order.customer.lastName ?? ""}
-            </p>
-          </div>
-          <div>
-            <p className="text-xs text-muted-foreground">Contact</p>
-            <p>{order.customer.contact ?? order.customer.email}</p>
-          </div>
-          {order.serviceDetails[0] && (
-            <>
-              <div>
-                <p className="text-xs text-muted-foreground">Service</p>
-                <p>{order.serviceDetails[0].service.label}</p>
-              </div>
-              <div>
-                <p className="text-xs text-muted-foreground">Date & time</p>
-                <p>
-                  {order.serviceDetails[0].date} · {order.serviceDetails[0].time}
-                </p>
-              </div>
-              <div>
-                <p className="text-xs text-muted-foreground">Property size</p>
-                <p>{order.serviceDetails[0].propertySizeSqm} m²</p>
-              </div>
-              <div>
-                <p className="text-xs text-muted-foreground">Property type</p>
-                <p>{order.serviceDetails[0].propertyType ?? "—"}</p>
-              </div>
-              <div>
-                <p className="text-xs text-muted-foreground">Duration</p>
-                <p>
-                  {order.serviceDetails[0].minHours}-{order.serviceDetails[0].maxHours} hours
-                </p>
-              </div>
-              <div>
-                <p className="text-xs text-muted-foreground">Cleaners</p>
-                <p>
-                  {order.serviceDetails[0].cleanerCount +
-                    order.serviceDetails[0].extraCleanerCount}
-                </p>
-              </div>
-              {order.serviceDetails[0].note && (
-                <div className="col-span-2">
-                  <p className="text-xs text-muted-foreground">Note</p>
-                  <p>{order.serviceDetails[0].note}</p>
-                </div>
-              )}
-            </>
-          )}
         </div>
       )}
 
-      {!loading && order && order.serviceDetails[0] && (
-        <div className="grid grid-cols-1 gap-4 text-sm sm:grid-cols-2">
-          <div>
-            <p className="text-xs text-muted-foreground">Add-ons</p>
-            {order.serviceDetails[0].addOns?.length ? (
-              <ul className="list-inside list-disc">
-                {order.serviceDetails[0].addOns.map((addOn) => (
-                  <li key={addOn.name}>
-                    {addOn.name}
-                    {addOn.price !== null ? ` — ${addOn.price}` : ""}
-                  </li>
-                ))}
-              </ul>
-            ) : (
-              <p>None</p>
-            )}
-          </div>
-
-          <div>
-            <p className="text-xs text-muted-foreground">Cleaning Solvents & Equipments</p>
-            <p>
-              {order.serviceDetails[0].supplySource
-                ? (SUPPLY_SOURCE_LABEL[order.serviceDetails[0].supplySource] ?? order.serviceDetails[0].supplySource)
-                : "Not specified"}
-            </p>
-            {order.serviceDetails[0].equipmentItems?.length ? (
-              <ul className="list-inside list-disc">
-                {order.serviceDetails[0].equipmentItems.map((item) => (
-                  <li key={item.name}>{item.name}</li>
-                ))}
-              </ul>
-            ) : null}
-          </div>
-
-          {order.serviceDetails[0].facilities?.length ? (
-            <div>
-              <p className="text-xs text-muted-foreground">Facilities</p>
-              <ul className="list-inside list-disc">
-                {order.serviceDetails[0].facilities.map((facility) => (
-                  <li key={facility}>{facility}</li>
-                ))}
-              </ul>
-            </div>
-          ) : null}
-
-          {order.serviceDetails[0].disinfectionLevel ? (
-            <div>
-              <p className="text-xs text-muted-foreground">Disinfection Level</p>
-              <p>
-                {order.serviceDetails[0].disinfectionLevel.name}
-                {order.serviceDetails[0].disinfectionLevel.price
-                  ? ` — +${order.serviceDetails[0].disinfectionLevel.price}`
-                  : ""}
-              </p>
-            </div>
-          ) : null}
-
-          {order.serviceDetails[0].steamItems?.length ? (
-            <div>
-              <p className="text-xs text-muted-foreground">Steam Items</p>
-              <ul className="list-inside list-disc">
-                {order.serviceDetails[0].steamItems.map((item) => (
-                  <li key={item}>{item}</li>
-                ))}
-              </ul>
-            </div>
-          ) : null}
-
-          {order.serviceDetails[0].eventTypes?.length ? (
-            <div>
-              <p className="text-xs text-muted-foreground">Event Types</p>
-              <ul className="list-inside list-disc">
-                {order.serviceDetails[0].eventTypes.map((type) => (
-                  <li key={type}>{type}</li>
-                ))}
-              </ul>
-            </div>
-          ) : null}
-
-          <div>
-            <p className="text-xs text-muted-foreground">Gender Preference</p>
-            <p>{optionLabel(GENDER_OPTIONS, order.serviceDetails[0].genderPreference)}</p>
-          </div>
-
-          <div>
-            <p className="text-xs text-muted-foreground">Language Preference</p>
-            <p>{optionLabel(LANGUAGE_OPTIONS, order.serviceDetails[0].languagePreference)}</p>
-          </div>
-
-          <div className="sm:col-span-2">
-            <p className="text-xs text-muted-foreground">Special Requirements</p>
-            <p>{order.serviceDetails[0].specialRequirements || "—"}</p>
-          </div>
-        </div>
+      {!loading && order && (
+        <BookingSummaryCard
+          referenceNumber={order.referenceNumber}
+          status={order.status}
+          dueAtBooking={dueAtBooking}
+          estimatedMin={hasEstimate ? estimatedMin : null}
+          estimatedMax={hasEstimate ? estimatedMax : null}
+          remainingMin={hasEstimate ? remainingMin : null}
+          remainingMax={hasEstimate ? remainingMax : null}
+          money={money}
+          details={order.serviceDetails[0]}
+          customerName={`${order.customer.firstName} ${order.customer.lastName ?? ""}`.trim()}
+          customerEmail={order.customer.email}
+          customerPhone={order.customer.contact ?? undefined}
+          cleanerName={order.cleaner ? `${order.cleaner.firstName} ${order.cleaner.lastName ?? ""}`.trim() : ""}
+          address={order.address}
+        />
       )}
 
       <Dialog open={editing} onOpenChange={setEditing}>

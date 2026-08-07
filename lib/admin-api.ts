@@ -8,6 +8,15 @@ export interface AdminOrderCustomer {
   contact: string | null;
 }
 
+export interface AdminOrderAddress {
+  streetAddress: string;
+  unit: string | null;
+  city: string;
+  state: string | null;
+  country: string | null;
+  postalCode: string | null;
+}
+
 export interface AdminOrderStaff {
   id: number;
   firstName: string;
@@ -53,6 +62,7 @@ export interface AdminOrder {
   cleanerId: number | null;
   customer: AdminOrderCustomer;
   cleaner: AdminOrderStaff | null;
+  address: AdminOrderAddress | null;
   serviceDetails: AdminOrderServiceDetails[];
   createdAt: string;
 }
