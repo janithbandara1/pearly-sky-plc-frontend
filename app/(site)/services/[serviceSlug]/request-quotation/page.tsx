@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { use, useEffect, useState } from "react";
 import { ArrowLeft } from "lucide-react";
 import { DateTimeSection } from "@/components/booking/date-time-section";
@@ -31,6 +32,7 @@ import { SUPPORTED_COUNTRIES, type CountryCode } from "@/lib/countries/config";
 import { useCountry } from "@/lib/countries/country-context";
 import { useLanguage } from "@/lib/i18n/language-context";
 import { SERVICE_CONTENT } from "@/lib/content/service-details";
+import { createQuotation } from "@/lib/quotation-api";
 import {
   CARPET_ITEM_OPTIONS,
   formatQuoteItem,
@@ -39,8 +41,6 @@ import {
   type QuoteItem,
   type QuoteItemOption,
 } from "@/lib/content/quote-items";
-
-const CONTACT_EMAIL = "info@pearlyskyglobalclean.com";
 
 /** These services are priced per-project — they get a domain-specific item picker instead of the generic property size/type fields. */
 const CUSTOM_QUOTE_ITEMS: Record<string, { title: string; options: QuoteItemOption[] }> = {
@@ -55,18 +55,13 @@ const COUNTRY_NAMES: Record<CountryCode, string> = {
   lk: "Sri Lanka",
 };
 
-function formatHM(hours: number): string {
-  const h = Math.floor(hours);
-  const m = Math.round((hours - h) * 60);
-  return m === 0 ? `${h}h` : `${h}h ${m}m`;
-}
-
 export default function RequestQuotationPage({
   params,
 }: {
   params: Promise<{ serviceSlug: string }>;
 }) {
   const { serviceSlug } = use(params);
+  const router = useRouter();
   const { translate } = useLanguage();
   const { country } = useCountry();
   const customQuote = CUSTOM_QUOTE_ITEMS[serviceSlug];
@@ -101,7 +96,8 @@ export default function RequestQuotationPage({
   const [countryCode, setCountryCode] = useState<CountryCode>(country ?? SUPPORTED_COUNTRIES[0]);
 
   const [errors, setErrors] = useState<Record<string, string>>({});
-  const [sent, setSent] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
+  const [submitError, setSubmitError] = useState<string | null>(null);
 
   useEffect(() => {
     getServiceBySlug(serviceSlug, country)
@@ -123,44 +119,55 @@ export default function RequestQuotationPage({
     return Object.keys(next).length === 0;
   }
 
-  function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     if (!service || !validate()) return;
 
     const items = (service.serviceItems ?? []).map((si) => si.item);
     const selectedItems = supplySource === "company" || supplySource === "customer" ? items : [];
-    const supplySourceLabel =
-      supplySource === "company" ? "Request the Company" : supplySource === "customer" ? "Provided by the Customer" : "Not specified";
-    const genderLabel = GENDER_OPTIONS.find((o) => o.value === gender)?.label ?? "No Preference";
-    const languageLabel = LANGUAGE_OPTIONS.find((o) => o.value === language)?.label ?? "None";
 
     const quoteItemLines = customQuote
-      ? quoteItems.map((item) => `- ${formatQuoteItem(item, customQuote.options)}`)
-      : [];
+      ? quoteItems.map((item) => formatQuoteItem(item, customQuote.options))
+      : undefined;
 
-    const bodyLines = [
-      `Service: ${service.label}`,
-      `Preferred Date & Time: ${date || "Not specified"} ${time}`.trim(),
-      `Cleaning Solvents & Equipment: ${supplySourceLabel}`,
-      selectedItems.length ? `Equipment: ${selectedItems.map((i) => i.name).join(", ")}` : "",
-      customQuote
-        ? `${customQuote.title}:\n${quoteItemLines.length ? quoteItemLines.join("\n") : "Not specified"}`
-        : `Property Type: ${propertyType || "Not specified"}\nProperty Scale: ${propertySizeSqm} m²`,
-      `Cleaners: ${numCleaners}`,
-      `Duration: ${formatHM(durationHours)}`,
-      `Gender Preference: ${genderLabel}`,
-      `Language Preference: ${languageLabel}`,
-      `Special Requirements: ${requirements || "-"}`,
-      `Name: ${firstName} ${lastName}`,
-      `Email: ${email}`,
-      `Phone: ${phone}`,
-      `Address: ${streetAddress}, ${city}, ${COUNTRY_NAMES[countryCode]} (${postalCode})`,
-    ].filter(Boolean);
-
-    const subject = encodeURIComponent(`Detailed quotation request: ${service.label}`);
-    const body = encodeURIComponent(bodyLines.join("\n"));
-    window.location.href = `mailto:${CONTACT_EMAIL}?subject=${subject}&body=${body}`;
-    setSent(true);
+    setSubmitError(null);
+    setSubmitting(true);
+    try {
+      const quotation = await createQuotation({
+        serviceId: service.id,
+        date: date || undefined,
+        time: time || undefined,
+        propertyType: customQuote ? undefined : propertyType || undefined,
+        propertySizeSqm: customQuote ? undefined : propertySizeSqm,
+        quoteItemsTitle: customQuote?.title,
+        quoteItems: customQuote ? quoteItemLines : undefined,
+        supplySource: supplySource || undefined,
+        equipmentItems: selectedItems.length
+          ? selectedItems.map((i) => ({
+              name: i.name,
+              price: i.price !== null ? Number(i.price) : undefined,
+            }))
+          : undefined,
+        numCleaners,
+        durationHours,
+        genderPreference: gender,
+        languagePreference: language,
+        specialRequirements: requirements.trim() || undefined,
+        firstName: firstName.trim(),
+        lastName: lastName.trim() || undefined,
+        email: email.trim(),
+        contact: phone.trim(),
+        streetAddress: streetAddress.trim(),
+        city: city.trim(),
+        country: countryCode,
+        postalCode: postalCode.trim() || undefined,
+      });
+      router.push(`/quotation/${quotation.id}?ref=${quotation.referenceNumber}`);
+    } catch (err) {
+      setSubmitError(err instanceof ApiError ? err.message : "Failed to send your quotation request.");
+    } finally {
+      setSubmitting(false);
+    }
   }
 
   if (serviceError) {
@@ -379,8 +386,9 @@ export default function RequestQuotationPage({
             languageLabel={languageLabel}
             requirements={requirements}
             ctaLabel={translate("servicesRequestQuotation")}
-            sent={sent}
+            submitting={submitting}
           />
+          {submitError && <p className="text-sm text-destructive">{submitError}</p>}
         </form>
       </div>
     </main>

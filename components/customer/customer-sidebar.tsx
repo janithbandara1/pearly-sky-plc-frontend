@@ -5,6 +5,7 @@ import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import {
   ClipboardList,
+  FileText,
   LayoutDashboard,
   MapPin,
   User,
@@ -34,6 +35,7 @@ interface NavItem {
 const NAV_ITEMS: NavItem[] = [
   { href: "/dashboard", label: "Dashboard", icon: LayoutDashboard },
   { href: "/bookings", label: "Bookings", icon: ClipboardList },
+  { href: "/quotations", label: "Quotations", icon: FileText },
   { href: "/profile", label: "Profile", icon: User },
   { href: "/addresses", label: "Addresses", icon: MapPin },
 ];

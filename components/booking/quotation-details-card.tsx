@@ -31,7 +31,6 @@ export interface QuotationDetailsCardProps {
   requirements: string;
   ctaLabel: string;
   submitting?: boolean;
-  sent?: boolean;
 }
 
 export function QuotationDetailsCard({
@@ -52,7 +51,6 @@ export function QuotationDetailsCard({
   requirements,
   ctaLabel,
   submitting,
-  sent,
 }: QuotationDetailsCardProps) {
   const equipmentValueLabel = supplySource === "customer" ? "Provided by you" : "Requested the Company";
 
@@ -128,11 +126,6 @@ export function QuotationDetailsCard({
           >
             {submitting ? "Sending…" : ctaLabel}
           </Button>
-          {sent && (
-            <p className="mt-2 text-center text-xs text-brand-navy-foreground/70">
-              Your email app should have opened with your quotation request pre-filled — just hit send.
-            </p>
-          )}
         </div>
       </CardContent>
     </Card>

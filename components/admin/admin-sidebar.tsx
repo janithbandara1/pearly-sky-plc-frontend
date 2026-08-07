@@ -6,6 +6,7 @@ import { usePathname, useRouter } from "next/navigation";
 import {
   LayoutDashboard,
   ClipboardList,
+  FileText,
   Users,
   UserCog,
   Layers,
@@ -38,6 +39,7 @@ interface NavItem {
 const ADMIN_NAV_ITEMS: NavItem[] = [
   { href: "/staff/dashboard", label: "Dashboard", icon: LayoutDashboard },
   { href: "/staff/bookings", label: "Bookings", icon: ClipboardList },
+  { href: "/staff/quotations", label: "Quotations", icon: FileText },
   { href: "/staff/customers", label: "Customers", icon: Users },
   { href: "/staff/services", label: "Services", icon: Layers },
   { href: "/staff/catalog/packages", matchPrefix: "/staff/catalog", label: "Catalog", icon: Layers },
