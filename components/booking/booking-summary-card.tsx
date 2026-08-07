@@ -260,6 +260,10 @@ export function BookingSummaryCard({
               <Field label="Property size" value={`${details.propertySizeSqm} m²`} />
               <Field label="Duration" value={`${details.minHours}-${details.maxHours} hours`} />
               <Field label="Cleaners" value={details.cleanerCount + details.extraCleanerCount} />
+              <Field
+                label="Price per cleaner"
+                value={dueAtBooking !== null ? `${money(dueAtBooking)}/h` : "—"}
+              />
               {details.note && (
                 <div className="col-span-full">
                   <Field label="Note" value={details.note} />
@@ -341,7 +345,7 @@ export function BookingSummaryCard({
                 ? (SUPPLY_SOURCE_LABEL[details.supplySource] ?? details.supplySource)
                 : "Not specified"}
             </p>
-            {details.equipmentItems?.length ? (
+            {details.supplySource === "company" && details.equipmentItems?.length ? (
               <ul className="mt-2 flex flex-col gap-2 text-sm">
                 {details.equipmentItems.map((item) => (
                   <LineItemRow key={item.name} name={item.name} price={item.price} money={money} />

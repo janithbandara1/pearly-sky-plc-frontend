@@ -104,7 +104,10 @@ export default function StaffBookingDetailsPage() {
   const minHours = details ? Number(details.minHours) : null;
   const maxHours = details ? Number(details.maxHours) : null;
   const addOnsTotal = details?.addOns?.reduce((sum, a) => sum + (a.price ?? 0), 0) ?? 0;
-  const equipmentTotal = details?.equipmentItems?.reduce((sum, i) => sum + (i.price ?? 0), 0) ?? 0;
+  const equipmentTotal =
+    details?.supplySource === "company"
+      ? (details.equipmentItems?.reduce((sum, i) => sum + (i.price ?? 0), 0) ?? 0)
+      : 0;
   const extrasTotal = addOnsTotal + equipmentTotal;
   const hasEstimate = dueAtBooking !== null && minHours !== null && maxHours !== null;
   const estimatedMin = hasEstimate ? minHours! * dueAtBooking! + extrasTotal : null;

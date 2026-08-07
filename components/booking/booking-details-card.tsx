@@ -201,47 +201,43 @@ export function BookingDetailsCard({
                 </label>
               ))}
 
-            {equipmentOptions && equipmentOptions.length > 0
-              ? equipmentOptions.map((item) => {
-                  const isSelected = selectedEquipmentIds?.has(item.id) ?? false;
-                  const price = item.price !== null ? Number(item.price) : NaN;
-                  return (
-                    <SummaryRow
-                      key={item.id}
-                      label={item.name}
-                      value={
-                        <div className="flex items-center gap-2">
-                          {!Number.isNaN(price) && (
-                            <span className="text-brand-navy-foreground">{money(price)}</span>
-                          )}
-                          <button
-                            type="button"
-                            onClick={() => onToggleEquipment?.(item.id)}
-                            aria-pressed={isSelected}
-                            className={`shrink-0 rounded-[6px] border-[1.5px] border-brand-gold px-2.5 py-1 text-xs ${
-                              isSelected ? "bg-brand-gold text-brand-navy" : "text-brand-gold"
-                            }`}
-                          >
-                            {isSelected ? "Added" : "Add"}
-                          </button>
-                        </div>
-                      }
-                    />
-                  );
-                })
-              : items.map((item) => (
+            {equipmentOptions && equipmentOptions.length > 0 ? (
+              equipmentOptions.map((item) => {
+                const isSelected = selectedEquipmentIds?.has(item.id) ?? false;
+                const price = item.price !== null ? Number(item.price) : NaN;
+                return (
                   <SummaryRow
-                    key={item.name}
+                    key={item.id}
                     label={item.name}
                     value={
-                      supplySource === "customer"
-                        ? "Provided by you"
-                        : item.price !== null
-                          ? money(item.price)
-                          : ""
+                      <div className="flex items-center gap-2">
+                        {!Number.isNaN(price) && (
+                          <span className="text-brand-navy-foreground">{money(price)}</span>
+                        )}
+                        <button
+                          type="button"
+                          onClick={() => onToggleEquipment?.(item.id)}
+                          aria-pressed={isSelected}
+                          className={`shrink-0 rounded-[6px] border-[1.5px] border-brand-gold px-2.5 py-1 text-xs ${
+                            isSelected ? "bg-brand-gold text-brand-navy" : "text-brand-gold"
+                          }`}
+                        >
+                          {isSelected ? "Added" : "Add"}
+                        </button>
+                      </div>
                     }
                   />
-                ))}
+                );
+              })
+            ) : supplySource === "customer" ? null : (
+              items.map((item) => (
+                <SummaryRow
+                  key={item.name}
+                  label={item.name}
+                  value={item.price !== null ? money(item.price) : ""}
+                />
+              ))
+            )}
           </div>
         )}
 
