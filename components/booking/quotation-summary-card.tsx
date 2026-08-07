@@ -207,10 +207,10 @@ export function QuotationSummaryCard({
           <p className="text-sm">
             {supplySource ? (SUPPLY_SOURCE_LABEL[supplySource] ?? supplySource) : "Not specified"}
           </p>
-          {equipmentItems?.length ? (
+          {supplySource === "company" && equipmentItems?.length ? (
             <ul className="mt-2 flex flex-col gap-2 text-sm">
               {equipmentItems.map((item) => (
-                <LineItemRow key={item.name} name={item.name} price={item.price} />
+                <LineItemRow key={item.name} name={item.name} />
               ))}
             </ul>
           ) : null}

@@ -23,11 +23,13 @@ import { QuotationDetailsCard } from "@/components/booking/quotation-details-car
 import { ServiceIntroduction } from "@/components/booking/service-introduction";
 import { ServiceHighlights } from "@/components/booking/service-highlights";
 import { PageHero } from "@/components/page-hero";
+import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { ApiError } from "@/lib/auth-context";
+import { ApiError, useAuth } from "@/lib/auth-context";
 import { CatalogServiceDetail, getServiceBySlug } from "@/lib/catalog-api";
+import { CustomerAddress, createMyAddress, getMyProfile, listMyAddresses } from "@/lib/customers-api";
 import { SUPPORTED_COUNTRIES, type CountryCode } from "@/lib/countries/config";
 import { useCountry } from "@/lib/countries/country-context";
 import { useLanguage } from "@/lib/i18n/language-context";
@@ -64,6 +66,7 @@ export default function RequestQuotationPage({
   const router = useRouter();
   const { translate } = useLanguage();
   const { country } = useCountry();
+  const { status, accessToken } = useAuth();
   const customQuote = CUSTOM_QUOTE_ITEMS[serviceSlug];
   const serviceContent = SERVICE_CONTENT[serviceSlug];
 
@@ -74,6 +77,7 @@ export default function RequestQuotationPage({
   const [time, setTime] = useState("");
 
   const [supplySource, setSupplySource] = useState<SupplySource>("");
+  const [selectedItemIds, setSelectedItemIds] = useState<Set<number>>(new Set());
 
   const [propertySizeSqm, setPropertySizeSqm] = useState(20);
   const [propertyType, setPropertyType] = useState("");
@@ -95,6 +99,16 @@ export default function RequestQuotationPage({
   const [postalCode, setPostalCode] = useState("");
   const [countryCode, setCountryCode] = useState<CountryCode>(country ?? SUPPORTED_COUNTRIES[0]);
 
+  const [addresses, setAddresses] = useState<CustomerAddress[]>([]);
+  const [selectedAddressId, setSelectedAddressId] = useState<number | null>(null);
+  const [newAddressForm, setNewAddressForm] = useState({
+    streetAddress: "",
+    city: "",
+    postalCode: "",
+    country: country ?? SUPPORTED_COUNTRIES[0],
+  });
+  const [addingAddress, setAddingAddress] = useState(false);
+
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [submitting, setSubmitting] = useState(false);
   const [submitError, setSubmitError] = useState<string | null>(null);
@@ -104,6 +118,71 @@ export default function RequestQuotationPage({
       .then(setService)
       .catch((err) => setServiceError(err instanceof ApiError ? err.message : "Service not found."));
   }, [serviceSlug, country]);
+
+  function applyAddress(address: CustomerAddress) {
+    setStreetAddress(address.streetAddress);
+    setCity(address.city);
+    setPostalCode(address.postalCode ?? "");
+    const matched = SUPPORTED_COUNTRIES.find(
+      (code) => COUNTRY_NAMES[code].toLowerCase() === (address.country ?? "").toLowerCase(),
+    );
+    if (matched) setCountryCode(matched);
+  }
+
+  function toggleEquipmentItem(id: number) {
+    setSelectedItemIds((prev) => {
+      const next = new Set(prev);
+      if (next.has(id)) next.delete(id);
+      else next.add(id);
+      return next;
+    });
+  }
+
+  function handleSelectAddress(address: CustomerAddress) {
+    setSelectedAddressId(address.id);
+    applyAddress(address);
+  }
+
+  async function handleAddAddress() {
+    if (!accessToken) return;
+    setAddingAddress(true);
+    try {
+      const created = await createMyAddress(accessToken, {
+        streetAddress: newAddressForm.streetAddress.trim(),
+        city: newAddressForm.city.trim(),
+        postalCode: newAddressForm.postalCode.trim() || undefined,
+        country: COUNTRY_NAMES[newAddressForm.country],
+      });
+      setAddresses((prev) => [...prev, created]);
+      setSelectedAddressId(created.id);
+      applyAddress(created);
+      setNewAddressForm({ streetAddress: "", city: "", postalCode: "", country: newAddressForm.country });
+    } catch (err) {
+      setSubmitError(err instanceof ApiError ? err.message : "Failed to add address.");
+    } finally {
+      setAddingAddress(false);
+    }
+  }
+
+  // Prefill contact & address for signed-in customers, same as checkout.
+  useEffect(() => {
+    if (status !== "authenticated" || !accessToken) return;
+    Promise.all([getMyProfile(accessToken), listMyAddresses(accessToken)])
+      .then(([profile, addressList]) => {
+        setFirstName(profile.firstName);
+        setLastName(profile.lastName ?? "");
+        setEmail(profile.email);
+        setPhone(profile.contact ?? "");
+
+        setAddresses(addressList);
+        const primary = addressList[0];
+        if (primary) {
+          setSelectedAddressId(primary.id);
+          applyAddress(primary);
+        }
+      })
+      .catch(() => undefined);
+  }, [status, accessToken]);
 
   function validate(): boolean {
     const next: Record<string, string> = {};
@@ -124,7 +203,12 @@ export default function RequestQuotationPage({
     if (!service || !validate()) return;
 
     const items = (service.serviceItems ?? []).map((si) => si.item);
-    const selectedItems = supplySource === "company" || supplySource === "customer" ? items : [];
+    const selectedItems =
+      supplySource === "customer"
+        ? items
+        : supplySource === "company"
+          ? items.filter((item) => selectedItemIds.has(item.id))
+          : [];
 
     const quoteItemLines = customQuote
       ? quoteItems.map((item) => formatQuoteItem(item, customQuote.options))
@@ -314,59 +398,153 @@ export default function RequestQuotationPage({
             <div className="bg-brand-navy px-5 py-4 text-center">
               <h2 className="text-[1.1rem] font-bold text-brand-cream sm:text-[1.3rem]">Address</h2>
             </div>
-            <div className="grid grid-cols-1 gap-4 bg-[#F8F9FA] p-4 sm:grid-cols-2 sm:p-5">
-              <div className="space-y-1.5 sm:col-span-2">
-                <Label htmlFor="quote-street-address">Street Address *</Label>
-                <Input
-                  id="quote-street-address"
-                  value={streetAddress}
-                  onChange={(e) => setStreetAddress(e.target.value)}
-                  aria-invalid={!!errors.streetAddress}
-                  className="bg-brand-cream"
-                />
-                {errors.streetAddress && <p className="text-xs text-destructive">{errors.streetAddress}</p>}
-              </div>
 
-              <div className="space-y-1.5">
-                <Label htmlFor="quote-city">City *</Label>
-                <Input
-                  id="quote-city"
-                  value={city}
-                  onChange={(e) => setCity(e.target.value)}
-                  aria-invalid={!!errors.city}
-                  className="bg-brand-cream"
-                />
-                {errors.city && <p className="text-xs text-destructive">{errors.city}</p>}
-              </div>
+            {status === "authenticated" ? (
+              <div className="flex flex-col gap-4 bg-[#F8F9FA] p-4 sm:p-5">
+                <div className="flex flex-col gap-2">
+                  <p className="text-sm font-medium">Select an address</p>
+                  {addresses.length === 0 && (
+                    <p className="text-sm text-muted-foreground">No saved addresses yet — add one below.</p>
+                  )}
+                  {addresses.map((address) => (
+                    <button
+                      key={address.id}
+                      type="button"
+                      onClick={() => handleSelectAddress(address)}
+                      className={`rounded-lg border p-3 text-left text-sm transition-colors ${
+                        selectedAddressId === address.id
+                          ? "border-brand-gold-dark bg-brand-cream"
+                          : "border-transparent bg-white hover:bg-brand-cream/60"
+                      }`}
+                    >
+                      {address.streetAddress}
+                      {address.unit ? `, ${address.unit}` : ""}, {address.city}
+                      {address.country ? `, ${address.country}` : ""}
+                      {address.postalCode ? ` ${address.postalCode}` : ""}
+                    </button>
+                  ))}
+                  {errors.streetAddress && !selectedAddressId && (
+                    <p className="text-xs text-destructive">Select or add an address to continue.</p>
+                  )}
+                </div>
 
-              <div className="space-y-1.5">
-                <Label htmlFor="quote-postal-code">Postal Code *</Label>
-                <Input
-                  id="quote-postal-code"
-                  value={postalCode}
-                  onChange={(e) => setPostalCode(e.target.value)}
-                  aria-invalid={!!errors.postalCode}
-                  className="bg-brand-cream"
-                />
-                {errors.postalCode && <p className="text-xs text-destructive">{errors.postalCode}</p>}
+                <div className="flex flex-col gap-3 border-t border-brand-gold-dark/30 pt-4">
+                  <p className="text-sm font-medium">Add a new address</p>
+                  <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+                    <div className="space-y-1.5 sm:col-span-2">
+                      <Label htmlFor="new-address-street">Street address</Label>
+                      <Input
+                        id="new-address-street"
+                        required
+                        value={newAddressForm.streetAddress}
+                        onChange={(e) =>
+                          setNewAddressForm((f) => ({ ...f, streetAddress: e.target.value }))
+                        }
+                        className="bg-brand-cream"
+                      />
+                    </div>
+                    <div className="space-y-1.5">
+                      <Label htmlFor="new-address-city">City</Label>
+                      <Input
+                        id="new-address-city"
+                        required
+                        value={newAddressForm.city}
+                        onChange={(e) => setNewAddressForm((f) => ({ ...f, city: e.target.value }))}
+                        className="bg-brand-cream"
+                      />
+                    </div>
+                    <div className="space-y-1.5">
+                      <Label htmlFor="new-address-postal">Postal code</Label>
+                      <Input
+                        id="new-address-postal"
+                        value={newAddressForm.postalCode}
+                        onChange={(e) =>
+                          setNewAddressForm((f) => ({ ...f, postalCode: e.target.value }))
+                        }
+                        className="bg-brand-cream"
+                      />
+                    </div>
+                    <div className="space-y-1.5">
+                      <Label htmlFor="new-address-country">Country</Label>
+                      <Select
+                        value={newAddressForm.country}
+                        onValueChange={(value) =>
+                          setNewAddressForm((f) => ({ ...f, country: value as CountryCode }))
+                        }
+                      >
+                        <SelectTrigger id="new-address-country" className="w-full bg-brand-cream">
+                          <SelectValue />
+                        </SelectTrigger>
+                        <SelectContent>
+                          {SUPPORTED_COUNTRIES.map((code) => (
+                            <SelectItem key={code} value={code}>
+                              {COUNTRY_NAMES[code]}
+                            </SelectItem>
+                          ))}
+                        </SelectContent>
+                      </Select>
+                    </div>
+                  </div>
+                  <Button type="button" onClick={handleAddAddress} disabled={addingAddress} variant="outline">
+                    {addingAddress ? "Adding…" : "Add address"}
+                  </Button>
+                </div>
               </div>
+            ) : (
+              <div className="grid grid-cols-1 gap-4 bg-[#F8F9FA] p-4 sm:grid-cols-2 sm:p-5">
+                <div className="space-y-1.5 sm:col-span-2">
+                  <Label htmlFor="quote-street-address">Street Address *</Label>
+                  <Input
+                    id="quote-street-address"
+                    value={streetAddress}
+                    onChange={(e) => setStreetAddress(e.target.value)}
+                    aria-invalid={!!errors.streetAddress}
+                    className="bg-brand-cream"
+                  />
+                  {errors.streetAddress && <p className="text-xs text-destructive">{errors.streetAddress}</p>}
+                </div>
 
-              <div className="space-y-1.5">
-                <Label htmlFor="quote-country">Country *</Label>
-                <Select value={countryCode} onValueChange={(value) => setCountryCode(value as CountryCode)}>
-                  <SelectTrigger id="quote-country" className="w-full bg-brand-cream">
-                    <SelectValue />
-                  </SelectTrigger>
-                  <SelectContent>
-                    {SUPPORTED_COUNTRIES.map((code) => (
-                      <SelectItem key={code} value={code}>
-                        {COUNTRY_NAMES[code]}
-                      </SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
+                <div className="space-y-1.5">
+                  <Label htmlFor="quote-city">City *</Label>
+                  <Input
+                    id="quote-city"
+                    value={city}
+                    onChange={(e) => setCity(e.target.value)}
+                    aria-invalid={!!errors.city}
+                    className="bg-brand-cream"
+                  />
+                  {errors.city && <p className="text-xs text-destructive">{errors.city}</p>}
+                </div>
+
+                <div className="space-y-1.5">
+                  <Label htmlFor="quote-postal-code">Postal Code *</Label>
+                  <Input
+                    id="quote-postal-code"
+                    value={postalCode}
+                    onChange={(e) => setPostalCode(e.target.value)}
+                    aria-invalid={!!errors.postalCode}
+                    className="bg-brand-cream"
+                  />
+                  {errors.postalCode && <p className="text-xs text-destructive">{errors.postalCode}</p>}
+                </div>
+
+                <div className="space-y-1.5">
+                  <Label htmlFor="quote-country">Country *</Label>
+                  <Select value={countryCode} onValueChange={(value) => setCountryCode(value as CountryCode)}>
+                    <SelectTrigger id="quote-country" className="w-full bg-brand-cream">
+                      <SelectValue />
+                    </SelectTrigger>
+                    <SelectContent>
+                      {SUPPORTED_COUNTRIES.map((code) => (
+                        <SelectItem key={code} value={code}>
+                          {COUNTRY_NAMES[code]}
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                </div>
               </div>
-            </div>
+            )}
           </section>
 
           <QuotationDetailsCard
@@ -380,6 +558,8 @@ export default function RequestQuotationPage({
             supplySource={supplySource}
             onSupplySourceChange={setSupplySource}
             equipmentItems={equipmentItems}
+            selectedEquipmentIds={selectedItemIds}
+            onToggleEquipment={toggleEquipmentItem}
             numCleaners={numCleaners}
             durationHours={durationHours}
             genderLabel={genderLabel}

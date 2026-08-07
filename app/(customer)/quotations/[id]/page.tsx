@@ -80,6 +80,11 @@ export default function QuotationDetailsPage() {
           specialRequirements={quotation.specialRequirements}
           supplySource={quotation.supplySource}
           equipmentItems={quotation.equipmentItems}
+          customerName={
+            quotation.customer ? `${quotation.customer.firstName} ${quotation.customer.lastName ?? ""}`.trim() : undefined
+          }
+          customerEmail={quotation.customer?.email}
+          customerPhone={quotation.customer?.contact ?? undefined}
           address={{
             streetAddress: quotation.streetAddress,
             city: quotation.city,

@@ -23,7 +23,9 @@ export interface QuotationDetailsCardProps {
   propertySizeSqm?: number;
   supplySource: SupplySource;
   onSupplySourceChange: (value: SupplySource) => void;
-  equipmentItems: { name: string }[];
+  equipmentItems: { id: number; name: string }[];
+  selectedEquipmentIds?: Set<number>;
+  onToggleEquipment?: (id: number) => void;
   numCleaners: number;
   durationHours: number;
   genderLabel: string;
@@ -44,6 +46,8 @@ export function QuotationDetailsCard({
   supplySource,
   onSupplySourceChange,
   equipmentItems,
+  selectedEquipmentIds,
+  onToggleEquipment,
   numCleaners,
   durationHours,
   genderLabel,
@@ -52,8 +56,6 @@ export function QuotationDetailsCard({
   ctaLabel,
   submitting,
 }: QuotationDetailsCardProps) {
-  const equipmentValueLabel = supplySource === "customer" ? "Provided by you" : "Requested the Company";
-
   return (
     <Card className="bg-brand-navy text-brand-navy-foreground">
       <CardContent className="flex flex-col gap-0 p-0">
@@ -112,10 +114,28 @@ export function QuotationDetailsCard({
             </label>
           ))}
 
-          {supplySource &&
-            equipmentItems.map((item) => (
-              <SummaryRow key={item.name} label={item.name} value={equipmentValueLabel} />
-            ))}
+          {supplySource === "company" &&
+            equipmentItems.map((item) => {
+              const isSelected = selectedEquipmentIds?.has(item.id) ?? false;
+              return (
+                <SummaryRow
+                  key={item.id}
+                  label={item.name}
+                  value={
+                    <button
+                      type="button"
+                      onClick={() => onToggleEquipment?.(item.id)}
+                      aria-pressed={isSelected}
+                      className={`shrink-0 rounded-[6px] border-[1.5px] border-brand-gold px-2.5 py-1 text-xs ${
+                        isSelected ? "bg-brand-gold text-brand-navy" : "text-brand-gold"
+                      }`}
+                    >
+                      {isSelected ? "Added" : "Add"}
+                    </button>
+                  }
+                />
+              );
+            })}
         </div>
 
         <div className="p-4">
