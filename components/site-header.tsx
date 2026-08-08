@@ -86,7 +86,7 @@ export function SiteHeader() {
   return (
     <header className="sticky top-0 z-50 bg-brand-navy text-brand-navy-foreground">
       <div className="mx-auto flex h-16 w-full max-w-7xl items-center justify-between gap-4 px-4 sm:px-6">
-        <Link href="/" className="flex shrink-0 items-center">
+        <Link href="/" className="flex shrink-0 items-center gap-2.5">
           <Image
             src="/images/brand/logo.webp"
             alt="Pearly Sky"
@@ -95,6 +95,9 @@ export function SiteHeader() {
             className="rounded-full bg-brand-navy"
             priority
           />
+          <span className="hidden text-base font-semibold whitespace-nowrap text-brand-gold sm:inline">
+            Pearly Sky Cleaning
+          </span>
         </Link>
 
         <nav className="hidden items-center gap-1 lg:flex">
