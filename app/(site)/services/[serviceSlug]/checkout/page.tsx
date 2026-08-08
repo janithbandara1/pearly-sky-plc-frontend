@@ -179,6 +179,10 @@ export default function CheckoutPage({
             : undefined,
           steamItems: draft.steamItems,
           eventTypes: draft.eventTypes,
+          firstName: contactForm.firstName.trim(),
+          lastName: contactForm.lastName.trim() || undefined,
+          email: contactForm.email.trim(),
+          contact: contactForm.contact.trim(),
         });
         clearBookingDraft();
         try {
@@ -259,17 +263,18 @@ export default function CheckoutPage({
   const generalSteamItems = draft.steamItems?.filter((item) => generalSteamTitles.has(item));
   const industrialSteamItems = draft.steamItems?.filter((item) => industrialSteamTitles.has(item));
 
+  const contactDetailsMissing =
+    !contactForm.firstName.trim() || !contactForm.email.trim() || !contactForm.contact.trim();
+
   const guestDetailsMissing =
-    !contactForm.firstName.trim() ||
-    !contactForm.email.trim() ||
-    !contactForm.contact.trim() ||
-    !addressForm.streetAddress.trim() ||
-    !addressForm.city.trim();
+    contactDetailsMissing || !addressForm.streetAddress.trim() || !addressForm.city.trim();
 
   const bookDisabledReason = isAuthenticated
     ? !selectedAddressId
       ? "Select or add an address to continue."
-      : undefined
+      : contactDetailsMissing
+        ? "Fill in your contact details to continue."
+        : undefined
     : guestDetailsMissing
       ? "Fill in your contact details and address to continue."
       : undefined;
@@ -301,7 +306,6 @@ export default function CheckoutPage({
                   <Input
                     id="contact-first-name"
                     required
-                    disabled={isAuthenticated}
                     value={contactForm.firstName}
                     onChange={(e) =>
                       setContactForm((f) => ({ ...f, firstName: e.target.value }))
@@ -312,7 +316,6 @@ export default function CheckoutPage({
                   <Label htmlFor="contact-last-name">Last name</Label>
                   <Input
                     id="contact-last-name"
-                    disabled={isAuthenticated}
                     value={contactForm.lastName}
                     onChange={(e) =>
                       setContactForm((f) => ({ ...f, lastName: e.target.value }))
@@ -326,7 +329,6 @@ export default function CheckoutPage({
                   id="contact-email"
                   type="email"
                   required
-                  disabled={isAuthenticated}
                   value={contactForm.email}
                   onChange={(e) => setContactForm((f) => ({ ...f, email: e.target.value }))}
                 />
@@ -337,7 +339,6 @@ export default function CheckoutPage({
                   id="contact-phone"
                   type="tel"
                   required
-                  disabled={isAuthenticated}
                   value={contactForm.contact}
                   onChange={(e) => setContactForm((f) => ({ ...f, contact: e.target.value }))}
                 />

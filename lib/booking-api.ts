@@ -34,6 +34,11 @@ export interface CreateBookingPayload extends BookingPreferencesPayload {
   note?: string;
   /** Pricing country — the backend uses it to price the order for Stripe checkout. */
   country?: string;
+  /** Per-booking contact override — shown for this booking without touching the account's saved profile. */
+  firstName?: string;
+  lastName?: string;
+  email?: string;
+  contact?: string;
 }
 
 export interface BookingServiceDetails {
