@@ -29,15 +29,14 @@ const NAV_LINKS: { href: string; labelKey: TranslationKey; external?: boolean }[
   { href: "/", labelKey: "navHome" },
   { href: "/about", labelKey: "navAbout" },
   { href: "/customers", labelKey: "navCustomers" },
-  { href: "/careers", labelKey: "navCareers" },
   { href: "/locations", labelKey: "navLocations" },
-  { href: "/contact", labelKey: "navContact" },
   { href: "/blog", labelKey: "navBlog" },
+  { href: "/careers", labelKey: "navCareers" },
+  { href: "/contact", labelKey: "navContact" },
 ];
 
 const HOTLINE = "+33 743 708 780";
 const WHATSAPP_URL = "https://wa.me/33743708780";
-const COMPANY_URL = "https://pearlyskyplc.com";
 
 export function SiteFooter() {
   const { translate } = useLanguage();
@@ -99,16 +98,6 @@ export function SiteFooter() {
                 </Link>
               </li>
             ))}
-            <li>
-              <a
-                href={COMPANY_URL}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="transition-colors hover:text-brand-gold"
-              >
-                Company
-              </a>
-            </li>
           </ul>
         </div>
 
