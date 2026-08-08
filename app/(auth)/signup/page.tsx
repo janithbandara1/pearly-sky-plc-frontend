@@ -43,7 +43,7 @@ export default function SignupPage() {
         contact: phone || undefined,
         password,
       });
-      router.push("/dashboard");
+      router.push("/bookings");
     } catch (err) {
       setError(err instanceof ApiError ? err.message : "Something went wrong.");
     } finally {

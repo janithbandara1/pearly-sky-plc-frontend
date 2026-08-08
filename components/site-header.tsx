@@ -4,7 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { CalendarDays, ChevronDown, LayoutDashboard, LogOut, MapPin, Menu, UserRound } from "lucide-react";
+import { CalendarDays, ChevronDown, FileText, LogOut, MapPin, Menu, UserRound } from "lucide-react";
 import { useAuth } from "@/lib/auth-context";
 import { useLanguage } from "@/lib/i18n/language-context";
 import { cn } from "@/lib/utils";
@@ -23,7 +23,14 @@ const navLinkClass =
   "rounded-lg p-2 text-sm font-medium text-brand-navy-foreground transition-colors hover:bg-brand-gold/10 hover:text-brand-gold";
 const navLinkActiveClass = "bg-brand-gold/10 text-brand-gold";
 
-export function SiteHeader() {
+export interface SiteHeaderProps {
+  /** Links shown after "Home" (and after the Services menu, if shown). Defaults to the marketing site's nav. */
+  navLinks?: { href: string; label: string }[];
+  /** Set to false to hide the Services mega-menu, e.g. on dashboard-style pages. */
+  showServicesMenu?: boolean;
+}
+
+export function SiteHeader({ navLinks: navLinksProp, showServicesMenu = true }: SiteHeaderProps = {}) {
   const { translate } = useLanguage();
   const { status, logout } = useAuth();
   const pathname = usePathname();
@@ -33,7 +40,7 @@ export function SiteHeader() {
   const servicesRef = useRef<HTMLDivElement>(null);
   const accountRef = useRef<HTMLDivElement>(null);
 
-  const navLinks = [
+  const defaultNavLinks = [
     { href: "/about", label: translate("navAbout") },
     { href: "/customers", label: translate("navCustomers") },
     { href: "/locations", label: translate("navLocations") },
@@ -41,6 +48,7 @@ export function SiteHeader() {
     { href: "/careers", label: translate("navCareers") },
     { href: "/contact", label: translate("navContact") },
   ];
+  const navLinks = navLinksProp ?? defaultNavLinks;
 
   useEffect(() => {
     setServicesOpen(false);
@@ -108,31 +116,33 @@ export function SiteHeader() {
             {translate("navHome")}
           </Link>
 
-          <div className="relative" ref={servicesRef}>
-            <button
-              type="button"
-              onClick={() => setServicesOpen((open) => !open)}
-              aria-expanded={servicesOpen}
-              className={cn(
-                navLinkClass,
-                "inline-flex items-center gap-1",
-                servicesOpen && navLinkActiveClass,
-              )}
-            >
-              {translate("navServices")}
-              <ChevronDown
-                className={cn("size-3 transition-transform", servicesOpen && "rotate-180")}
-              />
-            </button>
-            {servicesOpen && (
-              <div className="absolute top-full left-0 z-50 mt-1.5 w-[320px] overflow-hidden rounded-lg bg-popover text-popover-foreground shadow ring-1 ring-foreground/10 sm:w-[420px]">
-                <ServicesNavList
-                  onNavigate={() => setServicesOpen(false)}
-                  className="w-full sm:grid-cols-2"
+          {showServicesMenu && (
+            <div className="relative" ref={servicesRef}>
+              <button
+                type="button"
+                onClick={() => setServicesOpen((open) => !open)}
+                aria-expanded={servicesOpen}
+                className={cn(
+                  navLinkClass,
+                  "inline-flex items-center gap-1",
+                  servicesOpen && navLinkActiveClass,
+                )}
+              >
+                {translate("navServices")}
+                <ChevronDown
+                  className={cn("size-3 transition-transform", servicesOpen && "rotate-180")}
                 />
-              </div>
-            )}
-          </div>
+              </button>
+              {servicesOpen && (
+                <div className="absolute top-full left-0 z-50 mt-1.5 w-[320px] overflow-hidden rounded-lg bg-popover text-popover-foreground shadow ring-1 ring-foreground/10 sm:w-[420px]">
+                  <ServicesNavList
+                    onNavigate={() => setServicesOpen(false)}
+                    className="w-full sm:grid-cols-2"
+                  />
+                </div>
+              )}
+            </div>
+          )}
 
           {navLinks.map((link) => (
             <Link
@@ -165,20 +175,20 @@ export function SiteHeader() {
               {accountOpen && (
                 <div className="absolute top-full right-0 z-50 mt-1.5 flex w-56 flex-col gap-1 rounded-lg bg-popover p-1 text-popover-foreground shadow ring-1 ring-foreground/10">
                   <Link
-                    href="/dashboard"
-                    onClick={() => setAccountOpen(false)}
-                    className="flex items-center gap-2.5 rounded-lg p-2 text-sm hover:bg-muted"
-                  >
-                    <LayoutDashboard className="size-4" />
-                    Dashboard
-                  </Link>
-                  <Link
                     href="/bookings"
                     onClick={() => setAccountOpen(false)}
                     className="flex items-center gap-2.5 rounded-lg p-2 text-sm hover:bg-muted"
                   >
                     <CalendarDays className="size-4" />
                     Bookings
+                  </Link>
+                  <Link
+                    href="/quotations"
+                    onClick={() => setAccountOpen(false)}
+                    className="flex items-center gap-2.5 rounded-lg p-2 text-sm hover:bg-muted"
+                  >
+                    <FileText className="size-4" />
+                    Quotations
                   </Link>
                   <Link
                     href="/profile"
@@ -258,22 +268,26 @@ export function SiteHeader() {
                   {translate("navHome")}
                 </Link>
 
-                <p className="mt-2 px-2 text-xs font-semibold uppercase tracking-wide text-muted-foreground">
-                  {translate("navServices")}
-                </p>
-                <ServicesNavList
-                  onNavigate={() => setMobileOpen(false)}
-                  className="w-full grid-cols-1"
-                />
-                <Link
-                  href="/#services"
-                  onClick={() => setMobileOpen(false)}
-                  className="rounded-lg p-2 text-brand-gold-dark hover:bg-muted"
-                >
-                  {translate("navViewAllServices")}
-                </Link>
+                {showServicesMenu && (
+                  <>
+                    <p className="mt-2 px-2 text-xs font-semibold uppercase tracking-wide text-muted-foreground">
+                      {translate("navServices")}
+                    </p>
+                    <ServicesNavList
+                      onNavigate={() => setMobileOpen(false)}
+                      className="w-full grid-cols-1"
+                    />
+                    <Link
+                      href="/#services"
+                      onClick={() => setMobileOpen(false)}
+                      className="rounded-lg p-2 text-brand-gold-dark hover:bg-muted"
+                    >
+                      {translate("navViewAllServices")}
+                    </Link>
 
-                <div className="my-2 border-t" />
+                    <div className="my-2 border-t" />
+                  </>
+                )}
 
                 {navLinks.map((link) => (
                   <Link
@@ -293,18 +307,18 @@ export function SiteHeader() {
                   <>
                     <div className="my-2 border-t" />
                     <Link
-                      href="/dashboard"
-                      onClick={() => setMobileOpen(false)}
-                      className="rounded-lg p-2 hover:bg-muted"
-                    >
-                      Dashboard
-                    </Link>
-                    <Link
                       href="/bookings"
                       onClick={() => setMobileOpen(false)}
                       className="rounded-lg p-2 hover:bg-muted"
                     >
                       Bookings
+                    </Link>
+                    <Link
+                      href="/quotations"
+                      onClick={() => setMobileOpen(false)}
+                      className="rounded-lg p-2 hover:bg-muted"
+                    >
+                      Quotations
                     </Link>
                     <Link
                       href="/profile"

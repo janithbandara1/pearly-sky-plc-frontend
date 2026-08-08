@@ -31,7 +31,7 @@ export default function LoginPage() {
               description="Enter your email below to login to your account"
               onLogin={async (email, password) => {
                 await login(email, password);
-                router.push("/dashboard");
+                router.push("/bookings");
               }}
               footer={
                 <>
