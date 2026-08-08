@@ -10,7 +10,7 @@
  * on every request and must not make a network call to decide whether a
  * prefix is valid.
  */
-export const SUPPORTED_COUNTRIES = ["fr", "de", "lk"] as const;
+export const SUPPORTED_COUNTRIES = ["fr", "gb", "lk"] as const;
 
 export type CountryCode = (typeof SUPPORTED_COUNTRIES)[number];
 

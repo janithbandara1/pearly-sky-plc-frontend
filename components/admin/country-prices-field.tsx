@@ -7,7 +7,7 @@ import type { ServicePriceInput } from "@/lib/admin-catalog-api";
 
 const COUNTRY_LABELS: Record<CountryCode, string> = {
   fr: "France",
-  de: "Germany",
+  gb: "United Kingdom",
   lk: "Sri Lanka",
 };
 

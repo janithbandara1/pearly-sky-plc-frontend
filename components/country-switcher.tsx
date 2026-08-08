@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { DE, FR, LK } from "country-flag-icons/react/3x2";
+import { FR, GB, LK } from "country-flag-icons/react/3x2";
 import { getCountries, type CountryMeta } from "@/lib/countries/api";
 import { SUPPORTED_COUNTRIES, type CountryCode } from "@/lib/countries/config";
 import { useCountry } from "@/lib/countries/country-context";
@@ -16,13 +16,13 @@ import { cn } from "@/lib/utils";
 
 export const FALLBACK_COUNTRY_NAMES: Record<CountryCode, string> = {
   fr: "France",
-  de: "Germany",
+  gb: "United Kingdom",
   lk: "Sri Lanka",
 };
 
 export const COUNTRY_FLAGS: Record<CountryCode, typeof FR> = {
   fr: FR,
-  de: DE,
+  gb: GB,
   lk: LK,
 };
 

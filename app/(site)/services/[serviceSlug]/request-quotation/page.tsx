@@ -53,7 +53,7 @@ const CUSTOM_QUOTE_ITEMS: Record<string, { title: string; options: QuoteItemOpti
 
 const COUNTRY_NAMES: Record<CountryCode, string> = {
   fr: "France",
-  de: "Germany",
+  gb: "United Kingdom",
   lk: "Sri Lanka",
 };
 
