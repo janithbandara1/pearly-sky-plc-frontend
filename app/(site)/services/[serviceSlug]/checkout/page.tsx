@@ -9,7 +9,6 @@ import { GENERAL_STEAM_CARDS } from "@/components/booking/steam/general-steam-se
 import { INDUSTRIAL_STEAM_CATEGORIES } from "@/components/booking/steam/industrial-commercial-steam-section";
 import { PageHero } from "@/components/page-hero";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { ApiError, useAuth } from "@/lib/auth-context";
@@ -295,62 +294,60 @@ export default function CheckoutPage({
         <div className="flex flex-col gap-6">
           {error && <p className="text-sm text-destructive">{error}</p>}
 
-          <Card>
-            <CardHeader>
-              <CardTitle>Contact information</CardTitle>
-            </CardHeader>
-            <CardContent className="flex flex-col gap-3">
-              <div className="grid grid-cols-2 gap-3">
-                <div className="flex flex-col gap-2">
-                  <Label htmlFor="contact-first-name">First name</Label>
-                  <Input
-                    id="contact-first-name"
-                    required
-                    value={contactForm.firstName}
-                    onChange={(e) =>
-                      setContactForm((f) => ({ ...f, firstName: e.target.value }))
-                    }
-                  />
-                </div>
-                <div className="flex flex-col gap-2">
-                  <Label htmlFor="contact-last-name">Last name</Label>
-                  <Input
-                    id="contact-last-name"
-                    value={contactForm.lastName}
-                    onChange={(e) =>
-                      setContactForm((f) => ({ ...f, lastName: e.target.value }))
-                    }
-                  />
-                </div>
+          <section className="overflow-hidden rounded-[12px] border border-brand-gold-dark">
+            <div className="bg-brand-navy px-5 py-4 text-center">
+              <h2 className="text-[1.1rem] font-bold text-brand-cream sm:text-[1.3rem]">Contact Information</h2>
+            </div>
+            <div className="grid grid-cols-1 gap-4 bg-[#F8F9FA] p-4 sm:grid-cols-2 sm:p-5">
+              <div className="space-y-1.5">
+                <Label htmlFor="contact-first-name">First Name *</Label>
+                <Input
+                  id="contact-first-name"
+                  required
+                  value={contactForm.firstName}
+                  onChange={(e) => setContactForm((f) => ({ ...f, firstName: e.target.value }))}
+                  className="bg-brand-cream"
+                />
               </div>
-              <div className="flex flex-col gap-2">
-                <Label htmlFor="contact-email">Email</Label>
+              <div className="space-y-1.5">
+                <Label htmlFor="contact-last-name">Last Name</Label>
+                <Input
+                  id="contact-last-name"
+                  value={contactForm.lastName}
+                  onChange={(e) => setContactForm((f) => ({ ...f, lastName: e.target.value }))}
+                  className="bg-brand-cream"
+                />
+              </div>
+              <div className="space-y-1.5">
+                <Label htmlFor="contact-email">Email *</Label>
                 <Input
                   id="contact-email"
                   type="email"
                   required
                   value={contactForm.email}
                   onChange={(e) => setContactForm((f) => ({ ...f, email: e.target.value }))}
+                  className="bg-brand-cream"
                 />
               </div>
-              <div className="flex flex-col gap-2">
-                <Label htmlFor="contact-phone">Phone</Label>
+              <div className="space-y-1.5">
+                <Label htmlFor="contact-phone">Phone *</Label>
                 <Input
                   id="contact-phone"
                   type="tel"
                   required
                   value={contactForm.contact}
                   onChange={(e) => setContactForm((f) => ({ ...f, contact: e.target.value }))}
+                  className="bg-brand-cream"
                 />
               </div>
-            </CardContent>
-          </Card>
+            </div>
+          </section>
 
-          <Card>
-            <CardHeader>
-              <CardTitle>Address</CardTitle>
-            </CardHeader>
-            <CardContent className="flex flex-col gap-3">
+          <section className="overflow-hidden rounded-[12px] border border-brand-gold-dark">
+            <div className="bg-brand-navy px-5 py-4 text-center">
+              <h2 className="text-[1.1rem] font-bold text-brand-cream sm:text-[1.3rem]">Address</h2>
+            </div>
+            <div className="flex flex-col gap-4 bg-[#F8F9FA] p-4 sm:p-5">
               {isAuthenticated ? (
                 <>
                   <p className="text-sm font-medium">Select an address</p>
@@ -364,10 +361,10 @@ export default function CheckoutPage({
                       key={address.id}
                       type="button"
                       onClick={() => setSelectedAddressId(address.id)}
-                      className={`rounded-lg border p-3 text-left text-sm transition-colors ${
+                      className={`rounded-[10px] border-[1.5px] bg-brand-cream p-3 text-left text-sm transition-colors ${
                         selectedAddressId === address.id
-                          ? "border-primary bg-primary/5"
-                          : "hover:bg-muted"
+                          ? "border-2 border-brand-gold shadow-[0_0_8px_rgba(169,139,75,0.3)]"
+                          : "border-brand-gold-dark hover:border-brand-gold"
                       }`}
                     >
                       {address.streetAddress}
@@ -377,10 +374,13 @@ export default function CheckoutPage({
                     </button>
                   ))}
 
-                  <form className="flex flex-col gap-3 border-t pt-4" onSubmit={handleAddAddress}>
+                  <form
+                    className="flex flex-col gap-4 border-t border-brand-gold-dark/30 pt-4"
+                    onSubmit={handleAddAddress}
+                  >
                     <p className="text-sm font-medium">Add a new address</p>
-                    <div className="flex flex-col gap-2">
-                      <Label htmlFor="streetAddress">Street address</Label>
+                    <div className="space-y-1.5">
+                      <Label htmlFor="streetAddress">Street Address *</Label>
                       <Input
                         id="streetAddress"
                         required
@@ -388,30 +388,33 @@ export default function CheckoutPage({
                         onChange={(e) =>
                           setAddressForm((f) => ({ ...f, streetAddress: e.target.value }))
                         }
+                        className="bg-brand-cream"
                       />
                     </div>
-                    <div className="grid grid-cols-2 gap-3">
-                      <div className="flex flex-col gap-2">
-                        <Label htmlFor="city">City</Label>
+                    <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+                      <div className="space-y-1.5">
+                        <Label htmlFor="city">City *</Label>
                         <Input
                           id="city"
                           required
                           value={addressForm.city}
                           onChange={(e) => setAddressForm((f) => ({ ...f, city: e.target.value }))}
+                          className="bg-brand-cream"
                         />
                       </div>
-                      <div className="flex flex-col gap-2">
-                        <Label htmlFor="postalCode">Postal code</Label>
+                      <div className="space-y-1.5">
+                        <Label htmlFor="postalCode">Postal Code</Label>
                         <Input
                           id="postalCode"
                           value={addressForm.postalCode}
                           onChange={(e) =>
                             setAddressForm((f) => ({ ...f, postalCode: e.target.value }))
                           }
+                          className="bg-brand-cream"
                         />
                       </div>
                     </div>
-                    <div className="flex flex-col gap-2">
+                    <div className="space-y-1.5">
                       <Label htmlFor="addressCountry">Country</Label>
                       <Input
                         id="addressCountry"
@@ -419,17 +422,23 @@ export default function CheckoutPage({
                         onChange={(e) =>
                           setAddressForm((f) => ({ ...f, country: e.target.value }))
                         }
+                        className="bg-brand-cream"
                       />
                     </div>
-                    <Button type="submit" disabled={addingAddress} variant="outline">
+                    <Button
+                      type="submit"
+                      disabled={addingAddress}
+                      variant="outline"
+                      className="border-brand-gold-dark text-brand-navy hover:bg-brand-gold/10"
+                    >
                       {addingAddress ? "Adding…" : "Add address"}
                     </Button>
                   </form>
                 </>
               ) : (
-                <>
-                  <div className="flex flex-col gap-2">
-                    <Label htmlFor="streetAddress">Street address</Label>
+                <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+                  <div className="space-y-1.5 sm:col-span-2">
+                    <Label htmlFor="streetAddress">Street Address *</Label>
                     <Input
                       id="streetAddress"
                       required
@@ -437,30 +446,31 @@ export default function CheckoutPage({
                       onChange={(e) =>
                         setAddressForm((f) => ({ ...f, streetAddress: e.target.value }))
                       }
+                      className="bg-brand-cream"
                     />
                   </div>
-                  <div className="grid grid-cols-2 gap-3">
-                    <div className="flex flex-col gap-2">
-                      <Label htmlFor="city">City</Label>
-                      <Input
-                        id="city"
-                        required
-                        value={addressForm.city}
-                        onChange={(e) => setAddressForm((f) => ({ ...f, city: e.target.value }))}
-                      />
-                    </div>
-                    <div className="flex flex-col gap-2">
-                      <Label htmlFor="postalCode">Postal code</Label>
-                      <Input
-                        id="postalCode"
-                        value={addressForm.postalCode}
-                        onChange={(e) =>
-                          setAddressForm((f) => ({ ...f, postalCode: e.target.value }))
-                        }
-                      />
-                    </div>
+                  <div className="space-y-1.5">
+                    <Label htmlFor="city">City *</Label>
+                    <Input
+                      id="city"
+                      required
+                      value={addressForm.city}
+                      onChange={(e) => setAddressForm((f) => ({ ...f, city: e.target.value }))}
+                      className="bg-brand-cream"
+                    />
                   </div>
-                  <div className="flex flex-col gap-2">
+                  <div className="space-y-1.5">
+                    <Label htmlFor="postalCode">Postal Code</Label>
+                    <Input
+                      id="postalCode"
+                      value={addressForm.postalCode}
+                      onChange={(e) =>
+                        setAddressForm((f) => ({ ...f, postalCode: e.target.value }))
+                      }
+                      className="bg-brand-cream"
+                    />
+                  </div>
+                  <div className="space-y-1.5">
                     <Label htmlFor="addressCountry">Country</Label>
                     <Input
                       id="addressCountry"
@@ -468,12 +478,13 @@ export default function CheckoutPage({
                       onChange={(e) =>
                         setAddressForm((f) => ({ ...f, country: e.target.value }))
                       }
+                      className="bg-brand-cream"
                     />
                   </div>
-                </>
+                </div>
               )}
-            </CardContent>
-          </Card>
+            </div>
+          </section>
         </div>
 
         <div className="lg:sticky lg:top-6">
