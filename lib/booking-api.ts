@@ -1,4 +1,4 @@
-import { apiFetch } from "./api";
+import { apiFetch, apiUrl } from "./api";
 
 export type BookingSupplySource = "customer" | "company";
 
@@ -135,6 +135,11 @@ export function listMyBookings(accessToken: string) {
 
 export function getMyBooking(accessToken: string, bookingId: number) {
   return apiFetch<Booking>(`/bookings/${bookingId}`, { accessToken });
+}
+
+/** Public — the reference number authenticates the request, so this works for guests too. */
+export function getBookingPdfUrl(bookingId: number, referenceNumber: string) {
+  return apiUrl(`/bookings/${bookingId}/pdf?ref=${encodeURIComponent(referenceNumber)}`);
 }
 
 export function initiateCheckout(accessToken: string, orderId: number) {

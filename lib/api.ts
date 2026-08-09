@@ -1,5 +1,10 @@
 const API_URL = process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:3011";
 
+/** Builds an absolute API URL — for links the browser navigates to directly (e.g. a PDF download), not for apiFetch calls. */
+export function apiUrl(path: string): string {
+  return `${API_URL}${path}`;
+}
+
 export class ApiError extends Error {
   status: number;
 

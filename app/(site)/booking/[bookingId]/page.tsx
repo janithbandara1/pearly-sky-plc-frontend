@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { Suspense, use, useEffect, useState } from "react";
-import { AlertTriangle, CheckCircle2, Clock, XCircle, type LucideIcon } from "lucide-react";
+import { AlertTriangle, CheckCircle2, Clock, Download, XCircle, type LucideIcon } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import {
@@ -17,6 +17,7 @@ import {
 import { ApiError, useAuth } from "@/lib/auth-context";
 import {
   Booking,
+  getBookingPdfUrl,
   getMyBooking,
   initiateCheckout,
   initiateGuestCheckout,
@@ -169,6 +170,14 @@ function BookingStatus({ bookingId }: { bookingId: number }) {
         {canRetryPayment && (
           <Button onClick={handleRetryPayment} disabled={paying} className="w-full">
             {paying ? "Redirecting…" : "Complete payment"}
+          </Button>
+        )}
+        {reference && (
+          <Button asChild variant="outline" className="w-full">
+            <a href={getBookingPdfUrl(bookingId, reference)} download>
+              <Download className="h-4 w-4" />
+              Download PDF
+            </a>
           </Button>
         )}
         {authStatus === "authenticated" ? (

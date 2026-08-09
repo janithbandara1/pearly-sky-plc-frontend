@@ -1,4 +1,4 @@
-import { apiFetch } from "./api";
+import { apiFetch, apiUrl } from "./api";
 import type { BookingLineItem, BookingSupplySource } from "./booking-api";
 
 export type QuotationStatus = "new" | "contacted" | "closed";
@@ -80,6 +80,11 @@ export function listMyQuotations(accessToken: string) {
 
 export function getMyQuotation(accessToken: string, id: number) {
   return apiFetch<Quotation>(`/quotations/${id}`, { accessToken });
+}
+
+/** Public — the reference number authenticates the request, so this works for guests too. */
+export function getQuotationPdfUrl(id: number, referenceNumber: string) {
+  return apiUrl(`/quotations/${id}/pdf?ref=${encodeURIComponent(referenceNumber)}`);
 }
 
 export function listAllQuotationsAdmin(accessToken: string) {

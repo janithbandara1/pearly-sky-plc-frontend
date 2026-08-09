@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { Suspense, use, useEffect, useState } from "react";
-import { CheckCircle2 } from "lucide-react";
+import { CheckCircle2, Download } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import {
@@ -15,7 +15,7 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { useAuth } from "@/lib/auth-context";
-import { getMyQuotation, Quotation } from "@/lib/quotation-api";
+import { getMyQuotation, getQuotationPdfUrl, Quotation } from "@/lib/quotation-api";
 
 function DetailRow({ label, value }: { label: string; value: React.ReactNode }) {
   return (
@@ -74,6 +74,14 @@ function QuotationStatus({ quotationId }: { quotationId: number }) {
       )}
 
       <CardFooter className="flex flex-col gap-2">
+        {reference && (
+          <Button asChild variant="outline" className="w-full">
+            <a href={getQuotationPdfUrl(quotationId, reference)} download>
+              <Download className="h-4 w-4" />
+              Download PDF
+            </a>
+          </Button>
+        )}
         {authStatus === "authenticated" ? (
           <Button asChild className="w-full">
             <Link href="/quotations">Go to my quotations</Link>
