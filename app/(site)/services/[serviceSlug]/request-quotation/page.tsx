@@ -112,6 +112,7 @@ export default function RequestQuotationPage({
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [submitting, setSubmitting] = useState(false);
   const [submitError, setSubmitError] = useState<string | null>(null);
+  const [agreedToTerms, setAgreedToTerms] = useState(false);
 
   useEffect(() => {
     getServiceBySlug(serviceSlug, country)
@@ -201,6 +202,10 @@ export default function RequestQuotationPage({
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     if (!service || !validate()) return;
+    if (!agreedToTerms) {
+      setSubmitError("Please agree to the Terms and Conditions and Privacy Policy to continue.");
+      return;
+    }
 
     const items = (service.serviceItems ?? []).map((si) => si.item);
     const selectedItems =
@@ -567,6 +572,8 @@ export default function RequestQuotationPage({
             requirements={requirements}
             ctaLabel={translate("servicesRequestQuotation")}
             submitting={submitting}
+            agreedToTerms={agreedToTerms}
+            onAgreedToTermsChange={setAgreedToTerms}
           />
           {submitError && <p className="text-sm text-destructive">{submitError}</p>}
         </form>

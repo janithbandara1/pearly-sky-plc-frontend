@@ -85,6 +85,7 @@ export default function CheckoutPage({
 
   const [error, setError] = useState<string | null>(null);
   const [submitting, setSubmitting] = useState(false);
+  const [agreedToTerms, setAgreedToTerms] = useState(false);
 
   useEffect(() => {
     const stored = loadBookingDraft();
@@ -153,6 +154,10 @@ export default function CheckoutPage({
 
   async function handleConfirm() {
     if (!draft) return;
+    if (!agreedToTerms) {
+      setError("Please agree to the Terms and Conditions and Privacy Policy to continue.");
+      return;
+    }
     setError(null);
     setSubmitting(true);
     try {
@@ -510,6 +515,8 @@ export default function CheckoutPage({
             onBookNow={handleConfirm}
             submitting={submitting}
             bookDisabledReason={bookDisabledReason}
+            agreedToTerms={agreedToTerms}
+            onAgreedToTermsChange={setAgreedToTerms}
           />
         </div>
       </div>

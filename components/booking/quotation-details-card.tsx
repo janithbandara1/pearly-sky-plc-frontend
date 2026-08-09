@@ -1,6 +1,7 @@
 "use client";
 
 import type { ReactNode } from "react";
+import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Checkbox } from "@/components/ui/checkbox";
@@ -33,6 +34,8 @@ export interface QuotationDetailsCardProps {
   requirements: string;
   ctaLabel: string;
   submitting?: boolean;
+  agreedToTerms: boolean;
+  onAgreedToTermsChange: (value: boolean) => void;
 }
 
 export function QuotationDetailsCard({
@@ -55,6 +58,8 @@ export function QuotationDetailsCard({
   requirements,
   ctaLabel,
   submitting,
+  agreedToTerms,
+  onAgreedToTermsChange,
 }: QuotationDetailsCardProps) {
   return (
     <Card className="bg-brand-navy text-brand-navy-foreground">
@@ -139,9 +144,31 @@ export function QuotationDetailsCard({
         </div>
 
         <div className="p-4">
+          <label
+            htmlFor="quote-agreed-to-terms"
+            className="mb-3 flex cursor-pointer items-center gap-2 text-xs text-brand-navy-foreground/70"
+          >
+            <Checkbox
+              id="quote-agreed-to-terms"
+              checked={agreedToTerms}
+              onCheckedChange={(checked) => onAgreedToTermsChange(checked === true)}
+              className="border-brand-gold data-checked:border-brand-gold data-checked:bg-brand-gold"
+            />
+            <span>
+              I agree to the{" "}
+              <Link href="/terms-and-conditions" target="_blank" className="underline">
+                Terms and Conditions
+              </Link>{" "}
+              and{" "}
+              <Link href="/privacy-policy" target="_blank" className="underline">
+                Privacy Policy
+              </Link>
+              .
+            </span>
+          </label>
           <Button
             type="submit"
-            disabled={submitting}
+            disabled={submitting || !agreedToTerms}
             className="w-full bg-brand-gold text-brand-navy hover:bg-brand-gold/90"
           >
             {submitting ? "Sending…" : ctaLabel}

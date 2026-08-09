@@ -12,6 +12,7 @@ import {
   FieldGroup,
   FieldLabel,
 } from "@/components/ui/field";
+import { Checkbox } from "@/components/ui/checkbox";
 import { Input } from "@/components/ui/input";
 import { ApiError, useAuth } from "@/lib/auth-context";
 
@@ -24,6 +25,7 @@ export default function SignupPage() {
   const [phone, setPhone] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+  const [agreedToTerms, setAgreedToTerms] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [pending, setPending] = useState(false);
 
@@ -31,6 +33,10 @@ export default function SignupPage() {
     event.preventDefault();
     if (password !== confirmPassword) {
       setError("Passwords do not match.");
+      return;
+    }
+    if (!agreedToTerms) {
+      setError("Please agree to the Terms and Conditions and Privacy Policy to continue.");
       return;
     }
     setError(null);
@@ -139,9 +145,29 @@ export default function SignupPage() {
                     onChange={(e) => setConfirmPassword(e.target.value)}
                   />
                 </Field>
+                <Field>
+                  <label htmlFor="agreedToTerms" className="flex cursor-pointer items-center gap-2 text-sm">
+                    <Checkbox
+                      id="agreedToTerms"
+                      checked={agreedToTerms}
+                      onCheckedChange={(checked) => setAgreedToTerms(checked === true)}
+                    />
+                    <span className="text-muted-foreground">
+                      I agree to the{" "}
+                      <Link href="/terms-and-conditions" target="_blank" className="underline underline-offset-4">
+                        Terms and Conditions
+                      </Link>{" "}
+                      and{" "}
+                      <Link href="/privacy-policy" target="_blank" className="underline underline-offset-4">
+                        Privacy Policy
+                      </Link>
+                      .
+                    </span>
+                  </label>
+                </Field>
                 {error && <FieldError>{error}</FieldError>}
                 <Field>
-                  <Button type="submit" disabled={pending}>
+                  <Button type="submit" disabled={pending || !agreedToTerms}>
                     {pending ? "Creating account…" : "Sign up"}
                   </Button>
                   <FieldDescription className="text-center">

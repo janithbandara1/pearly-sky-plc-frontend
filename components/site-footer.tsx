@@ -138,8 +138,18 @@ export function SiteFooter() {
         </div>
       </div>
 
-      <div className="border-t border-brand-gold/20 px-4 py-4 text-center text-xs text-brand-navy-foreground/60 sm:px-6">
-        © {new Date().getFullYear()} Pearly Sky. {translate("footerRights")}
+      <div className="flex flex-col items-center gap-2 border-t border-brand-gold/20 px-4 py-4 text-center text-xs text-brand-navy-foreground/60 sm:flex-row sm:justify-between sm:px-6">
+        <p>
+          © {new Date().getFullYear()} Pearly Sky. {translate("footerRights")}
+        </p>
+        <div className="flex items-center gap-4">
+          <Link href="/terms-and-conditions" className="transition-colors hover:text-brand-gold">
+            {translate("footerTermsLink")}
+          </Link>
+          <Link href="/privacy-policy" className="transition-colors hover:text-brand-gold">
+            {translate("footerPrivacyLink")}
+          </Link>
+        </div>
       </div>
     </footer>
   );

@@ -1,6 +1,7 @@
 "use client";
 
 import type { ReactNode } from "react";
+import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Checkbox } from "@/components/ui/checkbox";
@@ -62,6 +63,14 @@ export interface BookingDetailsCardProps {
   onBookNow: () => void;
   submitting: boolean;
   bookDisabledReason?: string;
+  /**
+   * Present only on the checkout page — renders the required "I agree to the
+   * Terms and Conditions and Privacy Policy" checkbox and gates the Book Now
+   * button on it. Omitted on the live booking page, where Book Now just
+   * proceeds to checkout rather than submitting a booking.
+   */
+  agreedToTerms?: boolean;
+  onAgreedToTermsChange?: (value: boolean) => void;
 }
 
 export function BookingDetailsCard({
@@ -91,6 +100,8 @@ export function BookingDetailsCard({
   onBookNow,
   submitting,
   bookDisabledReason,
+  agreedToTerms,
+  onAgreedToTermsChange,
 }: BookingDetailsCardProps) {
   const { symbol } = useCurrency();
   const money = (n: number) => `${symbol}${n.toFixed(2)}`;
@@ -100,7 +111,13 @@ export function BookingDetailsCard({
   const estimatedMin = hasPrice ? (quote!.priceMin as number) + addOnsTotal : null;
   const estimatedMax = hasPrice ? (quote!.priceMax as number) + addOnsTotal : null;
 
-  const bookNowDisabled = submitting || !!bookDisabledReason || quoteLoading || !quote?.bookable;
+  const termsRequired = !!onAgreedToTermsChange;
+  const bookNowDisabled =
+    submitting ||
+    !!bookDisabledReason ||
+    quoteLoading ||
+    !quote?.bookable ||
+    (termsRequired && !agreedToTerms);
 
   return (
     <Card className="bg-brand-navy text-brand-navy-foreground">
@@ -258,6 +275,30 @@ export function BookingDetailsCard({
         </div>
 
         <div className="p-4">
+          {onAgreedToTermsChange && (
+            <label
+              htmlFor="agreed-to-terms"
+              className="mb-3 flex cursor-pointer items-center gap-2 text-xs text-brand-navy-foreground/70"
+            >
+              <Checkbox
+                id="agreed-to-terms"
+                checked={agreedToTerms ?? false}
+                onCheckedChange={(checked) => onAgreedToTermsChange(checked === true)}
+                className="border-brand-gold data-checked:border-brand-gold data-checked:bg-brand-gold"
+              />
+              <span>
+                I agree to the{" "}
+                <Link href="/terms-and-conditions" target="_blank" className="underline">
+                  Terms and Conditions
+                </Link>{" "}
+                and{" "}
+                <Link href="/privacy-policy" target="_blank" className="underline">
+                  Privacy Policy
+                </Link>
+                .
+              </span>
+            </label>
+          )}
           <Button
             type="button"
             onClick={onBookNow}
