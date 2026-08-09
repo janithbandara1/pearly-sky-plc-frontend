@@ -290,15 +290,13 @@ export default function RequestQuotationPage({
       />
 
       <div className="mx-auto flex w-full max-w-[1150px] flex-1 flex-col gap-6 p-4 sm:p-6">
-        <div className="flex justify-start">
-          <Link
-            href="/"
-            className="inline-flex h-9 items-center gap-1.5 rounded-lg border-[1.5px] border-brand-gold-dark bg-secondary px-4 text-sm font-medium text-secondary-foreground transition-colors hover:bg-[color-mix(in_oklch,var(--secondary),var(--foreground)_5%)]"
-          >
-            <ArrowLeft className="size-4" />
-            Back
-          </Link>
-        </div>
+        <Link
+          href="/"
+          className="mb-2 inline-flex items-center gap-1 self-start text-sm text-brand-gold-dark hover:underline"
+        >
+          <ArrowLeft className="h-4 w-4" />
+          Back
+        </Link>
 
         {serviceContent?.introduction && <ServiceIntroduction {...serviceContent.introduction} />}
 
