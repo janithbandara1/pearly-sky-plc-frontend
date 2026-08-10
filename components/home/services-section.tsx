@@ -24,6 +24,7 @@ const BOOKABLE_SERVICES = new Set([
   "healthguard-sanitization",
   "steam-cleaning",
   "post-event-cleaning",
+  "security-cleaning",
 ]);
 
 // Services priced on a per-project basis rather than an hourly rate — the
@@ -46,6 +47,7 @@ const QUOTABLE_SERVICES = new Set([
   "post-construction-renovation-cleaning",
   "premium-rental-concierge-cleaning",
   "commercial-office-cleaning",
+  "security-cleaning",
 ]);
 
 // Per-project services with a customized quotation form (no hourly booking flow) —

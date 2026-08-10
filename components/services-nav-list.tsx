@@ -20,6 +20,7 @@ const BOOKABLE_SERVICES = new Set([
   "healthguard-sanitization",
   "steam-cleaning",
   "post-event-cleaning",
+  "security-cleaning",
 ]);
 
 export function useCatalogServices() {

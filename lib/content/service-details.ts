@@ -760,4 +760,50 @@ export const SERVICE_CONTENT: Partial<Record<string, ServiceContentEntry>> = {
       },
     ],
   },
+
+  "security-cleaning": {
+    introduction: {
+      headline: "Security Risks or Physical Chaos?",
+      body: [
+        "Get Complete Physical & Digital Sanitization in a Flash!",
+        "Life and business move fast, and whether you are dealing with a physical space or a digital device, compromised safety and disorder require an immediate response. From confidential office SCIFs, healthcare labs, and high-profile VIP residences needing NDA-cleared staff, to emergency break-in restorations, biohazard spills, and cyber-attack malware purges, our Specialized Security Crew is ready to step in. We deliver rapid, ultra-discreet, and fully vetted cleaning solutions across every environment—protecting your privacy, restoring your assets, and keeping your operations 100% secure.",
+        "When total confidentiality, physical safety, and digital protection matter most, choose the single crew that secures it all.",
+      ],
+    },
+    highlights: [
+      {
+        title: "Security Cleaning Highlights",
+        cards: [
+          {
+            title: "Vetted Staff & Privacy",
+            features: [
+              "100% background-checked, cleared, and NDA-bound technicians.",
+              "Strict non-disclosure protocols to protect physical and digital data.",
+            ],
+          },
+          {
+            title: "High-Security Facilities",
+            features: [
+              "Specialized cleaning for SCIFs, server rooms, and confidential offices.",
+              "Sub-micron dust extraction for sensitive hardware and electronics.",
+            ],
+          },
+          {
+            title: "Emergency & Hazmat Response",
+            features: [
+              "24/7 rapid dispatch for break-ins, biohazard spills, and crime scenes.",
+              "Immediate site securing, board-up, and insurance photo documentation.",
+            ],
+          },
+          {
+            title: "Digital Device Sanitization",
+            features: [
+              "On-site or remote virus, adware, and malware purges.",
+              "Complete data wipes and privacy restoration for infected devices.",
+            ],
+          },
+        ],
+      },
+    ],
+  },
 };

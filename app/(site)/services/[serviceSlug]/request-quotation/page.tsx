@@ -19,6 +19,7 @@ import {
 import { QuoteItemsSection } from "@/components/booking/quote-items-section";
 import { CarpetItemCards } from "@/components/booking/carpet-item-cards";
 import { PoolJobSelection } from "@/components/booking/pool-job-selection";
+import { SecurityCategorySelection } from "@/components/booking/security-category-selection";
 import { QuotationDetailsCard } from "@/components/booking/quotation-details-card";
 import { ServiceIntroduction } from "@/components/booking/service-introduction";
 import { ServiceHighlights } from "@/components/booking/service-highlights";
@@ -51,6 +52,10 @@ const CUSTOM_QUOTE_ITEMS: Record<string, { title: string; options: QuoteItemOpti
   "carpet-upholstery-cleaning": { title: "Carpet & Upholstery Details", options: CARPET_ITEM_OPTIONS },
 };
 
+/** Security Cleaning is quote-only too, but picks one category instead of quantity-based items — a single-select list, not a dropdown. */
+const SECURITY_SLUG = "security-cleaning";
+const SECURITY_CATEGORY_TITLE = "Security Service type";
+
 const COUNTRY_NAMES: Record<CountryCode, string> = {
   fr: "France",
   gb: "United Kingdom",
@@ -68,6 +73,7 @@ export default function RequestQuotationPage({
   const { country } = useCountry();
   const { status, accessToken } = useAuth();
   const customQuote = CUSTOM_QUOTE_ITEMS[serviceSlug];
+  const isSecurityCategory = serviceSlug === SECURITY_SLUG;
   const serviceContent = SERVICE_CONTENT[serviceSlug];
 
   const [service, setService] = useState<CatalogServiceDetail | null>(null);
@@ -82,6 +88,7 @@ export default function RequestQuotationPage({
   const [propertySizeSqm, setPropertySizeSqm] = useState(20);
   const [propertyType, setPropertyType] = useState("");
   const [quoteItems, setQuoteItems] = useState<QuoteItem[]>([]);
+  const [securityCategory, setSecurityCategory] = useState<string | null>(null);
 
   const [numCleaners, setNumCleaners] = useState(1);
   const [durationHours, setDurationHours] = useState(3);
@@ -206,6 +213,10 @@ export default function RequestQuotationPage({
       setSubmitError("Please agree to the Terms and Conditions and Privacy Policy to continue.");
       return;
     }
+    if (isSecurityCategory && !securityCategory) {
+      setSubmitError("Please select a security service category to continue.");
+      return;
+    }
 
     const items = (service.serviceItems ?? []).map((si) => si.item);
     const selectedItems =
@@ -217,7 +228,9 @@ export default function RequestQuotationPage({
 
     const quoteItemLines = customQuote
       ? quoteItems.map((item) => formatQuoteItem(item, customQuote.options))
-      : undefined;
+      : isSecurityCategory && securityCategory
+        ? [securityCategory]
+        : undefined;
 
     setSubmitError(null);
     setSubmitting(true);
@@ -226,10 +239,10 @@ export default function RequestQuotationPage({
         serviceId: service.id,
         date: date || undefined,
         time: time || undefined,
-        propertyType: customQuote ? undefined : propertyType || undefined,
-        propertySizeSqm: customQuote ? undefined : propertySizeSqm,
-        quoteItemsTitle: customQuote?.title,
-        quoteItems: customQuote ? quoteItemLines : undefined,
+        propertyType: customQuote || isSecurityCategory ? undefined : propertyType || undefined,
+        propertySizeSqm: customQuote || isSecurityCategory ? undefined : propertySizeSqm,
+        quoteItemsTitle: customQuote?.title ?? (isSecurityCategory ? SECURITY_CATEGORY_TITLE : undefined),
+        quoteItems: customQuote || isSecurityCategory ? quoteItemLines : undefined,
         supplySource: supplySource || undefined,
         equipmentItems: selectedItems.length
           ? selectedItems.map((i) => ({
@@ -277,7 +290,10 @@ export default function RequestQuotationPage({
   const languageLabel = LANGUAGE_OPTIONS.find((o) => o.value === language)?.label ?? "None";
   const quoteItemLines = customQuote
     ? quoteItems.map((item) => formatQuoteItem(item, customQuote.options))
-    : undefined;
+    : isSecurityCategory
+      ? (securityCategory ? [securityCategory] : [])
+      : undefined;
+  const quoteItemsTitle = customQuote?.title ?? (isSecurityCategory ? SECURITY_CATEGORY_TITLE : undefined);
   const equipmentItems = (service.serviceItems ?? []).map((si) => si.item);
 
   return (
@@ -309,6 +325,8 @@ export default function RequestQuotationPage({
             <CarpetItemCards items={quoteItems} onItemsChange={setQuoteItems} />
           ) : serviceSlug === "pool-cleaning" ? (
             <PoolJobSelection items={quoteItems} onItemsChange={setQuoteItems} />
+          ) : isSecurityCategory ? (
+            <SecurityCategorySelection selected={securityCategory} onSelect={setSecurityCategory} />
           ) : customQuote ? (
             <QuoteItemsSection
               title={customQuote.title}
@@ -555,7 +573,7 @@ export default function RequestQuotationPage({
             date={date}
             time={time}
             quoteItemLines={quoteItemLines}
-            quoteItemsTitle={customQuote?.title}
+            quoteItemsTitle={quoteItemsTitle}
             propertyType={propertyType || undefined}
             propertySizeSqm={propertySizeSqm}
             supplySource={supplySource}
