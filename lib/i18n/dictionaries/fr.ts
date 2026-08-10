@@ -12,7 +12,6 @@ export const fr: Record<TranslationKey, string> = {
   navLogin: "Connexion",
   navSignup: "Inscription",
   navContact: "Contactez-Nous",
-  navViewAllServices: "Voir tous les services",
   navServicesPricingSoon: "Tarif à venir",
   navServicesBookNow: "Réserver",
   navServicesComingSoon: "Bientôt disponible",

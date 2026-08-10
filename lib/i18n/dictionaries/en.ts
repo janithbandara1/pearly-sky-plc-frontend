@@ -10,7 +10,6 @@ export const en = {
   navLogin: "Log in",
   navSignup: "Sign up",
   navContact: "Contact Us",
-  navViewAllServices: "View all services",
   navServicesPricingSoon: "Pricing coming soon",
   navServicesBookNow: "Book now",
   navServicesComingSoon: "Coming soon",

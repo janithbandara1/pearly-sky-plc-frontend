@@ -4,7 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { CalendarDays, ChevronDown, FileText, LogOut, MapPin, Menu, UserRound } from "lucide-react";
+import { CalendarDays, ChevronDown, FileText, LogOut, MapPin, Menu, UserRound, XIcon } from "lucide-react";
 import { useAuth } from "@/lib/auth-context";
 import { useLanguage } from "@/lib/i18n/language-context";
 import { cn } from "@/lib/utils";
@@ -13,6 +13,7 @@ import { LocaleSwitcher } from "@/components/locale-switcher";
 import { Button } from "@/components/ui/button";
 import {
   Sheet,
+  SheetClose,
   SheetContent,
   SheetHeader,
   SheetTitle,
@@ -252,9 +253,15 @@ export function SiteHeader({ navLinks: navLinksProp, showServicesMenu = true }: 
                 <Menu className="h-5 w-5" />
               </Button>
             </SheetTrigger>
-            <SheetContent side="right" className="w-[85vw] max-w-sm gap-0">
-              <SheetHeader>
+            <SheetContent side="right" className="w-[85vw] max-w-sm" showCloseButton={false}>
+              <SheetHeader className="flex-row items-center justify-between">
                 <SheetTitle>{translate("navMenu")}</SheetTitle>
+                <SheetClose asChild>
+                  <Button variant="ghost" size="icon-sm">
+                    <XIcon />
+                    <span className="sr-only">Close</span>
+                  </Button>
+                </SheetClose>
               </SheetHeader>
               <nav className="flex flex-1 flex-col gap-1 overflow-y-auto px-4 pb-4 text-sm font-medium">
                 <Link
@@ -270,22 +277,13 @@ export function SiteHeader({ navLinks: navLinksProp, showServicesMenu = true }: 
 
                 {showServicesMenu && (
                   <>
-                    <p className="mt-2 px-2 text-xs font-semibold uppercase tracking-wide text-muted-foreground">
+                    <p className="px-2 text-xs font-semibold uppercase tracking-wide text-muted-foreground">
                       {translate("navServices")}
                     </p>
                     <ServicesNavList
                       onNavigate={() => setMobileOpen(false)}
                       className="w-full grid-cols-1"
                     />
-                    <Link
-                      href="/#services"
-                      onClick={() => setMobileOpen(false)}
-                      className="rounded-lg p-2 text-brand-gold-dark hover:bg-muted"
-                    >
-                      {translate("navViewAllServices")}
-                    </Link>
-
-                    <div className="my-2 border-t" />
                   </>
                 )}
 
