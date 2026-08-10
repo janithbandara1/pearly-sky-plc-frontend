@@ -10,6 +10,8 @@ import { DISINFECTION_LEVELS, DisinfectionLevelSection } from "@/components/book
 import type { SupplySource } from "@/components/booking/equipment-section";
 import { FACILITY_CARDS, FacilitySelectionSection } from "@/components/booking/facility-selection-section";
 import { JobCardSection } from "@/components/booking/job-card-section";
+import { SecurityCategorySelection } from "@/components/booking/security-category-selection";
+import { YachtCategorySelection } from "@/components/booking/yacht-category-selection";
 import { GeneralSteamSection } from "@/components/booking/steam/general-steam-section";
 import { IndustrialCommercialSteamSection } from "@/components/booking/steam/industrial-commercial-steam-section";
 import { GENDER_OPTIONS, LANGUAGE_OPTIONS } from "@/components/booking/quotation-preferences-section";
@@ -45,6 +47,12 @@ const STEAM_SLUG = "steam-cleaning";
 /** Only post-event-cleaning collects event type selections. */
 const EVENT_SLUG = "post-event-cleaning";
 
+/** Security Cleaning picks one category instead of quantity-based items. */
+const SECURITY_SLUG = "security-cleaning";
+
+/** Luxury Yacht Cleaning follows the same single-select category pattern as Security Cleaning. */
+const YACHT_SLUG = "luxury-yacht-cleaning";
+
 export default function BookServicePage({
   params,
 }: {
@@ -56,6 +64,9 @@ export default function BookServicePage({
   const isSanitization = serviceSlug === SANITIZATION_SLUG;
   const isSteam = serviceSlug === STEAM_SLUG;
   const isEvent = serviceSlug === EVENT_SLUG;
+  const isSecurityCategory = serviceSlug === SECURITY_SLUG;
+  const isYachtCategory = serviceSlug === YACHT_SLUG;
+  const isCategoryQuote = isSecurityCategory || isYachtCategory;
   const serviceContent = SERVICE_CONTENT[serviceSlug];
 
   const [service, setService] = useState<CatalogServiceDetail | null>(null);
@@ -81,6 +92,9 @@ export default function BookServicePage({
 
   const [selectedGeneralSteam, setSelectedGeneralSteam] = useState<Set<string>>(new Set());
   const [selectedIndustrialSteam, setSelectedIndustrialSteam] = useState<Set<string>>(new Set());
+
+  /** Shared by Security Cleaning and Luxury Yacht Cleaning's single-select category pickers. */
+  const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
 
   const [error, setError] = useState<string | null>(null);
   const [submitting, setSubmitting] = useState(false);
@@ -190,6 +204,14 @@ export default function BookServicePage({
       setError("Please select a desired package to continue.");
       return;
     }
+    if (isCategoryQuote && !selectedCategory) {
+      setError(
+        isYachtCategory
+          ? "Please select a yacht service category to continue."
+          : "Please select a security service category to continue.",
+      );
+      return;
+    }
     if (!date || !time) {
       setError("Please select a date and time above.");
       return;
@@ -222,6 +244,7 @@ export default function BookServicePage({
         ? { name: selectedDisinfectionLevel.title, price: selectedDisinfectionLevel.priceAdder }
         : undefined,
       steamItems: isSteam ? [...selectedGeneralSteam, ...selectedIndustrialSteam] : undefined,
+      category: isCategoryQuote ? selectedCategory ?? undefined : undefined,
     });
     router.push(`/services/${serviceSlug}/checkout`);
   }
@@ -249,9 +272,11 @@ export default function BookServicePage({
       ? "Select at least one facility above to continue."
       : isSanitization && !disinfectionLevelId
         ? "Select a desired package above to continue."
-        : !date || !time
-          ? "Select a date and time above to continue."
-          : undefined;
+        : isCategoryQuote && !selectedCategory
+          ? "Select a service type above to continue."
+          : !date || !time
+            ? "Select a date and time above to continue."
+            : undefined;
 
   return (
     <div className={poppins.className}>
@@ -299,7 +324,15 @@ export default function BookServicePage({
           />
         )}
 
-        {!isSanitization && !isSteam && !isEvent && (
+        {isSecurityCategory && (
+          <SecurityCategorySelection selected={selectedCategory} onSelect={setSelectedCategory} />
+        )}
+
+        {isYachtCategory && (
+          <YachtCategorySelection selected={selectedCategory} onSelect={setSelectedCategory} />
+        )}
+
+        {!isSanitization && !isSteam && !isEvent && !isCategoryQuote && (
           <JobCardSection
             packages={(service.servicePackages ?? []).map((sp) => sp.package)}
             selectedIds={selectedPackageIds}
@@ -349,6 +382,7 @@ export default function BookServicePage({
           }
           generalSteamItems={isSteam ? [...selectedGeneralSteam] : undefined}
           industrialSteamItems={isSteam ? [...selectedIndustrialSteam] : undefined}
+          serviceCategory={isCategoryQuote ? selectedCategory ?? undefined : undefined}
           items={displayedEquipmentItems.map((i) => ({
             name: i.name,
             price: i.price !== null ? Number(i.price) : null,

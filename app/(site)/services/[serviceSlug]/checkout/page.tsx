@@ -183,6 +183,7 @@ export default function CheckoutPage({
             : undefined,
           steamItems: draft.steamItems,
           eventTypes: draft.eventTypes,
+          category: draft.category,
           firstName: contactForm.firstName.trim(),
           lastName: contactForm.lastName.trim() || undefined,
           email: contactForm.email.trim(),
@@ -217,6 +218,7 @@ export default function CheckoutPage({
             : undefined,
           steamItems: draft.steamItems,
           eventTypes: draft.eventTypes,
+          category: draft.category,
           firstName: contactForm.firstName.trim(),
           lastName: contactForm.lastName.trim() || undefined,
           email: contactForm.email.trim(),
@@ -509,6 +511,7 @@ export default function CheckoutPage({
             serviceLevel={draft.disinfectionLevel}
             generalSteamItems={generalSteamItems}
             industrialSteamItems={industrialSteamItems}
+            serviceCategory={draft.category}
             items={draft.items}
             supplySource={draft.supplySource}
             addOnsTotal={draft.addOnsTotal}

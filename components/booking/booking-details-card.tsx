@@ -37,6 +37,8 @@ export interface BookingDetailsCardProps {
   generalSteamItems?: string[];
   /** steam-cleaning only — the Industrial & Commercial Steam items selected above. */
   industrialSteamItems?: string[];
+  /** security-cleaning / luxury-yacht-cleaning only — the Service type selected above. */
+  serviceCategory?: string;
   items: BookingDraftItem[];
   /**
    * Drives the read-only `items` list's value text: "Provided by you" when the
@@ -90,6 +92,7 @@ export function BookingDetailsCard({
   serviceLevel,
   generalSteamItems,
   industrialSteamItems,
+  serviceCategory,
   items,
   supplySource,
   onSupplySourceChange,
@@ -156,6 +159,13 @@ export function BookingDetailsCard({
               label={serviceLevel.name}
               value={serviceLevel.price !== null ? money(serviceLevel.price) : "Included"}
             />
+          </div>
+        )}
+
+        {serviceCategory && (
+          <div className="flex flex-col border-t border-brand-gold/20">
+            <SectionHeading label="Service type" />
+            <SummaryRow label={serviceCategory} value="" />
           </div>
         )}
 

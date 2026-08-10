@@ -12,6 +12,7 @@ import {
   ShieldCheck,
   SlidersHorizontal,
   SprayCan,
+  Tag,
   Users,
   Wallet,
   Wind,
@@ -70,6 +71,7 @@ export interface BookingSummaryServiceDetails {
   disinfectionLevel: BookingSummaryLineItem | null;
   steamItems: string[] | null;
   eventTypes: string[] | null;
+  category: string | null;
   service: { label: string };
 }
 
@@ -310,6 +312,12 @@ export function BookingSummaryCard({
               </ul>
             </SectionCard>
           ) : null}
+
+          {details.category && (
+            <SectionCard icon={Tag} label="Service type">
+              <p className="text-sm">{details.category}</p>
+            </SectionCard>
+          )}
 
           <SectionCard icon={SlidersHorizontal} label="Preferences">
             <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">

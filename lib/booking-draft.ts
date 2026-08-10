@@ -35,6 +35,8 @@ export interface BookingDraft {
   steamItems?: string[];
   /** post-event-cleaning only. */
   eventTypes?: string[];
+  /** security-cleaning / luxury-yacht-cleaning only. */
+  category?: string;
   note?: string;
 }
 

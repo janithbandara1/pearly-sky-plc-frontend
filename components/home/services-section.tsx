@@ -25,6 +25,7 @@ const BOOKABLE_SERVICES = new Set([
   "steam-cleaning",
   "post-event-cleaning",
   "security-cleaning",
+  "luxury-yacht-cleaning",
 ]);
 
 // Services priced on a per-project basis rather than an hourly rate — the
@@ -48,6 +49,7 @@ const QUOTABLE_SERVICES = new Set([
   "premium-rental-concierge-cleaning",
   "commercial-office-cleaning",
   "security-cleaning",
+  "luxury-yacht-cleaning",
 ]);
 
 // Per-project services with a customized quotation form (no hourly booking flow) —

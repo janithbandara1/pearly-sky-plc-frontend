@@ -806,4 +806,50 @@ export const SERVICE_CONTENT: Partial<Record<string, ServiceContentEntry>> = {
       },
     ],
   },
+
+  "luxury-yacht-cleaning": {
+    introduction: {
+      headline: "Salty Hull or VIP Charter Coming? Get Yacht-Standard Perfection & Instant Shine!",
+      body: [
+        "Maintaining a world-class luxury vessel requires relentless care and uncompromising detail. Whether you are preparing your yacht for an exclusive charter, recovering from a multi-day sea voyage, or needing discreet interior housekeeping for high-profile guests, our Marine Cleaning Specialists are ready to step in.",
+        "We specialize in high-end yacht detailing, marine-grade hull restoration, teak treatment, and ultra-discreet interior sanitation. Our crew is background-checked, trained in luxury surface care, and fully versed in maritime safety protocols—delivering white-glove treatment while protecting your vessel's delicate finishes and total privacy.",
+        "When luxury and marine precision matter most, choose the crew trusted on the water.",
+      ],
+    },
+    highlights: [
+      {
+        title: "Luxury Yacht Cleaning Highlights",
+        cards: [
+          {
+            title: "Exterior & Superstructure",
+            features: [
+              "Marine-grade wash-down, salt deposit neutralization, and streak-free drying.",
+              "Stainless steel polishing, glass clarity treatment, and teak deck scrubbing.",
+            ],
+          },
+          {
+            title: "Interior VIP Staterooms",
+            features: [
+              "White-glove housekeeping for VIP cabins, master suites, and galley areas.",
+              "Deep cleaning of delicate upholstery, fine leather, marble, and custom woodwork.",
+            ],
+          },
+          {
+            title: "Engine Room & Technical Zones",
+            features: [
+              "Degreasing engine room bilges, wiping down machinery, and mechanical space prep.",
+              "Eco-friendly hazardous residue containment complying with maritime environmental standards.",
+            ],
+          },
+          {
+            title: "Rapid Post-Charter Turnaround",
+            features: [
+              "Emergency 24/7 fast-response cleaning between charter bookings.",
+              "Complete linen turnover, sanitation, and provision prep for upcoming guests.",
+            ],
+          },
+        ],
+      },
+    ],
+  },
 };

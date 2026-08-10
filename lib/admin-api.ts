@@ -50,6 +50,7 @@ export interface AdminOrderServiceDetails {
   disinfectionLevel: AdminOrderLineItem | null;
   steamItems: string[] | null;
   eventTypes: string[] | null;
+  category: string | null;
   service: { id: number; label: string };
 }
 

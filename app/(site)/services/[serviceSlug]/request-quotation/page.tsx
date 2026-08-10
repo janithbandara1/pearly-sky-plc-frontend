@@ -20,6 +20,7 @@ import { QuoteItemsSection } from "@/components/booking/quote-items-section";
 import { CarpetItemCards } from "@/components/booking/carpet-item-cards";
 import { PoolJobSelection } from "@/components/booking/pool-job-selection";
 import { SecurityCategorySelection } from "@/components/booking/security-category-selection";
+import { YachtCategorySelection } from "@/components/booking/yacht-category-selection";
 import { QuotationDetailsCard } from "@/components/booking/quotation-details-card";
 import { ServiceIntroduction } from "@/components/booking/service-introduction";
 import { ServiceHighlights } from "@/components/booking/service-highlights";
@@ -54,7 +55,11 @@ const CUSTOM_QUOTE_ITEMS: Record<string, { title: string; options: QuoteItemOpti
 
 /** Security Cleaning is quote-only too, but picks one category instead of quantity-based items — a single-select list, not a dropdown. */
 const SECURITY_SLUG = "security-cleaning";
-const SECURITY_CATEGORY_TITLE = "Security Service type";
+
+/** Luxury Yacht Cleaning follows the same single-select category pattern as Security Cleaning. */
+const YACHT_SLUG = "luxury-yacht-cleaning";
+
+const CATEGORY_QUOTE_TITLE = "Service type";
 
 const COUNTRY_NAMES: Record<CountryCode, string> = {
   fr: "France",
@@ -74,6 +79,9 @@ export default function RequestQuotationPage({
   const { status, accessToken } = useAuth();
   const customQuote = CUSTOM_QUOTE_ITEMS[serviceSlug];
   const isSecurityCategory = serviceSlug === SECURITY_SLUG;
+  const isYachtCategory = serviceSlug === YACHT_SLUG;
+  const isCategoryQuote = isSecurityCategory || isYachtCategory;
+  const categoryQuoteTitle = isCategoryQuote ? CATEGORY_QUOTE_TITLE : undefined;
   const serviceContent = SERVICE_CONTENT[serviceSlug];
 
   const [service, setService] = useState<CatalogServiceDetail | null>(null);
@@ -88,7 +96,8 @@ export default function RequestQuotationPage({
   const [propertySizeSqm, setPropertySizeSqm] = useState(20);
   const [propertyType, setPropertyType] = useState("");
   const [quoteItems, setQuoteItems] = useState<QuoteItem[]>([]);
-  const [securityCategory, setSecurityCategory] = useState<string | null>(null);
+  /** Shared by Security Cleaning and Luxury Yacht Cleaning's single-select category pickers — only one renders per page, gated by `isSecurityCategory`/`isYachtCategory`. */
+  const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
 
   const [numCleaners, setNumCleaners] = useState(1);
   const [durationHours, setDurationHours] = useState(3);
@@ -213,8 +222,12 @@ export default function RequestQuotationPage({
       setSubmitError("Please agree to the Terms and Conditions and Privacy Policy to continue.");
       return;
     }
-    if (isSecurityCategory && !securityCategory) {
-      setSubmitError("Please select a security service category to continue.");
+    if (isCategoryQuote && !selectedCategory) {
+      setSubmitError(
+        isYachtCategory
+          ? "Please select a yacht service category to continue."
+          : "Please select a security service category to continue.",
+      );
       return;
     }
 
@@ -228,8 +241,8 @@ export default function RequestQuotationPage({
 
     const quoteItemLines = customQuote
       ? quoteItems.map((item) => formatQuoteItem(item, customQuote.options))
-      : isSecurityCategory && securityCategory
-        ? [securityCategory]
+      : isCategoryQuote && selectedCategory
+        ? [selectedCategory]
         : undefined;
 
     setSubmitError(null);
@@ -239,10 +252,10 @@ export default function RequestQuotationPage({
         serviceId: service.id,
         date: date || undefined,
         time: time || undefined,
-        propertyType: customQuote || isSecurityCategory ? undefined : propertyType || undefined,
-        propertySizeSqm: customQuote || isSecurityCategory ? undefined : propertySizeSqm,
-        quoteItemsTitle: customQuote?.title ?? (isSecurityCategory ? SECURITY_CATEGORY_TITLE : undefined),
-        quoteItems: customQuote || isSecurityCategory ? quoteItemLines : undefined,
+        propertyType: customQuote || isCategoryQuote ? undefined : propertyType || undefined,
+        propertySizeSqm: customQuote || isCategoryQuote ? undefined : propertySizeSqm,
+        quoteItemsTitle: customQuote?.title ?? (isCategoryQuote ? categoryQuoteTitle : undefined),
+        quoteItems: customQuote || isCategoryQuote ? quoteItemLines : undefined,
         supplySource: supplySource || undefined,
         equipmentItems: selectedItems.length
           ? selectedItems.map((i) => ({
@@ -290,10 +303,10 @@ export default function RequestQuotationPage({
   const languageLabel = LANGUAGE_OPTIONS.find((o) => o.value === language)?.label ?? "None";
   const quoteItemLines = customQuote
     ? quoteItems.map((item) => formatQuoteItem(item, customQuote.options))
-    : isSecurityCategory
-      ? (securityCategory ? [securityCategory] : [])
+    : isCategoryQuote
+      ? (selectedCategory ? [selectedCategory] : [])
       : undefined;
-  const quoteItemsTitle = customQuote?.title ?? (isSecurityCategory ? SECURITY_CATEGORY_TITLE : undefined);
+  const quoteItemsTitle = customQuote?.title ?? (isCategoryQuote ? categoryQuoteTitle : undefined);
   const equipmentItems = (service.serviceItems ?? []).map((si) => si.item);
 
   return (
@@ -326,7 +339,9 @@ export default function RequestQuotationPage({
           ) : serviceSlug === "pool-cleaning" ? (
             <PoolJobSelection items={quoteItems} onItemsChange={setQuoteItems} />
           ) : isSecurityCategory ? (
-            <SecurityCategorySelection selected={securityCategory} onSelect={setSecurityCategory} />
+            <SecurityCategorySelection selected={selectedCategory} onSelect={setSelectedCategory} />
+          ) : isYachtCategory ? (
+            <YachtCategorySelection selected={selectedCategory} onSelect={setSelectedCategory} />
           ) : customQuote ? (
             <QuoteItemsSection
               title={customQuote.title}

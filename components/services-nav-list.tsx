@@ -21,6 +21,7 @@ const BOOKABLE_SERVICES = new Set([
   "steam-cleaning",
   "post-event-cleaning",
   "security-cleaning",
+  "luxury-yacht-cleaning",
 ]);
 
 export function useCatalogServices() {
