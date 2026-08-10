@@ -185,7 +185,7 @@ export default function AboutPage() {
         <h2 className="text-2xl font-bold tracking-tight sm:text-3xl">{translate("aboutPageCtaTitle")}</h2>
         <p className="mt-3 text-muted-foreground">{translate("aboutPageCtaSubtitle")}</p>
         <Button asChild size="lg" className="mt-6 bg-brand-navy text-brand-navy-foreground hover:bg-brand-navy/90">
-          <Link href="/contact">{translate("aboutPageCtaButton")}</Link>
+          <Link href="/contact-us">{translate("aboutPageCtaButton")}</Link>
         </Button>
       </section>
     </main>

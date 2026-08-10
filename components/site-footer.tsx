@@ -27,12 +27,12 @@ const SOCIAL_LINKS = [
 
 const NAV_LINKS: { href: string; labelKey: TranslationKey; external?: boolean }[] = [
   { href: "/", labelKey: "navHome" },
-  { href: "/about", labelKey: "navAbout" },
-  { href: "/customers", labelKey: "navCustomers" },
-  { href: "/locations", labelKey: "navLocations" },
+  { href: "/about-us", labelKey: "navAbout" },
+  { href: "/our-customers", labelKey: "navCustomers" },
+  { href: "/our-locations", labelKey: "navLocations" },
   { href: "/blog", labelKey: "navBlog" },
   { href: "/careers", labelKey: "navCareers" },
-  { href: "/contact", labelKey: "navContact" },
+  { href: "/contact-us", labelKey: "navContact" },
 ];
 
 const HOTLINE = "+33 743 708 780";

@@ -41,12 +41,12 @@ export function SiteHeader({ navLinks: navLinksProp, showServicesMenu = true }: 
   const accountRef = useRef<HTMLDivElement>(null);
 
   const defaultNavLinks = [
-    { href: "/about", label: translate("navAbout") },
-    { href: "/customers", label: translate("navCustomers") },
-    { href: "/locations", label: translate("navLocations") },
+    { href: "/about-us", label: translate("navAbout") },
+    { href: "/our-customers", label: translate("navCustomers") },
+    { href: "/our-locations", label: translate("navLocations") },
     { href: "/blog", label: translate("navBlog") },
     { href: "/careers", label: translate("navCareers") },
-    { href: "/contact", label: translate("navContact") },
+    { href: "/contact-us", label: translate("navContact") },
   ];
   const navLinks = navLinksProp ?? defaultNavLinks;
 
