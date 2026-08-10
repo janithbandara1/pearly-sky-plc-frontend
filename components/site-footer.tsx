@@ -65,7 +65,7 @@ export function SiteFooter() {
           </p>
         </div>
 
-        <div className="space-y-3">
+        <div className="space-y-3 text-center md:text-left">
           <h3 className="text-sm font-bold tracking-widest text-brand-gold">
             {translate("footerQuickLinksTitle")}
           </h3>
@@ -80,7 +80,7 @@ export function SiteFooter() {
                 type="button"
                 onClick={() => setServicesOpen((open) => !open)}
                 aria-expanded={servicesOpen}
-                className="flex w-full items-center justify-between gap-1 text-left transition-colors hover:text-brand-gold"
+                className="flex w-full items-center justify-center gap-1 text-center transition-colors hover:text-brand-gold md:justify-between md:text-left"
               >
                 {translate("navServices")}
                 {servicesOpen ? <ChevronUp className="size-3.5" /> : <ChevronDown className="size-3.5" />}
@@ -101,8 +101,8 @@ export function SiteFooter() {
           </ul>
         </div>
 
-        <div className="space-y-3">
-          <div className="flex flex-wrap items-center gap-2">
+        <div className="flex flex-col items-center gap-3 text-center lg:items-start lg:text-left">
+          <div className="flex flex-wrap items-center justify-center gap-2 lg:justify-start">
             <a
               href={WHATSAPP_URL}
               target="_blank"
@@ -122,7 +122,7 @@ export function SiteFooter() {
           </div>
         </div>
 
-        <div className="flex gap-2">
+        <div className="flex justify-center gap-2 lg:justify-start">
           {SOCIAL_LINKS.map(({ href, label, Icon }) => (
             <a
               key={label}
