@@ -46,7 +46,7 @@ export const blogPosts: BlogPost[] = [
     body: [
       "Conventional cleaning products often trade effectiveness for harsh chemicals — leaving residues that affect indoor air quality and aren't always safe around children or pets.",
       "Eco-friendly cleaning flips that trade-off. Modern sustainable formulas clean just as thoroughly while being gentler on surfaces, safer for the people and animals who live in the space, and kinder to the environment once they're rinsed away.",
-      "It's a standard we hold across every Pearly Sky service — luxury-grade results without the compromise, for homes and offices across France.",
+      "It's a standard we hold across every Pearly Sky service — luxury-grade results without the compromise, for homes and offices wherever we serve them.",
     ],
   },
   {

@@ -114,23 +114,70 @@ export const fr: Record<TranslationKey, string> = {
   aboutPageHeroTitle: "Votre Partenaire de Confiance",
   aboutPageIdentityTitle: "Notre Identité",
   aboutPageIdentitySubtitle: "Là où la Propreté Rencontre le Luxe",
+  aboutPageIdentityIntro:
+    "Chez Pearly Sky, nous croyons que la propreté véritable est un art — le fondement d'un environnement sain, productif et serein.",
+  aboutIdentity1Label: "Soin Impeccable",
+  aboutIdentity1Text:
+    "Nous nous engageons à un niveau de détail et d'excellence inégalé dans chaque service que nous fournissons.",
+  aboutIdentity2Label: "Éco-Luxe",
+  aboutIdentity2Text:
+    "Nous combinons des pratiques durables et non toxiques avec une approche premium et soignée.",
+  aboutIdentity3Label: "Service Complet",
+  aboutIdentity3Text:
+    "Nous sommes votre partenaire de confiance, tant pour un service de nettoyage haut de gamme que pour des solutions de transport fiables.",
   aboutPageStoryTitle: "Notre Histoire",
   aboutPageStorySubtitle: "D'une Vision à une Portée Mondiale",
+  aboutPageStoryParagraph1:
+    "Pearly Sky Cleaning Services a débuté comme une petite entreprise locale portée par une vision unique : révolutionner le secteur du nettoyage en établissant une nouvelle norme de qualité, d'innovation et de durabilité.",
   aboutPageWhyTitle: "Pourquoi Choisir Pearly Sky ?",
   aboutPageWhySubtitle: "Les Piliers de l'Éco-Luxe",
+  aboutWhy1Title: "Équipe Expérimentée",
+  aboutWhy1Text:
+    "Notre personnel formé, professionnel et courtois excelle à relever tout défi de nettoyage avec discrétion et précision.",
+  aboutWhy2Title: "Pratiques Écologiques",
+  aboutWhy2Text:
+    "Nous utilisons des produits de nettoyage sûrs, non toxiques et avancés, garantissant des méthodes respectueuses de l'environnement et sans danger pour votre famille ou vos employés.",
+  aboutWhy3Title: "Solutions Sur Mesure",
+  aboutWhy3Text:
+    "Chaque client est unique. Nous adaptons nos services de nettoyage et de transport à vos besoins spécifiques, votre emploi du temps et vos préférences de luxe.",
+  aboutWhy4Title: "Luxe Accessible",
+  aboutWhy4Text: "Nous proposons des tarifs compétitifs offrant un service premium sans compromis sur la qualité.",
+  aboutWhy5Title: "Disponibilité 24h/24 7j/7",
+  aboutWhy5Text:
+    "Nous sommes à vos côtés, offrant un service fiable et rapide, à tout moment où vous avez besoin de nous.",
   aboutPageVisionMissionTitle: "Vision, Mission & Valeurs",
   aboutPageVisionTitle: "Notre Vision",
+  aboutVisionText:
+    "Nous offrons l'excellence en visant une qualité exceptionnelle et des résultats remarquables pour tous nos clients et partenaires.",
   aboutPageMissionTitle: "Notre Mission",
+  aboutMissionText:
+    "Nous sommes des précurseurs grâce à un service exceptionnel et une innovation créative, faisant progresser nos secteurs du nettoyage et du transport.",
   aboutPageValuesTitle: "Nos Valeurs Fondamentales",
+  aboutValue1: "Diversité, Inclusion & Équité",
+  aboutValue2: "Responsabilité",
+  aboutValue3: "Durabilité",
+  aboutValue4: "Esprit d'Équipe",
+  aboutValue5: "Excellence du Service",
   aboutPageObjectivesTitle: "Nos Objectifs",
+  aboutObjective1: "Promouvoir la diversité et l'inclusion",
+  aboutObjective2: "Attirer et fidéliser les meilleurs talents",
+  aboutObjective3: "Encourager l'innovation",
+  aboutObjective4: "Dépasser les attentes de nos partenaires",
+  aboutObjective5: "Construire une culture de service forte",
   aboutPageCtaTitle: "Prêt à découvrir l'Art du Soin Impeccable ?",
   aboutPageCtaSubtitle: "Contactez-nous dès aujourd'hui pour planifier votre service de nettoyage ou de transport éco-luxe personnalisé.",
   aboutPageCtaButton: "Contactez-Nous",
 
   // Our Customers page
   customersPageTitle: "Nos Clients",
-  customersPageSubtitle: "La confiance d'une clientèle exigeante à travers la France",
   customersClienteleTitle: "Notre clientèle comprend",
+  customersClientele1: "Familles à très haute valeur nette et propriétés privées",
+  customersClientele2: "Propriétaires de yachts de luxe et services de conciergerie maritime",
+  customersClientele3: "Gestionnaires immobiliers haut de gamme et groupes immobiliers",
+  customersClientele4: "Résidences diplomatiques et organisations sensibles en matière de sécurité",
+  customersClientele5: "Établissements hôteliers cinq étoiles et lieux événementiels",
+  customersClosingParagraph:
+    "Chaque client bénéficie d'un plan de soin sur mesure, conçu selon son mode de vie, son emploi du temps et ses exigences de confidentialité. Notre réputation repose sur la confiance, la constance et un engagement sans faille envers l'excellence éco-luxe.",
   customersGalleryTitle: "Moments d'Excellence",
   customersTestimonialsTitle: "Ce Que Disent Nos Clients",
 
@@ -173,6 +220,5 @@ export const fr: Record<TranslationKey, string> = {
 
   // Contact Us page
   contactPageTitle: "Contactez Notre Équipe Concierge",
-  contactPageSubtitle: "Nous sommes là pour vous aider, où que vous soyez en France.",
   contactOfficesTitle: "Nos Bureaux",
 };

@@ -112,23 +112,66 @@ export const en = {
   aboutPageHeroTitle: "Your Trusted Cleaning Partner",
   aboutPageIdentityTitle: "Our Core Identity",
   aboutPageIdentitySubtitle: "Where Cleanliness Meets Luxury",
+  aboutPageIdentityIntro:
+    "At Pearly Sky, we believe true cleanliness is an art form — the foundation of a healthy, productive, and serene environment.",
+  aboutIdentity1Label: "Pristine Care",
+  aboutIdentity1Text: "We are committed to an unmatched level of detail and excellence in every service we provide.",
+  aboutIdentity2Label: "Eco-Luxury",
+  aboutIdentity2Text: "We combine sustainable, non-toxic practices with a premium, white-glove approach.",
+  aboutIdentity3Label: "Comprehensive Service",
+  aboutIdentity3Text: "We are your trusted partner for both elite cleaning care and reliable transport solutions.",
   aboutPageStoryTitle: "Our Story",
   aboutPageStorySubtitle: "From Vision to Global Reach",
+  aboutPageStoryParagraph1:
+    "Pearly Sky Cleaning Services began as a small local business driven by a singular vision: to revolutionize the cleaning industry by setting a new standard for quality, innovation, and sustainability.",
   aboutPageWhyTitle: "Why Choose Pearly Sky?",
   aboutPageWhySubtitle: "The Pillars of Eco-Luxury",
+  aboutWhy1Title: "Experienced Team",
+  aboutWhy1Text:
+    "Our trained, professional, and courteous staff are experts in handling any cleaning challenge with discretion and precision.",
+  aboutWhy2Title: "Eco-Friendly Practices",
+  aboutWhy2Text:
+    "We utilize safe, non-toxic, and advanced cleaning products, ensuring our methods are gentle on the environment and safe for your family or employees.",
+  aboutWhy3Title: "Customized Solutions",
+  aboutWhy3Text:
+    "Every client is unique. We tailor our cleaning and transport services to meet your specific needs, schedules, and luxury preferences.",
+  aboutWhy4Title: "Affordable Luxury",
+  aboutWhy4Text: "We provide competitive rates that deliver premium service without compromising quality.",
+  aboutWhy5Title: "24/7 Availability",
+  aboutWhy5Text: "We are here for you, offering reliable and prompt service, anytime you need us.",
   aboutPageVisionMissionTitle: "Vision, Mission & Values",
   aboutPageVisionTitle: "Our Vision",
+  aboutVisionText:
+    "We deliver excellence by striving for exceptional quality and outstanding results for all our clients and partners.",
   aboutPageMissionTitle: "Our Mission",
+  aboutMissionText:
+    "We lead through exceptional service and creative innovation, driving progress across our cleaning and transport sectors.",
   aboutPageValuesTitle: "Our Core Values",
+  aboutValue1: "Diversity, Inclusion & Equity",
+  aboutValue2: "Accountability",
+  aboutValue3: "Sustainability",
+  aboutValue4: "Teamwork",
+  aboutValue5: "Service Excellence",
   aboutPageObjectivesTitle: "Our Objectives",
+  aboutObjective1: "Promote diversity and inclusion",
+  aboutObjective2: "Attract and retain top talent",
+  aboutObjective3: "Encourage innovation",
+  aboutObjective4: "Exceed partner expectations",
+  aboutObjective5: "Build a strong service culture",
   aboutPageCtaTitle: "Ready to experience the Art of Pristine Care?",
   aboutPageCtaSubtitle: "Contact us today to schedule your customized eco-luxury cleaning or transport service.",
   aboutPageCtaButton: "Contact Us",
 
   // Our Customers page
   customersPageTitle: "Our Customers",
-  customersPageSubtitle: "Trusted by discerning clients across France",
   customersClienteleTitle: "Our clientele includes",
+  customersClientele1: "Ultra-high-net-worth families and private estates",
+  customersClientele2: "Luxury yacht owners and maritime concierge services",
+  customersClientele3: "Premium property managers and real-estate groups",
+  customersClientele4: "Diplomatic residences and security-sensitive organizations",
+  customersClientele5: "Five-star hospitality and event venues",
+  customersClosingParagraph:
+    "Every client receives a bespoke care plan, crafted around their lifestyle, schedule, and privacy requirements. Our reputation is built on trust, consistency, and an unwavering commitment to eco-luxury standards.",
   customersGalleryTitle: "Moments of Excellence",
   customersTestimonialsTitle: "What Our Clients Say",
 
@@ -171,7 +214,6 @@ export const en = {
 
   // Contact Us page
   contactPageTitle: "Contact Our Concierge Team",
-  contactPageSubtitle: "We're here to help, wherever you are in France.",
   contactOfficesTitle: "Our Offices",
 } as const;
 

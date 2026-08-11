@@ -4,17 +4,21 @@ import { PageHero } from "@/components/page-hero";
 import { ContactSection } from "@/components/home/contact-section";
 import { LocationCard } from "@/components/location-card";
 import { useLanguage } from "@/lib/i18n/language-context";
+import { useCountry } from "@/lib/countries/country-context";
+import { getCountryPageContent } from "@/lib/countries/page-content";
 import { officeLocations } from "@/lib/content/locations";
 
 export default function ContactPage() {
-  const { translate } = useLanguage();
+  const { translate, language } = useLanguage();
+  const { country } = useCountry();
+  const { contactSubtitle } = getCountryPageContent(country, language);
 
   return (
     <main className="flex-1">
       <PageHero
         image="/images/locations/contact-hero.webp"
         title={translate("contactPageTitle")}
-        subtitle={translate("contactPageSubtitle")}
+        subtitle={contactSubtitle}
       />
 
       <ContactSection />
