@@ -15,15 +15,15 @@ import {
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { DataTable } from "@/components/admin/data-table";
-import { ConfirmDeleteDialog } from "@/components/admin/confirm-delete-dialog";
+import { DataTable } from "@/components/staff/data-table";
+import { ConfirmDeleteDialog } from "@/components/staff/confirm-delete-dialog";
 import {
   CountryPricesField,
   CountryPricesForm,
   EMPTY_COUNTRY_PRICES,
   fromCountryPricesPayload,
   toCountryPricesPayload,
-} from "@/components/admin/country-prices-field";
+} from "@/components/staff/country-prices-field";
 import { ApiError } from "@/lib/auth-context";
 import {
   AdminPackage,

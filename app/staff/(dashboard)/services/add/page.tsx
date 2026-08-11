@@ -5,15 +5,15 @@ import { useRouter } from "next/navigation";
 import { useCallback, useEffect, useState } from "react";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
-import { ServiceFormFields } from "@/components/admin/service-form-fields";
-import { ServiceItemsField } from "@/components/admin/service-items-field";
-import { ServicePackagesField } from "@/components/admin/service-packages-field";
+import { ServiceFormFields } from "@/components/staff/service-form-fields";
+import { ServiceItemsField } from "@/components/staff/service-items-field";
+import { ServicePackagesField } from "@/components/staff/service-packages-field";
 import {
   EMPTY_COUNTRY_PRICES,
   CountryPricesField,
   CountryPricesForm,
   toCountryPricesPayload,
-} from "@/components/admin/country-prices-field";
+} from "@/components/staff/country-prices-field";
 import { ApiError } from "@/lib/auth-context";
 import type { CatalogItem } from "@/lib/catalog-api";
 import {

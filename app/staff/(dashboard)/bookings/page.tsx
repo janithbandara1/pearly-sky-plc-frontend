@@ -22,7 +22,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { DataTable } from "@/components/admin/data-table";
+import { DataTable } from "@/components/staff/data-table";
 import { ApiError } from "@/lib/auth-context";
 import {
   AdminOrder,

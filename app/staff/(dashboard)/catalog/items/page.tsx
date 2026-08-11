@@ -22,15 +22,15 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { DataTable } from "@/components/admin/data-table";
-import { ConfirmDeleteDialog } from "@/components/admin/confirm-delete-dialog";
+import { DataTable } from "@/components/staff/data-table";
+import { ConfirmDeleteDialog } from "@/components/staff/confirm-delete-dialog";
 import {
   CountryPricesField,
   CountryPricesForm,
   EMPTY_COUNTRY_PRICES,
   fromCountryPricesPayload,
   toCountryPricesPayload,
-} from "@/components/admin/country-prices-field";
+} from "@/components/staff/country-prices-field";
 import { ApiError } from "@/lib/auth-context";
 import type { CatalogItem } from "@/lib/catalog-api";
 import {

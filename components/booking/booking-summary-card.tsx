@@ -363,7 +363,12 @@ export function BookingSummaryCard({
             {details.supplySource === "company" && details.equipmentItems?.length ? (
               <ul className="mt-2 flex flex-col gap-2 text-sm">
                 {details.equipmentItems.map((item) => (
-                  <LineItemRow key={item.name} name={item.name} price={item.price} money={money} />
+                  <LineItemRow
+                    key={item.name}
+                    name={item.name}
+                    price={showPaymentInfo ? item.price : undefined}
+                    money={money}
+                  />
                 ))}
               </ul>
             ) : null}

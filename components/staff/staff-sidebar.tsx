@@ -51,7 +51,7 @@ const CLEANER_NAV_ITEMS: NavItem[] = [
   { href: "/staff/bookings", label: "Bookings", icon: ClipboardList },
 ];
 
-export function AdminSidebar() {
+export function StaffSidebar() {
   const pathname = usePathname();
   const router = useRouter();
   const { logout, staff } = useStaffAuth();
@@ -78,7 +78,7 @@ export function AdminSidebar() {
                 </div>
                 <div className="flex flex-col gap-0.5 leading-none">
                   <span className="font-medium">Pearly Sky Cleaning</span>
-                  <span className="text-xs text-muted-foreground">Admin</span>
+                  <span className="text-xs text-muted-foreground">{isAdmin ? "Admin" : "Cleaner"}</span>
                 </div>
               </Link>
             </SidebarMenuButton>

@@ -27,7 +27,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Switch } from "@/components/ui/switch";
-import { DataTable } from "@/components/admin/data-table";
+import { DataTable } from "@/components/staff/data-table";
 import { ApiError } from "@/lib/auth-context";
 import {
   AdminUser,

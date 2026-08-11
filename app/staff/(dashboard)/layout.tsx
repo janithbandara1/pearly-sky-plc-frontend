@@ -2,7 +2,7 @@
 
 import { usePathname, useRouter } from "next/navigation";
 import { useEffect } from "react";
-import { AdminSidebar } from "@/components/admin/admin-sidebar";
+import { StaffSidebar } from "@/components/staff/staff-sidebar";
 import { SidebarInset, SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
 import { useStaffAuth } from "@/lib/staff-auth-context";
 
@@ -40,7 +40,7 @@ export default function AdminDashboardLayout({
 
   return (
     <SidebarProvider>
-      <AdminSidebar />
+      <StaffSidebar />
       <SidebarInset>
         <header className="flex h-14 shrink-0 items-center gap-2 border-b px-4">
           <SidebarTrigger />

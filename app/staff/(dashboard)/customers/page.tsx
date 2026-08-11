@@ -3,7 +3,7 @@
 import { ColumnDef } from "@tanstack/react-table";
 import { useCallback, useEffect, useState } from "react";
 import { Input } from "@/components/ui/input";
-import { DataTable } from "@/components/admin/data-table";
+import { DataTable } from "@/components/staff/data-table";
 import { ApiError } from "@/lib/auth-context";
 import { AdminCustomer, listCustomersAdmin } from "@/lib/admin-customers-api";
 import { useStaffAuth } from "@/lib/staff-auth-context";
