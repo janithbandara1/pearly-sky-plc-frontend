@@ -9,6 +9,7 @@ import {
   useState,
 } from "react";
 import { apiFetch } from "./api";
+import { STAFF_SESSION_HINT_COOKIE, clearSessionHintCookie, setSessionHintCookie } from "./session-hint";
 
 type StaffAuthStatus = "loading" | "authenticated" | "unauthenticated";
 
@@ -61,12 +62,16 @@ export function StaffAuthProvider({ children }: { children: React.ReactNode }) {
     const me = await getStaffMe(token);
     setStaff(me);
     setStatus("authenticated");
+    setSessionHintCookie(STAFF_SESSION_HINT_COOKIE);
   }, []);
 
   useEffect(() => {
     refreshStaff()
       .then(({ accessToken: token }) => applySession(token))
-      .catch(() => setStatus("unauthenticated"));
+      .catch(() => {
+        clearSessionHintCookie(STAFF_SESSION_HINT_COOKIE);
+        setStatus("unauthenticated");
+      });
   }, [applySession]);
 
   const login = useCallback(
@@ -82,6 +87,7 @@ export function StaffAuthProvider({ children }: { children: React.ReactNode }) {
     setAccessToken(null);
     setStaff(null);
     setStatus("unauthenticated");
+    clearSessionHintCookie(STAFF_SESSION_HINT_COOKIE);
   }, []);
 
   const value = useMemo(

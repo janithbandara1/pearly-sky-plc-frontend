@@ -1,4 +1,5 @@
-import { CustomerDashboardShell } from "@/components/customer/customer-dashboard-shell";
+import { CustomerHeader } from "@/components/customer/customer-header";
+import { SiteFooter } from "@/components/site-footer";
 import { getRequestCountry } from "@/lib/countries/server";
 import { CountryProvider } from "@/lib/countries/country-context";
 import { getRequestLanguage } from "@/lib/i18n/server";
@@ -16,7 +17,9 @@ export default async function DashboardLayout({
     <CountryProvider country={country}>
       <CurrencyProvider>
         <LanguageProvider language={language}>
-          <CustomerDashboardShell>{children}</CustomerDashboardShell>
+          <CustomerHeader />
+          <div className="flex flex-1 flex-col gap-4 p-4 md:p-6">{children}</div>
+          <SiteFooter />
         </LanguageProvider>
       </CurrencyProvider>
     </CountryProvider>

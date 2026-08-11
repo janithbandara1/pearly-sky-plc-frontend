@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
+import { CUSTOMER_SESSION_HINT_COOKIE, STAFF_SESSION_HINT_COOKIE } from "@/lib/session-hint";
 import {
   COUNTRY_COOKIE_MAX_AGE,
   COUNTRY_COOKIE_NAME,
@@ -8,7 +9,6 @@ import {
   type CountryCode,
 } from "@/lib/countries/config";
 import { detectCountryFromHeaders, extractCountryPrefix } from "@/lib/countries/geo";
-import { isKnownBot } from "@/lib/countries/bots";
 import {
   LANGUAGE_COOKIE_MAX_AGE,
   LANGUAGE_COOKIE_NAME,
@@ -19,111 +19,116 @@ import {
 import { detectLanguageFromHeaders, extractLanguagePrefix } from "@/lib/i18n/geo";
 import { buildLocalePath } from "@/lib/locale";
 
-/** Cookie language if valid, else Accept-Language — language always resolves to something. */
-function resolveLanguage(request: NextRequest): { language: LanguageCode; fromCookie: boolean } {
-  const cookieLanguage = request.cookies.get(LANGUAGE_COOKIE_NAME)?.value;
-  if (isSupportedLanguage(cookieLanguage)) {
-    return { language: cookieLanguage, fromCookie: true };
-  }
-  return { language: detectLanguageFromHeaders(request.headers), fromCookie: false };
+const CUSTOMER_PROTECTED_PREFIXES = ["/bookings", "/quotations", "/profile", "/addresses"];
+
+// Pages with no CountryProvider/LanguageProvider above them (see their layouts) —
+// never candidates for the unprefixed -> /{country}/{language} redirect below.
+function isLocaleExcluded(pathname: string): boolean {
+  return pathname === "/login" || pathname === "/signup" || pathname.startsWith("/staff");
 }
 
-function redirectWithLocale(request: NextRequest, pathname: string, country: CountryCode) {
-  const { language, fromCookie } = resolveLanguage(request);
-
-  const url = request.nextUrl.clone();
-  url.pathname = buildLocalePath(pathname, country, language);
-
-  const response = NextResponse.redirect(url, 307);
-  if (!fromCookie) {
-    response.cookies.set(LANGUAGE_COOKIE_NAME, language, {
-      maxAge: LANGUAGE_COOKIE_MAX_AGE,
-      path: "/",
-      sameSite: "lax",
-    });
+// Optimistic-only: a present hint cookie doesn't guarantee a valid session, and a
+// missing one just costs an extra redirect through /login. The authoritative check
+// stays client-side (staff dashboard layout for staff; customer routes rely on this
+// plus each API call's access-token requirement), since the real session lives in
+// an httpOnly cookie on the backend's cross-origin domain that this proxy can never
+// read. See lib/session-hint.ts. Runs against the *unprefixed* path so it applies
+// the same way whether or not the request carries a /{country}/{language} prefix.
+function resolveAuthRedirect(pathname: string, request: NextRequest): NextResponse | null {
+  if (pathname.startsWith("/staff")) {
+    if (pathname === "/staff/login") return null;
+    if (!request.cookies.get(STAFF_SESSION_HINT_COOKIE)) {
+      return NextResponse.redirect(new URL("/staff/login", request.url));
+    }
+    return null;
   }
-  return response;
+
+  if (CUSTOMER_PROTECTED_PREFIXES.some((prefix) => pathname.startsWith(prefix))) {
+    if (!request.cookies.get(CUSTOMER_SESSION_HINT_COOKIE)) {
+      return NextResponse.redirect(new URL("/login", request.url));
+    }
+  }
+
+  return null;
+}
+
+type LocaleMatch = { country: CountryCode; language: LanguageCode; rest: string };
+
+// A supported country prefix followed by anything other than a supported language
+// prefix (e.g. bare "/fr") is treated as an invalid URL, not auto-completed.
+function resolveLocalePrefix(pathname: string): LocaleMatch | "invalid" | null {
+  const countryMatch = extractCountryPrefix(pathname);
+  if (!countryMatch) return null;
+
+  const languageMatch = extractLanguagePrefix(countryMatch.rest);
+  if (!languageMatch) return "invalid";
+
+  return { country: countryMatch.country, language: languageMatch.language, rest: languageMatch.rest };
+}
+
+const DEFAULT_COUNTRY: CountryCode = "fr";
+
+// Always resolves — there is no unprefixed "global" site, every request ends up
+// under some /{country}/{language}, falling back to DEFAULT_COUNTRY when neither
+// the pin cookie nor Cloudflare's geo header identify a supported country.
+function resolveCountry(request: NextRequest): CountryCode {
+  const cookieValue = request.cookies.get(COUNTRY_COOKIE_NAME)?.value;
+  if (isSupportedCountry(cookieValue)) return cookieValue.toLowerCase() as CountryCode;
+  return detectCountryFromHeaders(request.headers) ?? DEFAULT_COUNTRY;
+}
+
+function resolveLanguage(request: NextRequest): LanguageCode {
+  const cookieValue = request.cookies.get(LANGUAGE_COOKIE_NAME)?.value;
+  if (isSupportedLanguage(cookieValue)) return cookieValue.toLowerCase() as LanguageCode;
+  return detectLanguageFromHeaders(request.headers);
+}
+
+function localeCookieOptions(maxAge: number) {
+  return { path: "/", maxAge, sameSite: "lax" as const };
 }
 
 export function proxy(request: NextRequest) {
   const { pathname } = request.nextUrl;
 
-  // Crawlers get every country/language version of a URL verbatim (no
-  // redirect, no rewrite short-circuit) so each can be indexed independently.
-  if (isKnownBot(request.headers.get("user-agent"))) {
-    return NextResponse.next();
+  const locale = resolveLocalePrefix(pathname);
+  if (locale === "invalid") {
+    return new NextResponse(null, { status: 404 });
   }
 
-  const countryPrefixed = extractCountryPrefix(pathname);
+  const effectivePath = locale ? locale.rest : pathname;
 
-  if (countryPrefixed) {
-    const languagePrefixed = extractLanguagePrefix(countryPrefixed.rest);
+  const authRedirect = resolveAuthRedirect(effectivePath, request);
+  if (authRedirect) return authRedirect;
 
-    if (languagePrefixed) {
-      // Already on a fully-prefixed /country/language URL (link, switcher,
-      // or bot). Serve it via an internal rewrite — no matter what the
-      // cookies currently say. Visiting a prefixed path is never overridden
-      // here, and the cookies are left untouched (only geo/Accept-Language
-      // detection below and the switchers write them).
-      const requestHeaders = new Headers(request.headers);
-      requestHeaders.set(COUNTRY_HEADER_NAME, countryPrefixed.country);
-      requestHeaders.set(LANGUAGE_HEADER_NAME, languagePrefixed.language);
-
-      const url = request.nextUrl.clone();
-      url.pathname = languagePrefixed.rest;
-
-      return NextResponse.rewrite(url, { request: { headers: requestHeaders } });
-    }
-
-    // Country prefix present but no language segment yet — insert one
-    // (cookie, else Accept-Language) and redirect.
-    return redirectWithLocale(request, countryPrefixed.rest, countryPrefixed.country);
-  }
-
-  // --- Unprefixed path: cookie-vs-geo precedence for country ---
-  //
-  // The cookie ALWAYS wins over geo when both are available:
-  //   1. If a valid country cookie exists, redirect using it (plus a
-  //      resolved language) and stop — geo detection is not even
-  //      consulted. This is what makes the geo-redirect a one-time event
-  //      per visitor: once they've been routed once (or picked a country
-  //      via the switcher), every later visit is driven by the cookie,
-  //      even if they travel and their IP's country changes.
-  //   2. Only when there is NO cookie do we fall back to geo detection
-  //      (Cloudflare's `cf-ipcountry` header). A successful geo redirect
-  //      also SETS the cookie, so step 1 takes over on the very next
-  //      request — this is the "first-time visitor" path.
-  //   3. If neither the cookie nor geo detection resolve to a supported
-  //      country, do nothing: stay on the global/default site (with no
-  //      language segment either, since there's no country to pair it
-  //      with). We only ever redirect on a confident match, never on a
-  //      guess.
-  const cookieCountry = request.cookies.get(COUNTRY_COOKIE_NAME)?.value;
-
-  if (isSupportedCountry(cookieCountry)) {
-    return redirectWithLocale(request, pathname, cookieCountry);
-  }
-
-  const detected = detectCountryFromHeaders(request.headers);
-
-  if (detected) {
-    const response = redirectWithLocale(request, pathname, detected);
-    response.cookies.set(COUNTRY_COOKIE_NAME, detected, {
-      maxAge: COUNTRY_COOKIE_MAX_AGE,
-      path: "/",
-      sameSite: "lax",
-    });
+  // Already /{country}/{language}/...: rewrite to the real (unprefixed) route and
+  // expose the resolved locale to server components via headers, pinning it in
+  // cookies so subsequent unprefixed navigation (internal links are all unprefixed)
+  // redirects back into this same locale instead of losing it.
+  if (locale) {
+    const url = request.nextUrl.clone();
+    url.pathname = locale.rest;
+    const response = NextResponse.rewrite(url);
+    response.headers.set(COUNTRY_HEADER_NAME, locale.country);
+    response.headers.set(LANGUAGE_HEADER_NAME, locale.language);
+    response.cookies.set(COUNTRY_COOKIE_NAME, locale.country, localeCookieOptions(COUNTRY_COOKIE_MAX_AGE));
+    response.cookies.set(LANGUAGE_COOKIE_NAME, locale.language, localeCookieOptions(LANGUAGE_COOKIE_MAX_AGE));
     return response;
   }
 
-  return NextResponse.next();
+  if (isLocaleExcluded(pathname)) {
+    return NextResponse.next();
+  }
+
+  // No prefix: there is no unprefixed site to serve, so redirect into the resolved
+  // /{country}/{language} URL — pin cookie or Cloudflare's geo header if available,
+  // otherwise DEFAULT_COUNTRY/"en".
+  const country = resolveCountry(request);
+  const language = resolveLanguage(request);
+  const target = request.nextUrl.clone();
+  target.pathname = buildLocalePath(pathname, country, language);
+  return NextResponse.redirect(target);
 }
 
 export const config = {
-  matcher: [
-    // Skip API routes, staff/customer account areas and auth (internal, not
-    // geo-targeted), Next internals, and any path with a file extension
-    // (static assets, sitemap.xml, robots.txt, favicon.ico, etc).
-    "/((?!api|staff|dashboard|bookings|profile|addresses|login|signup|_next/static|_next/image|.*\\..*).*)",
-  ],
+  matcher: ["/((?!_next/static|_next/image|favicon.ico|sitemap.xml|robots.txt|.*\\..*).*)"],
 };

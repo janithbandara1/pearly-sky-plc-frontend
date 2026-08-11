@@ -18,6 +18,7 @@ import {
   signupCustomer,
   SignupPayload,
 } from "./auth-api";
+import { CUSTOMER_SESSION_HINT_COOKIE, clearSessionHintCookie, setSessionHintCookie } from "./session-hint";
 
 type AuthStatus = "loading" | "authenticated" | "unauthenticated";
 
@@ -42,6 +43,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     const me = await getCustomerMe(token);
     setCustomer(me);
     setStatus("authenticated");
+    setSessionHintCookie(CUSTOMER_SESSION_HINT_COOKIE);
   }, []);
 
   // On first load, try to silently restore the session from the httpOnly
@@ -49,7 +51,10 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   useEffect(() => {
     refreshCustomer()
       .then(({ accessToken: token }) => applySession(token))
-      .catch(() => setStatus("unauthenticated"));
+      .catch(() => {
+        clearSessionHintCookie(CUSTOMER_SESSION_HINT_COOKIE);
+        setStatus("unauthenticated");
+      });
   }, [applySession]);
 
   // Access tokens are short-lived and can expire while the user lingers on a
@@ -66,6 +71,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         setAccessToken(null);
         setCustomer(null);
         setStatus("unauthenticated");
+        clearSessionHintCookie(CUSTOMER_SESSION_HINT_COOKIE);
         return null;
       }
     });
@@ -93,6 +99,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     setAccessToken(null);
     setCustomer(null);
     setStatus("unauthenticated");
+    clearSessionHintCookie(CUSTOMER_SESSION_HINT_COOKIE);
   }, []);
 
   const value = useMemo(
