@@ -12,15 +12,20 @@ import { RecentArticles } from "@/components/home/recent-articles";
 import { ContactSection } from "@/components/home/contact-section";
 import { buildCountryAlternates } from "@/lib/countries/seo";
 import { getRequestCountry } from "@/lib/countries/server";
+import { getCountryMeta } from "@/lib/countries/home-content";
 
 export const dynamic = "force-dynamic";
 
-export const metadata: Metadata = {
-  title: "Pearly Sky | Eco-Luxury Home & Office Cleaning in France",
-  description:
-    "Experience premium, eco-friendly luxury cleaning services for elite residences and offices across France. Request an instant bespoke quote from Pearly Sky today.",
-  alternates: buildCountryAlternates("/"),
-};
+export async function generateMetadata(): Promise<Metadata> {
+  const country = await getRequestCountry();
+  const { title, description } = getCountryMeta(country);
+
+  return {
+    title,
+    description,
+    alternates: buildCountryAlternates("/"),
+  };
+}
 
 export default async function Home() {
   const country = await getRequestCountry();

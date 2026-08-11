@@ -17,11 +17,9 @@ export const en = {
 
   // Hero
   heroTitle: "PEARLY SKY",
-  heroSubtitle: "Pearly Sky Eco-Luxury Home & Office Cleaning Services — France.",
   heroCtaSecondary: "VIEW OUR SERVICES",
 
   // Trust bar
-  trustCoverage: "France / 28 Cities",
   trustEcoCertified: "Green Compass Eco-Certified",
   trustRating: "5-Star Service Rating",
 
@@ -40,19 +38,12 @@ export const en = {
 
   // About / why choose us
   aboutWhyChooseUsTitle: "Why Choose Us",
-  aboutBilingualLabel: "Bilingual French & English Teams",
-  aboutBilingualDesc: "Seamless communication for a diverse clientele.",
   aboutEcoLabel: "Eco-Friendly Cleaning Products",
   aboutEcoDesc: "High-quality, sustainable, and safe solutions for your home.",
   aboutBookingLabel: "60-Second Online Booking",
   aboutBookingDesc: "Fast, streamlined, and hassle-free scheduling.",
   aboutSupportLabel: "24/7 Customer Support",
   aboutSupportDesc: "Round-the-clock peace of mind whenever you need assistance.",
-
-  // Coverage strip
-  coverageTitle: "Service Excellence Throughout France",
-  coverageSubtitle:
-    "Paris, Nice, Cannes, Monaco, Lyon, Bordeaux, Saint-Tropez, and 20+ more cities.",
 
   // Sectors
   sectorsTitle: "Our Service Provider Sectors",
@@ -111,8 +102,6 @@ export const en = {
   contactConnect: "CONNECT WITH US:",
 
   // Footer
-  footerTagline:
-    "Pearly Sky Cleaning offers professional, eco-friendly cleaning services for homes, offices, and hotels across France. We focus on quality and customer satisfaction, delivering tailored solutions to keep your space spotless.",
   footerRights: "All rights reserved.",
   footerQuickLinksTitle: "Quick Links",
   footerTermsLink: "Terms and Conditions",

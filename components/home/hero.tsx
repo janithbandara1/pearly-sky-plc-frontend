@@ -6,6 +6,8 @@ import Autoplay from "embla-carousel-autoplay";
 import { Carousel, CarouselContent, CarouselItem } from "@/components/ui/carousel";
 import { Button } from "@/components/ui/button";
 import { useLanguage } from "@/lib/i18n/language-context";
+import { useCountry } from "@/lib/countries/country-context";
+import { getCountryHomeContent } from "@/lib/countries/home-content";
 
 const HERO_IMAGES = ["/images/hero/hero-1.webp", "/images/hero/hero-2.webp"];
 
@@ -14,7 +16,9 @@ function scrollToId(id: string) {
 }
 
 export function Hero() {
-  const { translate } = useLanguage();
+  const { translate, language } = useLanguage();
+  const { country } = useCountry();
+  const { heroSubtitle } = getCountryHomeContent(country, language);
   const [plugins] = useState(() => [Autoplay({ delay: 6000, stopOnInteraction: false })]);
 
   return (
@@ -47,7 +51,7 @@ export function Hero() {
           {translate("heroTitle")}
         </h1>
         <p className="max-w-lg text-lg text-brand-cream drop-shadow sm:text-xl">
-          {translate("heroSubtitle")}
+          {heroSubtitle}
         </p>
         <div className="flex flex-wrap gap-3 pt-2">
           <Button

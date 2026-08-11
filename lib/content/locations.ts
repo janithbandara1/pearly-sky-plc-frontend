@@ -1,3 +1,5 @@
+import type { CountryCode } from "@/lib/countries/config";
+
 export interface Location {
   id: string;
   name: string;
@@ -9,6 +11,8 @@ export interface Location {
   contactNo?: string;
   companyNumber?: string;
   mapSrc?: string;
+  /** Matches lib/countries/config.ts's CountryCode, set only for the three routable countries. */
+  country?: CountryCode;
 }
 
 export const locations: Location[] = [
@@ -22,6 +26,7 @@ export const locations: Location[] = [
     address: "15 Rue Des Halles, 75001 Paris.",
     contactNo: "+33 743 708 780",
     companyNumber: "930 651 625",
+    country: "fr",
     mapSrc:
       "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2624.8965731406633!2d2.3461149!3d48.860182599999995!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47e66f6025fd8697%3A0xe4968cc599a43374!2sPearly%20Sky%20Cleaning%20Service%20Private%20Ltd!5e0!3m2!1sen!2slk!4v1740018065562!5m2!1sen!2slk",
   },
@@ -35,6 +40,7 @@ export const locations: Location[] = [
     address: "60 Tottenham Court Road, Office 775, Fitzrovia, London, W1T 2EW, United Kingdom",
     contactNo: "+44 7349 369400",
     companyNumber: "15307255",
+    country: "gb",
     mapSrc:
       "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2483.2680519800388!2d-0.14136389999999996!3d51.5082981!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x487605f3a642a9c1%3A0x7b739a1a3f9ba4!2sPEARLY%20SKY%20CLEANING%20AND%20FACILITY%20MAINTENANCE%20COMPANY%20PRIVATE%20LTD!5e0!3m2!1sen!2slk!4v1743953187220!5m2!1sen!2slk",
   },
@@ -48,6 +54,7 @@ export const locations: Location[] = [
     address: "No - 188/2 Kandy Road, Pahala Imbulgoda, Imbulgoda, Sri Lanka",
     contactNo: "+94 332 218 900",
     companyNumber: "PV 00295748",
+    country: "lk",
     mapSrc:
       "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3959.780671969282!2d79.99062740000001!3d7.035044999999999!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3ae2f9b10fb26561%3A0x111cf200d8a4fc9a!2sPEARLY%20SKY%20COMPANY%20PRIVATE%20LTD!5e0!3m2!1sen!2slk!4v1753536876865!5m2!1sen!2slk",
   },

@@ -13,10 +13,10 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { useLanguage } from "@/lib/i18n/language-context";
+import { useCountry } from "@/lib/countries/country-context";
+import { getCountryOffice, getWhatsappUrl } from "@/lib/countries/office";
 
 const CONTACT_EMAIL = "info@pearlyskyglobalclean.com";
-const HOTLINE = "+33 743 708 780";
-const WHATSAPP_URL = "https://wa.me/33743708780";
 
 const SOCIAL_LINKS = [
   { href: "https://www.tiktok.com", label: "TikTok", Icon: AiOutlineTikTok },
@@ -38,7 +38,12 @@ type ContactFormValues = z.infer<typeof contactSchema>;
 
 export function ContactSection() {
   const { translate } = useLanguage();
+  const { country } = useCountry();
   const [sent, setSent] = useState(false);
+
+  const office = getCountryOffice(country);
+  const hotline = office.contactNo ?? "";
+  const whatsappUrl = getWhatsappUrl(hotline);
 
   const {
     register,
@@ -144,7 +149,7 @@ export function ContactSection() {
                 size="sm"
                 className="border-brand-gold bg-transparent text-brand-navy-foreground hover:bg-brand-gold/10"
               >
-                <a href={WHATSAPP_URL} target="_blank" rel="noopener noreferrer">
+                <a href={whatsappUrl} target="_blank" rel="noopener noreferrer">
                   <FaWhatsapp className="h-4 w-4" />
                   {translate("contactWhatsapp")}
                 </a>
@@ -155,7 +160,7 @@ export function ContactSection() {
                 size="sm"
                 className="border-brand-gold bg-transparent text-brand-navy-foreground hover:bg-brand-gold/10"
               >
-                <a href={`tel:${HOTLINE.replace(/\s/g, "")}`}>
+                <a href={`tel:${hotline.replace(/\s/g, "")}`}>
                   <Phone className="h-4 w-4" />
                   {translate("contactHotline")}
                 </a>

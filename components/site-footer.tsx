@@ -11,6 +11,9 @@ import { FaFacebookF, FaYoutube, FaLinkedinIn, FaWhatsapp } from "react-icons/fa
 import { RiTwitterXFill } from "react-icons/ri";
 import { ChevronDown, ChevronUp, Phone } from "lucide-react";
 import { useLanguage } from "@/lib/i18n/language-context";
+import { useCountry } from "@/lib/countries/country-context";
+import { getCountryHomeContent } from "@/lib/countries/home-content";
+import { getCountryOffice, getWhatsappUrl } from "@/lib/countries/office";
 import { LanguageSwitcher } from "@/components/language-switcher";
 import { CountrySwitcher } from "@/components/country-switcher";
 import { ServicesNavList } from "@/components/services-nav-list";
@@ -35,12 +38,15 @@ const NAV_LINKS: { href: string; labelKey: TranslationKey; external?: boolean }[
   { href: "/contact-us", labelKey: "navContact" },
 ];
 
-const HOTLINE = "+33 743 708 780";
-const WHATSAPP_URL = "https://wa.me/33743708780";
-
 export function SiteFooter() {
-  const { translate } = useLanguage();
+  const { translate, language } = useLanguage();
+  const { country } = useCountry();
   const [servicesOpen, setServicesOpen] = useState(false);
+
+  const { footerTagline } = getCountryHomeContent(country, language);
+  const office = getCountryOffice(country);
+  const hotline = office.contactNo ?? "";
+  const whatsappUrl = getWhatsappUrl(hotline);
 
   return (
     <footer className="border-t border-border/60 bg-brand-navy text-brand-navy-foreground">
@@ -61,7 +67,7 @@ export function SiteFooter() {
             className="rounded-full bg-brand-navy"
           />
           <p className="max-w-xs text-sm text-brand-navy-foreground/70">
-            {translate("footerTagline")}
+            {footerTagline}
           </p>
         </div>
 
@@ -104,7 +110,7 @@ export function SiteFooter() {
         <div className="flex flex-col items-center gap-3 text-center lg:items-start lg:text-left">
           <div className="flex flex-wrap items-center justify-center gap-2 lg:justify-start">
             <a
-              href={WHATSAPP_URL}
+              href={whatsappUrl}
               target="_blank"
               rel="noopener noreferrer"
               className="flex items-center gap-2 rounded border border-white/40 px-3 py-1.5 text-xs font-semibold transition-colors hover:border-brand-gold hover:text-brand-gold"
@@ -113,7 +119,7 @@ export function SiteFooter() {
               {translate("contactWhatsapp")}
             </a>
             <a
-              href={`tel:${HOTLINE.replace(/\s/g, "")}`}
+              href={`tel:${hotline.replace(/\s/g, "")}`}
               className="flex items-center gap-2 rounded border border-white/40 px-3 py-1.5 text-xs font-semibold transition-colors hover:border-brand-gold hover:text-brand-gold"
             >
               <Phone className="h-3.5 w-3.5" />

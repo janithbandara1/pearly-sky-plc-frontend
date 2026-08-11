@@ -2,12 +2,16 @@
 
 import { Globe2, Leaf, Star } from "lucide-react";
 import { useLanguage } from "@/lib/i18n/language-context";
+import { useCountry } from "@/lib/countries/country-context";
+import { getCountryHomeContent } from "@/lib/countries/home-content";
 
 export function TrustBar() {
-  const { translate } = useLanguage();
+  const { translate, language } = useLanguage();
+  const { country } = useCountry();
+  const { trustCoverage } = getCountryHomeContent(country, language);
 
   const items = [
-    { Icon: Globe2, label: translate("trustCoverage") },
+    { Icon: Globe2, label: trustCoverage },
     { Icon: Leaf, label: translate("trustEcoCertified") },
     { Icon: Star, label: translate("trustRating") },
   ];

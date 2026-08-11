@@ -19,11 +19,9 @@ export const fr: Record<TranslationKey, string> = {
 
   // Hero
   heroTitle: "PEARLY SKY",
-  heroSubtitle: "Services de Nettoyage Éco-Luxe Pearly Sky pour Maisons et Bureaux — France.",
   heroCtaSecondary: "VOIR NOS SERVICES",
 
   // Trust bar
-  trustCoverage: "France / 28 Villes",
   trustEcoCertified: "Certifié Éco Green Compass",
   trustRating: "Service 5 Étoiles",
 
@@ -42,19 +40,12 @@ export const fr: Record<TranslationKey, string> = {
 
   // About / why choose us
   aboutWhyChooseUsTitle: "Pourquoi nous choisir",
-  aboutBilingualLabel: "Équipes Bilingues Français & Anglais",
-  aboutBilingualDesc: "Communication fluide pour une clientèle diverse.",
   aboutEcoLabel: "Produits de Nettoyage Écologiques",
   aboutEcoDesc: "Solutions de haute qualité, durables et sûres pour votre foyer.",
   aboutBookingLabel: "Réservation en Ligne en 60 Secondes",
   aboutBookingDesc: "Planification rapide, simplifiée et sans tracas.",
   aboutSupportLabel: "Service Client 24h/24 7j/7",
   aboutSupportDesc: "Tranquillité d'esprit à toute heure lorsque vous avez besoin d'aide.",
-
-  // Coverage strip
-  coverageTitle: "Excellence de Service Partout en France",
-  coverageSubtitle:
-    "Paris, Nice, Cannes, Monaco, Lyon, Bordeaux, Saint-Tropez, et 20+ autres villes.",
 
   // Sectors
   sectorsTitle: "Nos Secteurs",
@@ -113,7 +104,6 @@ export const fr: Record<TranslationKey, string> = {
   contactConnect: "REJOIGNEZ-NOUS :",
 
   // Footer
-  footerTagline: "Services de nettoyage et de soin éco-luxe partout en France.",
   footerRights: "Tous droits réservés.",
   footerQuickLinksTitle: "Liens Rapides",
   footerTermsLink: "Conditions Générales",
