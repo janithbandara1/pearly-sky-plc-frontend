@@ -64,12 +64,12 @@ export default function SignupPage() {
           <Link href="/" className="flex items-center gap-2 font-medium">
             <Image
               src="/images/brand/logo.webp"
-              alt="Pearly Sky"
+              alt="Pearly Sky Cleaning"
               width={24}
               height={24}
               className="rounded-full"
             />
-            Pearly Sky Cleaning
+            <span className="text-[#C5A059]">Pearly Sky Cleaning</span>
           </Link>
         </div>
         <div className="flex flex-1 items-center justify-center">
@@ -185,7 +185,7 @@ export default function SignupPage() {
       <div className="relative hidden bg-muted lg:block">
         <Image
           src="/images/hero/hero-1.webp"
-          alt="Pearly Sky cleaning service"
+          alt="Cleaner cleaning a home"
           fill
           className="object-cover dark:brightness-[0.2] dark:grayscale"
           priority
