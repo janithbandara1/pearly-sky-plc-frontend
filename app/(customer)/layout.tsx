@@ -15,13 +15,13 @@ export default async function DashboardLayout({
 
   return (
     <CountryProvider country={country}>
-      <CurrencyProvider>
-        <LanguageProvider language={language}>
+      <LanguageProvider language={language}>
+        <CurrencyProvider>
           <CustomerHeader />
           <div className="flex flex-1 flex-col gap-4 p-4 md:p-6">{children}</div>
           <SiteFooter />
-        </LanguageProvider>
-      </CurrencyProvider>
+        </CurrencyProvider>
+      </LanguageProvider>
     </CountryProvider>
   );
 }
