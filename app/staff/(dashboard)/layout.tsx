@@ -6,7 +6,7 @@ import { AdminSidebar } from "@/components/admin/admin-sidebar";
 import { SidebarInset, SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
 import { useStaffAuth } from "@/lib/staff-auth-context";
 
-const CLEANER_HOME = "/staff/my-bookings";
+const CLEANER_HOME = "/staff/bookings";
 
 export default function AdminDashboardLayout({
   children,

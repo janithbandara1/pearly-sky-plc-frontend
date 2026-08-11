@@ -83,7 +83,7 @@ export function getOrderAdmin(accessToken: string, orderId: number) {
   return apiFetch<AdminOrder>(`/admin/orders/${orderId}`, { accessToken });
 }
 
-export interface MyOrder {
+export interface CleanerOrder {
   id: number;
   referenceNumber: string;
   status: "pending" | "confirmed" | "cancelled";
@@ -95,8 +95,13 @@ export interface MyOrder {
 }
 
 /** A cleaner's own assigned bookings. */
-export function listMyOrders(accessToken: string) {
-  return apiFetch<MyOrder[]>("/me/orders", { accessToken });
+export function listCleanerOrders(accessToken: string) {
+  return apiFetch<CleanerOrder[]>("/cleaner/orders", { accessToken });
+}
+
+/** A single booking assigned to the logged-in cleaner. */
+export function getOrderForCleaner(accessToken: string, orderId: number) {
+  return apiFetch<AdminOrder>(`/cleaner/orders/${orderId}`, { accessToken });
 }
 
 export function updateOrderAdmin(

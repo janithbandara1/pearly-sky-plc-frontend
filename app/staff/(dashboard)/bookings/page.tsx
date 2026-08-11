@@ -24,9 +24,17 @@ import {
 } from "@/components/ui/select";
 import { DataTable } from "@/components/admin/data-table";
 import { ApiError } from "@/lib/auth-context";
-import { AdminOrder, listAllOrdersAdmin, updateOrderAdmin } from "@/lib/admin-api";
+import {
+  AdminOrder,
+  CleanerOrder,
+  listAllOrdersAdmin,
+  listCleanerOrders,
+  updateOrderAdmin,
+} from "@/lib/admin-api";
 import { AdminUser, listUsers } from "@/lib/admin-users-api";
 import { useStaffAuth } from "@/lib/staff-auth-context";
+
+type BookingRow = AdminOrder | CleanerOrder;
 
 interface EditState {
   cleanerId: string;
@@ -40,9 +48,10 @@ function toEditState(order: AdminOrder): EditState {
 
 const STATUS_OPTIONS: AdminOrder["status"][] = ["pending", "confirmed", "cancelled"];
 
-export default function AdminOrdersPage() {
-  const { accessToken } = useStaffAuth();
-  const [orders, setOrders] = useState<AdminOrder[]>([]);
+export default function BookingsPage() {
+  const { accessToken, staff } = useStaffAuth();
+  const isAdmin = staff?.roles.includes("admin") ?? false;
+  const [orders, setOrders] = useState<BookingRow[]>([]);
   const [cleaners, setCleaners] = useState<AdminUser[]>([]);
   const [statusFilter, setStatusFilter] = useState<string>("all");
   const [search, setSearch] = useState("");
@@ -53,9 +62,9 @@ export default function AdminOrdersPage() {
 
   const load = useCallback(async () => {
     if (!accessToken) return;
-    const data = await listAllOrdersAdmin(accessToken);
+    const data = isAdmin ? await listAllOrdersAdmin(accessToken) : await listCleanerOrders(accessToken);
     setOrders(data);
-  }, [accessToken]);
+  }, [accessToken, isAdmin]);
 
   useEffect(() => {
     load().catch((err) =>
@@ -64,11 +73,11 @@ export default function AdminOrdersPage() {
   }, [load]);
 
   useEffect(() => {
-    if (!accessToken) return;
+    if (!accessToken || !isAdmin) return;
     listUsers(accessToken)
       .then((users) => setCleaners(users.filter((u) => u.type === "cleaner")))
       .catch(() => undefined);
-  }, [accessToken]);
+  }, [accessToken, isAdmin]);
 
   const filtered = useMemo(() => {
     return orders.filter((order) => {
@@ -105,7 +114,7 @@ export default function AdminOrdersPage() {
     }
   }
 
-  const columns: ColumnDef<AdminOrder>[] = [
+  const columns: ColumnDef<BookingRow>[] = [
     { accessorKey: "referenceNumber", header: "Reference" },
     {
       id: "customer",
@@ -156,15 +165,17 @@ export default function AdminOrdersPage() {
               <span className="sr-only">View details</span>
             </Link>
           </Button>
-          <Button
-            size="icon-sm"
-            variant="ghost"
-            onClick={() => openEdit(row.original)}
-            title="Edit"
-          >
-            <Pencil />
-            <span className="sr-only">Edit</span>
-          </Button>
+          {isAdmin && (
+            <Button
+              size="icon-sm"
+              variant="ghost"
+              onClick={() => openEdit(row.original as AdminOrder)}
+              title="Edit"
+            >
+              <Pencil />
+              <span className="sr-only">Edit</span>
+            </Button>
+          )}
         </div>
       ),
     },
@@ -207,41 +218,43 @@ export default function AdminOrdersPage() {
 
       <DataTable columns={columns} data={filtered} emptyMessage="No bookings match your filters." />
 
-      <Dialog open={!!editing} onOpenChange={(open) => !open && setEditing(null)}>
-        <DialogContent>
-          <DialogHeader>
-            <DialogTitle>Edit booking</DialogTitle>
-          </DialogHeader>
-          {edit && (
-            <div className="flex flex-col gap-1">
-              <Label htmlFor="cleanerId">Cleaner</Label>
-              <Select
-                value={edit.cleanerId}
-                onValueChange={(value) => setEdit({ ...edit, cleanerId: value })}
-              >
-                <SelectTrigger id="cleanerId">
-                  <SelectValue placeholder="Unassigned" />
-                </SelectTrigger>
-                <SelectContent>
-                  {cleaners.map((c) => (
-                    <SelectItem key={c.id} value={String(c.id)}>
-                      {c.firstName} {c.lastName ?? ""}
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
-            </div>
-          )}
-          <DialogFooter>
-            <Button variant="outline" onClick={() => setEditing(null)} disabled={saving}>
-              Cancel
-            </Button>
-            <Button onClick={handleSave} disabled={saving}>
-              {saving ? "Saving…" : "Save"}
-            </Button>
-          </DialogFooter>
-        </DialogContent>
-      </Dialog>
+      {isAdmin && (
+        <Dialog open={!!editing} onOpenChange={(open) => !open && setEditing(null)}>
+          <DialogContent>
+            <DialogHeader>
+              <DialogTitle>Edit booking</DialogTitle>
+            </DialogHeader>
+            {edit && (
+              <div className="flex flex-col gap-1">
+                <Label htmlFor="cleanerId">Cleaner</Label>
+                <Select
+                  value={edit.cleanerId}
+                  onValueChange={(value) => setEdit({ ...edit, cleanerId: value })}
+                >
+                  <SelectTrigger id="cleanerId">
+                    <SelectValue placeholder="Unassigned" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {cleaners.map((c) => (
+                      <SelectItem key={c.id} value={String(c.id)}>
+                        {c.firstName} {c.lastName ?? ""}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+              </div>
+            )}
+            <DialogFooter>
+              <Button variant="outline" onClick={() => setEditing(null)} disabled={saving}>
+                Cancel
+              </Button>
+              <Button onClick={handleSave} disabled={saving}>
+                {saving ? "Saving…" : "Save"}
+              </Button>
+            </DialogFooter>
+          </DialogContent>
+        </Dialog>
+      )}
     </div>
   );
 }

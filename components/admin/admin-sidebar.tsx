@@ -48,7 +48,7 @@ const ADMIN_NAV_ITEMS: NavItem[] = [
 ];
 
 const CLEANER_NAV_ITEMS: NavItem[] = [
-  { href: "/staff/my-bookings", label: "My Bookings", icon: ClipboardList },
+  { href: "/staff/bookings", label: "Bookings", icon: ClipboardList },
 ];
 
 export function AdminSidebar() {

@@ -103,6 +103,8 @@ export interface BookingSummaryCardProps {
   address?: BookingSummaryAddress | null;
   /** e.g. a Pay now / Edit button rendered under the payment summary */
   footer?: ReactNode;
+  /** default true — set false to hide pricing from viewers who shouldn't see it (e.g. cleaners) */
+  showPaymentInfo?: boolean;
 }
 
 function Field({ label, value }: { label: string; value: ReactNode }) {
@@ -178,6 +180,7 @@ export function BookingSummaryCard({
   cleanerName,
   address,
   footer,
+  showPaymentInfo = true,
 }: BookingSummaryCardProps) {
   const hasEstimate = estimatedMin !== null && estimatedMax !== null;
   const hasRemaining = remainingMin !== null && remainingMax !== null;
@@ -223,33 +226,35 @@ export function BookingSummaryCard({
           </SectionCard>
         )}
 
-        <Card>
-          <CardHeader>
-            <CardTitle className="flex items-center gap-2">
-              <Wallet className="size-4 text-muted-foreground" />
-              Payment Info
-            </CardTitle>
-          </CardHeader>
-          <CardContent className="flex flex-col gap-3">
-            <PaymentRow
-              label="Due at booking"
-              value={dueAtBooking !== null ? money(dueAtBooking) : "Awaiting a price from our team"}
-            />
-            {hasEstimate && (
+        {showPaymentInfo && (
+          <Card>
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2">
+                <Wallet className="size-4 text-muted-foreground" />
+                Payment Info
+              </CardTitle>
+            </CardHeader>
+            <CardContent className="flex flex-col gap-3">
               <PaymentRow
-                label="Total price (estimate)"
-                value={`${money(estimatedMin as number)} – ${money(estimatedMax as number)}`}
+                label="Due at booking"
+                value={dueAtBooking !== null ? money(dueAtBooking) : "Awaiting a price from our team"}
               />
-            )}
-            {hasRemaining && (
-              <PaymentRow
-                label="Remaining balance"
-                value={`${money(remainingMin as number)} – ${money(remainingMax as number)}`}
-              />
-            )}
-          </CardContent>
-          {footer && <CardFooter className="flex-col items-stretch bg-transparent border-t-0 pt-0">{footer}</CardFooter>}
-        </Card>
+              {hasEstimate && (
+                <PaymentRow
+                  label="Total price (estimate)"
+                  value={`${money(estimatedMin as number)} – ${money(estimatedMax as number)}`}
+                />
+              )}
+              {hasRemaining && (
+                <PaymentRow
+                  label="Remaining balance"
+                  value={`${money(remainingMin as number)} – ${money(remainingMax as number)}`}
+                />
+              )}
+            </CardContent>
+            {footer && <CardFooter className="flex-col items-stretch bg-transparent border-t-0 pt-0">{footer}</CardFooter>}
+          </Card>
+        )}
       </div>
 
       {details && (
@@ -262,10 +267,12 @@ export function BookingSummaryCard({
               <Field label="Property size" value={`${details.propertySizeSqm} m²`} />
               <Field label="Duration" value={`${details.minHours}-${details.maxHours} hours`} />
               <Field label="Cleaners" value={details.cleanerCount + details.extraCleanerCount} />
-              <Field
-                label="Price per cleaner"
-                value={dueAtBooking !== null ? `${money(dueAtBooking)}/h` : "—"}
-              />
+              {showPaymentInfo && (
+                <Field
+                  label="Price per cleaner"
+                  value={dueAtBooking !== null ? `${money(dueAtBooking)}/h` : "—"}
+                />
+              )}
               {details.note && (
                 <div className="col-span-full">
                   <Field label="Note" value={details.note} />

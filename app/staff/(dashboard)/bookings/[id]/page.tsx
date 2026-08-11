@@ -23,7 +23,7 @@ import {
 import { Skeleton } from "@/components/ui/skeleton";
 import { BookingSummaryCard } from "@/components/booking/booking-summary-card";
 import { ApiError } from "@/lib/auth-context";
-import { AdminOrder, getOrderAdmin, updateOrderAdmin } from "@/lib/admin-api";
+import { AdminOrder, getOrderAdmin, getOrderForCleaner, updateOrderAdmin } from "@/lib/admin-api";
 import { AdminUser, listUsers } from "@/lib/admin-users-api";
 import { useStaffAuth } from "@/lib/staff-auth-context";
 
@@ -41,7 +41,8 @@ export default function StaffBookingDetailsPage() {
   const params = useParams<{ id: string }>();
   const orderId = Number(params.id);
   const router = useRouter();
-  const { accessToken } = useStaffAuth();
+  const { accessToken, staff } = useStaffAuth();
+  const isAdmin = staff?.roles.includes("admin") ?? false;
 
   const [order, setOrder] = useState<AdminOrder | null>(null);
   const [cleaners, setCleaners] = useState<AdminUser[]>([]);
@@ -53,9 +54,11 @@ export default function StaffBookingDetailsPage() {
 
   const loadData = useCallback(async () => {
     if (!accessToken) return;
-    const data = await getOrderAdmin(accessToken, orderId);
+    const data = isAdmin
+      ? await getOrderAdmin(accessToken, orderId)
+      : await getOrderForCleaner(accessToken, orderId);
     setOrder(data);
-  }, [accessToken, orderId]);
+  }, [accessToken, orderId, isAdmin]);
 
   useEffect(() => {
     setLoading(true);
@@ -65,11 +68,11 @@ export default function StaffBookingDetailsPage() {
   }, [loadData]);
 
   useEffect(() => {
-    if (!accessToken) return;
+    if (!accessToken || !isAdmin) return;
     listUsers(accessToken)
       .then((users) => setCleaners(users.filter((u) => u.type === "cleaner")))
       .catch(() => undefined);
-  }, [accessToken]);
+  }, [accessToken, isAdmin]);
 
   function openEdit() {
     if (!order) return;
@@ -129,7 +132,7 @@ export default function StaffBookingDetailsPage() {
 
       <div className="flex items-center justify-between">
         <h1 className="text-2xl font-semibold tracking-tight">Booking details</h1>
-        {order && <Button onClick={openEdit}>Edit</Button>}
+        {order && isAdmin && <Button onClick={openEdit}>Edit</Button>}
       </div>
 
       {error && <p className="text-sm text-destructive">{error}</p>}
@@ -163,6 +166,7 @@ export default function StaffBookingDetailsPage() {
           customerPhone={order.customer.contact ?? undefined}
           cleanerName={order.cleaner ? `${order.cleaner.firstName} ${order.cleaner.lastName ?? ""}`.trim() : ""}
           address={order.address}
+          showPaymentInfo={isAdmin}
         />
       )}
 
