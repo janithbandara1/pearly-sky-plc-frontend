@@ -1,82 +1,48 @@
-"use client";
-
-import { use } from "react";
-import Link from "next/link";
+import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { ArrowLeft, MapPin, Clock } from "lucide-react";
-import { PageHero } from "@/components/page-hero";
-import { Button } from "@/components/ui/button";
-import { useLanguage } from "@/lib/i18n/language-context";
 import { getJob } from "@/lib/content/jobs";
+import { getRequestCountry } from "@/lib/countries/server";
+import { getRequestLanguage } from "@/lib/i18n/server";
+import { buildCountryAlternates, buildSocialMeta } from "@/lib/countries/seo";
+import { buildBreadcrumbJsonLd, buildJobPostingJsonLd } from "@/lib/seo/json-ld";
+import { JsonLd } from "@/components/json-ld";
+import { JobDetailView } from "./job-detail-view";
 
-export default function JobDetailPage({ params }: { params: Promise<{ jobId: string }> }) {
-  const { jobId } = use(params);
-  const { translate } = useLanguage();
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ jobId: string }>;
+}): Promise<Metadata> {
+  const [{ jobId }, country, language] = await Promise.all([params, getRequestCountry(), getRequestLanguage()]);
+  const job = getJob(jobId);
+  const title = job ? `${job.title} | Careers at Pearly Sky` : "Careers | Pearly Sky";
+  const description = job ? `${job.title} — ${job.employmentType} role at Pearly Sky, ${job.location}.` : undefined;
+
+  return {
+    title,
+    description,
+    alternates: buildCountryAlternates(`/careers/${jobId}`, { country, language }),
+    ...buildSocialMeta(title, description),
+  };
+}
+
+export default async function JobDetailPage({ params }: { params: Promise<{ jobId: string }> }) {
+  const { jobId } = await params;
   const job = getJob(jobId);
 
   if (!job) notFound();
 
   return (
-    <main className="flex-1">
-      <PageHero image="/images/careers/hero.webp" title={job.title} />
-
-      <section className="mx-auto w-full max-w-3xl px-4 py-16 sm:px-6">
-        <Link href="/careers" className="mb-6 inline-flex items-center gap-1 text-sm text-brand-gold-dark hover:underline">
-          <ArrowLeft className="h-4 w-4" />
-          {translate("careersBackToCareers")}
-        </Link>
-
-        <div className="flex flex-wrap gap-4 rounded-xl border border-border bg-card p-4 text-sm text-muted-foreground">
-          <span className="flex items-center gap-1.5">
-            <Clock className="h-4 w-4" />
-            {job.employmentType}
-          </span>
-          <span className="flex items-center gap-1.5">
-            <MapPin className="h-4 w-4" />
-            {job.location}
-          </span>
-        </div>
-
-        <div className="mt-8">
-          <h2 className="text-lg font-bold tracking-tight">{translate("careersAboutCompany")}</h2>
-          <div className="mt-2 space-y-3 text-muted-foreground">
-            {job.aboutParagraphs.map((p, i) => (
-              <p key={i}>{p}</p>
-            ))}
-          </div>
-        </div>
-
-        <div className="mt-8">
-          <h2 className="text-lg font-bold tracking-tight">{translate("careersResponsibilities")}</h2>
-          <ul className="mt-2 list-disc space-y-1 pl-5 text-sm text-muted-foreground">
-            {job.responsibilities.map((r) => (
-              <li key={r}>{r}</li>
-            ))}
-          </ul>
-        </div>
-
-        <div className="mt-8">
-          <h2 className="text-lg font-bold tracking-tight">{translate("careersRequirements")}</h2>
-          <ul className="mt-2 list-disc space-y-1 pl-5 text-sm text-muted-foreground">
-            {job.requirements.map((r) => (
-              <li key={r}>{r}</li>
-            ))}
-          </ul>
-        </div>
-
-        <div className="mt-8">
-          <h2 className="text-lg font-bold tracking-tight">{translate("careersBenefits")}</h2>
-          <ul className="mt-2 list-disc space-y-1 pl-5 text-sm text-muted-foreground">
-            {job.benefits.map((b) => (
-              <li key={b}>{b}</li>
-            ))}
-          </ul>
-        </div>
-
-        <Button asChild size="lg" className="mt-10 bg-brand-navy text-brand-navy-foreground hover:bg-brand-navy/90">
-          <Link href={`/careers/${job.id}/apply`}>{translate("careersApplyNow")}</Link>
-        </Button>
-      </section>
-    </main>
+    <>
+      <JsonLd
+        data={buildBreadcrumbJsonLd([
+          { name: "Home", path: "/" },
+          { name: "Careers", path: "/careers" },
+          { name: job.title, path: `/careers/${jobId}` },
+        ])}
+      />
+      <JsonLd data={buildJobPostingJsonLd(job)} />
+      <JobDetailView job={job} />
+    </>
   );
 }

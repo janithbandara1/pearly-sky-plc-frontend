@@ -10,20 +10,22 @@ import { MomentsOfExcellence } from "@/components/home/moments-of-excellence";
 import { Testimonials } from "@/components/home/testimonials";
 import { RecentArticles } from "@/components/home/recent-articles";
 import { ContactSection } from "@/components/home/contact-section";
-import { buildCountryAlternates } from "@/lib/countries/seo";
+import { buildCountryAlternates, buildSocialMeta } from "@/lib/countries/seo";
 import { getRequestCountry } from "@/lib/countries/server";
+import { getRequestLanguage } from "@/lib/i18n/server";
 import { getCountryMeta } from "@/lib/countries/home-content";
 
 export const dynamic = "force-dynamic";
 
 export async function generateMetadata(): Promise<Metadata> {
-  const country = await getRequestCountry();
+  const [country, language] = await Promise.all([getRequestCountry(), getRequestLanguage()]);
   const { title, description } = getCountryMeta(country);
 
   return {
     title,
     description,
-    alternates: buildCountryAlternates("/"),
+    alternates: buildCountryAlternates("/", { country, language }),
+    ...buildSocialMeta(title, description),
   };
 }
 

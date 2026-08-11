@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import { AuthProvider } from "@/lib/auth-context";
 import { Toaster } from "@/components/ui/sonner";
+import { getRequestLanguage } from "@/lib/i18n/server";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -22,16 +23,31 @@ export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: "Pearly Sky",
   description: "Cleaning services, booking, and account management.",
+  openGraph: {
+    title: "Pearly Sky",
+    description: "Cleaning services, booking, and account management.",
+    siteName: "Pearly Sky",
+    type: "website",
+    images: [{ url: "/images/hero/hero-1.webp" }],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Pearly Sky",
+    description: "Cleaning services, booking, and account management.",
+    images: ["/images/hero/hero-1.webp"],
+  },
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const language = await getRequestLanguage();
+
   return (
     <html
-      lang="en"
+      lang={language ?? "en"}
       className={`${geistSans.variable} ${geistMono.variable} h-full scroll-smooth antialiased`}
     >
       <body className="min-h-full flex flex-col">

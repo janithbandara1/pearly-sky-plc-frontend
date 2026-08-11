@@ -15,16 +15,17 @@ import { Textarea } from "@/components/ui/textarea";
 import { useLanguage } from "@/lib/i18n/language-context";
 import { useCountry } from "@/lib/countries/country-context";
 import { getCountryOffice, getWhatsappUrl } from "@/lib/countries/office";
+import { SOCIAL_URLS } from "@/lib/content/social-links";
 
 const CONTACT_EMAIL = "info@pearlyskyglobalclean.com";
 
 const SOCIAL_LINKS = [
-  { href: "https://www.tiktok.com", label: "TikTok", Icon: AiOutlineTikTok },
-  { href: "https://www.facebook.com", label: "Facebook", Icon: FaFacebookF },
-  { href: "https://www.instagram.com", label: "Instagram", Icon: AiFillInstagram },
-  { href: "https://x.com", label: "X", Icon: RiTwitterXFill },
-  { href: "https://www.youtube.com", label: "YouTube", Icon: FaYoutube },
-  { href: "https://www.linkedin.com", label: "LinkedIn", Icon: FaLinkedinIn },
+  { href: SOCIAL_URLS.tiktok, label: "TikTok", Icon: AiOutlineTikTok },
+  { href: SOCIAL_URLS.facebook, label: "Facebook", Icon: FaFacebookF },
+  { href: SOCIAL_URLS.instagram, label: "Instagram", Icon: AiFillInstagram },
+  { href: SOCIAL_URLS.x, label: "X", Icon: RiTwitterXFill },
+  { href: SOCIAL_URLS.youtube, label: "YouTube", Icon: FaYoutube },
+  { href: SOCIAL_URLS.linkedin, label: "LinkedIn", Icon: FaLinkedinIn },
 ];
 
 const contactSchema = z.object({

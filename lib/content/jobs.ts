@@ -5,6 +5,8 @@ export interface Job {
   employmentType: string;
   location: string;
   bookable: boolean;
+  /** ISO date (YYYY-MM-DD) this posting went live — update when a listing is refreshed. Required for JobPosting structured data. */
+  datePosted: string;
   aboutParagraphs: string[];
   responsibilities: string[];
   requirements: string[];
@@ -19,6 +21,7 @@ export const jobs: Job[] = [
     employmentType: "Full-Time / Part-Time / Flexible Shifts",
     location: "France / United Kingdom",
     bookable: true,
+    datePosted: "2025-12-01",
     aboutParagraphs: [
       "At Pearly Sky, we are committed to maintaining clean, safe, and welcoming environments for our clients. Whether it's homes, offices, or specialized facilities, we deliver excellence with every sweep, mop, and dusting motion.",
       "Joining our team means becoming part of a supportive and innovative organization that values your skills and offers opportunities for personal and professional growth.",
@@ -52,6 +55,7 @@ export const jobs: Job[] = [
     employmentType: "Part-Time / Full-Time",
     location: "France / United Kingdom",
     bookable: true,
+    datePosted: "2025-12-01",
     aboutParagraphs: [
       "Pearly Sky's care team supports families with trusted, attentive childcare in the home. We're looking for warm, reliable individuals who genuinely love working with children.",
     ],
@@ -83,6 +87,7 @@ export const jobs: Job[] = [
     employmentType: "Full-Time / Part-Time / Flexible Shifts",
     location: "France / United Kingdom",
     bookable: true,
+    datePosted: "2025-12-01",
     aboutParagraphs: [
       "Pearly Sky's elder care team brings compassionate, professional support to seniors in their own homes, helping them live safely and comfortably with dignity.",
     ],
