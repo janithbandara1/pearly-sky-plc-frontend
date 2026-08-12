@@ -2,7 +2,7 @@
 
 import { ColumnDef } from "@tanstack/react-table";
 import { Pencil, Trash2 } from "lucide-react";
-import { useCallback, useEffect, useState } from "react";
+import { ChangeEvent, useCallback, useEffect, useState } from "react";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import {
@@ -71,6 +71,14 @@ export default function AdminCatalogPackagesPage() {
     setForm({ name: pkg.name, image: pkg.image ?? "" });
     setPrices(fromCountryPricesPayload(pkg.prices));
     setOpen(true);
+  }
+
+  function handleImageFileChange(e: ChangeEvent<HTMLInputElement>) {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = () => setForm((prev) => ({ ...prev, image: reader.result as string }));
+    reader.readAsDataURL(file);
   }
 
   async function handleSubmit() {
@@ -151,12 +159,16 @@ export default function AdminCatalogPackagesPage() {
               </div>
               <CountryPricesField prices={prices} onChange={setPrices} />
               <div className="flex flex-col gap-1">
-                <Label htmlFor="image">Image URL</Label>
-                <Input
-                  id="image"
-                  value={form.image}
-                  onChange={(e) => setForm({ ...form, image: e.target.value })}
-                />
+                <Label htmlFor="image">Image</Label>
+                {form.image && (
+                  // eslint-disable-next-line @next/next/no-img-element
+                  <img
+                    src={form.image}
+                    alt=""
+                    className="h-24 w-24 rounded-lg border object-cover"
+                  />
+                )}
+                <Input id="image" type="file" accept="image/*" onChange={handleImageFileChange} />
               </div>
             </div>
             <DialogFooter>

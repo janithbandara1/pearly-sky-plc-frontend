@@ -27,6 +27,7 @@ export interface ServiceAddOnPackage {
   /** Resolved for the request's country; null if unset or no country. */
   price: string | null;
   prices: ServicePriceEntry[];
+  image: string | null;
 }
 
 export interface CatalogServiceDetail extends CatalogService {

@@ -40,6 +40,14 @@ export function JobCardSection({ packages, selectedIds, onToggle }: JobCardSecti
                       : "border-[1.5px] border-[#A98B4B]"
                   }`}
                 >
+                  {pkg.image && (
+                    // eslint-disable-next-line @next/next/no-img-element
+                    <img
+                      src={pkg.image}
+                      alt=""
+                      className="h-10 w-10 shrink-0 rounded-[8px] object-cover"
+                    />
+                  )}
                   <div className="min-w-0 flex-1">
                     <p className="truncate text-sm font-medium text-[#121E2D]">{pkg.name}</p>
                     {price !== null && !Number.isNaN(price) && (
