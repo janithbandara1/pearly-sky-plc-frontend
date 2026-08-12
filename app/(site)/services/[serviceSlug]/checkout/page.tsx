@@ -196,7 +196,7 @@ export default function CheckoutPage({
         } catch {
           // Booking exists but payment couldn't start (e.g. no rate configured
           // for this country) — land on the booking page in its pending state.
-          router.push(`/booking/${booking.id}?ref=${booking.referenceNumber}`);
+          router.push(`/booking-confirmation/${booking.id}?ref=${booking.referenceNumber}`);
         }
       } else {
         const booking = await createGuestBooking({
@@ -237,7 +237,7 @@ export default function CheckoutPage({
           );
           window.location.assign(redirectUrl);
         } catch {
-          router.push(`/booking/${booking.id}?ref=${booking.referenceNumber}`);
+          router.push(`/booking-confirmation/${booking.id}?ref=${booking.referenceNumber}`);
         }
       }
       // Keep `submitting` true — we're navigating away to Stripe or the booking page.

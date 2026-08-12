@@ -140,6 +140,24 @@ export function getMyBooking(accessToken: string, bookingId: number) {
   return apiFetch<Booking>(`/bookings/${bookingId}`, { accessToken });
 }
 
+export interface BookingStatusSummary {
+  id: number;
+  referenceNumber: string;
+  status: "pending" | "confirmed" | "cancelled";
+  price: string | null;
+  currency: string | null;
+  service: { label: string } | null;
+  date: string | null;
+  time: string | null;
+}
+
+/** Public — the reference number authenticates the request, so this works for guests too. */
+export function getBookingStatus(bookingId: number, referenceNumber: string) {
+  return apiFetch<BookingStatusSummary>(
+    `/bookings/${bookingId}/status?ref=${encodeURIComponent(referenceNumber)}`,
+  );
+}
+
 /** Public — the reference number authenticates the request, so this works for guests too. */
 export function getBookingPdfUrl(bookingId: number, referenceNumber: string) {
   return apiUrl(`/bookings/${bookingId}/pdf?ref=${encodeURIComponent(referenceNumber)}`);

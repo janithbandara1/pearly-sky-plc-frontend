@@ -87,6 +87,21 @@ export function getQuotationPdfUrl(id: number, referenceNumber: string) {
   return apiUrl(`/quotations/${id}/pdf?ref=${encodeURIComponent(referenceNumber)}`);
 }
 
+export interface QuotationStatusSummary {
+  id: number;
+  referenceNumber: string;
+  service: { label: string };
+  date: string | null;
+  time: string | null;
+}
+
+/** Public — the reference number authenticates the request, so this works for guests too. */
+export function getQuotationStatus(id: number, referenceNumber: string) {
+  return apiFetch<QuotationStatusSummary>(
+    `/quotations/${id}/status?ref=${encodeURIComponent(referenceNumber)}`,
+  );
+}
+
 export function listAllQuotationsAdmin(accessToken: string) {
   return apiFetch<Quotation[]>("/admin/quotations", { accessToken });
 }

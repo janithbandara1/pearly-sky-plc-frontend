@@ -277,7 +277,7 @@ export default function RequestQuotationPage({
         country: countryCode,
         postalCode: postalCode.trim() || undefined,
       });
-      router.push(`/quotation/${quotation.id}?ref=${quotation.referenceNumber}`);
+      router.push(`/quotation-confirmation/${quotation.id}?ref=${quotation.referenceNumber}`);
     } catch (err) {
       setSubmitError(err instanceof ApiError ? err.message : "Failed to send your quotation request.");
     } finally {
