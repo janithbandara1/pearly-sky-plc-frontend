@@ -19,13 +19,11 @@ export default function robots(): MetadataRoute.Robots {
         "/dashboard*",
         // Transactional (site) pages — locale-prefixed, so match both bare and prefixed forms.
         "/booking/*",
-        "/booking-confirmation",
         "/quotation/*",
         "/services/*/checkout",
         "/services/*/request-quotation",
         "/careers/*/apply",
         "/*/booking/*",
-        "/*/booking-confirmation",
         "/*/quotation/*",
         "/*/services/*/checkout",
         "/*/services/*/request-quotation",

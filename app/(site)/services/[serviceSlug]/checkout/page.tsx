@@ -237,7 +237,7 @@ export default function CheckoutPage({
           );
           window.location.assign(redirectUrl);
         } catch {
-          router.push(`/booking-confirmation?ref=${booking.referenceNumber}`);
+          router.push(`/booking/${booking.id}?ref=${booking.referenceNumber}`);
         }
       }
       // Keep `submitting` true — we're navigating away to Stripe or the booking page.
