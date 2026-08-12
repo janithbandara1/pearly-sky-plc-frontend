@@ -209,7 +209,7 @@ export function BookingDetailsCard({
 
         {(onSupplySourceChange || (equipmentOptions && equipmentOptions.length > 0) || items.length > 0) && (
           <div className="flex flex-col border-t border-brand-gold/20">
-            <SectionHeading label="Cleaning Solvents & Equipments" />
+            <SectionHeading label="Cleaning Solvents & Equipment" />
 
             {onSupplySourceChange &&
               SUPPLY_SOURCE_OPTIONS.map((opt) => (

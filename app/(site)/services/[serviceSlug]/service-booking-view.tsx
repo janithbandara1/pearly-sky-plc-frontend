@@ -188,7 +188,7 @@ export function ServiceBookingView({ serviceSlug }: { serviceSlug: string }) {
   function handleBookNow() {
     if (!service) return;
     if (!isSanitization && !supplySource) {
-      setError("Please select a cleaning solvents & equipments option.");
+      setError("Please select a Cleaning Solvents & Equipment option.");
       return;
     }
     if (isSanitization && selectedFacilityIds.size === 0) {
@@ -262,7 +262,7 @@ export function ServiceBookingView({ serviceSlug }: { serviceSlug: string }) {
   const languageLabel = LANGUAGE_OPTIONS.find((o) => o.value === language)?.label ?? "None";
 
   const bookDisabledReason = !isSanitization && !supplySource
-    ? "Select a cleaning solvents & equipments option above to continue."
+    ? "Select a Cleaning Solvents & Equipment option above to continue."
     : isSanitization && selectedFacilityIds.size === 0
       ? "Select at least one facility above to continue."
       : isSanitization && !disinfectionLevelId

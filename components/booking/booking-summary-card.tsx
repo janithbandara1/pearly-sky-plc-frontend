@@ -354,7 +354,7 @@ export function BookingSummaryCard({
             )}
           </SectionCard>
 
-          <SectionCard icon={SprayCan} label="Cleaning Solvents & Equipments">
+          <SectionCard icon={SprayCan} label="Cleaning Solvents & Equipment">
             <p className="text-sm">
               {details.supplySource
                 ? (SUPPLY_SOURCE_LABEL[details.supplySource] ?? details.supplySource)

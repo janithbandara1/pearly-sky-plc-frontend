@@ -203,7 +203,7 @@ export function QuotationSummaryCard({
           </div>
         </SectionCard>
 
-        <SectionCard icon={SprayCan} label="Cleaning Solvents & Equipments">
+        <SectionCard icon={SprayCan} label="Cleaning Solvents & Equipment">
           <p className="text-sm">
             {supplySource ? (SUPPLY_SOURCE_LABEL[supplySource] ?? supplySource) : "Not specified"}
           </p>
