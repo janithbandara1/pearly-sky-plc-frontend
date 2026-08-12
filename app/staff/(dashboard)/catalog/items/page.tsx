@@ -45,7 +45,7 @@ import { useStaffAuth } from "@/lib/staff-auth-context";
 
 const ITEM_TYPES = ["Cleaning Solvents", "Cleaning Equipments"] as const;
 
-const emptyForm: CreateItemPayload = { name: "", sku: "", type: "", image: "" };
+const emptyForm: CreateItemPayload = { name: "", sku: "", type: "" };
 
 export default function AdminCatalogItemsPage() {
   const { accessToken } = useStaffAuth();
@@ -77,7 +77,7 @@ export default function AdminCatalogItemsPage() {
 
   function openEdit(item: CatalogItem) {
     setEditing(item);
-    setForm({ name: item.name, sku: item.sku, type: item.type, image: item.image ?? "" });
+    setForm({ name: item.name, sku: item.sku, type: item.type });
     setPrices(fromCountryPricesPayload(item.prices));
     setOpen(true);
   }
@@ -182,14 +182,6 @@ export default function AdminCatalogItemsPage() {
               </div>
               <div className="col-span-2">
                 <CountryPricesField prices={prices} onChange={setPrices} />
-              </div>
-              <div className="col-span-2 flex flex-col gap-1">
-                <Label htmlFor="image">Image URL</Label>
-                <Input
-                  id="image"
-                  value={form.image}
-                  onChange={(e) => setForm({ ...form, image: e.target.value })}
-                />
               </div>
             </div>
             <DialogFooter>
