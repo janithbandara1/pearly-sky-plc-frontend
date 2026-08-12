@@ -46,10 +46,10 @@ export default function AdminDashboardPage() {
       </div>
 
       <div className="grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-6">
-        <StatCard label="Total bookings" value={String(summary.orders.total)} />
-        <StatCard label="Pending" value={String(summary.orders.pending)} />
-        <StatCard label="Confirmed" value={String(summary.orders.confirmed)} />
-        <StatCard label="Cancelled" value={String(summary.orders.cancelled)} />
+        <StatCard label="Total bookings" value={String(summary.bookings.total)} />
+        <StatCard label="Pending" value={String(summary.bookings.pending)} />
+        <StatCard label="Confirmed" value={String(summary.bookings.confirmed)} />
+        <StatCard label="Cancelled" value={String(summary.bookings.cancelled)} />
         <StatCard label="Customers" value={String(summary.customers.total)} />
         <StatCard label="Users" value={String(summary.staff.total)} />
       </div>
@@ -59,20 +59,20 @@ export default function AdminDashboardPage() {
           <CardTitle className="text-base">Recent bookings</CardTitle>
         </CardHeader>
         <CardContent>
-          {summary.recentOrders.length === 0 ? (
+          {summary.recentBookings.length === 0 ? (
             <p className="text-sm text-muted-foreground">No bookings yet.</p>
           ) : (
             <div className="flex flex-col divide-y">
-              {summary.recentOrders.map((order) => (
-                <div key={order.id} className="flex items-center justify-between py-3 text-sm">
+              {summary.recentBookings.map((booking) => (
+                <div key={booking.id} className="flex items-center justify-between py-3 text-sm">
                   <div>
-                    <p className="font-medium">{order.referenceNumber}</p>
+                    <p className="font-medium">{booking.referenceNumber}</p>
                     <p className="text-muted-foreground">
-                      {order.customer.firstName} {order.customer.lastName ?? ""}
+                      {booking.customer.firstName} {booking.customer.lastName ?? ""}
                     </p>
                   </div>
                   <span className="rounded-full bg-muted px-2 py-0.5 text-xs capitalize">
-                    {order.status}
+                    {booking.status}
                   </span>
                 </div>
               ))}

@@ -23,7 +23,7 @@ import {
 import { Skeleton } from "@/components/ui/skeleton";
 import { BookingSummaryCard } from "@/components/booking/booking-summary-card";
 import { ApiError } from "@/lib/auth-context";
-import { AdminOrder, getOrderAdmin, getOrderForCleaner, updateOrderAdmin } from "@/lib/admin-api";
+import { AdminBooking, getBookingAdmin, getBookingForCleaner, updateBookingAdmin } from "@/lib/admin-api";
 import { AdminUser, listUsers } from "@/lib/admin-users-api";
 import { useStaffAuth } from "@/lib/staff-auth-context";
 
@@ -31,20 +31,20 @@ interface EditState {
   cleanerId: string;
 }
 
-function toEditState(order: AdminOrder): EditState {
+function toEditState(booking: AdminBooking): EditState {
   return {
-    cleanerId: order.cleanerId ? String(order.cleanerId) : "",
+    cleanerId: booking.cleanerId ? String(booking.cleanerId) : "",
   };
 }
 
 export default function StaffBookingDetailsPage() {
   const params = useParams<{ id: string }>();
-  const orderId = Number(params.id);
+  const bookingId = Number(params.id);
   const router = useRouter();
   const { accessToken, staff } = useStaffAuth();
   const isAdmin = staff?.roles.includes("admin") ?? false;
 
-  const [order, setOrder] = useState<AdminOrder | null>(null);
+  const [booking, setBooking] = useState<AdminBooking | null>(null);
   const [cleaners, setCleaners] = useState<AdminUser[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -55,10 +55,10 @@ export default function StaffBookingDetailsPage() {
   const loadData = useCallback(async () => {
     if (!accessToken) return;
     const data = isAdmin
-      ? await getOrderAdmin(accessToken, orderId)
-      : await getOrderForCleaner(accessToken, orderId);
-    setOrder(data);
-  }, [accessToken, orderId, isAdmin]);
+      ? await getBookingAdmin(accessToken, bookingId)
+      : await getBookingForCleaner(accessToken, bookingId);
+    setBooking(data);
+  }, [accessToken, bookingId, isAdmin]);
 
   useEffect(() => {
     setLoading(true);
@@ -75,20 +75,20 @@ export default function StaffBookingDetailsPage() {
   }, [accessToken, isAdmin]);
 
   function openEdit() {
-    if (!order) return;
-    setEdit(toEditState(order));
+    if (!booking) return;
+    setEdit(toEditState(booking));
     setEditing(true);
   }
 
   async function handleSave() {
-    if (!accessToken || !order || !edit) return;
+    if (!accessToken || !booking || !edit) return;
     setSaving(true);
     try {
-      const payload: Parameters<typeof updateOrderAdmin>[2] = {};
+      const payload: Parameters<typeof updateBookingAdmin>[2] = {};
       if (edit.cleanerId !== "") payload.cleanerId = Number(edit.cleanerId);
 
-      const updated = await updateOrderAdmin(accessToken, order.id, payload);
-      setOrder((prev) => (prev ? { ...prev, ...updated } : updated));
+      const updated = await updateBookingAdmin(accessToken, booking.id, payload);
+      setBooking((prev) => (prev ? { ...prev, ...updated } : updated));
       toast.success(`Booking ${updated.referenceNumber} updated.`);
       setEditing(false);
     } catch (err) {
@@ -98,12 +98,12 @@ export default function StaffBookingDetailsPage() {
     }
   }
 
-  // `order.price` is the flat per-country rate charged up front ("due at
+  // `booking.price` is the flat per-country rate charged up front ("due at
   // booking"). The full job cost isn't known until minHours/maxHours × that
   // rate (plus any priced add-ons/equipment) is estimated — the remaining
   // balance is that estimate minus what's already been paid.
-  const details = order?.serviceDetails?.[0];
-  const dueAtBooking = order?.price ? Number(order.price) : null;
+  const details = booking?.serviceDetails?.[0];
+  const dueAtBooking = booking?.price ? Number(booking.price) : null;
   const minHours = details ? Number(details.minHours) : null;
   const maxHours = details ? Number(details.maxHours) : null;
   const addOnsTotal = details?.addOns?.reduce((sum, a) => sum + (a.price ?? 0), 0) ?? 0;
@@ -117,7 +117,7 @@ export default function StaffBookingDetailsPage() {
   const estimatedMax = hasEstimate ? maxHours! * dueAtBooking! + extrasTotal : null;
   const remainingMin = hasEstimate ? (estimatedMin as number) - (dueAtBooking as number) : null;
   const remainingMax = hasEstimate ? (estimatedMax as number) - (dueAtBooking as number) : null;
-  const money = (n: number) => `${n.toFixed(2)} ${order?.currency?.toUpperCase() ?? ""}`.trim();
+  const money = (n: number) => `${n.toFixed(2)} ${booking?.currency?.toUpperCase() ?? ""}`.trim();
 
   return (
     <div className="flex flex-col gap-6">
@@ -132,7 +132,7 @@ export default function StaffBookingDetailsPage() {
 
       <div className="flex items-center justify-between">
         <h1 className="text-2xl font-semibold tracking-tight">Booking details</h1>
-        {order && isAdmin && <Button onClick={openEdit}>Edit</Button>}
+        {booking && isAdmin && <Button onClick={openEdit}>Edit</Button>}
       </div>
 
       {error && <p className="text-sm text-destructive">{error}</p>}
@@ -150,22 +150,22 @@ export default function StaffBookingDetailsPage() {
         </div>
       )}
 
-      {!loading && order && (
+      {!loading && booking && (
         <BookingSummaryCard
-          referenceNumber={order.referenceNumber}
-          status={order.status}
+          referenceNumber={booking.referenceNumber}
+          status={booking.status}
           dueAtBooking={dueAtBooking}
           estimatedMin={hasEstimate ? estimatedMin : null}
           estimatedMax={hasEstimate ? estimatedMax : null}
           remainingMin={hasEstimate ? remainingMin : null}
           remainingMax={hasEstimate ? remainingMax : null}
           money={money}
-          details={order.serviceDetails[0]}
-          customerName={`${order.customer.firstName} ${order.customer.lastName ?? ""}`.trim()}
-          customerEmail={order.customer.email}
-          customerPhone={order.customer.contact ?? undefined}
-          cleanerName={order.cleaner ? `${order.cleaner.firstName} ${order.cleaner.lastName ?? ""}`.trim() : ""}
-          address={order.address}
+          details={booking.serviceDetails[0]}
+          customerName={`${booking.customer.firstName} ${booking.customer.lastName ?? ""}`.trim()}
+          customerEmail={booking.customer.email}
+          customerPhone={booking.customer.contact ?? undefined}
+          cleanerName={booking.cleaner ? `${booking.cleaner.firstName} ${booking.cleaner.lastName ?? ""}`.trim() : ""}
+          address={booking.address}
           showPaymentInfo={isAdmin}
         />
       )}

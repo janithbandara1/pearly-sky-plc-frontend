@@ -1,8 +1,8 @@
 import { apiFetch } from "./api";
-import type { AdminOrder } from "./admin-api";
+import type { AdminBooking } from "./admin-api";
 
 export interface DashboardSummary {
-  orders: {
+  bookings: {
     total: number;
     pending: number;
     confirmed: number;
@@ -11,7 +11,7 @@ export interface DashboardSummary {
   customers: { total: number };
   staff: { total: number };
   revenue: { total: number };
-  recentOrders: AdminOrder[];
+  recentBookings: AdminBooking[];
 }
 
 export function getDashboardSummary(accessToken: string) {

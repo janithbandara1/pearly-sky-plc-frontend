@@ -2,8 +2,8 @@ import { apiFetch } from "./api";
 
 export interface AdminPayment {
   id: number;
-  orderId: number;
-  order: { id: number; referenceNumber: string } | null;
+  bookingId: number;
+  booking: { id: number; referenceNumber: string } | null;
   amount: string;
   currency: string;
   provider: string;

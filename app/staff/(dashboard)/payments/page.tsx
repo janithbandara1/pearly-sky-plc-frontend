@@ -36,7 +36,7 @@ export default function AdminPaymentsPage() {
     {
       id: "reference",
       header: "Booking",
-      cell: ({ row }) => row.original.order?.referenceNumber ?? `#${row.original.orderId}`,
+      cell: ({ row }) => row.original.booking?.referenceNumber ?? `#${row.original.bookingId}`,
     },
     {
       id: "amount",

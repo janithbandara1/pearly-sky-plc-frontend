@@ -34,7 +34,7 @@ export interface CreateBookingPayload extends BookingPreferencesPayload {
   time: string;
   addressId?: number;
   note?: string;
-  /** Pricing country — the backend uses it to price the order for Stripe checkout. */
+  /** Pricing country — the backend uses it to price the booking for Stripe checkout. */
   country?: string;
   /** Per-booking contact override — shown for this booking without touching the account's saved profile. */
   firstName?: string;
@@ -163,16 +163,16 @@ export function getBookingPdfUrl(bookingId: number, referenceNumber: string) {
   return apiUrl(`/bookings/${bookingId}/pdf?ref=${encodeURIComponent(referenceNumber)}`);
 }
 
-export function initiateCheckout(accessToken: string, orderId: number) {
-  return apiFetch<{ redirectUrl: string }>(`/payments/orders/${orderId}/checkout`, {
+export function initiateCheckout(accessToken: string, bookingId: number) {
+  return apiFetch<{ redirectUrl: string }>(`/payments/bookings/${bookingId}/checkout`, {
     method: "POST",
     accessToken,
     body: { provider: "stripe" },
   });
 }
 
-export function initiateGuestCheckout(orderId: number, referenceNumber: string) {
-  return apiFetch<{ redirectUrl: string }>(`/payments/orders/${orderId}/checkout/guest`, {
+export function initiateGuestCheckout(bookingId: number, referenceNumber: string) {
+  return apiFetch<{ redirectUrl: string }>(`/payments/bookings/${bookingId}/checkout/guest`, {
     method: "POST",
     body: { provider: "stripe", referenceNumber },
   });

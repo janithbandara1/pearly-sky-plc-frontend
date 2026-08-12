@@ -62,12 +62,12 @@ export default function BookingsPage() {
     });
   }, [bookings, search, statusFilter]);
 
-  async function handlePayNow(orderId: number) {
+  async function handlePayNow(bookingId: number) {
     if (!accessToken) return;
     setError(null);
-    setPayingId(orderId);
+    setPayingId(bookingId);
     try {
-      const { redirectUrl } = await initiateCheckout(accessToken, orderId);
+      const { redirectUrl } = await initiateCheckout(accessToken, bookingId);
       window.location.href = redirectUrl;
     } catch (err) {
       setError(err instanceof ApiError ? err.message : "Failed to start checkout.");

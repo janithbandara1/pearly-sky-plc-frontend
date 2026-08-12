@@ -25,45 +25,45 @@ import {
 import { DataTable } from "@/components/staff/data-table";
 import { ApiError } from "@/lib/auth-context";
 import {
-  AdminOrder,
-  CleanerOrder,
-  listAllOrdersAdmin,
-  listCleanerOrders,
-  updateOrderAdmin,
+  AdminBooking,
+  CleanerBooking,
+  listAllBookingsAdmin,
+  listCleanerBookings,
+  updateBookingAdmin,
 } from "@/lib/admin-api";
 import { AdminUser, listUsers } from "@/lib/admin-users-api";
 import { useStaffAuth } from "@/lib/staff-auth-context";
 
-type BookingRow = AdminOrder | CleanerOrder;
+type BookingRow = AdminBooking | CleanerBooking;
 
 interface EditState {
   cleanerId: string;
 }
 
-function toEditState(order: AdminOrder): EditState {
+function toEditState(booking: AdminBooking): EditState {
   return {
-    cleanerId: order.cleanerId ? String(order.cleanerId) : "",
+    cleanerId: booking.cleanerId ? String(booking.cleanerId) : "",
   };
 }
 
-const STATUS_OPTIONS: AdminOrder["status"][] = ["pending", "confirmed", "cancelled"];
+const STATUS_OPTIONS: AdminBooking["status"][] = ["pending", "confirmed", "cancelled"];
 
 export default function BookingsPage() {
   const { accessToken, staff } = useStaffAuth();
   const isAdmin = staff?.roles.includes("admin") ?? false;
-  const [orders, setOrders] = useState<BookingRow[]>([]);
+  const [bookings, setBookings] = useState<BookingRow[]>([]);
   const [cleaners, setCleaners] = useState<AdminUser[]>([]);
   const [statusFilter, setStatusFilter] = useState<string>("all");
   const [search, setSearch] = useState("");
-  const [editing, setEditing] = useState<AdminOrder | null>(null);
+  const [editing, setEditing] = useState<AdminBooking | null>(null);
   const [edit, setEdit] = useState<EditState | null>(null);
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
   const load = useCallback(async () => {
     if (!accessToken) return;
-    const data = isAdmin ? await listAllOrdersAdmin(accessToken) : await listCleanerOrders(accessToken);
-    setOrders(data);
+    const data = isAdmin ? await listAllBookingsAdmin(accessToken) : await listCleanerBookings(accessToken);
+    setBookings(data);
   }, [accessToken, isAdmin]);
 
   useEffect(() => {
@@ -80,17 +80,17 @@ export default function BookingsPage() {
   }, [accessToken, isAdmin]);
 
   const filtered = useMemo(() => {
-    return orders.filter((order) => {
-      if (statusFilter !== "all" && order.status !== statusFilter) return false;
+    return bookings.filter((booking) => {
+      if (statusFilter !== "all" && booking.status !== statusFilter) return false;
       if (!search) return true;
-      const haystack = `${order.referenceNumber} ${order.customer.firstName} ${order.customer.lastName ?? ""} ${order.customer.email}`.toLowerCase();
+      const haystack = `${booking.referenceNumber} ${booking.customer.firstName} ${booking.customer.lastName ?? ""} ${booking.customer.email}`.toLowerCase();
       return haystack.includes(search.toLowerCase());
     });
-  }, [orders, statusFilter, search]);
+  }, [bookings, statusFilter, search]);
 
-  function openEdit(order: AdminOrder) {
-    setEditing(order);
-    setEdit(toEditState(order));
+  function openEdit(booking: AdminBooking) {
+    setEditing(booking);
+    setEdit(toEditState(booking));
   }
 
   async function handleSave() {
@@ -98,11 +98,11 @@ export default function BookingsPage() {
     setSaving(true);
     setError(null);
     try {
-      const payload: Parameters<typeof updateOrderAdmin>[2] = {};
+      const payload: Parameters<typeof updateBookingAdmin>[2] = {};
       if (edit.cleanerId !== "") payload.cleanerId = Number(edit.cleanerId);
 
-      const updated = await updateOrderAdmin(accessToken, editing.id, payload);
-      setOrders((prev) => prev.map((o) => (o.id === editing.id ? { ...o, ...updated } : o)));
+      const updated = await updateBookingAdmin(accessToken, editing.id, payload);
+      setBookings((prev) => prev.map((b) => (b.id === editing.id ? { ...b, ...updated } : b)));
       toast.success(`Booking ${updated.referenceNumber} updated.`);
       setEditing(null);
     } catch (err) {
@@ -169,7 +169,7 @@ export default function BookingsPage() {
             <Button
               size="icon-sm"
               variant="ghost"
-              onClick={() => openEdit(row.original as AdminOrder)}
+              onClick={() => openEdit(row.original as AdminBooking)}
               title="Edit"
             >
               <Pencil />
@@ -187,7 +187,7 @@ export default function BookingsPage() {
         <div>
           <h1 className="text-2xl font-semibold tracking-tight">Bookings</h1>
           <p className="text-sm text-muted-foreground">
-            {filtered.length} of {orders.length} bookings
+            {filtered.length} of {bookings.length} bookings
           </p>
         </div>
       </div>

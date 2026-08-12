@@ -1,6 +1,6 @@
 import { apiFetch } from "./api";
 
-export interface AdminOrderCustomer {
+export interface AdminBookingCustomer {
   id: number;
   firstName: string;
   lastName: string | null;
@@ -8,7 +8,7 @@ export interface AdminOrderCustomer {
   contact: string | null;
 }
 
-export interface AdminOrderAddress {
+export interface AdminBookingAddress {
   streetAddress: string;
   unit: string | null;
   city: string;
@@ -17,19 +17,19 @@ export interface AdminOrderAddress {
   postalCode: string | null;
 }
 
-export interface AdminOrderStaff {
+export interface AdminBookingStaff {
   id: number;
   firstName: string;
   lastName: string | null;
   email: string;
 }
 
-export interface AdminOrderLineItem {
+export interface AdminBookingLineItem {
   name: string;
   price: number | null;
 }
 
-export interface AdminOrderServiceDetails {
+export interface AdminBookingServiceDetails {
   id: number;
   date: string;
   time: string;
@@ -39,77 +39,77 @@ export interface AdminOrderServiceDetails {
   cleanerCount: number;
   extraCleanerCount: number;
   note: string | null;
-  addOns: AdminOrderLineItem[] | null;
-  equipmentItems: AdminOrderLineItem[] | null;
+  addOns: AdminBookingLineItem[] | null;
+  equipmentItems: AdminBookingLineItem[] | null;
   supplySource: string | null;
   genderPreference: string | null;
   languagePreference: string | null;
   specialRequirements: string | null;
   propertyType: string | null;
   facilities: string[] | null;
-  disinfectionLevel: AdminOrderLineItem | null;
+  disinfectionLevel: AdminBookingLineItem | null;
   steamItems: string[] | null;
   eventTypes: string[] | null;
   category: string | null;
   service: { id: number; label: string };
 }
 
-export interface AdminOrder {
+export interface AdminBooking {
   id: number;
   referenceNumber: string;
   status: "pending" | "confirmed" | "cancelled";
   price: string | null;
   currency: string | null;
   cleanerId: number | null;
-  customer: AdminOrderCustomer;
-  cleaner: AdminOrderStaff | null;
-  address: AdminOrderAddress | null;
-  serviceDetails: AdminOrderServiceDetails[];
+  customer: AdminBookingCustomer;
+  cleaner: AdminBookingStaff | null;
+  address: AdminBookingAddress | null;
+  serviceDetails: AdminBookingServiceDetails[];
   createdAt: string;
 }
 
-export interface UpdateOrderAdminPayload {
+export interface UpdateBookingAdminPayload {
   price?: number;
   currency?: string;
   status?: "pending" | "confirmed" | "cancelled";
   cleanerId?: number;
 }
 
-export function listAllOrdersAdmin(accessToken: string) {
-  return apiFetch<AdminOrder[]>("/admin/orders", { accessToken });
+export function listAllBookingsAdmin(accessToken: string) {
+  return apiFetch<AdminBooking[]>("/admin/bookings", { accessToken });
 }
 
-export function getOrderAdmin(accessToken: string, orderId: number) {
-  return apiFetch<AdminOrder>(`/admin/orders/${orderId}`, { accessToken });
+export function getBookingAdmin(accessToken: string, bookingId: number) {
+  return apiFetch<AdminBooking>(`/admin/bookings/${bookingId}`, { accessToken });
 }
 
-export interface CleanerOrder {
+export interface CleanerBooking {
   id: number;
   referenceNumber: string;
   status: "pending" | "confirmed" | "cancelled";
   price: string | null;
   currency: string | null;
-  customer: AdminOrderCustomer;
-  serviceDetails: AdminOrderServiceDetails[];
+  customer: AdminBookingCustomer;
+  serviceDetails: AdminBookingServiceDetails[];
   createdAt: string;
 }
 
 /** A cleaner's own assigned bookings. */
-export function listCleanerOrders(accessToken: string) {
-  return apiFetch<CleanerOrder[]>("/cleaner/orders", { accessToken });
+export function listCleanerBookings(accessToken: string) {
+  return apiFetch<CleanerBooking[]>("/cleaner/bookings", { accessToken });
 }
 
 /** A single booking assigned to the logged-in cleaner. */
-export function getOrderForCleaner(accessToken: string, orderId: number) {
-  return apiFetch<AdminOrder>(`/cleaner/orders/${orderId}`, { accessToken });
+export function getBookingForCleaner(accessToken: string, bookingId: number) {
+  return apiFetch<AdminBooking>(`/cleaner/bookings/${bookingId}`, { accessToken });
 }
 
-export function updateOrderAdmin(
+export function updateBookingAdmin(
   accessToken: string,
-  orderId: number,
-  payload: UpdateOrderAdminPayload,
+  bookingId: number,
+  payload: UpdateBookingAdminPayload,
 ) {
-  return apiFetch<AdminOrder>(`/admin/orders/${orderId}`, {
+  return apiFetch<AdminBooking>(`/admin/bookings/${bookingId}`, {
     method: "PATCH",
     accessToken,
     body: payload,
