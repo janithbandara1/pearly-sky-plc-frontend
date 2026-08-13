@@ -22,6 +22,8 @@ export interface QuotationDetailsCardProps {
   quoteItemsTitle?: string;
   /** When true, splits each quoteItemLines entry on its first ": " into a label/value row instead of showing the whole line as the label. */
   structuredQuoteItems?: boolean;
+  /** When true, hides the quote items section entirely instead of showing "Not specified" if the customer hasn't filled in any details. */
+  hideQuoteItemsIfEmpty?: boolean;
   propertyType?: string;
   propertySizeSqm?: number;
   supplySource: SupplySource;
@@ -49,6 +51,7 @@ export function QuotationDetailsCard({
   quoteItemLines,
   quoteItemsTitle,
   structuredQuoteItems,
+  hideQuoteItemsIfEmpty,
   propertyType,
   propertySizeSqm,
   supplySource,
@@ -80,34 +83,36 @@ export function QuotationDetailsCard({
           <SummaryRow label="Time" value={time || "—"} />
         </div>
 
-        <div className="flex flex-col border-t border-brand-gold/20">
-          {quoteItemLines ? (
-            <>
-              <SectionHeading label={quoteItemsTitle ?? "Job Details"} />
-              {quoteItemLines.length > 0 ? (
-                quoteItemLines.map((line, i) => {
-                  const separatorIndex = structuredQuoteItems ? line.indexOf(": ") : -1;
-                  return separatorIndex === -1 ? (
-                    <SummaryRow key={i} label={line} value="" />
-                  ) : (
-                    <SummaryRow
-                      key={i}
-                      label={line.slice(0, separatorIndex)}
-                      value={line.slice(separatorIndex + 2)}
-                    />
-                  );
-                })
-              ) : (
-                <SummaryRow label="Not specified" value="" />
-              )}
-            </>
-          ) : (
-            <>
-              {propertyType && <SummaryRow label="Property type" value={propertyType} />}
-              <SummaryRow label="Property size" value={`${propertySizeSqm} m²`} />
-            </>
-          )}
-        </div>
+        {!(hideQuoteItemsIfEmpty && quoteItemLines?.length === 0) && (
+          <div className="flex flex-col">
+            {quoteItemLines ? (
+              <>
+                <SectionHeading label={quoteItemsTitle ?? "Job Details"} />
+                {quoteItemLines.length > 0 ? (
+                  quoteItemLines.map((line, i) => {
+                    const separatorIndex = structuredQuoteItems ? line.indexOf(": ") : -1;
+                    return separatorIndex === -1 ? (
+                      <SummaryRow key={i} label={line} value="" />
+                    ) : (
+                      <SummaryRow
+                        key={i}
+                        label={line.slice(0, separatorIndex)}
+                        value={line.slice(separatorIndex + 2)}
+                      />
+                    );
+                  })
+                ) : (
+                  <SummaryRow label="Not specified" value="" />
+                )}
+              </>
+            ) : (
+              <>
+                {propertyType && <SummaryRow label="Property type" value={propertyType} />}
+                <SummaryRow label="Property size" value={`${propertySizeSqm} m²`} />
+              </>
+            )}
+          </div>
+        )}
 
         <div className="flex flex-col border-t border-brand-gold/20">
           <SectionHeading label="Preferences" />

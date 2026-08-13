@@ -21,7 +21,14 @@ const SUPPLY_SOURCE_LABEL: Record<string, string> = {
 };
 
 /** Matches the quoteItemsTitle set for child/elder care quotations — see careQuoteItemsTitle in request-quotation/page.tsx. */
-const CARE_QUOTE_TITLES = new Set(["Child Profile", "Elder Profile"]);
+const CARE_QUOTE_TITLES = new Set(["Child Details", "Elder Details"]);
+
+/** Matches HIDE_QUOTE_ITEMS_IF_EMPTY_SLUGS' titles in request-quotation/page.tsx — hidden entirely instead of "Not specified" when empty. */
+const HIDE_IF_EMPTY_QUOTE_TITLES = new Set([
+  "Carpet & Upholstery Details",
+  "Pool Details",
+  "Pressure Washing Job Details",
+]);
 
 const STATUS_BADGE_VARIANT: Record<QuotationStatus, "default" | "secondary" | "outline"> = {
   contacted: "default",
@@ -139,6 +146,8 @@ export function QuotationSummaryCard({
   const hasContact = customerName !== undefined || customerEmail !== undefined || customerPhone !== undefined;
   const professionalsLabel = quoteItemsTitle && CARE_QUOTE_TITLES.has(quoteItemsTitle) ? "Caregivers" : "Cleaners";
   const isCareProfileQuote = !!quoteItemsTitle && CARE_QUOTE_TITLES.has(quoteItemsTitle);
+  const hideQuoteItems =
+    !!quoteItemsTitle && HIDE_IF_EMPTY_QUOTE_TITLES.has(quoteItemsTitle) && !quoteItems?.length;
 
   return (
     <div className="grid grid-cols-1 gap-6 lg:grid-cols-3 lg:items-start">
@@ -179,7 +188,7 @@ export function QuotationSummaryCard({
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
             <Field label="Service" value={serviceLabel} />
             <Field label="Date & time" value={date ? `${date}${time ? ` · ${time}` : ""}` : "Not specified"} />
-            {quoteItemsTitle ? (
+            {quoteItemsTitle && !hideQuoteItems ? (
               <div className="col-span-full">
                 <Field
                   label={quoteItemsTitle}

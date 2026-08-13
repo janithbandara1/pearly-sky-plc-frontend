@@ -67,6 +67,13 @@ const CATEGORY_QUOTE_TITLE = "Service type";
 const CHILD_CARE_SLUG = "child-care-service";
 const ELDER_CARE_SLUG = "elder-care-service";
 
+/** These have no required item — hide the section entirely rather than showing "Not specified" when nothing's been added. */
+const HIDE_QUOTE_ITEMS_IF_EMPTY_SLUGS = new Set([
+  "carpet-upholstery-cleaning",
+  "pool-cleaning",
+  "precision-pressure-washing",
+]);
+
 const COUNTRY_NAMES: Record<CountryCode, string> = {
   fr: "France",
   gb: "United Kingdom",
@@ -92,9 +99,10 @@ export default function RequestQuotationPage({
   const isElderCare = serviceSlug === ELDER_CARE_SLUG;
   const isCareProfile = isChildCare || isElderCare;
   const carePersonLabel = isChildCare ? "Child" : "Elder";
-  const careProfilesTitle = isChildCare ? "Child Profile" : "Elder Profile";
-  const careQuoteItemsTitle = isChildCare ? "Child Profile" : "Elder Profile";
+  const careProfilesTitle = isChildCare ? "Child Details" : "Elder Details";
+  const careQuoteItemsTitle = isChildCare ? "Child Details" : "Elder Details";
   const professionalsLabel = isCareProfile ? "Caregivers" : undefined;
+  const hideQuoteItemsIfEmpty = HIDE_QUOTE_ITEMS_IF_EMPTY_SLUGS.has(serviceSlug);
   const serviceContent = SERVICE_CONTENT[serviceSlug];
 
   const [service, setService] = useState<CatalogServiceDetail | null>(null);
@@ -630,6 +638,7 @@ export default function RequestQuotationPage({
             quoteItemLines={quoteItemLines}
             quoteItemsTitle={quoteItemsTitle}
             structuredQuoteItems={isCareProfile}
+            hideQuoteItemsIfEmpty={hideQuoteItemsIfEmpty}
             propertyType={propertyType || undefined}
             propertySizeSqm={propertySizeSqm}
             supplySource={supplySource}
