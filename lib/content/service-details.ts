@@ -672,6 +672,37 @@ export const SERVICE_CONTENT: Partial<Record<string, ServiceContentEntry>> = {
         "This service provides highly personalized, premium childcare, often in the home, specializing in educational engagement, flexible scheduling, and comprehensive support — including meals, hygiene, transportation, and light housekeeping.",
       ],
     },
+    highlights: [
+      {
+        title: "Child Care Service Highlights",
+        cards: [
+          {
+            title: "Infant Care (3–18 months)",
+            features: ["Specialized attention and sensory development activities designed for babies."],
+          },
+          {
+            title: "Toddler Learning (1.5–3 years)",
+            features: ["Play-based learning and social skills development for curious toddlers."],
+          },
+          {
+            title: "Daily Care",
+            features: ["Full-day care for children, providing a safe and nurturing environment."],
+          },
+          {
+            title: "After-School Care",
+            features: ["Homework help and creative activities for school-aged children."],
+          },
+          {
+            title: "One-Time Sitting",
+            features: ["Flexible, on-demand care for busy evenings or weekends."],
+          },
+          {
+            title: "Last-Minute Care",
+            features: ["We understand that life can be unpredictable — get last-minute care when you need it most."],
+          },
+        ],
+      },
+    ],
   },
 
   "elder-care-service": {
@@ -681,6 +712,28 @@ export const SERVICE_CONTENT: Partial<Record<string, ServiceContentEntry>> = {
         "This service provides highly personalized, non-medical supportive care for seniors, focusing on enhancing quality of life, safety, and independence through dedicated companionship, mobility assistance, meal preparation, and essential errands.",
       ],
     },
+    highlights: [
+      {
+        title: "Elder Care Service Highlights",
+        cards: [
+          {
+            title: "Companion Care",
+            features: ["Social interaction and companionship.", "Assistance with daily activities."],
+          },
+          {
+            title: "Personal Care",
+            features: ["Bathing and grooming.", "Medication management.", "Incontinence care."],
+          },
+          {
+            title: "Daily Care",
+            features: [
+              "Routine care and support with daily living tasks.",
+              "Assistance with mobility and transfers.",
+            ],
+          },
+        ],
+      },
+    ],
   },
 
   "laundry-services": {

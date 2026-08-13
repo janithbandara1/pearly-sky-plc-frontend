@@ -21,6 +21,7 @@ import { CarpetItemCards } from "@/components/booking/carpet-item-cards";
 import { PoolJobSelection } from "@/components/booking/pool-job-selection";
 import { SecurityCategorySelection } from "@/components/booking/security-category-selection";
 import { YachtCategorySelection } from "@/components/booking/yacht-category-selection";
+import { CareProfilesSection } from "@/components/booking/care-profiles-section";
 import { QuotationDetailsCard } from "@/components/booking/quotation-details-card";
 import { ServiceIntroduction } from "@/components/booking/service-introduction";
 import { ServiceHighlights } from "@/components/booking/service-highlights";
@@ -45,6 +46,7 @@ import {
   type QuoteItem,
   type QuoteItemOption,
 } from "@/lib/content/quote-items";
+import { CareProfile, formatCareProfile } from "@/lib/content/care-profiles";
 
 /** These services are priced per-project — they get a domain-specific item picker instead of the generic property size/type fields. */
 const CUSTOM_QUOTE_ITEMS: Record<string, { title: string; options: QuoteItemOption[] }> = {
@@ -60,6 +62,10 @@ const SECURITY_SLUG = "security-cleaning";
 const YACHT_SLUG = "luxury-yacht-cleaning";
 
 const CATEGORY_QUOTE_TITLE = "Service type";
+
+/** Child Care and Elder Care are quote-only too — they collect per-person profiles instead of a property size. */
+const CHILD_CARE_SLUG = "child-care-service";
+const ELDER_CARE_SLUG = "elder-care-service";
 
 const COUNTRY_NAMES: Record<CountryCode, string> = {
   fr: "France",
@@ -82,6 +88,13 @@ export default function RequestQuotationPage({
   const isYachtCategory = serviceSlug === YACHT_SLUG;
   const isCategoryQuote = isSecurityCategory || isYachtCategory;
   const categoryQuoteTitle = isCategoryQuote ? CATEGORY_QUOTE_TITLE : undefined;
+  const isChildCare = serviceSlug === CHILD_CARE_SLUG;
+  const isElderCare = serviceSlug === ELDER_CARE_SLUG;
+  const isCareProfile = isChildCare || isElderCare;
+  const carePersonLabel = isChildCare ? "Child" : "Elder";
+  const careProfilesTitle = isChildCare ? "Child Profile" : "Elder Profile";
+  const careQuoteItemsTitle = isChildCare ? "Child Profile" : "Elder Profile";
+  const professionalsLabel = isCareProfile ? "Caregivers" : undefined;
   const serviceContent = SERVICE_CONTENT[serviceSlug];
 
   const [service, setService] = useState<CatalogServiceDetail | null>(null);
@@ -98,6 +111,7 @@ export default function RequestQuotationPage({
   const [quoteItems, setQuoteItems] = useState<QuoteItem[]>([]);
   /** Shared by Security Cleaning and Luxury Yacht Cleaning's single-select category pickers — only one renders per page, gated by `isSecurityCategory`/`isYachtCategory`. */
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
+  const [careProfiles, setCareProfiles] = useState<CareProfile[]>([]);
 
   const [numCleaners, setNumCleaners] = useState(1);
   const [durationHours, setDurationHours] = useState(3);
@@ -230,6 +244,17 @@ export default function RequestQuotationPage({
       );
       return;
     }
+    if (isCareProfile) {
+      if (careProfiles.length === 0) {
+        setSubmitError(`Please add at least one ${carePersonLabel.toLowerCase()}'s profile to continue.`);
+        return;
+      }
+      const incomplete = careProfiles.some((p) => !p.name.trim() || !p.age.trim() || !p.gender);
+      if (incomplete) {
+        setSubmitError(`Please fill in name, age, and gender for each ${carePersonLabel.toLowerCase()}.`);
+        return;
+      }
+    }
 
     const items = (service.serviceItems ?? []).map((si) => si.item);
     const selectedItems =
@@ -243,7 +268,9 @@ export default function RequestQuotationPage({
       ? quoteItems.map((item) => formatQuoteItem(item, customQuote.options))
       : isCategoryQuote && selectedCategory
         ? [selectedCategory]
-        : undefined;
+        : isCareProfile
+          ? careProfiles.flatMap((p, i) => formatCareProfile(p, i, carePersonLabel, isCareProfile))
+          : undefined;
 
     setSubmitError(null);
     setSubmitting(true);
@@ -252,10 +279,10 @@ export default function RequestQuotationPage({
         serviceId: service.id,
         date: date || undefined,
         time: time || undefined,
-        propertyType: customQuote || isCategoryQuote ? undefined : propertyType || undefined,
-        propertySizeSqm: customQuote || isCategoryQuote ? undefined : propertySizeSqm,
-        quoteItemsTitle: customQuote?.title ?? (isCategoryQuote ? categoryQuoteTitle : undefined),
-        quoteItems: customQuote || isCategoryQuote ? quoteItemLines : undefined,
+        propertyType: customQuote || isCategoryQuote || isCareProfile ? undefined : propertyType || undefined,
+        propertySizeSqm: customQuote || isCategoryQuote || isCareProfile ? undefined : propertySizeSqm,
+        quoteItemsTitle: customQuote?.title ?? (isCategoryQuote ? categoryQuoteTitle : isCareProfile ? careQuoteItemsTitle : undefined),
+        quoteItems: customQuote || isCategoryQuote || isCareProfile ? quoteItemLines : undefined,
         supplySource: supplySource || undefined,
         equipmentItems: selectedItems.length
           ? selectedItems.map((i) => ({
@@ -305,8 +332,11 @@ export default function RequestQuotationPage({
     ? quoteItems.map((item) => formatQuoteItem(item, customQuote.options))
     : isCategoryQuote
       ? (selectedCategory ? [selectedCategory] : [])
-      : undefined;
-  const quoteItemsTitle = customQuote?.title ?? (isCategoryQuote ? categoryQuoteTitle : undefined);
+      : isCareProfile
+        ? careProfiles.flatMap((p, i) => formatCareProfile(p, i, carePersonLabel, isCareProfile))
+        : undefined;
+  const quoteItemsTitle =
+    customQuote?.title ?? (isCategoryQuote ? categoryQuoteTitle : isCareProfile ? careQuoteItemsTitle : undefined);
   const equipmentItems = (service.serviceItems ?? []).map((si) => si.item);
 
   return (
@@ -349,6 +379,15 @@ export default function RequestQuotationPage({
               items={quoteItems}
               onItemsChange={setQuoteItems}
             />
+          ) : isCareProfile ? (
+            <CareProfilesSection
+              personLabel={carePersonLabel}
+              title={careProfilesTitle}
+              single={isCareProfile}
+              simplified={isCareProfile}
+              profiles={careProfiles}
+              onProfilesChange={setCareProfiles}
+            />
           ) : (
             <PropertyTypeSizeSelector
               value={propertySizeSqm}
@@ -363,6 +402,7 @@ export default function RequestQuotationPage({
           <QuotationPreferencesSection
             numCleaners={numCleaners}
             onNumCleanersChange={setNumCleaners}
+            professionalsLabel={professionalsLabel}
             durationHours={durationHours}
             onDurationHoursChange={setDurationHours}
             gender={gender}
@@ -589,6 +629,7 @@ export default function RequestQuotationPage({
             time={time}
             quoteItemLines={quoteItemLines}
             quoteItemsTitle={quoteItemsTitle}
+            structuredQuoteItems={isCareProfile}
             propertyType={propertyType || undefined}
             propertySizeSqm={propertySizeSqm}
             supplySource={supplySource}
@@ -597,6 +638,7 @@ export default function RequestQuotationPage({
             selectedEquipmentIds={selectedItemIds}
             onToggleEquipment={toggleEquipmentItem}
             numCleaners={numCleaners}
+            professionalsLabel={professionalsLabel}
             durationHours={durationHours}
             genderLabel={genderLabel}
             languageLabel={languageLabel}

@@ -36,6 +36,8 @@ const QUOTE_ONLY_PRICING_SERVICES = new Set([
   "precision-pressure-washing",
   "laundry-services",
   "move-in-out-transport-service",
+  "child-care-service",
+  "elder-care-service",
 ]);
 
 // Services with a "Request Quotation" flow (services/<slug>/request-quotation)
@@ -56,6 +58,8 @@ const CUSTOM_QUOTE_SERVICES = new Set([
   "carpet-upholstery-cleaning",
   "pool-cleaning",
   "precision-pressure-washing",
+  "child-care-service",
+  "elder-care-service",
 ]);
 
 const CATEGORIES: { key: ServiceCategory; headingKey: TranslationKey; limit?: number }[] = [

@@ -20,6 +20,9 @@ const SUPPLY_SOURCE_LABEL: Record<string, string> = {
   company: "Request the Company",
 };
 
+/** Matches the quoteItemsTitle set for child/elder care quotations — see careQuoteItemsTitle in request-quotation/page.tsx. */
+const CARE_QUOTE_TITLES = new Set(["Child Profile", "Elder Profile"]);
+
 const STATUS_BADGE_VARIANT: Record<QuotationStatus, "default" | "secondary" | "outline"> = {
   contacted: "default",
   new: "secondary",
@@ -58,6 +61,15 @@ function LineItemRow({ name, price }: { name: string; price?: number | null }) {
       <span>{name}</span>
       {price != null && <span className="font-medium">{price}</span>}
     </li>
+  );
+}
+
+function KeyValueRow({ label, value }: { label: string; value: string }) {
+  return (
+    <div className="flex items-baseline justify-between gap-4">
+      <span className="text-muted-foreground">{label}</span>
+      <span className="font-medium">{value}</span>
+    </div>
   );
 }
 
@@ -125,6 +137,8 @@ export function QuotationSummaryCard({
   footer,
 }: QuotationSummaryCardProps) {
   const hasContact = customerName !== undefined || customerEmail !== undefined || customerPhone !== undefined;
+  const professionalsLabel = quoteItemsTitle && CARE_QUOTE_TITLES.has(quoteItemsTitle) ? "Caregivers" : "Cleaners";
+  const isCareProfileQuote = !!quoteItemsTitle && CARE_QUOTE_TITLES.has(quoteItemsTitle);
 
   return (
     <div className="grid grid-cols-1 gap-6 lg:grid-cols-3 lg:items-start">
@@ -171,11 +185,28 @@ export function QuotationSummaryCard({
                   label={quoteItemsTitle}
                   value={
                     quoteItems?.length ? (
-                      <ul className="list-inside list-disc">
-                        {quoteItems.map((line) => (
-                          <li key={line}>{line}</li>
-                        ))}
-                      </ul>
+                      isCareProfileQuote ? (
+                        <div className="flex flex-col gap-1">
+                          {quoteItems.map((line) => {
+                            const separatorIndex = line.indexOf(": ");
+                            return separatorIndex === -1 ? (
+                              <p key={line}>{line}</p>
+                            ) : (
+                              <KeyValueRow
+                                key={line}
+                                label={line.slice(0, separatorIndex)}
+                                value={line.slice(separatorIndex + 2)}
+                              />
+                            );
+                          })}
+                        </div>
+                      ) : (
+                        <ul className="list-inside list-disc">
+                          {quoteItems.map((line) => (
+                            <li key={line}>{line}</li>
+                          ))}
+                        </ul>
+                      )
                     ) : (
                       "Not specified"
                     )
@@ -188,7 +219,7 @@ export function QuotationSummaryCard({
                 {propertySizeSqm != null && <Field label="Property size" value={`${propertySizeSqm} m²`} />}
               </>
             )}
-            {numCleaners != null && <Field label="Cleaners" value={numCleaners} />}
+            {numCleaners != null && <Field label={professionalsLabel} value={numCleaners} />}
             {durationHours != null && <Field label="Duration" value={`${Number(durationHours)} hours`} />}
           </div>
         </SectionCard>

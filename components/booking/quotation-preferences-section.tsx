@@ -65,6 +65,8 @@ export const LANGUAGE_OPTIONS = [
 export interface QuotationPreferencesSectionProps {
   numCleaners: number;
   onNumCleanersChange: (value: number) => void;
+  /** Label for the numCleaners counter. Defaults to "Cleaners". */
+  professionalsLabel?: string;
   durationHours: number;
   onDurationHoursChange: (value: number) => void;
   gender: string;
@@ -78,6 +80,7 @@ export interface QuotationPreferencesSectionProps {
 export function QuotationPreferencesSection({
   numCleaners,
   onNumCleanersChange,
+  professionalsLabel = "Cleaners",
   durationHours,
   onDurationHoursChange,
   gender,
@@ -104,7 +107,7 @@ export function QuotationPreferencesSection({
         />
 
         <CounterField
-          label="Cleaners"
+          label={professionalsLabel}
           value={numCleaners}
           onChange={onNumCleanersChange}
           min={1}

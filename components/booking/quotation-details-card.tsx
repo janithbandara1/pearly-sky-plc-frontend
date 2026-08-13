@@ -20,6 +20,8 @@ export interface QuotationDetailsCardProps {
   /** Present for custom-quote services (pool, pressure washing, carpet) instead of property size. */
   quoteItemLines?: string[];
   quoteItemsTitle?: string;
+  /** When true, splits each quoteItemLines entry on its first ": " into a label/value row instead of showing the whole line as the label. */
+  structuredQuoteItems?: boolean;
   propertyType?: string;
   propertySizeSqm?: number;
   supplySource: SupplySource;
@@ -28,6 +30,8 @@ export interface QuotationDetailsCardProps {
   selectedEquipmentIds?: Set<number>;
   onToggleEquipment?: (id: number) => void;
   numCleaners: number;
+  /** Label for the numCleaners row. Defaults to "Cleaners". */
+  professionalsLabel?: string;
   durationHours: number;
   genderLabel: string;
   languageLabel: string;
@@ -44,6 +48,7 @@ export function QuotationDetailsCard({
   time,
   quoteItemLines,
   quoteItemsTitle,
+  structuredQuoteItems,
   propertyType,
   propertySizeSqm,
   supplySource,
@@ -52,6 +57,7 @@ export function QuotationDetailsCard({
   selectedEquipmentIds,
   onToggleEquipment,
   numCleaners,
+  professionalsLabel = "Cleaners",
   durationHours,
   genderLabel,
   languageLabel,
@@ -79,7 +85,18 @@ export function QuotationDetailsCard({
             <>
               <SectionHeading label={quoteItemsTitle ?? "Job Details"} />
               {quoteItemLines.length > 0 ? (
-                quoteItemLines.map((line, i) => <SummaryRow key={i} label={line} value="" />)
+                quoteItemLines.map((line, i) => {
+                  const separatorIndex = structuredQuoteItems ? line.indexOf(": ") : -1;
+                  return separatorIndex === -1 ? (
+                    <SummaryRow key={i} label={line} value="" />
+                  ) : (
+                    <SummaryRow
+                      key={i}
+                      label={line.slice(0, separatorIndex)}
+                      value={line.slice(separatorIndex + 2)}
+                    />
+                  );
+                })
               ) : (
                 <SummaryRow label="Not specified" value="" />
               )}
@@ -95,7 +112,7 @@ export function QuotationDetailsCard({
         <div className="flex flex-col border-t border-brand-gold/20">
           <SectionHeading label="Preferences" />
           <SummaryRow label="Duration" value={formatHM(durationHours)} />
-          <SummaryRow label="Cleaners" value={numCleaners} />
+          <SummaryRow label={professionalsLabel} value={numCleaners} />
           <SummaryRow label="Gender Preference" value={genderLabel} />
           <SummaryRow label="Language Preference" value={languageLabel} />
           <SummaryRow label="Special Requirements" value={requirements || "—"} />
