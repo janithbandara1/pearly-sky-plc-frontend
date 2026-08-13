@@ -8,6 +8,7 @@ import { LogOut, Menu, UserRound, XIcon } from "lucide-react";
 import { useAuth } from "@/lib/auth-context";
 import { useLanguage } from "@/lib/i18n/language-context";
 import { cn } from "@/lib/utils";
+import { CUSTOMER_NAV_LINKS } from "@/lib/customer-nav";
 import { LocaleSwitcher } from "@/components/locale-switcher";
 import { Button } from "@/components/ui/button";
 import {
@@ -18,17 +19,6 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet";
-
-const navLinkClass =
-  "rounded-lg p-2 text-sm font-medium text-brand-navy-foreground transition-colors hover:bg-brand-gold/10 hover:text-brand-gold";
-const navLinkActiveClass = "bg-brand-gold/10 text-brand-gold";
-
-const CUSTOMER_NAV_LINKS = [
-  { href: "/bookings", label: "Bookings" },
-  { href: "/quotations", label: "Quotations" },
-  { href: "/profile", label: "Profile" },
-  { href: "/addresses", label: "Addresses" },
-];
 
 export function CustomerHeader() {
   const { translate } = useLanguage();
@@ -76,18 +66,6 @@ export function CustomerHeader() {
             Pearly Sky Cleaning
           </span>
         </Link>
-
-        <nav className="hidden items-center gap-1 lg:flex">
-          {CUSTOMER_NAV_LINKS.map((link) => (
-            <Link
-              key={link.href}
-              href={link.href}
-              className={cn(navLinkClass, pathname === link.href && navLinkActiveClass)}
-            >
-              {link.label}
-            </Link>
-          ))}
-        </nav>
 
         <div className="flex items-center gap-2 sm:gap-3">
           <LocaleSwitcher className="hidden sm:block" />

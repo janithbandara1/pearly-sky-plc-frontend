@@ -37,6 +37,7 @@ export function SiteHeader({ navLinks: navLinksProp, showServicesMenu = true }: 
   const pathname = usePathname();
   const [mobileOpen, setMobileOpen] = useState(false);
   const [servicesOpen, setServicesOpen] = useState(false);
+  const [mobileServicesOpen, setMobileServicesOpen] = useState(false);
   const [accountOpen, setAccountOpen] = useState(false);
   const servicesRef = useRef<HTMLDivElement>(null);
   const accountRef = useRef<HTMLDivElement>(null);
@@ -157,10 +158,10 @@ export function SiteHeader({ navLinks: navLinksProp, showServicesMenu = true }: 
         </nav>
 
         <div className="flex items-center gap-2 sm:gap-3">
-          <LocaleSwitcher className="hidden sm:block" />
+          <LocaleSwitcher />
 
           {status === "authenticated" ? (
-            <div className="relative hidden sm:block" ref={accountRef}>
+            <div className="relative" ref={accountRef}>
               <button
                 type="button"
                 onClick={() => setAccountOpen((open) => !open)}
@@ -242,7 +243,13 @@ export function SiteHeader({ navLinks: navLinksProp, showServicesMenu = true }: 
             </>
           )}
 
-          <Sheet open={mobileOpen} onOpenChange={setMobileOpen}>
+          <Sheet
+            open={mobileOpen}
+            onOpenChange={(open) => {
+              setMobileOpen(open);
+              if (!open) setMobileServicesOpen(false);
+            }}
+          >
             <SheetTrigger asChild>
               <Button
                 size="icon-sm"
@@ -253,11 +260,19 @@ export function SiteHeader({ navLinks: navLinksProp, showServicesMenu = true }: 
                 <Menu className="h-5 w-5" />
               </Button>
             </SheetTrigger>
-            <SheetContent side="right" className="w-[85vw] max-w-sm" showCloseButton={false}>
+            <SheetContent
+              side="right"
+              className="w-[85vw] max-w-sm border-none bg-brand-navy text-brand-navy-foreground"
+              showCloseButton={false}
+            >
               <SheetHeader className="flex-row items-center justify-between">
-                <SheetTitle>{translate("navMenu")}</SheetTitle>
+                <SheetTitle className="text-brand-gold">{translate("navMenu")}</SheetTitle>
                 <SheetClose asChild>
-                  <Button variant="ghost" size="icon-sm">
+                  <Button
+                    variant="ghost"
+                    size="icon-sm"
+                    className="text-brand-navy-foreground hover:bg-brand-gold/10 hover:text-brand-gold"
+                  >
                     <XIcon />
                     <span className="sr-only">Close</span>
                   </Button>
@@ -267,24 +282,41 @@ export function SiteHeader({ navLinks: navLinksProp, showServicesMenu = true }: 
                 <Link
                   href="/"
                   onClick={() => setMobileOpen(false)}
-                  className={cn(
-                    "rounded-lg p-2 hover:bg-muted",
-                    pathname === "/" && "bg-muted/50 text-brand-gold-dark",
-                  )}
+                  className={cn(navLinkClass, pathname === "/" && navLinkActiveClass)}
                 >
                   {translate("navHome")}
                 </Link>
 
                 {showServicesMenu && (
-                  <>
-                    <p className="px-2 text-xs font-semibold uppercase tracking-wide text-muted-foreground">
+                  <div>
+                    <button
+                      type="button"
+                      onClick={() => setMobileServicesOpen((open) => !open)}
+                      aria-expanded={mobileServicesOpen}
+                      className={cn(
+                        navLinkClass,
+                        "flex w-full items-center justify-between",
+                        mobileServicesOpen && navLinkActiveClass,
+                      )}
+                    >
                       {translate("navServices")}
-                    </p>
-                    <ServicesNavList
-                      onNavigate={() => setMobileOpen(false)}
-                      className="w-full grid-cols-1"
-                    />
-                  </>
+                      <ChevronDown
+                        className={cn(
+                          "size-3 transition-transform",
+                          mobileServicesOpen && "rotate-180",
+                        )}
+                      />
+                    </button>
+                    {mobileServicesOpen && (
+                      <div className="mt-1 overflow-hidden rounded-lg bg-popover text-popover-foreground shadow ring-1 ring-foreground/10">
+                        <ServicesNavList
+                          onNavigate={() => setMobileOpen(false)}
+                          className="w-full grid-cols-1"
+                          scrollable={false}
+                        />
+                      </div>
+                    )}
+                  </div>
                 )}
 
                 {navLinks.map((link) => (
@@ -292,58 +324,11 @@ export function SiteHeader({ navLinks: navLinksProp, showServicesMenu = true }: 
                     key={link.href}
                     href={link.href}
                     onClick={() => setMobileOpen(false)}
-                    className={cn(
-                      "rounded-lg p-2 hover:bg-muted",
-                      pathname === link.href && "bg-muted/50 text-brand-gold-dark",
-                    )}
+                    className={cn(navLinkClass, pathname === link.href && navLinkActiveClass)}
                   >
                     {link.label}
                   </Link>
                 ))}
-
-                {status === "authenticated" && (
-                  <>
-                    <div className="my-2 border-t" />
-                    <Link
-                      href="/bookings"
-                      onClick={() => setMobileOpen(false)}
-                      className="rounded-lg p-2 hover:bg-muted"
-                    >
-                      Bookings
-                    </Link>
-                    <Link
-                      href="/quotations"
-                      onClick={() => setMobileOpen(false)}
-                      className="rounded-lg p-2 hover:bg-muted"
-                    >
-                      Quotations
-                    </Link>
-                    <Link
-                      href="/profile"
-                      onClick={() => setMobileOpen(false)}
-                      className="rounded-lg p-2 hover:bg-muted"
-                    >
-                      Profile
-                    </Link>
-                    <Link
-                      href="/addresses"
-                      onClick={() => setMobileOpen(false)}
-                      className="rounded-lg p-2 hover:bg-muted"
-                    >
-                      Addresses
-                    </Link>
-                    <button
-                      type="button"
-                      onClick={() => {
-                        setMobileOpen(false);
-                        logout();
-                      }}
-                      className="rounded-lg p-2 text-left hover:bg-muted"
-                    >
-                      Log out
-                    </button>
-                  </>
-                )}
               </nav>
             </SheetContent>
           </Sheet>

@@ -40,14 +40,19 @@ export function useCatalogServices() {
 export function ServicesNavList({
   onNavigate,
   className = "w-[320px] sm:w-[420px] sm:grid-cols-2",
+  scrollable = true,
 }: {
   onNavigate?: () => void;
   className?: string;
+  /** Set to false when the list already sits inside another scrollable container (e.g. the mobile menu). */
+  scrollable?: boolean;
 }) {
   const services = useCatalogServices();
 
   return (
-    <ul className={`grid max-h-[60vh] min-w-0 gap-1 overflow-y-auto p-1 ${className}`}>
+    <ul
+      className={`grid min-w-0 gap-1 p-1 ${scrollable ? "max-h-[60vh] overflow-y-auto" : ""} ${className}`}
+    >
       {services.map((service) => (
         <li key={service.id} className="min-w-0">
           <Link
