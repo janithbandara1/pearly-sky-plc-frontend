@@ -59,6 +59,13 @@ export function forgotPassword(email: string) {
   });
 }
 
+export function verifyResetOtp(payload: { email: string; otp: string }) {
+  return apiFetch<{ valid: boolean }>("/auth/verify-reset-otp", {
+    method: "POST",
+    body: { ...payload, subjectType: "customer" },
+  });
+}
+
 export function resetPassword(payload: {
   email: string;
   otp: string;
