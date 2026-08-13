@@ -23,7 +23,7 @@ interface BookingPreferencesPayload {
   steamItems?: string[];
   /** post-event-cleaning only. */
   eventTypes?: string[];
-  /** security-cleaning / luxury-yacht-cleaning only. */
+  /** high-security-property-care / luxury-yacht-cleaning only. */
   category?: string;
 }
 

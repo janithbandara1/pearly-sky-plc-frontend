@@ -55,10 +55,10 @@ const CUSTOM_QUOTE_ITEMS: Record<string, { title: string; options: QuoteItemOpti
   "carpet-upholstery-cleaning": { title: "Carpet & Upholstery Details", options: CARPET_ITEM_OPTIONS },
 };
 
-/** Security Cleaning is quote-only too, but picks one category instead of quantity-based items — a single-select list, not a dropdown. */
-const SECURITY_SLUG = "security-cleaning";
+/** High-Security Property Care is quote-only too, but picks one category instead of quantity-based items — a single-select list, not a dropdown. */
+const SECURITY_SLUG = "high-security-property-care";
 
-/** Luxury Yacht Cleaning follows the same single-select category pattern as Security Cleaning. */
+/** Luxury Yacht Cleaning follows the same single-select category pattern as High-Security Property Care. */
 const YACHT_SLUG = "luxury-yacht-cleaning";
 
 const CATEGORY_QUOTE_TITLE = "Service type";
@@ -117,7 +117,7 @@ export default function RequestQuotationPage({
   const [propertySizeSqm, setPropertySizeSqm] = useState(20);
   const [propertyType, setPropertyType] = useState("");
   const [quoteItems, setQuoteItems] = useState<QuoteItem[]>([]);
-  /** Shared by Security Cleaning and Luxury Yacht Cleaning's single-select category pickers — only one renders per page, gated by `isSecurityCategory`/`isYachtCategory`. */
+  /** Shared by High-Security Property Care and Luxury Yacht Cleaning's single-select category pickers — only one renders per page, gated by `isSecurityCategory`/`isYachtCategory`. */
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
   const [careProfiles, setCareProfiles] = useState<CareProfile[]>([]);
 

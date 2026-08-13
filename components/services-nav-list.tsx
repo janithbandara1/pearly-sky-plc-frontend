@@ -9,9 +9,9 @@ import { useCountry } from "@/lib/countries/country-context";
 // Mirrors the backend's PRICING_TABLES registry — kept in sync with
 // components/home/services-section.tsx and app/services/page.tsx.
 const BOOKABLE_SERVICES = new Set([
-  "standard-residential-cleaning",
-  "express-refresh-cleaning",
-  "last-minute-cleaning",
+  "regular-maintenance-cleaning",
+  "quick-touch-up-cleaning",
+  "same-day-priority-cleaning",
   "deep-cleaning",
   "end-of-tenancy-cleaning",
   "post-construction-renovation-cleaning",
@@ -20,7 +20,7 @@ const BOOKABLE_SERVICES = new Set([
   "healthguard-sanitization",
   "steam-cleaning",
   "post-event-cleaning",
-  "security-cleaning",
+  "high-security-property-care",
   "luxury-yacht-cleaning",
 ]);
 

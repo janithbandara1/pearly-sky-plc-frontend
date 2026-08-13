@@ -37,7 +37,7 @@ export interface BookingDetailsCardProps {
   generalSteamItems?: string[];
   /** steam-cleaning only — the Industrial & Commercial Steam items selected above. */
   industrialSteamItems?: string[];
-  /** security-cleaning / luxury-yacht-cleaning only — the Service type selected above. */
+  /** high-security-property-care / luxury-yacht-cleaning only — the Service type selected above. */
   serviceCategory?: string;
   items: BookingDraftItem[];
   /**

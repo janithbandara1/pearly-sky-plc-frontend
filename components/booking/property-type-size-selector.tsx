@@ -61,11 +61,11 @@ export const RESIDENTIAL_PROPERTY_CATEGORIES: PropertyCategory[] = [
 ];
 
 const RESIDENTIAL_SCHEME_SERVICE_SLUGS = new Set([
-  "standard-residential-cleaning",
+  "regular-maintenance-cleaning",
   "deep-cleaning",
   "end-of-tenancy-cleaning",
-  "last-minute-cleaning",
-  "express-refresh-cleaning",
+  "same-day-priority-cleaning",
+  "quick-touch-up-cleaning",
   "premium-rental-concierge-cleaning",
   "steam-cleaning",
 ]);

@@ -13,9 +13,9 @@ import type { TranslationKey } from "@/lib/i18n/dictionaries/en";
 // with real, verified area-band pricing data ported so far. The rest use a
 // different (non-property-size) input model that hasn't been built yet.
 const BOOKABLE_SERVICES = new Set([
-  "standard-residential-cleaning",
-  "express-refresh-cleaning",
-  "last-minute-cleaning",
+  "regular-maintenance-cleaning",
+  "quick-touch-up-cleaning",
+  "same-day-priority-cleaning",
   "deep-cleaning",
   "end-of-tenancy-cleaning",
   "post-construction-renovation-cleaning",
@@ -24,7 +24,7 @@ const BOOKABLE_SERVICES = new Set([
   "healthguard-sanitization",
   "steam-cleaning",
   "post-event-cleaning",
-  "security-cleaning",
+  "high-security-property-care",
   "luxury-yacht-cleaning",
 ]);
 
@@ -42,11 +42,11 @@ const QUOTE_ONLY_PRICING_SERVICES = new Set([
 
 // Services with a "Request Quotation" flow (services/<slug>/request-quotation)
 const QUOTABLE_SERVICES = new Set([
-  "standard-residential-cleaning",
+  "regular-maintenance-cleaning",
   "deep-cleaning",
   "end-of-tenancy-cleaning",
-  "last-minute-cleaning",
-  "express-refresh-cleaning",
+  "same-day-priority-cleaning",
+  "quick-touch-up-cleaning",
   "post-construction-renovation-cleaning",
   "premium-rental-concierge-cleaning",
   "commercial-office-cleaning",

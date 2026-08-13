@@ -47,10 +47,10 @@ const STEAM_SLUG = "steam-cleaning";
 /** Only post-event-cleaning collects event type selections. */
 const EVENT_SLUG = "post-event-cleaning";
 
-/** Security Cleaning picks one category instead of quantity-based items. */
-const SECURITY_SLUG = "security-cleaning";
+/** High-Security Property Care picks one category instead of quantity-based items. */
+const SECURITY_SLUG = "high-security-property-care";
 
-/** Luxury Yacht Cleaning follows the same single-select category pattern as Security Cleaning. */
+/** Luxury Yacht Cleaning follows the same single-select category pattern as High-Security Property Care. */
 const YACHT_SLUG = "luxury-yacht-cleaning";
 
 export function ServiceBookingView({ serviceSlug }: { serviceSlug: string }) {
@@ -88,7 +88,7 @@ export function ServiceBookingView({ serviceSlug }: { serviceSlug: string }) {
   const [selectedGeneralSteam, setSelectedGeneralSteam] = useState<Set<string>>(new Set());
   const [selectedIndustrialSteam, setSelectedIndustrialSteam] = useState<Set<string>>(new Set());
 
-  /** Shared by Security Cleaning and Luxury Yacht Cleaning's single-select category pickers. */
+  /** Shared by High-Security Property Care and Luxury Yacht Cleaning's single-select category pickers. */
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
 
   const [error, setError] = useState<string | null>(null);

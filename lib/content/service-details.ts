@@ -18,16 +18,16 @@ export interface ServiceContentEntry {
 }
 
 export const SERVICE_CONTENT: Partial<Record<string, ServiceContentEntry>> = {
-  "standard-residential-cleaning": {
+  "regular-maintenance-cleaning": {
     introduction: {
-      headline: "The Weekly Refresh: Consistent Clean, Sustainable Peace of Mind.",
+      headline: "Consistent Clean, Sustainable Peace of Mind",
       body: [
-        "Stop stressing over chores. Our Standard Residential Cleaning service establishes a reliable, recurring schedule that keeps your home effortlessly immaculate. We use exclusively green, certified eco-friendly products to deliver a deep, sparkling clean that is 100% safe for children and pets. Commit to consistency and enjoy the luxury of coming home to a healthier, reliably pristine space every week.",
+        "Stop stressing over everyday chores. Our Regular Maintenance Cleaning service establishes a reliable, recurring schedule—whether daily, weekly, or bi-weekly—that keeps your home effortlessly immaculate. We use exclusively green, certified eco-friendly products to deliver a sparkling clean that is 100% safe for your children and pets. Commit to consistency and enjoy the luxury of coming home to a healthier, reliably pristine space every time. See our transparent rates and book your recurring schedule today.",
       ],
     },
     highlights: [
       {
-        title: "Standard Residential Cleaning Highlights",
+        title: "Regular Maintenance Cleaning Highlights",
         cards: [
           {
             title: "General & Living Spaces",
@@ -65,16 +65,16 @@ export const SERVICE_CONTENT: Partial<Record<string, ServiceContentEntry>> = {
     ],
   },
 
-  "express-refresh-cleaning": {
+  "quick-touch-up-cleaning": {
     introduction: {
-      headline: "Fast, Focused, Flawless Surfaces.",
+      headline: "Fast-Track Freshness for High-Traffic Spaces",
       body: [
-        'Experience the power of our signature high-impact maintenance service, designed for busy homeowners who demand a professional "spruce-up" without the hassle. Our Express Refresh service zeroes in on high-traffic areas, leaving your home with a polished feel in no time.',
+        "Short on time but need your home looking its best? Our Quick Touch-Up Cleaning is a high-speed, targeted service designed to restore polish to your primary living areas. Ideal before hosting guests, after an event, or between routine visits, we focus on high-traffic zones—like key surfaces, kitchens, and bathrooms—using 100% certified eco-friendly products. Enjoy a spotless, welcoming environment without committing to a full-home clean. View our transparent pricing and book your express refresh today.",
       ],
     },
     highlights: [
       {
-        title: "Express Refresh Cleaning Highlights",
+        title: "Quick Touch-Up Cleaning Highlights",
         cards: [
           {
             title: "Kitchen",
@@ -116,17 +116,16 @@ export const SERVICE_CONTENT: Partial<Record<string, ServiceContentEntry>> = {
     ],
   },
 
-  "last-minute-cleaning": {
+  "same-day-priority-cleaning": {
     introduction: {
-      headline: "Unexpected Visitors? House Suddenly Messy? Get Sparkling Clean in a Flash!",
+      headline: "Urgent Response, Uncompromised Cleanliness",
       body: [
-        "Life throws curveballs, and sometimes you need a spotless home now. Whether it's an unexpected visit from the in-laws, a sudden party, or you just realized your schedule is too tight for a deep clean before a big event, our Emergency Sparkle / Instant Clean crew is here.",
-        "We specialize in rapid-response, high-impact cleaning services designed to quickly and efficiently tackle the most visible areas of your home. Our professional team arrives fully equipped and ready to transform your space from chaos to clean in a matter of hours.",
+        "Need immediate cleaning help on short notice? Our Same-Day Priority Cleaning offers rapid-dispatch service for unexpected visitors, last-minute events, or sudden emergencies. We prioritize your booking to send a professional cleaner to your home as fast as possible, using 100% certified eco-friendly, non-toxic products safe for your family and pets. Get instant relief and guaranteed priority scheduling when time is of the essence. See our transparent rates and book immediate priority support now.",
       ],
     },
     highlights: [
       {
-        title: "Last-Minute Cleaning Highlights",
+        title: "Same-Day Priority Cleaning Highlights",
         cards: [
           {
             title: "Flooring & Entry",
@@ -814,18 +813,16 @@ export const SERVICE_CONTENT: Partial<Record<string, ServiceContentEntry>> = {
     ],
   },
 
-  "security-cleaning": {
+  "high-security-property-care": {
     introduction: {
-      headline: "Security Risks or Physical Chaos?",
+      headline: "Vetted Personnel | Complete Discretion | Uncompromised Quality",
       body: [
-        "Get Complete Physical & Digital Sanitization in a Flash!",
-        "Life and business move fast, and whether you are dealing with a physical space or a digital device, compromised safety and disorder require an immediate response. From confidential office SCIFs, healthcare labs, and high-profile VIP residences needing NDA-cleared staff, to emergency break-in restorations, biohazard spills, and cyber-attack malware purges, our Specialized Security Crew is ready to step in. We deliver rapid, ultra-discreet, and fully vetted cleaning solutions across every environment—protecting your privacy, restoring your assets, and keeping your operations 100% secure.",
-        "When total confidentiality, physical safety, and digital protection matter most, choose the single crew that secures it all.",
+        "Specialist cleaning designed for VVIP and VIP clients, government facilities, private residences, and highly sensitive properties. Handled exclusively by security-vetted staff working under strict non-disclosure agreements, we provide complete discretion in restricted-access areas. Using premium, certified eco-friendly products safe for luxury interiors and family spaces, we deliver immaculate results with maximum trust. Contact us for a confidential consultation and quote.",
       ],
     },
     highlights: [
       {
-        title: "Security Cleaning Highlights",
+        title: "High-Security Property Care Highlights",
         cards: [
           {
             title: "Vetted Staff & Privacy",
