@@ -9,59 +9,6 @@ import { useCurrency } from "@/lib/currency-context";
 import { useLanguage } from "@/lib/i18n/language-context";
 import type { TranslationKey } from "@/lib/i18n/dictionaries/en";
 
-// Mirrors the backend's PRICING_TABLES registry — these are the services
-// with real, verified area-band pricing data ported so far. The rest use a
-// different (non-property-size) input model that hasn't been built yet.
-const BOOKABLE_SERVICES = new Set([
-  "regular-maintenance-cleaning",
-  "quick-touch-up-cleaning",
-  "same-day-priority-cleaning",
-  "deep-cleaning",
-  "end-of-tenancy-cleaning",
-  "post-construction-renovation-cleaning",
-  "premium-rental-concierge-cleaning",
-  "commercial-office-cleaning",
-  "healthguard-sanitization",
-  "steam-cleaning",
-  "post-event-cleaning",
-  "high-security-property-care",
-  "luxury-yacht-cleaning",
-]);
-
-// Services priced on a per-project basis rather than an hourly rate — the
-// homepage card shows "Request Quotation" instead of an "/h" price for these.
-const QUOTE_ONLY_PRICING_SERVICES = new Set([
-  "carpet-upholstery-cleaning",
-  "pool-cleaning",
-  "precision-pressure-washing",
-  "laundry-services",
-  "move-in-out-transport-service",
-  "child-care-service",
-  "elder-care-service",
-]);
-
-// Services with a "Request Quotation" flow (services/<slug>/request-quotation)
-const QUOTABLE_SERVICES = new Set([
-  "regular-maintenance-cleaning",
-  "deep-cleaning",
-  "end-of-tenancy-cleaning",
-  "same-day-priority-cleaning",
-  "quick-touch-up-cleaning",
-  "post-construction-renovation-cleaning",
-  "premium-rental-concierge-cleaning",
-  "commercial-office-cleaning",
-]);
-
-// Per-project services with a customized quotation form (no hourly booking flow) —
-// these get a "Request Quotation" card action instead of "Coming Soon".
-const CUSTOM_QUOTE_SERVICES = new Set([
-  "carpet-upholstery-cleaning",
-  "pool-cleaning",
-  "precision-pressure-washing",
-  "child-care-service",
-  "elder-care-service",
-]);
-
 const CATEGORIES: { key: ServiceCategory; headingKey: TranslationKey; limit?: number }[] = [
   { key: "property_care", headingKey: "servicesCategoryPropertyCare", limit: 4 },
   { key: "bespoke_lifestyle", headingKey: "servicesCategoryBespokeLifestyle" },
@@ -96,7 +43,7 @@ function ServiceCard({ service }: { service: CatalogService }) {
             </p>
           )}
           <p className="text-sm font-semibold text-brand-gold">
-            {QUOTE_ONLY_PRICING_SERVICES.has(service.name)
+            {!service.isBookable
               ? translate("servicesRequestQuotation")
               : service.price
                 ? `${symbol}${service.price}${translate("servicesPricePerCleaner")}`
@@ -104,7 +51,7 @@ function ServiceCard({ service }: { service: CatalogService }) {
           </p>
         </div>
 
-        {BOOKABLE_SERVICES.has(service.name) ? (
+        {service.isBookable ? (
           <div className="mt-2 flex w-full flex-col gap-2">
             <Link
               href={`/services/${service.name}`}
@@ -113,7 +60,7 @@ function ServiceCard({ service }: { service: CatalogService }) {
               {translate("servicesBookNow")}
               <ArrowRight className="h-3.5 w-3.5" />
             </Link>
-            {QUOTABLE_SERVICES.has(service.name) && (
+            {service.isQuotable && (
               <Link
                 href={`/services/${service.name}/request-quotation`}
                 className="flex w-full items-center justify-center gap-1.5 rounded-lg border border-brand-gold px-4 py-2 text-xs font-semibold text-brand-gold transition-colors hover:bg-brand-gold/10"
@@ -122,7 +69,7 @@ function ServiceCard({ service }: { service: CatalogService }) {
               </Link>
             )}
           </div>
-        ) : CUSTOM_QUOTE_SERVICES.has(service.name) ? (
+        ) : service.isQuotable ? (
           <Link
             href={`/services/${service.name}/request-quotation`}
             className="mt-2 flex w-full items-center justify-center gap-1.5 rounded-lg bg-brand-gold px-4 py-2 text-xs font-semibold text-brand-navy transition-colors hover:bg-brand-gold/90"

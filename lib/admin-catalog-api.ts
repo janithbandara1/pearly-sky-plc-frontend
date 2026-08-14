@@ -41,6 +41,8 @@ export interface CreateServicePayload {
   category?: ServiceCategory;
   description?: string;
   imageUrl?: string;
+  isBookable?: boolean;
+  isQuotable?: boolean;
 }
 export type UpdateServicePayload = Partial<CreateServicePayload>;
 

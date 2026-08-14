@@ -96,7 +96,13 @@ export function ServiceBookingView({ serviceSlug }: { serviceSlug: string }) {
 
   useEffect(() => {
     getServiceBySlug(serviceSlug, country)
-      .then(setService)
+      .then((data) => {
+        if (!data.isBookable) {
+          setServiceError(`Book now for "${data.label}" isn't available yet.`);
+          return;
+        }
+        setService(data);
+      })
       .catch((err) => setServiceError(err instanceof ApiError ? err.message : "Service not found."));
   }, [serviceSlug, country]);
 

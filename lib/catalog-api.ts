@@ -19,6 +19,10 @@ export interface CatalogService {
   category: ServiceCategory;
   description: string | null;
   imageUrl: string | null;
+  /** Can be booked online through the sizing/pricing + booking flow. */
+  isBookable: boolean;
+  /** Accepts "Request a Quotation" submissions. */
+  isQuotable: boolean;
 }
 
 export interface ServiceAddOnPackage {

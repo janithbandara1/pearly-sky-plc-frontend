@@ -161,7 +161,13 @@ export default function RequestQuotationPage({
 
   useEffect(() => {
     getServiceBySlug(serviceSlug, country)
-      .then(setService)
+      .then((data) => {
+        if (!data.isQuotable) {
+          setServiceError(`Request quotation for "${data.label}" isn't available.`);
+          return;
+        }
+        setService(data);
+      })
       .catch((err) => setServiceError(err instanceof ApiError ? err.message : "Service not found."));
   }, [serviceSlug, country]);
 

@@ -35,6 +35,8 @@ const emptyForm: CreateServicePayload = {
   category: "property_care",
   description: "",
   imageUrl: "",
+  isBookable: false,
+  isQuotable: false,
 };
 
 export default function AddServicePage() {

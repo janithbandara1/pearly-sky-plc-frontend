@@ -6,24 +6,6 @@ import { getServices } from "@/lib/catalog-api";
 import type { CatalogService } from "@/lib/catalog-api";
 import { useCountry } from "@/lib/countries/country-context";
 
-// Mirrors the backend's PRICING_TABLES registry — kept in sync with
-// components/home/services-section.tsx and app/services/page.tsx.
-const BOOKABLE_SERVICES = new Set([
-  "regular-maintenance-cleaning",
-  "quick-touch-up-cleaning",
-  "same-day-priority-cleaning",
-  "deep-cleaning",
-  "end-of-tenancy-cleaning",
-  "post-construction-renovation-cleaning",
-  "premium-rental-concierge-cleaning",
-  "commercial-office-cleaning",
-  "healthguard-sanitization",
-  "steam-cleaning",
-  "post-event-cleaning",
-  "high-security-property-care",
-  "luxury-yacht-cleaning",
-]);
-
 export function useCatalogServices() {
   const { country } = useCountry();
   const [services, setServices] = useState<CatalogService[]>([]);
@@ -57,7 +39,7 @@ export function ServicesNavList({
         <li key={service.id} className="min-w-0">
           <Link
             href={
-              BOOKABLE_SERVICES.has(service.name)
+              service.isBookable
                 ? `/services/${service.name}`
                 : "/#services"
             }
