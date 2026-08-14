@@ -123,12 +123,20 @@ export function FieldInput({
 
 export interface QuoteItemsSectionProps {
   title: string;
+  /** Label for the item-picker dropdown. Defaults to "Service Type". */
+  itemLabel?: string;
   itemOptions: QuoteItemOption[];
   items: QuoteItem[];
   onItemsChange: (items: QuoteItem[]) => void;
 }
 
-export function QuoteItemsSection({ title, itemOptions, items, onItemsChange }: QuoteItemsSectionProps) {
+export function QuoteItemsSection({
+  title,
+  itemLabel = "Service Type",
+  itemOptions,
+  items,
+  onItemsChange,
+}: QuoteItemsSectionProps) {
   const [selectedValue, setSelectedValue] = useState(itemOptions[0]?.value ?? "");
   const [quantity, setQuantity] = useState(1);
   const [fieldValues, setFieldValues] = useState<Record<string, string>>({});
@@ -166,7 +174,7 @@ export function QuoteItemsSection({ title, itemOptions, items, onItemsChange }: 
 
       <div className="flex flex-col gap-4 bg-[#F8F9FA] p-4 sm:p-5">
         <div className="space-y-1.5">
-          <Label>Service Type</Label>
+          <Label>{itemLabel}</Label>
           <Select value={selectedValue} onValueChange={handleSelectChange}>
             <SelectTrigger className="w-full bg-white">
               <SelectValue />

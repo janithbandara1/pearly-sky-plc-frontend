@@ -27,7 +27,7 @@ const CARE_QUOTE_TITLES = new Set(["Child Details", "Elder Details"]);
 const HIDE_IF_EMPTY_QUOTE_TITLES = new Set([
   "Carpet & Upholstery Details",
   "Pool Details",
-  "Pressure Washing Job Details",
+  "Job Details",
 ]);
 
 const STATUS_BADGE_VARIANT: Record<QuotationStatus, "default" | "secondary" | "outline"> = {
@@ -46,11 +46,6 @@ export interface QuotationSummaryAddress {
   city: string;
   country: string | null;
   postalCode: string | null;
-}
-
-function formatAddress(address: QuotationSummaryAddress): string {
-  const line2 = [address.city, address.postalCode].filter(Boolean).join(", ");
-  return [address.streetAddress, line2, address.country].filter(Boolean).join("\n");
 }
 
 function Field({ label, value }: { label: string; value: ReactNode }) {
@@ -75,7 +70,7 @@ function KeyValueRow({ label, value }: { label: string; value: string }) {
   return (
     <div className="flex items-baseline justify-between gap-4">
       <span className="text-muted-foreground">{label}</span>
-      <span className="font-medium">{value}</span>
+      <span>{value}</span>
     </div>
   );
 }
@@ -171,7 +166,7 @@ export function QuotationSummaryCard({
         {hasContact && (
           <SectionCard icon={Users} label="Contact Information">
             <div className="flex flex-col gap-4">
-              {customerName && <Field label="Customer" value={customerName} />}
+              {customerName && <Field label="Name" value={customerName} />}
               {customerEmail && <Field label="Email" value={customerEmail} />}
               {customerPhone && <Field label="Phone" value={customerPhone} />}
             </div>
@@ -179,7 +174,12 @@ export function QuotationSummaryCard({
         )}
 
         <SectionCard icon={MapPin} label="Address">
-          <p className="text-sm whitespace-pre-line">{formatAddress(address)}</p>
+          <div className="flex flex-col gap-3">
+            <Field label="Street" value={address.streetAddress} />
+            <Field label="City" value={address.city} />
+            {address.country && <Field label="Country" value={address.country} />}
+            {address.postalCode && <Field label="Postal Code" value={address.postalCode} />}
+          </div>
         </SectionCard>
       </div>
 
@@ -188,50 +188,47 @@ export function QuotationSummaryCard({
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
             <Field label="Service" value={serviceLabel} />
             <Field label="Date & time" value={date ? `${date}${time ? ` · ${time}` : ""}` : "Not specified"} />
-            {quoteItemsTitle && !hideQuoteItems ? (
-              <div className="col-span-full">
-                <Field
-                  label={quoteItemsTitle}
-                  value={
-                    quoteItems?.length ? (
-                      isCareProfileQuote ? (
-                        <div className="flex flex-col gap-1">
-                          {quoteItems.map((line) => {
-                            const separatorIndex = line.indexOf(": ");
-                            return separatorIndex === -1 ? (
-                              <p key={line}>{line}</p>
-                            ) : (
-                              <KeyValueRow
-                                key={line}
-                                label={line.slice(0, separatorIndex)}
-                                value={line.slice(separatorIndex + 2)}
-                              />
-                            );
-                          })}
-                        </div>
-                      ) : (
-                        <ul className="list-inside list-disc">
-                          {quoteItems.map((line) => (
-                            <li key={line}>{line}</li>
-                          ))}
-                        </ul>
-                      )
-                    ) : (
-                      "Not specified"
-                    )
-                  }
-                />
-              </div>
-            ) : (
+            {!(quoteItemsTitle && !hideQuoteItems) && (
               <>
                 {propertyType && <Field label="Property type" value={propertyType} />}
                 {propertySizeSqm != null && <Field label="Property size" value={`${propertySizeSqm} m²`} />}
               </>
             )}
-            {numCleaners != null && <Field label={professionalsLabel} value={numCleaners} />}
             {durationHours != null && <Field label="Duration" value={`${Number(durationHours)} hours`} />}
+            {numCleaners != null && <Field label={professionalsLabel} value={numCleaners} />}
           </div>
         </SectionCard>
+
+        {quoteItemsTitle && !hideQuoteItems && (
+          <SectionCard icon={ClipboardList} label={quoteItemsTitle}>
+            {quoteItems?.length ? (
+              isCareProfileQuote ? (
+                <div className="flex flex-col gap-1 text-sm">
+                  {quoteItems.map((line) => {
+                    const separatorIndex = line.indexOf(": ");
+                    return separatorIndex === -1 ? (
+                      <p key={line}>{line}</p>
+                    ) : (
+                      <KeyValueRow
+                        key={line}
+                        label={line.slice(0, separatorIndex)}
+                        value={line.slice(separatorIndex + 2)}
+                      />
+                    );
+                  })}
+                </div>
+              ) : (
+                <ul className="list-inside list-disc text-sm">
+                  {quoteItems.map((line) => (
+                    <li key={line}>{line}</li>
+                  ))}
+                </ul>
+              )
+            ) : (
+              <p className="text-sm">Not specified</p>
+            )}
+          </SectionCard>
+        )}
 
         <SectionCard icon={SlidersHorizontal} label="Preferences">
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
@@ -243,18 +240,20 @@ export function QuotationSummaryCard({
           </div>
         </SectionCard>
 
-        <SectionCard icon={SprayCan} label="Cleaning Solvents & Equipment">
-          <p className="text-sm">
-            {supplySource ? (SUPPLY_SOURCE_LABEL[supplySource] ?? supplySource) : "Not specified"}
-          </p>
-          {supplySource === "company" && equipmentItems?.length ? (
-            <ul className="mt-2 flex flex-col gap-2 text-sm">
-              {equipmentItems.map((item) => (
-                <LineItemRow key={item.name} name={item.name} />
-              ))}
-            </ul>
-          ) : null}
-        </SectionCard>
+        {supplySource || equipmentItems?.length ? (
+          <SectionCard icon={SprayCan} label="Cleaning Solvents & Equipment">
+            <p className="text-sm">
+              {supplySource ? (SUPPLY_SOURCE_LABEL[supplySource] ?? supplySource) : "Not specified"}
+            </p>
+            {supplySource === "company" && equipmentItems?.length ? (
+              <ul className="mt-2 flex flex-col gap-2 text-sm">
+                {equipmentItems.map((item) => (
+                  <LineItemRow key={item.name} name={item.name} />
+                ))}
+              </ul>
+            ) : null}
+          </SectionCard>
+        ) : null}
       </div>
     </div>
   );

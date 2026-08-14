@@ -20,11 +20,16 @@ import {
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { GENDER_OPTIONS, LANGUAGE_OPTIONS } from "@/components/booking/quotation-preferences-section";
+import { GENERAL_STEAM_CARDS } from "@/components/booking/steam/general-steam-section";
+import { INDUSTRIAL_STEAM_CATEGORIES } from "@/components/booking/steam/industrial-commercial-steam-section";
 
 const SUPPLY_SOURCE_LABEL: Record<string, string> = {
   customer: "Provided by the Customer",
   company: "Request the Company",
 };
+
+const GENERAL_STEAM_TITLES = new Set(GENERAL_STEAM_CARDS.map((card) => card.title));
+const INDUSTRIAL_STEAM_TITLES = new Set(INDUSTRIAL_STEAM_CATEGORIES.map((category) => category.title));
 
 const STATUS_BADGE_VARIANT: Record<
   "pending" | "confirmed" | "cancelled",
@@ -38,12 +43,6 @@ const STATUS_BADGE_VARIANT: Record<
 function optionLabel(options: { value: string; label: string }[], value: string | null): string {
   if (!value) return "No Preference";
   return options.find((o) => o.value === value)?.label ?? value;
-}
-
-function formatAddress(address: BookingSummaryAddress): string {
-  const line1 = address.unit ? `${address.streetAddress}, ${address.unit}` : address.streetAddress;
-  const line2 = [address.city, address.state, address.postalCode].filter(Boolean).join(", ");
-  return [line1, line2, address.country].filter(Boolean).join("\n");
 }
 
 export interface BookingSummaryLineItem {
@@ -186,6 +185,9 @@ export function BookingSummaryCard({
   const hasRemaining = remainingMin !== null && remainingMax !== null;
   const hasContact =
     customerName !== undefined || customerEmail !== undefined || customerPhone !== undefined;
+  const generalSteamItems = details?.steamItems?.filter((item) => GENERAL_STEAM_TITLES.has(item)) ?? [];
+  const industrialSteamItems =
+    details?.steamItems?.filter((item) => INDUSTRIAL_STEAM_TITLES.has(item)) ?? [];
 
   return (
     <div className="grid grid-cols-1 gap-6 lg:grid-cols-3 lg:items-start">
@@ -213,7 +215,7 @@ export function BookingSummaryCard({
         {hasContact && (
           <SectionCard icon={Users} label="Contact Information">
             <div className="flex flex-col gap-4">
-              {customerName && <Field label="Customer" value={customerName} />}
+              {customerName && <Field label="Name" value={customerName} />}
               {customerEmail && <Field label="Email" value={customerEmail} />}
               {customerPhone && <Field label="Phone" value={customerPhone} />}
             </div>
@@ -222,7 +224,16 @@ export function BookingSummaryCard({
 
         {address && (
           <SectionCard icon={MapPin} label="Address">
-            <p className="text-sm whitespace-pre-line">{formatAddress(address)}</p>
+            <div className="flex flex-col gap-3">
+              <Field
+                label="Street"
+                value={[address.streetAddress, address.unit].filter(Boolean).join(", ")}
+              />
+              <Field label="City" value={address.city} />
+              {address.state && <Field label="State" value={address.state} />}
+              {address.country && <Field label="Country" value={address.country} />}
+              {address.postalCode && <Field label="Postal Code" value={address.postalCode} />}
+            </div>
           </SectionCard>
         )}
 
@@ -293,17 +304,30 @@ export function BookingSummaryCard({
 
           {details.disinfectionLevel && (
             <SectionCard icon={ShieldCheck} label="Disinfection Level">
-              <p className="text-sm">
-                {details.disinfectionLevel.name}
-                {details.disinfectionLevel.price ? ` — +${details.disinfectionLevel.price}` : ""}
-              </p>
+              <ul className="text-sm">
+                <LineItemRow
+                  name={details.disinfectionLevel.name}
+                  price={details.disinfectionLevel.price}
+                  money={money}
+                />
+              </ul>
             </SectionCard>
           )}
 
-          {details.steamItems?.length ? (
-            <SectionCard icon={Wind} label="Steam Items">
+          {generalSteamItems.length ? (
+            <SectionCard icon={Wind} label="General Steam Cleaning Job Types">
               <ul className="list-inside list-disc text-sm">
-                {details.steamItems.map((item) => (
+                {generalSteamItems.map((item) => (
+                  <li key={item}>{item}</li>
+                ))}
+              </ul>
+            </SectionCard>
+          ) : null}
+
+          {industrialSteamItems.length ? (
+            <SectionCard icon={Wind} label="Industrial & Commercial Steam Cleaning Job Types">
+              <ul className="list-inside list-disc text-sm">
+                {industrialSteamItems.map((item) => (
                   <li key={item}>{item}</li>
                 ))}
               </ul>
@@ -321,7 +345,7 @@ export function BookingSummaryCard({
           ) : null}
 
           {details.category && (
-            <SectionCard icon={Tag} label="Service type">
+            <SectionCard icon={Tag} label="Job type">
               <p className="text-sm">{details.category}</p>
             </SectionCard>
           )}
@@ -342,37 +366,37 @@ export function BookingSummaryCard({
             </div>
           </SectionCard>
 
-          <SectionCard icon={PlusCircle} label="Add-Ons">
-            {details.addOns?.length ? (
+          {details.addOns?.length ? (
+            <SectionCard icon={PlusCircle} label="Add-Ons">
               <ul className="flex flex-col gap-2 text-sm">
                 {details.addOns.map((addOn) => (
                   <LineItemRow key={addOn.name} name={addOn.name} price={addOn.price} money={money} />
                 ))}
               </ul>
-            ) : (
-              <p className="text-sm">None</p>
-            )}
-          </SectionCard>
+            </SectionCard>
+          ) : null}
 
-          <SectionCard icon={SprayCan} label="Cleaning Solvents & Equipment">
-            <p className="text-sm">
-              {details.supplySource
-                ? (SUPPLY_SOURCE_LABEL[details.supplySource] ?? details.supplySource)
-                : "Not specified"}
-            </p>
-            {details.supplySource === "company" && details.equipmentItems?.length ? (
-              <ul className="mt-2 flex flex-col gap-2 text-sm">
-                {details.equipmentItems.map((item) => (
-                  <LineItemRow
-                    key={item.name}
-                    name={item.name}
-                    price={showPaymentInfo ? item.price : undefined}
-                    money={money}
-                  />
-                ))}
-              </ul>
-            ) : null}
-          </SectionCard>
+          {details.supplySource || details.equipmentItems?.length ? (
+            <SectionCard icon={SprayCan} label="Cleaning Solvents & Equipment">
+              <p className="text-sm">
+                {details.supplySource
+                  ? (SUPPLY_SOURCE_LABEL[details.supplySource] ?? details.supplySource)
+                  : "Not specified"}
+              </p>
+              {details.supplySource === "company" && details.equipmentItems?.length ? (
+                <ul className="mt-2 flex flex-col gap-2 text-sm">
+                  {details.equipmentItems.map((item) => (
+                    <LineItemRow
+                      key={item.name}
+                      name={item.name}
+                      price={showPaymentInfo ? item.price : undefined}
+                      money={money}
+                    />
+                  ))}
+                </ul>
+              ) : null}
+            </SectionCard>
+          ) : null}
         </div>
       )}
     </div>

@@ -37,7 +37,7 @@ export interface BookingDetailsCardProps {
   generalSteamItems?: string[];
   /** steam-cleaning only — the Industrial & Commercial Steam items selected above. */
   industrialSteamItems?: string[];
-  /** high-security-property-care / luxury-yacht-cleaning only — the Service type selected above. */
+  /** high-security-property-care / luxury-yacht-cleaning only — the Job type selected above. */
   serviceCategory?: string;
   items: BookingDraftItem[];
   /**
@@ -164,14 +164,14 @@ export function BookingDetailsCard({
 
         {serviceCategory && (
           <div className="flex flex-col border-t border-brand-gold/20">
-            <SectionHeading label="Service type" />
+            <SectionHeading label="Job type" />
             <SummaryRow label={serviceCategory} value="" />
           </div>
         )}
 
         {generalSteamItems && generalSteamItems.length > 0 && (
           <div className="flex flex-col border-t border-brand-gold/20">
-            <SectionHeading label="General Steam Cleaning Services" />
+            <SectionHeading label="General Steam Cleaning Job Types" />
             {generalSteamItems.map((item) => (
               <SummaryRow key={item} label={item} value="" />
             ))}
@@ -180,7 +180,7 @@ export function BookingDetailsCard({
 
         {industrialSteamItems && industrialSteamItems.length > 0 && (
           <div className="flex flex-col border-t border-brand-gold/20">
-            <SectionHeading label="Industrial & Commercial Steam Cleaning Services" />
+            <SectionHeading label="Industrial & Commercial Steam Cleaning Job Types" />
             {industrialSteamItems.map((item) => (
               <SummaryRow key={item} label={item} value="" />
             ))}

@@ -187,7 +187,7 @@ export function ServiceBookingView({ serviceSlug }: { serviceSlug: string }) {
 
   function handleBookNow() {
     if (!service) return;
-    if (!isSanitization && !supplySource) {
+    if (!isSanitization && items.length > 0 && !supplySource) {
       setError("Please select a Cleaning Solvents & Equipment option.");
       return;
     }
@@ -261,7 +261,7 @@ export function ServiceBookingView({ serviceSlug }: { serviceSlug: string }) {
   const genderLabel = GENDER_OPTIONS.find((o) => o.value === gender)?.label ?? "No Preference";
   const languageLabel = LANGUAGE_OPTIONS.find((o) => o.value === language)?.label ?? "None";
 
-  const bookDisabledReason = !isSanitization && !supplySource
+  const bookDisabledReason = !isSanitization && items.length > 0 && !supplySource
     ? "Select a Cleaning Solvents & Equipment option above to continue."
     : isSanitization && selectedFacilityIds.size === 0
       ? "Select at least one facility above to continue."
@@ -383,7 +383,7 @@ export function ServiceBookingView({ serviceSlug }: { serviceSlug: string }) {
             price: i.price !== null ? Number(i.price) : null,
           }))}
           supplySource={supplySource}
-          onSupplySourceChange={!isSanitization ? handleSupplySourceChange : undefined}
+          onSupplySourceChange={items.length > 0 ? handleSupplySourceChange : undefined}
           equipmentOptions={supplySource === "company" ? items : undefined}
           selectedEquipmentIds={selectedItemIds}
           onToggleEquipment={toggleItem}

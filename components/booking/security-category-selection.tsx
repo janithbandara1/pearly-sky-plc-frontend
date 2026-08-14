@@ -23,7 +23,7 @@ export function SecurityCategorySelection({ selected, onSelect }: SecurityCatego
     <section className="overflow-hidden rounded-[12px] border border-[#A98B4B]">
       <div className="bg-[#121E2D] px-5 py-4 text-center">
         <h2 className="text-[1.1rem] font-bold text-[#FFFDF4] sm:text-[1.3rem]">
-          Service type
+          Job type
         </h2>
       </div>
 

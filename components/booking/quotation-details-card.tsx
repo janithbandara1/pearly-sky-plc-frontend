@@ -123,47 +123,49 @@ export function QuotationDetailsCard({
           <SummaryRow label="Special Requirements" value={requirements || "—"} />
         </div>
 
-        <div className="flex flex-col border-t border-brand-gold/20">
-          <SectionHeading label="Cleaning Solvents & Equipment" />
-          {SUPPLY_SOURCE_OPTIONS.map((opt) => (
-            <label
-              key={opt.value}
-              htmlFor={`quote-supply-source-${opt.value}`}
-              className="flex cursor-pointer items-center justify-between gap-3 px-4 py-2.5 text-sm"
-            >
-              <span className="text-brand-navy-foreground/70">{opt.label}</span>
-              <Checkbox
-                id={`quote-supply-source-${opt.value}`}
-                checked={supplySource === opt.value}
-                onCheckedChange={(checked) => onSupplySourceChange(checked ? opt.value : "")}
-                className="border-brand-gold data-checked:border-brand-gold data-checked:bg-brand-gold"
-              />
-            </label>
-          ))}
-
-          {supplySource === "company" &&
-            equipmentItems.map((item) => {
-              const isSelected = selectedEquipmentIds?.has(item.id) ?? false;
-              return (
-                <SummaryRow
-                  key={item.id}
-                  label={item.name}
-                  value={
-                    <button
-                      type="button"
-                      onClick={() => onToggleEquipment?.(item.id)}
-                      aria-pressed={isSelected}
-                      className={`shrink-0 rounded-[6px] border-[1.5px] border-brand-gold px-2.5 py-1 text-xs ${
-                        isSelected ? "bg-brand-gold text-brand-navy" : "text-brand-gold"
-                      }`}
-                    >
-                      {isSelected ? "Added" : "Add"}
-                    </button>
-                  }
+        {equipmentItems.length > 0 && (
+          <div className="flex flex-col border-t border-brand-gold/20">
+            <SectionHeading label="Cleaning Solvents & Equipment" />
+            {SUPPLY_SOURCE_OPTIONS.map((opt) => (
+              <label
+                key={opt.value}
+                htmlFor={`quote-supply-source-${opt.value}`}
+                className="flex cursor-pointer items-center justify-between gap-3 px-4 py-2.5 text-sm"
+              >
+                <span className="text-brand-navy-foreground/70">{opt.label}</span>
+                <Checkbox
+                  id={`quote-supply-source-${opt.value}`}
+                  checked={supplySource === opt.value}
+                  onCheckedChange={(checked) => onSupplySourceChange(checked ? opt.value : "")}
+                  className="border-brand-gold data-checked:border-brand-gold data-checked:bg-brand-gold"
                 />
-              );
-            })}
-        </div>
+              </label>
+            ))}
+
+            {supplySource === "company" &&
+              equipmentItems.map((item) => {
+                const isSelected = selectedEquipmentIds?.has(item.id) ?? false;
+                return (
+                  <SummaryRow
+                    key={item.id}
+                    label={item.name}
+                    value={
+                      <button
+                        type="button"
+                        onClick={() => onToggleEquipment?.(item.id)}
+                        aria-pressed={isSelected}
+                        className={`shrink-0 rounded-[6px] border-[1.5px] border-brand-gold px-2.5 py-1 text-xs ${
+                          isSelected ? "bg-brand-gold text-brand-navy" : "text-brand-gold"
+                        }`}
+                      >
+                        {isSelected ? "Added" : "Add"}
+                      </button>
+                    }
+                  />
+                );
+              })}
+          </div>
+        )}
 
         <div className="p-4">
           <label

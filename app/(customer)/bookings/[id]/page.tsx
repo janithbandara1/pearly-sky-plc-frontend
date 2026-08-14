@@ -108,6 +108,7 @@ export default function BookingDetailsPage() {
           remainingMax={hasEstimate ? remainingMax : null}
           money={money}
           details={details}
+          customerName={`${booking.customer.firstName} ${booking.customer.lastName ?? ""}`.trim()}
           customerEmail={booking.customer.email}
           customerPhone={booking.customer.contact ?? undefined}
           address={booking.address}

@@ -49,9 +49,16 @@ import {
 import { CareProfile, formatCareProfile } from "@/lib/content/care-profiles";
 
 /** These services are priced per-project — they get a domain-specific item picker instead of the generic property size/type fields. */
-const CUSTOM_QUOTE_ITEMS: Record<string, { title: string; options: QuoteItemOption[] }> = {
+const CUSTOM_QUOTE_ITEMS: Record<
+  string,
+  { title: string; itemLabel?: string; options: QuoteItemOption[] }
+> = {
   "pool-cleaning": { title: "Pool Details", options: POOL_ITEM_OPTIONS },
-  "precision-pressure-washing": { title: "Pressure Washing Job Details", options: PRESSURE_WASHING_ITEM_OPTIONS },
+  "precision-pressure-washing": {
+    title: "Job Details",
+    itemLabel: "Job Type",
+    options: PRESSURE_WASHING_ITEM_OPTIONS,
+  },
   "carpet-upholstery-cleaning": { title: "Carpet & Upholstery Details", options: CARPET_ITEM_OPTIONS },
 };
 
@@ -61,7 +68,7 @@ const SECURITY_SLUG = "high-security-property-care";
 /** Luxury Yacht Cleaning follows the same single-select category pattern as High-Security Property Care. */
 const YACHT_SLUG = "luxury-yacht-cleaning";
 
-const CATEGORY_QUOTE_TITLE = "Service type";
+const CATEGORY_QUOTE_TITLE = "Job type";
 
 /** Child Care and Elder Care are quote-only too — they collect per-person profiles instead of a property size. */
 const CHILD_CARE_SLUG = "child-care-service";
@@ -309,7 +316,7 @@ export default function RequestQuotationPage({
         contact: phone.trim(),
         streetAddress: streetAddress.trim(),
         city: city.trim(),
-        country: countryCode,
+        country: COUNTRY_NAMES[countryCode],
         postalCode: postalCode.trim() || undefined,
       });
       router.push(`/quotation-confirmation/${quotation.id}?ref=${quotation.referenceNumber}`);
@@ -383,6 +390,7 @@ export default function RequestQuotationPage({
           ) : customQuote ? (
             <QuoteItemsSection
               title={customQuote.title}
+              itemLabel={customQuote.itemLabel}
               itemOptions={customQuote.options}
               items={quoteItems}
               onItemsChange={setQuoteItems}
