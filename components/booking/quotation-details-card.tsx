@@ -42,6 +42,8 @@ export interface QuotationDetailsCardProps {
   submitting?: boolean;
   agreedToTerms: boolean;
   onAgreedToTermsChange: (value: boolean) => void;
+  /** Explains why the submit button is disabled; shown beneath it and used to gate submission. */
+  disabledReason?: string;
 }
 
 export function QuotationDetailsCard({
@@ -69,6 +71,7 @@ export function QuotationDetailsCard({
   submitting,
   agreedToTerms,
   onAgreedToTermsChange,
+  disabledReason,
 }: QuotationDetailsCardProps) {
   return (
     <Card className="bg-brand-navy text-brand-navy-foreground">
@@ -192,11 +195,14 @@ export function QuotationDetailsCard({
           </label>
           <Button
             type="submit"
-            disabled={submitting || !agreedToTerms}
+            disabled={submitting || !!disabledReason}
             className="w-full bg-brand-gold text-brand-navy hover:bg-brand-gold/90"
           >
             {submitting ? "Sending…" : ctaLabel}
           </Button>
+          {disabledReason && (
+            <p className="mt-2 text-center text-xs text-brand-navy-foreground/70">{disabledReason}</p>
+          )}
         </div>
       </CardContent>
     </Card>

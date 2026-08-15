@@ -253,8 +253,13 @@ export default function RequestQuotationPage({
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     if (!service || !validate()) return;
+    const items = (service.serviceItems ?? []).map((si) => si.item);
     if (!agreedToTerms) {
       setSubmitError("Please agree to the Terms and Conditions and Privacy Policy to continue.");
+      return;
+    }
+    if (customQuote && quoteItems.length === 0) {
+      setSubmitError(`Please add at least one ${customQuote.itemLabel?.toLowerCase() ?? "item"} to continue.`);
       return;
     }
     if (isCategoryQuote && !selectedCategory) {
@@ -276,8 +281,19 @@ export default function RequestQuotationPage({
         return;
       }
     }
+    if (!customQuote && !isCategoryQuote && !isCareProfile && !propertyType) {
+      setSubmitError("Please select a property type above to continue.");
+      return;
+    }
+    if (items.length > 0 && !supplySource) {
+      setSubmitError("Please select a Cleaning Solvents & Equipment above to continue.");
+      return;
+    }
+    if (supplySource === "company" && selectedItemIds.size === 0) {
+      setSubmitError("Add at least one Cleaning Solvent & Equipment item above to continue.");
+      return;
+    }
 
-    const items = (service.serviceItems ?? []).map((si) => si.item);
     const selectedItems =
       supplySource === "customer"
         ? items
@@ -359,6 +375,22 @@ export default function RequestQuotationPage({
   const quoteItemsTitle =
     customQuote?.title ?? (isCategoryQuote ? categoryQuoteTitle : isCareProfile ? careQuoteItemsTitle : undefined);
   const equipmentItems = (service.serviceItems ?? []).map((si) => si.item);
+
+  const quoteDisabledReason = customQuote && quoteItems.length === 0
+    ? `Add at least one ${customQuote.itemLabel?.toLowerCase() ?? "item"} above to continue.`
+    : isCategoryQuote && !selectedCategory
+      ? "Select a job type above to continue."
+      : isCareProfile && careProfiles.length === 0
+        ? `Add at least one ${carePersonLabel.toLowerCase()}'s profile above to continue.`
+        : !customQuote && !isCategoryQuote && !isCareProfile && !propertyType
+          ? "Select a property type above to continue."
+          : equipmentItems.length > 0 && !supplySource
+            ? "Select a Cleaning Solvents & Equipment above to continue."
+            : supplySource === "company" && selectedItemIds.size === 0
+              ? "Add at least one Cleaning Solvent & Equipment item above to continue."
+              : !agreedToTerms
+                ? "Agree to the Terms and Conditions and Privacy Policy to continue."
+                : undefined;
 
   return (
     <main className="flex-1">
@@ -670,6 +702,7 @@ export default function RequestQuotationPage({
             submitting={submitting}
             agreedToTerms={agreedToTerms}
             onAgreedToTermsChange={setAgreedToTerms}
+            disabledReason={quoteDisabledReason}
           />
           {submitError && <p className="text-sm text-destructive">{submitError}</p>}
         </form>

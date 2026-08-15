@@ -39,6 +39,8 @@ export interface BookingDetailsCardProps {
   industrialSteamItems?: string[];
   /** high-security-property-care / luxury-yacht-cleaning only — the Job type selected above. */
   serviceCategory?: string;
+  /** post-event-cleaning only — the event types selected above. */
+  eventTypes?: string[];
   items: BookingDraftItem[];
   /**
    * Drives the read-only `items` list's value text: "Provided by you" when the
@@ -93,6 +95,7 @@ export function BookingDetailsCard({
   generalSteamItems,
   industrialSteamItems,
   serviceCategory,
+  eventTypes,
   items,
   supplySource,
   onSupplySourceChange,
@@ -182,6 +185,15 @@ export function BookingDetailsCard({
           <div className="flex flex-col border-t border-brand-gold/20">
             <SectionHeading label="Industrial & Commercial Steam Cleaning Job Types" />
             {industrialSteamItems.map((item) => (
+              <SummaryRow key={item} label={item} value="" />
+            ))}
+          </div>
+        )}
+
+        {eventTypes && eventTypes.length > 0 && (
+          <div className="flex flex-col border-t border-brand-gold/20">
+            <SectionHeading label="Event Types" />
+            {eventTypes.map((item) => (
               <SummaryRow key={item} label={item} value="" />
             ))}
           </div>

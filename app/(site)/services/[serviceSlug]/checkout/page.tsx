@@ -512,6 +512,7 @@ export default function CheckoutPage({
             generalSteamItems={generalSteamItems}
             industrialSteamItems={industrialSteamItems}
             serviceCategory={draft.category}
+            eventTypes={draft.eventTypes}
             items={draft.items}
             supplySource={draft.supplySource}
             addOnsTotal={draft.addOnsTotal}

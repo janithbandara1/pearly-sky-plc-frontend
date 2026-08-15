@@ -7,6 +7,7 @@ import { useEffect, useState, type Dispatch, type SetStateAction } from "react";
 import { ArrowLeft } from "lucide-react";
 import { DateTimeSection } from "@/components/booking/date-time-section";
 import { DISINFECTION_LEVELS, DisinfectionLevelSection } from "@/components/booking/disinfection-level-section";
+import { EventTypeSection } from "@/components/booking/event-type-section";
 import type { SupplySource } from "@/components/booking/equipment-section";
 import { FACILITY_CARDS, FacilitySelectionSection } from "@/components/booking/facility-selection-section";
 import { JobCardSection } from "@/components/booking/job-card-section";
@@ -87,6 +88,7 @@ export function ServiceBookingView({ serviceSlug }: { serviceSlug: string }) {
 
   const [selectedGeneralSteam, setSelectedGeneralSteam] = useState<Set<string>>(new Set());
   const [selectedIndustrialSteam, setSelectedIndustrialSteam] = useState<Set<string>>(new Set());
+  const [selectedEventTypes, setSelectedEventTypes] = useState<Set<string>>(new Set());
 
   /** Shared by High-Security Property Care and Luxury Yacht Cleaning's single-select category pickers. */
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
@@ -193,16 +195,20 @@ export function ServiceBookingView({ serviceSlug }: { serviceSlug: string }) {
 
   function handleBookNow() {
     if (!service) return;
-    if (!isSanitization && items.length > 0 && !supplySource) {
-      setError("Please select a Cleaning Solvents & Equipment option.");
-      return;
-    }
     if (isSanitization && selectedFacilityIds.size === 0) {
       setError("Please select at least one facility to continue.");
       return;
     }
     if (isSanitization && !disinfectionLevelId) {
-      setError("Please select a desired package to continue.");
+      setError("Please select a package to continue.");
+      return;
+    }
+    if (isSteam && selectedGeneralSteam.size === 0 && selectedIndustrialSteam.size === 0) {
+      setError("Please select at least one steam cleaning job type to continue.");
+      return;
+    }
+    if (isEvent && selectedEventTypes.size === 0) {
+      setError("Please select at least one event type to continue.");
       return;
     }
     if (isCategoryQuote && !selectedCategory) {
@@ -215,6 +221,18 @@ export function ServiceBookingView({ serviceSlug }: { serviceSlug: string }) {
     }
     if (!date || !time) {
       setError("Please select a date and time above.");
+      return;
+    }
+    if (!propertyType) {
+      setError("Please select a property type above to continue.");
+      return;
+    }
+    if (items.length > 0 && !supplySource) {
+      setError("Please select a Cleaning Solvents & Equipment above to continue.");
+      return;
+    }
+    if (supplySource === "company" && selectedItemIds.size === 0) {
+      setError("Add at least one Cleaning Solvent & Equipment item above to continue.");
       return;
     }
     setError(null);
@@ -245,6 +263,7 @@ export function ServiceBookingView({ serviceSlug }: { serviceSlug: string }) {
         ? { name: selectedDisinfectionLevel.title, price: selectedDisinfectionLevel.priceAdder }
         : undefined,
       steamItems: isSteam ? [...selectedGeneralSteam, ...selectedIndustrialSteam] : undefined,
+      eventTypes: isEvent ? [...selectedEventTypes] : undefined,
       category: isCategoryQuote ? selectedCategory ?? undefined : undefined,
     });
     router.push(`/services/${serviceSlug}/checkout`);
@@ -267,17 +286,25 @@ export function ServiceBookingView({ serviceSlug }: { serviceSlug: string }) {
   const genderLabel = GENDER_OPTIONS.find((o) => o.value === gender)?.label ?? "No Preference";
   const languageLabel = LANGUAGE_OPTIONS.find((o) => o.value === language)?.label ?? "None";
 
-  const bookDisabledReason = !isSanitization && items.length > 0 && !supplySource
-    ? "Select a Cleaning Solvents & Equipment option above to continue."
-    : isSanitization && selectedFacilityIds.size === 0
-      ? "Select at least one facility above to continue."
-      : isSanitization && !disinfectionLevelId
-        ? "Select a desired package above to continue."
-        : isCategoryQuote && !selectedCategory
-          ? "Select a service type above to continue."
-          : !date || !time
-            ? "Select a date and time above to continue."
-            : undefined;
+  const bookDisabledReason = isSanitization && selectedFacilityIds.size === 0
+    ? "Select at least one facility above to continue."
+    : isSanitization && !disinfectionLevelId
+      ? "Select a package above to continue."
+      : isSteam && selectedGeneralSteam.size === 0 && selectedIndustrialSteam.size === 0
+        ? "Select at least one steam cleaning job type above to continue."
+        : isEvent && selectedEventTypes.size === 0
+          ? "Select at least one event type above to continue."
+          : isCategoryQuote && !selectedCategory
+            ? "Select a job type above to continue."
+            : !date || !time
+              ? "Select a date and time above to continue."
+              : !propertyType
+                ? "Select a property type above to continue."
+                : items.length > 0 && !supplySource
+                  ? "Select a Cleaning Solvents & Equipment above to continue."
+                  : supplySource === "company" && selectedItemIds.size === 0
+                    ? "Add at least one Cleaning Solvent & Equipment item above to continue."
+                    : undefined;
 
   return (
     <div className={poppins.className}>
@@ -333,6 +360,13 @@ export function ServiceBookingView({ serviceSlug }: { serviceSlug: string }) {
           <YachtCategorySelection selected={selectedCategory} onSelect={setSelectedCategory} />
         )}
 
+        {isEvent && (
+          <EventTypeSection
+            selectedTitles={selectedEventTypes}
+            onToggle={(title) => toggleSetEntry(setSelectedEventTypes, title)}
+          />
+        )}
+
         {!isSanitization && !isSteam && !isEvent && !isCategoryQuote && (
           <JobCardSection
             packages={(service.servicePackages ?? []).map((sp) => sp.package)}
@@ -384,6 +418,7 @@ export function ServiceBookingView({ serviceSlug }: { serviceSlug: string }) {
           generalSteamItems={isSteam ? [...selectedGeneralSteam] : undefined}
           industrialSteamItems={isSteam ? [...selectedIndustrialSteam] : undefined}
           serviceCategory={isCategoryQuote ? selectedCategory ?? undefined : undefined}
+          eventTypes={isEvent ? [...selectedEventTypes] : undefined}
           items={displayedEquipmentItems.map((i) => ({
             name: i.name,
             price: i.price !== null ? Number(i.price) : null,
