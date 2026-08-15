@@ -141,6 +141,7 @@ export function ForgotPasswordForm({
                     required
                     value={otp}
                     onChange={(e) => setOtp(e.target.value)}
+                    className="text-center"
                   />
                 </Field>
                 {error && <FieldError>{error}</FieldError>}
