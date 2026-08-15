@@ -16,6 +16,8 @@ import { useLanguage } from "@/lib/i18n/language-context";
 import { useCountry } from "@/lib/countries/country-context";
 import { getCountryOffice, getWhatsappUrl } from "@/lib/countries/office";
 import { SOCIAL_URLS } from "@/lib/content/social-links";
+import { ApiError } from "@/lib/api";
+import { sendContactMessage } from "@/lib/contact-api";
 
 const CONTACT_EMAIL = "info@pearlyskyglobalclean.com";
 
@@ -41,6 +43,7 @@ export function ContactSection() {
   const { translate } = useLanguage();
   const { country } = useCountry();
   const [sent, setSent] = useState(false);
+  const [sendError, setSendError] = useState<string | null>(null);
 
   const office = getCountryOffice(country);
   const hotline = office.contactNo ?? "";
@@ -56,14 +59,15 @@ export function ContactSection() {
     mode: "onChange",
   });
 
-  const onSubmit = (values: ContactFormValues) => {
-    const subject = encodeURIComponent(`New inquiry from ${values.name}`);
-    const body = encodeURIComponent(
-      `Name: ${values.name}\nEmail: ${values.email}\nPhone: ${values.phone}\n\n${values.message}`,
-    );
-    window.location.href = `mailto:${CONTACT_EMAIL}?subject=${subject}&body=${body}`;
-    setSent(true);
-    reset();
+  const onSubmit = async (values: ContactFormValues) => {
+    setSendError(null);
+    try {
+      await sendContactMessage(values);
+      setSent(true);
+      reset();
+    } catch (err) {
+      setSendError(err instanceof ApiError ? err.message : "Failed to send your message. Please try again.");
+    }
   };
 
   return (
@@ -131,9 +135,10 @@ export function ContactSection() {
 
           {sent && (
             <p className="text-sm text-muted-foreground">
-              Your email app should have opened with your message pre-filled — just hit send.
+              Your message has been sent. We&apos;ll get back to you soon.
             </p>
           )}
+          {sendError && <p className="text-sm text-destructive">{sendError}</p>}
         </form>
 
         <div className="flex flex-col items-center justify-center gap-6 bg-brand-navy p-6 text-center text-brand-navy-foreground sm:p-8">
