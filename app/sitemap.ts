@@ -34,11 +34,27 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   // Service list is identical across countries (country only resolves price),
   // so an uncountried fetch gives the canonical slug set. If the backend is
   // unreachable, service URLs are simply omitted rather than failing the sitemap.
+  // Only the flows a service actually supports get a sitemap entry — a
+  // booking-only service has no /request-quotation page to index, and a
+  // service with neither flow (isBookable: false, isQuotable: false) has no
+  // live URL at all, so it's skipped entirely.
   try {
     const services = await getServices();
     for (const service of services) {
       if (service.status !== "active") continue;
-      entries.push(...buildSitemapEntries(`/services/${service.name}`, { changeFrequency: "monthly", priority: 0.6 }));
+      if (service.isBookable) {
+        entries.push(
+          ...buildSitemapEntries(`/services/${service.name}`, { changeFrequency: "monthly", priority: 0.6 }),
+        );
+      }
+      if (service.isQuotable) {
+        entries.push(
+          ...buildSitemapEntries(`/services/${service.name}/request-quotation`, {
+            changeFrequency: "monthly",
+            priority: 0.6,
+          }),
+        );
+      }
     }
   } catch {
     // Backend unreachable — sitemap still returns the static + local-content entries above.

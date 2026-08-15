@@ -17,6 +17,7 @@ export interface CatalogService {
   prices: ServicePriceEntry[];
   status: "active" | "inactive";
   category: ServiceCategory;
+  /** Visible page copy — the homepage card blurb and booking/quotation page subtitle. */
   description: string | null;
   imageUrl: string | null;
   /** Can be booked online through the sizing/pricing + booking flow. */

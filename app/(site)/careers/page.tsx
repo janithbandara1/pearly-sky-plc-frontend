@@ -4,19 +4,18 @@ import { getRequestLanguage } from "@/lib/i18n/server";
 import { buildCountryAlternates, buildSocialMeta } from "@/lib/countries/seo";
 import { buildBreadcrumbJsonLd } from "@/lib/seo/json-ld";
 import { JsonLd } from "@/components/json-ld";
-import { STATIC_PAGE_META } from "@/lib/countries/meta-data";
+import { getCountryPageMeta } from "@/lib/countries/meta-data";
 import { CareersView } from "./careers-view";
-
-const { title: TITLE, description: DESCRIPTION } = STATIC_PAGE_META.careers;
 
 export async function generateMetadata(): Promise<Metadata> {
   const [country, language] = await Promise.all([getRequestCountry(), getRequestLanguage()]);
+  const { title, description } = getCountryPageMeta("careers", country);
 
   return {
-    title: TITLE,
-    description: DESCRIPTION,
+    title,
+    description,
     alternates: buildCountryAlternates("/careers", { country, language }),
-    ...buildSocialMeta(TITLE, DESCRIPTION),
+    ...buildSocialMeta(title, description),
   };
 }
 

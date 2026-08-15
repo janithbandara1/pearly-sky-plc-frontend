@@ -85,6 +85,9 @@ export function ServiceFormFields({ form, onChange }: ServiceFormFieldsProps) {
           value={form.description}
           onChange={(e) => onChange({ ...form, description: e.target.value })}
         />
+        <p className="text-xs text-muted-foreground">
+          Visible page copy — shown on the homepage card and as the booking/quotation page subtitle.
+        </p>
       </div>
       <div className="col-span-2 flex flex-col gap-2">
         <Label>Booking & Quotation</Label>

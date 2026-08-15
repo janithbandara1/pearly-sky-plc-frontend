@@ -18,15 +18,15 @@ export default function robots(): MetadataRoute.Robots {
         "/quotations*",
         "/dashboard*",
         // Transactional (site) pages — locale-prefixed, so match both bare and prefixed forms.
+        // Request-quotation pages are deliberately NOT disallowed here — they're
+        // real landing pages for quotable services and are listed in the sitemap.
         "/booking-confirmation/*",
         "/quotation-confirmation/*",
         "/services/*/checkout",
-        "/services/*/request-quotation",
         "/careers/*/apply",
         "/*/booking-confirmation/*",
         "/*/quotation-confirmation/*",
         "/*/services/*/checkout",
-        "/*/services/*/request-quotation",
         "/*/careers/*/apply",
         "/api/*",
       ],
