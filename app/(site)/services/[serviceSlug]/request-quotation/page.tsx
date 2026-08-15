@@ -285,6 +285,10 @@ export default function RequestQuotationPage({
       setSubmitError("Please select a property type above to continue.");
       return;
     }
+    if (!date || !time) {
+      setSubmitError("Please select a date and time above to continue.");
+      return;
+    }
     if (items.length > 0 && !supplySource) {
       setSubmitError("Please select a Cleaning Solvents & Equipment above to continue.");
       return;
@@ -384,13 +388,19 @@ export default function RequestQuotationPage({
         ? `Add at least one ${carePersonLabel.toLowerCase()}'s profile above to continue.`
         : !customQuote && !isCategoryQuote && !isCareProfile && !propertyType
           ? "Select a property type above to continue."
-          : equipmentItems.length > 0 && !supplySource
-            ? "Select a Cleaning Solvents & Equipment above to continue."
-            : supplySource === "company" && selectedItemIds.size === 0
-              ? "Add at least one Cleaning Solvent & Equipment item above to continue."
-              : !agreedToTerms
-                ? "Agree to the Terms and Conditions and Privacy Policy to continue."
-                : undefined;
+          : !date || !time
+            ? "Select a date and time above to continue."
+            : !firstName.trim() || !lastName.trim() || !email.trim() || !phone.trim()
+              ? "Fill in your contact information above to continue."
+              : !streetAddress.trim() || !city.trim() || !postalCode.trim()
+                ? "Fill in your address above to continue."
+                : equipmentItems.length > 0 && !supplySource
+                  ? "Select a Cleaning Solvents & Equipment above to continue."
+                  : supplySource === "company" && selectedItemIds.size === 0
+                    ? "Add at least one Cleaning Solvent & Equipment item above to continue."
+                    : !agreedToTerms
+                      ? "Agree to the Terms and Conditions and Privacy Policy to continue."
+                      : undefined;
 
   return (
     <main className="flex-1">

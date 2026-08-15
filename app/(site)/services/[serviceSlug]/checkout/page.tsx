@@ -280,10 +280,14 @@ export default function CheckoutPage({
       ? "Select or add an address to continue."
       : contactDetailsMissing
         ? "Fill in your contact details to continue."
-        : undefined
+        : !agreedToTerms
+          ? "Agree to the Terms and Conditions and Privacy Policy to continue."
+          : undefined
     : guestDetailsMissing
       ? "Fill in your contact details and address to continue."
-      : undefined;
+      : !agreedToTerms
+        ? "Agree to the Terms and Conditions and Privacy Policy to continue."
+        : undefined;
 
   return (
     <div className={poppins.className}>
