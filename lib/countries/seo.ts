@@ -58,7 +58,7 @@ export function buildSocialMeta(
   };
 }
 
-const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3010";
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000";
 
 /**
  * Builds one sitemap.xml entry per country/language combo for a given

@@ -4,7 +4,7 @@ import type { BlogPost } from "@/lib/content/blog-posts";
 import type { CountryCode } from "@/lib/countries/config";
 import { SOCIAL_URLS } from "@/lib/content/social-links";
 
-const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3010";
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000";
 const LOGO_URL = `${SITE_URL}/images/brand/logo.webp`;
 const SAME_AS = Object.values(SOCIAL_URLS);
 
