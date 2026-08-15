@@ -251,6 +251,7 @@ export function ServiceBookingView({ serviceSlug }: { serviceSlug: string }) {
       items: displayedEquipmentItems.map((i) => ({
         name: i.name,
         price: i.price !== null ? Number(i.price) : null,
+        image: i.image,
       })),
       supplySource,
       addOnsTotal: addOnsTotal + (selectedDisinfectionLevel?.priceAdder ?? 0),
@@ -422,6 +423,7 @@ export function ServiceBookingView({ serviceSlug }: { serviceSlug: string }) {
           items={displayedEquipmentItems.map((i) => ({
             name: i.name,
             price: i.price !== null ? Number(i.price) : null,
+            image: i.image,
           }))}
           supplySource={supplySource}
           onSupplySourceChange={items.length > 0 ? handleSupplySourceChange : undefined}

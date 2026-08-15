@@ -28,7 +28,7 @@ export interface QuotationDetailsCardProps {
   propertySizeSqm?: number;
   supplySource: SupplySource;
   onSupplySourceChange: (value: SupplySource) => void;
-  equipmentItems: { id: number; name: string }[];
+  equipmentItems: { id: number; name: string; image?: string | null }[];
   selectedEquipmentIds?: Set<number>;
   onToggleEquipment?: (id: number) => void;
   numCleaners: number;
@@ -152,6 +152,7 @@ export function QuotationDetailsCard({
                   <SummaryRow
                     key={item.id}
                     label={item.name}
+                    icon={item.image}
                     value={
                       <button
                         type="button"
@@ -217,10 +218,25 @@ function SectionHeading({ label }: { label: string }) {
   );
 }
 
-function SummaryRow({ label, value }: { label: string; value: ReactNode }) {
+function SummaryRow({
+  label,
+  value,
+  icon,
+}: {
+  label: string;
+  value: ReactNode;
+  /** Optional item image/icon shown before the label (e.g. equipment items). */
+  icon?: string | null;
+}) {
   return (
     <div className="flex items-center justify-between gap-3 px-4 py-2.5 text-sm">
-      <span className="text-brand-navy-foreground/70">{label}</span>
+      <span className="flex min-w-0 items-center gap-2 text-brand-navy-foreground/70">
+        {icon && (
+          // eslint-disable-next-line @next/next/no-img-element
+          <img src={icon} alt="" className="size-5 shrink-0 rounded object-cover" />
+        )}
+        <span className="truncate">{label}</span>
+      </span>
       <span className="text-right">{value}</span>
     </div>
   );

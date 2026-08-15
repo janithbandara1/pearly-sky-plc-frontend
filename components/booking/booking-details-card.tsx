@@ -213,7 +213,7 @@ export function BookingDetailsCard({
               <SummaryRow
                 key={pkg.name}
                 label={pkg.name}
-                value={pkg.price !== null ? money(pkg.price) : "Included"}
+                value={`+${money(pkg.price ?? 0)}`}
               />
             ))}
           </div>
@@ -243,16 +243,15 @@ export function BookingDetailsCard({
             {equipmentOptions && equipmentOptions.length > 0 ? (
               equipmentOptions.map((item) => {
                 const isSelected = selectedEquipmentIds?.has(item.id) ?? false;
-                const price = item.price !== null ? Number(item.price) : NaN;
+                const price = item.price !== null ? Number(item.price) : 0;
                 return (
                   <SummaryRow
                     key={item.id}
                     label={item.name}
+                    icon={item.image}
                     value={
                       <div className="flex items-center gap-2">
-                        {!Number.isNaN(price) && (
-                          <span className="text-brand-navy-foreground">{money(price)}</span>
-                        )}
+                        <span className="text-brand-navy-foreground">{`+${money(price)}`}</span>
                         <button
                           type="button"
                           onClick={() => onToggleEquipment?.(item.id)}
@@ -273,7 +272,8 @@ export function BookingDetailsCard({
                 <SummaryRow
                   key={item.name}
                   label={item.name}
-                  value={item.price !== null ? money(item.price) : ""}
+                  icon={item.image}
+                  value={`+${money(item.price ?? 0)}`}
                 />
               ))
             )}
@@ -283,10 +283,18 @@ export function BookingDetailsCard({
         <div className="flex flex-col border-t border-brand-gold/20">
           {hourlyRate && <SummaryRow label="Due at booking" value={money(Number(hourlyRate))} />}
           {hasPrice ? (
-            <SummaryRow
-              label="Total price (estimate)"
-              value={`${money(estimatedMin as number)} – ${money(estimatedMax as number)}`}
-            />
+            <>
+              <SummaryRow
+                label="Total price (estimate)"
+                value={`${money(estimatedMin as number)} – ${money(estimatedMax as number)}`}
+              />
+              {hourlyRate && (
+                <SummaryRow
+                  label="Remaining balance"
+                  value={`${money((estimatedMin as number) - Number(hourlyRate))} – ${money((estimatedMax as number) - Number(hourlyRate))}`}
+                />
+              )}
+            </>
           ) : (
             <div className="px-4 py-3 text-sm text-brand-navy-foreground/70">
               {quote?.bookable
@@ -346,10 +354,25 @@ function SectionHeading({ label }: { label: string }) {
   );
 }
 
-function SummaryRow({ label, value }: { label: string; value: ReactNode }) {
+function SummaryRow({
+  label,
+  value,
+  icon,
+}: {
+  label: string;
+  value: ReactNode;
+  /** Optional item image/icon shown before the label (e.g. equipment items). */
+  icon?: string | null;
+}) {
   return (
     <div className="flex items-center justify-between gap-3 px-4 py-2.5 text-sm">
-      <span className="text-brand-navy-foreground/70">{label}</span>
+      <span className="flex min-w-0 items-center gap-2 text-brand-navy-foreground/70">
+        {icon && (
+          // eslint-disable-next-line @next/next/no-img-element
+          <img src={icon} alt="" className="size-5 shrink-0 rounded object-cover" />
+        )}
+        <span className="truncate">{label}</span>
+      </span>
       <span>{value}</span>
     </div>
   );

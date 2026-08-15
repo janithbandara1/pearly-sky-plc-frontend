@@ -8,6 +8,7 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { BookingSummaryCard } from "@/components/booking/booking-summary-card";
 import { ApiError, useAuth } from "@/lib/auth-context";
 import { getMyBooking, initiateCheckout, type Booking } from "@/lib/booking-api";
+import { symbolForCurrencyCode } from "@/lib/currency-context";
 
 export default function BookingDetailsPage() {
   const params = useParams<{ id: string }>();
@@ -65,7 +66,7 @@ export default function BookingDetailsPage() {
   const estimatedMax = hasEstimate ? maxHours! * dueAtBooking! + extrasTotal : null;
   const remainingMin = hasEstimate ? (estimatedMin as number) - (dueAtBooking as number) : null;
   const remainingMax = hasEstimate ? (estimatedMax as number) - (dueAtBooking as number) : null;
-  const money = (n: number) => `${n.toFixed(2)} ${booking?.currency ?? ""}`.trim();
+  const money = (n: number) => `${symbolForCurrencyCode(booking?.currency)}${n.toFixed(2)}`;
 
   return (
     <div className="flex flex-col gap-6">

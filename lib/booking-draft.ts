@@ -10,6 +10,7 @@ export interface BookingDraftPackage {
 export interface BookingDraftItem {
   name: string;
   price: number | null;
+  image?: string | null;
 }
 
 export interface BookingDraft {

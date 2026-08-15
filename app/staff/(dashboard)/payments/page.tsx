@@ -6,6 +6,7 @@ import { Badge } from "@/components/ui/badge";
 import { DataTable } from "@/components/staff/data-table";
 import { ApiError } from "@/lib/auth-context";
 import { AdminPayment, listPaymentsAdmin } from "@/lib/admin-payments-api";
+import { symbolForCurrencyCode } from "@/lib/currency-context";
 import { useStaffAuth } from "@/lib/staff-auth-context";
 
 const STATUS_VARIANT: Record<AdminPayment["status"], "default" | "outline" | "destructive"> = {
@@ -41,7 +42,7 @@ export default function AdminPaymentsPage() {
     {
       id: "amount",
       header: "Amount",
-      cell: ({ row }) => `${row.original.amount} ${row.original.currency.toUpperCase()}`,
+      cell: ({ row }) => `${symbolForCurrencyCode(row.original.currency)}${row.original.amount}`,
     },
     { accessorKey: "provider", header: "Provider" },
     {

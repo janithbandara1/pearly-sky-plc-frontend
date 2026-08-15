@@ -25,6 +25,7 @@ import { BookingSummaryCard } from "@/components/booking/booking-summary-card";
 import { ApiError } from "@/lib/auth-context";
 import { AdminBooking, getBookingAdmin, getBookingForCleaner, updateBookingAdmin } from "@/lib/admin-api";
 import { AdminUser, listUsers } from "@/lib/admin-users-api";
+import { symbolForCurrencyCode } from "@/lib/currency-context";
 import { useStaffAuth } from "@/lib/staff-auth-context";
 
 interface EditState {
@@ -117,7 +118,7 @@ export default function StaffBookingDetailsPage() {
   const estimatedMax = hasEstimate ? maxHours! * dueAtBooking! + extrasTotal : null;
   const remainingMin = hasEstimate ? (estimatedMin as number) - (dueAtBooking as number) : null;
   const remainingMax = hasEstimate ? (estimatedMax as number) - (dueAtBooking as number) : null;
-  const money = (n: number) => `${n.toFixed(2)} ${booking?.currency?.toUpperCase() ?? ""}`.trim();
+  const money = (n: number) => `${symbolForCurrencyCode(booking?.currency)}${n.toFixed(2)}`;
 
   return (
     <div className="flex flex-col gap-6">

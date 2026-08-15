@@ -21,6 +21,19 @@ type CurrencyContextType = {
 
 const DEFAULT_SYMBOL = "€";
 
+/** Currency codes seeded in the catalog (`backend/src/database/seed.ts`) mapped to their display symbol. */
+export const CURRENCY_SYMBOLS: Record<string, string> = {
+  EUR: "€",
+  GBP: "£",
+  LKR: "Rs.",
+};
+
+/** For displaying a record's own stored currency (e.g. a booking/payment) rather than the viewer's current country — falls back to the code itself if unrecognized. */
+export function symbolForCurrencyCode(code?: string | null): string {
+  if (!code) return "";
+  return CURRENCY_SYMBOLS[code.toUpperCase()] ?? code.toUpperCase();
+}
+
 function formatWith(symbol: string, price: string | number | null | undefined): string {
   if (price === null || price === undefined || price === "") return "";
   const value = typeof price === "number" ? price : Number(price);
