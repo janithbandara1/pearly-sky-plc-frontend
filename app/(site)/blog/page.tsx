@@ -4,10 +4,10 @@ import { getRequestLanguage } from "@/lib/i18n/server";
 import { buildCountryAlternates, buildSocialMeta } from "@/lib/countries/seo";
 import { buildBreadcrumbJsonLd } from "@/lib/seo/json-ld";
 import { JsonLd } from "@/components/json-ld";
+import { STATIC_PAGE_META } from "@/lib/countries/meta-data";
 import { BlogView } from "./blog-view";
 
-const TITLE = "Blog | Pearly Sky";
-const DESCRIPTION = "Cleaning tips, industry insights, and company news from Pearly Sky's eco-luxury cleaning experts.";
+const { title: TITLE, description: DESCRIPTION } = STATIC_PAGE_META.blog;
 
 export async function generateMetadata(): Promise<Metadata> {
   const [country, language] = await Promise.all([getRequestCountry(), getRequestLanguage()]);

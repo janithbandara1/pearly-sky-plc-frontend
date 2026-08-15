@@ -6,8 +6,9 @@ import { getRequestCountry } from "@/lib/countries/server";
 import { getRequestLanguage } from "@/lib/i18n/server";
 import { buildCountryAlternates, buildSocialMeta } from "@/lib/countries/seo";
 import { buildBreadcrumbJsonLd } from "@/lib/seo/json-ld";
+import { STATIC_PAGE_META } from "@/lib/countries/meta-data";
 
-const TITLE = "Terms and Conditions | Pearly Sky";
+const { title: TITLE } = STATIC_PAGE_META.termsAndConditions;
 
 export async function generateMetadata(): Promise<Metadata> {
   const [country, language] = await Promise.all([getRequestCountry(), getRequestLanguage()]);

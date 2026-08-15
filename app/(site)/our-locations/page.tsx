@@ -4,11 +4,10 @@ import { getRequestLanguage } from "@/lib/i18n/server";
 import { buildCountryAlternates, buildSocialMeta } from "@/lib/countries/seo";
 import { buildBreadcrumbJsonLd } from "@/lib/seo/json-ld";
 import { JsonLd } from "@/components/json-ld";
+import { STATIC_PAGE_META } from "@/lib/countries/meta-data";
 import { OurLocationsView } from "./our-locations-view";
 
-const TITLE = "Our Locations | Pearly Sky";
-const DESCRIPTION =
-  "Explore Pearly Sky's eco-luxury cleaning and transport services across France, the United Kingdom, Sri Lanka, and beyond.";
+const { title: TITLE, description: DESCRIPTION } = STATIC_PAGE_META.ourLocations;
 
 export async function generateMetadata(): Promise<Metadata> {
   const [country, language] = await Promise.all([getRequestCountry(), getRequestLanguage()]);

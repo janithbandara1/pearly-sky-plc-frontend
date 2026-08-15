@@ -3,6 +3,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import { AuthProvider } from "@/lib/auth-context";
 import { Toaster } from "@/components/ui/sonner";
 import { getRequestLanguage } from "@/lib/i18n/server";
+import { GLOBAL_META } from "@/lib/countries/meta-data";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -21,19 +22,19 @@ const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3010";
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
-  title: "Pearly Sky",
-  description: "Cleaning services, booking, and account management.",
+  title: GLOBAL_META.title,
+  description: GLOBAL_META.description,
   openGraph: {
-    title: "Pearly Sky",
-    description: "Cleaning services, booking, and account management.",
-    siteName: "Pearly Sky",
+    title: GLOBAL_META.title,
+    description: GLOBAL_META.description,
+    siteName: GLOBAL_META.title,
     type: "website",
     images: [{ url: "/images/hero/hero-1.webp" }],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Pearly Sky",
-    description: "Cleaning services, booking, and account management.",
+    title: GLOBAL_META.title,
+    description: GLOBAL_META.description,
     images: ["/images/hero/hero-1.webp"],
   },
 };

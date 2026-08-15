@@ -13,13 +13,13 @@ import { ContactSection } from "@/components/home/contact-section";
 import { buildCountryAlternates, buildSocialMeta } from "@/lib/countries/seo";
 import { getRequestCountry } from "@/lib/countries/server";
 import { getRequestLanguage } from "@/lib/i18n/server";
-import { getCountryMeta } from "@/lib/countries/home-content";
+import { getCountryPageMeta } from "@/lib/countries/meta-data";
 
 export const dynamic = "force-dynamic";
 
 export async function generateMetadata(): Promise<Metadata> {
   const [country, language] = await Promise.all([getRequestCountry(), getRequestLanguage()]);
-  const { title, description } = getCountryMeta(country);
+  const { title, description } = getCountryPageMeta("home", country);
 
   return {
     title,

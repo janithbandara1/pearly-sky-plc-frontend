@@ -127,31 +127,3 @@ export const COUNTRY_HOME_CONTENT: Record<CountryCode, Record<LanguageCode, Coun
 export function getCountryHomeContent(country: CountryCode | null, language: LanguageCode): CountryHomeCopy {
   return COUNTRY_HOME_CONTENT[country ?? "fr"][language];
 }
-
-interface CountryMeta {
-  title: string;
-  description: string;
-}
-
-/** Page <title>/description per country — English-only, matching today's language-invariant metadata. */
-export const COUNTRY_META: Record<CountryCode, CountryMeta> = {
-  fr: {
-    title: "Pearly Sky | Eco-Luxury Home & Office Cleaning in France",
-    description:
-      "Experience premium, eco-friendly luxury cleaning services for elite residences and offices across France. Request an instant bespoke quote from Pearly Sky today.",
-  },
-  gb: {
-    title: "Pearly Sky | Eco-Luxury Home & Office Cleaning in the United Kingdom",
-    description:
-      "Experience premium, eco-friendly luxury cleaning services for elite residences and offices across the United Kingdom. Request an instant bespoke quote from Pearly Sky today.",
-  },
-  lk: {
-    title: "Pearly Sky | Eco-Luxury Home & Office Cleaning in Sri Lanka",
-    description:
-      "Experience premium, eco-friendly luxury cleaning services for elite residences and offices across Sri Lanka. Request an instant bespoke quote from Pearly Sky today.",
-  },
-};
-
-export function getCountryMeta(country: CountryCode | null): CountryMeta {
-  return COUNTRY_META[country ?? "fr"];
-}

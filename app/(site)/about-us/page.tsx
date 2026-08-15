@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { getRequestCountry } from "@/lib/countries/server";
 import { getRequestLanguage } from "@/lib/i18n/server";
-import { getCountryPageMeta } from "@/lib/countries/page-meta";
+import { getCountryPageMeta } from "@/lib/countries/meta-data";
 import { buildCountryAlternates, buildSocialMeta } from "@/lib/countries/seo";
 import { buildBreadcrumbJsonLd } from "@/lib/seo/json-ld";
 import { JsonLd } from "@/components/json-ld";
