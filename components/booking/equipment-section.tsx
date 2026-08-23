@@ -1,54 +1,275 @@
 "use client";
 
-import { Field, FieldContent, FieldLabel, FieldTitle } from "@/components/ui/field";
-import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
+import Link from "next/link";
+import { User, Briefcase, KeyRound, ArrowRight } from "lucide-react";
+import type { CatalogItem, SizeQuote } from "@/lib/catalog-api";
+import { useCurrency } from "@/lib/currency-context";
 
 export type SupplySource = "" | "customer" | "company";
 
-/** Also reused inline by `BookingDetailsCard` on the main booking page. */
+/** Reused across booking views and checkout summaries. */
 export const SUPPLY_SOURCE_OPTIONS = [
-  { value: "customer" as const, label: "Provided by the Customer" },
-  { value: "company" as const, label: "Request the Company" },
+  { value: "customer" as const, label: "BY CLIENT" },
+  { value: "company" as const, label: "BY COMPANY" },
 ];
 
-export interface EquipmentSectionProps {
-  supplySource: SupplySource;
-  onSupplySourceChange: (value: SupplySource) => void;
+function formatHM(hours: number): string {
+  const h = Math.floor(hours);
+  const m = Math.round((hours - h) * 60);
+  return m === 0 ? `${h}h` : `${h}h ${m}m`;
 }
 
-export function EquipmentSection({ supplySource, onSupplySourceChange }: EquipmentSectionProps) {
-  return (
-    <section className="overflow-hidden rounded-[12px] border border-[#A98B4B]">
-      <div className="bg-[#121E2D] px-5 py-4 text-center">
-        <h2 className="text-[1.1rem] font-bold text-[#FFFDF4] sm:text-[1.3rem]">Cleaning Solvents &amp; Equipments</h2>
-      </div>
+export interface EquipmentSectionProps {
+  propertyType?: string;
+  categoryIcon?: string;
+  propertySizeSqm: number;
+  quote: SizeQuote | null;
+  hourlyRate: string | null;
+  supplySource: SupplySource;
+  onSupplySourceChange: (value: SupplySource) => void;
+  items?: CatalogItem[];
+  selectedItemIds?: Set<number>;
+  onToggleItem?: (id: number) => void;
+  addOnsTotal?: number;
+  onBookNow?: () => void;
+  submitting?: boolean;
+  bookDisabledReason?: string;
+}
 
-      <div className="bg-[#F8F9FA] p-4 sm:p-5">
-        <RadioGroup
-          value={supplySource}
-          onValueChange={(value) => onSupplySourceChange(value as SupplySource)}
-          className="gap-2.5"
+export function EquipmentSection({
+  propertyType = "Studio",
+  categoryIcon = "🏢",
+  propertySizeSqm,
+  quote,
+  hourlyRate,
+  supplySource,
+  onSupplySourceChange,
+  items = [],
+  selectedItemIds = new Set(),
+  onToggleItem,
+  addOnsTotal = 0,
+  onBookNow,
+  submitting = false,
+  bookDisabledReason,
+}: EquipmentSectionProps) {
+  const { symbol } = useCurrency();
+  const money = (n: number | null | undefined) => {
+    const val = n != null && !Number.isNaN(Number(n)) ? Number(n) : 0;
+    return `${symbol}${val.toFixed(2)}`;
+  };
+
+  const isCompany = supplySource === "company";
+  const isClient = supplySource === "customer";
+
+  const hasDuration = quote?.bookable && quote.minHours !== undefined && quote.maxHours !== undefined;
+  const durationText = hasDuration
+    ? `${formatHM(quote!.minHours as number)} – ${formatHM(quote!.maxHours as number)}`
+    : "2h 30m – 5h";
+
+  const cleanersCount = quote?.cleanerCount ?? 1;
+
+  const hasPrice = hasDuration && quote?.priceMin != null && quote?.priceMax != null;
+  const cleaningPriceRange = hasPrice
+    ? `${money(quote!.priceMin)} – ${money(quote!.priceMax)}`
+    : `${symbol}62.50 – ${symbol}125.00`;
+
+  const totalMin = hasPrice ? (quote!.priceMin as number) + addOnsTotal : 62.5;
+  const totalMax = hasPrice ? (quote!.priceMax as number) + addOnsTotal : 125.0;
+  const estimatedPriceRange = `${money(totalMin)} – ${money(totalMax)}`;
+
+  return (
+    <div className="flex flex-col gap-4">
+      {/* Unified Dark Card Container matching Image 1 */}
+      <section className="overflow-hidden rounded-[12px] border border-[#1E2D45] bg-[#0B1528] p-4 text-[#FFFDF4] shadow-2xl sm:p-6">
+        
+        {/* Header Row: SELECTED SERVICES & Category Pill */}
+        <div className="flex items-center justify-between pb-3.5 border-b border-[#1E2D45]">
+          <h2 className="text-xs font-bold uppercase tracking-wider text-[#FFFDF4] sm:text-sm">
+            SELECTED SERVICES
+          </h2>
+          <div className="flex items-center gap-1.5 rounded-md bg-[#16243A] px-2.5 py-1 text-xs font-bold text-[#C5A253]">
+            <span>{categoryIcon}</span>
+            <span>{propertyType}</span>
+          </div>
+        </div>
+
+        {/* Row 1: PROPERTY SCALE */}
+        <div className="flex items-center justify-between py-3 border-b border-[#1E2D45]">
+          <span className="text-xs font-bold uppercase tracking-wide text-[#8A99AD] sm:text-xs">
+            PROPERTY SCALE
+          </span>
+          <span className="text-xs font-bold text-[#FFFDF4] sm:text-sm">
+            {propertySizeSqm} m²
+          </span>
+        </div>
+
+        {/* Row 2: TOTAL SERVICE DURATION */}
+        <div className="flex items-center justify-between py-3 border-b border-[#1E2D45]">
+          <span className="text-xs font-bold uppercase tracking-wide text-[#8A99AD] sm:text-xs">
+            TOTAL SERVICE DURATION
+          </span>
+          <span className="text-xs font-bold text-[#FFFDF4] sm:text-sm">
+            {durationText}
+          </span>
+        </div>
+
+        {/* Row 3: ALLOCATED PROFESSIONALS */}
+        <div className="flex items-center justify-between py-3 border-b border-[#1E2D45]">
+          <span className="text-xs font-bold uppercase tracking-wide text-[#8A99AD] sm:text-xs">
+            ALLOCATED PROFESSIONALS
+          </span>
+          <span className="text-xs font-bold text-[#FFFDF4] sm:text-sm">
+            {cleanersCount}
+          </span>
+        </div>
+
+        {/* Row 4: CLEANER DURATION (ON-SITE) */}
+        <div className="flex items-center justify-between py-3 border-b border-[#1E2D45]">
+          <span className="text-xs font-bold uppercase tracking-wide text-[#8A99AD] sm:text-xs">
+            CLEANER DURATION (ON-SITE)
+          </span>
+          <span className="text-xs font-bold text-[#FFFDF4] sm:text-sm">
+            {durationText}
+          </span>
+        </div>
+
+        {/* Row 5: CLEANING DURATION PRICE RANGE */}
+        <div className="flex items-center justify-between py-3 border-b border-[#1E2D45]">
+          <span className="text-xs font-bold uppercase tracking-wide text-[#8A99AD] sm:text-xs">
+            CLEANING DURATION PRICE RANGE
+          </span>
+          <span className="text-xs font-bold text-[#FFFDF4] sm:text-sm">
+            {cleaningPriceRange}
+          </span>
+        </div>
+
+        {/* Sub-Header: CLEANING CHEMICALS AND EQUIPMENTS */}
+        <h3 className="mt-5 mb-3 text-xs font-bold uppercase tracking-wider text-[#FFFDF4] sm:text-sm">
+          CLEANING CHEMICALS AND EQUIPMENTS
+        </h3>
+
+        {/* Toggle Header Tabs (BY CLIENT vs BY COMPANY) */}
+        <div className="mb-4 grid grid-cols-2 gap-3">
+          <button
+            type="button"
+            onClick={() => onSupplySourceChange("customer")}
+            className={`flex items-center justify-center gap-2 rounded-[8px] py-3 text-xs font-bold uppercase transition-all sm:text-sm ${
+              isClient
+                ? "border-2 border-[#C5A253] bg-[#C5A253] text-[#0B1528] shadow-[0_0_12px_rgba(197,162,83,0.4)]"
+                : "border border-[#A98B4B] bg-transparent text-[#FFFDF4] hover:bg-[#C5A253]/10"
+            }`}
+          >
+            <User className="h-4 w-4 shrink-0" />
+            BY CLIENT
+          </button>
+
+          <button
+            type="button"
+            onClick={() => onSupplySourceChange("company")}
+            className={`flex items-center justify-center gap-2 rounded-[8px] py-3 text-xs font-bold uppercase transition-all sm:text-sm ${
+              isCompany
+                ? "border-2 border-[#C5A253] bg-[#C5A253] text-[#0B1528] shadow-[0_0_12px_rgba(197,162,83,0.4)]"
+                : "border border-[#A98B4B] bg-transparent text-[#FFFDF4] hover:bg-[#C5A253]/10"
+            }`}
+          >
+            <Briefcase className="h-4 w-4 shrink-0" />
+            BY COMPANY
+          </button>
+        </div>
+
+        {/* Item List (Displayed when BY COMPANY is selected) */}
+        {isCompany && items.length > 0 && (
+          <div className="flex flex-col">
+            {items.map((item) => {
+              const isSelected = selectedItemIds.has(item.id);
+              const price = item.price !== null ? Number(item.price) : 0;
+              return (
+                <div
+                  key={item.id}
+                  className="flex items-center justify-between border-t border-[#1E2D45] py-3.5 px-1 sm:px-2"
+                >
+                  <span className="text-xs font-bold uppercase tracking-wide text-[#FFFDF4] sm:text-sm">
+                    {item.name}
+                  </span>
+                  <div className="flex items-center gap-3 sm:gap-4">
+                    <span className="text-xs font-bold text-[#FFFDF4] sm:text-sm">
+                      {money(price)}
+                    </span>
+                    <button
+                      type="button"
+                      onClick={() => onToggleItem?.(item.id)}
+                      aria-pressed={isSelected}
+                      className={`rounded-[6px] px-4 py-1.5 text-xs font-bold transition-all ${
+                        isSelected
+                          ? "border border-[#C5A253] bg-[#C5A253] text-[#0B1528]"
+                          : "border border-[#C5A253] bg-transparent text-[#C5A253] hover:bg-[#C5A253] hover:text-[#0B1528]"
+                      }`}
+                    >
+                      {isSelected ? "Added" : "Add"}
+                    </button>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        )}
+
+        {/* Highlighted Box: ESTIMATED PRICE RANGE */}
+        <div className="mt-5 flex items-center justify-between rounded-[8px] border border-[#2D3F59] bg-[#0E1A2E] px-4 py-3.5 sm:px-5">
+          <span className="text-xs font-bold uppercase tracking-wider text-[#C5A253] sm:text-sm">
+            ESTIMATED PRICE RANGE
+          </span>
+          <span className="text-sm font-extrabold text-[#FFFDF4] sm:text-lg">
+            {estimatedPriceRange}
+          </span>
+        </div>
+
+        {/* Action Button: BOOK NOW */}
+        {onBookNow && (
+          <button
+            type="button"
+            onClick={onBookNow}
+            disabled={submitting || !!bookDisabledReason}
+            className="mt-3.5 w-full rounded-[8px] bg-[#C5A253] py-3.5 text-center text-sm font-extrabold uppercase tracking-wider text-[#0B1528] shadow-[0_4px_14px_rgba(197,162,83,0.35)] transition-all hover:bg-[#B39144] disabled:cursor-not-allowed disabled:opacity-50"
+          >
+            {submitting ? "Booking…" : "BOOK NOW"}
+          </button>
+        )}
+
+        {bookDisabledReason && (
+          <p className="mt-2 text-center text-xs text-[#94A3B8]">{bookDisabledReason}</p>
+        )}
+
+        {/* Quality Guarantee and Disclaimer */}
+        <div className="mt-5 flex flex-col gap-1.5 border-t border-[#1E2D45]/60 pt-4">
+          <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-wide text-[#C5A253]">
+            <KeyRound className="h-4 w-4 shrink-0 text-[#C5A253]" />
+            <span>20-YEAR SIGNATURE QUALITY GUARANTEE</span>
+          </div>
+          <p className="text-[11px] leading-relaxed text-[#94A3B8] sm:text-xs">
+            Because every elite residence has unique requirements, your final price reflects the actual condition of your space.
+          </p>
+          <p className="text-[11px] leading-relaxed text-[#94A3B8] sm:text-xs">
+            Your booking secures your time slot. Upon completion, your senior cleaning professional will confirm the exact cleaning duration on-site and issue a precise, transparent invoice.
+          </p>
+        </div>
+      </section>
+
+      {/* Below-Card Navigation Bar */}
+      <div className="flex items-center justify-between px-1">
+        <Link
+          href="/"
+          className="inline-flex items-center justify-center rounded-[8px] border border-[#C5A253] bg-white px-6 py-2 text-xs font-semibold text-[#0B1528] shadow-sm transition hover:bg-[#F8F9FA]"
         >
-          {SUPPLY_SOURCE_OPTIONS.map((opt) => (
-            <FieldLabel
-              key={opt.value}
-              htmlFor={`supply-source-${opt.value}`}
-              className="rounded-[10px] border-[1.5px] border-[#A98B4B] bg-white p-3 has-data-[state=checked]:border-2 has-data-[state=checked]:border-[#A98B4B] has-data-[state=checked]:bg-white has-data-[state=checked]:shadow-[0_0_8px_rgba(169,139,75,0.3)]"
-            >
-              <Field orientation="horizontal" className="!p-0">
-                <FieldContent>
-                  <FieldTitle className="text-sm font-medium text-[#121E2D]">{opt.label}</FieldTitle>
-                </FieldContent>
-                <RadioGroupItem
-                  value={opt.value}
-                  id={`supply-source-${opt.value}`}
-                  className="border-[#A98B4B] data-checked:border-[#A98B4B] data-checked:bg-[#A98B4B]"
-                />
-              </Field>
-            </FieldLabel>
-          ))}
-        </RadioGroup>
+          Back
+        </Link>
+        <a
+          href="#service-info"
+          className="inline-flex items-center gap-1 text-xs font-medium text-[#C5A253] hover:underline"
+        >
+          Service Info <ArrowRight className="h-3.5 w-3.5" />
+        </a>
       </div>
-    </section>
+    </div>
   );
 }

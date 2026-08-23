@@ -44,6 +44,10 @@ function metaByCountryFrom(title: string, description: string): Record<CountryCo
  * app/(site)/services/[serviceSlug]/page.tsx.
  */
 export const SERVICE_META: Record<string, Record<CountryCode, ServiceMeta>> = {
+  "regular-maintenance-cleaning": metaByCountryFrom(
+    "Regular Maintenance Cleaning | Pearly Sky Eco-Luxury Care",
+    "Establish a reliable, recurring cleaning schedule with green eco-friendly products for a pristine, healthy home.",
+  ),
   "deep-cleaning": metaByCountryFrom(
     "Elite Luxury Deep Cleaning Services | Pearly Sky Specialized",
     "An exhaustive, detail-driven interior sterilization targeting structural buildup, scaling, and precision rejuvenation. Experience ultimate freshness.",

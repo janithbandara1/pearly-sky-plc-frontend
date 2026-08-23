@@ -8,9 +8,9 @@ import { ArrowLeft } from "lucide-react";
 import { DateTimeSection } from "@/components/booking/date-time-section";
 import { DISINFECTION_LEVELS, DisinfectionLevelSection } from "@/components/booking/disinfection-level-section";
 import { EventTypeSection } from "@/components/booking/event-type-section";
-import type { SupplySource } from "@/components/booking/equipment-section";
+import { EquipmentSection, type SupplySource } from "@/components/booking/equipment-section";
 import { FACILITY_CARDS, FacilitySelectionSection } from "@/components/booking/facility-selection-section";
-import { JobCardSection } from "@/components/booking/job-card-section";
+import { JOB_CARD_CATEGORIES, JobCardSection } from "@/components/booking/job-card-section";
 import { SecurityCategorySelection } from "@/components/booking/security-category-selection";
 import { YachtCategorySelection } from "@/components/booking/yacht-category-selection";
 import { GeneralSteamSection } from "@/components/booking/steam/general-steam-section";
@@ -21,7 +21,6 @@ import {
   PropertyCategory,
   PropertyTypeSizeSelector,
 } from "@/components/booking/property-type-size-selector";
-import { BookingDetailsCard } from "@/components/booking/booking-details-card";
 import { ServicePreferencesSection } from "@/components/booking/service-preferences-section";
 import { ServiceIntroduction } from "@/components/booking/service-introduction";
 import { ServiceHighlights } from "@/components/booking/service-highlights";
@@ -30,12 +29,16 @@ import { SERVICE_CONTENT } from "@/lib/content/service-details";
 import { ApiError } from "@/lib/auth-context";
 import { saveBookingDraft } from "@/lib/booking-draft";
 import {
+  CatalogItem,
   CatalogServiceDetail,
   getServiceBySlug,
   getServiceQuote,
+  ServiceAddOnPackage,
   SizeQuote,
 } from "@/lib/catalog-api";
 import { useCountry } from "@/lib/countries/country-context";
+import { useCurrency } from "@/lib/currency-context";
+//import { ServicePreferencesSection } from "@/components/booking/service-preferences-section";
 
 const poppins = Poppins({ subsets: ["latin"], weight: ["400", "500", "600", "700", "800"] });
 
@@ -54,9 +57,42 @@ const SECURITY_SLUG = "high-security-property-care";
 /** Luxury Yacht Cleaning follows the same single-select category pattern as High-Security Property Care. */
 const YACHT_SLUG = "luxury-yacht-cleaning";
 
+const DEFAULT_PACKAGES: ServiceAddOnPackage[] = [
+  { id: 101, name: "Deep Oven & Stove Detailing", price: "35.00", prices: [], image: null },
+  { id: 102, name: "Interior Refrigerator Sanitation", price: "30.00", prices: [], image: null },
+  { id: 103, name: "Interior Window & Track Cleaning", price: "40.00", prices: [], image: null },
+  { id: 104, name: "Balcony & Terrace Scrubbing", price: "45.00", prices: [], image: null },
+];
+
+const DEFAULT_ITEMS: CatalogItem[] = [
+  { id: 201, name: "BIO - SOLVENT", sku: "EQUIP-01", price: "13.00", prices: [], type: "equipment", image: null },
+  { id: 202, name: "MOP (1 MOP)", sku: "EQUIP-02", price: "8.00", prices: [], type: "equipment", image: null },
+  { id: 203, name: "MATERIALS (1 KIT)", sku: "EQUIP-03", price: "6.60", prices: [], type: "equipment", image: null },
+  { id: 204, name: "VACUUM (1 VAC)", sku: "EQUIP-04", price: "10.00", prices: [], type: "equipment", image: null },
+];
+
+const FALLBACK_SERVICES: Record<string, CatalogServiceDetail> = {
+  "regular-maintenance-cleaning": {
+    id: 1,
+    name: "regular-maintenance-cleaning",
+    label: "Regular Maintenance Cleaning",
+    price: "25.00",
+    prices: [],
+    status: "active",
+    category: "property_care",
+    description: "Routine home care for a fresh, tidy space.",
+    imageUrl: "/images/services/updated-home-property-cleaning-services-1-standard-residential-cleaning.webp",
+    isBookable: true,
+    isQuotable: true,
+    servicePackages: DEFAULT_PACKAGES.map((p) => ({ package: p })),
+    serviceItems: DEFAULT_ITEMS.map((i) => ({ item: i })),
+  },
+};
+
 export function ServiceBookingView({ serviceSlug }: { serviceSlug: string }) {
   const router = useRouter();
   const { country } = useCountry();
+  const { symbol } = useCurrency();
   const isSanitization = serviceSlug === SANITIZATION_SLUG;
   const isSteam = serviceSlug === STEAM_SLUG;
   const isEvent = serviceSlug === EVENT_SLUG;
@@ -68,7 +104,7 @@ export function ServiceBookingView({ serviceSlug }: { serviceSlug: string }) {
   const [service, setService] = useState<CatalogServiceDetail | null>(null);
   const [serviceError, setServiceError] = useState<string | null>(null);
 
-  const [supplySource, setSupplySource] = useState<SupplySource>("");
+  const [supplySource, setSupplySource] = useState<SupplySource>("company");
   const [selectedItemIds, setSelectedItemIds] = useState<Set<number>>(new Set());
 
   const [propertySizeSqm, setPropertySizeSqm] = useState(20);
@@ -103,9 +139,28 @@ export function ServiceBookingView({ serviceSlug }: { serviceSlug: string }) {
           setServiceError(`Book now for "${data.label}" isn't available yet.`);
           return;
         }
-        setService(data);
+        const enhanced: CatalogServiceDetail = {
+          ...data,
+          servicePackages:
+            data.servicePackages && data.servicePackages.length > 0
+              ? data.servicePackages
+              : DEFAULT_PACKAGES.map((p) => ({ package: p })),
+          serviceItems:
+            data.serviceItems && data.serviceItems.length > 0
+              ? data.serviceItems
+              : DEFAULT_ITEMS.map((i) => ({ item: i })),
+        };
+        setService(enhanced);
       })
-      .catch((err) => setServiceError(err instanceof ApiError ? err.message : "Service not found."));
+      .catch((err) => {
+        const fallback = FALLBACK_SERVICES[serviceSlug] ?? FALLBACK_SERVICES["regular-maintenance-cleaning"];
+        if (fallback) {
+          setService(fallback);
+          setServiceError(null);
+        } else {
+          setServiceError(err instanceof ApiError ? err.message : "Service not found.");
+        }
+      });
   }, [serviceSlug, country]);
 
   useEffect(() => {
@@ -118,7 +173,21 @@ export function ServiceBookingView({ serviceSlug }: { serviceSlug: string }) {
           if (!cancelled) setQuote(q);
         })
         .catch(() => {
-          if (!cancelled) setQuote({ bookable: false });
+          if (!cancelled) {
+            const hours = Math.max(2, Math.ceil(propertySizeSqm / 30));
+            const cleanerCount = propertySizeSqm > 150 ? 2 : 1;
+            const rate = Number(service.price ?? 25);
+            const priceMin = hours * rate * cleanerCount;
+            setQuote({
+              bookable: true,
+              minHours: hours,
+              maxHours: hours + 1,
+              cleanerCount,
+              extraCleanerCount: 0,
+              priceMin,
+              priceMax: (hours + 1) * rate * cleanerCount,
+            });
+          }
         })
         .finally(() => {
           if (!cancelled) setQuoteLoading(false);
@@ -133,8 +202,16 @@ export function ServiceBookingView({ serviceSlug }: { serviceSlug: string }) {
   function togglePackage(id: number) {
     setSelectedPackageIds((prev) => {
       const next = new Set(prev);
-      if (next.has(id)) next.delete(id);
-      else next.add(id);
+      if (next.has(id)) {
+        next.delete(id);
+      } else {
+        const itemCat = JOB_CARD_CATEGORIES.find((c) => c.items.some((i) => i.id === id));
+        if (itemCat) {
+          const countInCat = itemCat.items.filter((i) => prev.has(i.id)).length;
+          if (countInCat >= 2) return prev;
+        }
+        next.add(id);
+      }
       return next;
     });
   }
@@ -173,9 +250,9 @@ export function ServiceBookingView({ serviceSlug }: { serviceSlug: string }) {
     });
   }
 
-  const selectedPackages = (service?.servicePackages ?? [])
-    .map((sp) => sp.package)
-    .filter((pkg) => selectedPackageIds.has(pkg.id));
+  const selectedPackages = JOB_CARD_CATEGORIES.flatMap((c) => c.items)
+    .filter((item) => selectedPackageIds.has(item.id))
+    .map((item) => ({ id: item.id, name: item.name, price: "35.00", prices: [], image: null }));
   const items = (service?.serviceItems ?? []).map((si) => si.item);
   const selectedItems = items.filter((item) => selectedItemIds.has(item.id));
   // Customer-supplied equipment is disclosed in full (no picking, no charge);
@@ -308,7 +385,7 @@ export function ServiceBookingView({ serviceSlug }: { serviceSlug: string }) {
                     : undefined;
 
   return (
-    <div className={poppins.className}>
+    <div className={`${poppins.className}  bg-[rgb(199,209,217)]`}>
       <PageHero
         image={service.imageUrl ?? "/images/services/updated-home-property-cleaning-services-1-standard-residential-cleaning.webp"}
         eyebrow="Book a service"
@@ -316,14 +393,14 @@ export function ServiceBookingView({ serviceSlug }: { serviceSlug: string }) {
         subtitle={service.description ?? undefined}
       />
 
-      <div className="mx-auto flex w-full max-w-[1150px] flex-1 flex-col gap-6 p-4 sm:p-6">
-        <Link
+      <div className="mx-auto flex w-full  max-w-[1250px]  flex-col gap-6 p-6 md:p-3">
+        {/* <Link
           href="/"
           className="mb-2 inline-flex items-center gap-1 self-start text-sm text-brand-gold-dark hover:underline"
         >
           <ArrowLeft className="h-4 w-4" />
           Back
-        </Link>
+        </Link> */}
 
         {serviceContent?.introduction && <ServiceIntroduction {...serviceContent.introduction} />}
 
@@ -394,47 +471,35 @@ export function ServiceBookingView({ serviceSlug }: { serviceSlug: string }) {
           onCategoryChange={(cat: PropertyCategory) => setPropertyType(cat.dropdownLabel ?? cat.label)}
         />
 
-        <BookingDetailsCard
-          serviceLabel={service.label}
-          hourlyRate={service.price}
-          quote={quote}
-          quoteLoading={quoteLoading}
-          date={date}
-          time={time}
-          propertyType={propertyType || undefined}
-          genderLabel={genderLabel}
-          languageLabel={languageLabel}
-          specialRequirements={requirements.trim() || undefined}
-          propertySizeSqm={propertySizeSqm}
-          packages={selectedPackages.map((p) => ({
-            name: p.name,
-            price: p.price !== null ? Number(p.price) : null,
-          }))}
-          facilities={isSanitization ? facilityNames : undefined}
-          serviceLevel={
-            selectedDisinfectionLevel
-              ? { name: selectedDisinfectionLevel.title, price: selectedDisinfectionLevel.priceAdder || null }
-              : undefined
-          }
-          generalSteamItems={isSteam ? [...selectedGeneralSteam] : undefined}
-          industrialSteamItems={isSteam ? [...selectedIndustrialSteam] : undefined}
-          serviceCategory={isCategoryQuote ? selectedCategory ?? undefined : undefined}
-          eventTypes={isEvent ? [...selectedEventTypes] : undefined}
-          items={displayedEquipmentItems.map((i) => ({
-            name: i.name,
-            price: i.price !== null ? Number(i.price) : null,
-            image: i.image,
-          }))}
-          supplySource={supplySource}
-          onSupplySourceChange={items.length > 0 ? handleSupplySourceChange : undefined}
-          equipmentOptions={supplySource === "company" ? items : undefined}
-          selectedEquipmentIds={selectedItemIds}
-          onToggleEquipment={toggleItem}
-          addOnsTotal={addOnsTotal + (selectedDisinfectionLevel?.priceAdder ?? 0)}
-          onBookNow={handleBookNow}
-          submitting={submitting}
-          bookDisabledReason={bookDisabledReason}
-        />
+        {(() => {
+          const categories = getPropertyCategoriesForService(serviceSlug);
+          const pTypeLower = (propertyType || "").toLowerCase();
+          const activeCategory =
+            categories.find(
+              (c: PropertyCategory) =>
+                pTypeLower.includes(c.id.toLowerCase()) ||
+                pTypeLower.includes(c.label.toLowerCase()),
+            ) ?? categories[0];
+
+          return (
+            <EquipmentSection
+              propertyType={propertyType || activeCategory.label}
+              categoryIcon={activeCategory.icon}
+              propertySizeSqm={propertySizeSqm}
+              quote={quote}
+              hourlyRate={service.price}
+              supplySource={supplySource}
+              onSupplySourceChange={handleSupplySourceChange}
+              items={items}
+              selectedItemIds={selectedItemIds}
+              onToggleItem={toggleItem}
+              addOnsTotal={addOnsTotal + (selectedDisinfectionLevel?.priceAdder ?? 0)}
+              onBookNow={handleBookNow}
+              submitting={submitting}
+              bookDisabledReason={bookDisabledReason}
+            />
+          );
+        })()}
 
         {error && <p className="text-sm text-destructive">{error}</p>}
       </div>
