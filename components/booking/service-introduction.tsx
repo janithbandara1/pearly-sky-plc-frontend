@@ -8,7 +8,7 @@ export interface ServiceIntroductionProps {
   mainImage?: string;
   bgImage?: string;
 }
-
+ 
 export function ServiceIntroduction({
   headline,
   body,

@@ -18,16 +18,16 @@ export interface ServiceContentEntry {
 }
 
 export const SERVICE_CONTENT: Partial<Record<string, ServiceContentEntry>> = {
-  "regular-maintenance-cleaning": {
+  "regular-home-cleaning": {
     introduction: {
-      headline: "Consistent Clean, Sustainable Peace of Mind",
+      headline: "The Weekly Refresh: Consistent Clean, Sustainable Peace of Mind.",
       body: [
-        "Stop stressing over everyday chores. Our Regular Maintenance Cleaning service establishes a reliable, recurring schedule—whether daily, weekly, or bi-weekly—that keeps your home effortlessly immaculate. We use exclusively green, certified eco-friendly products to deliver a sparkling clean that is 100% safe for your children and pets. Commit to consistency and enjoy the luxury of coming home to a healthier, reliably pristine space every time. See our transparent rates and book your recurring schedule today.",
+        "Stop stressing over everyday chores. Our Standard Residential Cleaning service establishes a reliable, recurring schedule that keeps your home effortlessly immaculate. We use exclusively green, certified eco-friendly products to deliver a deep, sparkling clean that is 100% safe for children and pets. Commit to consistency and enjoy the luxury of coming home to a healthier, reliably pristine space every week. See our transparent rates and book your clean today.​Set Your Recurring Schedule"
       ],
     },
     highlights: [
       {
-        title: "Regular Maintenance Cleaning Highlights",
+        title: "Regular Home Cleaning Highlights",
         cards: [
           {
             title: "General & Living Spaces",
@@ -65,16 +65,16 @@ export const SERVICE_CONTENT: Partial<Record<string, ServiceContentEntry>> = {
     ],
   },
 
-  "quick-touch-up-cleaning": {
+  "essential-touch-up-cleaning": {
     introduction: {
       headline: "Fast-Track Freshness for High-Traffic Spaces",
       body: [
-        "Short on time but need your home looking its best? Our Quick Touch-Up Cleaning is a high-speed, targeted service designed to restore polish to your primary living areas. Ideal before hosting guests, after an event, or between routine visits, we focus on high-traffic zones—like key surfaces, kitchens, and bathrooms—using 100% certified eco-friendly products. Enjoy a spotless, welcoming environment without committing to a full-home clean. View our transparent pricing and book your express refresh today.",
+        "​Short on time but need your home looking its best? Our Essential Touch-Up Cleaning is a high-speed, targeted service designed to restore polish to your primary living areas. Ideal before hosting guests, after an event, or between routine visits, we focus on high-traffic zones—like key surfaces, kitchens, and bathrooms—using 100% certified eco-friendly products. Enjoy a spotless, welcoming environment without committing to a full-home clean. View our transparent pricing and book your express refresh today.",
       ],
     },
     highlights: [
       {
-        title: "Quick Touch-Up Cleaning Highlights",
+        title: "Essenstial Touch-Up Cleaning Highlights",
         cards: [
           {
             title: "Kitchen",
@@ -817,7 +817,7 @@ export const SERVICE_CONTENT: Partial<Record<string, ServiceContentEntry>> = {
     introduction: {
       headline: "Vetted Personnel | Complete Discretion | Uncompromised Quality",
       body: [
-        "Specialist cleaning designed for VVIP and VIP clients, government facilities, private residences, and highly sensitive properties. Handled exclusively by security-vetted staff working under strict non-disclosure agreements, we provide complete discretion in restricted-access areas. Using premium, certified eco-friendly products safe for luxury interiors and family spaces, we deliver immaculate results with maximum trust. Contact us for a confidential consultation and quote.",
+        "​Specialist cleaning designed for VVIP and VIP clients, government facilities, private residences, and highly sensitive properties. Handled exclusively by security-vetted staff working under strict non-disclosure agreements, we provide complete discretion in restricted-access areas. Using premium, certified eco-friendly products safe for luxury interiors and family spaces, we deliver immaculate results with maximum trust. Contact us for a confidential consultation and quote.",
       ],
     },
     highlights: [

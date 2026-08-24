@@ -33,6 +33,13 @@ export const en = {
   servicesPricePerCleaner: "/h per cleaner",
   servicesSeeMore: "See more",
   servicesSeeLess: "See less",
+
+  //updated 4 categories which are visible in Home page services section
+  servicesCategoryResidentialCleaning: "RESIDENTIAL CLEANING SERVICES",
+  servicesCategoryPremiumAddOns: "PREMIUM ADD-ON SERVICES",
+  servicesCategoryCommercialSpecialised: "COMMERCIAL & SPECIALISED CLEANING SERVICES",
+  servicesCategoryCareConcierge: "CARE & CONCIERGE SERVICES",
+
   servicesCategoryPropertyCare: "PROPERTY CARE & MANAGEMENT",
   servicesCategoryBespokeLifestyle: "BESPOKE LIFESTYLE & WELLNESS CURATION",
 

@@ -9,15 +9,26 @@ import { useCurrency } from "@/lib/currency-context";
 import { useLanguage } from "@/lib/i18n/language-context";
 import type { TranslationKey } from "@/lib/i18n/dictionaries/en";
 
+//2026-08-24=CATAGORIES UPDATED by adding 
+//Residential Cleaning Services,Premium Add-On Services,Commercial & Specialised Cleaning Services,Care & Concierge Services
 const CATEGORIES: { key: ServiceCategory; headingKey: TranslationKey; limit?: number }[] = [
-  { key: "property_care", headingKey: "servicesCategoryPropertyCare", limit: 4 },
-  { key: "bespoke_lifestyle", headingKey: "servicesCategoryBespokeLifestyle" },
+    //NEW CATEGORIES ADDED
+  {key: "residential_cleaning", headingKey: "servicesCategoryResidentialCleaning" },
+  {key: "premium_add_ons", headingKey: "servicesCategoryPremiumAddOns" },
+  {key:"commercial_and_specialized_cleaning", headingKey:"servicesCategoryCommercialSpecialised"},
+  {key:"care_and_concierge", headingKey:"servicesCategoryCareConcierge"},
+  
+      //old CATEGORIES
+  //{key: "property_care", headingKey: "servicesCategoryPropertyCare" },
+  //{key: "bespoke_lifestyle", headingKey: "servicesCategoryBespokeLifestyle" },
+
 ];
 
 function ServiceCard({ service }: { service: CatalogService }) {
   const { translate } = useLanguage();
   const { symbol } = useCurrency();
 
+  
   return (
     <div className="flex h-full flex-col overflow-hidden rounded-xl border-2 border-brand-gold bg-brand-navy shadow-md transition-transform duration-200 hover:scale-[1.03] hover:shadow-xl">
       <div className="relative h-40 w-full shrink-0 sm:h-44">
@@ -131,6 +142,7 @@ export function ServicesSection({ services }: { services: CatalogService[] }) {
         </div>
 
         {CATEGORIES.map(({ key, headingKey, limit }) => {
+            console.log(translate(headingKey))
           const categoryServices = active.filter((service) => service.category === key);
           if (categoryServices.length === 0) return null;
 
