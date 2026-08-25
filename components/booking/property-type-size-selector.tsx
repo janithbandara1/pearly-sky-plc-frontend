@@ -58,15 +58,16 @@ export const RESIDENTIAL_PROPERTY_CATEGORIES: PropertyCategory[] = [
     locked: false,
   },
 ];
-
+ 
 const RESIDENTIAL_SCHEME_SERVICE_SLUGS = new Set([
-  "regular-maintenance-cleaning",
+  "regular-home-cleaning",
+  "essential-touch-up-cleaning",
+  "same-day-priority-cleaning",
   "deep-cleaning",
   "end-of-tenancy-cleaning",
-  "same-day-priority-cleaning",
-  "quick-touch-up-cleaning",
+  "post-construction-renovation-cleaning",
   "premium-rental-concierge-cleaning",
-  "steam-cleaning",
+  "high-security-property-care",
 ]);
 
 /** Post-construction sizing scheme, tracked by clean-up phase rather than property type. */

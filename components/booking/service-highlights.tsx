@@ -38,7 +38,7 @@ export function ServiceHighlights({ title, cards }: ServiceHighlightsProps) {
   };
 
   return (
-    <section className="py-6 mt-8 max-[541px]:!bg-[#121E2D] bg-[#C7D1D9]">
+    <section className="py-2 mt-2 max-[541px]:!bg-[#121E2D] bg-[#C7D1D9]">
       <h2 className="text-center font-bold text-xl sm:text-2xl mb-6 text-[#121E2D] max-[541px]:text-white">
         {title ?? "Standard Package Checklist"}
       </h2>

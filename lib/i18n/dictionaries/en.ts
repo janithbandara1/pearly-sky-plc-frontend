@@ -35,10 +35,15 @@ export const en = {
   servicesSeeLess: "See less",
 
   //updated 4 categories which are visible in Home page services section
-  servicesCategoryResidentialCleaning: "RESIDENTIAL CLEANING SERVICES",
-  servicesCategoryPremiumAddOns: "PREMIUM ADD-ON SERVICES",
-  servicesCategoryCommercialSpecialised: "COMMERCIAL & SPECIALISED CLEANING SERVICES",
-  servicesCategoryCareConcierge: "CARE & CONCIERGE SERVICES",
+  servicesCategoryResidentialCleaning: "🏠 RESIDENTIAL CLEANING SERVICES",
+  servicesCategoryPremiumAddOns: "➕ PREMIUM ADD-ON SERVICES",
+  servicesCategoryCommercialSpecialised: "🏢 COMMERCIAL & SPECIALISED CLEANING SERVICES",
+  servicesCategoryCareConcierge: "🤝 CARE & CONCIERGE SERVICES",
+
+  servicesSubHeaderResidentialCleaning: "Meticulous, sustainable care engineered for luxury residences, estates, and contemporary urban homes",
+  servicesSubHeaderPremiumAddOns: "Thoughtful finishing touches for an impeccably cared-for home",
+  servicesSubHeaderCommercialSpecialised: "Discreet, high-performance care for professional spaces and exceptional properties",
+  servicesSubHeaderCareConcierge: "Trusted, thoughtful support designed to make everyday life effortlessly easier",
 
   servicesCategoryPropertyCare: "PROPERTY CARE & MANAGEMENT",
   servicesCategoryBespokeLifestyle: "BESPOKE LIFESTYLE & WELLNESS CURATION",

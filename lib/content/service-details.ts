@@ -818,7 +818,7 @@ export const SERVICE_CONTENT: Partial<Record<string, ServiceContentEntry>> = {
       headline: "Vetted Personnel | Complete Discretion | Uncompromised Quality",
       body: [
         "​Specialist cleaning designed for VVIP and VIP clients, government facilities, private residences, and highly sensitive properties. Handled exclusively by security-vetted staff working under strict non-disclosure agreements, we provide complete discretion in restricted-access areas. Using premium, certified eco-friendly products safe for luxury interiors and family spaces, we deliver immaculate results with maximum trust. Contact us for a confidential consultation and quote.",
-      ],
+      ], 
     },
     highlights: [
       {

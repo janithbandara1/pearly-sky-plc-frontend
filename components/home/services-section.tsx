@@ -11,12 +11,12 @@ import type { TranslationKey } from "@/lib/i18n/dictionaries/en";
 
 //2026-08-24=CATAGORIES UPDATED by adding 
 //Residential Cleaning Services,Premium Add-On Services,Commercial & Specialised Cleaning Services,Care & Concierge Services
-const CATEGORIES: { key: ServiceCategory; headingKey: TranslationKey; limit?: number }[] = [
+const CATEGORIES: { key: ServiceCategory; headingKey: TranslationKey;subHeader: TranslationKey; limit?: number }[] = [
     //NEW CATEGORIES ADDED
-  {key: "residential_cleaning", headingKey: "servicesCategoryResidentialCleaning" },
-  {key: "premium_add_ons", headingKey: "servicesCategoryPremiumAddOns" },
-  {key:"commercial_and_specialized_cleaning", headingKey:"servicesCategoryCommercialSpecialised"},
-  {key:"care_and_concierge", headingKey:"servicesCategoryCareConcierge"},
+  {key: "residential_cleaning", headingKey: "servicesCategoryResidentialCleaning",subHeader:"servicesSubHeaderResidentialCleaning" },
+  {key: "premium_add_ons", headingKey: "servicesCategoryPremiumAddOns",subHeader:"servicesSubHeaderPremiumAddOns" },
+  {key:"commercial_and_specialized_cleaning", headingKey:"servicesCategoryCommercialSpecialised",subHeader:"servicesSubHeaderCommercialSpecialised"},
+  {key:"care_and_concierge", headingKey:"servicesCategoryCareConcierge",subHeader:"servicesSubHeaderCareConcierge"},
   
       //old CATEGORIES
   //{key: "property_care", headingKey: "servicesCategoryPropertyCare" },
@@ -136,21 +136,25 @@ export function ServicesSection({ services }: { services: CatalogService[] }) {
     <section id="services" className="scroll-mt-16 bg-brand-navy py-16 text-brand-navy-foreground">
       <div className="mx-auto w-full max-w-6xl px-4 sm:px-6">
         <div className="mb-10 text-center">
-          <h2 className="text-2xl font-bold tracking-tight sm:text-3xl">
+          <h2 className="md:text-4xl font-bold tracking-tight text-3xl">
             {translate("servicesHeading")}
           </h2>
+          
         </div>
 
-        {CATEGORIES.map(({ key, headingKey, limit }) => {
+        {CATEGORIES.map(({ key, headingKey,subHeader, limit }) => {
             console.log(translate(headingKey))
           const categoryServices = active.filter((service) => service.category === key);
           if (categoryServices.length === 0) return null;
 
           return (
             <div key={key} className="mt-12 first:mt-0">
-              <h3 className="mb-6 text-center text-xl font-bold tracking-tight text-brand-navy-foreground sm:text-2xl">
+              <h3 className="letter-spacing-tight mb-1 text-center text-2xl font-bold tracking-wider text-brand-navy-foreground md:text-3xl">
                 {translate(headingKey)}
               </h3>
+              <p className="mb-6 mt-2 text-center mx-0 font-poppins font-normal text-base leading-normal text-[rgba(255,253,244,0.75)]">
+                {translate(subHeader)}
+              </p>
               <CategoryGrid services={categoryServices} limit={limit} />
             </div>
           );

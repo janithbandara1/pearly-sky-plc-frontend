@@ -93,7 +93,7 @@ export function JobCardSection({
     JOB_CARD_CATEGORIES.find((c) => c.id === activeTabId) ?? JOB_CARD_CATEGORIES[0];
 
   return (
-    <section className="w-full md:px-6 px-1">
+    <section className="w-full md:px-6 mt-10 px-1">
       {/* Component Header Title */}
       <h2 className="text-xl sm:text-2xl font-bold text-[#0F172A] text-center mb-6 tracking-tight">
         Service Upgrade Option (JobCard)
@@ -112,10 +112,10 @@ export function JobCardSection({
               <button
                 type="button"
                 onClick={() => setActiveTabId((prev) => (prev === category.id ? null : category.id))}
-                className={`w-full px-4 py-3.5 rounded-xl bg-[#0B1527] border border-[#B89642] flex items-center justify-between transition-all select-none ${isSelectedCategory ? "ring-1 ring-[#B89642] shadow-md" : "hover:border-[#B89642]"
+                className={`w-full px-4 py-3.5 rounded-xl bg-[#0B1527] border-2 border-[#B89642] flex items-center justify-between transition-all select-none ${isSelectedCategory ? "ring-1 ring-[#B89642] shadow-md" : "hover:border-[#B89642]"
                   }`}
               >
-                <span className="text-sm font-bold text-white text-left leading-snug">
+                <span className="text-sm font-normal text-white text-left leading-snug">
                   {category.label}
                 </span>
 

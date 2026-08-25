@@ -38,6 +38,7 @@ import {
 } from "@/lib/catalog-api";
 import { useCountry } from "@/lib/countries/country-context";
 import { useCurrency } from "@/lib/currency-context";
+import JoinWithUsSection from "@/components/booking/join-with-us-section";
 //import { ServicePreferencesSection } from "@/components/booking/service-preferences-section";
 
 const poppins = Poppins({ subsets: ["latin"], weight: ["400", "500", "600", "700", "800"] });
@@ -57,6 +58,7 @@ const SECURITY_SLUG = "high-security-property-care";
 /** Luxury Yacht Cleaning follows the same single-select category pattern as High-Security Property Care. */
 const YACHT_SLUG = "luxury-yacht-cleaning";
 
+//used for fallback data when the service API fails to return a service
 const DEFAULT_PACKAGES: ServiceAddOnPackage[] = [
   { id: 101, name: "Deep Oven & Stove Detailing", price: "35.00", prices: [], image: null },
   { id: 102, name: "Interior Refrigerator Sanitation", price: "30.00", prices: [], image: null },
@@ -64,6 +66,7 @@ const DEFAULT_PACKAGES: ServiceAddOnPackage[] = [
   { id: 104, name: "Balcony & Terrace Scrubbing", price: "45.00", prices: [], image: null },
 ];
 
+//used for fallback data when the service API fails to return a service
 const DEFAULT_ITEMS: CatalogItem[] = [
   { id: 201, name: "BIO - SOLVENT", sku: "EQUIP-01", price: "13.00", prices: [], type: "equipment", image: null },
   { id: 202, name: "MOP (1 MOP)", sku: "EQUIP-02", price: "8.00", prices: [], type: "equipment", image: null },
@@ -393,7 +396,7 @@ export function ServiceBookingView({ serviceSlug }: { serviceSlug: string }) {
         subtitle={service.description ?? undefined}
       />
 
-      <div className="mx-auto flex w-full  max-w-[1250px]  flex-col gap-6 p-6 md:p-3">
+      <div className="mx-auto flex w-full  max-w-[1250px]  flex-col gap-6 px-6 md:px-2">
         {/* <Link
           href="/"
           className="mb-2 inline-flex items-center gap-1 self-start text-sm text-brand-gold-dark hover:underline"
@@ -500,7 +503,7 @@ export function ServiceBookingView({ serviceSlug }: { serviceSlug: string }) {
             />
           );
         })()}
-
+          
         {error && <p className="text-sm text-destructive">{error}</p>}
       </div>
     </div>

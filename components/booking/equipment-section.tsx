@@ -4,6 +4,7 @@ import Link from "next/link";
 import { User, Briefcase, KeyRound, ArrowRight } from "lucide-react";
 import type { CatalogItem, SizeQuote } from "@/lib/catalog-api";
 import { useCurrency } from "@/lib/currency-context";
+import { Slider } from "radix-ui";
 
 export type SupplySource = "" | "customer" | "company";
 
@@ -78,7 +79,7 @@ export function EquipmentSection({
   const estimatedPriceRange = `${money(totalMin)} – ${money(totalMax)}`;
 
   return (
-    <div className="flex flex-col gap-4">
+    <div className="flex flex-col gap-4 pb-[40px]">
       {/* Unified Dark Card Container matching Image 1 */}
       <section className="overflow-hidden rounded-[12px] border border-[#1E2D45] bg-[#0B1528] p-4 text-[#FFFDF4] shadow-2xl sm:p-6">
         
@@ -256,20 +257,21 @@ export function EquipmentSection({
       </section>
 
       {/* Below-Card Navigation Bar */}
-      <div className="flex items-center justify-between px-1">
+      <div className="flex items-center py-4 justify-center gap-1 px-1">
         <Link
           href="/"
-          className="inline-flex items-center justify-center rounded-[8px] border border-[#C5A253] bg-white px-6 py-2 text-xs font-semibold text-[#0B1528] shadow-sm transition hover:bg-[#F8F9FA]"
+          className="inline-flex items-center justify-center rounded-[8px] border border-[#C5A253] bg-white px-10 py-2 text-md font-semibold text-[#0B1528] shadow-sm transition hover:bg-[#F8F9FA]"
         >
           Back
         </Link>
-        <a
+        <Link
           href="#service-info"
-          className="inline-flex items-center gap-1 text-xs font-medium text-[#C5A253] hover:underline"
+          className="inline-flex px-10 py-2 text-md items-center gap-1 font-bold text-[#C5A253] hover:underline"
         >
           Service Info <ArrowRight className="h-3.5 w-3.5" />
-        </a>
+        </Link>
       </div>
+      
     </div>
   );
 }
