@@ -6,6 +6,7 @@ import type { ServiceHighlightCard } from "@/lib/content/service-details";
 export interface ServiceHighlightsProps {
   title?: string;
   cards: ServiceHighlightCard[];
+  
 }
 
 export function ServiceHighlights({ title, cards }: ServiceHighlightsProps) {
@@ -44,19 +45,19 @@ export function ServiceHighlights({ title, cards }: ServiceHighlightsProps) {
       </h2>
 
       {/* Desktop & Tablet Grid View */}
-      <div className="hidden min-[542px]:grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 px-4 items-stretch max-w-7xl mx-auto">
+      <div className="hidden min-[542px]:grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 justify-items-center gap-6 px-4 items-stretch max-w-7xl mx-auto">
         {cards.map((card) => (
           <div
             key={card.title}
-            className="hover:shadow-lg transition-transform duration-300 hover:scale-[1.02] h-full bg-[#F8F9FA] p-5 shadow-[rgba(169,139,75,0.15)_0px_4px_15px]"
+            className="w-full max-w-[350px] sm:w-[350px] h-full bg-[#F8F9FA] p-4 sm:p-8 shadow-[rgba(169,139,75,0.15)_0px_4px_15px] hover:shadow-lg transition-transform duration-300 hover:scale-[1.02]"
           >
-            <div className="rounded-3xl p-4 h-full flex flex-col bg-[#F8F9FA] border-3 border-[#A98B4B] min-h-[320px]">
-              <h3 className="font-semibold text-lg text-center mb-4 text-[#A98B4B] min-h-[50px]">
+            <div className="rounded-2xl sm:rounded-3xl p-4 sm:p-6 h-full flex flex-col bg-[#F8F9FA] border-[3px] border-[#A98B4B] min-h-[280px] sm:min-h-[320px]">
+              <h3 className="font-semibold text-base sm:text-lg text-center mb-3 sm:mb-4 text-[#A98B4B] min-h-[40px] sm:min-h-[50px] flex items-center justify-center">
                 {card.title}
               </h3>
-              <ul className="text-sm sm:text-base leading-relaxed list-disc flex-1 text-[#151E2D] pl-5 space-y-1">
-                {card.features.map((feature, index) => (
-                  <li key={index}>{feature}</li>
+              <ul className="text-sm leading-relaxed list-disc flex-1 text-[#151E2D] pl-5 space-y-1.5">
+                {card.features.map((feature, featureIdx) => (
+                  <li key={featureIdx}>{feature}</li>
                 ))}
               </ul>
             </div>

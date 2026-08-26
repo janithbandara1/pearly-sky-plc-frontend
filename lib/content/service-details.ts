@@ -124,55 +124,60 @@ export const SERVICE_CONTENT: Partial<Record<string, ServiceContentEntry>> = {
       ],
     },
     highlights: [
+  {
+    title: "After Party Checklist (Maximum Mess, Maximum Impact)",
+    cards: [
       {
-        title: "Same-Day Priority Cleaning Highlights",
-        cards: [
-          {
-            title: "Flooring & Entry",
-            features: [
-              "High-power vacuuming and sweeping main living spaces.",
-              "Spot mopping high-traffic and spill-prone areas.",
-            ],
-          },
-          {
-            title: "Common Area Recovery",
-            features: [
-              "Collecting stray items, glasses and trash.",
-              "Emptying and sanitizing waste bins.",
-              "Dusting and spot-cleaning visible surfaces.",
-              "Arranging furniture (sofas, chairs, pillows).",
-            ],
-          },
-          {
-            title: "Kitchen & Bar Area",
-            features: [
-              "Disposing of empty bottles, cans, serviceware.",
-              "Disinfecting all counters and sticky surfaces.",
-              "Running dishwasher; washing basic dishes.",
-              "Cleaning beverage spills on hard floors.",
-            ],
-          },
-          {
-            title: "Kitchen Quick-Clean",
-            features: [
-              "Wiping down countertops.",
-              "Spot-cleaning cabinet fronts.",
-              "Cleaning microwave & stovetop exterior.",
-              "Washing or loading a small set of dishes.",
-            ],
-          },
-          {
-            title: "Bathroom Refresh",
-            features: [
-              "Disinfecting sink and vanity.",
-              "Cleaning toilet inside and out.",
-              "Quick mirror wipe.",
-              "Changing hand towel.",
-            ],
-          },
+        title: "Flooring & Entry",
+        features: [
+          "High-power vacuuming and sweeping main living spaces.",
+          "Spot mopping high-traffic and spill-prone areas.",
+        ],
+      },
+      {
+        title: "Common Area Recovery",
+        features: [
+          "Collecting stray items, glasses and trash.",
+          "Emptying and sanitizing waste bins.",
+          "Dusting and spot-cleaning visible surfaces.",
+          "Arranging furniture (sofas, chairs, pillows).",
+        ],
+      },
+      {
+        title: "Kitchen & Bar Area",
+        features: [
+          "Disposing empty bottles, cans, serviceware.",
+          "Disinfecting all counters and sticky surfaces.",
+          "Running dishwasher; washing basic dishes.",
+          "Cleaning beverage spills on hard floors.",
         ],
       },
     ],
+  },
+  {
+    title: "Instant Clean Checklist (Standard Service - What We Focus On)",
+    cards: [
+      {
+        title: "Kitchen Quick-Clean",
+        features: [
+          "Wiping down countertops.",
+          "Spot-cleaning cabinet fronts.",
+          "Cleaning microwave & stovetop exterior.",
+          "Washing or loading small set",
+        ],
+      },
+      {
+        title: "Bathroom Refresh",
+        features: [
+          "Disinfecting sink and vanity.",
+          "Cleaning toilet inside and out.",
+          "Quick mirror wipe.",
+          "Changing hand towel.",
+        ],
+      }
+    ],
+  },
+]
   },
 
   "deep-cleaning": {
@@ -181,6 +186,7 @@ export const SERVICE_CONTENT: Partial<Record<string, ServiceContentEntry>> = {
       body: [
         "If your home needs more than just a quick spruce, our Total Home Reset is the perfect solution. This is our most thorough and detailed cleaning package, designed to tackle the grime, dust, and build-up that standard cleaning overlooks. We dedicate the necessary time to deep-clean every corner, establishing a pristine foundation for your home.",
         "When time is critical, choose the crew that guarantees a noticeable difference fast.",
+        
       ],
     },
     highlights: [
@@ -360,92 +366,142 @@ export const SERVICE_CONTENT: Partial<Record<string, ServiceContentEntry>> = {
   },
 
   "commercial-office-cleaning": {
-    introduction: {
-      headline: "Enhancing Productivity Through Impeccable Premises and Workplace Wellness.",
-      body: [
-        "Our Professional Premises Polish service is tailored to businesses seeking reliable, high-quality cleaning for their commercial spaces, offices, and corporate environments. Our teams operate with discretion and efficiency, typically scheduling outside of standard business hours to minimize disruption. The focus is on maintaining a professional image, improving employee wellness through hygiene, and ensuring compliance with sanitation standards across high-traffic zones.",
-        "A clean environment is a productive environment. Partner with us for consistent excellence.",
+  introduction: {
+    headline: "Enhancing Productivity Through Impeccable Premises and Workplace Wellness.",
+    body: [
+      "Our Professional Premises Polish service is tailored to businesses seeking reliable, high-quality cleaning for their commercial spaces, offices, and corporate environments. Our teams operate with discretion and efficiency, typically scheduling outside of standard business hours to minimize disruption. The focus is on maintaining a professional image, improving employee wellness through hygiene, and ensuring compliance with sanitation standards across high-traffic zones.",
+      "A clean environment is a productive environment. Partner with us for consistent excellence.",
+    ],
+    cardBg: ""
+  },
+  highlights: [
+    {
+      title: "Workplace Wellness Checklist (Commercial Focus)",
+      cards: [
+        {
+          title: "Common Areas & Reception",
+          features: [
+            "Dusting all visible horizontal surfaces, desks, and filing cabinets.",
+            "Polishing reception area furniture and glass/metal fixtures.",
+            "Detailed cleaning of all internal glass (doors, partitions).",
+          ],
+        },
+        {
+          title: "Kitchenette & Break Rooms",
+          features: [
+            "Cleaning and sanitizing counters, sinks, and appliance exteriors (microwaves, refrigerators).",
+            "Damp wiping tables and chairs.",
+          ],
+        },
+        {
+          title: "Restrooms",
+          features: [
+            "Thorough cleaning and disinfection of all toilets, urinals, sinks, and fixtures.",
+            "Refilling paper products and hand soap/sanitizer dispensers.",
+          ],
+        },
+        {
+          title: "Flooring",
+          features: [
+            "Daily vacuuming of all carpeted areas.",
+            "Sweeping and mopping all hard floor surfaces (tile, vinyl, wood).",
+          ],
+        },
+        {
+          title: "Waste Management",
+          features: [
+            "Emptying all waste bins and replacing liners.",
+            "Centralizing recyclables for collection.",
+          ],
+        },
       ],
     },
-    highlights: [
-      {
-        title: "Commercial & Office Cleaning Highlights",
-        cards: [
-          {
-            title: "Common Areas & Reception",
-            features: [
-              "Dusting all visible horizontal surfaces, desks, and filing cabinets.",
-              "Polishing reception area furniture and glass/metal fixtures.",
-              "Detailed cleaning of all internal glass (doors, partitions).",
-            ],
-          },
-          {
-            title: "Kitchenette & Break Rooms",
-            features: [
-              "Cleaning and sanitizing counters, sinks, and appliance exteriors.",
-              "Damp wiping tables and chairs.",
-            ],
-          },
-          {
-            title: "Restrooms",
-            features: [
-              "Thorough cleaning and disinfection of all toilets, urinals, sinks, and fixtures.",
-              "Refilling paper products and hand soap/sanitizer dispensers.",
-            ],
-          },
-          {
-            title: "Flooring & Waste",
-            features: [
-              "Daily vacuuming of all carpeted areas.",
-              "Sweeping and mopping all hard floor surfaces.",
-              "Emptying waste bins and centralizing recyclables.",
-            ],
-          },
-        ],
-      },
-    ],
-  },
+    {
+      title: "Contractual Service Frequency Options",
+      cards: [
+        {
+          title: "Daily Clean",
+          features: [
+            "For high-traffic corporate offices and medical facilities.",
+          ],
+        },
+        {
+          title: "Three Times Weekly",
+          features: [
+            "The standard for mid-sized offices.",
+          ],
+        },
+        {
+          title: "Weekly Clean",
+          features: [
+            "Suitable for smaller offices or those with minimal foot traffic.",
+          ],
+        },
+        {
+          title: "Bi-Weekly Clean",
+          features: [
+            "Focus on restrooms, break rooms, and floor polishing only.",
+          ],
+        },
+      ],
+    },
+  ],
+},
 
   "healthguard-sanitization": {
-    introduction: {
-      headline: "Beyond Clean: Implementing Hospital-Grade Disinfection for a Truly HealthGuard Environment.",
-      body: [
-        "Our HealthGuard Sanitization service focuses exclusively on eliminating pathogens, bacteria, and viruses from high-touch and high-traffic surfaces. This service utilizes EPA/ECHA-registered, hospital-grade disinfectants and specialized application methods (such as fogging or electrostatic spraying, where applicable) to achieve maximum coverage and microbial kill rates.",
-        "This service is ideal for clients requiring advanced hygiene standards, including doctors' offices, gyms, schools, and homes with high vulnerability. We do not just clean — we clinically purify your space for health and peace of mind.",
+  introduction: {
+    headline: "Beyond Clean: Implementing Hospital-Grade Disinfection for a Truly HealthGuard Environment.",
+    body: [
+      "Our HealthGuard Sanitization service focuses exclusively on eliminating pathogens, bacteria, and viruses from high-touch and high-traffic surfaces. This service utilizes EPA/ECHA-registered, hospital-grade disinfectants and specialized application methods (such as fogging or electrostatic spraying, where applicable) to achieve maximum coverage and microbial kill rates.",
+      "This service is ideal for clients requiring advanced hygiene standards, including doctors' offices, gyms, schools, and homes with high vulnerability. We do not just clean — we clinically purify your space for health and peace of mind.",
+    ],
+    cardBg: ""
+  },
+  highlights: [
+    {
+      title: "Pure Space Disinfection Checklist (Targeted Focus – Including Residential)",
+      cards: [
+        {
+          title: "Pure Space Disinfection Checklist",
+          features: [
+            "Initial surface cleaning followed by hospital-grade disinfectant application.",
+            "High-touch surfaces: door handles, switches, remotes, thermostats, railings, phones.",
+            "Restrooms: disinfecting fixtures, sinks, counters, toilets, handles, shower/tub areas.",
+          ],
+        },
+        {
+          title: "Kitchen & Food Prep Areas",
+          features: [
+            "Counters, sinks, faucet handles.",
+            "Exterior handles of fridge, cabinets, microwave.",
+            "Microwave interiors, keypads, coffee machine buttons.",
+          ],
+        },
+        {
+          title: "Residential Detail Focus",
+          features: [
+            "Nightstands, drawer pulls, children's hard toys.",
+            "Gaming controllers and appliance buttons/dials.",
+          ],
+        },
+        {
+          title: "Office Detail Focus",
+          features: [
+            "Keyboards, mice, desk surfaces.",
+            "Communal water fountain buttons.",
+          ],
+        },
+        {
+          title: "Application Method",
+          features: [
+            "Liquid spray / microfiber cloths + electrostatic spray where required.",
+            "Fogging or electrostatic spraying where required.",
+          ],
+        },
       ],
     },
-    highlights: [
-      {
-        title: "HealthGuard Sanitization Highlights",
-        cards: [
-          {
-            title: "High-Touch Surfaces",
-            features: [
-              "Initial surface cleaning followed by hospital-grade disinfectant application.",
-              "Door handles, switches, remotes, thermostats, railings, phones.",
-              "Restroom fixtures, sinks, counters, toilets, handles, shower/tub areas.",
-            ],
-          },
-          {
-            title: "Kitchen & Food Prep Areas",
-            features: [
-              "Counters, sinks, faucet handles.",
-              "Exterior handles of fridge, cabinets, microwave.",
-              "Microwave interiors, keypads, coffee machine buttons.",
-            ],
-          },
-          {
-            title: "Residential Detail Focus",
-            features: ["Nightstands, drawer pulls, children's hard toys.", "Gaming controllers and appliance buttons/dials."],
-          },
-          {
-            title: "Office Detail Focus",
-            features: ["Keyboards, mice, desk surfaces.", "Communal water fountain buttons."],
-          },
-        ],
-      },
-    ],
-  },
+  ],
+},
 
   "carpet-upholstery-cleaning": {
     introduction: {

@@ -6,14 +6,37 @@ export interface ServiceIntroductionProps {
   headline: string;
   body: string[];
   mainImage?: string;
-  bgImage?: string;
+  bgImage: string;
 }
+
+/* const bgImage_SLUG = [
+  "regular-home-cleaning": 'sdasd',
+"essential-touch-up-cleaning": 'sdasd',
+"same-day-priority-cleaning": 'sdasd',
+"deep-cleaning": 'sdasd',
+"end-of-tenancy-cleaning": 'sdasd',
+"post-construction-renovation-cleaning": 'sdasd',
+"premium-rental-concierge-cleaning": 'sdasd',
+"commercial-office-cleaning": 'sdasd',
+"healthguard-sanitization": 'sdasd',
+"carpet-upholstery-cleaning": 'sdasd',
+"steam-cleaning": 'sdasd',
+"post-event-cleaning": 'sdasd',
+"pool-cleaning": 'sdasd',
+"precision-pressure-washing": 'sdasd',
+"child-care-service": 'sdasd',
+"elder-care-service": 'sdasd',
+"laundry-services": 'sdasd',
+"move-in-out-transport-service": 'sdasd',
+"high-security-property-care": 'sdasd',
+"luxury-yacht-cleaning": 'sdasd',
+] */
  
 export function ServiceIntroduction({
   headline,
   body,
   mainImage = "/images/services/updated-home-property-cleaning-services-1-standard-residential-cleaning.webp",
-  bgImage = "/images/services/updated-home-property-cleaning-services-1-standard-residential-cleaning.webp",
+  bgImage 
 }: ServiceIntroductionProps) {
   return (
     <section className="w-full p-0 my-14  md:mb-2 md:mt-5 ">
@@ -39,7 +62,7 @@ export function ServiceIntroduction({
           {/* Foreground Main Image Frame (Top-Right Overlap) */}
           <div className="absolute top-0 right-0 md:right-10 md:top-9 z-10 w-[80%] md:w-[80%]  h-[85%] md:h-[52%]  shadow-xl overflow-hidden md:rounded-[10px] rounded-[24px] border-3 border-[#A98B4B]">
             <Image
-              src={mainImage}
+              src={bgImage}
               alt={headline}
               fill
               priority
@@ -67,7 +90,7 @@ export function ServiceIntroduction({
             ))}
           </div>
           <div className="mt-6 flex justify-center">
-            <p className="font-semibold hidden text-base sm:text-lg text-[rgb(169,139,75)]">Set Your Recurring Schedule</p>
+            <p className="font-semibold text-base sm:text-lg text-[rgb(169,139,75)]">Set Your Recurring Schedule</p>
             </div>
         </div>
 

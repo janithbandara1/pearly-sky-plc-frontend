@@ -46,9 +46,9 @@ export function DisinfectionLevelSection({ selectedId, onSelect }: DisinfectionL
   const { symbol } = useCurrency();
 
   return (
-    <section className="overflow-hidden rounded-[12px] border border-[#A98B4B]">
+    <section className="overflow-hidden rounded-[12px]  border border-[#A98B4B]">
       <div className="bg-[#121E2D] px-5 py-4 text-center">
-        <h2 className="text-[1.1rem] font-bold text-[#FFFDF4] sm:text-[1.3rem]">Package</h2>
+        <h2 className="text-[1.1rem] font-bold text-[#A98B4B] sm:text-[1.3rem]">Select Your Desired Service Level</h2>
       </div>
 
       <div className="flex flex-col gap-2.5 bg-[#F8F9FA] p-4 sm:p-5">

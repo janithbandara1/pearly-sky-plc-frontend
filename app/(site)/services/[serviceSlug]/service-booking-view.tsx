@@ -405,10 +405,10 @@ export function ServiceBookingView({ serviceSlug }: { serviceSlug: string }) {
           Back
         </Link> */}
 
-        {serviceContent?.introduction && <ServiceIntroduction {...serviceContent.introduction} />}
+        {serviceContent?.introduction && <ServiceIntroduction {...serviceContent.introduction} bgImage={service.imageUrl ?? "/images/services/updated-home-property-cleaning-services-1-standard-residential-cleaning.webp"} />}
 
         {serviceContent?.highlights?.map((group, index) => (
-          <ServiceHighlights key={index} title={group.title} cards={group.cards} />
+          <ServiceHighlights key={index} title={group.title} cards={group.cards}  />
         ))}
 
         {isSanitization && (
