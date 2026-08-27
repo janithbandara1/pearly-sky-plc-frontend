@@ -39,6 +39,8 @@ import {
 import { useCountry } from "@/lib/countries/country-context";
 import { useCurrency } from "@/lib/currency-context";
 import JoinWithUsSection from "@/components/booking/join-with-us-section";
+import { EventbookSection } from "@/components/booking/event/EventbookSection";
+import ProductSelector from "@/components/booking/event/ProductsAndSuppliers";
 //import { ServicePreferencesSection } from "@/components/booking/service-preferences-section";
 
 const poppins = Poppins({ subsets: ["latin"], weight: ["400", "500", "600", "700", "800"] });
@@ -394,6 +396,8 @@ export function ServiceBookingView({ serviceSlug }: { serviceSlug: string }) {
         eyebrow="Book a service"
         title={service.label}
         subtitle={service.description ?? undefined}
+        servicePrices={service.prices}
+        serviceId={service.id}
       />
 
       <div className="mx-auto flex w-full  max-w-[1250px]  flex-col gap-6 px-6 md:px-2">
@@ -408,7 +412,7 @@ export function ServiceBookingView({ serviceSlug }: { serviceSlug: string }) {
         {serviceContent?.introduction && <ServiceIntroduction {...serviceContent.introduction} bgImage={service.imageUrl ?? "/images/services/updated-home-property-cleaning-services-1-standard-residential-cleaning.webp"} />}
 
         {serviceContent?.highlights?.map((group, index) => (
-          <ServiceHighlights key={index} title={group.title} cards={group.cards}  />
+          <ServiceHighlights key={index} title={group.title} cards={group.cards} />
         ))}
 
         {isSanitization && (
@@ -420,18 +424,24 @@ export function ServiceBookingView({ serviceSlug }: { serviceSlug: string }) {
         )}
 
         {isSteam && (
-          <GeneralSteamSection
-            selectedTitles={selectedGeneralSteam}
-            onToggle={(title) => toggleSetEntry(setSelectedGeneralSteam, title)}
-          />
+          <div className="w-full bg-[#121E2D] rounded-[12px]">
+            <GeneralSteamSection
+              selectedTitles={selectedGeneralSteam}
+              onToggle={(title) => toggleSetEntry(setSelectedGeneralSteam, title)}
+            />
+            <IndustrialCommercialSteamSection
+              selectedTitles={selectedIndustrialSteam}
+              onToggle={(title) => toggleSetEntry(setSelectedIndustrialSteam, title)}
+            />
+          </div>
         )}
 
-        {isSteam && (
+        {/* {isSteam && (
           <IndustrialCommercialSteamSection
             selectedTitles={selectedIndustrialSteam}
             onToggle={(title) => toggleSetEntry(setSelectedIndustrialSteam, title)}
           />
-        )}
+        )} */}
 
         {isSecurityCategory && (
           <SecurityCategorySelection selected={selectedCategory} onSelect={setSelectedCategory} />
@@ -447,6 +457,9 @@ export function ServiceBookingView({ serviceSlug }: { serviceSlug: string }) {
             onToggle={(title) => toggleSetEntry(setSelectedEventTypes, title)}
           />
         )}
+
+        {/** set the new component which has the list of EQUIPMENTs and CHEMICALS */}
+        {isEvent && (<ProductSelector />)}
 
         {!isSanitization && !isSteam && !isEvent && !isCategoryQuote && (
           <JobCardSection
@@ -474,7 +487,66 @@ export function ServiceBookingView({ serviceSlug }: { serviceSlug: string }) {
           onCategoryChange={(cat: PropertyCategory) => setPropertyType(cat.dropdownLabel ?? cat.label)}
         />
 
-        {(() => {
+        {isEvent ? ((() => {
+          const categories = getPropertyCategoriesForService(serviceSlug);
+          const pTypeLower = (propertyType || "").toLowerCase();
+          const activeCategory =
+            categories.find(
+              (c: PropertyCategory) =>
+                pTypeLower.includes(c.id.toLowerCase()) ||
+                pTypeLower.includes(c.label.toLowerCase()),
+            ) ?? categories[0];
+
+          return (
+            <EventbookSection
+              propertyType={propertyType || activeCategory.label}
+              categoryIcon={activeCategory.icon}
+              propertySizeSqm={propertySizeSqm}
+              quote={quote}
+              hourlyRate={service.price}
+              supplySource={supplySource}
+              onSupplySourceChange={handleSupplySourceChange}
+              items={items}
+              selectedItemIds={selectedItemIds}
+              onToggleItem={toggleItem}
+              addOnsTotal={addOnsTotal + (selectedDisinfectionLevel?.priceAdder ?? 0)}
+              onBookNow={handleBookNow}
+              submitting={submitting}
+              bookDisabledReason={bookDisabledReason}
+            />
+          );
+        })()) :
+          (() => {
+            const categories = getPropertyCategoriesForService(serviceSlug);
+            const pTypeLower = (propertyType || "").toLowerCase();
+            const activeCategory =
+              categories.find(
+                (c: PropertyCategory) =>
+                  pTypeLower.includes(c.id.toLowerCase()) ||
+                  pTypeLower.includes(c.label.toLowerCase()),
+              ) ?? categories[0];
+
+            return (
+              <EquipmentSection
+                propertyType={propertyType || activeCategory.label}
+                categoryIcon={activeCategory.icon}
+                propertySizeSqm={propertySizeSqm}
+                quote={quote}
+                hourlyRate={service.price}
+                supplySource={supplySource}
+                onSupplySourceChange={handleSupplySourceChange}
+                items={items}
+                selectedItemIds={selectedItemIds}
+                onToggleItem={toggleItem}
+                addOnsTotal={addOnsTotal + (selectedDisinfectionLevel?.priceAdder ?? 0)}
+                onBookNow={handleBookNow}
+                submitting={submitting}
+                bookDisabledReason={bookDisabledReason}
+              />
+            );
+          })()}
+
+        {/* {(() => {
           const categories = getPropertyCategoriesForService(serviceSlug);
           const pTypeLower = (propertyType || "").toLowerCase();
           const activeCategory =
@@ -502,8 +574,8 @@ export function ServiceBookingView({ serviceSlug }: { serviceSlug: string }) {
               bookDisabledReason={bookDisabledReason}
             />
           );
-        })()}
-          
+        })()} */}
+
         {error && <p className="text-sm text-destructive">{error}</p>}
       </div>
     </div>

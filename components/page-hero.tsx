@@ -3,6 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useState, useRef, useEffect } from "react";
+import { getServices, ServicePriceEntry } from "@/lib/catalog-api";
 
 function AnimatedTextBadge() {
   return (
@@ -50,10 +51,31 @@ interface PerHourPriceForCountry {
   img: string;
 }
 
-const perHourPriceForCountry: PerHourPriceForCountry[] = [
-  { country: "FR", name: "France", price:32.00, currency: "₤", img: "data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 3 2'%3e%3cpath fill='%23ED2939' d='M0 0h3v2H0z'/%3e%3cpath fill='%23fff' d='M0 0h2v2H0z'/%3e%3cpath fill='%23002395' d='M0 0h1v2H0z'/%3e%3c/svg%3e" },
-  { country: "LK", name: "Sri Lanka", price: 2625.00, currency: "LKR", img: "data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 600'%3e%3cpath fill='%23ffb700' d='M0 0h1200v600H0z'/%3e%3cpath fill='%23ff5b00' d='M50 50h165v500H50z'/%3e%3cpath fill='%23005641' d='M215 50h165v500H215z'/%3e%3cpath fill='%238d2029' d='M430 50h725v500H430z'/%3e%3cpath fill='%23ffb700' d='M800 150l25 75 80 5-62 48 20 78-63-43-67 43 21-78-63-48 80-5z'/%3e%3c/svg%3e" },
-  { country: "GBR", name: "United Kingdom", price: 28.00, currency: "£", img: "data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 60 30'%3e%3cpath fill='%23012169' d='M0 0h60v30H0z'/%3e%3cpath stroke='%23fff' stroke-width='6' d='M0 0l60 30M60 0L0 30M30 0v30M0 15h60'/%3e%3cpath stroke='%23c8102e' stroke-width='3' d='M0 0l60 30M60 0L0 30M30 0v30M0 15h60'/%3e%3c/svg%3e" },
+const COUNTRY_FLAGS: Record<string, string> = {
+  FR: "data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 3 2'%3e%3cpath fill='%23ED2939' d='M0 0h3v2H0z'/%3e%3cpath fill='%23fff' d='M0 0h2v2H0z'/%3e%3cpath fill='%23002395' d='M0 0h1v2H0z'/%3e%3c/svg%3e",
+  LK: "data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 600'%3e%3cpath fill='%23ffb700' d='M0 0h1200v600H0z'/%3e%3cpath fill='%23ff5b00' d='M50 50h165v500H50z'/%3e%3cpath fill='%23005641' d='M215 50h165v500H215z'/%3e%3cpath fill='%238d2029' d='M430 50h725v500H430z'/%3e%3cpath fill='%23ffb700' d='M800 150l25 75 80 5-62 48 20 78-63-43-67 43 21-78-63-48 80-5z'/%3e%3c/svg%3e",
+  GB: "data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 60 30'%3e%3cpath fill='%23012169' d='M0 0h60v30H0z'/%3e%3cpath stroke='%23fff' stroke-width='6' d='M0 0l60 30M60 0L0 30M30 0v30M0 15h60'/%3e%3cpath stroke='%23c8102e' stroke-width='3' d='M0 0l60 30M60 0L0 30M30 0v30M0 15h60'/%3e%3c/svg%3e",
+  GBR: "data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 60 30'%3e%3cpath fill='%23012169' d='M0 0h60v30H0z'/%3e%3cpath stroke='%23fff' stroke-width='6' d='M0 0l60 30M60 0L0 30M30 0v30M0 15h60'/%3e%3cpath stroke='%23c8102e' stroke-width='3' d='M0 0l60 30M60 0L0 30M30 0v30M0 15h60'/%3e%3c/svg%3e",
+};
+
+const COUNTRY_NAMES: Record<string, string> = {
+  FR: "France",
+  LK: "Sri Lanka",
+  GB: "United Kingdom",
+  GBR: "United Kingdom",
+};
+
+const COUNTRY_CURRENCIES: Record<string, string> = {
+  FR: "€",
+  LK: "LKR",
+  GB: "£",
+  GBR: "£",
+};
+
+const DEFAULT_PER_HOUR_PRICES: PerHourPriceForCountry[] = [
+  { country: "FR", name: "France", price: 25.00, currency: "€", img: COUNTRY_FLAGS.FR },
+  { country: "LK", name: "Sri Lanka", price: 1500.00, currency: "LKR", img: COUNTRY_FLAGS.LK },
+  { country: "GB", name: "United Kingdom", price: 25.00, currency: "£", img: COUNTRY_FLAGS.GB },
 ];
 
 export function PageHero({
@@ -61,14 +83,19 @@ export function PageHero({
   eyebrow,
   title,
   subtitle,
+  servicePrices,
+  serviceId,
 }: {
   image: string;
   eyebrow?: string;
   title: string;
   subtitle?: string;
+  servicePrices?: ServicePriceEntry[];
+  serviceId?: number;
 }) {
   const [selectedCountryCode, setSelectedCountryCode] = useState<string>("FR");
-  
+  const [countryPrices, setCountryPrices] = useState<PerHourPriceForCountry[]>(DEFAULT_PER_HOUR_PRICES);
+
   // Independent dropdown states & refs for Desktop and Mobile
   const [isDesktopOpen, setIsDesktopOpen] = useState<boolean>(false);
   const [isMobileOpen, setIsMobileOpen] = useState<boolean>(false);
@@ -76,9 +103,53 @@ export function PageHero({
   const desktopDropdownRef = useRef<HTMLDivElement>(null);
   const mobileDropdownRef = useRef<HTMLDivElement>(null);
 
+  useEffect(() => {
+    function processPrices(prices: ServicePriceEntry[]) {
+      if (!prices || prices.length === 0) return;
+      const mapped: PerHourPriceForCountry[] = prices
+        .filter((p) => p.price !== null && p.price !== undefined)
+        .map((p) => {
+          const rawCode = p.country ? p.country.toUpperCase() : "FR";
+          const code = rawCode === "GBR" ? "GB" : rawCode;
+          return {
+            country: code,
+            name: COUNTRY_NAMES[code] || COUNTRY_NAMES[rawCode] || code,
+            price: parseFloat(p.price || "0"),
+            currency: COUNTRY_CURRENCIES[code] || COUNTRY_CURRENCIES[rawCode] || "€",
+            img: COUNTRY_FLAGS[code] || COUNTRY_FLAGS[rawCode] || COUNTRY_FLAGS.FR,
+          };
+        });
+
+      if (mapped.length > 0) {
+        setCountryPrices(mapped);
+      }
+    }
+
+    if (servicePrices && servicePrices.length > 0) {
+      processPrices(servicePrices);
+    } else {
+      getServices()
+        .then((services) => {
+          if (!services || services.length === 0) return;
+          const targetService = serviceId
+            ? services.find((s) => s.id === serviceId) || services[0]
+            : services[0];
+          if (targetService && targetService.prices) {
+            processPrices(targetService.prices);
+          }
+        })
+        .catch((err) => {
+          console.error("Failed to fetch service prices from backend database:", err);
+        });
+    }
+  }, [servicePrices, serviceId]);
+
+  const activePrices = countryPrices.length > 0 ? countryPrices : DEFAULT_PER_HOUR_PRICES;
+
   const selectedData =
-    perHourPriceForCountry.find((c) => c.country === selectedCountryCode) ||
-    perHourPriceForCountry[0];
+    activePrices.find(
+      (c) => c.country.toUpperCase() === selectedCountryCode.toUpperCase()
+    ) || activePrices[0];
 
   // Close custom dropdown when clicking outside
   useEffect(() => {
@@ -113,15 +184,14 @@ export function PageHero({
         />
       </div>
 
-      <div className="absolute bottom-[10px] md:bottom-[130px] flex md:block md:left-8 left-0 z-10 mx-auto max-w-lg md:max-w-3xl py-8 px-5 md:py-5 md:px-7 bg-[rgb(18,30,45)] border-2 border-[rgb(169,139,75)] md:border-0 md:border-transparent md:rounded-[20px]">
-        <Link href="/" 
+      <div className="absolute bottom-[10px] md:bottom-[130px] flex md:block md:left-8 left-0 z-10 mx-auto max-w-lg md:max-w-3xl py-4 px-5 md:py-5 md:px-7 bg-[rgb(18,30,45)] border-2 border-[rgb(169,139,75)] md:border-0 md:border-transparent md:rounded-[20px]">
+        <Link href="/"
           className="inline-flex block md:hidden items-center gap-2">
           <Image
             src="/images/services/service-back.svg"
             alt="Logo"
             width={20}
             height={20}
-            
           />
         </Link>
         {eyebrow && (
@@ -135,7 +205,7 @@ export function PageHero({
         {subtitle && <p className="mt-3 text-brand-cream/85 hidden">{subtitle}</p>}
 
         {/* Desktop View Price Section */}
-        <div className="mt-4 md:flex hidden width-auto md:bg-transparent bg-[rgb(18,30,45)] flex-col items-center justify-center gap-2 sm:flex-row">
+        <div className="mt-4 md:flex hidden width-auto md:bg-transparent bg-[rgb(18,30,45)] flex-col items-center justify-start gap-2 sm:flex-row">
           <p className="text-medium md:block font-semibold text-[#A98B4B] sm:text-2xl">
             {selectedData.currency} {selectedData.price.toFixed(2)}
           </p>
@@ -159,18 +229,17 @@ export function PageHero({
 
             {isDesktopOpen && (
               <ul className="absolute right-0 bottom-full mb-2 z-50 max-h-60 w-56 overflow-y-auto rounded-md bg-[rgb(18,30,45)] border border-[rgb(169,139,75)]/40 shadow-xl focus:outline-none scrollbar-thin">
-                {perHourPriceForCountry.map((item) => (
+                {activePrices.map((item) => (
                   <li
                     key={item.country}
                     onClick={() => {
                       setSelectedCountryCode(item.country);
                       setIsDesktopOpen(false);
                     }}
-                    className={`flex items-center gap-2.5 px-3 py-2 text-xs font-medium cursor-pointer transition-colors duration-150 ${
-                      item.country === selectedCountryCode
-                        ? "bg-[rgb(169,139,75)]/20 text-[rgb(169,139,75)] font-bold"
-                        : "text-white hover:bg-[rgb(28,45,65)]"
-                    }`}
+                    className={`flex items-center gap-2.5 px-3 py-2 text-xs font-medium cursor-pointer transition-colors duration-150 ${item.country.toUpperCase() === selectedCountryCode.toUpperCase()
+                      ? "bg-[rgb(169,139,75)]/20 text-[rgb(169,139,75)] font-bold"
+                      : "text-white hover:bg-[rgb(28,45,65)]"
+                      }`}
                   >
                     <Image
                       src={item.img}
@@ -217,18 +286,17 @@ export function PageHero({
 
           {isMobileOpen && (
             <ul className="absolute right-0 bottom-full mb-2 z-50 max-h-60 w-56 overflow-y-auto rounded-md bg-[rgb(18,30,45)] border border-[rgb(169,139,75)]/40 shadow-xl focus:outline-none scrollbar-thin">
-              {perHourPriceForCountry.map((item) => (
+              {activePrices.map((item) => (
                 <li
                   key={item.country}
                   onClick={() => {
                     setSelectedCountryCode(item.country);
                     setIsMobileOpen(false);
                   }}
-                  className={`flex items-center gap-2.5 px-3 py-2 text-xs font-medium cursor-pointer transition-colors duration-150 ${
-                    item.country === selectedCountryCode
-                      ? "bg-[rgb(169,139,75)]/20 text-[rgb(169,139,75)] font-bold"
-                      : "text-white hover:bg-[rgb(28,45,65)]"
-                  }`}
+                  className={`flex items-center gap-2.5 px-3 py-2 text-xs font-medium cursor-pointer transition-colors duration-150 ${item.country.toUpperCase() === selectedCountryCode.toUpperCase()
+                    ? "bg-[rgb(169,139,75)]/20 text-[rgb(169,139,75)] font-bold"
+                    : "text-white hover:bg-[rgb(28,45,65)]"
+                    }`}
                 >
                   <Image
                     src={item.img}

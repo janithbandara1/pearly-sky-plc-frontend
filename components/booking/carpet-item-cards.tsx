@@ -179,6 +179,38 @@ export function CarpetItemCards({ items, onItemsChange }: CarpetItemCardsProps) 
               </CarouselItem>
             ))}
           </CarouselContent>
+
+          <button className="
+            px-10 py-2
+            hidden
+            rounded-md
+            border border-[#A98B4B]
+            text-[#121E2D]
+            bg-[#FFFDF4]
+            text-[16px]
+            font-semibold
+            max-[431px]:text-[13px]
+            hover:bg-[#FFFDF4]
+            hover:shadow-[0_0_10px_2px_rgba(18,30,45,0.5)]
+            hover:text-[#A98B4B]
+            transition-all duration-300
+            disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:shadow-none
+          ">Back</button>
+
+          <button className="
+                px-10 py-2
+                hidden
+                rounded-md
+                border border-[#A98B4B]
+                bg-[#A98B4B] text-[#FFFDF4]
+                text-[16px] font-semibold
+                max-[431px]:text-[13px]
+                hover:bg-[#A98B4B] hover:text-[#121E2D]
+                hover:shadow-[0_0_10px_3px_rgba(169,139,75,0.6)]
+                transition-all duration-300
+                disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:shadow-none
+              ">Next</button>
+
           <CarouselPrevious className="left-0 border-2 border-[#A98B4B] bg-[#FFFDF4] text-[#A98B4B] hover:bg-[#FFFDF4]" />
           <CarouselNext className="right-0 border-2 border-[#A98B4B] bg-[#FFFDF4] text-[#A98B4B] hover:bg-[#FFFDF4]" />
         </Carousel>
@@ -191,9 +223,8 @@ export function CarpetItemCards({ items, onItemsChange }: CarpetItemCardsProps) 
                 type="button"
                 aria-label={`Go to slide ${index + 1}`}
                 onClick={() => api?.scrollTo(index)}
-                className={`size-2.5 rounded-full transition-colors ${
-                  index === current ? "bg-[#A98B4B]" : "bg-[#A98B4B]/30"
-                }`}
+                className={`size-2.5 rounded-full transition-colors ${index === current ? "bg-[#A98B4B]" : "bg-[#A98B4B]/30"
+                  }`}
               />
             ))}
           </div>

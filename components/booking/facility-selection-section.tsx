@@ -75,9 +75,9 @@ export function FacilitySelectionSection({ selectedIds, onToggle }: FacilitySele
           const cards = FACILITY_CARDS.filter((c) => c.categoryKey === cat.key);
           return (
             <div key={cat.key}>
-              <h3 className="text-sm font-semibold text-[rgb(169,139,75)]">{cat.title}</h3>
+              <h3 className="text-sm font-black text-[rgb(169,139,75)]">{cat.title}</h3>
               <p className="mb-3 py-1 text-xs text-[#fff]">{cat.description}</p>
-              <div className="grid grid-cols-1 gap-2.5 sm:grid-cols-2 lg:grid-cols-4">
+              <div className="grid grid-cols-1 gap-2.5 sm:grid-cols-2 lg:grid-cols-4 ">
                 {cards.map((card) => {
                   const isChecked = selectedIds.has(card.id);
                   return (
@@ -93,11 +93,10 @@ export function FacilitySelectionSection({ selectedIds, onToggle }: FacilitySele
                         }
                       }}
                       aria-pressed={isChecked}
-                      className={`relative flex cursor-pointer flex-col items-start gap-1 rounded-[10px] bg-white px-3 py-2.5 text-left transition ${
-                        isChecked
-                          ? "border-2 border-[#A98B4B] shadow-[0_0_8px_rgba(169,139,75,0.3)]"
-                          : "border-[1.5px] border-[#A98B4B]"
-                      }`}
+                      className={`relative flex cursor-pointer hover:outline-2 hover:outline-[rgb(169,139,75)] flex-col items-start gap-1 rounded-[10px] bg-white px-3 py-2.5 text-left transition ${isChecked
+                        ? "border-2 border-[#A98B4B] shadow-[0_0_8px_rgba(169,139,75,0.3)]"
+                        : "border-[1.5px] border-[#A98B4B]"
+                        }`}
                     >
                       <Checkbox
                         checked={isChecked}

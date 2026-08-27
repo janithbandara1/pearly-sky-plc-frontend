@@ -322,9 +322,9 @@ export function RequestQuotationView({ serviceSlug }: { serviceSlug: string }) {
         supplySource: supplySource || undefined,
         equipmentItems: selectedItems.length
           ? selectedItems.map((i) => ({
-              name: i.name,
-              price: i.price !== null ? Number(i.price) : undefined,
-            }))
+            name: i.name,
+            price: i.price !== null ? Number(i.price) : undefined,
+          }))
           : undefined,
         numCleaners,
         durationHours,
@@ -398,24 +398,20 @@ export function RequestQuotationView({ serviceSlug }: { serviceSlug: string }) {
                       : undefined;
 
   return (
-    <main className="flex-1">
+    <main className="flex-1 bg-[rgb(199,209,217)]">
       <PageHero
         image={service.imageUrl ?? "/images/services/updated-home-property-cleaning-services-1-standard-residential-cleaning.webp"}
         eyebrow="Request a quotation"
         title={service.label}
         subtitle={service.description ?? undefined}
+        servicePrices={service.prices}
+        serviceId={service.id}
       />
 
-      <div className="mx-auto flex w-full max-w-[1150px] flex-1 flex-col gap-6 p-4 sm:p-6">
-        <Link
-          href="/"
-          className="mb-2 inline-flex items-center gap-1 self-start text-sm text-brand-gold-dark hover:underline"
-        >
-          <ArrowLeft className="h-4 w-4" />
-          Back
-        </Link>
+      <div className="mx-auto flex w-full max-w-7xl flex-1 flex-col gap-6 p-4 sm:p-6">
 
-        {serviceContent?.introduction && <ServiceIntroduction {...serviceContent.introduction} />}
+
+        {serviceContent?.introduction && <ServiceIntroduction {...serviceContent.introduction} bgImage={service.imageUrl ?? "/images/services/updated-home-property-cleaning-services-1-standard-residential-cleaning.webp"} />}
 
         {serviceContent?.highlights?.map((group, index) => (
           <ServiceHighlights key={index} title={group.title} cards={group.cards} />
@@ -546,11 +542,10 @@ export function RequestQuotationView({ serviceSlug }: { serviceSlug: string }) {
                       key={address.id}
                       type="button"
                       onClick={() => handleSelectAddress(address)}
-                      className={`rounded-lg border p-3 text-left text-sm transition-colors ${
-                        selectedAddressId === address.id
-                          ? "border-brand-gold-dark bg-brand-cream"
-                          : "border-transparent bg-white hover:bg-brand-cream/60"
-                      }`}
+                      className={`rounded-lg border p-3 text-left text-sm transition-colors ${selectedAddressId === address.id
+                        ? "border-brand-gold-dark bg-brand-cream"
+                        : "border-transparent bg-white hover:bg-brand-cream/60"
+                        }`}
                     >
                       {address.streetAddress}
                       {address.unit ? `, ${address.unit}` : ""}, {address.city}
@@ -711,6 +706,15 @@ export function RequestQuotationView({ serviceSlug }: { serviceSlug: string }) {
           />
           {submitError && <p className="text-sm text-destructive">{submitError}</p>}
         </form>
+      </div>
+      <div className="w-full flex">
+        <Link
+          href="/"
+          className="mb-2 inline-flex items-center gap-1 self-start text-sm text-brand-gold-dark hover:underline"
+        >
+          <ArrowLeft className="h-4 w-4" />
+          Back
+        </Link>
       </div>
     </main>
   );

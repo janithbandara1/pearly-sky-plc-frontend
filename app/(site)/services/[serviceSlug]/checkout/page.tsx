@@ -328,6 +328,8 @@ export default function CheckoutPage({
         eyebrow="Checkout"
         title={service.label}
         subtitle={`${draft.date} at ${draft.time}`}
+        servicePrices={service.prices}
+        serviceId={service.id}
       />
 
       <div className="mx-auto grid w-full max-w-[1150px] flex-1 gap-6 p-4 sm:p-6 lg:grid-cols-[1fr_380px] lg:items-start">

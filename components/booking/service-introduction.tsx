@@ -31,12 +31,12 @@ export interface ServiceIntroductionProps {
 "high-security-property-care": 'sdasd',
 "luxury-yacht-cleaning": 'sdasd',
 ] */
- 
+
 export function ServiceIntroduction({
   headline,
   body,
   mainImage = "/images/services/updated-home-property-cleaning-services-1-standard-residential-cleaning.webp",
-  bgImage 
+  bgImage
 }: ServiceIntroductionProps) {
   return (
     <section className="w-full p-0 my-14  md:mb-2 md:mt-5 ">
@@ -47,7 +47,7 @@ export function ServiceIntroduction({
 
           {/* Background Decorative Arch Frame (Bottom-Left) */}
           <div
-            className="absolute w-[85%] mt-10 md:w-[75%] rounded-lg md:rounded-tl-[50px] md:rounded-br-[50px] bottom-0 left-0 z-0  md:h-[75%] h-[95%] lg:h-[85%] overflow-hidden shadow-sm border-2 border-[#A98B4B]"
+            className="absolute w-[85%] mt-12 md:w-[80%] rounded-lg md:rounded-tl-[50px] md:rounded-br-[50px] bottom-0 left-0 z-0  md:h-[75%] h-[95%] lg:h-[85%] overflow-hidden shadow-sm border-2 border-[#A98B4B]"
 
           >
             <Image
@@ -60,7 +60,7 @@ export function ServiceIntroduction({
           </div>
 
           {/* Foreground Main Image Frame (Top-Right Overlap) */}
-          <div className="absolute top-0 right-0 md:right-10 md:top-9 z-10 w-[80%] md:w-[80%]  h-[85%] md:h-[52%]  shadow-xl overflow-hidden md:rounded-[10px] rounded-[24px] border-3 border-[#A98B4B]">
+          <div className="absolute top-0 right-0 md:right-8 md:top-9 z-10 w-[80%] md:w-[80%]  h-[85%] md:h-[52%]  shadow-xl overflow-hidden md:rounded-[10px] rounded-[24px] border-3 border-[#A98B4B]">
             <Image
               src={bgImage}
               alt={headline}
@@ -91,7 +91,7 @@ export function ServiceIntroduction({
           </div>
           <div className="mt-6 flex justify-center">
             <p className="font-semibold text-base sm:text-lg text-[rgb(169,139,75)]">Set Your Recurring Schedule</p>
-            </div>
+          </div>
         </div>
 
       </div>
