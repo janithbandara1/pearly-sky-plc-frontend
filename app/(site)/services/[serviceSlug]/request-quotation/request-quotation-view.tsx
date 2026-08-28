@@ -19,6 +19,7 @@ import {
 import { QuoteItemsSection } from "@/components/booking/quote-items-section";
 import { CarpetItemCards } from "@/components/booking/carpet-item-cards";
 import { PoolJobSelection } from "@/components/booking/pool-job-selection";
+import { PressureWashingJobSelection } from "@/components/booking/pressure-washing-job-selection";
 import { SecurityCategorySelection } from "@/components/booking/security-category-selection";
 import { YachtCategorySelection } from "@/components/booking/yacht-category-selection";
 import { CareProfilesSection } from "@/components/booking/care-profiles-section";
@@ -53,13 +54,18 @@ const CUSTOM_QUOTE_ITEMS: Record<
   string,
   { title: string; itemLabel?: string; options: QuoteItemOption[] }
 > = {
-  "pool-cleaning": { title: "Pool Details", options: POOL_ITEM_OPTIONS },
+  "pool-cleaning": {
+    title: "Pool Details", options: POOL_ITEM_OPTIONS
+  },
   "precision-pressure-washing": {
     title: "Job Details",
     itemLabel: "Job Type",
     options: PRESSURE_WASHING_ITEM_OPTIONS,
   },
-  "carpet-upholstery-cleaning": { title: "Carpet & Upholstery Details", options: CARPET_ITEM_OPTIONS },
+  "carpet-upholstery-cleaning": {
+    title: "Carpet & Upholstery Details",
+    options: CARPET_ITEM_OPTIONS
+  },
 };
 
 /** High-Security Property Care is quote-only too, but picks one category instead of quantity-based items — a single-select list, not a dropdown. */
@@ -413,6 +419,7 @@ export function RequestQuotationView({ serviceSlug }: { serviceSlug: string }) {
 
         {serviceContent?.introduction && <ServiceIntroduction {...serviceContent.introduction} bgImage={service.imageUrl ?? "/images/services/updated-home-property-cleaning-services-1-standard-residential-cleaning.webp"} />}
 
+
         {serviceContent?.highlights?.map((group, index) => (
           <ServiceHighlights key={index} title={group.title} cards={group.cards} />
         ))}
@@ -422,6 +429,8 @@ export function RequestQuotationView({ serviceSlug }: { serviceSlug: string }) {
             <CarpetItemCards items={quoteItems} onItemsChange={setQuoteItems} />
           ) : serviceSlug === "pool-cleaning" ? (
             <PoolJobSelection items={quoteItems} onItemsChange={setQuoteItems} />
+          ) : serviceSlug === "precision-pressure-washing" ? (
+            <PressureWashingJobSelection items={quoteItems} onItemsChange={setQuoteItems} />
           ) : isSecurityCategory ? (
             <SecurityCategorySelection selected={selectedCategory} onSelect={setSelectedCategory} />
           ) : isYachtCategory ? (
@@ -707,10 +716,10 @@ export function RequestQuotationView({ serviceSlug }: { serviceSlug: string }) {
           {submitError && <p className="text-sm text-destructive">{submitError}</p>}
         </form>
       </div>
-      <div className="w-full flex">
+      <div className="w-full flex justify-center">
         <Link
           href="/"
-          className="mb-2 inline-flex items-center gap-1 self-start text-sm text-brand-gold-dark hover:underline"
+          className="mb-2 inline-flex items-center gap-1 self-start text-md text-brand-gold-dark hover:underline"
         >
           <ArrowLeft className="h-4 w-4" />
           Back

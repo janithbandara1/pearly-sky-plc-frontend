@@ -928,7 +928,7 @@ export const SERVICE_CONTENT: Partial<Record<string, ServiceContentEntry>> = {
     },
     highlights: [
       {
-        title: "Luxury Yacht Cleaning Highlights",
+        title: "Luxury Yacht Care Checklist (Maximum Precision, Flawless Finish)",
         cards: [
           {
             title: "Exterior & Superstructure",

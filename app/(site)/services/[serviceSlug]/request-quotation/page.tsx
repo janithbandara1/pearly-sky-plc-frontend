@@ -6,6 +6,9 @@ import { buildCountryAlternates, buildSocialMeta } from "@/lib/countries/seo";
 import { buildBreadcrumbJsonLd } from "@/lib/seo/json-ld";
 import { JsonLd } from "@/components/json-ld";
 import { RequestQuotationView } from "./request-quotation-view";
+import JoinWithUsSection from "@/components/booking/join-with-us-section";
+import RelatedServices from "@/components/services-links";
+import PaymentMarquee from "@/components/payment-method-services";
 
 export async function generateMetadata({
   params,
@@ -45,6 +48,9 @@ export default async function RequestQuotationPage({
         ])}
       />
       <RequestQuotationView serviceSlug={serviceSlug} />
+      <JoinWithUsSection />
+      <RelatedServices />
+      <PaymentMarquee />
     </>
   );
 }
