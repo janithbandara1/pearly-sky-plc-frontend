@@ -36,7 +36,8 @@ export function ServicesNavList({
       className={`grid min-w-0 gap-1 p-1 ${scrollable ? "max-h-[60vh] overflow-y-auto" : ""} ${className}`}
     >
       {services.map((service) => {
-        const href = service.isBookable
+        const isCare = service.name === "child-care-service" || service.name === "elder-care-service";
+        const href = isCare || service.isBookable
           ? `/services/${service.name}`
           : service.isQuotable
             ? `/services/${service.name}/request-quotation`

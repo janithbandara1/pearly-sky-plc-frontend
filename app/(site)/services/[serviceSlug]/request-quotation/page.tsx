@@ -5,6 +5,7 @@ import { getRequestLanguage } from "@/lib/i18n/server";
 import { buildCountryAlternates, buildSocialMeta } from "@/lib/countries/seo";
 import { buildBreadcrumbJsonLd } from "@/lib/seo/json-ld";
 import { JsonLd } from "@/components/json-ld";
+import { redirect } from "next/navigation";
 import { RequestQuotationView } from "./request-quotation-view";
 import JoinWithUsSection from "@/components/booking/join-with-us-section";
 import RelatedServices from "@/components/services-links";
@@ -34,6 +35,10 @@ export default async function RequestQuotationPage({
   params: Promise<{ serviceSlug: string }>;
 }) {
   const { serviceSlug } = await params;
+  if (serviceSlug === "child-care-service" || serviceSlug === "elder-care-service") {
+    redirect(`/services/${serviceSlug}`);
+  }
+
   const label = await getServiceBySlug(serviceSlug)
     .then((service) => service.label)
     .catch(() => serviceSlug);

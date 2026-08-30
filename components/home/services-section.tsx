@@ -29,6 +29,8 @@ function ServiceCard({ service }: { service: CatalogService }) {
   const { symbol } = useCurrency();
 
   
+  const isCare = service.name === "child-care-service" || service.name === "elder-care-service";
+
   return (
     <div className="flex h-full flex-col overflow-hidden rounded-xl border-2 border-brand-gold bg-brand-navy shadow-md transition-transform duration-200 hover:scale-[1.03] hover:shadow-xl">
       <div className="relative h-40 w-full shrink-0 sm:h-44">
@@ -54,45 +56,51 @@ function ServiceCard({ service }: { service: CatalogService }) {
             </p>
           )}
           <p className="text-sm font-semibold text-brand-gold">
-            {!service.isBookable
-              ? translate("servicesRequestQuotation")
-              : service.price
-                ? `${symbol}${service.price}${translate("servicesPricePerCleaner")}`
-                : translate("servicesPricingSoon")}
+            {service.price
+              ? `Rate: ${symbol}${service.price}${translate("servicesPricePerCleaner")}`
+              : translate("servicesRequestQuotation")}
           </p>
         </div>
 
-        {service.isBookable ? (
-          <div className="mt-2 flex w-full flex-col gap-2">
+        <div className="mt-2 flex w-full flex-col gap-2">
+          {service.isBookable ? (
+            <>
+              <Link
+                href={`/services/${service.name}/request-quotation`}
+                className="flex w-full items-center justify-center rounded-lg border border-brand-gold bg-brand-navy px-4 py-2.5 text-xs font-bold uppercase tracking-wider text-brand-gold transition-colors hover:bg-brand-gold hover:text-brand-navy"
+              >
+                {translate("servicesRequestQuotation")}
+              </Link>
+              <Link
+                href={`/services/${service.name}`}
+                className="flex w-full items-center justify-center gap-1.5 rounded-lg bg-brand-gold px-4 py-2.5 text-xs font-bold uppercase tracking-wider text-brand-navy transition-colors hover:bg-brand-gold/90"
+              >
+                {translate("servicesBookNow")}
+                <ArrowRight className="h-3.5 w-3.5" />
+              </Link>
+            </>
+          ) : isCare ? (
             <Link
               href={`/services/${service.name}`}
-              className="flex w-full items-center justify-center gap-1.5 rounded-lg bg-brand-gold px-4 py-2 text-xs font-semibold text-brand-navy transition-colors hover:bg-brand-gold/90"
+              className="flex w-full items-center justify-center gap-1.5 rounded-lg bg-brand-gold px-4 py-2.5 text-xs font-bold uppercase tracking-wider text-brand-navy transition-colors hover:bg-brand-gold/90"
             >
               {translate("servicesBookNow")}
               <ArrowRight className="h-3.5 w-3.5" />
             </Link>
-            {service.isQuotable && (
-              <Link
-                href={`/services/${service.name}/request-quotation`}
-                className="flex w-full items-center justify-center gap-1.5 rounded-lg border border-brand-gold px-4 py-2 text-xs font-semibold text-brand-gold transition-colors hover:bg-brand-gold/10"
-              >
-                {translate("servicesRequestQuotation")}
-              </Link>
-            )}
-          </div>
-        ) : service.isQuotable ? (
-          <Link
-            href={`/services/${service.name}/request-quotation`}
-            className="mt-2 flex w-full items-center justify-center gap-1.5 rounded-lg bg-brand-gold px-4 py-2 text-xs font-semibold text-brand-navy transition-colors hover:bg-brand-gold/90"
-          >
-            {translate("servicesRequestQuotation")}
-            <ArrowRight className="h-3.5 w-3.5" />
-          </Link>
-        ) : (
-          <span className="mt-2 block w-full rounded-lg border border-brand-navy-foreground/20 px-4 py-2 text-xs font-medium text-brand-navy-foreground/50">
-            {translate("servicesComingSoon")}
-          </span>
-        )}
+          ) : service.isQuotable ? (
+            <Link
+              href={`/services/${service.name}/request-quotation`}
+              className="flex w-full items-center justify-center rounded-lg border border-brand-gold bg-brand-navy px-4 py-2.5 text-xs font-bold uppercase tracking-wider text-brand-gold transition-colors hover:bg-brand-gold hover:text-brand-navy"
+            >
+              {translate("servicesRequestQuotation")}
+              <ArrowRight className="h-3.5 w-3.5" />
+            </Link>
+          ) : (
+            <span className="block w-full rounded-lg border border-brand-navy-foreground/20 px-4 py-2.5 text-xs font-medium text-brand-navy-foreground/50">
+              {translate("servicesComingSoon")}
+            </span>
+          )}
+        </div>
       </div>
     </div>
   );

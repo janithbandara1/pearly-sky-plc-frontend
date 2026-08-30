@@ -136,7 +136,7 @@ export function ServiceHighlights({ title, cards }: ServiceHighlightsProps) {
         /* Grid & Mobile Carousel View for cards.length <= 4 */
         <>
           {/* Desktop & Tablet Grid View */}
-          <div className={`hidden min-[542px]:grid ${gridConfig.gridCols} justify-items-center gap-6 px-4 items-stretch ${gridConfig.containerMax} mx-auto`}>
+          <div className={`hidden min-[542px]:grid ${gridConfig.gridCols} justify-items-center gap-12 px-4 items-stretch ${gridConfig.containerMax} mx-auto`}>
             {cards.map((card) => (
               <div
                 key={card.title}

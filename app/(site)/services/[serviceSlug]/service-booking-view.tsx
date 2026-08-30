@@ -43,6 +43,8 @@ import { EventbookSection } from "@/components/booking/event/EventbookSection";
 import ProductSelector from "@/components/booking/event/ProductsAndSuppliers";
 //import { ServicePreferencesSection } from "@/components/booking/service-preferences-section";
 
+import { CareScheduleSection } from "@/components/booking/care-schedule-section";
+
 const poppins = Poppins({ subsets: ["latin"], weight: ["400", "500", "600", "700", "800"] });
 
 /** Only healthguard-sanitization collects facility type + disinfection level. */
@@ -59,6 +61,10 @@ const SECURITY_SLUG = "high-security-property-care";
 
 /** Luxury Yacht Cleaning follows the same single-select category pattern as High-Security Property Care. */
 const YACHT_SLUG = "luxury-yacht-cleaning";
+
+/** Care services with dedicated scheduling and profile flows. */
+const CHILD_CARE_SLUG = "child-care-service";
+const ELDER_CARE_SLUG = "elder-care-service";
 
 //used for fallback data when the service API fails to return a service
 const DEFAULT_PACKAGES: ServiceAddOnPackage[] = [
@@ -77,6 +83,36 @@ const DEFAULT_ITEMS: CatalogItem[] = [
 ];
 
 const FALLBACK_SERVICES: Record<string, CatalogServiceDetail> = {
+  "child-care-service": {
+    id: 17,
+    name: "child-care-service",
+    label: "Child Care Service",
+    price: "30.00",
+    prices: [],
+    status: "active",
+    category: "bespoke_lifestyle",
+    description: "Trusted support for families.",
+    imageUrl: "/images/services/updated-care-support-services-1-child-care-service.webp",
+    isBookable: true,
+    isQuotable: true,
+    servicePackages: [],
+    serviceItems: [],
+  },
+  "elder-care-service": {
+    id: 18,
+    name: "elder-care-service",
+    label: "Elder Care Service",
+    price: "30.00",
+    prices: [],
+    status: "active",
+    category: "bespoke_lifestyle",
+    description: "Respectful support for elderly clients.",
+    imageUrl: "/images/services/updated-care-support-services-2-elder-care-service.webp",
+    isBookable: true,
+    isQuotable: true,
+    servicePackages: [],
+    serviceItems: [],
+  },
   "regular-maintenance-cleaning": {
     id: 1,
     name: "regular-maintenance-cleaning",
@@ -104,6 +140,9 @@ export function ServiceBookingView({ serviceSlug }: { serviceSlug: string }) {
   const isSecurityCategory = serviceSlug === SECURITY_SLUG;
   const isYachtCategory = serviceSlug === YACHT_SLUG;
   const isCategoryQuote = isSecurityCategory || isYachtCategory;
+  const isChildCare = serviceSlug === CHILD_CARE_SLUG;
+  const isElderCare = serviceSlug === ELDER_CARE_SLUG;
+  const isCareService = isChildCare || isElderCare;
   const serviceContent = SERVICE_CONTENT[serviceSlug];
 
   const [service, setService] = useState<CatalogServiceDetail | null>(null);
@@ -140,7 +179,7 @@ export function ServiceBookingView({ serviceSlug }: { serviceSlug: string }) {
   useEffect(() => {
     getServiceBySlug(serviceSlug, country)
       .then((data) => {
-        if (!data.isBookable) {
+        if (!data.isBookable && !isCareService) {
           setServiceError(`Book now for "${data.label}" isn't available yet.`);
           return;
         }
@@ -166,7 +205,7 @@ export function ServiceBookingView({ serviceSlug }: { serviceSlug: string }) {
           setServiceError(err instanceof ApiError ? err.message : "Service not found.");
         }
       });
-  }, [serviceSlug, country]);
+  }, [serviceSlug, country, isCareService]);
 
   useEffect(() => {
     if (!service) return;
@@ -415,168 +454,141 @@ export function ServiceBookingView({ serviceSlug }: { serviceSlug: string }) {
           <ServiceHighlights key={index} title={group.title} cards={group.cards} />
         ))}
 
-        {isSanitization && (
-          <FacilitySelectionSection selectedIds={selectedFacilityIds} onToggle={toggleFacility} />
-        )}
-
-        {isSanitization && (
-          <DisinfectionLevelSection selectedId={disinfectionLevelId} onSelect={(level) => setDisinfectionLevelId(level.id)} />
-        )}
-
-        {isSteam && (
-          <div className="w-full bg-[#121E2D] rounded-[12px]">
-            <GeneralSteamSection
-              selectedTitles={selectedGeneralSteam}
-              onToggle={(title) => toggleSetEntry(setSelectedGeneralSteam, title)}
-            />
-            <IndustrialCommercialSteamSection
-              selectedTitles={selectedIndustrialSteam}
-              onToggle={(title) => toggleSetEntry(setSelectedIndustrialSteam, title)}
-            />
-          </div>
-        )}
-
-        {/* {isSteam && (
-          <IndustrialCommercialSteamSection
-            selectedTitles={selectedIndustrialSteam}
-            onToggle={(title) => toggleSetEntry(setSelectedIndustrialSteam, title)}
+        {isCareService ? (
+          <CareScheduleSection
+            serviceId={service.id}
+            serviceSlug={serviceSlug}
+            serviceLabel={service.label}
           />
-        )} */}
+        ) : (
+          <>
+            {isSanitization && (
+              <FacilitySelectionSection selectedIds={selectedFacilityIds} onToggle={toggleFacility} />
+            )}
 
-        {isSecurityCategory && (
-          <SecurityCategorySelection selected={selectedCategory} onSelect={setSelectedCategory} />
-        )}
+            {isSanitization && (
+              <DisinfectionLevelSection selectedId={disinfectionLevelId} onSelect={(level) => setDisinfectionLevelId(level.id)} />
+            )}
 
-        {isYachtCategory && (
-          <YachtCategorySelection selected={selectedCategory} onSelect={setSelectedCategory} />
-        )}
+            {isSteam && (
+              <div className="w-full bg-[#121E2D] rounded-[12px]">
+                <GeneralSteamSection
+                  selectedTitles={selectedGeneralSteam}
+                  onToggle={(title) => toggleSetEntry(setSelectedGeneralSteam, title)}
+                />
+                <IndustrialCommercialSteamSection
+                  selectedTitles={selectedIndustrialSteam}
+                  onToggle={(title) => toggleSetEntry(setSelectedIndustrialSteam, title)}
+                />
+              </div>
+            )}
 
-        {isEvent && (
-          <EventTypeSection
-            selectedTitles={selectedEventTypes}
-            onToggle={(title) => toggleSetEntry(setSelectedEventTypes, title)}
-          />
-        )}
+            {isSecurityCategory && (
+              <SecurityCategorySelection selected={selectedCategory} onSelect={setSelectedCategory} />
+            )}
 
-        {/** set the new component which has the list of EQUIPMENTs and CHEMICALS */}
-        {isEvent && (<ProductSelector />)}
+            {isYachtCategory && (
+              <YachtCategorySelection selected={selectedCategory} onSelect={setSelectedCategory} />
+            )}
 
-        {!isSanitization && !isSteam && !isEvent && !isCategoryQuote && (
-          <JobCardSection
-            packages={(service.servicePackages ?? []).map((sp) => sp.package)}
-            selectedIds={selectedPackageIds}
-            onToggle={togglePackage}
-          />
-        )}
-
-        <DateTimeSection date={date} onDateChange={setDate} time={time} onTimeChange={setTime} />
-
-        <ServicePreferencesSection
-          gender={gender}
-          onGenderChange={setGender}
-          language={language}
-          onLanguageChange={setLanguage}
-          requirements={requirements}
-          onRequirementsChange={setRequirements}
-        />
-
-        <PropertyTypeSizeSelector
-          value={propertySizeSqm}
-          onChange={setPropertySizeSqm}
-          categories={getPropertyCategoriesForService(serviceSlug)}
-          onCategoryChange={(cat: PropertyCategory) => setPropertyType(cat.dropdownLabel ?? cat.label)}
-        />
-
-        {isEvent ? ((() => {
-          const categories = getPropertyCategoriesForService(serviceSlug);
-          const pTypeLower = (propertyType || "").toLowerCase();
-          const activeCategory =
-            categories.find(
-              (c: PropertyCategory) =>
-                pTypeLower.includes(c.id.toLowerCase()) ||
-                pTypeLower.includes(c.label.toLowerCase()),
-            ) ?? categories[0];
-
-          return (
-            <EventbookSection
-              propertyType={propertyType || activeCategory.label}
-              categoryIcon={activeCategory.icon}
-              propertySizeSqm={propertySizeSqm}
-              quote={quote}
-              hourlyRate={service.price}
-              supplySource={supplySource}
-              onSupplySourceChange={handleSupplySourceChange}
-              items={items}
-              selectedItemIds={selectedItemIds}
-              onToggleItem={toggleItem}
-              addOnsTotal={addOnsTotal + (selectedDisinfectionLevel?.priceAdder ?? 0)}
-              onBookNow={handleBookNow}
-              submitting={submitting}
-              bookDisabledReason={bookDisabledReason}
-            />
-          );
-        })()) :
-          (() => {
-            const categories = getPropertyCategoriesForService(serviceSlug);
-            const pTypeLower = (propertyType || "").toLowerCase();
-            const activeCategory =
-              categories.find(
-                (c: PropertyCategory) =>
-                  pTypeLower.includes(c.id.toLowerCase()) ||
-                  pTypeLower.includes(c.label.toLowerCase()),
-              ) ?? categories[0];
-
-            return (
-              <EquipmentSection
-                propertyType={propertyType || activeCategory.label}
-                categoryIcon={activeCategory.icon}
-                propertySizeSqm={propertySizeSqm}
-                quote={quote}
-                hourlyRate={service.price}
-                supplySource={supplySource}
-                onSupplySourceChange={handleSupplySourceChange}
-                items={items}
-                selectedItemIds={selectedItemIds}
-                onToggleItem={toggleItem}
-                addOnsTotal={addOnsTotal + (selectedDisinfectionLevel?.priceAdder ?? 0)}
-                onBookNow={handleBookNow}
-                submitting={submitting}
-                bookDisabledReason={bookDisabledReason}
+            {isEvent && (
+              <EventTypeSection
+                selectedTitles={selectedEventTypes}
+                onToggle={(title) => toggleSetEntry(setSelectedEventTypes, title)}
               />
-            );
-          })()}
+            )}
 
-        {/* {(() => {
-          const categories = getPropertyCategoriesForService(serviceSlug);
-          const pTypeLower = (propertyType || "").toLowerCase();
-          const activeCategory =
-            categories.find(
-              (c: PropertyCategory) =>
-                pTypeLower.includes(c.id.toLowerCase()) ||
-                pTypeLower.includes(c.label.toLowerCase()),
-            ) ?? categories[0];
+            {/** set the new component which has the list of EQUIPMENTs and CHEMICALS */}
+            {isEvent && (<ProductSelector />)}
 
-          return (
-            <EquipmentSection
-              propertyType={propertyType || activeCategory.label}
-              categoryIcon={activeCategory.icon}
-              propertySizeSqm={propertySizeSqm}
-              quote={quote}
-              hourlyRate={service.price}
-              supplySource={supplySource}
-              onSupplySourceChange={handleSupplySourceChange}
-              items={items}
-              selectedItemIds={selectedItemIds}
-              onToggleItem={toggleItem}
-              addOnsTotal={addOnsTotal + (selectedDisinfectionLevel?.priceAdder ?? 0)}
-              onBookNow={handleBookNow}
-              submitting={submitting}
-              bookDisabledReason={bookDisabledReason}
+            {!isSanitization && !isSteam && !isEvent && !isCategoryQuote && (
+              <JobCardSection
+                packages={(service.servicePackages ?? []).map((sp) => sp.package)}
+                selectedIds={selectedPackageIds}
+                onToggle={togglePackage}
+              />
+            )}
+
+            <DateTimeSection date={date} onDateChange={setDate} time={time} onTimeChange={setTime} />
+
+            <ServicePreferencesSection
+              gender={gender}
+              onGenderChange={setGender}
+              language={language}
+              onLanguageChange={setLanguage}
+              requirements={requirements}
+              onRequirementsChange={setRequirements}
             />
-          );
-        })()} */}
 
-        {error && <p className="text-sm text-destructive">{error}</p>}
+            <PropertyTypeSizeSelector
+              value={propertySizeSqm}
+              onChange={setPropertySizeSqm}
+              categories={getPropertyCategoriesForService(serviceSlug)}
+              onCategoryChange={(cat: PropertyCategory) => setPropertyType(cat.dropdownLabel ?? cat.label)}
+            />
+
+            {isEvent ? ((() => {
+              const categories = getPropertyCategoriesForService(serviceSlug);
+              const pTypeLower = (propertyType || "").toLowerCase();
+              const activeCategory =
+                categories.find(
+                  (c: PropertyCategory) =>
+                    pTypeLower.includes(c.id.toLowerCase()) ||
+                    pTypeLower.includes(c.label.toLowerCase()),
+                ) ?? categories[0];
+
+              return (
+                <EventbookSection
+                  propertyType={propertyType || activeCategory.label}
+                  categoryIcon={activeCategory.icon}
+                  propertySizeSqm={propertySizeSqm}
+                  quote={quote}
+                  hourlyRate={service.price}
+                  supplySource={supplySource}
+                  onSupplySourceChange={handleSupplySourceChange}
+                  items={items}
+                  selectedItemIds={selectedItemIds}
+                  onToggleItem={toggleItem}
+                  addOnsTotal={addOnsTotal + (selectedDisinfectionLevel?.priceAdder ?? 0)}
+                  onBookNow={handleBookNow}
+                  submitting={submitting}
+                  bookDisabledReason={bookDisabledReason}
+                />
+              );
+            })()) :
+              (() => {
+                const categories = getPropertyCategoriesForService(serviceSlug);
+                const pTypeLower = (propertyType || "").toLowerCase();
+                const activeCategory =
+                  categories.find(
+                    (c: PropertyCategory) =>
+                      pTypeLower.includes(c.id.toLowerCase()) ||
+                      pTypeLower.includes(c.label.toLowerCase()),
+                  ) ?? categories[0];
+
+                return (
+                  <EquipmentSection
+                    propertyType={propertyType || activeCategory.label}
+                    categoryIcon={activeCategory.icon}
+                    propertySizeSqm={propertySizeSqm}
+                    quote={quote}
+                    hourlyRate={service.price}
+                    supplySource={supplySource}
+                    onSupplySourceChange={handleSupplySourceChange}
+                    items={items}
+                    selectedItemIds={selectedItemIds}
+                    onToggleItem={toggleItem}
+                    addOnsTotal={addOnsTotal + (selectedDisinfectionLevel?.priceAdder ?? 0)}
+                    onBookNow={handleBookNow}
+                    submitting={submitting}
+                    bookDisabledReason={bookDisabledReason}
+                  />
+                );
+              })()}
+
+            {error && <p className="text-sm text-destructive">{error}</p>}
+          </>
+        )}
       </div>
     </div>
   );

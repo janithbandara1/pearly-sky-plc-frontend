@@ -164,6 +164,8 @@ export const SERVICE_CONTENT: Partial<Record<string, ServiceContentEntry>> = {
               "Spot-cleaning cabinet fronts.",
               "Cleaning microwave & stovetop exterior.",
               "Washing or loading small set",
+              "Sanitizing sink & polishing fixtures",
+              
             ],
           },
           {
@@ -173,6 +175,8 @@ export const SERVICE_CONTENT: Partial<Record<string, ServiceContentEntry>> = {
               "Cleaning toilet inside and out.",
               "Quick mirror wipe.",
               "Changing hand towel.",
+              "Replacing used hand towels",
+              "Emptying waste bin & deodorizing"
             ],
           }
         ],
@@ -963,3 +967,14 @@ export const SERVICE_CONTENT: Partial<Record<string, ServiceContentEntry>> = {
     ],
   },
 };
+
+// Aliases for slug variations between backend catalog and frontend routes
+if (SERVICE_CONTENT["regular-home-cleaning"]) {
+  SERVICE_CONTENT["regular-maintenance-cleaning"] = SERVICE_CONTENT["regular-home-cleaning"];
+}
+if (SERVICE_CONTENT["essential-touch-up-cleaning"]) {
+  SERVICE_CONTENT["quick-touch-up-cleaning"] = SERVICE_CONTENT["essential-touch-up-cleaning"];
+}
+if (SERVICE_CONTENT["post-construction-renovation-cleaning"]) {
+  SERVICE_CONTENT["post-construction-cleaning"] = SERVICE_CONTENT["post-construction-renovation-cleaning"];
+}
