@@ -1,6 +1,7 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
+import useEmblaCarousel from "embla-carousel-react";
 
 export interface PropertyCategory {
   id: string;
@@ -199,13 +200,28 @@ export function PropertyTypeSizeSelector({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [activeCategory]);
 
-  function handleTypeChange(id: string) {
+  const [emblaRef, emblaApi] = useEmblaCarousel({
+    dragFree: true,
+    containScroll: "trimSnaps",
+    align: "start",
+  });
+
+  const handleCardClick = useCallback((id: string) => {
     const nextCat = selectableCategories.find((c) => c.id === id);
     if (nextCat) {
       setActiveCategoryId(nextCat.id);
       onChange(nextCat.sizes ? nextCat.sizes[0] : nextCat.min);
     }
-  }
+  }, [selectableCategories, onChange]);
+
+  // Scroll active item into view when active category changes
+  useEffect(() => {
+    if (!emblaApi) return;
+    const activeIdx = selectableCategories.findIndex((c) => c.id === activeCategoryId);
+    if (activeIdx >= 0) {
+      emblaApi.scrollTo(activeIdx);
+    }
+  }, [activeCategoryId, emblaApi, selectableCategories]);
 
   // Calculate current size index & surrounding options for the wheel
   const currentIndex = Math.max(
@@ -235,34 +251,36 @@ export function PropertyTypeSizeSelector({
           <h3 className="text-base sm:text-lg font-bold text-[#0F172A] mb-3">Property Type</h3>
 
           <div className="relative">
-            <div className="flex gap-3 overflow-x-auto pb-2 scrollbar-none snap-x [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
-              {selectableCategories.map((cat) => {
-                const isSelected = cat.id === activeCategory.id;
-                return (
-                  <button
-                    key={cat.id}
-                    type="button"
-                    onClick={() => handleTypeChange(cat.id)}
-                    className={`shrink-0 w-[110px] sm:w-[118px] h-[118px] rounded-xl flex flex-col items-center justify-center p-2.5 cursor-pointer transition-all duration-200 snap-start select-none ${isSelected
-                        ? "bg-[#0B1527] border-2 border-[#B89642] ring-1 ring-[#B89642] text-white shadow-md scale-[1.02]"
-                        : "bg-white border border-[#C6A868]/60 hover:border-[#B89642] text-[#1E293B] shadow-sm hover:shadow"
-                      }`}
-                  >
-                    <div
-                      className={`w-9 h-9 rounded-lg flex items-center justify-center text-xl mb-1.5 transition-colors ${isSelected ? "bg-[#1E2B42]" : "bg-[#F1F3F5]"
+            <div ref={emblaRef} className="overflow-hidden cursor-grab active:cursor-grabbing select-none pb-2">
+              <div className="flex gap-3">
+                {selectableCategories.map((cat) => {
+                  const isSelected = cat.id === activeCategory.id;
+                  return (
+                    <button
+                      key={cat.id}
+                      type="button"
+                      onClick={() => handleCardClick(cat.id)}
+                      className={`shrink-0 w-[110px] sm:w-[118px] h-[118px] rounded-xl flex flex-col items-center justify-center p-2.5 cursor-pointer transition-all duration-200 select-none ${isSelected
+                          ? "bg-[#0B1527] border-2 border-[#B89642] ring-1 ring-[#B89642] text-white shadow-md scale-[1.02]"
+                          : "bg-white border border-[#C6A868]/60 hover:border-[#B89642] text-[#1E293B] shadow-sm hover:shadow"
                         }`}
                     >
-                      <span>{cat.icon}</span>
-                    </div>
-                    <span
-                      className={`text-xs text-center leading-tight line-clamp-2 px-1 ${isSelected ? "font-bold text-white" : "font-semibold text-[#1E293B]"
-                        }`}
-                    >
-                      {cat.label}
-                    </span>
-                  </button>
-                );
-              })}
+                      <div
+                        className={`w-9 h-9 rounded-lg flex items-center justify-center text-xl mb-1.5 transition-colors ${isSelected ? "bg-[#1E2B42]" : "bg-[#F1F3F5]"
+                          }`}
+                      >
+                        <span>{cat.icon}</span>
+                      </div>
+                      <span
+                        className={`text-xs text-center leading-tight line-clamp-2 px-1 ${isSelected ? "font-bold text-white" : "font-semibold text-[#1E293B]"
+                          }`}
+                      >
+                        {cat.label}
+                      </span>
+                    </button>
+                  );
+                })}
+              </div>
             </div>
           </div>
 

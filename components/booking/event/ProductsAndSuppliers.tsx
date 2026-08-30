@@ -67,6 +67,8 @@ const CHEMICALS: ProductItem[] = [
     { id: "ch7", name: "Specialized Odor Neutralizers", unitPrice: 7.5, Icon: FlaskConical },
 ];
 
+import useEmblaCarousel from "embla-carousel-react";
+
 // Item-by-Item Scroll Snap Carousel
 const CarouselSection: React.FC<CarouselSectionProps> = ({
     title,
@@ -75,65 +77,43 @@ const CarouselSection: React.FC<CarouselSectionProps> = ({
     onUpdateQuantity,
     onToggleCheck,
 }) => {
-    const containerRef = useRef<HTMLDivElement>(null);
-    const [activePageIndex, setActivePageIndex] = useState<number>(0);
-    const [itemsPerPage, setItemsPerPage] = useState<number>(4);
+    const [emblaRef, emblaApi] = useEmblaCarousel({
+        align: "start",
+        containScroll: "trimSnaps",
+    });
+    const [selectedIndex, setSelectedIndex] = useState<number>(0);
+    const [scrollSnaps, setScrollSnaps] = useState<number[]>([]);
 
-    // Responsive breakpoints matching Tailwind grid settings
-    const updateItemsPerPage = useCallback(() => {
-        if (typeof window === "undefined") return;
-        const width = window.innerWidth;
-        if (width < 640) {
-            setItemsPerPage(1); // Mobile
-        } else if (width < 1024) {
-            setItemsPerPage(2); // Tablet
-        } else {
-            setItemsPerPage(4); // Desktop
-        }
-    }, []);
+    const onSelect = useCallback(() => {
+        if (!emblaApi) return;
+        setSelectedIndex(emblaApi.selectedScrollSnap());
+    }, [emblaApi]);
 
     useEffect(() => {
-        updateItemsPerPage();
-        window.addEventListener("resize", updateItemsPerPage);
-        return () => window.removeEventListener("resize", updateItemsPerPage);
-    }, [updateItemsPerPage]);
+        if (!emblaApi) return;
+        setScrollSnaps(emblaApi.scrollSnapList());
+        setSelectedIndex(emblaApi.selectedScrollSnap());
+        emblaApi.on("select", onSelect);
+        emblaApi.on("reInit", () => {
+            setScrollSnaps(emblaApi.scrollSnapList());
+            setSelectedIndex(emblaApi.selectedScrollSnap());
+        });
+        return () => {
+            emblaApi.off("select", onSelect);
+        };
+    }, [emblaApi, onSelect]);
 
-    const totalPages = Math.ceil(items.length / itemsPerPage);
+    const scrollTo = useCallback(
+        (index: number) => emblaApi && emblaApi.scrollTo(index),
+        [emblaApi]
+    );
 
-    // Active page track logic on scroll
-    const handleScroll = () => {
-        if (!containerRef.current) return;
-        const { scrollLeft, scrollWidth, clientWidth } = containerRef.current;
-
-        // Check if reached end boundary
-        if (scrollLeft + clientWidth >= scrollWidth - 5) {
-            setActivePageIndex(totalPages - 1);
-            return;
-        }
-
-        const itemWidth = clientWidth / itemsPerPage;
-        const currentItemIndex = Math.round(scrollLeft / itemWidth);
-        const currentPage = Math.min(
-            Math.floor(currentItemIndex / itemsPerPage),
-            totalPages - 1
-        );
-        setActivePageIndex(currentPage);
+    const handleToggle = (id: string) => {
+        onToggleCheck(id);
     };
 
-    // Programmatically scroll by item groups when clicking pagination dots
-    const scrollToPage = (pageIndex: number) => {
-        if (!containerRef.current) return;
-        const firstChild = containerRef.current.firstElementChild as HTMLElement;
-        if (!firstChild) return;
-
-        // Width of card item + gap (16px / 1rem)
-        const itemWidthWithGap = firstChild.getBoundingClientRect().width + 16;
-        const targetScrollLeft = pageIndex * itemsPerPage * itemWidthWithGap;
-
-        containerRef.current.scrollTo({
-            left: targetScrollLeft,
-            behavior: "smooth",
-        });
+    const handleUpdateQty = (id: string, qty: number) => {
+        onUpdateQuantity(id, qty);
     };
 
     return (
@@ -142,96 +122,96 @@ const CarouselSection: React.FC<CarouselSectionProps> = ({
                 {title}
             </h3>
 
-            {/* 1-Item Scroll Snap Container */}
+            {/* Embla Swipable Container */}
             <div
-                ref={containerRef}
-                onScroll={handleScroll}
-                className="flex overflow-x-auto snap-x snap-mandatory scroll-smooth gap-4 pb-2"
-                style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
+                ref={emblaRef}
+                className="overflow-hidden cursor-grab active:cursor-grabbing select-none pb-2"
             >
-                {items.map((item) => {
-                    const qty = quantities[item.id] || 0;
-                    const isSelected = qty > 0;
-                    const IconComponent = item.Icon;
-                    const totalPrice = qty * item.unitPrice;
+                <div className="flex gap-4">
+                    {items.map((item) => {
+                        const qty = quantities[item.id] || 0;
+                        const isSelected = qty > 0;
+                        const IconComponent = item.Icon;
+                        const totalPrice = qty * item.unitPrice;
 
-                    return (
-                        <div
-                            key={item.id}
-                            className="snap-start flex-shrink-0 w-full sm:w-[calc(50%-8px)] lg:w-[calc(25%-12px)]"
-                        >
+                        return (
                             <div
-                                className={`relative bg-[#FFFDF4] rounded-2xl p-5 flex flex-col items-center justify-between text-center min-h-[260px] border-2 transition-all duration-200 select-none ${isSelected
-                                    ? "border-[#A98B4B] shadow-[0_0_15px_rgba(169,139,75,0.25)] bg-white"
-                                    : "border-transparent"
-                                    }`}
+                                key={item.id}
+                                className="shrink-0 grow-0 basis-full sm:basis-[calc(50%-8px)] lg:basis-[calc(25%-12px)] min-w-0"
                             >
-                                {/* Checkbox Badge */}
-                                <button
-                                    type="button"
-                                    onClick={() => onToggleCheck(item.id)}
-                                    className={`absolute top-4 left-4 w-7 h-7 rounded-lg border-2 flex items-center justify-center transition-all ${isSelected
-                                        ? "bg-[#A98B4B] border-[#A98B4B] text-white"
-                                        : "border-slate-300 bg-transparent hover:border-[#A98B4B]"
+                                <div
+                                    className={`relative bg-[#FFFDF4] rounded-2xl p-5 flex flex-col items-center justify-between text-center min-h-[260px] border-2 transition-all duration-200 select-none ${isSelected
+                                        ? "border-[#A98B4B] shadow-[0_0_15px_rgba(169,139,75,0.25)] bg-white"
+                                        : "border-transparent"
                                         }`}
                                 >
-                                    {isSelected && <Check size={18} strokeWidth={3} />}
-                                </button>
-
-                                {/* Icon */}
-                                <div className="mt-2 text-[#A98B4B]">
-                                    <IconComponent size={44} strokeWidth={1.5} />
-                                </div>
-
-                                {/* Product Title */}
-                                <h4 className="font-bold text-[#121E2D] text-sm leading-snug my-2 min-h-[40px] flex items-center justify-center">
-                                    {item.name}
-                                </h4>
-
-                                {/* Stepper Controls */}
-                                <div className="w-full max-w-[160px] h-10 border border-[#A98B4B] rounded-full flex items-center justify-between px-1 bg-white my-2">
+                                    {/* Checkbox Badge */}
                                     <button
                                         type="button"
-                                        onClick={() => onUpdateQuantity(item.id, Math.max(0, qty - 1))}
-                                        className="w-8 h-8 rounded-full bg-[#A98B4B] text-white flex items-center justify-center hover:opacity-90 active:scale-95 transition-all"
-                                        aria-label="Decrease quantity"
+                                        onClick={() => handleToggle(item.id)}
+                                        className={`absolute top-4 left-4 w-7 h-7 rounded-lg border-2 flex items-center justify-center transition-all cursor-pointer ${isSelected
+                                            ? "bg-[#A98B4B] border-[#A98B4B] text-white"
+                                            : "border-slate-300 bg-transparent hover:border-[#A98B4B]"
+                                            }`}
                                     >
-                                        <Minus size={16} strokeWidth={2.5} />
+                                        {isSelected && <Check size={18} strokeWidth={3} />}
                                     </button>
 
-                                    <span className="font-bold text-[#121E2D] text-sm px-2">
-                                        {qty}
+                                    {/* Icon */}
+                                    <div className="mt-2 text-[#A98B4B]">
+                                        <IconComponent size={44} strokeWidth={1.5} />
+                                    </div>
+
+                                    {/* Product Title */}
+                                    <h4 className="font-bold text-[#121E2D] text-sm leading-snug my-2 min-h-[40px] flex items-center justify-center">
+                                        {item.name}
+                                    </h4>
+
+                                    {/* Stepper Controls */}
+                                    <div className="w-full max-w-[160px] h-10 border border-[#A98B4B] rounded-full flex items-center justify-between px-1 bg-white my-2">
+                                        <button
+                                            type="button"
+                                            onClick={() => handleUpdateQty(item.id, Math.max(0, qty - 1))}
+                                            className="w-8 h-8 rounded-full bg-[#A98B4B] text-white flex items-center justify-center hover:opacity-90 active:scale-95 transition-all cursor-pointer"
+                                            aria-label="Decrease quantity"
+                                        >
+                                            <Minus size={16} strokeWidth={2.5} />
+                                        </button>
+
+                                        <span className="font-bold text-[#121E2D] text-sm px-2">
+                                            {qty}
+                                        </span>
+
+                                        <button
+                                            type="button"
+                                            onClick={() => handleUpdateQty(item.id, qty + 1)}
+                                            className="w-8 h-8 rounded-full bg-[#A98B4B] text-white flex items-center justify-center hover:opacity-90 active:scale-95 transition-all cursor-pointer"
+                                            aria-label="Increase quantity"
+                                        >
+                                            <Plus size={16} strokeWidth={2.5} />
+                                        </button>
+                                    </div>
+
+                                    {/* Price */}
+                                    <span className="text-xs font-semibold text-slate-500">
+                                        € {totalPrice.toFixed(2)}
                                     </span>
-
-                                    <button
-                                        type="button"
-                                        onClick={() => onUpdateQuantity(item.id, qty + 1)}
-                                        className="w-8 h-8 rounded-full bg-[#A98B4B] text-white flex items-center justify-center hover:opacity-90 active:scale-95 transition-all"
-                                        aria-label="Increase quantity"
-                                    >
-                                        <Plus size={16} strokeWidth={2.5} />
-                                    </button>
                                 </div>
-
-                                {/* Price */}
-                                <span className="text-xs font-semibold text-slate-500">
-                                    € {totalPrice.toFixed(2)}
-                                </span>
                             </div>
-                        </div>
-                    );
-                })}
+                        );
+                    })}
+                </div>
             </div>
 
             {/* Dynamic Navigation Dots */}
-            {totalPages > 1 && (
+            {scrollSnaps.length > 1 && (
                 <div className="flex justify-center items-center gap-2 mt-4">
-                    {Array.from({ length: totalPages }).map((_, idx) => (
+                    {scrollSnaps.map((_, idx) => (
                         <button
                             key={idx}
                             type="button"
-                            onClick={() => scrollToPage(idx)}
-                            className={`h-2.5 rounded-full transition-all duration-300 ${activePageIndex === idx
+                            onClick={() => scrollTo(idx)}
+                            className={`h-2.5 rounded-full transition-all duration-300 cursor-pointer ${selectedIndex === idx
                                 ? "w-6 bg-[#A98B4B]"
                                 : "w-2.5 bg-slate-600 hover:bg-slate-500"
                                 }`}

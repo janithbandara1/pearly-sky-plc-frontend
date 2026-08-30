@@ -78,7 +78,7 @@ function EventTypeCardTile({
           : "border-[1.5px] border-[#A98B4B] bg-white"
           }`}
       >
-        <Image src={card.image} alt={card.title} fill unoptimized className="object-cover" />
+        <Image src={card.image} alt={card.title} fill unoptimized draggable={false} className="object-cover pointer-events-none select-none" />
         <Checkbox
           checked={isChecked}
           onCheckedChange={() => onToggle(card.title)}
