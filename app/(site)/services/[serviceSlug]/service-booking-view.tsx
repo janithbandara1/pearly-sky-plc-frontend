@@ -44,6 +44,10 @@ import ProductSelector from "@/components/booking/event/ProductsAndSuppliers";
 //import { ServicePreferencesSection } from "@/components/booking/service-preferences-section";
 
 import { CareScheduleSection } from "@/components/booking/care-schedule-section";
+import { CarpetScheduleSection } from "@/components/booking/carpet/carpet-schedule-section";
+import { PoolScheduleSection } from "@/components/booking/pool/pool-schedule-section";
+import { PressureWashingScheduleSection } from "@/components/booking/pressure-washing/pressure-washing-schedule-section";
+import { YachtScheduleSection } from "@/components/booking/yacht/yacht-schedule-section";
 
 const poppins = Poppins({ subsets: ["latin"], weight: ["400", "500", "600", "700", "800"] });
 
@@ -59,12 +63,15 @@ const EVENT_SLUG = "post-event-cleaning";
 /** High-Security Property Care picks one category instead of quantity-based items. */
 const SECURITY_SLUG = "high-security-property-care";
 
-/** Luxury Yacht Cleaning follows the same single-select category pattern as High-Security Property Care. */
+/** Luxury Yacht Cleaning follows the dedicated yacht flow. */
 const YACHT_SLUG = "luxury-yacht-cleaning";
 
-/** Care services with dedicated scheduling and profile flows. */
+/** Care and quotation services with dedicated scheduling and profile flows. */
 const CHILD_CARE_SLUG = "child-care-service";
 const ELDER_CARE_SLUG = "elder-care-service";
+const CARPET_UPHOLSTERY_SLUG = "carpet-upholstery-cleaning";
+const POOL_CLEANING_SLUG = "pool-cleaning";
+const PRESSURE_WASHING_SLUG = "precision-pressure-washing";
 
 //used for fallback data when the service API fails to return a service
 const DEFAULT_PACKAGES: ServiceAddOnPackage[] = [
@@ -113,6 +120,66 @@ const FALLBACK_SERVICES: Record<string, CatalogServiceDetail> = {
     servicePackages: [],
     serviceItems: [],
   },
+  "carpet-upholstery-cleaning": {
+    id: 5,
+    name: "carpet-upholstery-cleaning",
+    label: "Carpet & Upholstery Cleaning",
+    price: "0.00",
+    prices: [],
+    status: "active",
+    category: "property_care",
+    description: "Professional Restoration for Your Home & Interiors",
+    imageUrl: "/images/services/updated-home-property-cleaning-services-5-carpet-upholstery-cleaning.webp",
+    isBookable: true,
+    isQuotable: true,
+    servicePackages: [],
+    serviceItems: [],
+  },
+  "pool-cleaning": {
+    id: 9,
+    name: "pool-cleaning",
+    label: "Pool Cleaning",
+    price: "0.00",
+    prices: [],
+    status: "active",
+    category: "property_care",
+    description: "Expert pool cleaning and water sanitation services.",
+    imageUrl: "/images/services/updated-home-property-cleaning-services-9-swimming-pool-cleaning.webp",
+    isBookable: true,
+    isQuotable: true,
+    servicePackages: [],
+    serviceItems: [],
+  },
+  "precision-pressure-washing": {
+    id: 10,
+    name: "precision-pressure-washing",
+    label: "Precision Pressure Washing",
+    price: "0.00",
+    prices: [],
+    status: "active",
+    category: "property_care",
+    description: "High-pressure exterior surface restoration.",
+    imageUrl: "/images/services/updated-home-property-cleaning-services-10-high-pressure-cleaning.webp",
+    isBookable: true,
+    isQuotable: true,
+    servicePackages: [],
+    serviceItems: [],
+  },
+  "luxury-yacht-cleaning": {
+    id: 16,
+    name: "luxury-yacht-cleaning",
+    label: "Luxury Yacht Cleaning",
+    price: "0.00",
+    prices: [],
+    status: "active",
+    category: "property_care",
+    description: "Premium marine detailing and yacht interior care.",
+    imageUrl: "/images/services/updated-home-property-cleaning-services-16-luxury-yacht-cleaning.webp",
+    isBookable: true,
+    isQuotable: true,
+    servicePackages: [],
+    serviceItems: [],
+  },
   "regular-maintenance-cleaning": {
     id: 1,
     name: "regular-maintenance-cleaning",
@@ -139,10 +206,20 @@ export function ServiceBookingView({ serviceSlug }: { serviceSlug: string }) {
   const isEvent = serviceSlug === EVENT_SLUG;
   const isSecurityCategory = serviceSlug === SECURITY_SLUG;
   const isYachtCategory = serviceSlug === YACHT_SLUG;
-  const isCategoryQuote = isSecurityCategory || isYachtCategory;
+  const isCategoryQuote = isSecurityCategory;
   const isChildCare = serviceSlug === CHILD_CARE_SLUG;
   const isElderCare = serviceSlug === ELDER_CARE_SLUG;
+  const isCarpetService = serviceSlug === CARPET_UPHOLSTERY_SLUG;
+  const isPoolCleaning = serviceSlug === POOL_CLEANING_SLUG;
+  const isPressureWashing = serviceSlug === PRESSURE_WASHING_SLUG;
+  const isYachtService = serviceSlug === YACHT_SLUG;
   const isCareService = isChildCare || isElderCare;
+  const isFlowService =
+    isCareService ||
+    isCarpetService ||
+    isPoolCleaning ||
+    isPressureWashing ||
+    isYachtService;
   const serviceContent = SERVICE_CONTENT[serviceSlug];
 
   const [service, setService] = useState<CatalogServiceDetail | null>(null);
@@ -179,7 +256,7 @@ export function ServiceBookingView({ serviceSlug }: { serviceSlug: string }) {
   useEffect(() => {
     getServiceBySlug(serviceSlug, country)
       .then((data) => {
-        if (!data.isBookable && !isCareService) {
+        if (!data.isBookable && !isFlowService) {
           setServiceError(`Book now for "${data.label}" isn't available yet.`);
           return;
         }
@@ -205,10 +282,10 @@ export function ServiceBookingView({ serviceSlug }: { serviceSlug: string }) {
           setServiceError(err instanceof ApiError ? err.message : "Service not found.");
         }
       });
-  }, [serviceSlug, country, isCareService]);
+  }, [serviceSlug, country, isFlowService]);
 
   useEffect(() => {
-    if (!service) return;
+    if (!service || isFlowService) return;
     let cancelled = false;
     const timer = setTimeout(() => {
       setQuoteLoading(true);
@@ -448,13 +525,45 @@ export function ServiceBookingView({ serviceSlug }: { serviceSlug: string }) {
           Back
         </Link> */}
 
-        {serviceContent?.introduction && <ServiceIntroduction {...serviceContent.introduction} bgImage={service.imageUrl ?? "/images/services/updated-home-property-cleaning-services-1-standard-residential-cleaning.webp"} />}
+        {!isFlowService && serviceContent?.introduction && (
+          <ServiceIntroduction
+            {...serviceContent.introduction}
+            bgImage={
+              service.imageUrl ??
+              "/images/services/updated-home-property-cleaning-services-1-standard-residential-cleaning.webp"
+            }
+          />
+        )}
 
         {serviceContent?.highlights?.map((group, index) => (
           <ServiceHighlights key={index} title={group.title} cards={group.cards} />
         ))}
 
-        {isCareService ? (
+        {isCarpetService ? (
+          <CarpetScheduleSection
+            serviceId={service.id}
+            serviceSlug={serviceSlug}
+            serviceLabel={service.label}
+          />
+        ) : isPoolCleaning ? (
+          <PoolScheduleSection
+            serviceId={service.id}
+            serviceSlug={serviceSlug}
+            serviceLabel={service.label}
+          />
+        ) : isPressureWashing ? (
+          <PressureWashingScheduleSection
+            serviceId={service.id}
+            serviceSlug={serviceSlug}
+            serviceLabel={service.label}
+          />
+        ) : isYachtService ? (
+          <YachtScheduleSection
+            serviceId={service.id}
+            serviceSlug={serviceSlug}
+            serviceLabel={service.label}
+          />
+        ) : isCareService ? (
           <CareScheduleSection
             serviceId={service.id}
             serviceSlug={serviceSlug}
@@ -526,6 +635,7 @@ export function ServiceBookingView({ serviceSlug }: { serviceSlug: string }) {
               categories={getPropertyCategoriesForService(serviceSlug)}
               onCategoryChange={(cat: PropertyCategory) => setPropertyType(cat.dropdownLabel ?? cat.label)}
             />
+            
 
             {isEvent ? ((() => {
               const categories = getPropertyCategoriesForService(serviceSlug);

@@ -197,28 +197,44 @@ export const SERVICE_CONTENT: Partial<Record<string, ServiceContentEntry>> = {
       {
         title: "Deep Cleaning Highlights",
         cards: [
-          {
-            title: "Kitchen Detail",
-            features: ["Intensive scrubbing of backsplashes.", "Appliance exteriors.", "Grout & baseboards."],
-          },
-          {
-            title: "Bathroom Sanctuary",
-            features: ["Thorough scrubbing of shower grout.", "Tile walls & ventilation fans."],
-          },
-          {
-            title: "Flooring",
-            features: ["High-power vacuuming and edge cleaning of all floors and carpets."],
-          },
-          {
-            title: "All Areas Focus",
-            features: [
-              "Wiping down & dusting all baseboards.",
-              "Window sills.",
-              "Door frames.",
-              "Ceiling fans & light switches.",
-            ],
-          },
-        ],
+  {
+    title: "Kitchen Detail",
+    features: [
+      "Intensive scrubbing of backsplashes.",
+      "Deep cleaning of appliance exteriors.",
+      "Degreasing range hoods & stovetops.",
+      
+    ],
+  },
+  {
+    title: "Bathroom Sanctuary",
+    features: [
+      "Thorough scrubbing of shower grout & tile walls.",
+      "Disinfecting toilets, tubs & sinks.",
+      "Descaling fixtures & glass shower doors.",
+      
+      
+    ],
+  },
+  {
+    title: "Flooring",
+    features: [
+      "High-power vacuuming & edge cleaning of carpets.",
+      "Deep mopping & sanitizing of hard floors.",
+      "Detailed cleaning of baseboards & floor corners.",
+      
+    ],
+  },
+  {
+    title: "All Areas Focus",
+    features: [
+      "Wiping down & dusting all baseboards.",
+      "Detailed cleaning of window sills & ledges.",
+      "Sanitizing door frames, doors & handles.",
+      
+    ],
+  },
+]
       },
     ],
   },

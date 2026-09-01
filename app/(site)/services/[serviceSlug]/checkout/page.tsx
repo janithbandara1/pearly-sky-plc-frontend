@@ -36,6 +36,12 @@ import {
 } from "@/lib/customers-api";
 import { useCountry } from "@/lib/countries/country-context";
 import { createQuotation } from "@/lib/quotation-api";
+import {
+  CARPET_ITEM_OPTIONS,
+  POOL_ITEM_OPTIONS,
+  PRESSURE_WASHING_ITEM_OPTIONS,
+  formatQuoteItem,
+} from "@/lib/content/quote-items";
 
 const poppins = Poppins({ subsets: ["latin"], weight: ["400", "500", "600", "700", "800"] });
 
@@ -94,7 +100,18 @@ export default function CheckoutPage({
 
   const isChildCare = serviceSlug === "child-care-service";
   const isElderCare = serviceSlug === "elder-care-service";
+  const isCarpetService = serviceSlug === "carpet-upholstery-cleaning";
+  const isPoolService = serviceSlug === "pool-cleaning";
+  const isPressureService = serviceSlug === "precision-pressure-washing";
+  const isYachtService = serviceSlug === "luxury-yacht-cleaning";
   const isCareService = isChildCare || isElderCare;
+  const isQuoteItemsService = isCarpetService || isPoolService || isPressureService;
+  const isFlowService =
+    isCareService ||
+    isCarpetService ||
+    isPoolService ||
+    isPressureService ||
+    isYachtService;
   const personLabel = isElderCare ? "Elder" : "Child";
 
   const [draft, setDraft] = useState<BookingDraft | null>(null);
@@ -277,6 +294,26 @@ export default function CheckoutPage({
         ? contactForm.contact.trim()
         : `${phonePrefix} ${contactForm.contact.trim()}`;
 
+      const quoteItemOptions = isCarpetService
+        ? CARPET_ITEM_OPTIONS
+        : isPoolService
+          ? POOL_ITEM_OPTIONS
+          : isPressureService
+            ? PRESSURE_WASHING_ITEM_OPTIONS
+            : [];
+
+      const quoteItemsFormatted = isQuoteItemsService && draft.quoteItems
+        ? draft.quoteItems.map((item) => formatQuoteItem(item, quoteItemOptions))
+        : undefined;
+
+      const yachtQuoteItems = isYachtService
+        ? [
+            `Job Type: ${draft.category || "Full Exterior Marine Detail"}`,
+            `Vessel Type: ${draft.propertyType || "Motorboat / Day Cruiser"}`,
+            `Vessel Size: ${draft.propertySizeSqm || 20} m²`,
+          ]
+        : undefined;
+
       const careProfiles =
         draft.careProfiles && draft.careProfiles.length > 0
           ? draft.careProfiles
@@ -284,7 +321,7 @@ export default function CheckoutPage({
             ? [draft.careProfile]
             : [];
 
-      const quoteItemLines =
+      const careQuoteItemLines =
         careProfiles.length > 0
           ? careProfiles.flatMap((p, idx, arr) => {
             const prefix = arr.length > 1 ? `${personLabel} ${idx + 1} - ` : "";
@@ -301,20 +338,45 @@ export default function CheckoutPage({
           })
           : undefined;
 
+      const quoteItemLines = isQuoteItemsService
+        ? quoteItemsFormatted
+        : isYachtService
+          ? yachtQuoteItems
+          : careQuoteItemLines;
+
+      const quoteTitle = isCarpetService
+        ? "Carpet & Upholstery Details"
+        : isPoolService
+          ? "Pool Cleaning Details"
+          : isPressureService
+            ? "Pressure Washing Details"
+            : isYachtService
+              ? "Luxury Yacht Detailing Details"
+              : `${personLabel} Details`;
+
+      const propertyTypeValue =
+        draft.propertyClassification ||
+        draft.propertyType ||
+        (isCareService ? draft.scheduleMode : "Standard") ||
+        "Standard";
+
       const quotation = await createQuotation({
         serviceId: draft.serviceId,
         date: draft.date,
         time: draft.time,
-        propertyType: draft.scheduleMode || "In-home care",
-        quoteItemsTitle: `${personLabel} Details`,
+        propertyType: propertyTypeValue,
+        quoteItemsTitle: quoteTitle,
         quoteItems: quoteItemLines,
         numCleaners: draft.caregiverCount || 1,
         durationHours: draft.durationHours || 4,
         genderPreference: draft.caregiverGender || draft.genderPreference,
         languagePreference: draft.languagePreference,
         specialRequirements: [
+          draft.serviceContinuityPlan ? `Continuity Plan: ${draft.serviceContinuityPlan}` : null,
           draft.specialRequest ? `Special Request: ${draft.specialRequest}` : null,
           draft.serviceSpecifics ? `Specifics: ${draft.serviceSpecifics}` : null,
+          draft.specialRequirements ? `Requirements: ${draft.specialRequirements}` : null,
+          draft.documentName ? `Attachment: ${draft.documentName}` : null,
           howGetIn ? `Entry: ${howGetIn}` : null,
           howHeard ? `Marketing: ${howHeard}` : null,
         ]
@@ -480,8 +542,8 @@ export default function CheckoutPage({
         serviceId={service.id}
       />
 
-      {isCareService ? (
-        /* CARE SERVICE 2-COLUMN CHECKOUT (MATCHING IMAGE 4) */
+      {isFlowService ? (
+        /* REUSABLE SERVICE FLOW 2-COLUMN CHECKOUT (MATCHING IMAGE 4) */
         <div className="mx-auto mt-8 grid w-full max-w-[1250px] gap-8 px-4 sm:px-6 lg:grid-cols-[1fr_420px] lg:items-start">
           {/* LEFT COLUMN: SERVICE CHECKOUT DETAILS */}
           <div className="overflow-hidden rounded-2xl border border-[#A98B4B]/30 bg-[#121E2D] p-6 shadow-2xl sm:p-8">
@@ -692,70 +754,166 @@ export default function CheckoutPage({
                     <span className="font-medium">SERVICE</span>
                     <span className="font-bold text-white">{draft.serviceLabel}</span>
                   </div>
-                  <div className="flex justify-between gap-2 border-b border-white/5 py-1 text-brand-cream/90">
-                    <span className="font-medium">SCHEDULE MODE</span>
-                    <span className="font-semibold text-white">{draft.scheduleMode || "In-home care"}</span>
-                  </div>
-                  <div className="flex justify-between gap-2 border-b border-white/5 py-1 text-brand-cream/90">
-                    <span className="font-medium">SERVICE DURATION</span>
-                    <span className="font-semibold text-white">{durationText}</span>
-                  </div>
-                  <div className="flex justify-between gap-2 border-b border-white/5 py-1 text-brand-cream/90">
-                    <span className="font-medium">COUNT OF {personLabel.toUpperCase()}</span>
-                    <span className="font-semibold text-white">{draft.personCount || 1}</span>
-                  </div>
-                  <div className="flex justify-between gap-2 border-b border-white/5 py-1 text-brand-cream/90">
-                    <span className="font-medium">REQUEST CARE PROFESSIONALS</span>
-                    <span className="font-semibold text-white">{draft.caregiverCount || 1}</span>
-                  </div>
-                  <div className="flex justify-between gap-2 border-b border-white/5 py-1 text-brand-cream/90">
-                    <span className="font-medium">SELECT DATE</span>
-                    <span className="font-semibold text-white">{draft.date}</span>
-                  </div>
-                  <div className="flex justify-between gap-2 border-b border-white/5 py-1 text-brand-cream/90">
-                    <span className="font-medium">SELECT START & END TIME</span>
-                    <span className="font-semibold text-white">{startEndTimeFormatted}</span>
-                  </div>
+                  {isCareService && (
+                    <>
+                      <div className="flex justify-between gap-2 border-b border-white/5 py-1 text-brand-cream/90">
+                        <span className="font-medium">SCHEDULE MODE</span>
+                        <span className="font-semibold text-white">{draft.scheduleMode || "In-home care"}</span>
+                      </div>
+                      <div className="flex justify-between gap-2 border-b border-white/5 py-1 text-brand-cream/90">
+                        <span className="font-medium">SERVICE DURATION</span>
+                        <span className="font-semibold text-white">{durationText}</span>
+                      </div>
+                      <div className="flex justify-between gap-2 border-b border-white/5 py-1 text-brand-cream/90">
+                        <span className="font-medium">COUNT OF {personLabel.toUpperCase()}</span>
+                        <span className="font-semibold text-white">{draft.personCount || 1}</span>
+                      </div>
+                      <div className="flex justify-between gap-2 border-b border-white/5 py-1 text-brand-cream/90">
+                        <span className="font-medium">REQUEST CARE PROFESSIONALS</span>
+                        <span className="font-semibold text-white">{draft.caregiverCount || 1}</span>
+                      </div>
+                      <div className="flex justify-between gap-2 border-b border-white/5 py-1 text-brand-cream/90">
+                        <span className="font-medium">SELECT DATE</span>
+                        <span className="font-semibold text-white">{draft.date}</span>
+                      </div>
+                      <div className="flex justify-between gap-2 border-b border-white/5 py-1 text-brand-cream/90">
+                        <span className="font-medium">SELECT START & END TIME</span>
+                        <span className="font-semibold text-white">{startEndTimeFormatted}</span>
+                      </div>
+                    </>
+                  )}
                 </div>
               </div>
 
-              {/* CHILD'S / ELDER'S PROFILE */}
-              <div className="border-t border-white/10 pt-4">
-                <p className="mb-2 text-xs font-bold uppercase tracking-wider text-[#A98B4B]">
-                  {personLabel.toUpperCase()}&rsquo;S PROFILE
-                  {draft.careProfiles && draft.careProfiles.length > 1 ? "S" : ""}
-                </p>
-                <div className="space-y-2.5">
-                  {(draft.careProfiles && draft.careProfiles.length > 0
-                    ? draft.careProfiles
-                    : draft.careProfile
-                      ? [draft.careProfile]
-                      : []
-                  ).map((p, idx, arr) => (
-                    <div key={idx} className="rounded-lg bg-white/5 p-3 text-xs sm:text-sm">
-                      <div className="flex items-center justify-between gap-2">
-                        <p className="font-bold text-white">
-                          {p.name || `Profile ${idx + 1}`}
+              {/* SELECTED SERVICES (FOR QUOTE ITEMS SERVICES: CARPET, POOL, PRESSURE WASHING) */}
+              {isQuoteItemsService ? (
+                <>
+                  <div className="border-t border-white/10 pt-4">
+                    <p className="mb-2 text-xs font-bold uppercase tracking-wider text-[#A98B4B]">
+                      Selected Services
+                    </p>
+                    <div className="space-y-2.5">
+                      {(draft.quoteItems && draft.quoteItems.length > 0 ? draft.quoteItems : []).map((item, idx) => {
+                        const options = isCarpetService
+                          ? CARPET_ITEM_OPTIONS
+                          : isPoolService
+                            ? POOL_ITEM_OPTIONS
+                            : PRESSURE_WASHING_ITEM_OPTIONS;
+                        const option = options.find((o) => o.value === item.optionValue);
+                        const formatted = formatQuoteItem(item, options);
+                        const detailText = formatted
+                          ? formatted.replace(`${option?.label || item.optionValue}, `, "")
+                          : `Quantity: ${item.quantity}`;
+                        return (
+                          <div key={item.id || idx} className="rounded-lg bg-white/5 p-3 text-xs sm:text-sm">
+                            <p className="font-bold uppercase text-white">
+                              {option?.label || item.optionValue}
+                            </p>
+                            <p className="mt-1 text-brand-cream/80 text-[11px] sm:text-xs leading-relaxed">
+                              {detailText}
+                            </p>
+                          </div>
+                        );
+                      })}
+                    </div>
+                  </div>
+
+                  {/* BOOKING DETAILS */}
+                  <div className="border-t border-white/10 pt-4">
+                    <p className="mb-2 text-xs font-bold uppercase tracking-wider text-[#A98B4B]">
+                      Booking Details
+                    </p>
+                    <div className="space-y-2 text-xs sm:text-sm">
+                      <div className="flex justify-between gap-2 border-b border-white/5 py-1 text-brand-cream/90">
+                        <span className="font-medium">DATE</span>
+                        <span className="font-semibold text-white">{draft.date}</span>
+                      </div>
+                      <div className="flex justify-between gap-2 border-b border-white/5 py-1 text-brand-cream/90">
+                        <span className="font-medium">TIME</span>
+                        <span className="font-semibold text-white">{draft.time}</span>
+                      </div>
+                    </div>
+                  </div>
+                </>
+              ) : isYachtService ? (
+                /* LUXURY YACHT DETAILS */
+                <>
+                  <div className="border-t border-white/10 pt-4">
+                    <p className="mb-2 text-xs font-bold uppercase tracking-wider text-[#A98B4B]">
+                      Selected Job Details
+                    </p>
+                    <div className="space-y-2 text-xs sm:text-sm">
+                      <div className="flex justify-between gap-2 border-b border-white/5 py-1 text-brand-cream/90">
+                        <span className="font-medium">JOB TYPE</span>
+                        <span className="font-semibold text-white">{draft.category || "Full Exterior Marine Detail"}</span>
+                      </div>
+                      <div className="flex justify-between gap-2 border-b border-white/5 py-1 text-brand-cream/90">
+                        <span className="font-medium">VESSEL TYPE</span>
+                        <span className="font-semibold text-white">{draft.propertyType || "Motorboat / Day Cruiser"}</span>
+                      </div>
+                      <div className="flex justify-between gap-2 border-b border-white/5 py-1 text-brand-cream/90">
+                        <span className="font-medium">VESSEL SIZE</span>
+                        <span className="font-semibold text-white">{draft.propertySizeSqm || 20} m²</span>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* BOOKING DETAILS */}
+                  <div className="border-t border-white/10 pt-4">
+                    <p className="mb-2 text-xs font-bold uppercase tracking-wider text-[#A98B4B]">
+                      Booking Details
+                    </p>
+                    <div className="space-y-2 text-xs sm:text-sm">
+                      <div className="flex justify-between gap-2 border-b border-white/5 py-1 text-brand-cream/90">
+                        <span className="font-medium">DATE</span>
+                        <span className="font-semibold text-white">{draft.date}</span>
+                      </div>
+                      <div className="flex justify-between gap-2 border-b border-white/5 py-1 text-brand-cream/90">
+                        <span className="font-medium">TIME</span>
+                        <span className="font-semibold text-white">{draft.time}</span>
+                      </div>
+                    </div>
+                  </div>
+                </>
+              ) : (
+                /* CHILD'S / ELDER'S PROFILE */
+                <div className="border-t border-white/10 pt-4">
+                  <p className="mb-2 text-xs font-bold uppercase tracking-wider text-[#A98B4B]">
+                    {personLabel.toUpperCase()}&rsquo;S PROFILE
+                    {draft.careProfiles && draft.careProfiles.length > 1 ? "S" : ""}
+                  </p>
+                  <div className="space-y-2.5">
+                    {(draft.careProfiles && draft.careProfiles.length > 0
+                      ? draft.careProfiles
+                      : draft.careProfile
+                        ? [draft.careProfile]
+                        : []
+                    ).map((p, idx, arr) => (
+                      <div key={idx} className="rounded-lg bg-white/5 p-3 text-xs sm:text-sm">
+                        <div className="flex items-center justify-between gap-2">
+                          <p className="font-bold text-white">
+                            {p.name || `Profile ${idx + 1}`}
+                          </p>
+                          {arr.length > 1 && (
+                            <span className="rounded bg-[#A98B4B]/20 px-2 py-0.5 text-[10px] font-semibold text-[#A98B4B]">
+                              {personLabel} {idx + 1}
+                            </span>
+                          )}
+                        </div>
+                        <p className="mt-1 text-brand-cream/80 text-[11px] sm:text-xs leading-relaxed">
+                          Special Needs: {p.specialNeeds || "None"} &nbsp;|&nbsp; Gender:{" "}
+                          {p.gender || "—"} &nbsp;|&nbsp; Age: {p.age || "—"}
                         </p>
-                        {arr.length > 1 && (
-                          <span className="rounded bg-[#A98B4B]/20 px-2 py-0.5 text-[10px] font-semibold text-[#A98B4B]">
-                            {personLabel} {idx + 1}
-                          </span>
+                        {p.documentName && (
+                          <p className="mt-1 truncate text-[11px] text-emerald-400">
+                            Attachment: {p.documentName}
+                          </p>
                         )}
                       </div>
-                      <p className="mt-1 text-brand-cream/80 text-[11px] sm:text-xs leading-relaxed">
-                        Special Needs: {p.specialNeeds || "None"} &nbsp;|&nbsp; Gender:{" "}
-                        {p.gender || "—"} &nbsp;|&nbsp; Age: {p.age || "—"}
-                      </p>
-                      {p.documentName && (
-                        <p className="mt-1 truncate text-[11px] text-emerald-400">
-                          Attachment: {p.documentName}
-                        </p>
-                      )}
-                    </div>
-                  ))}
+                    ))}
+                  </div>
                 </div>
-              </div>
+              )}
 
               {/* REQUEST QUOTATION BUTTON */}
               <Button

@@ -21,15 +21,12 @@ const paymentMethods = [
     name: "Apple Pay",
     src: "/images/services/paymentmethods/Apple_Pay_logo.svg",
   },
-  
-  { 
-    name: "Google Pay", 
-    src: "/images/services/paymentmethods/Google_Pay_Logo.svg" 
-  },
+
   {
-    name: "Bitcoin",
-    src: "/images/services/paymentmethods/Bitcoin.svg",
+    name: "Google Pay",
+    src: "/images/services/paymentmethods/Google_Pay_Logo.svg"
   },
+
   {
     name: "Amazon Pay",
     src: "/images/services/paymentmethods/Amazon_Pay_logo.svg",

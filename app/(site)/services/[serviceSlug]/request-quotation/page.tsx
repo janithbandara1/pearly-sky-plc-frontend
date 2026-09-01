@@ -35,7 +35,14 @@ export default async function RequestQuotationPage({
   params: Promise<{ serviceSlug: string }>;
 }) {
   const { serviceSlug } = await params;
-  if (serviceSlug === "child-care-service" || serviceSlug === "elder-care-service") {
+  if (
+    serviceSlug === "child-care-service" ||
+    serviceSlug === "elder-care-service" ||
+    serviceSlug === "carpet-upholstery-cleaning" ||
+    serviceSlug === "pool-cleaning" ||
+    serviceSlug === "precision-pressure-washing" ||
+    serviceSlug === "luxury-yacht-cleaning"
+  ) {
     redirect(`/services/${serviceSlug}`);
   }
 

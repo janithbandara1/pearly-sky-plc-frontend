@@ -28,8 +28,13 @@ function ServiceCard({ service }: { service: CatalogService }) {
   const { translate } = useLanguage();
   const { symbol } = useCurrency();
 
-  
-  const isCare = service.name === "child-care-service" || service.name === "elder-care-service";
+  const isDedicatedFlow =
+    service.name === "child-care-service" ||
+    service.name === "elder-care-service" ||
+    service.name === "carpet-upholstery-cleaning" ||
+    service.name === "pool-cleaning" ||
+    service.name === "precision-pressure-washing" ||
+    service.name === "luxury-yacht-cleaning";
 
   return (
     <div className="flex h-full flex-col overflow-hidden rounded-xl border-2 border-brand-gold bg-brand-navy shadow-md transition-transform duration-200 hover:scale-[1.03] hover:shadow-xl">
@@ -79,7 +84,7 @@ function ServiceCard({ service }: { service: CatalogService }) {
                 <ArrowRight className="h-3.5 w-3.5" />
               </Link>
             </>
-          ) : isCare ? (
+          ) : isDedicatedFlow ? (
             <Link
               href={`/services/${service.name}`}
               className="flex w-full items-center justify-center gap-1.5 rounded-lg bg-brand-gold px-4 py-2.5 text-xs font-bold uppercase tracking-wider text-brand-navy transition-colors hover:bg-brand-gold/90"

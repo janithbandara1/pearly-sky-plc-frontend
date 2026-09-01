@@ -122,7 +122,7 @@ export function CareScheduleSection({
   const [profiles, setProfiles] = useState<CareProfileDraft[]>(() => {
     const initialCount = currentDraft?.personCount || 1;
     if (currentDraft?.careProfiles && currentDraft.careProfiles.length > 0) {
-      const list = currentDraft.careProfiles.map((p) => ({
+      const list: CareProfileDraft[] = currentDraft.careProfiles.map((p) => ({
         name: p.name || "",
         specialNeeds: p.specialNeeds || "",
         gender: p.gender || "",
@@ -137,7 +137,7 @@ export function CareScheduleSection({
       return list;
     }
     if (currentDraft?.careProfile) {
-      const list = [
+      const list: CareProfileDraft[] = [
         {
           name: currentDraft.careProfile.name || "",
           specialNeeds: currentDraft.careProfile.specialNeeds || "",

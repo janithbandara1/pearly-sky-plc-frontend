@@ -59,7 +59,7 @@ export const RESIDENTIAL_PROPERTY_CATEGORIES: PropertyCategory[] = [
     locked: false,
   },
 ];
- 
+
 const RESIDENTIAL_SCHEME_SERVICE_SLUGS = new Set([
   "regular-home-cleaning",
   "regular-maintenance-cleaning",
@@ -71,8 +71,38 @@ const RESIDENTIAL_SCHEME_SERVICE_SLUGS = new Set([
   "post-construction-renovation-cleaning",
   "post-construction-cleaning",
   "premium-rental-concierge-cleaning",
-  "high-security-property-care",
+  
 ]);
+
+
+const PREMIUM_PROPERTY_SLUGS = new Set(["premium-rental-concierge-cleaning"]);
+export const PREMIUM_PROPERTY_CATEGORIES: PropertyCategory[] = [
+  { id: "studio", label: "Studio", icon: "🏢", min: 20, max: 50, step: 1, locked: false },
+  { id: "apartment", label: "Apartment / Flat", icon: "🏬", min: 40, max: 120, step: 1, locked: false },
+  { id: "townhouse", label: "Townhouse", icon: "🏘️", min: 100, max: 250, step: 5, locked: false },
+  { id: "home", label: "Home / House", icon: "🏡", min: 120, max: 350, step: 10, locked: false },
+  {
+    id: "penthouse",
+    label: "Penthouse",
+    icon: "🏙️",
+    min: 150,
+    max: 400,
+    step: 0,
+    sizes: [150, 175, 200, 225, 250, 275, 300, 350, 400],
+    locked: false,
+  },
+  {
+    id: "villa",
+    label: "Villa",
+    icon: "🏰",
+    min: 250,
+    max: 800,
+    step: 0,
+    sizes: [250, 300, 350, 400, 450, 500, 600, 700, 800],
+    locked: false,
+  },
+];
+ 
 
 /** Post-construction sizing scheme, tracked by clean-up phase rather than property type. */
 export const POST_CONSTRUCTION_PROPERTY_CATEGORIES: PropertyCategory[] = [
@@ -135,10 +165,208 @@ export const EVENT_PROPERTY_CATEGORIES: PropertyCategory[] = [
 
 const EVENT_SCHEME_SERVICE_SLUGS = new Set(["post-event-cleaning"]);
 
+/** Commercial office cleaning uses bespoke office-size tiers instead of the generic residential scale. */
+export const COMMERCIAL_OFFICE_PROPERTY_CATEGORIES: PropertyCategory[] = [
+  { id: "micro", label: "Micro", icon: "🧳", min: 20, max: 50, step: 1, locked: false },
+  { id: "compact", label: "Compact", icon: "📦", min: 51, max: 80, step: 5, locked: false },
+  { id: "small", label: "Small", icon: "🏢", min: 81, max: 150, step: 5, locked: false },
+  { id: "medium", label: "Medium", icon: "🏬", min: 151, max: 300, step: 10, locked: false },
+  { id: "large", label: "Large", icon: "🌆", min: 301, max: 600, step: 20, locked: false },
+  { id: "luxury", label: "Luxury / Enterprise", icon: "🏛️", min: 601, max: 1000, step: 20, locked: false },
+];
+
+const COMMERCIAL_OFFICE_SERVICE_SLUGS = new Set(["commercial-office-cleaning"]);
+
+const STEAM_CLEANING_SERVICES_SLUGS = new Set(["steam-cleaning"]);
+export const STEAM_CLEANING_CATEGORIES: PropertyCategory[] = [
+  { id: "studio", label: "Studio", icon: "🏢", min: 20, max: 50, step: 1, locked: false },
+  { id: "apartment", label: "Apartment / Flat", icon: "🏬", min: 40, max: 120, step: 1, locked: false },
+  { id: "townhouse", label: "Townhouse", icon: "🏘️", min: 100, max: 250, step: 5, locked: false },
+  { id: "home", label: "Home / House", icon: "🏡", min: 120, max: 350, step: 10, locked: false },
+  {
+    id: "penthouse",
+    label: "Penthouse",
+    icon: "🏙️",
+    min: 150,
+    max: 400,
+    step: 0,
+    sizes: [150, 175, 200, 225, 250, 275, 300, 350, 400],
+    locked: false,
+  },
+  {
+    id: "villa",
+    label: "Villa",
+    icon: "🏰",
+    min: 250,
+    max: 800,
+    step: 0,
+    sizes: [250, 300, 350, 400, 450, 500, 600, 700, 800],
+    locked: false,
+  },
+];
+
+/* const LUXURY_YATCH_CLEANING_SLUG = new Set(["luxury-yacht-cleaning"])
+export const YACHT_PROPERTY_TYPES: PropertyCategory[] = [
+  {
+    id: "motorboat-day-cruiser",
+    label: "Motorboat / Day Cruiser",
+    icon: "🛥️",
+    min: 20,
+    max: 1000,
+    step: 5,
+    locked: false,
+  },
+  {
+    id: "luxury-express",
+    label: "Luxury Express...",
+    icon: "🛳️",
+    min: 20,
+    max: 1000,
+    step: 5,
+    locked: false,
+  },
+  {
+    id: "flybridge-motor-yacht",
+    label: "Flybridge Motor Yacht",
+    icon: "🚢",
+    min: 20,
+    max: 1000,
+    step: 5,
+    locked: false,
+  },
+  {
+    id: "superyacht",
+    label: "Superyacht",
+    icon: "⚓",
+    min: 20,
+    max: 1000,
+    step: 5,
+    locked: false,
+  },
+  {
+    id: "megayacht",
+    label: "Megayacht",
+    icon: "🔱",
+    min: 20,
+    max: 1000,
+    step: 5,
+    locked: false,
+  },
+  {
+    id: "sailing-yacht-catamaran",
+    label: "Sailing Yacht / Catamaran",
+    icon: "⛵",
+    min: 20,
+    max: 1000,
+    step: 5,
+    locked: false,
+  },
+]; */
+
+const HIGH_SECURITY_SERVICES_SLUGS = new Set(["high-security-property-care"]);
+export const HIGH_SECURITY_PROPERTY_CATEGORIES: PropertyCategory[] = [
+  {
+    id: "corporate-legal",
+    label: "Corporate & Legal Office",
+    icon: "🏢",
+    min: 20,
+    max: 1000,
+    step: 5,
+    locked: false,
+  },
+  {
+    id: "government-scif-data",
+    label: "Government / SCIF / Data...",
+    icon: "🛡️",
+    min: 20,
+    max: 1000,
+    step: 5,
+    locked: false,
+  },
+  {
+    id: "healthcare-medical",
+    label: "Healthcare & Medical...",
+    icon: "🏥",
+    min: 20,
+    max: 1000,
+    step: 5,
+    locked: false,
+  },
+  {
+    id: "industrial-construction",
+    label: "Industrial & Construction",
+    icon: "🏗️",
+    min: 20,
+    max: 1000,
+    step: 5,
+    locked: false,
+  },
+  {
+    id: "vip-estate-executive",
+    label: "VIP Estate / Executive...",
+    icon: "🏰",
+    min: 20,
+    max: 1000,
+    step: 5,
+    locked: false,
+  },
+  {
+    id: "event-venue",
+    label: "Event Venue &...",
+    icon: "🎪",
+    min: 20,
+    max: 1000,
+    step: 5,
+    locked: false,
+  },
+  {
+    id: "emergency-biohazard",
+    label: "Emergency / Biohazard...",
+    icon: "☣️",
+    min: 20,
+    max: 1000,
+    step: 5,
+    locked: false,
+  },
+  {
+    id: "retail-commercial",
+    label: "Retail & Commercial...",
+    icon: "🏬",
+    min: 20,
+    max: 1000,
+    step: 5,
+    locked: false,
+  },
+  {
+    id: "personal-work-device",
+    label: "Personal / Work Device...",
+    icon: "💻",
+    min: 20,
+    max: 1000,
+    step: 5,
+    locked: false,
+  },
+  {
+    id: "corporate-network",
+    label: "Corporate Network /...",
+    icon: "🌐",
+    min: 20,
+    max: 1000,
+    step: 5,
+    locked: false,
+  },
+];
+
 export function getPropertyCategoriesForService(serviceSlug: string): PropertyCategory[] {
+  if (COMMERCIAL_OFFICE_SERVICE_SLUGS.has(serviceSlug)) return COMMERCIAL_OFFICE_PROPERTY_CATEGORIES;
+  if (HIGH_SECURITY_SERVICES_SLUGS.has(serviceSlug)) return HIGH_SECURITY_PROPERTY_CATEGORIES;
   if (RESIDENTIAL_SCHEME_SERVICE_SLUGS.has(serviceSlug)) return RESIDENTIAL_PROPERTY_CATEGORIES;
   if (POST_CONSTRUCTION_SERVICE_SLUGS.has(serviceSlug)) return POST_CONSTRUCTION_PROPERTY_CATEGORIES;
   if (EVENT_SCHEME_SERVICE_SLUGS.has(serviceSlug)) return EVENT_PROPERTY_CATEGORIES;
+  if (STEAM_CLEANING_SERVICES_SLUGS.has(serviceSlug)) return STEAM_CLEANING_CATEGORIES;
+  if(PREMIUM_PROPERTY_SLUGS.has(serviceSlug)) return PREMIUM_PROPERTY_CATEGORIES;
+  //if (LUXURY_YATCH_CLEANING_SLUG.has(serviceSlug)) return YACHT_PROPERTY_TYPES;
+  
   return PROPERTY_CATEGORIES;
 }
 

@@ -1,4 +1,5 @@
 import type { SupplySource } from "@/components/booking/equipment-section";
+import type { QuoteItem } from "@/lib/content/quote-items";
 
 const STORAGE_KEY = "booking-draft";
 
@@ -65,6 +66,11 @@ export interface BookingDraft {
   unit?: string;
 
   caregiverGender?: string;
+  quoteItems?: QuoteItem[];
+  propertyClassification?: string;
+  serviceContinuityPlan?: string;
+  documentName?: string;
+  documentData?: string;
 }
 
 export function saveBookingDraft(draft: BookingDraft) {
