@@ -18,7 +18,7 @@ export interface ServiceContentEntry {
 }
 
 export const SERVICE_CONTENT: Partial<Record<string, ServiceContentEntry>> = {
-  "regular-maintenance-cleaning": {
+  "regular-home-cleaning": {
     introduction: {
       headline: "Consistent Clean, Sustainable Peace of Mind",
       body: [
@@ -65,7 +65,7 @@ export const SERVICE_CONTENT: Partial<Record<string, ServiceContentEntry>> = {
     ],
   },
 
-  "quick-touch-up-cleaning": {
+  "essential-touch-up-cleaning": {
     introduction: {
       headline: "Fast-Track Freshness for High-Traffic Spaces",
       body: [
@@ -260,7 +260,7 @@ export const SERVICE_CONTENT: Partial<Record<string, ServiceContentEntry>> = {
     ],
   },
 
-  "post-construction-renovation-cleaning": {
+  "post-construction-cleaning": {
     introduction: {
       headline:
         "The Final Transformation: Eliminating Construction Dust and Revealing the Shine of Your New Space.",
@@ -406,7 +406,7 @@ export const SERVICE_CONTENT: Partial<Record<string, ServiceContentEntry>> = {
     ],
   },
 
-  "healthguard-sanitization": {
+  "guard-sanitization-services": {
     introduction: {
       headline: "Beyond Clean: Implementing Hospital-Grade Disinfection for a Truly HealthGuard Environment.",
       body: [
@@ -594,7 +594,7 @@ export const SERVICE_CONTENT: Partial<Record<string, ServiceContentEntry>> = {
     ],
   },
 
-  "pool-cleaning": {
+  "pool-cleaning-maintenance": {
     introduction: {
       headline: "Maintain Pristine Water Quality and Extend the Life of Your Pool Equipment.",
       body: [
@@ -664,7 +664,7 @@ export const SERVICE_CONTENT: Partial<Record<string, ServiceContentEntry>> = {
     ],
   },
 
-  "child-care-service": {
+  "childcare-services": {
     introduction: {
       headline: "Little Stars Nurturing / Family First Childcare",
       body: [
@@ -704,7 +704,7 @@ export const SERVICE_CONTENT: Partial<Record<string, ServiceContentEntry>> = {
     ],
   },
 
-  "elder-care-service": {
+  "elder-care-services": {
     introduction: {
       headline: "Compassionate Senior Companionship / Golden Age Assistance",
       body: [
@@ -735,7 +735,7 @@ export const SERVICE_CONTENT: Partial<Record<string, ServiceContentEntry>> = {
     ],
   },
 
-  "laundry-services": {
+  "laundry-linen-care": {
     introduction: {
       headline: "Effortless Laundry, Delivered Clean",
       body: ["Your time is precious — let us handle the laundry, from pickup to fresh, folded delivery."],
@@ -773,7 +773,7 @@ export const SERVICE_CONTENT: Partial<Record<string, ServiceContentEntry>> = {
     ],
   },
 
-  "move-in-out-transport-service": {
+  "move-in-out-transport-health": {
     introduction: {
       headline: "Seamless Moving Logistics / Home Transition Transport",
       body: [

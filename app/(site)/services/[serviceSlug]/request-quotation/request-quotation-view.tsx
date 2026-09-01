@@ -53,7 +53,7 @@ const CUSTOM_QUOTE_ITEMS: Record<
   string,
   { title: string; itemLabel?: string; options: QuoteItemOption[] }
 > = {
-  "pool-cleaning": { title: "Pool Details", options: POOL_ITEM_OPTIONS },
+  "pool-cleaning-maintenance": { title: "Pool Details", options: POOL_ITEM_OPTIONS },
   "precision-pressure-washing": {
     title: "Job Details",
     itemLabel: "Job Type",
@@ -71,19 +71,41 @@ const YACHT_SLUG = "luxury-yacht-cleaning";
 const CATEGORY_QUOTE_TITLE = "Job type";
 
 /** Child Care and Elder Care are quote-only too — they collect per-person profiles instead of a property size. */
-const CHILD_CARE_SLUG = "child-care-service";
-const ELDER_CARE_SLUG = "elder-care-service";
+const CHILD_CARE_SLUG = "childcare-services";
+const ELDER_CARE_SLUG = "elder-care-services";
 
 /** These have no required item — hide the section entirely rather than showing "Not specified" when nothing's been added. */
 const HIDE_QUOTE_ITEMS_IF_EMPTY_SLUGS = new Set([
   "carpet-upholstery-cleaning",
-  "pool-cleaning",
+  "pool-cleaning-maintenance",
   "precision-pressure-washing",
 ]);
 
 const COUNTRY_NAMES: Record<CountryCode, string> = {
   fr: "France",
+  de: "Germany",
+  lu: "Luxembourg",
+  nl: "Netherlands",
+  fi: "Finland",
+  se: "Sweden",
+  it: "Italy",
+  pl: "Poland",
+  be: "Belgium",
+  at: "Austria",
+  dk: "Denmark",
+  es: "Spain",
+  pt: "Portugal",
+  ro: "Romania",
   gb: "United Kingdom",
+  us: "United States",
+  ca: "Canada",
+  au: "Australia",
+  nz: "New Zealand",
+  qa: "Qatar",
+  sa: "Saudi Arabia",
+  ae: "United Arab Emirates",
+  om: "Oman",
+  bh: "Bahrain",
   lk: "Sri Lanka",
 };
 
@@ -424,7 +446,7 @@ export function RequestQuotationView({ serviceSlug }: { serviceSlug: string }) {
         <form onSubmit={handleSubmit} className="flex flex-col gap-6" noValidate>
           {serviceSlug === "carpet-upholstery-cleaning" ? (
             <CarpetItemCards items={quoteItems} onItemsChange={setQuoteItems} />
-          ) : serviceSlug === "pool-cleaning" ? (
+          ) : serviceSlug === "pool-cleaning-maintenance" ? (
             <PoolJobSelection items={quoteItems} onItemsChange={setQuoteItems} />
           ) : isSecurityCategory ? (
             <SecurityCategorySelection selected={selectedCategory} onSelect={setSelectedCategory} />

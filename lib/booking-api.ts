@@ -15,9 +15,9 @@ interface BookingPreferencesPayload {
   languagePreference?: string;
   specialRequirements?: string;
   propertyType?: string;
-  /** healthguard-sanitization only. */
+  /** guard-sanitization-services only. */
   facilities?: string[];
-  /** healthguard-sanitization only. */
+  /** guard-sanitization-services only. */
   disinfectionLevel?: BookingLineItem;
   /** steam-cleaning only. */
   steamItems?: string[];

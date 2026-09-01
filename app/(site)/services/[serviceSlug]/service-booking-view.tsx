@@ -39,8 +39,8 @@ import { useCountry } from "@/lib/countries/country-context";
 
 const poppins = Poppins({ subsets: ["latin"], weight: ["400", "500", "600", "700", "800"] });
 
-/** Only healthguard-sanitization collects facility type + disinfection level. */
-const SANITIZATION_SLUG = "healthguard-sanitization";
+/** Only guard-sanitization-services collects facility type + disinfection level. */
+const SANITIZATION_SLUG = "guard-sanitization-services";
 
 /** Only steam-cleaning collects General/Industrial & Commercial/Equipment category selections. */
 const STEAM_SLUG = "steam-cleaning";

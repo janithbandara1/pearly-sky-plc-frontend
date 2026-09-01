@@ -14,6 +14,7 @@ import { useLanguage } from "@/lib/i18n/language-context";
 import { useCountry } from "@/lib/countries/country-context";
 import { getCountryHomeContent } from "@/lib/countries/home-content";
 import { getCountryOffice, getWhatsappUrl } from "@/lib/countries/office";
+import { COUNTRY_LANGUAGES } from "@/lib/countries/config";
 import { LanguageSwitcher } from "@/components/language-switcher";
 import { CountrySwitcher } from "@/components/country-switcher";
 import { ServicesNavList } from "@/components/services-nav-list";
@@ -48,12 +49,13 @@ export function SiteFooter() {
   const office = getCountryOffice(country);
   const hotline = office.contactNo ?? "";
   const whatsappUrl = getWhatsappUrl(hotline);
+  const hasLanguageChoice = COUNTRY_LANGUAGES[country ?? "fr"].length > 1;
 
   return (
     <footer className="border-t border-border/60 bg-brand-navy text-brand-navy-foreground">
       <div className="flex justify-center border-b border-brand-gold/20 px-4 py-3 sm:px-6">
         <div className="flex flex-wrap items-center gap-3">
-          <LanguageSwitcher />
+          {hasLanguageChoice && <LanguageSwitcher />}
           <CountrySwitcher />
         </div>
       </div>

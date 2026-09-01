@@ -29,9 +29,9 @@ export interface BookingDetailsCardProps {
   languageLabel: string;
   specialRequirements?: string;
   packages: BookingDraftPackage[];
-  /** healthguard-sanitization only — the facility types selected above. */
+  /** guard-sanitization-services only — the facility types selected above. */
   facilities?: string[];
-  /** healthguard-sanitization only — the disinfection level selected above. */
+  /** guard-sanitization-services only — the disinfection level selected above. */
   serviceLevel?: BookingDraftPackage;
   /** steam-cleaning only — the General Steam items selected above. */
   generalSteamItems?: string[];

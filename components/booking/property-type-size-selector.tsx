@@ -61,11 +61,11 @@ export const RESIDENTIAL_PROPERTY_CATEGORIES: PropertyCategory[] = [
 ];
 
 const RESIDENTIAL_SCHEME_SERVICE_SLUGS = new Set([
-  "regular-maintenance-cleaning",
+  "regular-home-cleaning",
   "deep-cleaning",
   "end-of-tenancy-cleaning",
   "same-day-priority-cleaning",
-  "quick-touch-up-cleaning",
+  "essential-touch-up-cleaning",
   "premium-rental-concierge-cleaning",
   "steam-cleaning",
 ]);
@@ -114,7 +114,7 @@ export const POST_CONSTRUCTION_PROPERTY_CATEGORIES: PropertyCategory[] = [
   },
 ];
 
-const POST_CONSTRUCTION_SERVICE_SLUGS = new Set(["post-construction-renovation-cleaning"]);
+const POST_CONSTRUCTION_SERVICE_SLUGS = new Set(["post-construction-cleaning"]);
 
 /** Venue-scale sizing scheme for post-event-cleaning, tracked by event type rather than property type. */
 export const EVENT_PROPERTY_CATEGORIES: PropertyCategory[] = [

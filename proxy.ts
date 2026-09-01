@@ -5,24 +5,20 @@ import {
   COUNTRY_COOKIE_MAX_AGE,
   COUNTRY_COOKIE_NAME,
   COUNTRY_HEADER_NAME,
+  defaultLanguageForCountry,
+  isLanguageSupportedForCountry,
   isSupportedCountry,
   type CountryCode,
 } from "@/lib/countries/config";
-import { detectCountryFromHeaders, extractCountryPrefix } from "@/lib/countries/geo";
-import {
-  LANGUAGE_COOKIE_MAX_AGE,
-  LANGUAGE_COOKIE_NAME,
-  LANGUAGE_HEADER_NAME,
-  isSupportedLanguage,
-  type LanguageCode,
-} from "@/lib/i18n/config";
-import { detectLanguageFromHeaders, extractLanguagePrefix } from "@/lib/i18n/geo";
+import { detectCountryFromHeaders, extractLocalePrefix } from "@/lib/countries/geo";
+import { LANGUAGE_COOKIE_MAX_AGE, LANGUAGE_COOKIE_NAME, LANGUAGE_HEADER_NAME, type LanguageCode } from "@/lib/i18n/config";
+import { detectLanguageFromHeaders } from "@/lib/i18n/geo";
 import { buildLocalePath } from "@/lib/locale";
 
 const CUSTOMER_PROTECTED_PREFIXES = ["/bookings", "/quotations", "/profile", "/addresses"];
 
 // Pages with no CountryProvider/LanguageProvider above them (see their layouts) —
-// never candidates for the unprefixed -> /{country}/{language} redirect below.
+// never candidates for the unprefixed -> /{country}-{language} redirect below.
 function isLocaleExcluded(pathname: string): boolean {
   return pathname === "/login" || pathname === "/signup" || pathname.startsWith("/staff");
 }
@@ -33,7 +29,7 @@ function isLocaleExcluded(pathname: string): boolean {
 // plus each API call's access-token requirement), since the real session lives in
 // an httpOnly cookie on the backend's cross-origin domain that this proxy can never
 // read. See lib/session-hint.ts. Runs against the *unprefixed* path so it applies
-// the same way whether or not the request carries a /{country}/{language} prefix.
+// the same way whether or not the request carries a /{country}-{language} prefix.
 function resolveAuthRedirect(pathname: string, request: NextRequest): NextResponse | null {
   if (pathname.startsWith("/staff")) {
     if (pathname === "/staff/login") return null;
@@ -52,24 +48,35 @@ function resolveAuthRedirect(pathname: string, request: NextRequest): NextRespon
   return null;
 }
 
-type LocaleMatch = { country: CountryCode; language: LanguageCode; rest: string };
+// The site used to be routed as /{country}/{language}/... (e.g. "/fr/en/about-us").
+// Anything still shaped like that gets 308-redirected to the equivalent new
+// /{country}-{language}/... URL instead of 404ing, to preserve the 3
+// previously-live countries' indexed pages' SEO equity. A legacy language that
+// the target country no longer offers (e.g. "/gb/fr/...") clamps to that
+// country's default rather than 404ing.
+const LEGACY_COUNTRY_LANGUAGE_PATTERN = /^\/([a-z]{2})\/(en|fr)(\/.*)?$/i;
 
-// A supported country prefix followed by anything other than a supported language
-// prefix (e.g. bare "/fr") is treated as an invalid URL, not auto-completed.
-function resolveLocalePrefix(pathname: string): LocaleMatch | "invalid" | null {
-  const countryMatch = extractCountryPrefix(pathname);
-  if (!countryMatch) return null;
+function resolveLegacyLocaleRedirect(pathname: string, request: NextRequest): NextResponse | null {
+  const match = pathname.match(LEGACY_COUNTRY_LANGUAGE_PATTERN);
+  if (!match) return null;
 
-  const languageMatch = extractLanguagePrefix(countryMatch.rest);
-  if (!languageMatch) return "invalid";
+  const [, code, lang, rest] = match;
+  if (!isSupportedCountry(code)) return null;
 
-  return { country: countryMatch.country, language: languageMatch.language, rest: languageMatch.rest };
+  const country = code.toLowerCase() as CountryCode;
+  const language = isLanguageSupportedForCountry(country, lang.toLowerCase())
+    ? (lang.toLowerCase() as LanguageCode)
+    : defaultLanguageForCountry(country);
+
+  const target = request.nextUrl.clone();
+  target.pathname = buildLocalePath(rest || "/", country, language);
+  return NextResponse.redirect(target, 308);
 }
 
 const DEFAULT_COUNTRY: CountryCode = "fr";
 
 // Always resolves — there is no unprefixed "global" site, every request ends up
-// under some /{country}/{language}, falling back to DEFAULT_COUNTRY when neither
+// under some /{country}-{language}, falling back to DEFAULT_COUNTRY when neither
 // the pin cookie nor Cloudflare's geo header identify a supported country.
 function resolveCountry(request: NextRequest): CountryCode {
   const cookieValue = request.cookies.get(COUNTRY_COOKIE_NAME)?.value;
@@ -77,10 +84,15 @@ function resolveCountry(request: NextRequest): CountryCode {
   return detectCountryFromHeaders(request.headers) ?? DEFAULT_COUNTRY;
 }
 
-function resolveLanguage(request: NextRequest): LanguageCode {
+// Clamped to whatever `country` actually offers — sniffing the browser's
+// language only matters for France (the one country with a choice); every
+// other country always resolves to its single supported language.
+function resolveLanguage(request: NextRequest, country: CountryCode): LanguageCode {
   const cookieValue = request.cookies.get(LANGUAGE_COOKIE_NAME)?.value;
-  if (isSupportedLanguage(cookieValue)) return cookieValue.toLowerCase() as LanguageCode;
-  return detectLanguageFromHeaders(request.headers);
+  if (isLanguageSupportedForCountry(country, cookieValue)) return cookieValue.toLowerCase() as LanguageCode;
+
+  const detected = detectLanguageFromHeaders(request.headers);
+  return isLanguageSupportedForCountry(country, detected) ? detected : defaultLanguageForCountry(country);
 }
 
 function localeCookieOptions(maxAge: number) {
@@ -90,7 +102,10 @@ function localeCookieOptions(maxAge: number) {
 export function proxy(request: NextRequest) {
   const { pathname } = request.nextUrl;
 
-  const locale = resolveLocalePrefix(pathname);
+  const legacyRedirect = resolveLegacyLocaleRedirect(pathname, request);
+  if (legacyRedirect) return legacyRedirect;
+
+  const locale = extractLocalePrefix(pathname);
   if (locale === "invalid") {
     return new NextResponse(null, { status: 404 });
   }
@@ -100,10 +115,10 @@ export function proxy(request: NextRequest) {
   const authRedirect = resolveAuthRedirect(effectivePath, request);
   if (authRedirect) return authRedirect;
 
-  // Already /{country}/{language}/...: rewrite to the real (unprefixed) route and
-  // expose the resolved locale to server components via headers, pinning it in
-  // cookies so subsequent unprefixed navigation (internal links are all unprefixed)
-  // redirects back into this same locale instead of losing it.
+  // Already /{country}-{language}/...: rewrite to the real (unprefixed) route
+  // and expose the resolved locale to server components via headers, pinning
+  // it in cookies so subsequent unprefixed navigation (internal links are all
+  // unprefixed) redirects back into this same locale instead of losing it.
   if (locale) {
     const url = request.nextUrl.clone();
     url.pathname = locale.rest;
@@ -120,10 +135,10 @@ export function proxy(request: NextRequest) {
   }
 
   // No prefix: there is no unprefixed site to serve, so redirect into the resolved
-  // /{country}/{language} URL — pin cookie or Cloudflare's geo header if available,
-  // otherwise DEFAULT_COUNTRY/"en".
+  // /{country}-{language} URL — pin cookie or Cloudflare's geo header if available,
+  // otherwise DEFAULT_COUNTRY/that country's default language.
   const country = resolveCountry(request);
-  const language = resolveLanguage(request);
+  const language = resolveLanguage(request, country);
   const target = request.nextUrl.clone();
   target.pathname = buildLocalePath(pathname, country, language);
   return NextResponse.redirect(target);

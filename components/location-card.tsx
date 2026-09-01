@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { MapPin, Phone } from "lucide-react";
+import { Globe2, MapPin, Phone } from "lucide-react";
 import { useLanguage } from "@/lib/i18n/language-context";
 import type { Location } from "@/lib/content/locations";
 
@@ -10,8 +10,12 @@ export function LocationCard({ location }: { location: Location }) {
   return (
     <div className="flex flex-col gap-3 rounded-xl border border-border bg-card p-4">
       <div className="flex items-center gap-3">
-        <div className="relative h-10 w-10 shrink-0 overflow-hidden rounded-full border border-border">
-          <Image src={location.flag} alt={location.name} fill sizes="40px" className="object-cover" />
+        <div className="relative flex h-10 w-10 shrink-0 items-center justify-center overflow-hidden rounded-full border border-border bg-muted">
+          {location.flag ? (
+            <Image src={location.flag} alt={location.name} fill sizes="40px" className="object-cover" />
+          ) : (
+            <Globe2 className="h-5 w-5 text-muted-foreground" />
+          )}
         </div>
         <span className="font-semibold">{location.name}</span>
       </div>

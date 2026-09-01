@@ -28,9 +28,9 @@ export interface BookingDraft {
   languagePreference: string;
   specialRequirements?: string;
   propertyType?: string;
-  /** healthguard-sanitization only. */
+  /** guard-sanitization-services only. */
   facilities?: string[];
-  /** healthguard-sanitization only. */
+  /** guard-sanitization-services only. */
   disinfectionLevel?: BookingDraftPackage;
   /** steam-cleaning only. */
   steamItems?: string[];

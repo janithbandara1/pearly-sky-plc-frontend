@@ -2,11 +2,10 @@
 
 import { createContext, useContext, useMemo, type ReactNode } from "react";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
-import { extractCountryPrefix } from "@/lib/countries/geo";
+import { extractLocalePrefix, buildPrefixedPath } from "@/lib/countries/geo";
 import { en, type TranslationKey } from "./dictionaries/en";
 import { fr } from "./dictionaries/fr";
 import { LANGUAGE_COOKIE_MAX_AGE, LANGUAGE_COOKIE_NAME, type LanguageCode } from "./config";
-import { extractLanguagePrefix } from "./geo";
 
 export type SupportedLanguage = LanguageCode;
 
@@ -52,15 +51,11 @@ export function LanguageProvider({
       setLanguage: (next) => {
         document.cookie = `${LANGUAGE_COOKIE_NAME}=${next}; path=/; max-age=${LANGUAGE_COOKIE_MAX_AGE}; samesite=lax`;
 
-        const country = extractCountryPrefix(pathname);
-        if (!country) return;
+        const locale = extractLocalePrefix(pathname);
+        if (!locale || locale === "invalid") return;
 
-        const languagePrefixed = extractLanguagePrefix(country.rest);
-        const unprefixedPath = languagePrefixed ? languagePrefixed.rest : country.rest;
         const search = searchParams.toString();
-
-        const prefix = `/${country.country}/${next}`;
-        const target = unprefixedPath === "/" ? prefix : `${prefix}${unprefixedPath}`;
+        const target = buildPrefixedPath(locale.rest, locale.country, next);
 
         router.push(`${target}${search ? `?${search}` : ""}`);
         router.refresh();
