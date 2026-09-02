@@ -9,14 +9,32 @@ import { useCurrency } from "@/lib/currency-context";
 import { useLanguage } from "@/lib/i18n/language-context";
 import type { TranslationKey } from "@/lib/i18n/dictionaries/en";
 
-const CATEGORIES: { key: ServiceCategory; headingKey: TranslationKey; limit?: number }[] = [
-  { key: "property_care", headingKey: "servicesCategoryPropertyCare", limit: 4 },
-  { key: "bespoke_lifestyle", headingKey: "servicesCategoryBespokeLifestyle" },
+//2026-08-24=CATAGORIES UPDATED by adding 
+//Residential Cleaning Services,Premium Add-On Services,Commercial & Specialised Cleaning Services,Care & Concierge Services
+const CATEGORIES: { key: ServiceCategory; headingKey: TranslationKey;subHeader: TranslationKey; limit?: number }[] = [
+    //NEW CATEGORIES ADDED
+  {key: "residential_cleaning", headingKey: "servicesCategoryResidentialCleaning",subHeader:"servicesSubHeaderResidentialCleaning" },
+  {key: "premium_add_ons", headingKey: "servicesCategoryPremiumAddOns",subHeader:"servicesSubHeaderPremiumAddOns" },
+  {key:"commercial_and_specialized_cleaning", headingKey:"servicesCategoryCommercialSpecialised",subHeader:"servicesSubHeaderCommercialSpecialised"},
+  {key:"care_and_concierge", headingKey:"servicesCategoryCareConcierge",subHeader:"servicesSubHeaderCareConcierge"},
+  
+      //old CATEGORIES
+  //{key: "property_care", headingKey: "servicesCategoryPropertyCare" },
+  //{key: "bespoke_lifestyle", headingKey: "servicesCategoryBespokeLifestyle" },
+
 ];
 
 function ServiceCard({ service }: { service: CatalogService }) {
   const { translate } = useLanguage();
   const { symbol } = useCurrency();
+
+  const isDedicatedFlow =
+    service.name === "child-care-service" ||
+    service.name === "elder-care-service" ||
+    service.name === "carpet-upholstery-cleaning" ||
+    service.name === "pool-cleaning" ||
+    service.name === "precision-pressure-washing" ||
+    service.name === "luxury-yacht-cleaning";
 
   return (
     <div className="flex h-full flex-col overflow-hidden rounded-xl border-2 border-brand-gold bg-brand-navy shadow-md transition-transform duration-200 hover:scale-[1.03] hover:shadow-xl">
@@ -43,45 +61,51 @@ function ServiceCard({ service }: { service: CatalogService }) {
             </p>
           )}
           <p className="text-sm font-semibold text-brand-gold">
-            {!service.isBookable
-              ? translate("servicesRequestQuotation")
-              : service.price
-                ? `${symbol}${service.price}${translate("servicesPricePerCleaner")}`
-                : translate("servicesPricingSoon")}
+            {service.price
+              ? `Rate: ${symbol}${service.price}${translate("servicesPricePerCleaner")}`
+              : translate("servicesRequestQuotation")}
           </p>
         </div>
 
-        {service.isBookable ? (
-          <div className="mt-2 flex w-full flex-col gap-2">
+        <div className="mt-2 flex w-full flex-col gap-2">
+          {service.isBookable ? (
+            <>
+              <Link
+                href={`/services/${service.name}/request-quotation`}
+                className="flex w-full items-center justify-center rounded-lg border border-brand-gold bg-brand-navy px-4 py-2.5 text-xs font-bold uppercase tracking-wider text-brand-gold transition-colors hover:bg-brand-gold hover:text-brand-navy"
+              >
+                {translate("servicesRequestQuotation")}
+              </Link>
+              <Link
+                href={`/services/${service.name}`}
+                className="flex w-full items-center justify-center gap-1.5 rounded-lg bg-brand-gold px-4 py-2.5 text-xs font-bold uppercase tracking-wider text-brand-navy transition-colors hover:bg-brand-gold/90"
+              >
+                {translate("servicesBookNow")}
+                <ArrowRight className="h-3.5 w-3.5" />
+              </Link>
+            </>
+          ) : isDedicatedFlow ? (
             <Link
               href={`/services/${service.name}`}
-              className="flex w-full items-center justify-center gap-1.5 rounded-lg bg-brand-gold px-4 py-2 text-xs font-semibold text-brand-navy transition-colors hover:bg-brand-gold/90"
+              className="flex w-full items-center justify-center gap-1.5 rounded-lg bg-brand-gold px-4 py-2.5 text-xs font-bold uppercase tracking-wider text-brand-navy transition-colors hover:bg-brand-gold/90"
             >
               {translate("servicesBookNow")}
               <ArrowRight className="h-3.5 w-3.5" />
             </Link>
-            {service.isQuotable && (
-              <Link
-                href={`/services/${service.name}/request-quotation`}
-                className="flex w-full items-center justify-center gap-1.5 rounded-lg border border-brand-gold px-4 py-2 text-xs font-semibold text-brand-gold transition-colors hover:bg-brand-gold/10"
-              >
-                {translate("servicesRequestQuotation")}
-              </Link>
-            )}
-          </div>
-        ) : service.isQuotable ? (
-          <Link
-            href={`/services/${service.name}/request-quotation`}
-            className="mt-2 flex w-full items-center justify-center gap-1.5 rounded-lg bg-brand-gold px-4 py-2 text-xs font-semibold text-brand-navy transition-colors hover:bg-brand-gold/90"
-          >
-            {translate("servicesRequestQuotation")}
-            <ArrowRight className="h-3.5 w-3.5" />
-          </Link>
-        ) : (
-          <span className="mt-2 block w-full rounded-lg border border-brand-navy-foreground/20 px-4 py-2 text-xs font-medium text-brand-navy-foreground/50">
-            {translate("servicesComingSoon")}
-          </span>
-        )}
+          ) : service.isQuotable ? (
+            <Link
+              href={`/services/${service.name}/request-quotation`}
+              className="flex w-full items-center justify-center rounded-lg border border-brand-gold bg-brand-navy px-4 py-2.5 text-xs font-bold uppercase tracking-wider text-brand-gold transition-colors hover:bg-brand-gold hover:text-brand-navy"
+            >
+              {translate("servicesRequestQuotation")}
+              <ArrowRight className="h-3.5 w-3.5" />
+            </Link>
+          ) : (
+            <span className="block w-full rounded-lg border border-brand-navy-foreground/20 px-4 py-2.5 text-xs font-medium text-brand-navy-foreground/50">
+              {translate("servicesComingSoon")}
+            </span>
+          )}
+        </div>
       </div>
     </div>
   );
@@ -125,20 +149,25 @@ export function ServicesSection({ services }: { services: CatalogService[] }) {
     <section id="services" className="scroll-mt-16 bg-brand-navy py-16 text-brand-navy-foreground">
       <div className="mx-auto w-full max-w-6xl px-4 sm:px-6">
         <div className="mb-10 text-center">
-          <h2 className="text-2xl font-bold tracking-tight sm:text-3xl">
+          <h2 className="md:text-4xl font-bold tracking-tight text-3xl">
             {translate("servicesHeading")}
           </h2>
+          
         </div>
 
-        {CATEGORIES.map(({ key, headingKey, limit }) => {
+        {CATEGORIES.map(({ key, headingKey,subHeader, limit }) => {
+            console.log(translate(headingKey))
           const categoryServices = active.filter((service) => service.category === key);
           if (categoryServices.length === 0) return null;
 
           return (
             <div key={key} className="mt-12 first:mt-0">
-              <h3 className="mb-6 text-center text-xl font-bold tracking-tight text-brand-navy-foreground sm:text-2xl">
+              <h3 className="letter-spacing-tight mb-1 text-center text-2xl font-bold tracking-wider text-brand-navy-foreground md:text-3xl">
                 {translate(headingKey)}
               </h3>
+              <p className="mb-6 mt-2 text-center mx-0 font-poppins font-normal text-base leading-normal text-[rgba(255,253,244,0.75)]">
+                {translate(subHeader)}
+              </p>
               <CategoryGrid services={categoryServices} limit={limit} />
             </div>
           );

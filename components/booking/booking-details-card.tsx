@@ -256,9 +256,8 @@ export function BookingDetailsCard({
                           type="button"
                           onClick={() => onToggleEquipment?.(item.id)}
                           aria-pressed={isSelected}
-                          className={`shrink-0 rounded-[6px] border-[1.5px] border-brand-gold px-2.5 py-1 text-xs ${
-                            isSelected ? "bg-brand-gold text-brand-navy" : "text-brand-gold"
-                          }`}
+                          className={`shrink-0 rounded-[6px] border-[1.5px] border-brand-gold px-2.5 py-1 text-xs ${isSelected ? "bg-brand-gold text-brand-navy" : "text-brand-gold"
+                            }`}
                         >
                           {isSelected ? "Added" : "Add"}
                         </button>
