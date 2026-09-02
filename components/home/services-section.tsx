@@ -156,7 +156,6 @@ export function ServicesSection({ services }: { services: CatalogService[] }) {
         </div>
 
         {CATEGORIES.map(({ key, headingKey,subHeader, limit }) => {
-            console.log(translate(headingKey))
           const categoryServices = active.filter((service) => service.category === key);
           if (categoryServices.length === 0) return null;
 

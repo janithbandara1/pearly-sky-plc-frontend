@@ -48,8 +48,10 @@ export function ServiceFormFields({ form, onChange }: ServiceFormFieldsProps) {
             <SelectValue />
           </SelectTrigger>
           <SelectContent>
-            <SelectItem value="property_care">Property care</SelectItem>
-            <SelectItem value="bespoke_lifestyle">Bespoke lifestyle</SelectItem>
+            <SelectItem value="residential_cleaning">Residential cleaning</SelectItem>
+            <SelectItem value="premium_add_ons">Premium add-ons</SelectItem>
+            <SelectItem value="commercial_and_specialized_cleaning">Commercial & specialised cleaning</SelectItem>
+            <SelectItem value="care_and_concierge">Care & concierge</SelectItem>
           </SelectContent>
         </Select>
       </div>

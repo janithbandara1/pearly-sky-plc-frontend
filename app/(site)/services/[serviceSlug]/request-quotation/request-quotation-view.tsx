@@ -306,7 +306,7 @@ export function RequestQuotationView({ serviceSlug }: { serviceSlug: string }) {
             price: null,
             prices: [],
             status: "active",
-            category: "property_care",
+            category: "residential_cleaning",
             isBookable: true,
             isQuotable: true,
             servicePackages: [],

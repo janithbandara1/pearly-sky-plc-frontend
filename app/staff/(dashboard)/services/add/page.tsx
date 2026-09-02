@@ -32,7 +32,7 @@ const emptyForm: CreateServicePayload = {
   name: "",
   label: "",
   status: "active",
-  category: "property_care",
+  category: "residential_cleaning",
   description: "",
   imageUrl: "",
   isBookable: false,

@@ -1,6 +1,6 @@
 import { apiFetch } from "./api";
 
-export type ServiceCategory = "care_and_concierge" |"commercial_and_specialized_cleaning" |"premium_add_ons" |"residential_cleaning" |"property_care" | "bespoke_lifestyle";
+export type ServiceCategory = "care_and_concierge" | "commercial_and_specialized_cleaning" | "premium_add_ons" | "residential_cleaning";
 
 export interface ServicePriceEntry {
   country: string;

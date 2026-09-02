@@ -173,7 +173,7 @@ export default function CheckoutPage({
           price: "30.00",
           prices: [],
           status: "active",
-          category: isCareService ? "bespoke_lifestyle" : "property_care",
+          category: isCareService ? "care_and_concierge" : "residential_cleaning",
           description: "Eco-luxury care service",
           imageUrl: isChildCare
             ? "/images/services/updated-care-support-services-1-child-care-service.webp"
