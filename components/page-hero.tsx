@@ -199,7 +199,7 @@ export function PageHero({
             {eyebrow}
           </p>
         )}
-        <h1 className="text-3xl sm:text-3xl md:text-4xl font-bold text-[#c29b38] tracking-tight leading-tight">
+        <h1 className="text-[18px] md:text-4xl font-bold text-[#c29b38] tracking-tight leading-tight">
           {title}
         </h1>
         {subtitle && <p className="mt-3 text-brand-cream/85 hidden">{subtitle}</p>}
