@@ -1,6 +1,6 @@
 import type { TranslationKey } from "./en";
 
-export const fr: Record<TranslationKey, string> = {
+export const fr = {
   // Nav / footer
   navHome: "Accueil",
   navServices: "Services",
@@ -221,4 +221,4 @@ export const fr: Record<TranslationKey, string> = {
   // Contact Us page
   contactPageTitle: "Contactez Notre Équipe Concierge",
   contactOfficesTitle: "Nos Bureaux",
-};
+} as Record<TranslationKey, string>;

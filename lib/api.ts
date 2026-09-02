@@ -21,6 +21,7 @@ interface ApiFetchOptions extends Omit<RequestInit, "body"> {
   body?: unknown;
   /** Internal — set on the retried request so a second 401 doesn't loop forever. */
   _retried?: boolean;
+  
 }
 
 type UnauthorizedHandler = () => Promise<string | null>;

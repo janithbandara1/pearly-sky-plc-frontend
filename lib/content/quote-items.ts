@@ -70,7 +70,7 @@ const PRESSURE_WASHING_SIZE_FIELD: QuoteFieldSpec = {
   kind: "size",
   key: "size",
   label: "Size",
-  units: ["m²", "cm²", "ft²", "linear ft", "per unit"],
+  units: ["ft²", "m²", "cm²", "ft", "unit"],
 };
 
 const PRESSURE_WASHING_CONDITION_FIELD: QuoteFieldSpec = {

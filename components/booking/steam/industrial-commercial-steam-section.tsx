@@ -112,41 +112,40 @@ export function IndustrialCommercialSteamSection({
   const openCategory = INDUSTRIAL_STEAM_CATEGORIES.find((c) => c.title === openTitle) ?? null;
 
   return (
-    <section className="overflow-hidden rounded-[12px] border border-[#A98B4B]">
+    <section className="overflow-hidden rounded-[12px]">
       <div className="bg-[#121E2D] px-5 py-4 text-center">
-        <h2 className="text-[1.1rem] font-bold text-[#FFFDF4] sm:text-[1.3rem]">
+        <h2 className="text-[1.1rem] font-bold  text-[#A98B4B] sm:text-[1.3rem]">
           Industrial & Commercial Steam Cleaning Job Types
         </h2>
+        <p className="text-white"> We provide deep sanitization, degreasing, and restoration for critical surfaces.</p>
       </div>
 
-      <div className="bg-[#F8F9FA] p-4 sm:p-5">
+      <div className=" p-4 sm:p-5">
         <div className="grid grid-cols-1 gap-2.5 sm:grid-cols-2 lg:grid-cols-3">
           {INDUSTRIAL_STEAM_CATEGORIES.map((category) => {
             const isChecked = selectedTitles.has(category.title);
             return (
               <div
                 key={category.title}
-                className={`flex items-center justify-between gap-2.5 rounded-[10px] bg-white px-3 py-2.5 text-left transition ${
-                  isChecked
-                    ? "border-2 border-[#A98B4B] shadow-[0_0_8px_rgba(169,139,75,0.3)]"
-                    : "border-[1.5px] border-[#A98B4B]"
-                }`}
+                className={`flex items-center justify-between gap-2.5 rounded-[10px] bg-[#123c2a] px-3 py-2.5 text-left transition ${isChecked
+                  ? "border-2 border-[#A98B4B] shadow-[0_0_8px_rgba(169,139,75,0.3)]"
+                  : "border-[1.5px] border-[#A98B4B]"
+                  }`}
               >
                 <button
                   type="button"
                   onClick={() => setOpenTitle(category.title)}
                   className="min-w-0 flex-1 text-left"
                 >
-                  <p className="truncate text-sm font-medium text-[#121E2D]">{category.title}</p>
-                  <p className="text-xs text-[#555]">View details</p>
+                  <p className="truncate text-sm font-medium text-[white]">{category.title}</p>
+                  <p className="text-xs text-gray-300 cursor-pointer">View details</p>
                 </button>
                 <button
                   type="button"
                   onClick={() => onToggle(category.title)}
                   aria-pressed={isChecked}
-                  className={`shrink-0 rounded-[6px] border-[1.5px] border-[#A98B4B] px-2.5 py-1 text-xs font-semibold ${
-                    isChecked ? "bg-[#A98B4B] text-white" : "text-[#A98B4B]"
-                  }`}
+                  className={`shrink-0 rounded-[6px] border-[1.5px] border-[#A98B4B] px-2.5 py-1 text-xs font-semibold ${isChecked ? "bg-[#A98B4B] text-white" : "text-[#A98B4B]"
+                    }`}
                 >
                   {isChecked ? "Added" : "Add"}
                 </button>

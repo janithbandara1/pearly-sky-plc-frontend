@@ -18,16 +18,16 @@ export interface ServiceContentEntry {
 }
 
 export const SERVICE_CONTENT: Partial<Record<string, ServiceContentEntry>> = {
-  "regular-maintenance-cleaning": {
+  "regular-home-cleaning": {
     introduction: {
-      headline: "Consistent Clean, Sustainable Peace of Mind",
+      headline: "The Weekly Refresh: Consistent Clean, Sustainable Peace of Mind.",
       body: [
-        "Stop stressing over everyday chores. Our Regular Maintenance Cleaning service establishes a reliable, recurring schedule—whether daily, weekly, or bi-weekly—that keeps your home effortlessly immaculate. We use exclusively green, certified eco-friendly products to deliver a sparkling clean that is 100% safe for your children and pets. Commit to consistency and enjoy the luxury of coming home to a healthier, reliably pristine space every time. See our transparent rates and book your recurring schedule today.",
+        "Stop stressing over everyday chores. Our Standard Residential Cleaning service establishes a reliable, recurring schedule that keeps your home effortlessly immaculate. We use exclusively green, certified eco-friendly products to deliver a deep, sparkling clean that is 100% safe for children and pets. Commit to consistency and enjoy the luxury of coming home to a healthier, reliably pristine space every week. See our transparent rates and book your clean today.​Set Your Recurring Schedule"
       ],
     },
     highlights: [
       {
-        title: "Regular Maintenance Cleaning Highlights",
+        title: "Regular Home Cleaning Highlights",
         cards: [
           {
             title: "General & Living Spaces",
@@ -65,16 +65,16 @@ export const SERVICE_CONTENT: Partial<Record<string, ServiceContentEntry>> = {
     ],
   },
 
-  "quick-touch-up-cleaning": {
+  "essential-touch-up-cleaning": {
     introduction: {
       headline: "Fast-Track Freshness for High-Traffic Spaces",
       body: [
-        "Short on time but need your home looking its best? Our Quick Touch-Up Cleaning is a high-speed, targeted service designed to restore polish to your primary living areas. Ideal before hosting guests, after an event, or between routine visits, we focus on high-traffic zones—like key surfaces, kitchens, and bathrooms—using 100% certified eco-friendly products. Enjoy a spotless, welcoming environment without committing to a full-home clean. View our transparent pricing and book your express refresh today.",
+        "​Short on time but need your home looking its best? Our Essential Touch-Up Cleaning is a high-speed, targeted service designed to restore polish to your primary living areas. Ideal before hosting guests, after an event, or between routine visits, we focus on high-traffic zones—like key surfaces, kitchens, and bathrooms—using 100% certified eco-friendly products. Enjoy a spotless, welcoming environment without committing to a full-home clean. View our transparent pricing and book your express refresh today.",
       ],
     },
     highlights: [
       {
-        title: "Quick Touch-Up Cleaning Highlights",
+        title: "Essenstial Touch-Up Cleaning Highlights",
         cards: [
           {
             title: "Kitchen",
@@ -125,7 +125,7 @@ export const SERVICE_CONTENT: Partial<Record<string, ServiceContentEntry>> = {
     },
     highlights: [
       {
-        title: "Same-Day Priority Cleaning Highlights",
+        title: "After Party Checklist (Maximum Mess, Maximum Impact)",
         cards: [
           {
             title: "Flooring & Entry",
@@ -146,19 +146,26 @@ export const SERVICE_CONTENT: Partial<Record<string, ServiceContentEntry>> = {
           {
             title: "Kitchen & Bar Area",
             features: [
-              "Disposing of empty bottles, cans, serviceware.",
+              "Disposing empty bottles, cans, serviceware.",
               "Disinfecting all counters and sticky surfaces.",
               "Running dishwasher; washing basic dishes.",
               "Cleaning beverage spills on hard floors.",
             ],
           },
+        ],
+      },
+      {
+        title: "Instant Clean Checklist (Standard Service - What We Focus On)",
+        cards: [
           {
             title: "Kitchen Quick-Clean",
             features: [
               "Wiping down countertops.",
               "Spot-cleaning cabinet fronts.",
               "Cleaning microwave & stovetop exterior.",
-              "Washing or loading a small set of dishes.",
+              "Washing or loading small set",
+              "Sanitizing sink & polishing fixtures",
+              
             ],
           },
           {
@@ -168,11 +175,13 @@ export const SERVICE_CONTENT: Partial<Record<string, ServiceContentEntry>> = {
               "Cleaning toilet inside and out.",
               "Quick mirror wipe.",
               "Changing hand towel.",
+              "Replacing used hand towels",
+              "Emptying waste bin & deodorizing"
             ],
-          },
+          }
         ],
       },
-    ],
+    ]
   },
 
   "deep-cleaning": {
@@ -181,34 +190,51 @@ export const SERVICE_CONTENT: Partial<Record<string, ServiceContentEntry>> = {
       body: [
         "If your home needs more than just a quick spruce, our Total Home Reset is the perfect solution. This is our most thorough and detailed cleaning package, designed to tackle the grime, dust, and build-up that standard cleaning overlooks. We dedicate the necessary time to deep-clean every corner, establishing a pristine foundation for your home.",
         "When time is critical, choose the crew that guarantees a noticeable difference fast.",
+
       ],
     },
     highlights: [
       {
         title: "Deep Cleaning Highlights",
         cards: [
-          {
-            title: "Kitchen Detail",
-            features: ["Intensive scrubbing of backsplashes.", "Appliance exteriors.", "Grout & baseboards."],
-          },
-          {
-            title: "Bathroom Sanctuary",
-            features: ["Thorough scrubbing of shower grout.", "Tile walls & ventilation fans."],
-          },
-          {
-            title: "Flooring",
-            features: ["High-power vacuuming and edge cleaning of all floors and carpets."],
-          },
-          {
-            title: "All Areas Focus",
-            features: [
-              "Wiping down & dusting all baseboards.",
-              "Window sills.",
-              "Door frames.",
-              "Ceiling fans & light switches.",
-            ],
-          },
-        ],
+  {
+    title: "Kitchen Detail",
+    features: [
+      "Intensive scrubbing of backsplashes.",
+      "Deep cleaning of appliance exteriors.",
+      "Degreasing range hoods & stovetops.",
+      
+    ],
+  },
+  {
+    title: "Bathroom Sanctuary",
+    features: [
+      "Thorough scrubbing of shower grout & tile walls.",
+      "Disinfecting toilets, tubs & sinks.",
+      "Descaling fixtures & glass shower doors.",
+      
+      
+    ],
+  },
+  {
+    title: "Flooring",
+    features: [
+      "High-power vacuuming & edge cleaning of carpets.",
+      "Deep mopping & sanitizing of hard floors.",
+      "Detailed cleaning of baseboards & floor corners.",
+      
+    ],
+  },
+  {
+    title: "All Areas Focus",
+    features: [
+      "Wiping down & dusting all baseboards.",
+      "Detailed cleaning of window sills & ledges.",
+      "Sanitizing door frames, doors & handles.",
+      
+    ],
+  },
+]
       },
     ],
   },
@@ -366,10 +392,11 @@ export const SERVICE_CONTENT: Partial<Record<string, ServiceContentEntry>> = {
         "Our Professional Premises Polish service is tailored to businesses seeking reliable, high-quality cleaning for their commercial spaces, offices, and corporate environments. Our teams operate with discretion and efficiency, typically scheduling outside of standard business hours to minimize disruption. The focus is on maintaining a professional image, improving employee wellness through hygiene, and ensuring compliance with sanitation standards across high-traffic zones.",
         "A clean environment is a productive environment. Partner with us for consistent excellence.",
       ],
+
     },
     highlights: [
       {
-        title: "Commercial & Office Cleaning Highlights",
+        title: "Workplace Wellness Checklist (Commercial Focus)",
         cards: [
           {
             title: "Common Areas & Reception",
@@ -382,7 +409,7 @@ export const SERVICE_CONTENT: Partial<Record<string, ServiceContentEntry>> = {
           {
             title: "Kitchenette & Break Rooms",
             features: [
-              "Cleaning and sanitizing counters, sinks, and appliance exteriors.",
+              "Cleaning and sanitizing counters, sinks, and appliance exteriors (microwaves, refrigerators).",
               "Damp wiping tables and chairs.",
             ],
           },
@@ -394,11 +421,46 @@ export const SERVICE_CONTENT: Partial<Record<string, ServiceContentEntry>> = {
             ],
           },
           {
-            title: "Flooring & Waste",
+            title: "Flooring",
             features: [
               "Daily vacuuming of all carpeted areas.",
-              "Sweeping and mopping all hard floor surfaces.",
-              "Emptying waste bins and centralizing recyclables.",
+              "Sweeping and mopping all hard floor surfaces (tile, vinyl, wood).",
+            ],
+          },
+          {
+            title: "Waste Management",
+            features: [
+              "Emptying all waste bins and replacing liners.",
+              "Centralizing recyclables for collection.",
+            ],
+          },
+        ],
+      },
+      {
+        title: "Contractual Service Frequency Options",
+        cards: [
+          {
+            title: "Daily Clean",
+            features: [
+              "For high-traffic corporate offices and medical facilities.",
+            ],
+          },
+          {
+            title: "Three Times Weekly",
+            features: [
+              "The standard for mid-sized offices.",
+            ],
+          },
+          {
+            title: "Weekly Clean",
+            features: [
+              "Suitable for smaller offices or those with minimal foot traffic.",
+            ],
+          },
+          {
+            title: "Bi-Weekly Clean",
+            features: [
+              "Focus on restrooms, break rooms, and floor polishing only.",
             ],
           },
         ],
@@ -413,17 +475,18 @@ export const SERVICE_CONTENT: Partial<Record<string, ServiceContentEntry>> = {
         "Our HealthGuard Sanitization service focuses exclusively on eliminating pathogens, bacteria, and viruses from high-touch and high-traffic surfaces. This service utilizes EPA/ECHA-registered, hospital-grade disinfectants and specialized application methods (such as fogging or electrostatic spraying, where applicable) to achieve maximum coverage and microbial kill rates.",
         "This service is ideal for clients requiring advanced hygiene standards, including doctors' offices, gyms, schools, and homes with high vulnerability. We do not just clean — we clinically purify your space for health and peace of mind.",
       ],
+
     },
     highlights: [
       {
-        title: "HealthGuard Sanitization Highlights",
+        title: "Pure Space Disinfection Checklist (Targeted Focus – Including Residential)",
         cards: [
           {
-            title: "High-Touch Surfaces",
+            title: "Pure Space Disinfection Checklist",
             features: [
               "Initial surface cleaning followed by hospital-grade disinfectant application.",
-              "Door handles, switches, remotes, thermostats, railings, phones.",
-              "Restroom fixtures, sinks, counters, toilets, handles, shower/tub areas.",
+              "High-touch surfaces: door handles, switches, remotes, thermostats, railings, phones.",
+              "Restrooms: disinfecting fixtures, sinks, counters, toilets, handles, shower/tub areas.",
             ],
           },
           {
@@ -436,11 +499,24 @@ export const SERVICE_CONTENT: Partial<Record<string, ServiceContentEntry>> = {
           },
           {
             title: "Residential Detail Focus",
-            features: ["Nightstands, drawer pulls, children's hard toys.", "Gaming controllers and appliance buttons/dials."],
+            features: [
+              "Nightstands, drawer pulls, children's hard toys.",
+              "Gaming controllers and appliance buttons/dials.",
+            ],
           },
           {
             title: "Office Detail Focus",
-            features: ["Keyboards, mice, desk surfaces.", "Communal water fountain buttons."],
+            features: [
+              "Keyboards, mice, desk surfaces.",
+              "Communal water fountain buttons.",
+            ],
+          },
+          {
+            title: "Application Method",
+            features: [
+              "Liquid spray / microfiber cloths + electrostatic spray where required.",
+              "Fogging or electrostatic spraying where required.",
+            ],
           },
         ],
       },
@@ -487,6 +563,10 @@ export const SERVICE_CONTENT: Partial<Record<string, ServiceContentEntry>> = {
           {
             title: "Mattress Cleaning",
             features: ["Removes dust mites & allergens.", "Improves sleep hygiene.", "Deep sanitation process."],
+          },
+          {
+            title: "Curtain Cleaning",
+            features: ["No removal needed.", "Fabric-safe steam cleaning.", "Freshens indoor air."],
           },
         ],
       },
@@ -817,7 +897,7 @@ export const SERVICE_CONTENT: Partial<Record<string, ServiceContentEntry>> = {
     introduction: {
       headline: "Vetted Personnel | Complete Discretion | Uncompromised Quality",
       body: [
-        "Specialist cleaning designed for VVIP and VIP clients, government facilities, private residences, and highly sensitive properties. Handled exclusively by security-vetted staff working under strict non-disclosure agreements, we provide complete discretion in restricted-access areas. Using premium, certified eco-friendly products safe for luxury interiors and family spaces, we deliver immaculate results with maximum trust. Contact us for a confidential consultation and quote.",
+        "​Specialist cleaning designed for VVIP and VIP clients, government facilities, private residences, and highly sensitive properties. Handled exclusively by security-vetted staff working under strict non-disclosure agreements, we provide complete discretion in restricted-access areas. Using premium, certified eco-friendly products safe for luxury interiors and family spaces, we deliver immaculate results with maximum trust. Contact us for a confidential consultation and quote.",
       ],
     },
     highlights: [
@@ -868,7 +948,7 @@ export const SERVICE_CONTENT: Partial<Record<string, ServiceContentEntry>> = {
     },
     highlights: [
       {
-        title: "Luxury Yacht Cleaning Highlights",
+        title: "Luxury Yacht Care Checklist (Maximum Precision, Flawless Finish)",
         cards: [
           {
             title: "Exterior & Superstructure",
@@ -903,3 +983,14 @@ export const SERVICE_CONTENT: Partial<Record<string, ServiceContentEntry>> = {
     ],
   },
 };
+
+// Aliases for slug variations between backend catalog and frontend routes
+if (SERVICE_CONTENT["regular-home-cleaning"]) {
+  SERVICE_CONTENT["regular-maintenance-cleaning"] = SERVICE_CONTENT["regular-home-cleaning"];
+}
+if (SERVICE_CONTENT["essential-touch-up-cleaning"]) {
+  SERVICE_CONTENT["quick-touch-up-cleaning"] = SERVICE_CONTENT["essential-touch-up-cleaning"];
+}
+if (SERVICE_CONTENT["post-construction-renovation-cleaning"]) {
+  SERVICE_CONTENT["post-construction-cleaning"] = SERVICE_CONTENT["post-construction-renovation-cleaning"];
+}

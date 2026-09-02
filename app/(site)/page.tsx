@@ -14,7 +14,7 @@ import { buildCountryAlternates, buildSocialMeta } from "@/lib/countries/seo";
 import { getRequestCountry } from "@/lib/countries/server";
 import { getRequestLanguage } from "@/lib/i18n/server";
 import { getCountryPageMeta } from "@/lib/countries/meta-data";
-
+ 
 export const dynamic = "force-dynamic";
 
 export async function generateMetadata(): Promise<Metadata> {

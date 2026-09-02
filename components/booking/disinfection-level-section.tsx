@@ -46,12 +46,13 @@ export function DisinfectionLevelSection({ selectedId, onSelect }: DisinfectionL
   const { symbol } = useCurrency();
 
   return (
-    <section className="overflow-hidden rounded-[12px] border border-[#A98B4B]">
-      <div className="bg-[#121E2D] px-5 py-4 text-center">
-        <h2 className="text-[1.1rem] font-bold text-[#FFFDF4] sm:text-[1.3rem]">Package</h2>
+    <section className="overflow-hidden rounded-[12px]  border border-[#A98B4B]">
+      <div className="bg-[#121E2D] px-5 py-6 text-center">
+        <h2 className="text-[1.1rem] font-bold text-[#A98B4B] md:text-[2.5rem]">Select Your Desired Service Level</h2>
+        <p className="text-white">Determine the frequency and intensity of the cleaning required.</p>
       </div>
 
-      <div className="flex flex-col gap-2.5 bg-[#F8F9FA] p-4 sm:p-5">
+      <div className="flex flex-col gap-2.5 bg-[#121E2D] md:p-8 p-5">
         {DISINFECTION_LEVELS.map((level) => {
           const isChecked = level.id === selectedId;
           return (
@@ -67,20 +68,19 @@ export function DisinfectionLevelSection({ selectedId, onSelect }: DisinfectionL
                 }
               }}
               aria-pressed={isChecked}
-              className={`flex cursor-pointer items-center gap-3 rounded-[10px] bg-white px-4 py-3 text-left transition ${
-                isChecked
-                  ? "border-2 border-[#A98B4B] shadow-[0_0_8px_rgba(169,139,75,0.3)]"
-                  : "border-[1.5px] border-[#A98B4B]"
-              }`}
+              className={`flex cursor-pointer items-center gap-3 rounded-[10px] bg-white px-5 py-3 text-left transition ${isChecked
+                ? "border-2 border-[#A98B4B] shadow-[0_0_8px_rgba(169,139,75,0.3)]"
+                : "border-[1.5px] border-[#A98B4B]"
+                }`}
             >
               <div className="min-w-0 flex-1">
-                <p className="text-sm font-medium text-[#121E2D]">{level.title}</p>
-                <p className="text-xs text-[#555]">
+                <p className="text-sm font-semibold text-[#121E2D]">{level.title}</p>
+                <p className="text-[0.85rem] text-[#555]">
                   {level.description}
                   {level.priceAdder > 0 && (
                     <>
                       {" "}
-                      • <span className="font-semibold text-[#A98B4B]">+{symbol}{level.priceAdder.toFixed(2)}</span>
+                      • <span className="font-bold text-[#A98B4B]">+{symbol}{level.priceAdder.toFixed(2)}</span>
                     </>
                   )}
                 </p>
@@ -89,7 +89,7 @@ export function DisinfectionLevelSection({ selectedId, onSelect }: DisinfectionL
                 checked={isChecked}
                 onCheckedChange={() => onSelect(level)}
                 onClick={(e) => e.stopPropagation()}
-                className="shrink-0 border-[#A98B4B] data-checked:border-[#A98B4B] data-checked:bg-[#A98B4B]"
+                className="shrink-0 border-2 border-[#A98B4B] data-checked:border-[#A98B4B] data-checked:bg-[#A98B4B]"
               />
             </div>
           );

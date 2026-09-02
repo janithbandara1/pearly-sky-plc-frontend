@@ -23,14 +23,15 @@ export interface GeneralSteamSectionProps {
 
 export function GeneralSteamSection({ selectedTitles, onToggle }: GeneralSteamSectionProps) {
   return (
-    <section className="overflow-hidden rounded-[12px] border border-[#A98B4B]">
+    <section className="overflow-hidden rounded-[12px] ">
       <div className="bg-[#121E2D] px-5 py-4 text-center">
-        <h2 className="text-[1.1rem] font-bold text-[#FFFDF4] sm:text-[1.3rem]">
+        <h1 className="text-[#FFFDF4] text-2xl md:text-[2.5rem]">SELECT YOUR ECO-LUXURY SERVICE</h1>
+        <h3 className="text-[1.1rem] uppercase font-bold text-[#A98B4B] sm:text-[1.3rem]">
           General Steam Cleaning Job Types
-        </h2>
+        </h3>
       </div>
 
-      <div className="bg-[#F8F9FA] p-4 sm:p-5">
+      <div className="bg-[#121E2D] p-4 sm:p-5">
         <div className="grid grid-cols-2 gap-2.5 sm:grid-cols-3 lg:grid-cols-5">
           {GENERAL_STEAM_CARDS.map((card) => {
             const isChecked = selectedTitles.has(card.title);
@@ -50,11 +51,10 @@ export function GeneralSteamSection({ selectedTitles, onToggle }: GeneralSteamSe
                 className="flex cursor-pointer flex-col items-center gap-1.5 text-center transition"
               >
                 <div
-                  className={`relative aspect-square w-full overflow-hidden rounded-[10px] ${
-                    isChecked
-                      ? "border-2 border-[#A98B4B] shadow-[0_0_8px_rgba(169,139,75,0.3)]"
-                      : "border-[1.5px] border-[#A98B4B]"
-                  }`}
+                  className={`relative aspect-square w-full overflow-hidden rounded-[10px] ${isChecked
+                    ? "border-2 border-[#A98B4B] shadow-[0_0_8px_rgba(169,139,75,0.3)]"
+                    : "border-[1.5px] border-[#A98B4B]"
+                    }`}
                 >
                   <Image src={card.image} alt={card.title} fill className="object-cover" />
                   <Checkbox
@@ -64,7 +64,7 @@ export function GeneralSteamSection({ selectedTitles, onToggle }: GeneralSteamSe
                     className="absolute top-2 right-2 border-white bg-white/80 shadow-sm data-checked:border-[#A98B4B] data-checked:bg-[#A98B4B]"
                   />
                 </div>
-                <p className="px-0.5 text-xs font-medium text-[#121E2D]">{card.title}</p>
+                <p className="px-0.5 text-xs font-medium text-[#ececec]">{card.title}</p>
               </div>
             );
           })}

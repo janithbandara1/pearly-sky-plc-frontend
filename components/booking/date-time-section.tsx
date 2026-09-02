@@ -87,9 +87,11 @@ export function DateTimeSection({ date, onDateChange, time, onTimeChange }: Date
   }, [viewMonth]);
 
   return (
-    <section className="overflow-hidden rounded-[12px] border border-[#A98B4B]">
-      <div className="bg-[#121E2D] px-5 py-4 text-center">
-        <h2 className="text-[1.1rem] font-bold text-[#FFFDF4] sm:text-[1.3rem]">Date &amp; Time</h2>
+    <section className="overflow-hidden rounded-[12px] border border-[#A98B4B] bg-[rgb(248,249,250)]">
+      <div className="px-5 py-4 text-center">
+        <h2 className="text-[1.4rem] font-bold text-[rgb(18, 30, 45)] sm:text-[1.3rem]">
+          Select Date & Time to Book Your Appointment
+        </h2>
       </div>
 
       <div className="grid grid-cols-1 gap-4 bg-[#F8F9FA] p-4 sm:p-5 md:grid-cols-2 md:gap-5">
@@ -137,15 +139,14 @@ export function DateTimeSection({ date, onDateChange, time, onTimeChange }: Date
                     type="button"
                     disabled={isPast}
                     onClick={() => onDateChange(key)}
-                    className={`mx-auto flex size-8 items-center justify-center rounded-full text-sm font-medium transition ${
-                      isSelected
-                        ? "bg-[#A98B4B] font-bold text-[#FFFDF4]"
-                        : isPast
-                          ? "cursor-not-allowed text-[#999] opacity-35"
-                          : isToday
-                            ? "border-2 border-dashed border-[#A98B4B] text-[#002F6D]"
-                            : "text-[#002F6D] hover:bg-[#D9D9D9] hover:text-[#121E2D]"
-                    }`}
+                    className={`mx-auto flex size-8 items-center justify-center rounded-full text-sm font-medium transition ${isSelected
+                      ? "bg-[#A98B4B] font-bold text-[#FFFDF4]"
+                      : isPast
+                        ? "cursor-not-allowed text-[#999] opacity-35"
+                        : isToday
+                          ? "border-2 border-dashed border-[#A98B4B] text-[#002F6D]"
+                          : "text-[#002F6D] hover:bg-[#D9D9D9] hover:text-[#121E2D]"
+                      }`}
                   >
                     {cellDate.getDate()}
                   </button>
@@ -160,7 +161,7 @@ export function DateTimeSection({ date, onDateChange, time, onTimeChange }: Date
           <div className="bg-[#121E2D] py-3.5 text-center text-sm font-semibold text-white">
             Select Your Time Period
           </div>
-          <div className="grid max-h-64 grid-cols-3 gap-2 overflow-y-auto p-3 sm:grid-cols-4">
+          <div className="grid max-h-64 grid-cols-2 gap-2 overflow-y-auto p-3">
             {TIME_SLOTS.map((slot) => {
               const isSelected = slot === time;
               return (
@@ -168,11 +169,10 @@ export function DateTimeSection({ date, onDateChange, time, onTimeChange }: Date
                   key={slot}
                   type="button"
                   onClick={() => onTimeChange(slot)}
-                  className={`rounded-xl border-2 px-1.5 py-2.5 text-[13px] font-semibold whitespace-nowrap transition ${
-                    isSelected
-                      ? "border-[#121E2D] bg-[#A98B4B] text-[#FFFDF4]"
-                      : "border-[#121E2D] bg-[#FFFDF4] text-[#002F6D] hover:border-[#A98B4B] hover:bg-[#D9D9D9] hover:text-[#121E2D]"
-                  }`}
+                  className={`rounded-xl border-2 px-1.5 py-2.5 text-left pl-4 text-[13px] font-semibold whitespace-nowrap transition ${isSelected
+                    ? "border-[#121E2D] bg-[#A98B4B] text-[#FFFDF4]"
+                    : "border-[#121E2D] bg-[#FFFDF4] text-[#002F6D] hover:border-[#A98B4B] hover:bg-[#D9D9D9] hover:text-[#121E2D]"
+                    }`}
                 >
                   {formatAmPm(slot)}
                 </button>

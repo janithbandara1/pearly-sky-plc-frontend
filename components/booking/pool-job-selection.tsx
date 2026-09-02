@@ -25,9 +25,8 @@ function CheckRow({
 }) {
   return (
     <label
-      className={`flex cursor-pointer items-center justify-between gap-3 rounded-[10px] bg-white px-3 py-2.5 transition ${
-        checked ? "border-2 border-[#A98B4B] shadow-[0_0_8px_rgba(169,139,75,0.3)]" : "border-[1.5px] border-[#A98B4B]"
-      }`}
+      className={`flex cursor-pointer items-center justify-between gap-3 rounded-[10px] bg-white px-3 py-2.5 transition ${checked ? "border-2 border-[#A98B4B] shadow-[0_0_8px_rgba(169,139,75,0.3)]" : "border-[1.5px] border-[#A98B4B]"
+        }`}
     >
       <span className="text-sm font-medium text-[#121E2D]">{option.label}</span>
       <Checkbox
@@ -80,10 +79,12 @@ export function PoolJobSelection({ items, onItemsChange }: PoolJobSelectionProps
   return (
     <section className="overflow-hidden rounded-[12px] border border-[#A98B4B]">
       <div className="bg-[#121E2D] px-5 py-4 text-center">
-        <h2 className="text-[1.1rem] font-bold text-[#FFFDF4] sm:text-[1.3rem]">Pool Details</h2>
+        <h1 className="md:text-[1.4rem] font-bold text-[#FFFDF4] text-[1.3rem]">
+          EXPERT POOL CLEANING SERVICES FOR</h1>
+        <p className="text-white">Selecting Your Job</p>
       </div>
 
-      <div className="flex flex-col gap-4 bg-[#F8F9FA] p-4 sm:p-5">
+      <div className="flex flex-col gap-4 bg-[#121E2D] p-4 sm:p-5">
         <div className="grid grid-cols-1 gap-4 md:grid-cols-[1fr_1.1fr_1fr]">
           <div className="flex flex-col gap-2.5">
             {LEFT_TYPES.map((option) => (
@@ -108,7 +109,7 @@ export function PoolJobSelection({ items, onItemsChange }: PoolJobSelectionProps
                 {items.map((item) => (
                   <div
                     key={item.id}
-                    className="rounded-lg bg-white/90 px-3 py-1.5 text-center text-xs text-[#121E2D]"
+                    className="rounded-lg text-white/90 px-3 py-1.5 text-center text-xs text-[#121E2D]"
                   >
                     {formatQuoteItem(item, POOL_ITEM_OPTIONS)}
                   </div>
