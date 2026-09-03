@@ -18,6 +18,7 @@ export function OurLocationsView() {
   const { translate } = useLanguage();
   const [country, setCountry] = useState("");
   const [city, setCity] = useState("");
+  const [openLocationId, setOpenLocationId] = useState<string | null>(null);
 
   const filtered = useMemo(() => {
     const c = country.trim().toLowerCase();
@@ -62,7 +63,7 @@ export function OurLocationsView() {
         </div>
       </section>
 
-      <section className="mx-auto w-full max-w-6xl px-4 py-16 sm:px-6">
+      <section className=" w-full  px-4 py-16 sm:px-6">
         {!hasResults && (
           <p className="text-center text-muted-foreground">{translate("locationsNoResults")}</p>
         )}
@@ -74,9 +75,16 @@ export function OurLocationsView() {
             return (
               <div key={key} className="mb-12">
                 <h2 className="mb-4 text-xl font-bold tracking-tight">{translate(titleKey)}</h2>
-                <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+                <div className="grid items-start gap-4 sm:grid-cols-2 lg:grid-cols-3">
                   {items.map((loc) => (
-                    <LocationCard key={loc.id} location={loc} />
+                    <LocationCard
+                      key={loc.id}
+                      location={loc}
+                      isOpen={openLocationId === loc.id}
+                      onToggle={() =>
+                        setOpenLocationId((currentId) => (currentId === loc.id ? null : loc.id))
+                      }
+                    />
                   ))}
                 </div>
               </div>
