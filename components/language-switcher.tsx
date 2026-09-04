@@ -2,6 +2,8 @@
 
 import { Globe } from "lucide-react";
 import { SUPPORTED_LANGUAGES, useLanguage } from "@/lib/i18n/language-context";
+import { COUNTRY_LANGUAGES, SUPPORTED_COUNTRIES } from "@/lib/countries/config";
+import { useCountry } from "@/lib/countries/country-context";
 import {
   Select,
   SelectContent,
@@ -11,9 +13,13 @@ import {
 } from "@/components/ui/select";
 import { cn } from "@/lib/utils";
 
-/** Only ever rendered when the current country offers more than one language — today, just France. */
+/** Always rendered; the option list is just the current country's languages — English-only for most, English+French for France. */
 export function LanguageSwitcher({ className }: { className?: string }) {
   const { language, setLanguage } = useLanguage();
+  const { country } = useCountry();
+
+  const availableLanguages = COUNTRY_LANGUAGES[country ?? SUPPORTED_COUNTRIES[0]];
+  const languageOptions = SUPPORTED_LANGUAGES.filter(({ code }) => availableLanguages.includes(code));
 
   return (
     <Select value={language} onValueChange={(value) => setLanguage(value as typeof language)}>
@@ -27,7 +33,7 @@ export function LanguageSwitcher({ className }: { className?: string }) {
         <SelectValue />
       </SelectTrigger>
       <SelectContent>
-        {SUPPORTED_LANGUAGES.map(({ code, label }) => (
+        {languageOptions.map(({ code, label }) => (
           <SelectItem key={code} value={code}>
             {label}
           </SelectItem>

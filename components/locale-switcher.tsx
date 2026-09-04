@@ -12,8 +12,9 @@ import { cn } from "@/lib/utils";
  * Plain-markup country + language dropdown for the site header/customer
  * header — no shadcn/ui here per user preference (see the site-footer's
  * shadcn-based CountrySwitcher/LanguageSwitcher for elsewhere). The
- * Language section only appears for countries that offer more than one —
- * today that's just France (see lib/countries/config.ts's COUNTRY_LANGUAGES).
+ * Language section always shows, listing whichever languages the current
+ * country offers — just English for most, English+French for France (see
+ * lib/countries/config.ts's COUNTRY_LANGUAGES).
  */
 export function LocaleSwitcher({ className }: { className?: string }) {
   const { country, setCountry } = useCountry();
@@ -50,14 +51,14 @@ export function LocaleSwitcher({ className }: { className?: string }) {
         type="button"
         onClick={() => setOpen((prev) => !prev)}
         aria-expanded={open}
-        aria-label={languageOptions.length > 1 ? "Select language and country" : "Select country"}
+        aria-label="Select language and country"
         className={cn(
           "flex items-center gap-1.5 rounded-lg p-2 text-sm font-medium text-brand-navy-foreground outline-none transition-colors hover:bg-brand-gold/10 hover:text-brand-gold",
           open && "bg-brand-gold/10 text-brand-gold",
         )}
       >
         <CurrentFlag className="shrink-0 rounded-[2px] object-cover" style={{ width: 20, height: 15 }} />
-        {languageOptions.length > 1 && <span>{language.toUpperCase()}</span>}
+        <span>{language.toUpperCase()}</span>
         <ChevronDown className={cn("size-3 transition-transform", open && "rotate-180")} />
       </button>
 
@@ -86,30 +87,26 @@ export function LocaleSwitcher({ className }: { className?: string }) {
               );
             })}
 
-            {languageOptions.length > 1 && (
-              <>
-                <div className="my-1 border-t" />
+            <div className="my-1 border-t" />
 
-                <p className="px-2 pt-1.5 pb-1 text-xs font-semibold tracking-wide text-muted-foreground uppercase">
-                  Language
-                </p>
-                {languageOptions.map(({ code, label }) => (
-                  <button
-                    key={code}
-                    type="button"
-                    onClick={() => {
-                      setOpen(false);
-                      setLanguage(code);
-                    }}
-                    className="flex w-full items-center gap-2.5 rounded-lg p-2 text-sm hover:bg-muted"
-                  >
-                    <span className="w-6 shrink-0 text-xs font-semibold">{code.toUpperCase()}</span>
-                    <span>{label}</span>
-                    {code === language && <Check className="ml-auto size-4" />}
-                  </button>
-                ))}
-              </>
-            )}
+            <p className="px-2 pt-1.5 pb-1 text-xs font-semibold tracking-wide text-muted-foreground uppercase">
+              Language
+            </p>
+            {languageOptions.map(({ code, label }) => (
+              <button
+                key={code}
+                type="button"
+                onClick={() => {
+                  setOpen(false);
+                  setLanguage(code);
+                }}
+                className="flex w-full items-center gap-2.5 rounded-lg p-2 text-sm hover:bg-muted"
+              >
+                <span className="w-6 shrink-0 text-xs font-semibold">{code.toUpperCase()}</span>
+                <span>{label}</span>
+                {code === language && <Check className="ml-auto size-4" />}
+              </button>
+            ))}
           </div>
         </div>
       )}
