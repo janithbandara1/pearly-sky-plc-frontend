@@ -1,12 +1,14 @@
 "use client";
 
-import { useMemo, useState, useRef } from "react";
+import { useMemo, useState } from "react";
 import { useRouter } from "next/navigation";
-import { Calendar, Clock, Minus, Plus, UploadCloud, X, Check } from "lucide-react";
+import { Calendar, Clock, Minus, Plus, X } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
+import { GENDER_OPTIONS, LANGUAGE_OPTIONS } from "@/components/booking/quotation-preferences-section";
 import { saveBookingDraft, loadBookingDraft, CareProfileDraft } from "@/lib/booking-draft";
 
 const TIME_START = "05:30";
@@ -156,8 +158,12 @@ export function CareScheduleSection({
     return Array.from({ length: initialCount }, () => createEmptyProfile());
   });
 
+  // Preferences
+  const [gender, setGender] = useState(currentDraft?.genderPreference || "no-preference");
+  const [language, setLanguage] = useState(currentDraft?.languagePreference || "no-preference");
+  const [requirements, setRequirements] = useState(currentDraft?.specialRequirements || "");
+
   const [formError, setFormError] = useState<string | null>(null);
-  const fileInputRefs = useRef<{ [key: number]: HTMLInputElement | null }>({});
 
   function handlePersonCountChange(delta: number) {
     const next = Math.max(1, Math.min(10, personCount + delta));
@@ -206,27 +212,6 @@ export function CareScheduleSection({
     return list;
   }, [viewMonth]);
 
-  function handleFileUpload(index: number, e: React.ChangeEvent<HTMLInputElement>) {
-    const file = e.target.files?.[0];
-    if (!file) return;
-
-    // Validate size (5MB max)
-    if (file.size > 5 * 1024 * 1024) {
-      setFormError("File size exceeds 5MB limit. Please upload a smaller file.");
-      return;
-    }
-
-    setFormError(null);
-    const reader = new FileReader();
-    reader.onload = () => {
-      updateProfile(index, {
-        documentName: file.name,
-        documentData: typeof reader.result === "string" ? reader.result : "",
-      });
-    };
-    reader.readAsDataURL(file);
-  }
-
   function handleContinue() {
     setFormError(null);
 
@@ -264,10 +249,6 @@ export function CareScheduleSection({
         setFormError(`Please enter ${prefix} age.`);
         return;
       }
-      if (!p.documentName) {
-        setFormError(`Please upload an image or document${labelSuffix} (Max size: 5MB).`);
-        return;
-      }
     }
 
     const effectiveHours =
@@ -295,8 +276,9 @@ export function CareScheduleSection({
       items: [],
       supplySource: "company",
       addOnsTotal: 0,
-      genderPreference: "no-preference",
-      languagePreference: "english",
+      genderPreference: gender,
+      languagePreference: language,
+      specialRequirements: requirements.trim() || undefined,
       scheduleMode,
       durationMode,
       durationHours: effectiveHours,
@@ -306,7 +288,7 @@ export function CareScheduleSection({
       careProfiles: formattedProfiles,
     });
 
-    router.push(`/services/${serviceSlug}/form-submit`);
+    router.push(`/services/${serviceSlug}/checkout`);
   }
 
   return (
@@ -337,39 +319,37 @@ export function CareScheduleSection({
           <div className="space-y-2">
             <Label className="text-sm font-medium text-brand-cream/90">Service Duration</Label>
             <div className="grid grid-cols-3 gap-2 bg-white p-1 rounded-md">
-              {/* Hours counter button */}
+              {/* Hours counter */}
               <div
-                className={`flex h-11 items-center justify-between rounded-lg border px-2.5 transition ${durationMode === "hours"
+                className={`flex h-11 items-center justify-between rounded-lg border px-2 transition ${durationMode === "hours"
                   ? "border-[#A98B4B] bg-[#A98B4B]/20 text-[#555555]"
                   : "border-white/20 bg-[#FFFDF4] text-brand-navy"
                   }`}
               >
-                <button
-                  type="button"
-                  onClick={() => {
-                    setDurationMode("hours");
-                    setDurationHours((h) => Math.max(1, h - 1));
-                  }}
-                  className="flex size-6 items-center justify-center rounded-full bg-[#A98B4B] text-white hover:brightness-110"
-                >
-                  <Minus className="size-3" />
-                </button>
-                <span
-                  onClick={() => setDurationMode("hours")}
-                  className="cursor-pointer text-xs font-bold sm:text-sm"
-                >
-                  Hours - {durationHours} +
-                </span>
-                <button
-                  type="button"
-                  onClick={() => {
-                    setDurationMode("hours");
-                    setDurationHours((h) => Math.min(12, h + 1));
-                  }}
-                  className="flex size-6 items-center justify-center rounded-full bg-[#A98B4B] text-white hover:brightness-110"
-                >
-                  <Plus className="size-3" />
-                </button>
+                <span className="text-xs font-semibold sm:text-sm">Hours</span>
+                <div className="flex items-center gap-1">
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setDurationMode("hours");
+                      setDurationHours((h) => Math.max(1, h - 1));
+                    }}
+                    className="flex size-6 items-center justify-center rounded-full bg-[#A98B4B] text-white hover:brightness-110"
+                  >
+                    <Minus className="size-3" />
+                  </button>
+                  <span className="w-4 text-center text-xs font-bold sm:text-sm">{durationHours}</span>
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setDurationMode("hours");
+                      setDurationHours((h) => Math.min(12, h + 1));
+                    }}
+                    className="flex size-6 items-center justify-center rounded-full bg-[#A98B4B] text-white hover:brightness-110"
+                  >
+                    <Plus className="size-3" />
+                  </button>
+                </div>
               </div>
 
               {/* Half Day */}
@@ -546,42 +526,6 @@ export function CareScheduleSection({
                   />
                 </div>
 
-                {/* Upload Image / Document */}
-                <div className="space-y-2">
-                  <Label className="text-sm font-medium text-brand-cream/90">
-                    Upload Image / Document *
-                  </Label>
-                  <input
-                    type="file"
-                    ref={(el) => {
-                      fileInputRefs.current[index] = el;
-                    }}
-                    onChange={(e) => handleFileUpload(index, e)}
-                    accept="image/*,.pdf,.doc,.docx"
-                    className="hidden"
-                  />
-                  <div
-                    onClick={() => fileInputRefs.current[index]?.click()}
-                    className="flex h-11 cursor-pointer items-center justify-between rounded-lg border border-dashed border-[#A98B4B] bg-[#FFFDF4] px-4 transition hover:bg-[#FFFDF4]/90"
-                  >
-                    <div className="flex items-center gap-2 overflow-hidden text-brand-navy">
-                      <UploadCloud className="size-5 shrink-0 text-[#A98B4B]" />
-                      <span className="truncate text-xs font-medium sm:text-sm">
-                        {profile.documentName || "Upload Image or Doc"}
-                      </span>
-                    </div>
-                    <span className="shrink-0 text-[11px] text-muted-foreground">
-                      Max file size: 5MB
-                    </span>
-                  </div>
-                  {profile.documentName && (
-                    <div className="flex items-center gap-1.5 text-xs text-emerald-400">
-                      <Check className="size-3.5" />
-                      <span>Uploaded: {profile.documentName}</span>
-                    </div>
-                  )}
-                </div>
-
                 {/* Behavioral Notes (Optional) */}
                 <div className="space-y-2">
                   <Label className="text-sm font-medium text-brand-cream/90">
@@ -600,11 +544,60 @@ export function CareScheduleSection({
         </div>
       </section>
 
+      {/* 3. PREFERENCES CARD */}
+      <section className="overflow-hidden rounded-2xl border border-[#A98B4B]/30 bg-[#121E2D] p-6 shadow-xl sm:p-8">
+        <h2 className="mb-6 text-center text-xl font-bold text-white sm:text-2xl">
+          Preferences
+        </h2>
+
+        <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
+          <div className="space-y-2">
+            <Label className="text-sm font-medium text-brand-cream/90">Gender Preference</Label>
+            <Select value={gender} onValueChange={setGender}>
+              <SelectTrigger className="h-11 w-full rounded-lg border-0 bg-[#FFFDF4] text-brand-navy shadow-inner focus:ring-2 focus:ring-[#A98B4B]">
+                <SelectValue placeholder="No preference" />
+              </SelectTrigger>
+              <SelectContent>
+                {GENDER_OPTIONS.map((opt) => (
+                  <SelectItem key={opt.value} value={opt.value}>
+                    {opt.label}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+          </div>
+
+          <div className="space-y-2">
+            <Label className="text-sm font-medium text-brand-cream/90">Language Preference</Label>
+            <Select value={language} onValueChange={setLanguage}>
+              <SelectTrigger className="h-11 w-full rounded-lg border-0 bg-[#FFFDF4] text-brand-navy shadow-inner focus:ring-2 focus:ring-[#A98B4B]">
+                <SelectValue placeholder="No preference" />
+              </SelectTrigger>
+              <SelectContent>
+                {LANGUAGE_OPTIONS.map((opt) => (
+                  <SelectItem key={opt.value} value={opt.value}>
+                    {opt.label}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+          </div>
+
+          <div className="space-y-2 md:col-span-2">
+            <Label className="text-sm font-medium text-brand-cream/90">Special Requirements</Label>
+            <Textarea
+              rows={4}
+              value={requirements}
+              onChange={(e) => setRequirements(e.target.value)}
+              className="rounded-lg border-0 bg-[#FFFDF4] text-brand-navy placeholder:text-muted-foreground focus-visible:ring-2 focus-visible:ring-[#A98B4B]"
+            />
+          </div>
+        </div>
+      </section>
+
       {/* Error message */}
       {formError && (
-        <div className="rounded-md bg-red-500/10 p-3 text-center text-sm font-medium text-red-600 border border-red-500/20">
-          {formError}
-        </div>
+        <p className="text-center text-sm font-semibold text-red-600">{formError}</p>
       )}
 
       {/* 3. BOTTOM BUTTONS */}
@@ -622,7 +615,7 @@ export function CareScheduleSection({
           onClick={handleContinue}
           className="h-11 min-w-[140px] rounded-md  cursor-pointer bg-[#A98B4B] text-sm font-bold text-white shadow-md hover:bg-[#A98B4B]"
         >
-          Continue
+          Request Quotation
         </Button>
       </div>
 

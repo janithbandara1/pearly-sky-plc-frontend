@@ -514,7 +514,7 @@ export function ServiceBookingView({ serviceSlug }: { serviceSlug: string }) {
         subtitle={service.description ?? undefined}
         servicePrices={service.prices}
         serviceId={service.id}
-        hidePriceSelector={isPoolCleaning}
+        hidePriceSelector={isPoolCleaning || isCareService}
       />
 
       <div className="mx-auto flex w-full  max-w-[1250px]  flex-col gap-6 px-6 md:px-2">
@@ -526,7 +526,7 @@ export function ServiceBookingView({ serviceSlug }: { serviceSlug: string }) {
           Back
         </Link> */}
 
-        {(!isFlowService || isPoolCleaning) && serviceContent?.introduction && (
+        {(!isFlowService || isPoolCleaning || isCareService) && serviceContent?.introduction && (
           <ServiceIntroduction
             {...serviceContent.introduction}
             bgImage={

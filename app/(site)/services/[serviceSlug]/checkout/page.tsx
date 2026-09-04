@@ -543,7 +543,7 @@ export default function CheckoutPage({
         subtitle={`${draft.date} at ${draft.time}`}
         servicePrices={service.prices}
         serviceId={service.id}
-        hidePriceSelector={isPoolService}
+        hidePriceSelector={isPoolService || isCareService}
       />
 
       {isFlowService ? (
@@ -742,28 +742,28 @@ export default function CheckoutPage({
                     </div>
                     {isCareService && (
                       <>
-                        <div className="flex justify-between gap-2 border-b border-white/5 py-1 text-brand-cream/70">
-                          <span className="font-medium">SCHEDULE MODE</span>
+                        <div className="flex justify-between gap-2 py-1 text-brand-cream/70">
+                          <span className="font-medium">Schedule Mode</span>
                           <span className="font-normal text-white">{draft.scheduleMode || "In-home care"}</span>
                         </div>
-                        <div className="flex justify-between gap-2 border-b border-white/5 py-1 text-brand-cream/70">
-                          <span className="font-medium">SERVICE DURATION</span>
+                        <div className="flex justify-between gap-2 py-1 text-brand-cream/70">
+                          <span className="font-medium">Service Duration</span>
                           <span className="font-normal text-white">{durationText}</span>
                         </div>
-                        <div className="flex justify-between gap-2 border-b border-white/5 py-1 text-brand-cream/70">
-                          <span className="font-medium">COUNT OF {personLabel.toUpperCase()}</span>
+                        <div className="flex justify-between gap-2 py-1 text-brand-cream/70">
+                          <span className="font-medium">Count of {personLabel}</span>
                           <span className="font-normal text-white">{draft.personCount || 1}</span>
                         </div>
-                        <div className="flex justify-between gap-2 border-b border-white/5 py-1 text-brand-cream/70">
-                          <span className="font-medium">REQUEST CARE PROFESSIONALS</span>
+                        <div className="flex justify-between gap-2 py-1 text-brand-cream/70">
+                          <span className="font-medium">Request Care Professionals</span>
                           <span className="font-normal text-white">{draft.caregiverCount || 1}</span>
                         </div>
-                        <div className="flex justify-between gap-2 border-b border-white/5 py-1 text-brand-cream/70">
-                          <span className="font-medium">SELECT DATE</span>
+                        <div className="flex justify-between gap-2 py-1 text-brand-cream/70">
+                          <span className="font-medium">Select Date</span>
                           <span className="font-normal text-white">{draft.date}</span>
                         </div>
-                        <div className="flex justify-between gap-2 border-b border-white/5 py-1 text-brand-cream/70">
-                          <span className="font-medium">SELECT START & END TIME</span>
+                        <div className="flex justify-between gap-2 py-1 text-brand-cream/70">
+                          <span className="font-medium">Select Start &amp; End Time</span>
                           <span className="font-normal text-white">{startEndTimeFormatted}</span>
                         </div>
                       </>
@@ -932,7 +932,8 @@ export default function CheckoutPage({
                     </div>
                   </>
                 ) : (
-                  /* CHILD'S / ELDER'S PROFILE */
+                  <>
+                  {/* CHILD'S / ELDER'S PROFILE */}
                   <div className="border-t border-brand-gold/20 pt-4">
                     <p className="mb-2 text-xs font-bold uppercase tracking-wider text-brand-gold/80">
                       {personLabel.toUpperCase()}&rsquo;S PROFILE
@@ -957,8 +958,7 @@ export default function CheckoutPage({
                             )}
                           </div>
                           <p className="mt-1 text-brand-cream/80 text-[11px] sm:text-xs leading-relaxed">
-                            Special Needs: {p.specialNeeds || "None"} &nbsp;|&nbsp; Gender:{" "}
-                            {p.gender || "—"} &nbsp;|&nbsp; Age: {p.age || "—"}
+                            Special Needs: {p.specialNeeds || "None"}, Gender: {p.gender || "—"}, Age: {p.age || "—"}
                           </p>
                           {p.documentName && (
                             <p className="mt-1 truncate text-[11px] text-emerald-400">
@@ -969,6 +969,34 @@ export default function CheckoutPage({
                       ))}
                     </div>
                   </div>
+
+                  {/* PREFERENCES */}
+                  <div className="border-t border-brand-gold/20 pt-4">
+                    <p className="mb-2 text-xs font-bold uppercase tracking-wider text-brand-gold/80">
+                      Preferences
+                    </p>
+                    <div className="space-y-2 text-xs sm:text-sm">
+                      <div className="flex justify-between gap-2 py-1 text-brand-cream/70">
+                        <span className="font-medium">Gender Preference</span>
+                        <span className="font-normal text-white">
+                          {GENDER_OPTIONS.find((o) => o.value === draft.genderPreference)?.label ?? "No Preference"}
+                        </span>
+                      </div>
+                      <div className="flex justify-between gap-2 py-1 text-brand-cream/70">
+                        <span className="font-medium">Language Preference</span>
+                        <span className="font-normal text-white">
+                          {LANGUAGE_OPTIONS.find((o) => o.value === draft.languagePreference)?.label ?? "No Preference"}
+                        </span>
+                      </div>
+                      {draft.specialRequirements && (
+                        <div className="flex flex-col gap-1 py-1 text-brand-cream/70">
+                          <span className="font-medium">Special Requirements</span>
+                          <span className="font-normal text-white">{draft.specialRequirements}</span>
+                        </div>
+                      )}
+                    </div>
+                  </div>
+                  </>
                 )}
 
                 {/* TERMS AGREEMENT */}
