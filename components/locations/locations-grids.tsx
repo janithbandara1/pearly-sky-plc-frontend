@@ -43,7 +43,7 @@ export function LocationCard({ location, isOpen, onToggle }: LocationCardProps) 
           </span>
         </div>
 
-        <div className="flex h-5 w-5 hidden items-center justify-center bg-[#0F1722] text-gray-300">
+        <div className="md:flex h-5 w-5 hidden items-center justify-center bg-[#0F1722] text-gray-300">
           {isOpen ? <Minus className="h-4.5 w-4.5 border border-[#a98b4b]" /> : <Plus className="h-4.5 w-4.5 border border-[#a98b4b]" />}
         </div>
       </button>
