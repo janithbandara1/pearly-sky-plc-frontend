@@ -4,6 +4,7 @@ import { Poppins } from "next/font/google";
 import { useRouter } from "next/navigation";
 import { use, useCallback, useEffect, useState } from "react";
 import { BookingDetailsCard } from "@/components/booking/booking-details-card";
+import { Card, CardContent } from "@/components/ui/card";
 import { GENDER_OPTIONS, LANGUAGE_OPTIONS } from "@/components/booking/quotation-preferences-section";
 import { GENERAL_STEAM_CARDS } from "@/components/booking/steam/general-steam-section";
 import { INDUSTRIAL_STEAM_CATEGORIES } from "@/components/booking/steam/industrial-commercial-steam-section";
@@ -28,13 +29,13 @@ import {
 } from "@/lib/catalog-api";
 import {
   AddressPayload,
-  CustomerAddress,
   CustomerProfile,
   createMyAddress,
   getMyProfile,
-  listMyAddresses,
 } from "@/lib/customers-api";
 import { useCountry } from "@/lib/countries/country-context";
+import { SUPPORTED_COUNTRIES } from "@/lib/countries/config";
+import { COUNTRY_FLAGS, FALLBACK_COUNTRY_NAMES } from "@/components/country-switcher";
 import { createQuotation } from "@/lib/quotation-api";
 import {
   CARPET_ITEM_OPTIONS,
@@ -66,14 +67,12 @@ const emptyContactForm: ContactForm = {
   contact: "",
 };
 
-const COUNTRY_OPTIONS = [
-  { code: "FR", name: "France", dialCode: "+33", flag: "🇫🇷" },
-  { code: "GB", name: "United Kingdom", dialCode: "+44", flag: "🇬🇧" },
-  { code: "LK", name: "Sri Lanka", dialCode: "+94", flag: "🇱🇰" },
-  { code: "US", name: "United States", dialCode: "+1", flag: "🇺🇸" },
-  { code: "DE", name: "Germany", dialCode: "+49", flag: "🇩🇪" },
-  { code: "AE", name: "United Arab Emirates", dialCode: "+971", flag: "🇦🇪" },
-];
+/** Same country list (and country-flag-icons flags) as the navbar's CountrySwitcher/LocaleSwitcher. */
+const COUNTRY_OPTIONS = SUPPORTED_COUNTRIES.map((code) => ({
+  code: code.toUpperCase(),
+  name: FALLBACK_COUNTRY_NAMES[code],
+  Flag: COUNTRY_FLAGS[code],
+}));
 
 function calculateEndFormatted(startTime: string, hours: number): string {
   if (!startTime) return "—";
@@ -124,10 +123,7 @@ export default function CheckoutPage({
   const [profile, setProfile] = useState<CustomerProfile | null>(null);
   const [contactForm, setContactForm] = useState<ContactForm>(emptyContactForm);
   const [phonePrefix, setPhonePrefix] = useState("+33");
-  const [addresses, setAddresses] = useState<CustomerAddress[]>([]);
-  const [selectedAddressId, setSelectedAddressId] = useState<number | null>(null);
   const [addressForm, setAddressForm] = useState<AddressPayload>(emptyAddressForm);
-  const [addingAddress, setAddingAddress] = useState(false);
 
   // Care Checkout Location & Logistics
   const [selectedCountry, setSelectedCountry] = useState("France");
@@ -136,8 +132,8 @@ export default function CheckoutPage({
   const [province, setProvince] = useState("");
   const [streetAddress, setStreetAddress] = useState("");
   const [unitApt, setUnitApt] = useState("");
-  const [howGetIn, setHowGetIn] = useState("Someone will be home");
-  const [howHeard, setHowHeard] = useState("Google Search");
+  const [howGetIn, setHowGetIn] = useState("");
+  const [howHeard, setHowHeard] = useState("");
 
   const [error, setError] = useState<string | null>(null);
   const [submitting, setSubmitting] = useState(false);
@@ -212,10 +208,7 @@ export default function CheckoutPage({
 
   const loadCustomerData = useCallback(async () => {
     if (!accessToken) return;
-    const [profileData, addressData] = await Promise.all([
-      getMyProfile(accessToken),
-      listMyAddresses(accessToken),
-    ]);
+    const profileData = await getMyProfile(accessToken);
     setProfile(profileData);
     setContactForm({
       firstName: profileData.firstName,
@@ -223,36 +216,11 @@ export default function CheckoutPage({
       email: profileData.email,
       contact: profileData.contact ?? "",
     });
-    setAddresses(addressData);
-    setSelectedAddressId((prev) => prev ?? addressData[0]?.id ?? null);
-    if (addressData[0]) {
-      setStreetAddress(addressData[0].streetAddress);
-      setCity(addressData[0].city);
-      setPostalCode(addressData[0].postalCode ?? "");
-      if (addressData[0].country) setSelectedCountry(addressData[0].country);
-    }
   }, [accessToken]);
 
   useEffect(() => {
     loadCustomerData().catch(() => undefined);
   }, [loadCustomerData]);
-
-  async function handleAddAddress(event: React.FormEvent<HTMLFormElement>) {
-    event.preventDefault();
-    if (!accessToken) return;
-    setError(null);
-    setAddingAddress(true);
-    try {
-      const created = await createMyAddress(accessToken, addressForm);
-      setAddresses((prev) => [...prev, created]);
-      setSelectedAddressId(created.id);
-      setAddressForm(emptyAddressForm);
-    } catch (err) {
-      setError(err instanceof ApiError ? err.message : "Failed to add address.");
-    } finally {
-      setAddingAddress(false);
-    }
-  }
 
   // Handle Care Service Quotation Request (Image 4 Flow)
   async function handleRequestQuotation() {
@@ -423,15 +391,23 @@ export default function CheckoutPage({
     }
     setError(null);
     setSubmitting(true);
+    const logisticsNote = [
+      howGetIn ? `Entry: ${howGetIn}` : null,
+      howHeard ? `Marketing: ${howHeard}` : null,
+    ]
+      .filter(Boolean)
+      .join(" | ");
+    const note = [draft.note, logisticsNote].filter(Boolean).join(" | ") || undefined;
     try {
       if (isAuthenticated && accessToken) {
+        const address = await createMyAddress(accessToken, addressForm);
         const booking = await createBooking(accessToken, {
           serviceId: draft.serviceId,
           propertySizeSqm: draft.propertySizeSqm,
           date: draft.date,
           time: draft.time,
-          addressId: selectedAddressId ?? undefined,
-          note: draft.note,
+          addressId: address.id,
+          note,
           country: currentCountry ?? undefined,
           addOns: draft.packages.map((p) => ({ name: p.name, price: p.price ?? undefined })),
           equipmentItems: draft.items.map((i) => ({ name: i.name, price: i.price ?? undefined })),
@@ -465,7 +441,7 @@ export default function CheckoutPage({
           propertySizeSqm: draft.propertySizeSqm,
           date: draft.date,
           time: draft.time,
-          note: draft.note,
+          note,
           addOns: draft.packages.map((p) => ({ name: p.name, price: p.price ?? undefined })),
           equipmentItems: draft.items.map((i) => ({ name: i.name, price: i.price ?? undefined })),
           supplySource: draft.supplySource || undefined,
@@ -617,7 +593,7 @@ export default function CheckoutPage({
                   Location of the Residence
                 </p>
                 <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-                  <div className="space-y-1.5">
+                  <div className="space-y-1.5 sm:col-span-2">
                     <Label className="text-xs font-medium text-brand-cream/90">Select Country *</Label>
                     <Select value={selectedCountry} onValueChange={setSelectedCountry}>
                       <SelectTrigger className="h-15 w-full rounded-lg border-0 bg-[#FFFDF4] text-brand-navy shadow-inner focus:ring-2 focus:ring-[#A98B4B]">
@@ -626,7 +602,10 @@ export default function CheckoutPage({
                       <SelectContent>
                         {COUNTRY_OPTIONS.map((c) => (
                           <SelectItem key={c.code} value={c.name}>
-                            {c.flag} {c.name}
+                            <span className="flex items-center gap-2">
+                              <c.Flag className="h-3.5 w-5 shrink-0 object-cover" />
+                              {c.name}
+                            </span>
                           </SelectItem>
                         ))}
                       </SelectContent>
@@ -694,14 +673,14 @@ export default function CheckoutPage({
                   <div className="space-y-1.5 w-full">
                     <Label className="text-xs font-medium text-brand-cream/90">How will we get in? *</Label>
                     <Select value={howGetIn} onValueChange={setHowGetIn}>
-                      <SelectTrigger className="h-11 rounded-lg border-0 bg-[#FFFDF4] text-brand-navy shadow-inner focus:ring-2 focus:ring-[#A98B4B]">
+                      <SelectTrigger className="h-11 w-full rounded-lg border-0 bg-[#FFFDF4] text-brand-navy shadow-inner focus:ring-2 focus:ring-[#A98B4B]">
                         <SelectValue placeholder="How will we get in?" />
                       </SelectTrigger>
                       <SelectContent className="w-full">
-                        <SelectItem value="Someone will be home">Someone will be home</SelectItem>
-                        <SelectItem value="Doorman / Concierge">Doorman / Concierge</SelectItem>
-                        <SelectItem value="Key Under Mat / Lockbox">Key Under Mat / Lockbox</SelectItem>
-                        <SelectItem value="Access Code / Keypad">Access Code / Keypad</SelectItem>
+                        <SelectItem value="I'll be at home">I&apos;ll be at home</SelectItem>
+                        <SelectItem value="The key is with doorman">The key is with doorman</SelectItem>
+                        <SelectItem value="Lockbox on premises">Lockbox on premises</SelectItem>
+                        <SelectItem value="Call to organize">Call to organize</SelectItem>
                         <SelectItem value="Other">Other</SelectItem>
                       </SelectContent>
                     </Select>
@@ -712,16 +691,16 @@ export default function CheckoutPage({
                       How did you hear about us? *
                     </Label>
                     <Select value={howHeard} onValueChange={setHowHeard} >
-                      <SelectTrigger className="h-11 rounded-lg border-0 bg-[#FFFDF4] text-brand-navy shadow-inner focus:ring-2 focus:ring-[#A98B4B]">
+                      <SelectTrigger className="h-11 w-full rounded-lg border-0 bg-[#FFFDF4] text-brand-navy shadow-inner focus:ring-2 focus:ring-[#A98B4B]">
                         <SelectValue placeholder="How did you hear about us?" />
                       </SelectTrigger>
                       <SelectContent className="w-full">
-                        <SelectItem value="Google Search">Google Search</SelectItem>
-                        <SelectItem value="Social Media">Social Media</SelectItem>
-                        <SelectItem value="Friend / Family Recommendation">
-                          Friend / Family Recommendation
-                        </SelectItem>
-                        <SelectItem value="Advertisement">Advertisement</SelectItem>
+                        <SelectItem value="Google">Google</SelectItem>
+                        <SelectItem value="Yelp">Yelp</SelectItem>
+                        <SelectItem value="Instagram">Instagram</SelectItem>
+                        <SelectItem value="Facebook">Facebook</SelectItem>
+                        <SelectItem value="Friend/Referred">Friend/Referred</SelectItem>
+                        <SelectItem value="Real Estate Professional">Real Estate Professional</SelectItem>
                         <SelectItem value="Other">Other</SelectItem>
                       </SelectContent>
                     </Select>
@@ -933,164 +912,80 @@ export default function CheckoutPage({
           <div className="flex flex-col gap-6">
             {error && <p className="text-sm text-destructive">{error}</p>}
 
-            <section className="overflow-hidden rounded-[12px] border border-brand-gold-dark">
-              <div className="bg-brand-navy px-5 py-4 text-center">
-                <h2 className="text-[1.1rem] font-bold text-brand-cream sm:text-[1.3rem]">
-                  Contact Information
-                </h2>
-              </div>
-              <div className="grid grid-cols-1 gap-4 bg-[#F8F9FA] p-4 sm:grid-cols-2 sm:p-5">
-                <div className="space-y-1.5">
-                  <Label htmlFor="contact-first-name">First Name *</Label>
-                  <Input
-                    id="contact-first-name"
-                    required
-                    value={contactForm.firstName}
-                    onChange={(e) =>
-                      setContactForm((f) => ({ ...f, firstName: e.target.value }))
-                    }
-                    className="bg-brand-cream"
-                  />
+            <Card className="bg-brand-navy text-brand-navy-foreground">
+              <CardContent className="flex flex-col gap-0 p-0">
+                <div className="px-4 py-3">
+                  <h3 className="text-base font-bold text-brand-gold">Service Checkout Details</h3>
                 </div>
-                <div className="space-y-1.5">
-                  <Label htmlFor="contact-last-name">Last Name</Label>
-                  <Input
-                    id="contact-last-name"
-                    value={contactForm.lastName}
-                    onChange={(e) =>
-                      setContactForm((f) => ({ ...f, lastName: e.target.value }))
-                    }
-                    className="bg-brand-cream"
-                  />
-                </div>
-                <div className="space-y-1.5">
-                  <Label htmlFor="contact-email">Email *</Label>
-                  <Input
-                    id="contact-email"
-                    type="email"
-                    required
-                    value={contactForm.email}
-                    onChange={(e) =>
-                      setContactForm((f) => ({ ...f, email: e.target.value }))
-                    }
-                    className="bg-brand-cream"
-                  />
-                </div>
-                <div className="space-y-1.5">
-                  <Label htmlFor="contact-phone">Phone *</Label>
-                  <Input
-                    id="contact-phone"
-                    type="tel"
-                    required
-                    value={contactForm.contact}
-                    onChange={(e) =>
-                      setContactForm((f) => ({ ...f, contact: e.target.value }))
-                    }
-                    className="bg-brand-cream"
-                  />
-                </div>
-              </div>
-            </section>
 
-            <section className="overflow-hidden rounded-[12px] border border-brand-gold-dark">
-              <div className="bg-brand-navy px-5 py-4 text-center">
-                <h2 className="text-[1.1rem] font-bold text-brand-cream sm:text-[1.3rem]">
-                  Address
-                </h2>
-              </div>
-              <div className="flex flex-col gap-4 bg-[#F8F9FA] p-4 sm:p-5">
-                {isAuthenticated ? (
-                  <>
-                    <p className="text-sm font-medium">Select an address</p>
-                    {addresses.length === 0 && (
-                      <p className="text-sm text-muted-foreground">
-                        No saved addresses yet — add one below.
-                      </p>
-                    )}
-                    {addresses.map((address) => (
-                      <button
-                        key={address.id}
-                        type="button"
-                        onClick={() => setSelectedAddressId(address.id)}
-                        className={`rounded-[10px] border-[1.5px] bg-brand-cream p-3 text-left text-sm transition-colors ${selectedAddressId === address.id
-                          ? "border-2 border-brand-gold shadow-[0_0_8px_rgba(169,139,75,0.3)]"
-                          : "border-brand-gold-dark hover:border-brand-gold"
-                          }`}
-                      >
-                        {address.streetAddress}
-                        {address.unit ? `, ${address.unit}` : ""}, {address.city}
-                        {address.country ? `, ${address.country}` : ""}
-                        {address.postalCode ? ` ${address.postalCode}` : ""}
-                      </button>
-                    ))}
+                <div className="flex flex-col gap-4 border-t border-brand-gold/20 p-4">
+                  <p className="text-xs font-bold uppercase tracking-wider text-brand-gold">
+                    Contact Information
+                  </p>
+                  <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+                    <div className="space-y-1.5">
+                      <Label htmlFor="contact-first-name" className="text-xs font-medium text-brand-cream/90">First Name *</Label>
+                      <Input
+                        id="contact-first-name"
+                        required
+                        value={contactForm.firstName}
+                        onChange={(e) =>
+                          setContactForm((f) => ({ ...f, firstName: e.target.value }))
+                        }
+                        placeholder="First Name"
+                        className="bg-brand-cream text-brand-navy placeholder:text-muted-foreground"
+                      />
+                    </div>
+                    <div className="space-y-1.5">
+                      <Label htmlFor="contact-last-name" className="text-xs font-medium text-brand-cream/90">Last Name</Label>
+                      <Input
+                        id="contact-last-name"
+                        value={contactForm.lastName}
+                        onChange={(e) =>
+                          setContactForm((f) => ({ ...f, lastName: e.target.value }))
+                        }
+                        placeholder="Last Name"
+                        className="bg-brand-cream text-brand-navy placeholder:text-muted-foreground"
+                      />
+                    </div>
+                    <div className="space-y-1.5">
+                      <Label htmlFor="contact-email" className="text-xs font-medium text-brand-cream/90">Email *</Label>
+                      <Input
+                        id="contact-email"
+                        type="email"
+                        required
+                        value={contactForm.email}
+                        onChange={(e) =>
+                          setContactForm((f) => ({ ...f, email: e.target.value }))
+                        }
+                        placeholder="Email"
+                        className="bg-brand-cream text-brand-navy placeholder:text-muted-foreground"
+                      />
+                    </div>
+                    <div className="space-y-1.5">
+                      <Label htmlFor="contact-phone" className="text-xs font-medium text-brand-cream/90">Phone *</Label>
+                      <Input
+                        id="contact-phone"
+                        type="tel"
+                        required
+                        value={contactForm.contact}
+                        onChange={(e) =>
+                          setContactForm((f) => ({ ...f, contact: e.target.value }))
+                        }
+                        placeholder="Phone number"
+                        className="bg-brand-cream text-brand-navy placeholder:text-muted-foreground"
+                      />
+                    </div>
+                  </div>
+                </div>
 
-                    <form
-                      className="flex flex-col gap-4 border-t border-brand-gold-dark/30 pt-4"
-                      onSubmit={handleAddAddress}
-                    >
-                      <p className="text-sm font-medium">Add a new address</p>
-                      <div className="space-y-1.5">
-                        <Label htmlFor="streetAddress">Street Address *</Label>
-                        <Input
-                          id="streetAddress"
-                          required
-                          value={addressForm.streetAddress}
-                          onChange={(e) =>
-                            setAddressForm((f) => ({ ...f, streetAddress: e.target.value }))
-                          }
-                          className="bg-brand-cream"
-                        />
-                      </div>
-                      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-                        <div className="space-y-1.5">
-                          <Label htmlFor="city">City *</Label>
-                          <Input
-                            id="city"
-                            required
-                            value={addressForm.city}
-                            onChange={(e) =>
-                              setAddressForm((f) => ({ ...f, city: e.target.value }))
-                            }
-                            className="bg-brand-cream"
-                          />
-                        </div>
-                        <div className="space-y-1.5">
-                          <Label htmlFor="postalCode">Postal Code</Label>
-                          <Input
-                            id="postalCode"
-                            value={addressForm.postalCode}
-                            onChange={(e) =>
-                              setAddressForm((f) => ({ ...f, postalCode: e.target.value }))
-                            }
-                            className="bg-brand-cream"
-                          />
-                        </div>
-                      </div>
-                      <div className="space-y-1.5">
-                        <Label htmlFor="addressCountry">Country</Label>
-                        <Input
-                          id="addressCountry"
-                          value={addressForm.country}
-                          onChange={(e) =>
-                            setAddressForm((f) => ({ ...f, country: e.target.value }))
-                          }
-                          className="bg-brand-cream"
-                        />
-                      </div>
-                      <Button
-                        type="submit"
-                        disabled={addingAddress}
-                        variant="outline"
-                        className="border-brand-gold-dark text-brand-navy hover:bg-brand-gold/10"
-                      >
-                        {addingAddress ? "Adding…" : "Add address"}
-                      </Button>
-                    </form>
-                  </>
-                ) : (
+                <div className="flex flex-col gap-4 border-t border-brand-gold/20 p-4">
+                  <p className="text-xs font-bold uppercase tracking-wider text-brand-gold">
+                    Address
+                  </p>
                   <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
                     <div className="space-y-1.5 sm:col-span-2">
-                      <Label htmlFor="streetAddress">Street Address *</Label>
+                      <Label htmlFor="streetAddress" className="text-xs font-medium text-brand-cream/90">Street Address *</Label>
                       <Input
                         id="streetAddress"
                         required
@@ -1098,11 +993,12 @@ export default function CheckoutPage({
                         onChange={(e) =>
                           setAddressForm((f) => ({ ...f, streetAddress: e.target.value }))
                         }
-                        className="bg-brand-cream"
+                        placeholder="Street Address"
+                        className="bg-brand-cream text-brand-navy placeholder:text-muted-foreground"
                       />
                     </div>
                     <div className="space-y-1.5">
-                      <Label htmlFor="city">City *</Label>
+                      <Label htmlFor="city" className="text-xs font-medium text-brand-cream/90">City *</Label>
                       <Input
                         id="city"
                         required
@@ -1110,35 +1006,90 @@ export default function CheckoutPage({
                         onChange={(e) =>
                           setAddressForm((f) => ({ ...f, city: e.target.value }))
                         }
-                        className="bg-brand-cream"
+                        placeholder="City"
+                        className="bg-brand-cream text-brand-navy placeholder:text-muted-foreground"
                       />
                     </div>
                     <div className="space-y-1.5">
-                      <Label htmlFor="postalCode">Postal Code</Label>
+                      <Label htmlFor="postalCode" className="text-xs font-medium text-brand-cream/90">Postal Code</Label>
                       <Input
                         id="postalCode"
                         value={addressForm.postalCode}
                         onChange={(e) =>
                           setAddressForm((f) => ({ ...f, postalCode: e.target.value }))
                         }
-                        className="bg-brand-cream"
+                        placeholder="Postal Code"
+                        className="bg-brand-cream text-brand-navy placeholder:text-muted-foreground"
                       />
                     </div>
                     <div className="space-y-1.5">
-                      <Label htmlFor="addressCountry">Country</Label>
-                      <Input
-                        id="addressCountry"
+                      <Label htmlFor="addressCountry" className="text-xs font-medium text-brand-cream/90">Country</Label>
+                      <Select
                         value={addressForm.country}
-                        onChange={(e) =>
-                          setAddressForm((f) => ({ ...f, country: e.target.value }))
-                        }
-                        className="bg-brand-cream"
-                      />
+                        onValueChange={(value) => setAddressForm((f) => ({ ...f, country: value }))}
+                      >
+                        <SelectTrigger id="addressCountry" className="w-full bg-brand-cream text-brand-navy">
+                          <SelectValue placeholder="Select Country" />
+                        </SelectTrigger>
+                        <SelectContent>
+                          {COUNTRY_OPTIONS.map((c) => (
+                            <SelectItem key={c.code} value={c.name}>
+                              <span className="flex items-center gap-2">
+                                <c.Flag className="h-3.5 w-5 shrink-0 object-cover" />
+                                {c.name}
+                              </span>
+                            </SelectItem>
+                          ))}
+                        </SelectContent>
+                      </Select>
                     </div>
                   </div>
-                )}
-              </div>
-            </section>
+                </div>
+
+                <div className="flex flex-col gap-4 border-t border-brand-gold/20 p-4">
+                  <p className="text-xs font-bold uppercase tracking-wider text-brand-gold">
+                    Logistics &amp; Marketing
+                  </p>
+                  <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+                    <div className="space-y-1.5">
+                      <Label className="text-xs font-medium text-brand-cream/90">How will we get in? *</Label>
+                      <Select value={howGetIn} onValueChange={setHowGetIn}>
+                        <SelectTrigger className="w-full bg-brand-cream text-brand-navy">
+                          <SelectValue placeholder="How will we get in?" />
+                        </SelectTrigger>
+                        <SelectContent>
+                          <SelectItem value="I'll be at home">I&apos;ll be at home</SelectItem>
+                          <SelectItem value="The key is with doorman">The key is with doorman</SelectItem>
+                          <SelectItem value="Lockbox on premises">Lockbox on premises</SelectItem>
+                          <SelectItem value="Call to organize">Call to organize</SelectItem>
+                          <SelectItem value="Other">Other</SelectItem>
+                        </SelectContent>
+                      </Select>
+                    </div>
+
+                    <div className="space-y-1.5">
+                      <Label className="text-xs font-medium text-brand-cream/90">
+                        How did you hear about us? *
+                      </Label>
+                      <Select value={howHeard} onValueChange={setHowHeard}>
+                        <SelectTrigger className="w-full bg-brand-cream text-brand-navy">
+                          <SelectValue placeholder="How did you hear about us?" />
+                        </SelectTrigger>
+                        <SelectContent>
+                          <SelectItem value="Google">Google</SelectItem>
+                          <SelectItem value="Yelp">Yelp</SelectItem>
+                          <SelectItem value="Instagram">Instagram</SelectItem>
+                          <SelectItem value="Facebook">Facebook</SelectItem>
+                          <SelectItem value="Friend/Referred">Friend/Referred</SelectItem>
+                          <SelectItem value="Real Estate Professional">Real Estate Professional</SelectItem>
+                          <SelectItem value="Other">Other</SelectItem>
+                        </SelectContent>
+                      </Select>
+                    </div>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
           </div>
 
           <div className="lg:sticky lg:top-6">
@@ -1182,25 +1133,15 @@ export default function CheckoutPage({
               onBookNow={handleConfirmStandard}
               submitting={submitting}
               bookDisabledReason={
-                isAuthenticated
-                  ? !selectedAddressId
-                    ? "Select or add an address to continue."
-                    : !contactForm.firstName.trim() ||
-                      !contactForm.email.trim() ||
-                      !contactForm.contact.trim()
-                      ? "Fill in your contact details to continue."
-                      : !agreedToTerms
-                        ? "Agree to the Terms and Conditions and Privacy Policy to continue."
-                        : undefined
-                  : !contactForm.firstName.trim() ||
-                    !contactForm.email.trim() ||
-                    !contactForm.contact.trim() ||
-                    !addressForm.streetAddress.trim() ||
-                    !addressForm.city.trim()
-                    ? "Fill in your contact details and address to continue."
-                    : !agreedToTerms
-                      ? "Agree to the Terms and Conditions and Privacy Policy to continue."
-                      : undefined
+                !contactForm.firstName.trim() ||
+                  !contactForm.email.trim() ||
+                  !contactForm.contact.trim() ||
+                  !addressForm.streetAddress.trim() ||
+                  !addressForm.city.trim()
+                  ? "Fill in your contact details and address to continue."
+                  : !agreedToTerms
+                    ? "Agree to the Terms and Conditions and Privacy Policy to continue."
+                    : undefined
               }
               agreedToTerms={agreedToTerms}
               onAgreedToTermsChange={setAgreedToTerms}

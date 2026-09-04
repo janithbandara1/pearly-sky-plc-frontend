@@ -163,7 +163,7 @@ export function PageHero({
   }, []);
 
   return (
-    <section className="relative flex h-auto justify-center bg-transparent text-center mb-8 md:mb-12">
+    <section className="relative flex h-auto justify-center bg-transparent text-center mb-24 md:mb-12">
       <div className="md:min-h-[75vh] md:max-h-[80vh] h-[15vh] w-full overflow-hidden">
         <Image
           src={image}
