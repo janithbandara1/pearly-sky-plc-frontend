@@ -4,7 +4,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
-import { ArrowLeft, CheckCircle2, Minus, Plus, ShieldCheck } from "lucide-react";
+import { CheckCircle2, Minus, Plus } from "lucide-react";
 import { DateTimeSection } from "@/components/booking/date-time-section";
 import type { SupplySource } from "@/components/booking/equipment-section";
 import {
@@ -494,20 +494,30 @@ export function RequestQuotationView({ serviceSlug }: { serviceSlug: string }) {
 
       {/* Hero Banner Section Matching Image 2 */}
       <div className="mx-auto w-full max-w-11xl ">
-        <div className="relative h-[200px] xs:h-[260px] sm:h-[320px] md:h-[380px] w-full overflow-hidden  sm:rounded-b-4xl shadow-md border border-[#A98B4B]">
+        <div className="relative h-[15vh] md:min-h-[75vh] md:max-h-[80vh] w-full overflow-hidden sm:rounded-b-4xl">
           <Image
             src={currentHeroImage}
             alt={currentServiceLabel}
             fill
             priority
             sizes="(max-width: 768px) 100vw, 1280px"
-            className="object-cover"
+            className="object-cover border border-[rgb(169,139,75)]"
           />
-          <div className="absolute inset-0 bg-black/25 backdrop-blur-[0.5px]" />
+          <div className="absolute inset-0 hidden bg-black/25 backdrop-blur-[0.5px] md:block" />
 
-          {/* Centered Badges in Hero */}
-          <div className="absolute left-0 top-20 flex flex-col items-center justify-center p-4 text-center">
-            <div className="inline-block rounded-xl sm:rounded-2xl border-2 border-[#A98B4B] bg-[#121E2D]/95 px-6 py-2.5 sm:px-10 sm:py-3.5 shadow-2xl backdrop-blur-md">
+          {/* Mobile Compact Back + Title Bar (matches the service pages' mobile hero) */}
+          <div className="absolute top-1/2 left-3 z-10 flex -translate-y-1/2 items-center gap-2.5 border-2 border-[rgb(169,139,75)] bg-[rgb(18,30,45)] px-5 py-4 md:hidden">
+            <Link href="/" className="inline-flex shrink-0 items-center gap-2">
+              <Image src="/images/services/service-back.svg" alt="Back" width={20} height={20} />
+            </Link>
+            <h1 className="min-w-0 truncate text-base font-bold tracking-tight text-[#c29b38]">
+              {currentServiceLabel}
+            </h1>
+          </div>
+
+          {/* Badge in Hero (desktop) */}
+          <div className="absolute inset-0 hidden flex-col items-start justify-center p-4 text-left sm:p-8 md:flex">
+            <div className="inline-block rounded-xl sm:rounded-2xl bg-[#121E2D]/95 px-6 py-2.5 sm:px-10 sm:py-3.5 shadow-2xl backdrop-blur-md">
               <h1 className="text-xl sm:text-2xl md:text-3xl font-extrabold tracking-wide text-brand-gold">
                 {currentServiceLabel}
               </h1>
@@ -929,14 +939,6 @@ export function RequestQuotationView({ serviceSlug }: { serviceSlug: string }) {
               </div>
             </div>
 
-            {/* Turnstile / Security Badge Mockup Matching Image 2 */}
-            <div className="mt-2 flex items-center justify-center">
-              <div className="flex items-center gap-2 rounded border border-gray-300 bg-white px-3 py-1.5 text-[11px] text-gray-500 shadow-sm">
-                <ShieldCheck className="h-4 w-4 text-[#A98B4B]" />
-                <span>Protected by Cloudflare Turnstile</span>
-              </div>
-            </div>
-
             {/* Error Message */}
             {submitError && (
               <div className="rounded-lg bg-red-50 p-3 text-center text-xs font-medium text-destructive border border-red-200">
@@ -959,10 +961,9 @@ export function RequestQuotationView({ serviceSlug }: { serviceSlug: string }) {
         <div className="mt-4 flex justify-center">
           <Link
             href="/"
-            className="inline-flex items-center gap-1.5 text-sm font-medium text-[#A98B4B] hover:underline"
+            className="inline-flex items-center justify-center rounded-[8px] border border-[#C5A253] bg-white px-10 py-2 text-md font-semibold text-[#0B1528] shadow-sm transition hover:bg-[#F8F9FA]"
           >
-            <ArrowLeft className="h-4 w-4" />
-            Back to Home
+            Back
           </Link>
         </div>
       </div>
