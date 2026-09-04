@@ -4,7 +4,7 @@ import { useMemo, useState } from "react";
 import { Search } from "lucide-react";
 import { PageHero } from "@/components/locations/locations-hero";
 import { Input } from "@/components/ui/input";
-import { LocationCard } from "@/components/location-card";
+import { LocationCard } from "@/components/locations/locations-grids";
 import { useLanguage } from "@/lib/i18n/language-context";
 import { locations, type Location } from "@/lib/content/locations";
 import { Socialmedialinks } from "@/components/contactus/social-media";
@@ -40,6 +40,7 @@ export function OurLocationsView() {
   }, [country, city]);
 
   const hasResults = filtered.length > 0;
+  const isSearching = Boolean(country.trim() || city.trim());
 
   const handleToggle = (id: string) => {
     // Toggling the current open card closes it, clicking another opens it
@@ -53,7 +54,7 @@ export function OurLocationsView() {
         title={translate("locationsPageTitle")}
         subtitle={translate("locationsPageSubtitle")}
       />
-      <div className="absolute md:bottom-none  bottom-15 z-5 right-12 md:right-none">
+      <div className="absolute md:bottom-none  bottom-25 z-5 right-3 md:right-none">
         <Socialmedialinks />
       </div>
       <section className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-3xl px-4  sm:px-6">
@@ -133,16 +134,29 @@ export function OurLocationsView() {
             return (
               <div key={key} className="mb-12">
                 <h2 className="mb-4 text-3xl text-white text-center font-bold tracking-tight">{translate(titleKey)}</h2>
-                <div className="grid items-start gap-4 sm:grid-cols-2 lg:grid-cols-3">
-                  {items.map((loc) => (
-                    <LocationCard
-                    key={loc.id}
-                    location={loc}
-                    isOpen={openLocationId === loc.id}
-                    onToggle={() => handleToggle(loc.id)
-                    }
-                  />
-                  ))}
+                <div className="overflow-hidden">
+                  <div
+                    className={`flex w-max gap-4 motion-reduce:animate-none ${isSearching ? "" : "animate-marquee hover:[animation-play-state:paused]"}`}
+                    style={{ animationDuration: key === "europe" ? "80s" : "60s" }}
+                  >
+                    {(isSearching ? [0] : [0, 1]).map((copy) => (
+                      <div
+                        key={`${key}-${copy}`}
+                        aria-hidden={copy === 1}
+                        className={`flex items-start gap-4 ${copy === 1 ? "pointer-events-none" : ""}`}
+                      >
+                        {items.map((loc) => (
+                          <div key={`${loc.id}-${copy}`} className="w-[min(82vw,22rem)] shrink-0 sm:w-[20rem] lg:w-[22rem]">
+                            <LocationCard
+                              location={loc}
+                              isOpen={copy === 0 && openLocationId === loc.id}
+                              onToggle={copy === 0 ? () => handleToggle(loc.id) : () => undefined}
+                            />
+                          </div>
+                        ))}
+                      </div>
+                    ))}
+                  </div>
                 </div>
               </div>
             );
