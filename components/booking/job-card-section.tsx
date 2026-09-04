@@ -121,11 +121,11 @@ export function JobCardSection({
                 </span>
 
                 {isSelectedCategory ? (
-                  <span className="px-3.5 py-1.5 rounded-lg bg-[#B89642] text-white text-xs font-bold shrink-0">
+                  <span className="px-2.5 py-1 rounded-lg bg-[#B89642] text-white text-[11px] font-bold shrink-0">
                     Selected
                   </span>
                 ) : (
-                  <span className="px-3.5 py-1.5 rounded-lg border border-[#B89642] text-[#B89642] text-xs font-bold shrink-0">
+                  <span className="px-2.5 py-1 rounded-lg border border-[#B89642] text-[#B89642] text-[11px] font-bold shrink-0">
                     Select
                   </span>
                 )}

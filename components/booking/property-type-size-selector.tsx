@@ -490,7 +490,7 @@ export function PropertyTypeSizeSelector({
                   type="button"
                   onClick={() => handleCardClick(cat.id)}
                   style={{ scrollSnapAlign: "start" }}
-                  className={`shrink-0 w-[110px] sm:w-[118px] h-[118px] rounded-xl border-2 flex flex-col items-center justify-center p-2.5 cursor-pointer transition-colors select-none ${isSelected
+                  className={`shrink-0 w-[110px] h-[110px] sm:w-[118px] sm:h-[118px] rounded-xl border-2 flex flex-col items-center justify-center p-2.5 cursor-pointer transition-colors select-none ${isSelected
                       ? "bg-[#0B1527] border-[#B89642]"
                       : "bg-white border-[#C6A868]/60 hover:border-[#B89642]"
                     }`}
@@ -525,20 +525,20 @@ export function PropertyTypeSizeSelector({
             {/* Wheel Display Container */}
             <div
               ref={wheelContainerRef}
-              className="flex-1 h-[122px] rounded-xl border-2 border-[#C6A868]/60 bg-white overflow-hidden shadow-sm flex flex-col justify-between select-none"
+              className="flex-1 h-[110px] sm:h-[118px] rounded-xl border-2 border-[#C6A868]/60 bg-white overflow-hidden shadow-sm flex flex-col justify-between select-none"
             >
               {/* Top Row: Previous size preview */}
               <button
                 type="button"
                 onClick={handlePrev}
                 disabled={prevSize === null}
-                className="h-[34px] flex items-center justify-center text-xs text-[#94A3B8] font-medium cursor-pointer hover:bg-slate-50 transition-colors disabled:opacity-30 disabled:cursor-default w-full"
+                className="flex-1 flex items-center justify-center text-xs text-[#94A3B8] font-medium cursor-pointer hover:bg-slate-50 transition-colors disabled:opacity-30 disabled:cursor-default w-full"
               >
                 {prevSize !== null ? `${formatFt2(prevSize)} ft²` : "\u00A0"}
               </button>
 
               {/* Middle Row: Active selected size */}
-              <div className="h-[54px] bg-[#D9E2EC] flex flex-col items-center justify-center py-1 border-y border-[#C6A868]/40 shadow-inner">
+              <div className="flex-[1.6] bg-[#D9E2EC] flex flex-col items-center justify-center py-1 border-y border-[#C6A868]/40 shadow-inner">
                 <span className="text-xl sm:text-2xl font-bold text-[#0F172A] leading-tight">
                   {value} m²
                 </span>
@@ -552,19 +552,19 @@ export function PropertyTypeSizeSelector({
                 type="button"
                 onClick={handleNext}
                 disabled={nextSize === null}
-                className="h-[34px] flex items-center justify-center text-xs text-[#94A3B8] font-medium cursor-pointer hover:bg-slate-50 transition-colors disabled:opacity-30 disabled:cursor-default w-full"
+                className="flex-1 flex items-center justify-center text-xs text-[#94A3B8] font-medium cursor-pointer hover:bg-slate-50 transition-colors disabled:opacity-30 disabled:cursor-default w-full"
               >
                 {nextSize !== null ? `${nextSize} m²` : "\u00A0"}
               </button>
             </div>
 
             {/* Right Buttons Stack */}
-            <div className="flex flex-col gap-2 shrink-0">
+            <div className="flex h-[110px] sm:h-[118px] w-[52px] flex-col gap-2 shrink-0">
               <button
                 type="button"
                 onClick={handleNext}
                 disabled={nextSize === null}
-                className="w-[52px] h-[56px] rounded-xl border-2 border-[#C6A868]/60 bg-white hover:bg-[#FAF7F2] active:scale-95 transition-all shadow-sm flex flex-col items-center justify-center text-[#1E293B] cursor-pointer disabled:opacity-40 disabled:cursor-not-allowed"
+                className="flex-1 rounded-xl border-2 border-[#C6A868]/60 bg-white hover:bg-[#FAF7F2] active:scale-95 transition-all shadow-sm flex flex-col items-center justify-center text-[#1E293B] cursor-pointer disabled:opacity-40 disabled:cursor-not-allowed"
                 aria-label="Increase Property Size"
               >
                 <span className="text-sm leading-none font-bold">↑</span>
@@ -575,7 +575,7 @@ export function PropertyTypeSizeSelector({
                 type="button"
                 onClick={handlePrev}
                 disabled={prevSize === null}
-                className="w-[52px] h-[56px] rounded-xl border-2 border-[#C6A868]/60 bg-white hover:bg-[#FAF7F2] active:scale-95 transition-all shadow-sm flex flex-col items-center justify-center text-[#1E293B] cursor-pointer disabled:opacity-40 disabled:cursor-not-allowed"
+                className="flex-1 rounded-xl border-2 border-[#C6A868]/60 bg-white hover:bg-[#FAF7F2] active:scale-95 transition-all shadow-sm flex flex-col items-center justify-center text-[#1E293B] cursor-pointer disabled:opacity-40 disabled:cursor-not-allowed"
                 aria-label="Decrease Property Size"
               >
                 <span className="text-sm leading-none font-bold">↓</span>

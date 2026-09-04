@@ -80,10 +80,10 @@ function HighlightsFullCarousel({ cards }: { cards: ServiceHighlightCard[] }) {
               type="button"
               aria-label={`Go to slide ${index + 1}`}
               onClick={() => scrollTo(index)}
-              className={`h-2.5 rounded-full transition-all duration-300 cursor-pointer ${
+              className={`h-2.5 w-2.5 rounded-full transition-all duration-300 cursor-pointer ${
                 selectedIndex === index
-                  ? "w-6 bg-[#0075FF] scale-110"
-                  : "w-2.5 bg-[#1C2C3E] opacity-60 hover:opacity-100"
+                  ? "bg-[#0075FF] scale-110"
+                  : "bg-[#1C2C3E] opacity-60 hover:opacity-100"
               }`}
             />
           ))}
@@ -164,10 +164,10 @@ function HighlightsMobileCarousel({ cards }: { cards: ServiceHighlightCard[] }) 
               type="button"
               aria-label={`Go to slide ${index + 1}`}
               onClick={() => scrollTo(index)}
-              className={`h-2.5 rounded-full transition-all duration-300 cursor-pointer ${
+              className={`h-2.5 w-2.5 rounded-full transition-all duration-300 cursor-pointer ${
                 selectedIndex === index
-                  ? "w-6 bg-[#0075FF] scale-110"
-                  : "w-2.5 bg-[#1C2C3E] opacity-60 hover:opacity-100"
+                  ? "bg-[#0075FF] scale-110"
+                  : "bg-[#1C2C3E] opacity-60 hover:opacity-100"
               }`}
             />
           ))}
@@ -215,7 +215,7 @@ export function ServiceHighlights({ title, cards }: ServiceHighlightsProps) {
   const gridConfig = getGridConfig(cards.length);
 
   return (
-    <section className="py-2 mt-2 max-[541px]:!bg-[#121E2D] bg-transparent">
+    <section className="py-6 max-[541px]:!bg-[#121E2D] bg-transparent">
       <h2 className="text-center font-bold text-xl sm:text-2xl mb-6 text-[#121E2D] max-[541px]:text-white">
         {title ?? "Standard Package Checklist"}
       </h2>

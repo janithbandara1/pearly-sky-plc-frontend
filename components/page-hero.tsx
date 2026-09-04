@@ -163,7 +163,7 @@ export function PageHero({
   }, []);
 
   return (
-    <section className="relative flex h-auto justify-center bg-transparent text-center">
+    <section className="relative flex h-auto justify-center bg-transparent text-center mb-8 md:mb-12">
       <div className="md:min-h-[75vh] md:max-h-[80vh] h-[15vh] w-full overflow-hidden">
         <Image
           src={image}
@@ -175,9 +175,9 @@ export function PageHero({
         />
       </div>
 
-      <div className="absolute bottom-[10px] md:bottom-[130px] flex md:block md:left-8 left-0 z-10 mx-auto max-w-lg md:max-w-3xl py-4 px-5 md:py-5 md:px-7 bg-[rgb(18,30,45)] border-2 border-[rgb(169,139,75)] md:border-0 md:border-transparent md:rounded-[20px]">
+      <div className="absolute top-1/2 -translate-y-1/2 md:top-auto md:translate-y-0 md:bottom-[130px] flex items-center gap-2.5 md:block md:left-8 left-3 z-10 mx-auto max-w-lg md:max-w-3xl py-4 px-5 md:py-5 md:px-7 bg-[rgb(18,30,45)] border-2 border-[rgb(169,139,75)] md:border-0 md:border-transparent md:rounded-[20px]">
         <Link href="/"
-          className="inline-flex block md:hidden items-center gap-2">
+          className="inline-flex md:hidden shrink-0 items-center gap-2">
           <Image
             src="/images/services/service-back.svg"
             alt="Logo"
@@ -190,7 +190,7 @@ export function PageHero({
             {eyebrow}
           </p>
         )}
-        <h1 className="text-3xl sm:text-3xl md:text-4xl font-bold text-[#c29b38] tracking-tight leading-tight">
+        <h1 className="min-w-0 truncate md:overflow-visible md:text-clip md:whitespace-normal text-base sm:text-3xl md:text-4xl font-bold text-[#c29b38] tracking-tight leading-tight">
           {title}
         </h1>
         {subtitle && <p className="mt-3 text-brand-cream/85 hidden">{subtitle}</p>}

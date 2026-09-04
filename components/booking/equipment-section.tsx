@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { User, Briefcase, KeyRound } from "lucide-react";
+import { User, Briefcase, KeyRound, ArrowRight } from "lucide-react";
 import type { CatalogItem, SizeQuote } from "@/lib/catalog-api";
 import { useCurrency } from "@/lib/currency-context";
 import { Slider } from "radix-ui";
@@ -257,15 +257,15 @@ export function EquipmentSection({
       </section>
 
       {/* Below-Card Navigation Bar */}
-      <div className="flex items-center py-4 justify-center gap-1 px-1">
+      <div className="flex items-center py-4 justify-between md:justify-center gap-1">
         <Link
           href="/"
           className="inline-flex items-center justify-center rounded-[8px] border border-[#C5A253] bg-white px-10 py-2 text-md font-semibold text-[#0B1528] shadow-sm transition hover:bg-[#F8F9FA]"
         >
           Back
         </Link>
-        <span className="inline-flex px-10 py-2 text-md items-center font-bold text-[#C5A253]">
-          Service Info
+        <span className="inline-flex px-10 py-2 text-md items-center gap-1 font-bold text-[#C5A253]">
+          Service Info <ArrowRight className="h-3.5 w-3.5" />
         </span>
       </div>
       
