@@ -13,6 +13,7 @@ export function ContactUsView() {
   const { translate, language } = useLanguage();
   const { country } = useCountry();
   const { contactSubtitle } = getCountryPageContent(country, language);
+  
   const [openLocationId, setOpenLocationId] = useState<string | null>(null);
 
   const handleToggle = (id: string) => {

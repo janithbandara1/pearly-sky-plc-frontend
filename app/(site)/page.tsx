@@ -14,6 +14,7 @@ import { buildCountryAlternates, buildSocialMeta } from "@/lib/countries/seo";
 import { getRequestCountry } from "@/lib/countries/server";
 import { getRequestLanguage } from "@/lib/i18n/server";
 import { getCountryPageMeta } from "@/lib/countries/meta-data";
+import { Welcome } from "@/components/home/welcome";
  
 export const dynamic = "force-dynamic";
 
@@ -38,6 +39,7 @@ export default async function Home() {
       <Hero />
       <TrustBar />
       <ServicesSection services={services} />
+      <Welcome />
       <AboutSection />
       <CoverageStrip />
       <SectorsMarquee />

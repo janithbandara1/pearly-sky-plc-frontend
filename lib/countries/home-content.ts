@@ -237,7 +237,7 @@ interface CountryHomeCopy {
  * office/coverage detail pending) built from each country's name and top cities.
  */
 export const COUNTRY_HOME_CONTENT: Record<CountryCode, CountryHomeCopy> = {
-  fr: {
+  fr: { 
     heroSubtitle: "Pearly Sky Eco-Luxury Home & Office Cleaning Services — France.",
     trustCoverage: "France / 10 Cities",
     coverageTitle: "Service Excellence Throughout France",
