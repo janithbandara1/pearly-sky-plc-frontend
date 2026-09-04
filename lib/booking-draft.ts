@@ -56,6 +56,7 @@ export interface BookingDraft {
   durationHours?: number;
   personCount?: number;
   caregiverCount?: number;
+  numCleaners?: number;
   careProfile?: CareProfileDraft;
   careProfiles?: CareProfileDraft[];
   specialRequest?: string;

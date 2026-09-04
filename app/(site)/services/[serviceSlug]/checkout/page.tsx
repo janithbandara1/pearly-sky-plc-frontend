@@ -1,6 +1,7 @@
 "use client";
 
 import { Poppins } from "next/font/google";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { use, useCallback, useEffect, useState } from "react";
 import { BookingDetailsCard } from "@/components/booking/booking-details-card";
@@ -10,6 +11,7 @@ import { GENERAL_STEAM_CARDS } from "@/components/booking/steam/general-steam-se
 import { INDUSTRIAL_STEAM_CATEGORIES } from "@/components/booking/steam/industrial-commercial-steam-section";
 import { PageHero } from "@/components/page-hero";
 import { Button } from "@/components/ui/button";
+import { Checkbox } from "@/components/ui/checkbox";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
@@ -97,10 +99,10 @@ export default function CheckoutPage({
   const isAuthenticated = status === "authenticated";
   const { country: currentCountry } = useCountry();
 
-  const isChildCare = serviceSlug === "child-care-service";
-  const isElderCare = serviceSlug === "elder-care-service";
+  const isChildCare = serviceSlug === "childcare-services";
+  const isElderCare = serviceSlug === "elder-care-services";
   const isCarpetService = serviceSlug === "carpet-upholstery-cleaning";
-  const isPoolService = serviceSlug === "pool-cleaning";
+  const isPoolService = serviceSlug === "pool-cleaning-maintenance";
   const isPressureService = serviceSlug === "precision-pressure-washing";
   const isYachtService = serviceSlug === "luxury-yacht-cleaning";
   const isCareService = isChildCare || isElderCare;
@@ -129,11 +131,16 @@ export default function CheckoutPage({
   const [selectedCountry, setSelectedCountry] = useState("France");
   const [postalCode, setPostalCode] = useState("");
   const [city, setCity] = useState("");
-  const [province, setProvince] = useState("");
   const [streetAddress, setStreetAddress] = useState("");
-  const [unitApt, setUnitApt] = useState("");
   const [howGetIn, setHowGetIn] = useState("");
   const [howHeard, setHowHeard] = useState("");
+
+  // Preferences (flow-service checkout)
+  const [numCleaners, setNumCleaners] = useState(1);
+  const [durationHours, setDurationHours] = useState(3);
+  const [gender, setGender] = useState("no-preference");
+  const [language, setLanguage] = useState("no-preference");
+  const [requirements, setRequirements] = useState("");
 
   const [error, setError] = useState<string | null>(null);
   const [submitting, setSubmitting] = useState(false);
@@ -150,8 +157,11 @@ export default function CheckoutPage({
 
     if (stored.howGetIn) setHowGetIn(stored.howGetIn);
     if (stored.howHeard) setHowHeard(stored.howHeard);
-    if (stored.province) setProvince(stored.province);
-    if (stored.unit) setUnitApt(stored.unit);
+    if (stored.numCleaners) setNumCleaners(stored.numCleaners);
+    if (stored.durationHours) setDurationHours(stored.durationHours);
+    if (stored.genderPreference) setGender(stored.genderPreference);
+    if (stored.languagePreference) setLanguage(stored.languagePreference);
+    if (stored.specialRequirements) setRequirements(stored.specialRequirements);
   }, [serviceSlug, router]);
 
   useEffect(() => {
@@ -255,6 +265,10 @@ export default function CheckoutPage({
       setError("Please enter your Postal Code.");
       return;
     }
+    if (!agreedToTerms) {
+      setError("Please agree to the Terms and Conditions and Privacy Policy to continue.");
+      return;
+    }
 
     setSubmitting(true);
     try {
@@ -335,15 +349,15 @@ export default function CheckoutPage({
         propertyType: propertyTypeValue,
         quoteItemsTitle: quoteTitle,
         quoteItems: quoteItemLines,
-        numCleaners: draft.caregiverCount || 1,
-        durationHours: draft.durationHours || 4,
-        genderPreference: draft.caregiverGender || draft.genderPreference,
-        languagePreference: draft.languagePreference,
+        numCleaners: isCareService ? draft.caregiverCount || 1 : numCleaners,
+        durationHours: durationHours || draft.durationHours || 4,
+        genderPreference: isCareService ? draft.caregiverGender || draft.genderPreference : gender,
+        languagePreference: isCareService ? draft.languagePreference : language,
         specialRequirements: [
           draft.serviceContinuityPlan ? `Continuity Plan: ${draft.serviceContinuityPlan}` : null,
           draft.specialRequest ? `Special Request: ${draft.specialRequest}` : null,
           draft.serviceSpecifics ? `Specifics: ${draft.serviceSpecifics}` : null,
-          draft.specialRequirements ? `Requirements: ${draft.specialRequirements}` : null,
+          requirements.trim() ? `Requirements: ${requirements.trim()}` : null,
           draft.documentName ? `Attachment: ${draft.documentName}` : null,
           howGetIn ? `Entry: ${howGetIn}` : null,
           howHeard ? `Marketing: ${howHeard}` : null,
@@ -354,7 +368,7 @@ export default function CheckoutPage({
         lastName: contactForm.lastName.trim(),
         email: contactForm.email.trim(),
         contact: fullPhone,
-        streetAddress: `${streetAddress.trim()}${unitApt.trim() ? `, ${unitApt.trim()}` : ""}`,
+        streetAddress: streetAddress.trim(),
         city: city.trim(),
         country: selectedCountry,
         postalCode: postalCode.trim(),
@@ -504,6 +518,19 @@ export default function CheckoutPage({
 
   const startEndTimeFormatted = calculateEndFormatted(draft.time, durationHoursValue);
 
+  const requestDisabledReason =
+    !contactForm.firstName.trim() ||
+      !contactForm.lastName.trim() ||
+      !contactForm.email.trim() ||
+      !contactForm.contact.trim() ||
+      !streetAddress.trim() ||
+      !city.trim() ||
+      !postalCode.trim()
+      ? "Fill in your contact details and address to continue."
+      : !agreedToTerms
+        ? "Agree to the Terms and Conditions and Privacy Policy to continue."
+        : undefined;
+
   return (
     <div className={`${poppins.className} min-h-screen bg-[rgb(199,209,217)] pb-16`}>
       <PageHero
@@ -516,21 +543,23 @@ export default function CheckoutPage({
         subtitle={`${draft.date} at ${draft.time}`}
         servicePrices={service.prices}
         serviceId={service.id}
+        hidePriceSelector={isPoolService}
       />
 
       {isFlowService ? (
         /* REUSABLE SERVICE FLOW 2-COLUMN CHECKOUT (MATCHING IMAGE 4) */
         <div className="mx-auto mt-8 grid w-full max-w-[1250px] gap-8 px-4 sm:px-6 lg:grid-cols-[1fr_420px] lg:items-start">
           {/* LEFT COLUMN: SERVICE CHECKOUT DETAILS */}
-          <div className="overflow-hidden rounded-2xl border border-[#A98B4B]/30 bg-[#121E2D] p-6 shadow-2xl sm:p-8">
-            <h2 className="mb-6 border-b border-white/10 pb-4 text-center text-lg font-bold text-white sm:text-xl md:text-2xl">
-              Service Checkout Details
-            </h2>
+          <Card className="bg-brand-navy text-brand-navy-foreground">
+            <CardContent className="flex flex-col gap-0 p-0">
+              <div className="px-4 py-3">
+                <h3 className="text-base font-bold text-brand-gold">Service Checkout Details</h3>
+              </div>
 
-            <div className="space-y-6">
+              <div className="flex flex-col gap-6 border-t border-brand-gold/20 p-4">
               {/* 1. CONTACT PROFILE */}
               <div>
-                <p className="mb-3 text-xs font-bold uppercase tracking-wider text-[#A98B4B]">
+                <p className="mb-3 text-xs font-bold uppercase tracking-wider text-brand-gold">
                   Contact Profile
                 </p>
                 <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
@@ -542,7 +571,7 @@ export default function CheckoutPage({
                         setContactForm((prev) => ({ ...prev, firstName: e.target.value }))
                       }
                       placeholder="First Name"
-                      className="h-11 rounded-lg border-0 bg-[#FFFDF4] text-brand-navy placeholder:text-muted-foreground focus-visible:ring-2 focus-visible:ring-[#A98B4B]"
+                      className="bg-brand-cream text-brand-navy placeholder:text-muted-foreground"
                     />
                   </div>
                   <div className="space-y-1.5">
@@ -553,7 +582,7 @@ export default function CheckoutPage({
                         setContactForm((prev) => ({ ...prev, lastName: e.target.value }))
                       }
                       placeholder="Last Name"
-                      className="h-11 rounded-lg border-0 bg-[#FFFDF4] text-brand-navy placeholder:text-muted-foreground focus-visible:ring-2 focus-visible:ring-[#A98B4B]"
+                      className="bg-brand-cream text-brand-navy placeholder:text-muted-foreground"
                     />
                   </div>
                   <div className="space-y-1.5">
@@ -565,38 +594,64 @@ export default function CheckoutPage({
                         setContactForm((prev) => ({ ...prev, email: e.target.value }))
                       }
                       placeholder="Email"
-                      className="h-11 rounded-lg border-0 bg-[#FFFDF4] text-brand-navy placeholder:text-muted-foreground focus-visible:ring-2 focus-visible:ring-[#A98B4B]"
+                      className="bg-brand-cream text-brand-navy placeholder:text-muted-foreground"
                     />
                   </div>
                   <div className="space-y-1.5">
                     <Label className="text-xs font-medium text-brand-cream/90">Phone number *</Label>
-                    <div className="flex h-11 items-center rounded-lg bg-[#FFFDF4] px-3 shadow-inner focus-within:ring-2 focus-within:ring-[#A98B4B]">
-                      <span className="mr-2 text-base">🇫🇷</span>
-                      <span className="mr-2 text-xs font-semibold text-brand-navy">{phonePrefix}</span>
-                      <input
-                        type="tel"
-                        value={contactForm.contact}
-                        onChange={(e) =>
-                          setContactForm((prev) => ({ ...prev, contact: e.target.value }))
-                        }
-                        placeholder="Phone number"
-                        className="w-full border-0 bg-transparent text-sm text-brand-navy placeholder:text-muted-foreground focus:outline-none"
-                      />
-                    </div>
+                    <Input
+                      type="tel"
+                      value={contactForm.contact}
+                      onChange={(e) =>
+                        setContactForm((prev) => ({ ...prev, contact: e.target.value }))
+                      }
+                      placeholder="Phone number"
+                      className="bg-brand-cream text-brand-navy placeholder:text-muted-foreground"
+                    />
                   </div>
                 </div>
               </div>
 
-              {/* 2. LOCATION OF THE RESIDENCE */}
+              {/* 2. ADDRESS */}
               <div>
-                <p className="mb-3 text-xs font-bold uppercase tracking-wider text-[#A98B4B]">
-                  Location of the Residence
+                <p className="mb-3 text-xs font-bold uppercase tracking-wider text-brand-gold">
+                  Address
                 </p>
                 <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
                   <div className="space-y-1.5 sm:col-span-2">
-                    <Label className="text-xs font-medium text-brand-cream/90">Select Country *</Label>
+                    <Label className="text-xs font-medium text-brand-cream/90">Street Address *</Label>
+                    <Input
+                      value={streetAddress}
+                      onChange={(e) => setStreetAddress(e.target.value)}
+                      placeholder="Street Address"
+                      className="bg-brand-cream text-brand-navy placeholder:text-muted-foreground"
+                    />
+                  </div>
+
+                  <div className="space-y-1.5">
+                    <Label className="text-xs font-medium text-brand-cream/90">City *</Label>
+                    <Input
+                      value={city}
+                      onChange={(e) => setCity(e.target.value)}
+                      placeholder="City"
+                      className="bg-brand-cream text-brand-navy placeholder:text-muted-foreground"
+                    />
+                  </div>
+
+                  <div className="space-y-1.5">
+                    <Label className="text-xs font-medium text-brand-cream/90">Postal Code *</Label>
+                    <Input
+                      value={postalCode}
+                      onChange={(e) => setPostalCode(e.target.value)}
+                      placeholder="Postal Code"
+                      className="bg-brand-cream text-brand-navy placeholder:text-muted-foreground"
+                    />
+                  </div>
+
+                  <div className="space-y-1.5 sm:col-span-2">
+                    <Label className="text-xs font-medium text-brand-cream/90">Country</Label>
                     <Select value={selectedCountry} onValueChange={setSelectedCountry}>
-                      <SelectTrigger className="h-15 w-full rounded-lg border-0 bg-[#FFFDF4] text-brand-navy shadow-inner focus:ring-2 focus:ring-[#A98B4B]">
+                      <SelectTrigger className="w-full bg-brand-cream text-brand-navy">
                         <SelectValue placeholder="Select Country" />
                       </SelectTrigger>
                       <SelectContent>
@@ -611,69 +666,19 @@ export default function CheckoutPage({
                       </SelectContent>
                     </Select>
                   </div>
-
-                  <div className="space-y-1.5">
-                    <Label className="text-xs font-medium text-brand-cream/90">Postal Code *</Label>
-                    <Input
-                      value={postalCode}
-                      onChange={(e) => setPostalCode(e.target.value)}
-                      placeholder="Postal Code"
-                      className="h-11 rounded-lg border-0 bg-[#FFFDF4] text-brand-navy placeholder:text-muted-foreground focus-visible:ring-2 focus-visible:ring-[#A98B4B]"
-                    />
-                  </div>
-
-                  <div className="space-y-1.5">
-                    <Label className="text-xs font-medium text-brand-cream/90">City *</Label>
-                    <Input
-                      value={city}
-                      onChange={(e) => setCity(e.target.value)}
-                      placeholder="City"
-                      className="h-11 rounded-lg border-0 bg-[#FFFDF4] text-brand-navy placeholder:text-muted-foreground focus-visible:ring-2 focus-visible:ring-[#A98B4B]"
-                    />
-                  </div>
-
-                  <div className="space-y-1.5">
-                    <Label className="text-xs font-medium text-brand-cream/90">Province / State *</Label>
-                    <Input
-                      value={province}
-                      onChange={(e) => setProvince(e.target.value)}
-                      placeholder="Province/State"
-                      className="h-11 rounded-lg border-0 bg-[#FFFDF4] text-brand-navy placeholder:text-muted-foreground focus-visible:ring-2 focus-visible:ring-[#A98B4B]"
-                    />
-                  </div>
-
-                  <div className="space-y-1.5 sm:col-span-2">
-                    <Label className="text-xs font-medium text-brand-cream/90">Street Address *</Label>
-                    <Input
-                      value={streetAddress}
-                      onChange={(e) => setStreetAddress(e.target.value)}
-                      placeholder="Street Address"
-                      className="h-11 rounded-lg border-0 bg-[#FFFDF4] text-brand-navy placeholder:text-muted-foreground focus-visible:ring-2 focus-visible:ring-[#A98B4B]"
-                    />
-                  </div>
-
-                  <div className="space-y-1.5 sm:col-span-2">
-                    <Label className="text-xs font-medium text-brand-cream/90">Unit / Apt / Suite *</Label>
-                    <Input
-                      value={unitApt}
-                      onChange={(e) => setUnitApt(e.target.value)}
-                      placeholder="Unit/Apt/suite"
-                      className="h-11 rounded-lg border-0 bg-[#FFFDF4] text-brand-navy placeholder:text-muted-foreground focus-visible:ring-2 focus-visible:ring-[#A98B4B]"
-                    />
-                  </div>
                 </div>
               </div>
 
               {/* 3. LOGISTICS & MARKETING */}
               <div>
-                <p className="mb-3 text-xs font-bold uppercase tracking-wider text-[#A98B4B]">
+                <p className="mb-3 text-xs font-bold uppercase tracking-wider text-brand-gold">
                   Logistics & Marketing
                 </p>
                 <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
                   <div className="space-y-1.5 w-full">
                     <Label className="text-xs font-medium text-brand-cream/90">How will we get in? *</Label>
                     <Select value={howGetIn} onValueChange={setHowGetIn}>
-                      <SelectTrigger className="h-11 w-full rounded-lg border-0 bg-[#FFFDF4] text-brand-navy shadow-inner focus:ring-2 focus:ring-[#A98B4B]">
+                      <SelectTrigger className="w-full bg-brand-cream text-brand-navy">
                         <SelectValue placeholder="How will we get in?" />
                       </SelectTrigger>
                       <SelectContent className="w-full">
@@ -691,7 +696,7 @@ export default function CheckoutPage({
                       How did you hear about us? *
                     </Label>
                     <Select value={howHeard} onValueChange={setHowHeard} >
-                      <SelectTrigger className="h-11 w-full rounded-lg border-0 bg-[#FFFDF4] text-brand-navy shadow-inner focus:ring-2 focus:ring-[#A98B4B]">
+                      <SelectTrigger className="w-full bg-brand-cream text-brand-navy">
                         <SelectValue placeholder="How did you hear about us?" />
                       </SelectTrigger>
                       <SelectContent className="w-full">
@@ -713,198 +718,298 @@ export default function CheckoutPage({
                   {error}
                 </div>
               )}
-            </div>
-          </div>
+              </div>
+            </CardContent>
+          </Card>
 
           {/* RIGHT COLUMN: ORDER SUMMARY */}
-          <div className="overflow-hidden rounded-2xl border border-[#A98B4B]/30 bg-[#121E2D] p-6 shadow-2xl sm:p-7">
-            <h2 className="mb-5 border-b border-white/10 pb-3 text-center text-lg font-bold text-white sm:text-xl">
-              Order Summary
-            </h2>
-
-            <div className="space-y-5">
-              {/* SERVICE DETAILS */}
-              <div>
-                <p className="mb-2 text-xs font-bold uppercase tracking-wider text-[#A98B4B]">
-                  Service Details
-                </p>
-                <div className="space-y-2 text-xs sm:text-sm">
-                  <div className="flex justify-between gap-2 border-b border-white/5 py-1 text-brand-cream/90">
-                    <span className="font-medium">SERVICE</span>
-                    <span className="font-bold text-white">{draft.serviceLabel}</span>
-                  </div>
-                  {isCareService && (
-                    <>
-                      <div className="flex justify-between gap-2 border-b border-white/5 py-1 text-brand-cream/90">
-                        <span className="font-medium">SCHEDULE MODE</span>
-                        <span className="font-semibold text-white">{draft.scheduleMode || "In-home care"}</span>
-                      </div>
-                      <div className="flex justify-between gap-2 border-b border-white/5 py-1 text-brand-cream/90">
-                        <span className="font-medium">SERVICE DURATION</span>
-                        <span className="font-semibold text-white">{durationText}</span>
-                      </div>
-                      <div className="flex justify-between gap-2 border-b border-white/5 py-1 text-brand-cream/90">
-                        <span className="font-medium">COUNT OF {personLabel.toUpperCase()}</span>
-                        <span className="font-semibold text-white">{draft.personCount || 1}</span>
-                      </div>
-                      <div className="flex justify-between gap-2 border-b border-white/5 py-1 text-brand-cream/90">
-                        <span className="font-medium">REQUEST CARE PROFESSIONALS</span>
-                        <span className="font-semibold text-white">{draft.caregiverCount || 1}</span>
-                      </div>
-                      <div className="flex justify-between gap-2 border-b border-white/5 py-1 text-brand-cream/90">
-                        <span className="font-medium">SELECT DATE</span>
-                        <span className="font-semibold text-white">{draft.date}</span>
-                      </div>
-                      <div className="flex justify-between gap-2 border-b border-white/5 py-1 text-brand-cream/90">
-                        <span className="font-medium">SELECT START & END TIME</span>
-                        <span className="font-semibold text-white">{startEndTimeFormatted}</span>
-                      </div>
-                    </>
-                  )}
-                </div>
+          <Card className="bg-brand-navy text-brand-navy-foreground">
+            <CardContent className="flex flex-col gap-0 p-0">
+              <div className="px-4 py-3">
+                <h3 className="text-base font-bold text-brand-gold">Quotation Details</h3>
               </div>
 
-              {/* SELECTED SERVICES (FOR QUOTE ITEMS SERVICES: CARPET, POOL, PRESSURE WASHING) */}
-              {isQuoteItemsService ? (
-                <>
-                  <div className="border-t border-white/10 pt-4">
-                    <p className="mb-2 text-xs font-bold uppercase tracking-wider text-[#A98B4B]">
-                      Selected Services
-                    </p>
-                    <div className="space-y-2.5">
-                      {(draft.quoteItems && draft.quoteItems.length > 0 ? draft.quoteItems : []).map((item, idx) => {
-                        const options = isCarpetService
-                          ? CARPET_ITEM_OPTIONS
-                          : isPoolService
-                            ? POOL_ITEM_OPTIONS
-                            : PRESSURE_WASHING_ITEM_OPTIONS;
-                        const option = options.find((o) => o.value === item.optionValue);
-                        const formatted = formatQuoteItem(item, options);
-                        const detailText = formatted
-                          ? formatted.replace(`${option?.label || item.optionValue}, `, "")
-                          : `Quantity: ${item.quantity}`;
-                        return (
-                          <div key={item.id || idx} className="rounded-lg bg-white/5 p-3 text-xs sm:text-sm">
-                            <p className="font-bold uppercase text-white">
-                              {option?.label || item.optionValue}
-                            </p>
-                            <p className="mt-1 text-brand-cream/80 text-[11px] sm:text-xs leading-relaxed">
-                              {detailText}
-                            </p>
-                          </div>
-                        );
-                      })}
-                    </div>
-                  </div>
-
-                  {/* BOOKING DETAILS */}
-                  <div className="border-t border-white/10 pt-4">
-                    <p className="mb-2 text-xs font-bold uppercase tracking-wider text-[#A98B4B]">
-                      Booking Details
-                    </p>
-                    <div className="space-y-2 text-xs sm:text-sm">
-                      <div className="flex justify-between gap-2 border-b border-white/5 py-1 text-brand-cream/90">
-                        <span className="font-medium">DATE</span>
-                        <span className="font-semibold text-white">{draft.date}</span>
-                      </div>
-                      <div className="flex justify-between gap-2 border-b border-white/5 py-1 text-brand-cream/90">
-                        <span className="font-medium">TIME</span>
-                        <span className="font-semibold text-white">{draft.time}</span>
-                      </div>
-                    </div>
-                  </div>
-                </>
-              ) : isYachtService ? (
-                /* LUXURY YACHT DETAILS */
-                <>
-                  <div className="border-t border-white/10 pt-4">
-                    <p className="mb-2 text-xs font-bold uppercase tracking-wider text-[#A98B4B]">
-                      Selected Job Details
-                    </p>
-                    <div className="space-y-2 text-xs sm:text-sm">
-                      <div className="flex justify-between gap-2 border-b border-white/5 py-1 text-brand-cream/90">
-                        <span className="font-medium">JOB TYPE</span>
-                        <span className="font-semibold text-white">{draft.category || "Full Exterior Marine Detail"}</span>
-                      </div>
-                      <div className="flex justify-between gap-2 border-b border-white/5 py-1 text-brand-cream/90">
-                        <span className="font-medium">VESSEL TYPE</span>
-                        <span className="font-semibold text-white">{draft.propertyType || "Motorboat / Day Cruiser"}</span>
-                      </div>
-                      <div className="flex justify-between gap-2 border-b border-white/5 py-1 text-brand-cream/90">
-                        <span className="font-medium">VESSEL SIZE</span>
-                        <span className="font-semibold text-white">{draft.propertySizeSqm || 20} m²</span>
-                      </div>
-                    </div>
-                  </div>
-
-                  {/* BOOKING DETAILS */}
-                  <div className="border-t border-white/10 pt-4">
-                    <p className="mb-2 text-xs font-bold uppercase tracking-wider text-[#A98B4B]">
-                      Booking Details
-                    </p>
-                    <div className="space-y-2 text-xs sm:text-sm">
-                      <div className="flex justify-between gap-2 border-b border-white/5 py-1 text-brand-cream/90">
-                        <span className="font-medium">DATE</span>
-                        <span className="font-semibold text-white">{draft.date}</span>
-                      </div>
-                      <div className="flex justify-between gap-2 border-b border-white/5 py-1 text-brand-cream/90">
-                        <span className="font-medium">TIME</span>
-                        <span className="font-semibold text-white">{draft.time}</span>
-                      </div>
-                    </div>
-                  </div>
-                </>
-              ) : (
-                /* CHILD'S / ELDER'S PROFILE */
-                <div className="border-t border-white/10 pt-4">
-                  <p className="mb-2 text-xs font-bold uppercase tracking-wider text-[#A98B4B]">
-                    {personLabel.toUpperCase()}&rsquo;S PROFILE
-                    {draft.careProfiles && draft.careProfiles.length > 1 ? "S" : ""}
+              <div className="flex flex-col gap-4 border-t border-brand-gold/20 p-4">
+                {/* SERVICE DETAILS */}
+                <div>
+                  <p className="mb-2 text-xs font-bold uppercase tracking-wider text-brand-gold/80">
+                    Service Details
                   </p>
-                  <div className="space-y-2.5">
-                    {(draft.careProfiles && draft.careProfiles.length > 0
-                      ? draft.careProfiles
-                      : draft.careProfile
-                        ? [draft.careProfile]
-                        : []
-                    ).map((p, idx, arr) => (
-                      <div key={idx} className="rounded-lg bg-white/5 p-3 text-xs sm:text-sm">
-                        <div className="flex items-center justify-between gap-2">
-                          <p className="font-bold text-white">
-                            {p.name || `Profile ${idx + 1}`}
-                          </p>
-                          {arr.length > 1 && (
-                            <span className="rounded bg-[#A98B4B]/20 px-2 py-0.5 text-[10px] font-semibold text-[#A98B4B]">
-                              {personLabel} {idx + 1}
-                            </span>
-                          )}
+                  <div className="space-y-2 text-xs sm:text-sm">
+                    <div className="flex justify-between gap-2 py-1 text-brand-cream/70">
+                      <span className="font-medium">Service</span>
+                      <span className="font-normal text-white">{draft.serviceLabel}</span>
+                    </div>
+                    {isCareService && (
+                      <>
+                        <div className="flex justify-between gap-2 border-b border-white/5 py-1 text-brand-cream/70">
+                          <span className="font-medium">SCHEDULE MODE</span>
+                          <span className="font-normal text-white">{draft.scheduleMode || "In-home care"}</span>
                         </div>
-                        <p className="mt-1 text-brand-cream/80 text-[11px] sm:text-xs leading-relaxed">
-                          Special Needs: {p.specialNeeds || "None"} &nbsp;|&nbsp; Gender:{" "}
-                          {p.gender || "—"} &nbsp;|&nbsp; Age: {p.age || "—"}
-                        </p>
-                        {p.documentName && (
-                          <p className="mt-1 truncate text-[11px] text-emerald-400">
-                            Attachment: {p.documentName}
-                          </p>
-                        )}
-                      </div>
-                    ))}
+                        <div className="flex justify-between gap-2 border-b border-white/5 py-1 text-brand-cream/70">
+                          <span className="font-medium">SERVICE DURATION</span>
+                          <span className="font-normal text-white">{durationText}</span>
+                        </div>
+                        <div className="flex justify-between gap-2 border-b border-white/5 py-1 text-brand-cream/70">
+                          <span className="font-medium">COUNT OF {personLabel.toUpperCase()}</span>
+                          <span className="font-normal text-white">{draft.personCount || 1}</span>
+                        </div>
+                        <div className="flex justify-between gap-2 border-b border-white/5 py-1 text-brand-cream/70">
+                          <span className="font-medium">REQUEST CARE PROFESSIONALS</span>
+                          <span className="font-normal text-white">{draft.caregiverCount || 1}</span>
+                        </div>
+                        <div className="flex justify-between gap-2 border-b border-white/5 py-1 text-brand-cream/70">
+                          <span className="font-medium">SELECT DATE</span>
+                          <span className="font-normal text-white">{draft.date}</span>
+                        </div>
+                        <div className="flex justify-between gap-2 border-b border-white/5 py-1 text-brand-cream/70">
+                          <span className="font-medium">SELECT START & END TIME</span>
+                          <span className="font-normal text-white">{startEndTimeFormatted}</span>
+                        </div>
+                      </>
+                    )}
                   </div>
                 </div>
-              )}
 
-              {/* REQUEST QUOTATION BUTTON */}
-              <Button
-                type="button"
-                disabled={submitting}
-                onClick={handleRequestQuotation}
-                className="mt-4 h-12 w-full rounded-xl bg-[#A98B4B] text-sm font-bold tracking-wider text-white shadow-lg transition hover:bg-[#A98B4B] hover:brightness-110"
-              >
-                {submitting ? "SUBMITTING REQUEST…" : "REQUEST QUOTATION"}
-              </Button>
-            </div>
-          </div>
+                {/* SELECTED SERVICES (FOR QUOTE ITEMS SERVICES: CARPET, POOL, PRESSURE WASHING) */}
+                {isQuoteItemsService ? (
+                  <>
+                    <div className="border-t border-brand-gold/20 pt-4">
+                      <p className="mb-2 text-xs font-bold uppercase tracking-wider text-brand-gold/80">
+                        Selected Services
+                      </p>
+                      <div className="space-y-2.5">
+                        {(draft.quoteItems && draft.quoteItems.length > 0 ? draft.quoteItems : []).map((item, idx) => {
+                          const options = isCarpetService
+                            ? CARPET_ITEM_OPTIONS
+                            : isPoolService
+                              ? POOL_ITEM_OPTIONS
+                              : PRESSURE_WASHING_ITEM_OPTIONS;
+                          const option = options.find((o) => o.value === item.optionValue);
+                          const formatted = formatQuoteItem(item, options);
+                          const detailText = formatted
+                            ? formatted.replace(`${option?.label || item.optionValue}, `, "")
+                            : `Quantity: ${item.quantity}`;
+                          return (
+                            <div key={item.id || idx} className="rounded-lg bg-white/5 p-3 text-xs sm:text-sm">
+                              <p className="font-bold uppercase text-white">
+                                {option?.label || item.optionValue}
+                              </p>
+                              <p className="mt-1 text-brand-cream/80 text-[11px] sm:text-xs leading-relaxed">
+                                {detailText}
+                              </p>
+                            </div>
+                          );
+                        })}
+                      </div>
+                    </div>
+
+                    {/* PREFERENCES */}
+                    <div className="border-t border-brand-gold/20 pt-4">
+                      <p className="mb-2 text-xs font-bold uppercase tracking-wider text-brand-gold/80">
+                        Preferences
+                      </p>
+                      <div className="space-y-2 text-xs sm:text-sm">
+                        <div className="flex justify-between gap-2 py-1 text-brand-cream/70">
+                          <span className="font-medium">Duration</span>
+                          <span className="font-normal text-white">{durationHours}h</span>
+                        </div>
+                        <div className="flex justify-between gap-2 py-1 text-brand-cream/70">
+                          <span className="font-medium">Cleaners</span>
+                          <span className="font-normal text-white">{numCleaners}</span>
+                        </div>
+                        <div className="flex justify-between gap-2 py-1 text-brand-cream/70">
+                          <span className="font-medium">Gender Preference</span>
+                          <span className="font-normal text-white">
+                            {GENDER_OPTIONS.find((o) => o.value === gender)?.label ?? "No Preference"}
+                          </span>
+                        </div>
+                        <div className="flex justify-between gap-2 py-1 text-brand-cream/70">
+                          <span className="font-medium">Language Preference</span>
+                          <span className="font-normal text-white">
+                            {LANGUAGE_OPTIONS.find((o) => o.value === language)?.label ?? "No Preference"}
+                          </span>
+                        </div>
+                        {requirements.trim() && (
+                          <div className="flex flex-col gap-1 py-1 text-brand-cream/70">
+                            <span className="font-medium">Special Requirements</span>
+                            <span className="font-normal text-white">{requirements}</span>
+                          </div>
+                        )}
+                      </div>
+                    </div>
+
+                    {/* BOOKING DETAILS */}
+                    <div className="border-t border-brand-gold/20 pt-4">
+                      <p className="mb-2 text-xs font-bold uppercase tracking-wider text-brand-gold/80">
+                        Booking Details
+                      </p>
+                      <div className="space-y-2 text-xs sm:text-sm">
+                        <div className="flex justify-between gap-2 py-1 text-brand-cream/70">
+                          <span className="font-medium">Date</span>
+                          <span className="font-normal text-white">{draft.date}</span>
+                        </div>
+                        <div className="flex justify-between gap-2 py-1 text-brand-cream/70">
+                          <span className="font-medium">Time</span>
+                          <span className="font-normal text-white">{draft.time}</span>
+                        </div>
+                      </div>
+                    </div>
+                  </>
+                ) : isYachtService ? (
+                  /* LUXURY YACHT DETAILS */
+                  <>
+                    <div className="border-t border-brand-gold/20 pt-4">
+                      <p className="mb-2 text-xs font-bold uppercase tracking-wider text-brand-gold/80">
+                        Selected Job Details
+                      </p>
+                      <div className="space-y-2 text-xs sm:text-sm">
+                        <div className="flex justify-between gap-2 border-b border-white/5 py-1 text-brand-cream/70">
+                          <span className="font-medium">JOB TYPE</span>
+                          <span className="font-normal text-white">{draft.category || "Full Exterior Marine Detail"}</span>
+                        </div>
+                        <div className="flex justify-between gap-2 border-b border-white/5 py-1 text-brand-cream/70">
+                          <span className="font-medium">VESSEL TYPE</span>
+                          <span className="font-normal text-white">{draft.propertyType || "Motorboat / Day Cruiser"}</span>
+                        </div>
+                        <div className="flex justify-between gap-2 border-b border-white/5 py-1 text-brand-cream/70">
+                          <span className="font-medium">VESSEL SIZE</span>
+                          <span className="font-normal text-white">{draft.propertySizeSqm || 20} m²</span>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* PREFERENCES */}
+                    <div className="border-t border-brand-gold/20 pt-4">
+                      <p className="mb-2 text-xs font-bold uppercase tracking-wider text-brand-gold/80">
+                        Preferences
+                      </p>
+                      <div className="space-y-2 text-xs sm:text-sm">
+                        <div className="flex justify-between gap-2 py-1 text-brand-cream/70">
+                          <span className="font-medium">Duration</span>
+                          <span className="font-normal text-white">{durationHours}h</span>
+                        </div>
+                        <div className="flex justify-between gap-2 py-1 text-brand-cream/70">
+                          <span className="font-medium">Cleaners</span>
+                          <span className="font-normal text-white">{numCleaners}</span>
+                        </div>
+                        <div className="flex justify-between gap-2 py-1 text-brand-cream/70">
+                          <span className="font-medium">Gender Preference</span>
+                          <span className="font-normal text-white">
+                            {GENDER_OPTIONS.find((o) => o.value === gender)?.label ?? "No Preference"}
+                          </span>
+                        </div>
+                        <div className="flex justify-between gap-2 py-1 text-brand-cream/70">
+                          <span className="font-medium">Language Preference</span>
+                          <span className="font-normal text-white">
+                            {LANGUAGE_OPTIONS.find((o) => o.value === language)?.label ?? "No Preference"}
+                          </span>
+                        </div>
+                        {requirements.trim() && (
+                          <div className="flex flex-col gap-1 py-1 text-brand-cream/70">
+                            <span className="font-medium">Special Requirements</span>
+                            <span className="font-normal text-white">{requirements}</span>
+                          </div>
+                        )}
+                      </div>
+                    </div>
+
+                    {/* BOOKING DETAILS */}
+                    <div className="border-t border-brand-gold/20 pt-4">
+                      <p className="mb-2 text-xs font-bold uppercase tracking-wider text-brand-gold/80">
+                        Booking Details
+                      </p>
+                      <div className="space-y-2 text-xs sm:text-sm">
+                        <div className="flex justify-between gap-2 py-1 text-brand-cream/70">
+                          <span className="font-medium">Date</span>
+                          <span className="font-normal text-white">{draft.date}</span>
+                        </div>
+                        <div className="flex justify-between gap-2 py-1 text-brand-cream/70">
+                          <span className="font-medium">Time</span>
+                          <span className="font-normal text-white">{draft.time}</span>
+                        </div>
+                      </div>
+                    </div>
+                  </>
+                ) : (
+                  /* CHILD'S / ELDER'S PROFILE */
+                  <div className="border-t border-brand-gold/20 pt-4">
+                    <p className="mb-2 text-xs font-bold uppercase tracking-wider text-brand-gold/80">
+                      {personLabel.toUpperCase()}&rsquo;S PROFILE
+                      {draft.careProfiles && draft.careProfiles.length > 1 ? "S" : ""}
+                    </p>
+                    <div className="space-y-2.5">
+                      {(draft.careProfiles && draft.careProfiles.length > 0
+                        ? draft.careProfiles
+                        : draft.careProfile
+                          ? [draft.careProfile]
+                          : []
+                      ).map((p, idx, arr) => (
+                        <div key={idx} className="rounded-lg bg-white/5 p-3 text-xs sm:text-sm">
+                          <div className="flex items-center justify-between gap-2">
+                            <p className="font-bold text-white">
+                              {p.name || `Profile ${idx + 1}`}
+                            </p>
+                            {arr.length > 1 && (
+                              <span className="rounded bg-brand-gold/20 px-2 py-0.5 text-[10px] font-semibold text-brand-gold">
+                                {personLabel} {idx + 1}
+                              </span>
+                            )}
+                          </div>
+                          <p className="mt-1 text-brand-cream/80 text-[11px] sm:text-xs leading-relaxed">
+                            Special Needs: {p.specialNeeds || "None"} &nbsp;|&nbsp; Gender:{" "}
+                            {p.gender || "—"} &nbsp;|&nbsp; Age: {p.age || "—"}
+                          </p>
+                          {p.documentName && (
+                            <p className="mt-1 truncate text-[11px] text-emerald-400">
+                              Attachment: {p.documentName}
+                            </p>
+                          )}
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                )}
+
+                {/* TERMS AGREEMENT */}
+                <label
+                  htmlFor="agreed-to-terms"
+                  className="flex cursor-pointer items-center gap-2 text-xs text-brand-cream/70"
+                >
+                  <Checkbox
+                    id="agreed-to-terms"
+                    checked={agreedToTerms}
+                    onCheckedChange={(checked) => setAgreedToTerms(checked === true)}
+                    className="border-brand-gold data-checked:border-brand-gold data-checked:bg-brand-gold"
+                  />
+                  <span>
+                    I agree to the{" "}
+                    <Link href="/terms-and-conditions" target="_blank" className="underline">
+                      Terms and Conditions
+                    </Link>{" "}
+                    and{" "}
+                    <Link href="/privacy-policy" target="_blank" className="underline">
+                      Privacy Policy
+                    </Link>
+                    .
+                  </span>
+                </label>
+
+                {/* REQUEST QUOTATION BUTTON */}
+                <Button
+                  type="button"
+                  disabled={submitting || !!requestDisabledReason}
+                  onClick={handleRequestQuotation}
+                  className="w-full bg-brand-gold text-brand-navy hover:bg-brand-gold/90"
+                >
+                  {submitting ? "SUBMITTING REQUEST…" : "REQUEST QUOTATION"}
+                </Button>
+                {requestDisabledReason && (
+                  <p className="text-center text-xs text-brand-cream/70">{requestDisabledReason}</p>
+                )}
+              </div>
+            </CardContent>
+          </Card>
         </div>
       ) : (
         /* STANDARD SERVICE CHECKOUT VIEW */

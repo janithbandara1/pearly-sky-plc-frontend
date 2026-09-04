@@ -679,6 +679,7 @@ export const SERVICE_CONTENT: Partial<Record<string, ServiceContentEntry>> = {
       headline: "Maintain Pristine Water Quality and Extend the Life of Your Pool Equipment.",
       body: [
         "Our Aquatic Clarity service offers specialized, recurring maintenance for residential and commercial swimming pools. This service ensures optimal water chemistry, equipment longevity, and a clean, safe swimming environment. Our patrols are comprehensive, covering both physical cleaning and chemical balance management.",
+        "Pricing Note: Prices are quoted per-service (weekly/bi-weekly) based on the pool size (surface area or volume) and the required chemical expertise.",
       ],
     },
     highlights: [

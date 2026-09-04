@@ -67,10 +67,10 @@ const SECURITY_SLUG = "high-security-property-care";
 const YACHT_SLUG = "luxury-yacht-cleaning";
 
 /** Care and quotation services with dedicated scheduling and profile flows. */
-const CHILD_CARE_SLUG = "child-care-service";
-const ELDER_CARE_SLUG = "elder-care-service";
+const CHILD_CARE_SLUG = "childcare-services";
+const ELDER_CARE_SLUG = "elder-care-services";
 const CARPET_UPHOLSTERY_SLUG = "carpet-upholstery-cleaning";
-const POOL_CLEANING_SLUG = "pool-cleaning";
+const POOL_CLEANING_SLUG = "pool-cleaning-maintenance";
 const PRESSURE_WASHING_SLUG = "precision-pressure-washing";
 
 //used for fallback data when the service API fails to return a service
@@ -90,9 +90,9 @@ const DEFAULT_ITEMS: CatalogItem[] = [
 ];
 
 const FALLBACK_SERVICES: Record<string, CatalogServiceDetail> = {
-  "child-care-service": {
+  "childcare-services": {
     id: 17,
-    name: "child-care-service",
+    name: "childcare-services",
     label: "Child Care Service",
     price: "30.00",
     prices: [],
@@ -105,9 +105,9 @@ const FALLBACK_SERVICES: Record<string, CatalogServiceDetail> = {
     servicePackages: [],
     serviceItems: [],
   },
-  "elder-care-service": {
+  "elder-care-services": {
     id: 18,
-    name: "elder-care-service",
+    name: "elder-care-services",
     label: "Elder Care Service",
     price: "30.00",
     prices: [],
@@ -135,9 +135,9 @@ const FALLBACK_SERVICES: Record<string, CatalogServiceDetail> = {
     servicePackages: [],
     serviceItems: [],
   },
-  "pool-cleaning": {
+  "pool-cleaning-maintenance": {
     id: 9,
-    name: "pool-cleaning",
+    name: "pool-cleaning-maintenance",
     label: "Pool Cleaning",
     price: "0.00",
     prices: [],
@@ -514,6 +514,7 @@ export function ServiceBookingView({ serviceSlug }: { serviceSlug: string }) {
         subtitle={service.description ?? undefined}
         servicePrices={service.prices}
         serviceId={service.id}
+        hidePriceSelector={isPoolCleaning}
       />
 
       <div className="mx-auto flex w-full  max-w-[1250px]  flex-col gap-6 px-6 md:px-2">
@@ -525,7 +526,7 @@ export function ServiceBookingView({ serviceSlug }: { serviceSlug: string }) {
           Back
         </Link> */}
 
-        {!isFlowService && serviceContent?.introduction && (
+        {(!isFlowService || isPoolCleaning) && serviceContent?.introduction && (
           <ServiceIntroduction
             {...serviceContent.introduction}
             bgImage={

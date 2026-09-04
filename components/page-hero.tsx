@@ -73,6 +73,7 @@ export function PageHero({
   subtitle,
   servicePrices,
   serviceId,
+  hidePriceSelector,
 }: {
   image: string;
   eyebrow?: string;
@@ -80,6 +81,8 @@ export function PageHero({
   subtitle?: string;
   servicePrices?: ServicePriceEntry[];
   serviceId?: number;
+  /** Hides the "€X.XX / Hour Per Cleaner" price + country picker — for services that aren't priced per hour. */
+  hidePriceSelector?: boolean;
 }) {
   /** The site-wide country (same one the navbar's CountrySwitcher/LocaleSwitcher drive) — picking a country here navigates the whole site, same as picking it there. */
   const { country, setCountry } = useCountry();
@@ -196,22 +199,73 @@ export function PageHero({
         {subtitle && <p className="mt-3 text-brand-cream/85 hidden">{subtitle}</p>}
 
         {/* Desktop View Price Section */}
-        <div className="mt-4 md:flex hidden width-auto md:bg-transparent bg-[rgb(18,30,45)] flex-col items-center justify-start gap-2 sm:flex-row">
-          <p className="text-medium md:block font-semibold text-[#A98B4B] sm:text-2xl">
+        {!hidePriceSelector && (
+          <div className="mt-4 md:flex hidden width-auto md:bg-transparent bg-[rgb(18,30,45)] flex-col items-center justify-start gap-2 sm:flex-row">
+            <p className="text-medium md:block font-semibold text-[#A98B4B] sm:text-2xl">
+              {selectedData.price !== null ? `${selectedData.currency} ${selectedData.price.toFixed(2)}` : "Contact us"}
+            </p>
+
+            <div className="relative text-left md:flex gap-2" ref={desktopDropdownRef}>
+              <button
+                type="button"
+                onClick={() => setIsDesktopOpen((prev) => !prev)}
+                className="inline-flex items-center gap-2 rounded border-2 border-dashed border-[#A98B4B] bg-transparent p-1 px-2.5 text-xs font-semibold text-[rgb(169,139,75)] focus:outline-none"
+              >
+                <SelectedFlag className="h-3.5 w-5 object-cover" />
+                <span className="text-[10px] text-[rgb(169,139,75)] ml-1">▾</span>
+              </button>
+
+              {isDesktopOpen && (
+                <div className="absolute right-0 bottom-full mb-2 z-50 w-56 overflow-hidden rounded-l-lg border border-[rgb(169,139,75)]/40 bg-[rgb(18,30,45)] shadow-xl">
+                  <ul className="max-h-60 overflow-y-auto p-1 focus:outline-none scrollbar-thin">
+                    {activePrices.map((item) => {
+                      const ItemFlag = getFlagComponent(item.country);
+                      return (
+                        <li
+                          key={item.country}
+                          onClick={() => {
+                            setCountry(item.country);
+                            setIsDesktopOpen(false);
+                          }}
+                          className={`flex items-center gap-2.5 rounded-lg px-3 py-2 text-xs font-medium cursor-pointer transition-colors duration-150 ${item.country.toUpperCase() === selectedCountryCode.toUpperCase()
+                            ? "bg-[rgb(169,139,75)]/20 text-[rgb(169,139,75)] font-bold"
+                            : "text-white hover:bg-[rgb(28,45,65)]"
+                            }`}
+                        >
+                          <ItemFlag className="h-3.5 w-5 object-cover flex-shrink-0" />
+                          <span className="truncate">{item.country.toUpperCase()} - {item.currency}</span>
+                        </li>
+                      );
+                    })}
+                  </ul>
+                </div>
+              )}
+              <p className="m-0 font-[Poppins] md:block md:pl-2 leading-[1.5] text-[rgb(169,139,75)] text-base font-extrabold [text-shadow:rgba(0,0,0,0.3)_0px_1px_4px]">
+                Hour Per Cleaner
+              </p>
+            </div>
+          </div>
+        )}
+      </div>
+
+      {/* Mobile View Price Dropdown */}
+      {!hidePriceSelector && (
+        <div className="my-4 z-14 absolute py-4 px-2 top-23 rounded-lg w-[320px] md:hidden bg-[rgb(18,30,45)] flex items-center gap-1 flex-row">
+          <p className="text-[0.65rem] w-[40%] font-semibold text-[#A98B4B] max-[541px]:text-base max-[541px]:text-white">
             {selectedData.price !== null ? `${selectedData.currency} ${selectedData.price.toFixed(2)}` : "Contact us"}
           </p>
 
-          <div className="relative text-left md:flex gap-2" ref={desktopDropdownRef}>
+          <div className="relative w-[80%] text-left flex justify-around items-center gap-2" ref={mobileDropdownRef}>
             <button
               type="button"
-              onClick={() => setIsDesktopOpen((prev) => !prev)}
-              className="inline-flex items-center gap-2 rounded border-2 border-dashed border-[#A98B4B] bg-transparent p-1 px-2.5 text-xs font-semibold text-[rgb(169,139,75)] focus:outline-none"
+              onClick={() => setIsMobileOpen((prev) => !prev)}
+              className="inline-flex items-center gap-2 rounded border-2 border-dashed border-[#A98B4B] bg-transparent p-1 px-2.5 text-xs font-semibold text-[rgb(169,139,75)] max-[541px]:border-white focus:outline-none"
             >
               <SelectedFlag className="h-3.5 w-5 object-cover" />
               <span className="text-[10px] text-[rgb(169,139,75)] ml-1">▾</span>
             </button>
 
-            {isDesktopOpen && (
+            {isMobileOpen && (
               <div className="absolute right-0 bottom-full mb-2 z-50 w-56 overflow-hidden rounded-l-lg border border-[rgb(169,139,75)]/40 bg-[rgb(18,30,45)] shadow-xl">
                 <ul className="max-h-60 overflow-y-auto p-1 focus:outline-none scrollbar-thin">
                   {activePrices.map((item) => {
@@ -221,7 +275,7 @@ export function PageHero({
                         key={item.country}
                         onClick={() => {
                           setCountry(item.country);
-                          setIsDesktopOpen(false);
+                          setIsMobileOpen(false);
                         }}
                         className={`flex items-center gap-2.5 rounded-lg px-3 py-2 text-xs font-medium cursor-pointer transition-colors duration-150 ${item.country.toUpperCase() === selectedCountryCode.toUpperCase()
                           ? "bg-[rgb(169,139,75)]/20 text-[rgb(169,139,75)] font-bold"
@@ -236,59 +290,12 @@ export function PageHero({
                 </ul>
               </div>
             )}
-            <p className="m-0 font-[Poppins] md:block md:pl-2 leading-[1.5] text-[rgb(169,139,75)] text-base font-extrabold [text-shadow:rgba(0,0,0,0.3)_0px_1px_4px]">
+            <p className="m-0 font-[Poppins] text-[0.85rem] wrap-break-word leading-[1.5] text-[rgb(233,233,233)] font-extrabold [text-shadow:rgba(0,0,0,0.3)_0px_1px_4px]">
               Hour Per Cleaner
             </p>
           </div>
         </div>
-      </div>
-
-      {/* Mobile View Price Dropdown */}
-      <div className="my-4 z-14 absolute py-4 px-2 top-23 rounded-lg w-[320px] md:hidden bg-[rgb(18,30,45)] flex items-center gap-1 flex-row">
-        <p className="text-[0.65rem] w-[40%] font-semibold text-[#A98B4B] max-[541px]:text-base max-[541px]:text-white">
-          {selectedData.price !== null ? `${selectedData.currency} ${selectedData.price.toFixed(2)}` : "Contact us"}
-        </p>
-
-        <div className="relative w-[80%] text-left flex justify-around items-center gap-2" ref={mobileDropdownRef}>
-          <button
-            type="button"
-            onClick={() => setIsMobileOpen((prev) => !prev)}
-            className="inline-flex items-center gap-2 rounded border-2 border-dashed border-[#A98B4B] bg-transparent p-1 px-2.5 text-xs font-semibold text-[rgb(169,139,75)] max-[541px]:border-white focus:outline-none"
-          >
-            <SelectedFlag className="h-3.5 w-5 object-cover" />
-            <span className="text-[10px] text-[rgb(169,139,75)] ml-1">▾</span>
-          </button>
-
-          {isMobileOpen && (
-            <div className="absolute right-0 bottom-full mb-2 z-50 w-56 overflow-hidden rounded-l-lg border border-[rgb(169,139,75)]/40 bg-[rgb(18,30,45)] shadow-xl">
-              <ul className="max-h-60 overflow-y-auto p-1 focus:outline-none scrollbar-thin">
-                {activePrices.map((item) => {
-                  const ItemFlag = getFlagComponent(item.country);
-                  return (
-                    <li
-                      key={item.country}
-                      onClick={() => {
-                        setCountry(item.country);
-                        setIsMobileOpen(false);
-                      }}
-                      className={`flex items-center gap-2.5 rounded-lg px-3 py-2 text-xs font-medium cursor-pointer transition-colors duration-150 ${item.country.toUpperCase() === selectedCountryCode.toUpperCase()
-                        ? "bg-[rgb(169,139,75)]/20 text-[rgb(169,139,75)] font-bold"
-                        : "text-white hover:bg-[rgb(28,45,65)]"
-                        }`}
-                    >
-                      <ItemFlag className="h-3.5 w-5 object-cover flex-shrink-0" />
-                      <span className="truncate">{item.country.toUpperCase()} - {item.currency}</span>
-                    </li>
-                  );
-                })}
-              </ul>
-            </div>
-          )}
-          <p className="m-0 font-[Poppins] text-[0.85rem] wrap-break-word leading-[1.5] text-[rgb(233,233,233)] font-extrabold [text-shadow:rgba(0,0,0,0.3)_0px_1px_4px]">
-            Hour Per Cleaner
-          </p>
-        </div>
-      </div>
+      )}
     </section>
   );
 }

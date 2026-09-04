@@ -4,6 +4,7 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { PoolJobSelection } from "@/components/booking/pool-job-selection";
 import { DateTimeSection } from "@/components/booking/date-time-section";
+import { QuotationPreferencesSection } from "@/components/booking/quotation-preferences-section";
 import { Button } from "@/components/ui/button";
 import { saveBookingDraft, loadBookingDraft } from "@/lib/booking-draft";
 import type { QuoteItem } from "@/lib/content/quote-items";
@@ -38,6 +39,31 @@ export function PoolScheduleSection({
     return draft && draft.serviceSlug === serviceSlug ? draft.time : "";
   });
 
+  const [numCleaners, setNumCleaners] = useState<number>(() => {
+    const draft = loadBookingDraft();
+    return draft && draft.serviceSlug === serviceSlug ? draft.numCleaners ?? 1 : 1;
+  });
+
+  const [durationHours, setDurationHours] = useState<number>(() => {
+    const draft = loadBookingDraft();
+    return draft && draft.serviceSlug === serviceSlug ? draft.durationHours ?? 3 : 3;
+  });
+
+  const [gender, setGender] = useState<string>(() => {
+    const draft = loadBookingDraft();
+    return draft && draft.serviceSlug === serviceSlug ? draft.genderPreference || "no-preference" : "no-preference";
+  });
+
+  const [language, setLanguage] = useState<string>(() => {
+    const draft = loadBookingDraft();
+    return draft && draft.serviceSlug === serviceSlug ? draft.languagePreference || "no-preference" : "no-preference";
+  });
+
+  const [requirements, setRequirements] = useState<string>(() => {
+    const draft = loadBookingDraft();
+    return draft && draft.serviceSlug === serviceSlug ? draft.specialRequirements || "" : "";
+  });
+
   const [error, setError] = useState<string | null>(null);
 
   function handleSchedule() {
@@ -66,18 +92,20 @@ export function PoolScheduleSection({
       items: [],
       supplySource: "company",
       addOnsTotal: 0,
-      genderPreference: currentDraft?.genderPreference || "none",
-      languagePreference: currentDraft?.languagePreference || "English",
+      numCleaners,
+      durationHours,
+      genderPreference: gender,
+      languagePreference: language,
+      specialRequirements: requirements.trim() || undefined,
       quoteItems,
       propertyClassification: currentDraft?.propertyClassification,
       serviceContinuityPlan: currentDraft?.serviceContinuityPlan,
       documentName: currentDraft?.documentName,
       documentData: currentDraft?.documentData,
       serviceSpecifics: currentDraft?.serviceSpecifics,
-      specialRequirements: currentDraft?.specialRequirements,
     });
 
-    router.push(`/services/${serviceSlug}/form-submit`);
+    router.push(`/services/${serviceSlug}/checkout`);
   }
 
   return (
@@ -99,29 +127,42 @@ export function PoolScheduleSection({
         }}
       />
 
+      {/* 3. PREFERENCES */}
+      <QuotationPreferencesSection
+        numCleaners={numCleaners}
+        onNumCleanersChange={setNumCleaners}
+        professionalsLabel="Cleaners"
+        durationHours={durationHours}
+        onDurationHoursChange={setDurationHours}
+        gender={gender}
+        onGenderChange={setGender}
+        language={language}
+        onLanguageChange={setLanguage}
+        requirements={requirements}
+        onRequirementsChange={setRequirements}
+      />
+
       {/* Validation Error Message */}
       {error && (
-        <div className="rounded-xl border border-red-500/30 bg-red-50 p-4 text-center text-sm font-semibold text-red-600 shadow-sm">
-          {error}
-        </div>
+        <p className="text-center text-sm font-semibold text-red-600">{error}</p>
       )}
 
-      {/* 3. BOTTOM ACTION BUTTONS */}
-      <div className="flex items-center justify-center gap-4 pt-2 mb-5">
+      {/* 4. BOTTOM ACTION BUTTONS */}
+      <div className="flex items-center justify-center gap-4 py-2 mb-5">
         <Button
           type="button"
           variant="outline"
           onClick={() => router.back()}
-          className="h-12 min-w-[120px] rounded-lg border-2 border-[#A98B4B] bg-[#FFFDF4] text-base font-semibold text-[#121E2D] shadow-sm transition-all hover:bg-[#FFFDF4] hover:shadow-[0_0_10px_2px_rgba(18,30,45,0.2)] hover:text-[#A98B4B]"
+          className="inline-flex h-[42px] min-w-[120px] items-center justify-center rounded-[8px] border border-[#C5A253] bg-white px-10 py-2 text-base font-semibold text-[#0B1528] shadow-sm transition hover:bg-[#F8F9FA]"
         >
           Back
         </Button>
         <Button
           type="button"
           onClick={handleSchedule}
-          className="h-12 min-w-[200px] rounded-lg border-2 border-[#A98B4B] bg-[#A98B4B] text-base font-semibold text-white shadow-md transition-all hover:bg-[#A98B4B] hover:brightness-105 hover:shadow-[0_0_12px_3px_rgba(169,139,75,0.4)]"
+          className="inline-flex h-[42px] min-w-[200px] items-center justify-center rounded-[8px] bg-[#C5A253] px-10 py-2 text-center text-sm font-semibold uppercase tracking-wider text-[#0B1528] shadow-[0_4px_14px_rgba(197,162,83,0.35)] transition-all hover:bg-[#B39144] hover:brightness-110"
         >
-          Book now
+          Book Now
         </Button>
       </div>
     </div>
