@@ -1,7 +1,6 @@
 "use client";
 
-import { useEffect, useState, useCallback } from "react";
-import useEmblaCarousel from "embla-carousel-react";
+import { useEffect, useState, useRef } from "react";
 
 export interface PropertyCategory {
   id: string;
@@ -428,28 +427,13 @@ export function PropertyTypeSizeSelector({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [activeCategory]);
 
-  const [emblaRef, emblaApi] = useEmblaCarousel({
-    dragFree: true,
-    containScroll: "trimSnaps",
-    align: "start",
-  });
-
-  const handleCardClick = useCallback((id: string) => {
+  function handleCardClick(id: string) {
     const nextCat = selectableCategories.find((c) => c.id === id);
     if (nextCat) {
       setActiveCategoryId(nextCat.id);
       onChange(nextCat.sizes ? nextCat.sizes[0] : nextCat.min);
     }
-  }, [selectableCategories, onChange]);
-
-  // Scroll active item into view when active category changes
-  useEffect(() => {
-    if (!emblaApi) return;
-    const activeIdx = selectableCategories.findIndex((c) => c.id === activeCategoryId);
-    if (activeIdx >= 0) {
-      emblaApi.scrollTo(activeIdx);
-    }
-  }, [activeCategoryId, emblaApi, selectableCategories]);
+  }
 
   // Calculate current size index & surrounding options for the wheel
   const currentIndex = Math.max(
@@ -471,6 +455,22 @@ export function PropertyTypeSizeSelector({
     }
   }
 
+  // Scrolling over the size wheel changes the size instead of scrolling the page. React
+  // attaches onWheel as a passive listener, so preventDefault must happen on a native,
+  // non-passive listener instead.
+  const wheelContainerRef = useRef<HTMLDivElement>(null);
+  useEffect(() => {
+    const el = wheelContainerRef.current;
+    if (!el) return;
+    function onWheel(e: WheelEvent) {
+      e.preventDefault();
+      if (e.deltaY > 0) handleNext();
+      else handlePrev();
+    }
+    el.addEventListener("wheel", onWheel, { passive: false });
+    return () => el.removeEventListener("wheel", onWheel);
+  });
+
   return (
     <section className="rounded-2xl border border-[#C6A868] bg-[#FAF8F5] p-5 sm:p-6 shadow-sm w-full">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6 items-start">
@@ -478,38 +478,38 @@ export function PropertyTypeSizeSelector({
         <div className="flex flex-col min-w-0">
           <h3 className="text-base sm:text-lg font-bold text-[#0F172A] mb-3">Property Type</h3>
 
-          <div className="relative">
-            <div ref={emblaRef} className="overflow-hidden cursor-grab active:cursor-grabbing select-none pb-2">
-              <div className="flex gap-3">
-                {selectableCategories.map((cat) => {
-                  const isSelected = cat.id === activeCategory.id;
-                  return (
-                    <button
-                      key={cat.id}
-                      type="button"
-                      onClick={() => handleCardClick(cat.id)}
-                      className={`shrink-0 w-[110px] sm:w-[118px] h-[118px] rounded-xl flex flex-col items-center justify-center p-2.5 cursor-pointer transition-all duration-200 select-none ${isSelected
-                          ? "bg-[#0B1527] border-2 border-[#B89642] ring-1 ring-[#B89642] text-white shadow-md scale-[1.02]"
-                          : "bg-white border border-[#C6A868]/60 hover:border-[#B89642] text-[#1E293B] shadow-sm hover:shadow"
-                        }`}
-                    >
-                      <div
-                        className={`w-9 h-9 rounded-lg flex items-center justify-center text-xl mb-1.5 transition-colors ${isSelected ? "bg-[#1E2B42]" : "bg-[#F1F3F5]"
-                          }`}
-                      >
-                        <span>{cat.icon}</span>
-                      </div>
-                      <span
-                        className={`text-xs text-center leading-tight line-clamp-2 px-1 ${isSelected ? "font-bold text-white" : "font-semibold text-[#1E293B]"
-                          }`}
-                      >
-                        {cat.label}
-                      </span>
-                    </button>
-                  );
-                })}
-              </div>
-            </div>
+          <div
+            className="flex flex-nowrap gap-3 overflow-x-auto overflow-y-hidden -mx-1 px-1 [&::-webkit-scrollbar]:hidden"
+            style={{ scrollbarWidth: "none", scrollSnapType: "x proximity" }}
+          >
+            {selectableCategories.map((cat) => {
+              const isSelected = cat.id === activeCategory.id;
+              return (
+                <button
+                  key={cat.id}
+                  type="button"
+                  onClick={() => handleCardClick(cat.id)}
+                  style={{ scrollSnapAlign: "start" }}
+                  className={`shrink-0 w-[110px] sm:w-[118px] h-[118px] rounded-xl border-2 flex flex-col items-center justify-center p-2.5 cursor-pointer transition-colors select-none ${isSelected
+                      ? "bg-[#0B1527] border-[#B89642]"
+                      : "bg-white border-[#C6A868]/60 hover:border-[#B89642]"
+                    }`}
+                >
+                  <div
+                    className={`w-9 h-9 rounded-lg flex items-center justify-center text-xl mb-1.5 transition-colors ${isSelected ? "bg-white/10" : "bg-[#F1F3F5]"
+                      }`}
+                  >
+                    <span>{cat.icon}</span>
+                  </div>
+                  <span
+                    className={`text-xs text-center leading-tight line-clamp-2 px-1 ${isSelected ? "font-bold text-white" : "font-semibold text-[#1E293B]"
+                      }`}
+                  >
+                    {cat.label}
+                  </span>
+                </button>
+              );
+            })}
           </div>
 
           <p className="text-[11px] text-[#94A3B8] text-center mt-1.5 font-medium tracking-wide select-none">
@@ -524,11 +524,8 @@ export function PropertyTypeSizeSelector({
           <div className="flex items-center gap-3">
             {/* Wheel Display Container */}
             <div
-              className="flex-1 h-[122px] rounded-xl border border-[#C6A868] bg-white overflow-hidden shadow-sm flex flex-col justify-between select-none"
-              onWheel={(e) => {
-                if (e.deltaY > 0) handleNext();
-                else handlePrev();
-              }}
+              ref={wheelContainerRef}
+              className="flex-1 h-[122px] rounded-xl border-2 border-[#C6A868]/60 bg-white overflow-hidden shadow-sm flex flex-col justify-between select-none"
             >
               {/* Top Row: Previous size preview */}
               <button
@@ -567,7 +564,7 @@ export function PropertyTypeSizeSelector({
                 type="button"
                 onClick={handleNext}
                 disabled={nextSize === null}
-                className="w-[52px] h-[56px] rounded-xl border border-[#C6A868] bg-white hover:bg-[#FAF7F2] active:scale-95 transition-all shadow-sm flex flex-col items-center justify-center text-[#1E293B] cursor-pointer disabled:opacity-40 disabled:cursor-not-allowed"
+                className="w-[52px] h-[56px] rounded-xl border-2 border-[#C6A868]/60 bg-white hover:bg-[#FAF7F2] active:scale-95 transition-all shadow-sm flex flex-col items-center justify-center text-[#1E293B] cursor-pointer disabled:opacity-40 disabled:cursor-not-allowed"
                 aria-label="Increase Property Size"
               >
                 <span className="text-sm leading-none font-bold">↑</span>
@@ -578,7 +575,7 @@ export function PropertyTypeSizeSelector({
                 type="button"
                 onClick={handlePrev}
                 disabled={prevSize === null}
-                className="w-[52px] h-[56px] rounded-xl border border-[#C6A868] bg-white hover:bg-[#FAF7F2] active:scale-95 transition-all shadow-sm flex flex-col items-center justify-center text-[#1E293B] cursor-pointer disabled:opacity-40 disabled:cursor-not-allowed"
+                className="w-[52px] h-[56px] rounded-xl border-2 border-[#C6A868]/60 bg-white hover:bg-[#FAF7F2] active:scale-95 transition-all shadow-sm flex flex-col items-center justify-center text-[#1E293B] cursor-pointer disabled:opacity-40 disabled:cursor-not-allowed"
                 aria-label="Decrease Property Size"
               >
                 <span className="text-sm leading-none font-bold">↓</span>

@@ -35,7 +35,7 @@ const JoinWithUsSection = () => {
   }, []);
 
   return (
-    <div className="mx-none flex w-full max-w-10xl py-3 flex-col items-center justify-between gap-8 border-4 border-[#A98B4B] bg-[#121E2D] p-5 shadow-[0_4px_20px_rgba(169,139,75,0.25)] lg:flex-row lg:gap-10 lg:p-8">
+    <div className="mx-none flex w-full max-w-10xl py-3 flex-col items-center justify-between gap-8 border-2 border-[#A98B4B] bg-[#121E2D] p-5 lg:flex-row lg:gap-10 lg:p-8">
       {/* Left content side */}
       <div className="w-full lg:w-[52%]">
         <h2 className="mb-4 text-lg font-bold text-[#FFFDF4] sm:text-xl lg:text-2xl">

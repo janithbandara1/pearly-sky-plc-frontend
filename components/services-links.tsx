@@ -28,7 +28,7 @@ const relatedServices: ServiceLink[] = [
 
 export default function RelatedServices() {
   return (
-    <section className="w-full border-t-2 border-[#A98B4B] bg-[#F8F9FA] px-4 py-8 font-poppins">
+    <section className="w-full bg-[#F8F9FA] px-4 py-8 font-poppins">
       <h3 className="mb-4 text-center text-lg font-bold text-[#121E2D]">
         Explore Related Services
       </h3>

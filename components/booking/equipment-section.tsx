@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { User, Briefcase, KeyRound, ArrowRight } from "lucide-react";
+import { User, Briefcase, KeyRound } from "lucide-react";
 import type { CatalogItem, SizeQuote } from "@/lib/catalog-api";
 import { useCurrency } from "@/lib/currency-context";
 import { Slider } from "radix-ui";
@@ -88,7 +88,7 @@ export function EquipmentSection({
           <h2 className="text-xs font-bold uppercase tracking-wider text-[#FFFDF4] sm:text-sm">
             SELECTED SERVICES
           </h2>
-          <div className="flex items-center gap-1.5 rounded-md bg-[#16243A] px-2.5 py-1 text-xs font-bold text-[#C5A253]">
+          <div className="flex items-center gap-1.5 text-xs font-bold text-[#C5A253]">
             <span>{categoryIcon}</span>
             <span>{propertyType}</span>
           </div>
@@ -189,7 +189,7 @@ export function EquipmentSection({
                   key={item.id}
                   className="flex items-center justify-between border-t border-[#1E2D45] py-3.5 px-1 sm:px-2"
                 >
-                  <span className="text-xs font-bold uppercase tracking-wide text-[#FFFDF4] sm:text-sm">
+                  <span className="text-xs font-bold uppercase tracking-wide text-[#FFFDF4]">
                     {item.name}
                   </span>
                   <div className="flex items-center gap-3 sm:gap-4">
@@ -220,7 +220,7 @@ export function EquipmentSection({
           <span className="text-xs font-bold uppercase tracking-wider text-[#C5A253] sm:text-sm">
             ESTIMATED PRICE RANGE
           </span>
-          <span className="text-sm font-extrabold text-[#FFFDF4] sm:text-lg">
+          <span className="text-sm font-extrabold text-[#FFFDF4] sm:text-base">
             {estimatedPriceRange}
           </span>
         </div>
@@ -264,12 +264,9 @@ export function EquipmentSection({
         >
           Back
         </Link>
-        <Link
-          href="#service-info"
-          className="inline-flex px-10 py-2 text-md items-center gap-1 font-bold text-[#C5A253] hover:underline"
-        >
-          Service Info <ArrowRight className="h-3.5 w-3.5" />
-        </Link>
+        <span className="inline-flex px-10 py-2 text-md items-center font-bold text-[#C5A253]">
+          Service Info
+        </span>
       </div>
       
     </div>

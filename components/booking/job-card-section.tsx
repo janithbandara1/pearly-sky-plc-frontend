@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { Check, Plus } from "lucide-react";
 import type { ServiceAddOnPackage } from "@/lib/catalog-api";
 
 export interface JobCardAddOnItem {
@@ -167,15 +168,15 @@ export function JobCardSection({
 
                         {/* Right Action Icon Button */}
                         {isSelected ? (
-                          <div className="w-7 h-7 rounded-full bg-[#B89642] border border-[#B89642] flex items-center justify-center text-white font-bold text-xs shrink-0 shadow-sm">
-                            ✓
+                          <div className="w-7 h-7 rounded-full bg-[#B89642] border border-[#B89642] flex items-center justify-center text-white shrink-0 shadow-sm">
+                            <Check className="h-3.5 w-3.5" strokeWidth={3} />
                           </div>
                         ) : (
                           <div
-                            className={`w-7 h-7 rounded-full border border-[#B89642] flex items-center justify-center text-[#B89642] font-semibold text-base shrink-0 ${isDisabled ? "border-gray-300 text-gray-300" : ""
+                            className={`w-7 h-7 rounded-full border border-[#B89642] flex items-center justify-center text-[#B89642] shrink-0 ${isDisabled ? "border-gray-300 text-gray-300" : ""
                               }`}
                           >
-                            +
+                            <Plus className="h-4 w-4" strokeWidth={2.5} />
                           </div>
                         )}
                       </button>
@@ -191,7 +192,7 @@ export function JobCardSection({
       {/* Desktop View Layout (≥ md) */}
       <div className="hidden md:block">
         {/* Category Tabs Header */}
-        <div className="grid grid-cols-4 gap-0 mb-6">
+        <div className="grid grid-cols-4 gap-2 mb-6">
           {JOB_CARD_CATEGORIES.map((category) => {
             const isActive = category.id === activeTabId;
             return (
@@ -250,15 +251,15 @@ export function JobCardSection({
 
                   {/* Right Action Icon Button */}
                   {isSelected ? (
-                    <div className="w-7 h-7 rounded-full bg-[#B89642] border border-[#B89642] flex items-center justify-center text-white font-bold text-xs shrink-0 shadow-sm">
-                      ✓
+                    <div className="w-7 h-7 rounded-full bg-[#B89642] border border-[#B89642] flex items-center justify-center text-white shrink-0 shadow-sm">
+                      <Check className="h-3.5 w-3.5" strokeWidth={3} />
                     </div>
                   ) : (
                     <div
-                      className={`w-7 h-7 rounded-full border border-[#B89642] flex items-center justify-center text-[#B89642] font-semibold text-base shrink-0 transition-transform ${isDisabled ? "border-gray-300 text-gray-300" : "group-hover:scale-105"
+                      className={`w-7 h-7 rounded-full border border-[#B89642] flex items-center justify-center text-[#B89642] shrink-0 transition-transform ${isDisabled ? "border-gray-300 text-gray-300" : "group-hover:scale-105"
                         }`}
                     >
-                      +
+                      <Plus className="h-4 w-4" strokeWidth={2.5} />
                     </div>
                   )}
                 </button>

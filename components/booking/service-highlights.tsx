@@ -54,7 +54,7 @@ function HighlightsFullCarousel({ cards }: { cards: ServiceHighlightCard[] }) {
               key={index}
               className="shrink-0 grow-0 basis-full sm:basis-[calc((100%-1.5rem)/2)] lg:basis-[calc((100%-3rem)/3)] min-w-0"
             >
-              <div className="w-full h-full bg-[#F8F9FA] p-4 md:p-5 shadow-[rgba(169,139,75,0.15)_0px_4px_15px] hover:shadow-lg transition-transform duration-300 hover:scale-[1.02] rounded-3xl">
+              <div className="w-full h-full bg-[#F8F9FA] p-4 md:p-5 shadow-[rgba(169,139,75,0.15)_0px_4px_15px] hover:shadow-lg transition-transform duration-300 hover:scale-[1.02]">
                 <div className="rounded-2xl sm:rounded-3xl p-4 sm:p-6 h-full flex flex-col bg-[#F8F9FA] border-[3px] border-[#A98B4B] min-h-[280px] sm:min-h-[320px]">
                   <h3 className="font-semibold text-base sm:text-lg text-center mb-3 sm:mb-4 text-[#A98B4B] min-h-[40px] sm:min-h-[50px] flex items-center justify-center">
                     {card.title}
@@ -138,7 +138,7 @@ function HighlightsMobileCarousel({ cards }: { cards: ServiceHighlightCard[] }) 
               key={index}
               className="w-full shrink-0 grow-0 basis-full px-1 min-w-0"
             >
-              <div className="bg-[#F8F9FA] p-5 shadow-[rgba(169,139,75,0.15)_0px_4px_15px] rounded-3xl">
+              <div className="bg-[#F8F9FA] p-5 shadow-[rgba(169,139,75,0.15)_0px_4px_15px]">
                 <div className="rounded-3xl p-5 flex flex-col bg-[#F8F9FA] border-3 border-[#A98B4B] min-h-[280px]">
                   <h3 className="font-semibold text-lg text-center mb-4 text-[#A98B4B]">
                     {card.title}
@@ -231,7 +231,7 @@ export function ServiceHighlights({ title, cards }: ServiceHighlightsProps) {
             {cards.map((card) => (
               <div
                 key={card.title}
-                className={`${gridConfig.cardWidth} h-full bg-[#F8F9FA] p-4 md:p-5 shadow-[rgba(169,139,75,0.15)_0px_4px_15px] hover:shadow-lg transition-transform duration-300 hover:scale-[1.02] rounded-3xl`}
+                className={`${gridConfig.cardWidth} h-full bg-[#F8F9FA] p-4 md:p-5 shadow-[rgba(169,139,75,0.15)_0px_4px_15px] hover:shadow-lg transition-transform duration-300 hover:scale-[1.02]`}
               >
                 <div className="rounded-2xl sm:rounded-3xl p-4 sm:p-6 h-full flex flex-col bg-[#F8F9FA] border-[3px] border-[#A98B4B] min-h-[280px] sm:min-h-[320px]">
                   <h3 className="font-semibold text-base sm:text-lg text-center mb-3 sm:mb-4 text-[#A98B4B] min-h-[40px] sm:min-h-[50px] flex items-center justify-center">
