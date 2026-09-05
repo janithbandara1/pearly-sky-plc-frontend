@@ -543,7 +543,7 @@ export default function CheckoutPage({
         subtitle={`${draft.date} at ${draft.time}`}
         servicePrices={service.prices}
         serviceId={service.id}
-        hidePriceSelector={isPoolService || isCareService || isCarpetService}
+        hidePriceSelector={isPoolService || isCareService || isCarpetService || isPressureService}
       />
 
       {isFlowService ? (
