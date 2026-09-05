@@ -54,7 +54,7 @@ export function OurLocationsView() {
         title={translate("locationsPageTitle")}
         subtitle={translate("locationsPageSubtitle")}
       />
-      <div className="absolute md:bottom-none  bottom-25 z-5 right-3 md:right-none">
+      <div className="absolute md:bottom-none  bottom-40 z-5 right-3 md:right-none">
         <Socialmedialinks />
       </div>
       <section className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-3xl px-4  sm:px-6">

@@ -250,7 +250,7 @@ function TeamCard({ member }: { member: TeamMember }) {
       </div>
 
       {/* Name below Circle */}
-      <h3 className="mt-3 text-lg font-semibold text-white tracking-wide">
+      <h3 className="mt-3 text-lg md:text-[16px] font-semibold text-white tracking-wide">
         {member.title}
       </h3>
 

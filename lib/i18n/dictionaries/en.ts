@@ -133,6 +133,7 @@ export const en = {
   // About Us page
   aboutPageEyebrow: "ABOUT PEARLY SKY CLEANING SERVICES",
   aboutPageHeroTitle: "Your Trusted Cleaning Partner",
+  
   aboutPageIdentityTitle: "Our Core Identity",
   aboutPageIdentitySubtitle: "Where Cleanliness Meets Luxury",
   aboutPageIdentityIntro:
@@ -162,13 +163,18 @@ export const en = {
   aboutWhy4Text: "We provide competitive rates that deliver premium service without compromising quality.",
   aboutWhy5Title: "24/7 Availability",
   aboutWhy5Text: "We are here for you, offering reliable and prompt service, anytime you need us.",
+  
+  aboutWhy6Title: "Uncompromising Security",
+  aboutWhy6Text: "Your privacy and property are paramount. Every staff member is thoroughly background-checked, insured, and trained to respect your confidential spaces.",
+  
+
   aboutPageVisionMissionTitle: "Vision, Mission & Values",
   aboutPageVisionTitle: "Our Vision",
   aboutVisionText:
-    "We deliver excellence by striving for exceptional quality and outstanding results for all our clients and partners.",
+    "We deliver Excellence. We strive for exceptional quality and outstanding results for all our clients and partners, creating spaces that truly sparkle.",
   aboutPageMissionTitle: "Our Mission",
   aboutMissionText:
-    "We lead through exceptional service and creative innovation, driving progress across our cleaning and transport sectors.",
+    "We lead through exceptional service and creative innovation, driving progress and shared success across our cleaning and transport sectors.",
   aboutPageValuesTitle: "YOUR TRUSTED CLEANING PARTNER",
   
   aboutPageSectionHeader:"ABOUT PEARLY SKY CLEANING SERVICES",
@@ -180,11 +186,11 @@ export const en = {
   aboutValue4: "Teamwork",
   aboutValue5: "Service Excellence",
   aboutPageObjectivesTitle: "Our Objectives",
-  aboutObjective1: "Promote diversity and inclusion",
-  aboutObjective2: "Attract and retain top talent",
-  aboutObjective3: "Encourage innovation",
-  aboutObjective4: "Exceed partner expectations",
-  aboutObjective5: "Build a strong service culture",
+  aboutObjective1: "Promote Diversity, Inclusion, and Equity within our growing teams.",
+  aboutObjective2: "Attract and retain top talent to maintain our standard of luxury service",
+  aboutObjective3: "Foster a motivating work environment that encourages innovation",
+  aboutObjective4: "Exceed partner expectations by consistently delivering results",
+  aboutObjective5: "Cultivate a vibrant agency culture built on respect and service.",
   aboutPageCtaTitle: "Ready to experience the Art of Pristine Care?",
   aboutPageCtaSubtitle: "Contact us today to schedule your customized eco-luxury cleaning or transport service.",
   aboutPageCtaButton: "Contact Us",

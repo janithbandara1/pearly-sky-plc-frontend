@@ -24,7 +24,7 @@ export function PageHero({
   
   return (
     <section className="relative flex h-auto justify-center bg-transparent text-center">
-      <div className="md:min-h-[100vh]  md:max-h-[100vh] h-[40vh] w-full overflow-hidden">
+      <div className="lg:min-h-[100vh] md:min-h-[50vh]  lg:max-h-[100vh] md:max-h-[80vh] h-[40vh] w-full overflow-hidden">
         <Image
           src={image}
           alt={title}

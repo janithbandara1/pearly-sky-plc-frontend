@@ -1,13 +1,14 @@
 "use client";
 
 import { useState } from "react";
-import { PageHero } from "@/components/contactus/contact-us-page-hero";
+import { PageHero } from "@/components/hero-components/hero-with-social-links";
 import { ContactSection } from "@/components/home/contact-section";
 import { LocationCard } from "@/components/location-card";
 import { useLanguage } from "@/lib/i18n/language-context";
 import { useCountry } from "@/lib/countries/country-context";
 import { getCountryPageContent } from "@/lib/countries/page-content";
 import { officeLocations } from "@/lib/content/locations";
+import { Socialmedialinks } from "@/components/contactus/social-media";
 
 export function ContactUsView() {
   const { translate, language } = useLanguage();
@@ -27,12 +28,18 @@ export function ContactUsView() {
   const rightColumn = officeLocations.slice(midIndex);
 
   return (
-    <main className="flex-1">
+    <main className="flex-1 w-full relative">
+
       <PageHero
         image="/images/locations/contact-hero.webp"
         title={translate("contactPageTitle")}
         subtitle={contactSubtitle}
-      />
+        eyebrow={translate("aboutPageEyebrow")}
+        height={50}
+      /> 
+      <div className="absolute md:bottom-none  top-25 z-5 right-3 md:right-none">
+        <Socialmedialinks />
+      </div>
       
 
       <ContactSection />
