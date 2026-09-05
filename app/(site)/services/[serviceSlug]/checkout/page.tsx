@@ -430,12 +430,16 @@ export default function CheckoutPage({
           email: contactForm.email.trim(),
           contact: contactForm.contact.trim(),
         });
-        clearBookingDraft();
         try {
           const { redirectUrl } = await initiateCheckout(accessToken, booking.id);
+          clearBookingDraft();
           window.location.assign(redirectUrl);
-        } catch {
-          router.push(`/booking-confirmation/${booking.id}?ref=${booking.referenceNumber}`);
+        } catch (checkoutErr) {
+          setError(
+            checkoutErr instanceof ApiError
+              ? checkoutErr.message
+              : `Your booking (ref ${booking.referenceNumber}) was created, but we couldn't start payment. Please contact us with this reference number.`,
+          );
         }
       } else {
         const booking = await createGuestBooking({
@@ -443,6 +447,7 @@ export default function CheckoutPage({
           propertySizeSqm: draft.propertySizeSqm,
           date: draft.date,
           time: draft.time,
+          pricingCountry: currentCountry ?? undefined,
           note,
           addOns: draft.packages.map((p) => ({ name: p.name, price: p.price ?? undefined })),
           equipmentItems: draft.items.map((i) => ({ name: i.name, price: i.price ?? undefined })),
@@ -471,12 +476,16 @@ export default function CheckoutPage({
           country: addressForm?.country?.trim() || undefined,
           postalCode: addressForm?.postalCode?.trim() || undefined,
         });
-        clearBookingDraft();
         try {
           const { redirectUrl } = await initiateGuestCheckout(booking.id, booking.referenceNumber);
+          clearBookingDraft();
           window.location.assign(redirectUrl);
-        } catch {
-          router.push(`/booking-confirmation/${booking.id}?ref=${booking.referenceNumber}`);
+        } catch (checkoutErr) {
+          setError(
+            checkoutErr instanceof ApiError
+              ? checkoutErr.message
+              : `Your booking (ref ${booking.referenceNumber}) was created, but we couldn't start payment. Please contact us with this reference number.`,
+          );
         }
       }
     } catch (err) {
