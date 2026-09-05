@@ -104,15 +104,13 @@ export default function CheckoutPage({
   const isCarpetService = serviceSlug === "carpet-upholstery-cleaning";
   const isPoolService = serviceSlug === "pool-cleaning";
   const isPressureService = serviceSlug === "precision-pressure-washing";
-  const isYachtService = serviceSlug === "luxury-yacht-cleaning";
   const isCareService = isChildCare || isElderCare;
   const isQuoteItemsService = isCarpetService || isPoolService || isPressureService;
   const isFlowService =
     isCareService ||
     isCarpetService ||
     isPoolService ||
-    isPressureService ||
-    isYachtService;
+    isPressureService;
   const personLabel = isElderCare ? "Elder" : "Child";
 
   const [draft, setDraft] = useState<BookingDraft | null>(null);
@@ -288,14 +286,6 @@ export default function CheckoutPage({
         ? draft.quoteItems.map((item) => formatQuoteItem(item, quoteItemOptions))
         : undefined;
 
-      const yachtQuoteItems = isYachtService
-        ? [
-            `Job Type: ${draft.category || "Full Exterior Marine Detail"}`,
-            `Vessel Type: ${draft.propertyType || "Motorboat / Day Cruiser"}`,
-            `Vessel Size: ${draft.propertySizeSqm || 20} m²`,
-          ]
-        : undefined;
-
       const careProfiles =
         draft.careProfiles && draft.careProfiles.length > 0
           ? draft.careProfiles
@@ -322,9 +312,7 @@ export default function CheckoutPage({
 
       const quoteItemLines = isQuoteItemsService
         ? quoteItemsFormatted
-        : isYachtService
-          ? yachtQuoteItems
-          : careQuoteItemLines;
+        : careQuoteItemLines;
 
       const quoteTitle = isCarpetService
         ? "Carpet & Upholstery Details"
@@ -332,9 +320,7 @@ export default function CheckoutPage({
           ? "Pool Cleaning Details"
           : isPressureService
             ? "Pressure Washing Details"
-            : isYachtService
-              ? "Luxury Yacht Detailing Details"
-              : `${personLabel} Details`;
+            : `${personLabel} Details`;
 
       const propertyTypeValue =
         draft.propertyClassification ||
@@ -801,81 +787,6 @@ export default function CheckoutPage({
                             </div>
                           );
                         })}
-                      </div>
-                    </div>
-
-                    {/* PREFERENCES */}
-                    <div className="border-t border-brand-gold/20 pt-4">
-                      <p className="mb-2 text-xs font-bold uppercase tracking-wider text-brand-gold/80">
-                        Preferences
-                      </p>
-                      <div className="space-y-2 text-xs sm:text-sm">
-                        <div className="flex justify-between gap-2 py-1 text-brand-cream/70">
-                          <span className="font-medium">Duration</span>
-                          <span className="font-normal text-white">{durationHours}h</span>
-                        </div>
-                        <div className="flex justify-between gap-2 py-1 text-brand-cream/70">
-                          <span className="font-medium">Cleaners</span>
-                          <span className="font-normal text-white">{numCleaners}</span>
-                        </div>
-                        <div className="flex justify-between gap-2 py-1 text-brand-cream/70">
-                          <span className="font-medium">Gender Preference</span>
-                          <span className="font-normal text-white">
-                            {GENDER_OPTIONS.find((o) => o.value === gender)?.label ?? "No Preference"}
-                          </span>
-                        </div>
-                        <div className="flex justify-between gap-2 py-1 text-brand-cream/70">
-                          <span className="font-medium">Language Preference</span>
-                          <span className="font-normal text-white">
-                            {LANGUAGE_OPTIONS.find((o) => o.value === language)?.label ?? "No Preference"}
-                          </span>
-                        </div>
-                        {requirements.trim() && (
-                          <div className="flex flex-col gap-1 py-1 text-brand-cream/70">
-                            <span className="font-medium">Special Requirements</span>
-                            <span className="font-normal text-white">{requirements}</span>
-                          </div>
-                        )}
-                      </div>
-                    </div>
-
-                    {/* BOOKING DETAILS */}
-                    <div className="border-t border-brand-gold/20 pt-4">
-                      <p className="mb-2 text-xs font-bold uppercase tracking-wider text-brand-gold/80">
-                        Booking Details
-                      </p>
-                      <div className="space-y-2 text-xs sm:text-sm">
-                        <div className="flex justify-between gap-2 py-1 text-brand-cream/70">
-                          <span className="font-medium">Date</span>
-                          <span className="font-normal text-white">{draft.date}</span>
-                        </div>
-                        <div className="flex justify-between gap-2 py-1 text-brand-cream/70">
-                          <span className="font-medium">Time</span>
-                          <span className="font-normal text-white">{draft.time}</span>
-                        </div>
-                      </div>
-                    </div>
-                  </>
-                ) : isYachtService ? (
-                  /* LUXURY YACHT DETAILS */
-                  <>
-                    <div className="border-t border-brand-gold/20 pt-4">
-                      <p className="mb-2 text-xs font-bold uppercase tracking-wider text-brand-gold/80">
-                        Selected Job Details
-                      </p>
-                      <div className="space-y-2 text-xs sm:text-sm">
-                        <div className="flex justify-between gap-2 border-b border-white/5 py-1 text-brand-cream/70">
-                          <span className="font-medium">JOB TYPE</span>
-                          <span className="font-normal text-white">{draft.category || "Full Exterior Marine Detail"}</span>
-                        </div>
-                        <div className="flex justify-between gap-2 border-b border-white/5 py-1 text-brand-cream/70">
-                          <span className="font-medium">VESSEL TYPE</span>
-                          <span className="font-normal text-white">{draft.propertyType || "Motorboat / Day Cruiser"}</span>
-                        </div>
-                        <div className="flex justify-between gap-2 border-b border-white/5 py-1 text-brand-cream/70">
-                          <span className="font-medium">VESSEL SIZE</span>
-                          <span className="font-normal text-white">{draft.propertySizeSqm || 20} m²</span>
-                        </div>
                       </div>
                     </div>
 

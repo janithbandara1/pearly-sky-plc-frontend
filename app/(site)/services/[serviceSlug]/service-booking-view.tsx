@@ -563,6 +563,8 @@ export function ServiceBookingView({ serviceSlug }: { serviceSlug: string }) {
             serviceId={service.id}
             serviceSlug={serviceSlug}
             serviceLabel={service.label}
+            items={items}
+            hourlyRate={service.price}
           />
         ) : isCareService ? (
           <CareScheduleSection

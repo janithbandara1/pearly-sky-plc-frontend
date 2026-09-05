@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import {
   PropertyTypeSizeSelector,
@@ -9,21 +9,30 @@ import {
 } from "@/components/booking/Yatchpropertytypes";
 import { YachtCategorySelection } from "@/components/booking/yacht-category-selection";
 import { DateTimeSection } from "@/components/booking/date-time-section";
-import { Button } from "@/components/ui/button";
+import { GENDER_OPTIONS, LANGUAGE_OPTIONS } from "@/components/booking/quotation-preferences-section";
+import { ServicePreferencesSection } from "@/components/booking/service-preferences-section";
+import { EquipmentSection, type SupplySource } from "@/components/booking/equipment-section";
 import { saveBookingDraft, loadBookingDraft } from "@/lib/booking-draft";
+import { getServiceQuote, type CatalogItem, type SizeQuote } from "@/lib/catalog-api";
+import { useCountry } from "@/lib/countries/country-context";
 
 export interface YachtScheduleSectionProps {
   serviceId: number;
   serviceSlug: string;
   serviceLabel: string;
+  items?: CatalogItem[];
+  hourlyRate?: string | null;
 }
 
 export function YachtScheduleSection({
   serviceId,
   serviceSlug,
   serviceLabel,
+  items = [],
+  hourlyRate = null,
 }: YachtScheduleSectionProps) {
   const router = useRouter();
+  const { country } = useCountry();
 
   const [propertySizeSqm, setPropertySizeSqm] = useState<number>(() => {
     const draft = loadBookingDraft();
@@ -56,7 +65,101 @@ export function YachtScheduleSection({
     return draft && draft.serviceSlug === serviceSlug ? draft.time : "";
   });
 
+  const [gender, setGender] = useState<string>(() => {
+    const draft = loadBookingDraft();
+    return draft && draft.serviceSlug === serviceSlug && draft.genderPreference
+      ? draft.genderPreference
+      : GENDER_OPTIONS[0].value;
+  });
+
+  const [language, setLanguage] = useState<string>(() => {
+    const draft = loadBookingDraft();
+    return draft && draft.serviceSlug === serviceSlug && draft.languagePreference
+      ? draft.languagePreference
+      : LANGUAGE_OPTIONS[0].value;
+  });
+
+  const [requirements, setRequirements] = useState<string>(() => {
+    const draft = loadBookingDraft();
+    return draft && draft.serviceSlug === serviceSlug ? draft.specialRequirements || "" : "";
+  });
+
+  const [supplySource, setSupplySource] = useState<SupplySource>(() => {
+    const draft = loadBookingDraft();
+    return draft && draft.serviceSlug === serviceSlug && draft.supplySource
+      ? draft.supplySource
+      : "company";
+  });
+  const [selectedItemIds, setSelectedItemIds] = useState<Set<number>>(new Set());
+
+  const [quote, setQuote] = useState<SizeQuote | null>(null);
+
   const [error, setError] = useState<string | null>(null);
+  const [submitting, setSubmitting] = useState(false);
+
+  useEffect(() => {
+    let cancelled = false;
+    const timer = setTimeout(() => {
+      getServiceQuote(serviceId, propertySizeSqm, country)
+        .then((q) => {
+          if (!cancelled) setQuote(q);
+        })
+        .catch(() => {
+          if (!cancelled) {
+            const hours = Math.max(2, Math.ceil(propertySizeSqm / 30));
+            const cleanerCount = propertySizeSqm > 150 ? 2 : 1;
+            const rate = Number(hourlyRate ?? 25);
+            setQuote({
+              bookable: true,
+              minHours: hours,
+              maxHours: hours + 1,
+              cleanerCount,
+              extraCleanerCount: 0,
+              priceMin: hours * rate * cleanerCount,
+              priceMax: (hours + 1) * rate * cleanerCount,
+            });
+          }
+        });
+    }, 150);
+    return () => {
+      cancelled = true;
+      clearTimeout(timer);
+    };
+  }, [serviceId, propertySizeSqm, country, hourlyRate]);
+
+  function handleSupplySourceChange(value: SupplySource) {
+    setSupplySource(value);
+    if (value !== "company") setSelectedItemIds(new Set());
+    if (error) setError(null);
+  }
+
+  function toggleItem(id: number) {
+    setSelectedItemIds((prev) => {
+      const next = new Set(prev);
+      if (next.has(id)) next.delete(id);
+      else next.add(id);
+      return next;
+    });
+  }
+
+  const selectedItems = items.filter((item) => selectedItemIds.has(item.id));
+  const addOnsTotal = selectedItems.reduce((sum, entry) => {
+    const price = entry.price !== null ? Number(entry.price) : NaN;
+    return Number.isFinite(price) ? sum + price : sum;
+  }, 0);
+
+  const activeCategory =
+    YACHT_PROPERTY_TYPES.find((c) => c.label === propertyType) ?? YACHT_PROPERTY_TYPES[0];
+
+  const bookDisabledReason = !selectedCategory
+    ? "Select a Yacht Job Type above to continue."
+    : !date || !time
+      ? "Select a date and time above to continue."
+      : items.length > 0 && !supplySource
+        ? "Select a Cleaning Solvents & Equipment above to continue."
+        : supplySource === "company" && selectedItemIds.size === 0
+          ? "Add at least one Cleaning Solvent & Equipment item above to continue."
+          : undefined;
 
   function handleSchedule() {
     setError(null);
@@ -71,8 +174,19 @@ export function YachtScheduleSection({
       return;
     }
 
+    if (items.length > 0 && !supplySource) {
+      setError("Please select a Cleaning Solvents & Equipment above to continue.");
+      return;
+    }
+
+    if (supplySource === "company" && selectedItemIds.size === 0) {
+      setError("Add at least one Cleaning Solvent & Equipment item above to continue.");
+      return;
+    }
+
     const currentDraft = loadBookingDraft();
 
+    setSubmitting(true);
     saveBookingDraft({
       serviceId,
       serviceSlug,
@@ -83,27 +197,29 @@ export function YachtScheduleSection({
       date,
       time,
       packages: [],
-      items: [],
-      supplySource: "company",
-      addOnsTotal: 0,
-      genderPreference: currentDraft?.genderPreference || "none",
-      languagePreference: currentDraft?.languagePreference || "English",
+      items: selectedItems.map((i) => ({
+        name: i.name,
+        price: i.price !== null ? Number(i.price) : null,
+        image: i.image,
+      })),
+      supplySource: supplySource || "company",
+      addOnsTotal,
+      genderPreference: gender,
+      languagePreference: language,
+      specialRequirements: requirements.trim() || undefined,
       propertyClassification: propertyType,
       serviceContinuityPlan: currentDraft?.serviceContinuityPlan,
       documentName: currentDraft?.documentName,
       documentData: currentDraft?.documentData,
       serviceSpecifics: currentDraft?.serviceSpecifics,
-      specialRequirements: currentDraft?.specialRequirements,
     });
 
-    router.push(`/services/${serviceSlug}/form-submit`);
+    router.push(`/services/${serviceSlug}/checkout`);
   }
 
   return (
     <div className="w-full space-y-8">
-
-
-      {/* 2. SELECT YOUR JOB TYPE */}
+      {/* 1. SELECT YOUR JOB TYPE */}
       <YachtCategorySelection
         selected={selectedCategory}
         onSelect={(cat) => {
@@ -112,7 +228,7 @@ export function YachtScheduleSection({
         }}
       />
 
-      {/* 3. DATE & TIME PICKER */}
+      {/* 2. DATE & TIME PICKER */}
       <DateTimeSection
         date={date}
         onDateChange={(d) => {
@@ -126,7 +242,17 @@ export function YachtScheduleSection({
         }}
       />
 
-      {/* 1. PROPERTY TYPE & SIZE */}
+      {/* 3. PREFERENCES */}
+      <ServicePreferencesSection
+        gender={gender}
+        onGenderChange={setGender}
+        language={language}
+        onLanguageChange={setLanguage}
+        requirements={requirements}
+        onRequirementsChange={setRequirements}
+      />
+
+      {/* 4. PROPERTY TYPE & SIZE */}
       <PropertyTypeSizeSelector
         value={propertySizeSqm}
         onChange={setPropertySizeSqm}
@@ -141,25 +267,23 @@ export function YachtScheduleSection({
         </div>
       )}
 
-
-      {/* 4. BOTTOM ACTION BUTTONS */}
-      <div className="flex items-center justify-center gap-4 pt-2 mb-5">
-        <Button
-          type="button"
-          variant="outline"
-          onClick={() => router.back()}
-          className="h-12 min-w-[120px] rounded-lg border-2 border-[#A98B4B] bg-[#FFFDF4] text-base font-semibold text-[#121E2D] shadow-sm transition-all hover:bg-[#FFFDF4] hover:shadow-[0_0_10px_2px_rgba(18,30,45,0.2)] hover:text-[#A98B4B]"
-        >
-          Back
-        </Button>
-        <Button
-          type="button"
-          onClick={handleSchedule}
-          className="h-12 min-w-[200px] rounded-lg border-2 border-[#A98B4B] bg-[#A98B4B] text-base font-semibold text-white shadow-md transition-all hover:bg-[#A98B4B] hover:brightness-105 hover:shadow-[0_0_12px_3px_rgba(169,139,75,0.4)]"
-        >
-          Book now
-        </Button>
-      </div>
+      {/* 5. SUMMARY, EQUIPMENT & BOOK NOW */}
+      <EquipmentSection
+        propertyType={propertyType || activeCategory.label}
+        categoryIcon={activeCategory.icon}
+        propertySizeSqm={propertySizeSqm}
+        quote={quote}
+        hourlyRate={hourlyRate}
+        supplySource={supplySource}
+        onSupplySourceChange={handleSupplySourceChange}
+        items={items}
+        selectedItemIds={selectedItemIds}
+        onToggleItem={toggleItem}
+        addOnsTotal={addOnsTotal}
+        onBookNow={handleSchedule}
+        submitting={submitting}
+        bookDisabledReason={bookDisabledReason}
+      />
     </div>
   );
 }
