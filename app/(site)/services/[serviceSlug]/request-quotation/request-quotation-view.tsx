@@ -16,8 +16,6 @@ import { QuoteItemsSection } from "@/components/booking/quote-items-section";
 import { CarpetItemCards } from "@/components/booking/carpet-item-cards";
 import { PoolJobSelection } from "@/components/booking/pool-job-selection";
 import { PressureWashingJobSelection } from "@/components/booking/pressure-washing-job-selection";
-import { GeneralSteamSection } from "@/components/booking/steam/general-steam-section";
-import { IndustrialCommercialSteamSection } from "@/components/booking/steam/industrial-commercial-steam-section";
 import { ServiceIntroduction } from "@/components/booking/service-introduction";
 import { ServiceHighlights } from "@/components/booking/service-highlights";
 import { Button } from "@/components/ui/button";
@@ -58,7 +56,6 @@ const CUSTOM_QUOTE_ITEMS: Record<
   },
 };
 
-const STEAM_SLUG = "steam-cleaning";
 
 /** Child Care and Elder Care are quote-only too — they collect per-person profiles instead of a property size. */
 const CHILD_CARE_SLUG = "child-care-service";
@@ -227,7 +224,6 @@ export function RequestQuotationView({ serviceSlug }: { serviceSlug: string }) {
   const { status, accessToken } = useAuth();
 
   const customQuote = CUSTOM_QUOTE_ITEMS[serviceSlug];
-  const isSteam = serviceSlug === STEAM_SLUG;
 
   const serviceContent =
     SERVICE_CONTENT[serviceSlug] ??
@@ -246,9 +242,6 @@ export function RequestQuotationView({ serviceSlug }: { serviceSlug: string }) {
   const [propertySizeSqm, setPropertySizeSqm] = useState(20);
   const [propertyType, setPropertyType] = useState("Studio");
   const [quoteItems, setQuoteItems] = useState<QuoteItem[]>([]);
-
-  const [selectedGeneralSteam, setSelectedGeneralSteam] = useState<Set<string>>(new Set());
-  const [selectedIndustrialSteam, setSelectedIndustrialSteam] = useState<Set<string>>(new Set());
 
   const [numCleaners, setNumCleaners] = useState(1);
   const [durationHours, setDurationHours] = useState(3);
@@ -333,15 +326,6 @@ export function RequestQuotationView({ serviceSlug }: { serviceSlug: string }) {
     });
   }
 
-  function toggleSetEntry(setter: React.Dispatch<React.SetStateAction<Set<string>>>, value: string) {
-    setter((prev) => {
-      const next = new Set(prev);
-      if (next.has(value)) next.delete(value);
-      else next.add(value);
-      return next;
-    });
-  }
-
   function validate(): boolean {
     const next: Record<string, string> = {};
     if (!date) next.date = "Please select a date.";
@@ -380,16 +364,9 @@ export function RequestQuotationView({ serviceSlug }: { serviceSlug: string }) {
           ? items.filter((item) => selectedItemIds.has(item.id))
           : [];
 
-    const steamItemList = [
-      ...Array.from(selectedGeneralSteam),
-      ...Array.from(selectedIndustrialSteam),
-    ];
-
     const quoteItemLines = customQuote
       ? quoteItems.map((item) => formatQuoteItem(item, customQuote.options))
-      : isSteam && steamItemList.length > 0
-        ? steamItemList
-        : undefined;
+      : undefined;
 
     setSubmitting(true);
     try {
@@ -606,17 +583,6 @@ export function RequestQuotationView({ serviceSlug }: { serviceSlug: string }) {
                 <PoolJobSelection items={quoteItems} onItemsChange={setQuoteItems} />
               ) : serviceSlug === "precision-pressure-washing" ? (
                 <PressureWashingJobSelection items={quoteItems} onItemsChange={setQuoteItems} />
-              ) : isSteam ? (
-                <div className="space-y-4">
-                  <GeneralSteamSection
-                    selectedTitles={selectedGeneralSteam}
-                    onToggle={(title) => toggleSetEntry(setSelectedGeneralSteam, title)}
-                  />
-                  <IndustrialCommercialSteamSection
-                    selectedTitles={selectedIndustrialSteam}
-                    onToggle={(title) => toggleSetEntry(setSelectedIndustrialSteam, title)}
-                  />
-                </div>
               ) : customQuote ? (
                 <QuoteItemsSection
                   title={customQuote.title}
