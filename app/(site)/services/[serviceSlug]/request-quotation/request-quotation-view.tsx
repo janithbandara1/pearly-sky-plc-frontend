@@ -18,7 +18,6 @@ import { PoolJobSelection } from "@/components/booking/pool-job-selection";
 import { PressureWashingJobSelection } from "@/components/booking/pressure-washing-job-selection";
 import { GeneralSteamSection } from "@/components/booking/steam/general-steam-section";
 import { IndustrialCommercialSteamSection } from "@/components/booking/steam/industrial-commercial-steam-section";
-import { EventTypeSection } from "@/components/booking/event-type-section";
 import { ServiceIntroduction } from "@/components/booking/service-introduction";
 import { ServiceHighlights } from "@/components/booking/service-highlights";
 import { Button } from "@/components/ui/button";
@@ -60,7 +59,6 @@ const CUSTOM_QUOTE_ITEMS: Record<
 };
 
 const STEAM_SLUG = "steam-cleaning";
-const EVENT_SLUG = "post-event-cleaning";
 
 /** Child Care and Elder Care are quote-only too — they collect per-person profiles instead of a property size. */
 const CHILD_CARE_SLUG = "child-care-service";
@@ -230,7 +228,6 @@ export function RequestQuotationView({ serviceSlug }: { serviceSlug: string }) {
 
   const customQuote = CUSTOM_QUOTE_ITEMS[serviceSlug];
   const isSteam = serviceSlug === STEAM_SLUG;
-  const isEvent = serviceSlug === EVENT_SLUG;
 
   const serviceContent =
     SERVICE_CONTENT[serviceSlug] ??
@@ -252,7 +249,6 @@ export function RequestQuotationView({ serviceSlug }: { serviceSlug: string }) {
 
   const [selectedGeneralSteam, setSelectedGeneralSteam] = useState<Set<string>>(new Set());
   const [selectedIndustrialSteam, setSelectedIndustrialSteam] = useState<Set<string>>(new Set());
-  const [selectedEventTypes, setSelectedEventTypes] = useState<Set<string>>(new Set());
 
   const [numCleaners, setNumCleaners] = useState(1);
   const [durationHours, setDurationHours] = useState(3);
@@ -388,15 +384,12 @@ export function RequestQuotationView({ serviceSlug }: { serviceSlug: string }) {
       ...Array.from(selectedGeneralSteam),
       ...Array.from(selectedIndustrialSteam),
     ];
-    const eventTypeList = Array.from(selectedEventTypes);
 
     const quoteItemLines = customQuote
       ? quoteItems.map((item) => formatQuoteItem(item, customQuote.options))
       : isSteam && steamItemList.length > 0
         ? steamItemList
-        : isEvent && eventTypeList.length > 0
-          ? eventTypeList
-          : undefined;
+        : undefined;
 
     setSubmitting(true);
     try {
@@ -624,11 +617,6 @@ export function RequestQuotationView({ serviceSlug }: { serviceSlug: string }) {
                     onToggle={(title) => toggleSetEntry(setSelectedIndustrialSteam, title)}
                   />
                 </div>
-              ) : isEvent ? (
-                <EventTypeSection
-                  selectedTitles={selectedEventTypes}
-                  onToggle={(title) => toggleSetEntry(setSelectedEventTypes, title)}
-                />
               ) : customQuote ? (
                 <QuoteItemsSection
                   title={customQuote.title}
