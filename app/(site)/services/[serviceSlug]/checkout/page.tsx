@@ -349,11 +349,11 @@ export default function CheckoutPage({
           draft.serviceSpecifics ? `Specifics: ${draft.serviceSpecifics}` : null,
           requirements.trim() ? `Requirements: ${requirements.trim()}` : null,
           draft.documentName ? `Attachment: ${draft.documentName}` : null,
-          howGetIn ? `Entry: ${howGetIn}` : null,
-          howHeard ? `Marketing: ${howHeard}` : null,
         ]
           .filter(Boolean)
           .join(" | "),
+        howGetIn: howGetIn.trim() || undefined,
+        howHeard: howHeard.trim() || undefined,
         firstName: contactForm.firstName.trim(),
         lastName: contactForm.lastName.trim(),
         email: contactForm.email.trim(),
@@ -397,13 +397,7 @@ export default function CheckoutPage({
     }
     setError(null);
     setSubmitting(true);
-    const logisticsNote = [
-      howGetIn ? `Entry: ${howGetIn}` : null,
-      howHeard ? `Marketing: ${howHeard}` : null,
-    ]
-      .filter(Boolean)
-      .join(" | ");
-    const note = [draft.note, logisticsNote].filter(Boolean).join(" | ") || undefined;
+    const note = draft.note || undefined;
     try {
       if (isAuthenticated && accessToken) {
         const address = await createMyAddress(accessToken, addressForm);
@@ -421,6 +415,8 @@ export default function CheckoutPage({
           genderPreference: draft.genderPreference,
           languagePreference: draft.languagePreference,
           specialRequirements: draft.specialRequirements,
+          howGetIn: howGetIn.trim() || undefined,
+          howHeard: howHeard.trim() || undefined,
           propertyType: draft.propertyType,
           facilities: draft.facilities,
           disinfectionLevel: draft.disinfectionLevel
@@ -454,6 +450,8 @@ export default function CheckoutPage({
           genderPreference: draft.genderPreference,
           languagePreference: draft.languagePreference,
           specialRequirements: draft.specialRequirements,
+          howGetIn: howGetIn.trim() || undefined,
+          howHeard: howHeard.trim() || undefined,
           propertyType: draft.propertyType,
           facilities: draft.facilities,
           disinfectionLevel: draft.disinfectionLevel

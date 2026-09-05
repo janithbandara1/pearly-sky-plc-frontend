@@ -18,6 +18,8 @@ export interface CreateQuotationPayload {
   genderPreference?: string;
   languagePreference?: string;
   specialRequirements?: string;
+  howGetIn?: string;
+  howHeard?: string;
   firstName: string;
   lastName?: string;
   email: string;
@@ -63,6 +65,8 @@ export interface Quotation {
   genderPreference: string | null;
   languagePreference: string | null;
   specialRequirements: string | null;
+  howGetIn: string | null;
+  howHeard: string | null;
   streetAddress: string;
   unit: string | null;
   city: string;

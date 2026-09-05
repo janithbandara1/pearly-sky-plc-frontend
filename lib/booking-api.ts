@@ -14,6 +14,8 @@ interface BookingPreferencesPayload {
   genderPreference?: string;
   languagePreference?: string;
   specialRequirements?: string;
+  howGetIn?: string;
+  howHeard?: string;
   propertyType?: string;
   /** healthguard-sanitization only. */
   facilities?: string[];
@@ -59,6 +61,8 @@ export interface BookingServiceDetails {
   genderPreference: string | null;
   languagePreference: string | null;
   specialRequirements: string | null;
+  howGetIn: string | null;
+  howHeard: string | null;
   propertyType: string | null;
   facilities: string[] | null;
   disinfectionLevel: BookingLineItem | null;

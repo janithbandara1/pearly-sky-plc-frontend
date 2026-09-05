@@ -122,6 +122,8 @@ export default function StaffQuotationDetailsPage() {
           genderPreference={quotation.genderPreference}
           languagePreference={quotation.languagePreference}
           specialRequirements={quotation.specialRequirements}
+          howGetIn={quotation.howGetIn}
+          howHeard={quotation.howHeard}
           supplySource={quotation.supplySource}
           equipmentItems={quotation.equipmentItems}
           customerName={

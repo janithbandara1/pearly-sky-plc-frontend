@@ -7,6 +7,7 @@ import {
   Info,
   type LucideIcon,
   MapPin,
+  Megaphone,
   PartyPopper,
   PlusCircle,
   ShieldCheck,
@@ -65,6 +66,8 @@ export interface BookingSummaryServiceDetails {
   genderPreference: string | null;
   languagePreference: string | null;
   specialRequirements: string | null;
+  howGetIn: string | null;
+  howHeard: string | null;
   propertyType: string | null;
   facilities: string[] | null;
   disinfectionLevel: BookingSummaryLineItem | null;
@@ -225,12 +228,10 @@ export function BookingSummaryCard({
         {address && (
           <SectionCard icon={MapPin} label="Address">
             <div className="flex flex-col gap-3">
-              <Field
-                label="Street"
-                value={[address.streetAddress, address.unit].filter(Boolean).join(", ")}
-              />
+              <Field label="Street Address" value={address.streetAddress} />
+              {address.unit && <Field label="Unit/Apt/Suite" value={address.unit} />}
               <Field label="City" value={address.city} />
-              {address.state && <Field label="State" value={address.state} />}
+              {address.state && <Field label="Province/State" value={address.state} />}
               {address.country && <Field label="Country" value={address.country} />}
               {address.postalCode && <Field label="Postal Code" value={address.postalCode} />}
             </div>
@@ -365,6 +366,15 @@ export function BookingSummaryCard({
               </div>
             </div>
           </SectionCard>
+
+          {(details.howGetIn || details.howHeard) && (
+            <SectionCard icon={Megaphone} label="Logistics & Marketing">
+              <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+                {details.howGetIn && <Field label="How will we get in?" value={details.howGetIn} />}
+                {details.howHeard && <Field label="How did you hear about us?" value={details.howHeard} />}
+              </div>
+            </SectionCard>
+          )}
 
           {details.addOns?.length ? (
             <SectionCard icon={PlusCircle} label="Add-Ons">
