@@ -51,8 +51,8 @@ import { YachtScheduleSection } from "@/components/booking/yacht/yacht-schedule-
 
 const poppins = Poppins({ subsets: ["latin"], weight: ["400", "500", "600", "700", "800"] });
 
-/** Only guard-sanitization-services collects facility type + disinfection level. */
-const SANITIZATION_SLUG = "guard-sanitization-services";
+/** Only healthguard-sanitization collects facility type + disinfection level. */
+const SANITIZATION_SLUG = "healthguard-sanitization";
 
 /** Only steam-cleaning collects General/Industrial & Commercial/Equipment category selections. */
 const STEAM_SLUG = "steam-cleaning";
@@ -67,10 +67,10 @@ const SECURITY_SLUG = "high-security-property-care";
 const YACHT_SLUG = "luxury-yacht-cleaning";
 
 /** Care and quotation services with dedicated scheduling and profile flows. */
-const CHILD_CARE_SLUG = "childcare-services";
-const ELDER_CARE_SLUG = "elder-care-services";
+const CHILD_CARE_SLUG = "child-care-service";
+const ELDER_CARE_SLUG = "elder-care-service";
 const CARPET_UPHOLSTERY_SLUG = "carpet-upholstery-cleaning";
-const POOL_CLEANING_SLUG = "pool-cleaning-maintenance";
+const POOL_CLEANING_SLUG = "pool-cleaning";
 const PRESSURE_WASHING_SLUG = "precision-pressure-washing";
 
 //used for fallback data when the service API fails to return a service
@@ -90,9 +90,9 @@ const DEFAULT_ITEMS: CatalogItem[] = [
 ];
 
 const FALLBACK_SERVICES: Record<string, CatalogServiceDetail> = {
-  "childcare-services": {
+  "child-care-service": {
     id: 17,
-    name: "childcare-services",
+    name: "child-care-service",
     label: "Child Care Service",
     price: "30.00",
     prices: [],
@@ -105,9 +105,9 @@ const FALLBACK_SERVICES: Record<string, CatalogServiceDetail> = {
     servicePackages: [],
     serviceItems: [],
   },
-  "elder-care-services": {
+  "elder-care-service": {
     id: 18,
-    name: "elder-care-services",
+    name: "elder-care-service",
     label: "Elder Care Service",
     price: "30.00",
     prices: [],
@@ -135,9 +135,9 @@ const FALLBACK_SERVICES: Record<string, CatalogServiceDetail> = {
     servicePackages: [],
     serviceItems: [],
   },
-  "pool-cleaning-maintenance": {
+  "pool-cleaning": {
     id: 9,
-    name: "pool-cleaning-maintenance",
+    name: "pool-cleaning",
     label: "Pool Cleaning",
     price: "0.00",
     prices: [],

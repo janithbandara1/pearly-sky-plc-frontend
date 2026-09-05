@@ -147,7 +147,10 @@ export const POST_CONSTRUCTION_PROPERTY_CATEGORIES: PropertyCategory[] = [
   },
 ];
 
-const POST_CONSTRUCTION_SERVICE_SLUGS = new Set(["post-construction-cleaning"]);
+const POST_CONSTRUCTION_SERVICE_SLUGS = new Set([
+  "post-construction-cleaning",
+  "post-construction-renovation-cleaning",
+]);
 
 /** Venue-scale sizing scheme for post-event-cleaning, tracked by event type rather than property type. */
 export const EVENT_PROPERTY_CATEGORIES: PropertyCategory[] = [

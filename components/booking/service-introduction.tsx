@@ -11,7 +11,7 @@ export interface ServiceIntroductionProps {
 
 /* const bgImage_SLUG = [
   "regular-home-cleaning": 'sdasd',
-"essential-touch-up-cleaning": 'sdasd',
+"quick-touch-up-cleaning": 'sdasd',
 "same-day-priority-cleaning": 'sdasd',
 "deep-cleaning": 'sdasd',
 "end-of-tenancy-cleaning": 'sdasd',

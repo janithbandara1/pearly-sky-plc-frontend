@@ -65,7 +65,7 @@ export const SERVICE_CONTENT: Partial<Record<string, ServiceContentEntry>> = {
     ],
   },
 
-  "essential-touch-up-cleaning": {
+  "quick-touch-up-cleaning": {
     introduction: {
       headline: "Fast-Track Freshness for High-Traffic Spaces",
       body: [
@@ -286,7 +286,7 @@ export const SERVICE_CONTENT: Partial<Record<string, ServiceContentEntry>> = {
     ],
   },
 
-  "post-construction-cleaning": {
+  "post-construction-renovation-cleaning": {
     introduction: {
       headline:
         "The Final Transformation: Eliminating Construction Dust and Revealing the Shine of Your New Space.",
@@ -468,7 +468,7 @@ export const SERVICE_CONTENT: Partial<Record<string, ServiceContentEntry>> = {
     ],
   },
 
-  "guard-sanitization-services": {
+  "healthguard-sanitization": {
     introduction: {
       headline: "Beyond Clean: Implementing Hospital-Grade Disinfection for a Truly HealthGuard Environment.",
       body: [
@@ -674,7 +674,7 @@ export const SERVICE_CONTENT: Partial<Record<string, ServiceContentEntry>> = {
     ],
   },
 
-  "pool-cleaning-maintenance": {
+  "pool-cleaning": {
     introduction: {
       headline: "Maintain Pristine Water Quality and Extend the Life of Your Pool Equipment.",
       body: [
@@ -745,7 +745,7 @@ export const SERVICE_CONTENT: Partial<Record<string, ServiceContentEntry>> = {
     ],
   },
 
-  "childcare-services": {
+  "child-care-service": {
     introduction: {
       headline: "Little Stars Nurturing / Family First Childcare",
       body: [
@@ -785,7 +785,7 @@ export const SERVICE_CONTENT: Partial<Record<string, ServiceContentEntry>> = {
     ],
   },
 
-  "elder-care-services": {
+  "elder-care-service": {
     introduction: {
       headline: "Compassionate Senior Companionship / Golden Age Assistance",
       body: [
@@ -816,7 +816,7 @@ export const SERVICE_CONTENT: Partial<Record<string, ServiceContentEntry>> = {
     ],
   },
 
-  "laundry-linen-care": {
+  "laundry-services": {
     introduction: {
       headline: "Effortless Laundry, Delivered Clean",
       body: ["Your time is precious — let us handle the laundry, from pickup to fresh, folded delivery."],
@@ -854,7 +854,7 @@ export const SERVICE_CONTENT: Partial<Record<string, ServiceContentEntry>> = {
     ],
   },
 
-  "move-in-out-transport-health": {
+  "move-in-out-transport-service": {
     introduction: {
       headline: "Seamless Moving Logistics / Home Transition Transport",
       body: [
@@ -989,9 +989,27 @@ export const SERVICE_CONTENT: Partial<Record<string, ServiceContentEntry>> = {
 if (SERVICE_CONTENT["regular-home-cleaning"]) {
   SERVICE_CONTENT["regular-maintenance-cleaning"] = SERVICE_CONTENT["regular-home-cleaning"];
 }
-if (SERVICE_CONTENT["essential-touch-up-cleaning"]) {
-  SERVICE_CONTENT["quick-touch-up-cleaning"] = SERVICE_CONTENT["essential-touch-up-cleaning"];
+if (SERVICE_CONTENT["quick-touch-up-cleaning"]) {
+  SERVICE_CONTENT["essential-touch-up-cleaning"] = SERVICE_CONTENT["quick-touch-up-cleaning"];
 }
 if (SERVICE_CONTENT["post-construction-renovation-cleaning"]) {
   SERVICE_CONTENT["post-construction-cleaning"] = SERVICE_CONTENT["post-construction-renovation-cleaning"];
+}
+if (SERVICE_CONTENT["healthguard-sanitization"]) {
+  SERVICE_CONTENT["guard-sanitization-services"] = SERVICE_CONTENT["healthguard-sanitization"];
+}
+if (SERVICE_CONTENT["pool-cleaning"]) {
+  SERVICE_CONTENT["pool-cleaning-maintenance"] = SERVICE_CONTENT["pool-cleaning"];
+}
+if (SERVICE_CONTENT["child-care-service"]) {
+  SERVICE_CONTENT["childcare-services"] = SERVICE_CONTENT["child-care-service"];
+}
+if (SERVICE_CONTENT["elder-care-service"]) {
+  SERVICE_CONTENT["elder-care-services"] = SERVICE_CONTENT["elder-care-service"];
+}
+if (SERVICE_CONTENT["laundry-services"]) {
+  SERVICE_CONTENT["laundry-linen-care"] = SERVICE_CONTENT["laundry-services"];
+}
+if (SERVICE_CONTENT["move-in-out-transport-service"]) {
+  SERVICE_CONTENT["move-in-out-transport-health"] = SERVICE_CONTENT["move-in-out-transport-service"];
 }

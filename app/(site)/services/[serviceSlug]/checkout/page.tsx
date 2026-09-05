@@ -99,10 +99,10 @@ export default function CheckoutPage({
   const isAuthenticated = status === "authenticated";
   const { country: currentCountry } = useCountry();
 
-  const isChildCare = serviceSlug === "childcare-services";
-  const isElderCare = serviceSlug === "elder-care-services";
+  const isChildCare = serviceSlug === "child-care-service";
+  const isElderCare = serviceSlug === "elder-care-service";
   const isCarpetService = serviceSlug === "carpet-upholstery-cleaning";
-  const isPoolService = serviceSlug === "pool-cleaning-maintenance";
+  const isPoolService = serviceSlug === "pool-cleaning";
   const isPressureService = serviceSlug === "precision-pressure-washing";
   const isYachtService = serviceSlug === "luxury-yacht-cleaning";
   const isCareService = isChildCare || isElderCare;

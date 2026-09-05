@@ -17,10 +17,10 @@ Every localized country root listed below must append these exact trailing paths
 | Service | Target Slug Path |
 |---|---|
 | Regular Home Cleaning | `/services/regular-home-cleaning/` |
-| Essential Touch-Up Cleaning | `/services/essential-touch-up-cleaning/` |
+| Essential Touch-Up Cleaning | `/services/quick-touch-up-cleaning/` |
 | Deep Cleaning | `/services/deep-cleaning/` |
 | End-of-Tenancy Cleaning | `/services/end-of-tenancy-cleaning/` |
-| Post-Construction & Renovation | `/services/post-construction-cleaning/` |
+| Post-Construction & Renovation | `/services/post-construction-renovation-cleaning/` |
 | Same-Day Priority Cleaning | `/services/same-day-priority-cleaning/` |
 | High-Security Property Care | `/services/high-security-property-care/` |
 | Premium Rental Concierge | `/services/premium-rental-concierge-cleaning/` |
@@ -28,9 +28,9 @@ Every localized country root listed below must append these exact trailing paths
 ### Premium Add-Ons
 | Service | Target Slug Path |
 |---|---|
-| Laundry & Linen Care | `/services/laundry-linen-care/` |
+| Laundry & Linen Care | `/services/laundry-services/` |
 | Carpet & Upholstery Cleaning | `/services/carpet-upholstery-cleaning/` |
-| Pool Cleaning & Maintenance | `/services/pool-cleaning-maintenance/` |
+| Pool Cleaning & Maintenance | `/services/pool-cleaning/` |
 | Precision Pressure Washing | `/services/precision-pressure-washing/` |
 
 ### Commercial & Specialised
@@ -44,10 +44,10 @@ Every localized country root listed below must append these exact trailing paths
 ### Care & Concierge
 | Service | Target Slug Path |
 |---|---|
-| Childcare Services | `/services/childcare-services/` |
-| Elder Care Services | `/services/elder-care-services/` |
-| Move-In & Move-Out Transport Health | `/services/move-in-out-transport-health/` |
-| Guard Sanitization Services | `/services/guard-sanitization-services/` |
+| Childcare Services | `/services/child-care-service/` |
+| Elder Care Services | `/services/elder-care-service/` |
+| Move-In & Move-Out Transport Service | `/services/move-in-out-transport-service/` |
+| HealthGuard-Sanitization | `/services/healthguard-sanitization/` |
 
 ---
 

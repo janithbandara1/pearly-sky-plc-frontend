@@ -49,7 +49,7 @@ const CUSTOM_QUOTE_ITEMS: Record<
   string,
   { title: string; itemLabel?: string; options: QuoteItemOption[] }
 > = {
-  "pool-cleaning-maintenance": { title: "Pool Details", options: POOL_ITEM_OPTIONS },
+  "pool-cleaning": { title: "Pool Details", options: POOL_ITEM_OPTIONS },
   "precision-pressure-washing": {
     title: "Job Details",
     itemLabel: "Job Type",
@@ -68,13 +68,13 @@ const EVENT_SLUG = "post-event-cleaning";
 const CATEGORY_QUOTE_TITLE = "Job type";
 
 /** Child Care and Elder Care are quote-only too — they collect per-person profiles instead of a property size. */
-const CHILD_CARE_SLUG = "childcare-services";
-const ELDER_CARE_SLUG = "elder-care-services";
+const CHILD_CARE_SLUG = "child-care-service";
+const ELDER_CARE_SLUG = "elder-care-service";
 
 /** These have no required item — hide the section entirely rather than showing "Not specified" when nothing's been added. */
 const HIDE_QUOTE_ITEMS_IF_EMPTY_SLUGS = new Set([
   "carpet-upholstery-cleaning",
-  "pool-cleaning-maintenance",
+  "pool-cleaning",
   "precision-pressure-washing",
 ]);
 
