@@ -6,6 +6,7 @@ import { buildBreadcrumbJsonLd } from "@/lib/seo/json-ld";
 import { JsonLd } from "@/components/json-ld";
 import { getCountryPageMeta } from "@/lib/countries/meta-data";
 import { OurLocationsView } from "./our-locations-view";
+import PaymentMarquee from "@/components/payment-method-services";
 
 export async function generateMetadata(): Promise<Metadata> {
   const [country, language] = await Promise.all([getRequestCountry(), getRequestLanguage()]);
@@ -29,6 +30,7 @@ export default function OurLocationsPage() {
         ])}
       />
       <OurLocationsView />
+      <PaymentMarquee />
     </>
   );
 }

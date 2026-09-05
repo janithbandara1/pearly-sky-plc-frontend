@@ -16,8 +16,14 @@ export const en = {
   navMenu: "Menu",
 
   // Hero
-  heroTitle: "PEARLY SKY",
-  heroCtaSecondary: "VIEW OUR SERVICES",
+  heroTitle: "Pure Spaces. Elevated Living.",
+  heroCtaSecondary: "REQUEST SERVICE NOW",
+  heroCtaThird:"EXPLORE OUR GLOBAL COMMITMENT",
+
+
+  heroWelcome: "WELCOME TO PEARLY SKY",
+  heroWelcomeSubText:"Eco-Luxury Cleaning, Tailored for You",
+  heroWelcomeContent:"Welcome to Pearly Sky, your premier partner for eco-luxury cleaning services across France. We specialize in providing meticulous, environmentally conscious home and office cleaning solutions that cater to the most discerning clients. Our dedicated teams of English and French-speaking professionals are committed to ensuring your spaces are not only spotless but also maintain a healthy, sustainable environment. Experience the pinnacle of cleanliness with our premium, tailored services designed for your unique requirements in Paris, Nice, Cannes, and Monaco.",
 
   // Trust bar
   trustEcoCertified: "Green Compass Eco-Certified",
@@ -47,6 +53,11 @@ export const en = {
 
   servicesCategoryPropertyCare: "PROPERTY CARE & MANAGEMENT",
   servicesCategoryBespokeLifestyle: "BESPOKE LIFESTYLE & WELLNESS CURATION",
+
+
+  //
+  aboutOurServices:" Our Services",
+  aboutOurServicesContent:"At Pearly Sky, we understand that maintaining a pristine environment is essential for productivity and well-being. Whether you require a routine home cleaning, a comprehensive office deep-clean, or specialized services for high-end properties, our team delivers unmatched quality. We utilize eco-friendly, luxury-grade cleaning products that are safe for your family, pets, and workplace, ensuring a thorough clean without harmful chemicals. Our staff is rigorously trained, fully vetted, and focused on delivering a reliable, efficient service every time. We pride ourselves on attention to detail, turning every space into a spotless sanctuary, no matter the size or complexity.",
 
   // About / why choose us
   aboutWhyChooseUsTitle: "Why Choose Us",
@@ -158,7 +169,11 @@ export const en = {
   aboutPageMissionTitle: "Our Mission",
   aboutMissionText:
     "We lead through exceptional service and creative innovation, driving progress across our cleaning and transport sectors.",
-  aboutPageValuesTitle: "Our Core Values",
+  aboutPageValuesTitle: "YOUR TRUSTED CLEANING PARTNER",
+  
+  aboutPageSectionHeader:"ABOUT PEARLY SKY CLEANING SERVICES",
+  aboutPageSectionSubHeader:"ABOUT PEARLY SKY CLEANING SERVICES",
+  
   aboutValue1: "Diversity, Inclusion & Equity",
   aboutValue2: "Accountability",
   aboutValue3: "Sustainability",
@@ -197,6 +212,9 @@ export const en = {
   locationsEurope: "Europe",
   locationsAsiaPacific: "Asia-Pacific",
   locationsAmericas: "Americas",
+
+  locationSearchHeaderText: "OUR GLOBAL LOCATIONS",
+  locationSearchSubHeaderText: "Find Your Country & City",
 
   // Blog
   blogPageTitle: "Pristine Insights: The Pearly Sky Blog",

@@ -24,16 +24,16 @@ export function SectorsMarquee() {
 
   return (
     <section className="py-16">
-      <h2 className="mx-auto mb-8 w-full max-w-6xl px-4 text-center text-2xl font-bold tracking-tight sm:px-6 sm:text-3xl">
+      <h2 className="mx-auto mb-8 text-[rgb(0,47,109)] w-full max-w-6xl px-4 text-center text-2xl font-bold tracking-tight sm:px-6 sm:text-3xl">
         {translate("sectorsTitle")}
       </h2>
 
       <div className="group relative overflow-hidden">
-        <div className="flex w-max animate-marquee gap-4 group-hover:[animation-play-state:paused]">
+        <div className="flex w-max animate-marquee gap-4 bg-[rgb(78,93,105)] py-8 group-hover:[animation-play-state:paused]">
           {loop.map((sector, index) => (
             <div
               key={`${sector.titleKey}-${index}`}
-              className="relative flex h-56 w-72 shrink-0 flex-col justify-end overflow-hidden rounded-xl border border-border"
+              className="relative flex h-56 w-72 shrink-0 flex-col border-2 border-[rgb(217,192,126)] justify-end overflow-hidden rounded-xl "
             >
               <Image
                 src={sector.image}

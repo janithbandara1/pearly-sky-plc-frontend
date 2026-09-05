@@ -17,9 +17,18 @@ export const fr = {
   navServicesComingSoon: "Bientôt disponible",
   navMenu: "Menu",
 
-  // Hero
+servicesCategoryResidentialCleaning:" 🏠 SERVICES DE NETTOYAGE RÉSIDENTIEL",
+servicesCategoryPremiumAddOns:" ➕ SERVICES SUPPLÉMENTAIRES PREMIUM",
+servicesCategoryCommercialSpecialised: "🏢 SERVICES DE NETTOYAGE COMMERCIAUX ET SPÉCIALISÉS",
+servicesCategoryCareConcierge:" 🤝 SERVICES D'ASSISTANCE ET DE CONCIERGERIE",
+  
+// Hero
   heroTitle: "PEARLY SKY",
   heroCtaSecondary: "VOIR NOS SERVICES",
+
+  heroWelcome: "BIENVENUE CHEZ PEARLY SKY",
+  heroWelcomeSubText: "Nettoyage éco-luxe, sur mesure",
+  heroWelcomeContent: "Bienvenue chez Pearly Sky, votre partenaire privilégié pour des services de nettoyage éco-luxe partout en France. Nous sommes spécialisés dans la fourniture de solutions de nettoyage méticuleuses et respectueuses de l'environnement pour les maisons et les bureaux, répondant aux attentes des clients les plus exigeants. Nos équipes dédiées de professionnels anglophones et francophones s'engagent à ce que vos espaces soient non seulement impeccables, mais aussi à préserver un environnement sain et durable. Découvrez le summum de la propreté avec nos services haut de gamme et personnalisés, conçus pour répondre à vos besoins spécifiques à Paris, Nice, Cannes et Monaco.",
 
   // Trust bar
   trustEcoCertified: "Certifié Éco Green Compass",
@@ -109,7 +118,17 @@ export const fr = {
   footerTermsLink: "Conditions Générales",
   footerPrivacyLink: "Politique de Confidentialité",
 
+
+
+  //
+  aboutOurServices : "Nos services",
+  aboutOurServicesContent : "Chez Pearly Sky, nous savons qu'un environnement impeccable est essentiel à la productivité et au bien-être. Que vous ayez besoin d'un nettoyage régulier de votre maison, d'un nettoyage en profondeur de vos bureaux ou de services spécialisés pour des propriétés haut de gamme, notre équipe vous offre une qualité inégalée. Nous utilisons des produits de nettoyage écologiques et de qualité supérieure, sans danger pour votre famille, vos animaux de compagnie et votre lieu de travail, pour un nettoyage impeccable sans produits chimiques nocifs. Notre personnel est rigoureusement formé, qualifié et s'engage à fournir un service fiable et efficace à chaque intervention. Nous sommes fiers de notre souci du détail et transformons chaque espace en un havre de paix, quelle que soit sa taille ou sa complexité.",
+
   // About Us page
+
+  aboutPageSectionHeader:"À PROPOS DE PEARLY SKY CLEANING SERVICES",
+  aboutPageSectionSubHeader:"VOTRE PARTENAIRE DE CONFIANCE EN MATIÈRE DE NETTOYAGE",
+
   aboutPageEyebrow: "À PROPOS DE PEARLY SKY CLEANING SERVICES",
   aboutPageHeroTitle: "Votre Partenaire de Confiance",
   aboutPageIdentityTitle: "Notre Identité",
@@ -191,6 +210,9 @@ export const fr = {
   locationsEurope: "Europe",
   locationsAsiaPacific: "Asie-Pacifique",
   locationsAmericas: "Amériques",
+
+  locationSearchHeaderText: "NOS IMPLANTATIONS DANS LE MONDE",
+  locationSearchSubHeaderText: "Trouvez votre pays et votre ville",
 
   // Blog
   blogPageTitle: "Regards Pearly Sky : Le Blog",

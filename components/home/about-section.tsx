@@ -68,10 +68,36 @@ export function AboutSection() {
     },
   ];
 
+  const servicesList = [
+    {id: "LuxuryResidential",name:"Luxury Residential Cleaning"},
+    {id: "Commercial",name:"Commercial Property Management"},
+    {id: "LuxuryProperty",name:"Luxury Property Management"},
+    {id: "Hospitality",name:"Hospitality & Hotel Cleaning"},
+    {id: "Sports",name:"Sports & Wellness Facilities"},
+    {id: "Public",name:"Public & Institutional Cleaning"}
+  ]
+
   return (
     <section className="bg-background py-12">
+      
       <div className="mx-auto w-full max-w-5xl px-4 sm:px-6">
-        <h2 className="mb-6 text-center text-2xl font-bold tracking-tight sm:text-3xl">
+        <div className="grid grid-cols-2 md:grid-cols-3 gap-3 mb-8">
+        {servicesList.map((service) => (
+          <div key={service.id} className="bg-white border border-[#A98B4B] rounded-xl px-4 py-3 text-[#0A1530] text-sm font-semibold text-center shadow-sm hover:shadow-md transition-shadow">
+            {service.name}
+          </div>
+        ))}
+      </div>
+      <div className="border border-[#A98B4B] rounded-xl px-6 py-5 mb-6">
+        <h3 className="text-[#0A1530] font-bold text-xl md:text-2xl mb-4 text-left">
+         
+          {translate("aboutOurServices")}
+        </h3>
+          <p className="text-gray-700 text-sm md:text-base leading-relaxed text-left">
+            {translate("aboutOurServicesContent")}
+          </p>
+        </div>
+        <h2 className="mb-6 hidden text-center text-2xl font-bold tracking-tight sm:text-3xl">
           {translate("aboutWhyChooseUsTitle")}
         </h2>
 

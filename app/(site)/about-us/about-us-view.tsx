@@ -4,11 +4,12 @@ import Image from "next/image";
 import Link from "next/link";
 import { Compass, Leaf, Layers, Users, Sparkles, Clock, Wallet, ShieldCheck } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { PageHero } from "@/components/page-hero";
+import { PageHero } from "@/components/about-us/about-us-hero";
 import { useLanguage } from "@/lib/i18n/language-context";
 import { useCountry } from "@/lib/countries/country-context";
 import { getCountryPageContent } from "@/lib/countries/page-content";
 import type { TranslationKey } from "@/lib/i18n/dictionaries/en";
+import PaymentMarquee from "@/components/payment-method-services";
 
 const CORE_IDENTITY: { labelKey: TranslationKey; textKey: TranslationKey }[] = [
   { labelKey: "aboutIdentity1Label", textKey: "aboutIdentity1Text" },
@@ -44,42 +45,55 @@ export function AboutUsView() {
   const { aboutStoryParagraph2 } = getCountryPageContent(country, language);
 
   return (
-    <main className="flex-1">
+    <main className="flex-1 bg-[#f4fff8]">
       <PageHero
         image="/images/about/hero.webp"
         eyebrow={translate("aboutPageEyebrow")}
         title={translate("aboutPageHeroTitle")}
       />
 
-      <section className="mx-auto grid w-full max-w-6xl gap-10 px-4 py-16 sm:px-6 lg:grid-cols-2">
-        <div>
-          <p className="text-sm font-semibold uppercase tracking-widest text-brand-gold-dark">
-            {translate("aboutPageIdentityTitle")}
-          </p>
-          <h2 className="mt-2 text-2xl font-bold tracking-tight sm:text-3xl">
-            {translate("aboutPageIdentitySubtitle")}
-          </h2>
-          <p className="mt-4 text-muted-foreground">{translate("aboutPageIdentityIntro")}</p>
-          <ul className="mt-6 space-y-4">
-            {CORE_IDENTITY.map((item) => (
-              <li key={item.labelKey} className="flex gap-2 text-sm">
-                <span className="font-semibold text-brand-navy">{translate(item.labelKey)}:</span>
-                <span className="text-muted-foreground">{translate(item.textKey)}</span>
-              </li>
-            ))}
-          </ul>
+      <section className="">
+        <div className="bg-[#121e2d] py-10 mb-10">
+          <h4 className="text-white text-3xl font-bold tracking-tight text-center md:text-4xl">
+                
+                {translate("aboutPageSectionHeader")}
+            </h4>
+            <h5 className="text-white text-lg font-bold tracking-tight text-center md:text-3xl">
+             
+              {translate("aboutPageSectionSubHeader")}
+          </h5>
+        </div>
+        <div className="mx-auto grid w-full max-w-6xl gap-10 px-4 py-16 sm:px-6 lg:grid-cols-2">
+          <div className="bg-white border border-[rgb(169,139,75)] p-4 rounded-lg shadow-lg">
+            <p className="text-sm font-semibold uppercase tracking-widest text-brand-gold-dark">
+              {translate("aboutPageIdentityTitle")}
+            </p>
+            <h2 className="mt-2 text-2xl font-bold tracking-tight sm:text-3xl">
+              {translate("aboutPageIdentitySubtitle")}
+            </h2>
+            <p className="mt-4 text-muted-foreground">{translate("aboutPageIdentityIntro")}</p>
+            <ul className="mt-6 space-y-4">
+              {CORE_IDENTITY.map((item) => (
+                <li key={item.labelKey} className="flex gap-2 text-sm">
+                  <span className="font-semibold text-brand-navy">{translate(item.labelKey)}:</span>
+                  <span className="text-muted-foreground">{translate(item.textKey)}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+          <div className="bg-white border border-[rgb(169,139,75)] p-4 rounded-lg shadow-lg">
+            <p className="text-sm font-semibold uppercase tracking-widest text-brand-gold-dark">
+              {translate("aboutPageStoryTitle")}
+            </p>
+            <h2 className="mt-2 text-2xl font-bold tracking-tight sm:text-3xl">
+              {translate("aboutPageStorySubtitle")}
+            </h2>
+            <p className="mt-4 text-muted-foreground">{translate("aboutPageStoryParagraph1")}</p>
+            <p className="mt-4 text-muted-foreground">{aboutStoryParagraph2}</p>
+        </div>
         </div>
 
-        <div>
-          <p className="text-sm font-semibold uppercase tracking-widest text-brand-gold-dark">
-            {translate("aboutPageStoryTitle")}
-          </p>
-          <h2 className="mt-2 text-2xl font-bold tracking-tight sm:text-3xl">
-            {translate("aboutPageStorySubtitle")}
-          </h2>
-          <p className="mt-4 text-muted-foreground">{translate("aboutPageStoryParagraph1")}</p>
-          <p className="mt-4 text-muted-foreground">{aboutStoryParagraph2}</p>
-        </div>
+        
       </section>
 
       <section className="bg-brand-navy py-16 text-brand-navy-foreground">
@@ -140,13 +154,15 @@ export function AboutUsView() {
         </div>
       </section>
 
-      <section className="mx-auto w-full max-w-2xl px-4 py-16 text-center sm:px-6">
+      <section className="mx-auto bg-white shadow border rounded border-[rgb(169,139,75)] w-full max-w-2xl px-4 py-16 text-center sm:px-6">
         <h2 className="text-2xl font-bold tracking-tight sm:text-3xl">{translate("aboutPageCtaTitle")}</h2>
         <p className="mt-3 text-muted-foreground">{translate("aboutPageCtaSubtitle")}</p>
         <Button asChild size="lg" className="mt-6 bg-brand-navy text-brand-navy-foreground hover:bg-brand-navy/90">
           <Link href="/contact-us">{translate("aboutPageCtaButton")}</Link>
         </Button>
       </section>
+      <PaymentMarquee />
+      
     </main>
   );
 }
