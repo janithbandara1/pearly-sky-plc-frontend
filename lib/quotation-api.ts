@@ -23,7 +23,9 @@ export interface CreateQuotationPayload {
   email: string;
   contact: string;
   streetAddress: string;
+  unit?: string;
   city: string;
+  state?: string;
   country?: string;
   postalCode?: string;
 }
@@ -62,7 +64,9 @@ export interface Quotation {
   languagePreference: string | null;
   specialRequirements: string | null;
   streetAddress: string;
+  unit: string | null;
   city: string;
+  state: string | null;
   country: string | null;
   postalCode: string | null;
   service: QuotationServiceRef;

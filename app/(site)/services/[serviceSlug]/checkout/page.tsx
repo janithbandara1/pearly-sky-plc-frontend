@@ -50,7 +50,9 @@ const poppins = Poppins({ subsets: ["latin"], weight: ["400", "500", "600", "700
 
 const emptyAddressForm: AddressPayload = {
   streetAddress: "",
+  unit: "",
   city: "",
+  state: "",
   country: "",
   postalCode: "",
 };
@@ -129,7 +131,9 @@ export default function CheckoutPage({
   const [selectedCountry, setSelectedCountry] = useState("France");
   const [postalCode, setPostalCode] = useState("");
   const [city, setCity] = useState("");
+  const [stateProvince, setStateProvince] = useState("");
   const [streetAddress, setStreetAddress] = useState("");
+  const [unitAptSuite, setUnitAptSuite] = useState("");
   const [howGetIn, setHowGetIn] = useState("");
   const [howHeard, setHowHeard] = useState("");
 
@@ -355,7 +359,9 @@ export default function CheckoutPage({
         email: contactForm.email.trim(),
         contact: fullPhone,
         streetAddress: streetAddress.trim(),
+        unit: unitAptSuite.trim() || undefined,
         city: city.trim(),
+        state: stateProvince.trim() || undefined,
         country: selectedCountry,
         postalCode: postalCode.trim(),
       });
@@ -461,7 +467,9 @@ export default function CheckoutPage({
           email: contactForm.email.trim(),
           contact: contactForm.contact.trim(),
           streetAddress: addressForm.streetAddress.trim(),
+          unit: addressForm?.unit?.trim() || undefined,
           city: addressForm.city.trim(),
+          state: addressForm?.state?.trim() || undefined,
           country: addressForm?.country?.trim() || undefined,
           postalCode: addressForm?.postalCode?.trim() || undefined,
         });
@@ -604,37 +612,7 @@ export default function CheckoutPage({
                   Address
                 </p>
                 <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-                  <div className="space-y-1.5 sm:col-span-2">
-                    <Label className="text-xs font-medium text-brand-cream/90">Street Address *</Label>
-                    <Input
-                      value={streetAddress}
-                      onChange={(e) => setStreetAddress(e.target.value)}
-                      placeholder="Street Address"
-                      className="bg-brand-cream text-brand-navy placeholder:text-muted-foreground"
-                    />
-                  </div>
-
                   <div className="space-y-1.5">
-                    <Label className="text-xs font-medium text-brand-cream/90">City *</Label>
-                    <Input
-                      value={city}
-                      onChange={(e) => setCity(e.target.value)}
-                      placeholder="City"
-                      className="bg-brand-cream text-brand-navy placeholder:text-muted-foreground"
-                    />
-                  </div>
-
-                  <div className="space-y-1.5">
-                    <Label className="text-xs font-medium text-brand-cream/90">Postal Code *</Label>
-                    <Input
-                      value={postalCode}
-                      onChange={(e) => setPostalCode(e.target.value)}
-                      placeholder="Postal Code"
-                      className="bg-brand-cream text-brand-navy placeholder:text-muted-foreground"
-                    />
-                  </div>
-
-                  <div className="space-y-1.5 sm:col-span-2">
                     <Label className="text-xs font-medium text-brand-cream/90">Country</Label>
                     <Select value={selectedCountry} onValueChange={setSelectedCountry}>
                       <SelectTrigger className="w-full bg-brand-cream text-brand-navy">
@@ -651,6 +629,56 @@ export default function CheckoutPage({
                         ))}
                       </SelectContent>
                     </Select>
+                  </div>
+
+                  <div className="space-y-1.5">
+                    <Label className="text-xs font-medium text-brand-cream/90">Postal Code *</Label>
+                    <Input
+                      value={postalCode}
+                      onChange={(e) => setPostalCode(e.target.value)}
+                      placeholder="Postal Code"
+                      className="bg-brand-cream text-brand-navy placeholder:text-muted-foreground"
+                    />
+                  </div>
+
+                  <div className="space-y-1.5">
+                    <Label className="text-xs font-medium text-brand-cream/90">City *</Label>
+                    <Input
+                      value={city}
+                      onChange={(e) => setCity(e.target.value)}
+                      placeholder="City"
+                      className="bg-brand-cream text-brand-navy placeholder:text-muted-foreground"
+                    />
+                  </div>
+
+                  <div className="space-y-1.5">
+                    <Label className="text-xs font-medium text-brand-cream/90">Province/State</Label>
+                    <Input
+                      value={stateProvince}
+                      onChange={(e) => setStateProvince(e.target.value)}
+                      placeholder="Province/State"
+                      className="bg-brand-cream text-brand-navy placeholder:text-muted-foreground"
+                    />
+                  </div>
+
+                  <div className="space-y-1.5 sm:col-span-2">
+                    <Label className="text-xs font-medium text-brand-cream/90">Street Address *</Label>
+                    <Input
+                      value={streetAddress}
+                      onChange={(e) => setStreetAddress(e.target.value)}
+                      placeholder="Street Address"
+                      className="bg-brand-cream text-brand-navy placeholder:text-muted-foreground"
+                    />
+                  </div>
+
+                  <div className="space-y-1.5 sm:col-span-2">
+                    <Label className="text-xs font-medium text-brand-cream/90">Unit/Apt/Suite</Label>
+                    <Input
+                      value={unitAptSuite}
+                      onChange={(e) => setUnitAptSuite(e.target.value)}
+                      placeholder="Unit/Apt/Suite"
+                      className="bg-brand-cream text-brand-navy placeholder:text-muted-foreground"
+                    />
                   </div>
                 </div>
               </div>
@@ -1028,44 +1056,6 @@ export default function CheckoutPage({
                     Address
                   </p>
                   <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-                    <div className="space-y-1.5 sm:col-span-2">
-                      <Label htmlFor="streetAddress" className="text-xs font-medium text-brand-cream/90">Street Address *</Label>
-                      <Input
-                        id="streetAddress"
-                        required
-                        value={addressForm.streetAddress}
-                        onChange={(e) =>
-                          setAddressForm((f) => ({ ...f, streetAddress: e.target.value }))
-                        }
-                        placeholder="Street Address"
-                        className="bg-brand-cream text-brand-navy placeholder:text-muted-foreground"
-                      />
-                    </div>
-                    <div className="space-y-1.5">
-                      <Label htmlFor="city" className="text-xs font-medium text-brand-cream/90">City *</Label>
-                      <Input
-                        id="city"
-                        required
-                        value={addressForm.city}
-                        onChange={(e) =>
-                          setAddressForm((f) => ({ ...f, city: e.target.value }))
-                        }
-                        placeholder="City"
-                        className="bg-brand-cream text-brand-navy placeholder:text-muted-foreground"
-                      />
-                    </div>
-                    <div className="space-y-1.5">
-                      <Label htmlFor="postalCode" className="text-xs font-medium text-brand-cream/90">Postal Code</Label>
-                      <Input
-                        id="postalCode"
-                        value={addressForm.postalCode}
-                        onChange={(e) =>
-                          setAddressForm((f) => ({ ...f, postalCode: e.target.value }))
-                        }
-                        placeholder="Postal Code"
-                        className="bg-brand-cream text-brand-navy placeholder:text-muted-foreground"
-                      />
-                    </div>
                     <div className="space-y-1.5">
                       <Label htmlFor="addressCountry" className="text-xs font-medium text-brand-cream/90">Country</Label>
                       <Select
@@ -1086,6 +1076,68 @@ export default function CheckoutPage({
                           ))}
                         </SelectContent>
                       </Select>
+                    </div>
+                    <div className="space-y-1.5">
+                      <Label htmlFor="postalCode" className="text-xs font-medium text-brand-cream/90">Postal Code</Label>
+                      <Input
+                        id="postalCode"
+                        value={addressForm.postalCode}
+                        onChange={(e) =>
+                          setAddressForm((f) => ({ ...f, postalCode: e.target.value }))
+                        }
+                        placeholder="Postal Code"
+                        className="bg-brand-cream text-brand-navy placeholder:text-muted-foreground"
+                      />
+                    </div>
+                    <div className="space-y-1.5">
+                      <Label htmlFor="city" className="text-xs font-medium text-brand-cream/90">City *</Label>
+                      <Input
+                        id="city"
+                        required
+                        value={addressForm.city}
+                        onChange={(e) =>
+                          setAddressForm((f) => ({ ...f, city: e.target.value }))
+                        }
+                        placeholder="City"
+                        className="bg-brand-cream text-brand-navy placeholder:text-muted-foreground"
+                      />
+                    </div>
+                    <div className="space-y-1.5">
+                      <Label htmlFor="state" className="text-xs font-medium text-brand-cream/90">Province/State</Label>
+                      <Input
+                        id="state"
+                        value={addressForm.state}
+                        onChange={(e) =>
+                          setAddressForm((f) => ({ ...f, state: e.target.value }))
+                        }
+                        placeholder="Province/State"
+                        className="bg-brand-cream text-brand-navy placeholder:text-muted-foreground"
+                      />
+                    </div>
+                    <div className="space-y-1.5 sm:col-span-2">
+                      <Label htmlFor="streetAddress" className="text-xs font-medium text-brand-cream/90">Street Address *</Label>
+                      <Input
+                        id="streetAddress"
+                        required
+                        value={addressForm.streetAddress}
+                        onChange={(e) =>
+                          setAddressForm((f) => ({ ...f, streetAddress: e.target.value }))
+                        }
+                        placeholder="Street Address"
+                        className="bg-brand-cream text-brand-navy placeholder:text-muted-foreground"
+                      />
+                    </div>
+                    <div className="space-y-1.5 sm:col-span-2">
+                      <Label htmlFor="unit" className="text-xs font-medium text-brand-cream/90">Unit/Apt/Suite</Label>
+                      <Input
+                        id="unit"
+                        value={addressForm.unit}
+                        onChange={(e) =>
+                          setAddressForm((f) => ({ ...f, unit: e.target.value }))
+                        }
+                        placeholder="Unit/Apt/Suite"
+                        className="bg-brand-cream text-brand-navy placeholder:text-muted-foreground"
+                      />
                     </div>
                   </div>
                 </div>

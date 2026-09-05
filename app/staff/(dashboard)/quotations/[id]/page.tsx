@@ -131,7 +131,9 @@ export default function StaffQuotationDetailsPage() {
           customerPhone={quotation.customer?.contact ?? undefined}
           address={{
             streetAddress: quotation.streetAddress,
+            unit: quotation.unit,
             city: quotation.city,
+            state: quotation.state,
             country: quotation.country,
             postalCode: quotation.postalCode,
           }}

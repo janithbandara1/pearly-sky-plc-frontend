@@ -219,7 +219,9 @@ export function BookingDetailsCard({
           </div>
         )}
 
-        {(onSupplySourceChange || (equipmentOptions && equipmentOptions.length > 0) || items.length > 0) && (
+        {(onSupplySourceChange ||
+          (equipmentOptions && equipmentOptions.length > 0) ||
+          (supplySource !== "customer" && items.length > 0)) && (
           <div className="flex flex-col border-t border-brand-gold/20">
             <SectionHeading label="Cleaning Solvents & Equipment" />
 
@@ -279,27 +281,34 @@ export function BookingDetailsCard({
           </div>
         )}
 
-        <div className="flex flex-col border-t border-brand-gold/20">
-          {hourlyRate && <SummaryRow label="Due at booking" value={money(Number(hourlyRate))} />}
+        <div className="flex flex-col gap-3 border-t border-brand-gold/20 p-4">
           {hasPrice ? (
             <>
-              <SummaryRow
-                label="Total price (estimate)"
-                value={`${money(estimatedMin as number)} – ${money(estimatedMax as number)}`}
-              />
+              <div className="flex items-center justify-between gap-3 rounded-lg border border-brand-gold bg-brand-gold/10 px-4 py-3 text-sm">
+                <span className="text-brand-gold">Estimated Price Range</span>
+                <span>{`${money(estimatedMin as number)} – ${money(estimatedMax as number)}`}</span>
+              </div>
               {hourlyRate && (
-                <SummaryRow
-                  label="Remaining balance"
-                  value={`${money((estimatedMin as number) - Number(hourlyRate))} – ${money((estimatedMax as number) - Number(hourlyRate))}`}
-                />
+                <div className="flex items-center justify-between gap-3 rounded-lg border border-brand-gold bg-brand-gold/10 px-4 py-3 text-sm">
+                  <span className="text-brand-gold">Advance Payment</span>
+                  <span>{money(Number(hourlyRate))}</span>
+                </div>
               )}
             </>
           ) : (
-            <div className="px-4 py-3 text-sm text-brand-navy-foreground/70">
-              {quote?.bookable
-                ? "Your cleaning professional will confirm exact pricing after reviewing your space."
-                : "Online booking isn't available for this property size yet — please contact us directly for a quote."}
-            </div>
+            <>
+              {hourlyRate && (
+                <div className="flex items-center justify-between gap-3 rounded-lg border border-brand-gold bg-brand-gold/10 px-4 py-3 text-sm">
+                  <span className="text-brand-gold">Advance Payment</span>
+                  <span>{money(Number(hourlyRate))}</span>
+                </div>
+              )}
+              <div className="text-sm text-brand-navy-foreground/70">
+                {quote?.bookable
+                  ? "Your cleaning professional will confirm exact pricing after reviewing your space."
+                  : "Online booking isn't available for this property size yet — please contact us directly for a quote."}
+              </div>
+            </>
           )}
         </div>
 

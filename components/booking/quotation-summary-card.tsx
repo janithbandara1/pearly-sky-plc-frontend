@@ -43,7 +43,9 @@ function optionLabel(options: { value: string; label: string }[], value: string 
 
 export interface QuotationSummaryAddress {
   streetAddress: string;
+  unit?: string | null;
   city: string;
+  state?: string | null;
   country: string | null;
   postalCode: string | null;
 }
@@ -175,8 +177,12 @@ export function QuotationSummaryCard({
 
         <SectionCard icon={MapPin} label="Address">
           <div className="flex flex-col gap-3">
-            <Field label="Street" value={address.streetAddress} />
+            <Field
+              label="Street"
+              value={[address.streetAddress, address.unit].filter(Boolean).join(", ")}
+            />
             <Field label="City" value={address.city} />
+            {address.state && <Field label="State" value={address.state} />}
             {address.country && <Field label="Country" value={address.country} />}
             {address.postalCode && <Field label="Postal Code" value={address.postalCode} />}
           </div>
