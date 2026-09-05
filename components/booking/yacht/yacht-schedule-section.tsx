@@ -200,7 +200,6 @@ export function YachtScheduleSection({
       items: selectedItems.map((i) => ({
         name: i.name,
         price: i.price !== null ? Number(i.price) : null,
-        image: i.image,
       })),
       supplySource: supplySource || "company",
       addOnsTotal,

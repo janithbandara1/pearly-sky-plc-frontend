@@ -29,7 +29,6 @@ import { SERVICE_CONTENT } from "@/lib/content/service-details";
 import { ApiError } from "@/lib/auth-context";
 import { saveBookingDraft } from "@/lib/booking-draft";
 import {
-  CatalogItem,
   CatalogServiceDetail,
   getServiceBySlug,
   getServiceQuote,
@@ -78,14 +77,6 @@ const DEFAULT_PACKAGES: ServiceAddOnPackage[] = [
   { id: 102, name: "Interior Refrigerator Sanitation", image: null, category: "deep_and_specialized_cleaning" },
   { id: 103, name: "Interior Window & Track Cleaning", image: null, category: "general_interior_maintenance" },
   { id: 104, name: "Balcony & Terrace Scrubbing", image: null, category: "outdoor_and_exterior_spaces" },
-];
-
-//used for fallback data when the service API fails to return a service
-const DEFAULT_ITEMS: CatalogItem[] = [
-  { id: 201, name: "BIO - SOLVENT", sku: "EQUIP-01", price: "13.00", prices: [], type: "equipment", image: null },
-  { id: 202, name: "MOP (1 MOP)", sku: "EQUIP-02", price: "8.00", prices: [], type: "equipment", image: null },
-  { id: 203, name: "MATERIALS (1 KIT)", sku: "EQUIP-03", price: "6.60", prices: [], type: "equipment", image: null },
-  { id: 204, name: "VACUUM (1 VAC)", sku: "EQUIP-04", price: "10.00", prices: [], type: "equipment", image: null },
 ];
 
 const FALLBACK_SERVICES: Record<string, CatalogServiceDetail> = {
@@ -192,7 +183,7 @@ const FALLBACK_SERVICES: Record<string, CatalogServiceDetail> = {
     isBookable: true,
     isQuotable: true,
     servicePackages: DEFAULT_PACKAGES.map((p) => ({ package: p })),
-    serviceItems: DEFAULT_ITEMS.map((i) => ({ item: i })),
+    serviceItems: [],
   },
 };
 
@@ -265,10 +256,7 @@ export function ServiceBookingView({ serviceSlug }: { serviceSlug: string }) {
             data.servicePackages && data.servicePackages.length > 0
               ? data.servicePackages
               : DEFAULT_PACKAGES.map((p) => ({ package: p })),
-          serviceItems:
-            data.serviceItems && data.serviceItems.length > 0
-              ? data.serviceItems
-              : DEFAULT_ITEMS.map((i) => ({ item: i })),
+          serviceItems: data.serviceItems ?? [],
         };
         setService(enhanced);
       })
@@ -450,7 +438,6 @@ export function ServiceBookingView({ serviceSlug }: { serviceSlug: string }) {
       items: displayedEquipmentItems.map((i) => ({
         name: i.name,
         price: i.price !== null ? Number(i.price) : null,
-        image: i.image,
       })),
       supplySource,
       addOnsTotal: addOnsTotal + (selectedDisinfectionLevel?.priceAdder ?? 0),

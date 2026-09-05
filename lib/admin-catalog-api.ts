@@ -61,7 +61,6 @@ export interface CreateItemPayload {
   name: string;
   sku: string;
   type: string;
-  image?: string;
 }
 export type UpdateItemPayload = Partial<CreateItemPayload>;
 

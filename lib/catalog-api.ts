@@ -76,7 +76,6 @@ export interface CatalogItem {
   price: string | null;
   prices: ServicePriceEntry[];
   type: string;
-  image: string | null;
 }
 
 export function getServices(country?: string | null) {

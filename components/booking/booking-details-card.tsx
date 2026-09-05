@@ -250,7 +250,6 @@ export function BookingDetailsCard({
                   <SummaryRow
                     key={item.id}
                     label={item.name}
-                    icon={item.image}
                     value={
                       <div className="flex items-center gap-2">
                         <span className="text-brand-navy-foreground">{`+${money(price)}`}</span>
@@ -273,7 +272,6 @@ export function BookingDetailsCard({
                 <SummaryRow
                   key={item.name}
                   label={item.name}
-                  icon={item.image}
                   value={`+${money(item.price ?? 0)}`}
                 />
               ))
@@ -362,25 +360,10 @@ function SectionHeading({ label }: { label: string }) {
   );
 }
 
-function SummaryRow({
-  label,
-  value,
-  icon,
-}: {
-  label: string;
-  value: ReactNode;
-  /** Optional item image/icon shown before the label (e.g. equipment items). */
-  icon?: string | null;
-}) {
+function SummaryRow({ label, value }: { label: string; value: ReactNode }) {
   return (
     <div className="flex items-center justify-between gap-3 px-4 py-2.5 text-sm">
-      <span className="flex min-w-0 items-center gap-2 text-brand-navy-foreground/70">
-        {icon && (
-          // eslint-disable-next-line @next/next/no-img-element
-          <img src={icon} alt="" className="size-5 shrink-0 rounded object-cover" />
-        )}
-        <span className="truncate">{label}</span>
-      </span>
+      <span className="min-w-0 truncate text-brand-navy-foreground/70">{label}</span>
       <span>{value}</span>
     </div>
   );
