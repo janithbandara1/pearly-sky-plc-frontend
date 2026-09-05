@@ -33,8 +33,7 @@ function ServiceCard({ service }: { service: CatalogService }) {
     service.name === "elder-care-service" ||
     service.name === "carpet-upholstery-cleaning" ||
     service.name === "pool-cleaning" ||
-    service.name === "precision-pressure-washing" ||
-    service.name === "luxury-yacht-cleaning";
+    service.name === "precision-pressure-washing";
 
   return (
     <div className="flex h-full flex-col overflow-hidden rounded-xl border-2 border-brand-gold bg-brand-navy shadow-md transition-transform duration-200 hover:scale-[1.03] hover:shadow-xl">

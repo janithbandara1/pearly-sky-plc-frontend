@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState, useRef } from "react";
+import { YACHT_PROPERTY_TYPES } from "@/components/booking/Yatchpropertytypes";
 
 export interface PropertyCategory {
   id: string;
@@ -207,63 +208,7 @@ export const STEAM_CLEANING_CATEGORIES: PropertyCategory[] = [
   },
 ];
 
-/* const LUXURY_YATCH_CLEANING_SLUG = new Set(["luxury-yacht-cleaning"])
-export const YACHT_PROPERTY_TYPES: PropertyCategory[] = [
-  {
-    id: "motorboat-day-cruiser",
-    label: "Motorboat / Day Cruiser",
-    icon: "🛥️",
-    min: 20,
-    max: 1000,
-    step: 5,
-    locked: false,
-  },
-  {
-    id: "luxury-express",
-    label: "Luxury Express...",
-    icon: "🛳️",
-    min: 20,
-    max: 1000,
-    step: 5,
-    locked: false,
-  },
-  {
-    id: "flybridge-motor-yacht",
-    label: "Flybridge Motor Yacht",
-    icon: "🚢",
-    min: 20,
-    max: 1000,
-    step: 5,
-    locked: false,
-  },
-  {
-    id: "superyacht",
-    label: "Superyacht",
-    icon: "⚓",
-    min: 20,
-    max: 1000,
-    step: 5,
-    locked: false,
-  },
-  {
-    id: "megayacht",
-    label: "Megayacht",
-    icon: "🔱",
-    min: 20,
-    max: 1000,
-    step: 5,
-    locked: false,
-  },
-  {
-    id: "sailing-yacht-catamaran",
-    label: "Sailing Yacht / Catamaran",
-    icon: "⛵",
-    min: 20,
-    max: 1000,
-    step: 5,
-    locked: false,
-  },
-]; */
+const LUXURY_YACHT_CLEANING_SLUGS = new Set(["luxury-yacht-cleaning"]);
 
 const HIGH_SECURITY_SERVICES_SLUGS = new Set(["high-security-property-care"]);
 export const HIGH_SECURITY_PROPERTY_CATEGORIES: PropertyCategory[] = [
@@ -367,8 +312,8 @@ export function getPropertyCategoriesForService(serviceSlug: string): PropertyCa
   if (EVENT_SCHEME_SERVICE_SLUGS.has(serviceSlug)) return EVENT_PROPERTY_CATEGORIES;
   if (STEAM_CLEANING_SERVICES_SLUGS.has(serviceSlug)) return STEAM_CLEANING_CATEGORIES;
   if(PREMIUM_PROPERTY_SLUGS.has(serviceSlug)) return PREMIUM_PROPERTY_CATEGORIES;
-  //if (LUXURY_YATCH_CLEANING_SLUG.has(serviceSlug)) return YACHT_PROPERTY_TYPES;
-  
+  if (LUXURY_YACHT_CLEANING_SLUGS.has(serviceSlug)) return YACHT_PROPERTY_TYPES;
+
   return PROPERTY_CATEGORIES;
 }
 

@@ -16,7 +16,6 @@ import { QuoteItemsSection } from "@/components/booking/quote-items-section";
 import { CarpetItemCards } from "@/components/booking/carpet-item-cards";
 import { PoolJobSelection } from "@/components/booking/pool-job-selection";
 import { PressureWashingJobSelection } from "@/components/booking/pressure-washing-job-selection";
-import { YachtCategorySelection } from "@/components/booking/yacht-category-selection";
 import { GeneralSteamSection } from "@/components/booking/steam/general-steam-section";
 import { IndustrialCommercialSteamSection } from "@/components/booking/steam/industrial-commercial-steam-section";
 import { EventTypeSection } from "@/components/booking/event-type-section";
@@ -60,10 +59,8 @@ const CUSTOM_QUOTE_ITEMS: Record<
   },
 };
 
-const YACHT_SLUG = "luxury-yacht-cleaning";
 const STEAM_SLUG = "steam-cleaning";
 const EVENT_SLUG = "post-event-cleaning";
-const CATEGORY_QUOTE_TITLE = "Job type";
 
 /** Child Care and Elder Care are quote-only too — they collect per-person profiles instead of a property size. */
 const CHILD_CARE_SLUG = "child-care-service";
@@ -232,11 +229,8 @@ export function RequestQuotationView({ serviceSlug }: { serviceSlug: string }) {
   const { status, accessToken } = useAuth();
 
   const customQuote = CUSTOM_QUOTE_ITEMS[serviceSlug];
-  const isYachtCategory = serviceSlug === YACHT_SLUG;
   const isSteam = serviceSlug === STEAM_SLUG;
   const isEvent = serviceSlug === EVENT_SLUG;
-  const isCategoryQuote = isYachtCategory;
-  const categoryQuoteTitle = isCategoryQuote ? CATEGORY_QUOTE_TITLE : undefined;
 
   const serviceContent =
     SERVICE_CONTENT[serviceSlug] ??
@@ -255,7 +249,6 @@ export function RequestQuotationView({ serviceSlug }: { serviceSlug: string }) {
   const [propertySizeSqm, setPropertySizeSqm] = useState(20);
   const [propertyType, setPropertyType] = useState("Studio");
   const [quoteItems, setQuoteItems] = useState<QuoteItem[]>([]);
-  const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
 
   const [selectedGeneralSteam, setSelectedGeneralSteam] = useState<Set<string>>(new Set());
   const [selectedIndustrialSteam, setSelectedIndustrialSteam] = useState<Set<string>>(new Set());
@@ -399,13 +392,11 @@ export function RequestQuotationView({ serviceSlug }: { serviceSlug: string }) {
 
     const quoteItemLines = customQuote
       ? quoteItems.map((item) => formatQuoteItem(item, customQuote.options))
-      : isCategoryQuote && selectedCategory
-        ? [selectedCategory]
-        : isSteam && steamItemList.length > 0
-          ? steamItemList
-          : isEvent && eventTypeList.length > 0
-            ? eventTypeList
-            : undefined;
+      : isSteam && steamItemList.length > 0
+        ? steamItemList
+        : isEvent && eventTypeList.length > 0
+          ? eventTypeList
+          : undefined;
 
     setSubmitting(true);
     try {
@@ -413,9 +404,9 @@ export function RequestQuotationView({ serviceSlug }: { serviceSlug: string }) {
         serviceId: service.id,
         date: date || undefined,
         time: time || undefined,
-        propertyType: customQuote || isCategoryQuote ? undefined : propertyType || undefined,
-        propertySizeSqm: customQuote || isCategoryQuote ? undefined : propertySizeSqm,
-        quoteItemsTitle: customQuote?.title ?? (isCategoryQuote ? categoryQuoteTitle : undefined),
+        propertyType: customQuote ? undefined : propertyType || undefined,
+        propertySizeSqm: customQuote ? undefined : propertySizeSqm,
+        quoteItemsTitle: customQuote?.title,
         quoteItems: quoteItemLines,
         supplySource: supplySource || undefined,
         equipmentItems: selectedItems.length
@@ -622,8 +613,6 @@ export function RequestQuotationView({ serviceSlug }: { serviceSlug: string }) {
                 <PoolJobSelection items={quoteItems} onItemsChange={setQuoteItems} />
               ) : serviceSlug === "precision-pressure-washing" ? (
                 <PressureWashingJobSelection items={quoteItems} onItemsChange={setQuoteItems} />
-              ) : isYachtCategory ? (
-                <YachtCategorySelection selected={selectedCategory} onSelect={setSelectedCategory} />
               ) : isSteam ? (
                 <div className="space-y-4">
                   <GeneralSteamSection

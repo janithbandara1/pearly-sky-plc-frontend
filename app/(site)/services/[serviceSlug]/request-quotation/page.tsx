@@ -40,8 +40,7 @@ export default async function RequestQuotationPage({
     serviceSlug === "elder-care-service" ||
     serviceSlug === "carpet-upholstery-cleaning" ||
     serviceSlug === "pool-cleaning" ||
-    serviceSlug === "precision-pressure-washing" ||
-    serviceSlug === "luxury-yacht-cleaning"
+    serviceSlug === "precision-pressure-washing"
   ) {
     redirect(`/services/${serviceSlug}`);
   }
