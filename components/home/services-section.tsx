@@ -68,7 +68,15 @@ function ServiceCard({ service }: { service: CatalogService }) {
         </div>
 
         <div className="mt-2 flex w-full flex-col gap-2">
-          {service.isBookable ? (
+          {isDedicatedFlow ? (
+            <Link
+              href={`/services/${service.name}`}
+              className="flex w-full items-center justify-center gap-1.5 rounded-lg bg-brand-gold px-4 py-2.5 text-xs font-bold uppercase tracking-wider text-brand-navy transition-colors hover:bg-brand-gold/90"
+            >
+              {translate("servicesBookNow")}
+              <ArrowRight className="h-3.5 w-3.5" />
+            </Link>
+          ) : service.isBookable ? (
             <>
               <Link
                 href={`/services/${service.name}/request-quotation`}
@@ -84,14 +92,6 @@ function ServiceCard({ service }: { service: CatalogService }) {
                 <ArrowRight className="h-3.5 w-3.5" />
               </Link>
             </>
-          ) : isDedicatedFlow ? (
-            <Link
-              href={`/services/${service.name}`}
-              className="flex w-full items-center justify-center gap-1.5 rounded-lg bg-brand-gold px-4 py-2.5 text-xs font-bold uppercase tracking-wider text-brand-navy transition-colors hover:bg-brand-gold/90"
-            >
-              {translate("servicesBookNow")}
-              <ArrowRight className="h-3.5 w-3.5" />
-            </Link>
           ) : service.isQuotable ? (
             <Link
               href={`/services/${service.name}/request-quotation`}

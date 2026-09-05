@@ -162,7 +162,7 @@ export function PoolScheduleSection({
           onClick={handleSchedule}
           className="inline-flex h-[42px] min-w-[200px] items-center justify-center rounded-[8px] bg-[#C5A253] px-10 py-2 text-center text-sm font-semibold uppercase tracking-wider text-[#0B1528] shadow-[0_4px_14px_rgba(197,162,83,0.35)] transition-all hover:bg-[#B39144] hover:brightness-110"
         >
-          Book Now
+          Continue
         </Button>
       </div>
     </div>
