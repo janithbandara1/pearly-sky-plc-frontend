@@ -615,7 +615,7 @@ export function CareScheduleSection({
           onClick={handleContinue}
           className="h-11 min-w-[140px] rounded-md  cursor-pointer bg-[#A98B4B] text-sm font-bold text-white shadow-md hover:bg-[#A98B4B]"
         >
-          Request Quotation
+          Continue
         </Button>
       </div>
 
