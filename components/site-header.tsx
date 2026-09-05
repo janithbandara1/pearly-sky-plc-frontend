@@ -4,7 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { CalendarDays, ChevronDown, FileText, LogOut, MapPin, Menu, UserRound, XIcon } from "lucide-react";
+import { CalendarDays, ChevronDown, FileText, LogOut, Menu, UserRound, XIcon } from "lucide-react";
 import { useAuth } from "@/lib/auth-context";
 import { useLanguage } from "@/lib/i18n/language-context";
 import { cn } from "@/lib/utils";
@@ -199,14 +199,6 @@ export function SiteHeader({ navLinks: navLinksProp, showServicesMenu = true }: 
                   >
                     <UserRound className="size-4" />
                     Profile
-                  </Link>
-                  <Link
-                    href="/addresses"
-                    onClick={() => setAccountOpen(false)}
-                    className="flex items-center gap-2.5 rounded-lg p-2 text-sm hover:bg-muted"
-                  >
-                    <MapPin className="size-4" />
-                    Addresses
                   </Link>
                   <div className="my-1 border-t" />
                   <button
