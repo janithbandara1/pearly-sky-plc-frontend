@@ -28,6 +28,7 @@ import { CatalogItem, CatalogServiceDetail, getServiceBySlug } from "@/lib/catal
 import { CustomerAddress, getMyProfile, listMyAddresses } from "@/lib/customers-api";
 import { SUPPORTED_COUNTRIES, type CountryCode } from "@/lib/countries/config";
 import { useCountry } from "@/lib/countries/country-context";
+import { COUNTRY_FLAGS, FALLBACK_COUNTRY_NAMES } from "@/components/country-switcher";
 import { useLanguage } from "@/lib/i18n/language-context";
 import { SERVICE_CONTENT } from "@/lib/content/service-details";
 import { createQuotation } from "@/lib/quotation-api";
@@ -96,14 +97,12 @@ const COUNTRY_NAMES: Record<CountryCode, string> = {
   lk: "Sri Lanka",
 };
 
-const COUNTRY_OPTIONS = [
-  { code: "FR", name: "France", dialCode: "+33", flag: "🇫🇷" },
-  { code: "GB", name: "United Kingdom", dialCode: "+44", flag: "🇬🇧" },
-  { code: "LK", name: "Sri Lanka", dialCode: "+94", flag: "🇱🇰" },
-  { code: "US", name: "United States", dialCode: "+1", flag: "🇺🇸" },
-  { code: "DE", name: "Germany", dialCode: "+49", flag: "🇩🇪" },
-  { code: "AE", name: "United Arab Emirates", dialCode: "+971", flag: "🇦🇪" },
-];
+/** Same country list (and country-flag-icons flags) as the navbar's CountrySwitcher/LocaleSwitcher and the checkout page's country select. */
+const COUNTRY_OPTIONS = SUPPORTED_COUNTRIES.map((code) => ({
+  code: code.toUpperCase(),
+  name: FALLBACK_COUNTRY_NAMES[code],
+  Flag: COUNTRY_FLAGS[code],
+}));
 
 const GENDER_PREFERENCES = [
   { value: "none", label: "No Preference / Any" },
@@ -260,6 +259,8 @@ export function RequestQuotationView({ serviceSlug }: { serviceSlug: string }) {
   const [postalCode, setPostalCode] = useState("");
   const [city, setCity] = useState("");
   const [province, setProvince] = useState("");
+  const [streetAddress, setStreetAddress] = useState("");
+  const [unit, setUnit] = useState("");
 
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [submitting, setSubmitting] = useState(false);
@@ -309,7 +310,10 @@ export function RequestQuotationView({ serviceSlug }: { serviceSlug: string }) {
         }
         if (addressList && addressList[0]) {
           const primary = addressList[0];
+          setStreetAddress(primary.streetAddress || "");
+          setUnit(primary.unit || "");
           setCity(primary.city || "");
+          setProvince(primary.state || "");
           setPostalCode(primary.postalCode || "");
           if (primary.country) setSelectedCountry(primary.country);
         }
@@ -339,6 +343,7 @@ export function RequestQuotationView({ serviceSlug }: { serviceSlug: string }) {
     if (!postalCode.trim()) next.postalCode = "Postal code is required.";
     if (!city.trim()) next.city = "City is required.";
     if (!province.trim()) next.province = "Province / State is required.";
+    if (!streetAddress.trim()) next.streetAddress = "Street address is required.";
 
     setErrors(next);
     return Object.keys(next).length === 0;
@@ -394,8 +399,10 @@ export function RequestQuotationView({ serviceSlug }: { serviceSlug: string }) {
         lastName: lastName.trim() || undefined,
         email: email.trim(),
         contact: phoneNumber.trim(),
-        streetAddress: province.trim() ? `${province.trim()}, ${city.trim()}` : city.trim(),
+        streetAddress: streetAddress.trim(),
+        unit: unit.trim() || undefined,
         city: city.trim(),
+        state: province.trim() || undefined,
         country: selectedCountry,
         postalCode: postalCode.trim() || undefined,
       });
@@ -803,7 +810,10 @@ export function RequestQuotationView({ serviceSlug }: { serviceSlug: string }) {
                     <SelectContent className="bg-white border-[#A98B4B]/30">
                       {COUNTRY_OPTIONS.map((c) => (
                         <SelectItem key={c.code} value={c.name}>
-                          {c.flag} {c.name}
+                          <span className="flex items-center gap-2">
+                            <c.Flag className="h-3.5 w-5 shrink-0 object-cover" />
+                            {c.name}
+                          </span>
                         </SelectItem>
                       ))}
                     </SelectContent>
@@ -858,6 +868,34 @@ export function RequestQuotationView({ serviceSlug }: { serviceSlug: string }) {
                     className="h-11 rounded-lg border border-[#A98B4B]/40 bg-[#FFFDF4] text-brand-navy placeholder:text-muted-foreground shadow-inner focus-visible:ring-2 focus-visible:ring-[#A98B4B]"
                   />
                   {errors.province && <p className="text-xs text-destructive">{errors.province}</p>}
+                </div>
+              </div>
+
+              <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+                <div className="space-y-1.5 sm:col-span-2">
+                  <Label className="text-xs font-medium text-brand-navy/90">
+                    Street Address <span className="text-red-500">*</span>
+                  </Label>
+                  <Input
+                    value={streetAddress}
+                    onChange={(e) => {
+                      setStreetAddress(e.target.value);
+                      if (errors.streetAddress) setErrors((prev) => ({ ...prev, streetAddress: "" }));
+                    }}
+                    placeholder="Street Address"
+                    className="h-11 rounded-lg border border-[#A98B4B]/40 bg-[#FFFDF4] text-brand-navy placeholder:text-muted-foreground shadow-inner focus-visible:ring-2 focus-visible:ring-[#A98B4B]"
+                  />
+                  {errors.streetAddress && <p className="text-xs text-destructive">{errors.streetAddress}</p>}
+                </div>
+
+                <div className="space-y-1.5 sm:col-span-2">
+                  <Label className="text-xs font-medium text-brand-navy/90">Unit/Apt/Suite</Label>
+                  <Input
+                    value={unit}
+                    onChange={(e) => setUnit(e.target.value)}
+                    placeholder="Unit/Apt/Suite"
+                    className="h-11 rounded-lg border border-[#A98B4B]/40 bg-[#FFFDF4] text-brand-navy placeholder:text-muted-foreground shadow-inner focus-visible:ring-2 focus-visible:ring-[#A98B4B]"
+                  />
                 </div>
               </div>
             </div>
