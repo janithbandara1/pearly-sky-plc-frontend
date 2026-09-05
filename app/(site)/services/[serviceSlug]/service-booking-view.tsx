@@ -10,7 +10,7 @@ import { DISINFECTION_LEVELS, DisinfectionLevelSection } from "@/components/book
 import { EventTypeSection } from "@/components/booking/event-type-section";
 import { EquipmentSection, type SupplySource } from "@/components/booking/equipment-section";
 import { FACILITY_CARDS, FacilitySelectionSection } from "@/components/booking/facility-selection-section";
-import { JOB_CARD_CATEGORIES, JobCardSection } from "@/components/booking/job-card-section";
+import { JobCardSection } from "@/components/booking/job-card-section";
 import { SecurityCategorySelection } from "@/components/booking/security-category-selection";
 import { YachtCategorySelection } from "@/components/booking/yacht-category-selection";
 import { GeneralSteamSection } from "@/components/booking/steam/general-steam-section";
@@ -74,10 +74,10 @@ const PRESSURE_WASHING_SLUG = "precision-pressure-washing";
 
 //used for fallback data when the service API fails to return a service
 const DEFAULT_PACKAGES: ServiceAddOnPackage[] = [
-  { id: 101, name: "Deep Oven & Stove Detailing", price: "35.00", prices: [], image: null },
-  { id: 102, name: "Interior Refrigerator Sanitation", price: "30.00", prices: [], image: null },
-  { id: 103, name: "Interior Window & Track Cleaning", price: "40.00", prices: [], image: null },
-  { id: 104, name: "Balcony & Terrace Scrubbing", price: "45.00", prices: [], image: null },
+  { id: 101, name: "Deep Oven & Stove Detailing", image: null, category: "deep_and_specialized_cleaning" },
+  { id: 102, name: "Interior Refrigerator Sanitation", image: null, category: "deep_and_specialized_cleaning" },
+  { id: 103, name: "Interior Window & Track Cleaning", image: null, category: "general_interior_maintenance" },
+  { id: 104, name: "Balcony & Terrace Scrubbing", image: null, category: "outdoor_and_exterior_spaces" },
 ];
 
 //used for fallback data when the service API fails to return a service
@@ -325,9 +325,12 @@ export function ServiceBookingView({ serviceSlug }: { serviceSlug: string }) {
       if (next.has(id)) {
         next.delete(id);
       } else {
-        const itemCat = JOB_CARD_CATEGORIES.find((c) => c.items.some((i) => i.id === id));
-        if (itemCat) {
-          const countInCat = itemCat.items.filter((i) => prev.has(i.id)).length;
+        const allPackages = (service?.servicePackages ?? []).map((sp) => sp.package);
+        const clicked = allPackages.find((pkg) => pkg.id === id);
+        if (clicked) {
+          const countInCat = allPackages.filter(
+            (pkg) => pkg.category === clicked.category && prev.has(pkg.id),
+          ).length;
           if (countInCat >= 2) return prev;
         }
         next.add(id);
@@ -370,9 +373,8 @@ export function ServiceBookingView({ serviceSlug }: { serviceSlug: string }) {
     });
   }
 
-  const selectedPackages = JOB_CARD_CATEGORIES.flatMap((c) => c.items)
-    .filter((item) => selectedPackageIds.has(item.id))
-    .map((item) => ({ id: item.id, name: item.name, price: "35.00", prices: [], image: null }));
+  const allPackages = (service?.servicePackages ?? []).map((sp) => sp.package);
+  const selectedPackages = allPackages.filter((pkg) => selectedPackageIds.has(pkg.id));
   const items = (service?.serviceItems ?? []).map((si) => si.item);
   const selectedItems = items.filter((item) => selectedItemIds.has(item.id));
   // Customer-supplied equipment is disclosed in full (no picking, no charge);
@@ -385,7 +387,7 @@ export function ServiceBookingView({ serviceSlug }: { serviceSlug: string }) {
 
   const selectedDisinfectionLevel = DISINFECTION_LEVELS.find((l) => l.id === disinfectionLevelId);
 
-  const addOnsTotal = [...selectedPackages, ...selectedItems].reduce((sum, entry) => {
+  const addOnsTotal = selectedItems.reduce((sum, entry) => {
     const price = entry.price !== null ? Number(entry.price) : NaN;
     return Number.isFinite(price) ? sum + price : sum;
   }, 0);
@@ -443,7 +445,7 @@ export function ServiceBookingView({ serviceSlug }: { serviceSlug: string }) {
       time,
       packages: selectedPackages.map((p) => ({
         name: p.name,
-        price: p.price !== null ? Number(p.price) : null,
+        price: null,
       })),
       items: displayedEquipmentItems.map((i) => ({
         name: i.name,
@@ -611,7 +613,7 @@ export function ServiceBookingView({ serviceSlug }: { serviceSlug: string }) {
 
             {!isSanitization && !isSteam && !isEvent && !isCategoryQuote && (
               <JobCardSection
-                packages={(service.servicePackages ?? []).map((sp) => sp.package)}
+                packages={allPackages}
                 selectedIds={selectedPackageIds}
                 onToggle={togglePackage}
               />

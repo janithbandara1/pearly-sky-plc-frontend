@@ -2,6 +2,26 @@ import { apiFetch } from "./api";
 
 export type ServiceCategory = "care_and_concierge" | "commercial_and_specialized_cleaning" | "premium_add_ons" | "residential_cleaning";
 
+export type PackageCategory =
+  | "deep_and_specialized_cleaning"
+  | "general_interior_maintenance"
+  | "lifestyle_and_home_care"
+  | "outdoor_and_exterior_spaces";
+
+export const PACKAGE_CATEGORIES: PackageCategory[] = [
+  "deep_and_specialized_cleaning",
+  "general_interior_maintenance",
+  "lifestyle_and_home_care",
+  "outdoor_and_exterior_spaces",
+];
+
+export const PACKAGE_CATEGORY_LABELS: Record<PackageCategory, string> = {
+  deep_and_specialized_cleaning: "Deep & Specialized Cleaning",
+  general_interior_maintenance: "General Interior Maintenance",
+  lifestyle_and_home_care: "Lifestyle & Home Care",
+  outdoor_and_exterior_spaces: "Outdoor & Exterior Spaces",
+};
+
 export interface ServicePriceEntry {
   country: string;
   price: string | null;
@@ -29,10 +49,8 @@ export interface CatalogService {
 export interface ServiceAddOnPackage {
   id: number;
   name: string;
-  /** Resolved for the request's country; null if unset or no country. */
-  price: string | null;
-  prices: ServicePriceEntry[];
   image: string | null;
+  category: PackageCategory;
 }
 
 export interface CatalogServiceDetail extends CatalogService {

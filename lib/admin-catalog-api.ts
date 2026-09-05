@@ -3,6 +3,7 @@ import type {
   CatalogItem,
   CatalogService,
   CatalogServiceDetail,
+  PackageCategory,
   ServiceCategory,
   ServicePriceEntry,
 } from "./catalog-api";
@@ -11,9 +12,7 @@ export interface AdminPackage {
   id: number;
   name: string;
   image: string | null;
-  /** Resolved for the request's country; null if unset or no country. */
-  price: string | null;
-  prices: ServicePriceEntry[];
+  category: PackageCategory;
 }
 
 export interface AdminJobType {
@@ -54,6 +53,7 @@ export interface ServicePriceInput {
 export interface CreatePackagePayload {
   name: string;
   image?: string;
+  category: PackageCategory;
 }
 export type UpdatePackagePayload = Partial<CreatePackagePayload>;
 
@@ -187,15 +187,6 @@ export function deletePackage(accessToken: string, id: number) {
   return apiFetch<{ success: boolean }>(`/admin/catalog/packages/${id}`, {
     method: "DELETE",
     accessToken,
-  });
-}
-
-/** Replaces the full set of per-country prices for a package. */
-export function setPackagePrices(accessToken: string, id: number, prices: ServicePriceInput[]) {
-  return apiFetch<AdminPackage>(`/admin/catalog/packages/${id}/prices`, {
-    method: "PATCH",
-    accessToken,
-    body: { prices },
   });
 }
 

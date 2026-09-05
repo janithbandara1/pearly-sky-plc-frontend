@@ -213,7 +213,7 @@ export function BookingDetailsCard({
               <SummaryRow
                 key={pkg.name}
                 label={pkg.name}
-                value={`+${money(pkg.price ?? 0)}`}
+                value={pkg.price !== null ? `+${money(pkg.price)}` : "Included"}
               />
             ))}
           </div>
