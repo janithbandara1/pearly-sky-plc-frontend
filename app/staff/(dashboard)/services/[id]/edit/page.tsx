@@ -57,8 +57,6 @@ export default function EditServicePage() {
       category: detail.category,
       description: detail.description ?? "",
       imageUrl: detail.imageUrl ?? "",
-      isBookable: detail.isBookable,
-      isQuotable: detail.isQuotable,
     });
     setPrices(fromCountryPricesPayload(detail.prices));
     setAllPackages(packagesData);

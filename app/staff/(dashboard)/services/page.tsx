@@ -1,21 +1,17 @@
 "use client";
 
 import { ColumnDef } from "@tanstack/react-table";
-import { Pencil, Trash2 } from "lucide-react";
+import { Pencil } from "lucide-react";
 import Link from "next/link";
 import { useCallback, useEffect, useState } from "react";
-import { toast } from "sonner";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { DataTable } from "@/components/staff/data-table";
-import { ConfirmDeleteDialog } from "@/components/staff/confirm-delete-dialog";
 import { ApiError } from "@/lib/auth-context";
 import type { CatalogService } from "@/lib/catalog-api";
-import { deleteService, listServicesAdmin } from "@/lib/admin-catalog-api";
-import { useStaffAuth } from "@/lib/staff-auth-context";
+import { listServicesAdmin } from "@/lib/admin-catalog-api";
 
 export default function AdminServicesPage() {
-  const { accessToken } = useStaffAuth();
   const [services, setServices] = useState<CatalogService[]>([]);
   const [error, setError] = useState<string | null>(null);
 
@@ -29,17 +25,6 @@ export default function AdminServicesPage() {
       setError(err instanceof ApiError ? err.message : "Failed to load services."),
     );
   }, [load]);
-
-  async function handleDelete(service: CatalogService) {
-    if (!accessToken) return;
-    try {
-      await deleteService(accessToken, service.id);
-      setServices((prev) => prev.filter((s) => s.id !== service.id));
-      toast.success(`Service "${service.label}" deleted.`);
-    } catch (err) {
-      toast.error(err instanceof ApiError ? err.message : "Failed to delete service.");
-    }
-  }
 
   const columns: ColumnDef<CatalogService>[] = [
     { accessorKey: "label", header: "Label" },
@@ -69,17 +54,6 @@ export default function AdminServicesPage() {
               <span className="sr-only">Edit</span>
             </Link>
           </Button>
-          <ConfirmDeleteDialog
-            trigger={
-              <Button size="icon-sm" variant="ghost">
-                <Trash2 />
-                <span className="sr-only">Delete</span>
-              </Button>
-            }
-            title={`Delete "${row.original.label}"?`}
-            description="This cannot be undone."
-            onConfirm={() => handleDelete(row.original)}
-          />
         </div>
       ),
     },
@@ -87,16 +61,11 @@ export default function AdminServicesPage() {
 
   return (
     <div className="flex flex-col gap-4">
-      <div className="flex items-center justify-between">
-        <div>
-          <h1 className="text-2xl font-semibold tracking-tight">Services</h1>
-          <p className="text-sm text-muted-foreground">
-            Manage the services customers can book.
-          </p>
-        </div>
-        <Button asChild>
-          <Link href="/staff/services/add">Add service</Link>
-        </Button>
+      <div>
+        <h1 className="text-2xl font-semibold tracking-tight">Services</h1>
+        <p className="text-sm text-muted-foreground">
+          Manage the services customers can book.
+        </p>
       </div>
 
       {error && <p className="text-sm text-destructive">{error}</p>}

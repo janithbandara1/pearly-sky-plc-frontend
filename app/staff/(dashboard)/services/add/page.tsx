@@ -35,8 +35,6 @@ const emptyForm: CreateServicePayload = {
   category: "residential_cleaning",
   description: "",
   imageUrl: "",
-  isBookable: false,
-  isQuotable: false,
 };
 
 export default function AddServicePage() {

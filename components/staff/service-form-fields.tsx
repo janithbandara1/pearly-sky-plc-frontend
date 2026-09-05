@@ -9,7 +9,6 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { Switch } from "@/components/ui/switch";
 import type { CreateServicePayload } from "@/lib/admin-catalog-api";
 
 interface ServiceFormFieldsProps {
@@ -90,27 +89,6 @@ export function ServiceFormFields({ form, onChange }: ServiceFormFieldsProps) {
         <p className="text-xs text-muted-foreground">
           Visible page copy — shown on the homepage card and as the booking/quotation page subtitle.
         </p>
-      </div>
-      <div className="col-span-2 flex flex-col gap-2">
-        <Label>Booking & Quotation</Label>
-        <div className="grid grid-cols-2 gap-4">
-          <div className="flex items-center justify-between gap-2 rounded-md border p-3">
-            <Label htmlFor="isBookable" className="font-normal">Is Bookable</Label>
-            <Switch
-              id="isBookable"
-              checked={!!form.isBookable}
-              onCheckedChange={(checked) => onChange({ ...form, isBookable: checked })}
-            />
-          </div>
-          <div className="flex items-center justify-between gap-2 rounded-md border p-3">
-            <Label htmlFor="isQuotable" className="font-normal">Is Quotable</Label>
-            <Switch
-              id="isQuotable"
-              checked={!!form.isQuotable}
-              onCheckedChange={(checked) => onChange({ ...form, isQuotable: checked })}
-            />
-          </div>
-        </div>
       </div>
     </div>
   );
