@@ -16,7 +16,6 @@ import { QuoteItemsSection } from "@/components/booking/quote-items-section";
 import { CarpetItemCards } from "@/components/booking/carpet-item-cards";
 import { PoolJobSelection } from "@/components/booking/pool-job-selection";
 import { PressureWashingJobSelection } from "@/components/booking/pressure-washing-job-selection";
-import { SecurityCategorySelection } from "@/components/booking/security-category-selection";
 import { YachtCategorySelection } from "@/components/booking/yacht-category-selection";
 import { GeneralSteamSection } from "@/components/booking/steam/general-steam-section";
 import { IndustrialCommercialSteamSection } from "@/components/booking/steam/industrial-commercial-steam-section";
@@ -61,7 +60,6 @@ const CUSTOM_QUOTE_ITEMS: Record<
   },
 };
 
-const SECURITY_SLUG = "high-security-property-care";
 const YACHT_SLUG = "luxury-yacht-cleaning";
 const STEAM_SLUG = "steam-cleaning";
 const EVENT_SLUG = "post-event-cleaning";
@@ -234,11 +232,10 @@ export function RequestQuotationView({ serviceSlug }: { serviceSlug: string }) {
   const { status, accessToken } = useAuth();
 
   const customQuote = CUSTOM_QUOTE_ITEMS[serviceSlug];
-  const isSecurityCategory = serviceSlug === SECURITY_SLUG;
   const isYachtCategory = serviceSlug === YACHT_SLUG;
   const isSteam = serviceSlug === STEAM_SLUG;
   const isEvent = serviceSlug === EVENT_SLUG;
-  const isCategoryQuote = isSecurityCategory || isYachtCategory;
+  const isCategoryQuote = isYachtCategory;
   const categoryQuoteTitle = isCategoryQuote ? CATEGORY_QUOTE_TITLE : undefined;
 
   const serviceContent =
@@ -274,7 +271,6 @@ export function RequestQuotationView({ serviceSlug }: { serviceSlug: string }) {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
-  const [phonePrefix, setPhonePrefix] = useState("+33");
   const [phoneNumber, setPhoneNumber] = useState("");
 
   // Location of the residence
@@ -436,7 +432,7 @@ export function RequestQuotationView({ serviceSlug }: { serviceSlug: string }) {
         firstName: firstName.trim(),
         lastName: lastName.trim() || undefined,
         email: email.trim(),
-        contact: `${phonePrefix} ${phoneNumber.trim()}`,
+        contact: phoneNumber.trim(),
         streetAddress: province.trim() ? `${province.trim()}, ${city.trim()}` : city.trim(),
         city: city.trim(),
         country: selectedCountry,
@@ -626,8 +622,6 @@ export function RequestQuotationView({ serviceSlug }: { serviceSlug: string }) {
                 <PoolJobSelection items={quoteItems} onItemsChange={setQuoteItems} />
               ) : serviceSlug === "precision-pressure-washing" ? (
                 <PressureWashingJobSelection items={quoteItems} onItemsChange={setQuoteItems} />
-              ) : isSecurityCategory ? (
-                <SecurityCategorySelection selected={selectedCategory} onSelect={setSelectedCategory} />
               ) : isYachtCategory ? (
                 <YachtCategorySelection selected={selectedCategory} onSelect={setSelectedCategory} />
               ) : isSteam ? (
@@ -834,30 +828,16 @@ export function RequestQuotationView({ serviceSlug }: { serviceSlug: string }) {
                   <Label className="text-xs font-medium text-brand-navy/90">
                     Phone number <span className="text-red-500">*</span>
                   </Label>
-                  <div className="flex h-11 w-full rounded-lg border border-[#A98B4B]/40 bg-[#FFFDF4] shadow-inner focus-within:ring-2 focus-within:ring-[#A98B4B] overflow-hidden">
-                    <Select value={phonePrefix} onValueChange={setPhonePrefix}>
-                      <SelectTrigger className="h-full w-[100px] shrink-0 border-0 bg-transparent text-xs text-brand-navy focus:ring-0">
-                        <SelectValue />
-                      </SelectTrigger>
-                      <SelectContent className="bg-white border-[#A98B4B]/30">
-                        {COUNTRY_OPTIONS.map((c) => (
-                          <SelectItem key={c.code} value={c.dialCode}>
-                            {c.flag} {c.dialCode}
-                          </SelectItem>
-                        ))}
-                      </SelectContent>
-                    </Select>
-                    <input
-                      type="tel"
-                      value={phoneNumber}
-                      onChange={(e) => {
-                        setPhoneNumber(e.target.value);
-                        if (errors.phoneNumber) setErrors((prev) => ({ ...prev, phoneNumber: "" }));
-                      }}
-                      placeholder="Phone number"
-                      className="h-full flex-1 border-0 bg-transparent px-3 text-xs sm:text-sm text-brand-navy placeholder:text-muted-foreground focus:outline-none"
-                    />
-                  </div>
+                  <input
+                    type="tel"
+                    value={phoneNumber}
+                    onChange={(e) => {
+                      setPhoneNumber(e.target.value);
+                      if (errors.phoneNumber) setErrors((prev) => ({ ...prev, phoneNumber: "" }));
+                    }}
+                    placeholder="Phone number"
+                    className="h-11 w-full rounded-lg border border-[#A98B4B]/40 bg-[#FFFDF4] px-3 text-xs sm:text-sm text-brand-navy placeholder:text-muted-foreground shadow-inner focus:outline-none focus-visible:ring-2 focus-visible:ring-[#A98B4B]"
+                  />
                   {errors.phoneNumber && <p className="text-xs text-destructive">{errors.phoneNumber}</p>}
                 </div>
               </div>
