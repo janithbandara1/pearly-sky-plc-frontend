@@ -4,7 +4,6 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { PressureWashingJobSelection } from "@/components/booking/pressure-washing-job-selection";
 import { DateTimeSection } from "@/components/booking/date-time-section";
-import { QuotationPreferencesSection } from "@/components/booking/quotation-preferences-section";
 import { Button } from "@/components/ui/button";
 import { saveBookingDraft, loadBookingDraft } from "@/lib/booking-draft";
 import type { QuoteItem } from "@/lib/content/quote-items";
@@ -125,21 +124,6 @@ export function PressureWashingScheduleSection({
           setTime(t);
           if (error) setError(null);
         }}
-      />
-
-      {/* 3. PREFERENCES */}
-      <QuotationPreferencesSection
-        numCleaners={numCleaners}
-        onNumCleanersChange={setNumCleaners}
-        professionalsLabel="Cleaners"
-        durationHours={durationHours}
-        onDurationHoursChange={setDurationHours}
-        gender={gender}
-        onGenderChange={setGender}
-        language={language}
-        onLanguageChange={setLanguage}
-        requirements={requirements}
-        onRequirementsChange={setRequirements}
       />
 
       {/* Validation Error Message */}

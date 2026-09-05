@@ -6,7 +6,12 @@ import { useRouter } from "next/navigation";
 import { use, useCallback, useEffect, useState } from "react";
 import { BookingDetailsCard } from "@/components/booking/booking-details-card";
 import { Card, CardContent } from "@/components/ui/card";
-import { GENDER_OPTIONS, LANGUAGE_OPTIONS } from "@/components/booking/quotation-preferences-section";
+import {
+  GENDER_OPTIONS,
+  LANGUAGE_OPTIONS,
+  QuotationPreferencesSection,
+} from "@/components/booking/quotation-preferences-section";
+import { ServicePreferencesSection } from "@/components/booking/service-preferences-section";
 import { GENERAL_STEAM_CARDS } from "@/components/booking/steam/general-steam-section";
 import { INDUSTRIAL_STEAM_CATEGORIES } from "@/components/booking/steam/industrial-commercial-steam-section";
 import { PageHero } from "@/components/page-hero";
@@ -412,9 +417,9 @@ export default function CheckoutPage({
           addOns: draft.packages.map((p) => ({ name: p.name, price: p.price ?? undefined })),
           equipmentItems: draft.items.map((i) => ({ name: i.name, price: i.price ?? undefined })),
           supplySource: draft.supplySource || undefined,
-          genderPreference: draft.genderPreference,
-          languagePreference: draft.languagePreference,
-          specialRequirements: draft.specialRequirements,
+          genderPreference: gender,
+          languagePreference: language,
+          specialRequirements: requirements.trim() || undefined,
           howGetIn: howGetIn.trim() || undefined,
           howHeard: howHeard.trim() || undefined,
           propertyType: draft.propertyType,
@@ -452,9 +457,9 @@ export default function CheckoutPage({
           addOns: draft.packages.map((p) => ({ name: p.name, price: p.price ?? undefined })),
           equipmentItems: draft.items.map((i) => ({ name: i.name, price: i.price ?? undefined })),
           supplySource: draft.supplySource || undefined,
-          genderPreference: draft.genderPreference,
-          languagePreference: draft.languagePreference,
-          specialRequirements: draft.specialRequirements,
+          genderPreference: gender,
+          languagePreference: language,
+          specialRequirements: requirements.trim() || undefined,
           howGetIn: howGetIn.trim() || undefined,
           howHeard: howHeard.trim() || undefined,
           propertyType: draft.propertyType,
@@ -550,7 +555,24 @@ export default function CheckoutPage({
       {isFlowService ? (
         /* REUSABLE SERVICE FLOW 2-COLUMN CHECKOUT (MATCHING IMAGE 4) */
         <div className="mx-auto mt-8 grid w-full max-w-[1250px] gap-8 px-4 sm:px-6 lg:grid-cols-[1fr_420px] lg:items-start">
-          {/* LEFT COLUMN: SERVICE CHECKOUT DETAILS */}
+          {/* LEFT COLUMN: PREFERENCES + SERVICE CHECKOUT DETAILS */}
+          <div className="flex flex-col gap-6">
+          {isQuoteItemsService && (
+            <QuotationPreferencesSection
+              numCleaners={numCleaners}
+              onNumCleanersChange={setNumCleaners}
+              professionalsLabel="Cleaners"
+              durationHours={durationHours}
+              onDurationHoursChange={setDurationHours}
+              gender={gender}
+              onGenderChange={setGender}
+              language={language}
+              onLanguageChange={setLanguage}
+              requirements={requirements}
+              onRequirementsChange={setRequirements}
+            />
+          )}
+
           <Card className="bg-brand-navy text-brand-navy-foreground">
             <CardContent className="flex flex-col gap-0 p-0">
               <div className="px-4 py-3">
@@ -742,6 +764,7 @@ export default function CheckoutPage({
               </div>
             </CardContent>
           </Card>
+          </div>
 
           {/* RIGHT COLUMN: ORDER SUMMARY */}
           <Card className="bg-brand-navy text-brand-navy-foreground">
@@ -991,6 +1014,15 @@ export default function CheckoutPage({
           <div className="flex flex-col gap-6">
             {error && <p className="text-sm text-destructive">{error}</p>}
 
+            <ServicePreferencesSection
+              gender={gender}
+              onGenderChange={setGender}
+              language={language}
+              onLanguageChange={setLanguage}
+              requirements={requirements}
+              onRequirementsChange={setRequirements}
+            />
+
             <Card className="bg-brand-navy text-brand-navy-foreground">
               <CardContent className="flex flex-col gap-0 p-0">
                 <div className="px-4 py-3">
@@ -1206,14 +1238,14 @@ export default function CheckoutPage({
               propertyType={draft.propertyType}
               propertySizeSqm={draft.propertySizeSqm}
               genderLabel={
-                GENDER_OPTIONS.find((o) => o.value === draft.genderPreference)?.label ??
+                GENDER_OPTIONS.find((o) => o.value === gender)?.label ??
                 "No Preference"
               }
               languageLabel={
-                LANGUAGE_OPTIONS.find((o) => o.value === draft.languagePreference)?.label ??
+                LANGUAGE_OPTIONS.find((o) => o.value === language)?.label ??
                 "None"
               }
-              specialRequirements={draft.specialRequirements}
+              specialRequirements={requirements.trim() || undefined}
               packages={draft.packages}
               serviceLevel={draft.disinfectionLevel}
               generalSteamItems={

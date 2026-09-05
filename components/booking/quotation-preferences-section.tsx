@@ -1,6 +1,7 @@
 "use client";
 
 import { Minus, Plus } from "lucide-react";
+import { Card, CardContent } from "@/components/ui/card";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
 
@@ -25,7 +26,7 @@ function CounterField({ label, value, onChange, min = 0, step = 1, formatValue }
 
   return (
     <div>
-      <p className="mb-2 text-sm font-semibold text-brand-navy">{label}</p>
+      <p className="mb-2 text-sm font-semibold text-brand-cream/90">{label}</p>
       <div className="flex h-8 items-center justify-between rounded-lg border border-brand-gold-dark bg-brand-cream px-1.5">
         <button
           type="button"
@@ -91,71 +92,73 @@ export function QuotationPreferencesSection({
   onRequirementsChange,
 }: QuotationPreferencesSectionProps) {
   return (
-    <section className="overflow-hidden rounded-[12px] border border-brand-gold-dark">
-      <div className="bg-brand-navy px-5 py-4 text-center">
-        <h2 className="text-[1.1rem] font-bold text-brand-cream sm:text-[1.3rem]">Preferences</h2>
-      </div>
-
-      <div className="grid grid-cols-1 gap-5 bg-[#F8F9FA] p-4 sm:p-5 md:grid-cols-2">
-        <CounterField
-          label="Duration"
-          value={durationHours}
-          onChange={onDurationHoursChange}
-          min={3}
-          step={0.5}
-          formatValue={formatHM}
-        />
-
-        <CounterField
-          label={professionalsLabel}
-          value={numCleaners}
-          onChange={onNumCleanersChange}
-          min={1}
-          step={1}
-        />
-
-        <div>
-          <p className="mb-2 text-sm font-semibold text-brand-navy">Gender Preference</p>
-          <Select value={gender} onValueChange={onGenderChange}>
-            <SelectTrigger className="w-full bg-brand-cream">
-              <SelectValue placeholder="No preference" />
-            </SelectTrigger>
-            <SelectContent>
-              {GENDER_OPTIONS.map((opt) => (
-                <SelectItem key={opt.value} value={opt.value}>
-                  {opt.label}
-                </SelectItem>
-              ))}
-            </SelectContent>
-          </Select>
+    <Card className="bg-brand-navy text-brand-navy-foreground">
+      <CardContent className="flex flex-col gap-0 p-0">
+        <div className="px-4 py-3">
+          <h3 className="text-base font-bold text-brand-gold">Preferences</h3>
         </div>
 
-        <div>
-          <p className="mb-2 text-sm font-semibold text-brand-navy">Language Preference</p>
-          <Select value={language} onValueChange={onLanguageChange}>
-            <SelectTrigger className="w-full bg-brand-cream">
-              <SelectValue placeholder="No preference" />
-            </SelectTrigger>
-            <SelectContent>
-              {LANGUAGE_OPTIONS.map((opt) => (
-                <SelectItem key={opt.value} value={opt.value}>
-                  {opt.label}
-                </SelectItem>
-              ))}
-            </SelectContent>
-          </Select>
-        </div>
-
-        <div className="md:col-span-2">
-          <p className="mb-2 text-sm font-semibold text-brand-navy">Special Requirements</p>
-          <Textarea
-            rows={4}
-            value={requirements}
-            onChange={(e) => onRequirementsChange(e.target.value)}
-            className="bg-brand-cream"
+        <div className="grid grid-cols-1 gap-5 border-t border-brand-gold/20 p-4 md:grid-cols-2">
+          <CounterField
+            label="Duration"
+            value={durationHours}
+            onChange={onDurationHoursChange}
+            min={3}
+            step={0.5}
+            formatValue={formatHM}
           />
+
+          <CounterField
+            label={professionalsLabel}
+            value={numCleaners}
+            onChange={onNumCleanersChange}
+            min={1}
+            step={1}
+          />
+
+          <div>
+            <p className="mb-2 text-sm font-semibold text-brand-cream/90">Gender Preference</p>
+            <Select value={gender} onValueChange={onGenderChange}>
+              <SelectTrigger className="w-full bg-brand-cream text-brand-navy">
+                <SelectValue placeholder="No preference" />
+              </SelectTrigger>
+              <SelectContent>
+                {GENDER_OPTIONS.map((opt) => (
+                  <SelectItem key={opt.value} value={opt.value}>
+                    {opt.label}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+          </div>
+
+          <div>
+            <p className="mb-2 text-sm font-semibold text-brand-cream/90">Language Preference</p>
+            <Select value={language} onValueChange={onLanguageChange}>
+              <SelectTrigger className="w-full bg-brand-cream text-brand-navy">
+                <SelectValue placeholder="No preference" />
+              </SelectTrigger>
+              <SelectContent>
+                {LANGUAGE_OPTIONS.map((opt) => (
+                  <SelectItem key={opt.value} value={opt.value}>
+                    {opt.label}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+          </div>
+
+          <div className="md:col-span-2">
+            <p className="mb-2 text-sm font-semibold text-brand-cream/90">Special Requirements</p>
+            <Textarea
+              rows={4}
+              value={requirements}
+              onChange={(e) => onRequirementsChange(e.target.value)}
+              className="bg-brand-cream text-brand-navy"
+            />
+          </div>
         </div>
-      </div>
-    </section>
+      </CardContent>
+    </Card>
   );
 }

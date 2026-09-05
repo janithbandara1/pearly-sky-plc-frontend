@@ -10,7 +10,6 @@ import {
 import { YachtCategorySelection } from "@/components/booking/yacht-category-selection";
 import { DateTimeSection } from "@/components/booking/date-time-section";
 import { GENDER_OPTIONS, LANGUAGE_OPTIONS } from "@/components/booking/quotation-preferences-section";
-import { ServicePreferencesSection } from "@/components/booking/service-preferences-section";
 import { EquipmentSection, type SupplySource } from "@/components/booking/equipment-section";
 import { saveBookingDraft, loadBookingDraft } from "@/lib/booking-draft";
 import { getServiceQuote, type CatalogItem, type SizeQuote } from "@/lib/catalog-api";
@@ -239,16 +238,6 @@ export function YachtScheduleSection({
           setTime(t);
           if (error) setError(null);
         }}
-      />
-
-      {/* 3. PREFERENCES */}
-      <ServicePreferencesSection
-        gender={gender}
-        onGenderChange={setGender}
-        language={language}
-        onLanguageChange={setLanguage}
-        requirements={requirements}
-        onRequirementsChange={setRequirements}
       />
 
       {/* 4. PROPERTY TYPE & SIZE */}

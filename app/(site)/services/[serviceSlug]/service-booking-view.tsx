@@ -21,7 +21,6 @@ import {
   PropertyCategory,
   PropertyTypeSizeSelector,
 } from "@/components/booking/property-type-size-selector";
-import { ServicePreferencesSection } from "@/components/booking/service-preferences-section";
 import { ServiceIntroduction } from "@/components/booking/service-introduction";
 import { ServiceHighlights } from "@/components/booking/service-highlights";
 import { PageHero } from "@/components/page-hero";
@@ -39,7 +38,6 @@ import { useCountry } from "@/lib/countries/country-context";
 import { useCurrency } from "@/lib/currency-context";
 import JoinWithUsSection from "@/components/booking/join-with-us-section";
 import { EventbookSection } from "@/components/booking/event/EventbookSection";
-//import { ServicePreferencesSection } from "@/components/booking/service-preferences-section";
 
 import { CareScheduleSection } from "@/components/booking/care-schedule-section";
 import { CarpetScheduleSection } from "@/components/booking/carpet/carpet-schedule-section";
@@ -607,15 +605,6 @@ export function ServiceBookingView({ serviceSlug }: { serviceSlug: string }) {
             )}
 
             <DateTimeSection date={date} onDateChange={setDate} time={time} onTimeChange={setTime} />
-
-            <ServicePreferencesSection
-              gender={gender}
-              onGenderChange={setGender}
-              language={language}
-              onLanguageChange={setLanguage}
-              requirements={requirements}
-              onRequirementsChange={setRequirements}
-            />
 
             <PropertyTypeSizeSelector
               value={propertySizeSqm}
