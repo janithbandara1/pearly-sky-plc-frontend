@@ -177,7 +177,7 @@ export function EventbookSection({
                 </div>
 
                 {/* Item List (Displayed when BY COMPANY is selected) */}
-                {/* {isCompany && items.length > 0 && (
+                {isCompany && items.length > 0 && (
                     <div className="flex flex-col">
                         {items.map((item) => {
                             const isSelected = selectedItemIds.has(item.id);
@@ -210,7 +210,7 @@ export function EventbookSection({
                             );
                         })}
                     </div>
-                )} */}
+                )}
 
                 {/* Highlighted Box: ESTIMATED PRICE RANGE */}
                 <div className="mt-5 flex items-center justify-between rounded-[8px] border border-[#2D3F59] bg-[#0E1A2E] px-4 py-3.5 sm:px-5">

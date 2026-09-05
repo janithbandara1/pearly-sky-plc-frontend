@@ -40,7 +40,6 @@ import { useCountry } from "@/lib/countries/country-context";
 import { useCurrency } from "@/lib/currency-context";
 import JoinWithUsSection from "@/components/booking/join-with-us-section";
 import { EventbookSection } from "@/components/booking/event/EventbookSection";
-import ProductSelector from "@/components/booking/event/ProductsAndSuppliers";
 //import { ServicePreferencesSection } from "@/components/booking/service-preferences-section";
 
 import { CareScheduleSection } from "@/components/booking/care-schedule-section";
@@ -609,9 +608,6 @@ export function ServiceBookingView({ serviceSlug }: { serviceSlug: string }) {
                 onToggle={(title) => toggleSetEntry(setSelectedEventTypes, title)}
               />
             )}
-
-            {/** set the new component which has the list of EQUIPMENTs and CHEMICALS */}
-            {isEvent && (<ProductSelector />)}
 
             {!isSanitization && !isSteam && !isEvent && !isCategoryQuote && (
               <JobCardSection
