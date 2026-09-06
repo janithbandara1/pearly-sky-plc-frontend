@@ -64,6 +64,27 @@ servicesCategoryCareConcierge:" 🤝 SERVICES D'ASSISTANCE ET DE CONCIERGERIE",
   servicesCategoryPropertyCare: "GESTION & ENTRETIEN DE PROPRIÉTÉ",
   servicesCategoryBespokeLifestyle: "CURATION BIEN-ÊTRE & STYLE DE VIE SUR MESURE",
 
+    ServiceLuxuryResidential:"Nettoyage résidentiel de luxe",
+    ServiceCommercial:"Gestion de propriétés commerciales",
+    ServiceLuxuryProperty:"Gestion de propriétés de luxe",
+    ServiceHospitality:"Nettoyage hôtelier et hôtelier",
+    ServiceSports:"Installations sportives et de bien-être",
+    ServicePublic:"Nettoyage public et institutionnel",
+
+  servicesSubHeaderResidentialCleaning: "Des soins méticuleux et durables conçus pour les résidences de luxe, les propriétés et les maisons urbaines contemporaines.",
+  servicesSubHeaderPremiumAddOns: "Des finitions soignées pour une maison impeccablement entretenue",
+  servicesSubHeaderCommercialSpecialised: "Soins discrets et performants pour les espaces professionnels et les propriétés d'exception",
+  servicesSubHeaderCareConcierge: "Un soutien fiable et attentionné, conçu pour simplifier le quotidien.",
+
+  recentProjectTitle:"Nos projets récents",
+  projectBefore:"Avant",
+  projectAfter:"Après",
+  projectBeforeState:"État précédent",
+  projectAfteeState:"Notre résultat",
+
+  viewAllProjectButton:"Voir tous les projets",
+  clientFeedback:"Le ménage était impeccable et le personnel était très aimable et serviable. Nous nous sommes sentis parfaitement pris en charge. Je recommande.",
+
   // About / why choose us
   aboutWhyChooseUsTitle: "Pourquoi nous choisir",
   aboutEcoLabel: "Produits de Nettoyage Écologiques",
@@ -97,6 +118,13 @@ servicesCategoryCareConcierge:" 🤝 SERVICES D'ASSISTANCE ET DE CONCIERGERIE",
   sectorElderCareDesc: "Offrir des soins bienveillants et un environnement familial à nos aînés.",
   sectorRetailTitle: "Commerce de Détail",
   sectorRetailDesc: "Redéfinir l'expérience d'achat avec innovation et commodité.",
+
+  visionaryTeamTitle: "Notre équipe visionnaire",
+
+  visionarydesignationsHR:"Ressources humaines",
+  visionarydesignationsMK:"Équipe marketing",
+  visionarydesignationsCUS:"Service Client",
+  visionarydesignationsFIN:"Département Financier",
 
   // Moments of Excellence
   momentsOfExcellenceTitle: "Moments d'Excellence",
@@ -260,4 +288,9 @@ servicesCategoryCareConcierge:" 🤝 SERVICES D'ASSISTANCE ET DE CONCIERGERIE",
   // Contact Us page
   contactPageTitle: "Contactez Notre Équipe Concierge",
   contactOfficesTitle: "Nos Bureaux",
+
+  quickConnect:"Contactez-nous rapidement",
+  writeUs:"Contactez-nous rapidement",
+  connectWithUs:"Contactez-nous"
+
 } as Record<TranslationKey, string>;

@@ -4,6 +4,7 @@ import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { Mail, MapPin, Star } from "lucide-react";
+import { useLanguage } from "@/lib/i18n/language-context";
 
 // Types
 interface TeamMember {
@@ -36,8 +37,7 @@ const projectsData: Project[] = [
     afterImage: "/images/beforeafter/after-1.webp",
     clientName: "Filippo Mylod",
     rating: 5,
-    testimonial:
-      "The cleaning was great and the people who worked were so kind and nice. We felt very well taken care of. I recommend!!",
+    testimonial:"clientFeedback",
     title: "Modern Penthouse Deep Clean",
     location: "Paris",
     completedDate: "Completed: June 2024",
@@ -48,8 +48,7 @@ const projectsData: Project[] = [
     afterImage: "/images/beforeafter/after-2.webp",
     clientName: "Filippo Mylod",
     rating: 5,
-    testimonial:
-      "The cleaning was great and the people who worked were so kind and nice. We felt very well taken care of. I recommend!!",
+    testimonial:"clientFeedback",
     title: "Modern Penthouse Deep Clean",
     location: "Paris",
     completedDate: "Completed: June 2024",
@@ -60,7 +59,7 @@ const projectsData: Project[] = [
 
 export default function RecentProjects() {
   const [currentProjectIndex, setCurrentProjectIndex] = useState(0);
-
+  const{translate,language} =useLanguage()
   // Auto-rotate slider for 4 projects (every 5 seconds)
   useEffect(() => {
     const timer = setInterval(() => {
@@ -82,7 +81,7 @@ export default function RecentProjects() {
             <div className="h-px w-16 bg-[#A98B4B]"></div>
         </div>
         <h2 className="text-3xl md:text-4xl font-bold text-center mb-8 tracking-wide">
-          Our Recent Projects
+          {translate("recentProjectTitle")}
         </h2>
 
         {/* Project Card Container */}
@@ -99,8 +98,8 @@ export default function RecentProjects() {
                 className="object-cover"
               />
               <div className="absolute bottom-2 left-2  px-2 py-1 rounded text-left">
-                <p className="text-[12px] font-bold uppercase text-white">Before</p>
-                <p className="text-[10px] text-gray-300 uppercase">Previous State</p>
+                <p className="text-[12px] font-bold uppercase text-white">{translate("projectBefore")}</p>
+                <p className="text-[10px] text-gray-300 uppercase">{translate("projectBeforeState")}</p>
               </div>
             </div>
 
@@ -123,8 +122,8 @@ export default function RecentProjects() {
                 className="object-cover"
               />
               <div className="absolute bottom-2 right-2  py-1 rounded text-right">
-                <p className="text-[12px] font-bold uppercase text-white">After</p>
-                <p className="text-[10px] text-gray-300 uppercase">Our Result</p>
+                <p className="text-[12px] font-bold uppercase text-white">{translate("projectAfter")}</p>
+                <p className="text-[10px] text-gray-300 uppercase">{translate("projectAfteeState")}</p>
               </div>
             </div>
           </div>
@@ -149,7 +148,7 @@ export default function RecentProjects() {
                     ))}
                   </div>
                 <p className="text-gray-300 mt-2 lg:text-sm text-[10px] md:text-sm leading-relaxed">
-                &quot;{currentProject.testimonial}&quot;
+                &quot;{translate("clientFeedback")}&quot;
               </p>
               </div>
             </div>
@@ -175,7 +174,7 @@ export default function RecentProjects() {
           href="/customer"
           className="mt-5 bg-gradient-to-b from-[#D4B382] via-[#CBB080] to-[#99794E] text-[#2D2115] font-semibold py-2 px-6 rounded-full border border-[#E3CBA2]/40 shadow-sm transition-all hover:brightness-105 active:scale-95 py-1 px-3 rounded-2xl bg-[#A98B4B] hover:bg-[#a38441]  transition-colors"
         >
-          View all projects
+          {translate("viewAllProjectButton")}
         </Link>
       </div>
 

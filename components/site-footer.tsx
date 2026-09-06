@@ -61,7 +61,7 @@ export function SiteFooter() {
 
       <div className="mx-auto grid w-full max-w-7xl items-start gap-8 px-4 py-8 sm:px-8 md:grid-cols-3 md:gap-10 lg:px-12">
         <div className="order-2 flex flex-col items-center text-center md:order-1 md:items-start md:text-left">
-          <h3 className="text-base font-semibold text-brand-gold sm:text-lg">Quick Contact &amp; Connect</h3>
+          <h3 className="text-base font-semibold text-brand-gold sm:text-lg">{translate("quickConnect")}</h3>
           <div className="mt-4 flex flex-wrap justify-center gap-2 md:justify-start">
             <a href={whatsappUrl} target="_blank" rel="noopener noreferrer" className="flex items-center gap-1.5 rounded-md bg-brand-gold px-3 py-2 text-[11px] font-semibold text-brand-navy shadow-sm transition-colors hover:bg-brand-gold/80">
               <FaWhatsapp className="h-3.5 w-3.5" /> {translate("contactWhatsapp")}
@@ -70,11 +70,11 @@ export function SiteFooter() {
               <Phone className="h-3.5 w-3.5" /> {translate("contactHotline")}
             </a>
           </div>
-          <span className="mt-4 text-xs font-medium tracking-wide text-brand-navy-foreground/90">WRITE TO US</span>
+          <span className="mt-4 text-xs font-medium tracking-wide text-brand-navy-foreground/90">{translate("writeUs")}</span>
           <a href={`mailto:${contactEmail}`} className="mt-2 flex w-full max-w-[245px] items-center justify-center gap-2 rounded-md bg-brand-gold px-4 py-2 text-xs font-semibold text-brand-navy shadow-sm transition-colors hover:bg-brand-gold/80">
             <Mail className="h-3.5 w-3.5" /> MAIL
           </a>
-          <span className="mt-5 text-xs font-medium tracking-wide text-brand-navy-foreground/90">CONNECT WITH US:</span>
+          <span className="mt-5 text-xs font-medium tracking-wide text-brand-navy-foreground/90">{translate("connectWithUs")}:</span>
           <SocialLinks />
         </div>
 

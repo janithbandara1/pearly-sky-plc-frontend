@@ -58,7 +58,7 @@ export function Hero() {
           {heroSubtitle}
         </h2>
         <p className="max-w-2xl md:text-left text-center text-[12px] text-brand-cream drop-shadow sm:text-base">
-          your space deserves to shine.Let Pearl Sky take care of the rest with our meticulous,non-toxic ,eco-certified service
+          {translate("heroSubPara")}
         </p>
         <div className="flex md:flex-col flex-row flex-wrap gap-3 pt-2 justify-center md:justify-start">
           <Button

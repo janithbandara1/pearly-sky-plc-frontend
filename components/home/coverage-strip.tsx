@@ -26,7 +26,7 @@ export function CoverageStrip() {
     <section className="w-full border-t-2 border-[#A98B4B] bg-[#0A1530] px-3 py-7 text-[#fffdf4] sm:px-6 sm:py-10 lg:px-8 lg:py-12">
       <div className="mx-auto w-full max-w-6xl">
         <h2 className="text-center font-bold tracking-tight text-[#C9B678]  text-lg  lg:text-xl">
-          Why Choose Pearly Sky? - {coverageTitle}
+          {translate("aboutPageWhyTitle")} - {coverageTitle}
         </h2>
 
         <p className="mx-auto mt-1 max-w-3xl text-center text-[10px] leading-4 text-[#fffdf4]/75 text-[10px] lg:text-[14px]">
@@ -52,7 +52,7 @@ export function CoverageStrip() {
         </div>
 
         <h3 className="mt-7 text-center font-bold text-[#C9B678] sm:mt-9 text-lg lg:mt-10 md:text-2xl lg:text-2xl">
-          Why Choose Us?
+          {translate("aboutPageWhyTitle")}
         </h3>
 
         <div className="mt-4 grid grid-cols-2 gap-x-3 gap-y-5 sm:mt-5 sm:grid-cols-4 sm:gap-5 lg:mt-6 lg:gap-8">

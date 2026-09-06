@@ -69,13 +69,13 @@ export function AboutSection() {
   ];
 
   const servicesList = [
-    {id: "LuxuryResidential",name:"Luxury Residential Cleaning"},
-    {id: "Commercial",name:"Commercial Property Management"},
-    {id: "LuxuryProperty",name:"Luxury Property Management"},
-    {id: "Hospitality",name:"Hospitality & Hotel Cleaning"},
-    {id: "Sports",name:"Sports & Wellness Facilities"},
-    {id: "Public",name:"Public & Institutional Cleaning"}
-  ]
+    {id: "LuxuryResidential",name:translate("ServiceLuxuryResidential")},
+    {id: "Commercial",name:translate("ServiceCommercial")},
+    {id: "LuxuryProperty",name:translate("ServiceLuxuryProperty")},
+    {id: "Hospitality",name:translate("ServiceHospitality")},
+    {id: "Sports",name:translate("ServiceSports")},
+    {id: "Public",name:translate("ServicePublic")}
+  ] 
 
   return (
     <section className="bg-background mx-0 py-12">

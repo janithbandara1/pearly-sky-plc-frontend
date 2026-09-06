@@ -56,6 +56,22 @@ export const en = {
   servicesSeeMore: "See more",
   servicesSeeLess: "See less",
 
+    ServiceLuxuryResidential:"Luxury Residential Cleaning",
+    ServiceCommercial:"Commercial Property Management",
+    ServiceLuxuryProperty:"Luxury Property Management",
+    ServiceHospitality:"Hospitality & Hotel Cleaning",
+    ServiceSports:"Sports & Wellness Facilities",
+    ServicePublic:"Public & Institutional Cleaning",
+
+    recentProjectTitle:"Our Recent Projects",
+    projectBefore:"Before",
+    projectAfter:"After",
+    projectBeforeState:"Previous State",
+    projectAfteeState:"Our Result",
+    viewAllProjectButton:"View all projects",
+
+    clientFeedback:"The cleaning was great and the people who worked were so kind and nice. We felt very well taken care of. I recommend",
+
   //updated 4 categories which are visible in Home page services section
   servicesCategoryResidentialCleaning: "🏠 RESIDENTIAL CLEANING SERVICES",
   servicesCategoryPremiumAddOns: "➕ PREMIUM ADD-ON SERVICES",
@@ -70,6 +86,12 @@ export const en = {
   servicesCategoryPropertyCare: "PROPERTY CARE & MANAGEMENT",
   servicesCategoryBespokeLifestyle: "BESPOKE LIFESTYLE & WELLNESS CURATION",
 
+  visionaryTeamTitle: "Our Visionary Team",
+
+  visionarydesignationsHR:"Human Resources",
+  visionarydesignationsMK:"Marketing Team",
+  visionarydesignationsCUS:"Customer Service",
+  visionarydesignationsFIN:"Finance Department",
 
   //
   aboutOurServices:" Our Services",
@@ -267,6 +289,12 @@ export const en = {
   // Contact Us page
   contactPageTitle: "Contact Our Concierge Team",
   contactOfficesTitle: "Our Offices",
+
+  //footer
+  quickConnect:"Quick Contact & Connect",
+  writeUs:"WRITE TO US",
+  connectWithUs:"CONNECT WITH US"
+
 } as const;
 
 export type TranslationKey = keyof typeof en;
