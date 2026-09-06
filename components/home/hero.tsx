@@ -48,16 +48,16 @@ export function Hero() {
 
       <div className="absolute inset-0 bg-gradient-to-b from-black/55 via-black/25 to-black/40" />
 
-      <div className="relative z-10 flex h-full max-w-7xl flex-col justify-center gap-4 px-4 mx-auto sm:px-6">
-        <h1 className="max-w-xl text-2xl md:text-left text-center font-normal tracking-wide text-brand-gold drop-shadow-lg md:text-3xl">
+      <div className="relative z-10 flex h-[90%] lg:h-full md:h-full max-w-7xl flex-col justify-end md:justify-center gap-2 px-4 mx-auto sm:px-6">
+        <h1 className="max-w-xl text-lg lg:text-2xl md:text-left text-center font-normal tracking-wide text-brand-gold drop-shadow-lg md:text-3xl">
           <IoSparkles aria-hidden="true" className="mr-1 inline-block h-6 w-6 align-[-0.2em]" />
           {translate("heroTitle")}
           <IoSparkles aria-hidden="true" className="ml-1 inline-block h-6 w-6 align-[-0.2em]" />
         </h1>
-        <h2 className="max-w-lg md:text-left text-center text-lg text-brand-cream drop-shadow sm:text-xl">
+        <h2 className="max-w-lg md:text-left md:text-2xl lg:text-2xl text-center text-lg text-brand-cream drop-shadow sm:text-xl">
           {heroSubtitle}
         </h2>
-        <p className="max-w-2xl md:text-left text-center text-sm text-brand-cream drop-shadow sm:text-base">
+        <p className="max-w-2xl md:text-left text-center text-[12px] text-brand-cream drop-shadow sm:text-base">
           your space deserves to shine.Let Pearl Sky take care of the rest with our meticulous,non-toxic ,eco-certified service
         </p>
         <div className="flex md:flex-col flex-row flex-wrap gap-3 pt-2 justify-center md:justify-start">

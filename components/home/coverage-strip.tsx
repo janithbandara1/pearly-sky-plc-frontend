@@ -3,44 +3,69 @@
 import { useLanguage } from "@/lib/i18n/language-context";
 import { useCountry } from "@/lib/countries/country-context";
 import { COVERAGE_CITIES, getCountryHomeContent } from "@/lib/countries/home-content";
+import { Building2, Castle, Landmark, Palmtree, ShieldCheck, Star, Timer, UsersRound } from "lucide-react";
 import RecentProjects from "./recent-projects";
-import { transcode } from "buffer";
 
 export function CoverageStrip() {
-  const { language } = useLanguage();
+  const {translate, language } = useLanguage();
   const { country } = useCountry();
   const { coverageTitle, coverageSubtitle } = getCountryHomeContent(country, language);
   const cities = COVERAGE_CITIES[country ?? "fr"];
-  const loop = [...cities, ...cities];
+  const displayedCities = country === "fr"
+    ? ["Bordeaux", "Saint-Tropez", "Strasbourg", "Aix-en-Provence", "Annecy", "Paris", "Nice", "Cannes"]
+    : cities.slice(0, 8);
+  const cityIcons = [Landmark, Palmtree, Castle, Building2, ShieldCheck, Landmark, Palmtree, Castle, Building2, ShieldCheck];
+  const features = [
+    { Icon: ShieldCheck, title: translate("coveragePeaceTitle"), description: translate("coveragePeaceDescription") },
+    { Icon: Timer, title: translate("coveragePrecisionTitle"), description: translate("coveragePrecisionDescription") },
+    { Icon: UsersRound, title: translate("coverageCommunicationTitle"), description: translate("coverageCommunicationDescription") },
+    { Icon: Star, title: translate("coverageLuxuryTitle"), description: translate("coverageLuxuryDescription") },
+  ];
 
   return (
-    <section className="bg-[#0A1530] w-full py-16 px-4 flex flex-col items-center border-t-2 border-[#A98B4B]">
-      <div className="flex items-center justify-center gap-3 mb-8">
-        <div className="h-px w-16 bg-[#A98B4B]"></div>
-        <span className="text-[#C9B678] text-lg">◆</span>
-        <div className="h-px w-16 bg-[#A98B4B]"></div>
-      </div>
-      <div className="mx-auto w-full max-w-6xl px-4 text-center sm:px-6">
-        <h2 className="text-2xl text-[#C9B678] font-bold tracking-tight sm:text-3xl">
-          Why choose us? - {coverageTitle}
+    <section className="w-full border-t-2 border-[#A98B4B] bg-[#0A1530] px-3 py-7 text-[#fffdf4] sm:px-6 sm:py-10 lg:px-8 lg:py-12">
+      <div className="mx-auto w-full max-w-6xl">
+        <h2 className="text-center font-bold tracking-tight text-[#C9B678]  text-lg  lg:text-xl">
+          Why Choose Pearly Sky? - {coverageTitle}
         </h2>
-        <p className="mt-2 text-brand-navy-foreground/70">{coverageSubtitle}</p>
-      </div>
 
-      <div className="group relative mt-8 overflow-hidden w-full md:w-5xl">
-        <div className="flex w-max animate-marquee gap-3 mb-10 group-hover:[animation-play-state:paused]">
-          {loop.map((city, index) => (
-            <span
-              key={`${city}-${index}`}
-              className="shrink-0 rounded-full border border-brand-gold/40 px-5 py-2 text-sm font-medium text-brand-navy-foreground"
-            >
-              {city}
-            </span>
+        <p className="mx-auto mt-1 max-w-3xl text-center text-[10px] leading-4 text-[#fffdf4]/75 text-[10px] lg:text-[14px]">
+          {coverageSubtitle}
+        </p>
+
+        <div className="mt-4 grid grid-cols-2 gap-1.5 sm:mt-5 sm:grid-cols-4 sm:gap-2 lg:mt-6 lg:gap-2.5">
+          {displayedCities.map((city, index) => {
+            const Icon = cityIcons[index % cityIcons.length];
+
+            return (
+              <div
+                key={city}
+                className="flex h-12 items-center justify-center gap-1.5 rounded-[4px] border border-[#A98B4B]/75 bg-[#182640]/60 px-1.5 text-center sm:h-14 sm:gap-2 lg:h-16"
+              >
+                <Icon className="h-5 w-5 shrink-0 stroke-[1.2] text-[#C9B678] sm:h-6 sm:w-6 lg:h-7 lg:w-7" />
+                <span className="text-[10px] font-medium leading-tight text-[#fffdf4] md:text-[13px] lg:text-[14px]">
+                  {city}
+                </span>
+              </div>
+            );
+          })}
+        </div>
+
+        <h3 className="mt-7 text-center font-bold text-[#C9B678] sm:mt-9 text-lg lg:mt-10 md:text-2xl lg:text-2xl">
+          Why Choose Us?
+        </h3>
+
+        <div className="mt-4 grid grid-cols-2 gap-x-3 gap-y-5 sm:mt-5 sm:grid-cols-4 sm:gap-5 lg:mt-6 lg:gap-8">
+          {features.map(({ Icon, title, description }) => (
+            <div key={title} className="flex flex-col items-center text-center">
+              <Icon className="h-7 w-7 stroke-[1.2] text-[#C9B678] sm:h-9 sm:w-9 lg:h-10 lg:w-10" />
+              <h4 className="mt-2 text-[11px] font-bold text-[#fffdf4] md:text-[16px] lg:text-[16px] lg:text-xs">{title}</h4>
+              <p className="mt-1 max-w-[180px] text-[8px] leading-[1.35] text-[#fffdf4]/85 md:text-[12px] lg:text-[12px]">
+                {description}
+              </p>
+            </div>
           ))}
         </div>
-        <h3 className="text-[#C9B678] font-bold text-lg md:text-xl mb-3 text-left">Why Choose Us?</h3>
-        <p className="text-gray-300 text-sm md:text-base leading-relaxed text-left">Choosing Pearly Sky means choosing peace of mind. With extensive experience serving clients throughout France's most prestigious locations, we combine local expertise with international service standards. Our bilingual teams provide seamless communication and exceptional service across Paris, Nice, Cannes, and Monaco. We believe in transparency, punctuality, and an unwavering commitment to excellence. Entrust your property to the professionals who treat every space with the care it deserves.
-         Book your consultation today and step into a cleaner, brighter tomorrow.</p>
       </div>
       <RecentProjects />
     </section>

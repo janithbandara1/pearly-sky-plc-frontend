@@ -23,7 +23,7 @@ export function SectorsMarquee() {
   const loop = [...SECTORS, ...SECTORS];
 
   return (
-    <section className="py-16">
+    <section className="py-16 ">
       <h2 className="mx-auto mb-8 text-[rgb(0,47,109)] w-full max-w-6xl px-4 text-center text-2xl font-bold tracking-tight sm:px-6 sm:text-3xl">
         {translate("sectorsTitle")}
       </h2>

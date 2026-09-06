@@ -20,6 +20,7 @@ export const en = {
   heroCtaSecondary: "REQUEST SERVICE NOW",
   heroCtaThird:"EXPLORE OUR GLOBAL COMMITMENT",
 
+  heroSubPara:"your space deserves to shine.Let Pearl Sky take care of the rest with our meticulous,non-toxic ,eco-certified service",
 
   heroWelcome: "WELCOME TO PEARLY SKY",
   heroWelcomeSubText:"Eco-Luxury Cleaning, Tailored for You",
@@ -28,6 +29,21 @@ export const en = {
   // Trust bar
   trustEcoCertified: "Green Compass Eco-Certified",
   trustRating: "5-Star Service Rating",
+  trustCoverageDescription: "A robust national network delivering unparalleled care.",
+  trustEcoDescription: "Commitment to sustainable practices and eco-conscious products.",
+  trustRatingDescription: "Defined by a dedication to exceeding premium expectations.",
+  trustPartnership: "Global Partnership Network",
+  trustPartnershipDescription: "Access an exclusive, curated network of global partners for seamless high-end support.",
+
+  // Coverage strip
+  coveragePeaceTitle: "Peace of Mind",
+  coveragePeaceDescription: "Enjoy a seamless, worry-free experience with complete confidence in our services.",
+  coveragePrecisionTitle: "Tailored Precision",
+  coveragePrecisionDescription: "Services meticulously designed to fit every space and requirement.",
+  coverageCommunicationTitle: "Seamless Communication",
+  coverageCommunicationDescription: "Fluent in English and French. We ensure a smooth, clear experience.",
+  coverageLuxuryTitle: "Luxury Standards",
+  coverageLuxuryDescription: "A service that consistently meets the highest standards of excellence.",
 
   // Services
   servicesHeading: "Our Services",

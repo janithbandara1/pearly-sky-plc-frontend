@@ -22,7 +22,7 @@ export function RecentArticles() {
       <div className="grid gap-6 sm:grid-cols-3">
         {posts.map((post) => (
           <Link key={post.slug} href={`/blog/${post.slug}`}>
-            <Card className="h-full overflow-hidden transition-shadow hover:shadow-md">
+            <Card className="h-full overflow-hidden border border-[#c8a089] transition-shadow hover:shadow-md">
               <div className="relative aspect-video">
                 <Image
                   src={post.image}

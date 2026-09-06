@@ -15,6 +15,7 @@ import { getRequestCountry } from "@/lib/countries/server";
 import { getRequestLanguage } from "@/lib/i18n/server";
 import { getCountryPageMeta } from "@/lib/countries/meta-data";
 import { Welcome } from "@/components/home/welcome";
+import { VisionaryTeam } from "@/components/home/visionary-team";
  
 export const dynamic = "force-dynamic";
 
@@ -42,6 +43,7 @@ export default async function Home() {
       <Welcome />
       <AboutSection />
       <CoverageStrip />
+      <VisionaryTeam />
       <SectorsMarquee />
       <MomentsOfExcellence />
       <Testimonials />
