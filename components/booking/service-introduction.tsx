@@ -40,10 +40,10 @@ export function ServiceIntroduction({
 }: ServiceIntroductionProps) {
   return (
     <section className="w-full p-0 my-14  md:mb-2 md:mt-5 ">
-      <div className="relative  w-[100%] flex flex-col lg:flex-row items-center gap-6 md:gap-3">
+      <div className="relative  w-[100%] flex flex-col md:flex-row lg:flex-row items-center gap-6 md:gap-3">
 
         {/* Overlapping Double-Frame Images Section */}
-        <div className="relative w-full md:w-[50%]   flex items-center justify-start h-[260px] xs:h-[300px] sm:h-[350px] md:h-[380px] ">
+        <div className="relative w-full md:w-[40%] lg:w-[50%]   flex items-center justify-start h-[260px] xs:h-[300px] sm:h-[350px] md:h-[380px] ">
 
           {/* Background Decorative Arch Frame (Bottom-Left) */}
           <div
@@ -74,7 +74,7 @@ export function ServiceIntroduction({
         </div>
 
         {/* Content Card Container */}
-        <div className="relative w-full mb-3 md:mb-28 md:w-[100%]  flex flex-col justify-center align-top gap-4 shadow-sm rounded-xl bg-[#F8F9FA] border-2 border-[#A98B4B] py-3 px-2 md:py-3 md:px-2 ">
+        <div className="relative w-full mb-3 md:mb-28 md:w-[70%] lg:w-[100%]  flex flex-col justify-center align-top gap-4 shadow-sm rounded-xl bg-[#F8F9FA] border-2 border-[#A98B4B] py-3 px-2 md:py-3 md:px-2 ">
           <h2 className="text-left text-2xl pt-8 pb-3 px-3 md:text-2xl font-bold leading-snug sm:leading-snug md:leading-tight tracking-tight text-[#A98B4B]">
             {headline}
           </h2>

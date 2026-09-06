@@ -123,7 +123,7 @@ export function PhoneInput({
   }
 
   return (
-    <div ref={containerRef} className={cn("relative flex h-10 w-full", className)}>
+    <div ref={containerRef} className={cn("relative flex h-10 w-full border-[#C9B678]", className)}>
       <input type="hidden" name={name} value={value} />
       <button
         type="button"
@@ -131,11 +131,11 @@ export function PhoneInput({
         aria-expanded={isOpen}
         disabled={disabled}
         onClick={() => setIsOpen((open) => !open)}
-        className="flex shrink-0 items-center gap-2 rounded-l-lg border border-r-0 border-input bg-transparent px-2.5 outline-none transition-colors hover:bg-muted/40 focus-visible:ring-3 focus-visible:ring-ring/50 disabled:pointer-events-none disabled:opacity-50"
+        className="flex text-white border border-[#C9B678] bg-gray-600 shrink-0 items-center gap-2 rounded-l-lg  border-r-0   px-2.5 outline-none transition-colors focus-visible:ring-3 focus-visible:ring-ring/50 disabled:pointer-events-none disabled:opacity-50"
       >
         <selectedOption.Flag className="h-3.5 w-5 object-cover" />
-        <span className="text-sm text-foreground">{selectedOption.dialCode}</span>
-        <span className="text-xs text-muted-foreground">▾</span>
+        <span className="text-sm text-white ">{selectedOption.dialCode}</span>
+        <span className="text-xs text-white ">▾</span>
       </button>
       <input
         id={id}
@@ -146,7 +146,7 @@ export function PhoneInput({
         disabled={disabled}
         aria-invalid={ariaInvalid}
         placeholder={placeholder}
-        className="h-full min-w-0 flex-1 rounded-r-lg border border-input bg-transparent px-3 text-base outline-none transition-colors placeholder:text-muted-foreground focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50 md:text-sm"
+        className="h-full min-w-0 border border-[#C9B678] flex-1 rounded-r-lg bg-transparent px-3 text-base outline-none transition-colors placeholder:text-muted-foreground focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50 md:text-sm"
       />
 
       {isOpen && (

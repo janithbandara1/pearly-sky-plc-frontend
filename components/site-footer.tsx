@@ -114,6 +114,11 @@ export function SiteFooter() {
           <address className="mt-4 whitespace-pre-line text-left text-xs not-italic leading-relaxed text-brand-navy-foreground/75">
             {office.address ?? "Address available on request"}
           </address>
+
+          <div className="relative my-4 h-[120px] w-[120px] overflow-hidden rounded-md border border-brand-gold/70 bg-brand-navy/40">
+            <Image src="/images/hero/qr.jpeg" alt="Eco-friendly" fill className="object-cover" />
+          </div>
+
           <SocialLinks />
         </div>
       </div>

@@ -81,7 +81,7 @@ export function ContactSection() {
       </div>
       
       <div className="md:py-4 md:px-8">
-          <div className="grid gap-0 overflow-hidden rounded-2xl   border-2 border-brand-gold lg:grid-cols-2">
+          <div className="grid gap-0 overflow-hidden rounded-2xl   border-2 border-brand-gold md:grid-cols-2 lg:grid-cols-2">
           <form onSubmit={handleSubmit(onSubmit)} className="space-y-4 p-6 sm:p-8" noValidate>
             <div className="space-y-1.5">
               <Label htmlFor="contact-name" className="block text-[#002F6D] font-semibold mb-1 text-[17px]">{translate("contactNameLabel")}</Label>
