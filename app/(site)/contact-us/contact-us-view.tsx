@@ -7,7 +7,7 @@ import { LocationCard } from "@/components/location-card";
 import { useLanguage } from "@/lib/i18n/language-context";
 import { useCountry } from "@/lib/countries/country-context";
 import { getCountryPageContent } from "@/lib/countries/page-content";
-import { officeLocations } from "@/lib/content/locations";
+import { locations, officeLocations } from "@/lib/content/locations";
 import { Socialmedialinks } from "@/components/contactus/social-media";
 
 export function ContactUsView() {
@@ -49,7 +49,7 @@ export function ContactUsView() {
           {translate("contactOfficesTitle")}
         </h2>
         <div className="grid w-full ] items-start gap-4 px-4 sm:px-6 grid-cols-1 md:grid-cols-2">
-          {officeLocations.map((loc) => (
+          {locations.map((loc) => (
             <LocationCard
               
               key={loc.id}

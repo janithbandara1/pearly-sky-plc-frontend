@@ -131,13 +131,14 @@ export function OurLocationsView() {
           REGIONS.map(({ key, titleKey }) => {
             const items = filtered.filter((loc) => loc.region === key);
             if (items.length === 0) return null;
+            const marqueeDuration = `${Math.max(items.length * 4, 40)}s`;
             return (
               <div key={key} className="mb-12">
                 <h2 className="mb-4 text-3xl text-white text-center font-bold tracking-tight">{translate(titleKey)}</h2>
                 <div className="overflow-hidden">
                   <div
                     className={`flex w-max gap-4 motion-reduce:animate-none ${isSearching ? "" : "animate-marquee hover:[animation-play-state:paused]"}`}
-                    style={{ animationDuration: key === "europe" ? "80s" : "60s" }}
+                    style={isSearching ? undefined : { animationDuration: marqueeDuration }}
                   >
                     {(isSearching ? [0] : [0, 1]).map((copy) => (
                       <div

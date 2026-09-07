@@ -24,7 +24,7 @@ export function Testimonials({ titleKey = "testimonialsTitle" }: { titleKey?: Tr
         {REVIEWS.map((review) => (
           <article
             key={review.name}
-            className="flex min-h-[190px] flex-col rounded-[4px] border border-black/10 bg-[#292a27] px-3 py-3 text-[#f7f4e9] shadow-[0_4px_8px_rgba(0,0,0,0.2)] sm:min-h-[205px] sm:px-3.5 sm:py-3.5"
+            className="flex min-h-[190px] flex-col rounded-[4px] border border-black/10 bg-brand-navy px-3 py-3 text-[#f7f4e9] shadow-[0_4px_8px_rgba(0,0,0,0.2)] sm:min-h-[205px] sm:px-3.5 sm:py-3.5"
           >
             <span className="h-5 font-serif text-3xl leading-5 text-[#c9a858]">“</span>
             <div className="mt-1 flex gap-0.5 text-[#c9a858]">

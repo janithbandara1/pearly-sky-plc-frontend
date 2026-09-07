@@ -63,7 +63,7 @@ export function LocaleSwitcher({ className }: { className?: string }) {
       </button>
 
       {open && (
-        <div className="absolute top-full right-0 z-50 mt-1.5 w-56 overflow-hidden rounded-lg bg-popover text-popover-foreground shadow ring-1 ring-foreground/10">
+        <div className="absolute top-full md:right-0 lg:right-0 z-50 mt-1.5 w-56 overflow-hidden rounded-lg bg-popover text-popover-foreground shadow ring-1 ring-foreground/10">
           <div className="max-h-96 overflow-y-auto p-1">
             <p className="px-2 pt-1.5 pb-1 text-xs font-semibold tracking-wide text-muted-foreground uppercase">
               Country

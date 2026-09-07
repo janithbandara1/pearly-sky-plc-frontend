@@ -44,12 +44,12 @@ export function LocationCard({ location, isOpen, onToggle }: LocationCardProps) 
         </div>
 
         <div className="flex h-5 w-5 items-center justify-center  bg-[#0F1722] text-gray-300">
-          {isOpen ? <Minus className="h-4.5 w-4.5 border border-[#a98b4b]" /> : <Plus className="h-4.5 w-4.5 border border-[#a98b4b]" />}
+          {!location.hasOfficeDetail  ? <Plus className="h-4.5 w-4.5 border border-[#a98b4b]" />  :isOpen ? <Minus className="h-4.5 w-4.5 border border-[#a98b4b]" /> : <Plus className="h-4.5 w-4.5 border border-[#a98b4b]" />}
         </div>
       </button>
 
       {/* Accordion Content */}
-      {isOpen && (
+      {location.hasOfficeDetail && isOpen && (
         <div className="border-t border-[#2d3f53] bg-[#121A24] p-4">
           <div className="flex flex-wrap items-baseline justify-between gap-2 border-b border-gray-800 pb-2">
             <h4 className="text-sm font-semibold tracking-wide text-white">

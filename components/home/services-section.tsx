@@ -35,6 +35,10 @@ function ServiceCard({ service }: { service: CatalogService }) {
     service.name === "pool-cleaning" ||
     service.name === "precision-pressure-washing";
 
+  const showBookable= 
+    service.name === "child-care-service" ||
+    service.name === "elder-care-service" 
+
   /** Laundry and move-in-out transport aren't priced per cleaner-hour, so the rate line never applies to them. */
   const hidesHourlyRate =
     isDedicatedFlow ||
@@ -75,7 +79,18 @@ function ServiceCard({ service }: { service: CatalogService }) {
         </div>
 
         <div className="mt-2 flex w-full flex-col gap-2">
-          {isDedicatedFlow ? (
+          {
+          service.name === "child-care-service" ||
+          service.name === "elder-care-service" ?
+          (
+            <Link
+                href={`/services/${service.name}`}
+                className="flex w-full items-center justify-center gap-1.5 rounded-lg bg-brand-gold px-4 py-2.5 text-xs font-bold uppercase tracking-wider text-brand-navy transition-colors hover:bg-brand-gold/90"
+              >
+                {translate("servicesBookNow")}
+                <ArrowRight className="h-3.5 w-3.5" />
+              </Link>
+          ):isDedicatedFlow ? (
             <Link
               href={`/services/${service.name}`}
               className="flex w-full items-center justify-center gap-1.5 rounded-lg border border-brand-gold bg-brand-navy px-4 py-2.5 text-xs font-bold uppercase tracking-wider text-brand-gold transition-colors hover:bg-brand-gold hover:text-brand-navy"
@@ -83,7 +98,7 @@ function ServiceCard({ service }: { service: CatalogService }) {
               {translate("servicesRequestQuotation")}
               <ArrowRight className="h-3.5 w-3.5" />
             </Link>
-          ) : service.isBookable ? (
+          )  : service.isBookable  ? (
             <>
               <Link
                 href={`/services/${service.name}/request-quotation`}
