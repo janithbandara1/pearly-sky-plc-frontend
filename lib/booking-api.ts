@@ -153,6 +153,15 @@ export interface BookingStatusSummary {
   service: { label: string } | null;
   date: string | null;
   time: string | null;
+  cleanerCount: number | null;
+  minHours: string | null;
+  maxHours: string | null;
+  address: {
+    streetAddress: string;
+    city: string;
+    state: string | null;
+    country: string | null;
+  } | null;
 }
 
 /** Public — the reference number authenticates the request, so this works for guests too. */

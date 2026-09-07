@@ -373,21 +373,15 @@ export default function CheckoutPage({
 
       clearBookingDraft();
       router.push(
-        `/payment-confirmation?orderId=${quotation.id}&ref=${encodeURIComponent(
+        `/quotation-confirmation/${quotation.id}?ref=${encodeURIComponent(
           quotation.referenceNumber
-        )}&status=success`
+        )}`
       );
     } catch (err) {
-      // Fallback for demo or offline backend
-      const randomOrder = Math.floor(10000 + Math.random() * 90000);
-      const generatedRef = `SER/EN/${new Date().getFullYear()}/${String(
-        new Date().getMonth() + 1
-      ).padStart(2, "0")}/${String(randomOrder).padStart(6, "0")}`;
-      clearBookingDraft();
-      router.push(
-        `/payment-confirmation?orderId=${randomOrder}&ref=${encodeURIComponent(
-          generatedRef
-        )}&status=success`
+      setError(
+        err instanceof ApiError
+          ? err.message
+          : "We couldn't submit your quotation request. Please try again.",
       );
     } finally {
       setSubmitting(false);

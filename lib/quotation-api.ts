@@ -98,9 +98,13 @@ export function getQuotationPdfUrl(id: number, referenceNumber: string) {
 export interface QuotationStatusSummary {
   id: number;
   referenceNumber: string;
+  status: QuotationStatus;
   service: { label: string };
   date: string | null;
   time: string | null;
+  numCleaners: number | null;
+  streetAddress: string;
+  city: string;
 }
 
 /** Public — the reference number authenticates the request, so this works for guests too. */
