@@ -35,6 +35,12 @@ function ServiceCard({ service }: { service: CatalogService }) {
     service.name === "pool-cleaning" ||
     service.name === "precision-pressure-washing";
 
+  /** Laundry and move-in-out transport aren't priced per cleaner-hour, so the rate line never applies to them. */
+  const hidesHourlyRate =
+    isDedicatedFlow ||
+    service.name === "laundry-service" ||
+    service.name === "move-in-out-transport-service";
+
   return (
     <div className="flex h-full flex-col overflow-hidden rounded-xl border-2 border-brand-gold bg-brand-navy shadow-md transition-transform duration-200 hover:scale-[1.03] hover:shadow-xl">
       <div className="relative h-40 w-full shrink-0 sm:h-44">
@@ -59,20 +65,22 @@ function ServiceCard({ service }: { service: CatalogService }) {
               {service.description}
             </p>
           )}
-          <p className="text-sm font-semibold text-brand-gold">
-            {service.price
-              ? `Rate: ${symbol}${service.price}${translate("servicesPricePerCleaner")}`
-              : translate("servicesRequestQuotation")}
-          </p>
+          {!hidesHourlyRate && (
+            <p className="text-sm font-semibold text-brand-gold">
+              {service.price
+                ? `Rate: ${symbol}${service.price}${translate("servicesPricePerCleaner")}`
+                : translate("servicesRequestQuotation")}
+            </p>
+          )}
         </div>
 
         <div className="mt-2 flex w-full flex-col gap-2">
           {isDedicatedFlow ? (
             <Link
               href={`/services/${service.name}`}
-              className="flex w-full items-center justify-center gap-1.5 rounded-lg bg-brand-gold px-4 py-2.5 text-xs font-bold uppercase tracking-wider text-brand-navy transition-colors hover:bg-brand-gold/90"
+              className="flex w-full items-center justify-center gap-1.5 rounded-lg border border-brand-gold bg-brand-navy px-4 py-2.5 text-xs font-bold uppercase tracking-wider text-brand-gold transition-colors hover:bg-brand-gold hover:text-brand-navy"
             >
-              {translate("servicesBookNow")}
+              {translate("servicesRequestQuotation")}
               <ArrowRight className="h-3.5 w-3.5" />
             </Link>
           ) : service.isBookable ? (
