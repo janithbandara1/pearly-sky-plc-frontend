@@ -11,9 +11,6 @@ export function CoverageStrip() {
   const { country } = useCountry();
   const { coverageTitle, coverageSubtitle } = getCountryHomeContent(country, language);
   const cities = COVERAGE_CITIES[country ?? "fr"];
-  const displayedCities = country === "fr"
-    ? ["Bordeaux", "Saint-Tropez", "Strasbourg", "Aix-en-Provence", "Annecy", "Paris", "Nice", "Cannes"]
-    : cities.slice(0, 8);
   const cityIcons = [Landmark, Palmtree, Castle, Building2, ShieldCheck, Landmark, Palmtree, Castle, Building2, ShieldCheck];
   const features = [
     { Icon: ShieldCheck, title: translate("coveragePeaceTitle"), description: translate("coveragePeaceDescription") },
@@ -34,7 +31,7 @@ export function CoverageStrip() {
         </p>
 
         <div className="mt-4 overflow-hidden sm:mt-5 lg:mt-6">
-          <div className="grid w-max grid-flow-col grid-rows-2 gap-1.5 motion-reduce:animate-none animate-marquee hover:[animation-play-state:paused] sm:hidden">
+          <div className="grid w-max grid-flow-col grid-rows-2 gap-1.5 motion-reduce:animate-none animate-marquee hover:[animation-play-state:paused] sm:gap-2.5">
             {[...cities, ...cities].map((city, index) => {
               const Icon = cityIcons[index % cityIcons.length];
 
@@ -42,28 +39,10 @@ export function CoverageStrip() {
                 <div
                   key={`${city}-${index}`}
                   aria-hidden={index >= cities.length}
-                  className="flex h-12 w-[calc((100vw-1.875rem)/2)] items-center justify-center gap-1.5 rounded-[4px] border border-[#A98B4B]/75 bg-[#182640]/60 px-1.5 text-center"
+                  className="flex h-12 w-[clamp(9rem,18vw,14rem)] items-center justify-center gap-1.5 rounded-[4px] border border-[#A98B4B]/75 bg-[#182640]/60 px-1.5 text-center"
                 >
                   <Icon className="h-5 w-5 shrink-0 stroke-[1.2] text-[#C9B678]" />
-                  <span className="text-[10px] font-medium leading-tight text-[#fffdf4]">
-                    {city}
-                  </span>
-                </div>
-              );
-            })}
-          </div>
-
-          <div className="hidden grid-cols-4 gap-2 sm:grid lg:grid-cols-4 lg:gap-2.5">
-            {cities.map((city, index) => {
-              const Icon = cityIcons[index % cityIcons.length];
-
-              return (
-                <div
-                  key={city}
-                  className="flex h-14 items-center justify-center gap-2 rounded-[4px] border border-[#A98B4B]/75 bg-[#182640]/60 px-1.5 text-center lg:h-16"
-                >
-                  <Icon className="h-6 w-6 shrink-0 stroke-[1.2] text-[#C9B678] lg:h-7 lg:w-7" />
-                  <span className="text-[13px] font-medium leading-tight text-[#fffdf4] lg:text-[14px]">
+                  <span className="text-[11px] md:text-[12px] lg:text-[12px] font-medium leading-tight text-[#fffdf4]">
                     {city}
                   </span>
                 </div>
