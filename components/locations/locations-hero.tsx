@@ -99,14 +99,14 @@ export function PageHero({
  
   return (
     <section className="relative flex h-auto justify-center bg-black/20 backdrop-brightness-50 text-center">
-        <div className="md:min-h-[100vh]  bg-[#021642] md:max-h-[100vh] h-[80vh] w-full overflow-hidden">
+        <div className="lg:min-h-[100vh] md:min-h-[50vh] bg-[#021642] lg:max-h-[100vh] h-[70vh] w-full overflow-hidden">
         <Image
           src={image}
           alt={title}
           fill
           priority
           sizes="120vw"
-          className="object-cover h-[100vh] md:h-[100vh] rounded-b-[100px] md:rounded-none  border border-[rgb(169,139,75)]"
+          className="object-cover h-[100vh] md:h-[70vh] lg:h-[100vh] rounded-b-[100px] lg:rounded-b-none md:rounded-b-none  border border-[rgb(169,139,75)]"
         />
       </div>
         

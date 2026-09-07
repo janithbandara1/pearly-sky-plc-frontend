@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { useForm } from "react-hook-form";
+import { Controller, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { Mail, Phone } from "lucide-react";
@@ -18,6 +18,7 @@ import { getCountryOffice, getWhatsappUrl } from "@/lib/countries/office";
 import { SOCIAL_URLS } from "@/lib/content/social-links";
 import { ApiError } from "@/lib/api";
 import { sendContactMessage } from "@/lib/contact-api";
+import { PhoneInput } from "@/components/phone-input";
 
 const CONTACT_EMAIL = "info@pearlyskyglobalclean.com";
 
@@ -51,6 +52,7 @@ export function ContactSection() {
 
   const {
     register,
+    control,
     handleSubmit,
     reset,
     formState: { errors, isSubmitting },
@@ -79,7 +81,7 @@ export function ContactSection() {
       </div>
       
       <div className="md:py-4 md:px-8">
-          <div className="grid gap-0 overflow-hidden rounded-2xl   border-2 border-brand-gold lg:grid-cols-2">
+          <div className="grid gap-0 overflow-hidden rounded-2xl   border-2 border-brand-gold md:grid-cols-2 lg:grid-cols-2">
           <form onSubmit={handleSubmit(onSubmit)} className="space-y-4 p-6 sm:p-8" noValidate>
             <div className="space-y-1.5">
               <Label htmlFor="contact-name" className="block text-[#002F6D] font-semibold mb-1 text-[17px]">{translate("contactNameLabel")}</Label>
@@ -106,12 +108,21 @@ export function ContactSection() {
 
             <div className="space-y-1.5">
               <Label htmlFor="contact-phone" className="block text-[#002F6D] font-semibold mb-1 text-[17px]">{translate("contactPhoneLabel")}</Label>
-              <Input
-                id="contact-phone"
-                type="tel"
-                placeholder={translate("contactPhonePlaceholder")}
-                aria-invalid={!!errors.phone}
-                {...register("phone")}
+              <Controller
+                name="phone"
+                control={control}
+                render={({ field }) => (
+                  <PhoneInput
+                    id="contact-phone"
+                    name={field.name}
+                    value={field.value}
+                    onChange={field.onChange}
+                    onBlur={field.onBlur}
+                    placeholder={translate("contactPhonePlaceholder")}
+                    aria-invalid={!!errors.phone}
+                    initialCountry={country ?? "fr"}
+                  />
+                )}
               />
               {errors.phone && <p className="text-xs text-destructive">{errors.phone.message}</p>}
             </div>

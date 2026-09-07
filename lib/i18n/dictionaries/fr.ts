@@ -26,6 +26,8 @@ servicesCategoryCareConcierge:" 🤝 SERVICES D'ASSISTANCE ET DE CONCIERGERIE",
   heroTitle: "PEARLY SKY",
   heroCtaSecondary: "VOIR NOS SERVICES",
 
+  heroSubPara:"Votre espace mérite de briller. Laissez Pearl Sky s'occuper du reste grâce à notre service méticuleux, non toxique et éco-certifié.",
+
   heroWelcome: "BIENVENUE CHEZ PEARLY SKY",
   heroWelcomeSubText: "Nettoyage éco-luxe, sur mesure",
   heroWelcomeContent: "Bienvenue chez Pearly Sky, votre partenaire privilégié pour des services de nettoyage éco-luxe partout en France. Nous sommes spécialisés dans la fourniture de solutions de nettoyage méticuleuses et respectueuses de l'environnement pour les maisons et les bureaux, répondant aux attentes des clients les plus exigeants. Nos équipes dédiées de professionnels anglophones et francophones s'engagent à ce que vos espaces soient non seulement impeccables, mais aussi à préserver un environnement sain et durable. Découvrez le summum de la propreté avec nos services haut de gamme et personnalisés, conçus pour répondre à vos besoins spécifiques à Paris, Nice, Cannes et Monaco.",
@@ -33,6 +35,21 @@ servicesCategoryCareConcierge:" 🤝 SERVICES D'ASSISTANCE ET DE CONCIERGERIE",
   // Trust bar
   trustEcoCertified: "Certifié Éco Green Compass",
   trustRating: "Service 5 Étoiles",
+  trustCoverageDescription: "Un réseau national solide offrant un service d'exception.",
+  trustEcoDescription: "Un engagement pour des pratiques durables et des produits écoresponsables.",
+  trustRatingDescription: "Une exigence constante pour dépasser les attentes premium.",
+  trustPartnership: "Réseau de Partenaires Mondiaux",
+  trustPartnershipDescription: "Un accès exclusif à un réseau de partenaires internationaux pour un accompagnement haut de gamme.",
+
+  // Coverage strip
+  coveragePeaceTitle: "Tranquillité d'esprit",
+  coveragePeaceDescription: "Une expérience fluide et sereine, avec une confiance totale en nos services.",
+  coveragePrecisionTitle: "Précision sur mesure",
+  coveragePrecisionDescription: "Des services conçus avec soin pour chaque espace et chaque besoin.",
+  coverageCommunicationTitle: "Communication fluide",
+  coverageCommunicationDescription: "Bilingues français-anglais, nous assurons une expérience claire et harmonieuse.",
+  coverageLuxuryTitle: "Standards de luxe",
+  coverageLuxuryDescription: "Un service qui répond constamment aux plus hauts standards d'excellence.",
 
   // Services
   servicesHeading: "Nos Services",
@@ -46,6 +63,27 @@ servicesCategoryCareConcierge:" 🤝 SERVICES D'ASSISTANCE ET DE CONCIERGERIE",
   servicesSeeLess: "Voir moins",
   servicesCategoryPropertyCare: "GESTION & ENTRETIEN DE PROPRIÉTÉ",
   servicesCategoryBespokeLifestyle: "CURATION BIEN-ÊTRE & STYLE DE VIE SUR MESURE",
+
+    ServiceLuxuryResidential:"Nettoyage résidentiel de luxe",
+    ServiceCommercial:"Gestion de propriétés commerciales",
+    ServiceLuxuryProperty:"Gestion de propriétés de luxe",
+    ServiceHospitality:"Nettoyage hôtelier et hôtelier",
+    ServiceSports:"Installations sportives et de bien-être",
+    ServicePublic:"Nettoyage public et institutionnel",
+
+  servicesSubHeaderResidentialCleaning: "Des soins méticuleux et durables conçus pour les résidences de luxe, les propriétés et les maisons urbaines contemporaines.",
+  servicesSubHeaderPremiumAddOns: "Des finitions soignées pour une maison impeccablement entretenue",
+  servicesSubHeaderCommercialSpecialised: "Soins discrets et performants pour les espaces professionnels et les propriétés d'exception",
+  servicesSubHeaderCareConcierge: "Un soutien fiable et attentionné, conçu pour simplifier le quotidien.",
+
+  recentProjectTitle:"Nos projets récents",
+  projectBefore:"Avant",
+  projectAfter:"Après",
+  projectBeforeState:"État précédent",
+  projectAfteeState:"Notre résultat",
+
+  viewAllProjectButton:"Voir tous les projets",
+  clientFeedback:"Le ménage était impeccable et le personnel était très aimable et serviable. Nous nous sommes sentis parfaitement pris en charge. Je recommande.",
 
   // About / why choose us
   aboutWhyChooseUsTitle: "Pourquoi nous choisir",
@@ -80,6 +118,13 @@ servicesCategoryCareConcierge:" 🤝 SERVICES D'ASSISTANCE ET DE CONCIERGERIE",
   sectorElderCareDesc: "Offrir des soins bienveillants et un environnement familial à nos aînés.",
   sectorRetailTitle: "Commerce de Détail",
   sectorRetailDesc: "Redéfinir l'expérience d'achat avec innovation et commodité.",
+
+  visionaryTeamTitle: "Notre équipe visionnaire",
+
+  visionarydesignationsHR:"Ressources humaines",
+  visionarydesignationsMK:"Équipe marketing",
+  visionarydesignationsCUS:"Service Client",
+  visionarydesignationsFIN:"Département Financier",
 
   // Moments of Excellence
   momentsOfExcellenceTitle: "Moments d'Excellence",
@@ -243,4 +288,9 @@ servicesCategoryCareConcierge:" 🤝 SERVICES D'ASSISTANCE ET DE CONCIERGERIE",
   // Contact Us page
   contactPageTitle: "Contactez Notre Équipe Concierge",
   contactOfficesTitle: "Nos Bureaux",
+
+  quickConnect:"Contactez-nous rapidement",
+  writeUs:"Contactez-nous rapidement",
+  connectWithUs:"Contactez-nous"
+
 } as Record<TranslationKey, string>;

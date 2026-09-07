@@ -4,7 +4,6 @@ import Image from "next/image";
 import Link from "next/link";
 import { useState, useRef, useEffect } from "react";
 import { getServices, ServicePriceEntry } from "@/lib/catalog-api";
-import { Socialmedialinks } from "./social-media";
 
 function AnimatedTextBadge() {
   return (
@@ -86,6 +85,7 @@ export function PageHero({
   subtitle,
   servicePrices,
   serviceId,
+  height,
 }: {
   image: string;
   eyebrow?: string;
@@ -93,26 +93,25 @@ export function PageHero({
   subtitle?: string;
   servicePrices?: ServicePriceEntry[];
   serviceId?: number;
+  height?: number;
 }) {
-  
+ 
+ 
+
+ 
   return (
-    <section className="relative flex h-auto justify-center bg-transparent text-center">
-      <div className="md:min-h-[100vh] bg-[#021642] md:max-h-[100vh] h-[40vh] w-full overflow-hidden">
+    <section className="relative flex h-auto justify-center bg-black/20 backdrop-brightness-50 text-center">
+        <div className={`lg:min-h-[100vh] md:min-h-[45vh] bg-[#021642] lg:max-h-[100vh] min-h-[40vh] h-[${height}vh] w-full overflow-hidden`} >
         <Image
           src={image}
           alt={title}
           fill
           priority
           sizes="120vw"
-          className="object-cover h-[25vh] md:h-[100vh] rounded-b-[100px] md:rounded-none  border border-[rgb(169,139,75)]"
+          className="object-cover h-[100vh] md:h-[100vh] rounded-b-[100px] md:rounded-none  border border-[rgb(169,139,75)]"
         />
       </div>
-
-      <div className="absolute top-8 left-0 flex h-full w-full flex-col items-center justify-center gap-4  text-center text-white sm:px-6">
-        <Socialmedialinks />
-      </div>
-      
-
+        
       
     </section>
   );

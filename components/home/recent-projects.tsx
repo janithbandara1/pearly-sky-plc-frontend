@@ -3,9 +3,19 @@
 import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { Mail, MapPin, Calendar, Star, ChevronLeft, ChevronRight } from "lucide-react";
+import { Mail, MapPin, Star } from "lucide-react";
+import { useLanguage } from "@/lib/i18n/language-context";
 
 // Types
+interface TeamMember {
+  id: number;
+  name: string;
+  role: string;
+  description: string;
+  photo: string;
+  email: string;
+}
+
 interface Project {
   id: number;
   beforeImage: string;
@@ -18,12 +28,6 @@ interface Project {
   completedDate: string;
 }
 
-interface TeamMember {
-  id: number;
-  title: string;
-  icon: string;
-  email: string;
-}
 
 // Sample Data
 const projectsData: Project[] = [
@@ -33,8 +37,7 @@ const projectsData: Project[] = [
     afterImage: "/images/beforeafter/after-1.webp",
     clientName: "Filippo Mylod",
     rating: 5,
-    testimonial:
-      "The cleaning was great and the people who worked were so kind and nice. We felt very well taken care of. I recommend!!",
+    testimonial:"clientFeedback",
     title: "Modern Penthouse Deep Clean",
     location: "Paris",
     completedDate: "Completed: June 2024",
@@ -45,8 +48,7 @@ const projectsData: Project[] = [
     afterImage: "/images/beforeafter/after-2.webp",
     clientName: "Filippo Mylod",
     rating: 5,
-    testimonial:
-      "The cleaning was great and the people who worked were so kind and nice. We felt very well taken care of. I recommend!!",
+    testimonial:"clientFeedback",
     title: "Modern Penthouse Deep Clean",
     location: "Paris",
     completedDate: "Completed: June 2024",
@@ -54,36 +56,10 @@ const projectsData: Project[] = [
   
 ];
 
-const teamData: TeamMember[] = [
-  {
-    id: 1,
-    title: "Customer Service",
-    icon: "/images/team/customer-service-304.webp",
-    email: "info@pearlyskyglobalclean.com",
-  },
-  {
-    id: 2,
-    title: "Marketing Team",
-    icon: "/images/team/marketing-team-304.webp",
-    email: "marketing@pearlyskyglobalclean.com",
-  },
-  {
-    id: 3,
-    title: "Human Resources",
-    icon: "/images/team/human-resources-304.webp",
-    email: "hr@pearlyskyglobalclean.com",
-  },
-  {
-    id: 4,
-    title: "Finance Department",
-    icon: "/images/team/finance-department-304.webp",
-    email: "finance@pearlyskyglobalclean.com",
-  },
-];
 
 export default function RecentProjects() {
   const [currentProjectIndex, setCurrentProjectIndex] = useState(0);
-
+  const{translate,language} =useLanguage()
   // Auto-rotate slider for 4 projects (every 5 seconds)
   useEffect(() => {
     const timer = setInterval(() => {
@@ -95,9 +71,9 @@ export default function RecentProjects() {
   const currentProject = projectsData[currentProjectIndex];
 
   return (
-    <section className="w-full text-white py-16 px-4 min-h-screen flex flex-col items-center justify-center space-y-20 font-sans">
+    <section className="w-full  text-white py-16 px-2 md:px-0 lg:px-0  flex flex-col items-center justify-center space-y-20 md:space-y-7 font-sans">
       {/* ================= OUR RECENT PROJECTS SECTION ================= */}
-      <div className="w-full md:w-5xl flex flex-col items-center">
+      <div className="w-full md:w-5xl lg:max-w-7xl flex flex-col items-center">
         {/* Section Heading Decor */}
         <div className="flex items-center space-x-2 mb-2">
           <div className="h-px w-16 bg-[#A98B4B]"></div>
@@ -105,14 +81,14 @@ export default function RecentProjects() {
             <div className="h-px w-16 bg-[#A98B4B]"></div>
         </div>
         <h2 className="text-3xl md:text-4xl font-bold text-center mb-8 tracking-wide">
-          Our Recent Projects
+          {translate("recentProjectTitle")}
         </h2>
 
         {/* Project Card Container */}
-        <div className="w-full max-w-3xl bg-[#0b1329] overflow-hidden border border-[#A98B4B] rounded-xl shadow-2xl relative transition-all duration-500">
+        <div className="w-full max-w-3xl bg-[#0b1329] overflow-hidden border-10 border-[#A98B4B] rounded-xl shadow-2xl relative transition-all duration-500">
           
           {/* Before / After Images */}
-          <div className="grid grid-cols-2  relative  overflow-hidden h-64 md:h-72">
+          <div className="grid grid-cols-2 border-b-10 border-b-[#A98B4B] relative  overflow-hidden h-64 md:h-72">
             {/* Before Image */}
             <div className="relative h-full w-full border-r border-r-[#A98B4B] bg-gradient-to-t from-black/60 via-transparent to-transparent">
               <Image
@@ -122,8 +98,8 @@ export default function RecentProjects() {
                 className="object-cover"
               />
               <div className="absolute bottom-2 left-2  px-2 py-1 rounded text-left">
-                <p className="text-[12px] font-bold uppercase text-white">Before</p>
-                <p className="text-[10px] text-gray-300 uppercase">Previous State</p>
+                <p className="text-[12px] font-bold uppercase text-white">{translate("projectBefore")}</p>
+                <p className="text-[10px] text-gray-300 uppercase">{translate("projectBeforeState")}</p>
               </div>
             </div>
 
@@ -146,42 +122,43 @@ export default function RecentProjects() {
                 className="object-cover"
               />
               <div className="absolute bottom-2 right-2  py-1 rounded text-right">
-                <p className="text-[12px] font-bold uppercase text-white">After</p>
-                <p className="text-[10px] text-gray-300 uppercase">Our Result</p>
+                <p className="text-[12px] font-bold uppercase text-white">{translate("projectAfter")}</p>
+                <p className="text-[10px] text-gray-300 uppercase">{translate("projectAfteeState")}</p>
               </div>
             </div>
           </div>
 
           {/* Testimonial Box */}
           
-          <div className="mt-4 mx-1 bg-[#0a1022] border border-gray-800 rounded-lg p-4 text-xs">
-            <div className="flex items-center space-x-2 mb-2 p-1">
-              <div className="w-6 h-6 rounded-full bg-gray-600 overflow-hidden relative">
+          <div className="mt-4 mx-auto   px-4 py-2 text-xs">
+            <div className="flex items-center w-full space-x-2 mb-2 p-1">
+              <div className="w-[80px] h-[60px] lg:w-[100px] lg:h-[100px]  md:w-[100px]   md:h-[100px]  rounded-full bg-gray-600 overflow-hidden relative">
                 <Image
-                  src="/images/avatar-placeholder.jpg"
+                  src="/images/testimonials/reviewer-2.jpeg"
                   alt={currentProject.clientName}
                   fill
-                  className="object-cover"
+                  className="object-contain"
                 />
               </div>
               <div className="">
-                <p className="font-semibold text-white text-sm">{currentProject.clientName}</p>
-                <div className="flex text-yellow-400 text-[10px]">
-                  {[...Array(currentProject.rating)].map((_, i) => (
-                    <Star key={i} size={10} fill="currentColor" />
-                  ))}
-                </div>
+                <p className="font-semibold text-white text-sm md:text-[16px] lg:tex[16px]">{currentProject.clientName}</p>
+                  <div className="flex text-yellow-400 text-[10px]">
+                    {[...Array(currentProject.rating)].map((_, i) => (
+                      <Star key={i} size={10} fill="currentColor" />
+                    ))}
+                  </div>
+                <p className="text-gray-300 mt-2 lg:text-sm text-[10px] md:text-sm leading-relaxed">
+                &quot;{translate("clientFeedback")}&quot;
+              </p>
               </div>
             </div>
-            <p className="text-gray-300  text-sm leading-relaxed">
-              &quot;{currentProject.testimonial}&quot;
-            </p>
+            
           </div>
 
           {/* Project Details Footer */}
-          <div className="mt-4 p-2 md:p-4 border-t border-gray-800 flex flex-wrap items-center md:justify-between text-[11px] text-gray-300">
+          <div className="mt-1 p-2 md:p-4 border-t border-gray-800 flex flex-wrap items-center md:justify-between text-[11px] text-gray-300">
             <div className="flex items-start flex-col gap-2 space-x-2">
-              <span className="font-semibold text-white  text-[14px]">{currentProject.title}</span>
+              <span className="font-semibold text-white  text-[13px] md:text-[15px] lg:text-[15px]">{currentProject.title}</span>
               <span className="flex items-center text-gray-300 text-[14px]">
                 <MapPin size={10} className="mr-0.5 text-red-500 " /> {currentProject.location}
               </span>
@@ -195,83 +172,13 @@ export default function RecentProjects() {
         {/* View All Projects Link -> Redirects to Customer Page */}
         <Link
           href="/customer"
-          className="mt-6 text-[14px] text-white hover:text-[#A98B4B]  transition-colors"
+          className="mt-5 bg-gradient-to-b from-[#D4B382] via-[#CBB080] to-[#99794E] text-[#2D2115] font-semibold py-2 px-6 rounded-full border border-[#E3CBA2]/40 shadow-sm transition-all hover:brightness-105 active:scale-95 py-1 px-3 rounded-2xl bg-[#A98B4B] hover:bg-[#a38441]  transition-colors"
         >
-          View all projects
+          {translate("viewAllProjectButton")}
         </Link>
       </div>
 
-      {/* ================= OUR VISIONARY TEAM SECTION ================= */}
-      <div className="w-full max-w-6xl flex flex-col items-center">
-        <h2 className="text-3xl md:text-4xl font-bold text-center mb-12 tracking-wide">
-          Our Visionary Team
-        </h2>
-
-        {/* Desktop View (Grid) / Mobile View (Marquee) */}
-        <div className="w-full overflow-hidden">
-          {/* Mobile View: Continuous Marquee */}
-          <div className="block md:hidden w-full overflow-x-auto no-scrollbar">
-            <div className="flex w-max space-x-8 animate-marquee hover:[animation-play-state:paused] py-4">
-              {[...teamData, ...teamData].map((member, idx) => (
-                <TeamCard key={`${member.id}-${idx}`} member={member} />
-              ))}
-            </div>
-          </div>
-
-          {/* Desktop View: 4 Columns Grid */}
-          <div className="hidden md:grid md:grid-cols-4 gap-8 w-full justify-items-center">
-            {teamData.map((member) => (
-              <TeamCard key={member.id} member={member} />
-            ))}
-          </div>
-        </div>
-      </div>
+      
     </section>
-  );
-}
-
-// Sub-component for Team Member Card with Hover Tooltip Mail Link
-function TeamCard({ member }: { member: TeamMember }) {
-  return (
-    <div className="mt-3 flex flex-col items-center group relative cursor-pointer ">
-      {/* Outer Circle Ring */}
-      <div className="md:w-40 w-27 md:h-40 h-27 rounded-full border-[4px] border-[#D9C07E] flex items-center justify-center transition-transform duration-300 group-hover:scale-105">
-        {/* Inner Dark Circle */}
-        <div className="w-full h-full overflow-hidden rounded-full  flex flex-col items-center justify-center text-center">
-          <div className="w-full h-full overflow-hidden relative rounded-full">
-            <Image
-              src={member.icon}
-              alt={member.title}
-              fill
-              className="object-cover "
-            />
-          </div>
-        </div>
-      </div>
-
-      {/* Name below Circle */}
-      <h3 className="mt-3 text-lg font-semibold text-white tracking-wide">
-        {member.title}
-      </h3>
-
-      {/* Mail Button Circle */}
-      <a
-        href={`mailto:${member.email}`}
-        className="mt-2 w-10 h-10 rounded-full bg-white flex items-center justify-center shadow-md hover:bg-gray-100 transition-colors"
-        title={`Send email to ${member.email}`}
-      >
-        <Mail size={20} className="text-[#c5a880]" />
-      </a>
-
-      {/* Email Hover Tooltip (Appears on Hover & opens in mail client) */}
-      <div className="absolute -bottom-10 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none group-hover:pointer-events-auto z-20">
-        <a
-          href={`mailto:${member.email}`}
-          className="bg-white text-black text-[11px] font-medium px-3 py-1 rounded-full shadow-lg whitespace-nowrap border border-gray-200 hover:bg-gray-50 flex items-center space-x-1"
-        >
-          <span>{member.email}</span>
-        </a>
-      </div>
-    </div>
   );
 }

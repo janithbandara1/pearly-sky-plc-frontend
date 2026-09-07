@@ -20,6 +20,7 @@ export const en = {
   heroCtaSecondary: "REQUEST SERVICE NOW",
   heroCtaThird:"EXPLORE OUR GLOBAL COMMITMENT",
 
+  heroSubPara:"your space deserves to shine.Let Pearl Sky take care of the rest with our meticulous,non-toxic ,eco-certified service",
 
   heroWelcome: "WELCOME TO PEARLY SKY",
   heroWelcomeSubText:"Eco-Luxury Cleaning, Tailored for You",
@@ -28,6 +29,21 @@ export const en = {
   // Trust bar
   trustEcoCertified: "Green Compass Eco-Certified",
   trustRating: "5-Star Service Rating",
+  trustCoverageDescription: "A robust national network delivering unparalleled care.",
+  trustEcoDescription: "Commitment to sustainable practices and eco-conscious products.",
+  trustRatingDescription: "Defined by a dedication to exceeding premium expectations.",
+  trustPartnership: "Global Partnership Network",
+  trustPartnershipDescription: "Access an exclusive, curated network of global partners for seamless high-end support.",
+
+  // Coverage strip
+  coveragePeaceTitle: "Peace of Mind",
+  coveragePeaceDescription: "Enjoy a seamless, worry-free experience with complete confidence in our services.",
+  coveragePrecisionTitle: "Tailored Precision",
+  coveragePrecisionDescription: "Services meticulously designed to fit every space and requirement.",
+  coverageCommunicationTitle: "Seamless Communication",
+  coverageCommunicationDescription: "Fluent in English and French. We ensure a smooth, clear experience.",
+  coverageLuxuryTitle: "Luxury Standards",
+  coverageLuxuryDescription: "A service that consistently meets the highest standards of excellence.",
 
   // Services
   servicesHeading: "Our Services",
@@ -39,6 +55,22 @@ export const en = {
   servicesPricePerCleaner: "/h per cleaner",
   servicesSeeMore: "See more",
   servicesSeeLess: "See less",
+
+    ServiceLuxuryResidential:"Luxury Residential Cleaning",
+    ServiceCommercial:"Commercial Property Management",
+    ServiceLuxuryProperty:"Luxury Property Management",
+    ServiceHospitality:"Hospitality & Hotel Cleaning",
+    ServiceSports:"Sports & Wellness Facilities",
+    ServicePublic:"Public & Institutional Cleaning",
+
+    recentProjectTitle:"Our Recent Projects",
+    projectBefore:"Before",
+    projectAfter:"After",
+    projectBeforeState:"Previous State",
+    projectAfteeState:"Our Result",
+    viewAllProjectButton:"View all projects",
+
+    clientFeedback:"The cleaning was great and the people who worked were so kind and nice. We felt very well taken care of. I recommend",
 
   //updated 4 categories which are visible in Home page services section
   servicesCategoryResidentialCleaning: "🏠 RESIDENTIAL CLEANING SERVICES",
@@ -54,6 +86,12 @@ export const en = {
   servicesCategoryPropertyCare: "PROPERTY CARE & MANAGEMENT",
   servicesCategoryBespokeLifestyle: "BESPOKE LIFESTYLE & WELLNESS CURATION",
 
+  visionaryTeamTitle: "Our Visionary Team",
+
+  visionarydesignationsHR:"Human Resources",
+  visionarydesignationsMK:"Marketing Team",
+  visionarydesignationsCUS:"Customer Service",
+  visionarydesignationsFIN:"Finance Department",
 
   //
   aboutOurServices:" Our Services",
@@ -133,6 +171,7 @@ export const en = {
   // About Us page
   aboutPageEyebrow: "ABOUT PEARLY SKY CLEANING SERVICES",
   aboutPageHeroTitle: "Your Trusted Cleaning Partner",
+  
   aboutPageIdentityTitle: "Our Core Identity",
   aboutPageIdentitySubtitle: "Where Cleanliness Meets Luxury",
   aboutPageIdentityIntro:
@@ -162,13 +201,18 @@ export const en = {
   aboutWhy4Text: "We provide competitive rates that deliver premium service without compromising quality.",
   aboutWhy5Title: "24/7 Availability",
   aboutWhy5Text: "We are here for you, offering reliable and prompt service, anytime you need us.",
+  
+  aboutWhy6Title: "Uncompromising Security",
+  aboutWhy6Text: "Your privacy and property are paramount. Every staff member is thoroughly background-checked, insured, and trained to respect your confidential spaces.",
+  
+
   aboutPageVisionMissionTitle: "Vision, Mission & Values",
   aboutPageVisionTitle: "Our Vision",
   aboutVisionText:
-    "We deliver excellence by striving for exceptional quality and outstanding results for all our clients and partners.",
+    "We deliver Excellence. We strive for exceptional quality and outstanding results for all our clients and partners, creating spaces that truly sparkle.",
   aboutPageMissionTitle: "Our Mission",
   aboutMissionText:
-    "We lead through exceptional service and creative innovation, driving progress across our cleaning and transport sectors.",
+    "We lead through exceptional service and creative innovation, driving progress and shared success across our cleaning and transport sectors.",
   aboutPageValuesTitle: "YOUR TRUSTED CLEANING PARTNER",
   
   aboutPageSectionHeader:"ABOUT PEARLY SKY CLEANING SERVICES",
@@ -180,11 +224,11 @@ export const en = {
   aboutValue4: "Teamwork",
   aboutValue5: "Service Excellence",
   aboutPageObjectivesTitle: "Our Objectives",
-  aboutObjective1: "Promote diversity and inclusion",
-  aboutObjective2: "Attract and retain top talent",
-  aboutObjective3: "Encourage innovation",
-  aboutObjective4: "Exceed partner expectations",
-  aboutObjective5: "Build a strong service culture",
+  aboutObjective1: "Promote Diversity, Inclusion, and Equity within our growing teams.",
+  aboutObjective2: "Attract and retain top talent to maintain our standard of luxury service",
+  aboutObjective3: "Foster a motivating work environment that encourages innovation",
+  aboutObjective4: "Exceed partner expectations by consistently delivering results",
+  aboutObjective5: "Cultivate a vibrant agency culture built on respect and service.",
   aboutPageCtaTitle: "Ready to experience the Art of Pristine Care?",
   aboutPageCtaSubtitle: "Contact us today to schedule your customized eco-luxury cleaning or transport service.",
   aboutPageCtaButton: "Contact Us",
@@ -245,6 +289,12 @@ export const en = {
   // Contact Us page
   contactPageTitle: "Contact Our Concierge Team",
   contactOfficesTitle: "Our Offices",
+
+  //footer
+  quickConnect:"Quick Contact & Connect",
+  writeUs:"WRITE TO US",
+  connectWithUs:"CONNECT WITH US"
+
 } as const;
 
 export type TranslationKey = keyof typeof en;
