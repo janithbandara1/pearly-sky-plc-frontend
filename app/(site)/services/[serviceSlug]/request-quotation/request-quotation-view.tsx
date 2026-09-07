@@ -257,7 +257,7 @@ export function RequestQuotationView({ serviceSlug }: { serviceSlug: string }) {
   const [quoteItems, setQuoteItems] = useState<QuoteItem[]>([]);
 
   const [numCleaners, setNumCleaners] = useState(1);
-  const [durationHours, setDurationHours] = useState(3);
+  const [durationHours, setDurationHours] = useState(2);
   const [gender, setGender] = useState("");
   const [language, setLanguage] = useState("");
   const [requirements, setRequirements] = useState("");
