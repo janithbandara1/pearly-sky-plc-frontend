@@ -30,6 +30,13 @@ export interface CreateQuotationPayload {
   state?: string;
   country?: string;
   postalCode?: string;
+  /** Laundry / move-in-out transport quotations only — a separate delivery address alongside the address above. */
+  deliveryStreetAddress?: string;
+  deliveryUnit?: string;
+  deliveryCity?: string;
+  deliveryState?: string;
+  deliveryCountry?: string;
+  deliveryPostalCode?: string;
 }
 
 export interface QuotationServiceRef {
@@ -73,6 +80,12 @@ export interface Quotation {
   state: string | null;
   country: string | null;
   postalCode: string | null;
+  deliveryStreetAddress: string | null;
+  deliveryUnit: string | null;
+  deliveryCity: string | null;
+  deliveryState: string | null;
+  deliveryCountry: string | null;
+  deliveryPostalCode: string | null;
   service: QuotationServiceRef;
   customer?: QuotationCustomer;
   createdAt: string;
@@ -105,6 +118,8 @@ export interface QuotationStatusSummary {
   numCleaners: number | null;
   streetAddress: string;
   city: string;
+  deliveryStreetAddress: string | null;
+  deliveryCity: string | null;
 }
 
 /** Public — the reference number authenticates the request, so this works for guests too. */

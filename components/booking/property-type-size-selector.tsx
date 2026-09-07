@@ -71,7 +71,11 @@ const RESIDENTIAL_SCHEME_SERVICE_SLUGS = new Set([
   "same-day-priority-cleaning",
   "essential-touch-up-cleaning",
   "premium-rental-concierge-cleaning",
-  
+  "laundry-service",
+  "laundry-services",
+  "laundry-linen-care",
+  "move-in-out-transport-service",
+  "move-in-out-transport-health",
 ]);
 
 

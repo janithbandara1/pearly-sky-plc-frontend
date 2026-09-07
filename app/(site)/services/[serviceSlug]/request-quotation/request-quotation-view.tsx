@@ -62,6 +62,19 @@ const CUSTOM_QUOTE_ITEMS: Record<
 const CHILD_CARE_SLUG = "child-care-service";
 const ELDER_CARE_SLUG = "elder-care-service";
 
+/**
+ * Laundry Services and Move-In / Move-Out Transport Service skip property scale,
+ * allocated professionals, and cleaner duration, and collect a pickup + delivery
+ * address instead of a single residence address.
+ */
+const PICKUP_DELIVERY_SLUGS = new Set([
+  "laundry-service",
+  "laundry-services",
+  "laundry-linen-care",
+  "move-in-out-transport-service",
+  "move-in-out-transport-health",
+]);
+
 /** These have no required item — hide the section entirely rather than showing "Not specified" when nothing's been added. */
 const HIDE_QUOTE_ITEMS_IF_EMPTY_SLUGS = new Set([
   "carpet-upholstery-cleaning",
@@ -223,6 +236,7 @@ export function RequestQuotationView({ serviceSlug }: { serviceSlug: string }) {
   const { status, accessToken } = useAuth();
 
   const customQuote = CUSTOM_QUOTE_ITEMS[serviceSlug];
+  const isPickupDeliveryService = PICKUP_DELIVERY_SLUGS.has(serviceSlug);
 
   const serviceContent =
     SERVICE_CONTENT[serviceSlug] ??
@@ -261,6 +275,14 @@ export function RequestQuotationView({ serviceSlug }: { serviceSlug: string }) {
   const [province, setProvince] = useState("");
   const [streetAddress, setStreetAddress] = useState("");
   const [unit, setUnit] = useState("");
+
+  // Delivery location (laundry-services / move-in-out-transport-service only)
+  const [deliveryCountry, setDeliveryCountry] = useState("France");
+  const [deliveryPostalCode, setDeliveryPostalCode] = useState("");
+  const [deliveryCity, setDeliveryCity] = useState("");
+  const [deliveryProvince, setDeliveryProvince] = useState("");
+  const [deliveryStreetAddress, setDeliveryStreetAddress] = useState("");
+  const [deliveryUnit, setDeliveryUnit] = useState("");
 
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [submitting, setSubmitting] = useState(false);
@@ -345,6 +367,14 @@ export function RequestQuotationView({ serviceSlug }: { serviceSlug: string }) {
     if (!province.trim()) next.province = "Province / State is required.";
     if (!streetAddress.trim()) next.streetAddress = "Street address is required.";
 
+    if (isPickupDeliveryService) {
+      if (!deliveryCountry.trim()) next.deliveryCountry = "Country is required.";
+      if (!deliveryPostalCode.trim()) next.deliveryPostalCode = "Postal code is required.";
+      if (!deliveryCity.trim()) next.deliveryCity = "City is required.";
+      if (!deliveryProvince.trim()) next.deliveryProvince = "Province / State is required.";
+      if (!deliveryStreetAddress.trim()) next.deliveryStreetAddress = "Street address is required.";
+    }
+
     setErrors(next);
     return Object.keys(next).length === 0;
   }
@@ -379,8 +409,8 @@ export function RequestQuotationView({ serviceSlug }: { serviceSlug: string }) {
         serviceId: service.id,
         date: date || undefined,
         time: time || undefined,
-        propertyType: customQuote ? undefined : propertyType || undefined,
-        propertySizeSqm: customQuote ? undefined : propertySizeSqm,
+        propertyType: customQuote || isPickupDeliveryService ? undefined : propertyType || undefined,
+        propertySizeSqm: customQuote || isPickupDeliveryService ? undefined : propertySizeSqm,
         quoteItemsTitle: customQuote?.title,
         quoteItems: quoteItemLines,
         supplySource: supplySource || undefined,
@@ -390,8 +420,8 @@ export function RequestQuotationView({ serviceSlug }: { serviceSlug: string }) {
             price: i.price !== null ? Number(i.price) : undefined,
           }))
           : undefined,
-        numCleaners,
-        durationHours,
+        numCleaners: isPickupDeliveryService ? undefined : numCleaners,
+        durationHours: isPickupDeliveryService ? undefined : durationHours,
         genderPreference: gender || undefined,
         languagePreference: language || undefined,
         specialRequirements: requirements.trim() || undefined,
@@ -405,6 +435,12 @@ export function RequestQuotationView({ serviceSlug }: { serviceSlug: string }) {
         state: province.trim() || undefined,
         country: selectedCountry,
         postalCode: postalCode.trim() || undefined,
+        deliveryStreetAddress: isPickupDeliveryService ? deliveryStreetAddress.trim() : undefined,
+        deliveryUnit: isPickupDeliveryService ? deliveryUnit.trim() || undefined : undefined,
+        deliveryCity: isPickupDeliveryService ? deliveryCity.trim() : undefined,
+        deliveryState: isPickupDeliveryService ? deliveryProvince.trim() || undefined : undefined,
+        deliveryCountry: isPickupDeliveryService ? deliveryCountry : undefined,
+        deliveryPostalCode: isPickupDeliveryService ? deliveryPostalCode.trim() || undefined : undefined,
       });
 
       setShowSuccessToast(true);
@@ -582,6 +618,7 @@ export function RequestQuotationView({ serviceSlug }: { serviceSlug: string }) {
             </div>
 
             {/* 3. Property Scale / Service Specific Details */}
+            {!isPickupDeliveryService && (
             <div className="space-y-2">
               <p className="text-xs font-semibold text-brand-navy">3. Property Scale</p>
               {serviceSlug === "carpet-upholstery-cleaning" ? (
@@ -609,8 +646,10 @@ export function RequestQuotationView({ serviceSlug }: { serviceSlug: string }) {
                 />
               )}
             </div>
+            )}
 
             {/* 4 & 5. Allocated professionals & Cleaner duration */}
+            {!isPickupDeliveryService && (
             <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
               {/* 4. Allocated professionals */}
               <div className="space-y-1.5">
@@ -662,13 +701,14 @@ export function RequestQuotationView({ serviceSlug }: { serviceSlug: string }) {
                 </div>
               </div>
             </div>
+            )}
 
-            {/* 6 & 7. Staff Gender Preference & Linguistic Coordination */}
+            {/* Staff Gender Preference & Linguistic Coordination */}
             <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-              {/* 6. Staff Gender Preference */}
+              {/* Staff Gender Preference */}
               <div className="space-y-1.5">
                 <Label className="text-xs font-semibold text-brand-navy">
-                  6. Staff Gender Preference
+                  {isPickupDeliveryService ? "3." : "6."} Staff Gender Preference
                 </Label>
                 <Select value={gender} onValueChange={setGender}>
                   <SelectTrigger className="h-11 w-full rounded-lg border border-[#A98B4B]/40 bg-[#FFFDF4] text-brand-navy shadow-inner focus:ring-2 focus:ring-[#A98B4B]">
@@ -684,10 +724,10 @@ export function RequestQuotationView({ serviceSlug }: { serviceSlug: string }) {
                 </Select>
               </div>
 
-              {/* 7. Linguistic Coordination */}
+              {/* Linguistic Coordination */}
               <div className="space-y-1.5">
                 <Label className="text-xs font-semibold text-brand-navy">
-                  7. Linguistic Coordination
+                  {isPickupDeliveryService ? "4." : "7."} Linguistic Coordination
                 </Label>
                 <Select value={language} onValueChange={setLanguage}>
                   <SelectTrigger className="h-11 w-full rounded-lg border border-[#A98B4B]/40 bg-[#FFFDF4] text-brand-navy shadow-inner focus:ring-2 focus:ring-[#A98B4B]">
@@ -704,10 +744,10 @@ export function RequestQuotationView({ serviceSlug }: { serviceSlug: string }) {
               </div>
             </div>
 
-            {/* 8. Service Requirements & Specifics */}
+            {/* Service Requirements & Specifics */}
             <div className="space-y-1.5">
               <Label className="text-xs font-semibold text-brand-navy">
-                8. Service Requirements & Specifics
+                {isPickupDeliveryService ? "5." : "8."} Service Requirements & Specifics
               </Label>
               <textarea
                 value={requirements}
@@ -793,10 +833,10 @@ export function RequestQuotationView({ serviceSlug }: { serviceSlug: string }) {
               </div>
             </div>
 
-            {/* LOCATION OF THE RESIDENCE SECTION */}
+            {/* LOCATION OF THE RESIDENCE / PICKUP LOCATION SECTION */}
             <div className="space-y-4 pt-2">
               <h3 className="text-xs font-bold uppercase tracking-wider text-[#121E2D]">
-                Location of the Residence
+                {isPickupDeliveryService ? "Pickup Location" : "Location of the Residence"}
               </h3>
               <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
                 <div className="space-y-1.5">
@@ -899,6 +939,115 @@ export function RequestQuotationView({ serviceSlug }: { serviceSlug: string }) {
                 </div>
               </div>
             </div>
+
+            {/* DELIVERY LOCATION SECTION (laundry-services / move-in-out-transport-service only) */}
+            {isPickupDeliveryService && (
+              <div className="space-y-4 pt-2">
+                <h3 className="text-xs font-bold uppercase tracking-wider text-[#121E2D]">
+                  Delivery Location
+                </h3>
+                <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+                  <div className="space-y-1.5">
+                    <Label className="text-xs font-medium text-brand-navy/90">
+                      Select Country <span className="text-red-500">*</span>
+                    </Label>
+                    <Select value={deliveryCountry} onValueChange={setDeliveryCountry}>
+                      <SelectTrigger className="h-11 w-full rounded-lg border border-[#A98B4B]/40 bg-[#FFFDF4] text-brand-navy shadow-inner focus:ring-2 focus:ring-[#A98B4B]">
+                        <SelectValue placeholder="Select Country" />
+                      </SelectTrigger>
+                      <SelectContent className="bg-white border-[#A98B4B]/30">
+                        {COUNTRY_OPTIONS.map((c) => (
+                          <SelectItem key={c.code} value={c.name}>
+                            <span className="flex items-center gap-2">
+                              <c.Flag className="h-3.5 w-5 shrink-0 object-cover" />
+                              {c.name}
+                            </span>
+                          </SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+                  </div>
+
+                  <div className="space-y-1.5">
+                    <Label className="text-xs font-medium text-brand-navy/90">
+                      Postal Code <span className="text-red-500">*</span>
+                    </Label>
+                    <Input
+                      value={deliveryPostalCode}
+                      onChange={(e) => {
+                        setDeliveryPostalCode(e.target.value);
+                        if (errors.deliveryPostalCode) setErrors((prev) => ({ ...prev, deliveryPostalCode: "" }));
+                      }}
+                      placeholder="Postal Code"
+                      className="h-11 rounded-lg border border-[#A98B4B]/40 bg-[#FFFDF4] text-brand-navy placeholder:text-muted-foreground shadow-inner focus-visible:ring-2 focus-visible:ring-[#A98B4B]"
+                    />
+                    {errors.deliveryPostalCode && <p className="text-xs text-destructive">{errors.deliveryPostalCode}</p>}
+                  </div>
+                </div>
+
+                <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+                  <div className="space-y-1.5">
+                    <Label className="text-xs font-medium text-brand-navy/90">
+                      City <span className="text-red-500">*</span>
+                    </Label>
+                    <Input
+                      value={deliveryCity}
+                      onChange={(e) => {
+                        setDeliveryCity(e.target.value);
+                        if (errors.deliveryCity) setErrors((prev) => ({ ...prev, deliveryCity: "" }));
+                      }}
+                      placeholder="City"
+                      className="h-11 rounded-lg border border-[#A98B4B]/40 bg-[#FFFDF4] text-brand-navy placeholder:text-muted-foreground shadow-inner focus-visible:ring-2 focus-visible:ring-[#A98B4B]"
+                    />
+                    {errors.deliveryCity && <p className="text-xs text-destructive">{errors.deliveryCity}</p>}
+                  </div>
+
+                  <div className="space-y-1.5">
+                    <Label className="text-xs font-medium text-brand-navy/90">
+                      Province/ State <span className="text-red-500">*</span>
+                    </Label>
+                    <Input
+                      value={deliveryProvince}
+                      onChange={(e) => {
+                        setDeliveryProvince(e.target.value);
+                        if (errors.deliveryProvince) setErrors((prev) => ({ ...prev, deliveryProvince: "" }));
+                      }}
+                      placeholder="Province / State"
+                      className="h-11 rounded-lg border border-[#A98B4B]/40 bg-[#FFFDF4] text-brand-navy placeholder:text-muted-foreground shadow-inner focus-visible:ring-2 focus-visible:ring-[#A98B4B]"
+                    />
+                    {errors.deliveryProvince && <p className="text-xs text-destructive">{errors.deliveryProvince}</p>}
+                  </div>
+                </div>
+
+                <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+                  <div className="space-y-1.5 sm:col-span-2">
+                    <Label className="text-xs font-medium text-brand-navy/90">
+                      Street Address <span className="text-red-500">*</span>
+                    </Label>
+                    <Input
+                      value={deliveryStreetAddress}
+                      onChange={(e) => {
+                        setDeliveryStreetAddress(e.target.value);
+                        if (errors.deliveryStreetAddress) setErrors((prev) => ({ ...prev, deliveryStreetAddress: "" }));
+                      }}
+                      placeholder="Street Address"
+                      className="h-11 rounded-lg border border-[#A98B4B]/40 bg-[#FFFDF4] text-brand-navy placeholder:text-muted-foreground shadow-inner focus-visible:ring-2 focus-visible:ring-[#A98B4B]"
+                    />
+                    {errors.deliveryStreetAddress && <p className="text-xs text-destructive">{errors.deliveryStreetAddress}</p>}
+                  </div>
+
+                  <div className="space-y-1.5 sm:col-span-2">
+                    <Label className="text-xs font-medium text-brand-navy/90">Unit/Apt/Suite</Label>
+                    <Input
+                      value={deliveryUnit}
+                      onChange={(e) => setDeliveryUnit(e.target.value)}
+                      placeholder="Unit/Apt/Suite"
+                      className="h-11 rounded-lg border border-[#A98B4B]/40 bg-[#FFFDF4] text-brand-navy placeholder:text-muted-foreground shadow-inner focus-visible:ring-2 focus-visible:ring-[#A98B4B]"
+                    />
+                  </div>
+                </div>
+              </div>
+            )}
 
             {/* Error Message */}
             {submitError && (

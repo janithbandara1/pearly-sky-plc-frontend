@@ -171,7 +171,7 @@ const FALLBACK_SERVICES: Record<string, CatalogServiceDetail> = {
   "regular-maintenance-cleaning": {
     id: 1,
     name: "regular-maintenance-cleaning",
-    label: "Regular Maintenance Cleaning",
+    label: "Regular Home Cleaning",
     price: "25.00",
     prices: [],
     status: "active",

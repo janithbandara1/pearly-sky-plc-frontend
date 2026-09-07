@@ -139,6 +139,18 @@ export default function StaffQuotationDetailsPage() {
             country: quotation.country,
             postalCode: quotation.postalCode,
           }}
+          deliveryAddress={
+            quotation.deliveryStreetAddress
+              ? {
+                  streetAddress: quotation.deliveryStreetAddress,
+                  unit: quotation.deliveryUnit,
+                  city: quotation.deliveryCity ?? "",
+                  state: quotation.deliveryState,
+                  country: quotation.deliveryCountry,
+                  postalCode: quotation.deliveryPostalCode,
+                }
+              : undefined
+          }
         />
       )}
 

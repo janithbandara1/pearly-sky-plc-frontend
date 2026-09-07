@@ -116,6 +116,8 @@ export interface QuotationSummaryCardProps {
   customerEmail?: string;
   customerPhone?: string;
   address: QuotationSummaryAddress;
+  /** Laundry / move-in-out transport quotations only — shown as a separate "Delivery Address" card alongside the pickup address above. */
+  deliveryAddress?: QuotationSummaryAddress | null;
   /** e.g. a status-change action rendered under the overview card */
   footer?: ReactNode;
 }
@@ -143,6 +145,7 @@ export function QuotationSummaryCard({
   customerEmail,
   customerPhone,
   address,
+  deliveryAddress,
   footer,
 }: QuotationSummaryCardProps) {
   const hasContact = customerName !== undefined || customerEmail !== undefined || customerPhone !== undefined;
@@ -180,7 +183,7 @@ export function QuotationSummaryCard({
           </SectionCard>
         )}
 
-        <SectionCard icon={MapPin} label="Address">
+        <SectionCard icon={MapPin} label={deliveryAddress ? "Pickup Address" : "Address"}>
           <div className="flex flex-col gap-3">
             <Field label="Street Address" value={address.streetAddress} />
             {address.unit && <Field label="Unit/Apt/Suite" value={address.unit} />}
@@ -190,6 +193,19 @@ export function QuotationSummaryCard({
             {address.postalCode && <Field label="Postal Code" value={address.postalCode} />}
           </div>
         </SectionCard>
+
+        {deliveryAddress && (
+          <SectionCard icon={MapPin} label="Delivery Address">
+            <div className="flex flex-col gap-3">
+              <Field label="Street Address" value={deliveryAddress.streetAddress} />
+              {deliveryAddress.unit && <Field label="Unit/Apt/Suite" value={deliveryAddress.unit} />}
+              <Field label="City" value={deliveryAddress.city} />
+              {deliveryAddress.state && <Field label="Province/State" value={deliveryAddress.state} />}
+              {deliveryAddress.country && <Field label="Country" value={deliveryAddress.country} />}
+              {deliveryAddress.postalCode && <Field label="Postal Code" value={deliveryAddress.postalCode} />}
+            </div>
+          </SectionCard>
+        )}
       </div>
 
       <div className="flex flex-col gap-6 lg:col-span-2 lg:col-start-1 lg:row-start-1">

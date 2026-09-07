@@ -182,7 +182,7 @@ export default function CheckoutPage({
             ? "Child Care Service"
             : isElderCare
               ? "Elder Care Service"
-              : "Regular Maintenance Cleaning",
+              : "Regular Home Cleaning",
           price: "30.00",
           prices: [],
           status: "active",

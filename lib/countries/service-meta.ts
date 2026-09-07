@@ -160,7 +160,7 @@ export const SERVICE_META: Record<string, Record<CountryCode, ServiceMeta>> = {
     "Premium Elder Care Companion & Safe Home Maintenance",
     "Compassionate senior support schedules coupled with specialized domestic mobility safety setups and organic clean home upkeep routines.",
   ),
-  "laundry-services": metaByCountryFrom(
+  "laundry-service": metaByCountryFrom(
     "Laundry & Linen Care | Wash, Press & Fold Service",
     "Premium garment and linen care — washing, pressing, and folding handled with hotel-grade attention to fabric and finish.",
   ),

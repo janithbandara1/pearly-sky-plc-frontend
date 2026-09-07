@@ -19,7 +19,7 @@ const relatedServices: ServiceLink[] = [
     title: "Post-Construction Cleaning",
     href: "/fr/en/services/post-construction-renovation-cleaning",
   },
-  { title: "Laundry & Ironing", href: "/fr/en/services/laundry-services" },
+  { title: "Laundry & Ironing", href: "/fr/en/services/laundry-service" },
   {
     title: "Commercial & Office Cleaning",
     href: "/fr/en/services/commercial-office-cleaning",

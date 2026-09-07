@@ -816,14 +816,14 @@ export const SERVICE_CONTENT: Partial<Record<string, ServiceContentEntry>> = {
     ],
   },
 
-  "laundry-services": {
+  "laundry-service": {
     introduction: {
       headline: "Effortless Laundry, Delivered Clean",
       body: ["Your time is precious — let us handle the laundry, from pickup to fresh, folded delivery."],
     },
     highlights: [
       {
-        title: "Laundry Services Highlights",
+        title: "Laundry Service Highlights",
         cards: [
           {
             title: "Wash & Fold",
@@ -1007,8 +1007,9 @@ if (SERVICE_CONTENT["child-care-service"]) {
 if (SERVICE_CONTENT["elder-care-service"]) {
   SERVICE_CONTENT["elder-care-services"] = SERVICE_CONTENT["elder-care-service"];
 }
-if (SERVICE_CONTENT["laundry-services"]) {
-  SERVICE_CONTENT["laundry-linen-care"] = SERVICE_CONTENT["laundry-services"];
+if (SERVICE_CONTENT["laundry-service"]) {
+  SERVICE_CONTENT["laundry-services"] = SERVICE_CONTENT["laundry-service"];
+  SERVICE_CONTENT["laundry-linen-care"] = SERVICE_CONTENT["laundry-service"];
 }
 if (SERVICE_CONTENT["move-in-out-transport-service"]) {
   SERVICE_CONTENT["move-in-out-transport-health"] = SERVICE_CONTENT["move-in-out-transport-service"];

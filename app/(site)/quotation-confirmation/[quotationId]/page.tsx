@@ -87,9 +87,22 @@ function QuotationStatus({ quotationId }: { quotationId: number }) {
     { icon: CalendarClock, label: "Estimated Response", value: "Within 24 Hours" },
   ];
 
+  const hasDeliveryLocation = Boolean(quotation.deliveryStreetAddress);
+
   const detailsRows = [
     { label: "Service Requested", value: quotation.service.label },
-    { label: "Location", value: formatLocation(quotation.streetAddress, quotation.city) },
+    {
+      label: hasDeliveryLocation ? "Pickup Location" : "Location",
+      value: formatLocation(quotation.streetAddress, quotation.city),
+    },
+    ...(hasDeliveryLocation
+      ? [
+          {
+            label: "Delivery Location",
+            value: formatLocation(quotation.deliveryStreetAddress ?? "", quotation.deliveryCity ?? ""),
+          },
+        ]
+      : []),
     { label: "Team Preference", value: teamPreference },
     { label: "Proposed Date", value: quotation.date ?? "—" },
   ];
