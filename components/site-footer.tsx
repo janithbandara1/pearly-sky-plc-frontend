@@ -87,7 +87,7 @@ export function SiteFooter() {
           </div>
           <h2 className="mt-2 font-serif text-3xl lowercase tracking-wide text-brand-gold sm:text-4xl">pearly sky</h2>
           <p className="text-[11px] text-brand-gold/90">Eco-Luxury Cleaning</p>
-          <p className="mt-5 text-sm text-brand-navy-foreground/85">Pearly sky number now</p>          <p className="mt-3 max-w-xs text-xs leading-relaxed text-brand-navy-foreground/60">{footerTagline}</p>
+          <p className="mt-5 text-sm text-brand-navy-foreground/85">Pearly sky number now</p><p className="mt-3 max-w-xs text-xs leading-relaxed text-brand-navy-foreground/60">{footerTagline}</p>
         </div>
 
         <div className="order-3 flex flex-col items-center text-center md:items-start md:text-left">

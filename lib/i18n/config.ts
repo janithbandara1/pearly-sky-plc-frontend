@@ -7,7 +7,22 @@
  * Labels for the switcher UI stay in language-context.tsx since, unlike
  * countries, there's no backend endpoint for them.
  */
-export const SUPPORTED_LANGUAGES = ["en", "fr"] as const;
+export const SUPPORTED_LANGUAGES = [
+  "en",
+  "fr",
+  "da",
+  "de",
+  "es",
+  "fi",
+  "it",
+  "lb",
+  "nl",
+  "no",
+  "pl",
+  "pt",
+  "ro",
+  "sv",
+] as const;
 
 export type LanguageCode = (typeof SUPPORTED_LANGUAGES)[number];
 

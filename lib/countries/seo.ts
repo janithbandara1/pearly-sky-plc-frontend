@@ -63,30 +63,21 @@ export function buildSocialMeta(
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000";
 
 /**
- * Builds one sitemap.xml entry per country/language combo a country
- * actually offers (see COUNTRY_LANGUAGES) for a given unprefixed path (e.g.
- * "/about-us"), each carrying the full hreflang alternate set (mirrors
- * buildCountryAlternates, but with absolute URLs as sitemaps require). Used
- * by app/sitemap.ts.
+ * Builds one sitemap.xml entry per country/language combo a country offers
+ * (see COUNTRY_LANGUAGES) for a given unprefixed path (e.g. "/about-us").
+ * Hreflang alternates stay in page metadata; repeating the full alternate map
+ * on every sitemap entry makes the XML grow quadratically with locale count.
+ * Used by app/sitemap.ts.
  */
 export function buildSitemapEntries(
   pathname: string,
   opts: { lastModified?: Date; changeFrequency?: MetadataRoute.Sitemap[number]["changeFrequency"]; priority?: number } = {},
 ): MetadataRoute.Sitemap {
-  const languages: Record<string, string> = { "x-default": `${SITE_URL}${pathname}` };
-  for (const country of SUPPORTED_COUNTRIES) {
-    for (const language of COUNTRY_LANGUAGES[country]) {
-      languages[`${language}-${COUNTRY_URL_SLUGS[country].toUpperCase()}`] =
-        `${SITE_URL}${buildLocalePath(pathname, country, language)}`;
-    }
-  }
-
   const entries: MetadataRoute.Sitemap = [];
   for (const country of SUPPORTED_COUNTRIES) {
     for (const language of COUNTRY_LANGUAGES[country]) {
       entries.push({
         url: `${SITE_URL}${buildLocalePath(pathname, country, language)}`,
-        alternates: { languages },
         ...opts,
       });
     }

@@ -4,7 +4,19 @@ import { createContext, useContext, useMemo, type ReactNode } from "react";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { extractLocalePrefix, buildPrefixedPath } from "@/lib/countries/geo";
 import { en, type TranslationKey } from "./dictionaries/en";
+import { da } from "./dictionaries/da";
+import { de } from "./dictionaries/de";
+import { es } from "./dictionaries/es";
+import { fi } from "./dictionaries/fi";
 import { fr } from "./dictionaries/fr";
+import { it } from "./dictionaries/it";
+import { lb } from "./dictionaries/lb";
+import { nl } from "./dictionaries/nl";
+import { no } from "./dictionaries/no";
+import { pl } from "./dictionaries/pl";
+import { pt } from "./dictionaries/pt";
+import { ro } from "./dictionaries/ro";
+import { sv } from "./dictionaries/sv";
 import { LANGUAGE_COOKIE_MAX_AGE, LANGUAGE_COOKIE_NAME, type LanguageCode } from "./config";
 
 export type SupportedLanguage = LanguageCode;
@@ -12,11 +24,35 @@ export type SupportedLanguage = LanguageCode;
 export const SUPPORTED_LANGUAGES: { code: SupportedLanguage; label: string }[] = [
   { code: "en", label: "English" },
   { code: "fr", label: "Français" },
+  { code: "da", label: "Dansk" },
+  { code: "de", label: "Deutsch" },
+  { code: "es", label: "Español" },
+  { code: "fi", label: "Suomi" },
+  { code: "it", label: "Italiano" },
+  { code: "lb", label: "Lëtzebuergesch" },
+  { code: "nl", label: "Nederlands" },
+  { code: "no", label: "Norsk" },
+  { code: "pl", label: "Polski" },
+  { code: "pt", label: "Português" },
+  { code: "ro", label: "Română" },
+  { code: "sv", label: "Svenska" },
 ];
 
 const dictionaries: Record<SupportedLanguage, Record<TranslationKey, string>> = {
   en,
   fr,
+  da,
+  de,
+  es,
+  fi,
+  it,
+  lb,
+  nl,
+  no,
+  pl,
+  pt,
+  ro,
+  sv,
 };
 
 type LanguageContextType = {
