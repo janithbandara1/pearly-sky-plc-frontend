@@ -52,8 +52,8 @@ export function TrustBar() {
         ))}
       </div>
 
-      <div className="mx-auto w-full overflow-hidden md:hidden">
-        <div className="flex w-max gap-2 motion-reduce:animate-none sm:gap-3 animate-marquee hover:[animation-play-state:paused]">
+      <div className="mx-auto w-full md:max-w-7xl lg:max-w-7xl overflow-hidden md:hidden">
+        <div className="flex w-max md:w-7xl lg:w-7xl gap-2 motion-reduce:animate-none sm:gap-3 animate-marquee hover:[animation-play-state:paused]">
           {[...items, ...items].map(({ Icon, label, description }, index) => (
             <div
               key={`${label}-${index}`}

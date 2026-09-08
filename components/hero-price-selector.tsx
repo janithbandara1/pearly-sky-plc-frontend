@@ -139,7 +139,7 @@ export function HeroPriceSelector({
         </div>
       </div>
 
-      <div className="absolute top-23 z-14 my-4 flex w-[320px] flex-row items-center gap-1 rounded-lg bg-[rgb(18,30,45)] px-2 py-4 md:hidden">
+      <div className="absolute top-17 z-14 my-4 flex w-[320px] flex-row items-center gap-1 rounded-lg bg-[rgb(18,30,45)] px-2 py-4 md:hidden">
         <PriceLabel
           selectedData={selectedData}
           className="w-[40%] text-[0.65rem] font-semibold text-[#A98B4B] max-[541px]:text-base max-[541px]:text-white"

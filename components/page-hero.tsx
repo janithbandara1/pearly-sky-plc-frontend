@@ -93,6 +93,33 @@ export function PageHero({
     activePrices.find((c) => c.country === selectedCountryCode) || activePrices[0];
   const SelectedFlag = getFlagComponent(selectedData.country);
 
+  /* const navigateToPreviousService = 
+                          [
+                            {slug:"regular-home-cleaning",label: "Regular Home Cleaning"},
+                            {slug:"quick-touch-up-cleaning",label: "Quick Touch-Up Cleaning"},
+                            {slug:"same-day-priority-cleaning",label: "Same-Day Priority Cleaning"},
+                            {slug:"deep-cleaning",label: "Deep Cleaning"},
+                            {slug:"end-of-tenancy-cleaning",label: "End of Tenancy Cleaning"},
+                            {slug:"post-construction-renovation-cleaning",label: "Post-Construction Renovation Cleaning"},
+                            {slug:"premium-rental-concierge-cleaning",label: "Premium Rental Concierge Cleaning"},
+                            {slug:"commercial-office-cleaning",label: "Commercial Office Cleaning"},
+                            {slug:"healthguard-sanitization",label: "Healthguard Sanitization"},
+                            {slug:"carpet-upholstery-cleaning",label: "Carpet and Upholstery Cleaning"},
+                            {slug:"steam-cleaning",label: "Steam Cleaning"},
+                            {slug:"post-event-cleaning",label: "Post-Event Cleaning"},
+                            {slug:"pool-cleaning",label: "Pool Cleaning"},
+                            {slug:"precision-pressure-washing",label: "Precision Pressure Washing"},
+                            {slug:"child-care-service",label: "Child Care Service"},
+                            {slug:"elder-care-service",label: "Elder Care Service"},
+                            {slug:"laundry-service",label: "Laundry Service"},
+                            {slug:"move-in-out-transport-service",label: "Move-In/Out Transport Service"},
+                            {slug:"high-security-property-care",label: "High Security Property Care"},
+                            {slug:"luxury-yacht-cleaning",label: "Luxury Yacht Cleaning"}
+                          ] */
+  
+
+  
+
   return (
     <section className="relative flex h-auto justify-center bg-transparent text-center mb-16 md:mb-12">
       <div className="lg:min-h-[75vh] lg:max-h-[80vh] md:min-h-[45vh] md:max-h-[80vh] h-[15vh] w-full overflow-hidden">
@@ -107,7 +134,7 @@ export function PageHero({
       </div>
 
       <div className="absolute top-1/2 -translate-y-1/2 flex items-center gap-2.5 md:block md:left-8 left-3 z-10 mx-auto max-w-lg md:max-w-3xl py-4 px-5 md:py-5 md:px-7 bg-[rgb(18,30,45)] border-2 border-[rgb(169,139,75)] md:border-0 md:border-transparent md:rounded-[20px]">
-        <Link href="/"
+        <Link href={"/"}
           className="inline-flex md:hidden shrink-0 items-center gap-2">
           <Image
             src="/images/services/service-back.svg"
