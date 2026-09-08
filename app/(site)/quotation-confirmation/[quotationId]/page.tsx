@@ -111,7 +111,7 @@ function QuotationStatus({ quotationId }: { quotationId: number }) {
 
   const downloadAction = (
     <a
-      href={getQuotationPdfUrl(quotationId, quotation.referenceNumber)}
+      href={getQuotationPdfUrl(quotationId, reference as string)}
       download
       className="flex h-11 w-full items-center justify-center gap-2 rounded-xl border border-brand-gold-dark/50 text-sm font-bold tracking-wider text-brand-navy transition hover:bg-brand-cream/60"
     >

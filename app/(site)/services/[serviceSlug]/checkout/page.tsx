@@ -374,7 +374,7 @@ export default function CheckoutPage({
       clearBookingDraft();
       router.push(
         `/quotation-confirmation/${quotation.id}?ref=${encodeURIComponent(
-          quotation.referenceNumber
+          quotation.accessToken
         )}`
       );
     } catch (err) {
@@ -476,7 +476,7 @@ export default function CheckoutPage({
           postalCode: addressForm?.postalCode?.trim() || undefined,
         });
         try {
-          const { redirectUrl } = await initiateGuestCheckout(booking.id, booking.referenceNumber);
+          const { redirectUrl } = await initiateGuestCheckout(booking.id, booking.accessToken);
           clearBookingDraft();
           window.location.assign(redirectUrl);
         } catch (checkoutErr) {

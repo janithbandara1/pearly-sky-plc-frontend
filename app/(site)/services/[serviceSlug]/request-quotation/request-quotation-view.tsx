@@ -446,7 +446,7 @@ export function RequestQuotationView({ serviceSlug }: { serviceSlug: string }) {
       setShowSuccessToast(true);
 
       setTimeout(() => {
-        router.push(`/quotation-confirmation/${quotation.id}?ref=${quotation.referenceNumber}`);
+        router.push(`/quotation-confirmation/${quotation.id}?ref=${encodeURIComponent(quotation.accessToken)}`);
       }, 1500);
     } catch (err) {
       setSubmitError(err instanceof ApiError ? err.message : "Failed to send your quotation request.");

@@ -58,6 +58,8 @@ export interface Quotation {
   customerId: number;
   serviceId: number;
   referenceNumber: string;
+  /** High-entropy capability token for the public status/PDF endpoints — never referenceNumber, which is guessable. */
+  accessToken: string;
   status: QuotationStatus;
   date: string | null;
   time: string | null;
@@ -103,9 +105,9 @@ export function getMyQuotation(accessToken: string, id: number) {
   return apiFetch<Quotation>(`/quotations/${id}`, { accessToken });
 }
 
-/** Public — the reference number authenticates the request, so this works for guests too. */
-export function getQuotationPdfUrl(id: number, referenceNumber: string) {
-  return apiUrl(`/quotations/${id}/pdf?ref=${encodeURIComponent(referenceNumber)}`);
+/** Public — the access token authenticates the request, so this works for guests too. */
+export function getQuotationPdfUrl(id: number, accessToken: string) {
+  return apiUrl(`/quotations/${id}/pdf?ref=${encodeURIComponent(accessToken)}`);
 }
 
 export interface QuotationStatusSummary {
@@ -122,10 +124,10 @@ export interface QuotationStatusSummary {
   deliveryCity: string | null;
 }
 
-/** Public — the reference number authenticates the request, so this works for guests too. */
-export function getQuotationStatus(id: number, referenceNumber: string) {
+/** Public — the access token authenticates the request, so this works for guests too. */
+export function getQuotationStatus(id: number, accessToken: string) {
   return apiFetch<QuotationStatusSummary>(
-    `/quotations/${id}/status?ref=${encodeURIComponent(referenceNumber)}`,
+    `/quotations/${id}/status?ref=${encodeURIComponent(accessToken)}`,
   );
 }
 

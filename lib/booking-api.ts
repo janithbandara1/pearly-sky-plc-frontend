@@ -92,6 +92,8 @@ export interface BookingAddress {
 export interface Booking {
   id: number;
   referenceNumber: string;
+  /** High-entropy capability token for the public guest checkout/status/PDF endpoints — never referenceNumber, which is guessable. */
+  accessToken: string;
   status: "pending" | "confirmed" | "cancelled";
   price: string | null;
   currency: string | null;
@@ -164,16 +166,16 @@ export interface BookingStatusSummary {
   } | null;
 }
 
-/** Public — the reference number authenticates the request, so this works for guests too. */
-export function getBookingStatus(bookingId: number, referenceNumber: string) {
+/** Public — the access token authenticates the request, so this works for guests too. */
+export function getBookingStatus(bookingId: number, accessToken: string) {
   return apiFetch<BookingStatusSummary>(
-    `/bookings/${bookingId}/status?ref=${encodeURIComponent(referenceNumber)}`,
+    `/bookings/${bookingId}/status?ref=${encodeURIComponent(accessToken)}`,
   );
 }
 
-/** Public — the reference number authenticates the request, so this works for guests too. */
-export function getBookingPdfUrl(bookingId: number, referenceNumber: string) {
-  return apiUrl(`/bookings/${bookingId}/pdf?ref=${encodeURIComponent(referenceNumber)}`);
+/** Public — the access token authenticates the request, so this works for guests too. */
+export function getBookingPdfUrl(bookingId: number, accessToken: string) {
+  return apiUrl(`/bookings/${bookingId}/pdf?ref=${encodeURIComponent(accessToken)}`);
 }
 
 export function initiateCheckout(accessToken: string, bookingId: number) {
@@ -184,9 +186,10 @@ export function initiateCheckout(accessToken: string, bookingId: number) {
   });
 }
 
-export function initiateGuestCheckout(bookingId: number, referenceNumber: string) {
+/** `bookingAccessToken` is the booking's own capability token (Booking.accessToken), not a session token. */
+export function initiateGuestCheckout(bookingId: number, bookingAccessToken: string) {
   return apiFetch<{ redirectUrl: string }>(`/payments/bookings/${bookingId}/checkout/guest`, {
     method: "POST",
-    body: { provider: "stripe", referenceNumber },
+    body: { provider: "stripe", accessToken: bookingAccessToken },
   });
 }
