@@ -39,7 +39,7 @@ export function TrustBar() {
         {items.map(({ Icon, label, description }) => (
           <div
             key={label}
-            className="flex min-h-[148px] flex-col items-center justify-start rounded-[7px] border border-brand-gold/20 bg-brand-navy px-2 py-4 text-center text-brand-navy-foreground sm:min-h-[158px] sm:px-3 sm:py-5 lg:min-h-[164px] lg:px-4"
+            className="flex min-h-[148px]  flex-col items-center justify-start rounded-[7px] border border-brand-gold/20 bg-brand-navy px-2 py-4 text-center text-brand-navy-foreground sm:min-h-[158px] sm:px-3 sm:py-5 lg:min-h-[164px] lg:px-4"
           >
             <Icon className="mb-2 h-9 w-9 shrink-0 stroke-[1.5] text-brand-gold sm:mb-2.5 sm:h-10 sm:w-10 lg:h-11 lg:w-11" />
             <h2 className="max-w-[170px] text-[11px] font-bold uppercase leading-[1.18] tracking-[0.01em] md:max-w-[250px] md:text-[15px] lg:max-w-[230px] lg:text-lg">
@@ -58,7 +58,7 @@ export function TrustBar() {
             <div
               key={`${label}-${index}`}
               aria-hidden={index >= items.length}
-              className="flex min-h-[148px] w-[min(78vw,18rem)] shrink-0 flex-col items-center justify-start rounded-[7px] border border-brand-gold/20 bg-brand-navy px-2 py-4 text-center text-brand-navy-foreground sm:min-h-[158px] sm:px-3 sm:py-5"
+              className="flex min-h-[148px] w-[200px] shrink-0 flex-col items-center justify-start rounded-[7px] border border-brand-gold/20 bg-brand-navy px-2 py-4 text-center text-brand-navy-foreground sm:min-h-[158px] sm:px-3 sm:py-5"
             >
               <Icon className="mb-2 h-9 w-9 shrink-0 stroke-[1.5] text-brand-gold sm:mb-2.5 sm:h-10 sm:w-10" />
               <h2 className="max-w-[170px] text-[11px] font-bold uppercase leading-[1.18] tracking-[0.01em] sm:text-[15px]">
