@@ -92,7 +92,20 @@ function CountryPicker({
       </button>
 
       {isOpen && (
-        <div className="absolute right-0 bottom-full z-50 mb-2 w-56 overflow-hidden rounded-l-lg border border-[rgb(169,139,75)]/40 bg-[rgb(18,30,45)] shadow-xl">
+        <div className="absolute hidden md:block right-0 bottom-full z-50 mb-2 w-56 overflow-hidden rounded-l-lg border border-[rgb(169,139,75)]/40 bg-[rgb(18,30,45)] shadow-xl">
+          <CountryOptions
+            activePrices={activePrices}
+            selectedCountryCode={selectedCountryCode}
+            getFlagComponent={getFlagComponent}
+            onCountryChange={(country) => {
+              onCountryChange(country);
+              setIsOpen(false);
+            }}
+          />
+        </div>
+      )}
+      {isOpen && (
+        <div className="absolute block md:hidden -right-[150px] -top-28 max-h-[200px] z-50 mb-2 w-35 overflow-hidden rounded-l-lg border border-[rgb(169,139,75)]/40 bg-[rgb(18,30,45)] shadow-xl">
           <CountryOptions
             activePrices={activePrices}
             selectedCountryCode={selectedCountryCode}
