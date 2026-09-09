@@ -2,7 +2,7 @@
 
 import { ColumnDef } from "@tanstack/react-table";
 import { Pencil, Trash2 } from "lucide-react";
-import { ChangeEvent, useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import {
@@ -45,7 +45,7 @@ import { useStaffAuth } from "@/lib/staff-auth-context";
 
 const ITEM_TYPES = ["Cleaning Solvents", "Cleaning Equipments"] as const;
 
-const emptyForm: CreateItemPayload = { name: "", sku: "", type: "", image: "" };
+const emptyForm: CreateItemPayload = { name: "", sku: "", type: "" };
 
 export default function AdminCatalogItemsPage() {
   const { accessToken } = useStaffAuth();
@@ -77,17 +77,9 @@ export default function AdminCatalogItemsPage() {
 
   function openEdit(item: CatalogItem) {
     setEditing(item);
-    setForm({ name: item.name, sku: item.sku, type: item.type, image: item.image ?? "" });
+    setForm({ name: item.name, sku: item.sku, type: item.type });
     setPrices(fromCountryPricesPayload(item.prices));
     setOpen(true);
-  }
-
-  function handleImageFileChange(e: ChangeEvent<HTMLInputElement>) {
-    const file = e.target.files?.[0];
-    if (!file) return;
-    const reader = new FileReader();
-    reader.onload = () => setForm((prev) => ({ ...prev, image: reader.result as string }));
-    reader.readAsDataURL(file);
   }
 
   async function handleSubmit() {
@@ -161,7 +153,7 @@ export default function AdminCatalogItemsPage() {
             <DialogHeader>
               <DialogTitle>{editing ? "Edit item" : "Add item"}</DialogTitle>
             </DialogHeader>
-            <div className="grid grid-cols-2 gap-3">
+            <div className="grid max-h-[65vh] grid-cols-2 gap-3 overflow-y-auto pr-1">
               <div className="flex flex-col gap-1">
                 <Label htmlFor="name">Name</Label>
                 <Input id="name" value={form.name} onChange={(e) => setForm({ ...form, name: e.target.value })} />
@@ -190,18 +182,6 @@ export default function AdminCatalogItemsPage() {
               </div>
               <div className="col-span-2">
                 <CountryPricesField prices={prices} onChange={setPrices} />
-              </div>
-              <div className="col-span-2 flex flex-col gap-1">
-                <Label htmlFor="image">Image</Label>
-                {form.image && (
-                  // eslint-disable-next-line @next/next/no-img-element
-                  <img
-                    src={form.image}
-                    alt=""
-                    className="h-24 w-24 rounded-lg border object-cover"
-                  />
-                )}
-                <Input id="image" type="file" accept="image/*" onChange={handleImageFileChange} />
               </div>
             </div>
             <DialogFooter>

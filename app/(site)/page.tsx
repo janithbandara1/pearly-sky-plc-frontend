@@ -9,12 +9,14 @@ import { SectorsMarquee } from "@/components/home/sectors-marquee";
 import { MomentsOfExcellence } from "@/components/home/moments-of-excellence";
 import { Testimonials } from "@/components/home/testimonials";
 import { RecentArticles } from "@/components/home/recent-articles";
-import { ContactSection } from "@/components/home/contact-section";
+import { ContactSection } from "@/components/home/home-contact-us";
 import { buildCountryAlternates, buildSocialMeta } from "@/lib/countries/seo";
 import { getRequestCountry } from "@/lib/countries/server";
 import { getRequestLanguage } from "@/lib/i18n/server";
 import { getCountryPageMeta } from "@/lib/countries/meta-data";
-
+import { Welcome } from "@/components/home/welcome";
+import { VisionaryTeam } from "@/components/home/visionary-team";
+ 
 export const dynamic = "force-dynamic";
 
 export async function generateMetadata(): Promise<Metadata> {
@@ -38,8 +40,10 @@ export default async function Home() {
       <Hero />
       <TrustBar />
       <ServicesSection services={services} />
+      <Welcome />
       <AboutSection />
       <CoverageStrip />
+      <VisionaryTeam />
       <SectorsMarquee />
       <MomentsOfExcellence />
       <Testimonials />

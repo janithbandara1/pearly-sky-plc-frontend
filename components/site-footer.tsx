@@ -9,11 +9,11 @@ import {
 } from "react-icons/ai";
 import { FaFacebookF, FaYoutube, FaLinkedinIn, FaWhatsapp } from "react-icons/fa";
 import { RiTwitterXFill } from "react-icons/ri";
-import { ChevronDown, ChevronUp, Phone } from "lucide-react";
+import { ChevronDown, ChevronUp, Mail, Phone } from "lucide-react";
 import { useLanguage } from "@/lib/i18n/language-context";
 import { useCountry } from "@/lib/countries/country-context";
 import { getCountryHomeContent } from "@/lib/countries/home-content";
-import { getCountryOffice, getWhatsappUrl } from "@/lib/countries/office";
+import { getCountryContactEmail, getCountryOffice, getWhatsappUrl } from "@/lib/countries/office";
 import { LanguageSwitcher } from "@/components/language-switcher";
 import { CountrySwitcher } from "@/components/country-switcher";
 import { ServicesNavList } from "@/components/services-nav-list";
@@ -48,104 +48,85 @@ export function SiteFooter() {
   const office = getCountryOffice(country);
   const hotline = office.contactNo ?? "";
   const whatsappUrl = getWhatsappUrl(hotline);
+  const contactEmail = getCountryContactEmail(country);
 
   return (
-    <footer className="border-t border-border/60 bg-brand-navy text-brand-navy-foreground">
-      <div className="flex justify-center border-b border-brand-gold/20 px-4 py-3 sm:px-6">
-        <div className="flex flex-wrap items-center gap-3">
-          <LanguageSwitcher />
-          <CountrySwitcher />
+    <footer className="border-t border-brand-gold/30 bg-brand-navy text-brand-navy-foreground">
+      <div className="flex justify-center px-4 pb-2 pt-4 sm:pt-5">
+        <div className="flex flex-wrap items-center justify-center gap-2">
+          <LanguageSwitcher className="h-8 border-brand-gold/70 bg-transparent text-xs" />
+          <CountrySwitcher className="h-8 border-brand-gold/70 bg-transparent text-xs" />
         </div>
       </div>
 
-      <div className="mx-auto grid w-full max-w-7xl gap-10 px-4 py-12 sm:px-6 md:grid-cols-2 lg:grid-cols-4">
-        <div className="flex flex-col items-center gap-4 text-center lg:items-start lg:text-left">
-          <Image
-            src="/images/brand/logo.webp"
-            alt="Pearly Sky"
-            width={120}
-            height={120}
-            className="rounded-full bg-brand-navy"
-          />
-          <p className="max-w-xs text-sm text-brand-navy-foreground/70">
+      <div className="mx-auto grid w-full max-w-7xl items-start gap-8 px-4 py-8 sm:px-8 md:grid-cols-3 md:gap-10 lg:px-12">
+        <div className="order-2 flex flex-col items-center text-center md:order-1 md:items-start md:text-left">
+          <h3 className="text-base font-semibold text-brand-gold sm:text-lg">{translate("quickConnect")}</h3>
+          <div className="mt-4 flex flex-wrap justify-center gap-2 md:justify-start">
+            <a href={whatsappUrl} target="_blank" rel="noopener noreferrer" className="flex items-center gap-1.5 rounded-md bg-brand-gold px-3 py-2 text-[11px] font-semibold text-brand-navy shadow-sm transition-colors hover:bg-brand-gold/80">
+              <FaWhatsapp className="h-3.5 w-3.5" /> {translate("contactWhatsapp")}
+            </a>
+            <a href={`tel:${hotline.replace(/\s/g, "")}`} className="flex items-center gap-1.5 rounded-md bg-brand-gold px-3 py-2 text-[11px] font-semibold text-brand-navy shadow-sm transition-colors hover:bg-brand-gold/80">
+              <Phone className="h-3.5 w-3.5" /> {translate("contactHotline")}
+            </a>
+          </div>
+          <span className="mt-4 text-xs font-medium tracking-wide text-brand-navy-foreground/90">{translate("writeUs")}</span>
+          <a href={`mailto:${contactEmail}`} className="mt-2 flex w-full max-w-[245px] items-center justify-center gap-2 rounded-md bg-brand-gold px-4 py-2 text-xs font-semibold text-brand-navy shadow-sm transition-colors hover:bg-brand-gold/80">
+            <Mail className="h-3.5 w-3.5" /> MAIL
+          </a>
+          <span className="mt-5 text-xs font-medium tracking-wide text-brand-navy-foreground/90">{translate("connectWithUs")}:</span>
+          <SocialLinks />
+        </div>
+
+        <div className="order-1 flex flex-col items-center text-center md:order-2">
+          <address className="mt-4 whitespace-pre-line text-left text-xs not-italic leading-relaxed text-brand-navy-foreground/75">
+            {office.address ?? "Address available on request"}
+          </address>
+          <div className="flex h-30 w-42 items-center justify-center bg-brand-navy/40" aria-label="Logo placeholder">
+            <Image src="/images/brand/logo.webp" alt="Pearly Sky logo" width={100} height={100} className="max-h-30 w-auto object-contain" />
+          </div>
+          <h2 className="mt-2 font-serif text-3xl lowercase tracking-wide text-brand-gold sm:text-4xl">pearly sky</h2>
+          <p className="text-[11px] text-brand-gold/90">Eco-Luxury Cleaning</p>
+          <p className="mt-5 text-sm text-brand-navy-foreground/85">
+            {translate("numberNow")}
+          </p>
+          <p className="mt-3 max-w-xs text-xs leading-relaxed text-brand-navy-foreground/60">
             {footerTagline}
           </p>
         </div>
 
-        <div className="space-y-3 text-center md:text-left">
-          <h3 className="text-sm font-bold tracking-widest text-brand-gold">
-            {translate("footerQuickLinksTitle")}
-          </h3>
-          <ul className="space-y-2 text-sm text-brand-navy-foreground/70">
-            <li>
-              <Link href="/" className="transition-colors hover:text-brand-gold">
-                {translate("navHome")}
-              </Link>
-            </li>
-            <li>
-              <button
-                type="button"
-                onClick={() => setServicesOpen((open) => !open)}
-                aria-expanded={servicesOpen}
-                className="flex w-full items-center justify-center gap-1 text-center transition-colors hover:text-brand-gold md:justify-between md:text-left"
-              >
-                {translate("navServices")}
-                {servicesOpen ? <ChevronUp className="size-3.5" /> : <ChevronDown className="size-3.5" />}
-              </button>
-              {servicesOpen && (
-                <div className="mt-2 overflow-hidden rounded-lg bg-popover text-popover-foreground shadow">
-                  <ServicesNavList className="w-full grid-cols-1" />
-                </div>
-              )}
-            </li>
-            {NAV_LINKS.slice(1).map((link) => (
-              <li key={link.href}>
-                <Link href={link.href} className="transition-colors hover:text-brand-gold">
-                  {translate(link.labelKey)}
-                </Link>
+        <div className="order-3 flex flex-col items-center text-center md:items-start md:text-left">
+          <h3 className="text-base font-semibold text-brand-gold sm:text-lg">{translate("footerQuickLinksTitle")}</h3>
+          <div className="mt-3 grid w-full grid-cols-2 gap-x-6">
+            <ul className="space-y-1 text-xs text-brand-navy-foreground/85">
+              {NAV_LINKS.slice(0, 4).map((link) => (
+                <li key={link.href}><Link href={link.href} className="transition-colors hover:text-brand-gold">{translate(link.labelKey)}</Link></li>
+              ))}
+            </ul>
+            <ul className="space-y-1 text-xs text-brand-navy-foreground/85">
+              {NAV_LINKS.slice(4).map((link) => (
+                <li key={link.href}><Link href={link.href} className="transition-colors hover:text-brand-gold">{translate(link.labelKey)}</Link></li>
+              ))}
+              <li>
+                <button type="button" onClick={() => setServicesOpen((open) => !open)} aria-expanded={servicesOpen} className="flex items-center gap-1 transition-colors hover:text-brand-gold">
+                  {translate("navServices")}
+                  {servicesOpen ? <ChevronUp className="size-3" /> : <ChevronDown className="size-3" />}
+                </button>
+                {servicesOpen && <div className="mt-2 rounded-md bg-popover text-popover-foreground shadow"><ServicesNavList className="w-full grid-cols-1" /></div>}
               </li>
-            ))}
-          </ul>
-        </div>
-
-        <div className="flex flex-col items-center gap-3 text-center lg:items-start lg:text-left">
-          <div className="flex flex-wrap items-center justify-center gap-2 lg:justify-start">
-            <a
-              href={whatsappUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex items-center gap-2 rounded border border-white/40 px-3 py-1.5 text-xs font-semibold transition-colors hover:border-brand-gold hover:text-brand-gold"
-            >
-              <FaWhatsapp className="h-3.5 w-3.5" />
-              {translate("contactWhatsapp")}
-            </a>
-            <a
-              href={`tel:${hotline.replace(/\s/g, "")}`}
-              className="flex items-center gap-2 rounded border border-white/40 px-3 py-1.5 text-xs font-semibold transition-colors hover:border-brand-gold hover:text-brand-gold"
-            >
-              <Phone className="h-3.5 w-3.5" />
-              {translate("contactHotline")}
-            </a>
+            </ul>
           </div>
-        </div>
+          
 
-        <div className="flex justify-center gap-2 lg:justify-start">
-          {SOCIAL_LINKS.map(({ href, label, Icon }) => (
-            <a
-              key={label}
-              href={href}
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label={label}
-              className="flex h-9 w-9 items-center justify-center rounded-full border border-brand-gold/50 text-brand-navy-foreground transition-colors hover:bg-brand-gold hover:text-brand-navy"
-            >
-              <Icon className="h-4 w-4" />
-            </a>
-          ))}
+          <div className="relative my-4 h-[120px] w-[120px] overflow-hidden rounded-md border border-brand-gold/70 bg-brand-navy/40">
+            <Image src="/images/hero/qr.jpeg" alt="Eco-friendly" fill className="object-cover" />
+          </div>
+
+          <SocialLinks />
         </div>
       </div>
 
-      <div className="flex flex-col items-center gap-2 border-t border-brand-gold/20 px-4 py-4 text-center text-xs text-brand-navy-foreground/60 sm:flex-row sm:justify-between sm:px-6">
+      <div className="flex flex-col items-center gap-2 border-t border-brand-gold/20 px-4 py-3 text-center text-[11px] text-brand-navy-foreground/70 sm:flex-row sm:justify-between sm:px-6">
         <p>
           © {new Date().getFullYear()} Pearly Sky. {translate("footerRights")}
         </p>
@@ -159,5 +140,17 @@ export function SiteFooter() {
         </div>
       </div>
     </footer>
+  );
+}
+
+function SocialLinks() {
+  return (
+    <div className="mt-3 flex flex-wrap justify-center gap-2 md:justify-start">
+      {SOCIAL_LINKS.map(({ href, label, Icon }) => (
+        <a key={label} href={href} target="_blank" rel="noopener noreferrer" aria-label={label} className="flex h-8 w-8 items-center justify-center rounded-full border border-brand-gold/70 bg-brand-gold/15 text-brand-navy-foreground transition-colors hover:bg-brand-gold hover:text-brand-navy">
+          <Icon className="h-3.5 w-3.5" />
+        </a>
+      ))}
+    </div>
   );
 }

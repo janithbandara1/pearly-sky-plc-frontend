@@ -1,6 +1,27 @@
 import { apiFetch } from "./api";
+import { TranslationKey } from "./i18n/dictionaries/en";
 
-export type ServiceCategory = "property_care" | "bespoke_lifestyle";
+export type ServiceCategory = "care_and_concierge" | "commercial_and_specialized_cleaning" | "premium_add_ons" | "residential_cleaning";
+
+export type PackageCategory =
+  | "deep_and_specialized_cleaning"
+  | "general_interior_maintenance"
+  | "lifestyle_and_home_care"
+  | "outdoor_and_exterior_spaces";
+
+export const PACKAGE_CATEGORIES: PackageCategory[] = [
+  "deep_and_specialized_cleaning",
+  "general_interior_maintenance",
+  "lifestyle_and_home_care",
+  "outdoor_and_exterior_spaces",
+];
+
+export const PACKAGE_CATEGORY_LABELS: Record<PackageCategory, TranslationKey> = {
+  deep_and_specialized_cleaning: "CategoryDeepSpecialized",
+  general_interior_maintenance: "CategoryGeneralInterior",
+  lifestyle_and_home_care: "CategoryLifeStyle",
+  outdoor_and_exterior_spaces: "CategoryDeepOutDoor",
+};
 
 export interface ServicePriceEntry {
   country: string;
@@ -28,11 +49,9 @@ export interface CatalogService {
 
 export interface ServiceAddOnPackage {
   id: number;
-  name: string;
-  /** Resolved for the request's country; null if unset or no country. */
-  price: string | null;
-  prices: ServicePriceEntry[];
+  name: TranslationKey;
   image: string | null;
+  category: PackageCategory;
 }
 
 export interface CatalogServiceDetail extends CatalogService {
@@ -58,7 +77,6 @@ export interface CatalogItem {
   price: string | null;
   prices: ServicePriceEntry[];
   type: string;
-  image: string | null;
 }
 
 export function getServices(country?: string | null) {

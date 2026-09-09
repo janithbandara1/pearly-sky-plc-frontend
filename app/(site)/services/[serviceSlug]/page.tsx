@@ -7,6 +7,9 @@ import { getServiceMeta } from "@/lib/countries/service-meta";
 import { buildBreadcrumbJsonLd } from "@/lib/seo/json-ld";
 import { JsonLd } from "@/components/json-ld";
 import { ServiceBookingView } from "./service-booking-view";
+import JoinWithUsSection from "@/components/booking/join-with-us-section";
+import RelatedServices from "@/components/services-links";
+import PaymentMarquee from "@/components/payment-method-services";
 
 export async function generateMetadata({
   params,
@@ -17,7 +20,7 @@ export async function generateMetadata({
   const alternates = buildCountryAlternates(`/services/${serviceSlug}`, { country, language });
   const override = getServiceMeta(serviceSlug, country);
 
-  try {
+  try { 
     const service = await getServiceBySlug(serviceSlug, country);
     const title = override?.title || `${service.label} | Pearly Sky`;
     const description =
@@ -49,6 +52,9 @@ export default async function ServiceDetailPage({
         ])}
       />
       <ServiceBookingView serviceSlug={serviceSlug} />
+      <JoinWithUsSection />
+      <RelatedServices />
+      <PaymentMarquee />
     </>
   );
 }

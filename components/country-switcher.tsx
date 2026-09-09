@@ -1,7 +1,33 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { FR, GB, LK } from "country-flag-icons/react/3x2";
+import {
+  FR,
+  DE,
+  LU,
+  NL,
+  FI,
+  SE,
+  IT,
+  PL,
+  BE,
+  AT,
+  DK,
+  ES,
+  PT,
+  RO,
+  GB,
+  US,
+  CA,
+  AU,
+  NZ,
+  QA,
+  SA,
+  AE,
+  OM,
+  BH,
+  LK,
+} from "country-flag-icons/react/3x2";
 import { getCountries, type CountryMeta } from "@/lib/countries/api";
 import { SUPPORTED_COUNTRIES, type CountryCode } from "@/lib/countries/config";
 import { useCountry } from "@/lib/countries/country-context";
@@ -16,13 +42,57 @@ import { cn } from "@/lib/utils";
 
 export const FALLBACK_COUNTRY_NAMES: Record<CountryCode, string> = {
   fr: "France",
+  de: "Germany",
+  lu: "Luxembourg",
+  nl: "Netherlands",
+  fi: "Finland",
+  se: "Sweden",
+  it: "Italy",
+  pl: "Poland",
+  be: "Belgium",
+  at: "Austria",
+  dk: "Denmark",
+  es: "Spain",
+  pt: "Portugal",
+  ro: "Romania",
   gb: "United Kingdom",
+  us: "United States",
+  ca: "Canada",
+  au: "Australia",
+  nz: "New Zealand",
+  qa: "Qatar",
+  sa: "Saudi Arabia",
+  ae: "United Arab Emirates",
+  om: "Oman",
+  bh: "Bahrain",
   lk: "Sri Lanka",
 };
 
 export const COUNTRY_FLAGS: Record<CountryCode, typeof FR> = {
   fr: FR,
+  de: DE,
+  lu: LU,
+  nl: NL,
+  fi: FI,
+  se: SE,
+  it: IT,
+  pl: PL,
+  be: BE,
+  at: AT,
+  dk: DK,
+  es: ES,
+  pt: PT,
+  ro: RO,
   gb: GB,
+  us: US,
+  ca: CA,
+  au: AU,
+  nz: NZ,
+  qa: QA,
+  sa: SA,
+  ae: AE,
+  om: OM,
+  bh: BH,
   lk: LK,
 };
 

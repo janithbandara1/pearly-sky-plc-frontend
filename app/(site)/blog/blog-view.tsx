@@ -16,6 +16,7 @@ export function BlogView() {
         image="/images/about/hero.webp"
         title={translate("blogPageTitle")}
         subtitle={translate("blogPageSubtitle")}
+        hidePriceSelector
       />
 
       <section className="mx-auto w-full max-w-6xl px-4 py-16 sm:px-6">

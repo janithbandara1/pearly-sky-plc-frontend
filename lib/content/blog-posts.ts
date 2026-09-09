@@ -33,7 +33,7 @@ export const blogPosts: BlogPost[] = [
       "2. Tackle high-touch surfaces first. Door handles, countertops, and remote controls collect the most daily grime and deserve priority over less-used areas.",
       "3. Keep a 'reset' basket by the door for items that don't belong in the room they end up in — clear it once a day instead of letting clutter migrate.",
       "4. Let the right products do the work. Multi-surface eco-friendly cleaners cut down on the number of products (and decisions) you need mid-week.",
-      "5. Outsource what doesn't need to be yours. A scheduled professional clean — like Pearly Sky's Regular Maintenance Cleaning — frees up the hours that matter more to you.",
+      "5. Outsource what doesn't need to be yours. A scheduled professional clean — like Pearly Sky's Regular Home Cleaning — frees up the hours that matter more to you.",
     ],
   },
   {
