@@ -1764,6 +1764,8 @@ export const pl = {
   confirmLoading: "Ładowanie…",
   confirmNeedHelp: "Potrzebujesz pomocy?",
   confirmContactSupport: "Skontaktuj się z obsługą klienta",
+  confirmScanQr: "Zeskanuj, aby zobaczyć szczegóły",
+  confirmScanQrHint: "Zeskanuj ten kod telefonem, aby otworzyć pełne szczegóły online w dowolnym momencie.",
 
   // Quotation Confirmation Page
   quotConfirmHeadline: "Otrzymaliśmy Twoje zapytanie o wycenę!",

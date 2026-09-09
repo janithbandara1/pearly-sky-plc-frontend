@@ -1724,6 +1724,8 @@ export const fi = {
   confirmLoading: "Ladataan…",
   confirmNeedHelp: "Tarvitsetko apua?",
   confirmContactSupport: "Ota yhteyttä tukeen",
+  confirmScanQr: "Skannaa nähdäksesi tiedot",
+  confirmScanQrHint: "Skannaa tämä koodi puhelimellasi avataksesi kaikki tiedot verkossa milloin tahansa.",
 
   // Quotation Confirmation Page
   quotConfirmHeadline: "Olemme vastaanottaneet tarjouspyyntösi!",

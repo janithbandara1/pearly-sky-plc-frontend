@@ -1719,6 +1719,8 @@ export const es = {
   confirmLoading: "Cargando…",
   confirmNeedHelp: "¿Necesita ayuda?",
   confirmContactSupport: "Contactar con soporte",
+  confirmScanQr: "Escanea para ver los detalles",
+  confirmScanQrHint: "Escanea este código con tu teléfono para abrir todos los detalles en línea, en cualquier momento.",
 
   // Quotation Confirmation Page
   quotConfirmHeadline: "¡Hemos recibido su solicitud de cotización!",

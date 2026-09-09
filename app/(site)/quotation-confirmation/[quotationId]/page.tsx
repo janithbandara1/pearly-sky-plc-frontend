@@ -16,6 +16,8 @@ import {
   getQuotationStatus,
 } from "@/lib/quotation-api";
 
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000";
+
 function formatLocation(streetAddress: string, city: string): string {
   return [streetAddress, city].filter(Boolean).join(", ") || "—";
 }
@@ -115,6 +117,7 @@ function QuotationStatus({ quotationId }: { quotationId: number }) {
   ];
 
   const dashboardHref = authStatus === "authenticated" ? "/quotations" : "/signup";
+  const quotationDetailsUrl = `${SITE_URL}/quotations/${quotationId}`;
 
   const downloadAction = (
     <a
@@ -138,6 +141,7 @@ function QuotationStatus({ quotationId }: { quotationId: number }) {
       infoBody={translate("quotConfirmInfoBody")}
       primaryAction={{ label: translate("quotConfirmPrimaryAction"), href: dashboardHref }}
       secondaryActions={downloadAction}
+      qrCodeUrl={quotationDetailsUrl}
     />
   );
 }

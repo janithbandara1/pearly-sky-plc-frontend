@@ -1761,6 +1761,8 @@ AddOnsDefaultCatagoryBalcony: "Nettoyage de balcon et de terrasse",
   confirmLoading: "Chargement\u2026",
   confirmNeedHelp: "Besoin d'aide ?",
   confirmContactSupport: "Contacter le support",
+  confirmScanQr: "Scannez pour voir les détails",
+  confirmScanQrHint: "Scannez ce code avec votre téléphone pour consulter tous les détails en ligne, à tout moment.",
 
   // Quotation Confirmation Page
   quotConfirmHeadline: "Nous avons bien reçu votre demande de devis !",

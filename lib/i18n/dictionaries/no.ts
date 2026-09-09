@@ -1764,6 +1764,8 @@ export const no = {
   confirmLoading: "Laster…",
   confirmNeedHelp: "Trenger du hjelp?",
   confirmContactSupport: "Kontakt kundestøtte",
+  confirmScanQr: "Skann for å se detaljer",
+  confirmScanQrHint: "Skann denne koden med telefonen din for å åpne alle detaljer på nettet, når som helst.",
 
   // Quotation Confirmation Page
   quotConfirmHeadline: "Vi har mottatt din tilbudsforespørsel!",

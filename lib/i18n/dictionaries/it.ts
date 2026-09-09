@@ -1725,6 +1725,8 @@ export const it = {
   confirmLoading: "Caricamento in corso…",
   confirmNeedHelp: "Hai bisogno di aiuto?",
   confirmContactSupport: "Contatta il supporto",
+  confirmScanQr: "Scansiona per vedere i dettagli",
+  confirmScanQrHint: "Scansiona questo codice con il tuo telefono per aprire tutti i dettagli online, in qualsiasi momento.",
 
   // Quotation Confirmation Page
   quotConfirmHeadline: "Abbiamo ricevuto la tua richiesta di preventivo!",

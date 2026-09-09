@@ -1748,6 +1748,8 @@ export const nl = {
   confirmLoading: "Laden…",
   confirmNeedHelp: "Hulp nodig?",
   confirmContactSupport: "Neem contact op met support",
+  confirmScanQr: "Scan om details te bekijken",
+  confirmScanQrHint: "Scan deze code met je telefoon om alle details online te openen, wanneer je maar wilt.",
 
   // Quotation Confirmation Page
   quotConfirmHeadline: "We hebben uw offerteaanvraag ontvangen!",

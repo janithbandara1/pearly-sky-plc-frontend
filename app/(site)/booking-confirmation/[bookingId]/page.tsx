@@ -27,6 +27,8 @@ import {
 import { useCurrency } from "@/lib/currency-context";
 import { useLanguage } from "@/lib/i18n/language-context";
 
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000";
+
 function formatLocation(address: BookingStatusSummary["address"]): string {
   if (!address) return "—";
   return [address.streetAddress, address.city].filter(Boolean).join(", ");
@@ -138,6 +140,7 @@ function BookingStatus({ bookingId }: { bookingId: number }) {
   ];
 
   const dashboardHref = authStatus === "authenticated" ? "/bookings" : "/signup";
+  const bookingDetailsUrl = `${SITE_URL}/bookings/${bookingId}`;
 
   const downloadAction = (
     <a
@@ -178,6 +181,7 @@ function BookingStatus({ bookingId }: { bookingId: number }) {
         infoBody={translate("bookConfirmInfoBodyConfirmed")}
         primaryAction={{ label: translate("bookConfirmPrimaryAction"), href: dashboardHref }}
         secondaryActions={downloadAction}
+        qrCodeUrl={bookingDetailsUrl}
       />
     );
   }
@@ -223,6 +227,7 @@ function BookingStatus({ bookingId }: { bookingId: number }) {
             {downloadAction}
           </div>
         }
+        qrCodeUrl={bookingDetailsUrl}
       />
     );
   }
@@ -249,6 +254,7 @@ function BookingStatus({ bookingId }: { bookingId: number }) {
       infoTitle={translate("bookConfirmInfoTitle")}
       infoBody={translate("bookConfirmInfoBodyCancelled")}
       primaryAction={{ label: translate("bookConfirmPrimaryAction"), href: dashboardHref }}
+      qrCodeUrl={bookingDetailsUrl}
     />
   );
 }

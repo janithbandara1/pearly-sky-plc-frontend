@@ -1799,6 +1799,8 @@ serviceLuxuryYachtCleaningTitleFiveFeatureTwo:"Complete linen turnover, sanitati
   confirmLoading: "Loading\u2026",
   confirmNeedHelp: "Need Help?",
   confirmContactSupport: "Contact Support",
+  confirmScanQr: "Scan to View Details",
+  confirmScanQrHint: "Scan this code with your phone to open the full details online, anytime.",
 
   // Quotation Confirmation Page
   quotConfirmHeadline: "We've Received Your Quotation Request!",

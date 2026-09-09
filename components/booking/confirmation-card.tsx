@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { ReactNode } from "react";
 import { ArrowLeft, LucideIcon, Sparkles } from "lucide-react";
+import { QRCodeSVG } from "qrcode.react";
 import { useLanguage } from "@/lib/i18n/language-context";
 
 export interface ConfirmationStatusRow {
@@ -28,6 +29,8 @@ export interface ConfirmationCardProps {
   primaryAction: { label: string; href: string };
   /** Extra buttons rendered above the primary green action (e.g. "Complete payment", "Download PDF"). */
   secondaryActions?: ReactNode;
+  /** Absolute URL to encode as a QR code, shown beside the card (e.g. a link to the booking/quotation details page). */
+  qrCodeUrl?: string;
 }
 
 export function ConfirmationCard({
@@ -41,6 +44,7 @@ export function ConfirmationCard({
   infoBody,
   primaryAction,
   secondaryActions,
+  qrCodeUrl,
 }: ConfirmationCardProps) {
   const { translate } = useLanguage();
 
@@ -66,6 +70,18 @@ export function ConfirmationCard({
           <h2 className="text-lg font-bold text-brand-gold sm:text-xl">{headline}</h2>
           <p className="mx-auto mt-2 max-w-sm text-sm text-slate-600">{description}</p>
         </div>
+
+        {qrCodeUrl && (
+          <div className="flex flex-col items-center gap-2 rounded-2xl border border-brand-gold-dark/30 bg-brand-cream/40 p-4 text-center">
+            <div className="rounded-xl border border-slate-200 bg-white p-3">
+              <QRCodeSVG value={qrCodeUrl} size={140} />
+            </div>
+            <p className="text-xs font-bold text-brand-navy">{translate("confirmScanQr")}</p>
+            <p className="max-w-[280px] text-[11px] leading-relaxed text-slate-500">
+              {translate("confirmScanQrHint")}
+            </p>
+          </div>
+        )}
 
         {/* Status card */}
         <div className="divide-y divide-slate-100 rounded-2xl border border-slate-200 bg-white p-4 shadow-sm">

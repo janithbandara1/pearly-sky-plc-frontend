@@ -1764,6 +1764,8 @@ export const ro = {
   confirmLoading: "Se încarcă…",
   confirmNeedHelp: "Ai nevoie de ajutor?",
   confirmContactSupport: "Contactează suportul",
+  confirmScanQr: "Scanează pentru a vedea detaliile",
+  confirmScanQrHint: "Scanează acest cod cu telefonul pentru a deschide toate detaliile online, oricând.",
 
   // Quotation Confirmation Page
   quotConfirmHeadline: "Am primit cererea ta de ofertă!",

@@ -1761,6 +1761,8 @@ export const sv = {
   confirmLoading: "Laddar…",
   confirmNeedHelp: "Behöver du hjälp?",
   confirmContactSupport: "Kontakta support",
+  confirmScanQr: "Skanna för att se detaljer",
+  confirmScanQrHint: "Skanna den här koden med din telefon för att öppna alla detaljer online, när som helst.",
 
   // Quotation Confirmation Page
   quotConfirmHeadline: "Vi har tagit emot din offertförfrågan!",

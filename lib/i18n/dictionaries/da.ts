@@ -1724,6 +1724,8 @@ export const da = {
   confirmLoading: "Indlæser…",
   confirmNeedHelp: "Brug for hjælp?",
   confirmContactSupport: "Kontakt support",
+  confirmScanQr: "Scan for at se detaljer",
+  confirmScanQrHint: "Scan denne kode med din telefon for at åbne alle detaljer online, når som helst.",
 
   // Quotation Confirmation Page
   quotConfirmHeadline: "Vi har modtaget din tilbudsanmodning!",

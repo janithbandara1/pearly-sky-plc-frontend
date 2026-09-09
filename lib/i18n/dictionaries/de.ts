@@ -1764,6 +1764,8 @@ export const de = {
   confirmLoading: "Laden…",
   confirmNeedHelp: "Brauchen Sie Hilfe?",
   confirmContactSupport: "Support kontaktieren",
+  confirmScanQr: "Scannen für Details",
+  confirmScanQrHint: "Scannen Sie diesen Code mit Ihrem Telefon, um jederzeit alle Details online zu öffnen.",
 
   // Quotation Confirmation Page
   quotConfirmHeadline: "Wir haben Ihre Angebotsanfrage erhalten!",

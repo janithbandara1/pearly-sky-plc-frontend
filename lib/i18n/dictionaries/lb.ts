@@ -1739,6 +1739,8 @@ export const lb = {
   confirmLoading: "Gëtt gelueden…",
   confirmNeedHelp: "Braucht Dir Hëllef?",
   confirmContactSupport: "Support kontaktéieren",
+  confirmScanQr: "Scannt fir d'Detailer ze gesinn",
+  confirmScanQrHint: "Scannt dëse Code mat Ärem Telefon fir jidderzäit online all d'Detailer opzemaachen.",
 
   // Quotation Confirmation Page
   quotConfirmHeadline: "Mir hunn Är Offerte-Ufro kritt!",
