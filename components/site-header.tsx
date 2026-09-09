@@ -41,7 +41,8 @@ export function SiteHeader({ navLinks: navLinksProp, showServicesMenu = true }: 
   const [mobileServicesOpen, setMobileServicesOpen] = useState(false);
   const [accountOpen, setAccountOpen] = useState(false);
   const servicesRef = useRef<HTMLDivElement>(null);
-  const accountRef = useRef<HTMLDivElement>(null);
+  const accountDesktopRef = useRef<HTMLDivElement>(null);
+  const accountMobileRef = useRef<HTMLDivElement>(null);
 
   const defaultNavLinks = [
     { href: "/about-us", label: translate("navAbout") },
@@ -79,9 +80,10 @@ export function SiteHeader({ navLinks: navLinksProp, showServicesMenu = true }: 
   useEffect(() => {
     if (!accountOpen) return;
     function handlePointerDown(event: MouseEvent) {
-      if (!accountRef.current?.contains(event.target as Node)) {
-        setAccountOpen(false);
-      }
+      const target = event.target as Node;
+      if (accountDesktopRef.current?.contains(target)) return;
+      if (accountMobileRef.current?.contains(target)) return;
+      setAccountOpen(false);
     }
     function handleKeyDown(event: KeyboardEvent) {
       if (event.key === "Escape") setAccountOpen(false);
@@ -159,7 +161,7 @@ export function SiteHeader({ navLinks: navLinksProp, showServicesMenu = true }: 
           ))}
 
           {status === "authenticated" ? (
-            <div className="relative ml-3" ref={accountRef}>
+            <div className="relative ml-3" ref={accountDesktopRef}>
               <button
                 type="button"
                 onClick={() => setAccountOpen((open) => !open)}
@@ -240,7 +242,7 @@ export function SiteHeader({ navLinks: navLinksProp, showServicesMenu = true }: 
           
           <div className="md:hidden lg:hidden flex">
               {status === "authenticated" ? (
-                      <div className="relative ml-4" ref={accountRef}>
+                      <div className="relative ml-4" ref={accountMobileRef}>
                     <button
                       type="button"
                       onClick={() => setAccountOpen((open) => !open)}
