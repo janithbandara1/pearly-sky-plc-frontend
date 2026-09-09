@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 import Image from "next/image";
+import { useLanguage } from "@/lib/i18n/language-context";
 
 // Image dataset containing before/after pairs
 const sampleImages = [
@@ -27,7 +28,7 @@ const shuffleArray = <T,>(array: T[]): T[] => {
 
 export default function RandomImageGrid() {
   const [displayedImages, setDisplayedImages] = useState(sampleImages.slice(0, 4));
-
+  const {translate} = useLanguage();
   useEffect(() => {
     // Automatically shuffle every 4 seconds
     const interval = setInterval(() => {
@@ -41,7 +42,9 @@ export default function RandomImageGrid() {
     <section className="w-full mx-auto  py-10 px-4 ">
       
       <div className="bg-white py-2">
-        <h1 className="text-center font-bold text-3xl text-black tracking-wide ">Recent Projects</h1>
+        <h1 className="text-center font-bold text-3xl text-black tracking-wide ">
+          {translate("recentProjectTitle")}
+        </h1>
       </div>
       <div className="w-full bg-white py-10 px-4 flex justify-center">
         {/* 2x2 Grid Container (4 Grids total) */}
@@ -60,7 +63,7 @@ export default function RandomImageGrid() {
                         className="object-cover transition-opacity duration-500"
                     />
                     <span className="absolute bottom-2 left-2 text-[10px] font-bold text-white uppercase tracking-wider bg-black/60 px-2 py-0.5 rounded">
-                        BEFORE
+                        {translate("projectBefore")}
                     </span>
                     </div>
 
@@ -73,7 +76,7 @@ export default function RandomImageGrid() {
                         className="object-cover transition-opacity duration-500"
                     />
                     <span className="absolute bottom-2 right-2 text-[10px] font-bold text-white uppercase tracking-wider bg-black/60 px-2 py-0.5 rounded">
-                        AFTER
+                        {translate("projectAfter")}
                     </span>
                     </div>
                 </div>

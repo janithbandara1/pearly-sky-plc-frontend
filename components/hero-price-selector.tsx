@@ -1,5 +1,6 @@
 "use client";
 
+import { useLanguage } from "@/lib/i18n/language-context";
 import { useEffect, useRef, useState } from "react";
 import type { ComponentType } from "react";
 
@@ -129,6 +130,7 @@ export function HeroPriceSelector({
   getFlagComponent,
   onCountryChange,
 }: HeroPriceSelectorProps) {
+  const {translate} =useLanguage();
   return (
     <>
       <div className="mt-4 hidden flex-col items-center justify-start gap-2 md:flex sm:flex-row">
@@ -147,7 +149,7 @@ export function HeroPriceSelector({
             placement="desktop"
           />
           <p className="m-0 font-[Poppins] pl-2 text-base font-extrabold leading-[1.5] text-[rgb(169,139,75)] [text-shadow:rgba(0,0,0,0.3)_0px_1px_4px]">
-            Hour Per Cleaner
+            {translate("hourPerCleaner")}
           </p>
         </div>
       </div>
@@ -168,7 +170,7 @@ export function HeroPriceSelector({
             placement="mobile"
           />
           <p className="m-0 wrap-break-word font-[Poppins] text-[0.85rem] font-extrabold leading-[1.5] text-[rgb(233,233,233)] [text-shadow:rgba(0,0,0,0.3)_0px_1px_4px]">
-            Hour Per Cleaner
+            {translate("hourPerCleaner")}
           </p>
         </div>
       </div>

@@ -7,6 +7,7 @@ import { DateTimeSection } from "@/components/booking/date-time-section";
 import { Button } from "@/components/ui/button";
 import { saveBookingDraft, loadBookingDraft } from "@/lib/booking-draft";
 import type { QuoteItem } from "@/lib/content/quote-items";
+import { useLanguage } from "@/lib/i18n/language-context";
 
 export interface CarpetScheduleSectionProps {
   serviceId: number;
@@ -107,6 +108,8 @@ export function CarpetScheduleSection({
     router.push(`/services/${serviceSlug}/checkout`);
   }
 
+  const{translate}=useLanguage();
+
   return (
     <div className="w-full space-y-8">
       {/* 1. CARPET & UPHOLSTERY DETAILS */}
@@ -139,14 +142,14 @@ export function CarpetScheduleSection({
           onClick={() => router.back()}
           className="inline-flex h-[42px] min-w-[120px] items-center justify-center rounded-[8px] border border-[#C5A253] bg-white px-10 py-2 text-base font-semibold text-[#0B1528] shadow-sm transition hover:bg-[#F8F9FA]"
         >
-          Back
+          {translate("CarpetSchedulebackButtonText")}
         </Button>
         <Button
           type="button"
           onClick={handleSchedule}
           className="inline-flex h-[42px] min-w-[200px] items-center justify-center rounded-[8px] bg-[#C5A253] px-10 py-2 text-center text-sm font-semibold uppercase tracking-wider text-[#0B1528] shadow-[0_4px_14px_rgba(197,162,83,0.35)] transition-all hover:bg-[#B39144] hover:brightness-110"
         >
-          Continue
+          {translate("CarpetScheduleContinueButtonText")}
         </Button>
       </div>
     </div>

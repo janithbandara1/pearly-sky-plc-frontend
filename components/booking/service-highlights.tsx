@@ -3,14 +3,22 @@
 import { useEffect, useState, useCallback } from "react";
 import useEmblaCarousel from "embla-carousel-react";
 import type { ServiceHighlightCard } from "@/lib/content/service-details";
+import {
+  ServiceContentHighlightTitles,
+  serviceHighlightCardTitles,
+} from "@/lib/types/services-types/serives-content-types";
+import { useLanguage } from "@/lib/i18n/language-context";
 
 export interface ServiceHighlightsProps {
-  title?: string;
+  title?: ServiceContentHighlightTitles;
   cards: ServiceHighlightCard[];
 }
 
 /** Highlights Carousel for cards >= 5 (displays 3 on desktop, 2 on tablet, 1 on mobile) */
 function HighlightsFullCarousel({ cards }: { cards: ServiceHighlightCard[] }) {
+  
+const  {translate }=useLanguage();
+
   const [emblaRef, emblaApi] = useEmblaCarousel({
     align: "start",
     containScroll: "trimSnaps",
@@ -42,6 +50,8 @@ function HighlightsFullCarousel({ cards }: { cards: ServiceHighlightCard[] }) {
     [emblaApi]
   );
 
+  //const { translate } = useLanguage(); 
+
   return (
     <div className="px-4 max-w-7xl mx-auto">
       <div
@@ -57,11 +67,11 @@ function HighlightsFullCarousel({ cards }: { cards: ServiceHighlightCard[] }) {
               <div className="w-full h-full bg-[#F8F9FA] p-4 md:p-5 shadow-[rgba(169,139,75,0.15)_0px_4px_15px] hover:shadow-lg transition-transform duration-300 hover:scale-[1.02]">
                 <div className="rounded-2xl sm:rounded-3xl p-4 sm:p-6 h-full flex flex-col bg-[#F8F9FA] border-[3px] border-[#A98B4B] min-h-[280px] sm:min-h-[320px]">
                   <h3 className="font-semibold text-base sm:text-lg text-center mb-3 sm:mb-4 text-[#A98B4B] min-h-[40px] sm:min-h-[50px] flex items-center justify-center">
-                    {card.title}
+                    {translate(card.title)}
                   </h3>
                   <ul className="text-sm leading-relaxed list-disc flex-1 text-[#151E2D] pl-5 space-y-1.5">
                     {card.features.map((feature, featureIdx) => (
-                      <li key={featureIdx}>{feature}</li>
+                      <li key={featureIdx}>{translate(feature)}</li>
                     ))}
                   </ul>
                 </div>
@@ -95,6 +105,9 @@ function HighlightsFullCarousel({ cards }: { cards: ServiceHighlightCard[] }) {
 
 /** Mobile Swipeable Carousel for cards <= 4 */
 function HighlightsMobileCarousel({ cards }: { cards: ServiceHighlightCard[] }) {
+  
+const  {translate }=useLanguage();
+
   const [emblaRef, emblaApi] = useEmblaCarousel({
     align: "center",
     containScroll: "trimSnaps",
@@ -126,6 +139,8 @@ function HighlightsMobileCarousel({ cards }: { cards: ServiceHighlightCard[] }) 
     [emblaApi]
   );
 
+  
+
   return (
     <div className="block min-[542px]:hidden px-4">
       <div
@@ -141,11 +156,11 @@ function HighlightsMobileCarousel({ cards }: { cards: ServiceHighlightCard[] }) 
               <div className="bg-[#F8F9FA] p-5 shadow-[rgba(169,139,75,0.15)_0px_4px_15px]">
                 <div className="rounded-3xl p-5 flex flex-col bg-[#F8F9FA] border-3 border-[#A98B4B] min-h-[280px]">
                   <h3 className="font-semibold text-lg text-center mb-4 text-[#A98B4B]">
-                    {card.title}
+                    {translate(card.title)}
                   </h3>
                   <ul className="text-sm leading-relaxed list-disc text-[#151E2D] pl-5 space-y-1.5">
                     {card.features.map((feature, fIndex) => (
-                      <li key={fIndex}>{feature}</li>
+                      <li key={fIndex}>{translate(feature)}</li>
                     ))}
                   </ul>
                 </div>
@@ -178,6 +193,9 @@ function HighlightsMobileCarousel({ cards }: { cards: ServiceHighlightCard[] }) 
 }
 
 export function ServiceHighlights({ title, cards }: ServiceHighlightsProps) {
+  
+  const  {translate }=useLanguage();
+
   if (!cards || cards.length === 0) return null;
 
   // Grid configuration for cards.length <= 4 on desktop & tablet
@@ -217,7 +235,7 @@ export function ServiceHighlights({ title, cards }: ServiceHighlightsProps) {
   return (
     <section className="py-6 max-[541px]:!bg-[#121E2D] bg-transparent">
       <h2 className="text-center font-bold text-xl sm:text-2xl mb-6 text-[#121E2D] max-[541px]:text-white">
-        {title ?? "Standard Package Checklist"}
+        {title ? translate(title) : translate("serviceHighlightSectionHeader")}
       </h2>
 
       {isCarousel ? (
@@ -235,11 +253,11 @@ export function ServiceHighlights({ title, cards }: ServiceHighlightsProps) {
               >
                 <div className="rounded-2xl sm:rounded-3xl p-4 sm:p-6 h-full flex flex-col bg-[#F8F9FA] border-[3px] border-[#A98B4B] min-h-[280px] sm:min-h-[320px]">
                   <h3 className="font-semibold text-base sm:text-lg text-center mb-3 sm:mb-4 text-[#A98B4B] min-h-[40px] sm:min-h-[50px] flex items-center justify-center">
-                    {card.title}
+                    {translate(card.title)}
                   </h3>
                   <ul className="text-sm leading-relaxed list-disc flex-1 text-[#151E2D] pl-5 space-y-1.5">
                     {card.features.map((feature, featureIdx) => (
-                      <li key={featureIdx}>{feature}</li>
+                      <li key={featureIdx}>{translate(feature)}</li>
                     ))}
                   </ul>
                 </div>

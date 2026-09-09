@@ -624,7 +624,7 @@ export const COUNTRY_HOME_CONTENT: Record<CountryCode, CountryHomeCopy> = {
     coverageTitle: "Service Excellence Throughout France",
     coverageSubtitle: "Paris, Nice, Cannes, Monaco, Lyon, Bordeaux, and more across France.",
     footerTagline:
-      "Pearly Sky Cleaning offers professional, eco-friendly cleaning services for homes, offices, and hotels across France. We focus on quality and customer satisfaction, delivering tailored solutions to keep your space spotless.",
+      "Pearly Sky Cleaning propose des services de nettoyage professionnels et écologiques pour les maisons, les bureaux et les hôtels partout en France. Nous privilégions la qualité et la satisfaction client, en fournissant des solutions sur mesure pour un résultat impeccable.",
     aboutBilingualLabel: "Bilingual French & English Teams",
     aboutBilingualDesc: "Seamless communication for a diverse clientele.",
   },

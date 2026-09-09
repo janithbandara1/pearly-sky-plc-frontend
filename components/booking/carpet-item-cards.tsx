@@ -14,7 +14,14 @@ import {
   CarouselPrevious,
   type CarouselApi,
 } from "@/components/ui/carousel";
-import { CARPET_ITEM_OPTIONS, formatQuoteItem, type QuoteItem, type QuoteItemOption } from "@/lib/content/quote-items";
+import {
+  CARPET_ITEM_OPTIONS,
+  CARPET_ITEM_TRANSLATION_KEYS,
+  formatQuoteItem,
+  type QuoteItem,
+  type QuoteItemOption,
+} from "@/lib/content/quote-items";
+import { useLanguage } from "@/lib/i18n/language-context";
 
 function CarpetItemCard({
   option,
@@ -46,13 +53,31 @@ function CarpetItemCard({
     setQuantity(1);
     setValues({});
   }
+    const{translate} = useLanguage()
+
+    const translatedLabel = translate(
+      CARPET_ITEM_TRANSLATION_KEYS[option.value as keyof typeof CARPET_ITEM_TRANSLATION_KEYS],
+    );
+
+    const getTranslationKey =()=> {
+      switch (option.label.toLowerCase()) {
+        case "carpet":
+          return "CarpetCardSelectAddLable";
+        case "upholstery":
+          return "CarpetCardSelectAddLable";
+        case "curtains":
+          return "CarpetCardSelectAddLable";
+        default:
+          return "";
+      }
+    }
 
   return (
     <Card className="relative h-56 gap-0 rounded-2xl border-2 border-[#A98B4B] bg-white py-0 ring-0">
       {option.image && (
         <Image
           src={option.image}
-          alt={option.label}
+            alt={translatedLabel}
           fill
           draggable={false}
           sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
@@ -61,13 +86,17 @@ function CarpetItemCard({
       )}
 
       <div className="absolute top-2 left-1/2 z-10 -translate-x-1/2 rounded-md border-2 border-[#A98B4B] bg-[#FFFDF4] px-4 py-1.5">
-        <span className="text-sm font-bold whitespace-nowrap text-[#A98B4B]">{option.label}</span>
+        <span className="text-sm font-bold whitespace-nowrap text-[#A98B4B]">{translatedLabel}</span>
       </div>
 
       {added && !open && (
         <div className="absolute inset-0 z-10 flex items-center justify-center px-6">
           <p className="rounded bg-white/90 px-2.5 py-1 text-center text-sm text-[#555]">
-            {formatQuoteItem(added, CARPET_ITEM_OPTIONS)}
+            {formatQuoteItem(
+              added,
+              CARPET_ITEM_OPTIONS,
+              (label) => translate(CARPET_ITEM_TRANSLATION_KEYS[label as keyof typeof CARPET_ITEM_TRANSLATION_KEYS]),
+            )}
           </p>
         </div>
       )}
@@ -80,7 +109,7 @@ function CarpetItemCard({
           variant="outline"
           className="border-0 bg-[#A98B4B] px-8 text-sm font-bold text-white hover:bg-[#A98B4B]/90"
         >
-          {added ? "Remove" : "Add"}
+          {added ? translate("CarpetCardSelectRemoveLable") : translate("CarpetCardSelectAddLable")}
         </Button>
       </div>
 
@@ -96,7 +125,7 @@ function CarpetItemCard({
           ))}
 
           <div className="space-y-1.5">
-            <span className="text-sm font-medium text-[#121E2D]">Quantity</span>
+            <span className="text-sm font-medium text-[#121E2D]">{translate("CarpetCardQuantityLabel")}</span>
             <div className="flex h-9 w-full items-center justify-between rounded-lg border border-[#A98B4B] bg-white px-1.5">
               <button
                 type="button"
@@ -123,7 +152,7 @@ function CarpetItemCard({
             variant="outline"
             className="mt-auto w-full border-2 border-[#A98B4B] bg-[#A98B4B] text-sm font-semibold text-white hover:bg-[#A98B4B]/90"
           >
-            Add
+            {translate("CarpetCardSelectAddLable")}
           </Button>
         </div>
       )}
@@ -159,11 +188,13 @@ export function CarpetItemCards({ items, onItemsChange }: CarpetItemCardsProps) 
   function handleRemove(optionValue: string) {
     onItemsChange(items.filter((item) => item.optionValue !== optionValue));
   }
-
+  const { translate } =useLanguage();
   return (
     <section className="overflow-hidden rounded-[12px] border border-brand-gold-dark">
       <div className="bg-brand-navy px-5 py-4 text-center">
-        <h2 className="text-[1.1rem] font-bold text-brand-cream sm:text-[1.3rem]">Carpet &amp; Upholstery Details</h2>
+        <h2 className="text-[1.1rem] font-bold text-brand-cream sm:text-[1.3rem]">
+          {translate("CarpetServiceSectionTitle")}
+        </h2>
       </div>
 
       <div className="bg-[#F8F9FA] p-4 sm:p-5">

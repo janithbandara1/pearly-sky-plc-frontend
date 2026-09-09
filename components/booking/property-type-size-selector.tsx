@@ -2,6 +2,7 @@
 
 import { useEffect, useState, useRef } from "react";
 import { YACHT_PROPERTY_TYPES } from "@/components/booking/Yatchpropertytypes";
+import { useLanguage } from "@/lib/i18n/language-context";
 
 export interface PropertyCategory {
   id: string;
@@ -359,6 +360,7 @@ export function PropertyTypeSizeSelector({
   categories = PROPERTY_CATEGORIES,
   onCategoryChange,
 }: PropertyTypeSizeSelectorProps) {
+  const { translate } = useLanguage();
   const selectableCategories = categories.filter((c) => !c.locked);
 
   // Tracked explicitly (not re-derived from `value` every render) because some schemes have
@@ -428,7 +430,7 @@ export function PropertyTypeSizeSelector({
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6 items-start">
         {/* Left Column: Property Type */}
         <div className="flex flex-col min-w-0">
-          <h3 className="text-base sm:text-lg font-bold text-[#0F172A] mb-3">Property Type</h3>
+          <h3 className="text-base sm:text-lg font-bold text-[#0F172A] mb-3">{translate("propTypeTitle")}</h3>
 
           <div
             className="flex flex-nowrap gap-3 overflow-x-auto overflow-y-hidden -mx-1 px-1 [&::-webkit-scrollbar]:hidden"
@@ -465,13 +467,13 @@ export function PropertyTypeSizeSelector({
           </div>
 
           <p className="text-[11px] text-[#94A3B8] text-center mt-1.5 font-medium tracking-wide select-none">
-            ‹ Swipe to browse ›
+            {translate("propTypeSwipe")}
           </p>
         </div>
 
         {/* Right Column: Property Size */}
         <div className="flex flex-col">
-          <h3 className="text-base sm:text-lg font-bold text-[#0F172A] mb-3">Property Size</h3>
+          <h3 className="text-base sm:text-lg font-bold text-[#0F172A] mb-3">{translate("propSizeTitle")}</h3>
 
           <div className="flex items-center gap-3">
             {/* Wheel Display Container */}
@@ -520,7 +522,7 @@ export function PropertyTypeSizeSelector({
                 aria-label="Increase Property Size"
               >
                 <span className="text-sm leading-none font-bold">↑</span>
-                <span className="text-[9px] font-bold tracking-wider text-[#1E293B] mt-1">UP</span>
+                <span className="text-[9px] font-bold tracking-wider text-[#1E293B] mt-1">{translate("propSizeUp")}</span>
               </button>
 
               <button
@@ -531,7 +533,7 @@ export function PropertyTypeSizeSelector({
                 aria-label="Decrease Property Size"
               >
                 <span className="text-sm leading-none font-bold">↓</span>
-                <span className="text-[9px] font-bold tracking-wider text-[#1E293B] mt-1">DOWN</span>
+                <span className="text-[9px] font-bold tracking-wider text-[#1E293B] mt-1">{translate("propSizeDown")}</span>
               </button>
             </div>
           </div>

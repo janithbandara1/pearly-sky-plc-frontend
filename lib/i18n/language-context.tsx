@@ -38,7 +38,9 @@ export const SUPPORTED_LANGUAGES: { code: SupportedLanguage; label: string }[] =
   { code: "sv", label: "Svenska" },
 ];
 
-const dictionaries: Record<SupportedLanguage, Record<TranslationKey, string>> = {
+export type TranslationValue = string | readonly string[];
+
+const dictionaries: Record<SupportedLanguage, Partial<Record<TranslationKey, TranslationValue>>> = {
   en,
   fr,
   da,
@@ -96,7 +98,10 @@ export function LanguageProvider({
         router.push(`${target}${search ? `?${search}` : ""}`);
         router.refresh();
       },
-      translate: (key: TranslationKey) => dictionaries[resolvedLanguage][key] ?? key,
+      translate: (key: TranslationKey) => {
+        const value = dictionaries[resolvedLanguage][key] ?? en[key] ?? key;
+        return typeof value === "string" ? value : value.join("\n\n");
+      },
     }),
     [resolvedLanguage, pathname, router, searchParams],
   );

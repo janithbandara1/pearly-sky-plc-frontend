@@ -4,6 +4,7 @@ import { GENDER_OPTIONS, LANGUAGE_OPTIONS } from "@/components/booking/quotation
 import { Card, CardContent } from "@/components/ui/card";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
+import { useLanguage } from "@/lib/i18n/language-context";
 
 export interface ServicePreferencesSectionProps {
   gender: string;
@@ -22,6 +23,7 @@ export function ServicePreferencesSection({
   requirements,
   onRequirementsChange,
 }: ServicePreferencesSectionProps) {
+  const { translate } = useLanguage();
   return (
     <Card className="bg-brand-navy text-brand-navy-foreground">
       <CardContent className="flex flex-col gap-0 p-0">
@@ -31,7 +33,7 @@ export function ServicePreferencesSection({
 
         <div className="grid grid-cols-1 gap-5 border-t border-brand-gold/20 p-4 sm:grid-cols-2">
           <div>
-            <p className="mb-2 text-sm font-semibold text-brand-cream/90">Gender Preference</p>
+            <p className="mb-2 text-sm font-semibold text-brand-cream/90">{translate("preferencesGender")}</p>
             <Select value={gender} onValueChange={onGenderChange}>
               <SelectTrigger className="w-full bg-brand-cream text-brand-navy">
                 <SelectValue placeholder="No preference" />
@@ -47,7 +49,7 @@ export function ServicePreferencesSection({
           </div>
 
           <div>
-            <p className="mb-2 text-sm font-semibold text-brand-cream/90">Language Preference</p>
+            <p className="mb-2 text-sm font-semibold text-brand-cream/90">{translate("preferencesLanguage")}</p>
             <Select value={language} onValueChange={onLanguageChange}>
               <SelectTrigger className="w-full bg-brand-cream text-brand-navy">
                 <SelectValue placeholder="No preference" />
@@ -63,7 +65,7 @@ export function ServicePreferencesSection({
           </div>
 
           <div className="sm:col-span-2">
-            <p className="mb-2 text-sm font-semibold text-brand-cream/90">Special Requirements</p>
+            <p className="mb-2 text-sm font-semibold text-brand-cream/90">{translate("preferencesSpecialRequirements")}</p>
             <Textarea
               rows={4}
               value={requirements}

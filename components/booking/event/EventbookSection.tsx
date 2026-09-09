@@ -4,6 +4,7 @@ import Link from "next/link";
 import { User, Briefcase, KeyRound, ArrowRight } from "lucide-react";
 import type { CatalogItem, SizeQuote } from "@/lib/catalog-api";
 import { useCurrency } from "@/lib/currency-context";
+import { useLanguage } from "@/lib/i18n/language-context";
 import { Slider } from "radix-ui";
 
 export type SupplySource = "" | "customer" | "company";
@@ -53,6 +54,7 @@ export function EventbookSection({
     submitting = false,
     bookDisabledReason,
 }: EquipmentSectionProps) {
+    const { translate } = useLanguage();
     const { symbol } = useCurrency();
     const money = (n: number | null | undefined) => {
         const val = n != null && !Number.isNaN(Number(n)) ? Number(n) : 0;
@@ -86,7 +88,7 @@ export function EventbookSection({
                 {/* Header Row: SELECTED SERVICES & Category Pill */}
                 <div className="flex items-center justify-between pb-3.5 border-b border-[#1E2D45]">
                     <h2 className="text-xs font-bold uppercase tracking-wider text-[#FFFDF4] sm:text-sm">
-                        SELECTED SERVICES
+                        {translate("equipSelectedServices")}
                     </h2>
                     <div className="flex items-center gap-1.5 rounded-md bg-[#16243A] px-2.5 py-1 text-xs font-bold text-[#C5A253]">
                         <span>{categoryIcon}</span>
@@ -97,7 +99,7 @@ export function EventbookSection({
                 {/* Row 1: PROPERTY SCALE */}
                 <div className="flex items-center justify-between py-3 border-b border-[#1E2D45]">
                     <span className="text-xs font-bold uppercase tracking-wide text-[#8A99AD] sm:text-xs">
-                        PROPERTY SCALE
+                        {translate("equipPropertyScale")}
                     </span>
                     <span className="text-xs font-bold text-[#FFFDF4] sm:text-sm">
                         {propertySizeSqm} m²
@@ -107,7 +109,7 @@ export function EventbookSection({
                 {/* Row 2: TOTAL SERVICE DURATION */}
                 <div className="flex items-center justify-between py-3 border-b border-[#1E2D45]">
                     <span className="text-xs font-bold uppercase tracking-wide text-[#8A99AD] sm:text-xs">
-                        TOTAL SERVICE DURATION
+                        {translate("equipTotalServiceDuration")}
                     </span>
                     <span className="text-xs font-bold text-[#FFFDF4] sm:text-sm">
                         {durationText}
@@ -117,7 +119,7 @@ export function EventbookSection({
                 {/* Row 3: ALLOCATED PROFESSIONALS */}
                 <div className="flex items-center justify-between py-3 border-b border-[#1E2D45]">
                     <span className="text-xs font-bold uppercase tracking-wide text-[#8A99AD] sm:text-xs">
-                        ALLOCATED PROFESSIONALS
+                        {translate("equipAllocatedProfessionals")}
                     </span>
                     <span className="text-xs font-bold text-[#FFFDF4] sm:text-sm">
                         {cleanersCount}
@@ -127,7 +129,7 @@ export function EventbookSection({
                 {/* Row 4: CLEANER DURATION (ON-SITE) */}
                 <div className="flex items-center justify-between py-3 border-b border-[#1E2D45]">
                     <span className="text-xs font-bold uppercase tracking-wide text-[#8A99AD] sm:text-xs">
-                        CLEANER DURATION (ON-SITE)
+                        {translate("equipCleanerDuration")}
                     </span>
                     <span className="text-xs font-bold text-[#FFFDF4] sm:text-sm">
                         {durationText}
@@ -137,7 +139,7 @@ export function EventbookSection({
                 {/* Row 5: CLEANING DURATION PRICE RANGE */}
                 <div className="flex items-center justify-between py-3 border-b border-[#1E2D45]">
                     <span className="text-xs font-bold uppercase tracking-wide text-[#8A99AD] sm:text-xs">
-                        CLEANING DURATION PRICE RANGE
+                        {translate("equipPriceRange")}
                     </span>
                     <span className="text-xs font-bold text-[#FFFDF4] sm:text-sm">
                         {cleaningPriceRange}
@@ -146,7 +148,7 @@ export function EventbookSection({
 
                 {/* Sub-Header: CLEANING CHEMICALS AND EQUIPMENTS */}
                 <h3 className="mt-5 mb-3 text-xs font-bold uppercase tracking-wider text-[#FFFDF4] sm:text-sm">
-                    CLEANING CHEMICALS AND EQUIPMENTS
+                    {translate("equipChemicalsAndEquipments")}
                 </h3>
 
                 {/* Toggle Header Tabs (BY CLIENT vs BY COMPANY) */}
@@ -160,7 +162,7 @@ export function EventbookSection({
                             }`}
                     >
                         <User className="h-4 w-4 shrink-0" />
-                        BY CLIENT
+                        {translate("equipByClient")}
                     </button>
 
                     <button
@@ -172,7 +174,7 @@ export function EventbookSection({
                             }`}
                     >
                         <Briefcase className="h-4 w-4 shrink-0" />
-                        BY COMPANY
+                        {translate("equipByCompany")}
                     </button>
                 </div>
 
@@ -187,7 +189,7 @@ export function EventbookSection({
                                     key={item.id}
                                     className="flex items-center justify-between border-t border-[#1E2D45] py-3.5 px-1 sm:px-2"
                                 >
-                                    <span className="text-xs font-bold uppercase tracking-wide text-[#FFFDF4] sm:text-sm">
+                                    <span className="text-xs font-bold uppercase tracking-wide text-[#FFFDF4]">
                                         {item.name}
                                     </span>
                                     <div className="flex items-center gap-3 sm:gap-4">
@@ -203,7 +205,7 @@ export function EventbookSection({
                                                     : "border border-[#C5A253] bg-transparent text-[#C5A253] hover:bg-[#C5A253] hover:text-[#0B1528]"
                                                 }`}
                                         >
-                                            {isSelected ? "Added" : "Add"}
+                                            {isSelected ? translate("quoteDetailAdded") : translate("quoteDetailAdd")}
                                         </button>
                                     </div>
                                 </div>
@@ -215,9 +217,9 @@ export function EventbookSection({
                 {/* Highlighted Box: ESTIMATED PRICE RANGE */}
                 <div className="mt-5 flex items-center justify-between rounded-[8px] border border-[#2D3F59] bg-[#0E1A2E] px-4 py-3.5 sm:px-5">
                     <span className="text-xs font-bold uppercase tracking-wider text-[#C5A253] sm:text-sm">
-                        ESTIMATED PRICE RANGE
+                        {translate("equipEstimatedPriceRange")}
                     </span>
-                    <span className="text-sm font-extrabold text-[#FFFDF4] sm:text-lg">
+                    <span className="text-sm font-extrabold text-[#FFFDF4] sm:text-base">
                         {estimatedPriceRange}
                     </span>
                 </div>
@@ -230,7 +232,7 @@ export function EventbookSection({
                         disabled={submitting || !!bookDisabledReason}
                         className="mt-3.5 w-full rounded-[8px] bg-[#C5A253] py-3.5 text-center text-sm font-extrabold uppercase tracking-wider text-[#0B1528] shadow-[0_4px_14px_rgba(197,162,83,0.35)] transition-all hover:bg-[#B39144] disabled:cursor-not-allowed disabled:opacity-50"
                     >
-                        {submitting ? "Booking…" : "BOOK NOW"}
+                        {submitting ? translate("equipBooking") : translate("equipBookNow")}
                     </button>
                 )}
 
@@ -242,31 +244,28 @@ export function EventbookSection({
                 <div className="mt-5 flex flex-col gap-1.5 border-t border-[#1E2D45]/60 pt-4">
                     <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-wide text-[#C5A253]">
                         <KeyRound className="h-4 w-4 shrink-0 text-[#C5A253]" />
-                        <span>20-YEAR SIGNATURE QUALITY GUARANTEE</span>
+                        <span>{translate("equipQualityGuarantee")}</span>
                     </div>
                     <p className="text-[11px] leading-relaxed text-[#94A3B8] sm:text-xs">
-                        Because every elite residence has unique requirements, your final price reflects the actual condition of your space.
+                        {translate("equipGuaranteeDesc1")}
                     </p>
                     <p className="text-[11px] leading-relaxed text-[#94A3B8] sm:text-xs">
-                        Your booking secures your time slot. Upon completion, your senior cleaning professional will confirm the exact cleaning duration on-site and issue a precise, transparent invoice.
+                        {translate("equipGuaranteeDesc2")}
                     </p>
                 </div>
             </section>
 
             {/* Below-Card Navigation Bar */}
-            <div className="flex items-center py-4 justify-center gap-1 px-1">
+            <div className="flex items-center py-4 justify-between md:justify-center gap-1">
                 <Link
                     href="/"
                     className="inline-flex items-center justify-center rounded-[8px] border border-[#C5A253] bg-white px-10 py-2 text-md font-semibold text-[#0B1528] shadow-sm transition hover:bg-[#F8F9FA]"
                 >
-                    Back
+                    {translate("commonBack")}
                 </Link>
-                <Link
-                    href="#service-info"
-                    className="inline-flex px-10 py-2 text-md items-center gap-1 font-bold text-[#C5A253] hover:underline"
-                >
-                    Service Info <ArrowRight className="h-3.5 w-3.5" />
-                </Link>
+                <span className="inline-flex px-10 py-2 text-md items-center gap-1 font-bold text-[#C5A253]">
+                    {translate("equipServiceInfo")} <ArrowRight className="h-3.5 w-3.5" />
+                </span>
             </div>
 
         </div>

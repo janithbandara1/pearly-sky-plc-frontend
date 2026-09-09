@@ -30,6 +30,7 @@ import { SUPPORTED_COUNTRIES, type CountryCode } from "@/lib/countries/config";
 import { useCountry } from "@/lib/countries/country-context";
 import { COUNTRY_FLAGS, FALLBACK_COUNTRY_NAMES } from "@/components/country-switcher";
 import { useLanguage } from "@/lib/i18n/language-context";
+import type { TranslationKey } from "@/lib/i18n/dictionaries/en";
 import { SERVICE_CONTENT } from "@/lib/content/service-details";
 import { createQuotation } from "@/lib/quotation-api";
 import {
@@ -226,6 +227,132 @@ const FALLBACK_SERVICES: Record<string, Partial<CatalogServiceDetail>> = {
     label: "Luxury Yacht Cleaning",
     description: "Premium cleaning for yachts and marine interiors.",
     imageUrl: "/images/services/updated-home-property-cleaning-services-16-luxury-yacht-cleaning.webp",
+  },
+};
+
+const SERVICE_TRANSLATION_KEYS: Record<
+  string,
+  { label: TranslationKey; description: TranslationKey }
+> = {
+  "regular-home-cleaning": {
+    label: "serviceRegularHomeCleaning",
+    description: "serviceRegularHomeCleaningDescription",
+  },
+  "regular-maintenance-cleaning": {
+    label: "serviceRegularHomeCleaning",
+    description: "serviceRegularHomeCleaningDescription",
+  },
+  "quick-touch-up-cleaning": {
+    label: "serviceEssentialTouchUpCleaning",
+    description: "serviceEssentialTouchUpCleaningDescription",
+  },
+  "essential-touch-up-cleaning": {
+    label: "serviceEssentialTouchUpCleaning",
+    description: "serviceEssentialTouchUpCleaningDescription",
+  },
+  "same-day-priority-cleaning": {
+    label: "serviceSameDayPriorityCleaning",
+    description: "serviceSameDayPriorityCleaningDescription",
+  },
+  "deep-cleaning": {
+    label: "serviceDeepCleaning",
+    description: "serviceDeepCleaningDescription",
+  },
+  "end-of-tenancy-cleaning": {
+    label: "serviceEndOfTenancyCleaning",
+    description: "serviceEndOfTenancyCleaningDescription",
+  },
+  "post-construction-renovation-cleaning": {
+    label: "servicePostConstructionRenovationCleaning",
+    description: "servicePostConstructionRenovationCleaningDescription",
+  },
+  "post-construction-cleaning": {
+    label: "servicePostConstructionRenovationCleaning",
+    description: "servicePostConstructionRenovationCleaningDescription",
+  },
+  "premium-rental-concierge-cleaning": {
+    label: "servicePremiumRentalConciergeCleaning",
+    description: "servicePremiumRentalConciergeCleaningDescription",
+  },
+  "commercial-office-cleaning": {
+    label: "serviceCommercialOfficeCleaning",
+    description: "serviceCommercialOfficeCleaningDescription",
+  },
+  "healthguard-sanitization": {
+    label: "serviceHealthguardSanitization",
+    description: "serviceHealthguardSanitizationDescription",
+  },
+  "guard-sanitization-services": {
+    label: "serviceHealthguardSanitization",
+    description: "serviceHealthguardSanitizationDescription",
+  },
+  "carpet-upholstery-cleaning": {
+    label: "serviceCarpetUpholsteryCleaning",
+    description: "serviceCarpetUpholsteryCleaningDescription",
+  },
+  "steam-cleaning": {
+    label: "serviceSteamCleaning",
+    description: "serviceSteamCleaningDescription",
+  },
+  "post-event-cleaning": {
+    label: "servicePostEventCleaning",
+    description: "servicePostEventCleaningDescription",
+  },
+  "pool-cleaning": {
+    label: "servicePoolCleaning",
+    description: "servicePoolCleaningDescription",
+  },
+  "pool-cleaning-maintenance": {
+    label: "servicePoolCleaning",
+    description: "servicePoolCleaningDescription",
+  },
+  "precision-pressure-washing": {
+    label: "servicePrecisionPressureWashing",
+    description: "servicePrecisionPressureWashingDescription",
+  },
+  "child-care-service": {
+    label: "serviceChildCareService",
+    description: "serviceChildCareServiceDescription",
+  },
+  "childcare-services": {
+    label: "serviceChildCareService",
+    description: "serviceChildCareServiceDescription",
+  },
+  "elder-care-service": {
+    label: "serviceElderCareService",
+    description: "serviceElderCareServiceDescription",
+  },
+  "elder-care-services": {
+    label: "serviceElderCareService",
+    description: "serviceElderCareServiceDescription",
+  },
+  "laundry-service": {
+    label: "serviceLaundryService",
+    description: "serviceLaundryServiceDescription",
+  },
+  "laundry-services": {
+    label: "serviceLaundryService",
+    description: "serviceLaundryServiceDescription",
+  },
+  "laundry-linen-care": {
+    label: "serviceLaundryService",
+    description: "serviceLaundryServiceDescription",
+  },
+  "move-in-out-transport-service": {
+    label: "serviceMoveInOutTransportService",
+    description: "serviceMoveInOutTransportServiceDescription",
+  },
+  "move-in-out-transport-health": {
+    label: "serviceMoveInOutTransportService",
+    description: "serviceMoveInOutTransportServiceDescription",
+  },
+  "high-security-property-care": {
+    label: "serviceHighSecurityPropertyCare",
+    description: "serviceHighSecurityPropertyCareDescription",
+  },
+  "luxury-yacht-cleaning": {
+    label: "serviceLuxuryYachtCleaning",
+    description: "serviceLuxuryYachtCleaningDescription",
   },
 };
 
@@ -468,13 +595,16 @@ export function RequestQuotationView({ serviceSlug }: { serviceSlug: string }) {
     FALLBACK_SERVICES[serviceSlug]?.imageUrl ??
     "/images/services/updated-home-property-cleaning-services-1-standard-residential-cleaning.webp";
 
-  const currentServiceLabel =
-    service?.label ??
+  const currentServiceLabelKey = SERVICE_TRANSLATION_KEYS[serviceSlug];
+  const currentServiceLabel = currentServiceLabelKey
+    ? translate(currentServiceLabelKey.label)
+    : service?.label ??
     FALLBACK_SERVICES[serviceSlug]?.label ??
     "Regular Home Cleaning";
 
-  const currentServiceDescription =
-    service?.description ??
+  const currentServiceDescription = currentServiceLabelKey
+    ? translate(currentServiceLabelKey.description)
+    : service?.description ??
     FALLBACK_SERVICES[serviceSlug]?.description ??
     "Regular Basic Cleaning";
 
@@ -534,7 +664,11 @@ export function RequestQuotationView({ serviceSlug }: { serviceSlug: string }) {
         {serviceContent?.introduction && (
           <ServiceIntroduction
             headline={serviceContent.introduction.headline}
-            body={serviceContent.introduction.body}
+            body={
+              Array.isArray(serviceContent.introduction.body)
+                ? serviceContent.introduction.body
+                : [serviceContent.introduction.body]
+            }
             bgImage={currentHeroImage}
           />
         )}
@@ -542,7 +676,7 @@ export function RequestQuotationView({ serviceSlug }: { serviceSlug: string }) {
         {serviceContent?.highlights?.map((group, index) => (
           <ServiceHighlights
             key={index}
-            title={group.title ?? "Standard Package Checklist"}
+            title={group.title}
             cards={group.cards}
           />
         ))}

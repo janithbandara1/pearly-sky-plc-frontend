@@ -7,6 +7,8 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Checkbox } from "@/components/ui/checkbox";
 import { SUPPLY_SOURCE_OPTIONS, type SupplySource } from "@/components/booking/equipment-section";
 
+import { useLanguage } from "@/lib/i18n/language-context";
+
 function formatHM(hours: number): string {
   const h = Math.floor(hours);
   const m = Math.round((hours - h) * 60);
@@ -73,24 +75,26 @@ export function QuotationDetailsCard({
   onAgreedToTermsChange,
   disabledReason,
 }: QuotationDetailsCardProps) {
+  const { translate } = useLanguage();
+
   return (
     <Card className="bg-brand-navy text-brand-navy-foreground">
       <CardContent className="flex flex-col gap-0 p-0">
         <div className="px-4 py-3">
-          <h3 className="text-base font-bold text-brand-gold">Quotation Details</h3>
+          <h3 className="text-base font-bold text-brand-gold">{translate("quoteDetailsTitle")}</h3>
         </div>
 
         <div className="flex flex-col border-t border-brand-gold/20">
-          <SummaryRow label="Service" value={serviceLabel} />
-          <SummaryRow label="Date" value={date || "—"} />
-          <SummaryRow label="Time" value={time || "—"} />
+          <SummaryRow label={translate("quoteDetailService")} value={serviceLabel} />
+          <SummaryRow label={translate("quoteDetailDate")} value={date || "—"} />
+          <SummaryRow label={translate("quoteDetailTime")} value={time || "—"} />
         </div>
 
         {!(hideQuoteItemsIfEmpty && quoteItemLines?.length === 0) && (
           <div className="flex flex-col">
             {quoteItemLines ? (
               <>
-                <SectionHeading label={quoteItemsTitle ?? "Job Details"} />
+                <SectionHeading label={quoteItemsTitle ?? translate("quoteDetailJobDetails")} />
                 {quoteItemLines.length > 0 ? (
                   quoteItemLines.map((line, i) => {
                     const separatorIndex = structuredQuoteItems ? line.indexOf(": ") : -1;
@@ -105,30 +109,30 @@ export function QuotationDetailsCard({
                     );
                   })
                 ) : (
-                  <SummaryRow label="Not specified" value="" />
+                  <SummaryRow label={translate("quoteDetailNotSpecified")} value="" />
                 )}
               </>
             ) : (
               <>
-                {propertyType && <SummaryRow label="Property type" value={propertyType} />}
-                <SummaryRow label="Property size" value={`${propertySizeSqm} m²`} />
+                {propertyType && <SummaryRow label={translate("quoteDetailPropertyType")} value={propertyType} />}
+                <SummaryRow label={translate("quoteDetailPropertySize")} value={`${propertySizeSqm} m²`} />
               </>
             )}
           </div>
         )}
 
         <div className="flex flex-col border-t border-brand-gold/20">
-          <SectionHeading label="Preferences" />
-          <SummaryRow label="Duration" value={formatHM(durationHours)} />
+          <SectionHeading label={translate("quoteDetailPreferences")} />
+          <SummaryRow label={translate("quoteDetailDuration")} value={formatHM(durationHours)} />
           <SummaryRow label={professionalsLabel} value={numCleaners} />
-          <SummaryRow label="Gender Preference" value={genderLabel} />
-          <SummaryRow label="Language Preference" value={languageLabel} />
-          <SummaryRow label="Special Requirements" value={requirements || "—"} />
+          <SummaryRow label={translate("quoteDetailGenderPreference")} value={genderLabel} />
+          <SummaryRow label={translate("quoteDetailLanguagePreference")} value={languageLabel} />
+          <SummaryRow label={translate("quoteDetailSpecialRequirements")} value={requirements || "—"} />
         </div>
 
         {equipmentItems.length > 0 && (
           <div className="flex flex-col border-t border-brand-gold/20">
-            <SectionHeading label="Cleaning Solvents & Equipment" />
+            <SectionHeading label={translate("quoteDetailEquipment")} />
             {SUPPLY_SOURCE_OPTIONS.map((opt) => (
               <label
                 key={opt.value}
@@ -162,7 +166,7 @@ export function QuotationDetailsCard({
                           isSelected ? "bg-brand-gold text-brand-navy" : "text-brand-gold"
                         }`}
                       >
-                        {isSelected ? "Added" : "Add"}
+                        {isSelected ? translate("quoteDetailAdded") : translate("quoteDetailAdd")}
                       </button>
                     }
                   />
@@ -183,15 +187,7 @@ export function QuotationDetailsCard({
               className="border-brand-gold data-checked:border-brand-gold data-checked:bg-brand-gold"
             />
             <span>
-              I agree to the{" "}
-              <Link href="/terms-and-conditions" target="_blank" className="underline">
-                Terms and Conditions
-              </Link>{" "}
-              and{" "}
-              <Link href="/privacy-policy" target="_blank" className="underline">
-                Privacy Policy
-              </Link>
-              .
+              {translate("quoteFormAgreeTerms")}
             </span>
           </label>
           <Button
@@ -199,7 +195,7 @@ export function QuotationDetailsCard({
             disabled={submitting || !!disabledReason}
             className="w-full bg-brand-gold text-brand-navy hover:bg-brand-gold/90"
           >
-            {submitting ? "Sending…" : ctaLabel}
+            {submitting ? translate("quoteDetailSending") : ctaLabel}
           </Button>
           {disabledReason && (
             <p className="mt-2 text-center text-xs text-brand-navy-foreground/70">{disabledReason}</p>

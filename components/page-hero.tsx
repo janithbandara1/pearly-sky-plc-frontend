@@ -9,6 +9,9 @@ import { COUNTRY_FLAGS } from "@/components/country-switcher";
 import { SUPPORTED_COUNTRIES, type CountryCode } from "@/lib/countries/config";
 import { useCountry } from "@/lib/countries/country-context";
 import { HeroPriceSelector, type HeroPriceOption } from "@/components/hero-price-selector";
+import { transcode } from "buffer";
+import { useLanguage } from "@/lib/i18n/language-context";
+import type { TranslationKey } from "@/lib/i18n/dictionaries/en";
 
 /** Same country-flag-icons set the navbar's CountrySwitcher/LocaleSwitcher use. */
 function getFlagComponent(code: string) {
@@ -118,7 +121,7 @@ export function PageHero({
                           ] */
   
 
-  
+  const {translate} =useLanguage()
 
   return (
     <section className="relative flex h-auto justify-center bg-transparent text-center mb-16 md:mb-12">
@@ -149,7 +152,7 @@ export function PageHero({
           </p>
         )}
         <h1 className="min-w-0 truncate md:overflow-visible md:text-clip md:whitespace-normal text-base sm:text-3xl md:text-4xl font-bold text-[#c29b38] tracking-tight leading-tight">
-          {title}
+          {translate(title as TranslationKey)}
         </h1>
         {subtitle && <p className="mt-3 text-brand-cream/85 hidden">{subtitle}</p>}
 
