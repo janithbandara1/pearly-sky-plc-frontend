@@ -58,6 +58,8 @@ export const nl = {
   servicesPricePerCleaner: "/u per schoonmaker",
   servicesSeeMore: "Meer zien",
   servicesSeeLess: "Minder zien",
+
+  // Service cards translations
   serviceRegularHomeCleaning: "Regelmatige huishoudelijke schoonmaak",
   serviceRegularHomeCleaningDescription: "Routinezorg voor een frisse, opgeruimde ruimte.",
   serviceEssentialTouchUpCleaning: "Essentiële opfrisschoonmaak",
@@ -73,6 +75,7 @@ export const nl = {
   servicePremiumRentalConciergeCleaningDescription: "Toppunt van schoonmaakzorg voor exclusieve verhuurwoningen.",
   serviceCommercialOfficeCleaning: "Commerciële & kantoorschoonmaak",
   serviceCommercialOfficeCleaningDescription: "Professionele schoonmaak voor zakelijke en commerciële ruimtes.",
+
   serviceHealthguardSanitization: "HealthGuard desinfectie",
   serviceHealthguardSanitizationDescription: "Gerichte desinfectie van oppervlakken die veel worden aangeraakt.",
   serviceCarpetUpholsteryCleaning: "Tapijt- & meubelreiniging",
@@ -111,7 +114,10 @@ export const nl = {
   serviceLuxuryYachtCleaningDescription: "Premium zorg voor jacht- en maritieme interieurs.",
   serviceSameDayPriorityCleaning: "Spoedschoonmaak op dezelfde dag",
   serviceSameDayPriorityCleaningDescription: "Snelle, betrouwbare schoonmaak op korte termijn.",
+
   serviceCommercialCleaningServices: "Commerciële schoonmaakdiensten",
+
+  // Carpet cleaning services
   CarpetServiceSectionTitle: "Details tapijt- & meubelreiniging",
   CarpetSchedulebackButtonText: "Terug",
   CarpetScheduleContinueButtonText: "Doorgaan",
@@ -133,9 +139,9 @@ export const nl = {
   projectAfteeState: "Ons resultaat",
   viewAllProjectButton: "Bekijk alle projecten",
 
-  clientFeedback: "De schoonmaak was geweldig en de mensen die werkten waren zo vriendelijk en aardig. We voelden ons heel goed verzorgd. Ik beveel aan",
+  clientFeedback: "De schoonmaak was geweldig en de mensen die werkten waren zo vriendelijk en aardig. We voelden uns heel goed verzorgd. Ik beveel aan",
 
-  //updated 4 categories which are visible in Home page services section
+  // Categories visible in Home page services section
   servicesCategoryResidentialCleaning: "🏠 RESIDENTIËLE SCHOONMAAKDIENSTEN",
   servicesCategoryPremiumAddOns: "➕ PREMIUM ADD-ON DIENSTEN",
   servicesCategoryCommercialSpecialised: "🏢 COMMERCIËLE & GESPECIALISEERDE SCHOONMAAKDIENSTEN",
@@ -149,6 +155,7 @@ export const nl = {
   servicesCategoryPropertyCare: "VASTGOEDZORG & BEHEER",
   servicesCategoryBespokeLifestyle: "OP MAAT GEMAAKTE LIFESTYLE- & WELLNESS-CURATIE",
 
+  // Services mapping for navigation links
   serviceLableRegularHomeCleaning: "Regelmatige huishoudelijke schoonmaak",
   serviceLableEssentialTouchUpCleaning: "Essentiële opfrisschoonmaak",
   serviceLableDeepCleaning: "Grondige schoonmaak",
@@ -169,6 +176,8 @@ export const nl = {
   serviceLableElderCareService: "Ouderenzorgdienst",
   serviceLableMoveInMoveOutTransportService: "Verhuis- & transportdienst",
   serviceLableHealthGuardSanitization: "HealthGuard desinfectie",
+
+  // Related services
   exploreServicesRelated: "Ontdek gerelateerde diensten",
 
   visionaryTeamTitle: "Ons visionaire team",
@@ -178,7 +187,584 @@ export const nl = {
   visionarydesignationsCUS: "Klantenservice",
   visionarydesignationsFIN: "Financiële afdeling",
 
-  //
+  serviceHighlightSectionHeader: "Standaard pakket checklist",
+  serviceIntroBottomText: "Stel uw regelmatige schema in",
+  hourPerCleaner: "uur / per schoonmaker",
+
+  // Regular Home Cleaning
+  serviceRegularCleaningIntroHeadLine: "Wekelijkse verfrissing: Consequente schoonmaak & langdurige rust.",
+  serviceRegularCleaningIntroBody: "Neem de stress weg uit de dagelijkse taken. Onze regelmatige huishoudelijke schoonmaakdienst zorgt voor een terugkerend, betrouwbaar schema om uw huis moeiteloos in een vlekkeloze staat te houden. Wij gebruiken uitsluitend gecertificeerde, milieuvriendelijke producten om een grondige en frisse reiniging te bieden die 100% veilig is voor kinderen en huisdieren.",
+
+  serviceRegularCleaningHighlightTitleOne: "Highlights van regelmatige huishoudelijke schoonmaak",
+  serviceRegularCleaningHighlightCardTitleOne: "Algemene huisverzorging",
+  serviceRegularCleaningHighlightCardTitleTwo: "Belangrijke contactpunten",
+  serviceRegularCleaningHighlightCardTitleThree: "Keuken & eetruimte",
+  serviceRegularCleaningHighlightCardTitleFour: "Badkamerschoonmaak",
+
+  serviceRegularCleaningTitleOneFeatureOne: "Algemeen stofwissen op oppervlakken.",
+  serviceRegularCleaningTitleOneFeatureTwo: "Oppervlakken afnemen (inclusief glazen oppervlakken).",
+  serviceRegularCleaningTitleOneFeatureThree: "Licht opruimen.",
+  serviceRegularCleaningTitleOneFeatureFour: "Prullenbakken legen & vloerverzorging (stofzuigen/dweilen).",
+
+  serviceRegularCleaningTitleTwoFeatureOne: "Bedden opmaken, beddengoed verschonen en gerichte desinfectie van vaak aangeraakte oppervlakken.",
+
+  serviceRegularCleaningTitleThreeFeatureOne: "Schoonmaken van de buitenkant van apparaten.",
+  serviceRegularCleaningTitleThreeFeatureTwo: "Desinfectie van werkbladen en spoelbakken.",
+  serviceRegularCleaningTitleThreeFeatureThree: "Afwas & grondig dweilen van de vloer.",
+
+  serviceRegularCleaningTitleFourFeatureOne: "Volledige sanitaire reiniging met focus op hygiëne.",
+  serviceRegularCleaningTitleFourFeatureTwo: "Schoonmaken van toilet, wastafel, douche en bad.",
+  serviceRegularCleaningTitleFourFeatureThree: "Spiegels reinigen en schone handdoeken neerleggen.",
+
+  // Essential Touch-Up Cleaning
+  serviceQuickTouchUpCleaningIntroHeadLine: "Snelle verfrissing voor drukbezochte ruimtes",
+  serviceQuickTouchUpCleaningIntroBody: [
+    "Weinig tijd maar wilt u dat uw huis er op zijn best uitziet? Onze Essentiële opfrisschoonmaak is een snelle, gerichte service ontworpen om de uitstraling van uw voornaamste leefruimtes te herstellen. Ideaal voor de ontvangst van gasten, na een evenement of tussen routinematige bezoeken in. Wij richten ons op drukbezochte zones — zoals belangrijke oppervlakken, keukens en badkamers — met 100% gecertificeerde milieuvriendelijke producten. Geniet van een vlekkeloze, gastvrije omgeving zonder vast te zitten aan een volledige huisschoonmaak. Bekijk onze transparante prijzen en boek vandaag nog uw snelreiniging."
+  ],
+
+  serviceQuickTouchUpCleaningHighlightTitleOne: "Highlights van essentiële opfrisschoonmaak",
+  serviceQuickTouchUpCleaningHighlightCardTitleTwo: "Keuken",
+  serviceQuickTouchUpCleaningHighlightCardTitleThree: "Badkamers",
+  serviceQuickTouchUpCleaningHighlightCardTitleFour: "Woon- & slaapkamers",
+  serviceQuickTouchUpCleaningHighlightCardTitleFive: "Vloeren & afval",
+
+  serviceQuickTouchUpCleaningTitleTwoFeatureOne: "Buitenkant van alle grote apparaten afnemen (koelkast, oven, vaatwasser).",
+  serviceQuickTouchUpCleaningTitleTwoFeatureTwo: "Werkbladen en spatwanden reinigen en desinfecteren.",
+  serviceQuickTouchUpCleaningTitleTwoFeatureThree: "Spoelbak en kraan schrobben en opblinken.",
+  serviceQuickTouchUpCleaningTitleTwoFeatureFour: "Kookplaat afnemen (alleen oppervlak).",
+  serviceQuickTouchUpCleaningTitleTwoFeatureFive: "Buitenkant van de magnetron afnemen.",
+
+  serviceQuickTouchUpCleaningTitleThreeFeatureOne: "Toilet, zitting en voet desinfecteren.",
+  serviceQuickTouchUpCleaningTitleThreeFeatureTwo: "Spiegels en glas reinigen.",
+  serviceQuickTouchUpCleaningTitleThreeFeatureThree: "Wastafelmeubel en wastafel afnemen.",
+  serviceQuickTouchUpCleaningTitleThreeFeatureFour: "Snelle spoeling en afname van douche/bad (geen zwaar voegschrobben).",
+
+  serviceQuickTouchUpCleaningTitleFourFeatureOne: "Stofwissen van vlakke oppervlakken (tafels, nachtkastjes, bureaus).",
+  serviceQuickTouchUpCleaningTitleFourFeatureTwo: "Kussens opschudden en netjes neerleggen.",
+  serviceQuickTouchUpCleaningTitleFourFeatureThree: "Spiegels en schilderijlijsten snel afnemen.",
+
+  serviceQuickTouchUpCleaningTitleFiveFeatureOne: "Alle tapijten en vloerkleden stofzuigen.",
+  serviceQuickTouchUpCleaningTitleFiveFeatureTwo: "Alle harde vloeren dweilen (standaard vochtige dweil).",
+  serviceQuickTouchUpCleaningTitleFiveFeatureThree: "Alle prullenbakken legen en zakken vervangen.",
+
+  // Same-Day Priority Cleaning
+  serviceSameDayPriorityCleaningIntroHeadLine: "Dringende reactie, ongecompromitteerde reinheid",
+  serviceSameDayPriorityCleaningIntroBody: [
+    "Direct schoonmaakhulp nodig op korte termijn? Onze Spoedschoonmaak op dezelfde dag biedt snelle inzet voor onverwachte bezoekers, last-minute evenementen of plotselinge noodgevallen. Wij geven prioriteit aan uw boeking om zo snel mogelijk een professionele schoonmaker naar uw huis te sturen, met 100% gecertificeerde milieuvriendelijke, niet-toxische producten die veilig zijn voor uw gezin en huisdieren. Krijg directe verlichting en gegarandeerde prioriteitsplanning wanneer tijd essentieel is. Bekijk onze transparante tarieven en boek nu direct prioritaire ondersteuning."
+  ],
+
+  serviceSameDayPriorityCleaningHighlightTitleOne: "Checklist na het feest (maximale rommel, maximale impact)",
+  serviceSameDayPriorityCleaningHighlightTitleTwo: "Checklist directe schoonmaak (Standaard service - Waar we op focussen)",
+  serviceSameDayPriorityCleaningHighlightCardTitleTwo: "Vloeren & ingang",
+  serviceSameDayPriorityCleaningHighlightCardTitleThree: "Herstel van gemeenschappelijke ruimtes",
+  serviceSameDayPriorityCleaningHighlightCardTitleFour: "Keuken & barruimte",
+  serviceSameDayPriorityCleaningHighlightCardTitleFive: "Checklist directe schoonmaak (Standaard service - Waar we op focussen)",
+  serviceSameDayPriorityCleaningHighlightCardTitleSix: "Snelle keukenschoonmaak",
+  serviceSameDayPriorityCleaningHighlightCardTitleSeven: "Badkamer opfrissen",
+
+  serviceSameDayPriorityCleaningTitleTwoFeatureOne: "Krachtig stofzuigen en vegen van voornaamste leefruimtes.",
+  serviceSameDayPriorityCleaningTitleTwoFeatureTwo: "Plaatselijk dweilen van drukbezochte en knoeigevoelige zones.",
+
+  serviceSameDayPriorityCleaningTitleThreeFeatureOne: "Rondslingerende spullen, glazen en afval verzamelen.",
+  serviceSameDayPriorityCleaningTitleThreeFeatureTwo: "Prullenbakken legen en desinfecteren.",
+  serviceSameDayPriorityCleaningTitleThreeFeatureThree: "Zichtbare oppervlakken stofwissen en plaatselijk reinigen.",
+  serviceSameDayPriorityCleaningTitleThreeFeatureFour: "Meubels netjes rangschikken (banken, stoelen, kussens).",
+
+  serviceSameDayPriorityCleaningTitleFourFeatureOne: "Lege flessen, blikjes en servies opruimen.",
+  serviceSameDayPriorityCleaningTitleFourFeatureTwo: "Alle werkbladen en plakkerige oppervlakken desinfecteren.",
+  serviceSameDayPriorityCleaningTitleFourFeatureThree: "Vaatwasser aanzetten; basisafwas doen.",
+  serviceSameDayPriorityCleaningTitleFourFeatureFour: "Geknoeide dranken op harde vloeren schoonmaken.",
+
+  serviceSameDayPriorityCleaningTitleSixFeatureOne: "Werkbladen afnemen.",
+  serviceSameDayPriorityCleaningTitleSixFeatureTwo: "Kastfronten plaatselijk reinigen.",
+  serviceSameDayPriorityCleaningTitleSixFeatureThree: "Buitenkant magnetron & kookplaat reinigen.",
+  serviceSameDayPriorityCleaningTitleSixFeatureFour: "Kleine vaat wassen of inladen.",
+  serviceSameDayPriorityCleaningTitleSixFeatureFive: "Spoelbak desinfecteren & kranen opblinken.",
+
+  serviceSameDayPriorityCleaningTitleSevenFeatureOne: "Wastafel en meubel desinfecteren.",
+  serviceSameDayPriorityCleaningTitleSevenFeatureTwo: "Toilet van binnen en buiten reinigen.",
+  serviceSameDayPriorityCleaningTitleSevenFeatureThree: "Spiegel snel afnemen.",
+  serviceSameDayPriorityCleaningTitleSevenFeatureFour: "Handdoek vervangen.",
+  serviceSameDayPriorityCleaningTitleSevenFeatureFive: "Gebruikte handdoeken vervangen.",
+  serviceSameDayPriorityCleaningTitleSevenFeatureSix: "Afvalemmer legen & ontgeuren.",
+
+  // Deep Cleaning
+  serviceDeepCleaningIntroHeadLine: "Verder dan het oppervlak: Ervaar het verschil van een grondige schoonmaak voor een volledig hersteld huis.",
+  serviceDeepCleaningIntroBody: [
+    "Als uw huis meer nodig heeft dan alleen een snelle opfrisbeurt, is onze Volledige Huis Reset de perfecte oplossing. Dit is ons meest grondige en gedetailleerde schoonmaakpakket, ontworpen om vuil, stof en opbouw aan te pakken die bij een standaardschoonmaak over het hoofd worden gezien. Wij nemen de nodige tijd om elke hoek diep te reinigen en een vlekkeloze basis te leggen voor uw woning.",
+    "Wanneer tijd cruciaal is, kies dan het team dat snel een merkbaar verschil garandeert."
+  ],
+
+  serviceDeepCleaningHighlightTitleOne: "Highlights van grondige schoonmaak",
+  serviceDeepCleaningHighlightCardTitleTwo: "Keukendetails",
+  serviceDeepCleaningHighlightCardTitleThree: "Badkamer heiligdom",
+  serviceDeepCleaningHighlightCardTitleFour: "Vloerverzorging",
+  serviceDeepCleaningHighlightCardTitleFive: "Focus op alle zones",
+
+  serviceDeepCleaningTitleTwoFeatureOne: "Intensief schrobben van spatwanden.",
+  serviceDeepCleaningTitleTwoFeatureTwo: "Grondige reiniging van de buitenkant van apparaten.",
+  serviceDeepCleaningTitleTwoFeatureThree: "Ontvetten van afzuigkappen & kookplaten.",
+
+  serviceDeepCleaningTitleThreeFeatureOne: "Grondig schrobben van douchevoegen & tegelwanden.",
+  serviceDeepCleaningTitleThreeFeatureTwo: "Desinfecteren van toiletten, baden & wastafels.",
+  serviceDeepCleaningTitleThreeFeatureThree: "Ontkalken van kranen & glazen douchedeuren.",
+
+  serviceDeepCleaningTitleFourFeatureOne: "Krachtig stofzuigen & randreiniging van tapijten.",
+  serviceDeepCleaningTitleFourFeatureTwo: "Diep dweilen & desinfecteren van harde vloeren.",
+  serviceDeepCleaningTitleFourFeatureThree: "Gedetailleerde reiniging van plinten & vloerhoeken.",
+
+  serviceDeepCleaningTitleFiveFeatureOne: "Afnemen & stofwissen van alle plinten.",
+  serviceDeepCleaningTitleFiveFeatureTwo: "Gedetailleerde reiniging van vensterbanken & randen.",
+  serviceDeepCleaningTitleFiveFeatureThree: "Desinfecteren van deurkozijnen, deuren & klinken.",
+
+  // End of Tenancy Cleaning
+  serviceEndOfTenancyCleaningIntroHeadLine: "Leeg huis, volledige schoonmaak: Gegarandeerd uw borg terug of een stralende nieuwe start.",
+  serviceEndOfTenancyCleaningIntroBody: [
+    "Onze verhuisschoonmaak is een zeer gerichte, uitgebreide service die specifiek is ontworpen voor lege woningen. Deze dienst gaat verder dan een standaard grondige schoonmaak en richt zich intensief op vergeten plekken zoals de binnenkant van kasten, laden en bijkeukens om te voldoen aan de strenge eisen van een oplevering.",
+    "Vertrouw op de experts in totale vastgoedoplevering voor een naadloze overgang."
+  ],
+
+  serviceEndOfTenancyCleaningHighlightTitleOne: "Highlights van eindschoonmaak bij vertrek",
+  serviceEndOfTenancyCleaningHighlightCardTitleTwo: "Keuken & bijkeuken details",
+  serviceEndOfTenancyCleaningHighlightCardTitleThree: "Intensieve badkamerreiniging",
+  serviceEndOfTenancyCleaningHighlightCardTitleFour: "Algemene ruimtes & muren",
+  serviceEndOfTenancyCleaningHighlightCardTitleFive: "Vloerverzorging",
+
+  serviceEndOfTenancyCleaningTitleTwoFeatureOne: "Binnen- en buitenkant van alle kasten en laden schoonvegen.",
+  serviceEndOfTenancyCleaningTitleTwoFeatureTwo: "Binnen- en buitenkant van alle grote apparaten (oven, koelkast, vaatwasser) grondig reinigen.",
+  serviceEndOfTenancyCleaningTitleTwoFeatureThree: "Diep schrobben van afzuigkap en kookplaat.",
+
+  serviceEndOfTenancyCleaningTitleThreeFeatureOne: "Zwaar schrobben en ontkalken van douchevoegen, tegels, baden & douchedeuren.",
+  serviceEndOfTenancyCleaningTitleThreeFeatureTwo: "Binnenkant van wastafelladen en -kasten reinigen.",
+
+  serviceEndOfTenancyCleaningTitleFourFeatureOne: "Alle binnenramen afnemen.",
+  serviceEndOfTenancyCleaningTitleFourFeatureTwo: "Raamrails, vensterbanken, lichtschakelaars & deurkozijnen reinigen.",
+  serviceEndOfTenancyCleaningTitleFourFeatureThree: "Zichtbare vlekken op muren plaatselijk verwijderen.",
+
+  serviceEndOfTenancyCleaningTitleFiveFeatureOne: "Krachtig stofzuigen van alle tapijtzones.",
+  serviceEndOfTenancyCleaningTitleFiveFeatureTwo: "Wassen / dweilen en opblinken van alle harde vloeren.",
+
+  // Post-Construction & Renovation Cleaning
+  servicePostConstructionRenovationCleaningIntroHeadLine: "De eindslag: Bouwstof elimineren en de glans van uw nieuwe ruimte onthullen.",
+  servicePostConstructionRenovationCleaningIntroBody: [
+    "Onze schoonmaak na bouwwerkzaamheden is essentieel voor het veilig en grondig verwijderen van bouwresten, fijn gipsplaatstof, verfspatters en lijmresten. Dit proces in twee fasen (grove schoonmaak en eindschoonmaak) richt zich op het verwijderen van microscopisch stof van elk oppervlak met gespecialiseerde apparatuur om de ruimte intreklaar te maken.",
+    "Laat bouwstof niet hangen. Vertrouw op ons gespecialiseerde team om een afwerking te leveren die uw project echt compleet maakt."
+  ],
+
+  servicePostConstructionRenovationCleaningHighlightTitleOne: "Highlights van schoonmaak na bouw & renovatie",
+  servicePostConstructionRenovationCleaningHighlightCardTitleTwo: "Stof & luchtkwaliteit",
+  servicePostConstructionRenovationCleaningHighlightCardTitleThree: "Raamdetails",
+  servicePostConstructionRenovationCleaningHighlightCardTitleFour: "Keuken & badkamer",
+  servicePostConstructionRenovationCleaningHighlightCardTitleFive: "Vloerverzorging",
+
+  servicePostConstructionRenovationCleaningTitleTwoFeatureOne: "Meerdere keren afnemen van alle oppervlakken met microvezeldoeken.",
+  servicePostConstructionRenovationCleaningTitleTwoFeatureTwo: "Stofzuigen met HEPA-filter.",
+  servicePostConstructionRenovationCleaningTitleTwoFeatureThree: "Schoonmaken van ventilatieroosters en luchtinlaatroosters.",
+
+  servicePostConstructionRenovationCleaningTitleThreeFeatureOne: "Wassen van glas, kozijnen en raamrails.",
+  servicePostConstructionRenovationCleaningTitleThreeFeatureTwo: "Veilig verwijderen van verf, stickers of resten.",
+
+  servicePostConstructionRenovationCleaningTitleFourFeatureOne: "Schoonvegen van alle nieuw geïnstalleerde kasten/laden.",
+  servicePostConstructionRenovationCleaningTitleFourFeatureTwo: "Verwijderen van voegsluier op tegels.",
+  servicePostConstructionRenovationCleaningTitleFourFeatureThree: "Schoonmaken van kranen en sanitair van kit/kitresten/stof.",
+
+  servicePostConstructionRenovationCleaningTitleFiveFeatureOne: "Zwaar stofzuigen met HEPA-filter.",
+  servicePostConstructionRenovationCleaningTitleFiveFeatureTwo: "Gedetailleerde randreiniging, wassen en opblinken van harde vloeren.",
+
+  // Premium Rental Concierge Cleaning
+  servicePremiumRentalConciergeCleaningIntroHeadLine: "Naadloos verblijf, vijfsterrenbeoordelingen: Perfecte oplevering, elke keer weer.",
+  servicePremiumRentalConciergeCleaningIntroBody: [
+    "Onze verhuur-opleveringsservice is op maat gemaakt voor de unieke eisen van korte-termijn verhuuroobjecten. Het doel is om de efficiëntie te maximaliseren en tegelijkertijd te zorgen dat elk detail voldoet aan de hoogste gastvrijheidsnormen voor directe incheck van gasten. Deze service is tijdkritisch en omvat essentiële taken zoals herbevoorrading en presentatie die niet door standaardschoonmaak worden gedekt.",
+    "Wij zijn de sleutel tot consistente 5-sterren reinheid en zorgeloos verhuren."
+  ],
+
+  servicePremiumRentalConciergeCleaningHighlightTitleOne: "Highlights van premium huur- & concierge-schoonmaak",
+  servicePremiumRentalConciergeCleaningHighlightCardTitleTwo: "Gastenverblijf (Badkamers)",
+  servicePremiumRentalConciergeCleaningHighlightCardTitleThree: "Keuken & versnaperingen",
+  servicePremiumRentalConciergeCleaningHighlightCardTitleFour: "Linnenbeheer (Slaapkamers)",
+  servicePremiumRentalConciergeCleaningHighlightCardTitleFive: "Onderhoud & eindcontrole",
+
+  servicePremiumRentalConciergeCleaningTitleTwoFeatureOne: "Luxe handzeep — dispenser gevuld of nieuw zeepje gepresenteerd.",
+  servicePremiumRentalConciergeCleaningTitleTwoFeatureTwo: "Haarverzorging — nieuwe reisset shampoo & conditioner.",
+  servicePremiumRentalConciergeCleaningTitleTwoFeatureThree: "Papierproducten — toiletpapier gemonteerd & verzegeld, reservevoorraad aangevuld.",
+  servicePremiumRentalConciergeCleaningTitleTwoFeatureFour: "Handdoeken — vers gewassen & opgevouwen.",
+  servicePremiumRentalConciergeCleaningTitleTwoFeatureFive: "Badmat — schoon & neergelegd.",
+
+  servicePremiumRentalConciergeCleaningTitleThreeFeatureOne: "Dranken en zoetstoffen netjes gepresenteerd.",
+  servicePremiumRentalConciergeCleaningTitleThreeFeatureTwo: "Schoonmaakbenodigdheden klaar voor gebruik door gasten.",
+  servicePremiumRentalConciergeCleaningTitleThreeFeatureThree: "Nieuwe afvalzak en volle rol keukenpapier.",
+  servicePremiumRentalConciergeCleaningTitleThreeFeatureFour: "Welkomstattentie in verzegelde presentatie.",
+
+  servicePremiumRentalConciergeCleaningTitleFourFeatureOne: "Matras visueel geïnspecteerd — geen vlekken of schade.",
+  servicePremiumRentalConciergeCleaningTitleFourFeatureTwo: "Schone, strak opgemaakte onder- en bovenlakens.",
+  servicePremiumRentalConciergeCleaningTitleFourFeatureThree: "Kussenslopen en dekbedovertrek vers verschoond en gestyled.",
+  servicePremiumRentalConciergeCleaningTitleFourFeatureFour: "Gedetailleerd, stofvrij afnemen van verlichtingsarmaturen.",
+
+  servicePremiumRentalConciergeCleaningTitleFiveFeatureOne: "Muren controleren, vlekken & vingerafdrukken verwijderen.",
+  servicePremiumRentalConciergeCleaningTitleFiveFeatureTwo: "Zorgen dat alle oppervlakken stofvrij zijn.",
+  servicePremiumRentalConciergeCleaningTitleFiveFeatureThree: "Veiligheidscontrole om eventuele gevaren te verwijderen.",
+  servicePremiumRentalConciergeCleaningTitleFiveFeatureFour: "Volledige eindleidraad & stylingsinspectie uitvoeren.",
+
+  // Commercial Office Cleaning
+  serviceCommercialOfficeCleaningIntroHeadLine: "Productiviteit verhogen door onberispelijke panden en welzijn op de werkplek.",
+  serviceCommercialOfficeCleaningIntroBody: [
+    "Onze zakelijke schoonmaakdienst is afgestemd op bedrijven die op zoek zijn naar betrouwbare, hoogwaardige schoonmaak voor hun commerciële ruimtes, kantoren en bedrijfsomgevingen. Onze teams werken discreet en efficiënt, meestal buiten de reguliere kantooruren om overlast te minimaliseren. De focus ligt op het behouden van een professioneel imago, het verbeteren van de gezondheid van medewerkers door hygiëne en het naleven van sanitaire normen in drukbezochte zones.",
+    "Een schone omgeving is een productieve omgeving. Werk met ons samen voor consistente uitmuntendheid."
+  ],
+
+  serviceCommercialOfficeCleaningHighlightTitleOne: "Checklist welzijn op de werkplek (Commerciële focus)",
+  serviceCommercialOfficeCleaningHighlightTitleSeven: "Contractuele frequentieopties",
+  serviceCommercialOfficeCleaningHighlightCardTitleTwo: "Gemeenschappelijke ruimtes & receptie",
+  serviceCommercialOfficeCleaningHighlightCardTitleThree: "Pantry & kantine",
+  serviceCommercialOfficeCleaningHighlightCardTitleFour: "Sanitair",
+  serviceCommercialOfficeCleaningHighlightCardTitleFive: "Vloerverzorging",
+  serviceCommercialOfficeCleaningHighlightCardTitleSix: "Afvalbeheer",
+  serviceCommercialOfficeCleaningHighlightCardTitleSeven: "Contractuele frequentieopties",
+  serviceCommercialOfficeCleaningHighlightCardTitleEight: "Dagelijkse schoonmaak",
+  serviceCommercialOfficeCleaningHighlightCardTitleNine: "Drie keer per week",
+  serviceCommercialOfficeCleaningHighlightCardTitleTen: "Wekelijkse schoonmaak",
+  serviceCommercialOfficeCleaningHighlightCardTitleEleven: "Tweewekelijkse schoonmaak",
+
+  serviceCommercialOfficeCleaningTitleTwoFeatureOne: "Stofwissen van alle zichtbare horizontale oppervlakken, bureaus en archiefkasten.",
+  serviceCommercialOfficeCleaningTitleTwoFeatureTwo: "Opblinken van receptiemeubilair en glazen/metalen armaturen.",
+  serviceCommercialOfficeCleaningTitleTwoFeatureThree: "Gedetailleerde reiniging van al het binnen-glas (deuren, scheidingswanden).",
+
+  serviceCommercialOfficeCleaningTitleThreeFeatureOne: "Schoonmaken en desinfecteren van werkbladen, spoelbakken en apparaten (magnetrons, koelkasten).",
+  serviceCommercialOfficeCleaningTitleThreeFeatureTwo: "Vochtig afnemen van tafels en stoelen.",
+
+  serviceCommercialOfficeCleaningTitleFourFeatureOne: "Grondige reiniging en desinfectie van alle toiletten, urinoirs, wastafels en kranen.",
+  serviceCommercialOfficeCleaningTitleFourFeatureTwo: "Bijvullen van papierproducten, handzeep en desinfectiemiddelen.",
+
+  serviceCommercialOfficeCleaningTitleFiveFeatureOne: "Dagelijks stofzuigen van alle tapijtzones.",
+  serviceCommercialOfficeCleaningTitleFiveFeatureTwo: "Vegen en dweilen van alle harde vloeroppervlakken (tegels, vinyl, hout).",
+
+  serviceCommercialOfficeCleaningTitleSixFeatureOne: "Legen van alle afvalbakken en vervangen van zakken.",
+  serviceCommercialOfficeCleaningTitleSixFeatureTwo: "Verzamelen van recyclebaar afval voor ophaal.",
+
+  serviceCommercialOfficeCleaningTitleEightFeatureOne: "Voor drukbezochte bedrijfskantoren en medische faciliteiten.",
+
+  serviceCommercialOfficeCleaningTitleNineFeatureOne: "De standaard voor middelgrote kantoren.",
+
+  serviceCommercialOfficeCleaningTitleTenFeatureOne: "Geschikt voor kleinere kantoren of locaties met weinig loopverkeer.",
+
+  serviceCommercialOfficeCleaningTitleElevenFeatureOne: "Uitsluitend focus op sanitair, pauzeruimtes en vloeronderhoud.",
+
+  // HealthGuard Sanitization
+  serviceHealthguardSanitizationIntroHeadLine: "Verder dan schoon: Hospital-grade desinfectie voor een echt HealthGuard omgeving.",
+  serviceHealthguardSanitizationIntroBody: [
+    "Onze HealthGuard desinfectiedienst richt zich uitsluitend op het elimineren van ziekteverwekkers, bacteriën en virussen van veelaangeraakte en drukbezochte oppervlakken. Deze service maakt gebruik van EPA/ECHA-geregistreerde desinfectiemiddelen van ziekenhuiskwaliteit en gespecialiseerde aanbrengmethoden (zoals nevelen of elektrostatisch spuiten) om maximale dekking en kiemdodendheid te bereiken.",
+    "Deze service is ideaal voor klanten die geavanceerde hygiënenormen eisen, zoals artsenpraktijken, sportscholen, scholen en woningen met kwetsbare personen. Wij maken niet alleen schoon — wij zuiveren uw ruimte klinisch voor uw gezondheid en gemoedsrust."
+  ],
+
+  serviceHealthguardSanitizationHighlightTitleOne: "Checklist desinfectie van zuivere ruimtes (Gerichte focus – Inclusief residentieel)",
+  serviceHealthguardSanitizationHighlightCardTitleTwo: "Checklist desinfectie van zuivere ruimtes",
+  serviceHealthguardSanitizationHighlightCardTitleThree: "Keuken & bereidingsruimtes",
+  serviceHealthguardSanitizationHighlightCardTitleFour: "Residentiële detailfocus",
+  serviceHealthguardSanitizationHighlightCardTitleFive: "Kantoor detailfocus",
+  serviceHealthguardSanitizationHighlightCardTitleSix: "Aanbrengmethode",
+
+  serviceHealthguardSanitizationTitleTwoFeatureOne: "Eerste oppervlakschoonmaak gevolgd door aanbrengen van desinfectiemiddel van ziekenhuiskwaliteit.",
+  serviceHealthguardSanitizationTitleTwoFeatureTwo: "Veelaangeraakte oppervlakken: deurklinken, schakelaars, afstandsbedieningen, thermostaten, leuningen, telefoons.",
+  serviceHealthguardSanitizationTitleTwoFeatureThree: "Sanitair: desinfecteren van kranen, wastafels, werkbladen, toiletten, handgrepen, douche-/badruimtes.",
+
+  serviceHealthguardSanitizationTitleThreeFeatureOne: "Werkbladen, spoelbakken, kraangrepen.",
+  serviceHealthguardSanitizationTitleThreeFeatureTwo: "Buitenkant handgrepen van koelkast, kasten, magnetron.",
+  serviceHealthguardSanitizationTitleThreeFeatureThree: "Binnenkant magnetron, toetsenborden, knoppen van koffiezetapparaten.",
+
+  serviceHealthguardSanitizationTitleFourFeatureOne: "Nachtkastjes, ladeknoppen, hard speelgoed van kinderen.",
+  serviceHealthguardSanitizationTitleFourFeatureTwo: "Gamecontrollers en knoppen/draaiknoppen van apparaten.",
+
+  serviceHealthguardSanitizationTitleFiveFeatureOne: "Toetsenborden, muizen, bureau-oppervlakken.",
+  serviceHealthguardSanitizationTitleFiveFeatureTwo: "Knoppen van gemeenschappelijke drinkfonteinen.",
+
+  serviceHealthguardSanitizationTitleSixFeatureOne: "Vloeibare spray / microvezeldoeken + elektrostatische spray waar nodig.",
+  serviceHealthguardSanitizationTitleSixFeatureTwo: "Nevelen of elektrostatisch spuiten waar nodig.",
+
+  // Carpet & Upholstery Cleaning
+  serviceCarpetUpholsteryCleaningIntroHeadLine: "Diepe vezelvernieuwing: Zachtheid, kleur en frisse geur herstellen in elk meubelstuk.",
+  serviceCarpetUpholsteryCleaningIntroBody: [
+    "Onze vezelvernieuwingsservice maakt gebruik van professionele heetwater-extractie en stofveilige behandelingen om diepliggend vuil, allergenen en geuren te verwijderen uit tapijten, vloerkleden, meubels, matrassen en gordijnen — veel dieper dan een gewone stofzuiger ooit kan komen. Elk stofrijpe type wordt vooraf beoordeeld, zodat kwetsbare vloerkleden en fijn meubilair de zachte zorg krijgen die ze verdienen.",
+    "Het resultaat is zachter, helderder en gezonder textiel door uw hele huis — met snellere droogtijden en zonder harde chemische resten."
+  ],
+
+  serviceCarpetUpholsteryCleaningHighlightTitleOne: "Highlights van tapijt- & meubelreiniging",
+  serviceCarpetUpholsteryCleaningHighlightCardTitleTwo: "Tapijtreiniging",
+  serviceCarpetUpholsteryCleaningHighlightCardTitleThree: "Vloerkleedreiniging",
+  serviceCarpetUpholsteryCleaningHighlightCardTitleFour: "Meubelreiniging",
+  serviceCarpetUpholsteryCleaningHighlightCardTitleFive: "Matrasreiniging",
+  serviceCarpetUpholsteryCleaningHighlightCardTitleSix: "Gordijnreiniging",
+
+  serviceCarpetUpholsteryCleaningTitleTwoFeatureOne: "Gezondheids- & luchtkwaliteitsboost — verwijdert allergenen.",
+  serviceCarpetUpholsteryCleaningTitleTwoFeatureTwo: "Herstel & waardebehoud.",
+  serviceCarpetUpholsteryCleaningTitleTwoFeatureThree: "Professionele diepe heetwater-extractie.",
+  serviceCarpetUpholsteryCleaningTitleTwoFeatureFour: "Veilige & effectieve milieuvriendelijke oplossingen.",
+
+  serviceCarpetUpholsteryCleaningTitleThreeFeatureOne: "Zachte zorg voor alle typen vloerkleden.",
+  serviceCarpetUpholsteryCleaningTitleThreeFeatureTwo: "Bescherming van kleur & textuur.",
+  serviceCarpetUpholsteryCleaningTitleThreeFeatureThree: "Handmatige afwerking.",
+
+  serviceCarpetUpholsteryCleaningTitleFourFeatureOne: "Schoon, vers comfort dat de levensduur van meubels verlengt.",
+  serviceCarpetUpholsteryCleaningTitleFourFeatureTwo: "Verwijdering van vlekken & geuren.",
+  serviceCarpetUpholsteryCleaningTitleFourFeatureThree: "Professionele stofveilige zorg.",
+
+  serviceCarpetUpholsteryCleaningTitleFiveFeatureOne: "Verwijdert huisstofmijt & allergenen.",
+  serviceCarpetUpholsteryCleaningTitleFiveFeatureTwo: "Verbetert de slaaphygiëne.",
+  serviceCarpetUpholsteryCleaningTitleFiveFeatureThree: "Diep desinfectieproces.",
+
+  serviceCarpetUpholsteryCleaningTitleSixFeatureOne: "Demontage niet nodig.",
+  serviceCarpetUpholsteryCleaningTitleSixFeatureTwo: "Stofveilige stoomreiniging.",
+  serviceCarpetUpholsteryCleaningTitleSixFeatureThree: "Verfrist de binnenlucht.",
+
+  // Steam Cleaning
+  serviceSteamCleaningIntroHeadLine: "Benut de zuivere kracht van stoom voor chemicaliënvrije dieptereiniging en desinfectie.",
+  serviceSteamCleaningIntroBody: [
+    "Onze stoomreinigingsdienst maakt gebruik van hoge-temperatuur stoom met een lage vochtigheidsgraad om oppervlakken te desinfecteren, vet op te lossen, schimmel te elimineren en tot 99,9% van de bacteriën, kiemen en huisstofmijt te doden. Deze service is ideaal voor klanten die een milieuvriendelijke, hypoallergene en zeer effectieve methode zoeken voor het reinigen van keukens, sanitair, tegels, voegen en moeilijk bereikbare kieren.",
+    "Zuivere stoom onder druk dringt dieper door dan conventionele schoonmaakmethoden."
+  ],
+
+  serviceSteamCleaningHighlightTitleOne: "Highlights van stoomreiniging",
+  serviceSteamCleaningHighlightCardTitleTwo: "Keukendetails",
+  serviceSteamCleaningHighlightCardTitleThree: "Grondige sanitairreiniging",
+  serviceSteamCleaningHighlightCardTitleFour: "Oppervlakte-desinfectie",
+  serviceSteamCleaningHighlightCardTitleFive: "Kieren & vlekbehandeling",
+
+  serviceSteamCleaningTitleTwoFeatureOne: "Stomen en desinfecteren van afzuigkappen en roosters.",
+  serviceSteamCleaningTitleTwoFeatureTwo: "Diep stoomreinigen van oveninterieurs en koelkastrubbers.",
+  serviceSteamCleaningTitleTwoFeatureThree: "Desinfecteren van snijplanken met stoom op hoge temperatuur.",
+
+  serviceSteamCleaningTitleThreeFeatureOne: "Stoomreinigen van voeglijnen en oplossen van zeepresten.",
+  serviceSteamCleaningTitleThreeFeatureTwo: "Schoonmaken van toiletvoeten, scharnieren en moeilijk bereikbare zones.",
+
+  serviceSteamCleaningTitleFourFeatureOne: "Stoomdesinfectie van veelaangeraakte punten: klinken, schakelaars.",
+  serviceSteamCleaningTitleFourFeatureTwo: "Chemicaliënvrije desinfectie van bedieningspanelen van apparaten.",
+
+  serviceSteamCleaningTitleFiveFeatureOne: "Precisie-stoomreiniging met mondstuk voor hoeken en plinten.",
+  serviceSteamCleaningTitleFiveFeatureTwo: "Effectief reinigen van raamrails en tegelvoegen.",
+  serviceSteamCleaningTitleFiveFeatureThree: "Lichte vlekbehandeling voor stof en meubels.",
+
+  // Post-Event Cleaning
+  servicePostEventCleaningIntroHeadLine: "Het enige dat we achterlaten is een vlekkeloze locatie.",
+  servicePostEventCleaningIntroBody: [
+    "Onze schoonmaakdienst na evenementen is ontworpen om te zorgen dat uw locatie vlekkeloos schoon en gereed is, zodat u zich kunt richten op het genieten van de gelegenheid. Van de voorbereiding tot het opruimen na afloop behandelen onze professionals elk detail om een schone en gastvrije omgeving voor gasten te creëren.",
+    "Deze uitgebreide service garandeert een goed onderhouden, hygiënische ruimte die de sfeer verhoogt en een blijvende positieve indruk achterlaat op uw gasten."
+  ],
+
+  servicePostEventCleaningHighlightTitleOne: "Highlights van schoonmaak na evenementen",
+  servicePostEventCleaningHighlightCardTitleTwo: "Vóór het evenement",
+  servicePostEventCleaningHighlightCardTitleThree: "Vlak voordat de gasten arriveren",
+  servicePostEventCleaningHighlightCardTitleFour: "Tijdens het evenement",
+  servicePostEventCleaningHighlightCardTitleFive: "Na het evenement",
+
+  servicePostEventCleaningTitleTwoFeatureOne: "Schoonmaakomvang bepalen op basis van type en grootte van het evenement.",
+  servicePostEventCleaningTitleTwoFeatureTwo: "Opruimen, stofwissen en de ruimte organiseren.",
+  servicePostEventCleaningTitleTwoFeatureThree: "Tapijten stofzuigen, harde vloeren vegen en dweilen.",
+  servicePostEventCleaningTitleTwoFeatureFour: "Ramen, glazen oppervlakken, stoelen en tafels reinigen.",
+  servicePostEventCleaningTitleTwoFeatureFive: "Veelaangeraakte oppervlakken desinfecteren (deurklinken, schakelaars, leuningen).",
+
+  servicePostEventCleaningTitleThreeFeatureOne: "Laatste inspectie en bijwerken van vlekken of vegen.",
+  servicePostEventCleaningTitleThreeFeatureTwo: "Sanitair hercontroleren op voorraad.",
+  servicePostEventCleaningTitleThreeFeatureThree: "Controleren of decoraties en borden schoon en op hun plek hangen.",
+  servicePostEventCleaningTitleThreeFeatureFour: "Schoonmaakapparatuur uit het zicht opbergen.",
+
+  servicePostEventCleaningTitleFourFeatureOne: "Afvalbakken monitoren en legen wanneer nodig.",
+  servicePostEventCleaningTitleFourFeatureTwo: "Geknoeide vloeistoffen en rommel direct opruimen.",
+  servicePostEventCleaningTitleFourFeatureThree: "Sanitairvoorraden bijvullen.",
+  servicePostEventCleaningTitleFourFeatureFour: "Schoonmaakspullen bij de hand houden maar discreet opbergen.",
+
+  servicePostEventCleaningTitleFiveFeatureOne: "Volledige eindschoonmaak na evenement (stofzuigen, dweilen, oppervlakken afnemen).",
+  servicePostEventCleaningTitleFiveFeatureTwo: "Huurapparatuur reinigen en opbergen.",
+  servicePostEventCleaningTitleFiveFeatureThree: "Afval en recycling op de juiste wijze afvoeren.",
+  servicePostEventCleaningTitleFiveFeatureFour: "Controleren op schade of overmatige slijtage.",
+
+  // Pool Cleaning
+  servicePoolCleaningIntroHeadLine: "Behoud een uitstekende waterkwaliteit en verleng de levensduur van uw zwembadinstallatie.",
+  servicePoolCleaningIntroBody: [
+    "Onze zwembadonderhoudsservice biedt gespecialiseerd, terugkerend onderhoud voor particuliere en commerciële zwembaden. Deze dienst zorgt voor een optimale chemische balans van het water, een lange levensduur van apparatuur en een schone, veilige zwemomgeving. Onze inspecties omvatten zowel fysieke reiniging als het beheer van de chemische waarden.",
+    "Prijsopmerking: Prijzen worden per onderhoudsbeurt (wekelijks/tweewekelijks) geoffreerd op basis van de zwembadgrootte en de benodigde chemische expertise."
+  ],
+
+  servicePoolCleaningHighlightTitleOne: "Highlights van zwembadreiniging",
+  servicePoolCleaningHighlightCardTitleTwo: "Vuil verwijderen",
+  servicePoolCleaningHighlightCardTitleThree: "Filteronderhoud",
+  servicePoolCleaningHighlightCardTitleFour: "Wand- & tegelborstelen",
+  servicePoolCleaningHighlightCardTitleFive: "Chemische balans",
+  servicePoolCleaningHighlightCardTitleSix: "Apparatuurcontrole",
+
+  servicePoolCleaningTitleTwoFeatureOne: "Het wateroppervlak afschuimen en de bodem en wanden stofzuigen.",
+
+  servicePoolCleaningTitleThreeFeatureOne: "Het filter terugspoelen/reinigen; de skimmer- en pompmandjes legen.",
+
+  servicePoolCleaningTitleFourFeatureOne: "Zwembadwanden en tegelranden borstelen om algen en kalkaanslag te voorkomen.",
+
+  servicePoolCleaningTitleFiveFeatureOne: "Testen en aanpassen van chloor/desinfectiemiddel, pH, alkaliteit en hardheid.",
+
+  servicePoolCleaningTitleSixFeatureOne: "Inspectie van pomp, verwarming, filter en timer op correcte werking.",
+
+  // Precision Pressure Washing
+  servicePrecisionPressureWashingIntroHeadLine: "Glans herstellen: De diepste reiniging voor buitengevels, opritten en commerciële oppervlakken.",
+  servicePrecisionPressureWashingIntroBody: [
+    "Onze hoge-drukreinigingsdienst maakt gebruik van professionele apparatuur met warm water, gespecialiseerde spuitkoppen en biologisch afbreekbare reinigingsmiddelen om hardnekkige, grote of moeilijk bereikbare buitenoppervlakken veilig en effectief te reinigen."
+  ],
+
+  servicePrecisionPressureWashingHighlightTitleOne: "Highlights van precisie-hoge-drukreiniging",
+  servicePrecisionPressureWashingHighlightCardTitleTwo: "Zachte reiniging (Soft Wash)",
+  servicePrecisionPressureWashingHighlightCardTitleThree: "Opritten & terrassen",
+  servicePrecisionPressureWashingHighlightCardTitleFour: "Ramen & dakgoten",
+
+  servicePrecisionPressureWashingTitleTwoFeatureOne: "Een milde, milieuvriendelijke reiniging ideaal voor kwetsbare oppervlakken — verwijdert vuil, schimmel en organische aanslag met behoud van verf en afwerking.",
+
+  servicePrecisionPressureWashingTitleThreeFeatureOne: "Krachtige hoge-drukreiniging om olievlekken, algen en diepVuil uit beton en bestrating te verwijderen.",
+
+  servicePrecisionPressureWashingTitleFourFeatureOne: "Professionele reiniging om vuil en resten te verwijderen voor een helder zicht, goede afwatering en langdurige bescherming.",
+
+  // Child Care Service
+  serviceChildCareServiceIntroHeadLine: "Zorgzame ondersteuning / Familie-eerst kinderopvang",
+  serviceChildCareServiceIntroBody: [
+    "Deze service biedt zeer persoonlijke, premium kinderopvang aan huis, gespecialiseerd in educatieve betrokkenheid, flexibele planning en uitgebreide ondersteuning — inclusief maaltijden, hygiëne, vervoer en lichte huishoudelijke taken."
+  ],
+
+  serviceChildCareServiceHighlightTitleOne: "Highlights van kinderopvangdienst",
+  serviceChildCareServiceHighlightCardTitleTwo: "Babyzorg (3–18 maanden)",
+  serviceChildCareServiceHighlightCardTitleThree: "Peuterontwikkeling (1,5–3 jaar)",
+  serviceChildCareServiceHighlightCardTitleFour: "Dagopvang",
+  serviceChildCareServiceHighlightCardTitleFive: "Buitenschoolse opvang",
+  serviceChildCareServiceHighlightCardTitleSix: "Eenmalige oppas",
+  serviceChildCareServiceHighlightCardTitleSeven: "Spoedoppas",
+
+  serviceChildCareServiceTitleTwoFeatureOne: "Gespecialiseerde aandacht en zintuiglijke ontwikkelingsactiviteiten ontworpen voor baby's.",
+
+  serviceChildCareServiceTitleThreeFeatureOne: "Spelend leren en sociale vaardigheidsontwikkeling voor nieuwsgierige peuters.",
+
+  serviceChildCareServiceTitleFourFeatureOne: "Heledagopvang voor kinderen in een veilige en stimulerende omgeving.",
+
+  serviceChildCareServiceTitleFiveFeatureOne: "Huiswerkbegeleiding en creatieve activiteiten voor schoolgaande kinderen.",
+
+  serviceChildCareServiceTitleSixFeatureOne: "Flexibele zorg op aanvraag voor drukke avonden of weekends.",
+
+  serviceChildCareServiceTitleSevenFeatureOne: "Het leven kan onvoorspelbaar zijn — krijg snel oppas wanneer u het 't hardst nodig heeft.",
+
+  // Elder Care Service
+  serviceElderCareServiceIntroHeadLine: "Compassievolle ouderenzorg / Ondersteuning op maat",
+  serviceElderCareServiceIntroBody: [
+    "Deze service biedt persoonlijke, niet-medische ondersteunende zorg voor ouderen, gericht op het verhogen van de levenskwaliteit, veiligheid en zelfstandigheid door middel van gezelschap, mobiliteitshulp, maaltijdbereiding en dagelijkse boodschappen."
+  ],
+
+  serviceElderCareServiceHighlightTitleOne: "Highlights van ouderenzorgdienst",
+  serviceElderCareServiceHighlightCardTitleTwo: "Gezelschapszorg",
+  serviceElderCareServiceHighlightCardTitleThree: "Persoonlijke verzorging",
+  serviceElderCareServiceHighlightCardTitleFour: "Dagelijkse zorg",
+
+  serviceElderCareServiceTitleTwoFeatureOne: "Sociale interactie en waardevol gezelschap.",
+  serviceElderCareServiceTitleTwoFeatureTwo: "Ondersteuning bij dagelijkse activiteiten.",
+
+  serviceElderCareServiceTitleThreeFeatureOne: "Wassen, kleden en uiterlijke verzorging.",
+  serviceElderCareServiceTitleThreeFeatureTwo: "Medicatieherinneringen en -beheer.",
+  serviceElderCareServiceTitleThreeFeatureThree: "Incontinentiezorg met alle respect.",
+
+  serviceElderCareServiceTitleFourFeatureOne: "Routinematige zorg en ondersteuning bij dagelijkse leefstaken.",
+  serviceElderCareServiceTitleFourFeatureTwo: "Hulp bij mobiliteit en verplaatsingen.",
+
+  // Laundry Service
+  serviceLaundryServiceIntroHeadLine: "Moeiteloze wasservice, vers en schoon geleverd",
+  serviceLaundryServiceIntroBody: [
+    "Uw tijd is kostbaar — laat ons uw wasgoed verzorgen, van ophalen tot fris opgevouwen levering aan huis."
+  ],
+
+  serviceLaundryServiceHighlightTitleOne: "Highlights van wasserijdienst",
+  serviceLaundryServiceHighlightCardTitleTwo: "Wassen & vouwen",
+  serviceLaundryServiceHighlightCardTitleThree: "Premium stomerij",
+  serviceLaundryServiceHighlightCardTitleFour: "Professioneel stoomstrijken",
+  serviceLaundryServiceHighlightCardTitleFive: "Eco-luxe textielverzorging",
+  serviceLaundryServiceHighlightCardTitleSix: "Beddengoed & linnengoed",
+  serviceLaundryServiceHighlightCardTitleSeven: "Express ophaal- & bezorgservice",
+
+  serviceLaundryServiceTitleTwoFeatureOne: "Dagelijkse was deskundig gewassen, gedroogd en strak opgevouwen.",
+
+  serviceLaundryServiceTitleThreeFeatureOne: "Gespecialiseerde stoomreiniging voor kwetsbare stoffen, kostuums en avondkleding.",
+
+  serviceLaundryServiceTitleFourFeatureOne: "Precisie-strijken en stomen voor een kreukvrije, professionele afwerking.",
+
+  serviceLaundryServiceTitleFiveFeatureOne: "Zachte reiniging met milieuvriendelijke wasmiddelen die de levensduur van luxe textiel verlengen.",
+
+  serviceLaundryServiceTitleSixFeatureOne: "Intensieve reiniging van grote stukken zoals dekbedden, gordijnen en beddengoed.",
+
+  serviceLaundryServiceTitleSevenFeatureOne: "Geplande haal- en brengservice die naadloos aansluit op uw agenda.",
+
+  // Move-In / Move-Out Transport Service
+  serviceMoveInOutTransportServiceIntroHeadLine: "Naadloze verhuislogistiek / Transport van woninginboedel",
+  serviceMoveInOutTransportServiceIntroBody: [
+    "Deze service biedt verhuis- en transportbeheer op maat voor veeleisende particuliere en zakelijke klanten. De kosten worden bepaald via een uitgebreide offerte op basis van logistieke complexiteit, volume en afstand."
+  ],
+
+  serviceMoveInOutTransportServiceHighlightTitleOne: "Highlights van verhuis- & transportdienst",
+  serviceMoveInOutTransportServiceHighlightCardTitleTwo: "Inpakken van goederen",
+  serviceMoveInOutTransportServiceHighlightCardTitleThree: "Verhuizen van goederen",
+  serviceMoveInOutTransportServiceHighlightCardTitleFour: "Transport van goederen",
+  serviceMoveInOutTransportServiceHighlightCardTitleFive: "Commercieel / Kantoor",
+
+  serviceMoveInOutTransportServiceTitleTwoFeatureOne: "Breekbare spullen veilig ingepakt in geschikte dozen met duidelijke etikettering van inhoud en bestemming.",
+
+  serviceMoveInOutTransportServiceTitleThreeFeatureOne: "Goederen zorgvuldig geladen en vastgezet op transportvoertuigen om schuiven te voorkomen, en efficiënt uitgeladen op de bestemming.",
+
+  serviceMoveInOutTransportServiceTitleFourFeatureOne: "Goederen veilig geladen met de juiste gewichtsverdeling en naleving van alle veiligheidsprotocollen tijdens het transport.",
+
+  serviceMoveInOutTransportServiceTitleFiveFeatureOne: "Kantoorapparatuur veilig verpakt, duidelijk gelabeld en efficiënt getransporteerd om overlast te minimaliseren.",
+
+  // High Security Property Care
+  serviceHighSecurityPropertyCareIntroHeadLine: "Gescreend personeel | Volledige discretie | Ongeëvenaarde kwaliteit",
+  serviceHighSecurityPropertyCareIntroBody: [
+    "Gespecialiseerde schoonmaak ontworpen voor VVIP- en VIP-cliënten, overheidsgebouwen, privé-landgoederen en hooggevoelige objecten. Exclusief uitgevoerd door veiligheidsgescreend personeel onder strenge geheimhoudingsovereenkomsten (NDA). Wij bieden totale discretie in zones met beperkte toegang met gebruik van certified eco-vriendelijke producten."
+  ],
+
+  serviceHighSecurityPropertyCareHighlightTitleOne: "Highlights van vastgoedzorg voor beveiligde objecten",
+  serviceHighSecurityPropertyCareHighlightCardTitleTwo: "Gescreend personeel & privacy",
+  serviceHighSecurityPropertyCareHighlightCardTitleThree: "Hoogbeveiligde faciliteiten",
+  serviceHighSecurityPropertyCareHighlightCardTitleFour: "Nood- & gevaarlijke stoffen respons",
+  serviceHighSecurityPropertyCareHighlightCardTitleFive: "Desinfectie van digitale apparaten",
+
+  serviceHighSecurityPropertyCareTitleTwoFeatureOne: "100% achtergrondgecontroleerde, gescreende en NDA-gebonden technici.",
+  serviceHighSecurityPropertyCareTitleTwoFeatureTwo: "Strikte geheimhoudingsprotocollen ter bescherming van fysieke en digitale gegevens.",
+
+  serviceHighSecurityPropertyCareTitleThreeFeatureOne: "Gespecialiseerde schoonmaak voor kluisruimtes, serverruimtes en vertrouwelijke kantoren.",
+  serviceHighSecurityPropertyCareTitleThreeFeatureTwo: "Submicron stofafzuiging voor gevoelige hardware en elektronica.",
+
+  serviceHighSecurityPropertyCareTitleFourFeatureOne: "24/7 snelle inzet bij inbraak, biologisch gevaar en calamiteiten.",
+  serviceHighSecurityPropertyCareTitleFourFeatureTwo: "Directe terreinbeveiliging, dichttimmeren en fotodocumentatie voor de verzekering.",
+
+  serviceHighSecurityPropertyCareTitleFiveFeatureOne: "Schoonmaken van virussen, malware en spyware op apparaten ter plaatse.",
+  serviceHighSecurityPropertyCareTitleFiveFeatureTwo: "Volledige gegevenswissing en privacyherstel voor besmette apparaten.",
+
+  // Luxury Yacht Cleaning
+  serviceLuxuryYachtCleaningIntroHeadLine: "Zoutaanslag of VIP-charter op komst? Krijg jacht-standaard perfectie & directe glans!",
+  serviceLuxuryYachtCleaningIntroBody: [
+    "Het onderhouden van een luxe vaartuig van wereldklasse vereist niet-aflatende zorg en oog voor detail. Of u uw jacht nu klaarmaakt voor een exclusieve charter, herstelt van een meerdaagse zeereis, of discrete huishouding nodig heeft voor prominente gasten, onze Marine Schoonmaakspecialisten staan voor u klaar.",
+    "Wij zijn gespecialiseerd in high-end jacht-detailing, romp-herstel van maritieme kwaliteit, teakbehandeling en ultra-discrete interieur-desinfectie. Onze bemanning is achtergrondgecontroleerd, getraind in luxe oppervlaktezorg en volledig op de hoogte van maritieme veiligheidsprotocollen.",
+    "Wanneer luxe en maritieme precisie er het meest toe doen, kiest u het team dat op het water wordt vertrouwd."
+  ],
+
+  serviceLuxuryYachtCleaningHighlightTitleOne: "Checklist luxe jachtzorg (Maximale precisie, vlekkeloze afwerking)",
+  serviceLuxuryYachtCleaningHighlightCardTitleTwo: "Exterieur & opbouw",
+  serviceLuxuryYachtCleaningHighlightCardTitleThree: "Interieur VIP-hutten",
+  serviceLuxuryYachtCleaningHighlightCardTitleFour: "Machinekamer & technische zones",
+  serviceLuxuryYachtCleaningHighlightCardTitleFive: "Snelle oplevering na charter",
+
+  serviceLuxuryYachtCleaningTitleTwoFeatureOne: "Wassen met maritieme reinigers, neutraliseren van zoutaanslag en streeploos drogen.",
+  serviceLuxuryYachtCleaningTitleTwoFeatureTwo: "RVS polijsten, glashelderheidsbehandeling en schrobben van het teakdek.",
+
+  serviceLuxuryYachtCleaningTitleThreeFeatureOne: "White-glove huishouding voor VIP-hutten, eigenaarssuites en kombuis.",
+  serviceLuxuryYachtCleaningTitleThreeFeatureTwo: "Dieptereiniging van kwetsbare meubelstoffen, fijn leder, marmer en op maat gemaakt houtwerk.",
+
+  serviceLuxuryYachtCleaningTitleFourFeatureOne: "Ontvetten van bilges in de machinekamer, afnemen van machines en voorbereiding van technische ruimtes.",
+  serviceLuxuryYachtCleaningTitleFourFeatureTwo: "Milieuvriendelijke opvang van gevaarlijke afvalstoffen conform maritieme milieunormen.",
+
+  serviceLuxuryYachtCleaningTitleFiveFeatureOne: "24/7 snelle noodschoonmaak tussen charterboekingen in.",
+  serviceLuxuryYachtCleaningTitleFiveFeatureTwo: "Volledige linnenwissel, desinfectie en bevoorradingsvoorbereiding voor komende gasten.",
+
+  // Testimonials part in home
+  completedTestimonial: "Voltooid",
+  propertyType: "Dieptereiniging modern penthouse",
+
+  // About Our Services
   aboutOurServices: " Onze diensten",
   aboutOurServicesContent: "Bij Pearly Sky begrijpen we dat het handhaven van een onberispelijke omgeving essentieel is voor productiviteit en welzijn. Of u nu een routinematige huisschoonmaak, een grondige kantoorreiniging of gespecialiseerde diensten voor high-end eigendommen nodig heeft, ons team levert ongeëvenaarde kwaliteit. Wij gebruiken milieuvriendelijke, luxe schoonmaakproducten die veilig zijn voor uw gezin, huisdieren en werkplek, en zorgen voor een grondige reiniging zonder schadelijke chemicaliën. Ons personeel is streng opgeleid, volledig gescreend en gericht op het leveren van een betrouwbare, efficiënte service telkens opnieuw. Wij zijn trots op onze aandacht voor detail, waardoor elke ruimte een vlekkeloos heiligdom wordt, ongeacht de grootte of complexiteit.",
 
@@ -222,10 +808,8 @@ export const nl = {
   // Testimonials
   testimonialsTitle: "Klantbelevingen",
   testimonialsReadAll: "Lees alle beoordelingen",
-  review1Text:
-    "De schoonmaak was geweldig en de mensen die werkten waren zo vriendelijk en aardig. We voelden ons heel goed verzorgd. Ik beveel aan!!",
-  review2Text:
-    "Ik heb in september 2024 een schoonmaakservice geboekt. Twee schoonmakers hebben uitstekend werk geleverd in 5 uur. Ramen en koelkast werden ook schoongemaakt.",
+  review1Text: "De schoonmaak was geweldig en de mensen die werkten waren zo vriendelijk en aardig. We voelden uns heel goed verzorgd. Ik beveel aan!!",
+  review2Text: "Ik heb in september 2024 een schoonmaakservice geboekt. Twee schoonmakers hebben uitstekend werk geleverd in 5 uur. Ramen en koelkast wurden ook schoongemaakt.",
   review3Text: "Professioneel team, punctuele service en vlekkeloze resultaten. Sterk aanbevolen.",
 
   // Contact
@@ -256,11 +840,10 @@ export const nl = {
   // About Us page
   aboutPageEyebrow: "OVER PEARLY SKY CLEANING SERVICES",
   aboutPageHeroTitle: "Uw betrouwbare schoonmaakpartner",
-  
+
   aboutPageIdentityTitle: "Onze kernidentiteit",
   aboutPageIdentitySubtitle: "Waar reinheid luxe ontmoet",
-  aboutPageIdentityIntro:
-    "Bij Pearly Sky geloven we dat echte reinheid een kunstvorm is — de basis van een gezonde, productieve en serene omgeving.",
+  aboutPageIdentityIntro: "Bij Pearly Sky geloven we dat echte reinheid een kunstvorm is — de basis van een gezonde, productieve en serene omgeving.",
   aboutIdentity1Label: "Onberispelijke zorg",
   aboutIdentity1Text: "Wij zijn toegewijd aan een ongeëvenaard niveau van detail en excellentie in elke dienst die wij leveren.",
   aboutIdentity2Label: "Eco-luxe",
@@ -269,40 +852,33 @@ export const nl = {
   aboutIdentity3Text: "Wij zijn uw betrouwbare partner voor zowel elite schoonmaakzorg als betrouwbare transportoplossingen.",
   aboutPageStoryTitle: "Ons verhaal",
   aboutPageStorySubtitle: "Van visie naar wereldwijde reikwijdte",
-  aboutPageStoryParagraph1:
-    "Pearly Sky Cleaning Services begon als een klein lokaal bedrijf gedreven door één visie: de schoonmaakindustrie revolutioneren door een nieuwe standaard te zetten voor kwaliteit, innovatie en duurzaamheid.",
+  aboutPageStoryParagraph1: "Pearly Sky Cleaning Services begon als een klein lokaal bedrijf gedreven door één visie: de schoonmaakindustrie revolutioneren door een nieuwe standaard te zetten voor kwaliteit, innovatie en duurzaamheid.",
   aboutPageWhyTitle: "Waarom Pearly Sky kiezen?",
   aboutPageWhySubtitle: "De pijlers van eco-luxe",
   aboutWhy1Title: "Ervaren team",
-  aboutWhy1Text:
-    "Ons getrainde, professionele en hoffelijke personeel is expert in het discreet en precies aanpakken van elke schoonmaakuitdaging.",
+  aboutWhy1Text: "Ons getrainde, professionele en hoffelijke personeel is expert in het discreet en precies aanpakken van elke schoonmaakuitdaging.",
   aboutWhy2Title: "Milieuvriendelijke praktijken",
-  aboutWhy2Text:
-    "Wij gebruiken veilige, niet-toxische en geavanceerde schoonmaakproducten, zodat onze methoden mild zijn voor het milieu en veilig voor uw gezin of medewerkers.",
+  aboutWhy2Text: "Wij gebruiken veilige, niet-toxische en geavanceerde schoonmaakproducten, zodat onze methoden mild zijn voor het milieu en veilig voor uw gezin of medewerkers.",
   aboutWhy3Title: "Op maat gemaakte oplossingen",
-  aboutWhy3Text:
-    "Elke klant is uniek. Wij stemmen onze schoonmaak- en transportdiensten af op uw specifieke behoeften, schema's en luxevoorkeuren.",
+  aboutWhy3Text: "Elke klant is uniek. Wij stemmen onze schoonmaak- en transportdiensten af op uw specifieke behoeften, schema's en luxevoorkeuren.",
   aboutWhy4Title: "Betaalbare luxe",
   aboutWhy4Text: "Wij bieden concurrerende tarieven die premium service leveren zonder in te leveren op kwaliteit.",
   aboutWhy5Title: "24/7 beschikbaar",
   aboutWhy5Text: "Wij zijn er voor u, met betrouwbare en snelle service, wanneer u ons nodig heeft.",
-  
+
   aboutWhy6Title: "Onvoorwaardelijke beveiliging",
   aboutWhy6Text: "Uw privacy en eigendom zijn van het grootste belang. Elk personeelslid is grondig gescreend, verzekerd en getraind om uw vertrouwelijke ruimtes te respecteren.",
-  
 
   aboutPageVisionMissionTitle: "Visie, missie & waarden",
   aboutPageVisionTitle: "Onze visie",
-  aboutVisionText:
-    "Wij leveren Excellentie. Wij streven naar uitzonderlijke kwaliteit en uitstekende resultaten voor al onze klanten en partners, en creëren ruimtes die echt schitteren.",
+  aboutVisionText: "Wij leveren Excellentie. Wij streven naar uitzonderlijke kwaliteit en uitstekende resultaten voor al onze klanten en partners, en creëren ruimtes die echt schitteren.",
   aboutPageMissionTitle: "Onze missie",
-  aboutMissionText:
-    "Wij leiden door uitzonderlijke service en creatieve innovatie, en drijven vooruitgang en gedeeld succes in onze schoonmaak- en transportsectoren.",
+  aboutMissionText: "Wij leiden door uitzonderlijke service en creatieve innovatie, en drijven vooruitgang en gedeeld succes in onze schoonmaak- en transportsectoren.",
   aboutPageValuesTitle: "UW BETROUWBARE SCHOONMAAKPARTNER",
-  
+
   aboutPageSectionHeader: "OVER PEARLY SKY CLEANING SERVICES",
   aboutPageSectionSubHeader: "OVER PEARLY SKY CLEANING SERVICES",
-  
+
   aboutValue1: "Diversiteit, inclusie & gelijkheid",
   aboutValue2: "Verantwoordelijkheid",
   aboutValue3: "Duurzaamheid",
@@ -312,7 +888,7 @@ export const nl = {
   aboutObjective1: "Diversiteit, inclusie en gelijkheid bevorderen binnen onze groeiende teams.",
   aboutObjective2: "Top talent aantrekken en behouden om onze standaard van luxeservice te handhaven",
   aboutObjective3: "Een motiverende werkomgeving creëren die innovatie stimuleert",
-  aboutObjective4: "Partnerverwachtingen overtreffen door consequent resultaten te leveren",
+  aboutObjective4: "Partnerverwachtingen overtreffen door consistent resultaten te leveren",
   aboutObjective5: "Een levendige agentschapscultuur cultiveren die is gebouwd op respect en service.",
   aboutPageCtaTitle: "Klaar om de Kunst van Onberispelijke Zorg te ervaren?",
   aboutPageCtaSubtitle: "Neem vandaag contact met ons op om uw op maat gemaakte eco-luxe schoonmaak- of transportdienst te plannen.",
@@ -326,10 +902,21 @@ export const nl = {
   customersClientele3: "Premium vastgoedbeheerders en vastgoedgroepen",
   customersClientele4: "Diplomatieke residenties en veiligheidsgevoelige organisaties",
   customersClientele5: "Vijfsterren hospitality- en evenementenlocaties",
-  customersClosingParagraph:
-    "Elke klant ontvangt een op maat gemaakt zorgplan, afgestemd op hun levensstijl, schema en privacyvereisten. Onze reputatie is gebouwd op vertrouwen, consistentie en een onwankelbare toewijding aan eco-luxe standaarden.",
+  customersClosingParagraph: "Elke klant ontvangt een op maat gemaakt zorgplan, afgestemd op hun levensstijl, schema en privacyvereisten. Onze reputatie is gebouwd op vertrouwen, consistentie en een onwankelbare toewijding aan eco-luxe standaarden.",
   customersGalleryTitle: "Momenten van excellentie",
   customersTestimonialsTitle: "Wat onze klanten zeggen",
+
+  // Marquee review comments
+  customerComment2: "Ik heb in september 2024 een schoonmaakservice geboekt. Twee schoonmakers hebben uitstekend werk geleverd in 5 uur. Ramen en koelkast wurden ook schoongemaakt.",
+  customerComment3: "Professioneel team, punctuele service en vlekkeloze resultaten. Sterk aanbevolen.",
+  customerComment4: "Supervriendelijk personeel en betrouwbare service. Het huis voelde vers en volledig schoon aan.",
+  customerComment1: "De schoonmaak was geweldig en de mensen die werkten waren zo vriendelijk en aardig. We voelden uns heel goed verzorgd. Ik beveel aan!!",
+
+  // Partner with us
+  whyPartnerWithUsTitle: "Waarom met ons samenwerken?",
+  ecoCertified: "Eco-gecertificeerd: Toewijding aan het gebruik van gecertificeerde, niet-toxische schoonmaakproducten.",
+  transparentAndReliable: "Transparant & betrouwbaar: Duidelijke prijzen en gegarandeerde beschikbaarheid van gekwalificeerde professionals.",
+  qualityAssured: "Kwaliteit gegarandeerd: Streng geselecteerde en getrainde schoonmaakspecialisten.",
 
   // Our Locations page
   locationsPageTitle: "Onze wereldwijde locaties",
@@ -366,8 +953,7 @@ export const nl = {
   careersBenefits: "Waarom bij ons komen",
   careersAboutCompany: "Over Pearly Sky",
   careersApplyPageTitle: "Solliciteer voor deze functie",
-  careersApplyInstructions:
-    "Vul hieronder uw gegevens in. Wanneer uw e-mailapp opent, voeg dan uw CV/resume bij voordat u verzendt — dit formulier kan geen bestanden direct uploaden.",
+  careersApplyInstructions: "Vul hieronder uw gegevens in. Wanneer uw e-mailapp opent, voeg dan uw CV/resume bij voordat u verzendt — dit formulier kan geen bestanden direct uploaden.",
   careersApplySend: "SOLLICITATIE VERSTUREN",
   careersRoleLabel: "Functie *",
 
@@ -375,43 +961,14 @@ export const nl = {
   contactPageTitle: "Neem contact op met ons concierge-team",
   contactOfficesTitle: "Onze kantoren",
 
-  //footer
+  // Footer & Miscellaneous
   quickConnect: "Snel contact & verbinden",
   writeUs: "SCHRIJF ONS",
   connectWithUs: "MAAK CONTACT MET ONS",
-
-  // Missing Keys
   numberNow: "Pearly Sky nummer nu",
   supportPayementMethods: "Ondersteunde betaalmethoden",
-  serviceHighlightSectionHeader: "Standaard pakket checklist",
-  serviceIntroBottomText: "Stel uw regelmatige schema in",
-  hourPerCleaner: "uur / per schoonmaker",
-  serviceRegularCleaningIntroHeadLine: "Wekelijkse verfrissing: Consequente schoonmaak & langdurige rust.",
-  serviceRegularCleaningIntroBody: "Neem de stress weg uit de dagelijkse taken. Onze regelmatige huishoudelijke schoonmaakdienst zorgt voor een terugkerend, betrouwbaar schema om uw huis moeiteloos in een vlekkeloze staat te houden. Wij gebruiken uitsluitend gecertificeerde, milieuvriendelijke producten om een grondige en frisse reiniging te bieden die 100% veilig is voor kinderen en huisdieren.",
-  serviceRegularCleaningHighlightTitleOne: "Highlights van regelmatige huishoudelijke schoonmaak",
-  serviceRegularCleaningHighlightCardTitleOne: "Algemene huisverzorging",
-  serviceRegularCleaningHighlightCardTitleTwo: "Belangrijke contactpunten",
-  serviceRegularCleaningHighlightCardTitleThree: "Keuken & eetruimte",
-  serviceRegularCleaningHighlightCardTitleFour: "Badkamerschoonmaak",
-  serviceRegularCleaningTitleOneFeatureOne: "Algemeen stofwissen op oppervlakken.",
-  serviceRegularCleaningTitleOneFeatureTwo: "Oppervlakken afnemen (inclusief glazen oppervlakken).",
-  serviceRegularCleaningTitleOneFeatureThree: "Licht opruimen.",
-  serviceRegularCleaningTitleOneFeatureFour: "Prullenbakken legen & vloerverzorging (stofzuigen/dweilen).",
-  serviceRegularCleaningTitleTwoFeatureOne: "Bedden opmaken, beddengoed verschonen en gerichte desinfectie van vaak aangeraakte oppervlakken.",
-  serviceRegularCleaningTitleThreeFeatureOne: "Schoonmaken van de buitenkant van apparaten.",
-  serviceRegularCleaningTitleThreeFeatureTwo: "Desinfectie van werkbladen en spoelbakken.",
-  serviceRegularCleaningTitleThreeFeatureThree: "Afwas & grondig dweilen van de vloer.",
-  serviceRegularCleaningTitleFourFeatureOne: "Volledige sanitaire reiniging met focus op hygiëne.",
-  serviceRegularCleaningTitleFourFeatureTwo: "Schoonmaken van toilet, wastafel, douche en bad.",
-  serviceRegularCleaningTitleFourFeatureThree: "Spiegels reinigen en schone handdoeken neerleggen.",
-  customerComment1: "De schoonmaak was geweldig en de mensen die werkten waren zo vriendelijk en aardig. We voelden uns heel goed verzorgd. Ik beveel aan!!",
-  customerComment2: "Ik heb in september 2024 een schoonmaakservice geboekt. Twee schoonmakers hebben uitstekend werk geleverd in 5 uur. Ramen en koelkast werden ook schoongemaakt.",
-  customerComment3: "Professioneel team, punctuele service en vlekkeloze resultaten. Sterk aanbevolen.",
-  customerComment4: "Supervriendelijk personeel en betrouwbare service. Het huis voelde vers en volledig schoon aan.",
-  whyPartnerWithUsTitle: "Waarom met ons samenwerken?",
-  ecoCertified: "Eco-gecertificeerd: Toewijding aan het gebruik van gecertificeerde, niet-toxische schoonmaakproducten.",
-  transparentAndReliable: "Transparent & betrouwbaar: Duidelijke prijzen en gegarandeerde beschikbaarheid van gekwalificeerde professionals.",
-  qualityAssured: "Kwaliteit gegarandeerd: Streng geselecteerde en getrainde schoonmaakspecialisten.",
+
+  // Booking & Date/Time Section
   dateTimeSelectTitle: "Kies datum en tijd om uw afspraak te boeken",
   dateTimeSelectDate: "Selecteer de datum",
   dateTimeSelectTime: "Selecteer het tijdslot",
@@ -435,6 +992,8 @@ export const nl = {
   weekdayFr: "Vr",
   weekdaySa: "Za",
   weekdaySu: "Zo",
+
+  // Booking & Property Selection
   propertyTypeTitle: "Type vastgoed",
   propertySizeTitle: "Grootte vastgoed",
   propertySwipeBrowse: "‹ Veeg om te bladeren ›",
@@ -448,6 +1007,8 @@ export const nl = {
   propertyTypeVilla: "Villa",
   propertyTypeEstate: "Landgoed / Domaine",
   propertyTypeVip: "VIP",
+
+  // Booking Equipment & Solvents
   equipmentByClient: "DOOR DE KLANT VERSTREKT",
   equipmentByCompany: "DOOR HET BEDRIJF VERSTREKT",
   equipmentProvidedByCustomer: "Door de klant verstrekt",
@@ -461,6 +1022,8 @@ export const nl = {
   equipmentBookNowBtn: "Nu boeken",
   equipmentProceedCheckout: "Doorgaan naar afrekenen",
   equipmentProcessing: "Verwerken...",
+
+  // Booking Preferences
   preferencesTitle: "Voorkeuren",
   preferencesGender: "Geslachtsvoorkeur",
   preferencesLanguage: "Taalvoorkeur",
@@ -475,6 +1038,706 @@ export const nl = {
   genderPreferNotToDisclose: "Zeg ik liever niet",
   staffGenderFemale: "Vrouwelijk personeel",
   staffGenderMale: "Mannelijk personeel",
+
+  // HealthGuard & Disinfection Levels
+  disinfectionSelectLevelTitle: "Selecteer uw gewenste serviceniveau",
+  disinfectionSelectLevelSub: "Bepaal de frequentie en intensiteit van de benodigde schoonmaak.",
+  disinfectionQuatTitle: "Quartaire ammoniumverbindingen (Quat) – Standaard",
+  disinfectionQuatDesc: "Kosteneffectief, bewezen, reukarm.",
+  disinfectionPeroxideTitle: "Waterstofperoxide (H₂O₂) – Premium",
+  disinfectionPeroxideDesc: "Snelle inwerkingtijd, geen chemische resten.",
+  disinfectionHypochlorousTitle: "Hypochloorzuur (HOCl) – Geavanceerd",
+  disinfectionHypochlorousDesc: "Niet-toxisch, krachtig voor verneveling / luchtbehandeling.",
+  disinfectionBotanicalTitle: "Botanisch / Op tijmbasis – Eco-vriendelijk",
+  disinfectionBotanicalDesc: "Gecertificeerd groen, natuurlijke ingrediënten.",
+  facilitySelectTitle: "Selecteer het type faciliteit dat gereinigd moet worden",
+  facilitySelectSub: "Kies de categorie en specifieke faciliteit om de juiste apparatuur en protocollen te garanderen.",
+  facilityClearSelection: "Selectie wissen",
+
+  // Event Cleaning
+  eventSelectTypeTitle: "Selecteer uw type evenement",
+  eventSelectTypeSub: "Kies het type evenement om de juiste teamgrootte en opruimprotocollen te garanderen.",
+
+  // Request Quotation Form & Steps
+  quoteFormTitle: "Gegevens serviceaanvraag",
+  quoteFormStepDateTime: "1. Datum & tijd",
+  quoteFormStepEquipment: "2. Schoonmaakmiddelen en uitrusting",
+  quoteFormSelectEquipment: "Selecteer uitrusting & materialen",
+  quoteFormProvidedByCustomer: "Door de klant verstrekt",
+  quoteFormRequestCompany: "Aanvragen bij het bedrijf",
+  quoteFormStepPropertyScale: "3. Schaal van het vastgoed",
+  quoteFormTotalPropertyArea: "Totale oppervlakte vastgoed",
+  quoteFormStepProfessionals: "4. Toegewezen professionals",
+  quoteFormCleaners: "Schoonmakers",
+  quoteFormServiceSpecialists: "Servicespecialisten",
+  quoteFormStepDuration: "5. Duur per schoonmaker",
+  quoteFormHours: "Uren",
+  quoteFormTotalManHours: "Totaal verwachte man-uren",
+  quoteFormStepCoordination: "6. Coördinatie & voorkeuren",
+  quoteFormStaffGender: "Geslachtsvoorkeur personeel",
+  quoteFormLanguageCoordination: "Taalcoördinatie",
+  quoteFormSpecialInstructions: "Speciale instructies of aandachtspunten",
+  quoteFormStepLocation: "7. Locatie van de residentie",
+  quoteFormPickupAddress: "Ophaaladres",
+  quoteFormDeliveryAddress: "Afleveradres",
+  quoteFormStreetAddress: "Straatnaam & huisnummer",
+  quoteFormUnitApt: "Appartement / Toevoeging",
+  quoteFormCity: "Stad",
+  quoteFormPostalCode: "Postcode",
+  quoteFormCountry: "Land",
+  quoteFormState: "Provincie / Staat",
+  quoteFormStepContact: "8. Contactprofiel",
+  quoteFormFirstName: "Voornaam",
+  quoteFormLastName: "Achternaam",
+  quoteFormEmail: "E-mailadres",
+  quoteFormPhone: "Telefoonnummer",
+  quoteFormAgreeTerms: "Ik ga akkoord met de Algemene Voorwaarden en het Privacybeleid.",
+  quoteFormSubmitBtn: "Offerte aanvragen",
+  quoteFormProcessing: "Verwerken...",
+  quoteFormReceivedTitle: "Offerteaanvraag ontvangen",
+  quoteFormReceivedDesc: "Ons conciergeteam zal uw aanvraag beoordelen en binnen 24 uur contact met u opnemen met een offerte op maat.",
+
+  checkoutLogisticsMarketing: "Logistiek & Marketing",
+  checkoutHowGetIn: "Hoe krijgen we toegang?",
+  checkoutHowHeard: "Hoe heeft u over ons gehoord?",
+  checkoutServiceDetails: "Servicedetails",
+  checkoutScheduleMode: "Planningsmodus",
+  checkoutServiceDuration: "Serviceduur",
+  checkoutStartEndTime: "Selecteer start- & eindtijd",
+  checkoutSelectedServices: "Geselecteerde diensten",
+  checkoutBookingDetails: "Boekingsdetails",
+  checkoutAgreeTo: "Ik ga akkoord met de",
+  checkoutAnd: "en",
+  poolSectionTitle: "Deskundige zwembadreiniging voor",
+  poolSelectingJob: "Selecteer uw taak",
+  poolServiceDetails: "Zwembadservicedetails",
+  poolQuantity: "Aantal",
+  poolSave: "Opslaan",
+  poolFieldPoolSize: "Zwembadgrootte",
+  poolFieldWaterCondition: "Waterconditie",
+  poolConditionHeavyAlgaeDebris: "Zware algen / Vuil",
+  poolConditionHeavyOilDeepGrime: "Zware olie / Diep vuil",
+  poolTypeKiddiePools: "Kinderbadjes",
+  poolTypeAboveGroundSwimmingPools: "Opbouwzwembaden",
+  poolTypeLapPools: "Banenzwembaden",
+  poolTypeInGroundPools: "Inbouwzwembaden",
+  poolTypeFamilySwimmingPools: "Familiezwembaden",
+  poolTypeIndoorPools: "Overdekte zwembaden",
+  poolTypeOlympicSizePools: "Olympische zwembaden",
+  poolTypeArchitecturalPools: "Architectonische zwembaden",
+  poolTypeInfinityPools: "Infinity pools",
+  poolTypeNaturalPools: "Natuurzwembaden",
+  poolTypeSpoolSmallPool: "Spool (Klein zwembad)",
+  poolTypeSaltwaterPools: "Zoutwaterzwembaden",
+  poolTypePlungePools: "Plunge pools",
+  poolAddonJacuzziCleaning: "Jacuzzireiniging",
+  poolAddonSteamRoomCleaning: "Stoomcabinereiniging",
+  poolAddonSaunaRoomCleaning: "Saunareiniging",
+
+  // Quotation Details Card
+  quoteDetailsTitle: "Offerte-overzicht",
+  quoteDetailService: "Dienst",
+  quoteDetailDate: "Datum",
+  quoteDetailTime: "Tijd",
+  quoteDetailJobDetails: "Taakdetails",
+  quoteDetailNotSpecified: "Niet opgegeven",
+  quoteDetailPropertyType: "Type vastgoed",
+  quoteDetailPropertySize: "Grootte vastgoed",
+  quoteDetailPreferences: "Voorkeuren",
+  quoteDetailDuration: "Duur",
+  quoteDetailGenderPreference: "Geslachtsvoorkeur",
+  quoteDetailLanguagePreference: "Taalvoorkeur",
+  quoteDetailSpecialRequirements: "Speciale vereisten",
+  quoteDetailEquipment: "Schoonmaakmiddelen & uitrusting",
+  quoteDetailAdded: "Toegevoegd",
+  quoteDetailAdd: "Toevoegen",
+  quoteDetailSending: "Verzenden…",
+  quoteDetailReference: "Offetereferentie",
+
+  // Form Submission & Validation Texts
+  formSubmittedSuccess: "Formulier succesvol verzonden!",
+  commonBack: "Terug",
+  commonContinue: "Doorgaan",
+  formSubmitFillDetails: "Vul de volgende gegevens in",
+  formSubmitPropertyClassification: "Vastgoedclassificatie",
+  formSubmitServiceContinuityPlan: "Servicecontinuïteitsplan",
+  formSubmitStaffGender: "Geslachtsvoorkeur personeel",
+  formSubmitLinguisticCoordination: "Taalcoördinatie",
+  formSubmitUploadDocs: "Upload afbeeldingen of documenten",
+  formSubmitUploadClickDrag: "Klik om te uploaden of sleep hierheen",
+  formSubmitUploadMaxSize: "Maximale bestandsgrootte: 5MB",
+  formSubmitServiceRequirements: "Servicevereisten & bijzonderheden",
+  formSubmitEnterRequirementsPlaceholder: "Voer servicevereisten in",
+  formSubmitAcceptTerms: "Door dit te selecteren accepteer ik de algemene voorwaarden",
+  formSubmitClientPaymentBtn: "Klant & Betaling →",
+  formSubmitPreferredLanguageContact: "Voorkeurstaal voor contact *",
+  formSubmitCareGender: "Geslachtsvoorkeur zorgverlener *",
+  formSubmitSpecialRequest: "Speciaal verzoek *",
+  formSubmitSupportPaymentMethod: "Ondersteunde betaalmethode",
+
+  // Options
+  planOneTime: "Eenmalig",
+  planEvery6to12Months: "Elke 6-12 maanden",
+  classResidential: "Residentieel",
+  classCommercial: "Commercieel",
+  classSpatial: "Ruimtelijk",
+  classOther: "Anders",
+
+  // Care Special Request Options
+  specialReqNone: "Geen / Geen specifiek verzoek",
+  specialReqFirstAid: "EHBO & reanimatie gecertificeerd",
+  specialReqSpecialNeeds: "Gecertificeerd voor speciale zorgbehoeften",
+  specialReqBilingual: "Tweetalige zorgverlener",
+  specialReqPetFriendly: "Huisdiervriendelijke zorgverlener",
+  specialReqDriverLicense: "Geldig rijbewijs vereist",
+  specialReqNonSmoker: "Alleen niet-roker",
+
+  // Form Validation Errors
+  quoteErrorDate: "Selecteer a.u.b. een datum",
+  quoteErrorTime: "Selecteer a.u.b. een tijd",
+  quoteErrorStreet: "Voer a.u.b. uw straatnaam en huisnummer in",
+  quoteErrorCity: "Voer a.u.b. uw stad in",
+  quoteErrorPostal: "Voer a.u.b. uw postcode in",
+  quoteErrorFirstName: "Voer a.u.b. uw voornaam in",
+  quoteErrorLastName: "Voer a.u.b. uw achternaam in",
+  quoteErrorEmail: "Voer a.u.b. uw e-mailadres in",
+  quoteErrorEmailValid: "Voer a.u.b. een geldig e-mailadres in",
+  quoteErrorPhone: "Voer a.u.b. uw telefoonnummer in",
+  quoteErrorTerms: "U moet akkoord gaan met de Algemene Voorwaarden en het Privacybeleid om een offerteaanvraag in te dienen.",
+  formSubmitErrorFileSize: "Bestandsgrootte overschrijdt de limiet van 5MB.",
+  formSubmitErrorClassification: "Selecteer a.u.b. een vastgoedclassificatie.",
+  formSubmitErrorContinuity: "Selecteer a.u.b. een servicecontinuïteitsplan.",
+  formSubmitErrorStaffGender: "Selecteer a.u.b. een geslachtsvoorkeur voor het personeel.",
+  formSubmitErrorLanguage: "Selecteer a.u.b. de taalcoördinatie.",
+  formSubmitErrorTermsRequired: "Acceptatie van de algemene voorwaarden is verplicht.",
+  formSubmitErrorCareGender: "Selecteer a.u.b. een geslachtsvoorkeur voor de zorgverlener.",
+  formSubmitErrorSpecialRequest: "Selecteer a.u.b. een optie voor het speciale verzoek.",
+
+  // EquipmentSection & EventbookSection
+  equipSelectedServices: "GESELECTEERDE DIENSTEN",
+  equipPropertyScale: "SCHAAL VAN HET VASTGOED",
+  equipTotalServiceDuration: "TOTALE SERVICEDUUR",
+  equipAllocatedProfessionals: "TOEGEWEZEN PROFESSIONALS",
+  equipCleanerDuration: "DUUR SCHOONMAKER (TER PLAATSE)",
+  equipPriceRange: "PRIJSRANGE SCHOONMAAKDUUR",
+  equipChemicalsAndEquipments: "SCHOONMAAKMIDDELEN EN UITRUSTING",
+  equipByClient: "DOOR DE KLANT",
+  equipByCompany: "DOOR HET BEDRIJF",
+  equipEstimatedPriceRange: "GESCHATTE PRIJSRANGE",
+  equipBookNow: "NU BOEKEN",
+  equipBooking: "Boeken…",
+  equipQualityGuarantee: "20-JAAR HANDTEEKENING KWALITEITSGARANTIE",
+  equipGuaranteeDesc1: "Omdat elke elite residentie unieke eisen heeft, weerspiegelt uw definitieve prijs de werkelijke staat van uw ruimte.",
+  equipGuaranteeDesc2: "Uw boeking legt uw tijdslot vast. Na voltooiing bevestigt uw senior schoonmaakprofessional de exacte duur ter plaatse en verstrekt een accurate, transparante factuur.",
+  equipServiceInfo: "Service-info",
+
+  // PropertyTypeSizeSelector
+  propTypeTitle: "Type vastgoed",
+  propTypeSwipe: "‹ Veeg om te bladeren ›",
+  propSizeTitle: "Grootte vastgoed",
+  propSizeUp: "OMHOOG",
+  propSizeDown: "OMLAAG",
+
+  // FacilitySelectionSection
+  facilityCategoryHealthcare: "Gezondheidszorg & gespecialiseerde faciliteiten",
+  facilityCategoryHealthcareDesc: "Voor omgevingen die het hoogste niveau van reinheid en regelgeving eisen.",
+  facilityCategoryCommercial: "Commercieel & werkplekken",
+  facilityCategoryCommercialDesc: "Voor kantoren, hoofdkantoren en overheidsgebouwen.",
+  facilityCategoryHospitality: "Hospitality, retail & horeca",
+  facilityCategoryHospitalityDesc: "Voor bedrijven die vertrouwen op publiek vertrouwen en een onberispelijke presentatie.",
+  facilityCategoryCommunity: "Gemeenschaps- & openbare ruimtes",
+  facilityCategoryCommunityDesc: "Voor faciliteiten met veel loopverkeer en gedeeld gebruik.",
+
+  facilityHospitalTitle: "Ziekenhuizen & klinieken algemeen",
+  facilityHospitalDesc: "Desinfectie van patiëntenkamers, wachtruimtes en drukbezochte zones.",
+  facilityDentalTitle: "Tandarts- & medische praktijken",
+  facilityDentalDesc: "Desinfectie van behandelkamers, wachtruimtes en klinische oppervlakken.",
+  facilityLabsTitle: "Laboratoria & farmacie",
+  facilityLabsDesc: "Gespecialiseerde schoonmaak voor cleanrooms, labo's en farmaceutische faciliteiten.",
+  facilityBiohazardTitle: "Biohazard opruiming",
+  facilityBiohazardDesc: "Desinfectie na incidenten (bijv. misdaadlocaties, besmettelijke ziekten).",
+  facilityOfficeTitle: "Algemene kantoren & hoofdkantoren",
+  facilityOfficeDesc: "Dagelijkse, wekelijkse of diepgaande desinfectie van werkplekken en pauzeruimtes.",
+  facilityGovernmentTitle: "Overheidsgebouwen",
+  facilityGovernmentDesc: "Schoonmaakdiensten voor publieke zones en beveiligde overheidsgebouwen.",
+  facilityFactoryTitle: "Fabrieken & magazijnen",
+  facilityFactoryDesc: "Desinfectie van productievloeren, apparatuur en administratieve kantoren.",
+  facilityPostTitle: "Schoonmaak na rampen",
+  facilityPostDesc: "Desinfectie na water-, brand- of rookschade.",
+  facilityHotelTitle: "Hotels & resorts",
+  facilityHotelDesc: "Grondige reiniging en desinfectie van gastenkamers, lobby's en faciliteiten.",
+  facilityRetailTitle: "Winkels & winkelcentra",
+  facilityRetailDesc: "Desinfectie van paskamers, kassa's en displays.",
+  facilityRestaurantTitle: "Restaurants & cafés",
+  facilityRestaurantDesc: "Dieptereiniging van keukens, desinfectie van eetruimtes en toiletgroepen.",
+  facilityFoodTitle: "Voedselverwerkingsbedrijven",
+  facilityFoodDesc: "Geplande desinfectie volgens de hoogste normen voor de voedselindustrie.",
+  facilityTransportTitle: "Transportvoertuigen",
+  facilityTransportDesc: "Desinfectie van bussen, treinen, vliegtuigen en bedrijfswagens.",
+  facilitySchoolTitle: "Scholen & kinderopvang",
+  facilitySchoolDesc: "Desinfecteren van klaslokalen, gymzalen en speeltoestellen ter bescherming van kinderen.",
+  facilityGymTitle: "Sportscholen & fitnesscentra",
+  facilityGymDesc: "Desinfecteren van fitnessapparatuur, kleedkamers en douches.",
+  facilityApartmentTitle: "Appartementen & gemeenschappelijke ruimtes",
+  facilityApartmentDesc: "Desinfecteren van lobby's, wasruimtes en gangen.",
+
+  // DisinfectionLevelSection
+  disinfectionLevelTitle: "Selecteer uw gewenste serviceniveau",
+  disinfectionLevelSubtitle: "Bepaal de frequentie en intensiteit van de benodigde schoonmaak.",
+
+  // Steam Sections
+  steamEcoLuxuryTitle: "SELECTEER UW ECO-LUXE SERVICE",
+  steamGeneralJobTypes: "Algemene stoomreinigingstypen",
+  steamCardRooms: "Kamers & zones",
+  steamCardKitchen: "Keuken & apparatuur",
+  steamCardFurniture: "Meubels & zachte bekleding",
+  steamCardSurface: "Oppervlaktereiniging",
+  steamCardSpeciality: "Gespecialiseerde reiniging",
+  steamIndustrialTitle: "Commerciële & industriële stoomtoepassingen",
+
+  // SecurityCategorySelection
+  securitySelectJobTitle: "Selecteer uw type taak",
+  securitySelected: "Geselecteerd",
+  securitySelect: "Selecteren",
+
+  CategoryDeepSpecialized: "Diepe & gespecialiseerde schoonmaak",
+  CategoryGeneralInterior: "Algemeen interieuronderhoud",
+  CategoryLifeStyle: "Lifestyle & huisverzorging",
+  CategoryDeepOutDoor: "Buiten- & exterieurruimtes",
+
+  AddOnsDefaultCatagoryDeep: "Gedetailleerde oven- & kookplaatreiniging",
+  AddOnsDefaultCatagoryInteriorRefrigerator: "Interieur-desinfectie koelkast",
+  AddOnsDefaultCatagoryInteriorWindow: "Binnenramen & raamrails reinigen",
+  AddOnsDefaultCatagoryBalcony: "Balkon & terras schrobben",
+
+  secJobCommercialOffice: "Commerciële & kantoorbeveiliging",
+  secJobScifAreas: "SCIF & hoogbeveiligde zones",
+  secJobHealthcareMedical: "Gezondheidszorg & medische desinfectie",
+  secJobPostConstructionSafety: "Veiligheid op de bouwlocatie na oplevering",
+  secJobVipExecutive: "VIP & executive residentieel",
+  secJobEventSecurity: "Beveiliging & snelle schoonmaak bij evenementen",
+  secJobEmergencyHazmat: "Noodrespons gevaarlijke stoffen & biohazard",
+  secJobPostIncidentRestoration: "Terreinherstel na incidenten",
+  secJobDigitalMalware: "Malware-verwijdering op digitale apparaten",
+  secJobSmbNetworkAudit: "MKB netwerk- & cyberaudit",
+
+  // YachtCategorySelection
+  yachtSelectCategoryTitle: "Selecteer uw categorie jachtschoonmaak",
+  yachtMotorboat: "Motorboot / Day cruiser",
+  yachtLuxuryExpress: "Luxe express...",
+  yachtFlybridge: "Flybridge motorjacht",
+  yachtSuperyacht: "Superjacht",
+  yachtMegayacht: "Megajacht",
+  yachtSailingCatamaran: "Zeiljacht / Catamaran",
+
+  // EventTypeSection
+  eventTypeSelectionTitle: "SELECTIE TYPE EVENEMENT",
+  eventTypeSelectionSubtitle: "Boek uw vlekkeloze schoonmaakservice",
+  //eventSelectTypeTitle: "SELECTIE TYPE EVENEMENT",
+  eventConferences: "Conferenties",
+  eventRedCarpet: "Rode loper evenementen",
+  eventMusicConcerts: "Muziekconcerten & festivals",
+  eventTradeShows: "Vakbeurzen",
+  eventProductLaunches: "Productlanceringen",
+  eventSeminars: "Seminars",
+  eventNetworking: "Netwerkevenementen",
+  eventSports: "Sportevenementen",
+  eventFestivals: "Festivals",
+  eventTeamBuilding: "Teambuilding evenementen",
+  eventCompanyParties: "Bedrijfsfeesten",
+  eventCorporate: "Zakelijke evenementen",
+  eventWeddings: "Bruiloften",
+  eventCharity: "Liefdadigheidsevenementen",
+  eventCultural: "Culturele evenementen",
+  eventMeetings: "Vergaderingen",
+  eventSocial: "Sociale bijeenkomsten",
+  eventTheatre: "Theatervoorstellingen",
+  eventCareerFairs: "Carrièrebeurzen",
+  eventExhibition: "Tentoonstellingen",
+  eventFashion: "Modeshows",
+  eventInternal: "Interne evenementen",
+  eventCompanyMeetings: "Bedrijfsbijeenkomsten & heidagen",
+  eventWorkshops: "Workshops",
+  eventVip: "VIP-evenementen",
+  eventOther: "Overige",
+
+  // BookingDetailsCard
+  bookingDetailsTitle: "Boekingsdetails",
+  bookingDetailService: "Dienst",
+  bookingDetailDate: "Datum",
+  bookingDetailTime: "Tijd",
+  bookingDetailPropertyType: "Type vastgoed",
+  bookingDetailPropertySize: "Grootte vastgoed",
+  bookingDetailDuration: "Duur",
+  bookingDetailCleaners: "Schoonmakers",
+  bookingDetailPricePerCleaner: "Prijs per schoonmaker",
+  bookingDetailFacilities: "Faciliteiten",
+  bookingDetailPackage: "Pakket",
+  bookingDetailIncluded: "Inbegrepen",
+  bookingDetailJobType: "Type taak",
+  bookingDetailGeneralSteam: "Algemene stoomreinigingstypen",
+  bookingDetailIndustrialSteam: "Industriële & commerciële stoomreinigingstypen",
+  bookingDetailEventTypes: "Evenementtypen",
+  bookingDetailPreferences: "Voorkeuren",
+  bookingDetailGenderPreference: "Geslachtsvoorkeur",
+  bookingDetailLanguagePreference: "Taalvoorkeur",
+  bookingDetailSpecialRequirements: "Speciale vereisten",
+  bookingDetailAddOns: "Add-ons",
+  bookingDetailEquipment: "Schoonmaakmiddelen & uitrusting",
+  bookingDetailAdded: "Toegevoegd",
+  bookingDetailAdd: "Toevoegen",
+  bookingDetailEstimatedPriceRange: "Geschatte prijsrange",
+  bookingDetailAdvancePayment: "Aanbetaling",
+  bookingDetailConfirmPricing: "Uw schoonmaakprofessional zal de exacte prijs bevestigen na inspectie van de ruimte.",
+  bookingDetailOnlineNotAvailable: "Online boeken is nog niet beschikbaar voor deze omvang van het vastgoed — neem direct contact met ons op voor een offerte.",
+  bookingDetailAgreeTo: "Ik ga akkoord met de",
+  bookingDetailTermsAndConditions: "Algemene voorwaarden",
+  bookingDetailAnd: "en het",
+  bookingDetailPrivacyPolicy: "Privacybeleid",
+  bookingDetailBookingInProgress: "Boeken…",
+  bookingDetailBookNow: "Nu boeken",
+
+  // Summary Card (Booking & Quotation Summary)
+  summaryOverview: "Overzicht",
+  summaryReference: "Referentie",
+  summaryCleaner: "Schoonmaker",
+  summaryUnassigned: "Niet toegewezen",
+  summaryContactInfo: "Contactinformatie",
+  summaryName: "Naam",
+  summaryEmail: "E-mail",
+  summaryPhone: "Telefoon",
+  summaryAddress: "Adres",
+  summaryPickupAddress: "Ophaaladres",
+  summaryDeliveryAddress: "Afleveradres",
+  summaryStreetAddress: "Straatnaam & huisnummer",
+  summaryUnitAptSuite: "Appartement / Suite",
+  summaryCity: "Stad",
+  summaryProvinceState: "Provincie / Staat",
+  summaryCountry: "Land",
+  summaryPostalCode: "Postcode",
+  summaryPaymentInfo: "Betalingsinformatie",
+  summaryDueAtBooking: "Te betalen bij boeking",
+  summaryAwaitingPrice: "Wacht op prijsopgave van ons team",
+  summaryTotalPriceEstimate: "Totale prijs (schatting)",
+  summaryRemainingBalance: "Resterend saldo",
+  summaryServiceDetails: "Servicedetails",
+  summaryService: "Dienst",
+  summaryDateTime: "Datum & tijd",
+  summaryPropertyType: "Type vastgoed",
+  summaryPropertySize: "Grootte vastgoed",
+  summaryDuration: "Duur",
+  summaryHours: "uren",
+  summaryCleaners: "Schoonmakers",
+  summaryCaregivers: "Zorgverleners",
+  summaryPricePerCleaner: "Prijs per schoonmaker",
+  summaryNote: "Opmerking",
+  summaryFacilities: "Faciliteiten",
+  summaryDisinfectionLevel: "Desinfectieniveau",
+  summaryGeneralSteam: "Algemene stoomreinigingstypen",
+  summaryIndustrialSteam: "Industriële & commerciële stoomreinigingstypen",
+  summaryEventTypes: "Evenementtypen",
+  summaryJobType: "Type taak",
+  summaryPreferences: "Voorkeuren",
+  summaryGenderPreference: "Geslachtsvoorkeur",
+  summaryLanguagePreference: "Taalvoorkeur",
+  summarySpecialRequirements: "Speciale vereisten",
+  summaryNoPreference: "Geen voorkeur",
+  summaryLogisticsMarketing: "Logistiek & Marketing",
+  summaryHowGetIn: "Hoe krijgen we toegang?",
+  summaryHowHeard: "Hoe heeft u over ons gehoord?",
+  summaryAddOns: "Add-ons",
+  summaryEquipment: "Schoonmaakmiddelen & uitrusting",
+  summarySupplySourceCustomer: "Door de klant verstrekt",
+  summarySupplySourceCompany: "Aanvragen bij het bedrijf",
+  summaryNotSpecified: "Niet opgegeven",
+
+  // Care Terms Modal
+  careTermsTitle: "Beknopte Online Boekingsvoorwaarden",
+  careTermsSec1Title: "1. Boekingsbevestiging & Omvang van de Dienst",
+  careTermsSec1_1Title: "1.1 Basis van de dienst:",
+  careTermsSec1_1Text: "De uiteindelijke serviceprijs en -duur zijn strikt gebaseerd op de vastgoedgegevens en opties die tijdens de boeking zijn geselecteerd.",
+  careTermsSec1_2Title: "1.2 Aanpassingen ter plaatse:",
+  careTermsSec1_2Text: "Als de omvang of staat van het vastgoed aanzienlijk afwijkt van de boekingsgegevens, moet de schoonmaker goedkeuring van de klant vragen voor eventuele extra uren of kosten voordat hij doorgaat.",
+  careTermsSec1_3Title: "1.3 Toegang voor de klant:",
+  careTermsSec1_3Text: "U dient ervoor te zorgen dat toegang (sleutels, codes, enz.) beschikbaar is voor de schoonmaker op de geplande tijd. Het niet verlenen van toegang leidt tot buitensluitingskosten (zie Sectie 3.3).",
+  careTermsSec2Title: "2. Betalingsvoorwaarden",
+  careTermsSec2_1Title: "2.1 Betalingsautorisatie:",
+  careTermsSec2_1Text: "De betalingsautorisatie wordt gecontroleerd bij het afrekenen. Definitieve offertekosten worden gefactureerd op basis van bevestigde service-uren en eventueel gevraagde add-ons.",
+  careTermsSec2_2Title: "2.2 Facturatie:",
+  careTermsSec2_2Text: "Officiële digitale kwitanties en gespecificeerde facturen worden automatisch verzonden naar uw geregistreerde e-mailadres.",
+  careTermsSec3Title: "3. Annulerings- en Buitensluitingsbeleid",
+  careTermsSec3_1Title: "3.1 Annuleringstermijn:",
+  careTermsSec3_1Text: "Gratis annulering is beschikbaar tot 24 uur vóór het geplande starttijdstip van uw afspraak.",
+  careTermsSec3_2Title: "3.2 Te late annuleringen:",
+  careTermsSec3_2Text: "Annuleringen die binnen minder dan 24 uur worden doorgegeven of het niet verlenen van toegang bij aankomst kunnen leiden tot standaard buitensluitingskosten.",
+  careTermsSec4Title: "4. Aaneengesloten Werktijden",
+  careTermsSec4_1Title: "4.1 Pauzes:",
+  careTermsSec4_1Text: "Bij langdurige of dagvullende boekingen nemen zorgprofessionals geplande korte rustpauzes in overeenstemming met de arbeidsnormen en veiligheidsrichtlijnen.",
+  careTermsSec5Title: "5. Servicegarantie en Aansprakelijkheid",
+  careTermsSec5_1Title: "5.1 Gecertificeerde professionals:",
+  careTermsSec5_1Text: "Alle zorgverleners en medewerkers ondergaan een grondige screening, referentiecontrole en strikte achtergrondcontroles.",
+  careTermsSec5_2Title: "5.2 Kwaliteitsbelofte:",
+  careTermsSec5_2Text: "Pearly Sky onderhoudt een uitgebreide verzekeringsdekking en toegewijde klantenservice voor uw totale gemoedsrust.",
+  careTermsSec6Title: "6. Benodigdheden, Uitrusting en Huisdieren",
+  careTermsSec6_1Title: "6.1 Zorgbenodigdheden:",
+  careTermsSec6_1Text: "Eventueel benodigde specifieke kinder- of ouderengeneesmiddelen, voedingssupplementen of gespecialiseerde benodigdheden moeten vooraf worden geregeld en duidelijk worden gelabeld.",
+  careTermsSec6_2Title: "6.2 Huisdieren & omgeving:",
+  careTermsSec6_2Text: "Stel het team a.u.b. op de hoogte van eventuele huisdieren of specifieke instructies met betrekking tot de omgeving ter plaatse.",
+  careTermsSec7Title: "7. Sleutelbeheer & Serviceverificatie",
+  careTermsSec7_1Title: "7.1 Sleutelprotocollen:",
+  careTermsSec7_1Text: "Sleutelboxcodes en sleutels worden veilig beheerd onder een strikt protocol en worden nooit overgedragen aan onbevoegde partijen.",
+  careTermsAcceptCheck: "Door dit te selecteren accepteer ik de algemene voorwaarden",
+  careTermsAcceptButton: "Accepteren",
+
+  // Pressure Washing Job Selection
+  pressureSelectJobTitle: "SELECTEER UW TAAK",
+  pressureCatResidential: "Residentiële\nZorg",
+  pressureCatConcrete: "Beton &\nOppervlakken",
+  pressureCatOutdoor: "Buitenleven",
+  pressureCatSpecialized: "Gespecialiseerde\nTaken",
+  pressureItemHomeExterior: "Woningexterieur reinigen",
+  pressureItemFencing: "Hekwerk reinigen",
+  pressureItemBuildingExterior: "Gebouwexterieur reinigen",
+  pressureItemGutterDrains: "Dakgoten/Afvoeren reinigen",
+  pressureItemDriveway: "Oprit reinigen",
+  pressureItemSidewalk: "Stoep reinigen",
+  pressureItemWalkway: "Wandelpad reinigen",
+  pressureItemPavers: "Bestrating reinigen",
+  pressureItemDeckPatio: "Deck/Terras reinigen",
+  pressureItemOutdoorFurniture: "Tuinmeubilair reinigen",
+  pressureItemOutdoorEquipment: "Buitenapparatuur reinigen",
+  pressureItemParkingGarage: "Parkeergarage reinigen",
+  pressureItemSurfacePrep: "Oppervlaktevoorbereiding",
+  pressureItemPlayground: "Speeltuin reinigen",
+  pressureItemOtherSpecialized: "Andere gespecialiseerde hoge-drukreinigingsdiensten",
+  pressureSelectedJobsTitle: "Geselecteerde hoge-drukreinigingstaken",
+  pressureDialogQuantity: "Aantal",
+  pressureDialogSize: "Grootte",
+  pressureDialogSquarePlaceholder: "Vierkante meter",
+  pressureDialogSurfaceCondition: "Oppervlaktetoestand",
+  pressureDialogSpecificReqs: "Specifieke vereisten",
+  pressureConditionHeavy: "Zwaar (Olie / Diep vuil)",
+  pressureConditionNormal: "Normaal",
+  pressureDialogSave: "OPSLAAN",
+
+  // Property Categories (PropertyTypeSizeSelector)
+  propStudio: "Studio",
+  propHome: "Woning",
+  propVilla: "Villa",
+  propEstate: "Landgoed",
+  propVip: "VIP",
+  propApartment: "Appartement / Flat",
+  propTownhouse: "Stadswoning / Rijtjeshuis",
+  propHouse: "Eengezinswoning / Residentie",
+  propPenthouse: "Penthouse",
+  propRoughClean: "Grove schoonmaak",
+  propTouchUpClean: "Opfrisschoonmaak",
+  propFinalPostBuildClean: "Eindschoonmaak na bouw",
+  propHeavyDutyDeepClean: "Zware dieptereiniging",
+  propPrivateParties: "Privéfeesten & vieringen",
+  propWeddings: "Bruiloften & grote feesten",
+  propCorporateEvents: "Zakelijke evenementen & gala's",
+  propConcertsFestivals: "Concerten, festivals & live-locaties",
+  propPopUpShops: "Pop-up winkels & retailexposities",
+  propArtGalleries: "Kunstgalerieën & culturele exposities",
+  propFashionShows: "Modeshows & runway-evenementen",
+  propFilmTvShoots: "Film-, TV- & commerciële opnames",
+  propCharityAuctions: "Liefdadigheidsveilingen & inzamelingsacties",
+  propMicro: "Micro",
+  propCompact: "Compact",
+  propSmall: "Klein",
+  propMedium: "Middelgroot",
+  propLarge: "Groot",
+  propEnterprise: "Luxe / Enterprise",
+  propCorporateLegal: "Zakelijk & juridisch kantoor",
+  propGovernmentScif: "Overheid / SCIF / Data...",
+  propHealthcareMedical: "Gezondheidszorg & medisch...",
+  propIndustrialConstruction: "Industrie & bouw",
+  propVipEstate: "VIP landgoed / Executive...",
+  propEventVenue: "Evenementenlocatie &...",
+  propEmergencyBiohazard: "Noodgeval / Biohazard...",
+  propRetailCommercial: "Retail & commercieel...",
+  propPersonalWorkDevice: "Persoonlijk / Werkapparaat...",
+  propCorporateNetwork: "Bedrijfsnetwerk /...",
+
+  // JobCardSection
+  jobCardSectionTitle: "Service Upgrade Optie (JobCard)",
+
+  // Schedule Errors & Buttons
+  poolErrorSelect: "Selecteer a.u.b. ten minste één zwembadreinigingsdienst om door te gaan.",
+  pressureErrorSelect: "Selecteer a.u.b. ten minste één hoge-drukreinigingsdienst om door te gaan.",
+  carpetErrorSelect: "Voeg a.u.b. ten minste één tapijt- of meubelitem toe voordat u doorgaat.",
+  scheduleErrorDateTime: "Selecteer a.u.b. een datum en tijd om uw afspraak te boeken.",
+
+  // Care Schedule Section
+  careScheduleYourService: "Plan uw service",
+  careScheduleMode: "Planningsmodus",
+  careScheduleModeInHome: "Thuiszorg",
+  careScheduleModeFacility: "Zorg in een faciliteit",
+  careScheduleModeTravel: "Reis- & evenementbegleiding",
+  careServiceDuration: "Serviceduur",
+  careDurationHours: "Uren",
+  careDurationHalfDay: "Halve dag",
+  careDurationFullDay: "Volledige dag",
+  carePersonCountElder: "Aantal ouderen",
+  carePersonCountChild: "Aantal kinderen",
+  careRequestProfessionals: "Zorgverleners aanvragen",
+  careProfile: "Profiel",
+  carePersonTitleElder: "Oudere",
+  carePersonTitleChild: "Kind",
+  careFieldName: "Naam *",
+  careFieldTypePersonName: "Voer naam in van {title}",
+  careFieldSpecialNeeds: "Speciale behoeften / Medische opmerkingen *",
+  careFieldTypeNotes: "Typ opmerkingen",
+  careFieldGender: "Geslacht *",
+  careFieldAge: "Leeftijd *",
+  careFieldTypePersonAge: "Voer leeftijd in van {title}",
+  careFieldBehavioralNotes: "Gedragsopmerkingen (Optioneel)",
+  careFieldTypeNoteHere: "Typ hier uw opmerking",
+  careFieldGenderPlaceholder: "Selecteer a.u.b. een optie",
+  careFieldGenderMale: "Man",
+  careFieldGenderFemale: "Vrouw",
+  careFieldGenderOther: "Anders / Zeg ik liever niet",
+  carePreferencesTitle: "Voorkeuren",
+  careGenderPreference: "Geslachtsvoorkeur",
+  careLanguagePreference: "Taalvoorkeur",
+  careSpecialRequirements: "Speciale vereisten",
+  careErrorSelectDate: "Selecteer a.u.b. een servicedatum.",
+  careErrorSelectTime: "Selecteer a.u.b. een starttijd voor de dienst.",
+  careBackButton: "Terug",
+  careContinueButton: "Doorgaan",
+
+  // Steam Sections Extra
+  steamIndustrialSubtitle: "Wij bieden dieptereiniging, ontvetting en herstel voor kritieke oppervlakken.",
+  steamViewDetails: "Bekijk details",
+  steamAdd: "Toevoegen",
+  steamAdded: "Toegevoegd",
+  steamIndManufacturing: "Productie- & industriële faciliteiten",
+  steamIndFoodBeverage: "Voedings- & drankenindustrie",
+  steamIndAutomotive: "Automotive & transport",
+  steamIndHealthcare: "Gezondheidszorg & institutioneel",
+  steamIndHospitality: "Hospitality & retail",
+  steamIndAgriculture: "Landbouw & veeteelt",
+  steamIndWaste: "Afval- & recyclingfaciliteiten",
+  steamIndFacilityManagement: "Facility management (Algemeen)",
+  steamIndOtherSpecialized: "Andere gespecialiseerde toepassingen",
+
+  // Products & Supplies (Event)
+  prodSuppTitle: "Producten & Benodigdheden",
+  prodSuppSubtitle: "Kies uw gespecialiseerde gereedschappen",
+  prodSuppEquipment: "Uitrusting",
+  prodSuppChemicals: "Schoonmaakmiddelen",
+  prodItemVacuumCleaners: "Commerciële stofzuigers",
+  prodItemFloorPolishers: "Vloerboenmachines / Polijstmachines",
+  prodItemCarpetCleaners: "Tapijtreinigers / Extractieapparaten",
+  prodItemMopsBuckets: "Mop en emmer set",
+  prodItemPressureWashers: "Hoge-drukreinigers",
+  prodItemAirBlowers: "Industriële luchtblazers",
+  prodItemSteamVaporCleaners: "Stoomreinigers",
+  prodItemMicrofiberKits: "Microvezel schoonmaaksets",
+  prodItemPpeGearKits: "Veiligheids- & PPE-uitrustingssets",
+  prodItemAllPurposeCleaners: "Allesreinigers",
+  prodItemHospitalDisinfectants: "Desinfectiemiddelen van ziekenhuiskwaliteit",
+  prodItemGlassCleaners: "Streeploose glasreinigers",
+  prodItemFloorCleaners: "Vloerreinigers & strippers",
+  prodItemHeavyDegreasers: "Krachtige ontvetters",
+  prodItemSanitizingSprays: "Desinfectiesprays",
+  prodItemOdorNeutralizers: "Gespecialiseerde geurneutralisators",
+
+  // Auth (Login & Signup Forms)
+  loginTitle: "Welkom terug",
+  loginDescription: "Voer hieronder uw e-mailadres in om in te loggen op uw account",
+  loginEmailLabel: "E-mailadres",
+  loginPasswordLabel: "Wachtwoord",
+  loginForgotPassword: "Wachtwoord vergeten?",
+  loginSubmit: "Inloggen",
+  loginPending: "Inloggen…",
+  loginGenericError: "Er is iets misgegaan.",
+
+  signupTitle: "Account aanmaken",
+  signupDescription: "Vul het onderstaande formulier in om uw account aan te maken",
+  signupFirstName: "Voornaam",
+  signupLastName: "Achternaam",
+  signupEmail: "E-mailadres",
+  signupPhone: "Telefoonnummer",
+  signupPassword: "Wachtwoord",
+  signupConfirmPassword: "Wachtwoord bevestigen",
+  signupPasswordHelper: "Moet ten minste 8 tekens lang zijn.",
+  signupAgreeText: "Ik ga akkoord met de",
+  signupTerms: "Algemene voorwaarden",
+  signupAnd: "en het",
+  signupPrivacy: "Privacybeleid",
+  signupSubmit: "Registreren",
+  signupPending: "Account aanmaken…",
+  signupAlreadyAccount: "Heeft u al een account?",
+  signupLoginLink: "Inloggen",
+  signupErrorPasswordMismatch: "Wachtwoorden komen niet overeen.",
+  signupErrorTermsRequired: "Ga akkoord met de Algemene voorwaarden en het Privacybeleid om door te gaan.",
+  signupGenericError: "Er is iets misgegaan.",
+
+  // Request Quotation View
+  quotationFormTitle: "Gegevens serviceaanvraag",
+  quotationStep1DateTime: "1. Datum & tijd",
+  quotationStep2ChemEquip: "2. Schoonmaakmiddelen en uitrusting",
+  quotationChemEquipPlaceholder: "Door de klant verstrekt",
+  quotationChemCustomer: "Door de klant verstrekt",
+  quotationChemCompany: "Aanvragen bij het bedrijf",
+  quotationSelectEquipMaterials: "Selecteer uitrusting & materialen",
+  quotationStep3PropertyScale: "3. Schaal van het vastgoed",
+  quotationStep4AllocatedPros: "4. Toegewezen professionals",
+  quotationStep5CleanerDuration: "5. Duur per schoonmaker",
+  quotationStepGenderPref: "Geslachtsvoorkeur personeel",
+  quotationStepLinguistic: "Taalcoördinatie",
+  quotationSelectOption: "Selecteer een optie",
+  quotationGenderNone: "Geen voorkeur / Geen",
+  quotationGenderFemale: "Vrouwelijk personeel",
+  quotationGenderMale: "Mannelijk personeel",
+  quotationStepRequirements: "Servicevereisten & bijzonderheden",
+  quotationRequirementsPlaceholder: "Beschrijf de diensten die u nodig heeft, de gewenste planning, locatie en eventuele specifieke vereisten...",
+  quotationContactProfile: "Contactprofiel",
+  quotationFirstName: "Voornaam",
+  quotationLastName: "Achternaam",
+  quotationEmail: "E-mailadres",
+  quotationPhoneNumber: "Telefoonnummer",
+  quotationFirstNamePlaceholder: "Voornaam",
+  quotationLastNamePlaceholder: "Achternaam",
+  quotationEmailPlaceholder: "E-mailadres",
+  quotationPhonePlaceholder: "Telefoonnummer",
+  quotationLocationResidence: "Locatie van de residentie",
+  quotationPickupLocation: "Ophaallocatie",
+  quotationDeliveryLocation: "Afleverlocatie",
+  quotationSelectCountry: "Selecteer land",
+  quotationPostalCode: "Postcode",
+  quotationCity: "Stad",
+  quotationProvinceState: "Provincie / Staat",
+  quotationStreetAddress: "Straatnaam & huisnummer",
+  quotationUnit: "Appartement / Toevoeging",
+  quotationPostalCodePlaceholder: "Postcode",
+  quotationCityPlaceholder: "Stad",
+  quotationProvincePlaceholder: "Provincie / Staat",
+  quotationStreetPlaceholder: "Straatnaam & huisnummer",
+  quotationUnitPlaceholder: "Appartement / Toevoeging",
+  quotationSubmit: "GEDETAILLEERDE OFFERTEAANVRAAG VERSTUREN",
+  quotationSubmitting: "AANVRAAG VERSTUREN…",
+  quotationBack: "Terug",
+  quotationSuccessToast: "Formulier succesvol verzonden!",
+  quotationErrDate: "Selecteer a.u.b. een datum.",
+  quotationErrTime: "Selecteer a.u.b. een tijdslot.",
+  quotationErrFirstName: "Voornaam is verplicht.",
+  quotationErrLastName: "Achternaam is verplicht.",
+  quotationErrEmail: "E-mailadres is verplicht.",
+  quotationErrEmailInvalid: "Voer a.u.b. een geldig e-mailadres in.",
+  quotationErrPhone: "Telefoonnummer is verplicht.",
+  quotationErrCountry: "Land is verplicht.",
+  quotationErrPostal: "Postcode is verplicht.",
+  quotationErrCity: "Stad is verplicht.",
+  quotationErrProvince: "Provincie / Staat is verplicht.",
+  quotationErrStreet: "Straatnaam & huisnummer is verplicht.",
+  quotationErrFillRequired: "Vul a.u.b. alle verplichte velden in die zijn gemarkeerd met *",
+  quotationErrServiceNotFound: "Dienst niet gevonden.",
+  quotationErrSubmitFailed: "Verzenden van uw offerteaanvraag is mislukt.",
+
+  // Confirmation Card
   confirmBrandName: "Pearly Sky",
   confirmBrandTagline: "Eco-Luxe Schoonmaak",
   confirmNotFoundTitle: "Offerte niet gevonden",
@@ -485,6 +1748,8 @@ export const nl = {
   confirmLoading: "Laden…",
   confirmNeedHelp: "Hulp nodig?",
   confirmContactSupport: "Neem contact op met support",
+
+  // Quotation Confirmation Page
   quotConfirmHeadline: "We hebben uw offerteaanvraag ontvangen!",
   quotConfirmDescription: "Bedankt voor uw interesse in onze premium diensten. Ons team beoordeelt uw vereisten en een van onze specialisten neemt binnenkort contact met u op.",
   quotConfirmRefLabel: "Referentienummer",
@@ -510,6 +1775,8 @@ export const nl = {
   quotConfirmInfoBody: "Een kopie van uw aanvraag is verzonden naar uw geregistreerde e-mailadres.",
   quotConfirmPrimaryAction: "Mijn aanvraag bekijken",
   quotConfirmDownload: "AANVRAAGDETAILS DOWNLOADEN",
+
+  // Booking Confirmation Page
   bookConfirmHeadlineConfirmed: "Bedankt voor uw bestelling!",
   bookConfirmDescConfirmed: "Uw schoonmaakervaring is succesvol bevestigd. Ons toegewijde team bereidt zich voor op de dienst.",
   bookConfirmHeadlinePending: "Boeking ontvangen!",
@@ -542,5 +1809,5 @@ export const nl = {
   bookConfirmPaymentError: "Fout bij het starten van de betaling.",
   bookConfirmHours: "Uren",
   bookConfirmCleaningSpecialist: "Schoonmaakspecialist",
-  bookConfirmCleaningSpecialists: "Schoonmaakspecialisten"
-} as  Record<TranslationKey, TranslationValue>;
+  bookConfirmCleaningSpecialists: "Schoonmaakspecialisten",
+} as Record<TranslationKey, TranslationValue>;

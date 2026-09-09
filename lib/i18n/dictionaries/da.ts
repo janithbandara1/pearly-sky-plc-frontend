@@ -49,13 +49,15 @@ export const da = {
   // Services
   servicesHeading: "Vores tjenester",
   servicesSubheading: "Ejendomspleje, livsstil og velvære — booket på under et minut.",
-  servicesBookNow: "Book nu",
+  servicesBookNow: "Book Nu",
   servicesRequestQuotation: "Anmod om tilbud",
   servicesComingSoon: "Kommer snart",
   servicesPricingSoon: "Priser kommer snart",
   servicesPricePerCleaner: "/t pr. rengøringsassistent",
   servicesSeeMore: "Se mere",
   servicesSeeLess: "Se mindre",
+
+  // Service cards translations
   serviceRegularHomeCleaning: "Regelmæssig rengøring af hjemmet",
   serviceRegularHomeCleaningDescription: "Rutinemæssig pleje til et friskt og ryddeligt hjem.",
   serviceEssentialTouchUpCleaning: "Vigtig opfriskende rengøring",
@@ -71,6 +73,7 @@ export const da = {
   servicePremiumRentalConciergeCleaningDescription: "En eksklusiv rengøringsservice til eksklusive udlejningsejendomme.",
   serviceCommercialOfficeCleaning: "Erhvervs- & kontorrengøring",
   serviceCommercialOfficeCleaningDescription: "Professionel rengøring til virksomhedslokaler og erhverv.",
+
   serviceHealthguardSanitization: "HealthGuard-desinfektion",
   serviceHealthguardSanitizationDescription: "Målrettet desinfektion af berøringsflader med høj frekvens.",
   serviceCarpetUpholsteryCleaning: "Rengøring af tæpper & polstring",
@@ -109,36 +112,48 @@ export const da = {
   serviceLuxuryYachtCleaningDescription: "Premium rengøring til yachts og maritime interiører.",
   serviceSameDayPriorityCleaning: "Prioriteret rengøring samme dag",
   serviceSameDayPriorityCleaningDescription: "Hurtig, pålidelig rengøring med kort varsel.",
+
   serviceCommercialCleaningServices: "Erhvervsrengøringstjenester",
+
+  // Carpet cleaning services
   CarpetServiceSectionTitle: "Tæppe- & polstringsdetaljer",
   CarpetSchedulebackButtonText: "Tilbage",
   CarpetScheduleContinueButtonText: "Fortsæt",
   CarpetCardQuantityLabel: "Antal",
   CarpetCardSelectAddLable: "Tilføj",
   CarpetCardSelectRemoveLable: "Fjern",
+
   ServiceLuxuryResidential: "Luksus boligrengøring",
   ServiceCommercial: "Kommerciel ejendomsforvaltning",
   ServiceLuxuryProperty: "Luksus ejendomsforvaltning",
   ServiceHospitality: "Hotel- og gæstfrihedsrengøring",
   ServiceSports: "Sports- og wellnessfaciliteter",
   ServicePublic: "Offentlig og institutionel rengøring",
+
   recentProjectTitle: "Vores seneste projekter",
   projectBefore: "Før",
   projectAfter: "Efter",
   projectBeforeState: "Tidligere tilstand",
   projectAfteeState: "Vores resultat",
   viewAllProjectButton: "Se alle projekter",
+
   clientFeedback: "Rengøringen var fantastisk, og de personer, der arbejdede, var så venlige og søde. Vi følte os meget godt taget hånd om. Jeg anbefaler",
+
+  // Updated 4 categories
   servicesCategoryResidentialCleaning: "🏠 BOLIGRENGØRINGSTJENESTER",
   servicesCategoryPremiumAddOns: "➕ PREMIUM TILLÆGSTJENESTER",
   servicesCategoryCommercialSpecialised: "🏢 KOMMERCIELLE & SPECIALISEREDE RENGØRINGSTJENESTER",
   servicesCategoryCareConcierge: "🤝 PLEJE- & CONCIERGE-TJENESTER",
+
   servicesSubHeaderResidentialCleaning: "Omhyggelig, bæredygtig omsorg konstrueret til luksusboliger, godser og moderne byboliger",
   servicesSubHeaderPremiumAddOns: "Gennemtænkte afsluttende detaljer til et upåklageligt passet hjem",
   servicesSubHeaderCommercialSpecialised: "Diskret, højtydende omsorg til professionelle rum og exceptionelle ejendomme",
   servicesSubHeaderCareConcierge: "Pålidelig, gennemtænkt støtte designet til at gøre hverdagen ubesværet lettere",
+
   servicesCategoryPropertyCare: "EJENDOMSPLEJE & FORVALTNING",
   servicesCategoryBespokeLifestyle: "SKRÆDDERSYET LIVSSTIL & VELVÆRE",
+
+  // Services mapping for navigation links
   serviceLableRegularHomeCleaning: "Regelmæssig rengøring af hjemmet",
   serviceLableEssentialTouchUpCleaning: "Vigtig opfriskende rengøring",
   serviceLableDeepCleaning: "Grundig rengøring",
@@ -159,16 +174,577 @@ export const da = {
   serviceLableElderCareService: "Ældreplejeservice",
   serviceLableMoveInMoveOutTransportService: "Flytte- & transportservice",
   serviceLableHealthGuardSanitization: "HealthGuard-desinfektion",
+
+  // Related services
   exploreServicesRelated: "Udforsk relaterede tjenester",
+
   visionaryTeamTitle: "Vores visionære team",
+
   visionarydesignationsHR: "Human Resources",
   visionarydesignationsMK: "Marketingteam",
   visionarydesignationsCUS: "Kundeservice",
   visionarydesignationsFIN: "Finansafdeling",
 
+  serviceHighlightSectionHeader: "Tjekliste for standardpakke",
+  serviceIntroBottomText: "Indstil din tilbagevendende tidsplan",
+  hourPerCleaner: "Time pr. rengøringsassistent",
+
+  // Regular Home Cleaning
+  serviceRegularCleaningIntroHeadLine: "Den ugentlige opfriskning: Konsekvent renlighed og bæredygtig ro i sindet.",
+  serviceRegularCleaningIntroBody: "Slip for stress over de daglige pligter. Vores standard rengøringsservice til boliger etablerer en pålidelig, tilbagevendende tidsplan, der holder dit hjem upåklageligt uden besvær. Vi bruger udelukkende certificerede, miljøvenlige produkter til at levere en dyb, strålende rengøring, der er 100 % sikker for børn og kæledyr. Forpligt dig til konsekvens og nyd luksusen ved at komme hjem til et sundere, pålideligt pletfrit rum hver uge. Se vores gennemskuelige priser og book din rengøring i dag.",
+
+  serviceRegularCleaningHighlightTitleOne: "Højdepunkter ved regelmæssig rengøring af hjemmet",
+  serviceRegularCleaningHighlightCardTitleOne: "Generel pleje af hjemmet",
+  serviceRegularCleaningHighlightCardTitleTwo: "Vigtige berøringsflader",
+  serviceRegularCleaningHighlightCardTitleThree: "Køkken & spiseområde",
+  serviceRegularCleaningHighlightCardTitleFour: "Badeværelsesrengøring",
+
+  serviceRegularCleaningTitleOneFeatureOne: "Aftørring af støv",
+  serviceRegularCleaningTitleOneFeatureTwo: "Aftørring af overflader (herunder glas).",
+  serviceRegularCleaningTitleOneFeatureThree: "Let oprydning.",
+  serviceRegularCleaningTitleOneFeatureFour: "Fjernelse af affald og gulvpleje (støvsugning/gulvvask).",
+
+  serviceRegularCleaningTitleTwoFeatureOne: "Redning af senge, håndtering af sengelinned og målrettet desinfektion af berøringsflader med høj frekvens.",
+
+  serviceRegularCleaningTitleThreeFeatureOne: "Udvendig pleje af hvidevarer.",
+  serviceRegularCleaningTitleThreeFeatureTwo: "Desinfektion af bordplader og vaske.",
+  serviceRegularCleaningTitleThreeFeatureThree: "Aftørring af service og grundig gulvvask.",
+
+  serviceRegularCleaningTitleFourFeatureOne: "Fuldstændig desinfektion og fokus på hygiejne.",
+  serviceRegularCleaningTitleFourFeatureTwo: "Rengøring af toilet, vask, bruser og badekar.",
+  serviceRegularCleaningTitleFourFeatureThree: "Aftørring af spejle og opsætning af rene håndklæder.",
+
+  // Quick Touch Up Cleaning
+  serviceQuickTouchUpCleaningIntroHeadLine: "Hurtig opfriskning til travle områder",
+  serviceQuickTouchUpCleaningIntroBody: [
+    "Har du travlt, men brug for, at dit hjem ser bedst muligt ud? Vores Essential Touch-Up Cleaning er en målrettet hurtigservice designet til at genoprette glansen i dine primære opholdsrum. Ideel før gæster ankommer, efter et arrangement eller mellem rutinemæssige besøg. Vi fokuserer på højtrafikerede zoner med 100% certificerede miljøvenlige produkter."
+  ],
+
+  serviceQuickTouchUpCleaningHighlightTitleOne: "Højdepunkter ved opfriskende rengøring",
+  serviceQuickTouchUpCleaningHighlightCardTitleTwo: "Køkken",
+  serviceQuickTouchUpCleaningHighlightCardTitleThree: "Badeværelser",
+  serviceQuickTouchUpCleaningHighlightCardTitleFour: "Opholds- & soveværelser",
+  serviceQuickTouchUpCleaningHighlightCardTitleFive: "Gulve & affald",
+
+  serviceQuickTouchUpCleaningTitleTwoFeatureOne: "Aftørring af ydersiden på alle større hvidevarer (køleskab, ovn, opvaskemaskine).",
+  serviceQuickTouchUpCleaningTitleTwoFeatureTwo: "Rengøring og desinfektion af bordplader og stænklapper.",
+  serviceQuickTouchUpCleaningTitleTwoFeatureThree: "Skrubbeplejning af vask og armatur.",
+  serviceQuickTouchUpCleaningTitleTwoFeatureFour: "Aftørring af komfuret (kun overfladen).",
+  serviceQuickTouchUpCleaningTitleTwoFeatureFive: "Udvendig aftørring af mikrobølgeovn.",
+
+  serviceQuickTouchUpCleaningTitleThreeFeatureOne: "Desinfektion af toilet, sæde og kumme.",
+  serviceQuickTouchUpCleaningTitleThreeFeatureTwo: "Rengøring af spejle og glas overflader.",
+  serviceQuickTouchUpCleaningTitleThreeFeatureThree: "Aftørring af bordplade og vask.",
+  serviceQuickTouchUpCleaningTitleThreeFeatureFour: "Hurtig skylning og aftørring af bruser/badekar.",
+
+  serviceQuickTouchUpCleaningTitleFourFeatureOne: "Aftørring af vandrette overflader (borde, natborde, skriveborde).",
+  serviceQuickTouchUpCleaningTitleFourFeatureTwo: "Rystning og opretning af puder og hynder.",
+  serviceQuickTouchUpCleaningTitleFourFeatureThree: "Hurtig aftørring af spejle og billedrammer.",
+
+  serviceQuickTouchUpCleaningTitleFiveFeatureOne: "Støvsugning af alle tæpper og løse tæpper.",
+  serviceQuickTouchUpCleaningTitleFiveFeatureTwo: "Gulvvask på alle hårde gulve.",
+  serviceQuickTouchUpCleaningTitleFiveFeatureThree: "Tømning af alle skraldespande og udskiftning af poser.",
+
+  // Same Day Priority Cleaning
+  serviceSameDayPriorityCleaningIntroHeadLine: "Uopsættelig indsatsservice med kompromisløs renlighed",
+  serviceSameDayPriorityCleaningIntroBody: [
+    "Brug for øjeblikkelig rengøringshjælp med kort varsel? Vores Prioriteret Rengøring Samme Dag tilbyder hurtig udrykning til uventede gæster, spontane arrangementer eller pludselige nødsituationer. Vi prioriterer din booking og sender en professionel rengøringsassistent hurtigst muligt med 100% certificerede, giftfrie produkter."
+  ],
+
+  serviceSameDayPriorityCleaningHighlightTitleOne: "Tjekliste efter fest (Maksimalt snavs, maksimal effekt)",
+  serviceSameDayPriorityCleaningHighlightTitleTwo: "Tjekliste for hurtig rengøring (Standard service - Vores fokus)",
+  serviceSameDayPriorityCleaningHighlightCardTitleTwo: "Gulve & entré",
+  serviceSameDayPriorityCleaningHighlightCardTitleThree: "Genskabelse af fællesarealer",
+  serviceSameDayPriorityCleaningHighlightCardTitleFour: "Køkken & barområde",
+  serviceSameDayPriorityCleaningHighlightCardTitleFive: "Tjekliste for hurtig rengøring (Standard service - Vores fokus)",
+  serviceSameDayPriorityCleaningHighlightCardTitleSix: "Hurtig rengøring af køkken",
+  serviceSameDayPriorityCleaningHighlightCardTitleSeven: "Badeværelsesopfriskning",
+
+  serviceSameDayPriorityCleaningTitleTwoFeatureOne: "Kraftig støvsugning og fejning i opholdsrum.",
+  serviceSameDayPriorityCleaningTitleTwoFeatureTwo: "Målrettet gulvvask på højtrafikerede og spildte områder.",
+
+  serviceSameDayPriorityCleaningTitleThreeFeatureOne: "Indsamling af løse genstande, glas og affald.",
+  serviceSameDayPriorityCleaningTitleThreeFeatureTwo: "Tømning og desinfektion af affaldsspande.",
+  serviceSameDayPriorityCleaningTitleThreeFeatureThree: "Aftørring og pletrengøring af synlige overflader.",
+  serviceSameDayPriorityCleaningTitleThreeFeatureFour: "Opretning af møbler (sofaer, stole, puder).",
+
+  serviceSameDayPriorityCleaningTitleFourFeatureOne: "Bortskaffelse af tomme flasker, dáser og emballage.",
+  serviceSameDayPriorityCleaningTitleFourFeatureTwo: "Desinfektion af alle bordplader og klistrede overflader.",
+  serviceSameDayPriorityCleaningTitleFourFeatureThree: "Start af opvaskemaskine og vask af opvask.",
+  serviceSameDayPriorityCleaningTitleFourFeatureFour: "Aftørring af spildte drikkevarer på hårde gulve.",
+
+  serviceSameDayPriorityCleaningTitleSixFeatureOne: "Aftørring af bordplader.",
+  serviceSameDayPriorityCleaningTitleSixFeatureTwo: "Pletrengøring af skabsfronter.",
+  serviceSameDayPriorityCleaningTitleSixFeatureThree: "Rengøring af mikrobølgeovn og udvendig komfur.",
+  serviceSameDayPriorityCleaningTitleSixFeatureFour: "Opvask eller ilægning af mindre mængder opvask.",
+  serviceSameDayPriorityCleaningTitleSixFeatureFive: "Desinfektion af vask og polering af armaturer.",
+
+  serviceSameDayPriorityCleaningTitleSevenFeatureOne: "Desinfektion af vask og bordplade.",
+  serviceSameDayPriorityCleaningTitleSevenFeatureTwo: "Grundig rengøring af toilet indvendigt og udvendigt.",
+  serviceSameDayPriorityCleaningTitleSevenFeatureThree: "Hurtig aftørring af spejle.",
+  serviceSameDayPriorityCleaningTitleSevenFeatureFour: "Skift af håndklæder.",
+  serviceSameDayPriorityCleaningTitleSevenFeatureFive: "Udskiftning af brugte håndklæder.",
+  serviceSameDayPriorityCleaningTitleSevenFeatureSix: "Tømning af skraldespand og lugtsanering.",
+
+  // Deep Cleaning
+  serviceDeepCleaningIntroHeadLine: "Mere end blot overflader: Oplev forskellen med en ægte dybdegående nulstilling.",
+  serviceDeepCleaningIntroBody: [
+    "Hvis dit hjem har brug for mere end blot en hurtig rengøring, er vores Total Home Reset den perfekte løsning. Dette er vores mest grundige og detaljerede rengøringspakke, designet til at tage sig af indgroet snavs, støv og ophobninger, som standardrengøring overser.",
+    "Når tiden er afgørende, så vælg det team, der garanterer en mærkbar forskel med det samme."
+  ],
+
+  serviceDeepCleaningHighlightTitleOne: "Højdepunkter ved dybdegående rengøring",
+  serviceDeepCleaningHighlightCardTitleTwo: "Køkkendetaljer",
+  serviceDeepCleaningHighlightCardTitleThree: "Badeværelsesoase",
+  serviceDeepCleaningHighlightCardTitleFour: "Gulvpleje",
+  serviceDeepCleaningHighlightCardTitleFive: "Fokus på alle områder",
+
+  serviceDeepCleaningTitleTwoFeatureOne: "Intensiv skrubbeplejning af stænklapper.",
+  serviceDeepCleaningTitleTwoFeatureTwo: "Grundig rengøring af hvidevarers yderside.",
+  serviceDeepCleaningTitleTwoFeatureThree: "Affedtning af emhætter og kogeplader.",
+
+  serviceDeepCleaningTitleThreeFeatureOne: "Grundig skrubbeplejning af fuger og fliser i bruseren.",
+  serviceDeepCleaningTitleThreeFeatureTwo: "Desinfektion af toiletter, badekar og vaske.",
+  serviceDeepCleaningTitleThreeFeatureThree: "Afkalkning af armaturer og glasskydedøre.",
+
+  serviceDeepCleaningTitleFourFeatureOne: "Kraftig støvsugning og kantrengøring af tæpper.",
+  serviceDeepCleaningTitleFourFeatureTwo: "Grundig gulvvask og desinfektion af hårde gulve.",
+  serviceDeepCleaningTitleFourFeatureThree: "Detaljeret rengøring af paneler og gulvhjørner.",
+
+  serviceDeepCleaningTitleFiveFeatureOne: "Aftørring og afstøvning af alle fodpaneler.",
+  serviceDeepCleaningTitleFiveFeatureTwo: "Detaljeret rengøring af vindueskarme og kanter.",
+  serviceDeepCleaningTitleFiveFeatureThree: "Desinfektion af dørkarme, døre og dørhåndtag.",
+
+  // End of Tenancy Cleaning
+  serviceEndOfTenancyCleaningIntroHeadLine: "Tomt hus, fuldstændig rent: Garanti for depositum eller en ny frisk start.",
+  serviceEndOfTenancyCleaningIntroBody: [
+    "Vores fraflytningsrengøring er en fokuseret og omfattende service til tomme ejendomme. Tjenesten går ud over standard dybrengøring og fokuserer intensivt på glemte områder som indersiden af skabe, skuffer og bryggersområder for at opfylde de strenge krav ved fraflytningsinspektioner.",
+    "For en problemfri overdragelse kan du stole på vores eksperter i ejendomsoverdragelse."
+  ],
+
+  serviceEndOfTenancyCleaningHighlightTitleOne: "Højdepunkter ved rengøring ved fraflytning",
+  serviceEndOfTenancyCleaningHighlightCardTitleTwo: "Køkken & bryggers detaljer",
+  serviceEndOfTenancyCleaningHighlightCardTitleThree: "Intensiv badeværelsesrengøring",
+  serviceEndOfTenancyCleaningHighlightCardTitleFour: "Generelle områder & vægge",
+  serviceEndOfTenancyCleaningHighlightCardTitleFive: "Gulvpleje",
+
+  serviceEndOfTenancyCleaningTitleTwoFeatureOne: "Rengøring indvendigt og udvendigt i alle skabe og skuffer.",
+  serviceEndOfTenancyCleaningTitleTwoFeatureTwo: "Grundig rengøring af større hvidevarer ind- og udvendigt (ovn, køleskab, opvaskemaskine).",
+  serviceEndOfTenancyCleaningTitleTwoFeatureThree: "Dybdegående skrubbeplejning af emhætte og kogeplader.",
+
+  serviceEndOfTenancyCleaningTitleThreeFeatureOne: "Krafts kilde til afkalkning af fuger, fliser, badekar og brusedøre.",
+  serviceEndOfTenancyCleaningTitleThreeFeatureTwo: "Rengøring indvendigt i badeværelsesskabe og skuffer.",
+
+  serviceEndOfTenancyCleaningTitleFourFeatureOne: "Aftørring af alle indvendige vinduer.",
+  serviceEndOfTenancyCleaningTitleFourFeatureTwo: "Vinduesskinner, karme, lyskontakter og dørkarme.",
+  serviceEndOfTenancyCleaningTitleFourFeatureThree: "Pletrengøring af synlige mærker på vægge.",
+
+  serviceEndOfTenancyCleaningTitleFiveFeatureOne: "Kraftig støvsugning af alle tæppebelagte områder.",
+  serviceEndOfTenancyCleaningTitleFiveFeatureTwo: "Gulvvask og polering af alle hårde gulve.",
+
+  // Post Construction Renovation Cleaning
+  servicePostConstructionRenovationCleaningIntroHeadLine: "Den endelige forvandling: Fjernelse af byggestøv og fremhævelse af glansen.",
+  servicePostConstructionRenovationCleaningIntroBody: [
+    "Vores byggeservice er essentiel for sikkert og grundigt at fjerne byggerester, fint gipsstøv, malingsstænk og limrester. Processen udføres i to faser med specialudstyr til mikroskopisk støvfjernelse.",
+    "Lad ikke byggestøvet blive liggende. Stol på vores specialiserede team for at færdiggøre dit projekt."
+  ],
+
+  servicePostConstructionRenovationCleaningHighlightTitleOne: "Højdepunkter ved rengøring efter byggeri & renovering",
+  servicePostConstructionRenovationCleaningHighlightCardTitleTwo: "Støv & luftkvalitet",
+  servicePostConstructionRenovationCleaningHighlightCardTitleThree: "Vinduespudsning & detaljer",
+  servicePostConstructionRenovationCleaningHighlightCardTitleFour: "Køkken & badeværelse",
+  servicePostConstructionRenovationCleaningHighlightCardTitleFive: "Gulve",
+
+  servicePostConstructionRenovationCleaningTitleTwoFeatureOne: "Gentagen aftørring af alle overflader med mikrofiberklude.",
+  servicePostConstructionRenovationCleaningTitleTwoFeatureTwo: "HEPA-støvsugning.",
+  servicePostConstructionRenovationCleaningTitleTwoFeatureThree: "Rengøring af luftkanaler og ventilationsriste.",
+
+  servicePostConstructionRenovationCleaningTitleThreeFeatureOne: "Vask af glas, rammer og skinner.",
+  servicePostConstructionRenovationCleaningTitleThreeFeatureTwo: "Sikker fjernelse af maling, klistermærker og limrester.",
+
+  servicePostConstructionRenovationCleaningTitleFourFeatureOne: "Aftørring af alle nyinstallerede skabe og skuffer.",
+  servicePostConstructionRenovationCleaningTitleFourFeatureTwo: "Fjernelse af fugeslør fra fliser.",
+  servicePostConstructionRenovationCleaningTitleFourFeatureThree: "Rengøring af armaturer for silikone, spartelmasse og støv.",
+
+  servicePostConstructionRenovationCleaningTitleFiveFeatureOne: "Kraftig støvsugning med HEPA-filter.",
+  servicePostConstructionRenovationCleaningTitleFiveFeatureTwo: "Detaljeret kantrengøring, vask og polering af hårde gulve.",
+
+  // Premium Rental Concierge Cleaning
+  servicePremiumRentalConciergeCleaningIntroHeadLine: "Problemfrie ophold, 5-stjernede anmeldelser: Perfekt overdragelse, hver gang.",
+  servicePremiumRentalConciergeCleaningIntroBody: [
+    "Vores concierge-rengøring til korttidsudlejning er skræddersyet til at opfylde de højeste standarder for gæsteindtjekning. Tjenesten inkluderer genopfyldning af forbrugsstoffer og præsentation, som standardrengøring ikke dækker.",
+    "Vi er nøglen til konsekvent 5-stjernet renlighed og ubesværet udlejning."
+  ],
+
+  servicePremiumRentalConciergeCleaningHighlightTitleOne: "Højdepunkter ved premium concierge-rengøring",
+  servicePremiumRentalConciergeCleaningHighlightCardTitleTwo: "Gæsteoase (Badeværelser)",
+  servicePremiumRentalConciergeCleaningHighlightCardTitleThree: "Køkken & forfriskninger",
+  servicePremiumRentalConciergeCleaningHighlightCardTitleFour: "Håndtering af sengelinned (Soveværelser)",
+  servicePremiumRentalConciergeCleaningHighlightCardTitleFive: "Vedligeholdelse & afsluttende tjek",
+
+  servicePremiumRentalConciergeCleaningTitleTwoFeatureOne: "Luksussæbe — opfyldt dispenser eller ny sæbe opstillet.",
+  servicePremiumRentalConciergeCleaningTitleTwoFeatureTwo: "Hårpleje — nyt rejsesæt med shampoo & conditioner.",
+  servicePremiumRentalConciergeCleaningTitleTwoFeatureThree: "Papirprodukter — toiletpapir monteret og ekstra lagre fyldt.",
+  servicePremiumRentalConciergeCleaningTitleTwoFeatureFour: "Håndklæder — nyvaskede og pænt foldede.",
+  servicePremiumRentalConciergeCleaningTitleTwoFeatureFive: "Bademåtte — ren og placeret korrekt.",
+
+  servicePremiumRentalConciergeCleaningTitleThreeFeatureOne: "Drikkevarer og tilbehør præsenteret nydeligt.",
+  servicePremiumRentalConciergeCleaningTitleThreeFeatureTwo: "Rengøringsartikler klar til gæstebrug.",
+  servicePremiumRentalConciergeCleaningTitleThreeFeatureThree: "Ny affaldspose i skraldespanden og ny køkkenrulle.",
+  servicePremiumRentalConciergeCleaningTitleThreeFeatureFour: "Velkomstgave i forseglet præsentation.",
+
+  servicePremiumRentalConciergeCleaningTitleFourFeatureOne: "Madrasser visuelt kontrolleret — ingen pletter eller skader.",
+  servicePremiumRentalConciergeCleaningTitleFourFeatureTwo: "Friske, stramt redte lagener.",
+  servicePremiumRentalConciergeCleaningTitleFourFeatureThree: "Pudebetræk og dynobetræk lagt pænt på.",
+  servicePremiumRentalConciergeCleaningTitleFourFeatureFour: "Støvfri aftørring af lamper og belysningsarmaturer.",
+
+  servicePremiumRentalConciergeCleaningTitleFiveFeatureOne: "Pletkontrol af vægge, fjernelse af mærker og fingeraftryk.",
+  servicePremiumRentalConciergeCleaningTitleFiveFeatureTwo: "Sikre at alle overflader er støvfrie.",
+  servicePremiumRentalConciergeCleaningTitleFiveFeatureThree: "Sikkerhedstjek for at fjerne eventuelle farer.",
+  servicePremiumRentalConciergeCleaningTitleFiveFeatureFour: "Afsluttende gennemgang og visuel klargøring.",
+
+  // Commercial Office Cleaning
+  serviceCommercialOfficeCleaningIntroHeadLine: "Øget produktivitet gennem pletfrie lokaler og et sundt arbejdsmiljø.",
+  serviceCommercialOfficeCleaningIntroBody: [
+    "Vores erhvervs- og kontorrengøring er skræddersyet til virksomheder, der ønsker pålidelig rengøring af høj kvalitet. Vores teams arbejder diskret og effektivt, ofte uden for normal arbejdstid for at minimere forstyrrelser.",
+    "Et rent miljø er et produktivt miljø. Indgå et samarbejde med os for konsekvent kvalitet."
+  ],
+
+  serviceCommercialOfficeCleaningHighlightTitleOne: "Tjekliste for trivsel på arbejdspladsen (Erhvervsfokus)",
+  serviceCommercialOfficeCleaningHighlightTitleSeven: "Kontraktuelle muligheder for servicefrekvens",
+  serviceCommercialOfficeCleaningHighlightCardTitleTwo: "Fællesarealer & reception",
+  serviceCommercialOfficeCleaningHighlightCardTitleThree: "Pentry & pauserum",
+  serviceCommercialOfficeCleaningHighlightCardTitleFour: "Toiletter",
+  serviceCommercialOfficeCleaningHighlightCardTitleFive: "Gulvpleje",
+  serviceCommercialOfficeCleaningHighlightCardTitleSix: "Affaldshåndtering",
+  serviceCommercialOfficeCleaningHighlightCardTitleSeven: "Kontraktuelle muligheder for servicefrekvens",
+  serviceCommercialOfficeCleaningHighlightCardTitleEight: "Daglig rengøring",
+  serviceCommercialOfficeCleaningHighlightCardTitleNine: "Tre gange ugentligt",
+  serviceCommercialOfficeCleaningHighlightCardTitleTen: "Ugentlig rengøring",
+  serviceCommercialOfficeCleaningHighlightCardTitleEleven: "Hver anden uge",
+
+  serviceCommercialOfficeCleaningTitleTwoFeatureOne: "Afstøvning af alle synlige vandrette overflader, skriveborde og arkivskabe.",
+  serviceCommercialOfficeCleaningTitleTwoFeatureTwo: "Polering af receptionsmøbler og glas-/metalarmaturer.",
+  serviceCommercialOfficeCleaningTitleTwoFeatureThree: "Detaljeret rengøring af alt indvendigt glas (døre, skillevægge).",
+
+  serviceCommercialOfficeCleaningTitleThreeFeatureOne: "Rengøring og desinfektion af bordplader, vaske og hvidevarer (mikrobølgeovne, køleskabe).",
+  serviceCommercialOfficeCleaningTitleThreeFeatureTwo: "Aftørring af borde og stole.",
+
+  serviceCommercialOfficeCleaningTitleFourFeatureOne: "Grundig rengøring og desinfektion af toiletter, urinaler, vaske og armaturer.",
+  serviceCommercialOfficeCleaningTitleFourFeatureTwo: "Genopfyldning af papirprodukter og håndsæbe-/spritdispensere.",
+
+  serviceCommercialOfficeCleaningTitleFiveFeatureOne: "Daglig støvsugning af alle tæppebelagte områder.",
+  serviceCommercialOfficeCleaningTitleFiveFeatureTwo: "Fejning og gulvvask af alle hårde gulve (fliser, vinyl, træ).",
+
+  serviceCommercialOfficeCleaningTitleSixFeatureOne: "Tømning af alle skraldespande og udskiftning af poser.",
+  serviceCommercialOfficeCleaningTitleSixFeatureTwo: "Sortering og centralisering af genbrugsmaterialer.",
+
+  serviceCommercialOfficeCleaningTitleEightFeatureOne: "Til travle virksomhedskontorer og medicinske faciliteter.",
+
+  serviceCommercialOfficeCleaningTitleNineFeatureOne: "Standardløsningen til mellemstore kontorer.",
+
+  serviceCommercialOfficeCleaningTitleTenFeatureOne: "Velegnet til mindre kontorer med begrænset persontrafik.",
+
+  serviceCommercialOfficeCleaningTitleElevenFeatureOne: "Fokus udelukkende på toiletter, pauserum og gulvpolering.",
+
+  // Healthguard Sanitization
+  serviceHealthguardSanitizationIntroHeadLine: "Mere end rent: Hospitalsgodkendt desinfektion for et sundt HealthGuard-miljø.",
+  serviceHealthguardSanitizationIntroBody: [
+    "Vores HealthGuard-desinfektion fokuserer udelukkende på at fjerne patogener, bakterier og vira fra berøringsflader. Tjenesten anvender ECHA/EPA-registrerede desinfektionsmidler og specialiserede påføringsmetoder.",
+    "Ideel til miljøer med høje hygiejnekrav som lægepraksisser, fitnesscentre, skoler og private hjem med særlige behov."
+  ],
+
+  serviceHealthguardSanitizationHighlightTitleOne: "Tjekliste for desinfektion (Målrettet fokus – inkl. private boliger)",
+  serviceHealthguardSanitizationHighlightCardTitleTwo: "Tjekliste for desinfektion af rum",
+  serviceHealthguardSanitizationHighlightCardTitleThree: "Køkken & madlavningsområder",
+  serviceHealthguardSanitizationHighlightCardTitleFour: "Detaljeret fokus i private hjem",
+  serviceHealthguardSanitizationHighlightCardTitleFive: "Detaljeret fokus på kontorer",
+  serviceHealthguardSanitizationHighlightCardTitleSix: "Påføringsmetode",
+
+  serviceHealthguardSanitizationTitleTwoFeatureOne: "Første overfladerengøring efterfulgt af hospitalsgodkendt desinfektion.",
+  serviceHealthguardSanitizationTitleTwoFeatureTwo: "Berøringsflader: dørhåndtag, kontakter, fjernbetjeninger, termostater, gelændere.",
+  serviceHealthguardSanitizationTitleTwoFeatureThree: "Toiletter: desinfektion af armaturer, vaske, toiletter og bruserum.",
+
+  serviceHealthguardSanitizationTitleThreeFeatureOne: "Bordplader, vaske og armaturer.",
+  serviceHealthguardSanitizationTitleThreeFeatureTwo: "Udvendige håndtag på køleskab, skabe og mikrobølgeovn.",
+  serviceHealthguardSanitizationTitleThreeFeatureThree: "Indvendige flader i mikrobølgeovn, betjeningspaneler og kaffemaskiner.",
+
+  serviceHealthguardSanitizationTitleFourFeatureOne: "Natborde, skuffegreb og børns legetøj i hårde materialer.",
+  serviceHealthguardSanitizationTitleFourFeatureTwo: "Spillekonsoller, knapper og drejeknapper.",
+
+  serviceHealthguardSanitizationTitleFiveFeatureOne: "Tastaturer, mus og skrivebordsflader.",
+  serviceHealthguardSanitizationTitleFiveFeatureTwo: "Knapper på fælles drikkevandsfontæner.",
+
+  serviceHealthguardSanitizationTitleSixFeatureOne: "Flydende spray / mikrofiberklude + elektrostatisk sprøjtning ved behov.",
+  serviceHealthguardSanitizationTitleSixFeatureTwo: "Koldtågesprøjtning eller elektrostatisk behandling efter behov.",
+
+  // Carpet & Upholstery Cleaning
+  serviceCarpetUpholsteryCleaningIntroHeadLine: "Dybdegående fiberfornyelse: Genopret blødhed, farve og friskhed i dine møbler.",
+  serviceCarpetUpholsteryCleaningIntroBody: [
+    "Vores fiberfornyelsesservice anvender professionel varmtvandsekstraktion og stoffsikre behandlinger til at fjerne indgroet snavs, allergener og lugte fra tæpper, møbler, madrasser og gardiner.",
+    "Resultatet er blødere, lysere og sundere tekstiler i hele dit hjem uden kemiske rester."
+  ],
+
+  serviceCarpetUpholsteryCleaningHighlightTitleOne: "Højdepunkter ved tæppe- & polstringsrensning",
+  serviceCarpetUpholsteryCleaningHighlightCardTitleTwo: "Tæpperengøring",
+  serviceCarpetUpholsteryCleaningHighlightCardTitleThree: "Rensning af løse tæpper",
+  serviceCarpetUpholsteryCleaningHighlightCardTitleFour: "Polstringsrensning",
+  serviceCarpetUpholsteryCleaningHighlightCardTitleFive: "Madrasrensning",
+  serviceCarpetUpholsteryCleaningHighlightCardTitleSix: "Gardinrensning",
+
+  serviceCarpetUpholsteryCleaningTitleTwoFeatureOne: "Sundhed og luftkvalitetsløft — fjerner allergener.",
+  serviceCarpetUpholsteryCleaningTitleTwoFeatureTwo: "Restaurering og bevarelse af tekstilværdien.",
+  serviceCarpetUpholsteryCleaningTitleTwoFeatureThree: "Professionel dyb varmtvandsekstraktion.",
+  serviceCarpetUpholsteryCleaningTitleTwoFeatureFour: "Sikre og effektive miljøvenlige løsninger.",
+
+  serviceCarpetUpholsteryCleaningTitleThreeFeatureOne: "Skånsom pleje til alle typer af løse tæpper.",
+  serviceCarpetUpholsteryCleaningTitleThreeFeatureTwo: "Beskyttelse af farver og teksturer.",
+  serviceCarpetUpholsteryCleaningTitleThreeFeatureThree: "Håndbearbejdet efterbehandling.",
+
+  serviceCarpetUpholsteryCleaningTitleFourFeatureOne: "Ren, frisk komfort der forlænger møblernes levetid.",
+  serviceCarpetUpholsteryCleaningTitleFourFeatureTwo: "Plet- og lugtfjernelse.",
+  serviceCarpetUpholsteryCleaningTitleFourFeatureThree: "Professionel stoffsikker pleje.",
+
+  serviceCarpetUpholsteryCleaningTitleFiveFeatureOne: "Fjerner støvmider og allergener.",
+  serviceCarpetUpholsteryCleaningTitleFiveFeatureTwo: "Forbedrer søvnhygiejnen.",
+  serviceCarpetUpholsteryCleaningTitleFiveFeatureThree: "Dybdegående desinfektionsproces.",
+
+  serviceCarpetUpholsteryCleaningTitleSixFeatureOne: "Ingen nedtagning nødvendig.",
+  serviceCarpetUpholsteryCleaningTitleSixFeatureTwo: "Stoffsikker damprengøring.",
+  serviceCarpetUpholsteryCleaningTitleSixFeatureThree: "Frisker indendørsluften op.",
+
+  // Steam Cleaning
+  serviceSteamCleaningIntroHeadLine: "Udnyt dampens rene kraft til kemifri dybrengøring og desinfektion.",
+  serviceSteamCleaningIntroBody: [
+    "Vores damprengøringsservice anvender damp ved høje temperaturer til at desinficere overflader, opløse fedt, fjerne skimmel og dræbe op til 99,9% af bakterier og støvmider.",
+    "Ren damp under tryk trænger dybere ind end traditionelle rengøringsmetoder."
+  ],
+
+  serviceSteamCleaningHighlightTitleOne: "Højdepunkter ved damprengøring",
+  serviceSteamCleaningHighlightCardTitleTwo: "Køkkendetaljer",
+  serviceSteamCleaningHighlightCardTitleThree: "Grundig badeværelsesrengøring",
+  serviceSteamCleaningHighlightCardTitleFour: "Overfladedesinfektion",
+  serviceSteamCleaningHighlightCardTitleFive: "Behandling af sprækker & pletter",
+
+  serviceSteamCleaningTitleTwoFeatureOne: "Damprensning og desinfektion af emhætter og komfurriste.",
+  serviceSteamCleaningTitleTwoFeatureTwo: "Dyb damprensning af indvendig ovn og køleskabstætninger.",
+  serviceSteamCleaningTitleTwoFeatureThree: "Desinfektion af skærebrætter ved hjælp af høj temperatur damp.",
+
+  serviceSteamCleaningTitleThreeFeatureOne: "Damprensning af fugelinjer og opløsning af sæberester.",
+  serviceSteamCleaningTitleThreeFeatureTwo: "Rengøring af toiletbaser, hængsler og vanskeligt tilgængelige områder.",
+
+  serviceSteamCleaningTitleFourFeatureOne: "Dampdesinfektion af berøringsflader: dørhåndtag, kontakter.",
+  serviceSteamCleaningTitleFourFeatureTwo: "Kemifri desinfektion af betjeningspaneler på hvidevarer.",
+
+  serviceSteamCleaningTitleFiveFeatureOne: "Præcisionsdamprensning til hjørner og paneler.",
+  serviceSteamCleaningTitleFiveFeatureTwo: "Effektiv rengøring af vindueskinner og flisefuger.",
+  serviceSteamCleaningTitleFiveFeatureThree: "Let pletbehandling på stof og polstring.",
+
+  // Post Event Cleaning
+  servicePostEventCleaningIntroHeadLine: "Det eneste, vi efterlader, er et pletfrit lokale.",
+  servicePostEventCleaningIntroBody: [
+    "Vores rengøringsservice til arrangementer sikrer, at dit festlokale bliver pletfrit før og efter arrangementet, så du kan fokusere på dine gæster.",
+    "Garanterer et velholdt, hygiejnisk rum, der efterlader et varigt positivt indtryk."
+  ],
+
+  servicePostEventCleaningHighlightTitleOne: "Højdepunkter ved rengøring efter arrangementer",
+  servicePostEventCleaningHighlightCardTitleTwo: "Før arrangementet",
+  servicePostEventCleaningHighlightCardTitleThree: "Lige før gæsterne ankommer",
+  servicePostEventCleaningHighlightCardTitleFour: "Under arrangementet",
+  servicePostEventCleaningHighlightCardTitleFive: "Efter arrangementet",
+
+  servicePostEventCleaningTitleTwoFeatureOne: "Fastlæggelse af rengøringens omfang baseret på arrangementets type og størrelse.",
+  servicePostEventCleaningTitleTwoFeatureTwo: "Oprydning, afstøvning og organisering af lokalet.",
+  servicePostEventCleaningTitleTwoFeatureThree: "Støvsugning af tæpper, fejning og gulvvask af hårde gulve.",
+  servicePostEventCleaningTitleTwoFeatureFour: "Rengøring af vinduer, glasoverflader, stole og borde.",
+  servicePostEventCleaningTitleTwoFeatureFive: "Desinfektion af berøringsflader (dørhåndtag, kontakter, gelændere).",
+
+  servicePostEventCleaningTitleThreeFeatureOne: "Afsluttende gennemgang og fjernelse af mærker eller pletter.",
+  servicePostEventCleaningTitleThreeFeatureTwo: "Genkontrol af toiletpapir og sæbe på toiletter.",
+  servicePostEventCleaningTitleThreeFeatureThree: "Bekræfte at dekorationer og skilte er rene og korrekt placeret.",
+  servicePostEventCleaningTitleThreeFeatureFour: "Opbevaring af rengøringsudstyr ude af syne.",
+
+  servicePostEventCleaningTitleFourFeatureOne: "Løbende tømning af skraldespande efter behov.",
+  servicePostEventCleaningTitleFourFeatureTwo: "Hurtig opsamling og aftørring af spildte drikkevarer.",
+  servicePostEventCleaningTitleFourFeatureThree: "Genopfyldning af toiletartikler.",
+  servicePostEventCleaningTitleFourFeatureFour: "Opbevaring af pletrensningsudstyr let tilgængeligt men skjult.",
+
+  servicePostEventCleaningTitleFiveFeatureOne: "Fuldstændig oprydning efter arrangementet (støvsugning, gulvvask, aftørring).",
+  servicePostEventCleaningTitleFiveFeatureTwo: "Rengøring og opbevaring af lejet udstyr.",
+  servicePostEventCleaningTitleFiveFeatureThree: "Korrekt bortskaffelse af affald og genbrugsmaterialer.",
+  servicePostEventCleaningTitleFiveFeatureFour: "Inspektion for eventuelle skader på lokalet.",
+
+  // Pool Cleaning
+  servicePoolCleaningIntroHeadLine: "Oprethold krystalklart vand og forlæng levetiden på dit pooludstyr.",
+  servicePoolCleaningIntroBody: [
+    "Vores poolservice tilbyder regelmæssig vedligeholdelse af swimmingpools i private hjem og erhverv, hvilket sikrer optimal vandkemi og et rent, sikkert svømmemiljø."
+  ],
+
+  servicePoolCleaningHighlightTitleOne: "Højdepunkter ved poolrengøring",
+  servicePoolCleaningHighlightCardTitleTwo: "Fjernelse af snavs",
+  servicePoolCleaningHighlightCardTitleThree: "Filtervedligeholdelse",
+  servicePoolCleaningHighlightCardTitleFour: "Skrubbeplejning af vægge & fliser",
+  servicePoolCleaningHighlightCardTitleFive: "Kemisk balance",
+  servicePoolCleaningHighlightCardTitleSix: "Udstyrskontrol",
+
+  servicePoolCleaningTitleTwoFeatureOne: "Overfladerensning med net samt støvsugning af poolens bund og vægge.",
+  servicePoolCleaningTitleThreeFeatureOne: "Returskylning og rengøring af filter; tømning af skimmer- og pumpekurve.",
+  servicePoolCleaningTitleFourFeatureOne: "Børstning af poolvægge og fliselinjer for at forhindre alger og kalkaflejringer.",
+  servicePoolCleaningTitleFiveFeatureOne: "Test og regulering af klor/desinfektion, pH-værdi, alkalinitet og hårdhed.",
+  servicePoolCleaningTitleSixFeatureOne: "Inspektion af pumpe, varmelegeme, filter og timer for korrekt drift.",
+
+  // Precision Pressure Washing
+  servicePrecisionPressureWashingIntroHeadLine: "Genopret glansen: Dybdegående rengøring af facader, indkørsler og udendørs overflader.",
+  servicePrecisionPressureWashingIntroBody: [
+    "Vores højtryksrensning anvender professionelt udstyr og biologisk nedbrydelige rengøringsmidler til sikkert at fjerne snavs fra udendørs overflader."
+  ],
+
+  servicePrecisionPressureWashingHighlightTitleOne: "Højdepunkter ved præcisions-højtryksrensning",
+  servicePrecisionPressureWashingHighlightCardTitleTwo: "Skånsom blødvask",
+  servicePrecisionPressureWashingHighlightCardTitleThree: "Indkørsler & terrasser",
+  servicePrecisionPressureWashingHighlightCardTitleFour: "Vinduer & tagrender",
+
+  servicePrecisionPressureWashingTitleTwoFeatureOne: "En skånsom, miljøvenlig løsning ideel til sarte overflader — fjerner snavs, skimmel og belægninger.",
+  servicePrecisionPressureWashingTitleThreeFeatureOne: "Effektiv højtryksrensning til fjernelse af oliepletter, alger og fastbrændt snavs på beton.",
+  servicePrecisionPressureWashingTitleFourFeatureOne: "Professionel rengøring af tagrender og vinduer for at sikre frit afløb og et pletfrit udseende.",
+
+  // Child Care Service
+  serviceChildCareServiceIntroHeadLine: "Omsorgsfuld og tryg børnepasning til familien",
+  serviceChildCareServiceIntroBody: [
+    "Denne service tilbyder personlig og fleksibel børnepasning i hjemmet med fokus på pædagogisk engagement, måltider og trygge rammer."
+  ],
+
+  serviceChildCareServiceHighlightTitleOne: "Højdepunkter ved børnepasningsservice",
+  serviceChildCareServiceHighlightCardTitleTwo: "Spædbørnscare (3–18 måneder)",
+  serviceChildCareServiceHighlightCardTitleThree: "Læring for småbørn (1,5–3 år)",
+  serviceChildCareServiceHighlightCardTitleFour: "Daglig pasning",
+  serviceChildCareServiceHighlightCardTitleFive: "Pasning efter skoletid",
+  serviceChildCareServiceHighlightCardTitleSix: "Enkeltstående pasning",
+  serviceChildCareServiceHighlightCardTitleSeven: "Pasning med kort varsel",
+
+  serviceChildCareServiceTitleTwoFeatureOne: "Særlig opmærksomhed og sansestimulerende aktiviteter designet til babyer.",
+  serviceChildCareServiceTitleThreeFeatureOne: "Legebaseret læring og udvikling af sociale færdigheder for nysgerrige småbørn.",
+  serviceChildCareServiceTitleFourFeatureOne: "Heldagspasning i trygge og nærværende rammer.",
+  serviceChildCareServiceTitleFiveFeatureOne: "Lektiehjælp og kreative aktiviteter for skolebørn.",
+  serviceChildCareServiceTitleSixFeatureOne: "Fleksibel pasning til aftener eller weekender.",
+  serviceChildCareServiceTitleSevenFeatureOne: "Hurtig og pålidelig pasningshjælp, når uforudsete behov opstår.",
+
+  // Elder Care Service
+  serviceElderCareServiceIntroHeadLine: "Omsorgsfuld ledsagelse og støtte til ældre",
+  serviceElderCareServiceIntroBody: [
+    "Denne service tilbyder personlig og støttende pleje til ældre for at forbedre livskvalitet, sikkerhed og selvstændighed i hverdagen."
+  ],
+
+  serviceElderCareServiceHighlightTitleOne: "Højdepunkter ved ældreplejeservice",
+  serviceElderCareServiceHighlightCardTitleTwo: "Ledsagelse & samvær",
+  serviceElderCareServiceHighlightCardTitleThree: "Personlig pleje",
+  serviceElderCareServiceHighlightCardTitleFour: "Daglig støtte",
+
+  serviceElderCareServiceTitleTwoFeatureOne: "Social interaktion og hyggeligt samvær.",
+  serviceElderCareServiceTitleTwoFeatureTwo: "Hjælp til daglige gøremål og mindre opgaver.",
+
+  serviceElderCareServiceTitleThreeFeatureOne: "Hjælp til personlig hygiejne og påklædning.",
+  serviceElderCareServiceTitleThreeFeatureTwo: "Påmindelser og hjælp i forbindelse med medicin.",
+  serviceElderCareServiceTitleThreeFeatureThree: "Inkontinenspleje og diskret støtte.",
+
+  serviceElderCareServiceTitleFourFeatureOne: "Rutinemæssig pleje og tryg hjælp i hverdagen.",
+  serviceElderCareServiceTitleFourFeatureTwo: "Støtte til mobilitet og forflytning.",
+
+  // Laundry Service
+  serviceLaundryServiceIntroHeadLine: "Ubesværet tøjvask, leveret rent og foldet",
+  serviceLaundryServiceIntroBody: [
+    "Din tid er værdifuld — lad os tage os af tøjvasken fra afhentning til levering."
+  ],
+
+  serviceLaundryServiceHighlightTitleOne: "Højdepunkter ved vaskeservice",
+  serviceLaundryServiceHighlightCardTitleTwo: "Vask & foldning",
+  serviceLaundryServiceHighlightCardTitleThree: "Eksklusiv kemisk rens",
+  serviceLaundryServiceHighlightCardTitleFour: "Professionel dampstrygning",
+  serviceLaundryServiceHighlightCardTitleFive: "Skånsom tekstilpleje",
+  serviceLaundryServiceHighlightCardTitleSix: "Sengelinned & tekstiler",
+  serviceLaundryServiceHighlightCardTitleSeven: "Express afhentning & levering",
+
+  serviceLaundryServiceTitleTwoFeatureOne: "Almindeligt tøj vaskes, tørres og foldes knivskarpt for din bekvemmelighed.",
+  serviceLaundryServiceTitleThreeFeatureOne: "Specialiseret skånsom rens til sarte stoffer, jakkesæt og kjoler.",
+  serviceLaundryServiceTitleFourFeatureOne: "Præcis strygning og dampning for et strygefrit og professionelt udtryk.",
+  serviceLaundryServiceTitleFiveFeatureOne: "Skånsom vask med miljøvenlige vaskemidler, der bevarer tekstilernes levetid.",
+  serviceLaundryServiceTitleSixFeatureOne: "Dybdegående vask af store genstande som dyner, tæpper og gardiner.",
+  serviceLaundryServiceTitleSevenFeatureOne: "Planlagt afhentning og levering direkte til døren.",
+
+  // Move In Out Transport Service
+  serviceMoveInOutTransportServiceIntroHeadLine: "Problemfri flyttelogistik & transport",
+  serviceMoveInOutTransportServiceIntroBody: [
+    "Denne service tilbyder skræddersyet transport og overgangsstyring for private boliger og erhvervskunder."
+  ],
+
+  serviceMoveInOutTransportServiceHighlightTitleOne: "Højdepunkter ved flytte- & transportservice",
+  serviceMoveInOutTransportServiceHighlightCardTitleTwo: "Nedpakning af genstande",
+  serviceMoveInOutTransportServiceHighlightCardTitleThree: "Flytning af indbo",
+  serviceMoveInOutTransportServiceHighlightCardTitleFour: "Sikker transport",
+  serviceMoveInOutTransportServiceHighlightCardTitleFive: "Erhverv / Kontor",
+
+  serviceMoveInOutTransportServiceTitleTwoFeatureOne: "Skørbare genstande pakkes forsvarligt i egnede kasser med klar mærkning.",
+  serviceMoveInOutTransportServiceTitleThreeFeatureOne: "Gods lastes forsigtigt og fastgøres i køretøjet under transporten.",
+  serviceMoveInOutTransportServiceTitleFourFeatureOne: "Sikker kørsel under overholdelse af alle sikkerhedsforskrifter.",
+  serviceMoveInOutTransportServiceTitleFiveFeatureOne: "Kontorudstyr pakkes, mærkes og transporteres effektivt for at minimere nedetid.",
+
+  // High Security Property Care
+  serviceHighSecurityPropertyCareIntroHeadLine: "Sikkerhedsgodkendt personale | Fuld diskretion | Kompromisløs kvalitet",
+  serviceHighSecurityPropertyCareIntroBody: [
+    "Specialiseret rengøring designet til VIP-klienter, offentlige bygninger og sikkerhedsfølsomme lokaler. Udføres udelukkende af baggrundstjekket personale under strenge fortrolighedsaftaler."
+  ],
+
+  serviceHighSecurityPropertyCareHighlightTitleOne: "Højdepunkter ved ejendomspleje med høj sikkerhed",
+  serviceHighSecurityPropertyCareHighlightCardTitleTwo: "Godkendt personale & privatliv",
+  serviceHighSecurityPropertyCareHighlightCardTitleThree: "Højsikkerhedsfaciliteter",
+  serviceHighSecurityPropertyCareHighlightCardTitleFour: "Beredskab & akutindsats",
+  serviceHighSecurityPropertyCareHighlightCardTitleFive: "Desinfektion af digitale enheder",
+
+  serviceHighSecurityPropertyCareTitleTwoFeatureOne: "100% baggrundstjekkede og fortrolighedsforpligtede teknikere.",
+  serviceHighSecurityPropertyCareTitleTwoFeatureTwo: "Strenge fortrolighedsprotokoller til beskyttelse af fysiske og digitale data.",
+
+  serviceHighSecurityPropertyCareTitleThreeFeatureOne: "Specialiseret rengøring af serverrum, fortrolige kontorer og sikrede rum.",
+  serviceHighSecurityPropertyCareTitleThreeFeatureTwo: "Sub-mikron støvudsugning til følsom hardware og elektronik.",
+
+  serviceHighSecurityPropertyCareTitleFourFeatureOne: "24/7 hurtig udrykning ved indbrud eller akut oprydning.",
+  serviceHighSecurityPropertyCareTitleFourFeatureTwo: "Øjeblikkelig sikring af stedet og dokumentation til forsikring.",
+
+  serviceHighSecurityPropertyCareTitleFiveFeatureOne: "Rensning af digitale enheder for malware og vira.",
+  serviceHighSecurityPropertyCareTitleFiveFeatureTwo: "Fuldstændig datasletning og genopretning af privatliv på smittede enheder.",
+
+  // Luxury Yacht Cleaning
+  serviceLuxuryYachtCleaningIntroHeadLine: "Yacht-standard perfektion og strålende glans til din båd.",
+  serviceLuxuryYachtCleaningIntroBody: [
+    "Vedligeholdelse af et luksusskib kræver kompromisløs opmærksomhed på detaljer. Vores maritime rengøringsspecialister står klar til at levere rengøring i verdensklasse.",
+    "Vi specialiserer os i polering af skrog, teakbehandling og diskret indvendig klargøring af kahytter."
+  ],
+
+  serviceLuxuryYachtCleaningHighlightTitleOne: "Højdepunkter ved rengøring af luksusyachts",
+  serviceLuxuryYachtCleaningHighlightCardTitleTwo: "Udvendig struktur & dæk",
+  serviceLuxuryYachtCleaningHighlightCardTitleThree: "Indvendige VIP-kahytter",
+  serviceLuxuryYachtCleaningHighlightCardTitleFour: "Motorrum & tekniske zoner",
+  serviceLuxuryYachtCleaningHighlightCardTitleFive: "Hurtig klargøring efter charter",
+
+  serviceLuxuryYachtCleaningTitleTwoFeatureOne: "Vask med maritime rengøringsmidler, neutralisering af saltaflejringer og stribefri tørring.",
+  serviceLuxuryYachtCleaningTitleTwoFeatureTwo: "Polering af rustfrit stål, vinduespudsning og skrubbeplejning af teakdæk.",
+
+  serviceLuxuryYachtCleaningTitleThreeFeatureOne: "Eksklusiv rengøring af VIP-kahytter, mastersuiter og kabyssen.",
+  serviceLuxuryYachtCleaningTitleThreeFeatureTwo: "Dybdegående rengøring af sarte polstringer, læder, marmor og træværk.",
+
+  serviceLuxuryYachtCleaningTitleFourFeatureOne: "Affedtning af motorrum, aftørring af maskineri og teknisk klargøring.",
+  serviceLuxuryYachtCleaningTitleFourFeatureTwo: "Miljøvenlig opsamling af affald i henhold til maritime standarder.",
+
+  serviceLuxuryYachtCleaningTitleFiveFeatureOne: "Akut 24/7 rengøringsservice mellem charterbookinger.",
+  serviceLuxuryYachtCleaningTitleFiveFeatureTwo: "Komplet skift af sengelinned, desinfektion og klargøring til nye gæster.",
+
+  // Testimonials part in home
+  completedTestimonial: "Gennemført",
+  propertyType: "Dybdegående rengøring af moderne penthouse",
+
   aboutOurServices: "Vores tjenester",
   aboutOurServicesContent: "Hos Pearly Sky forstår vi, at det er afgørende at opretholde et pletfrit miljø for produktivitet og velvære. Uanset om du har brug for rutinemæssig hjemmerengøring, en omfattende dybrengøring af kontoret eller specialiserede tjenester til high-end-ejendomme, leverer vores team en uovertruffen kvalitet. Vi bruger miljøvenlige, luksusklasse rengøringsprodukter, der er sikre for din familie, kæledyr og arbejdsplads, og sikrer en grundig rengøring uden skadelige kemikalier. Vores personale er grundigt uddannet, fuldt tjekket og fokuseret på at levere en pålidelig, effektiv service hver gang. Vi er stolte af vores opmærksomhed på detaljer og forvandler hvert rum til et pletfrit fristed, uanset størrelse eller kompleksitet.",
 
+  // About / why choose us
   aboutWhyChooseUsTitle: "Hvorfor vælge os",
   aboutEcoLabel: "Miljøvenlige rengøringsprodukter",
   aboutEcoDesc: "Højkvalitets, bæredygtige og sikre løsninger til dit hjem.",
@@ -177,6 +753,7 @@ export const da = {
   aboutSupportLabel: "Kundesupport 24/7",
   aboutSupportDesc: "Sindets ro døgnet rundt, når du har brug for hjælp.",
 
+  // Sectors
   sectorsTitle: "Vores tjenestesektorer",
   sectorCommercialTitle: "Kommerciel & blandede utilities",
   sectorCommercialDesc: "Bygge effektive rum, der driver vækst og innovation.",
@@ -185,7 +762,7 @@ export const da = {
   sectorPrivatePropertiesTitle: "Private ejendomme",
   sectorPrivatePropertiesDesc: "Eksklusive rum skræddersyet til komfort og luksus.",
   sectorResidentialTitle: "Bolig",
-  sectorResidentialDesc: "Skake indbydende og livlige samfund.",
+  sectorResidentialDesc: "Skabe indbydende og livlige samfund.",
   sectorHospitalityTitle: "Hoteller & restauranter",
   sectorHospitalityDesc: "Uforglemmelige ophold og madoplevelser venter.",
   sectorEducationTitle: "Uddannelse",
@@ -201,14 +778,17 @@ export const da = {
   sectorRetailTitle: "Detailhandel",
   sectorRetailDesc: "Omdefinere shoppingoplevelsen med innovation og bekvemmelighed.",
 
+  // Moments of Excellence
   momentsOfExcellenceTitle: "Øjeblikke af excellence",
 
+  // Testimonials
   testimonialsTitle: "Kundeoplevelser",
   testimonialsReadAll: "Læs alle anmeldelser",
   review1Text: "Rengøringen var fantastisk, og de personer, der arbejdede, var så venlige og søde. Vi følte os meget godt taget hånd om. Jeg anbefaler!!",
   review2Text: "Jeg bookede en rengøringstjeneste i september 2024. To rengøringsassistenter gjorde et fantastisk arbejde i 5 timers arbejde. Vinduer og køleskab blev også rengjort.",
   review3Text: "Professionelt team, punktlig service og pletfrie resultater. Stærkt anbefalet.",
 
+  // Contact
   contactTitle: "Kom i kontakt med os",
   contactNameLabel: "Navn *",
   contactNamePlaceholder: "Indtast dit fulde navn",
@@ -227,13 +807,16 @@ export const da = {
   contactMail: "E-MAIL",
   contactConnect: "FORBIND MED OS:",
 
+  // Footer
   footerRights: "Alle rettigheder forbeholdes.",
   footerQuickLinksTitle: "Hurtige links",
   footerTermsLink: "Vilkår og betingelser",
   footerPrivacyLink: "Privatlivspolitik",
 
+  // About Us page
   aboutPageEyebrow: "OM PEARLY SKY RENGØRINGSTJENESTER",
   aboutPageHeroTitle: "Din pålidelige rengøringspartner",
+
   aboutPageIdentityTitle: "Vores kerneidentitet",
   aboutPageIdentitySubtitle: "Hvor renlighed møder luksus",
   aboutPageIdentityIntro: "Hos Pearly Sky tror vi på, at ægte renlighed er en kunstform — fundamentet for et sundt, produktivt og fredfyldt miljø.",
@@ -258,16 +841,20 @@ export const da = {
   aboutWhy4Text: "Vi tilbyder konkurrencedygtige priser, der leverer premium-service uden at gå på kompromis med kvaliteten.",
   aboutWhy5Title: "Tilgængelighed 24/7",
   aboutWhy5Text: "Vi er her for dig og tilbyder pålidelig og hurtig service, når du end har brug for os.",
+
   aboutWhy6Title: "Ukompromitteret sikkerhed",
   aboutWhy6Text: "Dit privatliv og din ejendom er altafgørende. Hvert personalemedlem er grundigt baggrundstjekket, forsikret og uddannet til at respektere dine fortrolige rum.",
+
   aboutPageVisionMissionTitle: "Vision, mission & værdier",
   aboutPageVisionTitle: "Vores vision",
   aboutVisionText: "Vi leverer excellence. Vi stræber efter exceptionel kvalitet og fremragende resultater for alle vores kunder og partnere og skaber rum, der virkelig skinner.",
   aboutPageMissionTitle: "Vores mission",
   aboutMissionText: "Vi leder gennem exceptionel service og kreativ innovation og driver fremskridt og fælles succes på tværs af vores rengørings- og transportsektorer.",
   aboutPageValuesTitle: "DIN PÅLIDELIGE RENGØRINGSPARTNER",
+
   aboutPageSectionHeader: "OM PEARLY SKY RENGØRINGSTJENESTER",
   aboutPageSectionSubHeader: "OM PEARLY SKY RENGØRINGSTJENESTER",
+
   aboutValue1: "Mangfoldighed, inklusion & lighed",
   aboutValue2: "Ansvarlighed",
   aboutValue3: "Bæredygtighed",
@@ -275,7 +862,7 @@ export const da = {
   aboutValue5: "Serviceexcellence",
   aboutPageObjectivesTitle: "Vores mål",
   aboutObjective1: "Fremme mangfoldighed, inklusion og lighed inden for vores voksende teams.",
-  aboutObjective2: "Tiltrække og fastholde top-talent for at opretholde vores standard for lukusservice",
+  aboutObjective2: "Tiltrække og fastholde top-talent for at opretholde vores standard for luksusservice",
   aboutObjective3: "Fremme et motiverende arbejdsmiljø, der opmuntrer til innovation",
   aboutObjective4: "Overgå partneres forventninger ved konsekvent at levere resultater",
   aboutObjective5: "Dyrke en livlig agenturkultur bygget på respekt og service.",
@@ -283,6 +870,7 @@ export const da = {
   aboutPageCtaSubtitle: "Kontakt os i dag for at booke din skræddersyede øko-luksusrengøring eller transporttjeneste.",
   aboutPageCtaButton: "Kontakt os",
 
+  // Our Customers page
   customersPageTitle: "Vores kunder",
   customersClienteleTitle: "Vores kundekreds inkluderer",
   customersClientele1: "Familier med ultrahøj nettoformue og private godser",
@@ -294,6 +882,19 @@ export const da = {
   customersGalleryTitle: "Øjeblikke af excellence",
   customersTestimonialsTitle: "Hvad vores kunder siger",
 
+  // Marquee review comments
+  customerComment2: "Jeg bookede en rengøringstjeneste i september 2024. To rengøringsassistenter gjorde et fantastisk arbejde i 5 timers arbejde. Vinduer og køleskab blev også rengjort.",
+  customerComment3: "Professionelt team, punktlig service og pletfrie resultater. Stærkt anbefalet.",
+  customerComment4: "Meget venligt personale og pålidelig service. Huset føltes friskt og perfekt rent.",
+  customerComment1: "Rengøringen var fantastisk, og de personer, der arbejdede, var så venlige og søde. Vi følte os meget godt taget hånd om. Jeg anbefaler!!",
+
+  // Partner with us
+  whyPartnerWithUsTitle: "Hvorfor indgå et samarbejde med os?",
+  ecoCertified: "Øko-certificeret: Forpligtelse til certificerede, giftfrie rengøringsprodukter",
+  transparentAndReliable: "Gennemskuelig & pålidelig: Tydelige priser og garanteret tilgængelighed af professionelle services.",
+  qualityAssured: "Kvalitetssikret: Rigorøst udvalgte og uddannede rengøringsfagfolk.",
+
+  // Our Locations page
   locationsPageTitle: "Vores globale lokationer",
   locationsPageSubtitle: "Find dit land & din by",
   locationsSearchCountryPlaceholder: "Søg land...",
@@ -303,9 +904,11 @@ export const da = {
   locationsEurope: "Europa",
   locationsAsiaPacific: "Asien-Stillehavet",
   locationsAmericas: "Amerika",
+
   locationSearchHeaderText: "VORES GLOBALE LOKATIONER",
   locationSearchSubHeaderText: "Find dit land & din by",
 
+  // Blog
   blogPageTitle: "Pristine Insights: Pearly Sky-bloggen",
   blogPageSubtitle: "Seneste rengøringstips, brancheindsigt og virksomhedsnyheder om øko-luksusomsorg.",
   blogRecentArticles: "Seneste artikler",
@@ -313,6 +916,7 @@ export const da = {
   blogBackToBlog: "Tilbage til bloggen",
   blogViewAll: "Se alle artikler",
 
+  // Careers
   careersPageTitle: "Bliv en del af vores team",
   careersPageSubtitle: "Byg din karriere med Pearly Sky",
   careersSearchTitlePlaceholder: "Jobtitel...",
@@ -329,44 +933,18 @@ export const da = {
   careersApplySend: "SEND ANSØGNING",
   careersRoleLabel: "Rolle *",
 
+  // Contact Us page
   contactPageTitle: "Kontakt vores concierge-team",
   contactOfficesTitle: "Vores kontorer",
+
+  // Footer
   quickConnect: "Hurtig kontakt & forbind",
   writeUs: "SKRIV TIL OS",
   connectWithUs: "FORBIND MED OS",
   numberNow: "Pearly Sky-nummer nu",
   supportPayementMethods: "Understøttede betalingsmetoder",
 
-  serviceHighlightSectionHeader: "Tjekliste for standardpakke",
-  serviceIntroBottomText: "Indstil din tilbagevendende tidsplan",
-  hourPerCleaner: "Time pr. rengøringsassistent",
-  serviceRegularCleaningIntroHeadLine: "Den ugentlige opfriskning: Konsekvent renlighed og bæredygtig ro i sindet.",
-  serviceRegularCleaningIntroBody: "Slip for stress over de daglige pligter. Vores standard rengøringsservice til boliger etablerer en pålidelig, tilbagevendende tidsplan, der holder dit hjem upåklageligt uden besvær. Vi bruger udelukkende certificerede, miljøvenlige produkter til at levere en dyb, strålende rengøring, der er 100 % sikker for børn og kæledyr.",
-  serviceRegularCleaningHighlightTitleOne: "Højdepunkter ved regelmæssig rengøring af hjemmet",
-  serviceRegularCleaningHighlightCardTitleOne: "Generel pleje af hjemmet",
-  serviceRegularCleaningHighlightCardTitleTwo: "Vigtige berøringsflader",
-  serviceRegularCleaningHighlightCardTitleThree: "Køkken & spiseområde",
-  serviceRegularCleaningHighlightCardTitleFour: "Badeværelsesrengøring",
-  serviceRegularCleaningTitleOneFeatureOne: "Aftørring af støv",
-  serviceRegularCleaningTitleOneFeatureTwo: "Aftørring af overflader (herunder glas).",
-  serviceRegularCleaningTitleOneFeatureThree: "Let oprydning.",
-  serviceRegularCleaningTitleOneFeatureFour: "Fjernelse af affald og gulvpleje (støvsugning/gulvvask).",
-  serviceRegularCleaningTitleTwoFeatureOne: "Redning af senge, håndtering af sengelinned og målrettet desinfektion af berøringsflader med høj frekvens.",
-  serviceRegularCleaningTitleThreeFeatureOne: "Udvendig pleje af hvidevarer.",
-  serviceRegularCleaningTitleThreeFeatureTwo: "Desinfektion af bordplader og vaske.",
-  serviceRegularCleaningTitleThreeFeatureThree: "Aftørring af service og grundig gulvvask.",
-  serviceRegularCleaningTitleFourFeatureOne: "Fuldstændig desinfektion og fokus på hygiejne.",
-  serviceRegularCleaningTitleFourFeatureTwo: "Rengøring af toilet, vask, bruser og badekar.",
-  serviceRegularCleaningTitleFourFeatureThree: "Aftørring af spejle og opsætning af rene håndklæder.",
-  customerComment1: "Rengøringen var fantastisk, og de personer, der arbejdede, var så venlige og søde. Vi følte os meget godt taget hånd om. Jeg anbefaler!!",
-  customerComment2: "Jeg bookede en rengøringstjeneste i september 2024. To rengøringsassistenter gjorde et fantastisk arbejde i 5 timers arbejde. Vinduer og køleskab blev også rengjort.",
-  customerComment3: "Professionelt team, punktlig service og pletfrie resultater. Stærkt anbefalet.",
-  customerComment4: "Meget venligt personale og pålidelig service. Huset føltes friskt og perfekt rent.",
-  whyPartnerWithUsTitle: "Hvorfor indgå et samarbejde med os?",
-  ecoCertified: "Øko-certificeret: Forpligtelse til certificerede, giftfrie rengøringsprodukter",
-  transparentAndReliable: "Gennemskuelig & pålidelig: Tydelige priser og garanteret tilgængelighed af professionelle services.",
-  qualityAssured: "Kvalitetssikret: Rigorøst udvalgte og uddannede rengøringsfagfolk.",
-
+  // Booking & Date/Time Section
   dateTimeSelectTitle: "Vælg dato og tidspunkt for at booke din aftale",
   dateTimeSelectDate: "Vælg din dato",
   dateTimeSelectTime: "Vælg dit tidsrum",
@@ -390,6 +968,8 @@ export const da = {
   weekdayFr: "Fre",
   weekdaySa: "Lør",
   weekdaySu: "Søn",
+
+  // Booking & Property Selection
   propertyTypeTitle: "Ejendomstype",
   propertySizeTitle: "Ejendomsstørrelse",
   propertySwipeBrowse: "‹ Stryg for at gennemse ›",
@@ -403,6 +983,8 @@ export const da = {
   propertyTypeVilla: "Villa",
   propertyTypeEstate: "Landejendom / Palæ",
   propertyTypeVip: "VIP",
+
+  // Booking Equipment & Solvents
   equipmentByClient: "AF KUNDEN",
   equipmentByCompany: "AF VIRKSOMHEDEN",
   equipmentProvidedByCustomer: "Leveres af kunden",
@@ -416,6 +998,8 @@ export const da = {
   equipmentBookNowBtn: "Book nu",
   equipmentProceedCheckout: "Gå til kassen",
   equipmentProcessing: "Behandler...",
+
+  // Booking Preferences
   preferencesTitle: "Præferencer",
   preferencesGender: "Kønspræference",
   preferencesLanguage: "Sprogpræference",
@@ -430,6 +1014,706 @@ export const da = {
   genderPreferNotToDisclose: "Ønsker ikke at oplyse",
   staffGenderFemale: "Kvindeligt personale",
   staffGenderMale: "Mandligt personale",
+
+  // HealthGuard & Disinfection Levels
+  disinfectionSelectLevelTitle: "Vælg dit ønskede serviceniveau",
+  disinfectionSelectLevelSub: "Bestem frekvensen og intensiteten af den krævede rengøring.",
+  disinfectionQuatTitle: "Kvartær Ammonium (Quat) – Standard",
+  disinfectionQuatDesc: "Omkostningseffektiv, dokumenteret, lav lugt.",
+  disinfectionPeroxideTitle: "Brintoverilte (H₂O₂) – Premium",
+  disinfectionPeroxideDesc: "Hurtig virkningstid, ingen kemiske rester.",
+  disinfectionHypochlorousTitle: "Understøvlesyre (HOCl) – Avanceret",
+  disinfectionHypochlorousDesc: "Giftfri, kraftfuld til tågesprøjtning / luftbehandling.",
+  disinfectionBotanicalTitle: "Botanisk / Timianbaseret – Miljøvenlig",
+  disinfectionBotanicalDesc: "Certificerede grønne, naturlige ingredienser.",
+  facilitySelectTitle: "Vælg den type facilitet, du skal have rengjort",
+  facilitySelectSub: "Vælg kategori og facilitet for at sikre det rette udstyr og protokoller.",
+  facilityClearSelection: "Ryd valg",
+
+  // Event Cleaning
+  eventSelectTypeTitle: "Vælg din type arrangement",
+  eventSelectTypeSub: "Vælg arrangementstype for at sikre korrekt teamstørrelse og rengøringsprotokoler.",
+
+  // Request Quotation Form & Steps
+  quoteFormTitle: "Detaljer om serviceanmodning",
+  quoteFormStepDateTime: "1. Dato & tidspunkt",
+  quoteFormStepEquipment: "2. Kemikalier og udstyr",
+  quoteFormSelectEquipment: "Vælg udstyr & materialer",
+  quoteFormProvidedByCustomer: "Leveres af kunden",
+  quoteFormRequestCompany: "Anmod virksomheden",
+  quoteFormStepPropertyScale: "3. Ejendomsskala",
+  quoteFormTotalPropertyArea: "Samlet ejendomsareal",
+  quoteFormStepProfessionals: "4. Tildelte fagfolk",
+  quoteFormCleaners: "Rengøringsassistenter",
+  quoteFormServiceSpecialists: "Servicespecialister",
+  quoteFormStepDuration: "5. Rengøringsvarighed",
+  quoteFormHours: "Timer",
+  quoteFormTotalManHours: "Forventede arbejdstimer i alt",
+  quoteFormStepCoordination: "6. Koordinering & præferencer",
+  quoteFormStaffGender: "Personalets kønspræference",
+  quoteFormLanguageCoordination: "Sproglig koordinering",
+  quoteFormSpecialInstructions: "Særlige instruktioner eller fokusområder",
+  quoteFormStepLocation: "7. Adresse",
+  quoteFormPickupAddress: "Afhentningsadresse",
+  quoteFormDeliveryAddress: "Leveringsadresse",
+  quoteFormStreetAddress: "Gadeadresse",
+  quoteFormUnitApt: "Lejlighed / Etage",
+  quoteFormCity: "By",
+  quoteFormPostalCode: "Postnummer",
+  quoteFormCountry: "Land",
+  quoteFormState: "Region / Stat",
+  quoteFormStepContact: "8. Kontaktoplysninger",
+  quoteFormFirstName: "Fornavn",
+  quoteFormLastName: "Efternavn",
+  quoteFormEmail: "E-mailadresse",
+  quoteFormPhone: "Telefonnummer",
+  quoteFormAgreeTerms: "Jeg accepterer vilkår og betingelser samt privatlivspolitikken.",
+  quoteFormSubmitBtn: "Anmod om tilbud",
+  quoteFormProcessing: "Behandler...",
+  quoteFormReceivedTitle: "Tilbudsanmodning modtaget",
+  quoteFormReceivedDesc: "Vores concierge-team vil gennemgå din anmodning og vende tilbage med et skræddersyet tilbud inden for 24 timer.",
+
+  checkoutLogisticsMarketing: "Logistik & marketing",
+  checkoutHowGetIn: "Hvordan får vi adgang?",
+  checkoutHowHeard: "Hvordan hørte du om os?",
+  checkoutServiceDetails: "Servicedetaljer",
+  checkoutScheduleMode: "Planlægningstilstand",
+  checkoutServiceDuration: "Servicevarighed",
+  checkoutStartEndTime: "Vælg start- & sluttidspunkt",
+  checkoutSelectedServices: "Valgte tjenester",
+  checkoutBookingDetails: "Bookingdetaljer",
+  checkoutAgreeTo: "Jeg accepterer",
+  checkoutAnd: "og",
+  poolSectionTitle: "Ekspert poolrengøringstjenester til",
+  poolSelectingJob: "Vælg opgave",
+  poolServiceDetails: "Pool servicedetaljer",
+  poolQuantity: "Antal",
+  poolSave: "Gem",
+  poolFieldPoolSize: "Poolstørrelse",
+  poolFieldWaterCondition: "Vandtilstand",
+  poolConditionHeavyAlgaeDebris: "Kraftige alger / snavs",
+  poolConditionHeavyOilDeepGrime: "Kraftig olie / indgroet snavs",
+  poolTypeKiddiePools: "Børnepools",
+  poolTypeAboveGroundSwimmingPools: "Ovenjords swimmingpools",
+  poolTypeLapPools: "Svømmepools / Banepools",
+  poolTypeInGroundPools: "Nedgravede pools",
+  poolTypeFamilySwimmingPools: "Familiepools",
+  poolTypeIndoorPools: "Indendørs pools",
+  poolTypeOlympicSizePools: "OL-størrelse pools",
+  poolTypeArchitecturalPools: "Arkitektoniske pools",
+  poolTypeInfinityPools: "Infinity-pools",
+  poolTypeNaturalPools: "Naturpools",
+  poolTypeSpoolSmallPool: "Spool (Lille pool / Spa-pool)",
+  poolTypeSaltwaterPools: "Saltvandspools",
+  poolTypePlungePools: "Koldtvandspools",
+  poolAddonJacuzziCleaning: "Rengøring af Jacuzzi",
+  poolAddonSteamRoomCleaning: "Rengøring af dampbad",
+  poolAddonSaunaRoomCleaning: "Rengøring af sauna",
+
+  // Quotation Details Card
+  quoteDetailsTitle: "Tilbudsdetaljer",
+  quoteDetailService: "Service",
+  quoteDetailDate: "Dato",
+  quoteDetailTime: "Tidspunkt",
+  quoteDetailJobDetails: "Opgavedetaljer",
+  quoteDetailNotSpecified: "Ikke angivet",
+  quoteDetailPropertyType: "Ejendomstype",
+  quoteDetailPropertySize: "Ejendomsstørrelse",
+  quoteDetailPreferences: "Præferencer",
+  quoteDetailDuration: "Varighed",
+  quoteDetailGenderPreference: "Kønspræference",
+  quoteDetailLanguagePreference: "Sprogpræference",
+  quoteDetailSpecialRequirements: "Særlige krav",
+  quoteDetailEquipment: "Rengøringsmidler & udstyr",
+  quoteDetailAdded: "Tilføjet",
+  quoteDetailAdd: "Tilføj",
+  quoteDetailSending: "Sender…",
+  quoteDetailReference: "Tilbudsreference",
+
+  // Form Submission & Validation Texts
+  formSubmittedSuccess: "Formularen blev sendt med succes!",
+  commonBack: "Tilbage",
+  commonContinue: "Fortsæt",
+  formSubmitFillDetails: "Udfyld følgende oplysninger",
+  formSubmitPropertyClassification: "Ejendomsklassificering",
+  formSubmitServiceContinuityPlan: "Plan for servicekontinuitet",
+  formSubmitStaffGender: "Personalets kønspræference",
+  formSubmitLinguisticCoordination: "Sproglig koordinering",
+  formSubmitUploadDocs: "Upload billeder eller dokumenter",
+  formSubmitUploadClickDrag: "Klik for at uploade eller træk og slip",
+  formSubmitUploadMaxSize: "Maksimal filstørrelse: 5MB",
+  formSubmitServiceRequirements: "Servicekrav & detaljer",
+  formSubmitEnterRequirementsPlaceholder: "Indtast servicekrav",
+  formSubmitAcceptTerms: "Ved at vælge dette accepterer jeg vilkår og betingelser",
+  formSubmitClientPaymentBtn: "Kunde & betaling →",
+  formSubmitPreferredLanguageContact: "Foretrukket kontaktsprog *",
+  formSubmitCareGender: "Plejerens køn *",
+  formSubmitSpecialRequest: "Særlig anmodning *",
+  formSubmitSupportPaymentMethod: "Understøttet betalingsmetode",
+
+  // Options
+  planOneTime: "Enkeltstående",
+  planEvery6to12Months: "hver 6-12 måned",
+  classResidential: "Bolig",
+  classCommercial: "Erhverv",
+  classSpatial: "Rumlig",
+  classOther: "Andet",
+
+  // Care Special Request Options
+  specialReqNone: "Ingen / Ingen specifik anmodning",
+  specialReqFirstAid: "Førstehjælp & Hjerteredning certificeret",
+  specialReqSpecialNeeds: "Certificeret plejer til særlige behov",
+  specialReqBilingual: "Tosproget plejer",
+  specialReqPetFriendly: "Kæledyrsvenlig plejer",
+  specialReqDriverLicense: "Gyldigt kørekort påkrævet",
+  specialReqNonSmoker: "Kun ikke-ryger",
+
+  // Form Validation Errors
+  quoteErrorDate: "Vælg venligst en dato",
+  quoteErrorTime: "Vælg venligst et tidspunkt",
+  quoteErrorStreet: "Indtast venligst din gadeadresse",
+  quoteErrorCity: "Indtast venligst din by",
+  quoteErrorPostal: "Indtast venligst dit postnummer",
+  quoteErrorFirstName: "Indtast venligst dit fornavn",
+  quoteErrorLastName: "Indtast venligst dit efternavn",
+  quoteErrorEmail: "Indtast venligst din e-mailadresse",
+  quoteErrorEmailValid: "Indtast venligst en gyldig e-mailadresse",
+  quoteErrorPhone: "Indtast venligst dit telefonnummer",
+  quoteErrorTerms: "Du skal acceptere vilkår og betingelser samt privatlivspolitikken for at sende en tilbudsanmodning.",
+  formSubmitErrorFileSize: "Filstørrelsen overskrider grænsen på 5MB.",
+  formSubmitErrorClassification: "Vælg venligst en ejendomsklassificering.",
+  formSubmitErrorContinuity: "Vælg venligst en plan for servicekontinuitet.",
+  formSubmitErrorStaffGender: "Vælg venligst personalets kønspræference.",
+  formSubmitErrorLanguage: "Vælg venligst sproglig koordinering.",
+  formSubmitErrorTermsRequired: "Accept af vilkår og betingelser er påkrævet.",
+  formSubmitErrorCareGender: "Vælg venligst en kønspræference for plejeren.",
+  formSubmitErrorSpecialRequest: "Vælg venligst en særlig anmodningsmulighed.",
+
+  // EquipmentSection & EventbookSection
+  equipSelectedServices: "VALGTE TJENESTER",
+  equipPropertyScale: "EJENDOMSSKALA",
+  equipTotalServiceDuration: "SAMLET SERVICEVARIGHED",
+  equipAllocatedProfessionals: "TILDELTE FAGFOLK",
+  equipCleanerDuration: "RENGØRINGSVARIGHED (PÅ STEDET)",
+  equipPriceRange: "PRISINTERVAL FOR RENGØRINGSVARIGHED",
+  equipChemicalsAndEquipments: "RENGØRINGSKEMIKALIER OG UDSTYR",
+  equipByClient: "AF KUNDEN",
+  equipByCompany: "AF VIRKSOMHEDEN",
+  equipEstimatedPriceRange: "ESTIMERET PRISINTERVAL",
+  equipBookNow: "BOOK NU",
+  equipBooking: "Booker…",
+  equipQualityGuarantee: "20-ÅRS SIGNATUR KVALITETSGARANTI",
+  equipGuaranteeDesc1: "Fordi enhver luksusbolig har unikke krav, afspejler din endelige pris den faktiske tilstand af dit rum.",
+  equipGuaranteeDesc2: "Din booking sikrer din tidsperiode. Ved færdiggørelse vil din ledende rengøringsspecialist bekræfte den præcise varighed på stedet og udstede en gennemskuelig faktura.",
+  equipServiceInfo: "Serviceoplysninger",
+
+  // PropertyTypeSizeSelector
+  propTypeTitle: "Ejendomstype",
+  propTypeSwipe: "‹ Stryg for at gennemse ›",
+  propSizeTitle: "Ejendomsstørrelse",
+  propSizeUp: "OP",
+  propSizeDown: "NED",
+
+  // FacilitySelectionSection
+  facilityCategoryHealthcare: "Sundhedsvæsen & specialfaciliteter",
+  facilityCategoryHealthcareDesc: "Til miljøer, der kræver det højeste niveau af renlighed og overholdelse af regler.",
+  facilityCategoryCommercial: "Erhverv & arbejdsplads",
+  facilityCategoryCommercialDesc: "Til kontorer, hovedkvarterer og offentlige ejendomme.",
+  facilityCategoryHospitality: "Gæstfrihed, detailhandel & restauration",
+  facilityCategoryHospitalityDesc: "Til virksomheder, der er afhængige af offentlig tillid og pletfri præsentation.",
+  facilityCategoryCommunity: "Fællesskab & offentlige rum",
+  facilityCategoryCommunityDesc: "Til faciliteter med høj persontrafik og fælles brug.",
+
+  facilityHospitalTitle: "Hospitaler & klinikker generelt",
+  facilityHospitalDesc: "Desinfektion af patientstuer, venteområder og højtrafikerede zoner.",
+  facilityDentalTitle: "Tandlæge & lægepraksis",
+  facilityDentalDesc: "Desinfektion af behandlingsrum, venteværelser og kliniske overflader.",
+  facilityLabsTitle: "Laboratorier & pharma",
+  facilityLabsDesc: "Specialiseret rengøring af renrum, laboratorier og farmaceutiske faciliteter.",
+  facilityBiohazardTitle: "Sanering af biologisk fare",
+  facilityBiohazardDesc: "Desinfektion efter hændelser (f.eks. gerningssteder, smitsomme sygdomme).",
+  facilityOfficeTitle: "Generelle kontorer & HQ",
+  facilityOfficeDesc: "Daglig, ugentlig eller dybdegående desinfektion af arbejdsstationer og fællesrum.",
+  facilityGovernmentTitle: "Offentlige bygninger",
+  facilityGovernmentDesc: "Rengøringstjenester til offentlige serviceområder og sikrede faciliteter.",
+  facilityFactoryTitle: "Fabrikker & lagerhaller",
+  facilityFactoryDesc: "Desinfektion af produktionsgulve, udstyr og administrative kontorer.",
+  facilityPostTitle: "Oprydning efter katastrofer",
+  facilityPostDesc: "Sanering efter vand-, brand- eller røgskader.",
+  facilityHotelTitle: "Hoteller & resorts",
+  facilityHotelDesc: "Dybdegående rengøring og desinfektion af værelser, lobbyer og fællesarealer.",
+  facilityRetailTitle: "Butikker & indkøbscentre",
+  facilityRetailDesc: "Sanering af prøverum, kasseområder og berøringsflader.",
+  facilityRestaurantTitle: "Restauranter & caféer",
+  facilityRestaurantDesc: "Dybdegående køkkenrengøring, desinfektion af spiseområder og toiletter.",
+  facilityFoodTitle: "Fødevareforarbejdningsanlæg",
+  facilityFoodDesc: "Højstandard planlagt desinfektion til fødevareproducerende anlæg.",
+  facilityTransportTitle: "Transportkøretøjer",
+  facilityTransportDesc: "Desinfektion af busser, tog, fly og virksomhedsflåder.",
+  facilitySchoolTitle: "Skoler & daginstitutioner",
+  facilitySchoolDesc: "Sanering af klasseværelser, gymnastiksale og legepladser for at beskytte børn.",
+  facilityGymTitle: "Fitnesscentre & sportsklubber",
+  facilityGymDesc: "Desinfektion af træningsudstyr, omklædningsrum og brusere.",
+  facilityApartmentTitle: "Etageejendomme & fællesarealer",
+  facilityApartmentDesc: "Sanering af lobbyer, fælles vaskerier og opgange.",
+
+  // DisinfectionLevelSection
+  disinfectionLevelTitle: "Vælg dit ønskede serviceniveau",
+  disinfectionLevelSubtitle: "Bestem frekvensen og intensiteten af den krævede rengøring.",
+
+  // Steam Sections
+  steamEcoLuxuryTitle: "VÆLG DIN ØKO-LUKSUSSERVICE",
+  steamGeneralJobTypes: "Generelle typer af damprengøringsopgaver",
+  steamCardRooms: "Værelser & områder",
+  steamCardKitchen: "Køkken & hvidevarer",
+  steamCardFurniture: "Møbler & bløde tekstiler",
+  steamCardSurface: "Overfladerengøring",
+  steamCardSpeciality: "Specialrengøring",
+  steamIndustrialTitle: "Kommercielle & industrielle dampanvendelser",
+
+  // SecurityCategorySelection
+  securitySelectJobTitle: "Vælg din opgavetype",
+  securitySelected: "Valgt",
+  securitySelect: "Vælg",
+
+  CategoryDeepSpecialized: "Dybdegående & specialiseret rengøring",
+  CategoryGeneralInterior: "Generel indvendig vedligeholdelse",
+  CategoryLifeStyle: "Livsstil & hjemmepleje",
+  CategoryDeepOutDoor: "Udendørs & udvendige rum",
+
+  AddOnsDefaultCatagoryDeep: "Dybdegående rengøring af ovn & komfur",
+  AddOnsDefaultCatagoryInteriorRefrigerator: "Indvendig desinfektion af køleskab",
+  AddOnsDefaultCatagoryInteriorWindow: "Indvendig vindues- & skinnerengøring",
+  AddOnsDefaultCatagoryBalcony: "Skrubbeplejning af altan & terrasse",
+
+  secJobCommercialOffice: "Erhverv- & kontorsikkerhed",
+  secJobScifAreas: "SCIF & højsikkerhedsområder",
+  secJobHealthcareMedical: "Sundhedsvæsen & medicinsk sanering",
+  secJobPostConstructionSafety: "Sikkerhed efter byggeri",
+  secJobVipExecutive: "VIP & direktionsejendomme",
+  secJobEventSecurity: "Eventsikkerhed & hurtig oprydning",
+  secJobEmergencyHazmat: "Akut biologisk fare & hazmat",
+  secJobPostIncidentRestoration: "Genopretning efter hændelser",
+  secJobDigitalMalware: "Rensning af digitale enheder for malware",
+  secJobSmbNetworkAudit: "Netværks- & cybersikkerhedsrevision",
+
+  // YachtCategorySelection
+  yachtSelectCategoryTitle: "Vælg din kategori for yachtrengøring",
+  yachtMotorboat: "Motorbåd / Dagscruiser",
+  yachtLuxuryExpress: "Luksus Express...",
+  yachtFlybridge: "Flybridge motoryacht",
+  yachtSuperyacht: "Superyacht",
+  yachtMegayacht: "Megayacht",
+  yachtSailingCatamaran: "Sejlbåd / Katamaran",
+
+  // EventTypeSection
+  eventTypeSelectionTitle: "VALG AF ARRANGEMENTSTYPE",
+  eventTypeSelectionSubtitle: "Book din pletfrie rengøringsservice",
+  //eventSelectTypeTitle: "VALG AF ARRANGEMENTSTYPE",
+  eventConferences: "Konferencer",
+  eventRedCarpet: "Rød løber-events",
+  eventMusicConcerts: "Musikkoncerter & festivaller",
+  eventTradeShows: "Fagmesser",
+  eventProductLaunches: "Produktlanceringer",
+  eventSeminars: "Seminarer",
+  eventNetworking: "Netværksarrangementer",
+  eventSports: "Sportsarrangementer",
+  eventFestivals: "Festivaller",
+  eventTeamBuilding: "Teambuilding-events",
+  eventCompanyParties: "Firmafester",
+  eventCorporate: "Virksomhedsarrangementer",
+  eventWeddings: "Bryllupper",
+  eventCharity: "Velgørenhedsevents",
+  eventCultural: "Kulturelle arrangementer",
+  eventMeetings: "Møder",
+  eventSocial: "Sociale komsammener",
+  eventTheatre: "Teaterforestillinger",
+  eventCareerFairs: "Karrieremesser",
+  eventExhibition: "Udstillinger",
+  eventFashion: "Modeshows",
+  eventInternal: "Interne arrangementer",
+  eventCompanyMeetings: "Firmamøder & off-sites",
+  eventWorkshops: "Workshops",
+  eventVip: "VIP-arrangementer",
+  eventOther: "Andet",
+
+  // BookingDetailsCard
+  bookingDetailsTitle: "Bookingdetaljer",
+  bookingDetailService: "Service",
+  bookingDetailDate: "Dato",
+  bookingDetailTime: "Tidspunkt",
+  bookingDetailPropertyType: "Ejendomstype",
+  bookingDetailPropertySize: "Ejendomsstørrelse",
+  bookingDetailDuration: "Varighed",
+  bookingDetailCleaners: "Rengøringsassistenter",
+  bookingDetailPricePerCleaner: "Pris pr. rengøringsassistent",
+  bookingDetailFacilities: "Faciliteter",
+  bookingDetailPackage: "Pakke",
+  bookingDetailIncluded: "Inkluderet",
+  bookingDetailJobType: "Opgavetype",
+  bookingDetailGeneralSteam: "Generelle typer af damprengøringsopgaver",
+  bookingDetailIndustrialSteam: "Industrielle & kommercielle damprengøringsopgaver",
+  bookingDetailEventTypes: "Arrangementstyper",
+  bookingDetailPreferences: "Præferencer",
+  bookingDetailGenderPreference: "Kønspræference",
+  bookingDetailLanguagePreference: "Sprogpræference",
+  bookingDetailSpecialRequirements: "Særlige krav",
+  bookingDetailAddOns: "Tillægstjenester",
+  bookingDetailEquipment: "Rengøringsmidler & udstyr",
+  bookingDetailAdded: "Tilføjet",
+  bookingDetailAdd: "Tilføj",
+  bookingDetailEstimatedPriceRange: "Estimeret prisinterval",
+  bookingDetailAdvancePayment: "Forudbetaling",
+  bookingDetailConfirmPricing: "Din rengøringsspecialist bekræfter den præcise pris efter gennemgang af dit rum.",
+  bookingDetailOnlineNotAvailable: "Onlinebooking er endnu ikke tilgængelig for denne ejendomsstørrelse — kontakt os venligst direkte for et tilbud.",
+  bookingDetailAgreeTo: "Jeg accepterer",
+  bookingDetailTermsAndConditions: "Vilkår og betingelser",
+  bookingDetailAnd: "og",
+  bookingDetailPrivacyPolicy: "Privatlivspolitik",
+  bookingDetailBookingInProgress: "Booker…",
+  bookingDetailBookNow: "Book nu",
+
+  // Summary Card (Booking & Quotation Summary)
+  summaryOverview: "Oversigt",
+  summaryReference: "Referencenummer",
+  summaryCleaner: "Rengøringsassistent",
+  summaryUnassigned: "Ikke tildelt",
+  summaryContactInfo: "Kontaktoplysninger",
+  summaryName: "Navn",
+  summaryEmail: "E-mail",
+  summaryPhone: "Telefon",
+  summaryAddress: "Adresse",
+  summaryPickupAddress: "Afhentningsadresse",
+  summaryDeliveryAddress: "Leveringsadresse",
+  summaryStreetAddress: "Gadeadresse",
+  summaryUnitAptSuite: "Lejlighed/Etage",
+  summaryCity: "By",
+  summaryProvinceState: "Region/Stat",
+  summaryCountry: "Land",
+  summaryPostalCode: "Postnummer",
+  summaryPaymentInfo: "Betalingsoplysninger",
+  summaryDueAtBooking: "Betales ved booking",
+  summaryAwaitingPrice: "Afventer pris fra vores team",
+  summaryTotalPriceEstimate: "Samlet pris (estimat)",
+  summaryRemainingBalance: "Resterende beløb",
+  summaryServiceDetails: "Servicedetaljer",
+  summaryService: "Service",
+  summaryDateTime: "Dato & tidspunkt",
+  summaryPropertyType: "Ejendomstype",
+  summaryPropertySize: "Ejendomsstørrelse",
+  summaryDuration: "Varighed",
+  summaryHours: "timer",
+  summaryCleaners: "Rengøringsassistenter",
+  summaryCaregivers: "Plejere",
+  summaryPricePerCleaner: "Pris pr. rengøringsassistent",
+  summaryNote: "Bemærkning",
+  summaryFacilities: "Faciliteter",
+  summaryDisinfectionLevel: "Desinfektionsniveau",
+  summaryGeneralSteam: "Generelle typer af damprengøringsopgaver",
+  summaryIndustrialSteam: "Industrielle & kommercielle damprengøringsopgaver",
+  summaryEventTypes: "Arrangementstyper",
+  summaryJobType: "Opgavetype",
+  summaryPreferences: "Præferencer",
+  summaryGenderPreference: "Kønspræference",
+  summaryLanguagePreference: "Sprogpræference",
+  summarySpecialRequirements: "Særlige krav",
+  summaryNoPreference: "Ingen præference",
+  summaryLogisticsMarketing: "Logistik & marketing",
+  summaryHowGetIn: "Hvordan får vi adgang?",
+  summaryHowHeard: "Hvordan hørte du om os?",
+  summaryAddOns: "Tillægstjenester",
+  summaryEquipment: "Rengøringsmidler & udstyr",
+  summarySupplySourceCustomer: "Leveres af kunden",
+  summarySupplySourceCompany: "Anmod virksomheden",
+  summaryNotSpecified: "Ikke angivet",
+
+  // Care Terms Modal
+  careTermsTitle: "Kortfattede online bookingvilkår & betingelser",
+  careTermsSec1Title: "1. Bookingbekræftelse & serviceomfang",
+  careTermsSec1_1Title: "1.1 Servicegrundlag:",
+  careTermsSec1_1Text: "Den endelige servicepris og varighed er strengt baseret på ejendomsoplysningerne og de valgte serviceindstillinger ved bookingen.",
+  careTermsSec1_2Title: "1.2 Justeringer på stedet:",
+  careTermsSec1_2Text: "Hvis ejendomsstørrelsen eller -tilstanden afviger væsentligt fra bookingoplysningerne, skal rengøringsassistenten indhente kunders godkendelse af yderligere timer eller omkostninger, før arbejdet fortsættes.",
+  careTermsSec1_3Title: "1.3 Kundeadgang:",
+  careTermsSec1_3Text: "Du skal sikre, at adgang (nøgler, koder osv.) er tilgængelig for rengøringsassistenten på det planlagte tidspunkt. Manglende adgang vil medføre et forgæves opkørselsgebyr (se afsnit 3.3).",
+  careTermsSec2Title: "2. Betalingsbetingelser",
+  careTermsSec2_1Title: "2.1 Betalingsautorisation:",
+  careTermsSec2_1Text: "Betalingsautorisation bekræftes ved kassen. Endelige tilbudsbeløb faktureres i henhold til bekræftede servicetimer og anmodede tillægstjenester.",
+  careTermsSec2_2Title: "2.2 Fakturering:",
+  careTermsSec2_2Text: "Officielle digitale kvitteringer og specificerede fakturer leveres automatisk til din registrerede e-mailadresse.",
+  careTermsSec3Title: "3. Afbestilling og forgæves opkørsel",
+  careTermsSec3_1Title: "3.1 Afbestillingsfrist:",
+  careTermsSec3_1Text: "Gratis afbestilling er tilgængelig op til 24 timer før din planlagte aftalestart.",
+  careTermsSec3_2Title: "3.2 Sen afbestilling:",
+  careTermsSec3_2Text: "Afbestillinger foretaget med mindre end 24 timers varsel eller manglende adgang ved ankomst kan medføre et standardgebyr.",
+  careTermsSec4Title: "4. Sammenhængende arbejdstid",
+  careTermsSec4_1Title: "4.1 Pauser:",
+  careTermsSec4_1Text: "Ved længerevarende eller heldagsbookinger tager personalet planlagte korte pauser i overensstemmelse med arbejdsmarkedsstandarder og sikkerhedsretningslinjer.",
+  careTermsSec5Title: "5. Servicegaranti og ansvar",
+  careTermsSec5_1Title: "5.1 Certificerede fagfolk:",
+  careTermsSec5_1Text: "Alt personale gennemgår grundig baggrundskontrol, referenceverifikation og godkendelse.",
+  careTermsSec5_2Title: "5.2 Kvalitetsforpligtelse:",
+  careTermsSec5_2Text: "Pearly Sky opretholder omfattende forsikringsdækning og dedikeret kundesupport for din fulde tryghed.",
+  careTermsSec6Title: "6. Forbrugsartikler, udstyr og kæledyr",
+  careTermsSec6_1Title: "6.1 Plejeartikler:",
+  careTermsSec6_1Text: "Særlig medicin til børn eller ældre, kosttilskud eller specialiserede artikler skal aftales på forhånd og mærkes tydeligt.",
+  careTermsSec6_2Title: "6.2 Kæledyr & miljø:",
+  careTermsSec6_2Text: "Informer venligst teamet om eventuelle kæledyr, allergier eller særlige sikkerhedsgitre i hjemmet.",
+  careTermsSec7Title: "7. Nøglehåndtering og serviceverifikation",
+  careTermsSec7_1Title: "7.1 Nøgleprotokoller:",
+  careTermsSec7_1Text: "Nøglebokskoder og nøgler håndteres sikkert under strenge protokoller og overdrages aldrig til uautoriserede parter.",
+  careTermsAcceptCheck: "Ved at vælge dette accepterer jeg vilkår og betingelser",
+  careTermsAcceptButton: "Accepter",
+
+  // Pressure Washing Job Selection
+  pressureSelectJobTitle: "VÆLG DIT ARBEJDE",
+  pressureCatResidential: "Boligpleje",
+  pressureCatConcrete: "Beton &\noverflader",
+  pressureCatOutdoor: "Udendørsarealer",
+  pressureCatSpecialized: "Specialiserede\nopgaver",
+  pressureItemHomeExterior: "Udvendig husrengøring",
+  pressureItemFencing: "Rengøring af hegn",
+  pressureItemBuildingExterior: "Udvendig bygningsrengøring",
+  pressureItemGutterDrains: "Rengøring af tagrender/afløb",
+  pressureItemDriveway: "Rengøring af indkørsel",
+  pressureItemSidewalk: "Rengøring af fortov",
+  pressureItemWalkway: "Rengøring af gangstier",
+  pressureItemPavers: "Rengøring af belægningssten",
+  pressureItemDeckPatio: "Rengøring af terrasse/dæk",
+  pressureItemOutdoorFurniture: "Rengøring af havemøbler",
+  pressureItemOutdoorEquipment: "Rengøring af udendørsudstyr",
+  pressureItemParkingGarage: "Rengøring af parkeringskælder",
+  pressureItemSurfacePrep: "Klargøring af overflader",
+  pressureItemPlayground: "Rengøring af legeplads",
+  pressureItemOtherSpecialized: "Andre specialiserede højtrykstjenester",
+  pressureSelectedJobsTitle: "Valgte højtryksrenseopgaver",
+  pressureDialogQuantity: "Antal",
+  pressureDialogSize: "Størrelse",
+  pressureDialogSquarePlaceholder: "Kvadratmeter",
+  pressureDialogSurfaceCondition: "Overfladetilstand",
+  pressureDialogSpecificReqs: "Specifikke krav",
+  pressureConditionHeavy: "Kraftig (Olie / Indgroet snavs)",
+  pressureConditionNormal: "Normal",
+  pressureDialogSave: "GEM",
+
+  // Property Categories (PropertyTypeSizeSelector)
+  propStudio: "Studiolejlighed",
+  propHome: "Hus",
+  propVilla: "Villa",
+  propEstate: "Landejendom / Palæ",
+  propVip: "VIP",
+  propApartment: "Lejlighed",
+  propTownhouse: "Rækkehus",
+  propHouse: "Hus / Hjem",
+  propPenthouse: "Penthouse",
+  propRoughClean: "Grovrengøring",
+  propTouchUpClean: "Opfriskende rengøring",
+  propFinalPostBuildClean: "Afsluttende rengøring efter byggeri",
+  propHeavyDutyDeepClean: "Krafts kilde til dybdegående rengøring",
+  propPrivateParties: "Private fester & feiringer",
+  propWeddings: "Bryllupper & store receptioner",
+  propCorporateEvents: "Firmaarrangementer & gallaer",
+  propConcertsFestivals: "Koncerter, festivaller & live-steder",
+  propPopUpShops: "Pop-up butikker & detailudstillinger",
+  propArtGalleries: "Kunstgallerier & kulturdage",
+  propFashionShows: "Modeshows & catwalk-events",
+  propFilmTvShoots: "Film-, TV- & reklameoptagelser",
+  propCharityAuctions: "Velgørenhedsauktioner & indsamlinger",
+  propMicro: "Mikro",
+  propCompact: "Kompakt",
+  propSmall: "Lille",
+  propMedium: "Medium",
+  propLarge: "Stor",
+  propEnterprise: "Luksus / Enterprise",
+  propCorporateLegal: "Erhverv & advokatkontor",
+  propGovernmentScif: "Offentlig / SCIF / Data...",
+  propHealthcareMedical: "Sundhedsvæsen & medicinsk...",
+  propIndustrialConstruction: "Industri & byggeri",
+  propVipEstate: "VIP-ejendom / Ledelse...",
+  propEventVenue: "Eventsted &...",
+  propEmergencyBiohazard: "Beredskab / Biologisk fare...",
+  propRetailCommercial: "Detailhandel & erhverv...",
+  propPersonalWorkDevice: "Personlig enhed / Arbejdsenhed...",
+  propCorporateNetwork: "Virksomhedsnetværk /...",
+
+  // JobCardSection
+  jobCardSectionTitle: "Serviceopgraderingsmulighed (JobCard)",
+
+  // Schedule Errors & Buttons
+  poolErrorSelect: "Vælg venligst mindst én poolrengøringsservice for at fortsætte.",
+  pressureErrorSelect: "Vælg venligst mindst én højtryksrensningstjeneste for at fortsætte.",
+  carpetErrorSelect: "Tilføj venligst mindst ét tæppe eller polstringsartikel før du fortsætter.",
+  scheduleErrorDateTime: "Vælg venligst en dato og et tidspunkt for at booke din aftale.",
+
+  // CareScheduleSection
+  careScheduleYourService: "Planlæg din service",
+  careScheduleMode: "Planlægningstilstand",
+  careScheduleModeInHome: "Pleje i hjemmet",
+  careScheduleModeFacility: "Institutionsbaseret pleje",
+  careScheduleModeTravel: "Ledsagelse ved rejse & arrangementer",
+  careServiceDuration: "Servicevarighed",
+  careDurationHours: "Timer",
+  careDurationHalfDay: "Halv dag",
+  careDurationFullDay: "Hel dag",
+  carePersonCountElder: "Antal ældre",
+  carePersonCountChild: "Antal børn",
+  careRequestProfessionals: "Anmod om plejepersonale",
+  careProfile: "Profil",
+  carePersonTitleElder: "Ældre",
+  carePersonTitleChild: "Barn",
+  careFieldName: "Navn *",
+  careFieldTypePersonName: "Indtast {title} navn",
+  careFieldSpecialNeeds: "Særlige behov / Medicinske noter *",
+  careFieldTypeNotes: "Indtast noter",
+  careFieldGender: "Køn *",
+  careFieldAge: "Alder *",
+  careFieldTypePersonAge: "Indtast {title} alder",
+  careFieldBehavioralNotes: "Adfærdsnoter (Valgfrit)",
+  careFieldTypeNoteHere: "Skriv din bemærkning her",
+  careFieldGenderPlaceholder: "Vælg venligst en mulighed",
+  careFieldGenderMale: "Mand",
+  careFieldGenderFemale: "Kvinde",
+  careFieldGenderOther: "Andet / Ønsker ikke at oplyse",
+  carePreferencesTitle: "Præferencer",
+  careGenderPreference: "Kønspræference",
+  careLanguagePreference: "Sprogpræference",
+  careSpecialRequirements: "Særlige krav",
+  careErrorSelectDate: "Vælg venligst en servicedato.",
+  careErrorSelectTime: "Vælg venligst et starttidspunkt for servicen.",
+  careBackButton: "Tilbage",
+  careContinueButton: "Fortsæt",
+
+  // Steam Sections Extra
+  steamIndustrialSubtitle: "Vi leverer dybdegående desinfektion, affedtning og restaurering af kritiske overflader.",
+  steamViewDetails: "Se detaljer",
+  steamAdd: "Tilføj",
+  steamAdded: "Tilføjet",
+  steamIndManufacturing: "Produktions- & industrifaciliteter",
+  steamIndFoodBeverage: "Føde- & drikkevareindustrien",
+  steamIndAutomotive: "Automobil & transport",
+  steamIndHealthcare: "Sundhedsvæsen & institutioner",
+  steamIndHospitality: "Gæstfrihed & detailhandel",
+  steamIndAgriculture: "Landbrug & farmdrift",
+  steamIndWaste: "Affalds- & genbrugsanlæg",
+  steamIndFacilityManagement: "Ejendomsdrift (Generelt)",
+  steamIndOtherSpecialized: "Andre specialiserede anvendelser",
+
+  // Products & Supplies (Event)
+  prodSuppTitle: "Produkter & forbrugsartikler",
+  prodSuppSubtitle: "Vælg dine specialiserede værktøjer",
+  prodSuppEquipment: "Udstyr",
+  prodSuppChemicals: "Kemikalier",
+  prodItemVacuumCleaners: "Erhvervsstøvsugere",
+  prodItemFloorPolishers: "Gulvpoleringsmaskiner / Buffere",
+  prodItemCarpetCleaners: "Tæpperensere / Ekstraktionsmaskiner",
+  prodItemMopsBuckets: "Sæt med mopper og spande",
+  prodItemPressureWashers: "Højtryksrensere",
+  prodItemAirBlowers: "Industrielle luftblæsere",
+  prodItemSteamVaporCleaners: "Damprengøringsmaskiner",
+  prodItemMicrofiberKits: "Mikrofiber rengøringssæt",
+  prodItemPpeGearKits: "Sikkerheds- & Værnemiddelsæt",
+  prodItemAllPurposeCleaners: "Allround rengøringsmidler",
+  prodItemHospitalDisinfectants: "Hospitalsgodkendte desinfektionsmidler",
+  prodItemGlassCleaners: "Stribefri glasrens",
+  prodItemFloorCleaners: "Gulvrengøringsmidler & voksfjernere",
+  prodItemHeavyDegreasers: "Kraftige affedtningsmidler",
+  prodItemSanitizingSprays: "Desinficerende sprays",
+  prodItemOdorNeutralizers: "Specialiserede lugtneutralisatorer",
+
+  // Auth (Login & Signup Forms)
+  loginTitle: "Velkommen tilbage",
+  loginDescription: "Indtast din e-mail nedenfor for at logge ind på din konto",
+  loginEmailLabel: "E-mail",
+  loginPasswordLabel: "Adgangskode",
+  loginForgotPassword: "Glemt din adgangskode?",
+  loginSubmit: "Log ind",
+  loginPending: "Logger ind…",
+  loginGenericError: "Noget gik galt.",
+
+  signupTitle: "Opret din konto",
+  signupDescription: "Udfyld formularen nedenfor for at oprette din konto",
+  signupFirstName: "Fornavn",
+  signupLastName: "Efternavn",
+  signupEmail: "E-mail",
+  signupPhone: "Telefon",
+  signupPassword: "Adgangskode",
+  signupConfirmPassword: "Bekræft adgangskode",
+  signupPasswordHelper: "Skal være på mindst 8 tegn.",
+  signupAgreeText: "Jeg accepterer",
+  signupTerms: "Vilkår og betingelser",
+  signupAnd: "og",
+  signupPrivacy: "Privatlivspolitik",
+  signupSubmit: "Tilmeld dig",
+  signupPending: "Opretter konto…",
+  signupAlreadyAccount: "Har du allerede en konto?",
+  signupLoginLink: "Log ind",
+  signupErrorPasswordMismatch: "Adgangskoderne matcher ikke.",
+  signupErrorTermsRequired: "Accepter venligst vilkår og betingelser samt privatlivspolitikken for at fortsætte.",
+  signupGenericError: "Noget gik galt.",
+
+  // Request Quotation View
+  quotationFormTitle: "Detaljer om serviceanmodning",
+  quotationStep1DateTime: "1. Dato & tidspunkt",
+  quotationStep2ChemEquip: "2. Kemikalier og udstyr",
+  quotationChemEquipPlaceholder: "Leveres af kunden",
+  quotationChemCustomer: "Leveres af kunden",
+  quotationChemCompany: "Anmod virksomheden",
+  quotationSelectEquipMaterials: "Vælg udstyr & materialer",
+  quotationStep3PropertyScale: "3. Ejendomsskala",
+  quotationStep4AllocatedPros: "4. Tildelte fagfolk",
+  quotationStep5CleanerDuration: "5. Rengøringsvarighed",
+  quotationStepGenderPref: "Personalets kønspræference",
+  quotationStepLinguistic: "Sproglig koordinering",
+  quotationSelectOption: "Vælg en mulighed",
+  quotationGenderNone: "Ingen præference / Alle",
+  quotationGenderFemale: "Kvindeligt personale",
+  quotationGenderMale: "Mandligt personale",
+  quotationStepRequirements: "Servicekrav & detaljer",
+  quotationRequirementsPlaceholder: "Beskriv de tjenester du har brug for, foretrukken tidsplan, placering og eventuelle specifikke krav...",
+  quotationContactProfile: "Kontaktoplysninger",
+  quotationFirstName: "Fornavn",
+  quotationLastName: "Efternavn",
+  quotationEmail: "E-mail",
+  quotationPhoneNumber: "Telefonnummer",
+  quotationFirstNamePlaceholder: "Fornavn",
+  quotationLastNamePlaceholder: "Efternavn",
+  quotationEmailPlaceholder: "E-mailadresse",
+  quotationPhonePlaceholder: "Telefonnummer",
+  quotationLocationResidence: "Boligens placering",
+  quotationPickupLocation: "Afhentningssted",
+  quotationDeliveryLocation: "Leveringssted",
+  quotationSelectCountry: "Vælg land",
+  quotationPostalCode: "Postnummer",
+  quotationCity: "By",
+  quotationProvinceState: "Region / Stat",
+  quotationStreetAddress: "Gadeadresse",
+  quotationUnit: "Lejlighed/Etage",
+  quotationPostalCodePlaceholder: "Postnummer",
+  quotationCityPlaceholder: "By",
+  quotationProvincePlaceholder: "Region / Stat",
+  quotationStreetPlaceholder: "Gadeadresse",
+  quotationUnitPlaceholder: "Lejlighed/Etage",
+  quotationSubmit: "SEND DETALJERET TILBUDSANMODNING",
+  quotationSubmitting: "SENDER ANMODNING…",
+  quotationBack: "Tilbage",
+  quotationSuccessToast: "Formularen blev sendt med succes!",
+  quotationErrDate: "Vælg venligst en dato.",
+  quotationErrTime: "Vælg venligst et tidsrum.",
+  quotationErrFirstName: "Fornavn er påkrævet.",
+  quotationErrLastName: "Efternavn er påkrævet.",
+  quotationErrEmail: "E-mail er påkrævet.",
+  quotationErrEmailInvalid: "Indtast venligst en gyldig e-mailadresse.",
+  quotationErrPhone: "Telefonnummer er påkrævet.",
+  quotationErrCountry: "Land er påkrævet.",
+  quotationErrPostal: "Postnummer er påkrævet.",
+  quotationErrCity: "By er påkrævet.",
+  quotationErrProvince: "Region / Stat er påkrævet.",
+  quotationErrStreet: "Gadeadresse er påkrævet.",
+  quotationErrFillRequired: "Udfyld venligst alle obligatoriske felter mærket med *",
+  quotationErrServiceNotFound: "Tjeneste ikke fundet.",
+  quotationErrSubmitFailed: "Kunne ikke sende din tilbudsanmodning.",
+
+  // Confirmation Card
   confirmBrandName: "Pearly Sky",
   confirmBrandTagline: "Øko-luksus rengøring",
   confirmNotFoundTitle: "Tilbud ikke fundet",
@@ -440,6 +1724,8 @@ export const da = {
   confirmLoading: "Indlæser…",
   confirmNeedHelp: "Brug for hjælp?",
   confirmContactSupport: "Kontakt support",
+
+  // Quotation Confirmation Page
   quotConfirmHeadline: "Vi har modtaget din tilbudsanmodning!",
   quotConfirmDescription: "Tak for din interesse i vores premium-tjenester. Vores team gennemgår dine krav, og en specialist vil kontakte dig inden længe.",
   quotConfirmRefLabel: "Referencenummer",
@@ -462,15 +1748,17 @@ export const da = {
   quotConfirmTeamSpecialists: "Specialister",
   quotConfirmDateLabel: "Foreslået dato",
   quotConfirmInfoTitle: "Vigtig kontaktoplysning",
-  quotConfirmInfoBody: "En kopi af din anmodning er blevet sendt til din registrerede e-mailadresse.",
+  quotConfirmInfoBody: "En kopi af din anmodning er blevet sendt til din registrerede e-mailadresse. Hvis du har hastende spørgsmål, bedes du benytte vores supportkanaler.",
   quotConfirmPrimaryAction: "Se mine anmodninger",
   quotConfirmDownload: "DOWNLOAD ANMODNINGSDETALJER",
+
+  // Booking Confirmation Page
   bookConfirmHeadlineConfirmed: "Tak for din ordre!",
   bookConfirmDescConfirmed: "Din rengøringsoplevelse er bekræftet. Et dedikeret team er ved at gøre sig klar.",
   bookConfirmHeadlinePending: "Booking modtaget!",
   bookConfirmDescPending: "Din booking er gemt. Gennemfør betalingen nedenfor for at bekræfte din service.",
   bookConfirmHeadlineCancelled: "Booking annulleret",
-  bookConfirmDescCancelled: "Denne booking er blevet annulleret.",
+  bookConfirmDescCancelled: "Denne booking er blevet annulleret. Hvis dette var uventet, bedes du kontakte vores supportteam.",
   bookConfirmRefLabel: "Referencenummer",
   bookConfirmPaymentLabel: "Betalingsstatus",
   bookConfirmPaymentSuccessful: "Gennemført",
@@ -497,5 +1785,5 @@ export const da = {
   bookConfirmPaymentError: "Kunne ikke starte betalingen.",
   bookConfirmHours: "Timer",
   bookConfirmCleaningSpecialist: "Rengøringsspecialist",
-  bookConfirmCleaningSpecialists: "Rengøringsspecialister"
+  bookConfirmCleaningSpecialists: "Rengøringsspecialister",
 } as Record<TranslationKey, TranslationValue>;

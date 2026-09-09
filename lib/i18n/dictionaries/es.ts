@@ -56,6 +56,8 @@ export const es = {
   servicesPricePerCleaner: "/h por limpiador",
   servicesSeeMore: "Ver más",
   servicesSeeLess: "Ver menos",
+
+  // Service cards translations
   serviceRegularHomeCleaning: "Limpieza habitual del hogar",
   serviceRegularHomeCleaningDescription: "Cuidado rutinario para un espacio fresco y ordenado.",
   serviceEssentialTouchUpCleaning: "Limpieza esencial de retoque",
@@ -110,18 +112,22 @@ export const es = {
   serviceSameDayPriorityCleaning: "Limpieza prioritaria el mismo día",
   serviceSameDayPriorityCleaningDescription: "Limpieza rápida y confiable a corto plazo.",
   serviceCommercialCleaningServices: "Servicios de limpieza comercial",
+
+  // Carpet cleaning services
   CarpetServiceSectionTitle: "Detalles de alfombras y tapicería",
   CarpetSchedulebackButtonText: "Atrás",
   CarpetScheduleContinueButtonText: "Continuar",
   CarpetCardQuantityLabel: "Cantidad",
   CarpetCardSelectAddLable: "Añadir",
   CarpetCardSelectRemoveLable: "Eliminar",
+
   ServiceLuxuryResidential: "Limpieza residencial de lujo",
   ServiceCommercial: "Gestión de propiedades comerciales",
   ServiceLuxuryProperty: "Gestión de propiedades de lujo",
   ServiceHospitality: "Limpieza de hotelería y hoteles",
   ServiceSports: "Instalaciones deportivas y de bienestar",
   ServicePublic: "Limpieza pública e institucional",
+
   recentProjectTitle: "Nuestros proyectos recientes",
   projectBefore: "Antes",
   projectAfter: "Después",
@@ -129,16 +135,22 @@ export const es = {
   projectAfteeState: "Nuestro resultado",
   viewAllProjectButton: "Ver todos los proyectos",
   clientFeedback: "La limpieza fue excelente y las personas que trabajaron fueron tan amables y agradables. Nos sentimos muy bien atendidos. Recomiendo",
+
+  // Categories visible on Home page
   servicesCategoryResidentialCleaning: "🏠 SERVICIOS DE LIMPIEZA RESIDENCIAL",
   servicesCategoryPremiumAddOns: "➕ SERVICIOS PREMIUM ADICIONALES",
   servicesCategoryCommercialSpecialised: "🏢 SERVICIOS DE LIMPIEZA COMERCIAL Y ESPECIALIZADA",
   servicesCategoryCareConcierge: "🤝 SERVICIOS DE CUIDADO Y CONCIERGE",
+
   servicesSubHeaderResidentialCleaning: "Cuidado meticuloso y sostenible diseñado para residencias de lujo, propiedades y hogares urbanos contemporáneos",
   servicesSubHeaderPremiumAddOns: "Toques finales reflexivos para un hogar impecablemente cuidado",
   servicesSubHeaderCommercialSpecialised: "Cuidado discreto y de alto rendimiento para espacios profesionales y propiedades excepcionales",
   servicesSubHeaderCareConcierge: "Apoyo de confianza y reflexivo diseñado para hacer la vida cotidiana más fácil sin esfuerzo",
+
   servicesCategoryPropertyCare: "CUIDADO Y GESTIÓN DE PROPIEDADES",
   servicesCategoryBespokeLifestyle: "CURACIÓN PERSONALIZADA DE ESTILO DE VIDA Y BIENESTAR",
+
+  // Services mapping for navigation links
   serviceLableRegularHomeCleaning: "Limpieza habitual del hogar",
   serviceLableEssentialTouchUpCleaning: "Limpieza esencial de retoque",
   serviceLableDeepCleaning: "Limpieza profunda",
@@ -159,16 +171,576 @@ export const es = {
   serviceLableElderCareService: "Servicio de cuidado de adultos mayores",
   serviceLableMoveInMoveOutTransportService: "Servicio de transporte y mudanza",
   serviceLableHealthGuardSanitization: "Desinfección HealthGuard",
+
+  // Related services
   exploreServicesRelated: "Explorar servicios relacionados",
+
   visionaryTeamTitle: "Nuestro equipo visionario",
   visionarydesignationsHR: "Recursos Humanos",
   visionarydesignationsMK: "Equipo de Marketing",
   visionarydesignationsCUS: "Servicio al Cliente",
   visionarydesignationsFIN: "Departamento Financiero",
 
+  serviceHighlightSectionHeader: "Lista de verificación del paquete estándar",
+  serviceIntroBottomText: "Establezca su horario recurrente",
+  hourPerCleaner: "Hora por limpiador",
+
+  // Service page details
+  // Regular home cleaning
+  serviceRegularCleaningIntroHeadLine: "El retoque semanal: limpieza constante y tranquilidad sostenible.",
+  serviceRegularCleaningIntroBody: "Deje de estresarse por las tareas diarias. Nuestro servicio de limpieza residencial estándar establece un horario recurrente confiable que mantiene su hogar impecable sin esfuerzo. Utilizamos exclusivamente productos ecológicos y certificados para ofrecer una limpieza profunda y deslumbrante 100% segura para niños y mascotas. Comprométase con la consistencia y disfrute del lujo de regresar a un espacio más saludable e impecable cada semana. Consulte nuestras tarifas transparentes y reserve su limpieza hoy mismo. Establezca su horario recurrente.",
+
+  serviceRegularCleaningHighlightTitleOne: "Aspectos destacados de la limpieza habitual del hogar",
+  serviceRegularCleaningHighlightCardTitleOne: "Cuidado general del hogar",
+  serviceRegularCleaningHighlightCardTitleTwo: "Puntos clave de contacto",
+  serviceRegularCleaningHighlightCardTitleThree: "Cocina y comedor",
+  serviceRegularCleaningHighlightCardTitleFour: "Limpieza de baños",
+
+  serviceRegularCleaningTitleOneFeatureOne: "Despolvado",
+  serviceRegularCleaningTitleOneFeatureTwo: "Limpieza de superficies (incluyendo vidrios).",
+  serviceRegularCleaningTitleOneFeatureThree: "Orden ligero.",
+  serviceRegularCleaningTitleOneFeatureFour: "Retiro de basura y cuidado de pisos (aspirado/fregado).",
+
+  serviceRegularCleaningTitleTwoFeatureOne: "Tendido de camas, gestión de sábanas y desinfección focalizada de superficies de alto contacto para la salud y el mantenimiento.",
+
+  serviceRegularCleaningTitleThreeFeatureOne: "Cuidado exterior de electrodomésticos.",
+  serviceRegularCleaningTitleThreeFeatureTwo: "Desinfección de encimeras y lavabos.",
+  serviceRegularCleaningTitleThreeFeatureThree: "Organización de vajilla y limpieza completa de pisos.",
+
+  serviceRegularCleaningTitleFourFeatureOne: "Desinfección total y enfoque en higiene.",
+  serviceRegularCleaningTitleFourFeatureTwo: "Limpieza de inodoro, lavabo, ducha y bañera.",
+  serviceRegularCleaningTitleFourFeatureThree: "Limpieza de espejos y colocación de toallas limpias.",
+
+  // Quick touch-up cleaning
+  serviceQuickTouchUpCleaningIntroHeadLine: "Frescura rápida para espacios de alto tráfico",
+  serviceQuickTouchUpCleaningIntroBody: [
+    "¿Poco tiempo pero necesita que su hogar luzca impecable? Nuestra Limpieza Esencial de Retoque es un servicio rápido y focalizado diseñado para restaurar el brillo en sus áreas de estar principales. Ideal antes de recibir invitados, después de un evento o entre visitas de rutina, nos enfocamos en zonas de alto tráfico como superficies clave, cocinas y baños, utilizando productos 100% ecológicos y certificados. Disfrute de un ambiente limpio y acogedor sin comprometerse con una limpieza completa de la casa. Consulte nuestros precios transparentes y reserve su retoque exprés hoy mismo."
+  ],
+
+  serviceQuickTouchUpCleaningHighlightTitleOne: "Aspectos destacados de la limpieza esencial de retoque",
+  serviceQuickTouchUpCleaningHighlightCardTitleTwo: "Cocina",
+  serviceQuickTouchUpCleaningHighlightCardTitleThree: "Baños",
+  serviceQuickTouchUpCleaningHighlightCardTitleFour: "Salón y dormitorios",
+  serviceQuickTouchUpCleaningHighlightCardTitleFive: "Pisos y basura",
+
+  serviceQuickTouchUpCleaningTitleTwoFeatureOne: "Limpieza exterior de los electrodomésticos principales (refrigerador, horno, lavavajillas).",
+  serviceQuickTouchUpCleaningTitleTwoFeatureTwo: "Limpieza y desinfección de encimeras y salpicaderos.",
+  serviceQuickTouchUpCleaningTitleTwoFeatureThree: "Fregado y pulido de lavabo y grifería.",
+  serviceQuickTouchUpCleaningTitleTwoFeatureFour: "Limpieza de la estufa (solo superficie).",
+  serviceQuickTouchUpCleaningTitleTwoFeatureFive: "Limpieza exterior del microondas.",
+
+  serviceQuickTouchUpCleaningTitleThreeFeatureOne: "Desinfección de inodoro, asiento y base.",
+  serviceQuickTouchUpCleaningTitleThreeFeatureTwo: "Limpieza de espejos y cristales.",
+  serviceQuickTouchUpCleaningTitleThreeFeatureThree: "Limpieza de lavabo y mueble.",
+  serviceQuickTouchUpCleaningTitleThreeFeatureFour: "Enjuague y limpieza rápida de ducha/bañera (sin fregado profundo de juntas).",
+
+  serviceQuickTouchUpCleaningTitleFourFeatureOne: "Despolvado superficial de muebles planos (mesas, veladores, escritorios).",
+  serviceQuickTouchUpCleaningTitleFourFeatureTwo: "Orden de cojines y almohadas.",
+  serviceQuickTouchUpCleaningTitleFourFeatureThree: "Limpieza rápida de espejos y marcos de fotos.",
+
+  serviceQuickTouchUpCleaningTitleFiveFeatureOne: "Aspirado de todas las alfombras y tapetes.",
+  serviceQuickTouchUpCleaningTitleFiveFeatureTwo: "Fregado de todos los pisos duros (mopa húmeda estándar).",
+  serviceQuickTouchUpCleaningTitleFiveFeatureThree: "Vaciado de basureros y reemplazo de bolsas.",
+
+  // Same-day priority cleaning
+  serviceSameDayPriorityCleaningIntroHeadLine: "Respuesta urgente, limpieza sin concesiones",
+  serviceSameDayPriorityCleaningIntroBody: [
+    "¿Necesita ayuda de limpieza inmediata a corto plazo? Nuestra Limpieza Prioritaria el Mismo Día ofrece un servicio de despacho rápido para visitas inesperadas, eventos de última hora o emergencias repentinas. Priorizamos su reserva para enviar un limpiador profesional a su hogar lo antes posible, utilizando productos 100% ecológicos certificados y no tóxicos, seguros para su familia y mascotas. Obtenga un alivio instantáneo y una programación prioritaria garantizada cuando el tiempo es fundamental. Vea nuestras tarifas transparentes y solicite soporte prioritario inmediato ahora."
+  ],
+
+  serviceSameDayPriorityCleaningHighlightTitleOne: "Lista de verificación posterior a la fiesta (máximo desorden, máximo impacto)",
+  serviceSameDayPriorityCleaningHighlightTitleTwo: "Lista de verificación de limpieza instantánea (Servicio estándar - En lo que nos enfocamos)",
+  serviceSameDayPriorityCleaningHighlightCardTitleTwo: "Pisos y entrada",
+  serviceSameDayPriorityCleaningHighlightCardTitleThree: "Recuperación de áreas comunes",
+  serviceSameDayPriorityCleaningHighlightCardTitleFour: "Área de cocina y bar",
+  serviceSameDayPriorityCleaningHighlightCardTitleFive: "Lista de verificación de limpieza instantánea (Servicio estándar - En lo que nos enfocamos)",
+  serviceSameDayPriorityCleaningHighlightCardTitleSix: "Limpieza rápida de cocina",
+  serviceSameDayPriorityCleaningHighlightCardTitleSeven: "Renovación del baño",
+
+  serviceSameDayPriorityCleaningTitleTwoFeatureOne: "Aspirado de alta potencia y barrido de áreas principales.",
+  serviceSameDayPriorityCleaningTitleTwoFeatureTwo: "Fregado puntual de zonas de alto tráfico y propensas a derrames.",
+
+  serviceSameDayPriorityCleaningTitleThreeFeatureOne: "Recolección de objetos dispersos, vasos y basura.",
+  serviceSameDayPriorityCleaningTitleThreeFeatureTwo: "Vaciado y desinfección de depósitos de basura.",
+  serviceSameDayPriorityCleaningTitleThreeFeatureThree: "Despolvado y limpieza puntual de superficies visibles.",
+  serviceSameDayPriorityCleaningTitleThreeFeatureFour: "Orden de muebles (sofás, sillas, cojines).",
+
+  serviceSameDayPriorityCleaningTitleFourFeatureOne: "Eliminación de botellas vacías, latas y vajilla desechable.",
+  serviceSameDayPriorityCleaningTitleFourFeatureTwo: "Desinfección de todas las encimeras y superficies pegajosas.",
+  serviceSameDayPriorityCleaningTitleFourFeatureThree: "Puesta en marcha del lavavajillas; lavado de vajilla básica.",
+  serviceSameDayPriorityCleaningTitleFourFeatureFour: "Limpieza de derrames de bebidas en pisos duros.",
+
+  serviceSameDayPriorityCleaningTitleSixFeatureOne: "Limpieza de encimeras.",
+  serviceSameDayPriorityCleaningTitleSixFeatureTwo: "Limpieza puntual del frente de armarios.",
+  serviceSameDayPriorityCleaningTitleSixFeatureThree: "Limpieza del exterior del microondas y la estufa.",
+  serviceSameDayPriorityCleaningTitleSixFeatureFour: "Lavado o carga de vajilla pequeña.",
+  serviceSameDayPriorityCleaningTitleSixFeatureFive: "Desinfección de lavabos y pulido de accesorios.",
+
+  serviceSameDayPriorityCleaningTitleSevenFeatureOne: "Desinfección de lavabo y mueble.",
+  serviceSameDayPriorityCleaningTitleSevenFeatureTwo: "Limpieza de inodoro por dentro y por fuera.",
+  serviceSameDayPriorityCleaningTitleSevenFeatureThree: "Limpieza rápida de espejos.",
+  serviceSameDayPriorityCleaningTitleSevenFeatureFour: "Cambio de toalla de manos.",
+  serviceSameDayPriorityCleaningTitleSevenFeatureFive: "Reemplazo de toallas de mano usadas.",
+  serviceSameDayPriorityCleaningTitleSevenFeatureSix: "Vaciado del basurero y desodorización.",
+
+  // Deep cleaning
+  serviceDeepCleaningIntroHeadLine: "Más allá de la superficie: experimente la diferencia de una limpieza profunda para renovar su hogar.",
+  serviceDeepCleaningIntroBody: [
+    "Si su hogar necesita algo más que un retoque rápido, nuestra Renovación Total del Hogar es la solución perfecta. Este es nuestro paquete de limpieza más minucioso y detallado, diseñado para combatir la mugre, el polvo y la acumulación que la limpieza estándar pasa por alto. Dedicamos el tiempo necesario para limpiar a fondo cada rincón, estableciendo una base impecable para su hogar.",
+    "Cuando el tiempo es crítico, elija al equipo que garantiza una diferencia notable rápidamente."
+  ],
+
+  serviceDeepCleaningHighlightTitleOne: "Aspectos destacados de la limpieza profunda",
+  serviceDeepCleaningHighlightCardTitleTwo: "Detalle de cocina",
+  serviceDeepCleaningHighlightCardTitleThree: "Santuario del baño",
+  serviceDeepCleaningHighlightCardTitleFour: "Pisos",
+  serviceDeepCleaningHighlightCardTitleFive: "Enfoque en todas las áreas",
+
+  serviceDeepCleaningTitleTwoFeatureOne: "Fregado intensivo de salpicaderos.",
+  serviceDeepCleaningTitleTwoFeatureTwo: "Limpieza profunda del exterior de electrodomésticos.",
+  serviceDeepCleaningTitleTwoFeatureThree: "Desengrase de campanas extractoras y estufas.",
+
+  serviceDeepCleaningTitleThreeFeatureOne: "Fregado minucioso de juntas de ducha y paredes de azulejo.",
+  serviceDeepCleaningTitleThreeFeatureTwo: "Desinfección de inodoros, bañeras y lavabos.",
+  serviceDeepCleaningTitleThreeFeatureThree: "Desincrustación de accesorios y puertas de ducha de vidrio.",
+
+  serviceDeepCleaningTitleFourFeatureOne: "Aspirado de alta potencia y limpieza de bordes de alfombras.",
+  serviceDeepCleaningTitleFourFeatureTwo: "Fregado profundo y desinfección de pisos duros.",
+  serviceDeepCleaningTitleFourFeatureThree: "Limpieza detallada de zócalos y esquinas del piso.",
+
+  serviceDeepCleaningTitleFiveFeatureOne: "Limpieza y despolvado de todos los zócalos.",
+  serviceDeepCleaningTitleFiveFeatureTwo: "Limpieza detallada de alféizares y repisas de ventanas.",
+  serviceDeepCleaningTitleFiveFeatureThree: "Desinfección de marcos de puertas, puertas y manijas.",
+
+  // End of tenancy cleaning
+  serviceEndOfTenancyCleaningIntroHeadLine: "Casa vacía, limpieza total: garantizamos la devolución de su depósito o un comienzo brillante.",
+  serviceEndOfTenancyCleaningIntroBody: [
+    "Nuestro servicio de Entrega Impecable / Limpieza de Mudanza es un servicio altamente enfocado e integral diseñado específicamente para propiedades vacías. Va más allá de la limpieza profunda estándar, enfocándose intensamente en áreas olvidadas como el interior de armarios, cajones y espacios de servicio para cumplir con los estrictos estándares requeridos para la entrega de propiedades.",
+    "Para una transición fluida, confíe en los expertos en rotación total de propiedades."
+  ],
+
+  serviceEndOfTenancyCleaningHighlightTitleOne: "Aspectos destacados de la limpieza de fin de alquiler",
+  serviceEndOfTenancyCleaningHighlightCardTitleTwo: "Detalle de cocina y lavadero",
+  serviceEndOfTenancyCleaningHighlightCardTitleThree: "Baño intensivo",
+  serviceEndOfTenancyCleaningHighlightCardTitleFour: "Áreas generales y paredes",
+  serviceEndOfTenancyCleaningHighlightCardTitleFive: "Pisos",
+
+  serviceEndOfTenancyCleaningTitleTwoFeatureOne: "Limpieza del interior y exterior de todos los armarios y cajones.",
+  serviceEndOfTenancyCleaningTitleTwoFeatureTwo: "Limpieza profunda del interior y exterior de los principales electrodomésticos (horno, refrigerador, lavavajillas).",
+  serviceEndOfTenancyCleaningTitleTwoFeatureThree: "Fregado profundo de la campana extractora y la estufa.",
+
+  serviceEndOfTenancyCleaningTitleThreeFeatureOne: "Fregado intenso y desincrustación de juntas, azulejos, bañeras y puertas de ducha.",
+  serviceEndOfTenancyCleaningTitleThreeFeatureTwo: "Limpieza interior de cajones y armarios del mueble de baño.",
+
+  serviceEndOfTenancyCleaningTitleFourFeatureOne: "Limpieza de la cara interior de todas las ventanas.",
+  serviceEndOfTenancyCleaningTitleFourFeatureTwo: "Rieles de ventanas, alféizares, interruptores de luz y marcos de puertas.",
+  serviceEndOfTenancyCleaningTitleFourFeatureThree: "Limpieza puntual de marcas visibles en las paredes.",
+
+  serviceEndOfTenancyCleaningTitleFiveFeatureOne: "Aspirado de alta potencia de todas las áreas alfombradas.",
+  serviceEndOfTenancyCleaningTitleFiveFeatureTwo: "Lavado, fregado y abrillantado de todos los pisos duros.",
+
+  // Post construction renovation cleaning
+  servicePostConstructionRenovationCleaningIntroHeadLine: "La transformación final: eliminando el polvo de la construcción y revelando el brillo de su nuevo espacio.",
+  servicePostConstructionRenovationCleaningIntroBody: [
+    "Nuestro servicio de Limpieza Posterior a Obras es esencial para eliminar de manera segura y minuciosa los residuos de construcción, el polvo fino de drywall, las salpicaduras de pintura y las marcas de adhesivo. Este proceso de dos fases (limpieza gruesa y limpieza final) se centra en la eliminación del polvo microscópico de cada superficie utilizando equipo especializado.",
+    "No deje que el polvo de la construcción persista. Confíe en nuestro equipo especializado para brindar un acabado que complete su proyecto."
+  ],
+
+  servicePostConstructionRenovationCleaningHighlightTitleOne: "Aspectos destacados de la limpieza posterior a la construcción y renovación",
+  servicePostConstructionRenovationCleaningHighlightCardTitleTwo: "Polvo y calidad del aire",
+  servicePostConstructionRenovationCleaningHighlightCardTitleThree: "Detalle de ventanas",
+  servicePostConstructionRenovationCleaningHighlightCardTitleFour: "Cocina y baño",
+  servicePostConstructionRenovationCleaningHighlightCardTitleFive: "Pisos",
+
+  servicePostConstructionRenovationCleaningTitleTwoFeatureOne: "Múltiples pasadas de limpieza en todas las superficies con paños de microfibra.",
+  servicePostConstructionRenovationCleaningTitleTwoFeatureTwo: "Aspirado con filtro HEPA.",
+  servicePostConstructionRenovationCleaningTitleTwoFeatureThree: "Limpieza de rejillas de ventilación y retornos de aire.",
+
+  servicePostConstructionRenovationCleaningTitleThreeFeatureOne: "Lavado de vidrios, marcos y rieles.",
+  servicePostConstructionRenovationCleaningTitleThreeFeatureTwo: "Eliminación segura de pintura, adhesivos o residuos.",
+
+  servicePostConstructionRenovationCleaningTitleFourFeatureOne: "Limpieza interior de todos los armarios y cajones recién instalados.",
+  servicePostConstructionRenovationCleaningTitleFourFeatureTwo: "Eliminación de restos de lechada y yeso en azulejos.",
+  servicePostConstructionRenovationCleaningTitleFourFeatureThree: "Limpieza de accesorios eliminando selladores, masilla y polvo.",
+
+  servicePostConstructionRenovationCleaningTitleFiveFeatureOne: "Aspirado pesado con filtro HEPA.",
+  servicePostConstructionRenovationCleaningTitleFiveFeatureTwo: "Limpieza detallada de bordes, lavado y pulido de pisos duros.",
+
+  // Premium rental concierge cleaning
+  servicePremiumRentalConciergeCleaningIntroHeadLine: "Estancias impecables, evaluaciones de cinco estrellas: rotación perfecta en todo momento.",
+  servicePremiumRentalConciergeCleaningIntroBody: [
+    "Nuestro servicio de Rotación para Alquileres Temporales está diseñado a medida para las exigencias de propiedades de alquiler a corto plazo. El objetivo es maximizar la eficiencia al tiempo que garantizamos que cada detalle cumpla con los estándares más altos para la llegada de los huéspedes.",
+    "Somos la clave para mantener una limpieza constante de 5 estrellas y un hospedaje libre de estrés."
+  ],
+
+  servicePremiumRentalConciergeCleaningHighlightTitleOne: "Aspectos destacados de la limpieza de concierge para alquileres premium",
+  servicePremiumRentalConciergeCleaningHighlightCardTitleTwo: "Santuario del huésped (Baños)",
+  servicePremiumRentalConciergeCleaningHighlightCardTitleThree: "Cocina y refrescos para huéspedes",
+  servicePremiumRentalConciergeCleaningHighlightCardTitleFour: "Gestión de ropa de cama (Dormitorios)",
+  servicePremiumRentalConciergeCleaningHighlightCardTitleFive: "Mantenimiento y notas finales",
+
+  servicePremiumRentalConciergeCleaningTitleTwoFeatureOne: "Jabón de manos de lujo — dispensador lleno o barra nueva presentada.",
+  servicePremiumRentalConciergeCleaningTitleTwoFeatureTwo: "Cuidado del cabello — set nuevo de champú y acondicionador tamaño viaje.",
+  servicePremiumRentalConciergeCleaningTitleTwoFeatureThree: "Productos de papel — papel higiénico montado y sellado, repuestos abastecidos.",
+  servicePremiumRentalConciergeCleaningTitleTwoFeatureFour: "Toallas para huéspedes — toallas recién lavadas y dobladas.",
+  servicePremiumRentalConciergeCleaningTitleTwoFeatureFive: "Tapete de baño — limpio y colocado.",
+
+  servicePremiumRentalConciergeCleaningTitleThreeFeatureOne: "Bebidas y endulzantes presentados de manera ordenada.",
+  servicePremiumRentalConciergeCleaningTitleThreeFeatureTwo: "Esenciales de limpieza listos para el uso del huésped.",
+  servicePremiumRentalConciergeCleaningTitleThreeFeatureThree: "Bolsa de basura nueva y rollo completo de papel de cocina.",
+  servicePremiumRentalConciergeCleaningTitleThreeFeatureFour: "Detalle de bienvenida presentado correctamente.",
+
+  servicePremiumRentalConciergeCleaningTitleFourFeatureOne: "Inspección visual del colchón — sin manchas ni daños.",
+  servicePremiumRentalConciergeCleaningTitleFourFeatureTwo: "Sábanas ajustables y encimeras recién colocadas y tensas.",
+  servicePremiumRentalConciergeCleaningTitleFourFeatureThree: "Fundas de almohada y funda nórdica recién colocadas.",
+  servicePremiumRentalConciergeCleaningTitleFourFeatureFour: "Limpieza detallada sin polvo de lámparas y accesorios de iluminación.",
+
+  servicePremiumRentalConciergeCleaningTitleFiveFeatureOne: "Revisión puntual de paredes, eliminación de marcas y huellas.",
+  servicePremiumRentalConciergeCleaningTitleFiveFeatureTwo: "Garantizar que todas las superficies estén libres de polvo.",
+  servicePremiumRentalConciergeCleaningTitleFiveFeatureThree: "Revisión de seguridad para eliminar cualquier peligro.",
+  servicePremiumRentalConciergeCleaningTitleFiveFeatureFour: "Inspección final completa y preparación del espacio.",
+
+  // Commercial office cleaning
+  serviceCommercialOfficeCleaningIntroHeadLine: "Mejorando la productividad a través de instalaciones impecables y bienestar laboral.",
+  serviceCommercialOfficeCleaningIntroBody: [
+    "Nuestro servicio de Limpieza Profesional de Instalaciones está diseñado para empresas que buscan un mantenimiento confiable y de alta calidad para sus oficinas y entornos corporativos. Operamos con discreción y eficiencia fuera del horario comercial habitual para minimizar interrupciones.",
+    "Un entorno limpio es un entorno productivo. Asóciese con nosotros para una excelencia constante."
+  ],
+
+  serviceCommercialOfficeCleaningHighlightTitleOne: "Lista de verificación de bienestar laboral (Enfoque comercial)",
+  serviceCommercialOfficeCleaningHighlightTitleSeven: "Opciones de frecuencia de servicio contractual",
+  serviceCommercialOfficeCleaningHighlightCardTitleTwo: "Áreas comunes y recepción",
+  serviceCommercialOfficeCleaningHighlightCardTitleThree: "Cocina pequeña y salas de descanso",
+  serviceCommercialOfficeCleaningHighlightCardTitleFour: "Baños",
+  serviceCommercialOfficeCleaningHighlightCardTitleFive: "Pisos",
+  serviceCommercialOfficeCleaningHighlightCardTitleSix: "Gestión de residuos",
+  serviceCommercialOfficeCleaningHighlightCardTitleSeven: "Opciones de frecuencia de servicio contractual",
+  serviceCommercialOfficeCleaningHighlightCardTitleEight: "Limpieza diaria",
+  serviceCommercialOfficeCleaningHighlightCardTitleNine: "Tres veces por semana",
+  serviceCommercialOfficeCleaningHighlightCardTitleTen: "Limpieza semanal",
+  serviceCommercialOfficeCleaningHighlightCardTitleEleven: "Limpieza quincenal",
+
+  serviceCommercialOfficeCleaningTitleTwoFeatureOne: "Despolvado de superficies horizontales visibles, escritorios y archivadores.",
+  serviceCommercialOfficeCleaningTitleTwoFeatureTwo: "Pulido de muebles del área de recepción y cristales/metales.",
+  serviceCommercialOfficeCleaningTitleTwoFeatureThree: "Limpieza detallada de cristales internos (puertas, divisiones).",
+
+  serviceCommercialOfficeCleaningTitleThreeFeatureOne: "Limpieza y desinfección de encimeras, lavabos y exterior de electrodomésticos.",
+  serviceCommercialOfficeCleaningTitleThreeFeatureTwo: "Limpieza húmeda de mesas y sillas.",
+
+  serviceCommercialOfficeCleaningTitleFourFeatureOne: "Limpieza profunda y desinfección de inodoros, urinarios, lavabos y grifos.",
+  serviceCommercialOfficeCleaningTitleFourFeatureTwo: "Reposición de productos de papel y dispensadores de jabón/desinfectante.",
+
+  serviceCommercialOfficeCleaningTitleFiveFeatureOne: "Aspirado diario de todas las áreas alfombradas.",
+  serviceCommercialOfficeCleaningTitleFiveFeatureTwo: "Barrido y fregado de todas las superficies duras (azulejos, vinilo, madera).",
+
+  serviceCommercialOfficeCleaningTitleSixFeatureOne: "Vaciado de basureros y reemplazo de bolsas.",
+  serviceCommercialOfficeCleaningTitleSixFeatureTwo: "Centralización de reciclables para recolección.",
+
+  serviceCommercialOfficeCleaningTitleEightFeatureOne: "Para oficinas corporativas e instalaciones médicas de alto tráfico.",
+  serviceCommercialOfficeCleaningTitleNineFeatureOne: "El estándar para oficinas medianas.",
+  serviceCommercialOfficeCleaningTitleTenFeatureOne: "Adecuado para oficinas pequeñas o con tráfico peatonal mínimo.",
+  serviceCommercialOfficeCleaningTitleElevenFeatureOne: "Enfoque únicamente en baños, salas de descanso y pulido de pisos.",
+
+  // Healthguard sanitization
+  serviceHealthguardSanitizationIntroHeadLine: "Más allá de la limpieza: desinfección de nivel hospitalario para un entorno de máxima protección.",
+  serviceHealthguardSanitizationIntroBody: [
+    "Nuestro servicio de Desinfección HealthGuard se enfoca exclusivamente en eliminar patógenos, bacterias y virus de superficies de alto contacto y alto tráfico. Utiliza desinfectantes de nivel hospitalario aprobados y métodos de aplicación especializados para lograr una máxima cobertura.",
+    "Ideal para clientes que requieren estándares de higiene avanzados. No solo limpiamos: purificamos clínicamente su espacio para su salud y tranquilidad."
+  ],
+
+  serviceHealthguardSanitizationHighlightTitleOne: "Lista de verificación de desinfección de espacios puros (Enfoque específico - Incluyendo residencial)",
+  serviceHealthguardSanitizationHighlightCardTitleTwo: "Lista de verificación de desinfección de espacios puros",
+  serviceHealthguardSanitizationHighlightCardTitleThree: "Cocina y áreas de preparación de alimentos",
+  serviceHealthguardSanitizationHighlightCardTitleFour: "Enfoque detallado residencial",
+  serviceHealthguardSanitizationHighlightCardTitleFive: "Enfoque detallado en oficinas",
+  serviceHealthguardSanitizationHighlightCardTitleSix: "Método de aplicación",
+
+  serviceHealthguardSanitizationTitleTwoFeatureOne: "Limpieza inicial de superficies seguida de aplicación de desinfectante de grado hospitalario.",
+  serviceHealthguardSanitizationTitleTwoFeatureTwo: "Superficies de alto contacto: manijas, interruptores, controles remotos, termostatos, barandillas.",
+  serviceHealthguardSanitizationTitleTwoFeatureThree: "Baños: desinfección de grifos, lavabos, encimeras, inodoros y áreas de ducha.",
+
+  serviceHealthguardSanitizationTitleThreeFeatureOne: "Encimeras, lavabos, manijas de grifos.",
+  serviceHealthguardSanitizationTitleThreeFeatureTwo: "Manijas exteriores de refrigeradores, armarios y microondas.",
+  serviceHealthguardSanitizationTitleThreeFeatureThree: "Interiores de microondas, teclados y botones de cafeteras.",
+
+  serviceHealthguardSanitizationTitleFourFeatureOne: "Veladores, tiradores de cajones y juguetes duros para niños.",
+  serviceHealthguardSanitizationTitleFourFeatureTwo: "Controles de videojuegos y botones de electrodomésticos.",
+
+  serviceHealthguardSanitizationTitleFiveFeatureOne: "Teclados, ratones y superficies de escritorios.",
+  serviceHealthguardSanitizationTitleFiveFeatureTwo: "Botones de dispensadores de agua comunitarios.",
+
+  serviceHealthguardSanitizationTitleSixFeatureOne: "Pulverización líquida / paños de microfibra + pulverización electrostática según sea necesario.",
+  serviceHealthguardSanitizationTitleSixFeatureTwo: "Nebulización o pulverización electrostática donde sea necesario.",
+
+  // Carpet upholstery cleaning
+  serviceCarpetUpholsteryCleaningIntroHeadLine: "Renovación profunda de fibras: restaurando suavidad, color y frescura en cada superficie.",
+  serviceCarpetUpholsteryCleaningIntroBody: [
+    "Nuestro servicio de Renovación de Fibras utiliza extracción profesional con agua caliente y tratamientos seguros para eliminar suciedad incrustada, alérgenos u olores en alfombras, tapizados, colchones y cortinas.",
+    "El resultado es una tela más suave, brillante y saludable en todo su hogar, con tiempos de secado rápidos y sin residuos químicos."
+  ],
+
+  serviceCarpetUpholsteryCleaningHighlightTitleOne: "Aspectos destacados de la limpieza de alfombras y tapicería",
+  serviceCarpetUpholsteryCleaningHighlightCardTitleTwo: "Limpieza de alfombras",
+  serviceCarpetUpholsteryCleaningHighlightCardTitleThree: "Limpieza de tapetes",
+  serviceCarpetUpholsteryCleaningHighlightCardTitleFour: "Limpieza de tapicería",
+  serviceCarpetUpholsteryCleaningHighlightCardTitleFive: "Limpieza de colchones",
+  serviceCarpetUpholsteryCleaningHighlightCardTitleSix: "Limpieza de cortinas",
+
+  serviceCarpetUpholsteryCleaningTitleTwoFeatureOne: "Mejora de la salud y calidad del aire — elimina alérgenos.",
+  serviceCarpetUpholsteryCleaningTitleTwoFeatureTwo: "Restauración y retención del valor.",
+  serviceCarpetUpholsteryCleaningTitleTwoFeatureThree: "Extracción profesional con agua caliente.",
+  serviceCarpetUpholsteryCleaningTitleTwoFeatureFour: "Soluciones ecológicas seguras y efectivas.",
+
+  serviceCarpetUpholsteryCleaningTitleThreeFeatureOne: "Cuidado delicado para todo tipo de tapetes.",
+  serviceCarpetUpholsteryCleaningTitleThreeFeatureTwo: "Protección de color y textura.",
+  serviceCarpetUpholsteryCleaningTitleThreeFeatureThree: "Detalle acabado a mano.",
+
+  serviceCarpetUpholsteryCleaningTitleFourFeatureOne: "Comfort fresco y limpio que extiende la vida útil de los muebles.",
+  serviceCarpetUpholsteryCleaningTitleFourFeatureTwo: "Eliminación de manchas y olores.",
+  serviceCarpetUpholsteryCleaningTitleFourFeatureThree: "Cuidado profesional seguro para las telas.",
+
+  serviceCarpetUpholsteryCleaningTitleFiveFeatureOne: "Elimina ácaros del polvo y alérgenos.",
+  serviceCarpetUpholsteryCleaningTitleFiveFeatureTwo: "Mejora la higiene del sueño.",
+  serviceCarpetUpholsteryCleaningTitleFiveFeatureThree: "Proceso de desinfección profunda.",
+
+  serviceCarpetUpholsteryCleaningTitleSixFeatureOne: "Sin necesidad de desmontar.",
+  serviceCarpetUpholsteryCleaningTitleSixFeatureTwo: "Limpieza a vapor segura para telas.",
+  serviceCarpetUpholsteryCleaningTitleSixFeatureThree: "Refresca el aire interior.",
+
+  // Steam cleaning
+  serviceSteamCleaningIntroHeadLine: "Aprovechando el poder puro del vapor para una limpieza y desinfección profunda sin químicos.",
+  serviceSteamCleaningIntroBody: [
+    "Nuestro servicio de Limpieza a Vapor utiliza vapor a alta temperatura y baja humedad para desinfectar superficies, disolver grasa, eliminar moho y matar hasta el 99.9% de bacterias y gérmenes.",
+    "El vapor a presión penetra más profundamente que los métodos de limpieza convencionales."
+  ],
+
+  serviceSteamCleaningHighlightTitleOne: "Aspectos destacados de la limpieza a vapor",
+  serviceSteamCleaningHighlightCardTitleTwo: "Detalle de cocina",
+  serviceSteamCleaningHighlightCardTitleThree: "Limpieza profunda de baños",
+  serviceSteamCleaningHighlightCardTitleFour: "Desinfección de superficies",
+  serviceSteamCleaningHighlightCardTitleFive: "Tratamiento de grietas y manchas",
+
+  serviceSteamCleaningTitleTwoFeatureOne: "Limpieza a vapor y desinfección de campanas extractoras y rejillas.",
+  serviceSteamCleaningTitleTwoFeatureTwo: "Limpieza profunda a vapor del interior de hornos y sellos de refrigeradores.",
+  serviceSteamCleaningTitleTwoFeatureThree: "Desinfección de tablas de cortar mediante vapor a alta temperatura.",
+
+  serviceSteamCleaningTitleThreeFeatureOne: "Limpieza a vapor de juntas y disolución de restos de jabón.",
+  serviceSteamCleaningTitleThreeFeatureTwo: "Limpieza de bases de inodoros, bisagras y áreas de difícil acceso.",
+
+  serviceSteamCleaningTitleFourFeatureOne: "Desinfección a vapor de puntos de alto contacto: manijas, interruptores.",
+  serviceSteamCleaningTitleFourFeatureTwo: "Desinfección libre de químicos en teclados de electrodomésticos.",
+
+  serviceSteamCleaningTitleFiveFeatureOne: "Limpieza con boquilla de precisión para esquinas y zócalos.",
+  serviceSteamCleaningTitleFiveFeatureTwo: "Limpieza de rieles de ventanas y juntas de azulejos.",
+  serviceSteamCleaningTitleFiveFeatureThree: "Tratamiento puntual de telas ligeras y tapicería.",
+
+  // Post event cleaning
+  servicePostEventCleaningIntroHeadLine: "Lo único que dejamos atrás es un recinto impecable.",
+  servicePostEventCleaningIntroBody: [
+    "Nuestro servicio de limpieza para eventos especiales está diseñado para garantizar que su espacio quede impecable, permitiéndole concentrarse en disfrutar la ocasión.",
+    "Este servicio integral garantiza un espacio higiénico y bien mantenido, dejando una impresión positiva duradera."
+  ],
+
+  servicePostEventCleaningHighlightTitleOne: "Aspectos destacados de la limpieza posterior a eventos",
+  servicePostEventCleaningHighlightCardTitleTwo: "Antes del evento",
+  servicePostEventCleaningHighlightCardTitleThree: "Justo antes de la llegada de los invitados",
+  servicePostEventCleaningHighlightCardTitleFour: "Durante el evento",
+  servicePostEventCleaningHighlightCardTitleFive: "Después del evento",
+
+  servicePostEventCleaningTitleTwoFeatureOne: "Definir el alcance de la limpieza necesaria según el tipo y tamaño del evento.",
+  servicePostEventCleaningTitleTwoFeatureTwo: "Despejar, despolvar y organizar el espacio.",
+  servicePostEventCleaningTitleTwoFeatureThree: "Aspirar alfombras, barrer y fregar pisos duros.",
+  servicePostEventCleaningTitleTwoFeatureFour: "Limpiar ventanas, superficies de vidrio, sillas y mesas.",
+  servicePostEventCleaningTitleTwoFeatureFive: "Desinfectar superficies de alto contacto (manijas, interruptores, barandillas).",
+
+  servicePostEventCleaningTitleThreeFeatureOne: "Revisión final y retoque de manchas o marcas.",
+  servicePostEventCleaningTitleThreeFeatureTwo: "Volver a verificar los insumos en los baños.",
+  servicePostEventCleaningTitleThreeFeatureThree: "Confirmar que decoraciones y letreros estén limpios y en su lugar.",
+  servicePostEventCleaningTitleThreeFeatureFour: "Guardar el equipo de limpieza fuera de la vista.",
+
+  servicePostEventCleaningTitleFourFeatureOne: "Supervisar y vaciar basureros según sea necesario.",
+  servicePostEventCleaningTitleFourFeatureTwo: "Limpiar derrames inmediatamente.",
+  servicePostEventCleaningTitleFourFeatureThree: "Reponer suministros de baño.",
+  servicePostEventCleaningTitleFourFeatureFour: "Mantener insumos de limpieza rápida a la mano pero ocultos.",
+
+  servicePostEventCleaningTitleFiveFeatureOne: "Limpieza completa posterior al evento (aspirar, fregar, limpiar superficies).",
+  servicePostEventCleaningTitleFiveFeatureTwo: "Limpiar y almacenar equipo alquilado.",
+  servicePostEventCleaningTitleFiveFeatureThree: "Desechar la basura y el reciclaje adecuadamente.",
+  servicePostEventCleaningTitleFiveFeatureFour: "Verificar posibles daños o desgaste excesivo.",
+
+  // Pool cleaning
+  servicePoolCleaningIntroHeadLine: "Mantenga una calidad de agua impecable y extienda la vida útil de los equipos de su piscina.",
+  servicePoolCleaningIntroBody: [
+    "Nuestro servicio de Claridad Acuática ofrece mantenimiento especializado y recurrente para piscinas residenciales y comerciales. Garantizamos la química óptima del agua, la longevidad del equipo y un entorno seguro para nadar.",
+    "Nota sobre precios: Los precios se cotizan por servicio (semanal/quincenal) según el tamaño de la piscina y el conocimiento químico requerido."
+  ],
+
+  servicePoolCleaningHighlightTitleOne: "Aspectos destacados de la limpieza de piscinas",
+  servicePoolCleaningHighlightCardTitleTwo: "Remoción de residuos",
+  servicePoolCleaningHighlightCardTitleThree: "Mantenimiento del filtro",
+  servicePoolCleaningHighlightCardTitleFour: "Fregado de paredes y azulejos",
+  servicePoolCleaningHighlightCardTitleFive: "Balance químico",
+  servicePoolCleaningHighlightCardTitleSix: "Revisión de equipo",
+
+  servicePoolCleaningTitleTwoFeatureOne: "Limpieza de la superficie del agua y aspirado del fondo y paredes de la piscina.",
+  servicePoolCleaningTitleThreeFeatureOne: "Lavadode filtro; vaciado de canastillas de skimmer y bomba.",
+  servicePoolCleaningTitleFourFeatureOne: "Cepillado de paredes y líneas de azulejos para prevenir algas e incrustaciones.",
+  servicePoolCleaningTitleFiveFeatureOne: "Prueba y ajuste de cloro/desinfectante, pH, alcalinidad y dureza de calcio.",
+  servicePoolCleaningTitleSixFeatureOne: "Inspección de bomba, calentador, filtro y temporizador para un funcionamiento correcto.",
+
+  // Precision pressure washing
+  servicePrecisionPressureWashingIntroHeadLine: "Restaurando el brillo: la limpieza más profunda para exteriores, entradas de vehículos y superficies comerciales.",
+  servicePrecisionPressureWashingIntroBody: [
+    "Nuestro servicio de Lavado Exterior utiliza equipos de alta presión de grado profesional, a menudo incluyendo agua caliente y detergentes biodegradables para limpiar con seguridad superficies exteriores duras o de difícil acceso."
+  ],
+
+  servicePrecisionPressureWashingHighlightTitleOne: "Aspectos destacados del lavado a presión de precisión",
+  servicePrecisionPressureWashingHighlightCardTitleTwo: "Lavado suave",
+  servicePrecisionPressureWashingHighlightCardTitleThree: "Entradas y patios",
+  servicePrecisionPressureWashingHighlightCardTitleFour: "Ventanas y canaletas",
+
+  servicePrecisionPressureWashingTitleTwoFeatureOne: "Solución de limpieza suave y ecológica ideal para superficies delicadas — elimina suciedad y moho mientras protege la pintura y acabados.",
+  servicePrecisionPressureWashingTitleThreeFeatureOne: "Lavado a presión de alto rendimiento para eliminar manchas de aceite, algas y mugre en concreto y pavimentos.",
+  servicePrecisionPressureWashingTitleFourFeatureOne: "Limpieza profesional para eliminar residuos y polvo, garantizando vistas claras y un drenaje adecuado.",
+
+  // Child care service
+  serviceChildCareServiceIntroHeadLine: "Cuidado infantil con prioridad en la familia",
+  serviceChildCareServiceIntroBody: [
+    "Brindamos un servicio de cuidado infantil altamente personalizado en el hogar, especializándonos en interacción educativa, flexibilidad de horarios y apoyo integral."
+  ],
+
+  serviceChildCareServiceHighlightTitleOne: "Aspectos destacados del servicio de cuidado infantil",
+  serviceChildCareServiceHighlightCardTitleTwo: "Cuidado de lactantes (3–18 meses)",
+  serviceChildCareServiceHighlightCardTitleThree: "Aprendizaje para niños pequeños (1.5–3 años)",
+  serviceChildCareServiceHighlightCardTitleFour: "Cuidado diario",
+  serviceChildCareServiceHighlightCardTitleFive: "Cuidado después de la escuela",
+  serviceChildCareServiceHighlightCardTitleSix: "Cuidado ocasional",
+  serviceChildCareServiceHighlightCardTitleSeven: "Cuidado de última hora",
+
+  serviceChildCareServiceTitleTwoFeatureOne: "Atención especializada y actividades de desarrollo sensorial para bebés.",
+  serviceChildCareServiceTitleThreeFeatureOne: "Aprendizaje basado en el juego y desarrollo de habilidades sociales.",
+  serviceChildCareServiceTitleFourFeatureOne: "Cuidado de día completo para niños, proporcionando un entorno seguro y protector.",
+  serviceChildCareServiceTitleFiveFeatureOne: "Ayuda con la tarea y actividades creativas para niños en edad escolar.",
+  serviceChildCareServiceTitleSixFeatureOne: "Cuidado flexible a pedido para tardes o fines de semana ocupados.",
+  serviceChildCareServiceTitleSevenFeatureOne: "Cuidado de última hora cuando más lo necesite.",
+
+  // Elder care service
+  serviceElderCareServiceIntroHeadLine: "Acompañamiento compasivo para adultos mayores",
+  serviceElderCareServiceIntroBody: [
+    "Proporcionamos cuidado de apoyo no médico para adultos mayores, enfocándonos en mejorar la calidad de vida, seguridad e independencia mediante compañía y asistencia en tareas cotidianas."
+  ],
+
+  serviceElderCareServiceHighlightTitleOne: "Aspectos destacados del servicio de cuidado de adultos mayores",
+  serviceElderCareServiceHighlightCardTitleTwo: "Cuidado de compañía",
+  serviceElderCareServiceHighlightCardTitleThree: "Cuidado personal",
+  serviceElderCareServiceHighlightCardTitleFour: "Cuidado diario",
+
+  serviceElderCareServiceTitleTwoFeatureOne: "Interacción social y compañía.",
+  serviceElderCareServiceTitleTwoFeatureTwo: "Asistencia en actividades diarias.",
+
+  serviceElderCareServiceTitleThreeFeatureOne: "Baño y aseo personal.",
+  serviceElderCareServiceTitleThreeFeatureTwo: "Recordatorio de medicamentos.",
+  serviceElderCareServiceTitleThreeFeatureThree: "Cuidado de incontinencia.",
+
+  serviceElderCareServiceTitleFourFeatureOne: "Atención de rutina y apoyo en tareas de la vida diaria.",
+  serviceElderCareServiceTitleFourFeatureTwo: "Asistencia con la movilidad y transferencias.",
+
+  // Laundry service
+  serviceLaundryServiceIntroHeadLine: "Lavandería sin esfuerzo, entregada impecable",
+  serviceLaundryServiceIntroBody: [
+    "Su tiempo es valioso — permítanos encargarnos de su lavandería, desde la recogida hasta la entrega fresca y doblada."
+  ],
+
+  serviceLaundryServiceHighlightTitleOne: "Aspectos destacados del servicio de lavandería",
+  serviceLaundryServiceHighlightCardTitleTwo: "Lavado y doblado",
+  serviceLaundryServiceHighlightCardTitleThree: "Lavado en seco premium",
+  serviceLaundryServiceHighlightCardTitleFour: "Planchado a vapor profesional",
+  serviceLaundryServiceHighlightCardTitleFive: "Cuidado de prendas eco-lujo",
+  serviceLaundryServiceHighlightCardTitleSix: "Ropa de cama y mantelería",
+  serviceLaundryServiceHighlightCardTitleSeven: "Recogida y entrega exprés",
+
+  serviceLaundryServiceTitleTwoFeatureOne: "Ropa diaria limpiada, secada y doblada expertamente para su conveniencia.",
+  serviceLaundryServiceTitleThreeFeatureOne: "Limpieza especializada para telas delicadas, trajes y vestidos de noche.",
+  serviceLaundryServiceTitleFourFeatureOne: "Planchado de precisión y prensado a vapor para un acabado profesional libre de arrugas.",
+  serviceLaundryServiceTitleFiveFeatureOne: "Limpieza suave utilizando detergentes ecológicos que preservan los textiles de lujo.",
+  serviceLaundryServiceTitleSixFeatureOne: "Limpieza intensiva para artículos voluminosos como edredones, cortinas y sábanas.",
+  serviceLaundryServiceTitleSevenFeatureOne: "Servicio programado puerta a puerta que se integra perfectamente en su agenda.",
+
+  // Move-in / move-out transport service
+  serviceMoveInOutTransportServiceIntroHeadLine: "Logística de mudanza fluida / Transporte de transición",
+  serviceMoveInOutTransportServiceIntroBody: [
+    "Proporcionamos gestión de transporte y transición a medida para clientes residenciales y comerciales. La tarifa se determina mediante una cotización basada en la complejidad, volumen y distancia."
+  ],
+
+  serviceMoveInOutTransportServiceHighlightTitleOne: "Aspectos destacados del servicio de transporte y mudanza",
+  serviceMoveInOutTransportServiceHighlightCardTitleTwo: "Empaque de bienes",
+  serviceMoveInOutTransportServiceHighlightCardTitleThree: "Móvil de bienes",
+  serviceMoveInOutTransportServiceHighlightCardTitleFour: "Transporte de bienes",
+  serviceMoveInOutTransportServiceHighlightCardTitleFive: "Comercial / Oficinas",
+
+  serviceMoveInOutTransportServiceTitleTwoFeatureOne: "Artículos frágiles envueltos y empacados de forma segura con etiquetado claro de contenido y destino.",
+  serviceMoveInOutTransportServiceTitleThreeFeatureOne: "Bienes cargados cuidadosamente y asegurados en vehículos para evitar desplazamientos.",
+  serviceMoveInOutTransportServiceTitleFourFeatureOne: "Carga segura con distribución adecuada de peso, cumpliendo con las normas de tránsito.",
+  serviceMoveInOutTransportServiceTitleFiveFeatureOne: "Equipo de oficina empacado y transportado eficientemente para minimizar interrupciones.",
+
+  // High-security property care
+  serviceHighSecurityPropertyCareIntroHeadLine: "Personal verificado | Discreción completa | Calidad sin concesiones",
+  serviceHighSecurityPropertyCareIntroBody: [
+    "Limpieza especialista diseñada para clientes VVIP, instalaciones gubernamentales y residencias privadas. A cargo de personal verificado por seguridad bajo acuerdos de confidencialidad. Contáctenos para una consulta confidencial."
+  ],
+
+  serviceHighSecurityPropertyCareHighlightTitleOne: "Aspectos destacados del cuidado de propiedades de alta seguridad",
+  serviceHighSecurityPropertyCareHighlightCardTitleTwo: "Personal verificado y privacidad",
+  serviceHighSecurityPropertyCareHighlightCardTitleThree: "Instalaciones de alta seguridad",
+  serviceHighSecurityPropertyCareHighlightCardTitleFour: "Respuesta a emergencias y materiales peligrosos",
+  serviceHighSecurityPropertyCareHighlightCardTitleFive: "Desinfección de dispositivos digitales",
+
+  serviceHighSecurityPropertyCareTitleTwoFeatureOne: "Técnicos 100% con antecedentes verificados y firmantes de acuerdos de confidencialidad.",
+  serviceHighSecurityPropertyCareTitleTwoFeatureTwo: "Protocolos estrictos de confidencialidad para proteger datos físicos y digitales.",
+
+  serviceHighSecurityPropertyCareTitleThreeFeatureOne: "Limpieza especializada para salas de servidores y oficinas confidenciales.",
+  serviceHighSecurityPropertyCareTitleThreeFeatureTwo: "Extracción de polvo submicrónico para hardware sensible.",
+
+  serviceHighSecurityPropertyCareTitleFourFeatureOne: "Despacho rápido 24/7 para robos, derrames biológicos y escenas de incidentes.",
+  serviceHighSecurityPropertyCareTitleFourFeatureTwo: "Protección inmediata del sitio y documentación fotográfica para seguros.",
+
+  serviceHighSecurityPropertyCareTitleFiveFeatureOne: "Depuración en el sitio o remota de virus y programas maliciosos.",
+  serviceHighSecurityPropertyCareTitleFiveFeatureTwo: "Borrado completo de datos y restauración de privacidad en dispositivos infectados.",
+
+  // Luxury yacht cleaning
+  serviceLuxuryYachtCleaningIntroHeadLine: "Perfección y brillo instantáneo a nivel de yate",
+  serviceLuxuryYachtCleaningIntroBody: [
+    "El mantenimiento de una embarcación de lujo requiere un cuidado implacable y detalles sin concesiones. Ya sea preparando su yate para un chárter o requiriendo limpieza interior discreta, nuestros especialistas marinos están listos para intervenir.",
+    "Especializados en restauración de cascos, tratamiento de teca y desinfección interior. Personal capacitado en protocolos de seguridad marítima.",
+    "Cuando la precisión marina más importa, elija al equipo de confianza."
+  ],
+
+  serviceLuxuryYachtCleaningHighlightTitleOne: "Lista de verificación para yates de lujo (Máxima precisión)",
+  serviceLuxuryYachtCleaningHighlightCardTitleTwo: "Exterior y superestructura",
+  serviceLuxuryYachtCleaningHighlightCardTitleThree: "Camarotes VIP interiores",
+  serviceLuxuryYachtCleaningHighlightCardTitleFour: "Sala de máquinas y zonas técnicas",
+  serviceLuxuryYachtCleaningHighlightCardTitleFive: "Entrega rápida posterior al chárter",
+
+  serviceLuxuryYachtCleaningTitleTwoFeatureOne: "Lavado de grado marino, neutralización de depósitos de sal y secado sin marcas.",
+  serviceLuxuryYachtCleaningTitleTwoFeatureTwo: "Pulido de acero inoxidable, claridad de vidrios y fregado de cubiertas de teca.",
+
+  serviceLuxuryYachtCleaningTitleThreeFeatureOne: "Servicio de limpieza impecable para cabinas VIP, suites principales y cocina.",
+  serviceLuxuryYachtCleaningTitleThreeFeatureTwo: "Limpieza profunda de tapicería delicada, cuero fino, mármol y maderas personalizadas.",
+
+  serviceLuxuryYachtCleaningTitleFourFeatureOne: "Desengrase de sentinas en sala de máquinas y limpieza de maquinaria.",
+  serviceLuxuryYachtCleaningTitleFourFeatureTwo: "Contención ecológica de residuos peligrosos cumpliendo estándares marinos.",
+
+  serviceLuxuryYachtCleaningTitleFiveFeatureOne: "Limpieza de emergencia 24/7 entre reservas de chárter.",
+  serviceLuxuryYachtCleaningTitleFiveFeatureTwo: "Cambio completo de ropa de cama, desinfección y preparación de suministros.",
+
+  // Testimonials & About section details
+  completedTestimonial: "Completado",
+  propertyType: "Limpieza profunda de ático moderno",
+
   aboutOurServices: "Nuestros servicios",
   aboutOurServicesContent: "En Pearly Sky, entendemos que mantener un entorno impecable es esencial para la productividad y el bienestar. Ya sea que necesite una limpieza rutinaria del hogar, una limpieza profunda integral de la oficina o servicios especializados para propiedades de alto nivel, nuestro equipo ofrece una calidad inigualable. Utilizamos productos de limpieza ecológicos de calidad de lujo, seguros para su familia, mascotas y lugar de trabajo, garantizando una limpieza completa sin productos químicos dañinos. Nuestro personal está rigurosamente capacitado, completamente verificado y enfocado en brindar un servicio confiable y eficiente en todo momento. Nos enorgullecemos de la atención al detalle, transformando cada espacio en un santuario impecable, sin importar el tamaño o la complejidad.",
 
+  // About / why choose us
   aboutWhyChooseUsTitle: "Por qué elegirnos",
   aboutEcoLabel: "Productos de limpieza ecológicos",
   aboutEcoDesc: "Soluciones de alta calidad, sostenibles y seguras para su hogar.",
@@ -177,6 +749,7 @@ export const es = {
   aboutSupportLabel: "Soporte al cliente 24/7",
   aboutSupportDesc: "Tranquilidad las 24 horas del día siempre que necesite asistencia.",
 
+  // Sectors
   sectorsTitle: "Nuestros sectores de servicios",
   sectorCommercialTitle: "Comercial y utilidades mixtas",
   sectorCommercialDesc: "Construir espacios eficientes que impulsan el crecimiento y la innovación.",
@@ -201,14 +774,17 @@ export const es = {
   sectorRetailTitle: "Retail",
   sectorRetailDesc: "Redefinir la experiencia de compra con innovación y conveniencia.",
 
+  // Moments of Excellence
   momentsOfExcellenceTitle: "Momentos de excelencia",
 
+  // Testimonials
   testimonialsTitle: "Experiencias de clientes",
   testimonialsReadAll: "Leer todas las reseñas",
   review1Text: "La limpieza fue excelente y las personas que trabajaron fueron tan amables y agradables. Nos sentimos muy bien atendidos. ¡Recomiendo!!",
   review2Text: "Reservé un servicio de limpieza en septiembre de 2024. Dos limpiadores hicieron un excelente trabajo durante 5 horas. También se limpiaron las ventanas y el refrigerador.",
   review3Text: "Equipo profesional, servicio puntual y resultados impecables. Altamente recomendado.",
 
+  // Contact
   contactTitle: "Póngase en contacto con nosotros",
   contactNameLabel: "Nombre *",
   contactNamePlaceholder: "Introduzca su nombre completo",
@@ -227,13 +803,16 @@ export const es = {
   contactMail: "EMAIL",
   contactConnect: "CONÉCTESE CON NOSOTROS:",
 
+  // Footer
   footerRights: "Todos los derechos reservados.",
   footerQuickLinksTitle: "Enlaces rápidos",
   footerTermsLink: "Términos y condiciones",
   footerPrivacyLink: "Política de privacidad",
 
+  // About Us page
   aboutPageEyebrow: "SOBRE LOS SERVICIOS DE LIMPIEZA PEARLY SKY",
   aboutPageHeroTitle: "Su socio de confianza en limpieza",
+
   aboutPageIdentityTitle: "Nuestra identidad central",
   aboutPageIdentitySubtitle: "Donde la limpieza se encuentra con el lujo",
   aboutPageIdentityIntro: "En Pearly Sky, creemos que la verdadera limpieza es una forma de arte — la base de un entorno saludable, productivo y sereno.",
@@ -258,16 +837,20 @@ export const es = {
   aboutWhy4Text: "Ofrecemos tarifas competitivas que ofrecen un servicio premium sin comprometer la calidad.",
   aboutWhy5Title: "Disponibilidad 24/7",
   aboutWhy5Text: "Estamos aquí para usted, ofreciendo un servicio confiable y rápido, siempre que nos necesite.",
+
   aboutWhy6Title: "Seguridad intransigente",
   aboutWhy6Text: "Su privacidad y propiedad son primordiales. Cada miembro del personal es minuciosamente verificado, asegurado y capacitado para respetar sus espacios confidenciales.",
+
   aboutPageVisionMissionTitle: "Visión, misión y valores",
   aboutPageVisionTitle: "Nuestra visión",
   aboutVisionText: "Entregamos excelencia. Nos esforzamos por una calidad excepcional y resultados sobresalientes para todos nuestros clientes y socios, creando espacios que realmente brillan.",
   aboutPageMissionTitle: "Nuestra misión",
   aboutMissionText: "Lideramos a través de un servicio excepcional e innovación creativa, impulsando el progreso y el éxito compartido en nuestros sectores de limpieza y transporte.",
   aboutPageValuesTitle: "SU SOCIO DE CONFIANZA EN LIMPIEZA",
+
   aboutPageSectionHeader: "SOBRE LOS SERVICIOS DE LIMPIEZA PEARLY SKY",
   aboutPageSectionSubHeader: "SOBRE LOS SERVICIOS DE LIMPIEZA PEARLY SKY",
+
   aboutValue1: "Diversidad, inclusión y equidad",
   aboutValue2: "Responsabilidad",
   aboutValue3: "Sostenibilidad",
@@ -283,6 +866,7 @@ export const es = {
   aboutPageCtaSubtitle: "Contáctenos hoy para programar su servicio personalizado de limpieza eco-lujo o transporte.",
   aboutPageCtaButton: "Contáctenos",
 
+  // Our Customers page
   customersPageTitle: "Nuestros clientes",
   customersClienteleTitle: "Nuestra clientela incluye",
   customersClientele1: "Familias de ultra alto patrimonio neto y propiedades privadas",
@@ -294,6 +878,19 @@ export const es = {
   customersGalleryTitle: "Momentos de excelencia",
   customersTestimonialsTitle: "Lo que dicen nuestros clientes",
 
+  // Marquee comments
+  customerComment2: "Reservé un servicio de limpieza en septiembre de 2024. Dos limpiadores hicieron un excelente trabajo durante 5 horas. Las ventanas y el refrigerador también quedaron limpios.",
+  customerComment3: "Equipo profesional, servicio puntual y resultados impecables. Altamente recomendado.",
+  customerComment4: "Personal muy amable y servicio confiable. La casa se sintió fresca y perfectamente limpia.",
+  customerComment1: "La limpieza fue excelente y las personas que trabajaron fueron tan amables y agradables. Nos sentimos muy bien atendidos. ¡Recomiendo!!",
+
+  // Partner with us
+  whyPartnerWithUsTitle: "¿Por qué asociarse con nosotros?",
+  ecoCertified: "Eco-Certificado: Compromiso con productos de limpieza certificados y no tóxicos",
+  transparentAndReliable: "Transparente y confiable: Precios claros y disponibilidad garantizada de servicios profesionales.",
+  qualityAssured: "Garantía de calidad: Profesionales de limpieza capacitados y rigurosamente seleccionados.",
+
+  // Our Locations page
   locationsPageTitle: "Nuestras ubicaciones globales",
   locationsPageSubtitle: "Encuentre su país y ciudad",
   locationsSearchCountryPlaceholder: "Buscar país...",
@@ -303,9 +900,11 @@ export const es = {
   locationsEurope: "Europa",
   locationsAsiaPacific: "Asia-Pacífico",
   locationsAmericas: "Américas",
+
   locationSearchHeaderText: "NUESTRAS UBICACIONES GLOBALES",
   locationSearchSubHeaderText: "Encuentre su país y ciudad",
 
+  // Blog
   blogPageTitle: "Pristine Insights: El Blog de Pearly Sky",
   blogPageSubtitle: "Últimos consejos de limpieza, perspectivas de la industria y noticias de la empresa sobre el cuidado eco-lujo.",
   blogRecentArticles: "Artículos recientes",
@@ -313,6 +912,7 @@ export const es = {
   blogBackToBlog: "Volver al blog",
   blogViewAll: "Ver todos los artículos",
 
+  // Careers
   careersPageTitle: "Únase a nuestro equipo",
   careersPageSubtitle: "Construya su carrera con Pearly Sky",
   careersSearchTitlePlaceholder: "Título del puesto...",
@@ -325,48 +925,22 @@ export const es = {
   careersBenefits: "Por qué unirse a nosotros",
   careersAboutCompany: "Sobre Pearly Sky",
   careersApplyPageTitle: "Aplicar a este puesto",
-  careersApplyInstructions: "Complete sus datos a continuación. Cuando se abra su aplicación de correo electrónico, adjunte su CV/currículum antes de enviar.",
+  careersApplyInstructions: "Complete sus datos a continuación. Cuando se abra su aplicación de correo electrónico, adjunte su CV/currículum antes de enviar — este formulario no puede cargar archivos directamente.",
   careersApplySend: "ENVIAR SOLICITUD",
   careersRoleLabel: "Rol *",
 
+  // Contact Us page
   contactPageTitle: "Contacte a nuestro equipo de concierge",
   contactOfficesTitle: "Nuestras oficinas",
+
+  // Footer extra
   quickConnect: "Contacto rápido y conexión",
   writeUs: "ESCRÍBANOS",
   connectWithUs: "CONÉCTESE CON NOSOTROS",
   numberNow: "Número de Pearly Sky ahora",
   supportPayementMethods: "Métodos de pago admitidos",
 
-  serviceHighlightSectionHeader: "Lista de verificación del paquete estándar",
-  serviceIntroBottomText: "Establezca su horario recurrente",
-  hourPerCleaner: "Hora por limpiador",
-  serviceRegularCleaningIntroHeadLine: "El retoque semanal: limpieza constante y tranquilidad sostenible.",
-  serviceRegularCleaningIntroBody: "Deje de estresarse por las tareas diarias. Nuestro servicio de limpieza residencial estándar establece un horario recurrente confiable que mantiene su hogar impecable sin esfuerzo. Utilizamos exclusivamente productos ecológicos y certificados para ofrecer una limpieza profunda y deslumbrante 100% segura para niños y mascotas.",
-  serviceRegularCleaningHighlightTitleOne: "Aspectos destacados de la limpieza habitual del hogar",
-  serviceRegularCleaningHighlightCardTitleOne: "Cuidado general del hogar",
-  serviceRegularCleaningHighlightCardTitleTwo: "Puntos clave de contacto",
-  serviceRegularCleaningHighlightCardTitleThree: "Cocina y comedor",
-  serviceRegularCleaningHighlightCardTitleFour: "Limpieza de baños",
-  serviceRegularCleaningTitleOneFeatureOne: "Despolvado",
-  serviceRegularCleaningTitleOneFeatureTwo: "Limpieza de superficies (incluyendo vidrios).",
-  serviceRegularCleaningTitleOneFeatureThree: "Orden ligero.",
-  serviceRegularCleaningTitleOneFeatureFour: "Retiro de basura y cuidado de pisos (aspirado/fregado).",
-  serviceRegularCleaningTitleTwoFeatureOne: "Tendido de camas, gestión de sábanas y desinfección focalizada de superficies de alto contacto.",
-  serviceRegularCleaningTitleThreeFeatureOne: "Cuidado exterior de electrodomésticos.",
-  serviceRegularCleaningTitleThreeFeatureTwo: "Desinfección de encimeras y lavabos.",
-  serviceRegularCleaningTitleThreeFeatureThree: "Organización de vajilla y limpieza completa de pisos.",
-  serviceRegularCleaningTitleFourFeatureOne: "Desinfección total y enfoque en higiene.",
-  serviceRegularCleaningTitleFourFeatureTwo: "Limpieza de inodoro, lavabo, ducha y bañera.",
-  serviceRegularCleaningTitleFourFeatureThree: "Limpieza de espejos y colocación de toallas limpias.",
-  customerComment1: "La limpieza fue excelente y las personas que trabajaron fueron tan amables y agradables. Nos sentimos muy bien atendidos. ¡Recomiendo!!",
-  customerComment2: "Reservé un servicio de limpieza en septiembre de 2024. Dos limpiadores hicieron un excelente trabajo durante 5 horas. Las ventanas y el refrigerador también quedaron limpios.",
-  customerComment3: "Equipo profesional, servicio puntual y resultados impecables. Altamente recomendado.",
-  customerComment4: "Personal muy amable y servicio confiable. La casa se sintió fresca y perfectamente limpia.",
-  whyPartnerWithUsTitle: "¿Por qué asociarse con nosotros?",
-  ecoCertified: "Eco-Certificado: Compromiso con productos de limpieza certificados y no tóxicos",
-  transparentAndReliable: "Transparente y confiable: Precios claros y disponibilidad garantizada de servicios profesionales.",
-  qualityAssured: "Garantía de calidad: Profesionales de limpieza capacitados y rigurosamente seleccionados.",
-
+  // Booking & Date/Time Section
   dateTimeSelectTitle: "Seleccione fecha y hora para reservar su cita",
   dateTimeSelectDate: "Seleccione su fecha",
   dateTimeSelectTime: "Seleccione su franja horaria",
@@ -390,6 +964,8 @@ export const es = {
   weekdayFr: "Vi",
   weekdaySa: "Sá",
   weekdaySu: "Do",
+
+  // Booking & Property Selection
   propertyTypeTitle: "Tipo de propiedad",
   propertySizeTitle: "Tamaño de la propiedad",
   propertySwipeBrowse: "‹ Deslice para explorar ›",
@@ -403,6 +979,8 @@ export const es = {
   propertyTypeVilla: "Villa",
   propertyTypeEstate: "Finca / Mansión",
   propertyTypeVip: "VIP",
+
+  // Booking Equipment & Solvents
   equipmentByClient: "POR EL CLIENTE",
   equipmentByCompany: "POR LA EMPRESA",
   equipmentProvidedByCustomer: "Proporcionado por el cliente",
@@ -416,6 +994,8 @@ export const es = {
   equipmentBookNowBtn: "Reservar ahora",
   equipmentProceedCheckout: "Proceder al pago",
   equipmentProcessing: "Procesando...",
+
+  // Booking Preferences
   preferencesTitle: "Preferencias",
   preferencesGender: "Preferencia de género",
   preferencesLanguage: "Preferencia de idioma",
@@ -430,6 +1010,705 @@ export const es = {
   genderPreferNotToDisclose: "Prefiero no decirlo",
   staffGenderFemale: "Personal femenino",
   staffGenderMale: "Personal masculino",
+
+  // HealthGuard & Disinfection Levels
+  disinfectionSelectLevelTitle: "Seleccione el nivel de servicio deseado",
+  disinfectionSelectLevelSub: "Determine la frecuencia e intensidad de la limpieza requerida.",
+  disinfectionQuatTitle: "Amonio Cuaternario (Quat) – Estándar",
+  disinfectionQuatDesc: "Económico, probado, de bajo olor.",
+  disinfectionPeroxideTitle: "Peróxido de Hidrógeno (H₂O₂) – Premium",
+  disinfectionPeroxideDesc: "Rápido tiempo de acción, sin residuos químicos.",
+  disinfectionHypochlorousTitle: "Ácido Hipocloroso (HOCl) – Avanzado",
+  disinfectionHypochlorousDesc: "No tóxico, potente para nebulización / tratamiento de aire.",
+  disinfectionBotanicalTitle: "Botánico / A base de Tomillo – Ecológico",
+  disinfectionBotanicalDesc: "Certificado ecológico, ingredientes naturales.",
+  facilitySelectTitle: "Seleccione el tipo de instalación que necesita limpiar",
+  facilitySelectSub: "Elija la categoría e instalación específica para garantizar el uso de los equipos y protocolos correctos.",
+  facilityClearSelection: "Borrar selección",
+
+  // Event Cleaning
+  eventSelectTypeTitle: "SELECCIÓN DEL TIPO DE EVENTO",
+  eventSelectTypeSub: "Elija el tipo de evento para asegurar el tamaño de equipo adecuado y los protocolos de limpieza.",
+
+  // Request Quotation Form & Steps
+  quoteFormTitle: "Detalles de la solicitud de servicio",
+  quoteFormStepDateTime: "1. Fecha y hora",
+  quoteFormStepEquipment: "2. Productos químicos y equipo",
+  quoteFormSelectEquipment: "Seleccionar equipos y materiales",
+  quoteFormProvidedByCustomer: "Proporcionado por el cliente",
+  quoteFormRequestCompany: "Solicitar a la empresa",
+  quoteFormStepPropertyScale: "3. Escala de la propiedad",
+  quoteFormTotalPropertyArea: "Área total de la propiedad",
+  quoteFormStepProfessionals: "4. Profesionales asignados",
+  quoteFormCleaners: "Limpiadores",
+  quoteFormServiceSpecialists: "Especialistas de servicio",
+  quoteFormStepDuration: "5. Duración del limpiador",
+  quoteFormHours: "Horas",
+  quoteFormTotalManHours: "Horas de trabajo totales esperadas",
+  quoteFormStepCoordination: "6. Coordinación y preferencias",
+  quoteFormStaffGender: "Preferencia de género del personal",
+  quoteFormLanguageCoordination: "Coordinación lingüística",
+  quoteFormSpecialInstructions: "Instrucciones especiales o áreas de enfoque",
+  quoteFormStepLocation: "7. Ubicación de la residencia",
+  quoteFormPickupAddress: "Dirección de recogida",
+  quoteFormDeliveryAddress: "Dirección de entrega",
+  quoteFormStreetAddress: "Dirección",
+  quoteFormUnitApt: "Unidad / Dpto",
+  quoteFormCity: "Ciudad",
+  quoteFormPostalCode: "Código postal",
+  quoteFormCountry: "País",
+  quoteFormState: "Provincia / Estado",
+  quoteFormStepContact: "8. Perfil de contacto",
+  quoteFormFirstName: "Nombre",
+  quoteFormLastName: "Apellido",
+  quoteFormEmail: "Correo electrónico",
+  quoteFormPhone: "Número de teléfono",
+  quoteFormAgreeTerms: "Acepto los Términos y Condiciones y la Política de Privacidad.",
+  quoteFormSubmitBtn: "Solicitar una cotización",
+  quoteFormProcessing: "Procesando...",
+  quoteFormReceivedTitle: "Solicitud de cotización recibida",
+  quoteFormReceivedDesc: "Nuestro equipo de concierge revisará su solicitud y le responderá con una cotización personalizada en un plazo de 24 horas.",
+
+  checkoutLogisticsMarketing: "Logística y Marketing",
+  checkoutHowGetIn: "¿Cómo ingresaremos?",
+  checkoutHowHeard: "¿Cómo se enteró de nosotros?",
+  checkoutServiceDetails: "Detalles del servicio",
+  checkoutScheduleMode: "Modo de programación",
+  checkoutServiceDuration: "Duración del servicio",
+  checkoutStartEndTime: "Seleccionar hora de inicio y fin",
+  checkoutSelectedServices: "Servicios seleccionados",
+  checkoutBookingDetails: "Detalles de la reserva",
+  checkoutAgreeTo: "Acepto los",
+  checkoutAnd: "y",
+  poolSectionTitle: "Servicios expertos de limpieza de piscinas para",
+  poolSelectingJob: "Seleccionando su tarea",
+  poolServiceDetails: "Detalles del servicio de piscina",
+  poolQuantity: "Cantidad",
+  poolSave: "Guardar",
+  poolFieldPoolSize: "Tamaño de la piscina",
+  poolFieldWaterCondition: "Condición del agua",
+  poolConditionHeavyAlgaeDebris: "Algas densas / Residuos abundantes",
+  poolConditionHeavyOilDeepGrime: "Aceite denso / Suciedad profunda",
+  poolTypeKiddiePools: "Piscinas infantiles",
+  poolTypeAboveGroundSwimmingPools: "Piscinas sobre el suelo",
+  poolTypeLapPools: "Piscinas de natación",
+  poolTypeInGroundPools: "Piscinas enterradas",
+  poolTypeFamilySwimmingPools: "Piscinas familiares",
+  poolTypeIndoorPools: "Piscinas techadas",
+  poolTypeOlympicSizePools: "Piscinas olímpicas",
+  poolTypeArchitecturalPools: "Piscinas arquitectónicas",
+  poolTypeInfinityPools: "Piscinas infinitas",
+  poolTypeNaturalPools: "Piscinas naturales",
+  poolTypeSpoolSmallPool: "Spool (Piscina pequeña)",
+  poolTypeSaltwaterPools: "Piscinas de agua salada",
+  poolTypePlungePools: "Piscinas de inmersión",
+  poolAddonJacuzziCleaning: "Limpieza de Jacuzzi",
+  poolAddonSteamRoomCleaning: "Limpieza de baño de vapor",
+  poolAddonSaunaRoomCleaning: "Limpieza de Sauna",
+
+  // Quotation Details Card
+  quoteDetailsTitle: "Detalles de la cotización",
+  quoteDetailService: "Servicio",
+  quoteDetailDate: "Fecha",
+  quoteDetailTime: "Hora",
+  quoteDetailJobDetails: "Detalles del trabajo",
+  quoteDetailNotSpecified: "No especificado",
+  quoteDetailPropertyType: "Tipo de propiedad",
+  quoteDetailPropertySize: "Tamaño de la propiedad",
+  quoteDetailPreferences: "Preferencias",
+  quoteDetailDuration: "Duración",
+  quoteDetailGenderPreference: "Preferencia de género",
+  quoteDetailLanguagePreference: "Preferencia de idioma",
+  quoteDetailSpecialRequirements: "Requisitos especiales",
+  quoteDetailEquipment: "Disolventes y equipos de limpieza",
+  quoteDetailAdded: "Añadido",
+  quoteDetailAdd: "Añadir",
+  quoteDetailSending: "Enviando…",
+  quoteDetailReference: "Referencia de cotización",
+
+  // Form Submission & Validation Texts
+  formSubmittedSuccess: "¡Formulario enviado con éxito!",
+  commonBack: "Atrás",
+  commonContinue: "Continuar",
+  formSubmitFillDetails: "Complete los siguientes detalles",
+  formSubmitPropertyClassification: "Clasificación de la propiedad",
+  formSubmitServiceContinuityPlan: "Plan de continuidad del servicio",
+  formSubmitStaffGender: "Preferencia de género del personal",
+  formSubmitLinguisticCoordination: "Coordinación lingüística",
+  formSubmitUploadDocs: "Cargar imágenes o documentos",
+  formSubmitUploadClickDrag: "Haga clic para cargar o arrastre y suelte",
+  formSubmitUploadMaxSize: "Tamaño máximo de archivo: 5MB",
+  formSubmitServiceRequirements: "Requisitos y detalles del servicio",
+  formSubmitEnterRequirementsPlaceholder: "Ingrese los requisitos del servicio",
+  formSubmitAcceptTerms: "Al seleccionar esto, acepto los términos y condiciones",
+  formSubmitClientPaymentBtn: "Cliente y Pago →",
+  formSubmitPreferredLanguageContact: "Idioma preferido de contacto *",
+  formSubmitCareGender: "Género del profesional de cuidado *",
+  formSubmitSpecialRequest: "Solicitud especial *",
+  formSubmitSupportPaymentMethod: "Métodos de pago admitidos",
+
+  // Options
+  planOneTime: "Una sola vez",
+  planEvery6to12Months: "cada 6-12 meses",
+  classResidential: "Residencial",
+  classCommercial: "Comercial",
+  classSpatial: "Espacial",
+  classOther: "Otro",
+
+  // Care Special Request Options
+  specialReqNone: "Ninguna / Sin solicitud específica",
+  specialReqFirstAid: "Certificación en Primeros Auxilios y RCP",
+  specialReqSpecialNeeds: "Cuidador certificado en necesidades especiales",
+  specialReqBilingual: "Cuidador bilingüe",
+  specialReqPetFriendly: "Cuidador amigable con mascotas",
+  specialReqDriverLicense: "Licencia de conducir válida requerida",
+  specialReqNonSmoker: "Solo no fumadores",
+
+  // Form Validation Errors
+  quoteErrorDate: "Por favor seleccione una fecha",
+  quoteErrorTime: "Por favor seleccione una hora",
+  quoteErrorStreet: "Por favor ingrese su dirección",
+  quoteErrorCity: "Por favor ingrese su ciudad",
+  quoteErrorPostal: "Por favor ingrese su código postal",
+  quoteErrorFirstName: "Por favor ingrese su nombre",
+  quoteErrorLastName: "Por favor ingrese su apellido",
+  quoteErrorEmail: "Por favor ingrese su correo electrónico",
+  quoteErrorEmailValid: "Por favor ingrese un correo electrónico válido",
+  quoteErrorPhone: "Por favor ingrese su número de teléfono",
+  quoteErrorTerms: "Debe aceptar los Términos y Condiciones y la Política de Privacidad para enviar una solicitud de cotización.",
+  formSubmitErrorFileSize: "El tamaño del archivo excede el límite de 5MB.",
+  formSubmitErrorClassification: "Por favor seleccione una clasificación de propiedad.",
+  formSubmitErrorContinuity: "Por favor seleccione un plan de continuidad del servicio.",
+  formSubmitErrorStaffGender: "Por favor seleccione una preferencia de género del personal.",
+  formSubmitErrorLanguage: "Por favor seleccione la coordinación lingüística.",
+  formSubmitErrorTermsRequired: "Debe aceptar los términos y condiciones para continuar.",
+  formSubmitErrorCareGender: "Por favor seleccione una preferencia de género del profesional de cuidado.",
+  formSubmitErrorSpecialRequest: "Por favor seleccione una opción de solicitud especial.",
+
+  // EquipmentSection & EventbookSection
+  equipSelectedServices: "SERVICIOS SELECCIONADOS",
+  equipPropertyScale: "ESCALA DE LA PROPIEDAD",
+  equipTotalServiceDuration: "DURACIÓN TOTAL DEL SERVICIO",
+  equipAllocatedProfessionals: "PROFESIONALES ASIGNADOS",
+  equipCleanerDuration: "DURACIÓN DEL LIMPIADOR (EN EL SITIO)",
+  equipPriceRange: "RANGO DE PRECIOS DE DURACIÓN DE LIMPIEZA",
+  equipChemicalsAndEquipments: "PRODUCTOS QUÍMICOS Y EQUIPOS DE LIMPIEZA",
+  equipByClient: "POR EL CLIENTE",
+  equipByCompany: "POR LA EMPRESA",
+  equipEstimatedPriceRange: "RANGO DE PRECIOS ESTIMADO",
+  equipBookNow: "RESERVAR AHORA",
+  equipBooking: "Reservando…",
+  equipQualityGuarantee: "GARANTÍA DE CALIDAD FIRMADA POR 20 AÑOS",
+  equipGuaranteeDesc1: "Debido a que cada residencia de élite tiene requisitos únicos, su precio final refleja la condición real de su espacio.",
+  equipGuaranteeDesc2: "Su reserva asegura su franja horaria. Al finalizar, su profesional sénior confirmará la duración exacta en el sitio y le entregará una factura precisa.",
+  equipServiceInfo: "Información del servicio",
+
+  // PropertyTypeSizeSelector
+  propTypeTitle: "Tipo de propiedad",
+  propTypeSwipe: "‹ Deslice para explorar ›",
+  propSizeTitle: "Tamaño de la propiedad",
+  propSizeUp: "ARRIBA",
+  propSizeDown: "ABAJO",
+
+  // FacilitySelectionSection
+  facilityCategoryHealthcare: "Salud e Instalaciones Especializadas",
+  facilityCategoryHealthcareDesc: "Para entornos que requieren el nivel más alto de limpieza y cumplimiento regulatorio.",
+  facilityCategoryCommercial: "Comercial y Espacios de Trabajo",
+  facilityCategoryCommercialDesc: "Para oficinas, sedes corporativas y propiedades gubernamentales.",
+  facilityCategoryHospitality: "Hospitalidad, Retail y Servicios de Comida",
+  facilityCategoryHospitalityDesc: "Para empresas que dependen de la confianza pública y una presentación impecable.",
+  facilityCategoryCommunity: "Comunidad y Espacios Públicos",
+  facilityCategoryCommunityDesc: "Para instalaciones con alto tráfico peatonal y uso compartido.",
+
+  facilityHospitalTitle: "Hospitales y Clínicas General",
+  facilityHospitalDesc: "Desinfección para habitaciones de pacientes, áreas de espera y zonas de alto tráfico.",
+  facilityDentalTitle: "Consultorios Dentales y Médicos",
+  facilityDentalDesc: "Desinfección de salas de operación, áreas de espera y superficies clínicas.",
+  facilityLabsTitle: "Laboratorios y Farmacéuticas",
+  facilityLabsDesc: "Limpieza especializada para salas limpias, laboratorios e instalaciones farmacéuticas.",
+  facilityBiohazardTitle: "Limpieza de Riesgos Biológicos",
+  facilityBiohazardDesc: "Desinfección posterior a incidentes (ej. escenas de crimen, enfermedades infecciosas).",
+  facilityOfficeTitle: "Oficinas Generales y Sede Central",
+  facilityOfficeDesc: "Desinfección diaria, semanal o profunda de estaciones de trabajo, comedores y áreas comunes.",
+  facilityGovernmentTitle: "Edificios Gubernamentales",
+  facilityGovernmentDesc: "Servicios de limpieza para áreas de servicio público e instalaciones gubernamentales seguras.",
+  facilityFactoryTitle: "Fábricas y Almacenes",
+  facilityFactoryDesc: "Desinfección de pisos de producción, equipos y oficinas administrativas.",
+  facilityPostTitle: "Limpieza Posterior a Desastres",
+  facilityPostDesc: "Desinfección después de daños por agua, fuego o humo.",
+  facilityHotelTitle: "Hoteles y Resorts",
+  facilityHotelDesc: "Limpieza profunda y desinfección de habitaciones, vestíbulos y áreas de servicios.",
+  facilityRetailTitle: "Tiendas Minoristas y Centros Comerciales",
+  facilityRetailDesc: "Desinfección de probadores, mostradores de pago y exhibiciones de alto contacto.",
+  facilityRestaurantTitle: "Restaurantes y Cafeterías",
+  facilityRestaurantDesc: "Limpieza profunda de cocina, desinfección de comedores y baños.",
+  facilityFoodTitle: "Plantas de Procesamiento de Alimentos",
+  facilityFoodDesc: "Desinfección programada de alto estándar para instalaciones de producción de alimentos.",
+  facilityTransportTitle: "Vehículos de Transporte",
+  facilityTransportDesc: "Desinfección de autobuses, trenes, aviones y flotas de vehículos de la empresa.",
+  facilitySchoolTitle: "Escuelas y Guarderías",
+  facilitySchoolDesc: "Desinfección de aulas, gimnasios y equipos de juego para proteger a los niños.",
+  facilityGymTitle: "Gimnasios y Centros de Fitness",
+  facilityGymDesc: "Desinfección de equipos de ejercicio, vestidores y duchas compartidas.",
+  facilityApartmentTitle: "Apartamentos y Áreas Comunes",
+  facilityApartmentDesc: "Desinfección de vestíbulos, lavanderías compartidas y pasillos residenciales.",
+
+  // DisinfectionLevelSection
+  disinfectionLevelTitle: "Seleccione su nivel de servicio deseado",
+  disinfectionLevelSubtitle: "Determine la frecuencia e intensidad de la limpieza requerida.",
+
+  // Steam Sections
+  steamEcoLuxuryTitle: "SELECCIONE SU SERVICIO ECO-LUJO",
+  steamGeneralJobTypes: "Tipos de trabajos generales de limpieza a vapor",
+  steamCardRooms: "Habitaciones y áreas",
+  steamCardKitchen: "Cocina y electrodomésticos",
+  steamCardFurniture: "Muebles y tapicería",
+  steamCardSurface: "Limpieza de superficies",
+  steamCardSpeciality: "Limpieza especializada",
+  steamIndustrialTitle: "Aplicaciones industriales y comerciales a vapor",
+
+  // SecurityCategorySelection
+  securitySelectJobTitle: "Seleccione su tipo de trabajo",
+  securitySelected: "Seleccionado",
+  securitySelect: "Seleccionar",
+
+  CategoryDeepSpecialized: "Limpieza profunda y especializada",
+  CategoryGeneralInterior: "Mantenimiento general de interiores",
+  CategoryLifeStyle: "Estilo de vida y cuidado del hogar",
+  CategoryDeepOutDoor: "Espacios al aire libre y exteriores",
+
+  AddOnsDefaultCatagoryDeep: "Detalle profundo de horno y estufa",
+  AddOnsDefaultCatagoryInteriorRefrigerator: "Desinfección interior de refrigerador",
+  AddOnsDefaultCatagoryInteriorWindow: "Limpieza de ventanas interiores y rieles",
+  AddOnsDefaultCatagoryBalcony: "Fregado de balcón y terraza",
+
+  secJobCommercialOffice: "Seguridad comercial y de oficinas",
+  secJobScifAreas: "Áreas de alta seguridad y SCIF",
+  secJobHealthcareMedical: "Desinfección médica y sanitaria",
+  secJobPostConstructionSafety: "Seguridad del sitio posterior a la construcción",
+  secJobVipExecutive: "Residencial VIP y ejecutiva",
+  secJobEventSecurity: "Seguridad de eventos y limpieza rápida",
+  secJobEmergencyHazmat: "Emergencias de materiales peligrosos y bioriesgos",
+  secJobPostIncidentRestoration: "Restauración del sitio posterior a incidentes",
+  secJobDigitalMalware: "Limpieza de malware en dispositivos digitales",
+  secJobSmbNetworkAudit: "Auditoría de red y ciberseguridad para PYMES",
+
+  // YachtCategorySelection
+  yachtSelectCategoryTitle: "Seleccione su categoría de limpieza de yates",
+  yachtMotorboat: "Lancha a motor / Cruiser de día",
+  yachtLuxuryExpress: "Crucero de lujo...",
+  yachtFlybridge: "Yate a motor Flybridge",
+  yachtSuperyacht: "Superyate",
+  yachtMegayacht: "Megayate",
+  yachtSailingCatamaran: "Velero / Catamarán",
+
+  // EventTypeSection
+  eventTypeSelectionTitle: "SELECCIÓN DEL TIPO DE EVENTO",
+  eventTypeSelectionSubtitle: "Reserve su servicio de limpieza impecable",
+  eventConferences: "Conferencias",
+  eventRedCarpet: "Eventos de alfombra roja",
+  eventMusicConcerts: "Conciertos de música y festivales",
+  eventTradeShows: "Ferias comerciales",
+  eventProductLaunches: "Lanzamientos de productos",
+  eventSeminars: "Seminarios",
+  eventNetworking: "Eventos de networking",
+  eventSports: "Deportes",
+  eventFestivals: "Festivales",
+  eventTeamBuilding: "Eventos de integración de equipo",
+  eventCompanyParties: "Fiestas de la empresa",
+  eventCorporate: "Eventos corporativos",
+  eventWeddings: "Bodas",
+  eventCharity: "Eventos de caridad",
+  eventCultural: "Eventos culturales",
+  eventMeetings: "Reuniones",
+  eventSocial: "Eventos sociales",
+  eventTheatre: "Obras de teatro",
+  eventCareerFairs: "Ferias de empleo",
+  eventExhibition: "Exposiciones",
+  eventFashion: "Eventos de moda",
+  eventInternal: "Eventos internos",
+  eventCompanyMeetings: "Reuniones de empresa y retiros",
+  eventWorkshops: "Talleres",
+  eventVip: "Eventos VIP",
+  eventOther: "Otro",
+
+  // BookingDetailsCard
+  bookingDetailsTitle: "Detalles de la reserva",
+  bookingDetailService: "Servicio",
+  bookingDetailDate: "Fecha",
+  bookingDetailTime: "Hora",
+  bookingDetailPropertyType: "Tipo de propiedad",
+  bookingDetailPropertySize: "Tamaño de la propiedad",
+  bookingDetailDuration: "Duración",
+  bookingDetailCleaners: "Limpiadores",
+  bookingDetailPricePerCleaner: "Precio por limpiador",
+  bookingDetailFacilities: "Instalaciones",
+  bookingDetailPackage: "Paquete",
+  bookingDetailIncluded: "Incluido",
+  bookingDetailJobType: "Tipo de trabajo",
+  bookingDetailGeneralSteam: "Tipos de trabajos generales de limpieza a vapor",
+  bookingDetailIndustrialSteam: "Tipos de trabajos de limpieza a vapor industrial y comercial",
+  bookingDetailEventTypes: "Tipos de eventos",
+  bookingDetailPreferences: "Preferencias",
+  bookingDetailGenderPreference: "Preferencia de género",
+  bookingDetailLanguagePreference: "Preferencia de idioma",
+  bookingDetailSpecialRequirements: "Requisitos especiales",
+  bookingDetailAddOns: "Servicios adicionales",
+  bookingDetailEquipment: "Disolventes y equipos de limpieza",
+  bookingDetailAdded: "Añadido",
+  bookingDetailAdd: "Añadir",
+  bookingDetailEstimatedPriceRange: "Rango de precios estimado",
+  bookingDetailAdvancePayment: "Pago por adelantado",
+  bookingDetailConfirmPricing: "Su profesional de limpieza confirmará el precio exacto después de revisar su espacio.",
+  bookingDetailOnlineNotAvailable: "La reserva en línea aún no está disponible para este tamaño de propiedad; contáctenos directamente para obtener una cotización.",
+  bookingDetailAgreeTo: "Acepto los",
+  bookingDetailTermsAndConditions: "Términos y condiciones",
+  bookingDetailAnd: "y",
+  bookingDetailPrivacyPolicy: "Política de privacidad",
+  bookingDetailBookingInProgress: "Reservando…",
+  bookingDetailBookNow: "Reservar ahora",
+
+  // Summary Card (Booking & Quotation Summary)
+  summaryOverview: "Resumen general",
+  summaryReference: "Referencia",
+  summaryCleaner: "Limpiador",
+  summaryUnassigned: "Sin asignar",
+  summaryContactInfo: "Información de contacto",
+  summaryName: "Nombre",
+  summaryEmail: "Correo electrónico",
+  summaryPhone: "Teléfono",
+  summaryAddress: "Dirección",
+  summaryPickupAddress: "Dirección de recogida",
+  summaryDeliveryAddress: "Dirección de entrega",
+  summaryStreetAddress: "Dirección",
+  summaryUnitAptSuite: "Unidad/Dpto/Suite",
+  summaryCity: "Ciudad",
+  summaryProvinceState: "Provincia/Estado",
+  summaryCountry: "País",
+  summaryPostalCode: "Código postal",
+  summaryPaymentInfo: "Información de pago",
+  summaryDueAtBooking: "A pagar en la reserva",
+  summaryAwaitingPrice: "Esperando cotización de nuestro equipo",
+  summaryTotalPriceEstimate: "Precio total (estimado)",
+  summaryRemainingBalance: "Saldo restante",
+  summaryServiceDetails: "Detalles del servicio",
+  summaryService: "Servicio",
+  summaryDateTime: "Fecha y hora",
+  summaryPropertyType: "Tipo de propiedad",
+  summaryPropertySize: "Tamaño de la propiedad",
+  summaryDuration: "Duración",
+  summaryHours: "horas",
+  summaryCleaners: "Limpiadores",
+  summaryCaregivers: "Cuidadores",
+  summaryPricePerCleaner: "Precio por limpiador",
+  summaryNote: "Nota",
+  summaryFacilities: "Instalaciones",
+  summaryDisinfectionLevel: "Nivel de desinfección",
+  summaryGeneralSteam: "Tipos de trabajos generales de limpieza a vapor",
+  summaryIndustrialSteam: "Tipos de trabajos de limpieza a vapor industrial y comercial",
+  summaryEventTypes: "Tipos de eventos",
+  summaryJobType: "Tipo de trabajo",
+  summaryPreferences: "Preferencias",
+  summaryGenderPreference: "Preferencia de género",
+  summaryLanguagePreference: "Preferencia de idioma",
+  summarySpecialRequirements: "Requisitos especiales",
+  summaryNoPreference: "Sin preferencia",
+  summaryLogisticsMarketing: "Logística y Marketing",
+  summaryHowGetIn: "¿Cómo ingresaremos?",
+  summaryHowHeard: "¿Cómo se enteró de nosotros?",
+  summaryAddOns: "Servicios adicionales",
+  summaryEquipment: "Disolventes y equipos de limpieza",
+  summarySupplySourceCustomer: "Proporcionado por el cliente",
+  summarySupplySourceCompany: "Solicitar a la empresa",
+  summaryNotSpecified: "No especificado",
+
+  // Care Terms Modal
+  careTermsTitle: "Términos y condiciones sencillos de reserva en línea",
+  careTermsSec1Title: "1. Confirmación de reserva y alcance del servicio",
+  careTermsSec1_1Title: "1.1 Base del servicio:",
+  careTermsSec1_1Text: "El precio y la duración final del servicio se basan estrictamente en los detalles de la propiedad y las opciones seleccionadas en el momento de la reserva.",
+  careTermsSec1_2Title: "1.2 Ajustes en el sitio:",
+  careTermsSec1_2Text: "Si el tamaño o estado de la propiedad difiere significativamente de la reserva, el limpiador solicitará aprobación previa del cliente antes de continuar.",
+  careTermsSec1_3Title: "1.3 Acceso del cliente:",
+  careTermsSec1_3Text: "Debe garantizar que el acceso esté disponible a la hora programada. No proporcionar acceso generará un cargo por falta de acceso (sección 3.3).",
+  careTermsSec2Title: "2. Términos de pago",
+  careTermsSec2_1Title: "2.1 Autorización de pago:",
+  careTermsSec2_1Text: "La autorización de pago se verifica al pagar. Los cobros finales se basan en las horas confirmadas y adicionales solicitados.",
+  careTermsSec2_2Title: "2.2 Facturación:",
+  careTermsSec2_2Text: "Los recibos digitales y facturas detalladas se envían automáticamente a su correo electrónico registrado.",
+  careTermsSec3Title: "3. Política de cancelación y falta de acceso",
+  careTermsSec3_1Title: "3.1 Ventana de aviso:",
+  careTermsSec3_1Text: "Cancelación gratuita disponible hasta 24 horas antes de la hora de inicio programada.",
+  careTermsSec3_2Title: "3.2 Cancelaciones tardías:",
+  careTermsSec3_2Text: "Cancelaciones con menos de 24 horas de anticipación pueden incurrir en tarifas de falta de acceso estándar.",
+  careTermsSec4Title: "4. Horas continuas de trabajo",
+  careTermsSec4_1Title: "4.1 Intervalos de descanso:",
+  careTermsSec4_1Text: "Para reservas extendidas, los profesionales toman descansos breves programados conforme a las normas laborales.",
+  careTermsSec5Title: "5. Garantía de servicio y responsabilidad",
+  careTermsSec5_1Title: "5.1 Profesionales certificados:",
+  careTermsSec5_1Text: "Todo el personal se somete a verificación estricta de antecedentes y referencias.",
+  careTermsSec5_2Title: "5.2 Compromiso de calidad:",
+  careTermsSec5_2Text: "Pearly Sky mantiene cobertura de seguro integral y soporte dedicado al cliente.",
+  careTermsSec6Title: "6. Suministros, equipo y mascotas",
+  careTermsSec6_1Title: "6.1 Esenciales de cuidado:",
+  careTermsSec6_1Text: "Cualquier medicamento específico o suministro especializado debe coordinarse previamente y estar claramente etiquetado.",
+  careTermsSec6_2Title: "6.2 Mascotas y entorno:",
+  careTermsSec6_2Text: "Por favor informe al equipo sobre mascotas, alergias o rejas de seguridad especiales en el hogar.",
+  careTermsSec7Title: "7. Manejo de llaves y verificación de servicio",
+  careTermsSec7_1Title: "7.1 Protocolos de llaves:",
+  careTermsSec7_1Text: "Las llaves y códigos se gestionan de forma segura bajo estrictos protocolos y nunca se transfieren a terceros no autorizados.",
+  careTermsAcceptCheck: "Al seleccionar esto acepto los términos y condiciones",
+  careTermsAcceptButton: "Aceptar",
+
+  // Pressure Washing Job Selection
+  pressureSelectJobTitle: "SELECCIONE SU TRABAJO",
+  pressureCatResidential: "Cuidado\nResidencial",
+  pressureCatConcrete: "Concreto y\nSuperficies",
+  pressureCatOutdoor: "Vida al\nAire Libre",
+  pressureCatSpecialized: "Trabajos\nEspecializados",
+  pressureItemHomeExterior: "Limpieza exterior del hogar",
+  pressureItemFencing: "Limpieza de cercas y vallas",
+  pressureItemBuildingExterior: "Limpieza exterior de edificios",
+  pressureItemGutterDrains: "Limpieza de canaletas y drenajes",
+  pressureItemDriveway: "Limpieza de entradas de vehículos",
+  pressureItemSidewalk: "Limpieza de aceras",
+  pressureItemWalkway: "Limpieza de senderos y caminos",
+  pressureItemPavers: "Limpieza de adoquines",
+  pressureItemDeckPatio: "Limpieza de terrazas y patios",
+  pressureItemOutdoorFurniture: "Limpieza de muebles de exterior",
+  pressureItemOutdoorEquipment: "Limpieza de equipos de exterior",
+  pressureItemParkingGarage: "Limpieza de estacionamientos y garajes",
+  pressureItemSurfacePrep: "Preparación de superficies",
+  pressureItemPlayground: "Limpieza de áreas de juegos infantiles",
+  pressureItemOtherSpecialized: "Otros servicios de limpieza especializada",
+  pressureSelectedJobsTitle: "Trabajos de lavado a presión seleccionados",
+  pressureDialogQuantity: "Cantidad",
+  pressureDialogSize: "Tamaño",
+  pressureDialogSquarePlaceholder: "Metros cuadrados",
+  pressureDialogSurfaceCondition: "Condición de la superficie",
+  pressureDialogSpecificReqs: "Requisitos específicos",
+  pressureConditionHeavy: "Fuerte (Aceite / Suciedad profunda)",
+  pressureConditionNormal: "Normal",
+  pressureDialogSave: "GUARDAR",
+
+  // Property Categories (PropertyTypeSizeSelector)
+  propStudio: "Estudio",
+  propHome: "Hogar",
+  propVilla: "Villa",
+  propEstate: "Finca",
+  propVip: "VIP",
+  propApartment: "Apartamento / Piso",
+  propTownhouse: "Casa adosada",
+  propHouse: "Casa / Hogar",
+  propPenthouse: "Ático / Penthouse",
+  propRoughClean: "Limpieza gruesa",
+  propTouchUpClean: "Limpieza de retoque",
+  propFinalPostBuildClean: "Limpieza final posterior a la obra",
+  propHeavyDutyDeepClean: "Limpieza profunda de alto rendimiento",
+  propPrivateParties: "Fiestas privadas y celebraciones",
+  propWeddings: "Bodas y grandes recepciones",
+  propCorporateEvents: "Eventos corporativos y galas",
+  propConcertsFestivals: "Conciertos, festivales y recintos en vivo",
+  propPopUpShops: "Tiendas efímeras y exhibiciones minoristas",
+  propArtGalleries: "Galerías de arte y exposiciones culturales",
+  propFashionShows: "Desfiles de moda y pasarelas",
+  propFilmTvShoots: "Rodajes de cine, televisión y comerciales",
+  propCharityAuctions: "Subastas de caridad y recaudación de fondos",
+  propMicro: "Micro",
+  propCompact: "Compacto",
+  propSmall: "Pequeño",
+  propMedium: "Mediano",
+  propLarge: "Grande",
+  propEnterprise: "Lujo / Empresarial",
+  propCorporateLegal: "Oficina corporativa y legal",
+  propGovernmentScif: "Gubernamental / SCIF / Datos...",
+  propHealthcareMedical: "Salud y médico...",
+  propIndustrialConstruction: "Industrial y construcción",
+  propVipEstate: "Propiedad VIP / Ejecutiva...",
+  propEventVenue: "Recinto de eventos y...",
+  propEmergencyBiohazard: "Emergencia / Bioriesgo...",
+  propRetailCommercial: "Retail y comercial...",
+  propPersonalWorkDevice: "Dispositivo personal / de trabajo...",
+  propCorporateNetwork: "Red corporativa /...",
+
+  // JobCardSection
+  jobCardSectionTitle: "Opción de mejora de servicio (JobCard)",
+
+  // Schedule Errors & Buttons
+  poolErrorSelect: "Por favor seleccione al menos un servicio de limpieza de piscinas para continuar.",
+  pressureErrorSelect: "Por favor seleccione al menos un servicio de lavado a presión para continuar.",
+  carpetErrorSelect: "Por favor añada al menos un artículo de alfombra o tapicería antes de continuar.",
+  scheduleErrorDateTime: "Por favor seleccione una fecha y hora para reservar su cita.",
+
+  // CareScheduleSection
+  careScheduleYourService: "Programe su servicio",
+  careScheduleMode: "Modo de programación",
+  careScheduleModeInHome: "Cuidado en el hogar",
+  careScheduleModeFacility: "Cuidado en instalaciones",
+  careScheduleModeTravel: "Acompañamiento en viajes y eventos",
+  careServiceDuration: "Duración del servicio",
+  careDurationHours: "Horas",
+  careDurationHalfDay: "Medio día",
+  careDurationFullDay: "Día completo",
+  carePersonCountElder: "Número de adultos mayores",
+  carePersonCountChild: "Número de niños",
+  careRequestProfessionals: "Solicitar profesionales de cuidado",
+  careProfile: "Perfil",
+  carePersonTitleElder: "Adulto mayor",
+  carePersonTitleChild: "Niño",
+  careFieldName: "Nombre *",
+  careFieldTypePersonName: "Ingrese el nombre de {title}",
+  careFieldSpecialNeeds: "Necesidades especiales / Notas médicas *",
+  careFieldTypeNotes: "Escriba notas aquí",
+  careFieldGender: "Género *",
+  careFieldAge: "Edad *",
+  careFieldTypePersonAge: "Ingrese la edad de {title}",
+  careFieldBehavioralNotes: "Notas de comportamiento (Opcional)",
+  careFieldTypeNoteHere: "Escriba su nota aquí",
+  careFieldGenderPlaceholder: "Por favor seleccione una opción",
+  careFieldGenderMale: "Masculino",
+  careFieldGenderFemale: "Femenino",
+  careFieldGenderOther: "Otro / Prefiero no decir",
+  carePreferencesTitle: "Preferencias",
+  careGenderPreference: "Preferencia de género",
+  careLanguagePreference: "Preferencia de idioma",
+  careSpecialRequirements: "Requisitos especiales",
+  careErrorSelectDate: "Por favor seleccione una fecha de servicio.",
+  careErrorSelectTime: "Por favor seleccione una hora de inicio del servicio.",
+  careBackButton: "Atrás",
+  careContinueButton: "Continuar",
+
+  // Steam Sections Extra
+  steamIndustrialSubtitle: "Proporcionamos desinfección profunda, desengrase y restauración para superficies críticas.",
+  steamViewDetails: "Ver detalles",
+  steamAdd: "Añadir",
+  steamAdded: "Añadido",
+  steamIndManufacturing: "Instalaciones de fabricación e industriales",
+  steamIndFoodBeverage: "Industria de alimentos y bebidas",
+  steamIndAutomotive: "Automotriz y transporte",
+  steamIndHealthcare: "Salud e institucional",
+  steamIndHospitality: "Hospitalidad y minoristas",
+  steamIndAgriculture: "Agricultura y ganadería",
+  steamIndWaste: "Instalaciones de residuos y reciclaje",
+  steamIndFacilityManagement: "Gestión de instalaciones (General)",
+  steamIndOtherSpecialized: "Otras aplicaciones especializadas",
+
+  // Products & Supplies (Event)
+  prodSuppTitle: "Productos y suministros",
+  prodSuppSubtitle: "Elija sus herramientas especializadas",
+  prodSuppEquipment: "Equipo",
+  prodSuppChemicals: "Productos químicos",
+  prodItemVacuumCleaners: "Aspiradoras de grado comercial",
+  prodItemFloorPolishers: "Pulidoras / Abrillantadoras de pisos",
+  prodItemCarpetCleaners: "Limpiadores / Extractores de alfombras",
+  prodItemMopsBuckets: "Juego de trapeadores y cubetas",
+  prodItemPressureWashers: "Lavadoras de alta presión",
+  prodItemAirBlowers: "Sopladores de aire industriales",
+  prodItemSteamVaporCleaners: "Limpiadores de vapor",
+  prodItemMicrofiberKits: "Kits de limpieza de microfibra",
+  prodItemPpeGearKits: "Kits de equipo de protección personal (EPP)",
+  prodItemAllPurposeCleaners: "Limpiadores multiusos",
+  prodItemHospitalDisinfectants: "Desinfectantes de grado hospitalario",
+  prodItemGlassCleaners: "Limpiadores de vidrios sin marcas",
+  prodItemFloorCleaners: "Limpiadores y decapantes de pisos",
+  prodItemHeavyDegreasers: "Desengrasantes de alto rendimiento",
+  prodItemSanitizingSprays: "Aerosoles desinfectantes",
+  prodItemOdorNeutralizers: "Neutralizadores de olores especializados",
+
+  // Auth (Login & Signup Forms)
+  loginTitle: "Bienvenido de nuevo",
+  loginDescription: "Ingrese su correo electrónico a continuación para iniciar sesión en su cuenta",
+  loginEmailLabel: "Correo electrónico",
+  loginPasswordLabel: "Contraseña",
+  loginForgotPassword: "¿Olvidó su contraseña?",
+  loginSubmit: "Iniciar sesión",
+  loginPending: "Iniciando sesión…",
+  loginGenericError: "Algo salió mal.",
+
+  signupTitle: "Cree su cuenta",
+  signupDescription: "Complete el siguiente formulario para crear su cuenta",
+  signupFirstName: "Nombre",
+  signupLastName: "Apellido",
+  signupEmail: "Correo electrónico",
+  signupPhone: "Teléfono",
+  signupPassword: "Contraseña",
+  signupConfirmPassword: "Confirmar contraseña",
+  signupPasswordHelper: "Debe tener al menos 8 caracteres.",
+  signupAgreeText: "Acepto los",
+  signupTerms: "Términos y condiciones",
+  signupAnd: "y",
+  signupPrivacy: "Política de privacidad",
+  signupSubmit: "Registrarse",
+  signupPending: "Creando cuenta…",
+  signupAlreadyAccount: "¿Ya tiene una cuenta?",
+  signupLoginLink: "Iniciar sesión",
+  signupErrorPasswordMismatch: "Las contraseñas no coinciden.",
+  signupErrorTermsRequired: "Por favor acepte los Términos y Condiciones y la Política de Privacidad para continuar.",
+  signupGenericError: "Algo salió mal.",
+
+  // Request Quotation View
+  quotationFormTitle: "Detalles de la solicitud de servicio",
+  quotationStep1DateTime: "1. Fecha y hora",
+  quotationStep2ChemEquip: "2. Productos químicos y equipo",
+  quotationChemEquipPlaceholder: "Proporcionado por el cliente",
+  quotationChemCustomer: "Proporcionado por el cliente",
+  quotationChemCompany: "Solicitar a la empresa",
+  quotationSelectEquipMaterials: "Seleccionar equipos y materiales",
+  quotationStep3PropertyScale: "3. Escala de la propiedad",
+  quotationStep4AllocatedPros: "4. Profesionales asignados",
+  quotationStep5CleanerDuration: "5. Duración del limpiador",
+  quotationStepGenderPref: "Preferencia de género del personal",
+  quotationStepLinguistic: "Coordinación lingüística",
+  quotationSelectOption: "Seleccione una opción",
+  quotationGenderNone: "Sin preferencia / Cualquiera",
+  quotationGenderFemale: "Personal femenino",
+  quotationGenderMale: "Personal masculino",
+  quotationStepRequirements: "Requisitos y detalles del servicio",
+  quotationRequirementsPlaceholder: "Describa los servicios que necesita, horario preferido, ubicación y cualquier requisito específico...",
+  quotationContactProfile: "Perfil de contacto",
+  quotationFirstName: "Nombre",
+  quotationLastName: "Apellido",
+  quotationEmail: "Correo electrónico",
+  quotationPhoneNumber: "Número de teléfono",
+  quotationFirstNamePlaceholder: "Nombre",
+  quotationLastNamePlaceholder: "Apellido",
+  quotationEmailPlaceholder: "Correo electrónico",
+  quotationPhonePlaceholder: "Número de teléfono",
+  quotationLocationResidence: "Ubicación de la residencia",
+  quotationPickupLocation: "Lugar de recogida",
+  quotationDeliveryLocation: "Lugar de entrega",
+  quotationSelectCountry: "Seleccionar país",
+  quotationPostalCode: "Código postal",
+  quotationCity: "Ciudad",
+  quotationProvinceState: "Provincia / Estado",
+  quotationStreetAddress: "Dirección",
+  quotationUnit: "Unidad/Dpto/Suite",
+  quotationPostalCodePlaceholder: "Código postal",
+  quotationCityPlaceholder: "Ciudad",
+  quotationProvincePlaceholder: "Provincia / Estado",
+  quotationStreetPlaceholder: "Dirección",
+  quotationUnitPlaceholder: "Unidad/Dpto/Suite",
+  quotationSubmit: "ENVIAR SOLICITUD DETALLADA DE COTIZACIÓN",
+  quotationSubmitting: "ENVIANDO SOLICITUD…",
+  quotationBack: "Atrás",
+  quotationSuccessToast: "¡Formulario enviado con éxito!",
+  quotationErrDate: "Por favor seleccione una fecha.",
+  quotationErrTime: "Por favor seleccione una franja horaria.",
+  quotationErrFirstName: "El nombre es obligatorio.",
+  quotationErrLastName: "El apellido es obligatorio.",
+  quotationErrEmail: "El correo electrónico es obligatorio.",
+  quotationErrEmailInvalid: "Por favor ingrese una dirección de correo electrónico válida.",
+  quotationErrPhone: "El número de teléfono es obligatorio.",
+  quotationErrCountry: "El país es obligatorio.",
+  quotationErrPostal: "El código postal es obligatorio.",
+  quotationErrCity: "La ciudad es obligatoria.",
+  quotationErrProvince: "La provincia / estado es obligatoria.",
+  quotationErrStreet: "La dirección es obligatoria.",
+  quotationErrFillRequired: "Por favor complete todos los campos obligatorios marcados con *",
+  quotationErrServiceNotFound: "Servicio no encontrado.",
+  quotationErrSubmitFailed: "No se pudo enviar su solicitud de cotización.",
+
+  // Confirmation Card
   confirmBrandName: "Pearly Sky",
   confirmBrandTagline: "Cuidado de limpieza eco-lujo",
   confirmNotFoundTitle: "Cotización no encontrada",
@@ -440,6 +1719,8 @@ export const es = {
   confirmLoading: "Cargando…",
   confirmNeedHelp: "¿Necesita ayuda?",
   confirmContactSupport: "Contactar con soporte",
+
+  // Quotation Confirmation Page
   quotConfirmHeadline: "¡Hemos recibido su solicitud de cotización!",
   quotConfirmDescription: "Gracias por su interés en nuestros servicios premium. Nuestro equipo está revisando sus requisitos. Un especialista se pondrá en contacto pronto.",
   quotConfirmRefLabel: "Número de referencia",
@@ -462,15 +1743,17 @@ export const es = {
   quotConfirmTeamSpecialists: "Especialistas",
   quotConfirmDateLabel: "Fecha propuesta",
   quotConfirmInfoTitle: "Información de contacto importante",
-  quotConfirmInfoBody: "Se ha enviado una copia de su solicitud a su correo electrónico registrado.",
+  quotConfirmInfoBody: "Se ha enviado una copia de su solicitud a su correo electrónico registrado. Si tiene preguntas urgentes, utilice nuestros canales de soporte.",
   quotConfirmPrimaryAction: "Ver mis solicitudes",
   quotConfirmDownload: "DESCARGAR DETALLES DE LA SOLICITUD",
+
+  // Booking Confirmation Page
   bookConfirmHeadlineConfirmed: "¡Gracias por su pedido!",
-  bookConfirmDescConfirmed: "Su experiencia de limpieza está confirmada. Un equipo especializado se está preparando.",
+  bookConfirmDescConfirmed: "Su experiencia de limpieza está confirmada. Un equipo especializado se está preparando para su servicio.",
   bookConfirmHeadlinePending: "¡Reserva recibida!",
-  bookConfirmDescPending: "Su reserva ha sido guardada. Complete el pago a continuación para confirmar su experiencia.",
+  bookConfirmDescPending: "Su reserva ha sido guardada. Complete el pago a continuación para confirmar su experiencia de limpieza.",
   bookConfirmHeadlineCancelled: "Reserva cancelada",
-  bookConfirmDescCancelled: "Esta reserva ha sido cancelada.",
+  bookConfirmDescCancelled: "Esta reserva ha sido cancelada. Si no esperaba esto, póngase en contacto con nuestro equipo de soporte.",
   bookConfirmRefLabel: "Número de referencia",
   bookConfirmPaymentLabel: "Estado del pago",
   bookConfirmPaymentSuccessful: "Exitoso",
@@ -486,10 +1769,10 @@ export const es = {
   bookConfirmLocationLabel: "Ubicación",
   bookConfirmTeamSize: "Tamaño del equipo",
   bookConfirmDuration: "Duración estimada",
-  bookConfirmInfoTitle: "Información importante",
-  bookConfirmInfoBodyConfirmed: "Se ha enviado una confirmación detallada a su correo electrónico.",
-  bookConfirmInfoBodyPending: "Se ha enviado una copia detallada a su correo electrónico.",
-  bookConfirmInfoBodyCancelled: "Se ha enviado una copia de la cancelación a su correo electrónico.",
+  bookConfirmInfoTitle: "Información importante - Confirmación por correo electrónico",
+  bookConfirmInfoBodyConfirmed: "Se ha enviado una confirmación detallada de la reserva a su correo electrónico registrado.",
+  bookConfirmInfoBodyPending: "Se ha enviado una copia detallada de esta reserva a su correo electrónico registrado.",
+  bookConfirmInfoBodyCancelled: "Se ha enviado una copia de esta cancelación a su correo electrónico registrado.",
   bookConfirmPrimaryAction: "Ver mis reservas",
   bookConfirmDownloadPdf: "DESCARGAR PDF",
   bookConfirmCompletePayment: "COMPLETAR PAGO",

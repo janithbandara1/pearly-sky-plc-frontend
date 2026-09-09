@@ -58,6 +58,8 @@ export const ro = {
   servicesPricePerCleaner: "/h per curățător",
   servicesSeeMore: "Vezi mai mult",
   servicesSeeLess: "Vezi mai puțin",
+
+  //service cards translations
   serviceRegularHomeCleaning: "Curățenie obișnuită a casei",
   serviceRegularHomeCleaningDescription: "Îngrijire de rutină pentru un spațiu proaspăt și ordonat.",
   serviceEssentialTouchUpCleaning: "Curățenie esențială de reîmprospătare",
@@ -73,6 +75,7 @@ export const ro = {
   servicePremiumRentalConciergeCleaningDescription: "Serviciu de curățenie de înaltă clasă pentru proprietăți de închiriat exclusive.",
   serviceCommercialOfficeCleaning: "Curățenie comercială și pentru birouri",
   serviceCommercialOfficeCleaningDescription: "Curățenie profesională pentru spații corporative și de afaceri.",
+
   serviceHealthguardSanitization: "Dezinfectare HealthGuard",
   serviceHealthguardSanitizationDescription: "Dezinfectare direcționată pentru suprafețe intens atinse.",
   serviceCarpetUpholsteryCleaning: "Curățare covoare și tapițerie",
@@ -111,7 +114,10 @@ export const ro = {
   serviceLuxuryYachtCleaningDescription: "Îngrijire de nivel premium pentru interioarele iahturilor și ambarcațiunilor.",
   serviceSameDayPriorityCleaning: "Curățenie prioritară în aceeași zi",
   serviceSameDayPriorityCleaningDescription: "Serviciu de curățenie rapid, de încredere, pentru urgențe de ultim moment.",
+
   serviceCommercialCleaningServices: "Servicii de curățenie comercială",
+
+  //carpet cleaning services
   CarpetServiceSectionTitle: "Detalii serviciu curățare covoare și tapițerie",
   CarpetSchedulebackButtonText: "Înapoi",
   CarpetScheduleContinueButtonText: "Continuă",
@@ -149,6 +155,7 @@ export const ro = {
   servicesCategoryPropertyCare: "ÎNGRIJIREA & MANAGEMENTUL PROPRIETĂȚILOR",
   servicesCategoryBespokeLifestyle: "CURATORIE PERSONALIZATĂ DE STIL DE VIAȚĂ & WELLNESS",
 
+  //services mapping for navigation links
   serviceLableRegularHomeCleaning: "Curățenie obișnuită a casei",
   serviceLableEssentialTouchUpCleaning: "Curățenie esențială de reîmprospătare",
   serviceLableDeepCleaning: "Curățenie profundă",
@@ -169,6 +176,8 @@ export const ro = {
   serviceLableElderCareService: "Îngrijire pentru seniori",
   serviceLableMoveInMoveOutTransportService: "Servicii de mutare și transport",
   serviceLableHealthGuardSanitization: "Dezinfectare HealthGuard",
+
+  //related services
   exploreServicesRelated: "Explorează servicii conexe",
 
   visionaryTeamTitle: "Echipa noastră vizionară",
@@ -177,6 +186,584 @@ export const ro = {
   visionarydesignationsMK: "Echipa de marketing",
   visionarydesignationsCUS: "Serviciu clienți",
   visionarydesignationsFIN: "Departament financiar",
+
+  serviceHighlightSectionHeader: "Lista de verificare a pachetului standard",
+  serviceIntroBottomText: "Setează-ți programul regulat",
+  hourPerCleaner: "oră / per curățător",
+  /////////////////////////////////////////
+  /////Service page All contents//////////
+        //regular-home-cleaning///
+  serviceRegularCleaningIntroHeadLine: "Revigorare săptămânală: Curățenie constantă și liniște sufletească de durată.",
+  serviceRegularCleaningIntroBody: "Scapă de stresul treburilor zilnice. Serviciul nostru de curățenie obișnuită a casei oferă o programare săptămânală și fiabilă pentru a-ți menține locuința în condiții impecabile, fără efort. Utilizăm exclusiv produse ecologice certificate pentru a oferi o curățenie profundă și proaspătă, 100% sigură pentru copii și animale de companie. Alege continuitatea și bucură-te de luxul de a te întoarce în fiecare săptămână într-un spațiu mai sănătos și impecabil. Vezi tarifele noastre transparente și rezervă curățenia astăzi.",
+
+  serviceRegularCleaningHighlightTitleOne: "Puncte cheie ale curățeniei obișnuite a casei",
+  serviceRegularCleaningHighlightCardTitleOne: "Îngrijire generală a casei",
+  serviceRegularCleaningHighlightCardTitleTwo: "Puncte cheie de contact",
+  serviceRegularCleaningHighlightCardTitleThree: "Bucătărie și zonă de luat masa",
+  serviceRegularCleaningHighlightCardTitleFour: "Curățenie băi",
+
+  serviceRegularCleaningTitleOneFeatureOne: "Ștergerea generală a prafului de pe suprafețe.",
+  serviceRegularCleaningTitleOneFeatureTwo: "Ștergerea suprafețelor (inclusiv suprafețe din sticlă).",
+  serviceRegularCleaningTitleOneFeatureThree: "Ordonare rapidă.",
+  serviceRegularCleaningTitleOneFeatureFour: "Golirea coșurilor de gunoi și îngrijirea pardoselilor (aspirare/spălare).",
+
+  serviceRegularCleaningTitleTwoFeatureOne: "Aranjarea paturilor, schimbarea lenjeriei și dezinfectarea direcționată a suprafețelor atinse frecvent.",
+
+  serviceRegularCleaningTitleThreeFeatureOne: "Curățarea exterioară a aparatelor electrocasnice.",
+  serviceRegularCleaningTitleThreeFeatureTwo: "Dezinfectarea blaturilor și a chiuvetelor.",
+  serviceRegularCleaningTitleThreeFeatureThree: "Spălarea vaselor și curățarea profundă a pardoselii.",
+
+  serviceRegularCleaningTitleFourFeatureOne: "Curățare sanitară completă cu accent pe igienă.",
+  serviceRegularCleaningTitleFourFeatureTwo: "Curățarea toaletei, chiuvetei, cabinei de duș și căzii.",
+  serviceRegularCleaningTitleFourFeatureThree: "Lustruirea oglinzilor și organizarea prosoapelor curate.",
+
+  //quick-touch-up-cleaning///
+  serviceQuickTouchUpCleaningIntroHeadLine: "Reîmprospătare rapidă pentru spații intens circulate",
+  serviceQuickTouchUpCleaningIntroBody: [
+    "Ești în criză de timp, dar ai nevoie ca locuința ta să arate impecabil? Curățenia noastră esențială de reîmprospătare este un serviciu rapid și direcționat, conceput pentru a reda strălucirea zonelor principale de locuit. Ideal înainte de a primi oaspeți, după un eveniment sau între vizitele de rutină, ne concentrăm pe zonele intens circulate — cum ar fi suprafețele cheie, bucătăriile și băile — folosind produse 100% ecologice certificate. Bucură-te de un mediu impecabil și primitor fără a te angaja la o curățenie completă. Vezi prețurile noastre transparente și rezervă reîmprospătarea expres astăzi."
+  ],
+
+  serviceQuickTouchUpCleaningHighlightTitleOne: "Puncte cheie ale curățeniei esențiale de reîmprospătare",
+  serviceQuickTouchUpCleaningHighlightCardTitleTwo: "Bucătărie",
+  serviceQuickTouchUpCleaningHighlightCardTitleThree: "Băi",
+  serviceQuickTouchUpCleaningHighlightCardTitleFour: "Living și Dormitoare",
+  serviceQuickTouchUpCleaningHighlightCardTitleFive: "Pardoseli și Gunoi",
+
+  serviceQuickTouchUpCleaningTitleTwoFeatureOne: "Ștergerea exteriorului tuturor electrocasnicelor mari (frigider, cuptor, mașină de spălat vase).",
+  serviceQuickTouchUpCleaningTitleTwoFeatureTwo: "Curățarea și dezinfectarea blaturilor și a peretelui protector de bucătărie.",
+  serviceQuickTouchUpCleaningTitleTwoFeatureThree: "Curățarea și lustruirea chiuvetei și a bateriei.",
+  serviceQuickTouchUpCleaningTitleTwoFeatureFour: "Ștergerea plitei de gătit (doar suprafața).",
+  serviceQuickTouchUpCleaningTitleTwoFeatureFive: "Ștergerea exterioară a cuptorului cu microunde.",
+
+  serviceQuickTouchUpCleaningTitleThreeFeatureOne: "Dezinfectarea vasului de toaletă, capacului și bazei.",
+  serviceQuickTouchUpCleaningTitleThreeFeatureTwo: "Curățarea oglinzilor și a geamurilor.",
+  serviceQuickTouchUpCleaningTitleThreeFeatureThree: "Ștergerea mobilierului de baie și a chiuvetei.",
+  serviceQuickTouchUpCleaningTitleThreeFeatureFour: "Clătirea și ștergerea rapidă a dușului/căzii (fără frecare intensă a rosturilor).",
+
+  serviceQuickTouchUpCleaningTitleFourFeatureOne: "Ștergerea prafului de pe suprafețele plane (mese, noptiere, birouri).",
+  serviceQuickTouchUpCleaningTitleFourFeatureTwo: "Ordonarea pernelor și a pernelor decorative.",
+  serviceQuickTouchUpCleaningTitleFourFeatureThree: "Ștergerea rapidă a oglinzilor și a ramelor foto.",
+
+  serviceQuickTouchUpCleaningTitleFiveFeatureOne: "Aspirarea tuturor covoarelor și mochetelor.",
+  serviceQuickTouchUpCleaningTitleFiveFeatureTwo: "Spălarea tuturor pardoselilor dure (mop umed standard).",
+  serviceQuickTouchUpCleaningTitleFiveFeatureThree: "Golirea tuturor coșurilor de gunoi și înlocuirea sacilor.",
+
+  //same-day-priority-cleaning///
+  serviceSameDayPriorityCleaningIntroHeadLine: "Răspuns urgent, curățenie fără compromisuri",
+  serviceSameDayPriorityCleaningIntroBody: [
+    "Ai nevoie de ajutor imediat la curățenie din scurt? Curățenia noastră prioritară în aceeași zi oferă un serviciu de intervenție rapidă pentru vizitatori neașteptați, evenimente de ultim moment sau urgențe neprevăzute. Prioritizăm rezervarea ta pentru a trimite un profesionist la tine acasă cât mai rapid posibil, folosind produse 100% ecologice certificate, non-toxice și sigure pentru familia și animalele tale de companie. Obține sprijin imediat și o programare garantată atunci când timpul este esențial. Vezi tarifele noastre transparente și rezervă suportul prioritar chiar acum."
+  ],
+
+  serviceSameDayPriorityCleaningHighlightTitleOne: "Lista de verificare după petrecere (Mizerie maximă, impact maxim)",
+  serviceSameDayPriorityCleaningHighlightTitleTwo: "Lista de verificare pentru curățenie instantanee (Serviciu standard - Pe ce ne concentrăm)",
+  serviceSameDayPriorityCleaningHighlightCardTitleTwo: "Pardoseli și Intrare",
+  serviceSameDayPriorityCleaningHighlightCardTitleThree: "Refacerea zonelor comune",
+  serviceSameDayPriorityCleaningHighlightCardTitleFour: "Bucătărie și Zona de bar",
+  serviceSameDayPriorityCleaningHighlightCardTitleFive: "Lista de verificare pentru curățenie instantanee (Serviciu standard - Pe ce ne concentrăm)",
+  serviceSameDayPriorityCleaningHighlightCardTitleSix: "Curățare rapidă a bucătăriei",
+  serviceSameDayPriorityCleaningHighlightCardTitleSeven: "Reîmprospătare baie",
+
+  serviceSameDayPriorityCleaningTitleTwoFeatureOne: "Aspirare de mare putere și măturarea spațiilor principale de locuit.",
+  serviceSameDayPriorityCleaningTitleTwoFeatureTwo: "Spălarea punctuală a zonelor intens circulate și predispuse la vărsări.",
+
+  serviceSameDayPriorityCleaningTitleThreeFeatureOne: "Colectarea obiectelor rătăcite, paharelor și gunoiului.",
+  serviceSameDayPriorityCleaningTitleThreeFeatureTwo: "Golirea și dezinfectarea coșurilor de gunoi.",
+  serviceSameDayPriorityCleaningTitleThreeFeatureThree: "Ștergerea prafului și curățarea punctuală a suprafețelor vizibile.",
+  serviceSameDayPriorityCleaningTitleThreeFeatureFour: "Aranjarea mobilierului (canapele, scaune, perne).",
+
+  serviceSameDayPriorityCleaningTitleFourFeatureOne: "Aruncarea sticlelor goale, dozelor și veselei de unică folosință.",
+  serviceSameDayPriorityCleaningTitleFourFeatureTwo: "Dezinfectarea tuturor blaturilor și suprafețelor lipicioase.",
+  serviceSameDayPriorityCleaningTitleFourFeatureThree: "Pornirea mașinii de spălat vase; spălarea vaselor de bază.",
+  serviceSameDayPriorityCleaningTitleFourFeatureFour: "Curățarea băuturilor vărsate pe pardoseli dure.",
+
+  serviceSameDayPriorityCleaningTitleSixFeatureOne: "Ștergerea blaturilor.",
+  serviceSameDayPriorityCleaningTitleSixFeatureTwo: "Curățarea punctuală a fronturilor de dulap.",
+  serviceSameDayPriorityCleaningTitleSixFeatureThree: "Curățarea exteriorului cuptorului cu microunde și a plitei.",
+  serviceSameDayPriorityCleaningTitleSixFeatureFour: "Spălarea sau încărcarea unui set mic de vase.",
+  serviceSameDayPriorityCleaningTitleSixFeatureFive: "Dezinfectarea chiuvetei și lustruirea armăturilor.",
+
+  serviceSameDayPriorityCleaningTitleSevenFeatureOne: "Dezinfectarea chiuvetei și a mobilierului.",
+  serviceSameDayPriorityCleaningTitleSevenFeatureTwo: "Curățarea toaletei în interior și exterior.",
+  serviceSameDayPriorityCleaningTitleSevenFeatureThree: "Ștergerea rapidă a oglinzii.",
+  serviceSameDayPriorityCleaningTitleSevenFeatureFour: "Schimbarea prosopului de mâini.",
+  serviceSameDayPriorityCleaningTitleSevenFeatureFive: "Înlocuirea prosoapelor folosite.",
+  serviceSameDayPriorityCleaningTitleSevenFeatureSix: "Golirea coșului de gunoi și deodorizarea.",
+
+  //deep-cleaning///
+  serviceDeepCleaningIntroHeadLine: "Dincolo de suprafață: Experimentează diferența curățeniei profunde pentru o locuință cu adevărat resetată.",
+  serviceDeepCleaningIntroBody: [
+    "Dacă locuința ta are nevoie de mai mult decât o simplă retușare, Resetarea Totală a Casei este soluția ideală. Acesta este cel mai temeinic și detaliat pachet al nostru, conceput pentru a combate murdăria acumulată, praful și depunerile pe care curățenia standard le omite. Dedicăm timpul necesar pentru a curăța profund fiecare colț, oferind un fundament impecabil casei tale.",
+    "Când timpul este critic, alege echipa care garantează o diferență vizibilă în timp record."
+  ],
+
+  serviceDeepCleaningHighlightTitleOne: "Puncte cheie ale curățeniei profunde",
+  serviceDeepCleaningHighlightCardTitleTwo: "Detalii bucătărie",
+  serviceDeepCleaningHighlightCardTitleThree: "Sanctuar baie",
+  serviceDeepCleaningHighlightCardTitleFour: "Pardoseli",
+  serviceDeepCleaningHighlightCardTitleFive: "Focus pe toate zonele",
+
+  serviceDeepCleaningTitleTwoFeatureOne: "Frecarea intensivă a peretelui protector de bucătărie.",
+  serviceDeepCleaningTitleTwoFeatureTwo: "Curățarea profundă a exteriorului electrocasnicelor.",
+  serviceDeepCleaningTitleTwoFeatureThree: "Degresarea hotele și a plitelor de gătit.",
+
+  serviceDeepCleaningTitleThreeFeatureOne: "Curățarea temeinică a rosturilor din duș și a pereților din faianță.",
+  serviceDeepCleaningTitleThreeFeatureTwo: "Dezinfectarea toaletelor, căzilor și chiuvetelor.",
+  serviceDeepCleaningTitleThreeFeatureThree: "Odkamienianie armăturilor și a ușilor din sticlă ale dușului.",
+
+  serviceDeepCleaningTitleFourFeatureOne: "Aspirare de mare putere și curățarea marginilor covoarelor.",
+  serviceDeepCleaningTitleFourFeatureTwo: "Spălare profundă cu mopul și dezinfectarea pardoselilor dure.",
+  serviceDeepCleaningTitleFourFeatureThree: "Curățarea detaliată a plintelor și a colțurilor podelei.",
+
+  serviceDeepCleaningTitleFiveFeatureOne: "Ștergerea și curățarea de praf a tuturor plintelor.",
+  serviceDeepCleaningTitleFiveFeatureTwo: "Curățarea detaliată a pervazurilor și marginilor de fereastră.",
+  serviceDeepCleaningTitleFiveFeatureThree: "Dezinfectarea tocurilor de ușă, ușilor și clanțelor.",
+
+  //end-of-tenancy-cleaning///
+  serviceEndOfTenancyCleaningIntroHeadLine: "Casă goală, curățenie completă: Garantarea returnării garanției sau un început nou strălucitor.",
+  serviceEndOfTenancyCleaningIntroBody: [
+    "Serviciul nostru de curățenie la predarea locuinței este foarte concentrat și cuprinzător, fiind conceput special pentru proprietăți goale. Această intervenție merge dincolo de curățenia profundă standard, punând accent pe zonele uitat de obicei, precum interiorul dulapurilor, sertarelor și spațiilor tehnice, pentru a satisface standardele stricte de inspecție.",
+    "Pentru o tranziție fără probleme, ai încredere în experții predării impecabile a proprietăților."
+  ],
+
+  serviceEndOfTenancyCleaningHighlightTitleOne: "Puncte cheie ale curățeniei la final de contract",
+  serviceEndOfTenancyCleaningHighlightCardTitleTwo: "Detalii bucătărie și spălătorie",
+  serviceEndOfTenancyCleaningHighlightCardTitleThree: "Curățare intensivă baie",
+  serviceEndOfTenancyCleaningHighlightCardTitleFour: "Zone generale și Pereți",
+  serviceEndOfTenancyCleaningHighlightCardTitleFive: "Pardoseli",
+
+  serviceEndOfTenancyCleaningTitleTwoFeatureOne: "Ștergerea și curățarea interiorului și exteriorului tuturor dulapurilor și sertarelor.",
+  serviceEndOfTenancyCleaningTitleTwoFeatureTwo: "Curățarea temeinică a interiorului și exteriorului electrocasnicelor mari (cuptor, frigider, mașină de spălat vase).",
+  serviceEndOfTenancyCleaningTitleTwoFeatureThree: "Frecare profundă a hotei și a plitei de gătit.",
+
+  serviceEndOfTenancyCleaningTitleThreeFeatureOne: "Curățare intensă și îndepărtarea calcarului de pe rosturi, faianță, căzi și uși de duș.",
+  serviceEndOfTenancyCleaningTitleThreeFeatureTwo: "Curățarea interiorului sertarelor și dulapurilor de la baie.",
+
+  serviceEndOfTenancyCleaningTitleFourFeatureOne: "Ștergerea tuturor geamurilor interioare.",
+  serviceEndOfTenancyCleaningTitleFourFeatureTwo: "Curățarea șinelor de geam, pervazurilor, întrerupătoarelor și tocurilor de ușă.",
+  serviceEndOfTenancyCleaningTitleFourFeatureThree: "Îndepărtarea petelor vizibile de pe pereți.",
+
+  serviceEndOfTenancyCleaningTitleFiveFeatureOne: "Aspirarea de mare putere a tuturor zonelor mochetate.",
+  serviceEndOfTenancyCleaningTitleFiveFeatureTwo: "Spălarea/moparea și lustruirea tuturor pardoselilor dure.",
+
+  //post-construction-renovation-cleaning///
+  servicePostConstructionRenovationCleaningIntroHeadLine: "Transformarea finală: Eliminarea prafului de șantier și evidențierea strălucirii noului tău spațiu.",
+  servicePostConstructionRenovationCleaningIntroBody: [
+    "Serviciul nostru de eliminare a prafului de construcție este esențial pentru îndepărtarea sigură și temeinică a reziduurilor de șantier, prafului fin de rigips, stropilor de vopsea și urmelor de adeziv. Acest proces în două etape (curățare grosieră și curățare finală) se concentrează pe îndepărtarea prafului microscopic de pe fiecare suprafață folosind echipamente specializate.",
+    "Nu lăsa praful de șantier să persiste. Ai încredere în echipa noastră specializată pentru a livra o finisare care desăvârșește proiectul tău."
+  ],
+
+  servicePostConstructionRenovationCleaningHighlightTitleOne: "Puncte cheie ale curățeniei după șantier și renovare",
+  servicePostConstructionRenovationCleaningHighlightCardTitleTwo: "Praf și Calitatea Aerului",
+  servicePostConstructionRenovationCleaningHighlightCardTitleThree: "Finisare Geamuri",
+  servicePostConstructionRenovationCleaningHighlightCardTitleFour: "Bucătărie și Baie",
+  servicePostConstructionRenovationCleaningHighlightCardTitleFive: "Pardoseli",
+
+  servicePostConstructionRenovationCleaningTitleTwoFeatureOne: "Ștergerea repetată a tuturor suprafețelor cu lavete din microfibră.",
+  servicePostConstructionRenovationCleaningTitleTwoFeatureTwo: "Aspirare cu filtru HEPA.",
+  servicePostConstructionRenovationCleaningTitleTwoFeatureThree: "Curățarea gurilor de aerisire și a tubulaturilor.",
+
+  servicePostConstructionRenovationCleaningTitleThreeFeatureOne: "Spălarea sticlei, ramelor și șinelor geamurilor.",
+  servicePostConstructionRenovationCleaningTitleThreeFeatureTwo: "Îndepărtarea în siguranță a vopselei, etichetelor sau reziduurilor.",
+
+  servicePostConstructionRenovationCleaningTitleFourFeatureOne: "Ștergerea tuturor dulapurilor/sertarelor proaspăt instalate.",
+  servicePostConstructionRenovationCleaningTitleFourFeatureTwo: "Îndepărtarea peliculei de chit de pe plăcile ceramice.",
+  servicePostConstructionRenovationCleaningTitleFourFeatureThree: "Curățarea obiectelor sanitare de silicon, chit sau praf.",
+
+  servicePostConstructionRenovationCleaningTitleFiveFeatureOne: "Aspirare profesională cu filtru HEPA.",
+  servicePostConstructionRenovationCleaningTitleFiveFeatureTwo: "Curățarea detaliată a colțurilor, spălarea și lustruirea pardoselilor dure.",
+
+  //premium-rental-concierge-cleaning///
+  servicePremiumRentalConciergeCleaningIntroHeadLine: "Șederi impecabile, recenzii de 5 stele: Pregătire perfectă, de fiecare dată.",
+  servicePremiumRentalConciergeCleaningIntroBody: [
+    "Serviciul nostru de pregătire a spațiilor de închiriat este conceput special pentru cerințele unice ale proprietăților de închiriat pe termen scurt. Scopul este maximizarea eficienței garantând în același timp că fiecare detaliu atinge cele mai înalte standarde hoteliere pentru sosirea imediată a oaspeților. Acest serviciu include sarcini esențiale de reaprovizionare și prezentare.",
+    "Suntem cheia pentru o curățenie de 5 stele și o găzduire fără stres."
+  ],
+
+  servicePremiumRentalConciergeCleaningHighlightTitleOne: "Puncte cheie ale curățeniei de lux pentru închirieri și servicii de concierge",
+  servicePremiumRentalConciergeCleaningHighlightCardTitleTwo: "Sanctuarul Oaspeților (Băi)",
+  servicePremiumRentalConciergeCleaningHighlightCardTitleThree: "Bucătărie și Gustări pentru Oaspeți",
+  servicePremiumRentalConciergeCleaningHighlightCardTitleFour: "Gestionarea Lenjeriei (Dormitoare)",
+  servicePremiumRentalConciergeCleaningHighlightCardTitleFive: "Întreținere și Note Finale",
+
+  servicePremiumRentalConciergeCleaningTitleTwoFeatureOne: "Săpun de mâini de lux — dozator plin sau săpun nou prezentat.",
+  servicePremiumRentalConciergeCleaningTitleTwoFeatureTwo: "Îngrijire păr — set nou de șampon și balsam de dimensiuni de călătorie.",
+  servicePremiumRentalConciergeCleaningTitleTwoFeatureThree: "Produse din hârtie — hârtie igienică montată și sigilată, rezerve stocate.",
+  servicePremiumRentalConciergeCleaningTitleTwoFeatureFour: "Prosoape pentru oaspeți — prosoape proaspăt spălate și împăturite.",
+  servicePremiumRentalConciergeCleaningTitleTwoFeatureFive: "Covoraș de baie — curat și poziționat.",
+
+  servicePremiumRentalConciergeCleaningTitleThreeFeatureOne: "Băuturile și îndulcitorii aranjați ordonat.",
+  servicePremiumRentalConciergeCleaningTitleThreeFeatureTwo: "Esențialul de curățenie pregătit pentru utilizarea de către oaspeți.",
+  servicePremiumRentalConciergeCleaningTitleThreeFeatureThree: "Sac nou de gunoi și rolă plină de prosoape de hârtie.",
+  servicePremiumRentalConciergeCleaningTitleThreeFeatureFour: "Atenție de bun venit într-o prezentare sigilată.",
+
+  servicePremiumRentalConciergeCleaningTitleFourFeatureOne: "Saltea inspectată vizual — fără pete sau deteriorări.",
+  servicePremiumRentalConciergeCleaningTitleFourFeatureTwo: "Cearșafuri proaspete, bine întinse.",
+  servicePremiumRentalConciergeCleaningTitleFourFeatureThree: "Fețe de pernă și husă de pilotă proaspăt aplicate.",
+  servicePremiumRentalConciergeCleaningTitleFourFeatureFour: "Ștergerea detaliată, fără praf, a corpurilor de iluminat.",
+
+  servicePremiumRentalConciergeCleaningTitleFiveFeatureOne: "Verificarea pereților, îndepărtarea urmelor și amprentelor.",
+  servicePremiumRentalConciergeCleaningTitleFiveFeatureTwo: "Asigurarea că toate suprafețele sunt curate și fără praf.",
+  servicePremiumRentalConciergeCleaningTitleFiveFeatureThree: "Verificare de siguranță pentru eliminarea oricăror pericole.",
+  servicePremiumRentalConciergeCleaningTitleFiveFeatureFour: "Inspectarea finală completă și pregătirea spațiului.",
+
+  //commercial-office-cleaning///
+  serviceCommercialOfficeCleaningIntroHeadLine: "Creșterea productivității prin spații impecabile și stare de bine la locul de muncă.",
+  serviceCommercialOfficeCleaningIntroBody: [
+    "Serviciul nostru de îngrijire profesională a spațiilor este conceput pentru companiile care caută o curățenie de înaltă calitate și fiabilă pentru spațiile comerciale, birouri și mediile corporative. Echipele noastre operează cu discreție și eficiență, programând de obicei în afara orelor de program pentru a minimiza deranjul. Ne concentrăm pe menținerea unei imagini profesionale și îmbunătățirea igienei.",
+    "Un mediu curat este un mediu productiv. Parteneriază cu noi pentru excelență constantă."
+  ],
+
+  serviceCommercialOfficeCleaningHighlightTitleOne: "Lista de verificare pentru starea de bine la locul de muncă (Focus comercial)",
+  serviceCommercialOfficeCleaningHighlightTitleSeven: "Opciones de frecvență a serviciului contractual",
+  serviceCommercialOfficeCleaningHighlightCardTitleTwo: "Zone comune și Recepție",
+  serviceCommercialOfficeCleaningHighlightCardTitleThree: "Chicineta și Sala de pauză",
+  serviceCommercialOfficeCleaningHighlightCardTitleFour: "Toalete",
+  serviceCommercialOfficeCleaningHighlightCardTitleFive: "Pardoseli",
+  serviceCommercialOfficeCleaningHighlightCardTitleSix: "Gestionarea deșeurilor",
+  serviceCommercialOfficeCleaningHighlightCardTitleSeven: "Opțiuni de frecvență a serviciului contractual",
+  serviceCommercialOfficeCleaningHighlightCardTitleEight: "Curățenie zilnică",
+  serviceCommercialOfficeCleaningHighlightCardTitleNine: "De 3 ori pe săptămână",
+  serviceCommercialOfficeCleaningHighlightCardTitleTen: "Curățenie săptămânală",
+  serviceCommercialOfficeCleaningHighlightCardTitleEleven: "La două săptămâni",
+
+  serviceCommercialOfficeCleaningTitleTwoFeatureOne: "Ștergerea prafului de pe toate suprafețele orizontale vizibile, birouri și dulapuri.",
+  serviceCommercialOfficeCleaningTitleTwoFeatureTwo: "Lustruirea mobilierului din recepție și a elementelor din sticlă/metal.",
+  serviceCommercialOfficeCleaningTitleTwoFeatureThree: "Curățarea detaliată a tuturor geamurilor interioare (uși, pereți despărțitori).",
+
+  serviceCommercialOfficeCleaningTitleThreeFeatureOne: "Curățarea și dezinfectarea blaturilor, chiuvetelor și exteriorului electrocasnicelor (cuptoare cu microunde, frigidere).",
+  serviceCommercialOfficeCleaningTitleThreeFeatureTwo: "Ștergerea cu o lavetă umedă a meselor și scaunelor.",
+
+  serviceCommercialOfficeCleaningTitleFourFeatureOne: "Curățarea temeinică și dezinfectarea tuturor toaletelor, pisoarelor, chiuvetelor și armăturilor.",
+  serviceCommercialOfficeCleaningTitleFourFeatureTwo: "Reaprovizionarea produselor din hârtie și a dozatoarelor de săpun/dezinfectant.",
+
+  serviceCommercialOfficeCleaningTitleFiveFeatureOne: "Aspirarea zilnică a tuturor zonelor mochetate.",
+  serviceCommercialOfficeCleaningTitleFiveFeatureTwo: "Măturarea și spălarea tuturor pardoselilor dure (gresie, vinil, lemn).",
+
+  serviceCommercialOfficeCleaningTitleSixFeatureOne: "Golirea tuturor coșurilor de gunoi și înlocuirea sacilor.",
+  serviceCommercialOfficeCleaningTitleSixFeatureTwo: "Centralizarea materialelor reciclabile pentru colectare.",
+
+  serviceCommercialOfficeCleaningTitleEightFeatureOne: "Pentru birouri corporative intens circulate și facilități medicale.",
+
+  serviceCommercialOfficeCleaningTitleNineFeatureOne: "Standardul pentru birouri de dimensiuni medii.",
+
+  serviceCommercialOfficeCleaningTitleTenFeatureOne: "Potrivit pentru birouri mai mici sau cu trafic pietonal minim.",
+
+  serviceCommercialOfficeCleaningTitleElevenFeatureOne: "Focus exclusiv pe toalete, săli de pauză și lustruirea pardoselilor.",
+
+  //healthguard-sanitization///
+  serviceHealthguardSanitizationIntroHeadLine: "Dincolo de curat: Implementarea dezinfectării de nivel spitalicesc pentru un mediu HealthGuard autentic.",
+  serviceHealthguardSanitizationIntroBody: [
+    "Serviciul nostru de dezinfectare HealthGuard se concentrează exclusiv pe eliminarea patogenilor, bacteriilor și virusurilor de pe suprafețele intens atinse și din zonele cu trafic mare. Acest serviciu utilizează dezinfectanți de nivel spitalicesc avizați și metode specializate de aplicare (cum ar fi nebulizarea sau pulverizarea electrostatică) pentru o acoperire maximă.",
+    "Serviciul este ideal pentru clienții care necesită standarde avansate de igienă, inclusiv cabinete medicale, săli de sport, școli și locuințe cu persoane vulnerabile. Nu doar curățăm — purificăm clinic spațiul tău pentru sănătate și liniște."
+  ],
+
+  serviceHealthguardSanitizationHighlightTitleOne: "Lista de verificare pentru dezinfectarea spațiilor (Focus țintit – Inclusiv rezidențial)",
+  serviceHealthguardSanitizationHighlightCardTitleTwo: "Lista de verificare pentru dezinfectarea spațiilor",
+  serviceHealthguardSanitizationHighlightCardTitleThree: "Bucătărie și Zone de preparare a hranei",
+  serviceHealthguardSanitizationHighlightCardTitleFour: "Focus pe detalii rezidențiale",
+  serviceHealthguardSanitizationHighlightCardTitleFive: "Focus pe detalii birouri",
+  serviceHealthguardSanitizationHighlightCardTitleSix: "Metoda de aplicare",
+
+  serviceHealthguardSanitizationTitleTwoFeatureOne: "Curățare inițială a suprafețelor urmată de aplicarea dezinfectantului de nivel spitalicesc.",
+  serviceHealthguardSanitizationTitleTwoFeatureTwo: "Suprafețe intens atinse: clanțe, întrerupătoare, telecomenzi, termostate, balustrade, telefoane.",
+  serviceHealthguardSanitizationTitleTwoFeatureThree: "Toalete: dezinfectarea obiectelor sanitare, chiuvetelor, blaturilor, vaselor de WC, dușurilor/căzilor.",
+
+  serviceHealthguardSanitizationTitleThreeFeatureOne: "Blaturi, chiuvete, baterii.",
+  serviceHealthguardSanitizationTitleThreeFeatureTwo: "Mânerele exterioare ale frigiderului, dulapurilor, cuptorului cu microunde.",
+  serviceHealthguardSanitizationTitleThreeFeatureThree: "Interiorul cuptorului cu microunde, panouri de comandă, butoane expresor.",
+
+  serviceHealthguardSanitizationTitleFourFeatureOne: "Noptiere, mânere de sertare, jucării dure pentru copii.",
+  serviceHealthguardSanitizationTitleFourFeatureTwo: "Manete de jocuri și butoane/potiometre ale aparatelor.",
+
+  serviceHealthguardSanitizationTitleFiveFeatureOne: "Tastaturi, mauși, suprafețe de birou.",
+  serviceHealthguardSanitizationTitleFiveFeatureTwo: "Butoanele dozatoarelor comune de apă.",
+
+  serviceHealthguardSanitizationTitleSixFeatureOne: "Pulverizare lichidă / lavete din microfibră + pulverizare electrostatică unde este necesar.",
+  serviceHealthguardSanitizationTitleSixFeatureTwo: "Nebulizare sau pulverizare electrostatică unde este necesar.",
+
+  //carpet-upholstery-cleaning///
+  serviceCarpetUpholsteryCleaningIntroHeadLine: "Renoarea profundă a fibrelor: Redarea moliciunii, culorii și prospețimii fiecărei suprafețe pe care stai.",
+  serviceCarpetUpholsteryCleaningIntroBody: [
+    "Serviciul nostru de reînnoire a fibrelor folosește extracția profesională cu apă caldă și tratamente sigure pentru țesături pentru a îndepărta murdăria profundă, alergenii și mirosurile din covoare, mochete, tapițerii, saltele și perdele — ajungând mult mai adânc decât un aspirator standard. Fiecare tip de țesătură este evaluat înainte de tratament.",
+    "Rezultatul este o țesătură mai moale, mai luminoasă și mai sănătoasă în toată casa — cu timpi rapizi de uscare și fără reziduuri chimice dure."
+  ],
+
+  serviceCarpetUpholsteryCleaningHighlightTitleOne: "Puncte cheie ale curățării covoarelor și tapițeriei",
+  serviceCarpetUpholsteryCleaningHighlightCardTitleTwo: "Curățare mochete",
+  serviceCarpetUpholsteryCleaningHighlightCardTitleThree: "Curățare covoare",
+  serviceCarpetUpholsteryCleaningHighlightCardTitleFour: "Curățare tapițerie",
+  serviceCarpetUpholsteryCleaningHighlightCardTitleFive: "Curățare saltele",
+  serviceCarpetUpholsteryCleaningHighlightCardTitleSix: "Curățare perdele",
+
+  serviceCarpetUpholsteryCleaningTitleTwoFeatureOne: "Îmbunătățirea sănătății și a calității aerului — elimină alergenii.",
+  serviceCarpetUpholsteryCleaningTitleTwoFeatureTwo: "Restaurarea și păstrarea valorii pieselor de mobilier.",
+  serviceCarpetUpholsteryCleaningTitleTwoFeatureThree: "Extracție profesională profundă cu apă caldă.",
+  serviceCarpetUpholsteryCleaningTitleTwoFeatureFour: "Soluții ecologice sigure și eficiente.",
+
+  serviceCarpetUpholsteryCleaningTitleThreeFeatureOne: "Îngrijire blândă pentru toate tipurile de covoare.",
+  serviceCarpetUpholsteryCleaningTitleThreeFeatureTwo: "Protecția culorii și a texturii.",
+  serviceCarpetUpholsteryCleaningTitleThreeFeatureThree: "Detaliere finisată manual.",
+
+  serviceCarpetUpholsteryCleaningTitleFourFeatureOne: "Confort curat și proaspăt care prelungește durata de viață a mobilierului.",
+  serviceCarpetUpholsteryCleaningTitleFourFeatureTwo: "Îndepărtarea petelor și mirosurilor.",
+  serviceCarpetUpholsteryCleaningTitleFourFeatureThree: "Îngrijire profesională sigură pentru textile.",
+
+  serviceCarpetUpholsteryCleaningTitleFiveFeatureOne: "Elimină acarienii și alergenii.",
+  serviceCarpetUpholsteryCleaningTitleFiveFeatureTwo: "Îmbunătățește igiena somnului.",
+  serviceCarpetUpholsteryCleaningTitleFiveFeatureThree: "Proces de igienizare profundă.",
+
+  serviceCarpetUpholsteryCleaningTitleSixFeatureOne: "Fără a fi necesară demontarea.",
+  serviceCarpetUpholsteryCleaningTitleSixFeatureTwo: "Curățare cu abur sigură pentru țesături.",
+  serviceCarpetUpholsteryCleaningTitleSixFeatureThree: "Reîmprospătează aerul din interior.",
+
+  //steam-cleaning///
+  serviceSteamCleaningIntroHeadLine: "Valorificarea puterii pure a aburului pentru o curățenie profundă și dezinfectare fără chimicale.",
+  serviceSteamCleaningIntroBody: [
+    "Serviciul nostru de curățare cu abur utilizează abur la temperatură înaltă și umiditate scăzută pentru a dezinfecta suprafețele, a dizolva grăsimea, a elimina mucegaiul și a ucide până la 99,9% din bacterii, germeni și acarieni. Serviciul este ideal pentru clienții care caută o metodă ecologică, hipoalergenică și extrem de eficientă pentru curățarea bucătăriilor, toaletelor, gresiei și spațiilor greu accesibile.",
+    "Aburul pur, sub presiune, pătrunde mai adânc decât metodele convenționale de curățare."
+  ],
+
+  serviceSteamCleaningHighlightTitleOne: "Puncte cheie ale curățării cu abur",
+  serviceSteamCleaningHighlightCardTitleTwo: "Detalii bucătărie",
+  serviceSteamCleaningHighlightCardTitleThree: "Curățare profundă toaletă",
+  serviceSteamCleaningHighlightCardTitleFour: "Dezinfectarea suprafețelor",
+  serviceSteamCleaningHighlightCardTitleFive: "Tratarea spațiilor înguste și a petelor",
+
+  serviceSteamCleaningTitleTwoFeatureOne: "Curățarea cu abur și dezinfectarea hotele și a grătarelor de plită.",
+  serviceSteamCleaningTitleTwoFeatureTwo: "Curățarea profundă cu abur a interiorului cuptorului și a garniturilor frigiderului.",
+  serviceSteamCleaningTitleTwoFeatureThree: "Igienizarea tocătoarelor folosind abur la temperatură înaltă.",
+
+  serviceSteamCleaningTitleThreeFeatureOne: "Curățarea cu abur a rosturilor și dizolvarea depunerilor de săpun.",
+  serviceSteamCleaningTitleThreeFeatureTwo: "Curățarea bazei vasului de WC, balamalelor și zonelor greu accesibile.",
+
+  serviceSteamCleaningTitleFourFeatureOne: "Dezinfectarea cu abur a punctelor intens atinse: clanțe, întrerupătoare.",
+  serviceSteamCleaningTitleFourFeatureTwo: "Dezinfectarea fără chimicale a panourilor de comandă ale aparatelor.",
+
+  serviceSteamCleaningTitleFiveFeatureOne: "Curățarea cu duză de precizie pentru colțuri și plinte.",
+  serviceSteamCleaningTitleFiveFeatureTwo: "Curățarea eficientă a șinelor de ferestre și a rosturilor de gresie.",
+  serviceSteamCleaningTitleFiveFeatureThree: "Tratarea ușoară a petelor de pe țesături și tapițerie.",
+
+  //post-event-cleaning///
+  servicePostEventCleaningIntroHeadLine: "Singurul lucru pe care îl lăsăm în urmă este un spațiu impecabil.",
+  servicePostEventCleaningIntroBody: [
+    "Serviciul nostru de curățenie după evenimente este conceput pentru a se asigura că spațiul tău este impecabil și gata de utilizare, permițându-ți să te concentrezi pe bucuria ocaziei. De la pregătire până la finalizarea evenimentului, profesioniștii noștri se ocupă de fiecare detaliu.",
+    "Acest serviciu cuprinzător garantează un spațiu bine întreținut și igienizat, îmbunătățind atmosfera și lăsând o impresie pozitivă durabilă asupra oaspeților."
+  ],
+
+  servicePostEventCleaningHighlightTitleOne: "Puncte cheie ale curățeniei după evenimente",
+  servicePostEventCleaningHighlightCardTitleTwo: "Înainte de eveniment",
+  servicePostEventCleaningHighlightCardTitleThree: "Chiar înainte de sosirea oaspeților",
+  servicePostEventCleaningHighlightCardTitleFour: "În timpul evenimentului",
+  servicePostEventCleaningHighlightCardTitleFive: "După eveniment",
+
+  servicePostEventCleaningTitleTwoFeatureOne: "Definirea domeniului de curățenie necesar în funcție de tipul și mărimea evenimentului.",
+  servicePostEventCleaningTitleTwoFeatureTwo: "Dezordonarea, ștergerea prafului și organizarea spațiului.",
+  servicePostEventCleaningTitleTwoFeatureThree: "Aspirarea covoarelor, măturarea și spălarea pardoselilor dure.",
+  servicePostEventCleaningTitleTwoFeatureFour: "Curățarea geamurilor, suprafețelor din sticlă, scaunelor și meselor.",
+  servicePostEventCleaningTitleTwoFeatureFive: "Dezinfectarea suprafețelor intens atinse (clanțe, întrerupătoare, balustrade).",
+
+  servicePostEventCleaningTitleThreeFeatureOne: "Inspecție finală și retușarea urmelor sau petelor.",
+  servicePostEventCleaningTitleThreeFeatureTwo: "Reverificarea consumabilelor la toalete.",
+  servicePostEventCleaningTitleThreeFeatureThree: "Confirmarea că decorațiunile și semnalistica sunt curate și la locul lor.",
+  servicePostEventCleaningTitleThreeFeatureFour: "Depozitarea echipamentelor de curățenie în spații ascunse.",
+
+  servicePostEventCleaningTitleFourFeatureOne: "Monitorizarea și golirea coșurilor de gunoi după caz.",
+  servicePostEventCleaningTitleFourFeatureTwo: "Curățarea imediată a lichidelor vărsate și a mizeriei.",
+  servicePostEventCleaningTitleFourFeatureThree: "Reaprovizionarea consumabilelor din toalete.",
+  servicePostEventCleaningTitleFourFeatureFour: "Păstrarea la îndemână, dar ascunsă, a produselor de curățat rapid.",
+
+  servicePostEventCleaningTitleFiveFeatureOne: "Curățenie completă după eveniment (aspirare, spălare, ștergere suprafețe).",
+  servicePostEventCleaningTitleFiveFeatureTwo: "Curățarea și depozitarea echipamentelor închiriate.",
+  servicePostEventCleaningTitleFiveFeatureThree: "Colectarea și eliminarea corespunzătoare a gunoiului și reciclabilelor.",
+  servicePostEventCleaningTitleFiveFeatureFour: "Verificarea eventualelor deteriorări sau uzuri excesive.",
+
+  //pool-cleaning///
+  servicePoolCleaningIntroHeadLine: "Menține calitatea impecabilă a apei și prelungește durata de viață a echipamentelor piscinei.",
+  servicePoolCleaningIntroBody: [
+    "Serviciul nostru de claritate acvatică oferă întreținere specializată, recurentă, pentru piscine rezidențiale și comerciale. Serviciul asigură chimia optimă a apei, longevitatea echipamentelor și un mediu de înot curat și sigur.",
+    "Notă privind prețurile: Prețurile sunt cotate per serviciu (săptămânal/la două săptămâni) în funcție de mărimea piscinei (suprafață sau volum) și de expertiza chimică necesară."
+  ],
+
+  servicePoolCleaningHighlightTitleOne: "Puncte cheie ale curățării piscinei",
+  servicePoolCleaningHighlightCardTitleTwo: "Îndepărtarea resturilor",
+  servicePoolCleaningHighlightCardTitleThree: "Întreținerea filtrelor",
+  servicePoolCleaningHighlightCardTitleFour: "Curățarea pereților și a liniei de apă",
+  servicePoolCleaningHighlightCardTitleFive: "Echilibru chimic",
+  servicePoolCleaningHighlightCardTitleSix: "Verificarea echipamentului",
+
+  servicePoolCleaningTitleTwoFeatureOne: "Curățarea suprafeței apei și aspirarea fundului și pereților piscinei.",
+
+  servicePoolCleaningTitleThreeFeatureOne: "Spălarea în sens invers/curățarea filtrului; golirea coșurilor skimmerului și ale pompei.",
+
+  servicePoolCleaningTitleFourFeatureOne: "Perierea pereților piscinei și a liniei de plăci ceramice pentru a preveni algele și calcarul.",
+
+  servicePoolCleaningTitleFiveFeatureOne: "Testarea și ajustarea clorului/dezinfectantului, pH-ului, alcalinității și durității calciului.",
+
+  servicePoolCleaningTitleSixFeatureOne: "Inspectarea pompei, încălzitorului, filtrului și temporizatorului pentru o funcționare corectă.",
+
+  //precision-pressure-washing///
+  servicePrecisionPressureWashingIntroHeadLine: "Restaurarea strălucirii: Cea mai profundă curățare pentru exterior, alei și suprafețe comerciale.",
+  servicePrecisionPressureWashingIntroBody: [
+    "Serviciul nostru de curățare exterioară utilizează echipamente profesionale de înaltă presiune, adesea incluzând apă caldă, duze specializate și detergenți biodegradabili pentru a curăța în siguranță și eficient suprafețele exterioare dure sau greu accesibile."
+  ],
+
+  servicePrecisionPressureWashingHighlightTitleOne: "Puncte cheie ale spălării de precizie cu înaltă presiune",
+  servicePrecisionPressureWashingHighlightCardTitleTwo: "Spălare delicată (Soft Wash)",
+  servicePrecisionPressureWashingHighlightCardTitleThree: "Alei și Tarase",
+  servicePrecisionPressureWashingHighlightCardTitleFour: "Geamuri și Jgheaburi",
+
+  servicePrecisionPressureWashingTitleTwoFeatureOne: "O soluție delicată și ecologică de curățare, ideală pentru suprafețe sensibile — îndepărtează murdăria, mucegaiul și depunerile organice protejând în același timp vopseaua și finisajele exterioare.",
+
+  servicePrecisionPressureWashingTitleThreeFeatureOne: "Spălare cu presiune de înaltă performanță pentru eliminarea petelor de ulei, algelor și murdăriei încrustate de pe suprafețele din beton și pavaj.",
+
+  servicePrecisionPressureWashingTitleFourFeatureOne: "Curățare profesională pentru îndepărtarea resturilor, prafului și reziduurilor, asigurând o vizibilitate clară, scurgere corespunzătoare și protecție pe termen lung.",
+
+  //child-care-service///
+  serviceChildCareServiceIntroHeadLine: "Îngrijire Micii Stele / Îngrijire de familie pe primul loc",
+  serviceChildCareServiceIntroBody: [
+    "Acest serviciu oferă îngrijire de copii extrem de personalizată și premium, adesea la domiciliu, specializată în activități educaționale, program flexibil și suport complet — inclusiv mese, igienă, transport și activități casnice ușoare."
+  ],
+
+  serviceChildCareServiceHighlightTitleOne: "Puncte cheie ale serviciilor de îngrijire a copiilor",
+  serviceChildCareServiceHighlightCardTitleTwo: "Îngrijire sugari (3–18 luni)",
+  serviceChildCareServiceHighlightCardTitleThree: "Învățare copii mici (1.5–3 ani)",
+  serviceChildCareServiceHighlightCardTitleFour: "Îngrijire zilnică",
+  serviceChildCareServiceHighlightCardTitleFive: "Îngrijire după școală",
+  serviceChildCareServiceHighlightCardTitleSix: "Supraveghere ocazională",
+  serviceChildCareServiceHighlightCardTitleSeven: "Îngrijire de ultim moment",
+
+  serviceChildCareServiceTitleTwoFeatureOne: "Atenție specializată și activități de dezvoltare senzorială concepute pentru bebeluși.",
+
+  serviceChildCareServiceTitleThreeFeatureOne: "Învățare prin joc și dezvoltarea abilităților sociale pentru copii mici și curioși.",
+
+  serviceChildCareServiceTitleFourFeatureOne: "Îngrijire pe întreaga durată a zilei pentru copii, oferind un mediu sigur și stimulativ.",
+
+  serviceChildCareServiceTitleFiveFeatureOne: "Ajutor la teme și activități creative pentru copiii de vârstă școlară.",
+
+  serviceChildCareServiceTitleSixFeatureOne: "Îngrijire flexibilă, la cerere, pentru seri sau weekenduri aglomerate.",
+
+  serviceChildCareServiceTitleSevenFeatureOne: "Înțelegem că viața poate fi imprevizibilă — obține îngrijire de ultim moment când ai cea mai mare nevoie.",
+
+  //elder-care-service///
+  serviceElderCareServiceIntroHeadLine: "Acompanire plină de compasiune pentru seniori / Asistență pentru Vârsta de Aur",
+  serviceElderCareServiceIntroBody: [
+    "Acest serviciu oferă îngrijire de suport nemedicală, extrem de personalizată pentru seniori, concentrându-se pe îmbunătățirea calității vieții, siguranței și independenței prin companie dedicată, asistență la mobilitate, prepararea meselor și comisioane esențiale."
+  ],
+
+  serviceElderCareServiceHighlightTitleOne: "Puncte cheie ale îngrijirii pentru seniori",
+  serviceElderCareServiceHighlightCardTitleTwo: "Îngrijire de companie",
+  serviceElderCareServiceHighlightCardTitleThree: "Îngrijire personală",
+  serviceElderCareServiceHighlightCardTitleFour: "Îngrijire zilnică",
+
+  serviceElderCareServiceTitleTwoFeatureOne: "Interacțiune socială și companie.",
+  serviceElderCareServiceTitleTwoFeatureTwo: "Asistență în activitățile zilnice.",
+
+  serviceElderCareServiceTitleThreeFeatureOne: "Baie și igienă personală.",
+  serviceElderCareServiceTitleThreeFeatureTwo: "Gestionarea administrării medicamentelor.",
+  serviceElderCareServiceTitleThreeFeatureThree: "Îngrijire în caz de incontinență.",
+
+  serviceElderCareServiceTitleFourFeatureOne: "Îngrijire de rutină și suport în sarcinile zilnice de viață.",
+  serviceElderCareServiceTitleFourFeatureTwo: "Asistență la mobilitate și transferuri.",
+
+  //laundry-service///
+  serviceLaundryServiceIntroHeadLine: "Spălare de rufe fără efort, livrată curat",
+  serviceLaundryServiceIntroBody: [
+    "Timpul tău este prețios — lasă-ne pe noi să ne ocupăm de rufe, de la preluare până la livrarea proaspătă și împăturită."
+  ],
+
+  serviceLaundryServiceHighlightTitleOne: "Puncte cheie ale îngrijirii rufelor și textilelor",
+  serviceLaundryServiceHighlightCardTitleTwo: "Spălat și Împăturit",
+  serviceLaundryServiceHighlightCardTitleThree: "Curățătorie chimică premium",
+  serviceLaundryServiceHighlightCardTitleFour: "Călcat profesional cu abur",
+  serviceLaundryServiceHighlightCardTitleFive: "Îngrijire eco-lux pentru țesături",
+  serviceLaundryServiceHighlightCardTitleSix: "Așternuturi și Lenjerii",
+  serviceLaundryServiceHighlightCardTitleSeven: "Preluare și Livrare Expres",
+
+  serviceLaundryServiceTitleTwoFeatureOne: "Hainele de zi cu zi spălate cu expertiză, uscate și împăturite impecabil pentru confortul tău.",
+
+  serviceLaundryServiceTitleThreeFeatureOne: "Curățare chimică specializată pentru țesături delicate, costume și ținute de seară sofisticate.",
+
+  serviceLaundryServiceTitleFourFeatureOne: "Călcat de precizie și netezire cu abur pentru un finisaj profesional, fără cute.",
+
+  serviceLaundryServiceTitleFiveFeatureOne: "Curățare blândă folosind detergenți ecologici care păstrează longevitatea textilelor de lux.",
+
+  serviceLaundryServiceTitleSixFeatureOne: "Curățare intensivă pentru articole voluminoase, inclusiv pilote, perdele și lenjerii de pat.",
+
+  serviceLaundryServiceTitleSevenFeatureOne: "Serviciu programat door-to-door care se integrează perfect în stilul tău de viață activ.",
+
+  //move-in-out-transport-service///
+  serviceMoveInOutTransportServiceIntroHeadLine: "Logistică de mutare fără probleme / Transport pentru tranziția locuinței",
+  serviceMoveInOutTransportServiceIntroBody: [
+    "Acest serviciu oferă transport personalizat și management al tranziției pentru clienți rezidențiali și comerciali pretențioși. Tariful este determinat printr-o ofertă cuprinzătoare bazată pe complexitatea logistică, volumul inventarului și distanța de tranzit."
+  ],
+
+  serviceMoveInOutTransportServiceHighlightTitleOne: "Puncte cheie ale serviciilor de mutare și transport",
+  serviceMoveInOutTransportServiceHighlightCardTitleTwo: "Împachetarea bunurilor",
+  serviceMoveInOutTransportServiceHighlightCardTitleThree: "Manipularea bunurilor",
+  serviceMoveInOutTransportServiceHighlightCardTitleFour: "Transportul bunurilor",
+  serviceMoveInOutTransportServiceHighlightCardTitleFive: "Comercial / Birouri",
+
+  serviceMoveInOutTransportServiceTitleTwoFeatureOne: "Obiectele fragile sunt ambalate și protejate în recipiente corespunzătoare, cu etichetare clară a conținutului și destinației.",
+
+  serviceMoveInOutTransportServiceTitleThreeFeatureOne: "Bunurile sunt încărcate cu grijă și fixate în vehiculele de transport pentru a preveni deplasarea, fiind descărcate eficient la destinație.",
+
+  serviceMoveInOutTransportServiceTitleFourFeatureOne: "Bunurile sunt încărcate în siguranță, cu o distribuție corespunzătoare a greutății, respectând toate protocoalele de siguranță rutieră în timpul tranzitului.",
+
+  serviceMoveInOutTransportServiceTitleFiveFeatureOne: "Echipamentele de birou sunt ambalate în siguranță, etichetate clar și transportate eficient pentru a minimiza întreruperea activității.",
+
+  //high-security-property-care///
+  serviceHighSecurityPropertyCareIntroHeadLine: "Personal verificat | Discreție totală | Calitate fără compromisuri",
+  serviceHighSecurityPropertyCareIntroBody: [
+    "Curățenie specializată concepută pentru clienți VVIP și VIP, facilități guvernamentale, reședințe private și proprietăți extrem de sensibile. Gestionat exclusiv de personal verificat din punct de vedere al securității, care lucrează sub acorduri stricte de confidențialitate. Utilizând produse premium eco-friendly certificate, sigure pentru interioare de lux și spații de familie, livrăm rezultate impecabile cu încredere maximă. Contactează-ne pentru o consultație confidențială și o ofertă de preț."
+  ],
+
+  serviceHighSecurityPropertyCareHighlightTitleOne: "Puncte cheie ale îngrijirii proprietăților cu securitate înaltă",
+  serviceHighSecurityPropertyCareHighlightCardTitleTwo: "Personal verificat și Confidențialitate",
+  serviceHighSecurityPropertyCareHighlightCardTitleThree: "Facilități cu securitate înaltă",
+  serviceHighSecurityPropertyCareHighlightCardTitleFour: "Intervenție de urgență și Hazmat",
+  serviceHighSecurityPropertyCareHighlightCardTitleFive: "Igienizarea echipamentelor digitale",
+
+  serviceHighSecurityPropertyCareTitleTwoFeatureOne: "Tehnicieni 100% verificați, autorizați și sub acorduri NDA.",
+  serviceHighSecurityPropertyCareTitleTwoFeatureTwo: "Protocoale stricte de confidențialitate pentru protejarea datelor fizice și digitale.",
+
+  serviceHighSecurityPropertyCareTitleThreeFeatureOne: "Curățare specializată pentru spații SCIF, camere de servere și birouri confidențiale.",
+  serviceHighSecurityPropertyCareTitleThreeFeatureTwo: "Extragerea prafului sub-micronic pentru hardware și electronică sensibilă.",
+
+  serviceHighSecurityPropertyCareTitleFourFeatureOne: "Intervenție rapidă 24/7 pentru spargeri, scurgeri cu risc biologic și locuri ale incidentelor.",
+  serviceHighSecurityPropertyCareTitleFourFeatureTwo: "Securizarea imediată a spațiului, acoperirea ferestrelor și documentare foto pentru asigurare.",
+
+  serviceHighSecurityPropertyCareTitleFiveFeatureOne: "Curățarea de viruși, adware și malware la fața locului sau de la distanță.",
+  serviceHighSecurityPropertyCareTitleFiveFeatureTwo: "Ștergerea completă a datelor și restaurarea confidențialității pentru dispozitivele infectate.",
+
+  //luxury-yacht-cleaning///
+  serviceLuxuryYachtCleaningIntroHeadLine: "Carcasă pătată de sare sau urmează un charter VIP? Obține perfecțiunea la standard de iaht și strălucire instantanee!",
+  serviceLuxuryYachtCleaningIntroBody: [
+    "Menținerea unei ambarcațiuni de lux de nivel mondial necesită o îngrijire continuă și o atenție la detalii fără compromisuri. Indiferent dacă îți pregătești iahtul pentru un charter exclusiv, te refaci după o călătorie pe mare de mai multe zile sau ai nevoie de o curățenie interioară discretă pentru oaspeți de rang înalt, specialiștii noștri în curățare marină sunt gata să intervină.",
+    "Ne specializăm în detalierea iahturilor de înaltă clasă, restaurarea corpului navei cu produse de calitate marină, tratamentul lemnului de tec și igienizarea ultra-discretă a interiorului. Echipajul nostru este verificat, instruit în îngrijirea suprafețelor de lux și pe deplin familiarizat cu protocoalele de siguranță maritimă — oferind un tratament impecabil în timp ce îți protejează finisajele delicate ale ambarcațiunii și intimitatea totală.",
+    "Când luxul și precizia marină contează cel mai mult, alege echipa de încredere de pe apă."
+  ],
+
+  serviceLuxuryYachtCleaningHighlightTitleOne: "Lista de verificare pentru îngrijirea iahturilor de lux (Precizie maximă, finisaj impecabil)",
+  serviceLuxuryYachtCleaningHighlightCardTitleTwo: "Exterior și Suprastructură",
+  serviceLuxuryYachtCleaningHighlightCardTitleThree: "Cabine interioare VIP",
+  serviceLuxuryYachtCleaningHighlightCardTitleFour: "Camera motoarelor și Zone tehnice",
+  serviceLuxuryYachtCleaningHighlightCardTitleFive: "Pregătire rapidă după charter",
+
+  serviceLuxuryYachtCleaningTitleTwoFeatureOne: "Spălare cu produse marine, neutralizarea depunerilor de sare și uscare fără urme.",
+  serviceLuxuryYachtCleaningTitleTwoFeatureTwo: "Lustruirea oțelului inoxidabil, tratamentul de claritate a sticlei și frecarea punții de tec.",
+
+  serviceLuxuryYachtCleaningTitleThreeFeatureOne: "Serviciu de menaj impecabil pentru cabinele VIP, apartamentele principale și bucătărie.",
+  serviceLuxuryYachtCleaningTitleThreeFeatureTwo: "Curățarea profundă a tapițeriei delicate, pielii fine, marmurei și lemnului executat la comandă.",
+
+  serviceLuxuryYachtCleaningTitleFourFeatureOne: "Degresarea sentinei din camera motoarelor, ștergerea utilajelor și pregătirea spațiului mecanic.",
+  serviceLuxuryYachtCleaningTitleFourFeatureTwo: "Colectarea ecologică a reziduurilor periculoase în conformitate cu standardele de mediu maritim.",
+
+  serviceLuxuryYachtCleaningTitleFiveFeatureOne: "Curățare de urgență 24/7 cu răspuns rapid între rezervările de charter.",
+  serviceLuxuryYachtCleaningTitleFiveFeatureTwo: "Schimbarea completă a lenjeriei, igienizarea și pregătirea proviziilor pentru viitorii oaspeți.",
+
+  //testimonials part in home
+  completedTestimonial: "Finalizat",
+  propertyType: "Curățenie profundă penthouse modern",
 
   //
   aboutOurServices: "Serviciile noastre",
@@ -256,7 +843,7 @@ export const ro = {
   // About Us page
   aboutPageEyebrow: "DESPRE SERVICIILE DE CURĂȚENIE PEARLY SKY",
   aboutPageHeroTitle: "Partenerul tău de încredere pentru curățenie",
-  
+
   aboutPageIdentityTitle: "Identitatea noastră de bază",
   aboutPageIdentitySubtitle: "Unde curățenia întâlnește luxul",
   aboutPageIdentityIntro:
@@ -286,10 +873,9 @@ export const ro = {
   aboutWhy4Text: "Oferim tarife competitive care livrează servicii premium fără a compromite calitatea.",
   aboutWhy5Title: "Disponibilitate 24/7",
   aboutWhy5Text: "Suntem aici pentru tine, oferind un serviciu fiabil și prompt, oricând ai nevoie de noi.",
-  
+
   aboutWhy6Title: "Securitate fără compromisuri",
   aboutWhy6Text: "Confidențialitatea și proprietatea ta sunt primordiale. Fiecare membru al personalului este verificat temeinic, asigurat și instruit să respecte spațiile tale confidențiale.",
-  
 
   aboutPageVisionMissionTitle: "Viziune, misiune & valori",
   aboutPageVisionTitle: "Viziunea noastră",
@@ -299,10 +885,10 @@ export const ro = {
   aboutMissionText:
     "Conducem prin serviciu excepțional și inovație creativă, conducând progresul și succesul comun în sectoarele noastre de curățenie și transport.",
   aboutPageValuesTitle: "PARTENERUL TĂU DE ÎNCREDERE PENTRU CURĂȚENIE",
-  
+
   aboutPageSectionHeader: "DESPRE SERVICIILE DE CURĂȚENIE PEARLY SKY",
   aboutPageSectionSubHeader: "DESPRE SERVICIILE DE CURĂȚENIE PEARLY SKY",
-  
+
   aboutValue1: "Diversitate, incluziune & echitate",
   aboutValue2: "Responsabilitate",
   aboutValue3: "Sustenabilitate",
@@ -330,6 +916,22 @@ export const ro = {
     "Fiecare client primește un plan de îngrijire personalizat, creat în jurul stilului de viață, programului și cerințelor de confidențialitate. Reputația noastră este construită pe încredere, consistență și un angajament neclintit față de standardele eco-lux.",
   customersGalleryTitle: "Momente de excelență",
   customersTestimonialsTitle: "Ce spun clienții noștri",
+
+  //marqueee recview comments
+
+  customerComment2: "Am rezervat un serviciu de curățenie în septembrie 2024. Doi curățători au făcut o treabă excelentă în 5 ore de muncă. Au fost curățate și ferestrele și frigiderul.",
+
+  customerComment3: "Echipă profesionistă, serviciu punctual și rezultate impecabile. Foarte recomandat.",
+
+  customerComment4: "Echipă super amabilă și serviciu de încredere. Casa a rămas proaspătă și complet curată.",
+
+  customerComment1: "Curățenia a fost excelentă și oamenii care au lucrat au fost atât de amabili și drăguți. Ne-am simțit foarte bine îngrijiți. Recomand!!",
+
+  //Partner with us
+  whyPartnerWithUsTitle: "De ce să te parteneriezi cu noi ?",
+  ecoCertified: " Eco-certificat: Angajament de a folosi produse de curățare certificate și non-toxice",
+  transparentAndReliable: "Transparență și încredere: Prețuri clare și disponibilitate garantată a profesioniștilor calificați.",
+  qualityAssured: "Calitate garantată: Personal de curățenie riguros selectat și instruit.",
 
   // Our Locations page
   locationsPageTitle: "Locațiile noastre globale",
@@ -379,39 +981,10 @@ export const ro = {
   quickConnect: "Contact rapid & conectare",
   writeUs: "SCRIE-NE",
   connectWithUs: "CONECTEAZĂ-TE CU NOI",
-
-  // Missing Keys
   numberNow: "Numărul Pearly Sky acum",
   supportPayementMethods: "Metode de plată acceptate",
-  serviceHighlightSectionHeader: "Lista de verificare a pachetului standard",
-  serviceIntroBottomText: "Setează-ți programul regulat",
-  hourPerCleaner: "oră / per curățător",
-  serviceRegularCleaningIntroHeadLine: "Revigorare săptămânală: Curățenie constantă și liniște sufletească de durată.",
-  serviceRegularCleaningIntroBody: "Scapă de stresul treburilor zilnice. Serviciul nostru de curățenie obișnuită a casei oferă o programare săptămânală și fiabilă pentru a-ți menține locuința în condiții impecabile, fără efort. Utilizăm exclusiv produse ecologice certificate pentru a oferi o curățenie profundă și proaspătă, 100% sigură pentru copii și animale de companie.",
-  serviceRegularCleaningHighlightTitleOne: "Puncte cheie ale curățeniei obișnuite a casei",
-  serviceRegularCleaningHighlightCardTitleOne: "Îngrijire generală a casei",
-  serviceRegularCleaningHighlightCardTitleTwo: "Puncte cheie de contact",
-  serviceRegularCleaningHighlightCardTitleThree: "Bucătărie și zonă de luat masa",
-  serviceRegularCleaningHighlightCardTitleFour: "Curățenie băi",
-  serviceRegularCleaningTitleOneFeatureOne: "Ștergerea generală a prafului de pe suprafețe.",
-  serviceRegularCleaningTitleOneFeatureTwo: "Ștergerea suprafețelor (inclusiv suprafețe din sticlă).",
-  serviceRegularCleaningTitleOneFeatureThree: "Ordonare rapidă.",
-  serviceRegularCleaningTitleOneFeatureFour: "Golirea coșurilor de gunoi și îngrijirea pardoselilor (aspirare/spălare).",
-  serviceRegularCleaningTitleTwoFeatureOne: "Aranjarea paturilor, schimbarea lenjeriei și dezinfectarea direcționată a suprafețelor atinse frecvent.",
-  serviceRegularCleaningTitleThreeFeatureOne: "Curățarea exterioară a aparatelor electrocasnice.",
-  serviceRegularCleaningTitleThreeFeatureTwo: "Dezinfectarea blaturilor și a chiuvetelor.",
-  serviceRegularCleaningTitleThreeFeatureThree: "Spălarea vaselor și curățarea profundă a pardoselii.",
-  serviceRegularCleaningTitleFourFeatureOne: "Curățare sanitară completă cu accent pe igienă.",
-  serviceRegularCleaningTitleFourFeatureTwo: "Curățarea toaletei, chiuvetei, cabinei de duș și căzii.",
-  serviceRegularCleaningTitleFourFeatureThree: "Lustruirea oglinzilor și organizarea prosoapelor curate.",
-  customerComment1: "Curățenia a fost excelentă și oamenii care au lucrat au fost atât de amabili și drăguți. Ne-am simțit foarte bine îngrijiți. Recomand!!",
-  customerComment2: "Am rezervat un serviciu de curățenie în septembrie 2024. Doi curățători au făcut o treabă excelentă în 5 ore de muncă. Au fost curățate și ferestrele și frigiderul.",
-  customerComment3: "Echipă profesionistă, serviciu punctual și rezultate impecabile. Foarte recomandat.",
-  customerComment4: "Echipă super amabilă și serviciu de încredere. Casa a rămas proaspătă și complet curată.",
-  whyPartnerWithUsTitle: "De ce să te parteneriezi cu noi?",
-  ecoCertified: "Eco-certificat: Angajament de a folosi produse de curățare certificate și non-toxice.",
-  transparentAndReliable: "Transparență și încredere: Prețuri clare și disponibilitate garantată a profesioniștilor calificați.",
-  qualityAssured: "Calitate garantată: Personal de curățenie riguros selectat și instruit.",
+
+  // Booking & Date/Time Section
   dateTimeSelectTitle: "Selectează data și ora pentru a-ți programa serviciul",
   dateTimeSelectDate: "Alege o dată",
   dateTimeSelectTime: "Alege un interval orar",
@@ -435,6 +1008,8 @@ export const ro = {
   weekdayFr: "Vin",
   weekdaySa: "Sâm",
   weekdaySu: "Dum",
+
+  // Booking & Property Selection
   propertyTypeTitle: "Tipul proprietății",
   propertySizeTitle: "Dimensiunea proprietății",
   propertySwipeBrowse: "‹ Glisează pentru a naviga ›",
@@ -448,6 +1023,8 @@ export const ro = {
   propertyTypeVilla: "Vilă",
   propertyTypeEstate: "Domeniu / Proprietate mare",
   propertyTypeVip: "VIP",
+
+  // Booking Equipment & Solvents
   equipmentByClient: "FURNIZAT DE CLIENT",
   equipmentByCompany: "FURNIZAT DE COMPANIE",
   equipmentProvidedByCustomer: "Furnizat de client",
@@ -461,6 +1038,8 @@ export const ro = {
   equipmentBookNowBtn: "Rezervă acum",
   equipmentProceedCheckout: "Pasul următor: Finalizare",
   equipmentProcessing: "Se procesează...",
+
+  // Booking Preferences
   preferencesTitle: "Preferințe",
   preferencesGender: "Preferință de gen",
   preferencesLanguage: "Preferință de limbă",
@@ -475,6 +1054,706 @@ export const ro = {
   genderPreferNotToDisclose: "Prefer să nu specific",
   staffGenderFemale: "Personal feminin",
   staffGenderMale: "Personal masculin",
+
+  // HealthGuard & Disinfection Levels
+  disinfectionSelectLevelTitle: "Selectează nivelul dorit de serviciu",
+  disinfectionSelectLevelSub: "Determină frecvența și intensitatea curățeniei necesare.",
+  disinfectionQuatTitle: "Amoniu cuaternar (Quat) – Standard",
+  disinfectionQuatDesc: "Eficient din punct de vedere al costurilor, dovedit, miros redus.",
+  disinfectionPeroxideTitle: "Peroxid de hidrogen (H₂O₂) – Premium",
+  disinfectionPeroxideDesc: "Timp rapid de acțiune, fără reziduuri chimice.",
+  disinfectionHypochlorousTitle: "Acid hipocloros (HOCl) – Avansat",
+  disinfectionHypochlorousDesc: "Non-toxic, puternic pentru nebulizare / tratamentul aerului.",
+  disinfectionBotanicalTitle: "Botanice / Pe bază de cimbru – Eco Friendly",
+  disinfectionBotanicalDesc: "Ingrediente naturale, certificate ecologic.",
+  facilitySelectTitle: "Selectează tipul de spațiu pe care dorești să îl curăți",
+  facilitySelectSub: "Alege categoria și spațiul specific pentru a asigura utilizarea echipamentelor și protocoalelor adecvate.",
+  facilityClearSelection: "Șterge selecția",
+
+  // Event Cleaning
+  eventSelectTypeTitle: "Selectează tipul de eveniment",
+  eventSelectTypeSub: "Alege tipul evenimentului pentru a asigura mărimea potrivită a echipei și protocoalele de curățenie.",
+
+  // Request Quotation Form & Steps
+  quoteFormTitle: "Detaliile cererii de serviciu",
+  quoteFormStepDateTime: "1. Data și Ora",
+  quoteFormStepEquipment: "2. Chimicale și Echipament",
+  quoteFormSelectEquipment: "Selectează echipamentul și materialele",
+  quoteFormProvidedByCustomer: "Furnizat de client",
+  quoteFormRequestCompany: "Solicită echipament de la companie",
+  quoteFormStepPropertyScale: "3. Skala proprietății",
+  quoteFormTotalPropertyArea: "Suprafața totală a proprietății",
+  quoteFormStepProfessionals: "4. Profesioniști alocați",
+  quoteFormCleaners: "Curățători",
+  quoteFormServiceSpecialists: "Specialiști în servicii",
+  quoteFormStepDuration: "5. Durata activității",
+  quoteFormHours: "Ore",
+  quoteFormTotalManHours: "Total ore-om estimate",
+  quoteFormStepCoordination: "6. Coordonare și Preferințe",
+  quoteFormStaffGender: "Genul preferat al personalului",
+  quoteFormLanguageCoordination: "Coordonare lingvistică",
+  quoteFormSpecialInstructions: "Instrucțiuni speciale sau zone prioritare",
+  quoteFormStepLocation: "7. Locația reședinței",
+  quoteFormPickupAddress: "Adresa de preluare",
+  quoteFormDeliveryAddress: "Adresa de livrare",
+  quoteFormStreetAddress: "Strada și numărul",
+  quoteFormUnitApt: "Apartament / Măsură",
+  quoteFormCity: "Oraș",
+  quoteFormPostalCode: "Cod poștal",
+  quoteFormCountry: "Țară",
+  quoteFormState: "Județ / Stat",
+  quoteFormStepContact: "8. Profil de contact",
+  quoteFormFirstName: "Prenume",
+  quoteFormLastName: "Nume de familie",
+  quoteFormEmail: "Adresă de e-mail",
+  quoteFormPhone: "Număr de telefon",
+  quoteFormAgreeTerms: "Sunt de acord cu Termenii și Condițiile și Politica de Confidențialitate.",
+  quoteFormSubmitBtn: "Solicită o ofertă",
+  quoteFormProcessing: "Se procesează...",
+  quoteFormReceivedTitle: "Cerere de ofertă primită",
+  quoteFormReceivedDesc: "Echipa noastră de concierge va analiza cererea ta și va reveni cu o ofertă personalizată în termen de 24 de ore.",
+
+  checkoutLogisticsMarketing: "Logistică și Marketing",
+  checkoutHowGetIn: "Cum vom intra în spațiu?",
+  checkoutHowHeard: "Cum ai aflat despre noi?",
+  checkoutServiceDetails: "Detaliile serviciului",
+  checkoutScheduleMode: "Modul de programare",
+  checkoutServiceDuration: "Durata serviciului",
+  checkoutStartEndTime: "Selectează ora de început și de sfârșit",
+  checkoutSelectedServices: "Serviciile selectate",
+  checkoutBookingDetails: "Detaliile rezervării",
+  checkoutAgreeTo: "Sunt de acord cu",
+  checkoutAnd: "și",
+  poolSectionTitle: "Servicii de curățare piscine oferite de experți pentru",
+  poolSelectingJob: "Alegerea sarcinii",
+  poolServiceDetails: "Detaliile serviciului de piscină",
+  poolQuantity: "Cantitate",
+  poolSave: "Salvează",
+  poolFieldPoolSize: "Mărimea piscinei",
+  poolFieldWaterCondition: "Starea apei",
+  poolConditionHeavyAlgaeDebris: "Alge / Resturi abundente",
+  poolConditionHeavyOilDeepGrime: "Uleiuri / Murdărie profundă",
+  poolTypeKiddiePools: "Piscine pentru copii",
+  poolTypeAboveGroundSwimmingPools: "Piscine supraterane",
+  poolTypeLapPools: "Piscine pentru înot",
+  poolTypeInGroundPools: "Piscine îngropate",
+  poolTypeFamilySwimmingPools: "Piscine de familie",
+  poolTypeIndoorPools: "Piscine interioare",
+  poolTypeOlympicSizePools: "Piscine olimpice",
+  poolTypeArchitecturalPools: "Piscine arhitecturale",
+  poolTypeInfinityPools: "Piscine Infinity",
+  poolTypeNaturalPools: "Piscine naturale",
+  poolTypeSpoolSmallPool: "Spool (Piscina mică)",
+  poolTypeSaltwaterPools: "Piscine cu apă sărată",
+  poolTypePlungePools: "Piscine de relaxare/răcorire",
+  poolAddonJacuzziCleaning: "Curățare Jacuzzi",
+  poolAddonSteamRoomCleaning: "Curățare baie de aburi",
+  poolAddonSaunaRoomCleaning: "Curățare saună",
+
+  // Quotation Details Card
+  quoteDetailsTitle: "Detaliile ofertei",
+  quoteDetailService: "Serviciu",
+  quoteDetailDate: "Dată",
+  quoteDetailTime: "Ora",
+  quoteDetailJobDetails: "Detaliile sarcinii",
+  quoteDetailNotSpecified: "Nespecificat",
+  quoteDetailPropertyType: "Tipul proprietății",
+  quoteDetailPropertySize: "Dimensiunea proprietății",
+  quoteDetailPreferences: "Preferințe",
+  quoteDetailDuration: "Durată",
+  quoteDetailGenderPreference: "Preferință de gen",
+  quoteDetailLanguagePreference: "Preferință de limbă",
+  quoteDetailSpecialRequirements: "Cerințe speciale",
+  quoteDetailEquipment: "Produse de curățat și echipamente",
+  quoteDetailAdded: "Adăugat",
+  quoteDetailAdd: "Adaugă",
+  quoteDetailSending: "Se trimite…",
+  quoteDetailReference: "Referința ofertei",
+
+  // Form Submission & Validation Texts
+  formSubmittedSuccess: "Formular trimis cu succes!",
+  commonBack: "Înapoi",
+  commonContinue: "Continuă",
+  formSubmitFillDetails: "Completează următoarele detalii",
+  formSubmitPropertyClassification: "Clasificarea proprietății",
+  formSubmitServiceContinuityPlan: "Planul de continuitate a serviciului",
+  formSubmitStaffGender: "Genul preferat al personalului",
+  formSubmitLinguisticCoordination: "Coordonare lingvistică",
+  formSubmitUploadDocs: "Încarcă imagini sau documente",
+  formSubmitUploadClickDrag: "Apasă pentru a încărca sau trage și plasează",
+  formSubmitUploadMaxSize: "Dimensiunea maximă a fișierului: 5MB",
+  formSubmitServiceRequirements: "Cerințe și specificații ale serviciului",
+  formSubmitEnterRequirementsPlaceholder: "Introdu cerințele serviciului",
+  formSubmitAcceptTerms: "Bifând aceasta, accept termenii și condițiile",
+  formSubmitClientPaymentBtn: "Client & Plată →",
+  formSubmitPreferredLanguageContact: "Limba preferată de contact *",
+  formSubmitCareGender: "Genul persoanei de îngrijire *",
+  formSubmitSpecialRequest: "Cerere specială *",
+  formSubmitSupportPaymentMethod: "Metodă de plată acceptată",
+
+  // Options
+  planOneTime: "O singură dată",
+  planEvery6to12Months: "la fiecare 6-12 luni",
+  classResidential: "Rezidențial",
+  classCommercial: "Comercial",
+  classSpatial: "Spațial",
+  classOther: "Altul",
+
+  // Care Special Request Options
+  specialReqNone: "Niciuna / Fără cerere specifică",
+  specialReqFirstAid: "Certificat Prim Ajutor & CPR",
+  specialReqSpecialNeeds: "Îngrijitor certificat pentru nevoi speciale",
+  specialReqBilingual: "Îngrijitor bilingv",
+  specialReqPetFriendly: "Îngrijitor prietenos cu animalele",
+  specialReqDriverLicense: "Permis de conducere valabil necesar",
+  specialReqNonSmoker: "Exclusiv nefumător",
+
+  // Form Validation Errors
+  quoteErrorDate: "Te rugăm să selectezi o dată",
+  quoteErrorTime: "Te rugăm să selectezi o oră",
+  quoteErrorStreet: "Te rugăm să introduci adresa",
+  quoteErrorCity: "Te rugăm să introduci orașul",
+  quoteErrorPostal: "Te rugăm să introduci codul poștal",
+  quoteErrorFirstName: "Te rugăm să introduci prenumele",
+  quoteErrorLastName: "Te rugăm să introduci numele de familie",
+  quoteErrorEmail: "Te rugăm să introduci adresa de e-mail",
+  quoteErrorEmailValid: "Te rugăm să introduci o adresă de e-mail validă",
+  quoteErrorPhone: "Te rugăm să introduci numărul de telefon",
+  quoteErrorTerms: "Trebuie să fii de acord cu Termenii și Condițiile și Politica de Confidențialitate pentru a trimite cererea.",
+  formSubmitErrorFileSize: "Fișierul depășește limita de 5MB.",
+  formSubmitErrorClassification: "Te rugăm să selectezi o clasificare a proprietății.",
+  formSubmitErrorContinuity: "Te rugăm să selectezi un plan de continuitate.",
+  formSubmitErrorStaffGender: "Te rugăm să selectezi preferința de gen pentru personal.",
+  formSubmitErrorLanguage: "Te rugăm să selectezi coordonarea lingvistică.",
+  formSubmitErrorTermsRequired: "Acceptarea termenilor și condițiilor este obligatorie.",
+  formSubmitErrorCareGender: "Te rugăm să selectezi o preferință de gen pentru persoana de îngrijire.",
+  formSubmitErrorSpecialRequest: "Te rugăm să selectezi o opțiune de cerere specială.",
+
+  // EquipmentSection & EventbookSection
+  equipSelectedServices: "SERVICII SELECTATE",
+  equipPropertyScale: "SCALA PROPRIETĂȚII",
+  equipTotalServiceDuration: "DURATA TOTALĂ A SERVICIULUI",
+  equipAllocatedProfessionals: "PROFESIONIȘTI ALOCAȚI",
+  equipCleanerDuration: "DURATA ACTIVITĂȚII LA FAȚA LOCULUI",
+  equipPriceRange: "INTERVAL DE PREȚ PENTRU DURATA CURĂȚENIEI",
+  equipChemicalsAndEquipments: "PRODUSE CHIMICE ȘI ECHIPAMENTE",
+  equipByClient: "FURNIZAT DE CLIENT",
+  equipByCompany: "FURNIZAT DE COMPANIE",
+  equipEstimatedPriceRange: "INTERVAL DE PREȚ ESTIMAT",
+  equipBookNow: "REZERVĂ ACUM",
+  equipBooking: "Se rezervă…",
+  equipQualityGuarantee: "GARANȚIE DE CALITATE SEMNĂTURĂ 20 DE ANI",
+  equipGuaranteeDesc1: "Deoarece fiecare reședință de elită are cerințe unice, prețul tău final reflectă starea reală a spațiului tău.",
+  equipGuaranteeDesc2: "Rezervarea ta asigură intervalul orar. La finalizare, profesionistul senior va confirma durata exactă și va emite o factură precisă și transparentă.",
+  equipServiceInfo: "Informații despre serviciu",
+
+  // PropertyTypeSizeSelector
+  propTypeTitle: "Tipul proprietății",
+  propTypeSwipe: "‹ Glisează pentru a naviga ›",
+  propSizeTitle: "Dimensiunea proprietății",
+  propSizeUp: "MAI MULT",
+  propSizeDown: "MAI PUȚIN",
+
+  // FacilitySelectionSection
+  facilityCategoryHealthcare: "Sănătate și Facilități specializate",
+  facilityCategoryHealthcareDesc: "Pentru medii care necesită cel mai înalt nivel de curățenie și conformitate reglementară.",
+  facilityCategoryCommercial: "Comercial și Spații de lucru",
+  facilityCategoryCommercialDesc: "Pentru birouri, sedii corporative și proprietăți guvernamentale.",
+  facilityCategoryHospitality: "Ospitalitate, Retail și Servicii alimentare",
+  facilityCategoryHospitalityDesc: "Pentru afaceri care se bazează pe încrederea publică și o prezentare impecabilă.",
+  facilityCategoryCommunity: "Comunitate și Spații publice",
+  facilityCategoryCommunityDesc: "Pentru facilități cu trafic pietonal mare și utilizare comună.",
+
+  facilityHospitalTitle: "Spitale și Clinici Generale",
+  facilityHospitalDesc: "Dezinfectare pentru saloanele pacienților, zonele de așteptare și strefere de trafic intensiv.",
+  facilityDentalTitle: "Gabinete Stomatologice și Medicale",
+  facilityDentalDesc: "Dezinfectarea sălilor de tratament, poczekalniilor și suprafețelor clinice.",
+  facilityLabsTitle: "Laboratoare și Industrie Farmaceutică",
+  facilityLabsDesc: "Curățare specializată pentru camere curate, laboratoare și spații farmaceutice.",
+  facilityBiohazardTitle: "Curățare risc biologic (Biohazard)",
+  facilityBiohazardDesc: "Dezinfectare post-incident (de ex. scene de crimă, boli infecțioase, decese neasistate).",
+  facilityOfficeTitle: "Birouri generale și Sedii",
+  facilityOfficeDesc: "Dezinfectare zilnică, săptămânală sau profundă a posturilor de lucru, bucătăriilor și zonelor comune.",
+  facilityGovernmentTitle: "Clădiri Guvernamentale",
+  facilityGovernmentDesc: "Servicii de curățenie pentru zonele de servicii publice și facilități guvernamentale securizate.",
+  facilityFactoryTitle: "Fabrici și Depozite",
+  facilityFactoryDesc: "Dezinfectarea halei de producție, echipamentelor și birourilor administrative.",
+  facilityPostTitle: "Curățare post-dezastru",
+  facilityPostDesc: "Igienizare după daune provocate de apă, foc sau fum.",
+  facilityHotelTitle: "Hoteluri și Resorturi",
+  facilityHotelDesc: "Curățare profundă și dezinfectare a camerelor, lobby-urilor și zonelor de agrement.",
+  facilityRetailTitle: "Magazine și Centre Comerciale",
+  facilityRetailDesc: "Igienizarea cabinelor de probă, caselor de marcat și zonelor de expunere intens atinse.",
+  facilityRestaurantTitle: "Restaurante și Cafenele",
+  facilityRestaurantDesc: "Curățare profundă a bucătăriei, igienizarea zonei de servire și a toaletelor.",
+  facilityFoodTitle: "Fabrici de Procesare a Alimentelor",
+  facilityFoodDesc: "Dezinfectare programată, de înalt standard, pentru facilitățile de producție alimentară.",
+  facilityTransportTitle: "Vehicule de transport",
+  facilityTransportDesc: "Dezinfectarea autobuzelor, trenurilor, avioanelor și flotelor de mașini de companie.",
+  facilitySchoolTitle: "Școli și Grădinițe",
+  facilitySchoolDesc: "Igienizarea sălilor de clasă, sălilor de sport și terenurilor de joacă pentru protecția copiilor.",
+  facilityGymTitle: "Săli de sport și Centre de Fitness",
+  facilityGymDesc: "Dezinfectarea echipamentelor de antrenament, vestiarelor și dușurilor comune.",
+  facilityApartmentTitle: "Blocuri de locuințe și Zone comune",
+  facilityApartmentDesc: "Igienizarea holurilor, spălătoriilor comune și coridoarelor rezidențiale.",
+
+  // DisinfectionLevelSection
+  disinfectionLevelTitle: "Selectează nivelul dorit de serviciu",
+  disinfectionLevelSubtitle: "Determină frecvența și intensitatea curățeniei necesare.",
+
+  // Steam Sections
+  steamEcoLuxuryTitle: "SELECTEAZĂ SERVICIUL TĂU ECO-LUX",
+  steamGeneralJobTypes: "Tipuri generale de curățare cu abur",
+  steamCardRooms: "Camere și Zone",
+  steamCardKitchen: "Bucătărie și Electrocasnice",
+  steamCardFurniture: "Mobilier și Tapițerie",
+  steamCardSurface: "Curățarea suprafețelor",
+  steamCardSpeciality: "Curățare specializată",
+  steamIndustrialTitle: "Aplicații industriale și comerciale cu abur",
+
+  // SecurityCategorySelection
+  securitySelectJobTitle: "Selectează tipul de intervenție",
+  securitySelected: "Selectat",
+  securitySelect: "Selectează",
+
+  CategoryDeepSpecialized: "Curățenie profundă & specializată",
+  CategoryGeneralInterior: "Întreținere generală interioară",
+  CategoryLifeStyle: "Stil de viață & Îngrijirea casei",
+  CategoryDeepOutDoor: "Spații exterioare & Zone libere",
+
+  AddOnsDefaultCatagoryDeep: "Curățare detaliată profundă cuptor și plită",
+  AddOnsDefaultCatagoryInteriorRefrigerator: "Igienizare interior frigider",
+  AddOnsDefaultCatagoryInteriorWindow: "Curățare geamuri și șine interioare",
+  AddOnsDefaultCatagoryBalcony: "Spălare balcoane și terase",
+
+  secJobCommercialOffice: "Securitate comercială și birouri",
+  secJobScifAreas: "Zone SCIF și de înaltă securitate",
+  secJobHealthcareMedical: "Igienizare medicală și spitalicească",
+  secJobPostConstructionSafety: "Siguranța șantierului post-construcție",
+  secJobVipExecutive: "Rezidențial VIP și executiv",
+  secJobEventSecurity: "Securitatea evenimentelor & Curățenie rapidă",
+  secJobEmergencyHazmat: "Substanțe periculoase și intervenții de urgență",
+  secJobPostIncidentRestoration: "Restaurare locație post-incident",
+  secJobDigitalMalware: "Curățare dispozitive digitale de malware",
+  secJobSmbNetworkAudit: "Audut rețea și securitate cibernetică IMM",
+
+  // YachtCategorySelection
+  yachtSelectCategoryTitle: "Selectează categoria de curățare a iahtului",
+  yachtMotorboat: "Barcă cu motor / Day Cruiser",
+  yachtLuxuryExpress: "Express de lux...",
+  yachtFlybridge: "Iaht cu motor Flybridge",
+  yachtSuperyacht: "Superiaht",
+  yachtMegayacht: "Megaiaht",
+  yachtSailingCatamaran: "Iaht cu pânze / Catamaran",
+
+  // EventTypeSection
+  eventTypeSelectionTitle: "SELECTAREA TIPULUI DE EVENIMENT",
+  eventTypeSelectionSubtitle: "Rezervă serviciul tău de curățenie impecabilă",
+  //eventSelectTypeTitle: "SELECTAREA TIPULUI DE EVENIMENT",
+  eventConferences: "Conferințe",
+  eventRedCarpet: "Evenimente pe Covorul Roșu",
+  eventMusicConcerts: "Concerte de Muzică & Festivale",
+  eventTradeShows: "Târguri Comerciale",
+  eventProductLaunches: "Lansări de Produse",
+  eventSeminars: "Seminare",
+  eventNetworking: "Evenimente de Networking",
+  eventSports: "Evenimente Sportive",
+  eventFestivals: "Festivaluri",
+  eventTeamBuilding: "Evenimente de Team Building",
+  eventCompanyParties: "Petreceri de Companie",
+  eventCorporate: "Evenimente Corporative",
+  eventWeddings: "Nunți",
+  eventCharity: "Evenimente caritabile",
+  eventCultural: "Evenimente Culturale",
+  eventMeetings: "Ședințe",
+  eventSocial: "Evenimente Sociale",
+  eventTheatre: "Spectacole de Teatru",
+  eventCareerFairs: "Târguri de Carieră",
+  eventExhibition: "Expoziții",
+  eventFashion: "Evenimente de Modă",
+  eventInternal: "Evenimente Interne",
+  eventCompanyMeetings: "Ședințe de Companie & Întâlniri externe",
+  eventWorkshops: "Workshopuri",
+  eventVip: "Evenimente VIP",
+  eventOther: "Altul",
+
+  // BookingDetailsCard
+  bookingDetailsTitle: "Detaliile rezervării",
+  bookingDetailService: "Serviciu",
+  bookingDetailDate: "Dată",
+  bookingDetailTime: "Ora",
+  bookingDetailPropertyType: "Tipul proprietății",
+  bookingDetailPropertySize: "Dimensiunea proprietății",
+  bookingDetailDuration: "Durată",
+  bookingDetailCleaners: "Curățători",
+  bookingDetailPricePerCleaner: "Preț per curățător",
+  bookingDetailFacilities: "Facilități",
+  bookingDetailPackage: "Pachet",
+  bookingDetailIncluded: "Inclus",
+  bookingDetailJobType: "Tipul sarcinii",
+  bookingDetailGeneralSteam: "Tipuri generale de curățare cu abur",
+  bookingDetailIndustrialSteam: "Tipuri de curățare cu abur industriale și comerciale",
+  bookingDetailEventTypes: "Tipuri de eveniment",
+  bookingDetailPreferences: "Preferințe",
+  bookingDetailGenderPreference: "Preferință de gen",
+  bookingDetailLanguagePreference: "Preferință de limbă",
+  bookingDetailSpecialRequirements: "Cerințe speciale",
+  bookingDetailAddOns: "Servicii adăugate",
+  bookingDetailEquipment: "Produse de curățat și echipamente",
+  bookingDetailAdded: "Adăugat",
+  bookingDetailAdd: "Adaugă",
+  bookingDetailEstimatedPriceRange: "Interval de preț estimat",
+  bookingDetailAdvancePayment: "Plată în avans",
+  bookingDetailConfirmPricing: "Profesionistul tău va confirma prețul exact după evaluarea spațiului.",
+  bookingDetailOnlineNotAvailable: "Rezervarea online nu este încă disponibilă pentru această mărime de proprietate — te rugăm să ne contactezi direct.",
+  bookingDetailAgreeTo: "Sunt de acord cu",
+  bookingDetailTermsAndConditions: "Termenii și Condițiile",
+  bookingDetailAnd: "și",
+  bookingDetailPrivacyPolicy: "Politica de Confidențialitate",
+  bookingDetailBookingInProgress: "Se rezervă…",
+  bookingDetailBookNow: "Rezervă acum",
+
+  // Summary Card (Booking & Quotation Summary)
+  summaryOverview: "Prezentare generală",
+  summaryReference: "Referință",
+  summaryCleaner: "Curățător",
+  summaryUnassigned: "Neatribuit",
+  summaryContactInfo: "Informații de contact",
+  summaryName: "Nume",
+  summaryEmail: "E-mail",
+  summaryPhone: "Telefon",
+  summaryAddress: "Adresă",
+  summaryPickupAddress: "Adresa de preluare",
+  summaryDeliveryAddress: "Adresa de livrare",
+  summaryStreetAddress: "Strada și numărul",
+  summaryUnitAptSuite: "Apartament/Lokal/Suita",
+  summaryCity: "Oraș",
+  summaryProvinceState: "Județ/Stat",
+  summaryCountry: "Țară",
+  summaryPostalCode: "Cod poștal",
+  summaryPaymentInfo: "Informații plată",
+  summaryDueAtBooking: "De plată la rezervare",
+  summaryAwaitingPrice: "Se așteaptă prețul de la echipa noastră",
+  summaryTotalPriceEstimate: "Preț total (estimat)",
+  summaryRemainingBalance: "Sold rămas",
+  summaryServiceDetails: "Detaliile serviciului",
+  summaryService: "Serviciu",
+  summaryDateTime: "Data & Ora",
+  summaryPropertyType: "Tipul proprietății",
+  summaryPropertySize: "Dimensiunea proprietății",
+  summaryDuration: "Durată",
+  summaryHours: "ore",
+  summaryCleaners: "Curățători",
+  summaryCaregivers: "Îngrijitori",
+  summaryPricePerCleaner: "Preț per curățător",
+  summaryNote: "Notă",
+  summaryFacilities: "Facilități",
+  summaryDisinfectionLevel: "Nivel de dezinfectare",
+  summaryGeneralSteam: "Tipuri generale de curățare cu abur",
+  summaryIndustrialSteam: "Tipuri de curățare cu abur industriale și comerciale",
+  summaryEventTypes: "Tipuri de eveniment",
+  summaryJobType: "Tipul sarcinii",
+  summaryPreferences: "Preferințe",
+  summaryGenderPreference: "Preferință de gen",
+  summaryLanguagePreference: "Preferință de limbă",
+  summarySpecialRequirements: "Cerințe speciale",
+  summaryNoPreference: "Fără preferință",
+  summaryLogisticsMarketing: "Logistică & Marketing",
+  summaryHowGetIn: "Cum vom intra?",
+  summaryHowHeard: "Cum ai aflat despre noi?",
+  summaryAddOns: "Servicii adăugate",
+  summaryEquipment: "Produse de curățat și echipamente",
+  summarySupplySourceCustomer: "Furnizat de client",
+  summarySupplySourceCompany: "Solicită echipament de la companie",
+  summaryNotSpecified: "Nespecificat",
+
+  // Care Terms Modal
+  careTermsTitle: "Termeni și Condiții concise pentru rezervare online",
+  careTermsSec1Title: "1. Confirmarea rezervării și scopul serviciului",
+  careTermsSec1_1Title: "1.1 Baza serviciului:",
+  careTermsSec1_1Text: "Prețul final și durata depind strict de detaliile proprietății și opțiunile selectate la rezervare.",
+  careTermsSec1_2Title: "1.2 Ajustări la fața locului:",
+  careTermsSec1_2Text: "Dacă starea sau mărimea diferă semnificativ, curățătorul va cere aprobarea clientului pentru ore suplimentare.",
+  careTermsSec1_3Title: "1.3 Accesul clientului:",
+  careTermsSec1_3Text: "Trebuie să asiguri accesul la ora stabilită. Lipsa accesului atrage o taxă de neprezentare (sețiunea 3.3).",
+  careTermsSec2Title: "2. Condiții de plată",
+  careTermsSec2_1Title: "2.1 Autorizarea plății:",
+  careTermsSec2_1Text: "Autorizarea se verifică la finalizarea comenzii. Facturarea finală reflectă orele reale și opțiunile adăugate.",
+  careTermsSec2_2Title: "2.2 Facturare:",
+  careTermsSec2_2Text: "Chitanțele digitale oficiale și facturile detaliate sunt trimise automat pe e-mailul tău.",
+  careTermsSec3Title: "3. Politica de anulare și lipsă acces",
+  careTermsSec3_1Title: "3.1 Fereastra de notificare:",
+  careTermsSec3_1Text: "Anularea gratuită este disponibilă cu până la 24 de ore înainte de ora programată.",
+  careTermsSec3_2Title: "3.2 Anulări târzii:",
+  careTermsSec3_2Text: "Anulările făcute în mai puțin de 24 de ore pot atrage taxe standard.",
+  careTermsSec4Title: "4. Ore de lucru continue",
+  careTermsSec4_1Title: "4.1 Interval de odihnă:",
+  careTermsSec4_1Text: "Pentru rezervări de o zi întreagă, personalul beneficiază de pauze scurte conform normelor de muncă.",
+  careTermsSec5Title: "5. Garanția serviciului și răspundere",
+  careTermsSec5_1Title: "5.1 Profesioniști certificați:",
+  careTermsSec5_1Text: "Tot personalul este verificat temeinic și supus controalelor de securitate.",
+  careTermsSec5_2Title: "5.2 Angajamentul pentru calitate:",
+  careTermsSec5_2Text: "Pearly Sky menține asigurări complete și un serviciu de suport dedicat.",
+  careTermsSec6Title: "6. Consumabile, echipamente și animale de companie",
+  careTermsSec6_1Title: "6.1 Esențialul pentru îngrijire:",
+  careTermsSec6_1Text: "Tratamentele specifice sau dieta necesară trebuie pregătite și etichetate clar în avans.",
+  careTermsSec6_2Title: "6.2 Animale de companie:",
+  careTermsSec6_2Text: "Te rugăm să informezi echipa despre animalele de companie sau alergiile existente.",
+  careTermsSec7Title: "7. Gestionarea cheilor și verificarea serviciului",
+  careTermsSec7_1Title: "7.1 Protocoale chei:",
+  careTermsSec7_1Text: "Kody do seifurilor și cheile sunt gestionate în condiții de maximă securitate.",
+  careTermsAcceptCheck: "Bifând aceasta, accept termenii și condițiile",
+  careTermsAcceptButton: "Acceptă",
+
+  // Pressure Washing Job Selection
+  pressureSelectJobTitle: "SELECTEAZĂ SARCINA TA",
+  pressureCatResidential: "Îngrijire\nRezidențială",
+  pressureCatConcrete: "Beton &\nSuprafețe",
+  pressureCatOutdoor: "Spațiu\nExterior",
+  pressureCatSpecialized: "Munci\nSpecializate",
+  pressureItemHomeExterior: "Curățare exterioară a casei",
+  pressureItemFencing: "Curățare garduri",
+  pressureItemBuildingExterior: "Curățare exterioară clădiri",
+  pressureItemGutterDrains: "Curățare jgheaburi și scurgeri",
+  pressureItemDriveway: "Curățare alee auto",
+  pressureItemSidewalk: "Curățare trotuar",
+  pressureItemWalkway: "Curățare alei pietonale",
+  pressureItemPavers: "Curățare pavele",
+  pressureItemDeckPatio: "Curățare terasă / patio",
+  pressureItemOutdoorFurniture: "Curățare mobilier de exterior",
+  pressureItemOutdoorEquipment: "Curățare echipamente exterioare",
+  pressureItemParkingGarage: "Curățare garaj / parcare",
+  pressureItemSurfacePrep: "Pregătire suprafețe",
+  pressureItemPlayground: "Curățare spații de joacă",
+  pressureItemOtherSpecialized: "Alte servicii specializate de spălare cu presiune",
+  pressureSelectedJobsTitle: "Sarcini selectate pentru spălare cu presiune",
+  pressureDialogQuantity: "Cantitate",
+  pressureDialogSize: "Mărime",
+  pressureDialogSquarePlaceholder: "Metri pătrați",
+  pressureDialogSurfaceCondition: "Starea suprafeței",
+  pressureDialogSpecificReqs: "Cerințe specifice",
+  pressureConditionHeavy: "Murdărie grea (Ulei / Depuneri profunde)",
+  pressureConditionNormal: "Normală",
+  pressureDialogSave: "SALVEAZĂ",
+
+  // Property Categories (PropertyTypeSizeSelector)
+  propStudio: "Garsonieră / Studio",
+  propHome: "Casă",
+  propVilla: "Vilă",
+  propEstate: "Domeniu",
+  propVip: "VIP",
+  propApartment: "Apartament",
+  propTownhouse: "Casă înșiruită",
+  propHouse: "Casă / Reședință",
+  propPenthouse: "Penthouse",
+  propRoughClean: "Curățenie Grosieră",
+  propTouchUpClean: "Curățenie de Reîmprospătare",
+  propFinalPostBuildClean: "Curățenie Finală Post-Construcție",
+  propHeavyDutyDeepClean: "Curățenie Profundă Intensivă",
+  propPrivateParties: "Petreceri Private & Aniversări",
+  propWeddings: "Nunți & Recepții Mari",
+  propCorporateEvents: "Evenimente Corporative & Gale",
+  propConcertsFestivals: "Concerte, Festivaluri & Scene Live",
+  propPopUpShops: "Magazine Pop-Up & Expoziții",
+  propArtGalleries: "Galerii de Artă & Expoziții Culturale",
+  propFashionShows: "Pokazy Mody & Evenimente pe Podium",
+  propFilmTvShoots: "Plouri de Film, TV & Reclame",
+  propCharityAuctions: "Aucții Caritabile & Strângeri de Fonduri",
+  propMicro: "Micro",
+  propCompact: "Compact",
+  propSmall: "Mic",
+  propMedium: "Mediu",
+  propLarge: "Mare",
+  propEnterprise: "Lux / Întreprindere",
+  propCorporateLegal: "Birou Corporativ & Juridic",
+  propGovernmentScif: "Guvern / SCIF / Date...",
+  propHealthcareMedical: "Sănătate & Medical...",
+  propIndustrialConstruction: "Industrie & Construcții",
+  propVipEstate: "Domeniu VIP / Executiv...",
+  propEventVenue: "Spațiu Evenimente &...",
+  propEmergencyBiohazard: "Urgență / Biohazard...",
+  propRetailCommercial: "Retail & Comercial...",
+  propPersonalWorkDevice: "Dispozitiv Personal / Muncă...",
+  propCorporateNetwork: "Rețea Corporativă /...",
+
+  // JobCardSection
+  jobCardSectionTitle: "Opțiune de upgrade a serviciului (JobCard)",
+
+  // Schedule Errors & Buttons
+  poolErrorSelect: "Te rugăm să selectezi cel puțin un serviciu de curățare piscine pentru a continua.",
+  pressureErrorSelect: "Te rugăm să selectezi cel puțin un serviciu de spălare cu presiune pentru a continua.",
+  carpetErrorSelect: "Te rugăm să adaugi cel puțin un articol de mocheta sau tapițerie înainte de a continua.",
+  scheduleErrorDateTime: "Te rugăm să selectezi data și ora pentru a-ți programa serviciul.",
+
+  // CareScheduleSection
+  careScheduleYourService: "Programează-ți serviciul",
+  careScheduleMode: "Modul de programare",
+  careScheduleModeInHome: "Îngrijire la domiciliu",
+  careScheduleModeFacility: "Îngrijire în centru specializat",
+  careScheduleModeTravel: "Insoțire în călătorii și evenimente",
+  careServiceDuration: "Durata serviciului",
+  careDurationHours: "Ore",
+  careDurationHalfDay: "Jumătate de zi",
+  careDurationFullDay: "O zi întreagă",
+  carePersonCountElder: "Număr seniori",
+  carePersonCountChild: "Număr copii",
+  careRequestProfessionals: "Solicită îngrijitori profesioniști",
+  careProfile: "Profil",
+  carePersonTitleElder: "Senior",
+  carePersonTitleChild: "Copil",
+  careFieldName: "Nume complet *",
+  careFieldTypePersonName: "Introdu numele persoanei: {title}",
+  careFieldSpecialNeeds: "Nevoie speciale / Note medicale *",
+  careFieldTypeNotes: "Introdu notele",
+  careFieldGender: "Gen *",
+  careFieldAge: "Vârstă *",
+  careFieldTypePersonAge: "Introdu vârsta persoanei: {title}",
+  careFieldBehavioralNotes: "Note comportamentale (Opțional)",
+  careFieldTypeNoteHere: "Scrie notița ta aici",
+  careFieldGenderPlaceholder: "Te rugăm să selectezi o opțiune",
+  careFieldGenderMale: "Masculin",
+  careFieldGenderFemale: "Feminin",
+  careFieldGenderOther: "Altul / Prefer să nu spun",
+  carePreferencesTitle: "Preferințe",
+  careGenderPreference: "Preferință de gen",
+  careLanguagePreference: "Preferință de limbă",
+  careSpecialRequirements: "Cerințe speciale",
+  careErrorSelectDate: "Te rugăm să selectezi data serviciului.",
+  careErrorSelectTime: "Te rugăm să selectezi ora de început.",
+  careBackButton: "Înapoi",
+  careContinueButton: "Continuă",
+
+  // Steam Sections Extra
+  steamIndustrialSubtitle: "Oferim dezinfectare profundă, degresare și restaurare pentru suprafețe critice.",
+  steamViewDetails: "Vezi detalii",
+  steamAdd: "Adaugă",
+  steamAdded: "Adăugat",
+  steamIndManufacturing: "Facilități de producție și industriale",
+  steamIndFoodBeverage: "Industria alimentară și a băuturilor",
+  steamIndAutomotive: "Automotive și Transporturi",
+  steamIndHealthcare: "Sănătate și Instituții",
+  steamIndHospitality: "Ospitalitate și Retail",
+  steamIndAgriculture: "Agricultură și Ferme",
+  steamIndWaste: "Facilități de deșeuri și reciclare",
+  steamIndFacilityManagement: "Managementul facilităților (General)",
+  steamIndOtherSpecialized: "Alte aplicații specializate",
+
+  // Products & Supplies (Event)
+  prodSuppTitle: "Produse și Echipamente",
+  prodSuppSubtitle: "Alege uneltele tale specializate",
+  prodSuppEquipment: "Echipament",
+  prodSuppChemicals: "Substanțe chimice",
+  prodItemVacuumCleaners: "Aspiratoare profesionale de nivel comercial",
+  prodItemFloorPolishers: "Mașini de lustruit podele / Buffere",
+  prodItemCarpetCleaners: "Aspiratoare spălare covoare / Ekstraktori",
+  prodItemMopsBuckets: "Set găleți și mopuri",
+  prodItemPressureWashers: "Spălătoare cu înaltă presiune",
+  prodItemAirBlowers: "Dsuflante de aer industriale",
+  prodItemSteamVaporCleaners: "Curățătoare cu abur",
+  prodItemMicrofiberKits: "Kituri de curățenie din microfibră",
+  prodItemPpeGearKits: "Echipamente de protecție individuală (EPI)",
+  prodItemAllPurposeCleaners: "Detergenți universali",
+  prodItemHospitalDisinfectants: "Dezinfectanți de nivel spitalicesc",
+  prodItemGlassCleaners: "Soluții de geamuri fără urme",
+  prodItemFloorCleaners: "Detergenți și decapanti pentru pardoseli",
+  prodItemHeavyDegreasers: "Degresanți industriali puternici",
+  prodItemSanitizingSprays: "Spraye dezinfectante",
+  prodItemOdorNeutralizers: "Neutralizatoare de mirosuri specializate",
+
+  // Auth (Login & Signup Forms)
+  loginTitle: "Bine ai revenit",
+  loginDescription: "Introdu e-mailul mai jos pentru a te autentifica în cont",
+  loginEmailLabel: "E-mail",
+  loginPasswordLabel: "Parolă",
+  loginForgotPassword: "Ai uitat parola?",
+  loginSubmit: "Autentificare",
+  loginPending: "Se autentifică…",
+  loginGenericError: "Ceva nu a mers bine.",
+
+  signupTitle: "Creează-ți contul",
+  signupDescription: "Completează formularul de mai jos pentru a-ți crea contul",
+  signupFirstName: "Prenume",
+  signupLastName: "Nume de familie",
+  signupEmail: "E-mail",
+  signupPhone: "Telefon",
+  signupPassword: "Parolă",
+  signupConfirmPassword: "Confirmă parola",
+  signupPasswordHelper: "Musi să aibă cel puțin 8 caractere.",
+  signupAgreeText: "Sunt de acord cu",
+  signupTerms: "Termenii și Condițiile",
+  signupAnd: "și",
+  signupPrivacy: "Politica de Confidențialitate",
+  signupSubmit: "Înregistrare",
+  signupPending: "Se creează contul…",
+  signupAlreadyAccount: "Ai deja un cont?",
+  signupLoginLink: "Autentificare",
+  signupErrorPasswordMismatch: "Parolele nu se potrivesc.",
+  signupErrorTermsRequired: "Te rugăm să fii de acord cu Termenii și Condițiile și Politica de Confidențialitate.",
+  signupGenericError: "Ceva nu a mers bine.",
+
+  // Request Quotation View
+  quotationFormTitle: "Detaliile cererii de serviciu",
+  quotationStep1DateTime: "1. Data și Ora",
+  quotationStep2ChemEquip: "2. Chimicale și Echipament",
+  quotationChemEquipPlaceholder: "Furnizat de client",
+  quotationChemCustomer: "Furnizat de client",
+  quotationChemCompany: "Solicită echipament de la companie",
+  quotationSelectEquipMaterials: "Selectează echipamentul și materialele",
+  quotationStep3PropertyScale: "3. Skala proprietății",
+  quotationStep4AllocatedPros: "4. Profesioniști alocați",
+  quotationStep5CleanerDuration: "5. Durata activității",
+  quotationStepGenderPref: "Genul preferat al personalului",
+  quotationStepLinguistic: "Coordonare lingvistică",
+  quotationSelectOption: "Selectează o opțiune",
+  quotationGenderNone: "Fără preferință / Oricare",
+  quotationGenderFemale: "Personal feminin",
+  quotationGenderMale: "Personal masculin",
+  quotationStepRequirements: "Cerințe și specificații ale serviciului",
+  quotationRequirementsPlaceholder: "Descrie serviciile de care ai nevoie, programul preferat, locația și orice alte cerințe speciale...",
+  quotationContactProfile: "Profil de contact",
+  quotationFirstName: "Prenume",
+  quotationLastName: "Nume de familie",
+  quotationEmail: "E-mail",
+  quotationPhoneNumber: "Număr de telefon",
+  quotationFirstNamePlaceholder: "Prenume",
+  quotationLastNamePlaceholder: "Nume de familie",
+  quotationEmailPlaceholder: "Adresă de e-mail",
+  quotationPhonePlaceholder: "Număr de telefon",
+  quotationLocationResidence: "Locația reședinței",
+  quotationPickupLocation: "Locație de preluare",
+  quotationDeliveryLocation: "Locație de livrare",
+  quotationSelectCountry: "Selectează țara",
+  quotationPostalCode: "Cod poștal",
+  quotationCity: "Oraș",
+  quotationProvinceState: "Județ / Stat",
+  quotationStreetAddress: "Strada și numărul",
+  quotationUnit: "Apartament/Lokal/Suita",
+  quotationPostalCodePlaceholder: "Cod poștal",
+  quotationCityPlaceholder: "Oraș",
+  quotationProvincePlaceholder: "Județ / Stat",
+  quotationStreetPlaceholder: "Strada și numărul",
+  quotationUnitPlaceholder: "Apartament/Lokal/Suita",
+  quotationSubmit: "TRIMITE CEREREA DETALIATĂ DE OFERTĂ",
+  quotationSubmitting: "SE TRIMITE CEREREA…",
+  quotationBack: "Înapoi",
+  quotationSuccessToast: "Formular trimis cu succes!",
+  quotationErrDate: "Te rugăm să selectezi o dată.",
+  quotationErrTime: "Te rugăm să selectezi un interval orar.",
+  quotationErrFirstName: "Prenumele este obligatoriu.",
+  quotationErrLastName: "Numele de familie este obligatoriu.",
+  quotationErrEmail: "Adresa de e-mail este obligatorie.",
+  quotationErrEmailInvalid: "Te rugăm să introduci o adresă de e-mail validă.",
+  quotationErrPhone: "Numărul de telefon este obligatoriu.",
+  quotationErrCountry: "Țara este obligatorie.",
+  quotationErrPostal: "Codul poștal este obligatoriu.",
+  quotationErrCity: "Orașul este obligatoriu.",
+  quotationErrProvince: "Județul / Statul este obligatoriu.",
+  quotationErrStreet: "Adresa este obligatorie.",
+  quotationErrFillRequired: "Te rugăm să completezi toate câmpurile obligatorii marcate cu *",
+  quotationErrServiceNotFound: "Serviciul nu a fost găsit.",
+  quotationErrSubmitFailed: "Trimiterea cererii de ofertă a eșuat.",
+
+  // Confirmation Card (shared between quotation & booking confirmation pages)
   confirmBrandName: "Pearly Sky",
   confirmBrandTagline: "Curățenie de lux ecologică",
   confirmNotFoundTitle: "Oferta nu a fost găsită",
@@ -482,11 +1761,13 @@ export const ro = {
   confirmBookingNotFoundTitle: "Rezervarea nu a fost găsită",
   confirmBookingNotFoundDesc: "Nu am putut găsi o rezervare corespunzătoare pentru acest link.",
   confirmBackToHome: "Înapoi la acasă",
-  confirmLoading: "Se încarcă...",
+  confirmLoading: "Se încarcă…",
   confirmNeedHelp: "Ai nevoie de ajutor?",
   confirmContactSupport: "Contactează suportul",
+
+  // Quotation Confirmation Page
   quotConfirmHeadline: "Am primit cererea ta de ofertă!",
-  quotConfirmDescription: "Îți mulțumim pentru interesul acordat serviciilor noastre premium. Echipa noastră analizează cerințele tale, iar unul dintre specialiștii noștri te va contacta în curând.",
+  quotConfirmDescription: "Îți mulțumim pentru interesul acordat serviciilor noastre premium. Echipa noastră analizează cerințele tale, iar un specialist dedicat te va contacta în cel mai scurt timp.",
   quotConfirmRefLabel: "Număr de referință",
   quotConfirmPaymentLabel: "Starea plății",
   quotConfirmPaymentPending: "În așteptare",
@@ -507,15 +1788,17 @@ export const ro = {
   quotConfirmTeamSpecialists: "Specialiști",
   quotConfirmDateLabel: "Data propusă",
   quotConfirmInfoTitle: "Informație importantă de contact",
-  quotConfirmInfoBody: "O copie a cererii tale a fost trimisă la adresa de email înregistrată.",
-  quotConfirmPrimaryAction: "Vezi cererea mea",
+  quotConfirmInfoBody: "O copie a cererii tale a fost trimisă la adresa de e-mail înregistrată. Dacă ai întrebări urgente, folosește canalele noastre de suport.",
+  quotConfirmPrimaryAction: "Vezi cererile mele",
   quotConfirmDownload: "DESCARCĂ DETALIILE CERERII",
-  bookConfirmHeadlineConfirmed: "Îți mulțumim pentru rezervare!",
-  bookConfirmDescConfirmed: "Serviciul tău de curățenie este confirmat. Echipa noastră dedicată se pregătește pentru intervenție.",
+
+  // Booking Confirmation Page
+  bookConfirmHeadlineConfirmed: "Îți mulțumim pentru comandă!",
+  bookConfirmDescConfirmed: "Serviciul tău de curățenie este confirmat. O echipă de specialiști pregătește intervenția.",
   bookConfirmHeadlinePending: "Rezervare primită!",
-  bookConfirmDescPending: "Rezervarea ta a fost înregistrată. Te rugăm să finalizezi plata de mai jos pentru a confirma serviciul.",
+  bookConfirmDescPending: "Rezervarea ta este salvată. Finalizează plata de mai jos pentru a confirma serviciul.",
   bookConfirmHeadlineCancelled: "Rezervare anulată",
-  bookConfirmDescCancelled: "Această rezervare a fost anulată.",
+  bookConfirmDescCancelled: "Această rezervare a fost anulată. Dacă nu te așteptai la asta, te rugăm să contactezi suportul.",
   bookConfirmRefLabel: "Număr de referință",
   bookConfirmPaymentLabel: "Starea plății",
   bookConfirmPaymentSuccessful: "Finalizată cu succes",
@@ -531,15 +1814,15 @@ export const ro = {
   bookConfirmLocationLabel: "Locație",
   bookConfirmTeamSize: "Mărimea echipei",
   bookConfirmDuration: "Durată estimată",
-  bookConfirmInfoTitle: "Informație importantă",
-  bookConfirmInfoBodyConfirmed: "O confirmare detaliată a fost trimisă pe adresa ta de email.",
-  bookConfirmInfoBodyPending: "O copie detaliată a fost trimisă pe adresa ta de email.",
-  bookConfirmInfoBodyCancelled: "O copie a anulării a fost trimisă pe adresa ta de email.",
-  bookConfirmPrimaryAction: "Vezi rezervarea mea",
+  bookConfirmInfoTitle: "Informație importantă - Confirmare e-mail în panou",
+  bookConfirmInfoBodyConfirmed: "O confirmare detaliată a fost trimisă pe adresa ta de e-mail înregistrată.",
+  bookConfirmInfoBodyPending: "O copie detaliată a acestei rezervări a fost trimisă pe adresa ta de e-mail.",
+  bookConfirmInfoBodyCancelled: "O copie a acestei anulări a fost trimisă pe adresa ta de e-mail.",
+  bookConfirmPrimaryAction: "Vezi rezervările mele",
   bookConfirmDownloadPdf: "DESCARCĂ PDF",
   bookConfirmCompletePayment: "FINALIZEAZĂ PLATA",
-  bookConfirmRedirecting: "SE REDIRECȚIONEAZĂ...",
-  bookConfirmPaymentError: "A apărut o eroare la inițializarea plății.",
+  bookConfirmRedirecting: "SE REDIRECȚIONEAZĂ…",
+  bookConfirmPaymentError: "Nu s-a putut iniția plata.",
   bookConfirmHours: "Ore",
   bookConfirmCleaningSpecialist: "Specialist în curățenie",
   bookConfirmCleaningSpecialists: "Specialiști în curățenie"

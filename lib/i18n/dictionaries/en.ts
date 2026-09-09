@@ -1384,7 +1384,7 @@ serviceLuxuryYachtCleaningTitleFiveFeatureTwo:"Complete linen turnover, sanitati
   // EventTypeSection
   eventTypeSelectionTitle: "EVENT TYPE SELECTION",
   eventTypeSelectionSubtitle: "Book Your Pristine Cleaning Service",
-  eventSelectTypeTitle: "EVENT TYPE SELECTION",
+  //eventSelectTypeTitle: "EVENT TYPE SELECTION",
   eventConferences: "Conferences",
   eventRedCarpet: "Red Carpet Events",
   eventMusicConcerts: "Music Concerts & Festivals",
