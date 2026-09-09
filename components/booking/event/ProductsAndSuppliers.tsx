@@ -23,6 +23,9 @@ import {
     Plus,
     Minus,
 } from "lucide-react";
+import useEmblaCarousel from "embla-carousel-react";
+import { useLanguage } from "@/lib/i18n/language-context";
+import type { TranslationKey } from "@/lib/i18n/dictionaries/en";
 
 // Interfaces
 interface ProductItem {
@@ -43,6 +46,25 @@ interface CarouselSectionProps {
     onUpdateQuantity: (id: string, qty: number) => void;
     onToggleCheck: (id: string) => void;
 }
+
+const PRODUCT_NAME_KEYS: Record<string, TranslationKey> = {
+    "Commercial-Grade Vacuum Cleaners": "prodItemVacuumCleaners",
+    "Floor Polishers / Buffers": "prodItemFloorPolishers",
+    "Carpet Cleaners / Extractors": "prodItemCarpetCleaners",
+    "Mops and Buckets Set": "prodItemMopsBuckets",
+    "High-Pressure Washers": "prodItemPressureWashers",
+    "Industrial Air Blowers": "prodItemAirBlowers",
+    "Steam Vapor Cleaners": "prodItemSteamVaporCleaners",
+    "Microfiber Cleaning Kits": "prodItemMicrofiberKits",
+    "Safety & PPE Gear Kits": "prodItemPpeGearKits",
+    "All-Purpose Cleaners": "prodItemAllPurposeCleaners",
+    "Hospital-Grade Disinfectants": "prodItemHospitalDisinfectants",
+    "Streak-Free Glass Cleaners": "prodItemGlassCleaners",
+    "Floor Cleaners & Strippers": "prodItemFloorCleaners",
+    "Heavy-Duty Degreasers": "prodItemHeavyDegreasers",
+    "Sanitizing Sprays": "prodItemSanitizingSprays",
+    "Specialized Odor Neutralizers": "prodItemOdorNeutralizers",
+};
 
 // Data Arrays
 const EQUIPMENTS: ProductItem[] = [
@@ -67,8 +89,6 @@ const CHEMICALS: ProductItem[] = [
     { id: "ch7", name: "Specialized Odor Neutralizers", unitPrice: 7.5, Icon: FlaskConical },
 ];
 
-import useEmblaCarousel from "embla-carousel-react";
-
 // Item-by-Item Scroll Snap Carousel
 const CarouselSection: React.FC<CarouselSectionProps> = ({
     title,
@@ -77,6 +97,7 @@ const CarouselSection: React.FC<CarouselSectionProps> = ({
     onUpdateQuantity,
     onToggleCheck,
 }) => {
+    const { translate } = useLanguage();
     const [emblaRef, emblaApi] = useEmblaCarousel({
         align: "start",
         containScroll: "trimSnaps",
@@ -133,6 +154,8 @@ const CarouselSection: React.FC<CarouselSectionProps> = ({
                         const isSelected = qty > 0;
                         const IconComponent = item.Icon;
                         const totalPrice = qty * item.unitPrice;
+                        const key = PRODUCT_NAME_KEYS[item.name];
+                        const translatedName = key ? translate(key) : item.name;
 
                         return (
                             <div
@@ -164,7 +187,7 @@ const CarouselSection: React.FC<CarouselSectionProps> = ({
 
                                     {/* Product Title */}
                                     <h4 className="font-bold text-[#121E2D] text-sm leading-snug my-2 min-h-[40px] flex items-center justify-center">
-                                        {item.name}
+                                        {translatedName}
                                     </h4>
 
                                     {/* Stepper Controls */}
@@ -226,6 +249,7 @@ const CarouselSection: React.FC<CarouselSectionProps> = ({
 
 // Main Export Component
 export default function ProductSelector(): React.JSX.Element {
+    const { translate } = useLanguage();
     const [quantities, setQuantities] = useState<QuantitiesState>({});
 
     const updateQuantity = (id: string, newQty: number): void => {
@@ -251,16 +275,16 @@ export default function ProductSelector(): React.JSX.Element {
                 {/* Header */}
                 <div className="text-center mb-10">
                     <h2 className="text-2xl md:text-3xl font-extrabold text-[#A98B4B] tracking-wide uppercase">
-                        Products & Supplies
+                        {translate("prodSuppTitle")}
                     </h2>
                     <p className="text-sm text-slate-400 mt-1">
-                        Choose Your Specialized Tools
+                        {translate("prodSuppSubtitle")}
                     </p>
                 </div>
 
                 {/* Equipment Carousel */}
                 <CarouselSection
-                    title="Equipment"
+                    title={translate("prodSuppEquipment")}
                     items={EQUIPMENTS}
                     quantities={quantities}
                     onUpdateQuantity={updateQuantity}
@@ -269,7 +293,7 @@ export default function ProductSelector(): React.JSX.Element {
 
                 {/* Chemicals Carousel */}
                 <CarouselSection
-                    title="Chemicals"
+                    title={translate("prodSuppChemicals")}
                     items={CHEMICALS}
                     quantities={quantities}
                     onUpdateQuantity={updateQuantity}

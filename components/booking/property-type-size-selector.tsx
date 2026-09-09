@@ -3,6 +3,54 @@
 import { useEffect, useState, useRef } from "react";
 import { YACHT_PROPERTY_TYPES } from "@/components/booking/Yatchpropertytypes";
 import { useLanguage } from "@/lib/i18n/language-context";
+import type { TranslationKey } from "@/lib/i18n/dictionaries/en";
+
+const CATEGORY_LABEL_KEYS: Record<string, TranslationKey> = {
+  "Studio": "propStudio",
+  "Home": "propHome",
+  "Villa": "propVilla",
+  "Estate": "propEstate",
+  "VIP": "propVip",
+  "Apartment / Flat": "propApartment",
+  "Townhouse": "propTownhouse",
+  "Home / House": "propHouse",
+  "Penthouse": "propPenthouse",
+  "Rough Clean": "propRoughClean",
+  "Touch-Up Clean": "propTouchUpClean",
+  "Final Post-Build Clean": "propFinalPostBuildClean",
+  "Heavy-Duty Deep Clean": "propHeavyDutyDeepClean",
+  "Private Parties & Celebrations": "propPrivateParties",
+  "Weddings & Large Receptions": "propWeddings",
+  "Corporate Events & Galas": "propCorporateEvents",
+  "Concerts, Festivals & Live Venues": "propConcertsFestivals",
+  "Pop-Up Shops & Retail Exhibitions": "propPopUpShops",
+  "Art Galleries & Cultural Exhibitions": "propArtGalleries",
+  "Fashion Shows & Runway Events": "propFashionShows",
+  "Film, TV & Commercial Shoots": "propFilmTvShoots",
+  "Charity Auctions & Fundraisers": "propCharityAuctions",
+  "Micro": "propMicro",
+  "Compact": "propCompact",
+  "Small": "propSmall",
+  "Medium": "propMedium",
+  "Large": "propLarge",
+  "Luxury / Enterprise": "propEnterprise",
+  "Corporate & Legal Office": "propCorporateLegal",
+  "Government / SCIF / Data...": "propGovernmentScif",
+  "Healthcare & Medical...": "propHealthcareMedical",
+  "Industrial & Construction": "propIndustrialConstruction",
+  "VIP Estate / Executive...": "propVipEstate",
+  "Event Venue &...": "propEventVenue",
+  "Emergency / Biohazard...": "propEmergencyBiohazard",
+  "Retail & Commercial...": "propRetailCommercial",
+  "Personal / Work Device...": "propPersonalWorkDevice",
+  "Corporate Network /...": "propCorporateNetwork",
+  "Motorboat / Day Cruiser": "yachtMotorboat",
+  "Luxury Express...": "yachtLuxuryExpress",
+  "Flybridge Motor Yacht": "yachtFlybridge",
+  "Superyacht": "yachtSuperyacht",
+  "Megayacht": "yachtMegayacht",
+  "Sailing Yacht / Catamaran": "yachtSailingCatamaran",
+};
 
 export interface PropertyCategory {
   id: string;
@@ -459,7 +507,7 @@ export function PropertyTypeSizeSelector({
                     className={`text-xs text-center leading-tight line-clamp-2 px-1 ${isSelected ? "font-bold text-white" : "font-semibold text-[#1E293B]"
                       }`}
                   >
-                    {cat.label}
+                    {CATEGORY_LABEL_KEYS[cat.label] ? translate(CATEGORY_LABEL_KEYS[cat.label]) : cat.label}
                   </span>
                 </button>
               );

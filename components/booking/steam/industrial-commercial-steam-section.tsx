@@ -99,31 +99,54 @@ export const INDUSTRIAL_STEAM_CATEGORIES: IndustrialSteamCategory[] = [
   },
 ];
 
+import { useLanguage } from "@/lib/i18n/language-context";
+import type { TranslationKey } from "@/lib/i18n/dictionaries/en";
+
 export interface IndustrialCommercialSteamSectionProps {
   selectedTitles: Set<string>;
   onToggle: (title: string) => void;
 }
 
+const CATEGORY_TITLE_KEYS: Record<string, TranslationKey> = {
+  "Manufacturing & Industrial Facilities": "steamIndManufacturing",
+  "Food & Beverage Industry": "steamIndFoodBeverage",
+  "Automotive & Transportation": "steamIndAutomotive",
+  "Healthcare & Institutional": "steamIndHealthcare",
+  "Hospitality & Retail": "steamIndHospitality",
+  "Agriculture & Farming": "steamIndAgriculture",
+  "Waste & Recycling Facilities": "steamIndWaste",
+  "Facility Management (General)": "steamIndFacilityManagement",
+  "Other Specialized Applications": "steamIndOtherSpecialized",
+};
+
 export function IndustrialCommercialSteamSection({
   selectedTitles,
   onToggle,
 }: IndustrialCommercialSteamSectionProps) {
+  const { translate } = useLanguage();
   const [openTitle, setOpenTitle] = useState<string | null>(null);
   const openCategory = INDUSTRIAL_STEAM_CATEGORIES.find((c) => c.title === openTitle) ?? null;
+
+  const getCategoryTitle = (title: string) => {
+    const key = CATEGORY_TITLE_KEYS[title];
+    return key ? translate(key) : title;
+  };
 
   return (
     <section className="overflow-hidden rounded-[12px]">
       <div className="bg-[#121E2D] px-5 py-4 text-center">
         <h2 className="text-[1.1rem] font-bold  text-[#A98B4B] sm:text-[1.3rem]">
-          Industrial & Commercial Steam Cleaning Job Types
+          {translate("steamIndustrialTitle")}
         </h2>
-        <p className="text-white"> We provide deep sanitization, degreasing, and restoration for critical surfaces.</p>
+        <p className="text-white">{translate("steamIndustrialSubtitle")}</p>
       </div>
 
       <div className=" p-4 sm:p-5">
         <div className="grid grid-cols-1 gap-2.5 sm:grid-cols-2 lg:grid-cols-3">
           {INDUSTRIAL_STEAM_CATEGORIES.map((category) => {
             const isChecked = selectedTitles.has(category.title);
+            const translatedCategoryTitle = getCategoryTitle(category.title);
+
             return (
               <div
                 key={category.title}
@@ -135,19 +158,19 @@ export function IndustrialCommercialSteamSection({
                 <button
                   type="button"
                   onClick={() => setOpenTitle(category.title)}
-                  className="min-w-0 flex-1 text-left"
+                  className="min-w-0 flex-1 text-left cursor-pointer"
                 >
-                  <p className="truncate text-sm font-medium text-[white]">{category.title}</p>
-                  <p className="text-xs text-gray-300 cursor-pointer">View details</p>
+                  <p className="truncate text-sm font-medium text-[white]">{translatedCategoryTitle}</p>
+                  <p className="text-xs text-gray-300">{translate("steamViewDetails")}</p>
                 </button>
                 <button
                   type="button"
                   onClick={() => onToggle(category.title)}
                   aria-pressed={isChecked}
-                  className={`shrink-0 rounded-[6px] border-[1.5px] border-[#A98B4B] px-2.5 py-1 text-xs font-semibold ${isChecked ? "bg-[#A98B4B] text-white" : "text-[#A98B4B]"
+                  className={`shrink-0 rounded-[6px] border-[1.5px] border-[#A98B4B] px-2.5 py-1 text-xs font-semibold cursor-pointer ${isChecked ? "bg-[#A98B4B] text-white" : "text-[#A98B4B]"
                     }`}
                 >
-                  {isChecked ? "Added" : "Add"}
+                  {isChecked ? translate("steamAdded") : translate("steamAdd")}
                 </button>
               </div>
             );
@@ -160,7 +183,7 @@ export function IndustrialCommercialSteamSection({
           {openCategory && (
             <>
               <DialogHeader>
-                <DialogTitle className="text-center text-[#A98B4B]">{openCategory.title}</DialogTitle>
+                <DialogTitle className="text-center text-[#A98B4B]">{getCategoryTitle(openCategory.title)}</DialogTitle>
               </DialogHeader>
               <ul className="list-disc space-y-2 pl-5 text-sm text-[#121E2D]">
                 {openCategory.details.map((detail) => (

@@ -11,6 +11,7 @@ import { Button } from "@/components/ui/button";
 import { DateTimeSection } from "@/components/booking/date-time-section";
 import { GENDER_OPTIONS, LANGUAGE_OPTIONS } from "@/components/booking/quotation-preferences-section";
 import { saveBookingDraft, loadBookingDraft, CareProfileDraft } from "@/lib/booking-draft";
+import { useLanguage } from "@/lib/i18n/language-context";
 
 function createEmptyProfile(): CareProfileDraft {
   return {
@@ -36,9 +37,10 @@ export function CareScheduleSection({
   serviceLabel,
 }: CareScheduleSectionProps) {
   const router = useRouter();
+  const { translate } = useLanguage();
   const isElder = serviceSlug.includes("elder");
-  const personTitle = isElder ? "Elder" : "Child";
-  const personCountLabel = isElder ? "Count of Elder" : "Count of Child";
+  const personTitle = isElder ? translate("carePersonTitleElder") : translate("carePersonTitleChild");
+  const personCountLabel = isElder ? translate("carePersonCountElder") : translate("carePersonCountChild");
 
   // Preload from existing draft if available
   const existingDraft = typeof window !== "undefined" ? loadBookingDraft() : null;
@@ -132,11 +134,11 @@ export function CareScheduleSection({
     setFormError(null);
 
     if (!date) {
-      setFormError("Please select a service date.");
+      setFormError(translate("careErrorSelectDate"));
       return;
     }
     if (!time) {
-      setFormError("Please select a service start time.");
+      setFormError(translate("careErrorSelectTime"));
       return;
     }
 
@@ -144,23 +146,22 @@ export function CareScheduleSection({
 
     for (let i = 0; i < activeProfiles.length; i++) {
       const p = activeProfiles[i];
-      const prefix = personCount > 1 ? `${personTitle} ${i + 1}'s` : `${personTitle.toLowerCase()}'s`;
-      const labelSuffix = personCount > 1 ? ` for ${personTitle.toLowerCase()} ${i + 1}` : "";
+      const prefix = personCount > 1 ? `${personTitle} ${i + 1}` : `${personTitle}`;
 
       if (!p.name.trim()) {
-        setFormError(`Please enter ${prefix} name.`);
+        setFormError(`${prefix}: ${translate("careFieldName")}`);
         return;
       }
       if (!p.specialNeeds.trim()) {
-        setFormError(`Please enter special needs or medical notes${labelSuffix} (or type 'None').`);
+        setFormError(`${prefix}: ${translate("careFieldSpecialNeeds")}`);
         return;
       }
       if (!p.gender) {
-        setFormError(`Please select a gender${labelSuffix}.`);
+        setFormError(`${prefix}: ${translate("careFieldGender")}`);
         return;
       }
       if (!p.age.trim()) {
-        setFormError(`Please enter ${prefix} age.`);
+        setFormError(`${prefix}: ${translate("careFieldAge")}`);
         return;
       }
     }
@@ -210,28 +211,28 @@ export function CareScheduleSection({
       {/* 1. SCHEDULE YOUR SERVICE CARD */}
       <section className="overflow-hidden rounded-2xl border border-[#A98B4B]/30 bg-[#121E2D] p-6 shadow-xl sm:p-8">
         <h2 className="mb-6 text-center text-xl font-bold text-white sm:text-2xl">
-          Schedule Your Service
+          {translate("careScheduleYourService")}
         </h2>
 
         <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
           {/* Schedule Mode */}
           <div className="space-y-2">
-            <Label className="text-sm font-medium text-brand-cream/90">Schedule Mode</Label>
+            <Label className="text-sm font-medium text-brand-cream/90">{translate("careScheduleMode")}</Label>
             <Select value={scheduleMode} onValueChange={setScheduleMode}>
               <SelectTrigger className="h-11 w-full p-2 rounded-lg border-0 bg-[#FFFDF4] text-brand-navy shadow-inner focus:ring-2 focus:ring-[#A98B4B]">
-                <SelectValue placeholder="Select mode" />
+                <SelectValue placeholder={translate("careScheduleMode")} />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="In-home care">In-home care</SelectItem>
-                <SelectItem value="Facility-based care">Facility-based care</SelectItem>
-                <SelectItem value="Travel & Event accompaniment">Travel & Event accompaniment</SelectItem>
+                <SelectItem value="In-home care">{translate("careScheduleModeInHome")}</SelectItem>
+                <SelectItem value="Facility-based care">{translate("careScheduleModeFacility")}</SelectItem>
+                <SelectItem value="Travel & Event accompaniment">{translate("careScheduleModeTravel")}</SelectItem>
               </SelectContent>
             </Select>
           </div>
 
           {/* Service Duration */}
           <div className="space-y-2">
-            <Label className="text-sm font-medium text-brand-cream/90">Service Duration</Label>
+            <Label className="text-sm font-medium text-brand-cream/90">{translate("careServiceDuration")}</Label>
             <div className="grid grid-cols-3 gap-2 bg-white p-1 rounded-md">
               {/* Hours counter */}
               <div
@@ -240,7 +241,7 @@ export function CareScheduleSection({
                   : "border-white/20 bg-[#FFFDF4] text-brand-navy"
                   }`}
               >
-                <span className="text-xs font-semibold sm:text-sm">Hours</span>
+                <span className="text-xs font-semibold sm:text-sm">{translate("careDurationHours")}</span>
                 <div className="flex items-center gap-1">
                   <button
                     type="button"
@@ -275,7 +276,7 @@ export function CareScheduleSection({
                   : "border-white/20 bg-[#FFFDF4] text-brand-navy hover:bg-[#FFFDF4]/90"
                   }`}
               >
-                Half Day
+                {translate("careDurationHalfDay")}
               </button>
 
               {/* Full Day */}
@@ -287,7 +288,7 @@ export function CareScheduleSection({
                   : "border-white/20 bg-[#FFFDF4] text-brand-navy hover:bg-[#FFFDF4]/90"
                   }`}
               >
-                Full Day
+                {translate("careDurationFullDay")}
               </button>
             </div>
           </div>
@@ -318,7 +319,7 @@ export function CareScheduleSection({
 
           {/* Request Care Professionals */}
           <div className="space-y-2">
-            <Label className="text-sm font-medium text-brand-cream/90">Request Care Professionals</Label>
+            <Label className="text-sm font-medium text-brand-cream/90">{translate("careRequestProfessionals")}</Label>
             <div className="flex h-11 items-center justify-between rounded-lg bg-[#FFFDF4] px-4 text-brand-navy shadow-inner">
               <span className="text-sm font-semibold">{caregiverCount}</span>
               <div className="flex items-center gap-2">
@@ -360,7 +361,7 @@ export function CareScheduleSection({
       {/* 3. CHILD'S / ELDER'S PROFILE CARD */}
       <section className="overflow-hidden rounded-2xl border border-[#A98B4B]/30 bg-[#121E2D] p-6 shadow-xl sm:p-8">
         <h2 className="mb-6 text-center text-xl font-bold text-white sm:text-2xl">
-          {personTitle}&rsquo;s Profile
+          {personTitle}&rsquo;s {translate("careProfile")}
         </h2>
 
         <div className="space-y-8">
@@ -373,12 +374,12 @@ export function CareScheduleSection({
                 {/* Name */}
                 <div className="space-y-2">
                   <Label className="text-sm font-medium text-brand-cream/90">
-                    {personTitle} Name *
+                    {personTitle} {translate("careFieldName")}
                   </Label>
                   <Input
                     value={profile.name}
                     onChange={(e) => updateProfile(index, { name: e.target.value })}
-                    placeholder={`Type ${personTitle} Name`}
+                    placeholder={translate("careFieldTypePersonName").replace("{title}", personTitle)}
                     className="h-11 rounded-lg border-0 bg-[#FFFDF4] text-brand-navy placeholder:text-muted-foreground focus-visible:ring-2 focus-visible:ring-[#A98B4B]"
                   />
                 </div>
@@ -386,41 +387,41 @@ export function CareScheduleSection({
                 {/* Special Needs / Medical Notes */}
                 <div className="space-y-2">
                   <Label className="text-sm font-medium text-brand-cream/90">
-                    Special Needs / Medical Notes *
+                    {translate("careFieldSpecialNeeds")}
                   </Label>
                   <Input
                     value={profile.specialNeeds}
                     onChange={(e) => updateProfile(index, { specialNeeds: e.target.value })}
-                    placeholder="Type Notes"
+                    placeholder={translate("careFieldTypeNotes")}
                     className="h-11 rounded-lg border-0 bg-[#FFFDF4] text-brand-navy placeholder:text-muted-foreground focus-visible:ring-2 focus-visible:ring-[#A98B4B]"
                   />
                 </div>
 
                 {/* Gender */}
                 <div className="space-y-2">
-                  <Label className="text-sm font-medium text-brand-cream/90">Gender *</Label>
+                  <Label className="text-sm font-medium text-brand-cream/90">{translate("careFieldGender")}</Label>
                   <Select
                     value={profile.gender}
                     onValueChange={(val) => updateProfile(index, { gender: val })}
                   >
                     <SelectTrigger className="h-11 w-full rounded-lg border-0 bg-[#FFFDF4] text-brand-navy shadow-inner focus:ring-2 focus:ring-[#A98B4B] p-2">
-                      <SelectValue placeholder="Please select option" />
+                      <SelectValue placeholder={translate("careFieldGenderPlaceholder")} />
                     </SelectTrigger>
                     <SelectContent>
-                      <SelectItem value="Male">Male</SelectItem>
-                      <SelectItem value="Female">Female</SelectItem>
-                      <SelectItem value="Other">Other / Prefer not to say</SelectItem>
+                      <SelectItem value="Male">{translate("careFieldGenderMale")}</SelectItem>
+                      <SelectItem value="Female">{translate("careFieldGenderFemale")}</SelectItem>
+                      <SelectItem value="Other">{translate("careFieldGenderOther")}</SelectItem>
                     </SelectContent>
                   </Select>
                 </div>
 
                 {/* Age */}
                 <div className="space-y-2">
-                  <Label className="text-sm font-medium text-brand-cream/90">Age *</Label>
+                  <Label className="text-sm font-medium text-brand-cream/90">{translate("careFieldAge")}</Label>
                   <Input
                     value={profile.age}
                     onChange={(e) => updateProfile(index, { age: e.target.value })}
-                    placeholder={`Type ${personTitle} Age`}
+                    placeholder={translate("careFieldTypePersonAge").replace("{title}", personTitle)}
                     className="h-11 rounded-lg border-0 bg-[#FFFDF4] text-brand-navy placeholder:text-muted-foreground focus-visible:ring-2 focus-visible:ring-[#A98B4B]"
                   />
                 </div>
@@ -428,12 +429,12 @@ export function CareScheduleSection({
                 {/* Behavioral Notes (Optional) */}
                 <div className="space-y-2">
                   <Label className="text-sm font-medium text-brand-cream/90">
-                    Behavioral Notes (Optional)
+                    {translate("careFieldBehavioralNotes")}
                   </Label>
                   <Input
                     value={profile.behavioralNotes || ""}
                     onChange={(e) => updateProfile(index, { behavioralNotes: e.target.value })}
-                    placeholder="Type your note here"
+                    placeholder={translate("careFieldTypeNoteHere")}
                     className="h-11 rounded-lg border-0 bg-[#FFFDF4] text-brand-navy placeholder:text-muted-foreground focus-visible:ring-2 focus-visible:ring-[#A98B4B]"
                   />
                 </div>
@@ -446,15 +447,15 @@ export function CareScheduleSection({
       {/* 4. PREFERENCES CARD */}
       <section className="overflow-hidden rounded-2xl border border-[#A98B4B]/30 bg-[#121E2D] p-6 shadow-xl sm:p-8">
         <h2 className="mb-6 text-center text-xl font-bold text-white sm:text-2xl">
-          Preferences
+          {translate("carePreferencesTitle")}
         </h2>
 
         <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
           <div className="space-y-2">
-            <Label className="text-sm font-medium text-brand-cream/90">Gender Preference</Label>
+            <Label className="text-sm font-medium text-brand-cream/90">{translate("careGenderPreference")}</Label>
             <Select value={gender} onValueChange={setGender}>
               <SelectTrigger className="h-11 w-full rounded-lg border-0 bg-[#FFFDF4] text-brand-navy shadow-inner focus:ring-2 focus:ring-[#A98B4B]">
-                <SelectValue placeholder="No preference" />
+                <SelectValue placeholder={translate("preferencesNoPreference")} />
               </SelectTrigger>
               <SelectContent>
                 {GENDER_OPTIONS.map((opt) => (
@@ -467,10 +468,10 @@ export function CareScheduleSection({
           </div>
 
           <div className="space-y-2">
-            <Label className="text-sm font-medium text-brand-cream/90">Language Preference</Label>
+            <Label className="text-sm font-medium text-brand-cream/90">{translate("careLanguagePreference")}</Label>
             <Select value={language} onValueChange={setLanguage}>
               <SelectTrigger className="h-11 w-full rounded-lg border-0 bg-[#FFFDF4] text-brand-navy shadow-inner focus:ring-2 focus:ring-[#A98B4B]">
-                <SelectValue placeholder="No preference" />
+                <SelectValue placeholder={translate("preferencesNoPreference")} />
               </SelectTrigger>
               <SelectContent>
                 {LANGUAGE_OPTIONS.map((opt) => (
@@ -483,7 +484,7 @@ export function CareScheduleSection({
           </div>
 
           <div className="space-y-2 md:col-span-2">
-            <Label className="text-sm font-medium text-brand-cream/90">Special Requirements</Label>
+            <Label className="text-sm font-medium text-brand-cream/90">{translate("careSpecialRequirements")}</Label>
             <Textarea
               rows={4}
               value={requirements}
@@ -507,14 +508,14 @@ export function CareScheduleSection({
           onClick={() => router.back()}
           className="h-11 min-w-[120px] rounded-md cursor-pointer border-brand-navy/30 bg-white text-sm font-semibold text-brand-navy shadow-sm hover:bg-slate-100"
         >
-          Back
+          {translate("careBackButton")}
         </Button>
         <Button
           type="button"
           onClick={handleContinue}
           className="h-11 min-w-[140px] rounded-md  cursor-pointer bg-[#A98B4B] text-sm font-bold text-white shadow-md hover:bg-[#A98B4B]"
         >
-          Continue
+          {translate("careContinueButton")}
         </Button>
       </div>
     </div>

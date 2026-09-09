@@ -71,10 +71,10 @@ const PRESSURE_WASHING_SLUG = "precision-pressure-washing";
 
 //used for fallback data when the service API fails to return a service
 const DEFAULT_PACKAGES: ServiceAddOnPackage[] = [
-  { id: 101, name: "Deep Oven & Stove Detailing", image: null, category: "deep_and_specialized_cleaning" },
-  { id: 102, name: "Interior Refrigerator Sanitation", image: null, category: "deep_and_specialized_cleaning" },
-  { id: 103, name: "Interior Window & Track Cleaning", image: null, category: "general_interior_maintenance" },
-  { id: 104, name: "Balcony & Terrace Scrubbing", image: null, category: "outdoor_and_exterior_spaces" },
+  { id: 101, name:  "AddOnsDefaultCatagoryDeep", image: null, category: "deep_and_specialized_cleaning" },
+  { id: 102, name: "AddOnsDefaultCatagoryInteriorRefrigerator", image: null, category: "deep_and_specialized_cleaning" },
+  { id: 103, name: "AddOnsDefaultCatagoryInteriorWindow", image: null, category: "general_interior_maintenance" },
+  { id: 104, name: "AddOnsDefaultCatagoryBalcony", image: null, category: "outdoor_and_exterior_spaces" },
 ];
 
 const FALLBACK_SERVICES: Record<string, CatalogServiceDetail> = {

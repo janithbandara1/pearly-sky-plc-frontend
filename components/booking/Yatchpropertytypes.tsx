@@ -2,6 +2,17 @@
 
 import { useEffect, useState, useCallback } from "react";
 import useEmblaCarousel from "embla-carousel-react";
+import { useLanguage } from "@/lib/i18n/language-context";
+import type { TranslationKey } from "@/lib/i18n/dictionaries/en";
+
+const YACHT_LABEL_KEYS: Record<string, TranslationKey> = {
+  "Motorboat / Day Cruiser": "yachtMotorboat",
+  "Luxury Express...": "yachtLuxuryExpress",
+  "Flybridge Motor Yacht": "yachtFlybridge",
+  "Superyacht": "yachtSuperyacht",
+  "Megayacht": "yachtMegayacht",
+  "Sailing Yacht / Catamaran": "yachtSailingCatamaran",
+};
 
 export interface PropertyCategory {
   id: string;
@@ -121,6 +132,7 @@ export function PropertyTypeSizeSelector({
   categories = YACHT_PROPERTY_TYPES,
   onCategoryChange,
 }: PropertyTypeSizeSelectorProps) {
+  const { translate } = useLanguage();
   const selectableCategories = categories.filter((c) => !c.locked);
 
   // Tracked explicitly (not re-derived from `value` every render) because some schemes have
@@ -189,13 +201,14 @@ export function PropertyTypeSizeSelector({
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6 items-start">
         {/* Left Column: Property Type */}
         <div className="flex flex-col min-w-0">
-          <h3 className="text-base sm:text-lg font-bold text-[#0F172A] mb-3">Property Type</h3>
+          <h3 className="text-base sm:text-lg font-bold text-[#0F172A] mb-3">{translate("propTypeTitle")}</h3>
 
           <div className="relative">
             <div ref={emblaRef} className="overflow-hidden cursor-grab active:cursor-grabbing select-none pb-2">
               <div className="flex gap-3">
                 {selectableCategories.map((cat) => {
                   const isSelected = cat.id === activeCategory.id;
+                  const translatedLabel = YACHT_LABEL_KEYS[cat.label] ? translate(YACHT_LABEL_KEYS[cat.label]) : cat.label;
                   return (
                     <button
                       key={cat.id}
@@ -216,7 +229,7 @@ export function PropertyTypeSizeSelector({
                         className={`text-xs text-center leading-tight line-clamp-2 px-1 ${isSelected ? "font-bold text-white" : "font-semibold text-[#1E293B]"
                           }`}
                       >
-                        {cat.label}
+                        {translatedLabel}
                       </span>
                     </button>
                   );
@@ -226,13 +239,13 @@ export function PropertyTypeSizeSelector({
           </div>
 
           <p className="text-[11px] text-[#94A3B8] text-center mt-1.5 font-medium tracking-wide select-none">
-            ‹ Swipe to browse ›
+            {translate("propTypeSwipe")}
           </p>
         </div>
 
         {/* Right Column: Property Size */}
         <div className="flex flex-col">
-          <h3 className="text-base sm:text-lg font-bold text-[#0F172A] mb-3">Property Size</h3>
+          <h3 className="text-base sm:text-lg font-bold text-[#0F172A] mb-3">{translate("propSizeTitle")}</h3>
 
           <div className="flex items-center gap-3">
             {/* Wheel Display Container */}
@@ -284,7 +297,7 @@ export function PropertyTypeSizeSelector({
                 aria-label="Increase Property Size"
               >
                 <span className="text-sm leading-none font-bold">↑</span>
-                <span className="text-[9px] font-bold tracking-wider text-[#1E293B] mt-1">UP</span>
+                <span className="text-[9px] font-bold tracking-wider text-[#1E293B] mt-1">{translate("propSizeUp")}</span>
               </button>
 
               <button
@@ -295,7 +308,7 @@ export function PropertyTypeSizeSelector({
                 aria-label="Decrease Property Size"
               >
                 <span className="text-sm leading-none font-bold">↓</span>
-                <span className="text-[9px] font-bold tracking-wider text-[#1E293B] mt-1">DOWN</span>
+                <span className="text-[9px] font-bold tracking-wider text-[#1E293B] mt-1">{translate("propSizeDown")}</span>
               </button>
             </div>
           </div>
