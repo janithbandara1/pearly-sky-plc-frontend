@@ -11,7 +11,13 @@ import {
   type CountryCode,
 } from "@/lib/countries/config";
 import { detectCountryFromHeaders, extractLocalePrefix } from "@/lib/countries/geo";
-import { LANGUAGE_COOKIE_MAX_AGE, LANGUAGE_COOKIE_NAME, LANGUAGE_HEADER_NAME, type LanguageCode } from "@/lib/i18n/config";
+import {
+  LANGUAGE_COOKIE_MAX_AGE,
+  LANGUAGE_COOKIE_NAME,
+  LANGUAGE_HEADER_NAME,
+  SUPPORTED_LANGUAGES,
+  type LanguageCode,
+} from "@/lib/i18n/config";
 import { detectLanguageFromHeaders } from "@/lib/i18n/geo";
 import { buildLocalePath } from "@/lib/locale";
 
@@ -54,7 +60,10 @@ function resolveAuthRedirect(pathname: string, request: NextRequest): NextRespon
 // previously-live countries' indexed pages' SEO equity. A legacy language that
 // the target country no longer offers (e.g. "/gb/fr/...") clamps to that
 // country's default rather than 404ing.
-const LEGACY_COUNTRY_LANGUAGE_PATTERN = /^\/([a-z]{2})\/(en|fr)(\/.*)?$/i;
+const LEGACY_COUNTRY_LANGUAGE_PATTERN = new RegExp(
+  `^/([a-z]{2})/(${SUPPORTED_LANGUAGES.join("|")})(/.*)?$`,
+  "i",
+);
 
 function resolveLegacyLocaleRedirect(pathname: string, request: NextRequest): NextResponse | null {
   const match = pathname.match(LEGACY_COUNTRY_LANGUAGE_PATTERN);

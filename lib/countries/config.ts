@@ -1,4 +1,4 @@
-import type { LanguageCode } from "@/lib/i18n/config";
+import { SUPPORTED_LANGUAGES, type LanguageCode } from "@/lib/i18n/config";
 
 /**
  * Single source of truth for which country prefixes the redirect logic
@@ -93,38 +93,35 @@ export function countryFromUrlSlug(slug: string | null | undefined): CountryCode
 }
 
 /**
- * Which languages each country's portal offers. Every country supports
- * English (the master blueprint's "English Vision" baseline); France
- * additionally keeps its original English/French toggle for real
- * French-speaking customers — every other market here is a new,
- * English-only placeholder portal, so it gets just "en".
+ * Every supplied dictionary is available in every market so visitors can
+ * choose their preferred language from the header or footer switcher.
  */
 export const COUNTRY_LANGUAGES: Record<CountryCode, readonly LanguageCode[]> = {
-  fr: ["en", "fr"],
-  de: ["en"],
-  lu: ["en"],
-  nl: ["en"],
-  fi: ["en"],
-  se: ["en"],
-  it: ["en"],
-  pl: ["en"],
-  be: ["en"],
-  at: ["en"],
-  dk: ["en"],
-  es: ["en"],
-  pt: ["en"],
-  ro: ["en"],
-  gb: ["en"],
-  us: ["en"],
-  ca: ["en"],
-  au: ["en"],
-  nz: ["en"],
-  qa: ["en"],
-  sa: ["en"],
-  ae: ["en"],
-  om: ["en"],
-  bh: ["en"],
-  lk: ["en"],
+  fr: SUPPORTED_LANGUAGES,
+  de: SUPPORTED_LANGUAGES,
+  lu: SUPPORTED_LANGUAGES,
+  nl: SUPPORTED_LANGUAGES,
+  fi: SUPPORTED_LANGUAGES,
+  se: SUPPORTED_LANGUAGES,
+  it: SUPPORTED_LANGUAGES,
+  pl: SUPPORTED_LANGUAGES,
+  be: SUPPORTED_LANGUAGES,
+  at: SUPPORTED_LANGUAGES,
+  dk: SUPPORTED_LANGUAGES,
+  es: SUPPORTED_LANGUAGES,
+  pt: SUPPORTED_LANGUAGES,
+  ro: SUPPORTED_LANGUAGES,
+  gb: SUPPORTED_LANGUAGES,
+  us: SUPPORTED_LANGUAGES,
+  ca: SUPPORTED_LANGUAGES,
+  au: SUPPORTED_LANGUAGES,
+  nz: SUPPORTED_LANGUAGES,
+  qa: SUPPORTED_LANGUAGES,
+  sa: SUPPORTED_LANGUAGES,
+  ae: SUPPORTED_LANGUAGES,
+  om: SUPPORTED_LANGUAGES,
+  bh: SUPPORTED_LANGUAGES,
+  lk: SUPPORTED_LANGUAGES,
 };
 
 export function isLanguageSupportedForCountry(

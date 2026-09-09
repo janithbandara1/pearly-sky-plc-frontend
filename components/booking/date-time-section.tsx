@@ -1,24 +1,36 @@
 "use client";
 
 import { useMemo, useState } from "react";
+import { useLanguage } from "@/lib/i18n/language-context";
+import type { TranslationKey } from "@/lib/i18n/dictionaries/en";
 
 const TIME_START = "05:30";
 const TIME_END = "17:30";
 const TIME_STEP_MINUTES = 30;
-const WEEKDAY_LABELS = ["Mo", "Tu", "We", "Th", "Fr", "Sa", "Su"];
-const MONTH_LABELS = [
-  "January",
-  "February",
-  "March",
-  "April",
-  "May",
-  "June",
-  "July",
-  "August",
-  "September",
-  "October",
-  "November",
-  "December",
+
+const WEEKDAY_KEYS: TranslationKey[] = [
+  "weekdayMo",
+  "weekdayTu",
+  "weekdayWe",
+  "weekdayTh",
+  "weekdayFr",
+  "weekdaySa",
+  "weekdaySu",
+];
+
+const MONTH_KEYS: TranslationKey[] = [
+  "monthJan",
+  "monthFeb",
+  "monthMar",
+  "monthApr",
+  "monthMay",
+  "monthJun",
+  "monthJul",
+  "monthAug",
+  "monthSep",
+  "monthOct",
+  "monthNov",
+  "monthDec",
 ];
 
 function toDateKey(d: Date): string {
@@ -64,6 +76,7 @@ export interface DateTimeSectionProps {
 }
 
 export function DateTimeSection({ date, onDateChange, time, onTimeChange }: DateTimeSectionProps) {
+  const { translate } = useLanguage();
   const today = useMemo(() => startOfDay(new Date()), []);
   const minSelectable = useMemo(() => {
     const d = new Date(today);
@@ -90,14 +103,16 @@ export function DateTimeSection({ date, onDateChange, time, onTimeChange }: Date
     <section className="overflow-hidden rounded-[12px] border border-[#A98B4B] bg-[rgb(248,249,250)]">
       <div className="px-5 py-4 text-center">
         <h2 className="text-[1.4rem] font-bold text-[rgb(18, 30, 45)] sm:text-[1.3rem]">
-          Select Date & Time to Book Your Appointment
+          {translate("dateTimeSelectTitle")}
         </h2>
       </div>
 
       <div className="grid grid-cols-1 gap-4 bg-[#F8F9FA] p-4 sm:p-5 md:grid-cols-2 md:gap-5">
         {/* Date */}
         <div className="overflow-hidden rounded-xl border border-[#A98B4B] bg-[#FFFDF4] shadow-sm">
-          <div className="bg-[#121E2D] py-3.5 text-center text-sm font-semibold text-white">Select Your Date</div>
+          <div className="bg-[#121E2D] py-3.5 text-center text-sm font-semibold text-white">
+            {translate("dateTimeSelectDate")}
+          </div>
           <div className="p-4">
             <div className="mb-2 flex items-center justify-between">
               <button
@@ -109,7 +124,7 @@ export function DateTimeSection({ date, onDateChange, time, onTimeChange }: Date
                 ‹
               </button>
               <span className="text-sm font-semibold text-[#002F6D]">
-                {MONTH_LABELS[viewMonth.getMonth()]} {viewMonth.getFullYear()}
+                {translate(MONTH_KEYS[viewMonth.getMonth()])} {viewMonth.getFullYear()}
               </span>
               <button
                 type="button"
@@ -121,12 +136,14 @@ export function DateTimeSection({ date, onDateChange, time, onTimeChange }: Date
             </div>
 
             <div className="grid grid-cols-7 gap-y-1 text-center">
-              {WEEKDAY_LABELS.map((w) => (
+              {WEEKDAY_KEYS.map((w) => (
                 <span key={w} className="text-xs font-semibold text-[#002F6D]">
-                  {w}
+                  {translate(w)}
                 </span>
               ))}
+            </div>
 
+            <div className="grid grid-cols-7 gap-y-1 text-center">
               {cells.map((cellDate, i) => {
                 if (!cellDate) return <span key={`blank-${i}`} />;
                 const key = toDateKey(cellDate);
@@ -159,7 +176,7 @@ export function DateTimeSection({ date, onDateChange, time, onTimeChange }: Date
         {/* Time */}
         <div className="overflow-hidden rounded-xl border border-[#A98B4B] bg-[#FFFDF4] shadow-sm">
           <div className="bg-[#121E2D] py-3.5 text-center text-sm font-semibold text-white">
-            Select Your Time Period
+            {translate("dateTimeSelectTime")}
           </div>
           <div className="grid max-h-64 grid-cols-2 gap-2 overflow-y-auto p-3">
             {TIME_SLOTS.map((slot) => {

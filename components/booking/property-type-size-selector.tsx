@@ -2,6 +2,55 @@
 
 import { useEffect, useState, useRef } from "react";
 import { YACHT_PROPERTY_TYPES } from "@/components/booking/Yatchpropertytypes";
+import { useLanguage } from "@/lib/i18n/language-context";
+import type { TranslationKey } from "@/lib/i18n/dictionaries/en";
+
+const CATEGORY_LABEL_KEYS: Record<string, TranslationKey> = {
+  "Studio": "propStudio",
+  "Home": "propHome",
+  "Villa": "propVilla",
+  "Estate": "propEstate",
+  "VIP": "propVip",
+  "Apartment / Flat": "propApartment",
+  "Townhouse": "propTownhouse",
+  "Home / House": "propHouse",
+  "Penthouse": "propPenthouse",
+  "Rough Clean": "propRoughClean",
+  "Touch-Up Clean": "propTouchUpClean",
+  "Final Post-Build Clean": "propFinalPostBuildClean",
+  "Heavy-Duty Deep Clean": "propHeavyDutyDeepClean",
+  "Private Parties & Celebrations": "propPrivateParties",
+  "Weddings & Large Receptions": "propWeddings",
+  "Corporate Events & Galas": "propCorporateEvents",
+  "Concerts, Festivals & Live Venues": "propConcertsFestivals",
+  "Pop-Up Shops & Retail Exhibitions": "propPopUpShops",
+  "Art Galleries & Cultural Exhibitions": "propArtGalleries",
+  "Fashion Shows & Runway Events": "propFashionShows",
+  "Film, TV & Commercial Shoots": "propFilmTvShoots",
+  "Charity Auctions & Fundraisers": "propCharityAuctions",
+  "Micro": "propMicro",
+  "Compact": "propCompact",
+  "Small": "propSmall",
+  "Medium": "propMedium",
+  "Large": "propLarge",
+  "Luxury / Enterprise": "propEnterprise",
+  "Corporate & Legal Office": "propCorporateLegal",
+  "Government / SCIF / Data...": "propGovernmentScif",
+  "Healthcare & Medical...": "propHealthcareMedical",
+  "Industrial & Construction": "propIndustrialConstruction",
+  "VIP Estate / Executive...": "propVipEstate",
+  "Event Venue &...": "propEventVenue",
+  "Emergency / Biohazard...": "propEmergencyBiohazard",
+  "Retail & Commercial...": "propRetailCommercial",
+  "Personal / Work Device...": "propPersonalWorkDevice",
+  "Corporate Network /...": "propCorporateNetwork",
+  "Motorboat / Day Cruiser": "yachtMotorboat",
+  "Luxury Express...": "yachtLuxuryExpress",
+  "Flybridge Motor Yacht": "yachtFlybridge",
+  "Superyacht": "yachtSuperyacht",
+  "Megayacht": "yachtMegayacht",
+  "Sailing Yacht / Catamaran": "yachtSailingCatamaran",
+};
 
 export interface PropertyCategory {
   id: string;
@@ -359,6 +408,7 @@ export function PropertyTypeSizeSelector({
   categories = PROPERTY_CATEGORIES,
   onCategoryChange,
 }: PropertyTypeSizeSelectorProps) {
+  const { translate } = useLanguage();
   const selectableCategories = categories.filter((c) => !c.locked);
 
   // Tracked explicitly (not re-derived from `value` every render) because some schemes have
@@ -428,7 +478,7 @@ export function PropertyTypeSizeSelector({
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6 items-start">
         {/* Left Column: Property Type */}
         <div className="flex flex-col min-w-0">
-          <h3 className="text-base sm:text-lg font-bold text-[#0F172A] mb-3">Property Type</h3>
+          <h3 className="text-base sm:text-lg font-bold text-[#0F172A] mb-3">{translate("propTypeTitle")}</h3>
 
           <div
             className="flex flex-nowrap gap-3 overflow-x-auto overflow-y-hidden -mx-1 px-1 [&::-webkit-scrollbar]:hidden"
@@ -457,7 +507,7 @@ export function PropertyTypeSizeSelector({
                     className={`text-xs text-center leading-tight line-clamp-2 px-1 ${isSelected ? "font-bold text-white" : "font-semibold text-[#1E293B]"
                       }`}
                   >
-                    {cat.label}
+                    {CATEGORY_LABEL_KEYS[cat.label] ? translate(CATEGORY_LABEL_KEYS[cat.label]) : cat.label}
                   </span>
                 </button>
               );
@@ -465,13 +515,13 @@ export function PropertyTypeSizeSelector({
           </div>
 
           <p className="text-[11px] text-[#94A3B8] text-center mt-1.5 font-medium tracking-wide select-none">
-            ‹ Swipe to browse ›
+            {translate("propTypeSwipe")}
           </p>
         </div>
 
         {/* Right Column: Property Size */}
         <div className="flex flex-col">
-          <h3 className="text-base sm:text-lg font-bold text-[#0F172A] mb-3">Property Size</h3>
+          <h3 className="text-base sm:text-lg font-bold text-[#0F172A] mb-3">{translate("propSizeTitle")}</h3>
 
           <div className="flex items-center gap-3">
             {/* Wheel Display Container */}
@@ -520,7 +570,7 @@ export function PropertyTypeSizeSelector({
                 aria-label="Increase Property Size"
               >
                 <span className="text-sm leading-none font-bold">↑</span>
-                <span className="text-[9px] font-bold tracking-wider text-[#1E293B] mt-1">UP</span>
+                <span className="text-[9px] font-bold tracking-wider text-[#1E293B] mt-1">{translate("propSizeUp")}</span>
               </button>
 
               <button
@@ -531,7 +581,7 @@ export function PropertyTypeSizeSelector({
                 aria-label="Decrease Property Size"
               >
                 <span className="text-sm leading-none font-bold">↓</span>
-                <span className="text-[9px] font-bold tracking-wider text-[#1E293B] mt-1">DOWN</span>
+                <span className="text-[9px] font-bold tracking-wider text-[#1E293B] mt-1">{translate("propSizeDown")}</span>
               </button>
             </div>
           </div>

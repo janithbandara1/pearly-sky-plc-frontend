@@ -71,10 +71,10 @@ const PRESSURE_WASHING_SLUG = "precision-pressure-washing";
 
 //used for fallback data when the service API fails to return a service
 const DEFAULT_PACKAGES: ServiceAddOnPackage[] = [
-  { id: 101, name: "Deep Oven & Stove Detailing", image: null, category: "deep_and_specialized_cleaning" },
-  { id: 102, name: "Interior Refrigerator Sanitation", image: null, category: "deep_and_specialized_cleaning" },
-  { id: 103, name: "Interior Window & Track Cleaning", image: null, category: "general_interior_maintenance" },
-  { id: 104, name: "Balcony & Terrace Scrubbing", image: null, category: "outdoor_and_exterior_spaces" },
+  { id: 101, name:  "AddOnsDefaultCatagoryDeep", image: null, category: "deep_and_specialized_cleaning" },
+  { id: 102, name: "AddOnsDefaultCatagoryInteriorRefrigerator", image: null, category: "deep_and_specialized_cleaning" },
+  { id: 103, name: "AddOnsDefaultCatagoryInteriorWindow", image: null, category: "general_interior_maintenance" },
+  { id: 104, name: "AddOnsDefaultCatagoryBalcony", image: null, category: "outdoor_and_exterior_spaces" },
 ];
 
 const FALLBACK_SERVICES: Record<string, CatalogServiceDetail> = {
@@ -207,7 +207,7 @@ export function ServiceBookingView({ serviceSlug }: { serviceSlug: string }) {
     isCarpetService ||
     isPoolCleaning ||
     isPressureWashing ||
-    isYachtService;
+    isYachtService; 
   const serviceContent = SERVICE_CONTENT[serviceSlug];
 
   const [service, setService] = useState<CatalogServiceDetail | null>(null);
@@ -491,12 +491,43 @@ export function ServiceBookingView({ serviceSlug }: { serviceSlug: string }) {
                     ? "Add at least one Cleaning Solvent & Equipment item above to continue."
                     : undefined;
 
+  const getServiceName=()=>{
+    if(serviceSlug==="regular-home-cleaning") return "serviceRegularHomeCleaning"
+    if(serviceSlug==="healthguard-sanitization") return "serviceHealthguardSanitization"
+    if(serviceSlug==="carpet-upholstery-cleaning") return "serviceCarpetUpholsteryCleaning"
+    if(serviceSlug==="steam-cleaning") return "serviceSteamCleaning"
+    if(serviceSlug==="post-event-cleaning") return "servicePostEventCleaning"
+    if(serviceSlug==="high-security-property-care") return "serviceHighSecurityPropertyCare"
+    if(serviceSlug==="luxury-yacht-cleaning") return "serviceLuxuryYachtCleaning"
+    if(serviceSlug==="child-care-service") return "serviceChildCareService"
+    if(serviceSlug==="elder-care-service") return "serviceElderCareService"
+    if(serviceSlug==="pool-cleaning") return "servicePoolCleaning"
+    if(serviceSlug==="precision-pressure-washing") return "servicePrecisionPressureWashing"
+    if(serviceSlug==="commercial-office-cleaning") return "serviceCommercialCleaningServices"
+    if(
+      serviceSlug === "move-in-out-transport-service" ||
+      serviceSlug === "move-in-out-transport-health"
+    ) return "serviceMoveInOutTransportService"
+    if(serviceSlug==="quick-touch-up-cleaning") return "serviceEssentialTouchUpCleaning"
+    if(serviceSlug==="deep-cleaning") return "serviceDeepCleaning"
+    if(serviceSlug==="end-of-tenancy-cleaning") return "serviceEndOfTenancyCleaning"
+    if(serviceSlug==="post-construction-renovation-cleaning") return "servicePostConstructionCleaning"
+    if(serviceSlug==="premium-rental-concierge-cleaning") return "servicePremiumRentalConciergeCleaning"
+    if(
+      serviceSlug === "laundry-service" ||
+      serviceSlug === "laundry-services" ||
+      serviceSlug === "laundry-linen-care"
+    ) return "serviceLaundryService"
+    if(serviceSlug==="same-day-priority-cleaning") return "serviceSameDayPriorityCleaning"
+    return service.label
+  } 
+
   return (
     <div className={`${poppins.className}  bg-[rgb(199,209,217)]`}>
       <PageHero
         image={service.imageUrl ?? "/images/services/updated-home-property-cleaning-services-1-standard-residential-cleaning.webp"}
         eyebrow="Book a service"
-        title={service.label}
+        title={getServiceName()}
         subtitle={service.description ?? undefined}
         servicePrices={service.prices}
         serviceId={service.id}
@@ -515,6 +546,11 @@ export function ServiceBookingView({ serviceSlug }: { serviceSlug: string }) {
         {(!isFlowService || isPoolCleaning || isCareService) && serviceContent?.introduction && (
           <ServiceIntroduction
             {...serviceContent.introduction}
+            body={
+              Array.isArray(serviceContent.introduction.body)
+                ? serviceContent.introduction.body
+                : [serviceContent.introduction.body]
+            }
             bgImage={
               service.imageUrl ??
               "/images/services/updated-home-property-cleaning-services-1-standard-residential-cleaning.webp"
@@ -523,7 +559,7 @@ export function ServiceBookingView({ serviceSlug }: { serviceSlug: string }) {
         )}
 
         {serviceContent?.highlights?.map((group, index) => (
-          <ServiceHighlights key={index} title={group.title} cards={group.cards} />
+          <ServiceHighlights key={index} cards={group.cards} />
         ))}
 
         {isCarpetService ? (

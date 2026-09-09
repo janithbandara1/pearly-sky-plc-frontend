@@ -15,11 +15,7 @@ import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { GENDER_OPTIONS, LANGUAGE_OPTIONS } from "@/components/booking/quotation-preferences-section";
 import type { QuotationStatus } from "@/lib/quotation-api";
-
-const SUPPLY_SOURCE_LABEL: Record<string, string> = {
-  customer: "Provided by the Customer",
-  company: "Request the Company",
-};
+import { useLanguage } from "@/lib/i18n/language-context";
 
 /** Matches the quoteItemsTitle set for child/elder care quotations — see careQuoteItemsTitle in request-quotation/page.tsx. */
 const CARE_QUOTE_TITLES = new Set(["Child Details", "Elder Details"]);
@@ -36,11 +32,6 @@ const STATUS_BADGE_VARIANT: Record<QuotationStatus, "default" | "secondary" | "o
   new: "secondary",
   closed: "outline",
 };
-
-function optionLabel(options: { value: string; label: string }[], value: string | null): string {
-  if (!value) return "No Preference";
-  return options.find((o) => o.value === value)?.label ?? value;
-}
 
 export interface QuotationSummaryAddress {
   streetAddress: string;
@@ -148,11 +139,26 @@ export function QuotationSummaryCard({
   deliveryAddress,
   footer,
 }: QuotationSummaryCardProps) {
+  const { translate } = useLanguage();
   const hasContact = customerName !== undefined || customerEmail !== undefined || customerPhone !== undefined;
-  const professionalsLabel = quoteItemsTitle && CARE_QUOTE_TITLES.has(quoteItemsTitle) ? "Caregivers" : "Cleaners";
+  const professionalsLabel = quoteItemsTitle && CARE_QUOTE_TITLES.has(quoteItemsTitle)
+    ? translate("summaryCaregivers")
+    : translate("summaryCleaners");
   const isCareProfileQuote = !!quoteItemsTitle && CARE_QUOTE_TITLES.has(quoteItemsTitle);
   const hideQuoteItems =
     !!quoteItemsTitle && HIDE_IF_EMPTY_QUOTE_TITLES.has(quoteItemsTitle) && !quoteItems?.length;
+
+  const getOptionLabel = (options: { value: string; label: string }[], value: string | null): string => {
+    if (!value || value === "no-preference") return translate("summaryNoPreference");
+    return options.find((o) => o.value === value)?.label ?? value;
+  };
+
+  const getSupplyLabel = (source: string | null) => {
+    if (!source) return translate("summaryNotSpecified");
+    if (source === "customer") return translate("summarySupplySourceCustomer");
+    if (source === "company") return translate("summarySupplySourceCompany");
+    return source;
+  };
 
   return (
     <div className="grid grid-cols-1 gap-6 lg:grid-cols-3 lg:items-start">
@@ -161,11 +167,11 @@ export function QuotationSummaryCard({
           <CardHeader>
             <CardTitle className="flex items-center gap-2">
               <Info className="size-4 text-muted-foreground" />
-              Overview
+              {translate("summaryOverview")}
             </CardTitle>
           </CardHeader>
           <CardContent className="flex items-center justify-between gap-4">
-            <Field label="Reference" value={referenceNumber} />
+            <Field label={translate("summaryReference")} value={referenceNumber} />
             <Badge variant={STATUS_BADGE_VARIANT[status]} className="capitalize">
               {status}
             </Badge>
@@ -174,52 +180,52 @@ export function QuotationSummaryCard({
         </Card>
 
         {hasContact && (
-          <SectionCard icon={Users} label="Contact Information">
+          <SectionCard icon={Users} label={translate("summaryContactInfo")}>
             <div className="flex flex-col gap-4">
-              {customerName && <Field label="Name" value={customerName} />}
-              {customerEmail && <Field label="Email" value={customerEmail} />}
-              {customerPhone && <Field label="Phone" value={customerPhone} />}
+              {customerName && <Field label={translate("summaryName")} value={customerName} />}
+              {customerEmail && <Field label={translate("summaryEmail")} value={customerEmail} />}
+              {customerPhone && <Field label={translate("summaryPhone")} value={customerPhone} />}
             </div>
           </SectionCard>
         )}
 
-        <SectionCard icon={MapPin} label={deliveryAddress ? "Pickup Address" : "Address"}>
+        <SectionCard icon={MapPin} label={deliveryAddress ? translate("summaryPickupAddress") : translate("summaryAddress")}>
           <div className="flex flex-col gap-3">
-            <Field label="Street Address" value={address.streetAddress} />
-            {address.unit && <Field label="Unit/Apt/Suite" value={address.unit} />}
-            <Field label="City" value={address.city} />
-            {address.state && <Field label="Province/State" value={address.state} />}
-            {address.country && <Field label="Country" value={address.country} />}
-            {address.postalCode && <Field label="Postal Code" value={address.postalCode} />}
+            <Field label={translate("summaryStreetAddress")} value={address.streetAddress} />
+            {address.unit && <Field label={translate("summaryUnitAptSuite")} value={address.unit} />}
+            <Field label={translate("summaryCity")} value={address.city} />
+            {address.state && <Field label={translate("summaryProvinceState")} value={address.state} />}
+            {address.country && <Field label={translate("summaryCountry")} value={address.country} />}
+            {address.postalCode && <Field label={translate("summaryPostalCode")} value={address.postalCode} />}
           </div>
         </SectionCard>
 
         {deliveryAddress && (
-          <SectionCard icon={MapPin} label="Delivery Address">
+          <SectionCard icon={MapPin} label={translate("summaryDeliveryAddress")}>
             <div className="flex flex-col gap-3">
-              <Field label="Street Address" value={deliveryAddress.streetAddress} />
-              {deliveryAddress.unit && <Field label="Unit/Apt/Suite" value={deliveryAddress.unit} />}
-              <Field label="City" value={deliveryAddress.city} />
-              {deliveryAddress.state && <Field label="Province/State" value={deliveryAddress.state} />}
-              {deliveryAddress.country && <Field label="Country" value={deliveryAddress.country} />}
-              {deliveryAddress.postalCode && <Field label="Postal Code" value={deliveryAddress.postalCode} />}
+              <Field label={translate("summaryStreetAddress")} value={deliveryAddress.streetAddress} />
+              {deliveryAddress.unit && <Field label={translate("summaryUnitAptSuite")} value={deliveryAddress.unit} />}
+              <Field label={translate("summaryCity")} value={deliveryAddress.city} />
+              {deliveryAddress.state && <Field label={translate("summaryProvinceState")} value={deliveryAddress.state} />}
+              {deliveryAddress.country && <Field label={translate("summaryCountry")} value={deliveryAddress.country} />}
+              {deliveryAddress.postalCode && <Field label={translate("summaryPostalCode")} value={deliveryAddress.postalCode} />}
             </div>
           </SectionCard>
         )}
       </div>
 
       <div className="flex flex-col gap-6 lg:col-span-2 lg:col-start-1 lg:row-start-1">
-        <SectionCard icon={ClipboardList} label="Service Details">
+        <SectionCard icon={ClipboardList} label={translate("summaryServiceDetails")}>
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-            <Field label="Service" value={serviceLabel} />
-            <Field label="Date & time" value={date ? `${date}${time ? ` · ${time}` : ""}` : "Not specified"} />
+            <Field label={translate("summaryService")} value={serviceLabel} />
+            <Field label={translate("summaryDateTime")} value={date ? `${date}${time ? ` · ${time}` : ""}` : translate("summaryNotSpecified")} />
             {!(quoteItemsTitle && !hideQuoteItems) && (
               <>
-                {propertyType && <Field label="Property type" value={propertyType} />}
-                {propertySizeSqm != null && <Field label="Property size" value={`${propertySizeSqm} m²`} />}
+                {propertyType && <Field label={translate("summaryPropertyType")} value={propertyType} />}
+                {propertySizeSqm != null && <Field label={translate("summaryPropertySize")} value={`${propertySizeSqm} m²`} />}
               </>
             )}
-            {durationHours != null && <Field label="Duration" value={`${Number(durationHours)} hours`} />}
+            {durationHours != null && <Field label={translate("summaryDuration")} value={`${Number(durationHours)} ${translate("summaryHours")}`} />}
             {numCleaners != null && <Field label={professionalsLabel} value={numCleaners} />}
           </div>
         </SectionCard>
@@ -250,34 +256,34 @@ export function QuotationSummaryCard({
                 </ul>
               )
             ) : (
-              <p className="text-sm">Not specified</p>
+              <p className="text-sm">{translate("summaryNotSpecified")}</p>
             )}
           </SectionCard>
         )}
 
-        <SectionCard icon={SlidersHorizontal} label="Preferences">
+        <SectionCard icon={SlidersHorizontal} label={translate("summaryPreferences")}>
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-            <Field label="Gender Preference" value={optionLabel(GENDER_OPTIONS, genderPreference)} />
-            <Field label="Language Preference" value={optionLabel(LANGUAGE_OPTIONS, languagePreference)} />
+            <Field label={translate("summaryGenderPreference")} value={getOptionLabel(GENDER_OPTIONS, genderPreference)} />
+            <Field label={translate("summaryLanguagePreference")} value={getOptionLabel(LANGUAGE_OPTIONS, languagePreference)} />
             <div className="sm:col-span-2">
-              <Field label="Special Requirements" value={specialRequirements || "—"} />
+              <Field label={translate("summarySpecialRequirements")} value={specialRequirements || "—"} />
             </div>
           </div>
         </SectionCard>
 
         {(howGetIn || howHeard) && (
-          <SectionCard icon={Megaphone} label="Logistics & Marketing">
+          <SectionCard icon={Megaphone} label={translate("summaryLogisticsMarketing")}>
             <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-              {howGetIn && <Field label="How will we get in?" value={howGetIn} />}
-              {howHeard && <Field label="How did you hear about us?" value={howHeard} />}
+              {howGetIn && <Field label={translate("summaryHowGetIn")} value={howGetIn} />}
+              {howHeard && <Field label={translate("summaryHowHeard")} value={howHeard} />}
             </div>
           </SectionCard>
         )}
 
         {supplySource || equipmentItems?.length ? (
-          <SectionCard icon={SprayCan} label="Cleaning Solvents & Equipment">
+          <SectionCard icon={SprayCan} label={translate("summaryEquipment")}>
             <p className="text-sm">
-              {supplySource ? (SUPPLY_SOURCE_LABEL[supplySource] ?? supplySource) : "Not specified"}
+              {getSupplyLabel(supplySource)}
             </p>
             {supplySource === "company" && equipmentItems?.length ? (
               <ul className="mt-2 flex flex-col gap-2 text-sm">

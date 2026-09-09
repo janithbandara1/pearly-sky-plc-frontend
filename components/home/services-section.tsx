@@ -24,9 +24,38 @@ const CATEGORIES: { key: ServiceCategory; headingKey: TranslationKey;subHeader: 
 
 ];
 
+const SERVICE_TRANSLATIONS: Partial<Record<string, { label: TranslationKey; description: TranslationKey }>> = {
+  "regular-home-cleaning": { label: "serviceRegularHomeCleaning", description: "serviceRegularHomeCleaningDescription" },
+  "regular-maintenance-cleaning": { label: "serviceRegularHomeCleaning", description: "serviceRegularHomeCleaningDescription" },
+  "essential-touch-up-cleaning": { label: "serviceEssentialTouchUpCleaning", description: "serviceEssentialTouchUpCleaningDescription" },
+  "quick-touch-up-cleaning": { label: "serviceEssentialTouchUpCleaning", description: "serviceEssentialTouchUpCleaningDescription" },
+  "deep-cleaning": { label: "serviceDeepCleaning", description: "serviceDeepCleaningDescription" },
+  "end-of-tenancy-cleaning": { label: "serviceEndOfTenancyCleaning", description: "serviceEndOfTenancyCleaningDescription" },
+   "post-construction-renovation-cleaning": { label: "servicePostConstructionRenovationCleaning", description: "servicePostConstructionRenovationCleaningDescription" },
+  "premium-rental-concierge-cleaning": { label: "serviceEndOfTenancyCleaning", description: "serviceEndOfTenancyCleaningDescription" },
+  "commercial-office-cleaning":{ label: "serviceCommercialOfficeCleaning", description: "serviceCommercialOfficeCleaningDescription" },
+
+  "same-day-priority-cleaning": { label: "serviceSameDayPriorityCleaning", description: "serviceSameDayPriorityCleaningDescription" },
+  "healthguard-sanitization": { label: "serviceHealthguardSanitization", description: "serviceHealthguardSanitizationDescription" },
+  "carpet-upholstery-cleaning": { label: "serviceCarpetUpholsteryCleaning", description: "serviceCarpetUpholsteryCleaningDescription" },
+  "steam-cleaning": { label: "serviceSteamCleaning", description: "serviceSteamCleaningDescription" },
+  "post-event-cleaning": { label: "servicePostEventCleaning", description: "servicePostEventCleaningDescription" },
+  "pool-cleaning": { label: "servicePoolCleaning", description: "servicePoolCleaningDescription" },
+  "precision-pressure-washing": { label: "servicePrecisionPressureWashing", description: "servicePrecisionPressureWashingDescription" },
+  "child-care-service": { label: "serviceChildCareService", description: "serviceChildCareServiceDescription" },
+  "elder-care-service": { label: "serviceElderCareService", description: "serviceElderCareServiceDescription" },
+  "laundry-service": { label: "serviceLaundryService", description: "serviceLaundryServiceDescription" },
+  "move-in-out-transport-service": { label: "serviceMoveInOutTransportService", description: "serviceMoveInOutTransportServiceDescription" },
+  "high-security-property-care": { label: "serviceHighSecurityPropertyCare", description: "serviceHighSecurityPropertyCareDescription" },
+  "luxury-yacht-cleaning": { label: "serviceLuxuryYachtCleaning", description: "serviceLuxuryYachtCleaningDescription" },
+};
+
 function ServiceCard({ service }: { service: CatalogService }) {
   const { translate } = useLanguage();
   const { symbol } = useCurrency();
+  const serviceTranslation = SERVICE_TRANSLATIONS[service.name];
+  const label = serviceTranslation ? translate(serviceTranslation.label) : service.label;
+  const description = serviceTranslation ? translate(serviceTranslation.description) : service.description;
 
   const isDedicatedFlow =
     service.name === "child-care-service" ||
@@ -51,7 +80,7 @@ function ServiceCard({ service }: { service: CatalogService }) {
         {service.imageUrl ? (
           <Image
             src={service.imageUrl}
-            alt={service.label}
+            alt={label}
             fill
             sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
             className="object-cover"
@@ -63,10 +92,12 @@ function ServiceCard({ service }: { service: CatalogService }) {
 
       <div className="flex flex-1 flex-col gap-2 px-4 pb-4 pt-3 text-center">
         <div className="flex flex-1 flex-col items-center justify-center gap-1">
-          <h3 className="text-base font-bold text-brand-navy-foreground">{service.label}</h3>
-          {service.description && (
+          <h3 className="text-base font-bold text-brand-navy-foreground">
+            {label}
+          </h3>
+          {description && (
             <p className="line-clamp-3 text-sm text-brand-navy-foreground/65">
-              {service.description}
+              {description}
             </p>
           )}
           {!hidesHourlyRate && (

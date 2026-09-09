@@ -12,13 +12,14 @@ import {
   type CarouselApi,
 } from "@/components/ui/carousel";
 import { useIsMobile } from "@/hooks/use-mobile";
+import { useLanguage } from "@/lib/i18n/language-context";
 
 const EVENT_IMAGE_BASE = "/images/event";
 
 export interface EventTypeCard {
   title: string;
   image: string;
-}
+} 
 
 export const EVENT_TYPE_CARDS: EventTypeCard[] = [
   { title: "Conferences", image: `${EVENT_IMAGE_BASE}/service-eventcleaning-conferences.gif` },
@@ -51,10 +52,12 @@ export const EVENT_TYPE_CARDS: EventTypeCard[] = [
 
 function EventTypeCardTile({
   card,
+  displayTitle,
   isChecked,
   onToggle,
 }: {
   card: EventTypeCard;
+  displayTitle: string;
   isChecked: boolean;
   onToggle: (title: string) => void;
 }) {
@@ -78,7 +81,7 @@ function EventTypeCardTile({
           : "border-[1.5px] border-[#A98B4B] bg-white"
           }`}
       >
-        <Image src={card.image} alt={card.title} fill unoptimized draggable={false} className="object-cover pointer-events-none select-none" />
+        <Image src={card.image} alt={displayTitle} fill unoptimized draggable={false} className="object-cover pointer-events-none select-none" />
         <Checkbox
           checked={isChecked}
           onCheckedChange={() => onToggle(card.title)}
@@ -86,7 +89,7 @@ function EventTypeCardTile({
           className="absolute top-2 right-2 border-black bg-white/80 shadow-sm data-checked:border-[#A98B4B] data-checked:bg-[#A98B4B]"
         />
       </div>
-      <p className="px-0.5 text-xs font-semibold text-[#121E2D] line-clamp-2">{card.title}</p>
+      <p className="px-0.5 text-xs font-semibold text-[#121E2D] line-clamp-2">{displayTitle}</p>
     </div>
   );
 }
@@ -97,6 +100,7 @@ export interface EventTypeSectionProps {
 }
 
 export function EventTypeSection({ selectedTitles, onToggle }: EventTypeSectionProps) {
+  const { translate } = useLanguage();
   const isMobile = useIsMobile();
   const [mounted, setMounted] = useState(false);
   const [api, setApi] = useState<CarouselApi>();
@@ -106,6 +110,35 @@ export function EventTypeSection({ selectedTitles, onToggle }: EventTypeSectionP
   useEffect(() => {
     setMounted(true);
   }, []);
+
+  const eventTitleMap: Record<string, string> = {
+    "Conferences": translate("eventConferences"),
+    "Red Carpet Events": translate("eventRedCarpet"),
+    "Music Concerts & Festivals": translate("eventMusicConcerts"),
+    "Trade Shows": translate("eventTradeShows"),
+    "Product Launches": translate("eventProductLaunches"),
+    "Seminars": translate("eventSeminars"),
+    "Networking Events": translate("eventNetworking"),
+    "Sports": translate("eventSports"),
+    "Festivals": translate("eventFestivals"),
+    "Team Building Events": translate("eventTeamBuilding"),
+    "Company Parties": translate("eventCompanyParties"),
+    "Corporate Events": translate("eventCorporate"),
+    "Weddings": translate("eventWeddings"),
+    "Charity Events": translate("eventCharity"),
+    "Cultural Events": translate("eventCultural"),
+    "Meetings": translate("eventMeetings"),
+    "Social Events": translate("eventSocial"),
+    "Theatre Performance": translate("eventTheatre"),
+    "Career Fairs": translate("eventCareerFairs"),
+    "Exhibition": translate("eventExhibition"),
+    "Fashion Events": translate("eventFashion"),
+    "Internal Events": translate("eventInternal"),
+    "Company Meetings & Off-Sites": translate("eventCompanyMeetings"),
+    "Workshops": translate("eventWorkshops"),
+    "VIP Events": translate("eventVip"),
+    "Other": translate("eventOther"),
+  };
 
   const pageSize = mounted && isMobile ? 4 : 9;
 
@@ -132,9 +165,9 @@ export function EventTypeSection({ selectedTitles, onToggle }: EventTypeSectionP
     <section className="overflow-hidden rounded-[12px] border border-[#A98B4B]">
       <div className="bg-[#121E2D] px-5 py-4 text-center">
         <h1 className="md:text-[1.7rem] font-bold text-[#A98B4B] text-[1.3rem]">
-          EVENT TYPE SELECTION
+          {translate("eventTypeSelectionTitle")}
         </h1>
-        <p className="text-white">Book Your Pristine Cleaning Service</p>
+        <p className="text-white">{translate("eventTypeSelectionSubtitle")}</p>
       </div>
 
       <div className="bg-[#121E2D] p-4 sm:p-6">
@@ -150,6 +183,7 @@ export function EventTypeSection({ selectedTitles, onToggle }: EventTypeSectionP
                     <EventTypeCardTile
                       key={card.title}
                       card={card}
+                      displayTitle={eventTitleMap[card.title] ?? card.title}
                       isChecked={selectedTitles.has(card.title)}
                       onToggle={onToggle}
                     />
@@ -180,4 +214,5 @@ export function EventTypeSection({ selectedTitles, onToggle }: EventTypeSectionP
     </section>
   );
 }
+
 

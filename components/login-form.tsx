@@ -19,13 +19,14 @@ import {
   FieldLabel,
 } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
+import { useLanguage } from "@/lib/i18n/language-context";
 
 export function LoginForm({
   className,
-  title = "Welcome back",
+  title,
   description,
-  submitLabel = "Login",
-  pendingLabel = "Logging in…",
+  submitLabel,
+  pendingLabel,
   footer,
   onLogin,
   ...props
@@ -37,10 +38,15 @@ export function LoginForm({
   footer?: React.ReactNode;
   onLogin: (email: string, password: string) => Promise<void>;
 }) {
+  const { translate } = useLanguage();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState<string | null>(null);
   const [pending, setPending] = useState(false);
+
+  const resolvedTitle = title ?? translate("loginTitle");
+  const resolvedSubmitLabel = submitLabel ?? translate("loginSubmit");
+  const resolvedPendingLabel = pendingLabel ?? translate("loginPending");
 
   async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -49,7 +55,7 @@ export function LoginForm({
     try {
       await onLogin(email, password);
     } catch (err) {
-      setError(err instanceof Error ? err.message : "Something went wrong.");
+      setError(err instanceof Error ? err.message : translate("loginGenericError"));
     } finally {
       setPending(false);
     }
@@ -59,14 +65,14 @@ export function LoginForm({
     <div className={cn("flex flex-col gap-6", className)} {...props}>
       <Card>
         <CardHeader className="text-center">
-          <CardTitle className="text-xl">{title}</CardTitle>
+          <CardTitle className="text-xl">{resolvedTitle}</CardTitle>
           {description && <CardDescription>{description}</CardDescription>}
         </CardHeader>
         <CardContent>
           <form onSubmit={handleSubmit}>
             <FieldGroup>
               <Field>
-                <FieldLabel htmlFor="email">Email</FieldLabel>
+                <FieldLabel htmlFor="email">{translate("loginEmailLabel")}</FieldLabel>
                 <Input
                   id="email"
                   type="email"
@@ -78,12 +84,12 @@ export function LoginForm({
               </Field>
               <Field>
                 <div className="flex items-center">
-                  <FieldLabel htmlFor="password">Password</FieldLabel>
+                  <FieldLabel htmlFor="password">{translate("loginPasswordLabel")}</FieldLabel>
                   <Link
                     href="/forgot-password"
                     className="ml-auto text-sm underline underline-offset-4"
                   >
-                    Forgot your password?
+                    {translate("loginForgotPassword")}
                   </Link>
                 </div>
                 <Input
@@ -97,7 +103,7 @@ export function LoginForm({
               {error && <FieldError>{error}</FieldError>}
               <Field>
                 <Button type="submit" disabled={pending}>
-                  {pending ? pendingLabel : submitLabel}
+                  {pending ? resolvedPendingLabel : resolvedSubmitLabel}
                 </Button>
                 {footer && (
                   <FieldDescription className="text-center">
@@ -112,3 +118,4 @@ export function LoginForm({
     </div>
   );
 }
+

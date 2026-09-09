@@ -1,10 +1,13 @@
 "use client";
 
+
+import { useLanguage } from "@/lib/i18n/language-context";
+import { HeadLine,ServiceContentIntroBody } from "@/lib/types/services-types/serives-content-types";
 import Image from "next/image";
 
 export interface ServiceIntroductionProps {
-  headline: string;
-  body: string[];
+  headline: HeadLine;
+  body: ServiceContentIntroBody[];
   mainImage?: string;
   bgImage: string;
 }
@@ -38,6 +41,8 @@ export function ServiceIntroduction({
   mainImage = "/images/services/updated-home-property-cleaning-services-1-standard-residential-cleaning.webp",
   bgImage
 }: ServiceIntroductionProps) {
+
+  const {translate}=useLanguage()
   return (
     <section className="w-full p-0 my-14  md:mb-2 md:mt-5 ">
       <div className="relative  w-[100%] flex flex-col md:flex-row lg:flex-row items-center gap-6 md:gap-3">
@@ -76,7 +81,7 @@ export function ServiceIntroduction({
         {/* Content Card Container */}
         <div className="relative w-full mb-3 md:mb-28 md:w-[70%] lg:w-[100%]  flex flex-col justify-center align-top gap-4 shadow-sm rounded-xl bg-[#F8F9FA] border-2 border-[#A98B4B] py-3 px-2 md:py-3 md:px-2 ">
           <h2 className="text-left text-2xl pt-8 pb-3 px-3 md:text-2xl font-bold leading-snug sm:leading-snug md:leading-tight tracking-tight text-[#A98B4B]">
-            {headline}
+            {translate(headline)}
           </h2>
 
           <div className="space-y-2 sm:space-y-3 md:space-y-4 w-full px-3">
@@ -85,12 +90,14 @@ export function ServiceIntroduction({
                 key={index}
                 className="text-xs  sm:text-sm md:text-base leading-relaxed text-[#7A7A7A] text-justify font-normal"
               >
-                {paragraph}
+                {translate(paragraph)}
               </p>
             ))}
           </div>
           <div className="mt-6 flex justify-center">
-            <p className="font-semibold text-base sm:text-lg text-[rgb(169,139,75)]">Set Your Recurring Schedule</p>
+            <p className="font-semibold text-base sm:text-lg text-[rgb(169,139,75)]">
+              {translate("serviceIntroBottomText")}
+            </p>
           </div>
         </div>
 

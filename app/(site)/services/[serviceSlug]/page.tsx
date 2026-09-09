@@ -20,7 +20,7 @@ export async function generateMetadata({
   const alternates = buildCountryAlternates(`/services/${serviceSlug}`, { country, language });
   const override = getServiceMeta(serviceSlug, country);
 
-  try {
+  try { 
     const service = await getServiceBySlug(serviceSlug, country);
     const title = override?.title || `${service.label} | Pearly Sky`;
     const description =

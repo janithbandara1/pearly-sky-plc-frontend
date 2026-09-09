@@ -2,6 +2,7 @@
 
 "use client";
 
+import { useLanguage } from "@/lib/i18n/language-context";
 import React, { useState, useEffect } from "react";
 
 const sliderImages = [
@@ -25,6 +26,7 @@ const sliderImages = [
 
 const JoinWithUsSection = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
+  const {translate} = useLanguage();
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -39,27 +41,25 @@ const JoinWithUsSection = () => {
       {/* Left content side */}
       <div className="w-full lg:w-[52%]">
         <h2 className="mb-4 text-lg font-bold text-[#FFFDF4] sm:text-xl lg:text-2xl">
-          Why Partner With Us?
+          {translate("whyPartnerWithUsTitle")}
         </h2>
         <ul className="space-y-3 text-sm leading-relaxed text-[#FFFDF4] sm:text-base">
           <li className="flex gap-2">
             <span className="font-bold">•</span>
             <span>
-              Eco-Certified: Commitment To Certified, Non-Toxic Cleaning
-              Products.
+              {translate("ecoCertified")}
             </span>
           </li>
           <li className="flex gap-2">
             <span className="font-bold">•</span>
             <span>
-              Transparent &amp; Reliable: Clear Pricing And Guaranteed
-              Professional Service Availability.
+              {translate("transparentAndReliable")}
             </span>
           </li>
           <li className="flex gap-2">
             <span className="font-bold">•</span>
             <span>
-              Quality Assured: Trained And Vetted Cleaning Specialists.
+              {translate("qualityAssured")}
             </span>
           </li>
         </ul>

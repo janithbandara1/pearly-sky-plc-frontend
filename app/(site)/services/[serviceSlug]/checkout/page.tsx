@@ -1,5 +1,9 @@
 "use client";
 
+import { useLanguage } from "@/lib/i18n/language-context";
+  
+
+
 import { Poppins } from "next/font/google";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -152,6 +156,8 @@ export default function CheckoutPage({
   const [error, setError] = useState<string | null>(null);
   const [submitting, setSubmitting] = useState(false);
   const [agreedToTerms, setAgreedToTerms] = useState(false);
+
+  const { translate } = useLanguage();
 
   useEffect(() => {
     const stored = loadBookingDraft();
@@ -531,6 +537,37 @@ export default function CheckoutPage({
         ? "Agree to the Terms and Conditions and Privacy Policy to continue."
         : undefined;
 
+        const getServiceName=()=>{
+          if(serviceSlug==="regular-home-cleaning") return "serviceRegularHomeCleaning"
+          if(serviceSlug==="healthguard-sanitization") return "serviceHealthguardSanitization"
+          if(serviceSlug==="carpet-upholstery-cleaning") return "serviceCarpetUpholsteryCleaning"
+          if(serviceSlug==="steam-cleaning") return "serviceSteamCleaning"
+          if(serviceSlug==="post-event-cleaning") return "servicePostEventCleaning"
+          if(serviceSlug==="high-security-property-care") return "serviceHighSecurityPropertyCare"
+          if(serviceSlug==="luxury-yacht-cleaning") return "serviceLuxuryYachtCleaning"
+          if(serviceSlug==="child-care-service") return "serviceChildCareService"
+          if(serviceSlug==="elder-care-service") return "serviceElderCareService"
+          if(serviceSlug==="pool-cleaning") return "servicePoolCleaning"
+          if(serviceSlug==="precision-pressure-washing") return "servicePrecisionPressureWashing"
+          if(serviceSlug==="commercial-office-cleaning") return "serviceCommercialCleaningServices"
+          if(
+            serviceSlug === "move-in-out-transport-service" ||
+            serviceSlug === "move-in-out-transport-health"
+          ) return "serviceMoveInOutTransportService"
+          if(serviceSlug==="quick-touch-up-cleaning") return "serviceEssentialTouchUpCleaning"
+          if(serviceSlug==="deep-cleaning") return "serviceDeepCleaning"
+          if(serviceSlug==="end-of-tenancy-cleaning") return "serviceEndOfTenancyCleaning"
+          if(serviceSlug==="post-construction-renovation-cleaning") return "servicePostConstructionCleaning"
+          if(serviceSlug==="premium-rental-concierge-cleaning") return "servicePremiumRentalConciergeCleaning"
+          if(
+            serviceSlug === "laundry-service" ||
+            serviceSlug === "laundry-services" ||
+            serviceSlug === "laundry-linen-care"
+          ) return "serviceLaundryService"
+          if(serviceSlug==="same-day-priority-cleaning") return "serviceSameDayPriorityCleaning"
+          return service.label
+        } 
+  
   return (
     <div className={`${poppins.className} min-h-screen bg-[rgb(199,209,217)] pb-16`}>
       <PageHero
@@ -539,7 +576,7 @@ export default function CheckoutPage({
           "/images/services/updated-home-property-cleaning-services-1-standard-residential-cleaning.webp"
         }
         eyebrow="Checkout"
-        title={service.label}
+        title={getServiceName()}
         subtitle={`${draft.date} at ${draft.time}`}
         servicePrices={service.prices}
         serviceId={service.id}
@@ -570,9 +607,34 @@ export default function CheckoutPage({
           <Card className="bg-brand-navy text-brand-navy-foreground">
             <CardContent className="flex flex-col gap-0 p-0">
               <div className="px-4 py-3">
-                <h3 className="text-base font-bold text-brand-gold">Service Checkout Details</h3>
+              <div className="px-4 py-3">
+                <h3 className="text-base font-bold text-brand-gold">{translate("quoteFormTitle")}</h3>
+                                {translate("quoteFormStepContact")}
+                                  <Label htmlFor="contact-first-name" className="text-xs font-medium text-brand-cream/90">{translate("quoteFormFirstName")} *</Label>
+                                    placeholder={translate("quoteFormFirstName")}
+                                  <Label htmlFor="contact-last-name" className="text-xs font-medium text-brand-cream/90">{translate("quoteFormLastName")} *</Label>
+                                    placeholder={translate("quoteFormLastName")}
+                                  <Label htmlFor="contact-email" className="text-xs font-medium text-brand-cream/90">{translate("quoteFormEmail")} *</Label>
+                                    placeholder={translate("contactEmailPlaceholder")}
+                                  <Label htmlFor="contact-phone" className="text-xs font-medium text-brand-cream/90">{translate("quoteFormPhone")} *</Label>
+                                    placeholder={translate("contactPhonePlaceholder")}
+                                {translate("quoteFormStepLocation")}
+                                    <SelectValue placeholder={translate("quoteFormCountry")} />
+                                  <Label className="text-xs font-medium text-brand-cream/90">{translate("quoteFormPostalCode")} *</Label>
+                                    placeholder={translate("quoteFormPostalCode")}
+                                  <Label className="text-xs font-medium text-brand-cream/90">{translate("quoteFormCity")} *</Label>
+                                    placeholder={translate("quoteFormCity")}
+                                  <Label className="text-xs font-medium text-brand-cream/90">{translate("quoteFormState")}</Label>
+                                    placeholder={translate("quoteFormState")}
+                                  <Label className="text-xs font-medium text-brand-cream/90">{translate("quoteFormStreetAddress")} *</Label>
+                                    placeholder={translate("quoteFormStreetAddress")}
+                                  <Label className="text-xs font-medium text-brand-cream/90">{translate("quoteFormUnitApt")}</Label>
+                                    placeholder={translate("quoteFormUnitApt")}
+                                {translate("checkoutLogisticsMarketing")}
+                                  <Label className="text-xs font-medium text-brand-cream/90">{translate("checkoutHowGetIn")} *</Label>
+                                      <SelectValue placeholder={translate("checkoutHowGetIn")} />
               </div>
-
+              </div>
               <div className="flex flex-col gap-6 border-t border-brand-gold/20 p-4">
               {/* 1. CONTACT PROFILE */}
               <div>
@@ -729,8 +791,10 @@ export default function CheckoutPage({
                   </div>
 
                   <div className="space-y-1.5 w-full">
+                    <Label className="text-xs font-medium text-brand-cream/90"/>
                     <Label className="text-xs font-medium text-brand-cream/90">
-                      How did you hear about us? *
+                      {translate("checkoutHowHeard")} *
+                                            <SelectValue placeholder={translate("checkoutHowHeard")} />
                     </Label>
                     <Select value={howHeard} onValueChange={setHowHeard} >
                       <SelectTrigger className="w-full bg-brand-cream text-brand-navy">
@@ -764,28 +828,28 @@ export default function CheckoutPage({
           <Card className="bg-brand-navy text-brand-navy-foreground">
             <CardContent className="flex flex-col gap-0 p-0">
               <div className="px-4 py-3">
-                <h3 className="text-base font-bold text-brand-gold">Quotation Details</h3>
+                <h3 className="text-base font-bold text-brand-gold">{translate("quoteDetailsTitle")}</h3>
               </div>
 
               <div className="flex flex-col gap-4 border-t border-brand-gold/20 p-4">
                 {/* SERVICE DETAILS */}
                 <div>
                   <p className="mb-2 text-xs font-bold uppercase tracking-wider text-brand-gold/80">
-                    Service Details
+                    {translate("checkoutServiceDetails")}
                   </p>
                   <div className="space-y-2 text-xs sm:text-sm">
                     <div className="flex justify-between gap-2 py-1 text-brand-cream/70">
-                      <span className="font-medium">Service</span>
+                      <span className="font-medium">{translate("quoteDetailService")}</span>
                       <span className="font-normal text-white">{draft.serviceLabel}</span>
                     </div>
                     {isCareService && (
                       <>
                         <div className="flex justify-between gap-2 py-1 text-brand-cream/70">
-                          <span className="font-medium">Schedule Mode</span>
+                          <span className="font-medium">{translate("checkoutScheduleMode")}</span>
                           <span className="font-normal text-white">{draft.scheduleMode || "In-home care"}</span>
                         </div>
                         <div className="flex justify-between gap-2 py-1 text-brand-cream/70">
-                          <span className="font-medium">Service Duration</span>
+                          <span className="font-medium">{translate("checkoutServiceDuration")}</span>
                           <span className="font-normal text-white">{durationText}</span>
                         </div>
                         <div className="flex justify-between gap-2 py-1 text-brand-cream/70">
@@ -797,11 +861,11 @@ export default function CheckoutPage({
                           <span className="font-normal text-white">{draft.caregiverCount || 1}</span>
                         </div>
                         <div className="flex justify-between gap-2 py-1 text-brand-cream/70">
-                          <span className="font-medium">Select Date</span>
+                          <span className="font-medium">{translate("quoteDetailDate")}</span>
                           <span className="font-normal text-white">{draft.date}</span>
                         </div>
                         <div className="flex justify-between gap-2 py-1 text-brand-cream/70">
-                          <span className="font-medium">Select Start &amp; End Time</span>
+                          <span className="font-medium">{translate("checkoutStartEndTime")}</span>
                           <span className="font-normal text-white">{startEndTimeFormatted}</span>
                         </div>
                       </>
@@ -814,7 +878,7 @@ export default function CheckoutPage({
                   <>
                     <div className="border-t border-brand-gold/20 pt-4">
                       <p className="mb-2 text-xs font-bold uppercase tracking-wider text-brand-gold/80">
-                        Selected Services
+                        {translate("checkoutSelectedServices")}
                       </p>
                       <div className="space-y-2.5">
                         {(draft.quoteItems && draft.quoteItems.length > 0 ? draft.quoteItems : []).map((item, idx) => {
@@ -845,32 +909,32 @@ export default function CheckoutPage({
                     {/* PREFERENCES */}
                     <div className="border-t border-brand-gold/20 pt-4">
                       <p className="mb-2 text-xs font-bold uppercase tracking-wider text-brand-gold/80">
-                        Preferences
+                        {translate("preferencesTitle")}
                       </p>
                       <div className="space-y-2 text-xs sm:text-sm">
                         <div className="flex justify-between gap-2 py-1 text-brand-cream/70">
-                          <span className="font-medium">Duration</span>
+                          <span className="font-medium">{translate("quoteDetailDuration")}</span>
                           <span className="font-normal text-white">{durationHours}h</span>
                         </div>
                         <div className="flex justify-between gap-2 py-1 text-brand-cream/70">
-                          <span className="font-medium">Cleaners</span>
+                          <span className="font-medium">{translate("quoteFormCleaners")}</span>
                           <span className="font-normal text-white">{numCleaners}</span>
                         </div>
                         <div className="flex justify-between gap-2 py-1 text-brand-cream/70">
-                          <span className="font-medium">Gender Preference</span>
+                          <span className="font-medium">{translate("preferencesGender")}</span>
                           <span className="font-normal text-white">
                             {GENDER_OPTIONS.find((o) => o.value === gender)?.label ?? "No Preference"}
                           </span>
                         </div>
                         <div className="flex justify-between gap-2 py-1 text-brand-cream/70">
-                          <span className="font-medium">Language Preference</span>
+                          <span className="font-medium">{translate("preferencesLanguage")}</span>
                           <span className="font-normal text-white">
                             {LANGUAGE_OPTIONS.find((o) => o.value === language)?.label ?? "No Preference"}
                           </span>
                         </div>
                         {requirements.trim() && (
                           <div className="flex flex-col gap-1 py-1 text-brand-cream/70">
-                            <span className="font-medium">Special Requirements</span>
+                            <span className="font-medium">{translate("preferencesSpecialRequirements")}</span>
                             <span className="font-normal text-white">{requirements}</span>
                           </div>
                         )}
@@ -880,15 +944,15 @@ export default function CheckoutPage({
                     {/* BOOKING DETAILS */}
                     <div className="border-t border-brand-gold/20 pt-4">
                       <p className="mb-2 text-xs font-bold uppercase tracking-wider text-brand-gold/80">
-                        Booking Details
+                        {translate("checkoutBookingDetails")}
                       </p>
                       <div className="space-y-2 text-xs sm:text-sm">
                         <div className="flex justify-between gap-2 py-1 text-brand-cream/70">
-                          <span className="font-medium">Date</span>
+                          <span className="font-medium">{translate("quoteDetailDate")}</span>
                           <span className="font-normal text-white">{draft.date}</span>
                         </div>
                         <div className="flex justify-between gap-2 py-1 text-brand-cream/70">
-                          <span className="font-medium">Time</span>
+                          <span className="font-medium">{translate("quoteDetailTime")}</span>
                           <span className="font-normal text-white">{draft.time}</span>
                         </div>
                       </div>
@@ -974,13 +1038,13 @@ export default function CheckoutPage({
                     className="border-brand-gold data-checked:border-brand-gold data-checked:bg-brand-gold"
                   />
                   <span>
-                    I agree to the{" "}
+                    {translate("checkoutAgreeTo")} {" "}
                     <Link href="/terms-and-conditions" target="_blank" className="underline">
-                      Terms and Conditions
+                      {translate("footerTermsLink")}
                     </Link>{" "}
-                    and{" "}
+                    {translate("checkoutAnd")} {" "}
                     <Link href="/privacy-policy" target="_blank" className="underline">
-                      Privacy Policy
+                      {translate("footerPrivacyLink")}
                     </Link>
                     .
                   </span>
@@ -993,7 +1057,7 @@ export default function CheckoutPage({
                   onClick={handleRequestQuotation}
                   className="w-full bg-brand-gold text-brand-navy hover:bg-brand-gold/90"
                 >
-                  {submitting ? "SUBMITTING REQUEST…" : "REQUEST QUOTATION"}
+                  {submitting ? translate("quoteFormProcessing") : translate("quoteFormSubmitBtn")}
                 </Button>
                 {requestDisabledReason && (
                   <p className="text-center text-xs text-brand-cream/70">{requestDisabledReason}</p>

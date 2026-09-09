@@ -33,19 +33,39 @@ import {
   type QuoteItem,
   type QuoteItemOption,
 } from "@/lib/content/quote-items";
+import { useLanguage } from "@/lib/i18n/language-context";
+import type { TranslationKey } from "@/lib/i18n/dictionaries/en";
 
 interface CategoryMeta {
   key: string;
-  label: string;
+  labelKey: TranslationKey;
   icon: React.ComponentType<{ className?: string }>;
 }
 
 const MAIN_CATEGORIES: CategoryMeta[] = [
-  { key: "Residential Care", label: "Residential\nCare", icon: Home },
-  { key: "Concrete & Surfaces", label: "Concrete &\nSurfaces", icon: Layers },
-  { key: "Outdoor Living", label: "Outdoor Living", icon: Armchair },
-  { key: "Specialized Jobs", label: "Specialized\nJobs", icon: Wrench },
+  { key: "Residential Care", labelKey: "pressureCatResidential", icon: Home },
+  { key: "Concrete & Surfaces", labelKey: "pressureCatConcrete", icon: Layers },
+  { key: "Outdoor Living", labelKey: "pressureCatOutdoor", icon: Armchair },
+  { key: "Specialized Jobs", labelKey: "pressureCatSpecialized", icon: Wrench },
 ];
+
+const ITEM_LABEL_KEYS: Record<string, TranslationKey> = {
+  "Home Exterior Cleaning": "pressureItemHomeExterior",
+  "Fencing Cleaning": "pressureItemFencing",
+  "Building Exterior Cleaning": "pressureItemBuildingExterior",
+  "Gutter/Drains Cleaning": "pressureItemGutterDrains",
+  "Driveway Cleaning": "pressureItemDriveway",
+  "Sidewalk Cleaning": "pressureItemSidewalk",
+  "Walkway Cleaning": "pressureItemWalkway",
+  "Pavers Cleaning": "pressureItemPavers",
+  "Deck/Patio Cleaning": "pressureItemDeckPatio",
+  "Outdoor Furniture Cleaning": "pressureItemOutdoorFurniture",
+  "Outdoor Equipment Cleaning": "pressureItemOutdoorEquipment",
+  "Parking Garage Cleaning": "pressureItemParkingGarage",
+  "Surface Preparation": "pressureItemSurfacePrep",
+  "Playground Cleaning": "pressureItemPlayground",
+  "Other Specialized Cleaning Services": "pressureItemOtherSpecialized",
+};
 
 const JOB_ICONS: Record<string, React.ComponentType<{ className?: string }>> = {
   "Home Exterior Cleaning": Home,
@@ -71,6 +91,7 @@ export interface PressureWashingJobSelectionProps {
 }
 
 export function PressureWashingJobSelection({ items, onItemsChange }: PressureWashingJobSelectionProps) {
+  const { translate } = useLanguage();
   const [activeCategory, setActiveCategory] = useState<string | null>(null);
   const [activeOption, setActiveOption] = useState<QuoteItemOption | null>(null);
 
@@ -147,12 +168,17 @@ export function PressureWashingJobSelection({ items, onItemsChange }: PressureWa
 
   const ActiveDialogIcon = activeOption ? JOB_ICONS[activeOption.value] ?? Sparkles : Sparkles;
 
+  const getOptionLabel = (val: string, fallback: string) => {
+    const key = ITEM_LABEL_KEYS[val];
+    return key ? translate(key) : fallback;
+  };
+
   return (
     <section className="overflow-hidden rounded-[14px] border border-[#A98B4B] bg-[#101A26] p-4 sm:p-6 text-white shadow-xl">
       {/* Header */}
       <div className="mb-6 text-center">
         <h2 className="text-xl font-bold uppercase tracking-wider text-white sm:text-2xl">
-          SELECT YOUR JOB
+          {translate("pressureSelectJobTitle")}
         </h2>
       </div>
 
@@ -180,7 +206,7 @@ export function PressureWashingJobSelection({ items, onItemsChange }: PressureWa
                 <CatIcon className="size-7" />
               </div>
               <span className="whitespace-pre-line text-sm font-bold leading-tight sm:text-base">
-                {cat.label}
+                {translate(cat.labelKey)}
               </span>
             </button>
           );
@@ -191,7 +217,10 @@ export function PressureWashingJobSelection({ items, onItemsChange }: PressureWa
       {isActiveCategory && (
         <div className="mt-8 text-center">
           <h3 className="mb-5 text-base font-bold uppercase tracking-wider text-[#A98B4B] sm:text-lg">
-            {activeCategory}
+            {(() => {
+              const activeCatMeta = MAIN_CATEGORIES.find((c) => c.key === activeCategory);
+              return activeCatMeta ? translate(activeCatMeta.labelKey).replace("\n", " ") : activeCategory;
+            })()}
           </h3>
 
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-4">
@@ -218,7 +247,7 @@ export function PressureWashingJobSelection({ items, onItemsChange }: PressureWa
                     <IconComp className="size-5" />
                   </div>
                   <span className="text-sm font-bold leading-snug text-[#121E2D]">
-                    {option.label}
+                    {getOptionLabel(option.value, option.label)}
                   </span>
                   {existingItem && (
                     <span className="text-xs font-semibold text-[#A98B4B]">
@@ -239,7 +268,7 @@ export function PressureWashingJobSelection({ items, onItemsChange }: PressureWa
       {items.length > 0 && (
         <div className="mt-8 border-t border-[#A98B4B]/30 pt-4">
           <h4 className="mb-3 text-xs font-semibold uppercase tracking-wider text-[#A98B4B]">
-            Selected Pressure Washing Jobs ({items.length})
+            {translate("pressureSelectedJobsTitle")} ({items.length})
           </h4>
           <ul className="flex flex-col gap-2">
             {items.map((item) => (
@@ -275,7 +304,7 @@ export function PressureWashingJobSelection({ items, onItemsChange }: PressureWa
               <ActiveDialogIcon className="size-6" />
             </div>
             <DialogTitle className="text-center text-lg font-bold text-[#121E2D]">
-              {activeOption?.label}
+              {activeOption ? getOptionLabel(activeOption.value, activeOption.label) : ""}
             </DialogTitle>
             <DialogDescription className="sr-only">Configure pressure washing job details</DialogDescription>
           </DialogHeader>
@@ -285,7 +314,7 @@ export function PressureWashingJobSelection({ items, onItemsChange }: PressureWa
             <div className="grid grid-cols-2 gap-4">
               {/* Quantity */}
               <div className="space-y-1.5">
-                <Label className="text-xs font-bold text-[#121E2D]">Quantity</Label>
+                <Label className="text-xs font-bold text-[#121E2D]">{translate("pressureDialogQuantity")}</Label>
                 <div className="flex h-10 w-full items-center justify-between rounded-lg border-2 border-[#A98B4B] bg-white px-2">
                   <button
                     type="button"
@@ -307,12 +336,12 @@ export function PressureWashingJobSelection({ items, onItemsChange }: PressureWa
 
               {/* Size */}
               <div className="space-y-1.5">
-                <Label className="text-xs font-bold text-[#121E2D]">Size</Label>
+                <Label className="text-xs font-bold text-[#121E2D]">{translate("pressureDialogSize")}</Label>
                 <div className="flex gap-1.5">
                   <Input
                     type="number"
                     min="0"
-                    placeholder="Square"
+                    placeholder={translate("pressureDialogSquarePlaceholder")}
                     value={sizeValue}
                     onChange={(e) => setSizeValue(e.target.value)}
                     className="h-10 border-2 border-[#A98B4B] bg-white text-sm text-[#121E2D] placeholder:text-muted-foreground/60 focus-visible:ring-[#A98B4B]"
@@ -335,13 +364,13 @@ export function PressureWashingJobSelection({ items, onItemsChange }: PressureWa
 
             {/* Surface Condition Section */}
             <div className="space-y-2">
-              <Label className="text-xs font-bold text-[#121E2D]">Surface Condition</Label>
-              <p className="text-[11px] font-medium text-[#777]">Specific Requirements</p>
+              <Label className="text-xs font-bold text-[#121E2D]">{translate("pressureDialogSurfaceCondition")}</Label>
+              <p className="text-[11px] font-medium text-[#777]">{translate("pressureDialogSpecificReqs")}</p>
 
               <div className="flex flex-wrap gap-4 pt-1">
                 {[
-                  { value: "Heavy (Oil / Deep grime)", label: "Heavy (Oil / Deep grime)" },
-                  { value: "Normal", label: "Normal" },
+                  { value: "Heavy (Oil / Deep grime)", label: translate("pressureConditionHeavy") },
+                  { value: "Normal", label: translate("pressureConditionNormal") },
                 ].map((opt) => {
                   const isChecked = condition === opt.value;
                   return (
@@ -369,7 +398,7 @@ export function PressureWashingJobSelection({ items, onItemsChange }: PressureWa
               onClick={handleSaveDetails}
               className="mt-2 h-11 w-full rounded-xl bg-[#A98B4B] text-sm font-bold uppercase tracking-wider text-white hover:bg-[#967A3E] transition-colors cursor-pointer"
             >
-              SAVE
+              {translate("pressureDialogSave")}
             </Button>
           </div>
         </DialogContent>

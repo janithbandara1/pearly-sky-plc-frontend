@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { ChevronDown, ChevronUp, X, CheckSquare, Square } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { useLanguage } from "@/lib/i18n/language-context";
 
 interface CareTermsModalProps {
   isOpen: boolean;
@@ -25,6 +26,7 @@ export function CareTermsModal({
   agreed,
   setAgreed,
 }: CareTermsModalProps) {
+  const { translate } = useLanguage();
   const [openSections, setOpenSections] = useState<Record<number, boolean>>({
     1: true,
   });
@@ -38,95 +40,95 @@ export function CareTermsModal({
   const sections: AccordionItem[] = [
     {
       id: 1,
-      title: "1. Booking Confirmation & Service Scope",
+      title: translate("careTermsSec1Title"),
       content: (
         <div className="space-y-2 text-xs leading-relaxed text-slate-700 sm:text-sm">
           <p>
-            <strong className="text-brand-navy">1.1 Service Basis:</strong> The final service price and duration are based strictly on the property details and service options selected at the time of booking.
+            <strong className="text-brand-navy">{translate("careTermsSec1_1Title")}</strong> {translate("careTermsSec1_1Text")}
           </p>
           <p>
-            <strong className="text-brand-navy">1.2 On-Site Adjustments:</strong> If the property size or condition significantly deviates from the booking details, the Cleaner must obtain client approval for any required additional hours or costs before proceeding.
+            <strong className="text-brand-navy">{translate("careTermsSec1_2Title")}</strong> {translate("careTermsSec1_2Text")}
           </p>
           <p>
-            <strong className="text-brand-navy">1.3 Client Access:</strong> You must ensure access (keys, codes, etc.) is available to the Cleaner at the scheduled time. Failure to provide access will result in a Lock-Out Fee (see Section 3.3).
+            <strong className="text-brand-navy">{translate("careTermsSec1_3Title")}</strong> {translate("careTermsSec1_3Text")}
           </p>
         </div>
       ),
     },
     {
       id: 2,
-      title: "2. Payment Terms",
+      title: translate("careTermsSec2Title"),
       content: (
         <div className="space-y-2 text-xs leading-relaxed text-slate-700 sm:text-sm">
           <p>
-            <strong className="text-brand-navy">2.1 Payment Authorization:</strong> Payment authorization is verified at checkout. Final quotation charges are billed according to confirmed service hours and any requested add-ons.
+            <strong className="text-brand-navy">{translate("careTermsSec2_1Title")}</strong> {translate("careTermsSec2_1Text")}
           </p>
           <p>
-            <strong className="text-brand-navy">2.2 Invoicing:</strong> Official digital receipts and itemized invoices are delivered automatically to your registered email address.
+            <strong className="text-brand-navy">{translate("careTermsSec2_2Title")}</strong> {translate("careTermsSec2_2Text")}
           </p>
         </div>
       ),
     },
     {
       id: 3,
-      title: "3. Cancellation and Lock-Out Policy",
+      title: translate("careTermsSec3Title"),
       content: (
         <div className="space-y-2 text-xs leading-relaxed text-slate-700 sm:text-sm">
           <p>
-            <strong className="text-brand-navy">3.1 Notice Window:</strong> Free cancellation is available up to 24 hours before your scheduled appointment start time.
+            <strong className="text-brand-navy">{translate("careTermsSec3_1Title")}</strong> {translate("careTermsSec3_1Text")}
           </p>
           <p>
-            <strong className="text-brand-navy">3.2 Late Cancellations:</strong> Cancellations made with less than 24 hours notice or failure to provide premises entry at arrival may incur standard lock-out fees.
+            <strong className="text-brand-navy">{translate("careTermsSec3_2Title")}</strong> {translate("careTermsSec3_2Text")}
           </p>
         </div>
       ),
     },
     {
       id: 4,
-      title: "4. Continuous Working Hours",
+      title: translate("careTermsSec4Title"),
       content: (
         <div className="space-y-2 text-xs leading-relaxed text-slate-700 sm:text-sm">
           <p>
-            <strong className="text-brand-navy">4.1 Rest Intervals:</strong> For extended or full-day bookings, care professionals take scheduled short rest breaks in adherence with labor standards and safety guidelines.
+            <strong className="text-brand-navy">{translate("careTermsSec4_1Title")}</strong> {translate("careTermsSec4_1Text")}
           </p>
         </div>
       ),
     },
     {
       id: 5,
-      title: "5. Service Guarantee and Liability",
+      title: translate("careTermsSec5Title"),
       content: (
         <div className="space-y-2 text-xs leading-relaxed text-slate-700 sm:text-sm">
           <p>
-            <strong className="text-brand-navy">5.1 Certified Professionals:</strong> All caregivers and service staff undergo thorough vetting, reference verification, and strict background checks.
+            <strong className="text-brand-navy">{translate("careTermsSec5_1Title")}</strong> {translate("careTermsSec5_1Text")}
           </p>
           <p>
-            <strong className="text-brand-navy">5.2 Quality Commitment:</strong> Pearly Sky maintains comprehensive insurance coverage and dedicated customer support for complete peace of mind.
+            <strong className="text-brand-navy">{translate("careTermsSec5_2Title")}</strong> {translate("careTermsSec5_2Text")}
           </p>
         </div>
       ),
     },
     {
       id: 6,
-      title: "6. Supplies, Equipment, and Pets",
+      title: translate("careTermsSec6Title"),
       content: (
         <div className="space-y-2 text-xs leading-relaxed text-slate-700 sm:text-sm">
           <p>
-            <strong className="text-brand-navy">6.1 Care Essentials:</strong> Any required specific child or elder medication, dietary supplements, or specialized supplies must be pre-arranged and clearly labeled.
+            <strong className="text-brand-navy">{translate("careTermsSec6_1Title")}</strong> {translate("careTermsSec6_1Text")}
           </p>
           <p>
-            <strong className="text-brand-navy">6.2 Pets & Environment:</strong> Please inform the team of any pets, allergies, or special safety gates in the household.
+            <strong className="text-brand-navy">{translate("careTermsSec6_2Title")}</strong> {translate("careTermsSec6_2Text")}
           </p>
         </div>
       ),
     },
     {
       id: 7,
-      title: "7. Key Handling and Service Verification",
+      title: translate("careTermsSec7Title"),
       content: (
         <div className="space-y-2 text-xs leading-relaxed text-slate-700 sm:text-sm">
           <p>
-            <strong className="text-brand-navy">7.1 Key Protocols:</strong> Lockbox codes and keys are managed securely under strict protocol and never transferred to unauthorized parties.
+            <strong className="text-brand-navy">{translate("careTermsSec7_1Title")}</strong> {translate("careTermsSec7_1Text")}
           </p>
         </div>
       ),
@@ -139,7 +141,7 @@ export function CareTermsModal({
         {/* Header */}
         <div className="flex items-center justify-between bg-[#121E2D] px-6 py-4 text-white">
           <h2 className="text-base font-bold sm:text-lg">
-            Concise Online Booking Terms & Conditions
+            {translate("careTermsTitle")}
           </h2>
           <button
             type="button"
@@ -195,7 +197,7 @@ export function CareTermsModal({
                 <Square className="size-5 text-slate-400" />
               )}
             </button>
-            <span>By selecting this I accept terms and conditions</span>
+            <span>{translate("careTermsAcceptCheck")}</span>
           </label>
 
           <Button
@@ -206,10 +208,11 @@ export function CareTermsModal({
             }}
             className="h-10 min-w-[130px] rounded-lg bg-[#A98B4B] text-sm font-bold text-white shadow hover:brightness-110"
           >
-            Accept
+            {translate("careTermsAcceptButton")}
           </Button>
         </div>
       </div>
     </div>
   );
 }
+

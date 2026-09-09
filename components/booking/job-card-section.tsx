@@ -8,6 +8,8 @@ import {
   type PackageCategory,
   type ServiceAddOnPackage,
 } from "@/lib/catalog-api";
+import { useLanguage } from "@/lib/i18n/language-context";
+import { TranslationKey } from "@/lib/i18n/dictionaries/en";
 
 export interface JobCardSectionProps {
   packages?: ServiceAddOnPackage[];
@@ -33,12 +35,16 @@ export function JobCardSection({
   if (categories.length === 0) return null;
 
   const activeCategory = categories.find((c) => c.id === activeCategoryId) ?? categories[0];
+  const { translate } = useLanguage();
+
+  const translatePackageName = (name: string) =>
+    translate(name as TranslationKey);
 
   return (
     <section className="w-full md:px-6 mt-10 px-1">
       {/* Component Header Title */}
       <h2 className="text-xl sm:text-2xl font-bold text-[#0F172A] text-center mb-6 tracking-tight">
-        Service Upgrade Option (JobCard)
+        {translate("jobCardSectionTitle")}
       </h2>
 
       {/* Mobile View Layout (< md) */}
@@ -58,16 +64,16 @@ export function JobCardSection({
                   }`}
               >
                 <span className="text-sm font-normal text-white text-left leading-snug">
-                  {category.label}
+                  {translate(category.label)}
                 </span>
 
                 {isSelectedCategory ? (
                   <span className="px-2.5 py-1 rounded-lg bg-[#B89642] text-white text-[11px] font-bold shrink-0">
-                    Selected
+                    {translate("securitySelected")}
                   </span>
                 ) : (
                   <span className="px-2.5 py-1 rounded-lg border border-[#B89642] text-[#B89642] text-[11px] font-bold shrink-0">
-                    Select
+                    {translate("securitySelect")}
                   </span>
                 )}
               </button>
@@ -108,7 +114,7 @@ export function JobCardSection({
                             className={`text-xs sm:text-sm leading-snug font-semibold text-[#1E293B] ${isDisabled ? "text-slate-400" : ""
                               }`}
                           >
-                            {item.name}
+                            {translatePackageName(item.name)}
                           </span>
                         </div>
 
@@ -152,7 +158,7 @@ export function JobCardSection({
                     : "bg-white border border-[#C6A868]/60 hover:border-[#B89642] text-[#1E293B] hover:bg-slate-50 shadow-sm"
                   }`}
               >
-                {category.label}
+                {translate(category.label)}
               </button>
             );
           })}
@@ -196,7 +202,7 @@ export function JobCardSection({
                       className={`text-sm sm:text-[15px] leading-snug font-semibold text-[#1E293B] ${isDisabled ? "text-slate-400" : ""
                         }`}
                     >
-                      {item.name}
+                      {translate(item.name)}
                     </span>
                   </div>
 

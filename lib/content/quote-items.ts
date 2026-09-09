@@ -1,3 +1,5 @@
+import type { TranslationKey } from "@/lib/i18n/dictionaries/en";
+
 export type QuoteFieldSpec =
   | { kind: "size"; key: string; label: string; units: string[] }
   | { kind: "dimensions"; key: string; label: string; parts: Array<"width" | "height" | "length">; unit: string }
@@ -66,6 +68,29 @@ export const POOL_ITEM_OPTIONS: QuoteItemOption[] = [
   })),
 ];
 
+export const POOL_TRANSLATION_KEYS: Record<string, import("@/lib/i18n/dictionaries/en").TranslationKey> = {
+  "Kiddie Pools": "poolTypeKiddiePools",
+  "Above-Ground Swimming Pools": "poolTypeAboveGroundSwimmingPools",
+  "Lap Pools": "poolTypeLapPools",
+  "In-Ground Pools": "poolTypeInGroundPools",
+  "Family Swimming Pools": "poolTypeFamilySwimmingPools",
+  "Indoor Pools": "poolTypeIndoorPools",
+  "Olympic-Size Pools": "poolTypeOlympicSizePools",
+  "Architectural Pools": "poolTypeArchitecturalPools",
+  "Infinity Pools": "poolTypeInfinityPools",
+  "Natural Pools": "poolTypeNaturalPools",
+  "Spool (Small Pool)": "poolTypeSpoolSmallPool",
+  "Saltwater Pools": "poolTypeSaltwaterPools",
+  "Plunge Pools": "poolTypePlungePools",
+  "Jacuzzi Cleaning": "poolAddonJacuzziCleaning",
+  "Steam Room Cleaning": "poolAddonSteamRoomCleaning",
+  "Sauna Room Cleaning": "poolAddonSaunaRoomCleaning",
+  "Pool Size": "poolFieldPoolSize",
+  "Water Condition": "poolFieldWaterCondition",
+  "Heavy Algae / Debris": "poolConditionHeavyAlgaeDebris",
+  "Heavy Oil / Deep Grime": "poolConditionHeavyOilDeepGrime",
+};
+
 const PRESSURE_WASHING_SIZE_FIELD: QuoteFieldSpec = {
   kind: "size",
   key: "size",
@@ -113,6 +138,31 @@ const sizeField = (label: string, units: string[] = ["m²"]): QuoteFieldSpec => 
   label,
   units,
 });
+
+export type CarpetItemLabel =
+"Carpet Cleaning" | "Rug Cleaning" | "Upholstery & Sofa Cleaning" | 
+"Mattress Cleaning" | 
+"Curtain & Drape Cleaning" | "Tile & Grout Cleaning" | "Pet Stain & Odor Removal" |
+"Leather Cleaning & Conditioning" | "Commercial Floor Maintenance" | "Hard Floor Sealing" |
+"Stain Removal" | "Flood Restoration";
+
+
+export type CarpetItemTranslationKey = Extract<TranslationKey, `quoteCarpetItem${string}`>;
+
+export const CARPET_ITEM_TRANSLATION_KEYS: Record<CarpetItemLabel, CarpetItemTranslationKey> = {
+  "Carpet Cleaning": "quoteCarpetItemCarpetCleaning",
+  "Rug Cleaning": "quoteCarpetItemRugCleaning",
+  "Upholstery & Sofa Cleaning": "quoteCarpetItemUpholsterySofaCleaning",
+  "Mattress Cleaning": "quoteCarpetItemMattressCleaning",
+  "Curtain & Drape Cleaning": "quoteCarpetItemCurtainDrapeCleaning",
+  "Tile & Grout Cleaning": "quoteCarpetItemTileGroutCleaning",
+  "Pet Stain & Odor Removal": "quoteCarpetItemPetStainOdorRemoval",
+  "Leather Cleaning & Conditioning": "quoteCarpetItemLeatherCleaningConditioning",
+  "Commercial Floor Maintenance": "quoteCarpetItemCommercialFloorMaintenance",
+  "Hard Floor Sealing": "quoteCarpetItemHardFloorSealing",
+  "Stain Removal": "quoteCarpetItemStainRemoval",
+  "Flood Restoration": "quoteCarpetItemFloodRestoration",
+};
 
 export const CARPET_ITEM_OPTIONS: QuoteItemOption[] = [
   {
@@ -191,27 +241,32 @@ export const CARPET_ITEM_OPTIONS: QuoteItemOption[] = [
   },
 ];
 
-export function formatQuoteItem(item: QuoteItem, options: QuoteItemOption[]): string {
+export function formatQuoteItem(
+  item: QuoteItem,
+  options: QuoteItemOption[],
+  translateLabel?: (label: string) => string,
+): string {
   const option = options.find((o) => o.value === item.optionValue);
   if (!option) return "";
 
-  const parts = [option.label];
+  const translate = translateLabel ?? ((value: string) => value);
+  const parts = [translate(option.label)];
 
   for (const field of option.fields) {
     if (field.kind === "size") {
       const size = item.values[field.key];
       if (!size) continue;
       const unit = item.values[`${field.key}Unit`] ?? field.units[0];
-      parts.push(`${field.label}: ${size} ${unit}`);
+      parts.push(`${translate(field.label)}: ${size} ${unit}`);
     } else if (field.kind === "dimensions") {
       const dims = field.parts
         .map((part) => (item.values[`${field.key}_${part}`] ? `${part} ${item.values[`${field.key}_${part}`]}${field.unit}` : null))
         .filter((v): v is string => Boolean(v));
-      if (dims.length) parts.push(`${field.label}: ${dims.join(" × ")}`);
+      if (dims.length) parts.push(`${translate(field.label)}: ${dims.join(" × ")}`);
     } else if (field.kind === "radio") {
-      if (item.values[field.key]) parts.push(`${field.label}: ${item.values[field.key]}`);
+      if (item.values[field.key]) parts.push(`${translate(field.label)}: ${translate(item.values[field.key])}`);
     } else if (field.kind === "text") {
-      if (item.values[field.key]) parts.push(`${field.label}: ${item.values[field.key]}`);
+      if (item.values[field.key]) parts.push(`${translate(field.label)}: ${item.values[field.key]}`);
     }
   }
 

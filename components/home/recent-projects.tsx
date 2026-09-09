@@ -38,9 +38,9 @@ const projectsData: Project[] = [
     clientName: "Filippo Mylod",
     rating: 5,
     testimonial:"clientFeedback",
-    title: "Modern Penthouse Deep Clean",
+    title: "propertyType",
     location: "Paris",
-    completedDate: "Completed: June 2024",
+    completedDate: ": June 2024",
   },
   {
     id: 2,
@@ -49,9 +49,9 @@ const projectsData: Project[] = [
     clientName: "Filippo Mylod",
     rating: 5,
     testimonial:"clientFeedback",
-    title: "Modern Penthouse Deep Clean",
+    title: "propertyType",
     location: "Paris",
-    completedDate: "Completed: June 2024",
+    completedDate: ": June 2024",
   }
   
 ];
@@ -158,13 +158,13 @@ export default function RecentProjects() {
           {/* Project Details Footer */}
           <div className="mt-1 p-2 md:p-4 border-t border-gray-800 flex flex-wrap items-center md:justify-between text-[11px] text-gray-300">
             <div className="flex items-start flex-col gap-2 space-x-2">
-              <span className="font-semibold text-white  text-[13px] md:text-[15px] lg:text-[15px]">{currentProject.title}</span>
+              <span className="font-semibold text-white  text-[13px] md:text-[15px] lg:text-[15px]">{translate("propertyType")}</span>
               <span className="flex items-center text-gray-300 text-[14px]">
                 <MapPin size={10} className="mr-0.5 text-red-500 " /> {currentProject.location}
               </span>
             </div>
             <div className="flex items-center text-gray-400 text-[14px] mt-1 sm:mt-0">
-              <span>📅 {currentProject.completedDate}</span>
+              <span>📅 {translate("completedTestimonial")}{currentProject.completedDate}</span>
             </div>
           </div>
         </div>

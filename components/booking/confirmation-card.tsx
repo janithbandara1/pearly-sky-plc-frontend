@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { ReactNode } from "react";
 import { ArrowLeft, LucideIcon, Sparkles } from "lucide-react";
+import { useLanguage } from "@/lib/i18n/language-context";
 
 export interface ConfirmationStatusRow {
   icon: LucideIcon;
@@ -41,6 +42,8 @@ export function ConfirmationCard({
   primaryAction,
   secondaryActions,
 }: ConfirmationCardProps) {
+  const { translate } = useLanguage();
+
   return (
     <div className="mx-auto w-full max-w-[480px] overflow-hidden rounded-3xl border border-brand-gold-dark/30 bg-white shadow-2xl">
       {/* Top header */}
@@ -52,8 +55,8 @@ export function ConfirmationCard({
           <ArrowLeft className="size-4" />
         </Link>
         <div className="text-center">
-          <h1 className="text-2xl font-bold text-brand-gold">Pearly Sky</h1>
-          <p className="text-xs font-medium text-white/80">Eco-Luxury Cleaning Care</p>
+          <h1 className="text-2xl font-bold text-brand-gold">{translate("confirmBrandName")}</h1>
+          <p className="text-xs font-medium text-white/80">{translate("confirmBrandTagline")}</p>
         </div>
       </div>
 
@@ -113,9 +116,9 @@ export function ConfirmationCard({
         </Link>
 
         <p className="text-center text-xs text-slate-500">
-          Need Help?{" "}
+          {translate("confirmNeedHelp")}{" "}
           <Link href="/contact-us" className="font-semibold text-brand-gold-dark hover:underline">
-            Contact Support
+            {translate("confirmContactSupport")}
           </Link>{" "}
           <Sparkles className="ml-0.5 inline-block size-3 text-brand-gold-dark" />
         </p>

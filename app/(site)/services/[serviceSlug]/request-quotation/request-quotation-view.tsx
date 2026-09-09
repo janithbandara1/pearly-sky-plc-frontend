@@ -30,6 +30,7 @@ import { SUPPORTED_COUNTRIES, type CountryCode } from "@/lib/countries/config";
 import { useCountry } from "@/lib/countries/country-context";
 import { COUNTRY_FLAGS, FALLBACK_COUNTRY_NAMES } from "@/components/country-switcher";
 import { useLanguage } from "@/lib/i18n/language-context";
+import type { TranslationKey } from "@/lib/i18n/dictionaries/en";
 import { SERVICE_CONTENT } from "@/lib/content/service-details";
 import { createQuotation } from "@/lib/quotation-api";
 import {
@@ -117,10 +118,11 @@ const COUNTRY_OPTIONS = SUPPORTED_COUNTRIES.map((code) => ({
   Flag: COUNTRY_FLAGS[code],
 }));
 
-const GENDER_PREFERENCES = [
-  { value: "none", label: "No Preference / Any" },
-  { value: "female", label: "Female Staff" },
-  { value: "male", label: "Male Staff" },
+// Gender preference values — labels are translated at render time via translate()
+const GENDER_PREFERENCE_VALUES = [
+  { value: "none", labelKey: "quotationGenderNone" as const },
+  { value: "female", labelKey: "quotationGenderFemale" as const },
+  { value: "male", labelKey: "quotationGenderMale" as const },
 ];
 
 const LANGUAGE_COORDINATION_OPTIONS = [
@@ -226,6 +228,132 @@ const FALLBACK_SERVICES: Record<string, Partial<CatalogServiceDetail>> = {
     label: "Luxury Yacht Cleaning",
     description: "Premium cleaning for yachts and marine interiors.",
     imageUrl: "/images/services/updated-home-property-cleaning-services-16-luxury-yacht-cleaning.webp",
+  },
+};
+
+const SERVICE_TRANSLATION_KEYS: Record<
+  string,
+  { label: TranslationKey; description: TranslationKey }
+> = {
+  "regular-home-cleaning": {
+    label: "serviceRegularHomeCleaning",
+    description: "serviceRegularHomeCleaningDescription",
+  },
+  "regular-maintenance-cleaning": {
+    label: "serviceRegularHomeCleaning",
+    description: "serviceRegularHomeCleaningDescription",
+  },
+  "quick-touch-up-cleaning": {
+    label: "serviceEssentialTouchUpCleaning",
+    description: "serviceEssentialTouchUpCleaningDescription",
+  },
+  "essential-touch-up-cleaning": {
+    label: "serviceEssentialTouchUpCleaning",
+    description: "serviceEssentialTouchUpCleaningDescription",
+  },
+  "same-day-priority-cleaning": {
+    label: "serviceSameDayPriorityCleaning",
+    description: "serviceSameDayPriorityCleaningDescription",
+  },
+  "deep-cleaning": {
+    label: "serviceDeepCleaning",
+    description: "serviceDeepCleaningDescription",
+  },
+  "end-of-tenancy-cleaning": {
+    label: "serviceEndOfTenancyCleaning",
+    description: "serviceEndOfTenancyCleaningDescription",
+  },
+  "post-construction-renovation-cleaning": {
+    label: "servicePostConstructionRenovationCleaning",
+    description: "servicePostConstructionRenovationCleaningDescription",
+  },
+  "post-construction-cleaning": {
+    label: "servicePostConstructionRenovationCleaning",
+    description: "servicePostConstructionRenovationCleaningDescription",
+  },
+  "premium-rental-concierge-cleaning": {
+    label: "servicePremiumRentalConciergeCleaning",
+    description: "servicePremiumRentalConciergeCleaningDescription",
+  },
+  "commercial-office-cleaning": {
+    label: "serviceCommercialOfficeCleaning",
+    description: "serviceCommercialOfficeCleaningDescription",
+  },
+  "healthguard-sanitization": {
+    label: "serviceHealthguardSanitization",
+    description: "serviceHealthguardSanitizationDescription",
+  },
+  "guard-sanitization-services": {
+    label: "serviceHealthguardSanitization",
+    description: "serviceHealthguardSanitizationDescription",
+  },
+  "carpet-upholstery-cleaning": {
+    label: "serviceCarpetUpholsteryCleaning",
+    description: "serviceCarpetUpholsteryCleaningDescription",
+  },
+  "steam-cleaning": {
+    label: "serviceSteamCleaning",
+    description: "serviceSteamCleaningDescription",
+  },
+  "post-event-cleaning": {
+    label: "servicePostEventCleaning",
+    description: "servicePostEventCleaningDescription",
+  },
+  "pool-cleaning": {
+    label: "servicePoolCleaning",
+    description: "servicePoolCleaningDescription",
+  },
+  "pool-cleaning-maintenance": {
+    label: "servicePoolCleaning",
+    description: "servicePoolCleaningDescription",
+  },
+  "precision-pressure-washing": {
+    label: "servicePrecisionPressureWashing",
+    description: "servicePrecisionPressureWashingDescription",
+  },
+  "child-care-service": {
+    label: "serviceChildCareService",
+    description: "serviceChildCareServiceDescription",
+  },
+  "childcare-services": {
+    label: "serviceChildCareService",
+    description: "serviceChildCareServiceDescription",
+  },
+  "elder-care-service": {
+    label: "serviceElderCareService",
+    description: "serviceElderCareServiceDescription",
+  },
+  "elder-care-services": {
+    label: "serviceElderCareService",
+    description: "serviceElderCareServiceDescription",
+  },
+  "laundry-service": {
+    label: "serviceLaundryService",
+    description: "serviceLaundryServiceDescription",
+  },
+  "laundry-services": {
+    label: "serviceLaundryService",
+    description: "serviceLaundryServiceDescription",
+  },
+  "laundry-linen-care": {
+    label: "serviceLaundryService",
+    description: "serviceLaundryServiceDescription",
+  },
+  "move-in-out-transport-service": {
+    label: "serviceMoveInOutTransportService",
+    description: "serviceMoveInOutTransportServiceDescription",
+  },
+  "move-in-out-transport-health": {
+    label: "serviceMoveInOutTransportService",
+    description: "serviceMoveInOutTransportServiceDescription",
+  },
+  "high-security-property-care": {
+    label: "serviceHighSecurityPropertyCare",
+    description: "serviceHighSecurityPropertyCareDescription",
+  },
+  "luxury-yacht-cleaning": {
+    label: "serviceLuxuryYachtCleaning",
+    description: "serviceLuxuryYachtCleaningDescription",
   },
 };
 
@@ -354,25 +482,25 @@ export function RequestQuotationView({ serviceSlug }: { serviceSlug: string }) {
 
   function validate(): boolean {
     const next: Record<string, string> = {};
-    if (!date) next.date = "Please select a date.";
-    if (!time) next.time = "Please select a time period.";
-    if (!firstName.trim()) next.firstName = "First name is required.";
-    if (!lastName.trim()) next.lastName = "Last name is required.";
-    if (!email.trim()) next.email = "Email is required.";
-    else if (!/^\S+@\S+\.\S+$/.test(email.trim())) next.email = "Please enter a valid email address.";
-    if (!phoneNumber.trim()) next.phoneNumber = "Phone number is required.";
-    if (!selectedCountry.trim()) next.selectedCountry = "Country is required.";
-    if (!postalCode.trim()) next.postalCode = "Postal code is required.";
-    if (!city.trim()) next.city = "City is required.";
-    if (!province.trim()) next.province = "Province / State is required.";
-    if (!streetAddress.trim()) next.streetAddress = "Street address is required.";
+    if (!date) next.date = translate("quotationErrDate");
+    if (!time) next.time = translate("quotationErrTime");
+    if (!firstName.trim()) next.firstName = translate("quotationErrFirstName");
+    if (!lastName.trim()) next.lastName = translate("quotationErrLastName");
+    if (!email.trim()) next.email = translate("quotationErrEmail");
+    else if (!/^\S+@\S+\.\S+$/.test(email.trim())) next.email = translate("quotationErrEmailInvalid");
+    if (!phoneNumber.trim()) next.phoneNumber = translate("quotationErrPhone");
+    if (!selectedCountry.trim()) next.selectedCountry = translate("quotationErrCountry");
+    if (!postalCode.trim()) next.postalCode = translate("quotationErrPostal");
+    if (!city.trim()) next.city = translate("quotationErrCity");
+    if (!province.trim()) next.province = translate("quotationErrProvince");
+    if (!streetAddress.trim()) next.streetAddress = translate("quotationErrStreet");
 
     if (isPickupDeliveryService) {
-      if (!deliveryCountry.trim()) next.deliveryCountry = "Country is required.";
-      if (!deliveryPostalCode.trim()) next.deliveryPostalCode = "Postal code is required.";
-      if (!deliveryCity.trim()) next.deliveryCity = "City is required.";
-      if (!deliveryProvince.trim()) next.deliveryProvince = "Province / State is required.";
-      if (!deliveryStreetAddress.trim()) next.deliveryStreetAddress = "Street address is required.";
+      if (!deliveryCountry.trim()) next.deliveryCountry = translate("quotationErrCountry");
+      if (!deliveryPostalCode.trim()) next.deliveryPostalCode = translate("quotationErrPostal");
+      if (!deliveryCity.trim()) next.deliveryCity = translate("quotationErrCity");
+      if (!deliveryProvince.trim()) next.deliveryProvince = translate("quotationErrProvince");
+      if (!deliveryStreetAddress.trim()) next.deliveryStreetAddress = translate("quotationErrStreet");
     }
 
     setErrors(next);
@@ -384,7 +512,7 @@ export function RequestQuotationView({ serviceSlug }: { serviceSlug: string }) {
     setSubmitError(null);
 
     if (!validate()) {
-      const firstError = Object.values(errors)[0] || "Please fill in all required fields marked with *";
+      const firstError = Object.values(errors)[0] || translate("quotationErrFillRequired");
       setSubmitError(firstError);
       return;
     }
@@ -449,7 +577,7 @@ export function RequestQuotationView({ serviceSlug }: { serviceSlug: string }) {
         router.push(`/quotation-confirmation/${quotation.id}?ref=${encodeURIComponent(quotation.accessToken)}`);
       }, 1500);
     } catch (err) {
-      setSubmitError(err instanceof ApiError ? err.message : "Failed to send your quotation request.");
+      setSubmitError(err instanceof ApiError ? err.message : translate("quotationErrSubmitFailed"));
     } finally {
       setSubmitting(false);
     }
@@ -458,7 +586,7 @@ export function RequestQuotationView({ serviceSlug }: { serviceSlug: string }) {
   if (serviceError && !service) {
     return (
       <div className="flex flex-1 items-center justify-center p-12 text-sm text-destructive font-medium">
-        {serviceError}
+        {translate("quotationErrServiceNotFound")}
       </div>
     );
   }
@@ -468,13 +596,16 @@ export function RequestQuotationView({ serviceSlug }: { serviceSlug: string }) {
     FALLBACK_SERVICES[serviceSlug]?.imageUrl ??
     "/images/services/updated-home-property-cleaning-services-1-standard-residential-cleaning.webp";
 
-  const currentServiceLabel =
-    service?.label ??
+  const currentServiceLabelKey = SERVICE_TRANSLATION_KEYS[serviceSlug];
+  const currentServiceLabel = currentServiceLabelKey
+    ? translate(currentServiceLabelKey.label)
+    : service?.label ??
     FALLBACK_SERVICES[serviceSlug]?.label ??
     "Regular Home Cleaning";
 
-  const currentServiceDescription =
-    service?.description ??
+  const currentServiceDescription = currentServiceLabelKey
+    ? translate(currentServiceLabelKey.description)
+    : service?.description ??
     FALLBACK_SERVICES[serviceSlug]?.description ??
     "Regular Basic Cleaning";
 
@@ -486,7 +617,7 @@ export function RequestQuotationView({ serviceSlug }: { serviceSlug: string }) {
           <div className="flex items-center gap-2.5 rounded-lg bg-[#2E7D32] px-6 py-3.5 text-white shadow-2xl">
             <CheckCircle2 className="h-5 w-5 shrink-0 text-white" />
             <span className="text-sm font-semibold tracking-wide">
-              Form submitted successfully!
+              {translate("quotationSuccessToast")}
             </span>
           </div>
         </div>
@@ -534,7 +665,11 @@ export function RequestQuotationView({ serviceSlug }: { serviceSlug: string }) {
         {serviceContent?.introduction && (
           <ServiceIntroduction
             headline={serviceContent.introduction.headline}
-            body={serviceContent.introduction.body}
+            body={
+              Array.isArray(serviceContent.introduction.body)
+                ? serviceContent.introduction.body
+                : [serviceContent.introduction.body]
+            }
             bgImage={currentHeroImage}
           />
         )}
@@ -542,7 +677,7 @@ export function RequestQuotationView({ serviceSlug }: { serviceSlug: string }) {
         {serviceContent?.highlights?.map((group, index) => (
           <ServiceHighlights
             key={index}
-            title={group.title ?? "Standard Package Checklist"}
+            title={group.title}
             cards={group.cards}
           />
         ))}
@@ -550,13 +685,13 @@ export function RequestQuotationView({ serviceSlug }: { serviceSlug: string }) {
         {/* MAIN SERVICE REQUEST DETAILS FORM BOX */}
         <div className="mx-auto w-full max-w-7xl rounded-2xl sm:rounded-3xl border-2 border-[#A98B4B] bg-[#FFFDF4] p-5 sm:p-8 md:p-10 shadow-sm">
           <h2 className="mb-6 text-center sm:text-left text-base sm:text-lg font-bold uppercase tracking-wider text-[#121E2D]">
-            Service Request Details
+            {translate("quotationFormTitle")}
           </h2>
 
           <form onSubmit={handleSubmit} className="flex flex-col gap-6" noValidate>
             {/* 1. Date & Time */}
             <div className="space-y-2">
-              <p className="text-xs font-semibold text-brand-navy">1. Date & Time</p>
+              <p className="text-xs font-semibold text-brand-navy">{translate("quotationStep1DateTime")}</p>
               <DateTimeSection
                 date={date}
                 onDateChange={(newDate) => {
@@ -576,25 +711,25 @@ export function RequestQuotationView({ serviceSlug }: { serviceSlug: string }) {
             {/* 2. Chemical and Equipment */}
             <div className="space-y-2">
               <Label className="text-xs font-semibold text-brand-navy">
-                2. Chemical and Equipment
+                {translate("quotationStep2ChemEquip")}
               </Label>
               <Select
                 value={supplySource}
                 onValueChange={(val) => setSupplySource(val as SupplySource)}
               >
                 <SelectTrigger className="h-11 w-full rounded-lg border border-[#A98B4B]/40 bg-[#FFFDF4] text-brand-navy shadow-inner focus:ring-2 focus:ring-[#A98B4B]">
-                  <SelectValue placeholder="Provided by the Customer" />
+                  <SelectValue placeholder={translate("quotationChemEquipPlaceholder")} />
                 </SelectTrigger>
                 <SelectContent className="bg-white border-[#A98B4B]/30">
-                  <SelectItem value="customer">Provided by the Customer</SelectItem>
-                  <SelectItem value="company">Request the Company</SelectItem>
+                  <SelectItem value="customer">{translate("quotationChemCustomer")}</SelectItem>
+                  <SelectItem value="company">{translate("quotationChemCompany")}</SelectItem>
                 </SelectContent>
               </Select>
 
               {/* Equipment Items Toggle when Request the Company is selected */}
               {supplySource === "company" && service?.serviceItems && service.serviceItems.length > 0 && (
                 <div className="mt-3 rounded-xl border border-[#A98B4B]/30 bg-white p-4 space-y-2.5">
-                  <p className="text-xs font-semibold text-[#121E2D]">Select Equipment & Materials</p>
+                  <p className="text-xs font-semibold text-[#121E2D]">{translate("quotationSelectEquipMaterials")}</p>
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
                     {service.serviceItems.map(({ item }) => {
                       const isChecked = selectedItemIds.has(item.id);
@@ -620,7 +755,7 @@ export function RequestQuotationView({ serviceSlug }: { serviceSlug: string }) {
             {/* 3. Property Scale / Service Specific Details */}
             {!isPickupDeliveryService && (
             <div className="space-y-2">
-              <p className="text-xs font-semibold text-brand-navy">3. Property Scale</p>
+              <p className="text-xs font-semibold text-brand-navy">{translate("quotationStep3PropertyScale")}</p>
               {serviceSlug === "carpet-upholstery-cleaning" ? (
                 <CarpetItemCards items={quoteItems} onItemsChange={setQuoteItems} />
               ) : serviceSlug === "pool-cleaning" ? (
@@ -654,7 +789,7 @@ export function RequestQuotationView({ serviceSlug }: { serviceSlug: string }) {
               {/* 4. Allocated professionals */}
               <div className="space-y-1.5">
                 <Label className="text-xs font-semibold text-brand-navy">
-                  4. Allocated professionals
+                  {translate("quotationStep4AllocatedPros")}
                 </Label>
                 <div className="flex h-11 items-center justify-between rounded-lg border border-[#A98B4B]/40 bg-[#FFFDF4] px-4 shadow-inner">
                   <button
@@ -679,7 +814,7 @@ export function RequestQuotationView({ serviceSlug }: { serviceSlug: string }) {
               {/* 5. Cleaner duration */}
               <div className="space-y-1.5">
                 <Label className="text-xs font-semibold text-brand-navy">
-                  5. Cleaner duration
+                  {translate("quotationStep5CleanerDuration")}
                 </Label>
                 <div className="flex h-11 items-center justify-between rounded-lg border border-[#A98B4B]/40 bg-[#FFFDF4] px-4 shadow-inner">
                   <button
@@ -708,16 +843,16 @@ export function RequestQuotationView({ serviceSlug }: { serviceSlug: string }) {
               {/* Staff Gender Preference */}
               <div className="space-y-1.5">
                 <Label className="text-xs font-semibold text-brand-navy">
-                  {isPickupDeliveryService ? "3." : "6."} Staff Gender Preference
+                  {isPickupDeliveryService ? "3." : "6."} {translate("quotationStepGenderPref")}
                 </Label>
                 <Select value={gender} onValueChange={setGender}>
                   <SelectTrigger className="h-11 w-full rounded-lg border border-[#A98B4B]/40 bg-[#FFFDF4] text-brand-navy shadow-inner focus:ring-2 focus:ring-[#A98B4B]">
-                    <SelectValue placeholder="Select an option" />
+                    <SelectValue placeholder={translate("quotationSelectOption")} />
                   </SelectTrigger>
                   <SelectContent className="bg-white border-[#A98B4B]/30">
-                    {GENDER_PREFERENCES.map((g) => (
+                    {GENDER_PREFERENCE_VALUES.map((g) => (
                       <SelectItem key={g.value} value={g.value}>
-                        {g.label}
+                        {translate(g.labelKey)}
                       </SelectItem>
                     ))}
                   </SelectContent>
@@ -727,11 +862,11 @@ export function RequestQuotationView({ serviceSlug }: { serviceSlug: string }) {
               {/* Linguistic Coordination */}
               <div className="space-y-1.5">
                 <Label className="text-xs font-semibold text-brand-navy">
-                  {isPickupDeliveryService ? "4." : "7."} Linguistic Coordination
+                  {isPickupDeliveryService ? "4." : "7."} {translate("quotationStepLinguistic")}
                 </Label>
                 <Select value={language} onValueChange={setLanguage}>
                   <SelectTrigger className="h-11 w-full rounded-lg border border-[#A98B4B]/40 bg-[#FFFDF4] text-brand-navy shadow-inner focus:ring-2 focus:ring-[#A98B4B]">
-                    <SelectValue placeholder="Select an option" />
+                    <SelectValue placeholder={translate("quotationSelectOption")} />
                   </SelectTrigger>
                   <SelectContent className="bg-white border-[#A98B4B]/30">
                     {LANGUAGE_COORDINATION_OPTIONS.map((lang) => (
@@ -747,12 +882,12 @@ export function RequestQuotationView({ serviceSlug }: { serviceSlug: string }) {
             {/* Service Requirements & Specifics */}
             <div className="space-y-1.5">
               <Label className="text-xs font-semibold text-brand-navy">
-                {isPickupDeliveryService ? "5." : "8."} Service Requirements & Specifics
+                {isPickupDeliveryService ? "5." : "8."} {translate("quotationStepRequirements")}
               </Label>
               <textarea
                 value={requirements}
                 onChange={(e) => setRequirements(e.target.value)}
-                placeholder="Describe the services you need, preferred schedule, location, and any specific requirements..."
+                placeholder={translate("quotationRequirementsPlaceholder")}
                 className="h-24 w-full rounded-lg border border-[#A98B4B]/40 bg-[#FFFDF4] p-3 text-xs sm:text-sm text-brand-navy shadow-inner placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#A98B4B]"
               />
             </div>
@@ -760,12 +895,12 @@ export function RequestQuotationView({ serviceSlug }: { serviceSlug: string }) {
             {/* CONTACT PROFILE SECTION */}
             <div className="space-y-4 pt-2">
               <h3 className="text-xs font-bold uppercase tracking-wider text-[#121E2D]">
-                Contact Profile
+                {translate("quotationContactProfile")}
               </h3>
               <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
                 <div className="space-y-1.5">
                   <Label className="text-xs font-medium text-brand-navy/90">
-                    First Name <span className="text-red-500">*</span>
+                    {translate("quotationFirstName")} <span className="text-red-500">*</span>
                   </Label>
                   <Input
                     value={firstName}
@@ -773,7 +908,7 @@ export function RequestQuotationView({ serviceSlug }: { serviceSlug: string }) {
                       setFirstName(e.target.value);
                       if (errors.firstName) setErrors((prev) => ({ ...prev, firstName: "" }));
                     }}
-                    placeholder="First Name"
+                    placeholder={translate("quotationFirstNamePlaceholder")}
                     className="h-11 rounded-lg border border-[#A98B4B]/40 bg-[#FFFDF4] text-brand-navy placeholder:text-muted-foreground shadow-inner focus-visible:ring-2 focus-visible:ring-[#A98B4B]"
                   />
                   {errors.firstName && <p className="text-xs text-destructive">{errors.firstName}</p>}
@@ -781,7 +916,7 @@ export function RequestQuotationView({ serviceSlug }: { serviceSlug: string }) {
 
                 <div className="space-y-1.5">
                   <Label className="text-xs font-medium text-brand-navy/90">
-                    Last Name <span className="text-red-500">*</span>
+                    {translate("quotationLastName")} <span className="text-red-500">*</span>
                   </Label>
                   <Input
                     value={lastName}
@@ -789,7 +924,7 @@ export function RequestQuotationView({ serviceSlug }: { serviceSlug: string }) {
                       setLastName(e.target.value);
                       if (errors.lastName) setErrors((prev) => ({ ...prev, lastName: "" }));
                     }}
-                    placeholder="Last Name"
+                    placeholder={translate("quotationLastNamePlaceholder")}
                     className="h-11 rounded-lg border border-[#A98B4B]/40 bg-[#FFFDF4] text-brand-navy placeholder:text-muted-foreground shadow-inner focus-visible:ring-2 focus-visible:ring-[#A98B4B]"
                   />
                   {errors.lastName && <p className="text-xs text-destructive">{errors.lastName}</p>}
@@ -799,7 +934,7 @@ export function RequestQuotationView({ serviceSlug }: { serviceSlug: string }) {
               <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
                 <div className="space-y-1.5">
                   <Label className="text-xs font-medium text-brand-navy/90">
-                    Email <span className="text-red-500">*</span>
+                    {translate("quotationEmail")} <span className="text-red-500">*</span>
                   </Label>
                   <Input
                     type="email"
@@ -808,7 +943,7 @@ export function RequestQuotationView({ serviceSlug }: { serviceSlug: string }) {
                       setEmail(e.target.value);
                       if (errors.email) setErrors((prev) => ({ ...prev, email: "" }));
                     }}
-                    placeholder="Email address"
+                    placeholder={translate("quotationEmailPlaceholder")}
                     className="h-11 rounded-lg border border-[#A98B4B]/40 bg-[#FFFDF4] text-brand-navy placeholder:text-muted-foreground shadow-inner focus-visible:ring-2 focus-visible:ring-[#A98B4B]"
                   />
                   {errors.email && <p className="text-xs text-destructive">{errors.email}</p>}
@@ -816,7 +951,7 @@ export function RequestQuotationView({ serviceSlug }: { serviceSlug: string }) {
 
                 <div className="space-y-1.5">
                   <Label className="text-xs font-medium text-brand-navy/90">
-                    Phone number <span className="text-red-500">*</span>
+                    {translate("quotationPhoneNumber")} <span className="text-red-500">*</span>
                   </Label>
                   <input
                     type="tel"
@@ -825,7 +960,7 @@ export function RequestQuotationView({ serviceSlug }: { serviceSlug: string }) {
                       setPhoneNumber(e.target.value);
                       if (errors.phoneNumber) setErrors((prev) => ({ ...prev, phoneNumber: "" }));
                     }}
-                    placeholder="Phone number"
+                    placeholder={translate("quotationPhonePlaceholder")}
                     className="h-11 w-full rounded-lg border border-[#A98B4B]/40 bg-[#FFFDF4] px-3 text-xs sm:text-sm text-brand-navy placeholder:text-muted-foreground shadow-inner focus:outline-none focus-visible:ring-2 focus-visible:ring-[#A98B4B]"
                   />
                   {errors.phoneNumber && <p className="text-xs text-destructive">{errors.phoneNumber}</p>}
@@ -836,16 +971,16 @@ export function RequestQuotationView({ serviceSlug }: { serviceSlug: string }) {
             {/* LOCATION OF THE RESIDENCE / PICKUP LOCATION SECTION */}
             <div className="space-y-4 pt-2">
               <h3 className="text-xs font-bold uppercase tracking-wider text-[#121E2D]">
-                {isPickupDeliveryService ? "Pickup Location" : "Location of the Residence"}
+                {isPickupDeliveryService ? translate("quotationPickupLocation") : translate("quotationLocationResidence")}
               </h3>
               <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
                 <div className="space-y-1.5">
                   <Label className="text-xs font-medium text-brand-navy/90">
-                    Select Country <span className="text-red-500">*</span>
+                    {translate("quotationSelectCountry")} <span className="text-red-500">*</span>
                   </Label>
                   <Select value={selectedCountry} onValueChange={setSelectedCountry}>
                     <SelectTrigger className="h-11 w-full rounded-lg border border-[#A98B4B]/40 bg-[#FFFDF4] text-brand-navy shadow-inner focus:ring-2 focus:ring-[#A98B4B]">
-                      <SelectValue placeholder="Select Country" />
+                      <SelectValue placeholder={translate("quotationSelectCountry")} />
                     </SelectTrigger>
                     <SelectContent className="bg-white border-[#A98B4B]/30">
                       {COUNTRY_OPTIONS.map((c) => (
@@ -862,7 +997,7 @@ export function RequestQuotationView({ serviceSlug }: { serviceSlug: string }) {
 
                 <div className="space-y-1.5">
                   <Label className="text-xs font-medium text-brand-navy/90">
-                    Postal Code <span className="text-red-500">*</span>
+                    {translate("quotationPostalCode")} <span className="text-red-500">*</span>
                   </Label>
                   <Input
                     value={postalCode}
@@ -870,7 +1005,7 @@ export function RequestQuotationView({ serviceSlug }: { serviceSlug: string }) {
                       setPostalCode(e.target.value);
                       if (errors.postalCode) setErrors((prev) => ({ ...prev, postalCode: "" }));
                     }}
-                    placeholder="Postal Code"
+                    placeholder={translate("quotationPostalCodePlaceholder")}
                     className="h-11 rounded-lg border border-[#A98B4B]/40 bg-[#FFFDF4] text-brand-navy placeholder:text-muted-foreground shadow-inner focus-visible:ring-2 focus-visible:ring-[#A98B4B]"
                   />
                   {errors.postalCode && <p className="text-xs text-destructive">{errors.postalCode}</p>}
@@ -880,7 +1015,7 @@ export function RequestQuotationView({ serviceSlug }: { serviceSlug: string }) {
               <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
                 <div className="space-y-1.5">
                   <Label className="text-xs font-medium text-brand-navy/90">
-                    City <span className="text-red-500">*</span>
+                    {translate("quotationCity")} <span className="text-red-500">*</span>
                   </Label>
                   <Input
                     value={city}
@@ -888,7 +1023,7 @@ export function RequestQuotationView({ serviceSlug }: { serviceSlug: string }) {
                       setCity(e.target.value);
                       if (errors.city) setErrors((prev) => ({ ...prev, city: "" }));
                     }}
-                    placeholder="City"
+                    placeholder={translate("quotationCityPlaceholder")}
                     className="h-11 rounded-lg border border-[#A98B4B]/40 bg-[#FFFDF4] text-brand-navy placeholder:text-muted-foreground shadow-inner focus-visible:ring-2 focus-visible:ring-[#A98B4B]"
                   />
                   {errors.city && <p className="text-xs text-destructive">{errors.city}</p>}
@@ -896,7 +1031,7 @@ export function RequestQuotationView({ serviceSlug }: { serviceSlug: string }) {
 
                 <div className="space-y-1.5">
                   <Label className="text-xs font-medium text-brand-navy/90">
-                    Province/ State <span className="text-red-500">*</span>
+                    {translate("quotationProvinceState")} <span className="text-red-500">*</span>
                   </Label>
                   <Input
                     value={province}
@@ -904,7 +1039,7 @@ export function RequestQuotationView({ serviceSlug }: { serviceSlug: string }) {
                       setProvince(e.target.value);
                       if (errors.province) setErrors((prev) => ({ ...prev, province: "" }));
                     }}
-                    placeholder="Province / State"
+                    placeholder={translate("quotationProvincePlaceholder")}
                     className="h-11 rounded-lg border border-[#A98B4B]/40 bg-[#FFFDF4] text-brand-navy placeholder:text-muted-foreground shadow-inner focus-visible:ring-2 focus-visible:ring-[#A98B4B]"
                   />
                   {errors.province && <p className="text-xs text-destructive">{errors.province}</p>}
@@ -914,7 +1049,7 @@ export function RequestQuotationView({ serviceSlug }: { serviceSlug: string }) {
               <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
                 <div className="space-y-1.5 sm:col-span-2">
                   <Label className="text-xs font-medium text-brand-navy/90">
-                    Street Address <span className="text-red-500">*</span>
+                    {translate("quotationStreetAddress")} <span className="text-red-500">*</span>
                   </Label>
                   <Input
                     value={streetAddress}
@@ -922,18 +1057,18 @@ export function RequestQuotationView({ serviceSlug }: { serviceSlug: string }) {
                       setStreetAddress(e.target.value);
                       if (errors.streetAddress) setErrors((prev) => ({ ...prev, streetAddress: "" }));
                     }}
-                    placeholder="Street Address"
+                    placeholder={translate("quotationStreetPlaceholder")}
                     className="h-11 rounded-lg border border-[#A98B4B]/40 bg-[#FFFDF4] text-brand-navy placeholder:text-muted-foreground shadow-inner focus-visible:ring-2 focus-visible:ring-[#A98B4B]"
                   />
                   {errors.streetAddress && <p className="text-xs text-destructive">{errors.streetAddress}</p>}
                 </div>
 
                 <div className="space-y-1.5 sm:col-span-2">
-                  <Label className="text-xs font-medium text-brand-navy/90">Unit/Apt/Suite</Label>
+                  <Label className="text-xs font-medium text-brand-navy/90">{translate("quotationUnit")}</Label>
                   <Input
                     value={unit}
                     onChange={(e) => setUnit(e.target.value)}
-                    placeholder="Unit/Apt/Suite"
+                    placeholder={translate("quotationUnitPlaceholder")}
                     className="h-11 rounded-lg border border-[#A98B4B]/40 bg-[#FFFDF4] text-brand-navy placeholder:text-muted-foreground shadow-inner focus-visible:ring-2 focus-visible:ring-[#A98B4B]"
                   />
                 </div>
@@ -944,16 +1079,16 @@ export function RequestQuotationView({ serviceSlug }: { serviceSlug: string }) {
             {isPickupDeliveryService && (
               <div className="space-y-4 pt-2">
                 <h3 className="text-xs font-bold uppercase tracking-wider text-[#121E2D]">
-                  Delivery Location
+                  {translate("quotationDeliveryLocation")}
                 </h3>
                 <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
                   <div className="space-y-1.5">
                     <Label className="text-xs font-medium text-brand-navy/90">
-                      Select Country <span className="text-red-500">*</span>
+                      {translate("quotationSelectCountry")} <span className="text-red-500">*</span>
                     </Label>
                     <Select value={deliveryCountry} onValueChange={setDeliveryCountry}>
                       <SelectTrigger className="h-11 w-full rounded-lg border border-[#A98B4B]/40 bg-[#FFFDF4] text-brand-navy shadow-inner focus:ring-2 focus:ring-[#A98B4B]">
-                        <SelectValue placeholder="Select Country" />
+                        <SelectValue placeholder={translate("quotationSelectCountry")} />
                       </SelectTrigger>
                       <SelectContent className="bg-white border-[#A98B4B]/30">
                         {COUNTRY_OPTIONS.map((c) => (
@@ -970,7 +1105,7 @@ export function RequestQuotationView({ serviceSlug }: { serviceSlug: string }) {
 
                   <div className="space-y-1.5">
                     <Label className="text-xs font-medium text-brand-navy/90">
-                      Postal Code <span className="text-red-500">*</span>
+                      {translate("quotationPostalCode")} <span className="text-red-500">*</span>
                     </Label>
                     <Input
                       value={deliveryPostalCode}
@@ -978,7 +1113,7 @@ export function RequestQuotationView({ serviceSlug }: { serviceSlug: string }) {
                         setDeliveryPostalCode(e.target.value);
                         if (errors.deliveryPostalCode) setErrors((prev) => ({ ...prev, deliveryPostalCode: "" }));
                       }}
-                      placeholder="Postal Code"
+                      placeholder={translate("quotationPostalCodePlaceholder")}
                       className="h-11 rounded-lg border border-[#A98B4B]/40 bg-[#FFFDF4] text-brand-navy placeholder:text-muted-foreground shadow-inner focus-visible:ring-2 focus-visible:ring-[#A98B4B]"
                     />
                     {errors.deliveryPostalCode && <p className="text-xs text-destructive">{errors.deliveryPostalCode}</p>}
@@ -988,7 +1123,7 @@ export function RequestQuotationView({ serviceSlug }: { serviceSlug: string }) {
                 <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
                   <div className="space-y-1.5">
                     <Label className="text-xs font-medium text-brand-navy/90">
-                      City <span className="text-red-500">*</span>
+                      {translate("quotationCity")} <span className="text-red-500">*</span>
                     </Label>
                     <Input
                       value={deliveryCity}
@@ -996,7 +1131,7 @@ export function RequestQuotationView({ serviceSlug }: { serviceSlug: string }) {
                         setDeliveryCity(e.target.value);
                         if (errors.deliveryCity) setErrors((prev) => ({ ...prev, deliveryCity: "" }));
                       }}
-                      placeholder="City"
+                      placeholder={translate("quotationCityPlaceholder")}
                       className="h-11 rounded-lg border border-[#A98B4B]/40 bg-[#FFFDF4] text-brand-navy placeholder:text-muted-foreground shadow-inner focus-visible:ring-2 focus-visible:ring-[#A98B4B]"
                     />
                     {errors.deliveryCity && <p className="text-xs text-destructive">{errors.deliveryCity}</p>}
@@ -1004,7 +1139,7 @@ export function RequestQuotationView({ serviceSlug }: { serviceSlug: string }) {
 
                   <div className="space-y-1.5">
                     <Label className="text-xs font-medium text-brand-navy/90">
-                      Province/ State <span className="text-red-500">*</span>
+                      {translate("quotationProvinceState")} <span className="text-red-500">*</span>
                     </Label>
                     <Input
                       value={deliveryProvince}
@@ -1012,7 +1147,7 @@ export function RequestQuotationView({ serviceSlug }: { serviceSlug: string }) {
                         setDeliveryProvince(e.target.value);
                         if (errors.deliveryProvince) setErrors((prev) => ({ ...prev, deliveryProvince: "" }));
                       }}
-                      placeholder="Province / State"
+                      placeholder={translate("quotationProvincePlaceholder")}
                       className="h-11 rounded-lg border border-[#A98B4B]/40 bg-[#FFFDF4] text-brand-navy placeholder:text-muted-foreground shadow-inner focus-visible:ring-2 focus-visible:ring-[#A98B4B]"
                     />
                     {errors.deliveryProvince && <p className="text-xs text-destructive">{errors.deliveryProvince}</p>}
@@ -1022,7 +1157,7 @@ export function RequestQuotationView({ serviceSlug }: { serviceSlug: string }) {
                 <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
                   <div className="space-y-1.5 sm:col-span-2">
                     <Label className="text-xs font-medium text-brand-navy/90">
-                      Street Address <span className="text-red-500">*</span>
+                      {translate("quotationStreetAddress")} <span className="text-red-500">*</span>
                     </Label>
                     <Input
                       value={deliveryStreetAddress}
@@ -1030,18 +1165,18 @@ export function RequestQuotationView({ serviceSlug }: { serviceSlug: string }) {
                         setDeliveryStreetAddress(e.target.value);
                         if (errors.deliveryStreetAddress) setErrors((prev) => ({ ...prev, deliveryStreetAddress: "" }));
                       }}
-                      placeholder="Street Address"
+                      placeholder={translate("quotationStreetPlaceholder")}
                       className="h-11 rounded-lg border border-[#A98B4B]/40 bg-[#FFFDF4] text-brand-navy placeholder:text-muted-foreground shadow-inner focus-visible:ring-2 focus-visible:ring-[#A98B4B]"
                     />
                     {errors.deliveryStreetAddress && <p className="text-xs text-destructive">{errors.deliveryStreetAddress}</p>}
                   </div>
 
                   <div className="space-y-1.5 sm:col-span-2">
-                    <Label className="text-xs font-medium text-brand-navy/90">Unit/Apt/Suite</Label>
+                    <Label className="text-xs font-medium text-brand-navy/90">{translate("quotationUnit")}</Label>
                     <Input
                       value={deliveryUnit}
                       onChange={(e) => setDeliveryUnit(e.target.value)}
-                      placeholder="Unit/Apt/Suite"
+                      placeholder={translate("quotationUnitPlaceholder")}
                       className="h-11 rounded-lg border border-[#A98B4B]/40 bg-[#FFFDF4] text-brand-navy placeholder:text-muted-foreground shadow-inner focus-visible:ring-2 focus-visible:ring-[#A98B4B]"
                     />
                   </div>
@@ -1062,7 +1197,7 @@ export function RequestQuotationView({ serviceSlug }: { serviceSlug: string }) {
               disabled={submitting}
               className="mt-2 h-12 sm:h-14 w-full rounded-xl bg-[#A98B4B] text-xs sm:text-sm font-bold tracking-widest text-white shadow-lg transition hover:bg-[#8F7034] hover:brightness-110 uppercase"
             >
-              {submitting ? "SUBMITTING REQUEST…" : "SUBMIT DETAILED QUOTATION REQUEST"}
+              {submitting ? translate("quotationSubmitting") : translate("quotationSubmit")}
             </Button>
           </form>
         </div>
@@ -1073,7 +1208,7 @@ export function RequestQuotationView({ serviceSlug }: { serviceSlug: string }) {
             href="/"
             className="inline-flex items-center justify-center rounded-[8px] border border-[#C5A253] bg-white px-10 py-2 text-md font-semibold text-[#0B1528] shadow-sm transition hover:bg-[#F8F9FA]"
           >
-            Back
+            {translate("quotationBack")}
           </Link>
         </div>
       </div>

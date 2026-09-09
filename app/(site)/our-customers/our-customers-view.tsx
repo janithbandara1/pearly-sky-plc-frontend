@@ -57,7 +57,7 @@ export function OurCustomersView() {
       <ReviewMarquee />
           
        <h1 className="text-2xl font-semibold mb-6 text-blue-900 text-center mt-8 max-[541px]:text-lg text-center">
-        Support Payment Methods
+        {translate("supportPayementMethods")}
         </h1>    
       <PaymentMarquee />
       

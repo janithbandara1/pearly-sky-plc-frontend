@@ -1,4 +1,5 @@
 import { apiFetch } from "./api";
+import { TranslationKey } from "./i18n/dictionaries/en";
 
 export type ServiceCategory = "care_and_concierge" | "commercial_and_specialized_cleaning" | "premium_add_ons" | "residential_cleaning";
 
@@ -15,11 +16,11 @@ export const PACKAGE_CATEGORIES: PackageCategory[] = [
   "outdoor_and_exterior_spaces",
 ];
 
-export const PACKAGE_CATEGORY_LABELS: Record<PackageCategory, string> = {
-  deep_and_specialized_cleaning: "Deep & Specialized Cleaning",
-  general_interior_maintenance: "General Interior Maintenance",
-  lifestyle_and_home_care: "Lifestyle & Home Care",
-  outdoor_and_exterior_spaces: "Outdoor & Exterior Spaces",
+export const PACKAGE_CATEGORY_LABELS: Record<PackageCategory, TranslationKey> = {
+  deep_and_specialized_cleaning: "CategoryDeepSpecialized",
+  general_interior_maintenance: "CategoryGeneralInterior",
+  lifestyle_and_home_care: "CategoryLifeStyle",
+  outdoor_and_exterior_spaces: "CategoryDeepOutDoor",
 };
 
 export interface ServicePriceEntry {
@@ -48,7 +49,7 @@ export interface CatalogService {
 
 export interface ServiceAddOnPackage {
   id: number;
-  name: string;
+  name: TranslationKey;
   image: string | null;
   category: PackageCategory;
 }

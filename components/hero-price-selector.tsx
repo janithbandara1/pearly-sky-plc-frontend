@@ -1,5 +1,6 @@
 "use client";
 
+import { useLanguage } from "@/lib/i18n/language-context";
 import { useEffect, useRef, useState } from "react";
 import type { ComponentType } from "react";
 
@@ -92,7 +93,20 @@ function CountryPicker({
       </button>
 
       {isOpen && (
-        <div className="absolute right-0 bottom-full z-50 mb-2 w-56 overflow-hidden rounded-l-lg border border-[rgb(169,139,75)]/40 bg-[rgb(18,30,45)] shadow-xl">
+        <div className="absolute hidden md:block right-0 bottom-full z-50 mb-2 w-56 overflow-hidden rounded-l-lg border border-[rgb(169,139,75)]/40 bg-[rgb(18,30,45)] shadow-xl">
+          <CountryOptions
+            activePrices={activePrices}
+            selectedCountryCode={selectedCountryCode}
+            getFlagComponent={getFlagComponent}
+            onCountryChange={(country) => {
+              onCountryChange(country);
+              setIsOpen(false);
+            }}
+          />
+        </div>
+      )}
+      {isOpen && (
+        <div className="absolute block md:hidden -right-[150px] -top-28 max-h-[200px] z-50 mb-2 w-35 overflow-hidden rounded-l-lg border border-[rgb(169,139,75)]/40 bg-[rgb(18,30,45)] shadow-xl">
           <CountryOptions
             activePrices={activePrices}
             selectedCountryCode={selectedCountryCode}
@@ -116,6 +130,7 @@ export function HeroPriceSelector({
   getFlagComponent,
   onCountryChange,
 }: HeroPriceSelectorProps) {
+  const {translate} =useLanguage();
   return (
     <>
       <div className="mt-4 hidden flex-col items-center justify-start gap-2 md:flex sm:flex-row">
@@ -134,12 +149,12 @@ export function HeroPriceSelector({
             placement="desktop"
           />
           <p className="m-0 font-[Poppins] pl-2 text-base font-extrabold leading-[1.5] text-[rgb(169,139,75)] [text-shadow:rgba(0,0,0,0.3)_0px_1px_4px]">
-            Hour Per Cleaner
+            {translate("hourPerCleaner")}
           </p>
         </div>
       </div>
 
-      <div className="absolute top-23 z-14 my-4 flex w-[320px] flex-row items-center gap-1 rounded-lg bg-[rgb(18,30,45)] px-2 py-4 md:hidden">
+      <div className="absolute top-17 z-14 my-4 flex w-[320px] flex-row items-center gap-1 rounded-lg bg-[rgb(18,30,45)] px-2 py-4 md:hidden">
         <PriceLabel
           selectedData={selectedData}
           className="w-[40%] text-[0.65rem] font-semibold text-[#A98B4B] max-[541px]:text-base max-[541px]:text-white"
@@ -155,7 +170,7 @@ export function HeroPriceSelector({
             placement="mobile"
           />
           <p className="m-0 wrap-break-word font-[Poppins] text-[0.85rem] font-extrabold leading-[1.5] text-[rgb(233,233,233)] [text-shadow:rgba(0,0,0,0.3)_0px_1px_4px]">
-            Hour Per Cleaner
+            {translate("hourPerCleaner")}
           </p>
         </div>
       </div>
