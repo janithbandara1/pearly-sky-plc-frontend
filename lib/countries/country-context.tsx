@@ -1,7 +1,7 @@
 "use client";
 
 import { createContext, useContext, useMemo, type ReactNode } from "react";
-import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import { usePathname, useSearchParams } from "next/navigation";
 import { COUNTRY_COOKIE_MAX_AGE, COUNTRY_COOKIE_NAME, defaultLanguageForCountry, type CountryCode } from "./config";
 import { buildPrefixedPath, extractLocalePrefix } from "./geo";
 
@@ -24,7 +24,6 @@ export function CountryProvider({
   country: CountryCode | null;
   children: ReactNode;
 }) {
-  const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
 
@@ -42,11 +41,14 @@ export function CountryProvider({
         // carry the current one over — most countries only offer "en" anyway,
         // and a France-only "fr" selection has no equivalent elsewhere.
         const nextPath = buildPrefixedPath(unprefixedPath, next, defaultLanguageForCountry(next));
-        router.push(`${nextPath}${search ? `?${search}` : ""}`);
-        router.refresh();
+        // Full page load (not router.push) — a soft navigation only clears the
+        // client router cache, not Next's server-side fetch/data cache, so
+        // switching country could still render the previous country's cached
+        // data for a beat.
+        window.location.href = `${nextPath}${search ? `?${search}` : ""}`;
       },
     }),
-    [country, pathname, router, searchParams],
+    [country, pathname, searchParams],
   );
 
   return <CountryContext.Provider value={value}>{children}</CountryContext.Provider>;

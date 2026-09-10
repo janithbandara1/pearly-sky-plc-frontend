@@ -1,7 +1,7 @@
 "use client";
 
 import { createContext, useContext, useMemo, type ReactNode } from "react";
-import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import { usePathname, useSearchParams } from "next/navigation";
 import { extractLocalePrefix, buildPrefixedPath } from "@/lib/countries/geo";
 import { en, type TranslationKey } from "./dictionaries/en";
 import { da } from "./dictionaries/da";
@@ -78,7 +78,6 @@ export function LanguageProvider({
   language: SupportedLanguage | null;
   children: ReactNode;
 }) {
-  const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
   const resolvedLanguage = language ?? "en";
@@ -95,15 +94,18 @@ export function LanguageProvider({
         const search = searchParams.toString();
         const target = buildPrefixedPath(locale.rest, locale.country, next);
 
-        router.push(`${target}${search ? `?${search}` : ""}`);
-        router.refresh();
+        // Full page load (not router.push) — a soft navigation only clears the
+        // client router cache, not Next's server-side fetch/data cache, so
+        // switching language could still render the previous language's cached
+        // data for a beat.
+        window.location.href = `${target}${search ? `?${search}` : ""}`;
       },
       translate: (key: TranslationKey) => {
         const value = dictionaries[resolvedLanguage][key] ?? en[key] ?? key;
         return typeof value === "string" ? value : value.join("\n\n");
       },
     }),
-    [resolvedLanguage, pathname, router, searchParams],
+    [resolvedLanguage, pathname, searchParams],
   );
 
   return <LanguageContext.Provider value={value}>{children}</LanguageContext.Provider>;
