@@ -29,7 +29,7 @@ export default function TermsAndConditionsPage() {
           { name: "Terms and Conditions", path: "/terms-and-conditions" },
         ])}
       />
-      <PageHero image="/images/about/hero.webp" title="Terms and Conditions" />
+      <PageHero hidePriceSelector image="/images/about/hero.webp" title="Terms and Conditions" />
 
       <div className="mx-auto flex w-full max-w-3xl flex-col gap-8 px-4 py-16 sm:px-6">
         <p className="text-sm text-muted-foreground">Last updated: August 8, 2026</p>
