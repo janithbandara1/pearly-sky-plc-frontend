@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { Compass, Leaf,Shield, Layers, Users, Sparkles, Clock, Wallet } from "lucide-react";
+import { Compass, Leaf,Shield, Layers, Users, Sparkles, Clock, Wallet, ArrowLeft } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { PageHero } from "@/components/hero-components/hero-with-social-links";
 import { useLanguage } from "@/lib/i18n/language-context";
@@ -78,8 +78,9 @@ export function AboutUsView() {
       <div className="absolute md:bottom-none  top-35 z-5 right-3 md:right-none">
         <Socialmedialinks />
       </div>
-
+      
       <section className="">
+        
         <div className="bg-[#121e2d] py-10 mb-10">
           <h4 className="text-white text-[18px] font-bold tracking-tight text-center md:text-4xl">
             {translate("aboutPageSectionHeader")}
@@ -88,7 +89,13 @@ export function AboutUsView() {
             {translate("aboutPageHeroTitle")}
           </h5>
         </div>
-        <div className="mx-auto grid w-full max-w-6xl gap-10 px-4 py-16 sm:px-6 lg:grid-cols-2">
+        <div className="flex w-full  flex-col gap-6 px-4 py-5 sm:px-6 md:mx-auto">
+          <Link href="/" title="Back to home" className="mb-6 inline-flex items-center gap-1 text-sm text-brand-gold-dark hover:underline">
+            <ArrowLeft className="h-4 w-4" />
+            {translate("commonBack")}
+          </Link>
+        </div>
+        <div className="mx-auto grid w-full max-w-6xl gap-10 px-4 py-3 sm:px-6 lg:grid-cols-2">
           <div className="bg-white border border-[rgb(169,139,75)] p-4 rounded-lg shadow-lg">
             <p className="text-sm font-semibold uppercase tracking-widest text-brand-gold-dark">
               {translate("aboutPageIdentityTitle")}
@@ -120,6 +127,7 @@ export function AboutUsView() {
 
         
       </section>
+      
 
       <section className="bg-brand-navy py-16 text-brand-navy-foreground">
         <div className="mx-auto w-full max-w-6xl px-4 text-center sm:px-6">

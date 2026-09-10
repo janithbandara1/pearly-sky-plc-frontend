@@ -50,7 +50,7 @@ export function LocationCard({ location, isOpen, onToggle }: LocationCardProps) 
 
       {/* Accordion Content */}
       {isOpen || !isOpen  && (
-        <div className="border-t  h-fit md:h-[220px] lg:h-[300px] border-[#2d3f53] bg-[#121A24] p-4">
+        <div className="border-t  h-[300px] md:h-[220px] lg:h-[300px] border-[#2d3f53] bg-[#121A24] p-4">
           <div className="flex flex-wrap items-baseline justify-between gap-2 border-b border-gray-800 pb-2">
             <h4 className="text-sm font-semibold tracking-wide text-white">
               {location.name || `${location.name} Office`}

@@ -13,7 +13,7 @@ export function BlogPostView({ post, otherPosts }: { post: BlogPost; otherPosts:
   return (
     <main className="flex-1">
       <PageHero image={post.image} title={post.title} subtitle={post.date} hidePriceSelector />
-
+      
       <section className="mx-auto grid w-full max-w-6xl gap-10 px-4 py-16 sm:px-6 lg:grid-cols-[2fr_1fr]">
         <article>
           <Link href="/blog" className="mb-6 inline-flex items-center gap-1 text-sm text-brand-gold-dark hover:underline">

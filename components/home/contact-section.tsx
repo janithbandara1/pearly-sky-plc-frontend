@@ -4,7 +4,7 @@ import { useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
-import { Mail, Phone } from "lucide-react";
+import { ArrowLeft, Mail, Phone } from "lucide-react";
 import { FaWhatsapp, FaFacebookF, FaYoutube, FaLinkedinIn } from "react-icons/fa";
 import { AiOutlineTikTok, AiFillInstagram } from "react-icons/ai";
 import { RiTwitterXFill } from "react-icons/ri";
@@ -19,6 +19,7 @@ import { SOCIAL_URLS } from "@/lib/content/social-links";
 import { ApiError } from "@/lib/api";
 import { sendContactMessage } from "@/lib/contact-api";
 import { PhoneInput } from "@/components/phone-input";
+import Link from "next/link";
 
 const CONTACT_EMAIL = "info@pearlyskyglobalclean.com";
 
@@ -79,7 +80,12 @@ export function ContactSection() {
           {translate("contactTitle")}
         </h2>
       </div>
-      
+      <div className="flex w-full  flex-col gap-6 px-4 py-5 sm:px-6 md:mx-auto">
+        <Link href="/" title="Back to home" className="mb-6 inline-flex items-center gap-1 text-sm text-brand-gold-dark hover:underline">
+          <ArrowLeft className="h-4 w-4" />
+          {translate("commonBack")}
+        </Link>
+      </div>
       <div className="md:py-4 md:px-8">
           <div className="grid gap-0 overflow-hidden rounded-2xl   border-2 border-brand-gold md:grid-cols-2 lg:grid-cols-2">
           <form onSubmit={handleSubmit(onSubmit)} className="space-y-4 p-6 sm:p-8" noValidate>
