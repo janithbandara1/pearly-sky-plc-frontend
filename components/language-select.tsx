@@ -18,11 +18,21 @@ export function LanguageSelect({ className }: { className?: string }) {
   const { country } = useCountry();
   const { language, setLanguage } = useLanguage();
   const [open, setOpen] = useState(false);
+  const [align, setAlign] = useState<"left" | "right">("left");
   const ref = useRef<HTMLDivElement>(null);
 
   const currentCountry = country ?? SUPPORTED_COUNTRIES[0];
   const availableLanguages = COUNTRY_LANGUAGES[currentCountry];
   const languageOptions = SUPPORTED_LANGUAGES.filter((l) => availableLanguages.includes(l.code));
+
+  const toggleOpen = () => {
+    if (!open) {
+      const rect = ref.current?.getBoundingClientRect();
+      const dropdownWidth = 192; // w-48
+      setAlign(rect && rect.left + dropdownWidth > window.innerWidth ? "right" : "left");
+    }
+    setOpen((prev) => !prev);
+  };
 
   useEffect(() => {
     if (!open) return;
@@ -46,7 +56,7 @@ export function LanguageSelect({ className }: { className?: string }) {
     <div className={cn("relative", className)} ref={ref}>
       <button
         type="button"
-        onClick={() => setOpen((prev) => !prev)}
+        onClick={toggleOpen}
         aria-expanded={open}
         aria-label="Select language"
         className={cn(
@@ -59,7 +69,12 @@ export function LanguageSelect({ className }: { className?: string }) {
       </button>
 
       {open && (
-        <div className="absolute top-full right-0 z-50 mt-1.5 w-48 overflow-hidden rounded-lg bg-popover text-popover-foreground shadow ring-1 ring-foreground/10">
+        <div
+          className={cn(
+            "absolute top-full z-50 mt-1.5 w-48 overflow-hidden rounded-lg bg-popover text-popover-foreground shadow ring-1 ring-foreground/10",
+            align === "right" ? "right-0" : "left-0",
+          )}
+        >
           <div className="max-h-96 overflow-y-auto p-1">
             {languageOptions.map(({ code, label }) => (
               <button

@@ -17,10 +17,20 @@ import { cn } from "@/lib/utils";
 export function CountrySelect({ className }: { className?: string }) {
   const { country, setCountry } = useCountry();
   const [open, setOpen] = useState(false);
+  const [align, setAlign] = useState<"left" | "right">("left");
   const ref = useRef<HTMLDivElement>(null);
 
   const currentCountry = country ?? SUPPORTED_COUNTRIES[0];
   const CurrentFlag = COUNTRY_FLAGS[currentCountry];
+
+  const toggleOpen = () => {
+    if (!open) {
+      const rect = ref.current?.getBoundingClientRect();
+      const dropdownWidth = 224; // w-56
+      setAlign(rect && rect.left + dropdownWidth > window.innerWidth ? "right" : "left");
+    }
+    setOpen((prev) => !prev);
+  };
 
   useEffect(() => {
     if (!open) return;
@@ -44,7 +54,7 @@ export function CountrySelect({ className }: { className?: string }) {
     <div className={cn("relative", className)} ref={ref}>
       <button
         type="button"
-        onClick={() => setOpen((prev) => !prev)}
+        onClick={toggleOpen}
         aria-expanded={open}
         aria-label="Select country"
         className={cn(
@@ -57,7 +67,12 @@ export function CountrySelect({ className }: { className?: string }) {
       </button>
 
       {open && (
-        <div className="absolute top-full right-0 z-50 mt-1.5 w-56 overflow-hidden rounded-lg bg-popover text-popover-foreground shadow ring-1 ring-foreground/10">
+        <div
+          className={cn(
+            "absolute top-full z-50 mt-1.5 w-56 overflow-hidden rounded-lg bg-popover text-popover-foreground shadow ring-1 ring-foreground/10",
+            align === "right" ? "right-0" : "left-0",
+          )}
+        >
           <div className="max-h-96 overflow-y-auto p-1">
             {SUPPORTED_COUNTRIES.map((code) => {
               const Flag = COUNTRY_FLAGS[code];
