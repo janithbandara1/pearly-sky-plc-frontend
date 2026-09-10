@@ -244,84 +244,65 @@ export function SiteHeader({ navLinks: navLinksProp, showServicesMenu = true }: 
             <CountrySelect />
           </div>
           
-          <div className="md:hidden lg:hidden flex">
-              {status === "authenticated" ? (
-                      <div className="relative ml-4" ref={accountMobileRef}>
+          {status === "authenticated" && (
+            <div className="md:hidden lg:hidden flex">
+              <div className="relative ml-4" ref={accountMobileRef}>
+                <button
+                  type="button"
+                  onClick={() => setAccountOpen((open) => !open)}
+                  aria-expanded={accountOpen}
+                  aria-label="Account menu"
+                  className={cn(
+                    "flex size-9 items-center justify-center rounded-full border border-brand-gold bg-brand-gold/10 text-brand-gold transition-colors hover:bg-brand-gold/20",
+                    accountOpen && "bg-brand-gold/20",
+                  )}
+                >
+                  <UserRound className="size-5" />
+                </button>
+                {accountOpen && (
+                  <div className="absolute top-full right-0 z-50 mt-1.5 flex w-56 flex-col gap-1 rounded-lg bg-popover p-1 text-popover-foreground shadow ring-1 ring-foreground/10">
+                    <Link
+                      href="/bookings"
+                      onClick={() => setAccountOpen(false)}
+                      className="flex items-center gap-2.5 rounded-lg p-2 text-sm hover:bg-muted"
+                    >
+                      <CalendarDays className="size-4" />
+                      Bookings
+                    </Link>
+                    <Link
+                      href="/quotations"
+                      onClick={() => setAccountOpen(false)}
+                      className="flex items-center gap-2.5 rounded-lg p-2 text-sm hover:bg-muted"
+                    >
+                      <FileText className="size-4" />
+                      Quotations
+                    </Link>
+                    <Link
+                      href="/profile"
+                      onClick={() => setAccountOpen(false)}
+                      className="flex items-center gap-2.5 rounded-lg p-2 text-sm hover:bg-muted"
+                    >
+                      <UserRound className="size-4" />
+                      Profile
+                    </Link>
+                    <div className="my-1 border-t" />
                     <button
                       type="button"
-                      onClick={() => setAccountOpen((open) => !open)}
-                      aria-expanded={accountOpen}
-                      aria-label="Account menu"
-                      className={cn(
-                        "flex size-9 items-center justify-center rounded-full border border-brand-gold bg-brand-gold/10 text-brand-gold transition-colors hover:bg-brand-gold/20",
-                        accountOpen && "bg-brand-gold/20",
-                      )}
+                      onClick={() => {
+                        setAccountOpen(false);
+                        logout();
+                      }}
+                      className="flex w-full items-center gap-2.5 rounded-lg p-2 text-left text-sm text-destructive hover:bg-muted"
                     >
-                      <UserRound className="size-5" />
+                      <LogOut className="size-4" />
+                      Log out
                     </button>
-                    {accountOpen && (
-                      <div className="absolute top-full right-0 z-50 mt-1.5 flex w-56 flex-col gap-1 rounded-lg bg-popover p-1 text-popover-foreground shadow ring-1 ring-foreground/10">
-                        <Link
-                          href="/bookings"
-                          onClick={() => setAccountOpen(false)}
-                          className="flex items-center gap-2.5 rounded-lg p-2 text-sm hover:bg-muted"
-                        >
-                          <CalendarDays className="size-4" />
-                          Bookings
-                        </Link>
-                        <Link
-                          href="/quotations"
-                          onClick={() => setAccountOpen(false)}
-                          className="flex items-center gap-2.5 rounded-lg p-2 text-sm hover:bg-muted"
-                        >
-                          <FileText className="size-4" />
-                          Quotations
-                        </Link>
-                        <Link
-                          href="/profile"
-                          onClick={() => setAccountOpen(false)}
-                          className="flex items-center gap-2.5 rounded-lg p-2 text-sm hover:bg-muted"
-                        >
-                          <UserRound className="size-4" />
-                          Profile
-                        </Link>
-                        <div className="my-1 border-t" />
-                        <button
-                          type="button"
-                          onClick={() => {
-                            setAccountOpen(false);
-                            logout();
-                          }}
-                          className="flex w-full items-center gap-2.5 rounded-lg p-2 text-left text-sm text-destructive hover:bg-muted"
-                        >
-                          <LogOut className="size-4" />
-                          Log out
-                        </button>
-                      </div>
-                    )}
-                      </div>
-                    ) : (
-                      <>
-                        <Button
-                          asChild
-                          size="sm"
-                          variant="outline"
-                          className="border-brand-gold rounded-lg mx-1 bg-transparent font-semibold text-brand-gold hover:bg-brand-gold/10 hover:text-brand-gold"
-                        >
-                          <Link href="/login">{translate("navLogin")}</Link>
-                        </Button>
-                        <Button
-                          asChild
-                          size="sm"
-                          className="bg-brand-gold rounded-lg text-brand-navy hover:bg-brand-gold/90"
-                        >
-                          <Link href="/signup">{translate("navSignup")}</Link>
-                        </Button>
-                      </>
-              )}
-                
-          </div>
-          
+                  </div>
+                )}
+              </div>
+            </div>
+          )}
+
 
           <Sheet
             open={mobileOpen}
@@ -409,6 +390,30 @@ export function SiteHeader({ navLinks: navLinksProp, showServicesMenu = true }: 
                     {link.label}
                   </Link>
                 ))}
+
+                {status !== "authenticated" && (
+                  <div className="mt-2 flex flex-col gap-2">
+                    <Button
+                      asChild
+                      size="sm"
+                      variant="outline"
+                      className="border-brand-gold rounded-lg bg-transparent font-semibold text-brand-gold hover:bg-brand-gold/10 hover:text-brand-gold"
+                    >
+                      <Link href="/login" onClick={() => setMobileOpen(false)}>
+                        {translate("navLogin")}
+                      </Link>
+                    </Button>
+                    <Button
+                      asChild
+                      size="sm"
+                      className="bg-brand-gold rounded-lg text-brand-navy hover:bg-brand-gold/90"
+                    >
+                      <Link href="/signup" onClick={() => setMobileOpen(false)}>
+                        {translate("navSignup")}
+                      </Link>
+                    </Button>
+                  </div>
+                )}
               </nav>
             </SheetContent>
           </Sheet>

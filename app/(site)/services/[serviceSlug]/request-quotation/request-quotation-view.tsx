@@ -83,6 +83,12 @@ const HIDE_QUOTE_ITEMS_IF_EMPTY_SLUGS = new Set([
   "precision-pressure-washing",
 ]);
 
+/** Move-In/Out Transport is logistics, not cleaning — no cleaning chemicals/equipment to choose. */
+const HIDE_CHEM_EQUIP_SLUGS = new Set([
+  "move-in-out-transport-service",
+  "move-in-out-transport-health",
+]);
+
 const COUNTRY_NAMES: Record<CountryCode, string> = {
   fr: "France",
   de: "Germany",
@@ -365,6 +371,7 @@ export function RequestQuotationView({ serviceSlug }: { serviceSlug: string }) {
 
   const customQuote = CUSTOM_QUOTE_ITEMS[serviceSlug];
   const isPickupDeliveryService = PICKUP_DELIVERY_SLUGS.has(serviceSlug);
+  const hideChemEquip = HIDE_CHEM_EQUIP_SLUGS.has(serviceSlug);
 
   const serviceContent =
     SERVICE_CONTENT[serviceSlug] ??
@@ -711,48 +718,50 @@ export function RequestQuotationView({ serviceSlug }: { serviceSlug: string }) {
             </div>
 
             {/* 2. Chemical and Equipment */}
-            <div className="space-y-2">
-              <Label className="text-xs font-semibold text-brand-navy">
-                {translate("quotationStep2ChemEquip")}
-              </Label>
-              <Select
-                value={supplySource}
-                onValueChange={(val) => setSupplySource(val as SupplySource)}
-              >
-                <SelectTrigger className="h-11 w-full rounded-lg border border-[#A98B4B]/40 bg-[#FFFDF4] text-brand-navy shadow-inner focus:ring-2 focus:ring-[#A98B4B]">
-                  <SelectValue placeholder={translate("quotationChemEquipPlaceholder")} />
-                </SelectTrigger>
-                <SelectContent className="bg-white border-[#A98B4B]/30">
-                  <SelectItem value="customer">{translate("quotationChemCustomer")}</SelectItem>
-                  <SelectItem value="company">{translate("quotationChemCompany")}</SelectItem>
-                </SelectContent>
-              </Select>
+            {!hideChemEquip && (
+              <div className="space-y-2">
+                <Label className="text-xs font-semibold text-brand-navy">
+                  {translate("quotationStep2ChemEquip")}
+                </Label>
+                <Select
+                  value={supplySource}
+                  onValueChange={(val) => setSupplySource(val as SupplySource)}
+                >
+                  <SelectTrigger className="h-11 w-full rounded-lg border border-[#A98B4B]/40 bg-[#FFFDF4] text-brand-navy shadow-inner focus:ring-2 focus:ring-[#A98B4B]">
+                    <SelectValue placeholder={translate("quotationChemEquipPlaceholder")} />
+                  </SelectTrigger>
+                  <SelectContent className="bg-white border-[#A98B4B]/30">
+                    <SelectItem value="customer">{translate("quotationChemCustomer")}</SelectItem>
+                    <SelectItem value="company">{translate("quotationChemCompany")}</SelectItem>
+                  </SelectContent>
+                </Select>
 
-              {/* Equipment Items Toggle when Request the Company is selected */}
-              {supplySource === "company" && service?.serviceItems && service.serviceItems.length > 0 && (
-                <div className="mt-3 rounded-xl border border-[#A98B4B]/30 bg-white p-4 space-y-2.5">
-                  <p className="text-xs font-semibold text-[#121E2D]">{translate("quotationSelectEquipMaterials")}</p>
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
-                    {service.serviceItems.map(({ item }) => {
-                      const isChecked = selectedItemIds.has(item.id);
-                      return (
-                        <label
-                          key={item.id}
-                          className="flex cursor-pointer items-center justify-between gap-2 rounded-lg border border-gray-200 p-2.5 hover:bg-gray-50 text-xs text-[#121E2D]"
-                        >
-                          <span className="font-medium">{item.name}</span>
-                          <Checkbox
-                            checked={isChecked}
-                            onCheckedChange={() => toggleEquipmentItem(item.id)}
-                            className="border-[#A98B4B] data-[state=checked]:bg-[#A98B4B]"
-                          />
-                        </label>
-                      );
-                    })}
+                {/* Equipment Items Toggle when Request the Company is selected */}
+                {supplySource === "company" && service?.serviceItems && service.serviceItems.length > 0 && (
+                  <div className="mt-3 rounded-xl border border-[#A98B4B]/30 bg-white p-4 space-y-2.5">
+                    <p className="text-xs font-semibold text-[#121E2D]">{translate("quotationSelectEquipMaterials")}</p>
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                      {service.serviceItems.map(({ item }) => {
+                        const isChecked = selectedItemIds.has(item.id);
+                        return (
+                          <label
+                            key={item.id}
+                            className="flex cursor-pointer items-center justify-between gap-2 rounded-lg border border-gray-200 p-2.5 hover:bg-gray-50 text-xs text-[#121E2D]"
+                          >
+                            <span className="font-medium">{item.name}</span>
+                            <Checkbox
+                              checked={isChecked}
+                              onCheckedChange={() => toggleEquipmentItem(item.id)}
+                              className="border-[#A98B4B] data-[state=checked]:bg-[#A98B4B]"
+                            />
+                          </label>
+                        );
+                      })}
+                    </div>
                   </div>
-                </div>
-              )}
-            </div>
+                )}
+              </div>
+            )}
 
             {/* 3. Property Scale / Service Specific Details */}
             {!isPickupDeliveryService && (
@@ -845,7 +854,7 @@ export function RequestQuotationView({ serviceSlug }: { serviceSlug: string }) {
               {/* Staff Gender Preference */}
               <div className="space-y-1.5">
                 <Label className="text-xs font-semibold text-brand-navy">
-                  {isPickupDeliveryService ? "3." : "6."} {translate("quotationStepGenderPref")}
+                  {hideChemEquip ? "2." : isPickupDeliveryService ? "3." : "6."} {translate("quotationStepGenderPref")}
                 </Label>
                 <Select value={gender} onValueChange={setGender}>
                   <SelectTrigger className="h-11 w-full rounded-lg border border-[#A98B4B]/40 bg-[#FFFDF4] text-brand-navy shadow-inner focus:ring-2 focus:ring-[#A98B4B]">
@@ -864,7 +873,7 @@ export function RequestQuotationView({ serviceSlug }: { serviceSlug: string }) {
               {/* Linguistic Coordination */}
               <div className="space-y-1.5">
                 <Label className="text-xs font-semibold text-brand-navy">
-                  {isPickupDeliveryService ? "4." : "7."} {translate("quotationStepLinguistic")}
+                  {hideChemEquip ? "3." : isPickupDeliveryService ? "4." : "7."} {translate("quotationStepLinguistic")}
                 </Label>
                 <Select value={language} onValueChange={setLanguage}>
                   <SelectTrigger className="h-11 w-full rounded-lg border border-[#A98B4B]/40 bg-[#FFFDF4] text-brand-navy shadow-inner focus:ring-2 focus:ring-[#A98B4B]">
@@ -884,7 +893,7 @@ export function RequestQuotationView({ serviceSlug }: { serviceSlug: string }) {
             {/* Service Requirements & Specifics */}
             <div className="space-y-1.5">
               <Label className="text-xs font-semibold text-brand-navy">
-                {isPickupDeliveryService ? "5." : "8."} {translate("quotationStepRequirements")}
+                {hideChemEquip ? "4." : isPickupDeliveryService ? "5." : "8."} {translate("quotationStepRequirements")}
               </Label>
               <textarea
                 value={requirements}
