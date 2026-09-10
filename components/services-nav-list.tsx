@@ -10,13 +10,14 @@ import type { TranslationKey } from "@/lib/i18n/dictionaries/en";
 
 export function useCatalogServices() {
   const { country } = useCountry();
+  const { language } = useLanguage();
   const [services, setServices] = useState<CatalogService[]>([]);
 
   useEffect(() => {
-    getServices(country)
+    getServices(country, language)
       .then((data) => setServices(data.filter((s) => s.status === "active")))
       .catch(() => setServices([]));
-  }, [country]);
+  }, [country, language]);
 
   return services;
 }
@@ -94,9 +95,9 @@ export function ServicesNavList({
           service.name === "precision-pressure-washing" ||
           service.name === "luxury-yacht-cleaning";
         const href = isDedicatedFlow || service.isBookable
-          ? `/services/${service.name}`
+          ? `/services/${service.slug}`
           : service.isQuotable
-            ? `/services/${service.name}/request-quotation`
+            ? `/services/${service.slug}/request-quotation`
             : null;
 
         const translationKey =

@@ -18,6 +18,8 @@ interface ApiFetchOptions extends Omit<RequestInit, "body"> {
   accessToken?: string;
   /** Current country (see lib/countries), forwarded as `x-country` so the backend can serve country-specific data. */
   country?: string | null;
+  /** Current language (see lib/i18n), forwarded as `x-language` so the backend can resolve localized slugs/content. */
+  language?: string | null;
   body?: unknown;
   /** Internal — set on the retried request so a second 401 doesn't loop forever. */
   _retried?: boolean;
@@ -58,7 +60,7 @@ function refreshAccessToken(): Promise<string | null> {
  * included on cross-origin requests from the Next.js frontend.
  */
 export async function apiFetch<T>(path: string, options: ApiFetchOptions = {}): Promise<T> {
-  const { accessToken, country, headers, body, _retried, ...rest } = options;
+  const { accessToken, country, language, headers, body, _retried, ...rest } = options;
 
   const res = await fetch(`${API_URL}${path}`, {
     ...rest,
@@ -67,6 +69,7 @@ export async function apiFetch<T>(path: string, options: ApiFetchOptions = {}): 
       "Content-Type": "application/json",
       ...(accessToken ? { Authorization: `Bearer ${accessToken}` } : {}),
       ...(country ? { "x-country": country } : {}),
+      ...(language ? { "x-language": language } : {}),
       ...headers,
     },
     body: body !== undefined ? JSON.stringify(body) : undefined,

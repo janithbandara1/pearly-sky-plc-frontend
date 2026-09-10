@@ -28,8 +28,24 @@ export interface ServicePriceEntry {
   price: string | null;
 }
 
+/** One language's (or one country+language's) explicit slug for a service — raw material for hreflang/sitemap, not for display. */
+export interface ServiceLocaleSlug {
+  language: string;
+  /** null for a language-level (country-agnostic) translation; set for a country+language override. */
+  country: string | null;
+  slug: string;
+}
+
+export interface ServiceSeoMeta {
+  title: string | null;
+  description: string | null;
+  ogTitle: string | null;
+  ogDescription: string | null;
+}
+
 export interface CatalogService {
   id: number;
+  /** Base/English slug — stable across locales, used as the fallback slug and as a business-logic key (category checks, translation-key lookups). Not for building links. */
   name: string;
   label: string;
   /** Hourly rate resolved for the request's country (via `x-country`); null if unset or no country. */
@@ -45,6 +61,16 @@ export interface CatalogService {
   isBookable: boolean;
   /** Accepts "Request a Quotation" submissions. */
   isQuotable: boolean;
+  /** Effective slug for the request's (country, language) — falls back to `name` when nothing's translated/overridden. Use this for links. */
+  slug: string;
+  /** Effective display name for the request's language — falls back to `label`. */
+  localizedName: string;
+  /** Effective description for the request's language — falls back to `description`. */
+  localizedDescription: string | null;
+  /** Resolved SEO copy (country+language override -> language translation); a null field still needs a generated fallback. */
+  seo: ServiceSeoMeta;
+  /** Every language/country this service has an explicit slug for — used to build hreflang alternates and sitemap entries. */
+  locales: ServiceLocaleSlug[];
 }
 
 export interface ServiceAddOnPackage {
@@ -79,18 +105,38 @@ export interface CatalogItem {
   type: string;
 }
 
-export function getServices(country?: string | null) {
-  return apiFetch<CatalogService[]>("/catalog/services", { country });
+/**
+ * Fills in the locale-resolution fields (slug/localizedName/localizedDescription/seo/locales)
+ * on a hand-written offline fallback service — used where the UI falls back to static data
+ * when the catalog API is unreachable, so those fallbacks don't need to fake a real locale
+ * resolution: they just mirror their own base name/label/description with no SEO overrides.
+ */
+export function withLocaleDefaults(
+  service: Omit<CatalogServiceDetail, "slug" | "localizedName" | "localizedDescription" | "seo" | "locales">,
+): CatalogServiceDetail {
+  return {
+    ...service,
+    slug: service.name,
+    localizedName: service.label,
+    localizedDescription: service.description,
+    seo: { title: null, description: null, ogTitle: null, ogDescription: null },
+    locales: [],
+  };
 }
 
-export function getService(id: number, country?: string | null) {
-  return apiFetch<CatalogServiceDetail>(`/catalog/services/${id}`, { country });
+export function getServices(country?: string | null, language?: string | null) {
+  return apiFetch<CatalogService[]>("/catalog/services", { country, language });
 }
 
-export function getServiceBySlug(slug: string, country?: string | null) {
+export function getService(id: number, country?: string | null, language?: string | null) {
+  return apiFetch<CatalogServiceDetail>(`/catalog/services/${id}`, { country, language });
+}
+
+/** `slug` may be the base English slug or a locale-specific (translated/overridden) one — the backend resolves either. */
+export function getServiceBySlug(slug: string, country?: string | null, language?: string | null) {
   return apiFetch<CatalogServiceDetail>(
-    `/catalog/services/by-name/${encodeURIComponent(slug)}`,
-    { country },
+    `/catalog/services/by-slug/${encodeURIComponent(slug)}`,
+    { country, language },
   );
 }
 

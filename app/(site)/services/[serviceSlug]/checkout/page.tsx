@@ -37,6 +37,7 @@ import {
   SizeQuote,
   getServiceBySlug,
   getServiceQuote,
+  withLocaleDefaults,
 } from "@/lib/catalog-api";
 import {
   AddressPayload,
@@ -181,29 +182,31 @@ export default function CheckoutPage({
     getServiceBySlug(serviceSlug, currentCountry)
       .then(setService)
       .catch(() => {
-        setService({
-          id: isCareService ? (isChildCare ? 17 : 18) : 1,
-          name: serviceSlug,
-          label: isChildCare
-            ? "Child Care Service"
-            : isElderCare
-              ? "Elder Care Service"
-              : "Regular Home Cleaning",
-          price: "30.00",
-          prices: [],
-          status: "active",
-          category: isCareService ? "care_and_concierge" : "residential_cleaning",
-          description: "Eco-luxury care service",
-          imageUrl: isChildCare
-            ? "/images/services/updated-care-support-services-1-child-care-service.webp"
-            : isElderCare
-              ? "/images/services/updated-care-support-services-2-elder-care-service.webp"
-              : "/images/services/updated-home-property-cleaning-services-1-standard-residential-cleaning.webp",
-          isBookable: true,
-          isQuotable: true,
-          servicePackages: [],
-          serviceItems: [],
-        });
+        setService(
+          withLocaleDefaults({
+            id: isCareService ? (isChildCare ? 17 : 18) : 1,
+            name: serviceSlug,
+            label: isChildCare
+              ? "Child Care Service"
+              : isElderCare
+                ? "Elder Care Service"
+                : "Regular Home Cleaning",
+            price: "30.00",
+            prices: [],
+            status: "active",
+            category: isCareService ? "care_and_concierge" : "residential_cleaning",
+            description: "Eco-luxury care service",
+            imageUrl: isChildCare
+              ? "/images/services/updated-care-support-services-1-child-care-service.webp"
+              : isElderCare
+                ? "/images/services/updated-care-support-services-2-elder-care-service.webp"
+                : "/images/services/updated-home-property-cleaning-services-1-standard-residential-cleaning.webp",
+            isBookable: true,
+            isQuotable: true,
+            servicePackages: [],
+            serviceItems: [],
+          }),
+        );
       });
   }, [serviceSlug, currentCountry, isCareService, isChildCare, isElderCare]);
 

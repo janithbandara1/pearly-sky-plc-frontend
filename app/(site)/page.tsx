@@ -32,8 +32,8 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 export default async function Home() {
-  const country = await getRequestCountry();
-  const services = await getServices(country);
+  const [country, language] = await Promise.all([getRequestCountry(), getRequestLanguage()]);
+  const services = await getServices(country, language);
 
   return (
     <main className="flex-1">

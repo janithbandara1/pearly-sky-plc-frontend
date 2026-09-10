@@ -24,7 +24,7 @@ import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Checkbox } from "@/components/ui/checkbox";
 import { ApiError, useAuth } from "@/lib/auth-context";
-import { CatalogItem, CatalogServiceDetail, getServiceBySlug } from "@/lib/catalog-api";
+import { CatalogItem, CatalogServiceDetail, getServiceBySlug, withLocaleDefaults } from "@/lib/catalog-api";
 import { CustomerAddress, getMyProfile, listMyAddresses } from "@/lib/customers-api";
 import { SUPPORTED_COUNTRIES, type CountryCode } from "@/lib/countries/config";
 import { useCountry } from "@/lib/countries/country-context";
@@ -426,21 +426,23 @@ export function RequestQuotationView({ serviceSlug }: { serviceSlug: string }) {
         // Use fallback service data for seamless rendering
         const fallback = FALLBACK_SERVICES[serviceSlug];
         if (fallback) {
-          setService({
-            id: fallback.id ?? 1,
-            name: fallback.name ?? serviceSlug,
-            label: fallback.label ?? "Service",
-            description: fallback.description ?? null,
-            imageUrl: fallback.imageUrl ?? "/images/services/updated-home-property-cleaning-services-1-standard-residential-cleaning.webp",
-            price: null,
-            prices: [],
-            status: "active",
-            category: "residential_cleaning",
-            isBookable: true,
-            isQuotable: true,
-            servicePackages: [],
-            serviceItems: [],
-          });
+          setService(
+            withLocaleDefaults({
+              id: fallback.id ?? 1,
+              name: fallback.name ?? serviceSlug,
+              label: fallback.label ?? "Service",
+              description: fallback.description ?? null,
+              imageUrl: fallback.imageUrl ?? "/images/services/updated-home-property-cleaning-services-1-standard-residential-cleaning.webp",
+              price: null,
+              prices: [],
+              status: "active",
+              category: "residential_cleaning",
+              isBookable: true,
+              isQuotable: true,
+              servicePackages: [],
+              serviceItems: [],
+            }),
+          );
         } else {
           setServiceError("Service not found.");
         }

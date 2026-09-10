@@ -33,6 +33,7 @@ import {
   getServiceQuote,
   ServiceAddOnPackage,
   SizeQuote,
+  withLocaleDefaults,
 } from "@/lib/catalog-api";
 import { useCountry } from "@/lib/countries/country-context";
 import { useCurrency } from "@/lib/currency-context";
@@ -78,7 +79,7 @@ const DEFAULT_PACKAGES: ServiceAddOnPackage[] = [
 ];
 
 const FALLBACK_SERVICES: Record<string, CatalogServiceDetail> = {
-  "child-care-service": {
+  "child-care-service": withLocaleDefaults({
     id: 17,
     name: "child-care-service",
     label: "Child Care Service",
@@ -92,8 +93,8 @@ const FALLBACK_SERVICES: Record<string, CatalogServiceDetail> = {
     isQuotable: true,
     servicePackages: [],
     serviceItems: [],
-  },
-  "elder-care-service": {
+  }),
+  "elder-care-service": withLocaleDefaults({
     id: 18,
     name: "elder-care-service",
     label: "Elder Care Service",
@@ -107,8 +108,8 @@ const FALLBACK_SERVICES: Record<string, CatalogServiceDetail> = {
     isQuotable: true,
     servicePackages: [],
     serviceItems: [],
-  },
-  "carpet-upholstery-cleaning": {
+  }),
+  "carpet-upholstery-cleaning": withLocaleDefaults({
     id: 5,
     name: "carpet-upholstery-cleaning",
     label: "Carpet & Upholstery Cleaning",
@@ -122,8 +123,8 @@ const FALLBACK_SERVICES: Record<string, CatalogServiceDetail> = {
     isQuotable: true,
     servicePackages: [],
     serviceItems: [],
-  },
-  "pool-cleaning": {
+  }),
+  "pool-cleaning": withLocaleDefaults({
     id: 9,
     name: "pool-cleaning",
     label: "Pool Cleaning",
@@ -137,8 +138,8 @@ const FALLBACK_SERVICES: Record<string, CatalogServiceDetail> = {
     isQuotable: true,
     servicePackages: [],
     serviceItems: [],
-  },
-  "precision-pressure-washing": {
+  }),
+  "precision-pressure-washing": withLocaleDefaults({
     id: 10,
     name: "precision-pressure-washing",
     label: "Precision Pressure Washing",
@@ -152,8 +153,8 @@ const FALLBACK_SERVICES: Record<string, CatalogServiceDetail> = {
     isQuotable: true,
     servicePackages: [],
     serviceItems: [],
-  },
-  "luxury-yacht-cleaning": {
+  }),
+  "luxury-yacht-cleaning": withLocaleDefaults({
     id: 16,
     name: "luxury-yacht-cleaning",
     label: "Luxury Yacht Cleaning",
@@ -167,8 +168,8 @@ const FALLBACK_SERVICES: Record<string, CatalogServiceDetail> = {
     isQuotable: true,
     servicePackages: [],
     serviceItems: [],
-  },
-  "regular-maintenance-cleaning": {
+  }),
+  "regular-maintenance-cleaning": withLocaleDefaults({
     id: 1,
     name: "regular-maintenance-cleaning",
     label: "Regular Home Cleaning",
@@ -182,7 +183,7 @@ const FALLBACK_SERVICES: Record<string, CatalogServiceDetail> = {
     isQuotable: true,
     servicePackages: DEFAULT_PACKAGES.map((p) => ({ package: p })),
     serviceItems: [],
-  },
+  }),
 };
 
 export function ServiceBookingView({ serviceSlug }: { serviceSlug: string }) {

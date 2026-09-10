@@ -7,26 +7,23 @@ interface ServiceLink {
   href: string;
 }
 
+/**
+ * Curated cross-links to a fixed set of services, by their base (English)
+ * slug — same unprefixed-path convention as ServicesNavList's links. A click
+ * lands on the unprefixed route, which proxy.ts redirects to the visitor's
+ * current locale (and, once a service has a translated slug, to that
+ * locale's own slug — see CatalogService.findServiceBySlug on the backend).
+ */
 const relatedServices: ServiceLink[] = [
-  { title: "serviceLableDeepCleaning", href: "/fr/en/services/deep-cleaning" },
-  {
-    title: "serviceLableRegularHomeCleaning",
-    href: "/fr/en/services/standard-residential-cleaning",
-  },
-
-  {
-    title: "serviceLableEndOfTenancyCleaning",
-    href: "/fr/en/services/end-of-tenancy-cleaning",
-  },
+  { title: "serviceLableDeepCleaning", href: "/services/deep-cleaning" },
+  { title: "serviceLableRegularHomeCleaning", href: "/services/regular-home-cleaning" },
+  { title: "serviceLableEndOfTenancyCleaning", href: "/services/end-of-tenancy-cleaning" },
   {
     title: "serviceLablePostConstructionRenovationCleaning",
-    href: "/fr/en/services/post-construction-renovation-cleaning",
+    href: "/services/post-construction-renovation-cleaning",
   },
-  { title: "serviceLableLaundryService", href: "/fr/en/services/laundry-service" },
-  {
-    title: "serviceLableCommercialOfficeCleaning",
-    href: "/fr/en/services/commercial-office-cleaning",
-  },
+  { title: "serviceLableLaundryService", href: "/services/laundry-service" },
+  { title: "serviceLableCommercialOfficeCleaning", href: "/services/commercial-office-cleaning" },
 ];
 
 export default function RelatedServices() {
