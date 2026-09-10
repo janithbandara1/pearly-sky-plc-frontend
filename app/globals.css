@@ -156,3 +156,37 @@
 .animate-marquee {
   animation: marquee 40s linear infinite;
 }
+
+@media print {
+  @page {
+    size: A4 portrait;
+    margin: 8mm;
+  }
+
+  body {
+    background-color: #ffffff !important;
+    color: #000000 !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+
+  .print\:hidden,
+  header,
+  footer:not(.booking-pdf-root footer),
+  nav {
+    display: none !important;
+  }
+
+  .booking-pdf-root {
+    max-width: 100% !important;
+    width: 100% !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    background: #ffffff !important;
+  }
+
+  .booking-pdf-page.page-break-after {
+    page-break-after: always !important;
+    break-after: page !important;
+  }
+}

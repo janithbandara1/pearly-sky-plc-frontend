@@ -999,6 +999,70 @@ serviceLuxuryYachtCleaningTitleFiveFeatureTwo:"Complete linen turnover, sanitati
   careersApplySend: "SEND APPLICATION",
   careersRoleLabel: "Role *",
 
+  // Job Content - Categories & Types
+  jobCategoryCleaning: "Cleaning",
+  jobCategoryChildcare: "Childcare",
+  jobCategoryElderCare: "Elder Care",
+  jobEmploymentFullPartFlexible: "Full-Time / Part-Time / Flexible Shifts",
+  jobEmploymentPartFull: "Part-Time / Full-Time",
+  jobLocationFranceUK: "France / United Kingdom",
+
+  // Job 1: Residential Cleaner
+  jobResidentialCleanerTitle: "Cleaner (Male / Female) — Residential and Commercial Properties",
+  jobResidentialCleanerAbout1: "At Pearly Sky, we are committed to maintaining clean, safe, and welcoming environments for our clients. Whether it's homes, offices, or specialized facilities, we deliver excellence with every sweep, mop, and dusting motion.",
+  jobResidentialCleanerAbout2: "Joining our team means becoming part of a supportive and innovative organization that values your skills and offers opportunities for personal and professional growth.",
+  jobResidentialCleanerResp1: "Sweep, mop, vacuum, and dust floors and surfaces to maintain cleanliness and order.",
+  jobResidentialCleanerResp2: "Sanitize and disinfect high-touch areas such as door handles, light switches, and countertops.",
+  jobResidentialCleanerResp3: "Empty trash bins and replace liners promptly.",
+  jobResidentialCleanerResp4: "Perform deep cleaning assignments, including carpet shampooing, upholstery cleaning, and floor waxing.",
+  jobResidentialCleanerResp5: "Operate and maintain cleaning equipment such as vacuums, carpet cleaners, and floor polishers.",
+  jobResidentialCleanerResp6: "Provide exceptional service by addressing client requests and ensuring satisfaction.",
+  jobResidentialCleanerReq1: "High school diploma or equivalent.",
+  jobResidentialCleanerReq2: "Strong attention to detail and commitment to delivering quality results.",
+  jobResidentialCleanerReq3: "Physical ability to perform tasks requiring bending, lifting, and standing for extended periods.",
+  jobResidentialCleanerReq4: "Knowledge of basic cleaning techniques and equipment usage.",
+  jobResidentialCleanerReq5: "Punctuality and reliability to adhere to scheduled shifts.",
+  jobResidentialCleanerBen1: "Competitive salary — €11.50–€15.00 per hour, commensurate with experience.",
+  jobResidentialCleanerBen2: "Overtime pay for evening or weekend shifts.",
+  jobResidentialCleanerBen3: "Opportunities for bonuses based on performance and client satisfaction.",
+  jobResidentialCleanerBen4: "Supportive and inclusive work environment.",
+
+  // Job 2: Childcare Assistant
+  jobChildcareAssistantTitle: "Children Care Worker (Male / Female)",
+  jobChildcareAssistantAbout1: "Pearly Sky's care team supports families with trusted, attentive childcare in the home. We're looking for warm, reliable individuals who genuinely love working with children.",
+  jobChildcareAssistantResp1: "Provide attentive and nurturing care to children in their homes or designated facilities.",
+  jobChildcareAssistantResp2: "Assist with daily routines, including meals, homework, playtime, and bedtime.",
+  jobChildcareAssistantResp3: "Ensure a safe, clean, and stimulating environment for children.",
+  jobChildcareAssistantResp4: "Communicate effectively with parents regarding their children's needs and progress.",
+  jobChildcareAssistantResp5: "Follow all safety and hygiene protocols.",
+  jobChildcareAssistantReq1: "Previous experience in childcare or a related field is preferred.",
+  jobChildcareAssistantReq2: "Patience, empathy, and a genuine love for working with children.",
+  jobChildcareAssistantReq3: "Strong communication skills in English and French.",
+  jobChildcareAssistantReq4: "Ability to handle emergencies calmly and responsibly.",
+  jobChildcareAssistantReq5: "Valid certifications in CPR/First Aid (preferred but not mandatory).",
+  jobChildcareAssistantBen1: "Competitive salary and benefits.",
+  jobChildcareAssistantBen2: "Flexible working hours.",
+  jobChildcareAssistantBen3: "Opportunity to make a positive impact on families and children.",
+  jobChildcareAssistantBen4: "Supportive and inclusive work environment.",
+
+  // Job 3: Elder Care Assistant
+  jobElderCareAssistantTitle: "Elder Care Worker (Male / Female)",
+  jobElderCareAssistantAbout1: "Pearly Sky's elder care team brings compassionate, professional support to seniors in their own homes, helping them live safely and comfortably with dignity.",
+  jobElderCareAssistantResp1: "Provide personalized care to elderly clients in their homes or care facilities.",
+  jobElderCareAssistantResp2: "Assist with daily activities such as bathing, dressing, meal preparation, and medication reminders.",
+  jobElderCareAssistantResp3: "Offer companionship and emotional support to seniors.",
+  jobElderCareAssistantResp4: "Ensure a safe, clean, and comfortable environment for clients.",
+  jobElderCareAssistantResp5: "Communicate effectively with families and healthcare professionals regarding clients' needs and progress.",
+  jobElderCareAssistantReq1: "Previous experience in elder care or a related field is preferred.",
+  jobElderCareAssistantReq2: "Compassion, patience, and a genuine desire to help seniors.",
+  jobElderCareAssistantReq3: "Strong communication skills in English and French.",
+  jobElderCareAssistantReq4: "Ability to handle emergencies calmly and responsibly.",
+  jobElderCareAssistantReq5: "Valid certifications in CPR/First Aid (preferred but not mandatory).",
+  jobElderCareAssistantBen1: "Competitive salary and benefits.",
+  jobElderCareAssistantBen2: "Flexible working hours.",
+  jobElderCareAssistantBen3: "Opportunity to make a meaningful impact in seniors' lives.",
+  jobElderCareAssistantBen4: "Supportive and inclusive work environment.",
+
   // Contact Us page
   contactPageTitle: "Contact Our Concierge Team",
   contactOfficesTitle: "Our Offices",
@@ -1861,6 +1925,16 @@ serviceLuxuryYachtCleaningTitleFiveFeatureTwo:"Complete linen turnover, sanitati
   bookConfirmHours: "Hours",
   bookConfirmCleaningSpecialist: "Cleaning Specialist",
   bookConfirmCleaningSpecialists: "Cleaning Specialists",
+
+  confirmBookingHeadline:"Thank You for Your Order!",
+  confirmRefLabel:"Reference Number",
+  confirmStatusLabel:"Payment Status",
+
+  confirmBookingDesc:"Your cleaning experience is confirmed. A dedicated specialist team is preparing for your service.",
+  confirmViewBookings: "VIEW MY BOOKINGS",
+  scanQrTitle: "Scan to View Details",
+  scanQrDesc: "Scan this code with your phone to open the full details online, anytime.",
+
 } as const;
 
 export type TranslationKey = keyof typeof en;

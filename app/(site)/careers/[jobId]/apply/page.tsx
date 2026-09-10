@@ -11,7 +11,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { useLanguage } from "@/lib/i18n/language-context";
-import { getJob } from "@/lib/content/jobs";
+import { getJob, getTranslatedJob } from "@/lib/content/jobs";
 
 const CONTACT_EMAIL = "info@pearlyskyglobalclean.com";
 
@@ -27,7 +27,8 @@ type ApplyFormValues = z.infer<typeof applySchema>;
 export default function JobApplyPage({ params }: { params: Promise<{ jobId: string }> }) {
   const { jobId } = use(params);
   const { translate } = useLanguage();
-  const job = getJob(jobId);
+  const rawJob = getJob(jobId);
+  const job = rawJob ? getTranslatedJob(rawJob, translate) : null;
   const [sent, setSent] = useState(false);
 
   const {

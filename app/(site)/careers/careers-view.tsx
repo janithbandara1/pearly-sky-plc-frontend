@@ -8,22 +8,26 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { useLanguage } from "@/lib/i18n/language-context";
-import { jobs } from "@/lib/content/jobs";
+import { jobs, getTranslatedJob } from "@/lib/content/jobs";
 
 export function CareersView() {
   const { translate } = useLanguage();
   const [title, setTitle] = useState("");
   const [location, setLocation] = useState("");
 
+  const translatedJobs = useMemo(() => {
+    return jobs.map((job) => getTranslatedJob(job, translate));
+  }, [translate]);
+
   const filtered = useMemo(() => {
     const t = title.trim().toLowerCase();
     const l = location.trim().toLowerCase();
-    return jobs.filter(
+    return translatedJobs.filter(
       (job) =>
         (!t || job.title.toLowerCase().includes(t) || job.category.toLowerCase().includes(t)) &&
         (!l || job.location.toLowerCase().includes(l)),
     );
-  }, [title, location]);
+  }, [title, location, translatedJobs]);
 
   return (
     <main className="flex-1 bg-[rgb(18,30,45)] md:bg-[#d9d9d9]">
