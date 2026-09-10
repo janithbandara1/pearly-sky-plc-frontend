@@ -9,7 +9,8 @@ import { useAuth } from "@/lib/auth-context";
 import { useLanguage } from "@/lib/i18n/language-context";
 import { cn } from "@/lib/utils";
 import { ServicesNavList } from "@/components/services-nav-list";
-import { LocaleSwitcher } from "@/components/locale-switcher";
+import { LanguageSelect } from "@/components/language-select";
+import { CountrySelect } from "@/components/country-select";
 import { Button } from "@/components/ui/button";
 import {
   Sheet,
@@ -238,7 +239,10 @@ export function SiteHeader({ navLinks: navLinksProp, showServicesMenu = true }: 
 
             
         <div className="flex items-center gap-2 sm:gap-3">
-          <LocaleSwitcher />
+          <div className="flex items-center gap-1">
+            <LanguageSelect />
+            <CountrySelect />
+          </div>
           
           <div className="md:hidden lg:hidden flex">
               {status === "authenticated" ? (

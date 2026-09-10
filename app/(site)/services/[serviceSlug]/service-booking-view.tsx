@@ -457,13 +457,20 @@ export function ServiceBookingView({ serviceSlug }: { serviceSlug: string }) {
 
   if (serviceError) {
     return (
-      <div className="flex flex-1 items-center justify-center p-6 text-sm text-destructive">{serviceError}</div>
+      <div className="flex min-h-[70vh] flex-1 items-center justify-center p-6 text-sm text-destructive">
+        {serviceError}
+      </div>
     );
   }
 
   if (!service) {
+    // A fixed min-height here (roughly the real booking form's footprint)
+    // keeps JoinWithUsSection/RelatedServices below the fold while this
+    // fetches — without it, this collapses to a one-line "Loading…", so
+    // that marketing content briefly renders at the very top of the page
+    // and it looks like the page opened already scrolled down to it.
     return (
-      <div className="flex flex-1 items-center justify-center p-6 text-sm text-muted-foreground">
+      <div className="flex min-h-[70vh] flex-1 items-center justify-center p-6 text-sm text-muted-foreground">
         Loading…
       </div>
     );
