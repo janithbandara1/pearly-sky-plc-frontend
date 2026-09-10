@@ -7,6 +7,7 @@ import { getRequestLanguage } from "@/lib/i18n/server";
 import { buildCountryAlternates, buildSocialMeta } from "@/lib/countries/seo";
 import { buildBreadcrumbJsonLd } from "@/lib/seo/json-ld";
 import { STATIC_PAGE_META } from "@/lib/countries/meta-data";
+import { ArrowLeft } from "lucide-react";
 
 const { title: TITLE } = STATIC_PAGE_META.privacyPolicy;
 
@@ -29,8 +30,9 @@ export default function PrivacyPolicyPage() {
           { name: "Privacy Policy", path: "/privacy-policy" },
         ])}
       />
-      <PageHero image="/images/about/hero.webp" title="Privacy Policy" />
+      <PageHero image="/images/about/hero.webp" hidePriceSelector title="Privacy Policy" />
 
+          
       <div className="mx-auto flex w-full max-w-3xl flex-col gap-8 px-4 py-16 sm:px-6">
         <p className="text-sm text-muted-foreground">Last updated: August 8, 2026</p>
 

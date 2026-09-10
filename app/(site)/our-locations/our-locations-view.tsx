@@ -1,13 +1,14 @@
 "use client";
 
 import { useMemo, useState } from "react";
-import { Search } from "lucide-react";
+import { ArrowLeft, Search } from "lucide-react";
 import { PageHero } from "@/components/locations/locations-hero";
 import { Input } from "@/components/ui/input";
 import { LocationCard } from "@/components/locations/locations-grids";
 import { useLanguage } from "@/lib/i18n/language-context";
 import { locations, type Location } from "@/lib/content/locations";
 import { Socialmedialinks } from "@/components/contactus/social-media";
+import Link from "next/link";
 
 const REGIONS: { key: Location["region"]; titleKey: "locationsEurope" | "locationsAsiaPacific" | "locationsAmericas" }[] = [
   { key: "europe", titleKey: "locationsEurope" },
@@ -122,7 +123,14 @@ export function OurLocationsView() {
         </div>
       </section>
 
-      <section className=" w-full  px-4 py-16 sm:px-6">
+      <div className="flex w-full  flex-col gap-6 px-4 pt-5 sm:px-6 md:mx-auto">
+        <Link href="/" title="Back to home" className="mb-3  inline-flex items-center gap-1 text-sm text-brand-gold-dark hover:underline">
+          <ArrowLeft className="h-4 w-4" />
+          {translate("commonBack")}
+        </Link>
+      </div>
+            
+      <section className=" w-full  px-4 py-8 sm:px-6">
         {!hasResults && (
           <p className="text-center text-muted-foreground">{translate("locationsNoResults")}</p>
         )}

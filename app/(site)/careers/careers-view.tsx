@@ -2,7 +2,7 @@
 
 import { useMemo, useState } from "react";
 import Link from "next/link";
-import { Briefcase, MapPin, Search } from "lucide-react";
+import { ArrowLeft, Briefcase, MapPin, Search } from "lucide-react";
 import { PageHero } from "@/components/careers/careers-hero";
 import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -36,8 +36,13 @@ export function CareersView() {
         title={translate("careersPageTitle")}
         subtitle={translate("careersPageSubtitle")}
       />
-
-      <section className="mx-auto mt-8 w-full max-w-3xl px-4 sm:px-6">
+      <div className="flex w-full  flex-col gap-6 px-4 py-5 sm:px-6 md:mx-auto">
+        <Link href="/" title="Back to home" className="mb-6 inline-flex items-center gap-1 text-sm text-brand-gold-dark hover:underline">
+          <ArrowLeft className="h-4 w-4" />
+          {translate("commonBack")}
+        </Link>
+      </div>
+      <section className="mx-auto mt-2 w-full max-w-3xl px-4 sm:px-6">
         <div className="flex flex-col gap-3 rounded-2xl border border-border bg-card p-4 shadow-lg sm:flex-row">
           <div className="relative flex-1">
             <Search className="pointer-events-none absolute left-2.5 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />

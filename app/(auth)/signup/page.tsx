@@ -3,6 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { SignupForm } from "@/components/signup-form";
 import { useLanguage } from "@/lib/i18n/language-context";
+import { ArrowLeft } from "lucide-react";
 
 export default function SignupPage() {
   const{translate}= useLanguage()
@@ -19,11 +20,12 @@ export default function SignupPage() {
           />
           Pearly Sky Cleaning
         </Link>
-        <div className="">
-                  <Link href="/" className="text-sm text-muted-foreground underline underline-offset-4">
-                    ← {translate("navHome")}
-                  </Link>
-                </div>
+        <div className="flex w-full  flex-col gap-6 px-4 py-5 sm:px-6 md:mx-auto">
+          <Link href="/" title="Back to home" className="mb-6 inline-flex items-center gap-1 text-sm text-brand-gold-dark hover:underline">
+            <ArrowLeft className="h-4 w-4" />
+            {translate("commonBack")}
+          </Link>
+        </div>
         <SignupForm />
       </div>
     </div>

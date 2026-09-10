@@ -9,6 +9,7 @@ import { useCountry } from "@/lib/countries/country-context";
 import { getCountryPageContent } from "@/lib/countries/page-content";
 import { locations, officeLocations } from "@/lib/content/locations";
 import { Socialmedialinks } from "@/components/contactus/social-media";
+import Link from "next/link";
 
 export function ContactUsView() {
   const { translate, language } = useLanguage();
@@ -41,8 +42,9 @@ export function ContactUsView() {
         <Socialmedialinks />
       </div>
       
-
+      
       <ContactSection />
+      
 
       <section className="bg-[#dadada] py-2">
         <h2 className="mx-auto mb-8 w-full max-w-6xl px-4 text-center text-2xl font-bold tracking-tight sm:px-6 sm:text-3xl">

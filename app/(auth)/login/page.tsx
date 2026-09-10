@@ -6,7 +6,7 @@ import { useRouter } from "next/navigation";
 import { LoginForm } from "@/components/login-form";
 import { useAuth } from "@/lib/auth-context";
 import { useLanguage } from "@/lib/i18n/language-context";
-import { ArrowBigLeft } from "lucide-react";
+import { ArrowBigLeft, ArrowLeft } from "lucide-react";
 
 export default function LoginPage() {
   const router = useRouter();
@@ -27,11 +27,12 @@ export default function LoginPage() {
           Pearly Sky Cleaning
         </Link>
 
-        <div className="">
-          <Link href="/" className="text-sm text-muted-foreground underline underline-offset-4">
-            ← {translate("navHome")}
-          </Link>
-        </div>
+        <div className="flex w-full  flex-col gap-6 px-4 py-5 sm:px-6 md:mx-auto">
+        <Link href="/" title="Back to home" className="mb-6 inline-flex items-center gap-1 text-sm text-brand-gold-dark hover:underline">
+          <ArrowLeft className="h-4 w-4" />
+          {translate("commonBack")}
+        </Link>
+      </div>
         <LoginForm
           description={translate("loginDescription")}
           onLogin={async (email, password) => {
