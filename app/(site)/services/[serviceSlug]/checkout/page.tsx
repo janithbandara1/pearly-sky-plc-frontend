@@ -158,7 +158,7 @@ export default function CheckoutPage({
   const [submitting, setSubmitting] = useState(false);
   const [agreedToTerms, setAgreedToTerms] = useState(false);
 
-  const { translate } = useLanguage();
+  const { translate, registerServiceSlugs } = useLanguage();
 
   useEffect(() => {
     const stored = loadBookingDraft();
@@ -209,6 +209,15 @@ export default function CheckoutPage({
         );
       });
   }, [serviceSlug, currentCountry, isCareService, isChildCare, isElderCare]);
+
+  // Tells the language switcher this service's locale-specific slugs, so
+  // switching language lands on e.g. "nettoyage-regulier" instead of keeping
+  // "regular-home-cleaning" — see registerServiceSlugs in language-context.tsx.
+  useEffect(() => {
+    if (!service) return;
+    registerServiceSlugs({ baseSlug: service.name, locales: service.locales });
+    return () => registerServiceSlugs(null);
+  }, [service, registerServiceSlugs]);
 
   useEffect(() => {
     if (!draft || isCareService) return;

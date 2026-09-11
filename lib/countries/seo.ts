@@ -96,7 +96,7 @@ export function buildSitemapEntries(
  * "nettoyage-regulier" for fr-fr while every other locale still uses the
  * base slug — see buildServiceAlternates/buildServiceSitemapEntries below.
  */
-function makeServiceSlugResolver(baseSlug: string, locales: ServiceLocaleSlug[]) {
+export function makeServiceSlugResolver(baseSlug: string, locales: ServiceLocaleSlug[]) {
   const overrides = new Map(locales.filter((l) => l.country).map((l) => [`${l.language}:${l.country}`, l.slug]));
   const translations = new Map(locales.filter((l) => !l.country).map((l) => [l.language, l.slug]));
   return (language: string, country: string) =>

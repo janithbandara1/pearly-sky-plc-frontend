@@ -365,7 +365,7 @@ const SERVICE_TRANSLATION_KEYS: Record<
 
 export function RequestQuotationView({ serviceSlug }: { serviceSlug: string }) {
   const router = useRouter();
-  const { translate } = useLanguage();
+  const { translate, registerServiceSlugs } = useLanguage();
   const { country } = useCountry();
   const { status, accessToken } = useAuth();
 
@@ -455,6 +455,15 @@ export function RequestQuotationView({ serviceSlug }: { serviceSlug: string }) {
         }
       });
   }, [serviceSlug, country]);
+
+  // Tells the language switcher this service's locale-specific slugs, so
+  // switching language lands on e.g. "nettoyage-regulier" instead of keeping
+  // "regular-home-cleaning" — see registerServiceSlugs in language-context.tsx.
+  useEffect(() => {
+    if (!service) return;
+    registerServiceSlugs({ baseSlug: service.name, locales: service.locales });
+    return () => registerServiceSlugs(null);
+  }, [service, registerServiceSlugs]);
 
   // Prefill contact & address for authenticated customers
   useEffect(() => {

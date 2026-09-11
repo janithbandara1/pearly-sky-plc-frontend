@@ -1,8 +1,10 @@
 "use client";
 
-import { createContext, useContext, useMemo, type ReactNode } from "react";
+import { createContext, useContext, useMemo, useRef, type ReactNode } from "react";
 import { usePathname, useSearchParams } from "next/navigation";
 import { extractLocalePrefix, buildPrefixedPath } from "@/lib/countries/geo";
+import { makeServiceSlugResolver } from "@/lib/countries/seo";
+import type { ServiceLocaleSlug } from "@/lib/catalog-api";
 import { en, type TranslationKey } from "./dictionaries/en";
 import { da } from "./dictionaries/da";
 import { de } from "./dictionaries/de";
@@ -62,12 +64,22 @@ type LanguageContextType = {
   /** No-op when there's no country in the URL to pair a language segment with. */
   setLanguage: (language: SupportedLanguage) => void;
   translate: (key: TranslationKey) => string;
+  /**
+   * Lets a `/services/[serviceSlug]` page (and its `/checkout`,
+   * `/request-quotation`, etc. subroutes) tell `setLanguage` how to
+   * translate the slug segment of the URL, not just the `/{country}-{lang}`
+   * prefix — so switching language on "regular-home-cleaning" lands on its
+   * French slug ("nettoyage-regulier") instead of keeping the English one.
+   * Call with `null` on unmount so unrelated pages aren't affected.
+   */
+  registerServiceSlugs: (service: { baseSlug: string; locales: ServiceLocaleSlug[] } | null) => void;
 };
 
 const LanguageContext = createContext<LanguageContextType>({
   language: "en",
   setLanguage: () => {},
   translate: (key) => key,
+  registerServiceSlugs: () => {},
 });
 
 export function LanguageProvider({
@@ -82,6 +94,11 @@ export function LanguageProvider({
   const searchParams = useSearchParams();
   const resolvedLanguage = language ?? "en";
 
+  // A ref, not state — registering doesn't need to trigger a re-render, and
+  // setLanguage (created fresh on every pathname change) must always see the
+  // latest registration rather than whatever was captured at creation time.
+  const serviceSlugsRef = useRef<{ baseSlug: string; locales: ServiceLocaleSlug[] } | null>(null);
+
   const value = useMemo<LanguageContextType>(
     () => ({
       language: resolvedLanguage,
@@ -91,8 +108,17 @@ export function LanguageProvider({
         const locale = extractLocalePrefix(pathname);
         if (!locale || locale === "invalid") return;
 
+        let rest = locale.rest;
+        const registeredService = serviceSlugsRef.current;
+        const serviceSlugMatch = registeredService && rest.match(/^(\/services\/)[^/]+(\/.*)?$/);
+        if (registeredService && serviceSlugMatch) {
+          const slugFor = makeServiceSlugResolver(registeredService.baseSlug, registeredService.locales);
+          const newSlug = slugFor(next, locale.country);
+          rest = `${serviceSlugMatch[1]}${newSlug}${serviceSlugMatch[2] ?? ""}`;
+        }
+
         const search = searchParams.toString();
-        const target = buildPrefixedPath(locale.rest, locale.country, next);
+        const target = buildPrefixedPath(rest, locale.country, next);
 
         // Full page load (not router.push) — a soft navigation only clears the
         // client router cache, not Next's server-side fetch/data cache, so
@@ -103,6 +129,9 @@ export function LanguageProvider({
       translate: (key: TranslationKey) => {
         const value = dictionaries[resolvedLanguage][key] ?? en[key] ?? key;
         return typeof value === "string" ? value : value.join("\n\n");
+      },
+      registerServiceSlugs: (service) => {
+        serviceSlugsRef.current = service;
       },
     }),
     [resolvedLanguage, pathname, searchParams],

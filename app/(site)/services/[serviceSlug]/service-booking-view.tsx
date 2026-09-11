@@ -36,6 +36,7 @@ import {
   withLocaleDefaults,
 } from "@/lib/catalog-api";
 import { useCountry } from "@/lib/countries/country-context";
+import { useLanguage } from "@/lib/i18n/language-context";
 import { useCurrency } from "@/lib/currency-context";
 import JoinWithUsSection from "@/components/booking/join-with-us-section";
 import { EventbookSection } from "@/components/booking/event/EventbookSection";
@@ -189,6 +190,7 @@ const FALLBACK_SERVICES: Record<string, CatalogServiceDetail> = {
 export function ServiceBookingView({ serviceSlug }: { serviceSlug: string }) {
   const router = useRouter();
   const { country } = useCountry();
+  const { registerServiceSlugs } = useLanguage();
   const { symbol } = useCurrency();
   const isSanitization = serviceSlug === SANITIZATION_SLUG;
   const isSteam = serviceSlug === STEAM_SLUG;
@@ -269,6 +271,15 @@ export function ServiceBookingView({ serviceSlug }: { serviceSlug: string }) {
         }
       });
   }, [serviceSlug, country, isFlowService]);
+
+  // Tells the language switcher this service's locale-specific slugs, so
+  // switching language lands on e.g. "nettoyage-regulier" instead of keeping
+  // "regular-home-cleaning" — see registerServiceSlugs in language-context.tsx.
+  useEffect(() => {
+    if (!service) return;
+    registerServiceSlugs({ baseSlug: service.name, locales: service.locales });
+    return () => registerServiceSlugs(null);
+  }, [service, registerServiceSlugs]);
 
   useEffect(() => {
     if (!service || isFlowService) return;
