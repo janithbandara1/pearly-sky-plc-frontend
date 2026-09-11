@@ -26,6 +26,8 @@ export interface BookingDetailsCardProps {
   time: string;
   propertyType?: string;
   propertySizeSqm: number;
+  /** Child/elder care has no property-size concept — hides that summary row (propertySizeSqm is still required, but goes unused). */
+  hidePropertySize?: boolean;
   genderLabel: string;
   languageLabel: string;
   specialRequirements?: string;
@@ -88,6 +90,7 @@ export function BookingDetailsCard({
   time,
   propertyType,
   propertySizeSqm,
+  hidePropertySize,
   genderLabel,
   languageLabel,
   specialRequirements,
@@ -146,10 +149,18 @@ export function BookingDetailsCard({
           <SummaryRow label={translate("bookingDetailDate")} value={date} />
           <SummaryRow label={translate("bookingDetailTime")} value={time} />
           {propertyType && <SummaryRow label={translate("bookingDetailPropertyType")} value={propertyType} />}
-          <SummaryRow label={translate("bookingDetailPropertySize")} value={`${propertySizeSqm} m²`} />
+          {!hidePropertySize && (
+            <SummaryRow label={translate("bookingDetailPropertySize")} value={`${propertySizeSqm} m²`} />
+          )}
           <SummaryRow
             label={translate("bookingDetailDuration")}
-            value={hasDuration ? `${formatHM(quote!.minHours as number)} – ${formatHM(quote!.maxHours as number)}` : "—"}
+            value={
+              !hasDuration
+                ? "—"
+                : quote!.minHours === quote!.maxHours
+                  ? formatHM(quote!.minHours as number)
+                  : `${formatHM(quote!.minHours as number)} – ${formatHM(quote!.maxHours as number)}`
+            }
           />
           <SummaryRow label={translate("bookingDetailCleaners")} value={quote?.cleanerCount ?? "—"} />
           <SummaryRow label={translate("bookingDetailPricePerCleaner")} value={hourlyRate ? `${money(Number(hourlyRate))}/h` : "—"} />
@@ -293,7 +304,11 @@ export function BookingDetailsCard({
             <>
               <div className="flex items-center justify-between gap-3 rounded-lg border border-brand-gold bg-brand-gold/10 px-4 py-3 text-sm">
                 <span className="text-brand-gold">{translate("bookingDetailEstimatedPriceRange")}</span>
-                <span>{`${money(estimatedMin as number)} – ${money(estimatedMax as number)}`}</span>
+                <span>
+                  {estimatedMin === estimatedMax
+                    ? money(estimatedMin as number)
+                    : `${money(estimatedMin as number)} – ${money(estimatedMax as number)}`}
+                </span>
               </div>
               {hourlyRate && (
                 <div className="flex items-center justify-between gap-3 rounded-lg border border-brand-gold bg-brand-gold/10 px-4 py-3 text-sm">

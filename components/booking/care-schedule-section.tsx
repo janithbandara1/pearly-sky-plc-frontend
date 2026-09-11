@@ -6,10 +6,8 @@ import { Minus, Plus } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
 import { DateTimeSection } from "@/components/booking/date-time-section";
-import { GENDER_OPTIONS, LANGUAGE_OPTIONS } from "@/components/booking/quotation-preferences-section";
 import { saveBookingDraft, loadBookingDraft, CareProfileDraft } from "@/lib/booking-draft";
 import { useLanguage } from "@/lib/i18n/language-context";
 
@@ -103,11 +101,6 @@ export function CareScheduleSection({
     return Array.from({ length: initialCount }, () => createEmptyProfile());
   });
 
-  // Preferences
-  const [gender, setGender] = useState(currentDraft?.genderPreference || "no-preference");
-  const [language, setLanguage] = useState(currentDraft?.languagePreference || "no-preference");
-  const [requirements, setRequirements] = useState(currentDraft?.specialRequirements || "");
-
   const [formError, setFormError] = useState<string | null>(null);
 
   function handlePersonCountChange(delta: number) {
@@ -191,9 +184,10 @@ export function CareScheduleSection({
       items: [],
       supplySource: "company",
       addOnsTotal: 0,
-      genderPreference: gender,
-      languagePreference: language,
-      specialRequirements: requirements.trim() || undefined,
+      // Collected fresh at checkout (ServicePreferencesSection) instead of
+      // here, so they're not asked for twice.
+      genderPreference: "no-preference",
+      languagePreference: "no-preference",
       scheduleMode,
       durationMode,
       durationHours: effectiveHours,
@@ -444,63 +438,12 @@ export function CareScheduleSection({
         </div>
       </section>
 
-      {/* 4. PREFERENCES CARD */}
-      <section className="overflow-hidden rounded-2xl border border-[#A98B4B]/30 bg-[#121E2D] p-6 shadow-xl sm:p-8">
-        <h2 className="mb-6 text-center text-xl font-bold text-white sm:text-2xl">
-          {translate("carePreferencesTitle")}
-        </h2>
-
-        <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
-          <div className="space-y-2">
-            <Label className="text-sm font-medium text-brand-cream/90">{translate("careGenderPreference")}</Label>
-            <Select value={gender} onValueChange={setGender}>
-              <SelectTrigger className="h-11 w-full rounded-lg border-0 bg-[#FFFDF4] text-brand-navy shadow-inner focus:ring-2 focus:ring-[#A98B4B]">
-                <SelectValue placeholder={translate("preferencesNoPreference")} />
-              </SelectTrigger>
-              <SelectContent>
-                {GENDER_OPTIONS.map((opt) => (
-                  <SelectItem key={opt.value} value={opt.value}>
-                    {opt.label}
-                  </SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
-          </div>
-
-          <div className="space-y-2">
-            <Label className="text-sm font-medium text-brand-cream/90">{translate("careLanguagePreference")}</Label>
-            <Select value={language} onValueChange={setLanguage}>
-              <SelectTrigger className="h-11 w-full rounded-lg border-0 bg-[#FFFDF4] text-brand-navy shadow-inner focus:ring-2 focus:ring-[#A98B4B]">
-                <SelectValue placeholder={translate("preferencesNoPreference")} />
-              </SelectTrigger>
-              <SelectContent>
-                {LANGUAGE_OPTIONS.map((opt) => (
-                  <SelectItem key={opt.value} value={opt.value}>
-                    {opt.label}
-                  </SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
-          </div>
-
-          <div className="space-y-2 md:col-span-2">
-            <Label className="text-sm font-medium text-brand-cream/90">{translate("careSpecialRequirements")}</Label>
-            <Textarea
-              rows={4}
-              value={requirements}
-              onChange={(e) => setRequirements(e.target.value)}
-              className="rounded-lg border-0 bg-[#FFFDF4] text-brand-navy placeholder:text-muted-foreground focus-visible:ring-2 focus-visible:ring-[#A98B4B]"
-            />
-          </div>
-        </div>
-      </section>
-
       {/* Error message */}
       {formError && (
         <p className="text-center text-sm font-semibold text-red-600">{formError}</p>
       )}
 
-      {/* 5. BOTTOM BUTTONS */}
+      {/* 4. BOTTOM BUTTONS */}
       <div className="flex items-center justify-center gap-4 pt-2 mb-5">
         <Button
           type="button"

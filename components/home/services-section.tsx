@@ -68,9 +68,17 @@ function ServiceCard({ service }: { service: CatalogService }) {
     service.name === "child-care-service" ||
     service.name === "elder-care-service" 
 
-  /** Laundry and move-in-out transport aren't priced per cleaner-hour, so the rate line never applies to them. */
+  /**
+   * Carpet/pool/pressure-washing are quote-only (no configured hourly rate),
+   * and laundry/move-in-out transport aren't priced per cleaner-hour — so
+   * the rate line never applies to them. Child/elder care are booked
+   * on-flow like the rest (isDedicatedFlow) but do have a real hourly rate,
+   * so they still show it.
+   */
   const hidesHourlyRate =
-    isDedicatedFlow ||
+    service.name === "carpet-upholstery-cleaning" ||
+    service.name === "pool-cleaning" ||
+    service.name === "precision-pressure-washing" ||
     service.name === "laundry-service" ||
     service.name === "move-in-out-transport-service";
 

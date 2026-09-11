@@ -27,6 +27,10 @@ interface BookingPreferencesPayload {
   eventTypes?: string[];
   /** high-security-property-care / luxury-yacht-cleaning only. */
   category?: string;
+  /** Exact requested duration — child-care-service / elder-care-service only (everyone else's hours come from the property-size pricing table). */
+  durationHours?: number;
+  /** Number of requested professionals — child-care-service / elder-care-service only. */
+  numCleaners?: number;
 }
 
 export interface CreateBookingPayload extends BookingPreferencesPayload {

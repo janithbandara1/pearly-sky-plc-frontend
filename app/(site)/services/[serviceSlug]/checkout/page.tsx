@@ -91,18 +91,6 @@ const COUNTRY_OPTIONS = SUPPORTED_COUNTRIES.map((code) => ({
   Flag: COUNTRY_FLAGS[code],
 }));
 
-function calculateEndFormatted(startTime: string, hours: number): string {
-  if (!startTime) return "—";
-  const [hStr, mStr] = startTime.split(":");
-  const h = Number(hStr) || 0;
-  const m = Number(mStr) || 0;
-  const totalMinutes = h * 60 + m + Math.round(hours * 60);
-  const endH = Math.floor(totalMinutes / 60) % 24;
-  const endM = totalMinutes % 60;
-  const endStr = `${String(endH).padStart(2, "0")}:${String(endM).padStart(2, "0")}`;
-  return `${startTime} - ${endStr}`;
-}
-
 export default function CheckoutPage({
   params,
 }: {
@@ -121,11 +109,12 @@ export default function CheckoutPage({
   const isPressureService = serviceSlug === "precision-pressure-washing";
   const isCareService = isChildCare || isElderCare;
   const isQuoteItemsService = isCarpetService || isPoolService || isPressureService;
-  const isFlowService =
-    isCareService ||
-    isCarpetService ||
-    isPoolService ||
-    isPressureService;
+  // Carpet/pool/pressure-washing are open-ended quotation requests (the
+  // "flow" checkout layout below). Child/elder care has a fixed hourly rate
+  // and an exact, already-chosen duration + professional count, so — like
+  // regular-home-cleaning — it's a real paid booking and belongs in the
+  // standard checkout view instead.
+  const isFlowService = isCarpetService || isPoolService || isPressureService;
   const personLabel = isElderCare ? "Elder" : "Child";
 
   const [draft, setDraft] = useState<BookingDraft | null>(null);
@@ -160,6 +149,7 @@ export default function CheckoutPage({
   const [error, setError] = useState<string | null>(null);
   const [submitting, setSubmitting] = useState(false);
   const [agreedToTerms, setAgreedToTerms] = useState(false);
+  const [showTermsModal, setShowTermsModal] = useState(false);
 
   const { translate, registerServiceSlugs } = useLanguage();
 
@@ -194,7 +184,7 @@ export default function CheckoutPage({
               : isElderCare
                 ? "Elder Care Service"
                 : "Regular Home Cleaning",
-            price: "30.00",
+            price: isCareService ? "32.00" : "30.00",
             prices: [],
             status: "active",
             category: isCareService ? "care_and_concierge" : "residential_cleaning",
@@ -223,7 +213,30 @@ export default function CheckoutPage({
   }, [service, registerServiceSlugs]);
 
   useEffect(() => {
-    if (!draft || isCareService) return;
+    if (!draft) return;
+
+    // Care doesn't have a property-size pricing table — duration and
+    // professional count were already chosen on the previous page, so the
+    // "quote" is computed directly instead of fetched (and is an exact
+    // figure, not a range: min === max).
+    if (isCareService) {
+      if (!service) return;
+      const hours = draft.durationHours || 2;
+      const cleanerCount = draft.caregiverCount || 1;
+      const rate = service.price != null ? Number(service.price) : null;
+      setQuote({
+        bookable: true,
+        minHours: hours,
+        maxHours: hours,
+        cleanerCount,
+        extraCleanerCount: 0,
+        priceMin: rate != null ? hours * cleanerCount * rate : null,
+        priceMax: rate != null ? hours * cleanerCount * rate : null,
+      });
+      setQuoteLoading(false);
+      return;
+    }
+
     setQuoteLoading(true);
     getServiceQuote(draft.serviceId, draft.propertySizeSqm, currentCountry)
       .then(setQuote)
@@ -242,7 +255,7 @@ export default function CheckoutPage({
         });
       })
       .finally(() => setQuoteLoading(false));
-  }, [draft, currentCountry, isCareService]);
+  }, [draft, service, currentCountry, isCareService]);
 
   const loadCustomerData = useCallback(async () => {
     if (!accessToken) return;
@@ -260,7 +273,8 @@ export default function CheckoutPage({
     loadCustomerData().catch(() => undefined);
   }, [loadCustomerData]);
 
-  // Handle Care Service Quotation Request (Image 4 Flow)
+  // Carpet/Pool/Pressure-Washing quotation request (Image 4 Flow) — child/elder
+  // care is a real booking now, handled by handleConfirmStandard instead.
   async function handleRequestQuotation() {
     if (!draft) return;
     setError(null);
@@ -312,51 +326,18 @@ export default function CheckoutPage({
             ? PRESSURE_WASHING_ITEM_OPTIONS
             : [];
 
-      const quoteItemsFormatted = isQuoteItemsService && draft.quoteItems
+      const quoteItemLines = draft.quoteItems
         ? draft.quoteItems.map((item) => formatQuoteItem(item, quoteItemOptions))
         : undefined;
-
-      const careProfiles =
-        draft.careProfiles && draft.careProfiles.length > 0
-          ? draft.careProfiles
-          : draft.careProfile
-            ? [draft.careProfile]
-            : [];
-
-      const careQuoteItemLines =
-        careProfiles.length > 0
-          ? careProfiles.flatMap((p, idx, arr) => {
-            const prefix = arr.length > 1 ? `${personLabel} ${idx + 1} - ` : "";
-            return [
-              `${prefix}Name: ${p.name}`,
-              `${prefix}Special Needs: ${p.specialNeeds || "None"}`,
-              `${prefix}Gender: ${p.gender || "—"}`,
-              `${prefix}Age: ${p.age || "—"}`,
-              ...(p.behavioralNotes
-                ? [`${prefix}Behavioral Notes: ${p.behavioralNotes}`]
-                : []),
-              ...(p.documentName ? [`${prefix}Document: ${p.documentName}`] : []),
-            ];
-          })
-          : undefined;
-
-      const quoteItemLines = isQuoteItemsService
-        ? quoteItemsFormatted
-        : careQuoteItemLines;
 
       const quoteTitle = isCarpetService
         ? "Carpet & Upholstery Details"
         : isPoolService
           ? "Pool Cleaning Details"
-          : isPressureService
-            ? "Pressure Washing Details"
-            : `${personLabel} Details`;
+          : "Pressure Washing Details";
 
       const propertyTypeValue =
-        draft.propertyClassification ||
-        draft.propertyType ||
-        (isCareService ? draft.scheduleMode : "Standard") ||
-        "Standard";
+        draft.propertyClassification || draft.propertyType || "Standard";
 
       const quotation = await createQuotation({
         serviceId: draft.serviceId,
@@ -365,10 +346,10 @@ export default function CheckoutPage({
         propertyType: propertyTypeValue,
         quoteItemsTitle: quoteTitle,
         quoteItems: quoteItemLines,
-        numCleaners: isCareService ? draft.caregiverCount || 1 : numCleaners,
+        numCleaners,
         durationHours: durationHours || draft.durationHours || 4,
-        genderPreference: isCareService ? draft.caregiverGender || draft.genderPreference : gender,
-        languagePreference: isCareService ? draft.languagePreference : language,
+        genderPreference: gender,
+        languagePreference: language,
         specialRequirements: [
           draft.serviceContinuityPlan ? `Continuity Plan: ${draft.serviceContinuityPlan}` : null,
           draft.specialRequest ? `Special Request: ${draft.specialRequest}` : null,
@@ -418,12 +399,43 @@ export default function CheckoutPage({
     setError(null);
     setSubmitting(true);
     const note = draft.note || undefined;
+
+    // Child/elder care has no property-size concept — a nominal value here
+    // just satisfies the backend's generic validation; the actual pricing
+    // comes from durationHours/numCleaners instead (see the quote effect
+    // above). The care-profile details collected on the previous page have
+    // no dedicated booking field, so they fold into specialRequirements
+    // alongside whatever the customer typed in Special Requirements here.
+    const careProfiles = isCareService
+      ? draft.careProfiles && draft.careProfiles.length > 0
+        ? draft.careProfiles
+        : draft.careProfile
+          ? [draft.careProfile]
+          : []
+      : [];
+    const careProfileLines = careProfiles.flatMap((p, idx, arr) => {
+      const prefix = arr.length > 1 ? `${personLabel} ${idx + 1} - ` : "";
+      return [
+        `${prefix}Name: ${p.name}`,
+        `${prefix}Special Needs: ${p.specialNeeds || "None"}`,
+        `${prefix}Gender: ${p.gender || "—"}`,
+        `${prefix}Age: ${p.age || "—"}`,
+        ...(p.behavioralNotes ? [`${prefix}Behavioral Notes: ${p.behavioralNotes}`] : []),
+        ...(p.documentName ? [`${prefix}Document: ${p.documentName}`] : []),
+      ];
+    });
+    const specialRequirements = isCareService
+      ? [...careProfileLines, requirements.trim() ? `Requirements: ${requirements.trim()}` : null]
+          .filter(Boolean)
+          .join(" | ") || undefined
+      : requirements.trim() || undefined;
+
     try {
       if (isAuthenticated && accessToken) {
         const address = await createMyAddress(accessToken, addressForm);
         const booking = await createBooking(accessToken, {
           serviceId: draft.serviceId,
-          propertySizeSqm: draft.propertySizeSqm,
+          propertySizeSqm: isCareService ? 20 : draft.propertySizeSqm,
           date: draft.date,
           time: draft.time,
           addressId: address.id,
@@ -434,10 +446,10 @@ export default function CheckoutPage({
           supplySource: draft.supplySource || undefined,
           genderPreference: gender,
           languagePreference: language,
-          specialRequirements: requirements.trim() || undefined,
+          specialRequirements,
           howGetIn: howGetIn.trim() || undefined,
           howHeard: howHeard.trim() || undefined,
-          propertyType: draft.propertyType,
+          propertyType: isCareService ? draft.scheduleMode || "In-home care" : draft.propertyType,
           facilities: draft.facilities,
           disinfectionLevel: draft.disinfectionLevel
             ? { name: draft.disinfectionLevel.name, price: draft.disinfectionLevel.price ?? undefined }
@@ -445,6 +457,8 @@ export default function CheckoutPage({
           steamItems: draft.steamItems,
           eventTypes: draft.eventTypes,
           category: draft.category,
+          durationHours: isCareService ? draft.durationHours || 2 : undefined,
+          numCleaners: isCareService ? draft.caregiverCount || 1 : undefined,
           firstName: contactForm.firstName.trim(),
           lastName: contactForm.lastName.trim() || undefined,
           email: contactForm.email.trim(),
@@ -464,7 +478,7 @@ export default function CheckoutPage({
       } else {
         const booking = await createGuestBooking({
           serviceId: draft.serviceId,
-          propertySizeSqm: draft.propertySizeSqm,
+          propertySizeSqm: isCareService ? 20 : draft.propertySizeSqm,
           date: draft.date,
           time: draft.time,
           pricingCountry: currentCountry ?? undefined,
@@ -474,10 +488,10 @@ export default function CheckoutPage({
           supplySource: draft.supplySource || undefined,
           genderPreference: gender,
           languagePreference: language,
-          specialRequirements: requirements.trim() || undefined,
+          specialRequirements,
           howGetIn: howGetIn.trim() || undefined,
           howHeard: howHeard.trim() || undefined,
-          propertyType: draft.propertyType,
+          propertyType: isCareService ? draft.scheduleMode || "In-home care" : draft.propertyType,
           facilities: draft.facilities,
           disinfectionLevel: draft.disinfectionLevel
             ? { name: draft.disinfectionLevel.name, price: draft.disinfectionLevel.price ?? undefined }
@@ -485,6 +499,8 @@ export default function CheckoutPage({
           steamItems: draft.steamItems,
           eventTypes: draft.eventTypes,
           category: draft.category,
+          durationHours: isCareService ? draft.durationHours || 2 : undefined,
+          numCleaners: isCareService ? draft.caregiverCount || 1 : undefined,
           firstName: contactForm.firstName.trim(),
           lastName: contactForm.lastName.trim() || undefined,
           email: contactForm.email.trim(),
@@ -522,22 +538,6 @@ export default function CheckoutPage({
       </div>
     );
   }
-
-  const durationText =
-    draft.durationMode === "half_day"
-      ? "Half Day"
-      : draft.durationMode === "full_day"
-        ? "Full Day"
-        : `${draft.durationHours || 2} Hours`;
-
-  const durationHoursValue =
-    draft.durationMode === "half_day"
-      ? 4
-      : draft.durationMode === "full_day"
-        ? 8
-        : draft.durationHours || 2;
-
-  const startEndTimeFormatted = calculateEndFormatted(draft.time, durationHoursValue);
 
   const requestDisabledReason =
     !contactForm.firstName.trim() ||
@@ -839,196 +839,91 @@ export default function CheckoutPage({
                       <span className="font-medium">{translate("quoteDetailService")}</span>
                       <span className="font-normal text-white">{draft.serviceLabel}</span>
                     </div>
-                    {isCareService && (
-                      <>
-                        <div className="flex justify-between gap-2 py-1 text-brand-cream/70">
-                          <span className="font-medium">{translate("checkoutScheduleMode")}</span>
-                          <span className="font-normal text-white">{draft.scheduleMode || "In-home care"}</span>
-                        </div>
-                        <div className="flex justify-between gap-2 py-1 text-brand-cream/70">
-                          <span className="font-medium">{translate("checkoutServiceDuration")}</span>
-                          <span className="font-normal text-white">{durationText}</span>
-                        </div>
-                        <div className="flex justify-between gap-2 py-1 text-brand-cream/70">
-                          <span className="font-medium">{translate(`carePersonCount${personLabel}` as TranslationKey)}</span>
-                          <span className="font-normal text-white">{draft.personCount || 1}</span>
-                        </div>
-
-                        
-                        <div className="flex justify-between gap-2 py-1 text-brand-cream/70">
-                          <span className="font-medium">
-                            {translate("careRequestProfessionals")}</span>
-                          <span className="font-normal text-white">{draft.caregiverCount || 1}</span>
-                        </div>
-                        <div className="flex justify-between gap-2 py-1 text-brand-cream/70">
-                          <span className="font-medium">{translate("quoteDetailDate")}</span>
-                          <span className="font-normal text-white">{draft.date}</span>
-                        </div>
-                        <div className="flex justify-between gap-2 py-1 text-brand-cream/70">
-                          <span className="font-medium">{translate("checkoutStartEndTime")}</span>
-                          <span className="font-normal text-white">{startEndTimeFormatted}</span>
-                        </div>
-                      </>
-                    )}
                   </div>
                 </div>
 
                 {/* SELECTED SERVICES (FOR QUOTE ITEMS SERVICES: CARPET, POOL, PRESSURE WASHING) */}
-                {isQuoteItemsService ? (
-                  <>
-                    <div className="border-t border-brand-gold/20 pt-4">
-                      <p className="mb-2 text-xs font-bold uppercase tracking-wider text-brand-gold/80">
-                        {translate("checkoutSelectedServices")}
-                      </p>
-                      <div className="space-y-2.5">
-                        {(draft.quoteItems && draft.quoteItems.length > 0 ? draft.quoteItems : []).map((item, idx) => {
-                          const options = isCarpetService
-                            ? CARPET_ITEM_OPTIONS
-                            : isPoolService
-                              ? POOL_ITEM_OPTIONS
-                              : PRESSURE_WASHING_ITEM_OPTIONS;
-                          const option = options.find((o) => o.value === item.optionValue);
-                          const formatted = formatQuoteItem(item, options);
-                          const detailText = formatted
-                            ? formatted.replace(`${option?.label || item.optionValue}, `, "")
-                            : `Quantity: ${item.quantity}`;
-                          return (
-                            <div key={item.id || idx} className="rounded-lg bg-white/5 p-3 text-xs sm:text-sm">
-                              <p className="font-bold uppercase text-white">
-                                {option?.label || item.optionValue}
-                              </p>
-                              <p className="mt-1 text-brand-cream/80 text-[11px] sm:text-xs leading-relaxed">
-                                {detailText}
-                              </p>
-                            </div>
-                          );
-                        })}
-                      </div>
-                    </div>
-
-                    {/* PREFERENCES */}
-                    <div className="border-t border-brand-gold/20 pt-4">
-                      <p className="mb-2 text-xs font-bold uppercase tracking-wider text-brand-gold/80">
-                        {translate("preferencesTitle")}
-                      </p>
-                      <div className="space-y-2 text-xs sm:text-sm">
-                        <div className="flex justify-between gap-2 py-1 text-brand-cream/70">
-                          <span className="font-medium">{translate("quoteDetailDuration")}</span>
-                          <span className="font-normal text-white">{durationHours}h</span>
-                        </div>
-                        <div className="flex justify-between gap-2 py-1 text-brand-cream/70">
-                          <span className="font-medium">{translate("quoteFormCleaners")}</span>
-                          <span className="font-normal text-white">{numCleaners}</span>
-                        </div>
-                        <div className="flex justify-between gap-2 py-1 text-brand-cream/70">
-                          <span className="font-medium">{translate("preferencesGender")}</span>
-                          <span className="font-normal text-white">
-                            {GENDER_OPTIONS.find((o) => o.value === gender)?.label ?? "No Preference"}
-                          </span>
-                        </div>
-                        <div className="flex justify-between gap-2 py-1 text-brand-cream/70">
-                          <span className="font-medium">{translate("preferencesLanguage")}</span>
-                          <span className="font-normal text-white">
-                            {LANGUAGE_OPTIONS.find((o) => o.value === language)?.label ?? "No Preference"}
-                          </span>
-                        </div>
-                        {requirements.trim() && (
-                          <div className="flex flex-col gap-1 py-1 text-brand-cream/70">
-                            <span className="font-medium">{translate("preferencesSpecialRequirements")}</span>
-                            <span className="font-normal text-white">{requirements}</span>
-                          </div>
-                        )}
-                      </div>
-                    </div>
-
-                    {/* BOOKING DETAILS */}
-                    <div className="border-t border-brand-gold/20 pt-4">
-                      <p className="mb-2 text-xs font-bold uppercase tracking-wider text-brand-gold/80">
-                        {translate("checkoutBookingDetails")}
-                      </p>
-                      <div className="space-y-2 text-xs sm:text-sm">
-                        <div className="flex justify-between gap-2 py-1 text-brand-cream/70">
-                          <span className="font-medium">{translate("quoteDetailDate")}</span>
-                          <span className="font-normal text-white">{draft.date}</span>
-                        </div>
-                        <div className="flex justify-between gap-2 py-1 text-brand-cream/70">
-                          <span className="font-medium">{translate("quoteDetailTime")}</span>
-                          <span className="font-normal text-white">{draft.time}</span>
-                        </div>
-                      </div>
-                    </div>
-                  </>
-                ) : (
-                  <>
-                  {/* CHILD'S / ELDER'S PROFILE */}
-                  <div className="border-t border-brand-gold/20 pt-4">
-                    <p className="mb-2 text-xs font-bold uppercase tracking-wider text-brand-gold/80">
-                      {personLabel.toUpperCase()}&rsquo;S PROFILE
-                      {draft.careProfiles && draft.careProfiles.length > 1 ? "S" : ""}
-                    </p>
-                    <div className="space-y-2.5">
-                      {(draft.careProfiles && draft.careProfiles.length > 0
-                        ? draft.careProfiles
-                        : draft.careProfile
-                          ? [draft.careProfile]
-                          : []
-                      ).map((p, idx, arr) => (
-                        <div key={idx} className="rounded-lg bg-white/5 p-3 text-xs sm:text-sm">
-                          <div className="flex items-center justify-between gap-2">
-                            <p className="font-bold text-white">
-                              {p.name || `Profile ${idx + 1}`}
-                            </p>
-                            {arr.length > 1 && (
-                              <span className="rounded bg-brand-gold/20 px-2 py-0.5 text-[10px] font-semibold text-brand-gold">
-                                {personLabel} {idx + 1}
-                              </span>
-                            )}
-                          </div>
-                          <p className="mt-1 text-brand-cream/80 text-[11px] sm:text-xs leading-relaxed">
-                            {translate("careFieldSpecialNeeds")}: {p.specialNeeds || "None"}, Gender: {p.gender || "—"}, Age: {p.age || "—"}
+                <div className="border-t border-brand-gold/20 pt-4">
+                  <p className="mb-2 text-xs font-bold uppercase tracking-wider text-brand-gold/80">
+                    {translate("checkoutSelectedServices")}
+                  </p>
+                  <div className="space-y-2.5">
+                    {(draft.quoteItems && draft.quoteItems.length > 0 ? draft.quoteItems : []).map((item, idx) => {
+                      const options = isCarpetService
+                        ? CARPET_ITEM_OPTIONS
+                        : isPoolService
+                          ? POOL_ITEM_OPTIONS
+                          : PRESSURE_WASHING_ITEM_OPTIONS;
+                      const option = options.find((o) => o.value === item.optionValue);
+                      const formatted = formatQuoteItem(item, options);
+                      const detailText = formatted
+                        ? formatted.replace(`${option?.label || item.optionValue}, `, "")
+                        : `Quantity: ${item.quantity}`;
+                      return (
+                        <div key={item.id || idx} className="rounded-lg bg-white/5 p-3 text-xs sm:text-sm">
+                          <p className="font-bold uppercase text-white">
+                            {option?.label || item.optionValue}
                           </p>
-                          {p.documentName && (
-                            <p className="mt-1 truncate text-[11px] text-emerald-400">
-                              Attachment: {p.documentName}
-                            </p>
-                          )}
+                          <p className="mt-1 text-brand-cream/80 text-[11px] sm:text-xs leading-relaxed">
+                            {detailText}
+                          </p>
                         </div>
-                      ))}
+                      );
+                    })}
+                  </div>
+                </div>
+
+                {/* PREFERENCES */}
+                <div className="border-t border-brand-gold/20 pt-4">
+                  <p className="mb-2 text-xs font-bold uppercase tracking-wider text-brand-gold/80">
+                    {translate("preferencesTitle")}
+                  </p>
+                  <div className="space-y-2 text-xs sm:text-sm">
+                    <div className="flex justify-between gap-2 py-1 text-brand-cream/70">
+                      <span className="font-medium">{translate("quoteDetailDuration")}</span>
+                      <span className="font-normal text-white">{durationHours}h</span>
+                    </div>
+                    <div className="flex justify-between gap-2 py-1 text-brand-cream/70">
+                      <span className="font-medium">{translate("quoteFormCleaners")}</span>
+                      <span className="font-normal text-white">{numCleaners}</span>
+                    </div>
+                    <div className="flex justify-between gap-2 py-1 text-brand-cream/70">
+                      <span className="font-medium">{translate("preferencesGender")}</span>
+                      <span className="font-normal text-white">
+                        {GENDER_OPTIONS.find((o) => o.value === gender)?.label ?? "No Preference"}
+                      </span>
+                    </div>
+                    <div className="flex justify-between gap-2 py-1 text-brand-cream/70">
+                      <span className="font-medium">{translate("preferencesLanguage")}</span>
+                      <span className="font-normal text-white">
+                        {LANGUAGE_OPTIONS.find((o) => o.value === language)?.label ?? "No Preference"}
+                      </span>
+                    </div>
+                    {requirements.trim() && (
+                      <div className="flex flex-col gap-1 py-1 text-brand-cream/70">
+                        <span className="font-medium">{translate("preferencesSpecialRequirements")}</span>
+                        <span className="font-normal text-white">{requirements}</span>
+                      </div>
+                    )}
+                  </div>
+                </div>
+
+                {/* BOOKING DETAILS */}
+                <div className="border-t border-brand-gold/20 pt-4">
+                  <p className="mb-2 text-xs font-bold uppercase tracking-wider text-brand-gold/80">
+                    {translate("checkoutBookingDetails")}
+                  </p>
+                  <div className="space-y-2 text-xs sm:text-sm">
+                    <div className="flex justify-between gap-2 py-1 text-brand-cream/70">
+                      <span className="font-medium">{translate("quoteDetailDate")}</span>
+                      <span className="font-normal text-white">{draft.date}</span>
+                    </div>
+                    <div className="flex justify-between gap-2 py-1 text-brand-cream/70">
+                      <span className="font-medium">{translate("quoteDetailTime")}</span>
+                      <span className="font-normal text-white">{draft.time}</span>
                     </div>
                   </div>
-
-                  {/* PREFERENCES */}
-                  <div className="border-t border-brand-gold/20 pt-4">
-                    <p className="mb-2 text-xs font-bold uppercase tracking-wider text-brand-gold/80">
-                      {translate("preferencesTitle")}
-                    </p>
-                    <div className="space-y-2 text-xs sm:text-sm">
-                      <div className="flex justify-between gap-2 py-1 text-brand-cream/70">
-                        <span className="font-medium">
-                          {translate("preferencesGender")}</span>
-                        <span className="font-normal text-white">
-                          {GENDER_OPTIONS.find((o) => o.value === draft.genderPreference)?.label ?? "No Preference"}
-                        </span>
-                      </div>
-                      <div className="flex justify-between gap-2 py-1 text-brand-cream/70">
-                        <span className="font-medium">
-                          {translate("careLanguagePreference")}</span>
-                        <span className="font-normal text-white">
-                          {LANGUAGE_OPTIONS.find((o) => o.value === draft.languagePreference)?.label ?? "No Preference"}
-                        </span>
-
-                      </div>
-                      {draft.specialRequirements && (
-                        <div className="flex flex-col gap-1 py-1 text-brand-cream/70">
-                          <span className="font-medium">
-                             {translate("careSpecialRequirements")}</span>
-                          <span className="font-normal text-white">{draft.specialRequirements}</span>
-                        </div>
-                      )}
-                    </div>
-                  </div>
-                  </>
-                )}
+                </div>
 
                 {/* TERMS AGREEMENT */}
                 <label
@@ -1322,8 +1217,9 @@ export default function CheckoutPage({
               quoteLoading={quoteLoading}
               date={draft.date}
               time={draft.time}
-              propertyType={draft.propertyType}
+              propertyType={isCareService ? undefined : draft.propertyType}
               propertySizeSqm={draft.propertySizeSqm}
+              hidePropertySize={isCareService}
               genderLabel={
                 GENDER_OPTIONS.find((o) => o.value === gender)?.label ??
                 "No Preference"
