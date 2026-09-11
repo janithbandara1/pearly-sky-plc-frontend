@@ -49,7 +49,7 @@ export const SERVICE_CONTENT: Partial<Record<string, ServiceContentEntry>> = {
           },
           {
             title: "serviceRegularCleaningHighlightCardTitleThree",
-            features: [
+            features: [ 
               "serviceRegularCleaningTitleThreeFeatureOne",
               "serviceRegularCleaningTitleThreeFeatureTwo",
               "serviceRegularCleaningTitleThreeFeatureThree",

@@ -1,7 +1,7 @@
 "use client";
 
 import { useLanguage } from "@/lib/i18n/language-context";
-  
+
 
 
 import { Poppins } from "next/font/google";
@@ -55,6 +55,9 @@ import {
   PRESSURE_WASHING_ITEM_OPTIONS,
   formatQuoteItem,
 } from "@/lib/content/quote-items";
+
+import TermsAndConditions  from "@/components/booking/termsandConditionPops/terms-condition-pop-up";
+import { TranslationKey } from "@/lib/i18n/dictionaries/en";
 
 const poppins = Poppins({ subsets: ["latin"], weight: ["400", "500", "600", "700", "800"] });
 
@@ -157,6 +160,8 @@ export default function CheckoutPage({
   const [error, setError] = useState<string | null>(null);
   const [submitting, setSubmitting] = useState(false);
   const [agreedToTerms, setAgreedToTerms] = useState(false);
+
+ const [showTermsModal, setShowTermsModal] = useState(false);
 
   const { translate } = useLanguage();
 
@@ -583,7 +588,7 @@ export default function CheckoutPage({
         subtitle={`${draft.date} at ${draft.time}`}
         servicePrices={service.prices}
         serviceId={service.id}
-        hidePriceSelector={isPoolService || isCareService || isCarpetService || isPressureService}
+        hidePriceSelector={isPoolService  || isCarpetService || isPressureService}
       />
 
       {isFlowService ? (
@@ -610,84 +615,64 @@ export default function CheckoutPage({
           <Card className="bg-brand-navy text-brand-navy-foreground">
             <CardContent className="flex flex-col gap-0 p-0">
               <div className="px-4 py-3">
-              <div className="px-4 py-3">
                 <h3 className="text-base font-bold text-brand-gold">{translate("quoteFormTitle")}</h3>
-                                {translate("quoteFormStepContact")}
-                                  <Label htmlFor="contact-first-name" className="text-xs font-medium text-brand-cream/90">{translate("quoteFormFirstName")} *</Label>
-                                    placeholder={translate("quoteFormFirstName")}
-                                  <Label htmlFor="contact-last-name" className="text-xs font-medium text-brand-cream/90">{translate("quoteFormLastName")} *</Label>
-                                    placeholder={translate("quoteFormLastName")}
-                                  <Label htmlFor="contact-email" className="text-xs font-medium text-brand-cream/90">{translate("quoteFormEmail")} *</Label>
-                                    placeholder={translate("contactEmailPlaceholder")}
-                                  <Label htmlFor="contact-phone" className="text-xs font-medium text-brand-cream/90">{translate("quoteFormPhone")} *</Label>
-                                    placeholder={translate("contactPhonePlaceholder")}
-                                {translate("quoteFormStepLocation")}
-                                    <SelectValue placeholder={translate("quoteFormCountry")} />
-                                  <Label className="text-xs font-medium text-brand-cream/90">{translate("quoteFormPostalCode")} *</Label>
-                                    placeholder={translate("quoteFormPostalCode")}
-                                  <Label className="text-xs font-medium text-brand-cream/90">{translate("quoteFormCity")} *</Label>
-                                    placeholder={translate("quoteFormCity")}
-                                  <Label className="text-xs font-medium text-brand-cream/90">{translate("quoteFormState")}</Label>
-                                    placeholder={translate("quoteFormState")}
-                                  <Label className="text-xs font-medium text-brand-cream/90">{translate("quoteFormStreetAddress")} *</Label>
-                                    placeholder={translate("quoteFormStreetAddress")}
-                                  <Label className="text-xs font-medium text-brand-cream/90">{translate("quoteFormUnitApt")}</Label>
-                                    placeholder={translate("quoteFormUnitApt")}
-                                {translate("checkoutLogisticsMarketing")}
-                                  <Label className="text-xs font-medium text-brand-cream/90">{translate("checkoutHowGetIn")} *</Label>
-                                      <SelectValue placeholder={translate("checkoutHowGetIn")} />
-              </div>
               </div>
               <div className="flex flex-col gap-6 border-t border-brand-gold/20 p-4">
               {/* 1. CONTACT PROFILE */}
               <div>
                 <p className="mb-3 text-xs font-bold uppercase tracking-wider text-brand-gold">
-                  Contact Profile
+                  {translate("quotationContactProfile")}
                 </p>
+
                 <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
                   <div className="space-y-1.5">
-                    <Label className="text-xs font-medium text-brand-cream/90">First Name *</Label>
+                    <Label className="text-xs font-medium text-brand-cream/90">
+                    {translate("quoteFormFirstName")} *</Label>
                     <Input
                       value={contactForm.firstName}
                       onChange={(e) =>
                         setContactForm((prev) => ({ ...prev, firstName: e.target.value }))
                       }
-                      placeholder="First Name"
+                      placeholder={translate("quoteFormFirstName")}
                       className="bg-brand-cream text-brand-navy placeholder:text-muted-foreground"
                     />
                   </div>
                   <div className="space-y-1.5">
-                    <Label className="text-xs font-medium text-brand-cream/90">Last Name *</Label>
+                    <Label className="text-xs font-medium text-brand-cream/90">
+                    {translate("quoteFormLastName")} *</Label>
                     <Input
                       value={contactForm.lastName}
                       onChange={(e) =>
                         setContactForm((prev) => ({ ...prev, lastName: e.target.value }))
                       }
-                      placeholder="Last Name"
+                      placeholder={translate("quoteFormLastName")}
                       className="bg-brand-cream text-brand-navy placeholder:text-muted-foreground"
                     />
                   </div>
                   <div className="space-y-1.5">
-                    <Label className="text-xs font-medium text-brand-cream/90">Email *</Label>
+                    <Label className="text-xs font-medium text-brand-cream/90">
+                    {translate("contactEmailLabel")}</Label>
                     <Input
                       type="email"
                       value={contactForm.email}
                       onChange={(e) =>
                         setContactForm((prev) => ({ ...prev, email: e.target.value }))
                       }
-                      placeholder="Email"
+                      placeholder={translate("contactEmailLabel")}
                       className="bg-brand-cream text-brand-navy placeholder:text-muted-foreground"
                     />
                   </div>
                   <div className="space-y-1.5">
-                    <Label className="text-xs font-medium text-brand-cream/90">Phone number *</Label>
+                    <Label className="text-xs font-medium text-brand-cream/90">
+                    {translate("contactPhoneLabel")} 
+                    </Label>
                     <Input
                       type="tel"
                       value={contactForm.contact}
                       onChange={(e) =>
                         setContactForm((prev) => ({ ...prev, contact: e.target.value }))
                       }
-                      placeholder="Phone number"
+                      placeholder={translate("contactPhoneLabel")}
                       className="bg-brand-cream text-brand-navy placeholder:text-muted-foreground"
                     />
                   </div>
@@ -697,7 +682,7 @@ export default function CheckoutPage({
               {/* 2. ADDRESS */}
               <div>
                 <p className="mb-3 text-xs font-bold uppercase tracking-wider text-brand-gold">
-                  Address
+                  {translate("summaryAddress")}
                 </p>
                 <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
                   <div className="space-y-1.5">
@@ -720,41 +705,44 @@ export default function CheckoutPage({
                   </div>
 
                   <div className="space-y-1.5">
-                    <Label className="text-xs font-medium text-brand-cream/90">Postal Code *</Label>
+                    <Label className="text-xs font-medium text-brand-cream/90">{translate("quoteFormPostalCode")} *</Label>
                     <Input
                       value={postalCode}
                       onChange={(e) => setPostalCode(e.target.value)}
-                      placeholder="Postal Code"
+                      placeholder={translate("quoteFormPostalCode")}
                       className="bg-brand-cream text-brand-navy placeholder:text-muted-foreground"
                     />
                   </div>
 
                   <div className="space-y-1.5">
-                    <Label className="text-xs font-medium text-brand-cream/90">City *</Label>
+                    <Label className="text-xs font-medium text-brand-cream/90">
+                    {translate("quoteFormCity")} *</Label>
                     <Input
                       value={city}
                       onChange={(e) => setCity(e.target.value)}
-                      placeholder="City"
+                      placeholder={translate("quoteFormCity")}
                       className="bg-brand-cream text-brand-navy placeholder:text-muted-foreground"
                     />
                   </div>
 
                   <div className="space-y-1.5">
-                    <Label className="text-xs font-medium text-brand-cream/90">Province/State</Label>
+                    <Label className="text-xs font-medium text-brand-cream/90">
+                    {translate("summaryProvinceState")}</Label>
                     <Input
                       value={stateProvince}
                       onChange={(e) => setStateProvince(e.target.value)}
-                      placeholder="Province/State"
+                      placeholder={translate("summaryProvinceState")}
                       className="bg-brand-cream text-brand-navy placeholder:text-muted-foreground"
                     />
                   </div>
 
                   <div className="space-y-1.5 sm:col-span-2">
-                    <Label className="text-xs font-medium text-brand-cream/90">Street Address *</Label>
+                    <Label className="text-xs font-medium text-brand-cream/90">
+                    {translate("quoteFormStreetAddress")} *</Label>
                     <Input
                       value={streetAddress}
                       onChange={(e) => setStreetAddress(e.target.value)}
-                      placeholder="Street Address"
+                      placeholder={translate("quoteFormStreetAddress")} 
                       className="bg-brand-cream text-brand-navy placeholder:text-muted-foreground"
                     />
                   </div>
@@ -774,14 +762,15 @@ export default function CheckoutPage({
               {/* 3. LOGISTICS & MARKETING */}
               <div>
                 <p className="mb-3 text-xs font-bold uppercase tracking-wider text-brand-gold">
-                  Logistics & Marketing
+                  {translate("summaryLogisticsMarketing")}
                 </p>
                 <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
                   <div className="space-y-1.5 w-full">
-                    <Label className="text-xs font-medium text-brand-cream/90">How will we get in? *</Label>
+                    <Label className="text-xs font-medium text-brand-cream/90">
+                    {translate("checkoutHowGetIn")} *</Label>
                     <Select value={howGetIn} onValueChange={setHowGetIn}>
                       <SelectTrigger className="w-full bg-brand-cream text-brand-navy">
-                        <SelectValue placeholder="How will we get in?" />
+                        <SelectValue placeholder={translate("checkoutHowGetIn")} />
                       </SelectTrigger>
                       <SelectContent className="w-full">
                         <SelectItem value="I'll be at home">I&apos;ll be at home</SelectItem>
@@ -794,14 +783,12 @@ export default function CheckoutPage({
                   </div>
 
                   <div className="space-y-1.5 w-full">
-                    <Label className="text-xs font-medium text-brand-cream/90"/>
                     <Label className="text-xs font-medium text-brand-cream/90">
                       {translate("checkoutHowHeard")} *
-                                            <SelectValue placeholder={translate("checkoutHowHeard")} />
                     </Label>
-                    <Select value={howHeard} onValueChange={setHowHeard} >
+                    <Select value={howHeard} onValueChange={setHowHeard}>
                       <SelectTrigger className="w-full bg-brand-cream text-brand-navy">
-                        <SelectValue placeholder="How did you hear about us?" />
+                        <SelectValue placeholder={translate("checkoutHowHeard")} />
                       </SelectTrigger>
                       <SelectContent className="w-full">
                         <SelectItem value="Google">Google</SelectItem>
@@ -856,11 +843,14 @@ export default function CheckoutPage({
                           <span className="font-normal text-white">{durationText}</span>
                         </div>
                         <div className="flex justify-between gap-2 py-1 text-brand-cream/70">
-                          <span className="font-medium">Count of {personLabel}</span>
+                          <span className="font-medium">{translate(`carePersonCount${personLabel}` as TranslationKey)}</span>
                           <span className="font-normal text-white">{draft.personCount || 1}</span>
                         </div>
+
+                        
                         <div className="flex justify-between gap-2 py-1 text-brand-cream/70">
-                          <span className="font-medium">Request Care Professionals</span>
+                          <span className="font-medium">
+                            {translate("careRequestProfessionals")}</span>
                           <span className="font-normal text-white">{draft.caregiverCount || 1}</span>
                         </div>
                         <div className="flex justify-between gap-2 py-1 text-brand-cream/70">
@@ -988,7 +978,7 @@ export default function CheckoutPage({
                             )}
                           </div>
                           <p className="mt-1 text-brand-cream/80 text-[11px] sm:text-xs leading-relaxed">
-                            Special Needs: {p.specialNeeds || "None"}, Gender: {p.gender || "—"}, Age: {p.age || "—"}
+                            {translate("careFieldSpecialNeeds")}: {p.specialNeeds || "None"}, Gender: {p.gender || "—"}, Age: {p.age || "—"}
                           </p>
                           {p.documentName && (
                             <p className="mt-1 truncate text-[11px] text-emerald-400">
@@ -1003,24 +993,28 @@ export default function CheckoutPage({
                   {/* PREFERENCES */}
                   <div className="border-t border-brand-gold/20 pt-4">
                     <p className="mb-2 text-xs font-bold uppercase tracking-wider text-brand-gold/80">
-                      Preferences
+                      {translate("preferencesTitle")}
                     </p>
                     <div className="space-y-2 text-xs sm:text-sm">
                       <div className="flex justify-between gap-2 py-1 text-brand-cream/70">
-                        <span className="font-medium">Gender Preference</span>
+                        <span className="font-medium">
+                          {translate("preferencesGender")}</span>
                         <span className="font-normal text-white">
                           {GENDER_OPTIONS.find((o) => o.value === draft.genderPreference)?.label ?? "No Preference"}
                         </span>
                       </div>
                       <div className="flex justify-between gap-2 py-1 text-brand-cream/70">
-                        <span className="font-medium">Language Preference</span>
+                        <span className="font-medium">
+                          {translate("careLanguagePreference")}</span>
                         <span className="font-normal text-white">
                           {LANGUAGE_OPTIONS.find((o) => o.value === draft.languagePreference)?.label ?? "No Preference"}
                         </span>
+
                       </div>
                       {draft.specialRequirements && (
                         <div className="flex flex-col gap-1 py-1 text-brand-cream/70">
-                          <span className="font-medium">Special Requirements</span>
+                          <span className="font-medium">
+                             {translate("careSpecialRequirements")}</span>
                           <span className="font-normal text-white">{draft.specialRequirements}</span>
                         </div>
                       )}
@@ -1031,22 +1025,47 @@ export default function CheckoutPage({
 
                 {/* TERMS AGREEMENT */}
                 <label
-                  htmlFor="agreed-to-terms"
-                  className="flex cursor-pointer items-center gap-2 text-xs text-brand-cream/70"
+                  htmlFor="agreed-to-terms-flow"
+                  className="flex cursor-pointer items-center gap-2 text-xs text-brand-cream/70 select-none"
+                  onClick={(e) => {
+                    if (!agreedToTerms) {
+                      e.preventDefault();
+                      setShowTermsModal(true);
+                    } else {
+                      e.preventDefault();
+                      setAgreedToTerms(false);
+                    }
+                  }}
                 >
                   <Checkbox
-                    id="agreed-to-terms"
+                    id="agreed-to-terms-flow"
                     checked={agreedToTerms}
-                    onCheckedChange={(checked) => setAgreedToTerms(checked === true)}
+                    onCheckedChange={(checked) => {
+                      if (!agreedToTerms) {
+                        setShowTermsModal(true);
+                      } else {
+                        setAgreedToTerms(checked === true);
+                      }
+                    }}
                     className="border-brand-gold data-checked:border-brand-gold data-checked:bg-brand-gold"
                   />
                   <span>
-                    {translate("checkoutAgreeTo")} {" "}
-                    <Link href="/terms-and-conditions" target="_blank" className="underline">
+                    {translate("checkoutAgreeTo")}{" "}
+                    <Link
+                      href="/terms-and-conditions"
+                      target="_blank"
+                      className="underline"
+                      onClick={(e) => e.stopPropagation()}
+                    >
                       {translate("footerTermsLink")}
                     </Link>{" "}
-                    {translate("checkoutAnd")} {" "}
-                    <Link href="/privacy-policy" target="_blank" className="underline">
+                    {translate("checkoutAnd")}{" "}
+                    <Link
+                      href="/privacy-policy"
+                      target="_blank"
+                      className="underline"
+                      onClick={(e) => e.stopPropagation()}
+                    >
                       {translate("footerPrivacyLink")}
                     </Link>
                     .
@@ -1265,11 +1284,11 @@ export default function CheckoutPage({
 
                     <div className="space-y-1.5">
                       <Label className="text-xs font-medium text-brand-cream/90">
-                        How did you hear about us? *
+                        {translate("checkoutHowHeard")} *
                       </Label>
                       <Select value={howHeard} onValueChange={setHowHeard}>
                         <SelectTrigger className="w-full bg-brand-cream text-brand-navy">
-                          <SelectValue placeholder="How did you hear about us?" />
+                          <SelectValue placeholder={translate("checkoutHowHeard")} />
                         </SelectTrigger>
                         <SelectContent>
                           <SelectItem value="Google">Google</SelectItem>
@@ -1341,10 +1360,21 @@ export default function CheckoutPage({
               }
               agreedToTerms={agreedToTerms}
               onAgreedToTermsChange={setAgreedToTerms}
+              onOpenTermsModal={() => setShowTermsModal(true)}
             />
           </div>
         </div>
       )}
+
+      {/* Terms and Conditions Modal */}
+      <TermsAndConditions
+        open={showTermsModal}
+        onClose={() => setShowTermsModal(false)}
+        onAccept={() => {
+          setAgreedToTerms(true);
+          setShowTermsModal(false);
+        }}
+      />
     </div>
   );
 }

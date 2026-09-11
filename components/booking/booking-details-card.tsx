@@ -76,6 +76,7 @@ export interface BookingDetailsCardProps {
    */
   agreedToTerms?: boolean;
   onAgreedToTermsChange?: (value: boolean) => void;
+  onOpenTermsModal?: () => void;
 }
 
 export function BookingDetailsCard({
@@ -109,6 +110,7 @@ export function BookingDetailsCard({
   bookDisabledReason,
   agreedToTerms,
   onAgreedToTermsChange,
+  onOpenTermsModal,
 }: BookingDetailsCardProps) {
   const { symbol } = useCurrency();
   const { translate } = useLanguage();
@@ -321,21 +323,46 @@ export function BookingDetailsCard({
           {onAgreedToTermsChange && (
             <label
               htmlFor="agreed-to-terms"
-              className="mb-3 flex cursor-pointer items-center gap-2 text-xs text-brand-navy-foreground/70"
+              className="mb-3 flex cursor-pointer items-center gap-2 text-xs text-brand-navy-foreground/70 select-none"
+              onClick={(e) => {
+                if (onOpenTermsModal && !agreedToTerms) {
+                  e.preventDefault();
+                  onOpenTermsModal();
+                } else if (agreedToTerms) {
+                  e.preventDefault();
+                  onAgreedToTermsChange(false);
+                }
+              }}
             >
               <Checkbox
                 id="agreed-to-terms"
                 checked={agreedToTerms ?? false}
-                onCheckedChange={(checked) => onAgreedToTermsChange(checked === true)}
+                onCheckedChange={(checked) => {
+                  if (onOpenTermsModal && !agreedToTerms) {
+                    onOpenTermsModal();
+                  } else {
+                    onAgreedToTermsChange(checked === true);
+                  }
+                }}
                 className="border-brand-gold data-checked:border-brand-gold data-checked:bg-brand-gold"
               />
               <span>
                 {translate("bookingDetailAgreeTo")}{" "}
-                <Link href="/terms-and-conditions" target="_blank" className="underline">
+                <Link
+                  href="/terms-and-conditions"
+                  target="_blank"
+                  className="underline"
+                  onClick={(e) => e.stopPropagation()}
+                >
                   {translate("bookingDetailTermsAndConditions")}
                 </Link>{" "}
                 {translate("bookingDetailAnd")}{" "}
-                <Link href="/privacy-policy" target="_blank" className="underline">
+                <Link
+                  href="/privacy-policy"
+                  target="_blank"
+                  className="underline"
+                  onClick={(e) => e.stopPropagation()}
+                >
                   {translate("bookingDetailPrivacyPolicy")}
                 </Link>
                 .
