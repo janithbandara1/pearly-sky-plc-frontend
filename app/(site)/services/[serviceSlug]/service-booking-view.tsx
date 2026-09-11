@@ -27,6 +27,7 @@ import { PageHero } from "@/components/page-hero";
 import { SERVICE_CONTENT } from "@/lib/content/service-details";
 import { ApiError } from "@/lib/auth-context";
 import { saveBookingDraft } from "@/lib/booking-draft";
+import { calculateEquipmentItemPrice } from "@/lib/equipment-pricing";
 import {
   CatalogServiceDetail,
   getServiceBySlug,
@@ -385,10 +386,10 @@ export function ServiceBookingView({ serviceSlug }: { serviceSlug: string }) {
 
   const selectedDisinfectionLevel = DISINFECTION_LEVELS.find((l) => l.id === disinfectionLevelId);
 
-  const addOnsTotal = selectedItems.reduce((sum, entry) => {
-    const price = entry.price !== null ? Number(entry.price) : NaN;
-    return Number.isFinite(price) ? sum + price : sum;
-  }, 0);
+  const addOnsTotal = selectedItems.reduce(
+    (sum, entry) => sum + calculateEquipmentItemPrice(entry, propertySizeSqm),
+    0,
+  );
 
   function handleBookNow() {
     if (!service) return;
@@ -447,7 +448,7 @@ export function ServiceBookingView({ serviceSlug }: { serviceSlug: string }) {
       })),
       items: displayedEquipmentItems.map((i) => ({
         name: i.name,
-        price: i.price !== null ? Number(i.price) : null,
+        price: calculateEquipmentItemPrice(i, propertySizeSqm),
       })),
       supplySource,
       addOnsTotal: addOnsTotal + (selectedDisinfectionLevel?.priceAdder ?? 0),

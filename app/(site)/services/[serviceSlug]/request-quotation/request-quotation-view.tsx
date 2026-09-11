@@ -25,6 +25,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Checkbox } from "@/components/ui/checkbox";
 import { ApiError, useAuth } from "@/lib/auth-context";
 import { CatalogItem, CatalogServiceDetail, getServiceBySlug, withLocaleDefaults } from "@/lib/catalog-api";
+import { calculateEquipmentItemPrice } from "@/lib/equipment-pricing";
 import { CustomerAddress, getMyProfile, listMyAddresses } from "@/lib/customers-api";
 import { SUPPORTED_COUNTRIES, type CountryCode } from "@/lib/countries/config";
 import { useCountry } from "@/lib/countries/country-context";
@@ -563,7 +564,10 @@ export function RequestQuotationView({ serviceSlug }: { serviceSlug: string }) {
         equipmentItems: selectedItems.length
           ? selectedItems.map((i) => ({
             name: i.name,
-            price: i.price !== null ? Number(i.price) : undefined,
+            price: calculateEquipmentItemPrice(
+              i,
+              customQuote || isPickupDeliveryService ? undefined : propertySizeSqm,
+            ),
           }))
           : undefined,
         numCleaners: isPickupDeliveryService ? undefined : numCleaners,

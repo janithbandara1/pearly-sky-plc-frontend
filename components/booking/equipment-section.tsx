@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { User, Briefcase, KeyRound, ArrowRight } from "lucide-react";
 import type { CatalogItem, SizeQuote } from "@/lib/catalog-api";
+import { calculateEquipmentItemPrice } from "@/lib/equipment-pricing";
 import { useCurrency } from "@/lib/currency-context";
 import { useLanguage } from "@/lib/i18n/language-context";
 import { Slider } from "radix-ui";
@@ -185,7 +186,7 @@ export function EquipmentSection({
           <div className="flex flex-col">
             {items.map((item) => {
               const isSelected = selectedItemIds.has(item.id);
-              const price = item.price !== null ? Number(item.price) : 0;
+              const price = calculateEquipmentItemPrice(item, propertySizeSqm);
               return (
                 <div
                   key={item.id}
