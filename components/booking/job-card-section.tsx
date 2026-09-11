@@ -18,6 +18,44 @@ export interface JobCardSectionProps {
   maxSelectionsPerCategory?: number;
 }
 
+
+const categoryItemsMapping:Record<string, TranslationKey>={
+  "Professional Oven & Fridge Restoration": "AddsOnCategoryOvenFridgeRestoration",
+"Heavy Limescale & Mold Remediation": "AddsOnCategoryLimescaleMoldRemediation",
+"High-Altitude Window Polishing": "AddsOnCategoryHighAltitudeWindowPolishing",
+"Kitchen Exhaust & Filter Soak": "AddsOnCategoryKitchenExhaustFilterSoak",
+"Inside Microwave & Small Appliances": "AddsOnCategoryMicrowaveAppliancesCleaning",
+"Wall Spot & Scuff Removal": "AddsOnCategoryWallSpotScuffRemoval",
+"Mirror & Glass Detail Polishing": "AddsOnCategoryWallSpotScuffRemoval",
+"Internal Cupboard & Drawer Detail": "AddsOnCategoryWallSpotScuffRemoval",
+"AC Filter & Intake Grille Wash": "AddsOnCategoryWallSpotScuffRemoval",
+"Light Fixture & Chandelier Polishing": "AddsOnCategoryLightFixtureChandelierPolishing",
+"Smart Home Device Setup": "AddsOnCategorySmartHomeDeviceSetup",
+"Squeak & Hinge Repair": "AddsOnCategorySqueakHingeRepair",
+"Flat-Pack Furniture Assembly": "AddsOnCategoryFlatPackFurnitureAssembly",
+"Vent & Air Register Vacuuming": "AddsOnCategoryVentAirRegisterVacuuming",
+"Curtain & Blind Track Repair": "AddsOnCategoryCurtainBlindTrackRepair",
+"Hardware & Fitting Buffing": "AddsOnCategoryHardwareFittingBuffing",
+"Hotel-Style Bed Making & Styling": "AddsOnCategoryHotelStyleBedMaking",
+"Pantry Organization & Labeling": "AddsOnCategoryPantryOrganizationLabeling",
+"Wardrobe Color-Coding & Sorting": "AddsOnCategoryWardrobeColorCodingSorting",
+"Shoe Cleaning & Polishing": "AddsOnCategoryShoeCleaningPolishing",
+"Indoor Plant Watering & Leaf Shining": "AddsOnCategoryIndoorPlantWateringShining",
+"Grocery Restock & Storage": "AddsOnCategoryGroceryRestockStorage",
+"Pet Station & Bedding Sanitization": "AddsOnCategoryPetStationBeddingSanitization",
+"Laundry, Folding & Ironing": "AddsOnCategoryLaundryFoldingIroning",
+"Trash & Recycling Bin Sanitization": "AddsOnCategoryTrashBinSanitization",
+"Front Door & Entryway Polishing": "AddsOnCategoryFrontDoorEntrywayPolishing",
+"Patio Furniture Detailing": "AddsOnCategoryPatioFurnitureDetailing",
+"BBQ & Outdoor Grill Deep Clean": "AddsOnCategoryBbqOutdoorGrillDeepClean",
+"Pool Deck & Perimeter Clearing": "AddsOnCategoryPoolDeckPerimeterClearing",
+"Garage Threshold & Cobweb Sweep": "AddsOnCategoryGarageThresholdCobwebSweep",
+"Exterior Window & Screen Wipe": "AddsOnCategoryExteriorWindowScreenWipe",
+"Driveway Oil Spot Treatment": "AddsOnCategoryDrivewayOilSpotTreatment",
+
+}
+
+
 export function JobCardSection({
   packages = [],
   selectedIds,
@@ -53,6 +91,8 @@ export function JobCardSection({
           const isSelectedCategory = category.id === activeCategoryId;
           const selectedInCatCount = category.items.filter((item) => selectedIds.has(item.id)).length;
           const isCatMaxReached = selectedInCatCount >= maxSelectionsPerCategory;
+
+          console.log(category)
 
           return (
             <div key={category.id} className="flex flex-col gap-3">
@@ -114,7 +154,7 @@ export function JobCardSection({
                             className={`text-xs sm:text-sm leading-snug font-semibold text-[#1E293B] ${isDisabled ? "text-slate-400" : ""
                               }`}
                           >
-                            {translatePackageName(item.name)}
+                            {translate(categoryItemsMapping[item.name] as TranslationKey)}
                           </span>
                         </div>
 
@@ -202,7 +242,7 @@ export function JobCardSection({
                       className={`text-sm sm:text-[15px] leading-snug font-semibold text-[#1E293B] ${isDisabled ? "text-slate-400" : ""
                         }`}
                     >
-                      {translate(item.name)}
+                      {translate(categoryItemsMapping[item.name] as TranslationKey)}
                     </span>
                   </div>
 

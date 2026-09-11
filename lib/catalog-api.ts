@@ -16,11 +16,14 @@ export const PACKAGE_CATEGORIES: PackageCategory[] = [
   "outdoor_and_exterior_spaces",
 ];
 
+
+
 export const PACKAGE_CATEGORY_LABELS: Record<PackageCategory, TranslationKey> = {
   deep_and_specialized_cleaning: "CategoryDeepSpecialized",
   general_interior_maintenance: "CategoryGeneralInterior",
   lifestyle_and_home_care: "CategoryLifeStyle",
   outdoor_and_exterior_spaces: "CategoryDeepOutDoor",
+
 };
 
 export interface ServicePriceEntry {

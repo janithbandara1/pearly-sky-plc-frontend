@@ -151,7 +151,7 @@ export function PageHero({
             {eyebrow}
           </p>
         )}
-        <h1 className="min-w-0 truncate md:overflow-visible md:text-clip md:whitespace-normal text-base sm:text-3xl md:text-4xl font-bold text-[#c29b38] tracking-tight leading-tight">
+        <h1 className="min-w-0 truncate md:overflow-visible max-w-[300px] md:max-w-3xl md:text-clip md:whitespace-normal text-base sm:text-3xl md:text-4xl font-bold text-[#c29b38] tracking-tight leading-tight">
           {translate(title as TranslationKey)}
         </h1>
         {subtitle && <p className="mt-3 text-brand-cream/85 hidden">{subtitle}</p>}
