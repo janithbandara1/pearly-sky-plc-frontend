@@ -1277,6 +1277,7 @@ export default function CheckoutPage({
           setAgreedToTerms(true);
           setShowTermsModal(false);
         }}
+        variant={isCareService ? "care" : "cleaning"}
       />
     </div>
   );

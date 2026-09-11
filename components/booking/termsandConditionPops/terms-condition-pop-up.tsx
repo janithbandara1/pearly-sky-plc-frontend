@@ -283,15 +283,163 @@ const sectionsL = [
     ),
   },
 ]; */
+/**
+ * Child-care-service / elder-care-service have their own Terms & Conditions
+ * (caregiver scope, deposit, safeguarding, etc.) — distinct enough from the
+ * cleaning-service terms above that it's kept as fixed English copy rather
+ * than added to every locale dictionary alongside the ~40 cleaning-terms
+ * keys; legal copy like this is usually maintained as one canonical text
+ * rather than machine-translated per UI locale.
+ */
+const careSections: {
+  id: number;
+  title: string;
+  subsections: { title: string; body: string; bullets?: string[] }[];
+}[] = [
+  {
+    id: 1,
+    title: "1. Services & Scope",
+    subsections: [
+      {
+        title: "Children Care",
+        body: "",
+        bullets: [
+          "Supervision and companionship",
+          "Play, reading & activities",
+          "Meal and snack preparation",
+          "Homework & school collection",
+          "Bedtime & daily routines",
+        ],
+      },
+      {
+        title: "Elder Care",
+        body: "",
+        bullets: [
+          "Companionship & conversation",
+          "Light housekeeping & laundry",
+          "Meal prep & grocery support",
+          "Appointment accompaniment",
+          "Mobility & safety support",
+          "Permitted medication reminders",
+        ],
+      },
+      {
+        title: "Exclusions & Refusal",
+        body: "Medical diagnosis, nursing, financial management, physical restraint, unsafe lifting, and overnight care are excluded unless agreed. Services exceeding caregiver qualifications may be refused.",
+      },
+    ],
+  },
+  {
+    id: 2,
+    title: "2. Booking & Requirements",
+    subsections: [
+      {
+        title: "Booking Process",
+        body: "Requests require country, address, service type, time, client/child details, emergency contacts, and medical/safety info. Availability is confirmed only after review and deposit payment.",
+      },
+      {
+        title: "Children Care Duties",
+        body: "Parents must provide accurate details, emergency contacts, dietary needs, authorized collectors, and remain reachable during booking.",
+      },
+      {
+        title: "Elder Care Duties",
+        body: "Clients/representatives must disclose mobility limits, routines, consent status, access instructions, and equipment needs. Complex nursing may require specialist staff.",
+      },
+    ],
+  },
+  {
+    id: 3,
+    title: "3. Pricing & Payments",
+    subsections: [
+      {
+        title: "Standard Deposit",
+        body: "A standard deposit of €32.00 is payable during checkout to reserve the requested date and time.",
+      },
+      {
+        title: "Final Price Components",
+        body: "",
+        bullets: [
+          "Care service charges",
+          "Additional hours & overtime",
+          "Travel & transport costs",
+          "Public holiday / late-hour fees",
+          "Applicable taxes & approved extras",
+        ],
+      },
+      {
+        title: "Refunds & Balance",
+        body: "Remaining balance is confirmed before service. Deposit refund rules vary by country policy and mandatory consumer law.",
+      },
+    ],
+  },
+  {
+    id: 4,
+    title: "4. Duties & Allocation",
+    subsections: [
+      {
+        title: "Caregiver Allocation",
+        body: "Assigned based on needs, location, language, and qualifications. Specific caregivers are not guaranteed unless confirmed in writing.",
+      },
+      {
+        title: "Client Responsibilities",
+        body: "Clients must provide a safe, respectful environment, accurate booking information, safe access, and timely payment.",
+      },
+      {
+        title: "Arrival & Access",
+        body: "Additional charges or cancellations apply if access codes are incorrect, the location is unsafe, or caregivers face unreasonable waiting times.",
+      },
+    ],
+  },
+  {
+    id: 5,
+    title: "5. Safety & Privacy",
+    subsections: [
+      {
+        title: "Safeguarding & Incidents",
+        body: "Accidents, injuries, or health concerns must be reported immediately to emergency contacts or services. Caregivers cannot diagnose medical issues or handle criminal matters.",
+      },
+      {
+        title: "Privacy & Data",
+        body: "Personal and health information is processed securely for bookings, payments, and legal/safety obligations under applicable privacy laws (including EU GDPR rules).",
+      },
+      {
+        title: "Communications",
+        body: "Pearly Sky Company may contact clients regarding bookings, payments, safety updates, and feedback.",
+      },
+    ],
+  },
+  {
+    id: 6,
+    title: "6. Changes & Law",
+    subsections: [
+      {
+        title: "Changes & Rescheduling",
+        body: "Requests should be made early. Changes depend on availability and may incur extra charges. Mandatory statutory cancellation rights remain unaffected.",
+      },
+      {
+        title: "Complaints Procedure",
+        body: "Submit issues promptly with booking references, dates, and descriptions. Responses will be provided within legally required timeframes.",
+      },
+      {
+        title: "Governing Law",
+        body: "Subject to mandatory local laws, consumer protection rules, and local safeguarding/tax requirements of the service country.",
+      },
+    ],
+  },
+];
+
 interface TermsAndConditionsModalProps {
   open: boolean;
   onClose: () => void;
   onAccept: () => void;
+  /** child-care-service / elder-care-service show their own terms instead of the cleaning-service ones. */
+  variant?: "cleaning" | "care";
 }
 export default function TermsAndConditions({
   open,
   onClose,
   onAccept,
+  variant = "cleaning",
 }: TermsAndConditionsModalProps) {
   const { translate } = useLanguage();
   const [openId, setOpenId] = useState<number | null>(2);
@@ -322,6 +470,11 @@ export default function TermsAndConditions({
       <h2 className="text-xl font-bold text-white">
         {translate("popUpConditionsTitleMain")}
       </h2>
+      {variant === "care" && (
+        <p className="mt-1 text-xs text-white/70">
+          Pearly Sky Company Private Ltd — Terms &amp; Conditions (Effective 11 Sept 2026)
+        </p>
+      )}
       <button
         type="button"
         onClick={onClose}
@@ -355,7 +508,43 @@ export default function TermsAndConditions({
         }
       `}</style>
 
-      {sectionsL.map((section) => {
+      {variant === "care"
+        ? careSections.map((section) => {
+            const isOpen = openId === section.id;
+            return (
+              <div key={section.id}>
+                <button
+                  type="button"
+                  onClick={() => toggle(section.id)}
+                  className="w-full border border-gray-300 rounded-md cursor-pointer font-semibold py-2.5 px-3 bg-[#F7F7F7] flex justify-between items-center text-left text-[#121212] hover:bg-[#F0F0F0] transition-colors"
+                >
+                  <span>{section.title}</span>
+                  <span className="text-sm ml-2">{isOpen ? "▲" : "▼"}</span>
+                </button>
+
+                {isOpen && (
+                  <div className="p-5 mt-1 bg-[#FFFDF4] rounded-md shadow-sm border border-[#EAEAEA] text-[12px] leading-relaxed max-w-[95%] mx-auto space-y-2">
+                    {section.subsections.map((subsec) => (
+                      <div key={subsec.title}>
+                        <p>
+                          <strong>{subsec.title}</strong>
+                          {subsec.body ? ` ${subsec.body}` : ""}
+                        </p>
+                        {subsec.bullets && (
+                          <ul className="mt-1 list-disc space-y-0.5 pl-5">
+                            {subsec.bullets.map((bullet) => (
+                              <li key={bullet}>{bullet}</li>
+                            ))}
+                          </ul>
+                        )}
+                      </div>
+                    ))}
+                  </div>
+                )}
+              </div>
+            );
+          })
+        : sectionsL.map((section) => {
         const isOpen = openId === section.id;
         return (
           <div key={section.id}>
