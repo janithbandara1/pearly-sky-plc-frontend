@@ -539,6 +539,14 @@ export default function CheckoutPage({
     );
   }
 
+  const summaryCareProfiles = isCareService
+    ? draft.careProfiles && draft.careProfiles.length > 0
+      ? draft.careProfiles
+      : draft.careProfile
+        ? [draft.careProfile]
+        : []
+    : [];
+
   const requestDisabledReason =
     !contactForm.firstName.trim() ||
       !contactForm.lastName.trim() ||
@@ -1247,6 +1255,8 @@ export default function CheckoutPage({
               }
               serviceCategory={draft.category}
               eventTypes={draft.eventTypes}
+              careProfiles={summaryCareProfiles}
+              personLabel={isCareService ? personLabel : undefined}
               items={draft.items}
               supplySource={draft.supplySource}
               addOnsTotal={draft.addOnsTotal}

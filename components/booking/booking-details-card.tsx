@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Checkbox } from "@/components/ui/checkbox";
 import { SUPPLY_SOURCE_OPTIONS, type SupplySource } from "@/components/booking/equipment-section";
-import type { BookingDraftItem, BookingDraftPackage } from "@/lib/booking-draft";
+import type { BookingDraftItem, BookingDraftPackage, CareProfileDraft } from "@/lib/booking-draft";
 import type { CatalogItem, SizeQuote } from "@/lib/catalog-api";
 import { useCurrency } from "@/lib/currency-context";
 import { useLanguage } from "@/lib/i18n/language-context";
@@ -46,6 +46,10 @@ export interface BookingDetailsCardProps {
   serviceCategory?: string;
   /** post-event-cleaning only — the event types selected above. */
   eventTypes?: string[];
+  /** child-care-service / elder-care-service only — the per-person profiles collected above. */
+  careProfiles?: CareProfileDraft[];
+  /** child-care-service / elder-care-service only — "Child" or "Elder", used for the section heading and per-profile numbering. */
+  personLabel?: string;
   items: BookingDraftItem[];
   /**
    * Drives the read-only `items` list's value text: "Provided by you" when the
@@ -104,6 +108,8 @@ export function BookingDetailsCard({
   industrialSteamItems,
   serviceCategory,
   eventTypes,
+  careProfiles,
+  personLabel,
   items,
   supplySource,
   onSupplySourceChange,
@@ -224,6 +230,41 @@ export function BookingDetailsCard({
             <SectionHeading label={translate("bookingDetailEventTypes")} />
             {eventTypes.map((item) => (
               <SummaryRow key={item} label={item} value="" />
+            ))}
+          </div>
+        )}
+
+        {careProfiles && careProfiles.length > 0 && (
+          <div className="flex flex-col border-t border-brand-gold/20">
+            <SectionHeading
+              label={`${personLabel ?? translate("bookingDetailProfilePerson")} ${translate("bookingDetailProfileDetails")}`}
+            />
+            {careProfiles.map((profile, index) => (
+              <div key={index} className={index > 0 ? "border-t border-brand-gold/10" : undefined}>
+                {careProfiles.length > 1 && (
+                  <div className="px-4 pt-2 pb-0.5">
+                    <span className="text-xs font-semibold text-brand-gold/60">
+                      {personLabel ?? translate("bookingDetailProfilePerson")} {index + 1}
+                    </span>
+                  </div>
+                )}
+                <SummaryRow label={translate("bookingDetailProfileName")} value={profile.name || "—"} />
+                <SummaryRow label={translate("bookingDetailProfileAge")} value={profile.age || "—"} />
+                <SummaryRow label={translate("bookingDetailProfileGender")} value={profile.gender || "—"} />
+                <SummaryRow
+                  label={translate("bookingDetailProfileSpecialNeeds")}
+                  value={profile.specialNeeds || "—"}
+                />
+                {profile.behavioralNotes && (
+                  <SummaryRow
+                    label={translate("bookingDetailProfileBehavioralNotes")}
+                    value={profile.behavioralNotes}
+                  />
+                )}
+                {profile.documentName && (
+                  <SummaryRow label={translate("bookingDetailProfileDocument")} value={profile.documentName} />
+                )}
+              </div>
             ))}
           </div>
         )}
