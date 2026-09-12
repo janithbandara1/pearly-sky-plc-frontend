@@ -231,7 +231,7 @@ export function buildBookingPdfData(
       linguisticCoordination: linguistic,
       serviceRequirements: requirements,
     },
-    qrValue: `https://pearlysky.com/bookings/verify?ref=${ref}`,
+    qrValue: `${process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000"}/bookings/verify?ref=${ref}`,
   };
 }
 
