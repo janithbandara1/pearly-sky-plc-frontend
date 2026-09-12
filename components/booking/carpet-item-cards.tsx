@@ -95,7 +95,10 @@ function CarpetItemCard({
             {formatQuoteItem(
               added,
               CARPET_ITEM_OPTIONS,
-              (label) => translate(CARPET_ITEM_TRANSLATION_KEYS[label as keyof typeof CARPET_ITEM_TRANSLATION_KEYS]),
+              (label) => {
+                const key = CARPET_ITEM_TRANSLATION_KEYS[label as keyof typeof CARPET_ITEM_TRANSLATION_KEYS];
+                return key ? translate(key) : label;
+              },
             )}
           </p>
         </div>
