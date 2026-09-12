@@ -53,17 +53,24 @@ export function ContactUsView() {
           {translate("contactOfficesTitle")}
         </h2>
         <div className="grid w-full ] items-start gap-4 px-4 sm:px-6 grid-cols-1 md:grid-cols-2">
-          {locations.filter((loc)=>loc.name !=="Scotland").map((loc)=> (
-            <LocationCard
-              
+          {locations.filter((loc)=>loc.name !=="Scotland").map((loc)=>{
+            const isLocked = loc.hasOfficeDetail ? openLocationId === loc.id : false
+            return <LocationCard
               key={loc.id}
               location={loc}
-              isOpen={openLocationId === loc.id}
+              isOpen={isLocked}
               onToggle={() => handleToggle(loc.id)}
             />
-          ))}
+          })}
         </div>
       </section>
     </main>
   );
 }
+
+/* <LocationCard
+              key={loc.id}
+              location={loc}
+              isOpen={openLocationId === loc.id}
+              onToggle={() => handleToggle(loc.id)}
+            /> */
