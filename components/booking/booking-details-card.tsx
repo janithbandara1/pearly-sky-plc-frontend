@@ -28,6 +28,8 @@ export interface BookingDetailsCardProps {
   propertySizeSqm: number;
   /** Child/elder care has no property-size concept — hides that summary row (propertySizeSqm is still required, but goes unused). */
   hidePropertySize?: boolean;
+  /** child-care-service / elder-care-service — shows "Professionals" / "Price per professional" instead of "Cleaners" / "Price per cleaner". */
+  isCareService?: boolean;
   genderLabel: string;
   languageLabel: string;
   specialRequirements?: string;
@@ -91,6 +93,7 @@ export function BookingDetailsCard({
   propertyType,
   propertySizeSqm,
   hidePropertySize,
+  isCareService,
   genderLabel,
   languageLabel,
   specialRequirements,
@@ -162,8 +165,14 @@ export function BookingDetailsCard({
                   : `${formatHM(quote!.minHours as number)} – ${formatHM(quote!.maxHours as number)}`
             }
           />
-          <SummaryRow label={translate("bookingDetailCleaners")} value={quote?.cleanerCount ?? "—"} />
-          <SummaryRow label={translate("bookingDetailPricePerCleaner")} value={hourlyRate ? `${money(Number(hourlyRate))}/h` : "—"} />
+          <SummaryRow
+            label={translate(isCareService ? "bookingDetailProfessionals" : "bookingDetailCleaners")}
+            value={quote?.cleanerCount ?? "—"}
+          />
+          <SummaryRow
+            label={translate(isCareService ? "bookingDetailPricePerProfessional" : "bookingDetailPricePerCleaner")}
+            value={hourlyRate ? `${money(Number(hourlyRate))}/h` : "—"}
+          />
         </div>
 
         {facilities && facilities.length > 0 && (

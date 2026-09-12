@@ -191,6 +191,9 @@ function ServiceCard({ service }: { service: CatalogService }) {
 
   const taxStatusLabel = getTaxStatusLabel(service.name, country);
 
+  const isCareService = service.name === "child-care-service" || service.name === "elder-care-service";
+  const pricePerUnitKey = isCareService ? "servicesPricePerProfessional" : "servicesPricePerCleaner";
+
   return (
     <div className="flex h-full flex-col overflow-hidden rounded-xl border-2 border-brand-gold bg-brand-navy shadow-md transition-transform duration-200 hover:scale-[1.03] hover:shadow-xl">
       <div className="relative h-40 w-full shrink-0 sm:h-44">
@@ -221,7 +224,7 @@ function ServiceCard({ service }: { service: CatalogService }) {
             <>
               <p className="text-sm font-semibold text-brand-gold">
                 {service.price
-                  ? `Rate: ${symbol}${service.price}${translate("servicesPricePerCleaner")}`
+                  ? `Rate: ${symbol}${service.price}${translate(pricePerUnitKey)}`
                   : translate("servicesRequestQuotation")}
               </p>
               {service.price && taxStatusLabel && (

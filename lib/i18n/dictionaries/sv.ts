@@ -56,6 +56,7 @@ export const sv = {
   servicesComingSoon: "Kommer snart",
   servicesPricingSoon: "Priser kommer snart",
   servicesPricePerCleaner: "/h per städare",
+  servicesPricePerProfessional: "/h per yrkesperson",
   servicesSeeMore: "Se mer",
   servicesSeeLess: "Se mindre",
 
@@ -190,6 +191,7 @@ export const sv = {
   serviceHighlightSectionHeader: "Checklista för standardpaketet",
   serviceIntroBottomText: "Ställ in ditt återkommande schema",
   hourPerCleaner: "timme / per städare",
+  hourPerProfessional: "timme / per yrkesperson",
   /////////////////////////////////////////
   /////Service page All contents//////////
         //regular-home-cleaning///
@@ -1529,6 +1531,8 @@ export const sv = {
   bookingDetailDuration: "Varaktighet",
   bookingDetailCleaners: "Städare",
   bookingDetailPricePerCleaner: "Pris per städare",
+  bookingDetailProfessionals: "Yrkespersoner",
+  bookingDetailPricePerProfessional: "Pris per yrkesperson",
   bookingDetailFacilities: "Anläggningar",
   bookingDetailPackage: "Paket",
   bookingDetailIncluded: "Ingår",

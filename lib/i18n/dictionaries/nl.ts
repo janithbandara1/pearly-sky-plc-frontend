@@ -56,6 +56,7 @@ export const nl = {
   servicesComingSoon: "Binnenkort beschikbaar",
   servicesPricingSoon: "Prijzen binnenkort beschikbaar",
   servicesPricePerCleaner: "/u per schoonmaker",
+  servicesPricePerProfessional: "/u per professional",
   servicesSeeMore: "Meer zien",
   servicesSeeLess: "Minder zien",
 
@@ -190,6 +191,7 @@ export const nl = {
   serviceHighlightSectionHeader: "Standaard pakket checklist",
   serviceIntroBottomText: "Stel uw regelmatige schema in",
   hourPerCleaner: "uur / per schoonmaker",
+  hourPerProfessional: "uur / per professional",
 
   // Regular Home Cleaning
   serviceRegularCleaningIntroHeadLine: "Wekelijkse verfrissing: Consequente schoonmaak & langdurige rust.",
@@ -1516,6 +1518,8 @@ export const nl = {
   bookingDetailDuration: "Duur",
   bookingDetailCleaners: "Schoonmakers",
   bookingDetailPricePerCleaner: "Prijs per schoonmaker",
+  bookingDetailProfessionals: "Professionals",
+  bookingDetailPricePerProfessional: "Prijs per professional",
   bookingDetailFacilities: "Faciliteiten",
   bookingDetailPackage: "Pakket",
   bookingDetailIncluded: "Inbegrepen",

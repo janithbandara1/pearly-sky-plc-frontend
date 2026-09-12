@@ -56,6 +56,7 @@ export const fi = {
   servicesComingSoon: "Tulossa pian",
   servicesPricingSoon: "Hinnasto tulossa pian",
   servicesPricePerCleaner: "/h siivoojaa kohden",
+  servicesPricePerProfessional: "/h ammattilaista kohden",
   servicesSeeMore: "Näytä lisää",
   servicesSeeLess: "Näytä vähemmän",
 
@@ -190,6 +191,7 @@ export const fi = {
   serviceHighlightSectionHeader: "Vakiopaketin tarkistuslista",
   serviceIntroBottomText: "Määritä toistuva aikataulusi",
   hourPerCleaner: "tuntia / siivooja",
+  hourPerProfessional: "tuntia / ammattilainen",
 
   // Regular home cleaning
   serviceRegularCleaningIntroHeadLine: "Viikoittainen virkistys: Yhtenäistä puhtautta ja kestävää mielenrauhaa.",
@@ -1492,6 +1494,8 @@ export const fi = {
   bookingDetailDuration: "Kesto",
   bookingDetailCleaners: "Siivoojat",
   bookingDetailPricePerCleaner: "Hinta per siivooja",
+  bookingDetailProfessionals: "Ammattilaiset",
+  bookingDetailPricePerProfessional: "Hinta per ammattilainen",
   bookingDetailFacilities: "Tilat",
   bookingDetailPackage: "Paketti",
   bookingDetailIncluded: "Sisältyy",

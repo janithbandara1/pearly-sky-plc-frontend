@@ -56,6 +56,7 @@ export const ro = {
   servicesComingSoon: "În curând",
   servicesPricingSoon: "Prețuri în curând",
   servicesPricePerCleaner: "/h per curățător",
+  servicesPricePerProfessional: "/h per profesionist",
   servicesSeeMore: "Vezi mai mult",
   servicesSeeLess: "Vezi mai puțin",
 
@@ -190,6 +191,7 @@ export const ro = {
   serviceHighlightSectionHeader: "Lista de verificare a pachetului standard",
   serviceIntroBottomText: "Setează-ți programul regulat",
   hourPerCleaner: "oră / per curățător",
+  hourPerProfessional: "oră / per profesionist",
   /////////////////////////////////////////
   /////Service page All contents//////////
         //regular-home-cleaning///
@@ -1532,6 +1534,8 @@ export const ro = {
   bookingDetailDuration: "Durată",
   bookingDetailCleaners: "Curățători",
   bookingDetailPricePerCleaner: "Preț per curățător",
+  bookingDetailProfessionals: "Profesioniști",
+  bookingDetailPricePerProfessional: "Preț per profesionist",
   bookingDetailFacilities: "Facilități",
   bookingDetailPackage: "Pachet",
   bookingDetailIncluded: "Inclus",

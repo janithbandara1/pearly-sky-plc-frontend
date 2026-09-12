@@ -33,6 +33,7 @@ export function PageHero({
   servicePrices,
   serviceId,
   hidePriceSelector,
+  unitLabelKey,
 }: {
   image: string;
   eyebrow?: string;
@@ -42,6 +43,8 @@ export function PageHero({
   serviceId?: number;
   /** Hides the "€X.XX / Hour Per Cleaner" price + country picker — for services that aren't priced per hour. */
   hidePriceSelector?: boolean;
+  /** "Hour Per Cleaner" by default — pass "hourPerProfessional" for Child/Elder Care. */
+  unitLabelKey?: TranslationKey;
 }) {
   /** The site-wide country (same one the navbar's CountrySwitcher/LocaleSwitcher drive) — picking a country here navigates the whole site, same as picking it there. */
   const { country, setCountry } = useCountry();
@@ -164,6 +167,7 @@ export function PageHero({
             selectedFlag={SelectedFlag}
             getFlagComponent={getFlagComponent}
             onCountryChange={(nextCountry) => setCountry(normalizeCountryCode(nextCountry))}
+            unitLabelKey={unitLabelKey}
           />
         )}
       </div>

@@ -54,6 +54,7 @@ export const de = {
   servicesComingSoon: "Demnächst verfügbar",
   servicesPricingSoon: "Preise demnächst verfügbar",
   servicesPricePerCleaner: "/Std. pro Reinigungskraft",
+  servicesPricePerProfessional: "/Std. pro Fachkraft",
   servicesSeeMore: "Mehr anzeigen",
   servicesSeeLess: "Weniger anzeigen",
 
@@ -189,6 +190,7 @@ export const de = {
   serviceHighlightSectionHeader: "Checkliste Standardpaket",
   serviceIntroBottomText: "Legen Sie Ihren wiederkehrenden Zeitplan fest",
   hourPerCleaner: "Stunde pro Reinigungskraft",
+  hourPerProfessional: "Stunde pro Fachkraft",
 
   /////////////////////////////////////////
   /////Service page All contents//////////
@@ -1532,6 +1534,8 @@ export const de = {
   bookingDetailDuration: "Dauer",
   bookingDetailCleaners: "Reinigungskräfte",
   bookingDetailPricePerCleaner: "Preis pro Reinigungskraft",
+  bookingDetailProfessionals: "Fachkräfte",
+  bookingDetailPricePerProfessional: "Preis pro Fachkraft",
   bookingDetailFacilities: "Einrichtungen",
   bookingDetailPackage: "Paket",
   bookingDetailIncluded: "Enthalten",

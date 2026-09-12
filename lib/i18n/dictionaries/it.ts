@@ -56,6 +56,7 @@ export const it = {
   servicesComingSoon: "Prossimamente",
   servicesPricingSoon: "Prezzi in arrivo",
   servicesPricePerCleaner: "/h per addetto alle pulizie",
+  servicesPricePerProfessional: "/h per professionista",
   servicesSeeMore: "Vedi di più",
   servicesSeeLess: "Vedi di meno",
 
@@ -190,6 +191,7 @@ export const it = {
   serviceHighlightSectionHeader: "Checklist del pacchetto standard",
   serviceIntroBottomText: "Imposta il tuo programma ricorrente",
   hourPerCleaner: "ore / per addetto",
+  hourPerProfessional: "ore / per professionista",
 
   // Regular home cleaning
   serviceRegularCleaningIntroHeadLine: "Rinfresco settimanale: Pulizia costante e tranquillità duratura.",
@@ -1493,6 +1495,8 @@ export const it = {
   bookingDetailDuration: "Durata",
   bookingDetailCleaners: "Addetti alle pulizie",
   bookingDetailPricePerCleaner: "Prezzo per addetto",
+  bookingDetailProfessionals: "Professionisti",
+  bookingDetailPricePerProfessional: "Prezzo per professionista",
   bookingDetailFacilities: "Strutture",
   bookingDetailPackage: "Pacchetto",
   bookingDetailIncluded: "Incluso",

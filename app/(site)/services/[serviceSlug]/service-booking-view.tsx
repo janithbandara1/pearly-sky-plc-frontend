@@ -552,6 +552,7 @@ export function ServiceBookingView({ serviceSlug }: { serviceSlug: string }) {
         servicePrices={service.prices}
         serviceId={service.id}
         hidePriceSelector={isPoolCleaning  || isCarpetService || isPressureWashing}
+        unitLabelKey={isChildCare || isElderCare ? "hourPerProfessional" : undefined}
       />
 
       <div className="mx-auto flex w-full  max-w-[1250px]  flex-col gap-6 px-6 md:px-2">

@@ -596,6 +596,7 @@ export default function CheckoutPage({
         servicePrices={service.prices}
         serviceId={service.id}
         hidePriceSelector={isPoolService  || isCarpetService || isPressureService}
+        unitLabelKey={isChildCare || isElderCare ? "hourPerProfessional" : undefined}
       />
 
       {isFlowService ? (
@@ -1220,6 +1221,7 @@ export default function CheckoutPage({
               propertyType={isCareService ? undefined : draft.propertyType}
               propertySizeSqm={draft.propertySizeSqm}
               hidePropertySize={isCareService}
+              isCareService={isCareService}
               genderLabel={
                 GENDER_OPTIONS.find((o) => o.value === gender)?.label ??
                 "No Preference"

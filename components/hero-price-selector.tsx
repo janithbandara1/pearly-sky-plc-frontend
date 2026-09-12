@@ -3,6 +3,7 @@
 import { useLanguage } from "@/lib/i18n/language-context";
 import { useEffect, useRef, useState } from "react";
 import type { ComponentType } from "react";
+import type { TranslationKey } from "@/lib/i18n/dictionaries/en";
 
 export interface HeroPriceOption {
   country: string;
@@ -17,6 +18,8 @@ interface HeroPriceSelectorProps {
   selectedFlag: ComponentType<{ className?: string }>;
   getFlagComponent: (country: string) => ComponentType<{ className?: string }>;
   onCountryChange: (country: string) => void;
+  /** "Hour Per Cleaner" by default — pass "hourPerProfessional" for Child/Elder Care. */
+  unitLabelKey?: TranslationKey;
 }
 
 function PriceLabel({ selectedData, className }: { selectedData: HeroPriceOption; className: string }) {
@@ -129,6 +132,7 @@ export function HeroPriceSelector({
   selectedFlag,
   getFlagComponent,
   onCountryChange,
+  unitLabelKey = "hourPerCleaner",
 }: HeroPriceSelectorProps) {
   const {translate} =useLanguage();
   return (
@@ -149,7 +153,7 @@ export function HeroPriceSelector({
             placement="desktop"
           />
           <p className="m-0 font-[Poppins] pl-2 text-base font-extrabold leading-[1.5] text-[rgb(169,139,75)] [text-shadow:rgba(0,0,0,0.3)_0px_1px_4px]">
-            {translate("hourPerCleaner")}
+            {translate(unitLabelKey)}
           </p>
         </div>
       </div>
@@ -170,7 +174,7 @@ export function HeroPriceSelector({
             placement="mobile"
           />
           <p className="m-0 wrap-break-word font-[Poppins] text-[0.85rem] font-extrabold leading-[1.5] text-[rgb(233,233,233)] [text-shadow:rgba(0,0,0,0.3)_0px_1px_4px]">
-            {translate("hourPerCleaner")}
+            {translate(unitLabelKey)}
           </p>
         </div>
       </div>

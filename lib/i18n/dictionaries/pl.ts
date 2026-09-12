@@ -56,6 +56,7 @@ export const pl = {
   servicesComingSoon: "Wkrótce",
   servicesPricingSoon: "Cennik wkrótce",
   servicesPricePerCleaner: "/h na sprzątacza",
+  servicesPricePerProfessional: "/h na specjalistę",
   servicesSeeMore: "Zobacz więcej",
   servicesSeeLess: "Zobacz mniej",
 
@@ -190,6 +191,7 @@ export const pl = {
   serviceHighlightSectionHeader: "Lista kontrolna pakietu standardowego",
   serviceIntroBottomText: "Ustaw swój regularny harmonogram",
   hourPerCleaner: "godzina / na sprzątacza",
+  hourPerProfessional: "godzina / na specjalistę",
   /////////////////////////////////////////
   /////Service page All contents//////////
         //regular-home-cleaning///
@@ -1532,6 +1534,8 @@ export const pl = {
   bookingDetailDuration: "Czas trwania",
   bookingDetailCleaners: "Sprzątający",
   bookingDetailPricePerCleaner: "Cena za sprzątającego",
+  bookingDetailProfessionals: "Specjaliści",
+  bookingDetailPricePerProfessional: "Cena za specjalistę",
   bookingDetailFacilities: "Obiekty",
   bookingDetailPackage: "Pakiet",
   bookingDetailIncluded: "W pakiecie",

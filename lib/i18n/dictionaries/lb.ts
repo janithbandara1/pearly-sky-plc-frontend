@@ -56,6 +56,7 @@ export const lb = {
   servicesComingSoon: "Kommt geschwënn",
   servicesPricingSoon: "Präisser kommen geschwënn",
   servicesPricePerCleaner: "/Stonn pro Botzer",
+  servicesPricePerProfessional: "/Stonn pro Fachpersonal",
   servicesSeeMore: "Méi gesinn",
   servicesSeeLess: "Manner gesinn",
 
@@ -190,6 +191,7 @@ export const lb = {
   serviceHighlightSectionHeader: "Standard-Pak Checklëscht",
   serviceIntroBottomText: "Setzt Äre regelméissegen Zäitplang fest",
   hourPerCleaner: "Stonnen / pro Botzer",
+  hourPerProfessional: "Stonnen / pro Fachpersonal",
 
   // Regular Home Cleaning
   serviceRegularCleaningIntroHeadLine: "Wöchentlech Opfrëschung: Konsequent Botzen a laang unhaltend Rou.",
@@ -1507,6 +1509,8 @@ export const lb = {
   bookingDetailDuration: "Dauer",
   bookingDetailCleaners: "Botzer",
   bookingDetailPricePerCleaner: "Präis pro Botzer",
+  bookingDetailProfessionals: "Fachleit",
+  bookingDetailPricePerProfessional: "Präis pro Fachpersonal",
   bookingDetailFacilities: "Ariichtungen",
   bookingDetailPackage: "Paket",
   bookingDetailIncluded: "Inbegraff",

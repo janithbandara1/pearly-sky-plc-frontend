@@ -54,6 +54,7 @@ export const es = {
   servicesComingSoon: "Próximamente",
   servicesPricingSoon: "Precios próximamente",
   servicesPricePerCleaner: "/h por limpiador",
+  servicesPricePerProfessional: "/h por profesional",
   servicesSeeMore: "Ver más",
   servicesSeeLess: "Ver menos",
 
@@ -184,6 +185,7 @@ export const es = {
   serviceHighlightSectionHeader: "Lista de verificación del paquete estándar",
   serviceIntroBottomText: "Establezca su horario recurrente",
   hourPerCleaner: "Hora por limpiador",
+  hourPerProfessional: "Hora por profesional",
 
   // Service page details
   // Regular home cleaning
@@ -1487,6 +1489,8 @@ export const es = {
   bookingDetailDuration: "Duración",
   bookingDetailCleaners: "Limpiadores",
   bookingDetailPricePerCleaner: "Precio por limpiador",
+  bookingDetailProfessionals: "Profesionales",
+  bookingDetailPricePerProfessional: "Precio por profesional",
   bookingDetailFacilities: "Instalaciones",
   bookingDetailPackage: "Paquete",
   bookingDetailIncluded: "Incluido",

@@ -56,6 +56,7 @@ export const no = {
   servicesComingSoon: "Kommer snart",
   servicesPricingSoon: "Priser kommer snart",
   servicesPricePerCleaner: "/t per renholder",
+  servicesPricePerProfessional: "/t per fagperson",
   servicesSeeMore: "Se mer",
   servicesSeeLess: "Se mindre",
 
@@ -190,6 +191,7 @@ export const no = {
   serviceHighlightSectionHeader: "Sjekkliste for standardpakke",
   serviceIntroBottomText: "Sett opp din regelmessige timeplan",
   hourPerCleaner: "time / per renholder",
+  hourPerProfessional: "time / per fagperson",
   /////////////////////////////////////////
   /////Service page All contents//////////
         //regular-home-cleaning///
@@ -1532,6 +1534,8 @@ export const no = {
   bookingDetailDuration: "Varighet",
   bookingDetailCleaners: "Renholdere",
   bookingDetailPricePerCleaner: "Pris per renholder",
+  bookingDetailProfessionals: "Fagpersoner",
+  bookingDetailPricePerProfessional: "Pris per fagperson",
   bookingDetailFacilities: "Anlegg",
   bookingDetailPackage: "Pakke",
   bookingDetailIncluded: "Inkludert",

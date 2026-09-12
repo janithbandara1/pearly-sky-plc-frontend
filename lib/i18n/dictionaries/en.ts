@@ -53,6 +53,7 @@ export const en = {
   servicesComingSoon: "Coming soon",
   servicesPricingSoon: "Pricing coming soon",
   servicesPricePerCleaner: "/h per cleaner",
+  servicesPricePerProfessional: "/h per professional",
   servicesSeeMore: "See more",
   servicesSeeLess: "See less",
 
@@ -191,6 +192,7 @@ serviceCommercialOfficeCleaningDescription:"Professional cleaning for business s
   serviceHighlightSectionHeader:"Standard Package Checklist",
   serviceIntroBottomText:"Set Your Recurring Schedule",
   hourPerCleaner:"Hour Per Cleaner",
+  hourPerProfessional:"Hour Per Professional",
   /////////////////////////////////////////
   /////Service page All contents//////////
         //regular-home-cleaning///
@@ -1568,6 +1570,8 @@ serviceLuxuryYachtCleaningTitleFiveFeatureTwo:"Complete linen turnover, sanitati
   bookingDetailDuration: "Duration",
   bookingDetailCleaners: "Cleaners",
   bookingDetailPricePerCleaner: "Price per cleaner",
+  bookingDetailProfessionals: "Professionals",
+  bookingDetailPricePerProfessional: "Price per professional",
   bookingDetailFacilities: "Facilities",
   bookingDetailPackage: "Package",
   bookingDetailIncluded: "Included",

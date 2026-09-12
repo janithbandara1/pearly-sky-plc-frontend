@@ -54,6 +54,7 @@ export const da = {
   servicesComingSoon: "Kommer snart",
   servicesPricingSoon: "Priser kommer snart",
   servicesPricePerCleaner: "/t pr. rengøringsassistent",
+  servicesPricePerProfessional: "/t pr. fagperson",
   servicesSeeMore: "Se mere",
   servicesSeeLess: "Se mindre",
 
@@ -188,6 +189,7 @@ export const da = {
   serviceHighlightSectionHeader: "Tjekliste for standardpakke",
   serviceIntroBottomText: "Indstil din tilbagevendende tidsplan",
   hourPerCleaner: "Time pr. rengøringsassistent",
+  hourPerProfessional: "Time pr. fagperson",
 
   // Regular Home Cleaning
   serviceRegularCleaningIntroHeadLine: "Den ugentlige opfriskning: Konsekvent renlighed og bæredygtig ro i sindet.",
@@ -1494,6 +1496,8 @@ export const da = {
   bookingDetailDuration: "Varighed",
   bookingDetailCleaners: "Rengøringsassistenter",
   bookingDetailPricePerCleaner: "Pris pr. rengøringsassistent",
+  bookingDetailProfessionals: "Fagpersoner",
+  bookingDetailPricePerProfessional: "Pris pr. fagperson",
   bookingDetailFacilities: "Faciliteter",
   bookingDetailPackage: "Pakke",
   bookingDetailIncluded: "Inkluderet",

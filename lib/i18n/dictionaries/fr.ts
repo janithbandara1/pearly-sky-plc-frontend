@@ -635,6 +635,7 @@ serviceLuxuryYachtCleaningTitleFiveFeatureTwo: "Turnover complet du linge, assai
   servicesComingSoon: "Bientôt disponible",
   servicesPricingSoon: "Tarif à venir",
   servicesPricePerCleaner: "/h par nettoyeur",
+  servicesPricePerProfessional: "/h par professionnel",
   servicesSeeMore: "Voir plus",
   servicesSeeLess: "Voir moins",
 
@@ -927,6 +928,7 @@ AddsOnCategoryOvenFridgeRestoration: "Restauration professionnelle de four et r�
   serviceHighlightSectionHeader:"Checklist du Package Standard",
   serviceIntroBottomText:"Définissez votre calendrier récurrent",
   hourPerCleaner:"Heures Par Nettoyeur",
+  hourPerProfessional:"Heures Par Professionnel",
 
   //
   aboutOurServices : "Nos services",
@@ -1528,6 +1530,8 @@ AddsOnCategoryOvenFridgeRestoration: "Restauration professionnelle de four et r�
   bookingDetailDuration: "Durée",
   bookingDetailCleaners: "Intervenants",
   bookingDetailPricePerCleaner: "Tarif par intervenant",
+  bookingDetailProfessionals: "Professionnels",
+  bookingDetailPricePerProfessional: "Tarif par professionnel",
   bookingDetailFacilities: "Installations",
   bookingDetailPackage: "Forfait",
   bookingDetailIncluded: "Inclus",
