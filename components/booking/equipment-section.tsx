@@ -138,11 +138,11 @@ export function EquipmentSection({
         </div>
 
         {/* Row 5: CLEANING DURATION PRICE RANGE */}
-        <div className="flex items-center justify-between py-3 border-b border-[#1E2D45]">
+        <div className="flex items-center justify-between gap-2 py-3 border-b border-[#1E2D45]">
           <span className="text-xs font-bold uppercase tracking-wide text-[#8A99AD] sm:text-xs">
             {translate("equipPriceRange")}
           </span>
-          <span className="text-xs font-bold text-[#FFFDF4] sm:text-sm">
+          <span className="shrink-0 whitespace-nowrap text-xs font-bold text-[#FFFDF4] sm:text-sm">
             {cleaningPriceRange}
           </span>
         </div>
@@ -219,11 +219,11 @@ export function EquipmentSection({
         )}
 
         {/* Highlighted Box: ESTIMATED PRICE RANGE */}
-        <div className="mt-5 flex items-center justify-between rounded-[8px] border border-[#2D3F59] bg-[#0E1A2E] px-4 py-3.5 sm:px-5">
+        <div className="mt-5 flex items-center justify-between gap-2 rounded-[8px] border border-[#2D3F59] bg-[#0E1A2E] px-4 py-3.5 sm:px-5">
           <span className="text-xs font-bold uppercase tracking-wider text-[#C5A253] sm:text-sm">
             {translate("equipEstimatedPriceRange")}
           </span>
-          <span className="text-sm font-extrabold text-[#FFFDF4] sm:text-base">
+          <span className="shrink-0 whitespace-nowrap text-sm font-extrabold text-[#FFFDF4] sm:text-base">
             {estimatedPriceRange}
           </span>
         </div>
