@@ -7,11 +7,11 @@ const paymentMethods = [
   },
   {
     name: "Stripe",
-    src: "/images/services/paymentmethods/stripe_Logo,_revised_2016.svg",
+    src: "/images/services/paymentmethods/Stripe_Logo,_revised_2016.svg",
   },
   {
     name: "Mastercard",
-    src: "/images/services/paymentmethods/mastercard-logo.svg",
+    src: "/images/services/paymentmethods/Mastercard-logo.svg",
   },
   {
     name: "American Express",
