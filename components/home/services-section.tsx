@@ -6,6 +6,7 @@ import { useState } from "react";
 import { ArrowRight, ChevronDown, ChevronUp } from "lucide-react";
 import type { CatalogService, ServiceCategory } from "@/lib/catalog-api";
 import { useCurrency } from "@/lib/currency-context";
+import { useCountry } from "@/lib/countries/country-context";
 import { useLanguage } from "@/lib/i18n/language-context";
 import type { TranslationKey } from "@/lib/i18n/dictionaries/en";
 
@@ -50,9 +51,115 @@ const SERVICE_TRANSLATIONS: Partial<Record<string, { label: TranslationKey; desc
   "luxury-yacht-cleaning": { label: "serviceLuxuryYachtCleaning", description: "serviceLuxuryYachtCleaningDescription" },
 };
 
+type TaxBucket = "residential" | "commercial" | "specialized";
+
+/**
+ * Which tax-display bucket each hourly-rate service falls into, per the
+ * "Pearly Sky Eco-Luxury Cleaning — International Pricing Structure" web
+ * display spec. This is a display-only grouping distinct from the app's
+ * ServiceCategory (e.g. High-Security Property Care is RESIDENTIAL_CLEANING
+ * in the catalog but shown as "Residential" here too, while Steam/Post-Event/
+ * Luxury Yacht are COMMERCIAL_AND_SPECIALIZED_CLEANING in the catalog yet
+ * "Specialized" here — the two taxonomies just happen to diverge on those).
+ */
+const SERVICE_TAX_BUCKET: Partial<Record<string, TaxBucket>> = {
+  "regular-home-cleaning": "residential",
+  "regular-maintenance-cleaning": "residential",
+  "essential-touch-up-cleaning": "residential",
+  "quick-touch-up-cleaning": "residential",
+  "deep-cleaning": "residential",
+  "end-of-tenancy-cleaning": "residential",
+  "post-construction-renovation-cleaning": "residential",
+  "same-day-priority-cleaning": "residential",
+  "high-security-property-care": "residential",
+  "premium-rental-concierge-cleaning": "residential",
+  "commercial-office-cleaning": "commercial",
+  "healthguard-sanitization": "specialized",
+  "steam-cleaning": "specialized",
+  "post-event-cleaning": "specialized",
+  "luxury-yacht-cleaning": "specialized",
+  "child-care-service": "specialized",
+  "elder-care-service": "specialized",
+};
+
+const TAX_BUCKET_LABEL: Record<TaxBucket, string> = {
+  residential: "Residential",
+  commercial: "Commercial",
+  specialized: "Specialized",
+};
+
+type TaxStatusWording = Record<TaxBucket, string>;
+
+const EU_TAX_WORDING: TaxStatusWording = {
+  residential: "VAT Included [TTC]",
+  commercial: "VAT Excluded [HT]",
+  specialized: "VAT Included [TTC]",
+};
+const UK_TAX_WORDING: TaxStatusWording = {
+  residential: "Tax Included",
+  commercial: "Excl. VAT",
+  specialized: "Tax Included",
+};
+const CH_TAX_WORDING: TaxStatusWording = {
+  residential: "Incl. VAT",
+  commercial: "Excl. VAT",
+  specialized: "Incl. VAT",
+};
+const US_TAX_WORDING: TaxStatusWording = {
+  residential: "Plus Tax",
+  commercial: "Plus Tax",
+  specialized: "Plus Tax",
+};
+const CA_TAX_WORDING: TaxStatusWording = {
+  residential: "Tax Included",
+  commercial: "Excl. Tax",
+  specialized: "Tax Included",
+};
+const GST_TAX_WORDING: TaxStatusWording = {
+  residential: "Incl. GST",
+  commercial: "Excl. GST",
+  specialized: "Incl. GST",
+};
+const GCC_TAX_WORDING: TaxStatusWording = {
+  residential: "Incl. VAT",
+  commercial: "Excl. VAT",
+  specialized: "Incl. VAT",
+};
+const LK_TAX_WORDING: TaxStatusWording = {
+  residential: "Incl. VAT",
+  commercial: "Excl. VAT",
+  specialized: "Incl. VAT",
+};
+
+/** Per-country tax-status wording for the web display spec — covers all 28 supported countries (see backend's countries.constant.ts). */
+const COUNTRY_TAX_WORDING: Record<string, TaxStatusWording> = {
+  fr: EU_TAX_WORDING, de: EU_TAX_WORDING, lu: EU_TAX_WORDING, nl: EU_TAX_WORDING,
+  fi: EU_TAX_WORDING, se: EU_TAX_WORDING, it: EU_TAX_WORDING, pl: EU_TAX_WORDING,
+  be: EU_TAX_WORDING, at: EU_TAX_WORDING, dk: EU_TAX_WORDING, es: EU_TAX_WORDING,
+  pt: EU_TAX_WORDING, ro: EU_TAX_WORDING, ie: EU_TAX_WORDING, mc: EU_TAX_WORDING,
+  ch: CH_TAX_WORDING,
+  gb: UK_TAX_WORDING,
+  us: US_TAX_WORDING,
+  ca: CA_TAX_WORDING,
+  au: GST_TAX_WORDING,
+  nz: GST_TAX_WORDING,
+  qa: GCC_TAX_WORDING, sa: GCC_TAX_WORDING, ae: GCC_TAX_WORDING,
+  om: GCC_TAX_WORDING, bh: GCC_TAX_WORDING,
+  lk: LK_TAX_WORDING,
+};
+
+/** e.g. "(Residential - VAT Included [TTC])" for regular-home-cleaning in France. */
+function getTaxStatusLabel(serviceName: string, country: string | null): string | null {
+  const bucket = SERVICE_TAX_BUCKET[serviceName];
+  const wording = country ? COUNTRY_TAX_WORDING[country] : undefined;
+  if (!bucket || !wording) return null;
+  return `(${TAX_BUCKET_LABEL[bucket]} - ${wording[bucket]})`;
+}
+
 function ServiceCard({ service }: { service: CatalogService }) {
   const { translate } = useLanguage();
   const { symbol } = useCurrency();
+  const { country } = useCountry();
   const serviceTranslation = SERVICE_TRANSLATIONS[service.name];
   const label = serviceTranslation ? translate(serviceTranslation.label) : service.label;
   const description = serviceTranslation ? translate(serviceTranslation.description) : service.description;
@@ -82,6 +189,8 @@ function ServiceCard({ service }: { service: CatalogService }) {
     service.name === "laundry-service" ||
     service.name === "move-in-out-transport-service";
 
+  const taxStatusLabel = getTaxStatusLabel(service.name, country);
+
   return (
     <div className="flex h-full flex-col overflow-hidden rounded-xl border-2 border-brand-gold bg-brand-navy shadow-md transition-transform duration-200 hover:scale-[1.03] hover:shadow-xl">
       <div className="relative h-40 w-full shrink-0 sm:h-44">
@@ -109,11 +218,16 @@ function ServiceCard({ service }: { service: CatalogService }) {
             </p>
           )}
           {!hidesHourlyRate && (
-            <p className="text-sm font-semibold text-brand-gold">
-              {service.price
-                ? `Rate: ${symbol}${service.price}${translate("servicesPricePerCleaner")}`
-                : translate("servicesRequestQuotation")}
-            </p>
+            <>
+              <p className="text-sm font-semibold text-brand-gold">
+                {service.price
+                  ? `Rate: ${symbol}${service.price}${translate("servicesPricePerCleaner")}`
+                  : translate("servicesRequestQuotation")}
+              </p>
+              {service.price && taxStatusLabel && (
+                <p className="text-xs text-brand-navy-foreground/60">{taxStatusLabel}</p>
+              )}
+            </>
           )}
         </div>
 
