@@ -1,8 +1,17 @@
-const API_URL = process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:3001";
+const PUBLIC_API_URL = process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:3001";
+
+// On the server, hit the backend directly over loopback instead of going back out
+// through the public domain — the public URL is proxied through Cloudflare, whose
+// bot protection blocks the plain server-to-server fetch (no browser to solve its
+// JS challenge) even though the same request from an actual browser works fine.
+const API_URL =
+  typeof window === "undefined"
+    ? (process.env.API_INTERNAL_URL ?? PUBLIC_API_URL)
+    : PUBLIC_API_URL;
 
 /** Builds an absolute API URL — for links the browser navigates to directly (e.g. a PDF download), not for apiFetch calls. */
 export function apiUrl(path: string): string {
-  return `${API_URL}${path}`;
+  return `${PUBLIC_API_URL}${path}`;
 }
 
 export class ApiError extends Error {
