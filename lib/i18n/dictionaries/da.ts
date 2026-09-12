@@ -1947,4 +1947,8 @@ confirmBookingDesc: "Din rengøringsoplevelse er bekræftet. Et dedikeret specia
 confirmViewBookings: "SE MINE BOOKINGER",
 scanQrTitle: "Scan for at se detaljer",
 scanQrDesc: "Scan denne kode med din telefon for at åbne de fulde oplysninger online, når som helst.",
+
+  CustomerFeedBack: "Kundefeedback",
+    ValuedCustomerReviews: "Værdsatte kundeanmeldelser",
+    CustomerReview: "Kundeanmeldelse",
 } as Record<TranslationKey, TranslationValue>;

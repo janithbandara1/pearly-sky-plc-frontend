@@ -1970,4 +1970,8 @@ export const nl = {
   scanQrTitle: "Scan om details te bekijken",
   scanQrDesc: "Scan deze code met je telefoon om op elk moment de volledige details online te bekijken.",
 
+
+  CustomerFeedBack: "Klantenfeedback",
+    ValuedCustomerReviews: "Waardevolle klantbeoordelingen",
+    CustomerReview: "Klantbeoordeling",
 } as Record<TranslationKey, TranslationValue>;

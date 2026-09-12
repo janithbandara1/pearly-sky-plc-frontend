@@ -1985,4 +1985,10 @@ confirmBookingDesc: "Rengjøringsopplevelsen din er bekreftet. Et dedikert spesi
 confirmViewBookings: "VIS MINE BESTILLINGER",
 scanQrTitle: "Skann for å vise detaljer",
 scanQrDesc: "Skann denne koden med telefonen din for å åpne alle detaljene på nettet, når som helst.",
+
+//
+CustomerFeedBack: "Kundetilbakemelding",
+    ValuedCustomerReviews: "Verdifulle kundevurderinger",
+    CustomerReview: "Kundevurdering",
+
 } as Record<TranslationKey, TranslationValue>;

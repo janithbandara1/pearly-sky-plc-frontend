@@ -1985,4 +1985,11 @@ export const pt = {
   confirmViewBookings: "VER AS MINHAS RESERVAS",
   scanQrTitle: "Digitalize para ver os detalhes",
   scanQrDesc: "Digitalize este código com o seu telemóvel para abrir os detalhes completos online, a qualquer momento.",
+
+
+  // Customer Feedback Section
+  CustomerFeedBack: "Feedback do cliente",
+    ValuedCustomerReviews: "Avaliações de clientes valiosos",
+    CustomerReview: "Avaliação de cliente",
+
 } as Record<TranslationKey, TranslationValue>;

@@ -1961,4 +1961,7 @@ export const lb = {
   scanQrTitle: "Scannen fir Detailer ze weisen",
   scanQrDesc: "Scann dëse Code mat Ärem Telefon, fir déi komplett Detailer zu all Moment online opzeruffen.",
   
+  CustomerFeedBack: "Clientëfeedback",
+    ValuedCustomerReviews: "Wäertvoll Clientëbewäertungen",
+    CustomerReview: "Clientëbewäertung",
 } as Record<TranslationKey, TranslationValue>;

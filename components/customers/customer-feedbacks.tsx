@@ -1,15 +1,17 @@
 "use client";
 import React from "react";
 import Image from "next/image";
+import { useLanguage } from "@/lib/i18n/language-context";
 
 
 export default function CustomerFeedback() {
+  const{translate} = useLanguage();
   return (
     <section className="w-full bg-[#f6f2e8] py-12 px-4 flex justify-center">
       <div className="max-w-6xl w-full flex flex-col items-center">
         {/* Main Title */}
         <h2 className="text-3xl md:text-4xl font-extrabold text-[#002b5c] text-center mb-8 tracking-tight">
-          Customer Feedback
+          {translate("CustomerFeedBack")}
         </h2>
 
         {/* Cards Wrapper */}
@@ -17,7 +19,7 @@ export default function CustomerFeedback() {
           {/* Card 1: Valued Customer Reviews */}
           <div className="bg-[#fffdf7] rounded-xl p-6 shadow-[0_4px_20px_rgba(0,0,0,0.06)] flex flex-col items-center">
             <h3 className="text-lg font-bold text-gray-900 mb-5">
-              Valued Customer Reviews
+              {translate("ValuedCustomerReviews")}
             </h3>
 
             {/* Platform Badges */}
@@ -55,7 +57,7 @@ export default function CustomerFeedback() {
           {/* Card 2: Customer Review */}
           <div className="bg-[#fffdf7] rounded-xl p-6 shadow-[0_4px_20px_rgba(0,0,0,0.06)] flex flex-col items-center">
             <h3 className="text-lg font-bold text-gray-900 mb-5">
-              Customer Review
+              {translate("CustomerReview")}
             </h3>
 
             {/* Platform Badges */}

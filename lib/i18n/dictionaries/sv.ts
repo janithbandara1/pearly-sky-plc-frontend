@@ -1982,4 +1982,10 @@ confirmBookingDesc: "Din städupplevelse är bekräftad. Ett dedikerat specialis
 confirmViewBookings: "VISA MINA BOKNINGAR",
 scanQrTitle: "Skanna för att visa detaljer",
 scanQrDesc: "Skanna den här koden med din telefon för att öppna alla detaljer online, när som helst.",
+
+  //Customer feedbacks
+  CustomerFeedBack: "Kundfeedback",
+    ValuedCustomerReviews: "Värderade kundrecensioner",
+    CustomerReview: "Kundrecension",
+
 } as Record<TranslationKey, TranslationValue>;

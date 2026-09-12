@@ -1940,4 +1940,8 @@ confirmBookingDesc: "Su experiencia de limpieza está confirmada. Un equipo dedi
 confirmViewBookings: "VER MIS RESERVAS",
 scanQrTitle: "Escanee para ver los detalles",
 scanQrDesc: "Escanee este código con su teléfono para ver los detalles completos en línea, en cualquier momento.",
+
+  CustomerFeedBack: "Comentarios de clientes",
+    ValuedCustomerReviews: "Reseñas de clientes valiosos",
+    CustomerReview: "Reseña de cliente",
 } as Record<TranslationKey, TranslationValue>;

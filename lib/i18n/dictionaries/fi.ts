@@ -1945,5 +1945,10 @@ export const fi = {
   confirmViewBookings: "NÄYTÄ VARAUKSENI",
   scanQrTitle: "Lue katsoaksesi tiedot",
   scanQrDesc: "Lue tämä koodi puhelimellasi avataksesi kaikki tiedot verkossa, milloin tahansa.",
+
+  //
+  CustomerFeedBack: "Asiakaspalaute",
+  ValuedCustomerReviews: "Arvostetut asiakasarvostelut",
+  CustomerReview: "Asiakasarvostelu",
   
 } as Record<TranslationKey, TranslationValue>;

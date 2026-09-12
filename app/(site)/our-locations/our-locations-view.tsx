@@ -158,7 +158,7 @@ export function OurLocationsView() {
                           <div key={`${loc.id}-${copy}`} className="w-[min(82vw,22rem)] shrink-0 sm:w-[20rem] lg:w-[22rem]">
                             <LocationCard
                               location={loc}
-                              isOpen={copy === 0 && openLocationId === loc.id}
+                              isOpen={true}
                               onToggle={copy === 0 ? () => handleToggle(loc.id) : () => undefined}
                             />
                           </div>

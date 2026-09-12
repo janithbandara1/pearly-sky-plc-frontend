@@ -13,7 +13,7 @@ export const blogPosts: BlogPost[] = [
     title: "The Importance Of Regular Cleaning For A Healthy Home",
     description:
       "Why a consistent cleaning routine does more for your home than just appearances — and how to keep it up without the effort.",
-    image: "/images/blog/importance-of-regular-cleaning.jpg",
+    image: "/images/blog/article-1.jpeg",
     date: "9 December 2025",
     body: [
       "A clean home is more than a nice-to-have — it's a foundation for wellbeing. Dust, allergens, and bacteria build up quickly in high-traffic areas like kitchens, bathrooms, and living rooms, and left unchecked they can affect air quality and everyday comfort.",
@@ -26,7 +26,7 @@ export const blogPosts: BlogPost[] = [
     title: "Top 5 Cleaning Tips For Busy Professionals",
     description:
       "Get expert advice on how to keep your space clean and organized, even on the busiest of days.",
-    image: "/images/blog/top-5-cleaning-tips.jpg",
+    image: "/images/blog/article-2.jpeg",
     date: "9 December 2025",
     body: [
       "1. Clean in short, focused bursts. Ten minutes tidying a single room beats an occasional multi-hour marathon — it's easier to fit into a packed schedule and prevents mess from accumulating.",
@@ -41,7 +41,7 @@ export const blogPosts: BlogPost[] = [
     title: "The Benefits Of Eco-Friendly Cleaning Services",
     description:
       "Learn about the advantages of choosing eco-friendly cleaning services for your home or business.",
-    image: "/images/blog/eco-friendly-cleaning.jpg",
+    image: "/images/blog/article-3.jpeg",
     date: "9 December 2025",
     body: [
       "Conventional cleaning products often trade effectiveness for harsh chemicals — leaving residues that affect indoor air quality and aren't always safe around children or pets.",

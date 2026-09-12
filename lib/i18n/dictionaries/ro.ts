@@ -1985,4 +1985,8 @@ export const ro = {
   confirmViewBookings: "VEZI REZERVĂRILE MELE",
   scanQrTitle: "Scanați pentru a vedea detaliile",
   scanQrDesc: "Scanați acest cod cu telefonul pentru a deschide detaliile complete online, oricând.",
+
+  CustomerFeedBack: "Feedback clienți",
+  ValuedCustomerReviews: "Recenzii clienți valoroși",
+  CustomerReview: "Recenzie client",
 } as Record<TranslationKey, TranslationValue>;
