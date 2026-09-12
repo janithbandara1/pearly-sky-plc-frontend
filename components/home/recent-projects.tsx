@@ -171,7 +171,7 @@ export default function RecentProjects() {
 
         {/* View All Projects Link -> Redirects to Customer Page */}
         <Link
-          href="/customer"
+          href="/our-customers"
           className="mt-5 bg-gradient-to-b from-[#D4B382] via-[#CBB080] to-[#99794E] text-[#2D2115] font-semibold py-2 px-6 rounded-full border border-[#E3CBA2]/40 shadow-sm transition-all hover:brightness-105 active:scale-95 py-1 px-3 rounded-2xl bg-[#A98B4B] hover:bg-[#a38441]  transition-colors"
         >
           {translate("viewAllProjectButton")}

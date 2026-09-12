@@ -1977,6 +1977,12 @@ AddsOnCategoryOvenFridgeRestoration: "Restauration professionnelle de four et r�
   confirmViewBookings: "VOIR MES RÉSERVATIONS",
   scanQrTitle: "Scannez pour voir les détails",
   scanQrDesc: "Scannez ce code avec votre téléphone pour ouvrir tous les détails en ligne, à tout moment.",
+
+  //customer feedbcks
+   CustomerFeedBack: "Retours clients",
+    ValuedCustomerReviews: "Avis clients précieux",
+    CustomerReview: "Avis client",
+
 } as Record<TranslationKey, TranslationValue>;
 
 

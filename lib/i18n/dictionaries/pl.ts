@@ -1981,4 +1981,8 @@ confirmBookingDesc: "Twoja usługa sprzątania została potwierdzona. Dedykowany
 confirmViewBookings: "ZOBACZ MOJE REZERWACJE",
 scanQrTitle: "Zeskanuj, aby zobaczyć szczegóły",
 scanQrDesc: "Zeskanuj ten kod telefonem, aby w dowolnym momentie zobaczyć pełne szczegóły online.",
+
+CustomerFeedBack: "Opinie klientów",
+    ValuedCustomerReviews: "Recenzje cenionych klientów",
+    CustomerReview: "Opinia klienta",
 } as Record<TranslationKey, TranslationValue>;

@@ -92,8 +92,6 @@ export function JobCardSection({
           const selectedInCatCount = category.items.filter((item) => selectedIds.has(item.id)).length;
           const isCatMaxReached = selectedInCatCount >= maxSelectionsPerCategory;
 
-          console.log(category)
-
           return (
             <div key={category.id} className="flex flex-col gap-3">
               {/* Category Header Bar */}

@@ -2019,6 +2019,13 @@ serviceLuxuryYachtCleaningTitleFiveFeatureTwo:"Complete linen turnover, sanitati
   scanQrTitle: "Scan to View Details",
   scanQrDesc: "Scan this code with your phone to open the full details online, anytime.",
 
+
+
+  //Customer feedback
+  CustomerFeedBack: "Customer Feedback",
+    ValuedCustomerReviews: "Valued Customer Reviews",
+    CustomerReview: "Customer Review",
+
 } as const;
 
 export type TranslationKey = keyof typeof en;

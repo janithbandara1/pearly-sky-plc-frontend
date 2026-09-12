@@ -19,6 +19,8 @@ const securityHeaders = [
       // The dev API backend runs on plain http://localhost — only allowed
       // outside production so the production CSP stays https-only.
       `connect-src 'self' https:${isDev ? " http://localhost:* ws://localhost:*" : ""}`,
+      // Added THIS LINE – allows Google Maps iframes
+      "frame-src 'self' https://www.google.com https://maps.google.com https://www.google.com/maps/",
       "frame-ancestors 'none'",
       "base-uri 'self'",
       "form-action 'self'",

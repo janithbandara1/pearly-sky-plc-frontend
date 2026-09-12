@@ -28,6 +28,8 @@ export function ContactUsView() {
   const leftColumn = officeLocations.slice(0, midIndex);
   const rightColumn = officeLocations.slice(midIndex);
 
+  const filteredCountries=locations.filter((loc) => loc.country && loc.country.toLowerCase() === "scotland");
+
   return (
     <main className="flex-1 w-full relative">
 
@@ -38,7 +40,7 @@ export function ContactUsView() {
         eyebrow={translate("aboutPageEyebrow")}
         height={50}
       /> 
-      <div className="absolute md:bottom-none  top-25 z-5 right-3 md:right-none">
+      <div className="absolute md:bottom-none  top-40 z-5 right-3 md:right-none">
         <Socialmedialinks />
       </div>
       
@@ -51,13 +53,13 @@ export function ContactUsView() {
           {translate("contactOfficesTitle")}
         </h2>
         <div className="grid w-full ] items-start gap-4 px-4 sm:px-6 grid-cols-1 md:grid-cols-2">
-          {locations.map((loc) => (
+          {locations.filter((loc)=>loc.name !=="Scotland").map((loc)=> (
             <LocationCard
               
               key={loc.id}
               location={loc}
-            isOpen={openLocationId === loc.id}
-            onToggle={() => handleToggle(loc.id)}
+              isOpen={openLocationId === loc.id}
+              onToggle={() => handleToggle(loc.id)}
             />
           ))}
         </div>

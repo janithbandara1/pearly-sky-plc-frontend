@@ -1942,4 +1942,8 @@ export const it = {
   confirmViewBookings: "VEDI LE MIE PRENOTAZIONI",
   scanQrTitle: "Scansiona per visualizzare i dettagli",
   scanQrDesc: "Scansiona questo codice con il tuo telefono per aprire i dettagli completi online, in qualsiasi momento.",
+
+  CustomerFeedBack: "Feedback dei clienti",
+    ValuedCustomerReviews: "Recensioni di clienti preziosi",
+    CustomerReview: "Recensione del cliente",
 } as Record<TranslationKey, TranslationValue>;
