@@ -33,7 +33,7 @@ const SERVICE_TRANSLATIONS: Partial<Record<string, { label: TranslationKey; desc
   "deep-cleaning": { label: "serviceDeepCleaning", description: "serviceDeepCleaningDescription" },
   "end-of-tenancy-cleaning": { label: "serviceEndOfTenancyCleaning", description: "serviceEndOfTenancyCleaningDescription" },
    "post-construction-renovation-cleaning": { label: "servicePostConstructionRenovationCleaning", description: "servicePostConstructionRenovationCleaningDescription" },
-  "premium-rental-concierge-cleaning": { label: "serviceEndOfTenancyCleaning", description: "serviceEndOfTenancyCleaningDescription" },
+  "premium-rental-concierge-cleaning": { label: "servicePremiumRentalConciergeCleaning", description: "servicePremiumRentalConciergeCleaningDescription" },
   "commercial-office-cleaning":{ label: "serviceCommercialOfficeCleaning", description: "serviceCommercialOfficeCleaningDescription" },
 
   "same-day-priority-cleaning": { label: "serviceSameDayPriorityCleaning", description: "serviceSameDayPriorityCleaningDescription" },
