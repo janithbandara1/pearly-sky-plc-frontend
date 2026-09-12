@@ -93,6 +93,21 @@ const COUNTRY_PAGE_META: Record<CountryPageKey, Record<CountryCode, PageMeta>> =
       description:
         "Experience elite, eco-luxury residential & commercial cleaning in Romania. Five-star premium property care using sustainable, high-performance practices.",
     },
+    ie: {
+      title: "Premium Eco-Luxury Cleaning Services Ireland | Pearly Sky",
+      description:
+        "Experience elite, eco-luxury residential & commercial cleaning in Ireland. Five-star premium property care using sustainable, high-performance practices.",
+    },
+    mc: {
+      title: "Premium Eco-Luxury Cleaning Services Monaco | Pearly Sky",
+      description:
+        "Experience elite, eco-luxury residential & commercial cleaning in Monaco. Five-star premium property care using sustainable, high-performance practices.",
+    },
+    ch: {
+      title: "Premium Eco-Luxury Cleaning Services Switzerland | Pearly Sky",
+      description:
+        "Experience elite, eco-luxury residential & commercial cleaning in Switzerland. Five-star premium property care using sustainable, high-performance practices.",
+    },
     gb: {
       title: "Premium Eco-Luxury Cleaning Services United Kingdom | Pearly Sky",
       description:
@@ -219,6 +234,21 @@ const COUNTRY_PAGE_META: Record<CountryPageKey, Record<CountryCode, PageMeta>> =
       title: "About Us: Eco-Luxury Property Care Romania | Pearly Sky",
       description:
         "Discover the story, strict standards, and values driving Pearly Sky Global in Romania. Dedicated to elite property care and lifestyle support.",
+    },
+    ie: {
+      title: "About Us: Eco-Luxury Property Care Ireland | Pearly Sky",
+      description:
+        "Discover the story, strict standards, and values driving Pearly Sky Global in Ireland. Dedicated to elite property care and lifestyle support.",
+    },
+    mc: {
+      title: "About Us: Eco-Luxury Property Care Monaco | Pearly Sky",
+      description:
+        "Discover the story, strict standards, and values driving Pearly Sky Global in Monaco. Dedicated to elite property care and lifestyle support.",
+    },
+    ch: {
+      title: "About Us: Eco-Luxury Property Care Switzerland | Pearly Sky",
+      description:
+        "Discover the story, strict standards, and values driving Pearly Sky Global in Switzerland. Dedicated to elite property care and lifestyle support.",
     },
     gb: {
       title: "About Us: Eco-Luxury Property Care United Kingdom | Pearly Sky",
@@ -347,6 +377,21 @@ const COUNTRY_PAGE_META: Record<CountryPageKey, Record<CountryCode, PageMeta>> =
       description:
         "See what our clients say about us. Read verified reviews from premium homeowners, corporate offices, and luxury estates in Romania.",
     },
+    ie: {
+      title: "Verified Client Reviews & Testimonials Ireland | Pearly Sky",
+      description:
+        "See what our clients say about us. Read verified reviews from premium homeowners, corporate offices, and luxury estates in Ireland.",
+    },
+    mc: {
+      title: "Verified Client Reviews & Testimonials Monaco | Pearly Sky",
+      description:
+        "See what our clients say about us. Read verified reviews from premium homeowners, corporate offices, and luxury estates in Monaco.",
+    },
+    ch: {
+      title: "Verified Client Reviews & Testimonials Switzerland | Pearly Sky",
+      description:
+        "See what our clients say about us. Read verified reviews from premium homeowners, corporate offices, and luxury estates in Switzerland.",
+    },
     gb: {
       title: "Verified Client Reviews & Testimonials United Kingdom | Pearly Sky",
       description:
@@ -473,6 +518,21 @@ const COUNTRY_PAGE_META: Record<CountryPageKey, Record<CountryCode, PageMeta>> =
       title: "Contact Our Eco-Luxury Cleaning Team Romania | Pearly Sky",
       description:
         "Get in touch with Pearly Sky Global Romania for booking inquiries or custom service quotes. Reliable, immediate assistance.",
+    },
+    ie: {
+      title: "Contact Our Eco-Luxury Cleaning Team Ireland | Pearly Sky",
+      description:
+        "Get in touch with Pearly Sky Global Ireland for booking inquiries or custom service quotes. Reliable, immediate assistance.",
+    },
+    mc: {
+      title: "Contact Our Eco-Luxury Cleaning Team Monaco | Pearly Sky",
+      description:
+        "Get in touch with Pearly Sky Global Monaco for booking inquiries or custom service quotes. Reliable, immediate assistance.",
+    },
+    ch: {
+      title: "Contact Our Eco-Luxury Cleaning Team Switzerland | Pearly Sky",
+      description:
+        "Get in touch with Pearly Sky Global Switzerland for booking inquiries or custom service quotes. Reliable, immediate assistance.",
     },
     gb: {
       title: "Contact Our Eco-Luxury Cleaning Team United Kingdom | Pearly Sky",
@@ -601,6 +661,21 @@ const COUNTRY_PAGE_META: Record<CountryPageKey, Record<CountryCode, PageMeta>> =
       description:
         "Build a rewarding career in luxury property care in Romania. Explore open positions for professional cleaners and premium specialists.",
     },
+    ie: {
+      title: "Careers in Luxury Property Care Ireland | Pearly Sky",
+      description:
+        "Build a rewarding career in luxury property care in Ireland. Explore open positions for professional cleaners and premium specialists.",
+    },
+    mc: {
+      title: "Careers in Luxury Property Care Monaco | Pearly Sky",
+      description:
+        "Build a rewarding career in luxury property care in Monaco. Explore open positions for professional cleaners and premium specialists.",
+    },
+    ch: {
+      title: "Careers in Luxury Property Care Switzerland | Pearly Sky",
+      description:
+        "Build a rewarding career in luxury property care in Switzerland. Explore open positions for professional cleaners and premium specialists.",
+    },
     gb: {
       title: "Careers in Luxury Property Care United Kingdom | Pearly Sky",
       description:
@@ -728,6 +803,21 @@ const COUNTRY_PAGE_META: Record<CountryPageKey, Record<CountryCode, PageMeta>> =
       description:
         "Operating premium service clusters across Romania. Find your local Pearly Sky Global service portal and book elite eco-luxury care.",
     },
+    ie: {
+      title: "Our Service Locations in Ireland | Pearly Sky Global",
+      description:
+        "Operating premium service clusters across Ireland. Find your local Pearly Sky Global service portal and book elite eco-luxury care.",
+    },
+    mc: {
+      title: "Our Service Locations in Monaco | Pearly Sky Global",
+      description:
+        "Operating premium service clusters across Monaco. Find your local Pearly Sky Global service portal and book elite eco-luxury care.",
+    },
+    ch: {
+      title: "Our Service Locations in Switzerland | Pearly Sky Global",
+      description:
+        "Operating premium service clusters across Switzerland. Find your local Pearly Sky Global service portal and book elite eco-luxury care.",
+    },
     gb: {
       title: "Our Service Locations in United Kingdom | Pearly Sky Global",
       description:
@@ -854,6 +944,21 @@ const COUNTRY_PAGE_META: Record<CountryPageKey, Record<CountryCode, PageMeta>> =
       title: "Eco-Luxury Cleaning Blog & Insights Romania | Pearly Sky",
       description:
         "Read professional care advice, sustainable housekeeping guides, and elite property maintenance insights for premium spaces in Romania.",
+    },
+    ie: {
+      title: "Eco-Luxury Cleaning Blog & Insights Ireland | Pearly Sky",
+      description:
+        "Read professional care advice, sustainable housekeeping guides, and elite property maintenance insights for premium spaces in Ireland.",
+    },
+    mc: {
+      title: "Eco-Luxury Cleaning Blog & Insights Monaco | Pearly Sky",
+      description:
+        "Read professional care advice, sustainable housekeeping guides, and elite property maintenance insights for premium spaces in Monaco.",
+    },
+    ch: {
+      title: "Eco-Luxury Cleaning Blog & Insights Switzerland | Pearly Sky",
+      description:
+        "Read professional care advice, sustainable housekeeping guides, and elite property maintenance insights for premium spaces in Switzerland.",
     },
     gb: {
       title: "Eco-Luxury Cleaning Blog & Insights United Kingdom | Pearly Sky",

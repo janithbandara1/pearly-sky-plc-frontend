@@ -101,6 +101,24 @@ export const COUNTRY_PAGE_CONTENT: Record<CountryCode, CountryPageCopy> = {
     customersSubtitle: "Trusted by discerning clients across Romania",
     contactSubtitle: "We're here to help, wherever you are in Romania.",
   },
+  ie: {
+    aboutStoryParagraph2:
+      "Since then, we've grown into a trusted name across Ireland and beyond. Our journey is guided by a deep passion for detail, pioneering cleaning methods, and unwavering customer satisfaction.",
+    customersSubtitle: "Trusted by discerning clients across Ireland",
+    contactSubtitle: "We're here to help, wherever you are in Ireland.",
+  },
+  mc: {
+    aboutStoryParagraph2:
+      "Since then, we've grown into a trusted name across Monaco and beyond. Our journey is guided by a deep passion for detail, pioneering cleaning methods, and unwavering customer satisfaction.",
+    customersSubtitle: "Trusted by discerning clients across Monaco",
+    contactSubtitle: "We're here to help, wherever you are in Monaco.",
+  },
+  ch: {
+    aboutStoryParagraph2:
+      "Since then, we've grown into a trusted name across Switzerland and beyond. Our journey is guided by a deep passion for detail, pioneering cleaning methods, and unwavering customer satisfaction.",
+    customersSubtitle: "Trusted by discerning clients across Switzerland",
+    contactSubtitle: "We're here to help, wherever you are in Switzerland.",
+  },
   gb: {
     aboutStoryParagraph2:
       "Since then, we've grown into a trusted name across the United Kingdom and beyond. Our journey is guided by a deep passion for detail, pioneering cleaning methods, and unwavering customer satisfaction.",
