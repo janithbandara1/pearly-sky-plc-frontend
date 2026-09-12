@@ -227,10 +227,19 @@ export function CareScheduleSection({
           {/* Service Duration */}
           <div className="space-y-2">
             <Label className="text-sm font-medium text-brand-cream/90">{translate("careServiceDuration")}</Label>
-            <div className="grid grid-cols-3 gap-2 bg-white p-1 rounded-md">
+            <div className="grid grid-cols-1 gap-2 bg-white p-1 rounded-md sm:grid-cols-3">
               {/* Hours counter */}
               <div
-                className={`flex h-11 items-center justify-between rounded-lg border px-2 transition ${durationMode === "hours"
+                role="button"
+                tabIndex={0}
+                onClick={() => setDurationMode("hours")}
+                onKeyDown={(e) => {
+                  if (e.key === "Enter" || e.key === " ") {
+                    e.preventDefault();
+                    setDurationMode("hours");
+                  }
+                }}
+                className={`flex h-11 cursor-pointer items-center justify-between rounded-lg border px-2 transition ${durationMode === "hours"
                   ? "border-[#A98B4B] bg-[#A98B4B]/20 text-[#555555]"
                   : "border-white/20 bg-[#FFFDF4] text-brand-navy"
                   }`}
