@@ -239,14 +239,14 @@ export function SiteHeader({ navLinks: navLinksProp, showServicesMenu = true }: 
 
             
         <div className="flex items-center gap-2 sm:gap-3">
-          <div className="flex items-center gap-1">
-            <LanguageSelect />
-            <CountrySelect />
+          <div className="flex items-center gap-1.5">
+            <LanguageSelect className="h-8 gap-1.5 border-brand-gold/70 bg-transparent px-2 text-xs" />
+            <CountrySelect className="h-8 gap-1.5 border-brand-gold/70 bg-transparent px-2 text-xs" />
           </div>
           
           {status === "authenticated" && (
             <div className="md:hidden lg:hidden flex">
-              <div className="relative ml-4" ref={accountMobileRef}>
+              <div className="relative" ref={accountMobileRef}>
                 <button
                   type="button"
                   onClick={() => setAccountOpen((open) => !open)}

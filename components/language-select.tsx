@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { Check, ChevronDown } from "lucide-react";
+import { Check, ChevronDown, Globe } from "lucide-react";
 import { COUNTRY_LANGUAGES, SUPPORTED_COUNTRIES } from "@/lib/countries/config";
 import { useCountry } from "@/lib/countries/country-context";
 import { SUPPORTED_LANGUAGES, useLanguage } from "@/lib/i18n/language-context";
@@ -11,8 +11,8 @@ import { cn } from "@/lib/utils";
  * Standalone language dropdown for the site header — plain markup, no
  * shadcn/ui, matching LocaleSwitcher's style but split out on its own (see
  * CountrySelect for the country half) so the navbar can show them as two
- * separate selects, the way the footer's LanguageSwitcher/CountrySwitcher
- * already do.
+ * separate selects. Styled to match the footer's LanguageSwitcher (bordered
+ * box, full label) without pulling in shadcn's Select.
  */
 export function LanguageSelect({ className }: { className?: string }) {
   const { country } = useCountry();
@@ -24,6 +24,7 @@ export function LanguageSelect({ className }: { className?: string }) {
   const currentCountry = country ?? SUPPORTED_COUNTRIES[0];
   const availableLanguages = COUNTRY_LANGUAGES[currentCountry];
   const languageOptions = SUPPORTED_LANGUAGES.filter((l) => availableLanguages.includes(l.code));
+  const currentLabel = languageOptions.find((l) => l.code === language)?.label ?? language.toUpperCase();
 
   const toggleOpen = () => {
     if (!open) {
@@ -53,19 +54,21 @@ export function LanguageSelect({ className }: { className?: string }) {
   }, [open]);
 
   return (
-    <div className={cn("relative", className)} ref={ref}>
+    <div className="relative" ref={ref}>
       <button
         type="button"
         onClick={toggleOpen}
         aria-expanded={open}
         aria-label="Select language"
         className={cn(
-          "flex items-center gap-1.5 rounded-lg p-2 text-sm font-medium text-brand-navy-foreground outline-none transition-colors hover:bg-brand-gold/10 hover:text-brand-gold",
-          open && "bg-brand-gold/10 text-brand-gold",
+          "flex h-9 items-center gap-2 rounded-md border border-white/15 bg-white/5 px-3 py-1.5 text-sm text-brand-navy-foreground outline-none transition-colors hover:border-brand-gold/50",
+          open && "border-brand-gold/50",
+          className,
         )}
       >
-        <span>{language.toUpperCase()}</span>
-        <ChevronDown className={cn("size-3 transition-transform", open && "rotate-180")} />
+        <Globe className="size-4 shrink-0 text-brand-navy-foreground/60" />
+        <span className="max-w-[90px] truncate sm:max-w-[130px]">{currentLabel}</span>
+        <ChevronDown className={cn("size-4 shrink-0 text-brand-navy-foreground/60 transition-transform", open && "rotate-180")} />
       </button>
 
       {open && (
