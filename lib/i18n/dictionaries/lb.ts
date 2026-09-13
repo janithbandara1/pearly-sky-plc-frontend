@@ -1801,6 +1801,7 @@ export const lb = {
   loginSubmit: "Aloggen",
   loginPending: "Gëtt ageloggt…",
   loginGenericError: "Eppes ass schief gaangen.",
+  loginTurnstileRequired: "Maacht w.e.g. d'Iwwerpréiwung fäerdeg.",
 
   signupTitle: "Konto erstellen",
   signupDescription: "Fëllt d'Formulaire ënnen aus fir Äre Konto ze kreéieren",
@@ -1821,6 +1822,7 @@ export const lb = {
   signupLoginLink: "Aloggen",
   signupErrorPasswordMismatch: "Passwierder stëmmen net iwwerein.",
   signupErrorTermsRequired: "W.e.g. akzeptéiert d'Konditiounen an d'Dateschutzrichtlinn fir weiderzufueren.",
+  signupTurnstileRequired: "Maacht w.e.g. d'Iwwerpréiwung fäerdeg.",
   signupGenericError: "Eppes ass schief gaangen.",
 
   // Request Quotation View

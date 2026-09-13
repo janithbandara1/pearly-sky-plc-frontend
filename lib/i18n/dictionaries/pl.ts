@@ -1826,6 +1826,7 @@ export const pl = {
   loginSubmit: "Zaloguj się",
   loginPending: "Logowanie…",
   loginGenericError: "Coś poszło nie tak.",
+  loginTurnstileRequired: "Ukończ weryfikację.",
 
   signupTitle: "Utwórz swoje konto",
   signupDescription: "Wypełnij poniższy formularz, aby utworzyć konto",
@@ -1846,6 +1847,7 @@ export const pl = {
   signupLoginLink: "Zaloguj się",
   signupErrorPasswordMismatch: "Hasła nie są identyczne.",
   signupErrorTermsRequired: "Zaakceptuj Regulamin i Politykę Prywatności, aby kontynuować.",
+  signupTurnstileRequired: "Ukończ weryfikację.",
   signupGenericError: "Coś poszło nie tak.",
 
   // Request Quotation View

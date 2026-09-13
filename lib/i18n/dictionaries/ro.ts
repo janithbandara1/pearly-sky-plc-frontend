@@ -1826,6 +1826,7 @@ export const ro = {
   loginSubmit: "Autentificare",
   loginPending: "Se autentifică…",
   loginGenericError: "Ceva nu a mers bine.",
+  loginTurnstileRequired: "Finalizează verificarea.",
 
   signupTitle: "Creează-ți contul",
   signupDescription: "Completează formularul de mai jos pentru a-ți crea contul",
@@ -1846,6 +1847,7 @@ export const ro = {
   signupLoginLink: "Autentificare",
   signupErrorPasswordMismatch: "Parolele nu se potrivesc.",
   signupErrorTermsRequired: "Te rugăm să fii de acord cu Termenii și Condițiile și Politica de Confidențialitate.",
+  signupTurnstileRequired: "Finalizează verificarea.",
   signupGenericError: "Ceva nu a mers bine.",
 
   // Request Quotation View

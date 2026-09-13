@@ -1788,6 +1788,7 @@ export const da = {
   loginSubmit: "Log ind",
   loginPending: "Logger ind…",
   loginGenericError: "Noget gik galt.",
+  loginTurnstileRequired: "Udfyld venligst verifikationsudfordringen.",
 
   signupTitle: "Opret din konto",
   signupDescription: "Udfyld formularen nedenfor for at oprette din konto",
@@ -1808,6 +1809,7 @@ export const da = {
   signupLoginLink: "Log ind",
   signupErrorPasswordMismatch: "Adgangskoderne matcher ikke.",
   signupErrorTermsRequired: "Accepter venligst vilkår og betingelser samt privatlivspolitikken for at fortsætte.",
+  signupTurnstileRequired: "Udfyld venligst verifikationsudfordringen.",
   signupGenericError: "Noget gik galt.",
 
   // Request Quotation View

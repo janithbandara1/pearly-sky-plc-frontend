@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import {
@@ -22,6 +22,7 @@ import {
 } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
 import { PasswordInput } from "@/components/password-input";
+import { TurnstileWidget, type TurnstileHandle } from "@/components/turnstile";
 import { ApiError, useAuth } from "@/lib/auth-context";
 import { useLanguage } from "@/lib/i18n/language-context";
 
@@ -39,6 +40,8 @@ export function SignupForm({
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [agreedToTerms, setAgreedToTerms] = useState(false);
+  const [turnstileToken, setTurnstileToken] = useState("");
+  const turnstileRef = useRef<TurnstileHandle>(null);
   const [error, setError] = useState<string | null>(null);
   const [pending, setPending] = useState(false);
 
@@ -52,6 +55,10 @@ export function SignupForm({
       setError(translate("signupErrorTermsRequired"));
       return;
     }
+    if (!turnstileToken) {
+      setError(translate("signupTurnstileRequired"));
+      return;
+    }
     setError(null);
     setPending(true);
     try {
@@ -61,10 +68,13 @@ export function SignupForm({
         email,
         contact: phone || undefined,
         password,
+        turnstileToken,
       });
       router.push("/bookings");
     } catch (err) {
       setError(err instanceof ApiError ? err.message : translate("signupGenericError"));
+      turnstileRef.current?.reset();
+      setTurnstileToken("");
     } finally {
       setPending(false);
     }
@@ -183,9 +193,17 @@ export function SignupForm({
                   </span>
                 </label>
               </Field>
+              <Field>
+                <TurnstileWidget
+                  ref={turnstileRef}
+                  onVerify={setTurnstileToken}
+                  onExpire={() => setTurnstileToken("")}
+                  className="flex justify-center"
+                />
+              </Field>
               {error && <FieldError>{error}</FieldError>}
               <Field>
-                <Button type="submit" disabled={pending || !agreedToTerms}>
+                <Button type="submit" disabled={pending || !agreedToTerms || !turnstileToken}>
                   {pending ? translate("signupPending") : translate("signupSubmit")}
                 </Button>
                 <FieldDescription className="text-center">

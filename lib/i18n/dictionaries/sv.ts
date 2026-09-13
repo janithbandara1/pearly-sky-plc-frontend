@@ -1823,6 +1823,7 @@ export const sv = {
   loginSubmit: "Logga in",
   loginPending: "Loggar in…",
   loginGenericError: "Något gick fel.",
+  loginTurnstileRequired: "Slutför verifieringen.",
 
   signupTitle: "Skapa ditt konto",
   signupDescription: "Fyll i formuläret nedan för att skapa ditt konto",
@@ -1843,6 +1844,7 @@ export const sv = {
   signupLoginLink: "Logga in",
   signupErrorPasswordMismatch: "Lösenorden matchar inte.",
   signupErrorTermsRequired: "Du måste godkänna villkoren och integritetspolicyn för att fortsätta.",
+  signupTurnstileRequired: "Slutför verifieringen.",
   signupGenericError: "Något gick fel.",
 
   // Request Quotation View

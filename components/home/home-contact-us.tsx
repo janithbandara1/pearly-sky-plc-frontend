@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
@@ -19,6 +19,7 @@ import { SOCIAL_URLS } from "@/lib/content/social-links";
 import { ApiError } from "@/lib/api";
 import { sendContactMessage } from "@/lib/contact-api";
 import { PhoneInput } from "@/components/phone-input";
+import { TurnstileWidget, type TurnstileHandle } from "@/components/turnstile";
 
 const CONTACT_EMAIL = "info@pearlyskyglobalclean.com";
 
@@ -45,6 +46,8 @@ export function ContactSection() {
   const { country } = useCountry();
   const [sent, setSent] = useState(false);
   const [sendError, setSendError] = useState<string | null>(null);
+  const [turnstileToken, setTurnstileToken] = useState("");
+  const turnstileRef = useRef<TurnstileHandle>(null);
 
   const office = getCountryOffice(country);
   const hotline = office.contactNo ?? "";
@@ -62,13 +65,21 @@ export function ContactSection() {
   });
 
   const onSubmit = async (values: ContactFormValues) => {
+    if (!turnstileToken) {
+      setSendError("Please complete the verification challenge.");
+      return;
+    }
     setSendError(null);
     try {
-      await sendContactMessage(values);
+      await sendContactMessage({ ...values, turnstileToken });
       setSent(true);
       reset();
+      setTurnstileToken("");
+      turnstileRef.current?.reset();
     } catch (err) {
       setSendError(err instanceof ApiError ? err.message : "Failed to send your message. Please try again.");
+      turnstileRef.current?.reset();
+      setTurnstileToken("");
     }
   };
 
@@ -143,9 +154,16 @@ export function ContactSection() {
               {errors.message && <p className="text-xs text-destructive">{errors.message.message}</p>}
             </div>
 
+            <TurnstileWidget
+              ref={turnstileRef}
+              onVerify={setTurnstileToken}
+              onExpire={() => setTurnstileToken("")}
+              className="flex justify-center"
+            />
+
             <Button
               type="submit"
-              disabled={isSubmitting}
+              disabled={isSubmitting || !turnstileToken}
               className="bg-brand-gold p-4 text-black hover:bg-brand-gold/90 font-normal uppercase tracking-wide shadow-lg transition-all"
             >
               {translate("contactSend")}

@@ -1862,6 +1862,7 @@ serviceLuxuryYachtCleaningTitleFiveFeatureTwo:"Complete linen turnover, sanitati
   loginSubmit: "Login",
   loginPending: "Logging in…",
   loginGenericError: "Something went wrong.",
+  loginTurnstileRequired: "Please complete the verification challenge.",
 
   signupTitle: "Create your account",
   signupDescription: "Fill in the form below to create your account",
@@ -1882,6 +1883,7 @@ serviceLuxuryYachtCleaningTitleFiveFeatureTwo:"Complete linen turnover, sanitati
   signupLoginLink: "Log in",
   signupErrorPasswordMismatch: "Passwords do not match.",
   signupErrorTermsRequired: "Please agree to the Terms and Conditions and Privacy Policy to continue.",
+  signupTurnstileRequired: "Please complete the verification challenge.",
   signupGenericError: "Something went wrong.",
 
   // Request Quotation View

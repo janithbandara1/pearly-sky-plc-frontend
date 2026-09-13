@@ -1810,6 +1810,7 @@ export const nl = {
   loginSubmit: "Inloggen",
   loginPending: "Inloggen…",
   loginGenericError: "Er is iets misgegaan.",
+  loginTurnstileRequired: "Voltooi de verificatie.",
 
   signupTitle: "Account aanmaken",
   signupDescription: "Vul het onderstaande formulier in om uw account aan te maken",
@@ -1830,6 +1831,7 @@ export const nl = {
   signupLoginLink: "Inloggen",
   signupErrorPasswordMismatch: "Wachtwoorden komen niet overeen.",
   signupErrorTermsRequired: "Ga akkoord met de Algemene voorwaarden en het Privacybeleid om door te gaan.",
+  signupTurnstileRequired: "Voltooi de verificatie.",
   signupGenericError: "Er is iets misgegaan.",
 
   // Request Quotation View

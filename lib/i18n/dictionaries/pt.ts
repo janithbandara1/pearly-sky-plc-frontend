@@ -1826,6 +1826,7 @@ export const pt = {
   loginSubmit: "Iniciar sessão",
   loginPending: "A iniciar sessão…",
   loginGenericError: "Algo de errado aconteceu.",
+  loginTurnstileRequired: "Conclua a verificação.",
 
   signupTitle: "Crie a sua conta",
   signupDescription: "Preencha o formulário abaixo para criar a sua conta",
@@ -1846,6 +1847,7 @@ export const pt = {
   signupLoginLink: "Iniciar sessão",
   signupErrorPasswordMismatch: "As palavras-passe não coincidem.",
   signupErrorTermsRequired: "Por favor aceite os Termos e Condições e a Política de Privacidade para continuar.",
+  signupTurnstileRequired: "Conclua a verificação.",
   signupGenericError: "Algo de errado aconteceu.",
 
   // Request Quotation View

@@ -26,7 +26,7 @@ interface AuthContextValue {
   status: AuthStatus;
   customer: CustomerMe | null;
   accessToken: string | null;
-  login: (email: string, password: string) => Promise<void>;
+  login: (email: string, password: string, turnstileToken: string) => Promise<void>;
   signup: (payload: SignupPayload) => Promise<void>;
   logout: () => Promise<void>;
 }
@@ -79,8 +79,8 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   }, []);
 
   const login = useCallback(
-    async (email: string, password: string) => {
-      const { accessToken: token } = await loginCustomer({ email, password });
+    async (email: string, password: string, turnstileToken: string) => {
+      const { accessToken: token } = await loginCustomer({ email, password, turnstileToken });
       await applySession(token);
     },
     [applySession],

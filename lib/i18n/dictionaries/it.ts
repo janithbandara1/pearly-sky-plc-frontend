@@ -1787,6 +1787,7 @@ export const it = {
   loginSubmit: "Accedi",
   loginPending: "Accesso in corso…",
   loginGenericError: "Qualcosa è andato storto.",
+  loginTurnstileRequired: "Completa la verifica di sicurezza.",
 
   signupTitle: "Crea il tuo account",
   signupDescription: "Compila il modulo sottostante per creare il tuo account",
@@ -1807,6 +1808,7 @@ export const it = {
   signupLoginLink: "Accedi",
   signupErrorPasswordMismatch: "Le password non corrispondono.",
   signupErrorTermsRequired: "Accetta i Termini e Condizioni e l'Informativa sulla Privacy per procedere.",
+  signupTurnstileRequired: "Completa la verifica di sicurezza.",
   signupGenericError: "Qualcosa è andato storto.",
 
   // Request Quotation View

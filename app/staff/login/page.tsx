@@ -28,6 +28,7 @@ export default function AdminLoginPage() {
         <LoginForm
           description={translate("loginDescription")}
           footer={`© 2026 Pearly Sky. ${translate("footerRights")}`}
+          showTurnstile={false}
           onLogin={async (email, password) => {
             await login(email, password);
             router.push("/staff/dashboard");

@@ -1826,6 +1826,7 @@ export const no = {
   loginSubmit: "Logg inn",
   loginPending: "Logger inn…",
   loginGenericError: "Noe gikk galt.",
+  loginTurnstileRequired: "Fullfør verifiseringen.",
 
   signupTitle: "Opprett kontoen din",
   signupDescription: "Fyll ut skjemaet nedenfor for å opprette kontoen din",
@@ -1846,6 +1847,7 @@ export const no = {
   signupLoginLink: "Logg inn",
   signupErrorPasswordMismatch: "Passordene samsvarer ikke.",
   signupErrorTermsRequired: "Vennligst godta vilkårene og betingelsene samt personvernpolicyen for å fortsette.",
+  signupTurnstileRequired: "Fullfør verifiseringen.",
   signupGenericError: "Noe gikk galt.",
 
   // Request Quotation View

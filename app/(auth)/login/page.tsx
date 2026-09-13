@@ -35,8 +35,8 @@ export default function LoginPage() {
       </div>
         <LoginForm
           description={translate("loginDescription")}
-          onLogin={async (email, password) => {
-            await login(email, password);
+          onLogin={async (email, password, turnstileToken) => {
+            await login(email, password, turnstileToken);
             router.push("/bookings");
           }}
           footer={

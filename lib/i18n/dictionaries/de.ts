@@ -1826,6 +1826,7 @@ export const de = {
   loginSubmit: "Anmelden",
   loginPending: "Anmeldung läuft…",
   loginGenericError: "Etwas ist schiefgelaufen.",
+  loginTurnstileRequired: "Bitte schließe die Verifizierung ab.",
 
   signupTitle: "Erstellen Sie Ihr Konto",
   signupDescription: "Füllen Sie das Formular unten aus, um Ihr Konto zu erstellen",
@@ -1846,6 +1847,7 @@ export const de = {
   signupLoginLink: "Anmelden",
   signupErrorPasswordMismatch: "Passwörter stimmen nicht überein.",
   signupErrorTermsRequired: "Bitte stimmen Sie den Allgemeinen Geschäftsbedingungen und der Datenschutzrichtlinie zu, um fortzufahren.",
+  signupTurnstileRequired: "Bitte schließe die Verifizierung ab.",
   signupGenericError: "Etwas ist schiefgelaufen.",
 
   // Request Quotation View

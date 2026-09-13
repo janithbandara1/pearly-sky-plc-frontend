@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import {
@@ -20,6 +20,7 @@ import {
 } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
 import { PasswordInput } from "@/components/password-input";
+import { TurnstileWidget, type TurnstileHandle } from "@/components/turnstile";
 import { useLanguage } from "@/lib/i18n/language-context";
 
 export function LoginForm({
@@ -30,6 +31,8 @@ export function LoginForm({
   pendingLabel,
   footer,
   onLogin,
+  /** Off for the internal staff login page — the backend doesn't Turnstile-check staff logins. */
+  showTurnstile = true,
   ...props
 }: Omit<React.ComponentProps<"div">, "onSubmit"> & {
   title?: string;
@@ -37,11 +40,14 @@ export function LoginForm({
   submitLabel?: string;
   pendingLabel?: string;
   footer?: React.ReactNode;
-  onLogin: (email: string, password: string) => Promise<void>;
+  showTurnstile?: boolean;
+  onLogin: (email: string, password: string, turnstileToken: string) => Promise<void>;
 }) {
   const { translate } = useLanguage();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [turnstileToken, setTurnstileToken] = useState("");
+  const turnstileRef = useRef<TurnstileHandle>(null);
   const [error, setError] = useState<string | null>(null);
   const [pending, setPending] = useState(false);
 
@@ -51,12 +57,18 @@ export function LoginForm({
 
   async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
+    if (showTurnstile && !turnstileToken) {
+      setError(translate("loginTurnstileRequired"));
+      return;
+    }
     setError(null);
     setPending(true);
     try {
-      await onLogin(email, password);
+      await onLogin(email, password, turnstileToken);
     } catch (err) {
       setError(err instanceof Error ? err.message : translate("loginGenericError"));
+      turnstileRef.current?.reset();
+      setTurnstileToken("");
     } finally {
       setPending(false);
     }
@@ -100,9 +112,19 @@ export function LoginForm({
                   onChange={(e) => setPassword(e.target.value)}
                 />
               </Field>
+              {showTurnstile && (
+                <Field>
+                  <TurnstileWidget
+                    ref={turnstileRef}
+                    onVerify={setTurnstileToken}
+                    onExpire={() => setTurnstileToken("")}
+                    className="flex justify-center"
+                  />
+                </Field>
+              )}
               {error && <FieldError>{error}</FieldError>}
               <Field>
-                <Button type="submit" disabled={pending}>
+                <Button type="submit" disabled={pending || (showTurnstile && !turnstileToken)}>
                   {pending ? resolvedPendingLabel : resolvedSubmitLabel}
                 </Button>
                 {footer && (

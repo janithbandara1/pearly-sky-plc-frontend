@@ -1822,6 +1822,7 @@ AddsOnCategoryOvenFridgeRestoration: "Restauration professionnelle de four et r�
   loginSubmit: "Se connecter",
   loginPending: "Connexion en cours…",
   loginGenericError: "Une erreur s'est produite.",
+  loginTurnstileRequired: "Veuillez compléter le défi de vérification.",
 
   signupTitle: "Créez votre compte",
   signupDescription: "Remplissez le formulaire ci-dessous pour créer votre compte",
@@ -1842,6 +1843,7 @@ AddsOnCategoryOvenFridgeRestoration: "Restauration professionnelle de four et r�
   signupLoginLink: "Se connecter",
   signupErrorPasswordMismatch: "Les mots de passe ne correspondent pas.",
   signupErrorTermsRequired: "Veuillez accepter les Conditions Générales et la Politique de Confidentialité pour continuer.",
+  signupTurnstileRequired: "Veuillez compléter le défi de vérification.",
   signupGenericError: "Une erreur s'est produite.",
 
   // Request Quotation View

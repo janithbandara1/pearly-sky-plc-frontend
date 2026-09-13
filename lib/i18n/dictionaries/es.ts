@@ -1781,6 +1781,7 @@ export const es = {
   loginSubmit: "Iniciar sesión",
   loginPending: "Iniciando sesión…",
   loginGenericError: "Algo salió mal.",
+  loginTurnstileRequired: "Por favor, completa el desafío de verificación.",
 
   signupTitle: "Cree su cuenta",
   signupDescription: "Complete el siguiente formulario para crear su cuenta",
@@ -1801,6 +1802,7 @@ export const es = {
   signupLoginLink: "Iniciar sesión",
   signupErrorPasswordMismatch: "Las contraseñas no coinciden.",
   signupErrorTermsRequired: "Por favor acepte los Términos y Condiciones y la Política de Privacidad para continuar.",
+  signupTurnstileRequired: "Por favor, completa el desafío de verificación.",
   signupGenericError: "Algo salió mal.",
 
   // Request Quotation View

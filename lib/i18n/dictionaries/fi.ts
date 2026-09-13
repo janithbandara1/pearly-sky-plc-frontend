@@ -1786,6 +1786,7 @@ export const fi = {
   loginSubmit: "Kirjaudu sisään",
   loginPending: "Kirjataan sisään…",
   loginGenericError: "Jotain meni pieleen.",
+  loginTurnstileRequired: "Suorita vahvistushaaste loppuun.",
 
   signupTitle: "Luo tili",
   signupDescription: "Täytä alla oleva lomake luodaksesi tilisi",
@@ -1806,6 +1807,7 @@ export const fi = {
   signupLoginLink: "Kirjaudu sisään",
   signupErrorPasswordMismatch: "Salasanat eivät täsmää.",
   signupErrorTermsRequired: "Hyväksy käyttöehdot ja tietosuojakäytäntö jatkaaksesi.",
+  signupTurnstileRequired: "Suorita vahvistushaaste loppuun.",
   signupGenericError: "Jotain meni pieleen.",
 
   // Request Quotation View
