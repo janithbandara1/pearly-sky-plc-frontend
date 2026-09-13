@@ -21,6 +21,7 @@ import {
   FieldLabel,
 } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
+import { PasswordInput } from "@/components/password-input";
 import { ApiError, useAuth } from "@/lib/auth-context";
 import { useLanguage } from "@/lib/i18n/language-context";
 
@@ -124,9 +125,8 @@ export function SignupForm({
                 <Field className="grid grid-cols-2 gap-3">
                   <Field>
                     <FieldLabel htmlFor="password">{translate("signupPassword")}</FieldLabel>
-                    <Input
+                    <PasswordInput
                       id="password"
-                      type="password"
                       required
                       minLength={8}
                       value={password}
@@ -137,9 +137,8 @@ export function SignupForm({
                     <FieldLabel htmlFor="confirmPassword">
                       {translate("signupConfirmPassword")}
                     </FieldLabel>
-                    <Input
+                    <PasswordInput
                       id="confirmPassword"
-                      type="password"
                       required
                       minLength={8}
                       value={confirmPassword}

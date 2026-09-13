@@ -19,6 +19,7 @@ import {
   FieldLabel,
 } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
+import { PasswordInput } from "@/components/password-input";
 import { useLanguage } from "@/lib/i18n/language-context";
 
 export function LoginForm({
@@ -92,9 +93,8 @@ export function LoginForm({
                     {translate("loginForgotPassword")}
                   </Link>
                 </div>
-                <Input
+                <PasswordInput
                   id="password"
-                  type="password"
                   required
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
