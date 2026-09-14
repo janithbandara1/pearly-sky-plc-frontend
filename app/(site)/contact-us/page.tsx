@@ -10,7 +10,7 @@ import PaymentMarquee from "@/components/payment-method-services";
 
 export async function generateMetadata(): Promise<Metadata> {
   const [country, language] = await Promise.all([getRequestCountry(), getRequestLanguage()]);
-  const { title, description } = getCountryPageMeta("contact", country);
+  const { title, description } = getCountryPageMeta("contact", country, language ?? "en");
 
   return {
     title,

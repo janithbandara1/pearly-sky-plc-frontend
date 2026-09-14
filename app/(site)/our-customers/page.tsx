@@ -9,7 +9,7 @@ import { OurCustomersView } from "./our-customers-view";
 
 export async function generateMetadata(): Promise<Metadata> {
   const [country, language] = await Promise.all([getRequestCountry(), getRequestLanguage()]);
-  const { title, description } = getCountryPageMeta("customers", country);
+  const { title, description } = getCountryPageMeta("customers", country, language ?? "en");
 
   return {
     title,

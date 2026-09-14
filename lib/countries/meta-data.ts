@@ -1,4 +1,6 @@
 import type { CountryCode } from "./config";
+import type { LanguageCode } from "@/lib/i18n/config";
+import { getTranslatedCountryPageMeta } from "./meta-templates";
 
 export interface PageMeta {
   title: string;
@@ -1018,9 +1020,57 @@ const COUNTRY_PAGE_META: Record<CountryPageKey, Record<CountryCode, PageMeta>> =
   },
 };
 
+/**
+ * France's meta title/description in French, per page — the one
+ * country/language combo besides each country's English default (mirrors
+ * FR_PAGE_CONTENT_FR in page-content.ts). Every other country+language pair
+ * (e.g. de-de, es-es) still resolves to COUNTRY_PAGE_META's English copy
+ * until that country's body content is itself translated into that
+ * language — see COUNTRY_LANGUAGES in ./config.
+ */
+const FR_PAGE_META_FR: Record<CountryPageKey, PageMeta> = {
+  home: {
+    title: "Services de Nettoyage Éco-Luxe Premium France & Monaco | Pearly Sky",
+    description:
+      "Découvrez un service de nettoyage résidentiel et commercial éco-luxe d'élite en France & Monaco. Entretien immobilier cinq étoiles avec des pratiques durables et hautement performantes.",
+  },
+  about: {
+    title: "À Propos : Entretien de Propriétés Éco-Luxe France & Monaco | Pearly Sky",
+    description:
+      "Découvrez l'histoire, les normes strictes et les valeurs qui animent Pearly Sky Global en France & Monaco. Dédiés à l'entretien immobilier d'élite et au soutien lifestyle.",
+  },
+  customers: {
+    title: "Avis et Témoignages Clients Vérifiés France & Monaco | Pearly Sky",
+    description:
+      "Découvrez ce que nos clients disent de nous. Lisez des avis vérifiés de propriétaires premium, de bureaux d'entreprise et de propriétés de luxe en France & Monaco.",
+  },
+  contact: {
+    title: "Contactez Notre Équipe de Nettoyage Éco-Luxe France & Monaco | Pearly Sky",
+    description:
+      "Contactez Pearly Sky Global France & Monaco pour toute demande de réservation ou devis personnalisé. Une assistance fiable et immédiate.",
+  },
+  careers: {
+    title: "Carrières dans l'Entretien de Propriétés de Luxe France & Monaco | Pearly Sky",
+    description:
+      "Construisez une carrière valorisante dans l'entretien de propriétés de luxe en France & Monaco. Découvrez nos postes ouverts pour nettoyeurs professionnels et spécialistes premium.",
+  },
+  ourLocations: {
+    title: "Nos Zones de Service en France & Monaco | Pearly Sky Global",
+    description:
+      "Des clusters de service premium opérant à travers la France & Monaco. Trouvez votre portail de service Pearly Sky Global local et réservez un entretien éco-luxe d'élite.",
+  },
+  blog: {
+    title: "Blog & Actualités Nettoyage Éco-Luxe France & Monaco | Pearly Sky",
+    description:
+      "Lisez des conseils professionnels, des guides d'entretien durable et des insights sur l'entretien immobilier d'élite pour les espaces premium en France & Monaco.",
+  },
+};
+
 /** Falls back to France when country is null (unprefixed/global site). */
-export function getCountryPageMeta(page: CountryPageKey, country: CountryCode | null): PageMeta {
-  return COUNTRY_PAGE_META[page][country ?? "fr"];
+export function getCountryPageMeta(page: CountryPageKey, country: CountryCode | null, language: LanguageCode): PageMeta {
+  const resolved = country ?? "fr";
+  if (resolved === "fr" && language === "fr") return FR_PAGE_META_FR[page];
+  return getTranslatedCountryPageMeta(page, resolved, language) ?? COUNTRY_PAGE_META[page][resolved];
 }
 
 type StaticPageKey = "termsAndConditions" | "privacyPolicy";
