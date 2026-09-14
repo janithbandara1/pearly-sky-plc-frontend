@@ -145,12 +145,14 @@ export function proxy(request: NextRequest) {
 
   // No prefix: there is no unprefixed site to serve, so redirect into the resolved
   // /{country}-{language} URL — pin cookie or Cloudflare's geo header if available,
-  // otherwise DEFAULT_COUNTRY/that country's default language.
+  // otherwise DEFAULT_COUNTRY/that country's default language. Permanent (308) so
+  // search engines consolidate ranking signals onto the locale URL instead of
+  // keeping the bare root indexed as its own page.
   const country = resolveCountry(request);
   const language = resolveLanguage(request, country);
   const target = request.nextUrl.clone();
   target.pathname = buildLocalePath(pathname, country, language);
-  return NextResponse.redirect(target);
+  return NextResponse.redirect(target, 308);
 }
 
 export const config = {
