@@ -1,4 +1,4 @@
-import { CalendarDays, FileText, MapPin, UserRound, type LucideIcon } from "lucide-react";
+import { CalendarDays, FileText, UserRound, type LucideIcon } from "lucide-react";
 
 export interface CustomerNavLink {
   href: string;
@@ -10,5 +10,5 @@ export const CUSTOMER_NAV_LINKS: CustomerNavLink[] = [
   { href: "/bookings", label: "Bookings", icon: CalendarDays },
   { href: "/quotations", label: "Quotations", icon: FileText },
   { href: "/profile", label: "Profile", icon: UserRound },
-  { href: "/addresses", label: "Addresses", icon: MapPin },
+  // Addresses hidden for now — re-add once the add-address flow is ready.
 ];

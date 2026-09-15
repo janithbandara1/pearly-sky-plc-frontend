@@ -1,10 +1,28 @@
 /**
- * Single source of truth for which language codes prefix.ts and routing
- * understand — mirrors lib/countries/config.ts. Labels for the switcher
- * UI stay in language-context.tsx since, unlike countries, there's no
- * backend endpoint for them.
+ * Single source of truth for which language codes proxy.ts and routing
+ * understand — mirrors lib/countries/config.ts. Which of these each
+ * *country* actually offers lives in lib/countries/config.ts's
+ * COUNTRY_LANGUAGES (only France offers both; every other market is
+ * English-only per the master blueprint's "English Vision" strategy).
+ * Labels for the switcher UI stay in language-context.tsx since, unlike
+ * countries, there's no backend endpoint for them.
  */
-export const SUPPORTED_LANGUAGES = ["en", "fr"] as const;
+export const SUPPORTED_LANGUAGES = [
+  "en",
+  "fr",
+  "da",
+  "de",
+  "es",
+  "fi",
+  "it",
+  "lb",
+  "nl",
+  "no",
+  "pl",
+  "pt",
+  "ro",
+  "sv",
+] as const;
 
 export type LanguageCode = (typeof SUPPORTED_LANGUAGES)[number];
 

@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useMemo } from "react";
 import Image from "next/image";
 import { Checkbox } from "@/components/ui/checkbox";
 import {
@@ -11,13 +11,15 @@ import {
   CarouselPrevious,
   type CarouselApi,
 } from "@/components/ui/carousel";
+import { useIsMobile } from "@/hooks/use-mobile";
+import { useLanguage } from "@/lib/i18n/language-context";
 
 const EVENT_IMAGE_BASE = "/images/event";
 
 export interface EventTypeCard {
   title: string;
   image: string;
-}
+} 
 
 export const EVENT_TYPE_CARDS: EventTypeCard[] = [
   { title: "Conferences", image: `${EVENT_IMAGE_BASE}/service-eventcleaning-conferences.gif` },
@@ -50,10 +52,12 @@ export const EVENT_TYPE_CARDS: EventTypeCard[] = [
 
 function EventTypeCardTile({
   card,
+  displayTitle,
   isChecked,
   onToggle,
 }: {
   card: EventTypeCard;
+  displayTitle: string;
   isChecked: boolean;
   onToggle: (title: string) => void;
 }) {
@@ -69,24 +73,23 @@ function EventTypeCardTile({
         }
       }}
       aria-pressed={isChecked}
-      className="flex cursor-pointer flex-col items-center gap-1.5 text-center transition"
+      className="flex cursor-pointer flex-col items-center gap-1.5 text-center transition hover:opacity-95"
     >
       <div
-        className={`relative aspect-square w-full overflow-hidden rounded-[10px] ${
-          isChecked
-            ? "border-2 border-[#A98B4B] shadow-[0_0_8px_rgba(169,139,75,0.3)]"
-            : "border-[1.5px] border-[#A98B4B]"
-        }`}
+        className={`relative h-[150px] w-full bg-white overflow-hidden rounded-[10px] ${isChecked
+          ? "border-2 border-[#A98B4B] shadow-[0_0_8px_rgba(169,139,75,0.3)]"
+          : "border-[1.5px] border-[#A98B4B] bg-white"
+          }`}
       >
-        <Image src={card.image} alt={card.title} fill unoptimized className="object-cover" />
+        <Image src={card.image} alt={displayTitle} fill unoptimized draggable={false} className="object-cover pointer-events-none select-none" />
         <Checkbox
           checked={isChecked}
           onCheckedChange={() => onToggle(card.title)}
           onClick={(e) => e.stopPropagation()}
-          className="absolute top-2 right-2 border-white bg-white/80 shadow-sm data-checked:border-[#A98B4B] data-checked:bg-[#A98B4B]"
+          className="absolute top-2 right-2 border-black bg-white/80 shadow-sm data-checked:border-[#A98B4B] data-checked:bg-[#A98B4B]"
         />
       </div>
-      <p className="px-0.5 text-xs font-medium text-[#121E2D]">{card.title}</p>
+      <p className="px-0.5 text-xs font-semibold text-[#121E2D] line-clamp-2">{displayTitle}</p>
     </div>
   );
 }
@@ -97,9 +100,55 @@ export interface EventTypeSectionProps {
 }
 
 export function EventTypeSection({ selectedTitles, onToggle }: EventTypeSectionProps) {
+  const { translate } = useLanguage();
+  const isMobile = useIsMobile();
+  const [mounted, setMounted] = useState(false);
   const [api, setApi] = useState<CarouselApi>();
   const [current, setCurrent] = useState(0);
   const [count, setCount] = useState(0);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  const eventTitleMap: Record<string, string> = {
+    "Conferences": translate("eventConferences"),
+    "Red Carpet Events": translate("eventRedCarpet"),
+    "Music Concerts & Festivals": translate("eventMusicConcerts"),
+    "Trade Shows": translate("eventTradeShows"),
+    "Product Launches": translate("eventProductLaunches"),
+    "Seminars": translate("eventSeminars"),
+    "Networking Events": translate("eventNetworking"),
+    "Sports": translate("eventSports"),
+    "Festivals": translate("eventFestivals"),
+    "Team Building Events": translate("eventTeamBuilding"),
+    "Company Parties": translate("eventCompanyParties"),
+    "Corporate Events": translate("eventCorporate"),
+    "Weddings": translate("eventWeddings"),
+    "Charity Events": translate("eventCharity"),
+    "Cultural Events": translate("eventCultural"),
+    "Meetings": translate("eventMeetings"),
+    "Social Events": translate("eventSocial"),
+    "Theatre Performance": translate("eventTheatre"),
+    "Career Fairs": translate("eventCareerFairs"),
+    "Exhibition": translate("eventExhibition"),
+    "Fashion Events": translate("eventFashion"),
+    "Internal Events": translate("eventInternal"),
+    "Company Meetings & Off-Sites": translate("eventCompanyMeetings"),
+    "Workshops": translate("eventWorkshops"),
+    "VIP Events": translate("eventVip"),
+    "Other": translate("eventOther"),
+  };
+
+  const pageSize = mounted && isMobile ? 4 : 9;
+
+  const pages = useMemo(() => {
+    const chunks: EventTypeCard[][] = [];
+    for (let i = 0; i < EVENT_TYPE_CARDS.length; i += pageSize) {
+      chunks.push(EVENT_TYPE_CARDS.slice(i, i + pageSize));
+    }
+    return chunks;
+  }, [pageSize]);
 
   useEffect(() => {
     if (!api) return;
@@ -115,19 +164,31 @@ export function EventTypeSection({ selectedTitles, onToggle }: EventTypeSectionP
   return (
     <section className="overflow-hidden rounded-[12px] border border-[#A98B4B]">
       <div className="bg-[#121E2D] px-5 py-4 text-center">
-        <h2 className="text-[1.1rem] font-bold text-[#FFFDF4] sm:text-[1.3rem]">Event Types</h2>
+        <h1 className="md:text-[1.7rem] font-bold text-[#A98B4B] text-[1.3rem]">
+          {translate("eventTypeSelectionTitle")}
+        </h1>
+        <p className="text-white">{translate("eventTypeSelectionSubtitle")}</p>
       </div>
 
-      <div className="bg-[#F8F9FA] p-4 sm:p-5">
-        <Carousel opts={{ align: "start" }} setApi={setApi} className="px-9">
+      <div className="bg-[#121E2D] p-4 sm:p-6">
+        <Carousel opts={{ align: "start" }} setApi={setApi} className="px-7 sm:px-10">
           <CarouselContent className="-ml-3">
-            {EVENT_TYPE_CARDS.map((card) => (
-              <CarouselItem key={card.title} className="basis-1/2 pl-3 sm:basis-1/3 lg:basis-1/5">
-                <EventTypeCardTile
-                  card={card}
-                  isChecked={selectedTitles.has(card.title)}
-                  onToggle={onToggle}
-                />
+            {pages.map((pageCards, pageIdx) => (
+              <CarouselItem key={pageIdx} className="basis-full pl-3">
+                <div
+                  className={`grid gap-3 sm:gap-5 ${pageSize === 4 ? "grid-cols-2" : "grid-cols-3"
+                    }`}
+                >
+                  {pageCards.map((card) => (
+                    <EventTypeCardTile
+                      key={card.title}
+                      card={card}
+                      displayTitle={eventTitleMap[card.title] ?? card.title}
+                      isChecked={selectedTitles.has(card.title)}
+                      onToggle={onToggle}
+                    />
+                  ))}
+                </div>
               </CarouselItem>
             ))}
           </CarouselContent>
@@ -143,9 +204,8 @@ export function EventTypeSection({ selectedTitles, onToggle }: EventTypeSectionP
                 type="button"
                 aria-label={`Go to slide ${index + 1}`}
                 onClick={() => api?.scrollTo(index)}
-                className={`size-2.5 rounded-full transition-colors ${
-                  index === current ? "bg-[#A98B4B]" : "bg-[#A98B4B]/30"
-                }`}
+                className={`size-2.5 rounded-full transition-colors ${index === current ? "bg-[#A98B4B]" : "bg-[#A98B4B]/30"
+                  }`}
               />
             ))}
           </div>
@@ -154,3 +214,5 @@ export function EventTypeSection({ selectedTitles, onToggle }: EventTypeSectionP
     </section>
   );
 }
+
+

@@ -7,6 +7,7 @@ import {
   Info,
   type LucideIcon,
   MapPin,
+  Megaphone,
   PartyPopper,
   PlusCircle,
   ShieldCheck,
@@ -22,11 +23,7 @@ import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/componen
 import { GENDER_OPTIONS, LANGUAGE_OPTIONS } from "@/components/booking/quotation-preferences-section";
 import { GENERAL_STEAM_CARDS } from "@/components/booking/steam/general-steam-section";
 import { INDUSTRIAL_STEAM_CATEGORIES } from "@/components/booking/steam/industrial-commercial-steam-section";
-
-const SUPPLY_SOURCE_LABEL: Record<string, string> = {
-  customer: "Provided by the Customer",
-  company: "Request the Company",
-};
+import { useLanguage } from "@/lib/i18n/language-context";
 
 const GENERAL_STEAM_TITLES = new Set(GENERAL_STEAM_CARDS.map((card) => card.title));
 const INDUSTRIAL_STEAM_TITLES = new Set(INDUSTRIAL_STEAM_CATEGORIES.map((category) => category.title));
@@ -39,11 +36,6 @@ const STATUS_BADGE_VARIANT: Record<
   pending: "secondary",
   cancelled: "destructive",
 };
-
-function optionLabel(options: { value: string; label: string }[], value: string | null): string {
-  if (!value) return "No Preference";
-  return options.find((o) => o.value === value)?.label ?? value;
-}
 
 export interface BookingSummaryLineItem {
   name: string;
@@ -65,6 +57,8 @@ export interface BookingSummaryServiceDetails {
   genderPreference: string | null;
   languagePreference: string | null;
   specialRequirements: string | null;
+  howGetIn: string | null;
+  howHeard: string | null;
   propertyType: string | null;
   facilities: string[] | null;
   disinfectionLevel: BookingSummaryLineItem | null;
@@ -181,6 +175,7 @@ export function BookingSummaryCard({
   footer,
   showPaymentInfo = true,
 }: BookingSummaryCardProps) {
+  const { translate } = useLanguage();
   const hasEstimate = estimatedMin !== null && estimatedMax !== null;
   const hasRemaining = remainingMin !== null && remainingMax !== null;
   const hasContact =
@@ -189,6 +184,16 @@ export function BookingSummaryCard({
   const industrialSteamItems =
     details?.steamItems?.filter((item) => INDUSTRIAL_STEAM_TITLES.has(item)) ?? [];
 
+  const supplyLabels: Record<string, string> = {
+    customer: translate("summarySupplySourceCustomer"),
+    company: translate("summarySupplySourceCompany"),
+  };
+
+  function getOptionLabel(options: { value: string; label: string }[], value: string | null): string {
+    if (!value) return translate("summaryNoPreference");
+    return options.find((o) => o.value === value)?.label ?? value;
+  }
+
   return (
     <div className="grid grid-cols-1 gap-6 lg:grid-cols-3 lg:items-start">
       <div className="flex flex-col gap-6 lg:sticky lg:top-6 lg:col-start-3 lg:row-start-1">
@@ -196,43 +201,41 @@ export function BookingSummaryCard({
           <CardHeader>
             <CardTitle className="flex items-center gap-2">
               <Info className="size-4 text-muted-foreground" />
-              Overview
+              {translate("summaryOverview")}
             </CardTitle>
           </CardHeader>
           <CardContent className="flex flex-col gap-4">
             <div className="flex items-center justify-between gap-4">
-              <Field label="Reference" value={referenceNumber} />
+              <Field label={translate("summaryReference")} value={referenceNumber} />
               <Badge variant={STATUS_BADGE_VARIANT[status]} className="capitalize">
                 {status}
               </Badge>
             </div>
             {cleanerName !== undefined && (
-              <Field label="Cleaner" value={cleanerName || "Unassigned"} />
+              <Field label={translate("summaryCleaner")} value={cleanerName || translate("summaryUnassigned")} />
             )}
           </CardContent>
         </Card>
 
         {hasContact && (
-          <SectionCard icon={Users} label="Contact Information">
+          <SectionCard icon={Users} label={translate("summaryContactInfo")}>
             <div className="flex flex-col gap-4">
-              {customerName && <Field label="Name" value={customerName} />}
-              {customerEmail && <Field label="Email" value={customerEmail} />}
-              {customerPhone && <Field label="Phone" value={customerPhone} />}
+              {customerName && <Field label={translate("summaryName")} value={customerName} />}
+              {customerEmail && <Field label={translate("summaryEmail")} value={customerEmail} />}
+              {customerPhone && <Field label={translate("summaryPhone")} value={customerPhone} />}
             </div>
           </SectionCard>
         )}
 
         {address && (
-          <SectionCard icon={MapPin} label="Address">
+          <SectionCard icon={MapPin} label={translate("summaryAddress")}>
             <div className="flex flex-col gap-3">
-              <Field
-                label="Street"
-                value={[address.streetAddress, address.unit].filter(Boolean).join(", ")}
-              />
-              <Field label="City" value={address.city} />
-              {address.state && <Field label="State" value={address.state} />}
-              {address.country && <Field label="Country" value={address.country} />}
-              {address.postalCode && <Field label="Postal Code" value={address.postalCode} />}
+              <Field label={translate("summaryStreetAddress")} value={address.streetAddress} />
+              {address.unit && <Field label={translate("summaryUnitAptSuite")} value={address.unit} />}
+              <Field label={translate("summaryCity")} value={address.city} />
+              {address.state && <Field label={translate("summaryProvinceState")} value={address.state} />}
+              {address.country && <Field label={translate("summaryCountry")} value={address.country} />}
+              {address.postalCode && <Field label={translate("summaryPostalCode")} value={address.postalCode} />}
             </div>
           </SectionCard>
         )}
@@ -242,23 +245,23 @@ export function BookingSummaryCard({
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
                 <Wallet className="size-4 text-muted-foreground" />
-                Payment Info
+                {translate("summaryPaymentInfo")}
               </CardTitle>
             </CardHeader>
             <CardContent className="flex flex-col gap-3">
               <PaymentRow
-                label="Due at booking"
-                value={dueAtBooking !== null ? money(dueAtBooking) : "Awaiting a price from our team"}
+                label={translate("summaryDueAtBooking")}
+                value={dueAtBooking !== null ? money(dueAtBooking) : translate("summaryAwaitingPrice")}
               />
               {hasEstimate && (
                 <PaymentRow
-                  label="Total price (estimate)"
+                  label={translate("summaryTotalPriceEstimate")}
                   value={`${money(estimatedMin as number)} – ${money(estimatedMax as number)}`}
                 />
               )}
               {hasRemaining && (
                 <PaymentRow
-                  label="Remaining balance"
+                  label={translate("summaryRemainingBalance")}
                   value={`${money(remainingMin as number)} – ${money(remainingMax as number)}`}
                 />
               )}
@@ -270,30 +273,30 @@ export function BookingSummaryCard({
 
       {details && (
         <div className="flex flex-col gap-6 lg:col-span-2 lg:col-start-1 lg:row-start-1">
-          <SectionCard icon={ClipboardList} label="Service Details">
+          <SectionCard icon={ClipboardList} label={translate("summaryServiceDetails")}>
             <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-              <Field label="Service" value={details.service.label} />
-              <Field label="Date & time" value={`${details.date} · ${details.time}`} />
-              {details.propertyType && <Field label="Property type" value={details.propertyType} />}
-              <Field label="Property size" value={`${details.propertySizeSqm} m²`} />
-              <Field label="Duration" value={`${details.minHours}-${details.maxHours} hours`} />
-              <Field label="Cleaners" value={details.cleanerCount + details.extraCleanerCount} />
+              <Field label={translate("summaryService")} value={details.service.label} />
+              <Field label={translate("summaryDateTime")} value={`${details.date} · ${details.time}`} />
+              {details.propertyType && <Field label={translate("summaryPropertyType")} value={details.propertyType} />}
+              <Field label={translate("summaryPropertySize")} value={`${details.propertySizeSqm} m²`} />
+              <Field label={translate("summaryDuration")} value={`${details.minHours}-${details.maxHours} ${translate("summaryHours")}`} />
+              <Field label={translate("summaryCleaners")} value={details.cleanerCount + details.extraCleanerCount} />
               {showPaymentInfo && (
                 <Field
-                  label="Price per cleaner"
+                  label={translate("summaryPricePerCleaner")}
                   value={dueAtBooking !== null ? `${money(dueAtBooking)}/h` : "—"}
                 />
               )}
               {details.note && (
                 <div className="col-span-full">
-                  <Field label="Note" value={details.note} />
+                  <Field label={translate("summaryNote")} value={details.note} />
                 </div>
               )}
             </div>
           </SectionCard>
 
           {details.facilities?.length ? (
-            <SectionCard icon={Building2} label="Facilities">
+            <SectionCard icon={Building2} label={translate("summaryFacilities")}>
               <ul className="list-inside list-disc text-sm">
                 {details.facilities.map((facility) => (
                   <li key={facility}>{facility}</li>
@@ -303,7 +306,7 @@ export function BookingSummaryCard({
           ) : null}
 
           {details.disinfectionLevel && (
-            <SectionCard icon={ShieldCheck} label="Disinfection Level">
+            <SectionCard icon={ShieldCheck} label={translate("summaryDisinfectionLevel")}>
               <ul className="text-sm">
                 <LineItemRow
                   name={details.disinfectionLevel.name}
@@ -315,7 +318,7 @@ export function BookingSummaryCard({
           )}
 
           {generalSteamItems.length ? (
-            <SectionCard icon={Wind} label="General Steam Cleaning Job Types">
+            <SectionCard icon={Wind} label={translate("summaryGeneralSteam")}>
               <ul className="list-inside list-disc text-sm">
                 {generalSteamItems.map((item) => (
                   <li key={item}>{item}</li>
@@ -325,7 +328,7 @@ export function BookingSummaryCard({
           ) : null}
 
           {industrialSteamItems.length ? (
-            <SectionCard icon={Wind} label="Industrial & Commercial Steam Cleaning Job Types">
+            <SectionCard icon={Wind} label={translate("summaryIndustrialSteam")}>
               <ul className="list-inside list-disc text-sm">
                 {industrialSteamItems.map((item) => (
                   <li key={item}>{item}</li>
@@ -335,7 +338,7 @@ export function BookingSummaryCard({
           ) : null}
 
           {details.eventTypes?.length ? (
-            <SectionCard icon={PartyPopper} label="Event Types">
+            <SectionCard icon={PartyPopper} label={translate("summaryEventTypes")}>
               <ul className="list-inside list-disc text-sm">
                 {details.eventTypes.map((type) => (
                   <li key={type}>{type}</li>
@@ -345,29 +348,38 @@ export function BookingSummaryCard({
           ) : null}
 
           {details.category && (
-            <SectionCard icon={Tag} label="Job type">
+            <SectionCard icon={Tag} label={translate("summaryJobType")}>
               <p className="text-sm">{details.category}</p>
             </SectionCard>
           )}
 
-          <SectionCard icon={SlidersHorizontal} label="Preferences">
+          <SectionCard icon={SlidersHorizontal} label={translate("summaryPreferences")}>
             <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
               <Field
-                label="Gender Preference"
-                value={optionLabel(GENDER_OPTIONS, details.genderPreference)}
+                label={translate("summaryGenderPreference")}
+                value={getOptionLabel(GENDER_OPTIONS, details.genderPreference)}
               />
               <Field
-                label="Language Preference"
-                value={optionLabel(LANGUAGE_OPTIONS, details.languagePreference)}
+                label={translate("summaryLanguagePreference")}
+                value={getOptionLabel(LANGUAGE_OPTIONS, details.languagePreference)}
               />
               <div className="sm:col-span-2">
-                <Field label="Special Requirements" value={details.specialRequirements || "—"} />
+                <Field label={translate("summarySpecialRequirements")} value={details.specialRequirements || "—"} />
               </div>
             </div>
           </SectionCard>
 
+          {(details.howGetIn || details.howHeard) && (
+            <SectionCard icon={Megaphone} label={translate("summaryLogisticsMarketing")}>
+              <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+                {details.howGetIn && <Field label={translate("summaryHowGetIn")} value={details.howGetIn} />}
+                {details.howHeard && <Field label={translate("summaryHowHeard")} value={details.howHeard} />}
+              </div>
+            </SectionCard>
+          )}
+
           {details.addOns?.length ? (
-            <SectionCard icon={PlusCircle} label="Add-Ons">
+            <SectionCard icon={PlusCircle} label={translate("summaryAddOns")}>
               <ul className="flex flex-col gap-2 text-sm">
                 {details.addOns.map((addOn) => (
                   <LineItemRow key={addOn.name} name={addOn.name} price={addOn.price} money={money} />
@@ -377,11 +389,11 @@ export function BookingSummaryCard({
           ) : null}
 
           {details.supplySource || details.equipmentItems?.length ? (
-            <SectionCard icon={SprayCan} label="Cleaning Solvents & Equipment">
+            <SectionCard icon={SprayCan} label={translate("summaryEquipment")}>
               <p className="text-sm">
                 {details.supplySource
-                  ? (SUPPLY_SOURCE_LABEL[details.supplySource] ?? details.supplySource)
-                  : "Not specified"}
+                  ? (supplyLabels[details.supplySource] ?? details.supplySource)
+                  : translate("summaryNotSpecified")}
               </p>
               {details.supplySource === "company" && details.equipmentItems?.length ? (
                 <ul className="mt-2 flex flex-col gap-2 text-sm">
@@ -402,3 +414,4 @@ export function BookingSummaryCard({
     </div>
   );
 }
+

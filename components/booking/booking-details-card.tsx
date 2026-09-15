@@ -9,6 +9,7 @@ import { SUPPLY_SOURCE_OPTIONS, type SupplySource } from "@/components/booking/e
 import type { BookingDraftItem, BookingDraftPackage } from "@/lib/booking-draft";
 import type { CatalogItem, SizeQuote } from "@/lib/catalog-api";
 import { useCurrency } from "@/lib/currency-context";
+import { useLanguage } from "@/lib/i18n/language-context";
 
 function formatHM(hours: number): string {
   const h = Math.floor(hours);
@@ -110,6 +111,7 @@ export function BookingDetailsCard({
   onAgreedToTermsChange,
 }: BookingDetailsCardProps) {
   const { symbol } = useCurrency();
+  const { translate } = useLanguage();
   const money = (n: number) => `${symbol}${n.toFixed(2)}`;
 
   const hasDuration = quote?.bookable && quote.minHours !== undefined && quote.maxHours !== undefined;
@@ -125,30 +127,35 @@ export function BookingDetailsCard({
     !quote?.bookable ||
     (termsRequired && !agreedToTerms);
 
+  const supplyLabels: Record<string, string> = {
+    customer: translate("summarySupplySourceCustomer"),
+    company: translate("summarySupplySourceCompany"),
+  };
+
   return (
     <Card className="bg-brand-navy text-brand-navy-foreground">
       <CardContent className="flex flex-col gap-0 p-0">
         <div className="px-4 py-3">
-          <h3 className="text-base font-bold text-brand-gold">Booking Details</h3>
+          <h3 className="text-base font-bold text-brand-gold">{translate("bookingDetailsTitle")}</h3>
         </div>
 
         <div className="flex flex-col border-t border-brand-gold/20">
-          <SummaryRow label="Service" value={serviceLabel} />
-          <SummaryRow label="Date" value={date} />
-          <SummaryRow label="Time" value={time} />
-          {propertyType && <SummaryRow label="Property type" value={propertyType} />}
-          <SummaryRow label="Property size" value={`${propertySizeSqm} m²`} />
+          <SummaryRow label={translate("bookingDetailService")} value={serviceLabel} />
+          <SummaryRow label={translate("bookingDetailDate")} value={date} />
+          <SummaryRow label={translate("bookingDetailTime")} value={time} />
+          {propertyType && <SummaryRow label={translate("bookingDetailPropertyType")} value={propertyType} />}
+          <SummaryRow label={translate("bookingDetailPropertySize")} value={`${propertySizeSqm} m²`} />
           <SummaryRow
-            label="Duration"
+            label={translate("bookingDetailDuration")}
             value={hasDuration ? `${formatHM(quote!.minHours as number)} – ${formatHM(quote!.maxHours as number)}` : "—"}
           />
-          <SummaryRow label="Cleaners" value={quote?.cleanerCount ?? "—"} />
-          <SummaryRow label="Price per cleaner" value={hourlyRate ? `${money(Number(hourlyRate))}/h` : "—"} />
+          <SummaryRow label={translate("bookingDetailCleaners")} value={quote?.cleanerCount ?? "—"} />
+          <SummaryRow label={translate("bookingDetailPricePerCleaner")} value={hourlyRate ? `${money(Number(hourlyRate))}/h` : "—"} />
         </div>
 
         {facilities && facilities.length > 0 && (
           <div className="flex flex-col border-t border-brand-gold/20">
-            <SectionHeading label="Facilities" />
+            <SectionHeading label={translate("bookingDetailFacilities")} />
             {facilities.map((facility) => (
               <SummaryRow key={facility} label={facility} value="" />
             ))}
@@ -157,24 +164,24 @@ export function BookingDetailsCard({
 
         {serviceLevel && (
           <div className="flex flex-col border-t border-brand-gold/20">
-            <SectionHeading label="Package" />
+            <SectionHeading label={translate("bookingDetailPackage")} />
             <SummaryRow
               label={serviceLevel.name}
-              value={serviceLevel.price !== null ? money(serviceLevel.price) : "Included"}
+              value={serviceLevel.price !== null ? money(serviceLevel.price) : translate("bookingDetailIncluded")}
             />
           </div>
         )}
 
         {serviceCategory && (
           <div className="flex flex-col border-t border-brand-gold/20">
-            <SectionHeading label="Job type" />
+            <SectionHeading label={translate("bookingDetailJobType")} />
             <SummaryRow label={serviceCategory} value="" />
           </div>
         )}
 
         {generalSteamItems && generalSteamItems.length > 0 && (
           <div className="flex flex-col border-t border-brand-gold/20">
-            <SectionHeading label="General Steam Cleaning Job Types" />
+            <SectionHeading label={translate("bookingDetailGeneralSteam")} />
             {generalSteamItems.map((item) => (
               <SummaryRow key={item} label={item} value="" />
             ))}
@@ -183,7 +190,7 @@ export function BookingDetailsCard({
 
         {industrialSteamItems && industrialSteamItems.length > 0 && (
           <div className="flex flex-col border-t border-brand-gold/20">
-            <SectionHeading label="Industrial & Commercial Steam Cleaning Job Types" />
+            <SectionHeading label={translate("bookingDetailIndustrialSteam")} />
             {industrialSteamItems.map((item) => (
               <SummaryRow key={item} label={item} value="" />
             ))}
@@ -192,7 +199,7 @@ export function BookingDetailsCard({
 
         {eventTypes && eventTypes.length > 0 && (
           <div className="flex flex-col border-t border-brand-gold/20">
-            <SectionHeading label="Event Types" />
+            <SectionHeading label={translate("bookingDetailEventTypes")} />
             {eventTypes.map((item) => (
               <SummaryRow key={item} label={item} value="" />
             ))}
@@ -200,28 +207,30 @@ export function BookingDetailsCard({
         )}
 
         <div className="flex flex-col border-t border-brand-gold/20">
-          <SectionHeading label="Preferences" />
-          <SummaryRow label="Gender Preference" value={genderLabel} />
-          <SummaryRow label="Language Preference" value={languageLabel} />
-          <SummaryRow label="Special Requirements" value={specialRequirements || "—"} />
+          <SectionHeading label={translate("bookingDetailPreferences")} />
+          <SummaryRow label={translate("bookingDetailGenderPreference")} value={genderLabel} />
+          <SummaryRow label={translate("bookingDetailLanguagePreference")} value={languageLabel} />
+          <SummaryRow label={translate("bookingDetailSpecialRequirements")} value={specialRequirements || "—"} />
         </div>
 
         {packages.length > 0 && (
           <div className="flex flex-col border-t border-brand-gold/20">
-            <SectionHeading label="Add-Ons" />
+            <SectionHeading label={translate("bookingDetailAddOns")} />
             {packages.map((pkg) => (
               <SummaryRow
                 key={pkg.name}
                 label={pkg.name}
-                value={`+${money(pkg.price ?? 0)}`}
+                value={pkg.price !== null ? `+${money(pkg.price)}` : translate("bookingDetailIncluded")}
               />
             ))}
           </div>
         )}
 
-        {(onSupplySourceChange || (equipmentOptions && equipmentOptions.length > 0) || items.length > 0) && (
+        {(onSupplySourceChange ||
+          (equipmentOptions && equipmentOptions.length > 0) ||
+          (supplySource !== "customer" && items.length > 0)) && (
           <div className="flex flex-col border-t border-brand-gold/20">
-            <SectionHeading label="Cleaning Solvents & Equipment" />
+            <SectionHeading label={translate("bookingDetailEquipment")} />
 
             {onSupplySourceChange &&
               SUPPLY_SOURCE_OPTIONS.map((opt) => (
@@ -230,7 +239,7 @@ export function BookingDetailsCard({
                   htmlFor={`supply-source-${opt.value}`}
                   className="flex cursor-pointer items-center justify-between gap-3 px-4 py-2.5 text-sm"
                 >
-                  <span className="text-brand-navy-foreground/70">{opt.label}</span>
+                  <span className="text-brand-navy-foreground/70">{supplyLabels[opt.value] ?? opt.label}</span>
                   <Checkbox
                     id={`supply-source-${opt.value}`}
                     checked={supplySource === opt.value}
@@ -248,7 +257,6 @@ export function BookingDetailsCard({
                   <SummaryRow
                     key={item.id}
                     label={item.name}
-                    icon={item.image}
                     value={
                       <div className="flex items-center gap-2">
                         <span className="text-brand-navy-foreground">{`+${money(price)}`}</span>
@@ -256,11 +264,10 @@ export function BookingDetailsCard({
                           type="button"
                           onClick={() => onToggleEquipment?.(item.id)}
                           aria-pressed={isSelected}
-                          className={`shrink-0 rounded-[6px] border-[1.5px] border-brand-gold px-2.5 py-1 text-xs ${
-                            isSelected ? "bg-brand-gold text-brand-navy" : "text-brand-gold"
-                          }`}
+                          className={`shrink-0 rounded-[6px] border-[1.5px] border-brand-gold px-2.5 py-1 text-xs ${isSelected ? "bg-brand-gold text-brand-navy" : "text-brand-gold"
+                            }`}
                         >
-                          {isSelected ? "Added" : "Add"}
+                          {isSelected ? translate("bookingDetailAdded") : translate("bookingDetailAdd")}
                         </button>
                       </div>
                     }
@@ -272,7 +279,6 @@ export function BookingDetailsCard({
                 <SummaryRow
                   key={item.name}
                   label={item.name}
-                  icon={item.image}
                   value={`+${money(item.price ?? 0)}`}
                 />
               ))
@@ -280,27 +286,34 @@ export function BookingDetailsCard({
           </div>
         )}
 
-        <div className="flex flex-col border-t border-brand-gold/20">
-          {hourlyRate && <SummaryRow label="Due at booking" value={money(Number(hourlyRate))} />}
+        <div className="flex flex-col gap-3 border-t border-brand-gold/20 p-4">
           {hasPrice ? (
             <>
-              <SummaryRow
-                label="Total price (estimate)"
-                value={`${money(estimatedMin as number)} – ${money(estimatedMax as number)}`}
-              />
+              <div className="flex items-center justify-between gap-3 rounded-lg border border-brand-gold bg-brand-gold/10 px-4 py-3 text-sm">
+                <span className="text-brand-gold">{translate("bookingDetailEstimatedPriceRange")}</span>
+                <span>{`${money(estimatedMin as number)} – ${money(estimatedMax as number)}`}</span>
+              </div>
               {hourlyRate && (
-                <SummaryRow
-                  label="Remaining balance"
-                  value={`${money((estimatedMin as number) - Number(hourlyRate))} – ${money((estimatedMax as number) - Number(hourlyRate))}`}
-                />
+                <div className="flex items-center justify-between gap-3 rounded-lg border border-brand-gold bg-brand-gold/10 px-4 py-3 text-sm">
+                  <span className="text-brand-gold">{translate("bookingDetailAdvancePayment")}</span>
+                  <span>{money(Number(hourlyRate))}</span>
+                </div>
               )}
             </>
           ) : (
-            <div className="px-4 py-3 text-sm text-brand-navy-foreground/70">
-              {quote?.bookable
-                ? "Your cleaning professional will confirm exact pricing after reviewing your space."
-                : "Online booking isn't available for this property size yet — please contact us directly for a quote."}
-            </div>
+            <>
+              {hourlyRate && (
+                <div className="flex items-center justify-between gap-3 rounded-lg border border-brand-gold bg-brand-gold/10 px-4 py-3 text-sm">
+                  <span className="text-brand-gold">{translate("bookingDetailAdvancePayment")}</span>
+                  <span>{money(Number(hourlyRate))}</span>
+                </div>
+              )}
+              <div className="text-sm text-brand-navy-foreground/70">
+                {quote?.bookable
+                  ? translate("bookingDetailConfirmPricing")
+                  : translate("bookingDetailOnlineNotAvailable")}
+              </div>
+            </>
           )}
         </div>
 
@@ -317,13 +330,13 @@ export function BookingDetailsCard({
                 className="border-brand-gold data-checked:border-brand-gold data-checked:bg-brand-gold"
               />
               <span>
-                I agree to the{" "}
+                {translate("bookingDetailAgreeTo")}{" "}
                 <Link href="/terms-and-conditions" target="_blank" className="underline">
-                  Terms and Conditions
+                  {translate("bookingDetailTermsAndConditions")}
                 </Link>{" "}
-                and{" "}
+                {translate("bookingDetailAnd")}{" "}
                 <Link href="/privacy-policy" target="_blank" className="underline">
-                  Privacy Policy
+                  {translate("bookingDetailPrivacyPolicy")}
                 </Link>
                 .
               </span>
@@ -335,7 +348,7 @@ export function BookingDetailsCard({
             disabled={bookNowDisabled}
             className="w-full bg-brand-gold text-brand-navy hover:bg-brand-gold/90"
           >
-            {submitting ? "Booking…" : "Book Now"}
+            {submitting ? translate("bookingDetailBookingInProgress") : translate("bookingDetailBookNow")}
           </Button>
           {bookDisabledReason && (
             <p className="mt-2 text-center text-xs text-brand-navy-foreground/70">{bookDisabledReason}</p>
@@ -354,26 +367,12 @@ function SectionHeading({ label }: { label: string }) {
   );
 }
 
-function SummaryRow({
-  label,
-  value,
-  icon,
-}: {
-  label: string;
-  value: ReactNode;
-  /** Optional item image/icon shown before the label (e.g. equipment items). */
-  icon?: string | null;
-}) {
+function SummaryRow({ label, value }: { label: string; value: ReactNode }) {
   return (
     <div className="flex items-center justify-between gap-3 px-4 py-2.5 text-sm">
-      <span className="flex min-w-0 items-center gap-2 text-brand-navy-foreground/70">
-        {icon && (
-          // eslint-disable-next-line @next/next/no-img-element
-          <img src={icon} alt="" className="size-5 shrink-0 rounded object-cover" />
-        )}
-        <span className="truncate">{label}</span>
-      </span>
+      <span className="min-w-0 truncate text-brand-navy-foreground/70">{label}</span>
       <span>{value}</span>
     </div>
   );
 }
+

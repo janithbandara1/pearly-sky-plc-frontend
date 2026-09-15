@@ -4,7 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { CalendarDays, ChevronDown, FileText, LogOut, MapPin, Menu, UserRound, XIcon } from "lucide-react";
+import { CalendarDays, ChevronDown, FileText, LogOut, Menu, UserRound, XIcon } from "lucide-react";
 import { useAuth } from "@/lib/auth-context";
 import { useLanguage } from "@/lib/i18n/language-context";
 import { cn } from "@/lib/utils";
@@ -20,8 +20,9 @@ import {
   SheetTrigger,
 } from "@/components/ui/sheet";
 
+//test cmd
 const navLinkClass =
-  "rounded-lg p-2 text-sm font-medium text-brand-navy-foreground transition-colors hover:bg-brand-gold/10 hover:text-brand-gold";
+  "rounded-lg p-1 text-sm font-medium text-brand-navy-foreground transition-colors hover:bg-brand-gold/10 hover:text-brand-gold";
 const navLinkActiveClass = "bg-brand-gold/10 text-brand-gold";
 
 export interface SiteHeaderProps {
@@ -96,6 +97,7 @@ export function SiteHeader({ navLinks: navLinksProp, showServicesMenu = true }: 
   return (
     <header className="sticky top-0 z-50 bg-brand-navy text-brand-navy-foreground">
       <div className="mx-auto flex h-16 w-full max-w-7xl items-center justify-between gap-4 px-4 sm:px-6">
+        
         <Link href="/" className="flex shrink-0 items-center gap-2.5">
           <Image
             src="/images/brand/logo.webp"
@@ -110,7 +112,7 @@ export function SiteHeader({ navLinks: navLinksProp, showServicesMenu = true }: 
           </span>
         </Link>
 
-        <nav className="hidden items-center gap-1 lg:flex">
+        <nav className="hidden border border-[#C9B678] px-2 py-1 rounded-3xl items-center gap-1 lg:flex">
           <Link
             href="/"
             className={cn(navLinkClass, pathname === "/" && navLinkActiveClass)}
@@ -155,13 +157,9 @@ export function SiteHeader({ navLinks: navLinksProp, showServicesMenu = true }: 
               {link.label}
             </Link>
           ))}
-        </nav>
-
-        <div className="flex items-center gap-2 sm:gap-3">
-          <LocaleSwitcher />
 
           {status === "authenticated" ? (
-            <div className="relative" ref={accountRef}>
+            <div className="relative ml-3" ref={accountRef}>
               <button
                 type="button"
                 onClick={() => setAccountOpen((open) => !open)}
@@ -200,14 +198,6 @@ export function SiteHeader({ navLinks: navLinksProp, showServicesMenu = true }: 
                     <UserRound className="size-4" />
                     Profile
                   </Link>
-                  <Link
-                    href="/addresses"
-                    onClick={() => setAccountOpen(false)}
-                    className="flex items-center gap-2.5 rounded-lg p-2 text-sm hover:bg-muted"
-                  >
-                    <MapPin className="size-4" />
-                    Addresses
-                  </Link>
                   <div className="my-1 border-t" />
                   <button
                     type="button"
@@ -215,7 +205,7 @@ export function SiteHeader({ navLinks: navLinksProp, showServicesMenu = true }: 
                       setAccountOpen(false);
                       logout();
                     }}
-                    className="flex w-full items-center gap-2.5 rounded-lg p-2 text-left text-sm text-destructive hover:bg-muted"
+                    className="flex w-full items-center gap-2.5 rounded-3xl p-2 text-left text-sm text-destructive hover:bg-muted"
                   >
                     <LogOut className="size-4" />
                     Log out
@@ -229,19 +219,103 @@ export function SiteHeader({ navLinks: navLinksProp, showServicesMenu = true }: 
                 asChild
                 size="sm"
                 variant="outline"
-                className="border-brand-gold bg-transparent font-semibold text-brand-gold hover:bg-brand-gold/10 hover:text-brand-gold"
+                className="border-brand-gold rounded-2xl ml-3 bg-transparent font-semibold text-brand-gold hover:bg-brand-gold/10 hover:text-brand-gold"
               >
                 <Link href="/login">{translate("navLogin")}</Link>
               </Button>
               <Button
                 asChild
                 size="sm"
-                className="bg-brand-gold text-brand-navy hover:bg-brand-gold/90"
+                className="bg-brand-gold rounded-2xl text-brand-navy hover:bg-brand-gold/90"
               >
                 <Link href="/signup">{translate("navSignup")}</Link>
               </Button>
             </>
           )}
+        </nav>
+
+            
+        <div className="flex items-center gap-2 sm:gap-3">
+          <LocaleSwitcher />
+          
+          <div className="md:hidden lg:hidden flex">
+              {status === "authenticated" ? (
+                      <div className="relative ml-4" ref={accountRef}>
+                    <button
+                      type="button"
+                      onClick={() => setAccountOpen((open) => !open)}
+                      aria-expanded={accountOpen}
+                      aria-label="Account menu"
+                      className={cn(
+                        "flex size-9 items-center justify-center rounded-full border border-brand-gold bg-brand-gold/10 text-brand-gold transition-colors hover:bg-brand-gold/20",
+                        accountOpen && "bg-brand-gold/20",
+                      )}
+                    >
+                      <UserRound className="size-5" />
+                    </button>
+                    {accountOpen && (
+                      <div className="absolute top-full right-0 z-50 mt-1.5 flex w-56 flex-col gap-1 rounded-lg bg-popover p-1 text-popover-foreground shadow ring-1 ring-foreground/10">
+                        <Link
+                          href="/bookings"
+                          onClick={() => setAccountOpen(false)}
+                          className="flex items-center gap-2.5 rounded-lg p-2 text-sm hover:bg-muted"
+                        >
+                          <CalendarDays className="size-4" />
+                          Bookings
+                        </Link>
+                        <Link
+                          href="/quotations"
+                          onClick={() => setAccountOpen(false)}
+                          className="flex items-center gap-2.5 rounded-lg p-2 text-sm hover:bg-muted"
+                        >
+                          <FileText className="size-4" />
+                          Quotations
+                        </Link>
+                        <Link
+                          href="/profile"
+                          onClick={() => setAccountOpen(false)}
+                          className="flex items-center gap-2.5 rounded-lg p-2 text-sm hover:bg-muted"
+                        >
+                          <UserRound className="size-4" />
+                          Profile
+                        </Link>
+                        <div className="my-1 border-t" />
+                        <button
+                          type="button"
+                          onClick={() => {
+                            setAccountOpen(false);
+                            logout();
+                          }}
+                          className="flex w-full items-center gap-2.5 rounded-lg p-2 text-left text-sm text-destructive hover:bg-muted"
+                        >
+                          <LogOut className="size-4" />
+                          Log out
+                        </button>
+                      </div>
+                    )}
+                      </div>
+                    ) : (
+                      <>
+                        <Button
+                          asChild
+                          size="sm"
+                          variant="outline"
+                          className="border-brand-gold rounded-lg mx-1 bg-transparent font-semibold text-brand-gold hover:bg-brand-gold/10 hover:text-brand-gold"
+                        >
+                          <Link href="/login">{translate("navLogin")}</Link>
+                        </Button>
+                        <Button
+                          asChild
+                          size="sm"
+                          className="bg-brand-gold rounded-lg text-brand-navy hover:bg-brand-gold/90"
+                        >
+                          <Link href="/signup">{translate("navSignup")}</Link>
+                        </Button>
+                      </>
+              )}
+                
+          </div>
+          
 
           <Sheet
             open={mobileOpen}

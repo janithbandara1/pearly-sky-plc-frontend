@@ -3,7 +3,7 @@
 import { useMemo, useState } from "react";
 import Link from "next/link";
 import { Briefcase, MapPin, Search } from "lucide-react";
-import { PageHero } from "@/components/page-hero";
+import { PageHero } from "@/components/careers/careers-hero";
 import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
@@ -26,7 +26,7 @@ export function CareersView() {
   }, [title, location]);
 
   return (
-    <main className="flex-1">
+    <main className="flex-1 bg-[rgb(18,30,45)] md:bg-[#d9d9d9]">
       <PageHero
         image="/images/careers/hero.webp"
         title={translate("careersPageTitle")}

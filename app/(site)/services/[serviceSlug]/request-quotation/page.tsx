@@ -5,7 +5,11 @@ import { getRequestLanguage } from "@/lib/i18n/server";
 import { buildCountryAlternates, buildSocialMeta } from "@/lib/countries/seo";
 import { buildBreadcrumbJsonLd } from "@/lib/seo/json-ld";
 import { JsonLd } from "@/components/json-ld";
+import { redirect } from "next/navigation";
 import { RequestQuotationView } from "./request-quotation-view";
+import JoinWithUsSection from "@/components/booking/join-with-us-section";
+import RelatedServices from "@/components/services-links";
+import PaymentMarquee from "@/components/payment-method-services";
 
 export async function generateMetadata({
   params,
@@ -31,6 +35,16 @@ export default async function RequestQuotationPage({
   params: Promise<{ serviceSlug: string }>;
 }) {
   const { serviceSlug } = await params;
+  if (
+    serviceSlug === "child-care-service" ||
+    serviceSlug === "elder-care-service" ||
+    serviceSlug === "carpet-upholstery-cleaning" ||
+    serviceSlug === "pool-cleaning" ||
+    serviceSlug === "precision-pressure-washing"
+  ) {
+    redirect(`/services/${serviceSlug}`);
+  }
+
   const label = await getServiceBySlug(serviceSlug)
     .then((service) => service.label)
     .catch(() => serviceSlug);
@@ -45,6 +59,9 @@ export default async function RequestQuotationPage({
         ])}
       />
       <RequestQuotationView serviceSlug={serviceSlug} />
+      <JoinWithUsSection />
+      <RelatedServices />
+      <PaymentMarquee />
     </>
   );
 }

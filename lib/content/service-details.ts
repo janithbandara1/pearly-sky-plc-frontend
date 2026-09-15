@@ -1,114 +1,114 @@
+import { HeadLine, ServiceContentHighlightTitles, serviceContenthighlihgtCardFeatures, ServiceContentIntroBody, serviceHighlightCardTitles } from "../types/services-types/serives-content-types";
+
 export interface ServiceHighlightCard {
-  title: string;
-  features: string[];
+  title: serviceHighlightCardTitles;
+  features: serviceContenthighlihgtCardFeatures;
 }
 
 export interface ServiceHighlightGroup {
   /** Falls back to a neutral label in the UI when the source page had no section heading. */
-  title?: string;
+  title?: ServiceContentHighlightTitles;
   cards: ServiceHighlightCard[];
 }
 
+
 export interface ServiceContentEntry {
   introduction?: {
-    headline: string;
-    body: string[];
+    headline: HeadLine;
+    body: ServiceContentIntroBody | ServiceContentIntroBody[];
   };
   highlights?: ServiceHighlightGroup[];
 }
 
 export const SERVICE_CONTENT: Partial<Record<string, ServiceContentEntry>> = {
-  "regular-maintenance-cleaning": {
+  "regular-home-cleaning": {
     introduction: {
-      headline: "Consistent Clean, Sustainable Peace of Mind",
+      headline: "serviceRegularCleaningIntroHeadLine",
       body: [
-        "Stop stressing over everyday chores. Our Regular Maintenance Cleaning service establishes a reliable, recurring schedule—whether daily, weekly, or bi-weekly—that keeps your home effortlessly immaculate. We use exclusively green, certified eco-friendly products to deliver a sparkling clean that is 100% safe for your children and pets. Commit to consistency and enjoy the luxury of coming home to a healthier, reliably pristine space every time. See our transparent rates and book your recurring schedule today.",
+        "serviceRegularCleaningIntroBody"
       ],
     },
     highlights: [
       {
-        title: "Regular Maintenance Cleaning Highlights",
+        title: "serviceRegularCleaningHighlightTitleOne",
         cards: [
           {
-            title: "General & Living Spaces",
+            title: "serviceRegularCleaningHighlightCardTitleOne",
             features: [
-              "Dusting.",
-              "Surface cleaning (including glass).",
-              "Light tidying.",
-              "Trash removal and floor care (vacuuming/mopping).",
+              "serviceRegularCleaningTitleOneFeatureOne",
+              "serviceRegularCleaningTitleOneFeatureTwo",
+              "serviceRegularCleaningTitleOneFeatureThree",
+              "serviceRegularCleaningTitleOneFeatureFour",  
             ],
           },
           {
-            title: "Essential Touch-Points",
+            title: "serviceRegularCleaningHighlightCardTitleTwo",
             features: [
-              "Bed making, linen management & targeted disinfection of high-touch surfaces for health & maintenance.",
+              "serviceRegularCleaningTitleTwoFeatureOne",
             ],
           },
           {
-            title: "Kitchen & Dining",
+            title: "serviceRegularCleaningHighlightCardTitleThree",
             features: [
-              "Appliance exterior care.",
-              "Countertop & sink sanitation.",
-              "Dish organization & complete floor cleaning.",
+              "serviceRegularCleaningTitleThreeFeatureOne",
+              "serviceRegularCleaningTitleThreeFeatureTwo",
+              "serviceRegularCleaningTitleThreeFeatureThree",
             ],
           },
           {
-            title: "Bathroom Cleaning",
+            title: "serviceRegularCleaningHighlightCardTitleFour",
             features: [
-              "Full disinfection & hygiene focus.",
-              "Cleaning of toilet, sink, shower & tub.",
-              "Mirror cleaning & fresh towel placement.",
+              "serviceRegularCleaningTitleFourFeatureOne",
+              "serviceRegularCleaningTitleFourFeatureTwo",
+              "serviceRegularCleaningTitleFourFeatureThree",
             ],
           },
         ],
       },
     ],
   },
-
   "quick-touch-up-cleaning": {
     introduction: {
-      headline: "Fast-Track Freshness for High-Traffic Spaces",
-      body: [
-        "Short on time but need your home looking its best? Our Quick Touch-Up Cleaning is a high-speed, targeted service designed to restore polish to your primary living areas. Ideal before hosting guests, after an event, or between routine visits, we focus on high-traffic zones—like key surfaces, kitchens, and bathrooms—using 100% certified eco-friendly products. Enjoy a spotless, welcoming environment without committing to a full-home clean. View our transparent pricing and book your express refresh today.",
-      ],
+      headline: "serviceQuickTouchUpCleaningIntroHeadLine",
+      body: "serviceQuickTouchUpCleaningIntroBody",
     },
     highlights: [
       {
-        title: "Quick Touch-Up Cleaning Highlights",
+        title: "serviceQuickTouchUpCleaningHighlightTitleOne",
         cards: [
           {
-            title: "Kitchen",
+            title: "serviceQuickTouchUpCleaningHighlightCardTitleTwo",
             features: [
-              "Wipe down exterior of all major appliances (fridge, oven, dishwasher).",
-              "Clean and sanitize countertops and backsplash.",
-              "Scrub and polish the sink and faucet.",
-              "Wipe down the stovetop (surface only).",
-              "Exterior wipe of microwave.",
+              "serviceQuickTouchUpCleaningTitleTwoFeatureOne",
+              "serviceQuickTouchUpCleaningTitleTwoFeatureTwo",
+              "serviceQuickTouchUpCleaningTitleTwoFeatureThree",
+              "serviceQuickTouchUpCleaningTitleTwoFeatureFour",
+              "serviceQuickTouchUpCleaningTitleTwoFeatureFive",
             ],
           },
           {
-            title: "Bathrooms",
+            title: "serviceQuickTouchUpCleaningHighlightCardTitleThree",
             features: [
-              "Sanitize toilet, seat, and base.",
-              "Clean mirrors and glass.",
-              "Wipe down vanity and sink.",
-              "Quick rinse and wipe of the shower/tub (no heavy grout scrubbing).",
+              "serviceQuickTouchUpCleaningTitleThreeFeatureOne",
+              "serviceQuickTouchUpCleaningTitleThreeFeatureTwo",
+              "serviceQuickTouchUpCleaningTitleThreeFeatureThree",
+              "serviceQuickTouchUpCleaningTitleThreeFeatureFour",
             ],
           },
           {
-            title: "Living & Bedrooms",
+            title: "serviceQuickTouchUpCleaningHighlightCardTitleFour",
             features: [
-              "Surface dusting of flat surfaces (tables, nightstands, desks).",
-              "Tidy up cushions and pillows.",
-              "Quick wipe of mirrors and picture frames.",
+              "serviceQuickTouchUpCleaningTitleFourFeatureOne",
+              "serviceQuickTouchUpCleaningTitleFourFeatureTwo",
+              "serviceQuickTouchUpCleaningTitleFourFeatureThree",
             ],
           },
           {
-            title: "Floors & Trash",
+            title: "serviceQuickTouchUpCleaningHighlightCardTitleFive",
             features: [
-              "Vacuum all carpets and rugs.",
-              "Mop all hard floors (standard damp mop).",
-              "Empty all trash bins and replace liners.",
+              "serviceQuickTouchUpCleaningTitleFiveFeatureOne",
+              "serviceQuickTouchUpCleaningTitleFiveFeatureTwo",
+              "serviceQuickTouchUpCleaningTitleFiveFeatureThree",
             ],
           },
         ],
@@ -118,56 +118,62 @@ export const SERVICE_CONTENT: Partial<Record<string, ServiceContentEntry>> = {
 
   "same-day-priority-cleaning": {
     introduction: {
-      headline: "Urgent Response, Uncompromised Cleanliness",
-      body: [
-        "Need immediate cleaning help on short notice? Our Same-Day Priority Cleaning offers rapid-dispatch service for unexpected visitors, last-minute events, or sudden emergencies. We prioritize your booking to send a professional cleaner to your home as fast as possible, using 100% certified eco-friendly, non-toxic products safe for your family and pets. Get instant relief and guaranteed priority scheduling when time is of the essence. See our transparent rates and book immediate priority support now.",
-      ],
+      headline: "serviceSameDayPriorityCleaningIntroHeadLine",
+      body: "serviceSameDayPriorityCleaningIntroBody",
     },
     highlights: [
       {
-        title: "Same-Day Priority Cleaning Highlights",
+        title: "serviceSameDayPriorityCleaningHighlightTitleOne",
         cards: [
           {
-            title: "Flooring & Entry",
+            title: "serviceSameDayPriorityCleaningHighlightCardTitleTwo",
             features: [
-              "High-power vacuuming and sweeping main living spaces.",
-              "Spot mopping high-traffic and spill-prone areas.",
+              "serviceSameDayPriorityCleaningTitleTwoFeatureOne",
+              "serviceSameDayPriorityCleaningTitleTwoFeatureTwo",
             ],
           },
           {
-            title: "Common Area Recovery",
+            title: "serviceSameDayPriorityCleaningHighlightCardTitleThree",
             features: [
-              "Collecting stray items, glasses and trash.",
-              "Emptying and sanitizing waste bins.",
-              "Dusting and spot-cleaning visible surfaces.",
-              "Arranging furniture (sofas, chairs, pillows).",
+              "serviceSameDayPriorityCleaningTitleThreeFeatureOne",
+              "serviceSameDayPriorityCleaningTitleThreeFeatureTwo",
+              "serviceSameDayPriorityCleaningTitleThreeFeatureThree",
+              "serviceSameDayPriorityCleaningTitleThreeFeatureFour",
             ],
           },
           {
-            title: "Kitchen & Bar Area",
+            title: "serviceSameDayPriorityCleaningHighlightCardTitleFour",
             features: [
-              "Disposing of empty bottles, cans, serviceware.",
-              "Disinfecting all counters and sticky surfaces.",
-              "Running dishwasher; washing basic dishes.",
-              "Cleaning beverage spills on hard floors.",
+              "serviceSameDayPriorityCleaningTitleFourFeatureOne",
+              "serviceSameDayPriorityCleaningTitleFourFeatureTwo",
+              "serviceSameDayPriorityCleaningTitleFourFeatureThree",
+              "serviceSameDayPriorityCleaningTitleFourFeatureFour",
+            ],
+          },
+        ],
+      },
+      {
+        title: "serviceSameDayPriorityCleaningHighlightTitleTwo",
+        cards: [
+          {
+            title: "serviceSameDayPriorityCleaningHighlightCardTitleSix",
+            features: [
+              "serviceSameDayPriorityCleaningTitleSixFeatureOne",
+              "serviceSameDayPriorityCleaningTitleSixFeatureTwo",
+              "serviceSameDayPriorityCleaningTitleSixFeatureThree",
+              "serviceSameDayPriorityCleaningTitleSixFeatureFour",
+              "serviceSameDayPriorityCleaningTitleSixFeatureFive",
             ],
           },
           {
-            title: "Kitchen Quick-Clean",
+            title: "serviceSameDayPriorityCleaningHighlightCardTitleSeven",
             features: [
-              "Wiping down countertops.",
-              "Spot-cleaning cabinet fronts.",
-              "Cleaning microwave & stovetop exterior.",
-              "Washing or loading a small set of dishes.",
-            ],
-          },
-          {
-            title: "Bathroom Refresh",
-            features: [
-              "Disinfecting sink and vanity.",
-              "Cleaning toilet inside and out.",
-              "Quick mirror wipe.",
-              "Changing hand towel.",
+              "serviceSameDayPriorityCleaningTitleSevenFeatureOne",
+              "serviceSameDayPriorityCleaningTitleSevenFeatureTwo",
+              "serviceSameDayPriorityCleaningTitleSevenFeatureThree",
+              "serviceSameDayPriorityCleaningTitleSevenFeatureFour",
+              "serviceSameDayPriorityCleaningTitleSevenFeatureFive",
+              "serviceSameDayPriorityCleaningTitleSevenFeatureSix",
             ],
           },
         ],
@@ -177,35 +183,43 @@ export const SERVICE_CONTENT: Partial<Record<string, ServiceContentEntry>> = {
 
   "deep-cleaning": {
     introduction: {
-      headline: "Beyond Surface Level: Experience the Deep Clean Difference for a Truly Reset Home.",
-      body: [
-        "If your home needs more than just a quick spruce, our Total Home Reset is the perfect solution. This is our most thorough and detailed cleaning package, designed to tackle the grime, dust, and build-up that standard cleaning overlooks. We dedicate the necessary time to deep-clean every corner, establishing a pristine foundation for your home.",
-        "When time is critical, choose the crew that guarantees a noticeable difference fast.",
-      ],
+      headline: "serviceDeepCleaningIntroHeadLine",
+      body: "serviceDeepCleaningIntroBody",
     },
     highlights: [
       {
-        title: "Deep Cleaning Highlights",
+        title: "serviceDeepCleaningHighlightTitleOne",
         cards: [
           {
-            title: "Kitchen Detail",
-            features: ["Intensive scrubbing of backsplashes.", "Appliance exteriors.", "Grout & baseboards."],
-          },
-          {
-            title: "Bathroom Sanctuary",
-            features: ["Thorough scrubbing of shower grout.", "Tile walls & ventilation fans."],
-          },
-          {
-            title: "Flooring",
-            features: ["High-power vacuuming and edge cleaning of all floors and carpets."],
-          },
-          {
-            title: "All Areas Focus",
+            title: "serviceDeepCleaningHighlightCardTitleTwo",
             features: [
-              "Wiping down & dusting all baseboards.",
-              "Window sills.",
-              "Door frames.",
-              "Ceiling fans & light switches.",
+              "serviceDeepCleaningTitleTwoFeatureOne",
+              "serviceDeepCleaningTitleTwoFeatureTwo",
+              "serviceDeepCleaningTitleTwoFeatureThree",
+            ],
+          },
+          {
+            title: "serviceDeepCleaningHighlightCardTitleThree",
+            features: [
+              "serviceDeepCleaningTitleThreeFeatureOne",
+              "serviceDeepCleaningTitleThreeFeatureTwo",
+              "serviceDeepCleaningTitleThreeFeatureThree",
+            ],
+          },
+          {
+            title: "serviceDeepCleaningHighlightCardTitleFour",
+            features: [
+              "serviceDeepCleaningTitleFourFeatureOne",
+              "serviceDeepCleaningTitleFourFeatureTwo",
+              "serviceDeepCleaningTitleFourFeatureThree",
+            ],
+          },
+          {
+            title: "serviceDeepCleaningHighlightCardTitleFive",
+            features: [
+              "serviceDeepCleaningTitleFiveFeatureOne",
+              "serviceDeepCleaningTitleFiveFeatureTwo",
+              "serviceDeepCleaningTitleFiveFeatureThree",
             ],
           },
         ],
@@ -215,44 +229,41 @@ export const SERVICE_CONTENT: Partial<Record<string, ServiceContentEntry>> = {
 
   "end-of-tenancy-cleaning": {
     introduction: {
-      headline: "Empty House, Full Clean: Guaranteeing Your Deposit Back or a Sparkling New Start.",
-      body: [
-        "Our Transition Tidy / Spotless Turnover service is a highly focused, comprehensive clean designed specifically for empty properties. This service goes beyond standard deep cleaning, focusing intensely on forgotten areas like inside cabinets, drawers, and utility spaces to meet the strict standards required for turnover.",
-        "For a seamless transition, trust the experts in total property turnover.",
-      ],
+      headline: "serviceEndOfTenancyCleaningIntroHeadLine",
+      body: "serviceEndOfTenancyCleaningIntroBody",
     },
     highlights: [
       {
-        title: "End of Tenancy Cleaning Highlights",
+        title: "serviceEndOfTenancyCleaningHighlightTitleOne",
         cards: [
           {
-            title: "Kitchen & Utility Detail",
+            title: "serviceEndOfTenancyCleaningHighlightCardTitleTwo",
             features: [
-              "Inside & outside of all cabinets and drawers wiped clean.",
-              "Inside & outside of all major appliances (oven, fridge, dishwasher) thoroughly cleaned.",
-              "Deep scrubbing of range hood and stovetop.",
+              "serviceEndOfTenancyCleaningTitleTwoFeatureOne",
+              "serviceEndOfTenancyCleaningTitleTwoFeatureTwo",
+              "serviceEndOfTenancyCleaningTitleTwoFeatureThree",
             ],
           },
           {
-            title: "Bathroom Intensive",
+            title: "serviceEndOfTenancyCleaningHighlightCardTitleThree",
             features: [
-              "Heavy scrubbing and descaling of shower grout, tile, tubs & shower doors.",
-              "Inside vanity drawers and cabinets cleaned.",
+              "serviceEndOfTenancyCleaningTitleThreeFeatureOne",
+              "serviceEndOfTenancyCleaningTitleThreeFeatureTwo",
             ],
           },
           {
-            title: "General Areas & Walls",
+            title: "serviceEndOfTenancyCleaningHighlightCardTitleFour",
             features: [
-              "Wiping down all interior windows.",
-              "Window tracks, sills, light switches & door frames.",
-              "Spot-cleaning visible marks on walls.",
+              "serviceEndOfTenancyCleaningTitleFourFeatureOne",
+              "serviceEndOfTenancyCleaningTitleFourFeatureTwo",
+              "serviceEndOfTenancyCleaningTitleFourFeatureThree",
             ],
           },
           {
-            title: "Flooring",
+            title: "serviceEndOfTenancyCleaningHighlightCardTitleFive",
             features: [
-              "High-power vacuuming of all carpeted areas.",
-              "Washing / mopping and shining all hard floors.",
+              "serviceEndOfTenancyCleaningTitleFiveFeatureOne",
+              "serviceEndOfTenancyCleaningTitleFiveFeatureTwo",
             ],
           },
         ],
@@ -262,42 +273,41 @@ export const SERVICE_CONTENT: Partial<Record<string, ServiceContentEntry>> = {
 
   "post-construction-renovation-cleaning": {
     introduction: {
-      headline:
-        "The Final Transformation: Eliminating Construction Dust and Revealing the Shine of Your New Space.",
-      body: [
-        "Our Construction Dust-Buster service is essential for safely and thoroughly removing construction residue, fine drywall dust, paint splatter, and adhesive marks. This two-phase process (rough clean and final clean) focuses on microscopic dust removal from every surface using specialized equipment to achieve move-in readiness.",
-        "Do not let construction dust linger. Trust our specialized crew to deliver a polish that truly completes your project.",
-      ],
+      headline: "servicePostConstructionRenovationCleaningIntroHeadLine",
+      body: "servicePostConstructionRenovationCleaningIntroBody",
     },
     highlights: [
       {
-        title: "Post-Construction & Renovation Cleaning Highlights",
+        title: "servicePostConstructionRenovationCleaningHighlightTitleOne",
         cards: [
           {
-            title: "Dust & Air Quality",
+            title: "servicePostConstructionRenovationCleaningHighlightCardTitleTwo",
             features: [
-              "Multiple wiping of all surfaces with microfiber cloths.",
-              "HEPA vacuuming.",
-              "Cleaning of air vents and returns.",
+              "servicePostConstructionRenovationCleaningTitleTwoFeatureOne",
+              "servicePostConstructionRenovationCleaningTitleTwoFeatureTwo",
+              "servicePostConstructionRenovationCleaningTitleTwoFeatureThree",
             ],
           },
           {
-            title: "Window Detailing",
-            features: ["Washing glass, frames, and tracks.", "Safe removal of paint, stickers, or residue."],
-          },
-          {
-            title: "Kitchen & Bathroom",
+            title: "servicePostConstructionRenovationCleaningHighlightCardTitleThree",
             features: [
-              "Wiping out all newly installed cabinets/drawers.",
-              "Removing grout haze from tile.",
-              "Cleaning fixtures of caulk/putty/dust.",
+              "servicePostConstructionRenovationCleaningTitleThreeFeatureOne",
+              "servicePostConstructionRenovationCleaningTitleThreeFeatureTwo",
             ],
           },
           {
-            title: "Flooring",
+            title: "servicePostConstructionRenovationCleaningHighlightCardTitleFour",
             features: [
-              "Heavy-duty HEPA-filter vacuuming.",
-              "Detailed edge cleaning, washing, and polishing of hard floors.",
+              "servicePostConstructionRenovationCleaningTitleFourFeatureOne",
+              "servicePostConstructionRenovationCleaningTitleFourFeatureTwo",
+              "servicePostConstructionRenovationCleaningTitleFourFeatureThree",
+            ],
+          },
+          {
+            title: "servicePostConstructionRenovationCleaningHighlightCardTitleFive",
+            features: [
+              "servicePostConstructionRenovationCleaningTitleFiveFeatureOne",
+              "servicePostConstructionRenovationCleaningTitleFiveFeatureTwo",
             ],
           },
         ],
@@ -307,51 +317,48 @@ export const SERVICE_CONTENT: Partial<Record<string, ServiceContentEntry>> = {
 
   "premium-rental-concierge-cleaning": {
     introduction: {
-      headline: "Seamless Stays, Five-Star Reviews: Perfect Turnover, Every Time.",
-      body: [
-        "Our Rental Ready Turnover service is custom-built for the unique demands of short-term rental properties. The goal is to maximize efficiency while ensuring every detail meets the highest hospitality standards for immediate guest check-in. This service is time-critical and includes essential re-stocking and presentation tasks that standard cleaning services do not cover.",
-        "We are the key to consistent 5-star cleanliness and stress-free hosting.",
-      ],
+      headline: "servicePremiumRentalConciergeCleaningIntroHeadLine",
+      body: "servicePremiumRentalConciergeCleaningIntroBody",
     },
     highlights: [
       {
-        title: "Premium Rental Concierge Cleaning Highlights",
+        title: "servicePremiumRentalConciergeCleaningHighlightTitleOne",
         cards: [
           {
-            title: "Guest Sanctuary (Bathrooms)",
+            title: "servicePremiumRentalConciergeCleaningHighlightCardTitleTwo",
             features: [
-              "Luxury hand soap — dispenser full or new bar presented.",
-              "Hair care — new travel-size shampoo & conditioner set.",
-              "Paper products — toilet roll mounted & sealed, spares stocked.",
-              "Guest linens — freshly laundered & folded towels.",
-              "Floor bath mat — clean & placed.",
+              "servicePremiumRentalConciergeCleaningTitleTwoFeatureOne",
+              "servicePremiumRentalConciergeCleaningTitleTwoFeatureTwo",
+              "servicePremiumRentalConciergeCleaningTitleTwoFeatureThree",
+              "servicePremiumRentalConciergeCleaningTitleTwoFeatureFour",
+              "servicePremiumRentalConciergeCleaningTitleTwoFeatureFive",
             ],
           },
           {
-            title: "Kitchen & Guest Refreshments",
+            title: "servicePremiumRentalConciergeCleaningHighlightCardTitleThree",
             features: [
-              "Beverages and sweeteners displayed neatly.",
-              "Cleaning essentials ready for guest use.",
-              "New waste bag liner and full paper towel roll.",
-              "Welcome amenity in sealed presentation.",
+              "servicePremiumRentalConciergeCleaningTitleThreeFeatureOne",
+              "servicePremiumRentalConciergeCleaningTitleThreeFeatureTwo",
+              "servicePremiumRentalConciergeCleaningTitleThreeFeatureThree",
+              "servicePremiumRentalConciergeCleaningTitleThreeFeatureFour",
             ],
           },
           {
-            title: "Linen Management (Bedrooms)",
+            title: "servicePremiumRentalConciergeCleaningHighlightCardTitleFour",
             features: [
-              "Mattress visually inspected — no stains or damage.",
-              "Fresh, tightly made bottom and top sheets.",
-              "Pillowcases and duvet cover freshly applied and staged.",
-              "Detailed, dust-free wipe of lighting fixtures.",
+              "servicePremiumRentalConciergeCleaningTitleFourFeatureOne",
+              "servicePremiumRentalConciergeCleaningTitleFourFeatureTwo",
+              "servicePremiumRentalConciergeCleaningTitleFourFeatureThree",
+              "servicePremiumRentalConciergeCleaningTitleFourFeatureFour",
             ],
           },
           {
-            title: "Maintenance & Final Notes",
+            title: "servicePremiumRentalConciergeCleaningHighlightCardTitleFive",
             features: [
-              "Spot check walls, remove marks & fingerprints.",
-              "Ensure all surfaces are dust-free.",
-              "Safety check to remove any hazards.",
-              "Complete final walkthrough & staging inspection.",
+              "servicePremiumRentalConciergeCleaningTitleFiveFeatureOne",
+              "servicePremiumRentalConciergeCleaningTitleFiveFeatureTwo",
+              "servicePremiumRentalConciergeCleaningTitleFiveFeatureThree",
+              "servicePremiumRentalConciergeCleaningTitleFiveFeatureFour",
             ],
           },
         ],
@@ -361,44 +368,76 @@ export const SERVICE_CONTENT: Partial<Record<string, ServiceContentEntry>> = {
 
   "commercial-office-cleaning": {
     introduction: {
-      headline: "Enhancing Productivity Through Impeccable Premises and Workplace Wellness.",
-      body: [
-        "Our Professional Premises Polish service is tailored to businesses seeking reliable, high-quality cleaning for their commercial spaces, offices, and corporate environments. Our teams operate with discretion and efficiency, typically scheduling outside of standard business hours to minimize disruption. The focus is on maintaining a professional image, improving employee wellness through hygiene, and ensuring compliance with sanitation standards across high-traffic zones.",
-        "A clean environment is a productive environment. Partner with us for consistent excellence.",
-      ],
+      headline: "serviceCommercialOfficeCleaningIntroHeadLine",
+      body: "serviceCommercialOfficeCleaningIntroBody",
     },
     highlights: [
       {
-        title: "Commercial & Office Cleaning Highlights",
+        title: "serviceCommercialOfficeCleaningHighlightTitleOne",
         cards: [
           {
-            title: "Common Areas & Reception",
+            title: "serviceCommercialOfficeCleaningHighlightCardTitleTwo",
             features: [
-              "Dusting all visible horizontal surfaces, desks, and filing cabinets.",
-              "Polishing reception area furniture and glass/metal fixtures.",
-              "Detailed cleaning of all internal glass (doors, partitions).",
+              "serviceCommercialOfficeCleaningTitleTwoFeatureOne",
+              "serviceCommercialOfficeCleaningTitleTwoFeatureTwo",
+              "serviceCommercialOfficeCleaningTitleTwoFeatureThree",
             ],
           },
           {
-            title: "Kitchenette & Break Rooms",
+            title: "serviceCommercialOfficeCleaningHighlightCardTitleThree",
             features: [
-              "Cleaning and sanitizing counters, sinks, and appliance exteriors.",
-              "Damp wiping tables and chairs.",
+              "serviceCommercialOfficeCleaningTitleThreeFeatureOne",
+              "serviceCommercialOfficeCleaningTitleThreeFeatureTwo",
             ],
           },
           {
-            title: "Restrooms",
+            title: "serviceCommercialOfficeCleaningHighlightCardTitleFour",
             features: [
-              "Thorough cleaning and disinfection of all toilets, urinals, sinks, and fixtures.",
-              "Refilling paper products and hand soap/sanitizer dispensers.",
+              "serviceCommercialOfficeCleaningTitleFourFeatureOne",
+              "serviceCommercialOfficeCleaningTitleFourFeatureTwo",
             ],
           },
           {
-            title: "Flooring & Waste",
+            title: "serviceCommercialOfficeCleaningHighlightCardTitleFive",
             features: [
-              "Daily vacuuming of all carpeted areas.",
-              "Sweeping and mopping all hard floor surfaces.",
-              "Emptying waste bins and centralizing recyclables.",
+              "serviceCommercialOfficeCleaningTitleFiveFeatureOne",
+              "serviceCommercialOfficeCleaningTitleFiveFeatureTwo",
+            ],
+          },
+          {
+            title: "serviceCommercialOfficeCleaningHighlightCardTitleSix",
+            features: [
+              "serviceCommercialOfficeCleaningTitleSixFeatureOne",
+              "serviceCommercialOfficeCleaningTitleSixFeatureTwo",
+            ],
+          },
+        ],
+      },
+      {
+        title: "serviceCommercialOfficeCleaningHighlightTitleSeven",
+        cards: [
+          {
+            title: "serviceCommercialOfficeCleaningHighlightCardTitleEight",
+            features: [
+              "serviceCommercialOfficeCleaningTitleEightFeatureOne",
+            ],
+          },
+          {
+            title: "serviceCommercialOfficeCleaningHighlightCardTitleNine",
+            features: [
+              "serviceCommercialOfficeCleaningTitleNineFeatureOne",
+            ],
+          },
+          {
+            title: "serviceCommercialOfficeCleaningHighlightCardTitleTen",
+            features: [
+              "serviceCommercialOfficeCleaningTitleTenFeatureOne",
+            ],
+          },
+          {
+            title: "serviceCommercialOfficeCleaningHighlightCardTitleEleven",
+            features: [
+              "serviceCommercialOfficeCleaningTitleElevenFeatureOne",
             ],
           },
         ],
@@ -408,39 +447,49 @@ export const SERVICE_CONTENT: Partial<Record<string, ServiceContentEntry>> = {
 
   "healthguard-sanitization": {
     introduction: {
-      headline: "Beyond Clean: Implementing Hospital-Grade Disinfection for a Truly HealthGuard Environment.",
-      body: [
-        "Our HealthGuard Sanitization service focuses exclusively on eliminating pathogens, bacteria, and viruses from high-touch and high-traffic surfaces. This service utilizes EPA/ECHA-registered, hospital-grade disinfectants and specialized application methods (such as fogging or electrostatic spraying, where applicable) to achieve maximum coverage and microbial kill rates.",
-        "This service is ideal for clients requiring advanced hygiene standards, including doctors' offices, gyms, schools, and homes with high vulnerability. We do not just clean — we clinically purify your space for health and peace of mind.",
-      ],
+      headline: "serviceHealthguardSanitizationIntroHeadLine",
+      body: "serviceHealthguardSanitizationIntroBody",
     },
     highlights: [
       {
-        title: "HealthGuard Sanitization Highlights",
+        title: "serviceHealthguardSanitizationHighlightTitleOne",
         cards: [
           {
-            title: "High-Touch Surfaces",
+            title: "serviceHealthguardSanitizationHighlightCardTitleTwo",
             features: [
-              "Initial surface cleaning followed by hospital-grade disinfectant application.",
-              "Door handles, switches, remotes, thermostats, railings, phones.",
-              "Restroom fixtures, sinks, counters, toilets, handles, shower/tub areas.",
+              "serviceHealthguardSanitizationTitleTwoFeatureOne",
+              "serviceHealthguardSanitizationTitleTwoFeatureTwo",
+              "serviceHealthguardSanitizationTitleTwoFeatureThree",
             ],
           },
           {
-            title: "Kitchen & Food Prep Areas",
+            title: "serviceHealthguardSanitizationHighlightCardTitleThree",
             features: [
-              "Counters, sinks, faucet handles.",
-              "Exterior handles of fridge, cabinets, microwave.",
-              "Microwave interiors, keypads, coffee machine buttons.",
+              "serviceHealthguardSanitizationTitleThreeFeatureOne",
+              "serviceHealthguardSanitizationTitleThreeFeatureTwo",
+              "serviceHealthguardSanitizationTitleThreeFeatureThree",
             ],
           },
           {
-            title: "Residential Detail Focus",
-            features: ["Nightstands, drawer pulls, children's hard toys.", "Gaming controllers and appliance buttons/dials."],
+            title: "serviceHealthguardSanitizationHighlightCardTitleFour",
+            features: [
+              "serviceHealthguardSanitizationTitleFourFeatureOne",
+              "serviceHealthguardSanitizationTitleFourFeatureTwo",
+            ],
           },
           {
-            title: "Office Detail Focus",
-            features: ["Keyboards, mice, desk surfaces.", "Communal water fountain buttons."],
+            title: "serviceHealthguardSanitizationHighlightCardTitleFive",
+            features: [
+              "serviceHealthguardSanitizationTitleFiveFeatureOne",
+              "serviceHealthguardSanitizationTitleFiveFeatureTwo",
+            ],
+          },
+          {
+            title: "serviceHealthguardSanitizationHighlightCardTitleSix",
+            features: [
+              "serviceHealthguardSanitizationTitleSixFeatureOne",
+              "serviceHealthguardSanitizationTitleSixFeatureTwo",
+            ],
           },
         ],
       },
@@ -449,44 +498,53 @@ export const SERVICE_CONTENT: Partial<Record<string, ServiceContentEntry>> = {
 
   "carpet-upholstery-cleaning": {
     introduction: {
-      headline: "Deep Fiber Renewal: Restoring Softness, Color, and Freshness to Every Surface You Sit On.",
-      body: [
-        "Our Fiber Renewal service uses professional hot-water extraction and fabric-safe treatments to lift embedded dirt, allergens, and odors from carpets, rugs, upholstery, mattresses, and curtains — going far deeper than a standard vacuum ever could. Every fabric type is assessed before treatment, so delicate rugs and fine upholstery get the gentle care they need while heavy-traffic carpets get the deep clean they demand.",
-        "The result is softer, brighter, and healthier fabric throughout your home — with faster dry times and no harsh chemical residue left behind.",
-      ],
+      headline: "serviceCarpetUpholsteryCleaningIntroHeadLine",
+      body: "serviceCarpetUpholsteryCleaningIntroBody",
     },
     highlights: [
       {
-        title: "Carpet & Upholstery Cleaning Highlights",
+        title: "serviceCarpetUpholsteryCleaningHighlightTitleOne",
         cards: [
           {
-            title: "Carpet Cleaning",
+            title: "serviceCarpetUpholsteryCleaningHighlightCardTitleTwo",
             features: [
-              "Health & air quality boost — removes allergens.",
-              "Restoration & value retention.",
-              "Professional deep hot-water extraction.",
-              "Safe & effective eco-friendly solutions.",
+              "serviceCarpetUpholsteryCleaningTitleTwoFeatureOne",
+              "serviceCarpetUpholsteryCleaningTitleTwoFeatureTwo",
+              "serviceCarpetUpholsteryCleaningTitleTwoFeatureThree",
+              "serviceCarpetUpholsteryCleaningTitleTwoFeatureFour",
             ],
           },
           {
-            title: "Rug Cleaning",
+            title: "serviceCarpetUpholsteryCleaningHighlightCardTitleThree",
             features: [
-              "Gentle care for all rug types.",
-              "Color & texture protection.",
-              "Hand-finished detailing.",
+              "serviceCarpetUpholsteryCleaningTitleThreeFeatureOne",
+              "serviceCarpetUpholsteryCleaningTitleThreeFeatureTwo",
+              "serviceCarpetUpholsteryCleaningTitleThreeFeatureThree",
             ],
           },
           {
-            title: "Upholstery Cleaning",
+            title: "serviceCarpetUpholsteryCleaningHighlightCardTitleFour",
             features: [
-              "Clean, fresh comfort that extends furniture lifespan.",
-              "Stain & odor removal.",
-              "Professional fabric-safe care.",
+              "serviceCarpetUpholsteryCleaningTitleFourFeatureOne",
+              "serviceCarpetUpholsteryCleaningTitleFourFeatureTwo",
+              "serviceCarpetUpholsteryCleaningTitleFourFeatureThree",
             ],
           },
           {
-            title: "Mattress Cleaning",
-            features: ["Removes dust mites & allergens.", "Improves sleep hygiene.", "Deep sanitation process."],
+            title: "serviceCarpetUpholsteryCleaningHighlightCardTitleFive",
+            features: [
+              "serviceCarpetUpholsteryCleaningTitleFiveFeatureOne",
+              "serviceCarpetUpholsteryCleaningTitleFiveFeatureTwo",
+              "serviceCarpetUpholsteryCleaningTitleFiveFeatureThree",
+            ],
+          },
+          {
+            title: "serviceCarpetUpholsteryCleaningHighlightCardTitleSix",
+            features: [
+              "serviceCarpetUpholsteryCleaningTitleSixFeatureOne",
+              "serviceCarpetUpholsteryCleaningTitleSixFeatureTwo",
+              "serviceCarpetUpholsteryCleaningTitleSixFeatureThree",
+            ],
           },
         ],
       },
@@ -495,44 +553,41 @@ export const SERVICE_CONTENT: Partial<Record<string, ServiceContentEntry>> = {
 
   "steam-cleaning": {
     introduction: {
-      headline: "Harnessing the Pure Power of Steam for Chemical-Free Deep Cleaning and Sanitization.",
-      body: [
-        "Our Vapor Virtue Cleaning service utilizes high-temperature, low-moisture steam to sanitize surfaces, dissolve grease, eliminate mold and mildew, and kill up to 99.9% of bacteria, germs, and dust mites. This service is ideal for clients seeking an environmentally friendly, hypoallergenic, and highly effective method for deep cleaning kitchens, restrooms, tile and grout, and hard-to-reach crevices.",
-        "Pure, pressurized steam penetrates deeper than conventional cleaning methods.",
-      ],
+      headline: "serviceSteamCleaningIntroHeadLine",
+      body: "serviceSteamCleaningIntroBody",
     },
     highlights: [
       {
-        title: "Steam Cleaning Highlights",
+        title: "serviceSteamCleaningHighlightTitleOne",
         cards: [
           {
-            title: "Kitchen Detail",
+            title: "serviceSteamCleaningHighlightCardTitleTwo",
             features: [
-              "Steaming and sanitizing range hoods and stovetop grates.",
-              "Deep steam cleaning oven interiors and refrigerator seals.",
-              "Sanitizing cutting boards using high-temperature steam.",
+              "serviceSteamCleaningTitleTwoFeatureOne",
+              "serviceSteamCleaningTitleTwoFeatureTwo",
+              "serviceSteamCleaningTitleTwoFeatureThree",
             ],
           },
           {
-            title: "Restroom Deep Clean",
+            title: "serviceSteamCleaningHighlightCardTitleThree",
             features: [
-              "Steam cleaning grout lines and dissolving soap scum.",
-              "Cleaning toilet bases, hinges, and hard-to-reach areas.",
+              "serviceSteamCleaningTitleThreeFeatureOne",
+              "serviceSteamCleaningTitleThreeFeatureTwo",
             ],
           },
           {
-            title: "Surface Disinfection",
+            title: "serviceSteamCleaningHighlightCardTitleFour",
             features: [
-              "Steam sanitizing high-touch points: handles, switches.",
-              "Chemical-free disinfection of appliance keypads.",
+              "serviceSteamCleaningTitleFourFeatureOne",
+              "serviceSteamCleaningTitleFourFeatureTwo",
             ],
           },
           {
-            title: "Crevice & Spot Treatment",
+            title: "serviceSteamCleaningHighlightCardTitleFive",
             features: [
-              "Precision nozzle steam cleaning for corners and baseboards.",
-              "Cleaning window tracks and tile grout effectively.",
-              "Light fabric and upholstery spot treatment.",
+              "serviceSteamCleaningTitleFiveFeatureOne",
+              "serviceSteamCleaningTitleFiveFeatureTwo",
+              "serviceSteamCleaningTitleFiveFeatureThree",
             ],
           },
         ],
@@ -542,51 +597,48 @@ export const SERVICE_CONTENT: Partial<Record<string, ServiceContentEntry>> = {
 
   "post-event-cleaning": {
     introduction: {
-      headline: "The Only Thing We Leave Behind Is a Spotless Venue.",
-      body: [
-        "Our special event cleaning service is designed to ensure your event space is spotless and ready, allowing you to focus on enjoying the occasion. From preparation to post-event, our professionals handle every detail to create a clean and welcoming environment for guests.",
-        "This comprehensive service guarantees a well-maintained, hygienic space, enhancing the atmosphere and leaving a lasting positive impression on guests — saving you time and effort.",
-      ],
+      headline: "servicePostEventCleaningIntroHeadLine",
+      body: "servicePostEventCleaningIntroBody",
     },
     highlights: [
       {
-        title: "Post-Event Cleaning Highlights",
+        title: "servicePostEventCleaningHighlightTitleOne",
         cards: [
           {
-            title: "Before the Event",
+            title: "servicePostEventCleaningHighlightCardTitleTwo",
             features: [
-              "Define the scope of cleaning needed based on the event type and size.",
-              "Declutter, dust, and organize the space.",
-              "Vacuum carpets, sweep and mop hard floors.",
-              "Clean windows, glass surfaces, seating and tables.",
-              "Sanitize high-touch surfaces (doorknobs, switches, handrails).",
+              "servicePostEventCleaningTitleTwoFeatureOne",
+              "servicePostEventCleaningTitleTwoFeatureTwo",
+              "servicePostEventCleaningTitleTwoFeatureThree",
+              "servicePostEventCleaningTitleTwoFeatureFour",
+              "servicePostEventCleaningTitleTwoFeatureFive",
             ],
           },
           {
-            title: "Just Before Guests Arrive",
+            title: "servicePostEventCleaningHighlightCardTitleThree",
             features: [
-              "Final walkthrough and touch-up of smudges or marks.",
-              "Re-check restrooms for supplies.",
-              "Confirm decorations and signage are clean and in place.",
-              "Store cleaning equipment out of sight.",
+              "servicePostEventCleaningTitleThreeFeatureOne",
+              "servicePostEventCleaningTitleThreeFeatureTwo",
+              "servicePostEventCleaningTitleThreeFeatureThree",
+              "servicePostEventCleaningTitleThreeFeatureFour",
             ],
           },
           {
-            title: "During the Event",
+            title: "servicePostEventCleaningHighlightCardTitleFour",
             features: [
-              "Monitor and empty trash cans as needed.",
-              "Clean spills and messes immediately.",
-              "Restock restroom supplies.",
-              "Keep spot-cleaning supplies handy but hidden.",
+              "servicePostEventCleaningTitleFourFeatureOne",
+              "servicePostEventCleaningTitleFourFeatureTwo",
+              "servicePostEventCleaningTitleFourFeatureThree",
+              "servicePostEventCleaningTitleFourFeatureFour",
             ],
           },
           {
-            title: "After the Event",
+            title: "servicePostEventCleaningHighlightCardTitleFive",
             features: [
-              "Full post-event cleaning (vacuum, mop, wipe surfaces).",
-              "Clean and store rental equipment.",
-              "Dispose of trash and recycling properly.",
-              "Check for damage or excessive wear.",
+              "servicePostEventCleaningTitleFiveFeatureOne",
+              "servicePostEventCleaningTitleFiveFeatureTwo",
+              "servicePostEventCleaningTitleFiveFeatureThree",
+              "servicePostEventCleaningTitleFiveFeatureFour",
             ],
           },
         ],
@@ -596,34 +648,42 @@ export const SERVICE_CONTENT: Partial<Record<string, ServiceContentEntry>> = {
 
   "pool-cleaning": {
     introduction: {
-      headline: "Maintain Pristine Water Quality and Extend the Life of Your Pool Equipment.",
-      body: [
-        "Our Aquatic Clarity service offers specialized, recurring maintenance for residential and commercial swimming pools. This service ensures optimal water chemistry, equipment longevity, and a clean, safe swimming environment. Our patrols are comprehensive, covering both physical cleaning and chemical balance management.",
-      ],
+      headline: "servicePoolCleaningIntroHeadLine",
+      body: "servicePoolCleaningIntroBody",
     },
     highlights: [
       {
-        title: "Pool Cleaning Highlights",
+        title: "servicePoolCleaningHighlightTitleOne",
         cards: [
           {
-            title: "Debris Removal",
-            features: ["Skimming the water surface and vacuuming the pool floor and walls."],
+            title: "servicePoolCleaningHighlightCardTitleTwo",
+            features: [
+              "servicePoolCleaningTitleTwoFeatureOne",
+            ],
           },
           {
-            title: "Filter Maintenance",
-            features: ["Backwashing/cleaning the filter; emptying the skimmer and pump baskets."],
+            title: "servicePoolCleaningHighlightCardTitleThree",
+            features: [
+              "servicePoolCleaningTitleThreeFeatureOne",
+            ],
           },
           {
-            title: "Wall & Tile Scrubbing",
-            features: ["Brushing the pool walls and tile lines to prevent algae and scale buildup."],
+            title: "servicePoolCleaningHighlightCardTitleFour",
+            features: [
+              "servicePoolCleaningTitleFourFeatureOne",
+            ],
           },
           {
-            title: "Chemical Balance",
-            features: ["Testing and adjusting chlorine/sanitizer, pH, alkalinity, and calcium hardness."],
+            title: "servicePoolCleaningHighlightCardTitleFive",
+            features: [
+              "servicePoolCleaningTitleFiveFeatureOne",
+            ],
           },
           {
-            title: "Equipment Check",
-            features: ["Inspecting the pump, heater, filter, and timer for proper functioning."],
+            title: "servicePoolCleaningHighlightCardTitleSix",
+            features: [
+              "servicePoolCleaningTitleSixFeatureOne",
+            ],
           },
         ],
       },
@@ -632,31 +692,29 @@ export const SERVICE_CONTENT: Partial<Record<string, ServiceContentEntry>> = {
 
   "precision-pressure-washing": {
     introduction: {
-      headline: "Restoring Brilliance: The Deepest Clean for Exteriors, Driveways, and Commercial Surfaces.",
-      body: [
-        "Our Exterior Blast & Brighten service uses professional-grade, high-pressure equipment, often including hot water (power washing) capabilities, specialized nozzles, and biodegradable detergents to safely and effectively clean tough, large, or high-access exterior surfaces.",
-      ],
+      headline: "servicePrecisionPressureWashingIntroHeadLine",
+      body: "servicePrecisionPressureWashingIntroBody",
     },
     highlights: [
       {
-        title: "Precision Pressure Washing Highlights",
+        title: "servicePrecisionPressureWashingHighlightTitleOne",
         cards: [
           {
-            title: "Soft Washing",
+            title: "servicePrecisionPressureWashingHighlightCardTitleTwo",
             features: [
-              "A gentle, eco-friendly cleaning solution ideal for delicate surfaces — removes dirt, mold, and organic buildup while preserving paint, siding, and exterior finishes.",
+              "servicePrecisionPressureWashingTitleTwoFeatureOne",
             ],
           },
           {
-            title: "Driveways & Patios",
+            title: "servicePrecisionPressureWashingHighlightCardTitleThree",
             features: [
-              "High-performance pressure washing to eliminate oil stains, algae, and embedded grime from concrete and paved surfaces.",
+              "servicePrecisionPressureWashingTitleThreeFeatureOne",
             ],
           },
           {
-            title: "Windows & Gutters",
+            title: "servicePrecisionPressureWashingHighlightCardTitleFour",
             features: [
-              "Professional cleaning to remove debris, dust, and residue, ensuring clear views, proper drainage, and long-term protection.",
+              "servicePrecisionPressureWashingTitleFourFeatureOne",
             ],
           },
         ],
@@ -666,38 +724,48 @@ export const SERVICE_CONTENT: Partial<Record<string, ServiceContentEntry>> = {
 
   "child-care-service": {
     introduction: {
-      headline: "Little Stars Nurturing / Family First Childcare",
-      body: [
-        "This service provides highly personalized, premium childcare, often in the home, specializing in educational engagement, flexible scheduling, and comprehensive support — including meals, hygiene, transportation, and light housekeeping.",
-      ],
+      headline: "serviceChildCareServiceIntroHeadLine",
+      body: "serviceChildCareServiceIntroBody",
     },
     highlights: [
       {
-        title: "Child Care Service Highlights",
+        title: "serviceChildCareServiceHighlightTitleOne",
         cards: [
           {
-            title: "Infant Care (3–18 months)",
-            features: ["Specialized attention and sensory development activities designed for babies."],
+            title: "serviceChildCareServiceHighlightCardTitleTwo",
+            features: [
+              "serviceChildCareServiceTitleTwoFeatureOne",
+            ],
           },
           {
-            title: "Toddler Learning (1.5–3 years)",
-            features: ["Play-based learning and social skills development for curious toddlers."],
+            title: "serviceChildCareServiceHighlightCardTitleThree",
+            features: [
+              "serviceChildCareServiceTitleThreeFeatureOne",
+            ],
           },
           {
-            title: "Daily Care",
-            features: ["Full-day care for children, providing a safe and nurturing environment."],
+            title: "serviceChildCareServiceHighlightCardTitleFour",
+            features: [
+              "serviceChildCareServiceTitleFourFeatureOne",
+            ],
           },
           {
-            title: "After-School Care",
-            features: ["Homework help and creative activities for school-aged children."],
+            title: "serviceChildCareServiceHighlightCardTitleFive",
+            features: [
+              "serviceChildCareServiceTitleFiveFeatureOne",
+            ],
           },
           {
-            title: "One-Time Sitting",
-            features: ["Flexible, on-demand care for busy evenings or weekends."],
+            title: "serviceChildCareServiceHighlightCardTitleSix",
+            features: [
+              "serviceChildCareServiceTitleSixFeatureOne",
+            ],
           },
           {
-            title: "Last-Minute Care",
-            features: ["We understand that life can be unpredictable — get last-minute care when you need it most."],
+            title: "serviceChildCareServiceHighlightCardTitleSeven",
+            features: [
+              "serviceChildCareServiceTitleSevenFeatureOne",
+            ],
           },
         ],
       },
@@ -706,28 +774,33 @@ export const SERVICE_CONTENT: Partial<Record<string, ServiceContentEntry>> = {
 
   "elder-care-service": {
     introduction: {
-      headline: "Compassionate Senior Companionship / Golden Age Assistance",
-      body: [
-        "This service provides highly personalized, non-medical supportive care for seniors, focusing on enhancing quality of life, safety, and independence through dedicated companionship, mobility assistance, meal preparation, and essential errands.",
-      ],
+      headline: "serviceElderCareServiceIntroHeadLine",
+      body: "serviceElderCareServiceIntroBody",
     },
     highlights: [
       {
-        title: "Elder Care Service Highlights",
+        title: "serviceElderCareServiceHighlightTitleOne",
         cards: [
           {
-            title: "Companion Care",
-            features: ["Social interaction and companionship.", "Assistance with daily activities."],
-          },
-          {
-            title: "Personal Care",
-            features: ["Bathing and grooming.", "Medication management.", "Incontinence care."],
-          },
-          {
-            title: "Daily Care",
+            title: "serviceElderCareServiceHighlightCardTitleTwo",
             features: [
-              "Routine care and support with daily living tasks.",
-              "Assistance with mobility and transfers.",
+              "serviceElderCareServiceTitleTwoFeatureOne",
+              "serviceElderCareServiceTitleTwoFeatureTwo",
+            ],
+          },
+          {
+            title: "serviceElderCareServiceHighlightCardTitleThree",
+            features: [
+              "serviceElderCareServiceTitleThreeFeatureOne",
+              "serviceElderCareServiceTitleThreeFeatureTwo",
+              "serviceElderCareServiceTitleThreeFeatureThree",
+            ],
+          },
+          {
+            title: "serviceElderCareServiceHighlightCardTitleFour",
+            features: [
+              "serviceElderCareServiceTitleFourFeatureOne",
+              "serviceElderCareServiceTitleFourFeatureTwo",
             ],
           },
         ],
@@ -735,38 +808,50 @@ export const SERVICE_CONTENT: Partial<Record<string, ServiceContentEntry>> = {
     ],
   },
 
-  "laundry-services": {
+  "laundry-service": {
     introduction: {
-      headline: "Effortless Laundry, Delivered Clean",
-      body: ["Your time is precious — let us handle the laundry, from pickup to fresh, folded delivery."],
+      headline: "serviceLaundryServiceIntroHeadLine",
+      body: "serviceLaundryServiceIntroBody",
     },
     highlights: [
       {
-        title: "Laundry Services Highlights",
+        title: "serviceLaundryServiceHighlightTitleOne",
         cards: [
           {
-            title: "Wash & Fold",
-            features: ["Everyday laundry expertly cleaned, dried, and crisply folded for your convenience."],
+            title: "serviceLaundryServiceHighlightCardTitleTwo",
+            features: [
+              "serviceLaundryServiceTitleTwoFeatureOne",
+            ],
           },
           {
-            title: "Premium Dry Cleaning",
-            features: ["Specialized chemical cleaning for delicate fabrics, suits, and high-end evening wear."],
+            title: "serviceLaundryServiceHighlightCardTitleThree",
+            features: [
+              "serviceLaundryServiceTitleThreeFeatureOne",
+            ],
           },
           {
-            title: "Professional Steam Pressing",
-            features: ["Precision ironing and steam pressing for a wrinkle-free, professional finish."],
+            title: "serviceLaundryServiceHighlightCardTitleFour",
+            features: [
+              "serviceLaundryServiceTitleFourFeatureOne",
+            ],
           },
           {
-            title: "Eco-Luxury Fabric Care",
-            features: ["Gentle cleaning using eco-friendly detergents that preserve the longevity of luxury textiles."],
+            title: "serviceLaundryServiceHighlightCardTitleFive",
+            features: [
+              "serviceLaundryServiceTitleFiveFeatureOne",
+            ],
           },
           {
-            title: "Bedding & Linens",
-            features: ["Intensive cleaning for bulky items including comforters, curtains, and bed linens."],
+            title: "serviceLaundryServiceHighlightCardTitleSix",
+            features: [
+              "serviceLaundryServiceTitleSixFeatureOne",
+            ],
           },
           {
-            title: "Express Pickup & Delivery",
-            features: ["Scheduled door-to-door service that integrates seamlessly into your busy lifestyle."],
+            title: "serviceLaundryServiceHighlightCardTitleSeven",
+            features: [
+              "serviceLaundryServiceTitleSevenFeatureOne",
+            ],
           },
         ],
       },
@@ -775,37 +860,35 @@ export const SERVICE_CONTENT: Partial<Record<string, ServiceContentEntry>> = {
 
   "move-in-out-transport-service": {
     introduction: {
-      headline: "Seamless Moving Logistics / Home Transition Transport",
-      body: [
-        "This service provides bespoke transport and transition management for discerning residential and commercial clients. The fee is determined via a comprehensive quotation based on logistical complexity, inventory volume, and distance of transit.",
-      ],
+      headline: "serviceMoveInOutTransportServiceIntroHeadLine",
+      body: "serviceMoveInOutTransportServiceIntroBody",
     },
     highlights: [
       {
-        title: "Move-In / Move-Out Transport Service Highlights",
+        title: "serviceMoveInOutTransportServiceHighlightTitleOne",
         cards: [
           {
-            title: "Packing Goods",
+            title: "serviceMoveInOutTransportServiceHighlightCardTitleTwo",
             features: [
-              "Fragile items wrapped and packed securely in appropriate containers, with clear labeling for contents and destination.",
+              "serviceMoveInOutTransportServiceTitleTwoFeatureOne",
             ],
           },
           {
-            title: "Moving Goods",
+            title: "serviceMoveInOutTransportServiceHighlightCardTitleThree",
             features: [
-              "Goods carefully loaded and fastened on transport vehicles to prevent shifting, and unloaded efficiently at the destination.",
+              "serviceMoveInOutTransportServiceTitleThreeFeatureOne",
             ],
           },
           {
-            title: "Transporting Goods",
+            title: "serviceMoveInOutTransportServiceHighlightCardTitleFour",
             features: [
-              "Goods securely loaded with proper weight distribution, following all safety protocols and traffic regulations during transit.",
+              "serviceMoveInOutTransportServiceTitleFourFeatureOne",
             ],
           },
           {
-            title: "Commercial / Office",
+            title: "serviceMoveInOutTransportServiceHighlightCardTitleFive",
             features: [
-              "Office equipment packed securely, labeled clearly, and efficiently transported to minimize disruption.",
+              "serviceMoveInOutTransportServiceTitleFiveFeatureOne",
             ],
           },
         ],
@@ -815,41 +898,39 @@ export const SERVICE_CONTENT: Partial<Record<string, ServiceContentEntry>> = {
 
   "high-security-property-care": {
     introduction: {
-      headline: "Vetted Personnel | Complete Discretion | Uncompromised Quality",
-      body: [
-        "Specialist cleaning designed for VVIP and VIP clients, government facilities, private residences, and highly sensitive properties. Handled exclusively by security-vetted staff working under strict non-disclosure agreements, we provide complete discretion in restricted-access areas. Using premium, certified eco-friendly products safe for luxury interiors and family spaces, we deliver immaculate results with maximum trust. Contact us for a confidential consultation and quote.",
-      ],
+      headline: "serviceHighSecurityPropertyCareIntroHeadLine",
+      body: "serviceHighSecurityPropertyCareIntroBody",
     },
     highlights: [
       {
-        title: "High-Security Property Care Highlights",
+        title: "serviceHighSecurityPropertyCareHighlightTitleOne",
         cards: [
           {
-            title: "Vetted Staff & Privacy",
+            title: "serviceHighSecurityPropertyCareHighlightCardTitleTwo",
             features: [
-              "100% background-checked, cleared, and NDA-bound technicians.",
-              "Strict non-disclosure protocols to protect physical and digital data.",
+              "serviceHighSecurityPropertyCareTitleTwoFeatureOne",
+              "serviceHighSecurityPropertyCareTitleTwoFeatureTwo",
             ],
           },
           {
-            title: "High-Security Facilities",
+            title: "serviceHighSecurityPropertyCareHighlightCardTitleThree",
             features: [
-              "Specialized cleaning for SCIFs, server rooms, and confidential offices.",
-              "Sub-micron dust extraction for sensitive hardware and electronics.",
+              "serviceHighSecurityPropertyCareTitleThreeFeatureOne",
+              "serviceHighSecurityPropertyCareTitleThreeFeatureTwo",
             ],
           },
           {
-            title: "Emergency & Hazmat Response",
+            title: "serviceHighSecurityPropertyCareHighlightCardTitleFour",
             features: [
-              "24/7 rapid dispatch for break-ins, biohazard spills, and crime scenes.",
-              "Immediate site securing, board-up, and insurance photo documentation.",
+              "serviceHighSecurityPropertyCareTitleFourFeatureOne",
+              "serviceHighSecurityPropertyCareTitleFourFeatureTwo",
             ],
           },
           {
-            title: "Digital Device Sanitization",
+            title: "serviceHighSecurityPropertyCareHighlightCardTitleFive",
             features: [
-              "On-site or remote virus, adware, and malware purges.",
-              "Complete data wipes and privacy restoration for infected devices.",
+              "serviceHighSecurityPropertyCareTitleFiveFeatureOne",
+              "serviceHighSecurityPropertyCareTitleFiveFeatureTwo",
             ],
           },
         ],
@@ -859,47 +940,73 @@ export const SERVICE_CONTENT: Partial<Record<string, ServiceContentEntry>> = {
 
   "luxury-yacht-cleaning": {
     introduction: {
-      headline: "Salty Hull or VIP Charter Coming? Get Yacht-Standard Perfection & Instant Shine!",
-      body: [
-        "Maintaining a world-class luxury vessel requires relentless care and uncompromising detail. Whether you are preparing your yacht for an exclusive charter, recovering from a multi-day sea voyage, or needing discreet interior housekeeping for high-profile guests, our Marine Cleaning Specialists are ready to step in.",
-        "We specialize in high-end yacht detailing, marine-grade hull restoration, teak treatment, and ultra-discreet interior sanitation. Our crew is background-checked, trained in luxury surface care, and fully versed in maritime safety protocols—delivering white-glove treatment while protecting your vessel's delicate finishes and total privacy.",
-        "When luxury and marine precision matter most, choose the crew trusted on the water.",
-      ],
+      headline: "serviceLuxuryYachtCleaningIntroHeadLine",
+      body: "serviceLuxuryYachtCleaningIntroBody",
     },
     highlights: [
       {
-        title: "Luxury Yacht Cleaning Highlights",
+        title: "serviceLuxuryYachtCleaningHighlightTitleOne",
         cards: [
           {
-            title: "Exterior & Superstructure",
+            title: "serviceLuxuryYachtCleaningHighlightCardTitleTwo",
             features: [
-              "Marine-grade wash-down, salt deposit neutralization, and streak-free drying.",
-              "Stainless steel polishing, glass clarity treatment, and teak deck scrubbing.",
+              "serviceLuxuryYachtCleaningTitleTwoFeatureOne",
+              "serviceLuxuryYachtCleaningTitleTwoFeatureTwo",
             ],
           },
           {
-            title: "Interior VIP Staterooms",
+            title: "serviceLuxuryYachtCleaningHighlightCardTitleThree",
             features: [
-              "White-glove housekeeping for VIP cabins, master suites, and galley areas.",
-              "Deep cleaning of delicate upholstery, fine leather, marble, and custom woodwork.",
+              "serviceLuxuryYachtCleaningTitleThreeFeatureOne",
+              "serviceLuxuryYachtCleaningTitleThreeFeatureTwo",
             ],
           },
           {
-            title: "Engine Room & Technical Zones",
+            title: "serviceLuxuryYachtCleaningHighlightCardTitleFour",
             features: [
-              "Degreasing engine room bilges, wiping down machinery, and mechanical space prep.",
-              "Eco-friendly hazardous residue containment complying with maritime environmental standards.",
+              "serviceLuxuryYachtCleaningTitleFourFeatureOne",
+              "serviceLuxuryYachtCleaningTitleFourFeatureTwo",
             ],
           },
           {
-            title: "Rapid Post-Charter Turnaround",
+            title: "serviceLuxuryYachtCleaningHighlightCardTitleFive",
             features: [
-              "Emergency 24/7 fast-response cleaning between charter bookings.",
-              "Complete linen turnover, sanitation, and provision prep for upcoming guests.",
+              "serviceLuxuryYachtCleaningTitleFiveFeatureOne",
+              "serviceLuxuryYachtCleaningTitleFiveFeatureTwo",
             ],
           },
         ],
       },
     ],
-  },
-};
+  
+}
+}
+// Aliases for slug variations between backend catalog and frontend routes
+if (SERVICE_CONTENT["regular-home-cleaning"]) {
+  SERVICE_CONTENT["regular-maintenance-cleaning"] = SERVICE_CONTENT["regular-home-cleaning"];
+}
+if (SERVICE_CONTENT["quick-touch-up-cleaning"]) {
+  SERVICE_CONTENT["essential-touch-up-cleaning"] = SERVICE_CONTENT["quick-touch-up-cleaning"];
+}
+if (SERVICE_CONTENT["post-construction-renovation-cleaning"]) {
+  SERVICE_CONTENT["post-construction-cleaning"] = SERVICE_CONTENT["post-construction-renovation-cleaning"];
+}
+if (SERVICE_CONTENT["healthguard-sanitization"]) {
+  SERVICE_CONTENT["guard-sanitization-services"] = SERVICE_CONTENT["healthguard-sanitization"];
+}
+if (SERVICE_CONTENT["pool-cleaning"]) {
+  SERVICE_CONTENT["pool-cleaning-maintenance"] = SERVICE_CONTENT["pool-cleaning"];
+}
+if (SERVICE_CONTENT["child-care-service"]) {
+  SERVICE_CONTENT["childcare-services"] = SERVICE_CONTENT["child-care-service"];
+}
+if (SERVICE_CONTENT["elder-care-service"]) {
+  SERVICE_CONTENT["elder-care-services"] = SERVICE_CONTENT["elder-care-service"];
+}
+if (SERVICE_CONTENT["laundry-service"]) {
+  SERVICE_CONTENT["laundry-services"] = SERVICE_CONTENT["laundry-service"];
+  SERVICE_CONTENT["laundry-linen-care"] = SERVICE_CONTENT["laundry-service"];
+}
+if (SERVICE_CONTENT["move-in-out-transport-service"]) {
+  SERVICE_CONTENT["move-in-out-transport-health"] = SERVICE_CONTENT["move-in-out-transport-service"];
+}
