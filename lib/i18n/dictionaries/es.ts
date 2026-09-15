@@ -810,6 +810,14 @@ export const es = {
   footerQuickLinksTitle: "Enlaces rápidos",
   footerTermsLink: "Términos y condiciones",
   footerPrivacyLink: "Política de privacidad",
+  footerCookieLink: "Política de cookies",
+
+  // Cookie consent banner
+  cookieBannerTitle: "Valoramos su privacidad",
+  cookieBannerDescription:
+    "Utilizamos cookies para mejorar su experiencia de navegación y analizar el tráfico del sitio. Al hacer clic en “Aceptar”, usted consiente el uso de cookies.",
+  cookieBannerAccept: "Aceptar",
+  cookieBannerReject: "Rechazar",
 
   // About Us page
   aboutPageEyebrow: "SOBRE LOS SERVICIOS DE LIMPIEZA PEARLY SKY",

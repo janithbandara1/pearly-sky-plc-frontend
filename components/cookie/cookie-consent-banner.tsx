@@ -1,0 +1,116 @@
+"use client";
+
+import { useState, useSyncExternalStore } from "react";
+import { X } from "lucide-react";
+import { useLanguage } from "@/lib/i18n/language-context";
+import { CookiePolicyContent } from "@/components/legal/cookie-policy-content";
+import { TermsAndConditionsContent } from "@/components/legal/terms-and-conditions-content";
+import {
+  COOKIE_CONSENT_EVENT,
+  getStoredCookieConsent,
+  setStoredCookieConsent,
+  type CookieConsentValue,
+} from "@/lib/cookie-consent";
+
+type PolicyType = "cookie" | "terms" | null;
+
+function subscribe(callback: () => void) {
+  window.addEventListener(COOKIE_CONSENT_EVENT, callback);
+  return () => window.removeEventListener(COOKIE_CONSENT_EVENT, callback);
+}
+
+// The server can't know the visitor's localStorage choice, so it always
+// renders as undecided; useSyncExternalStore reconciles this with the real
+// client value right after hydration without an extra render-then-setState.
+function getServerSnapshot() {
+  return null;
+}
+
+const policyButtonClass =
+  "px-3 py-2 rounded-md text-sm font-bold underline bg-[#121E2D] text-[#FFFDF4] transition-colors hover:bg-[#1a2b45]";
+const policyButtonMobileClass =
+  "md:hidden px-2 py-1.5 rounded-md text-xs text-center font-bold underline bg-[#121E2D] text-[#FFFDF4] transition-colors hover:bg-[#1a2b45]";
+
+export function CookieConsentBanner() {
+  const { translate } = useLanguage();
+  const consent = useSyncExternalStore(subscribe, getStoredCookieConsent, getServerSnapshot);
+  const [showPolicy, setShowPolicy] = useState<PolicyType>(null);
+
+  if (consent) return null;
+
+  const decide = (value: CookieConsentValue) => {
+    setStoredCookieConsent(value);
+  };
+
+  return (
+    <>
+      {showPolicy && (
+        <div
+          className="fixed inset-0 z-5100 flex items-center justify-center bg-black/30 p-3"
+          onClick={() => setShowPolicy(null)}
+        >
+          <div
+            className="relative max-h-[80vh] w-full max-w-3xl overflow-hidden rounded-2xl bg-[#FFFBF4] shadow-2xl pointer-events-auto"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <div className="sticky top-0 flex items-center justify-between border-b p-4 bg-[#FFFBF4]">
+              <h2 className="text-lg font-bold text-[#002F6D] sm:text-xl">
+                {showPolicy === "cookie" ? translate("footerCookieLink") : translate("footerTermsLink")}
+              </h2>
+              <button onClick={() => setShowPolicy(null)} className="text-[#002F6D]" aria-label="Close">
+                <X size={22} />
+              </button>
+            </div>
+
+            <div className="max-h-[70vh] overflow-y-auto p-4 text-[#002F6D]">
+              <div className="flex flex-col gap-8">
+                {showPolicy === "cookie" ? <CookiePolicyContent /> : <TermsAndConditionsContent />}
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+
+      <div className="fixed inset-x-4 bottom-4 z-5050 md:inset-x-6 md:bottom-6">
+        <div className="mx-auto flex flex-col gap-2 rounded-xl bg-[#FFFBF4] p-4 text-[#002F6D] shadow-lg md:flex-row md:items-center md:justify-between md:gap-4">
+          <div className="min-w-0">
+            <div className="text-sm font-semibold">{translate("cookieBannerTitle")}</div>
+            <div className="truncate text-xs opacity-90">{translate("cookieBannerDescription")}</div>
+          </div>
+
+          <div className="hidden shrink-0 items-center gap-3 md:flex">
+            <button onClick={() => setShowPolicy("cookie")} className={policyButtonClass}>
+              {translate("footerCookieLink")}
+            </button>
+            <button onClick={() => setShowPolicy("terms")} className={policyButtonClass}>
+              {translate("footerTermsLink")}
+            </button>
+          </div>
+
+          <div className="flex shrink-0 items-center justify-center gap-2 md:justify-start md:gap-3">
+            <button onClick={() => setShowPolicy("cookie")} className={policyButtonMobileClass}>
+              {translate("footerCookieLink")}
+            </button>
+            <button onClick={() => setShowPolicy("terms")} className={policyButtonMobileClass}>
+              {translate("footerTermsLink")}
+            </button>
+            <button
+              type="button"
+              onClick={() => decide("denied")}
+              className="rounded-md bg-[#121E2D] px-3 py-1.5 text-xs font-bold text-[#FFFDF4] transition-colors hover:bg-[#1a2b45] md:py-2 md:text-sm"
+            >
+              {translate("cookieBannerReject")}
+            </button>
+            <button
+              type="button"
+              onClick={() => decide("accepted")}
+              className="rounded-md bg-[#121E2D] px-3 py-1.5 text-xs font-bold text-[#FFFDF4] transition-colors hover:bg-[#1a2b45] md:py-2 md:text-sm"
+            >
+              {translate("cookieBannerAccept")}
+            </button>
+          </div>
+        </div>
+      </div>
+    </>
+  );
+}

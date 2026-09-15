@@ -815,6 +815,14 @@ export const fi = {
   footerQuickLinksTitle: "Pikalinkit",
   footerTermsLink: "Käyttöehdot",
   footerPrivacyLink: "Tietosuojakäytäntö",
+  footerCookieLink: "Evästekäytäntö",
+
+  // Cookie consent banner
+  cookieBannerTitle: "Arvostamme yksityisyyttäsi",
+  cookieBannerDescription:
+    "Käytämme evästeitä parantaaksemme selauskokemustasi ja analysoidaksemme sivuston liikennettä. Napsauttamalla “Hyväksy” annat suostumuksesi evästeiden käyttöön.",
+  cookieBannerAccept: "Hyväksy",
+  cookieBannerReject: "Hylkää",
 
   // About Us page
   aboutPageEyebrow: "TIETOA PEARLY SKY CLEANING SERVICESISTA",

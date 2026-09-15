@@ -12,19 +12,22 @@ const securityHeaders = [
       "default-src 'self'",
       // Next.js needs inline/eval script in dev; unsafe-inline is also
       // required for its production hydration/style bootstrap scripts.
-      // challenges.cloudflare.com serves the Turnstile widget script.
-      "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://challenges.cloudflare.com",
-      "style-src 'self' 'unsafe-inline'",
+      // challenges.cloudflare.com serves the Turnstile widget script;
+      // client.crisp.chat serves the Crisp live-chat widget.
+      "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://challenges.cloudflare.com https://client.crisp.chat",
+      "style-src 'self' 'unsafe-inline' https://client.crisp.chat",
       "img-src 'self' data: https:",
-      "font-src 'self' data:",
+      "font-src 'self' data: https://client.crisp.chat",
       // The dev API backend runs on plain http://localhost — only allowed
       // outside production so the production CSP stays https-only. The
       // broad "https:" already covers challenges.cloudflare.com (Turnstile's
-      // verification endpoint), so it needs no separate entry here.
-      `connect-src 'self' https:${isDev ? " http://localhost:* ws://localhost:*" : ""}`,
+      // verification endpoint) and Crisp's REST calls, so they need no
+      // separate entry here; the Crisp chat socket needs its own wss: entry.
+      `connect-src 'self' https: wss://client.relay.crisp.chat${isDev ? " http://localhost:* ws://localhost:*" : ""}`,
       // Added THIS LINE – allows Google Maps iframes. challenges.cloudflare.com
-      // renders Turnstile's interactive-challenge iframe.
-      "frame-src 'self' https://www.google.com https://maps.google.com https://www.google.com/maps/ https://challenges.cloudflare.com",
+      // renders Turnstile's interactive-challenge iframe; client.crisp.chat
+      // renders the chat widget's iframe.
+      "frame-src 'self' https://www.google.com https://maps.google.com https://www.google.com/maps/ https://challenges.cloudflare.com https://client.crisp.chat",
       "frame-ancestors 'none'",
       "base-uri 'self'",
       "form-action 'self'",

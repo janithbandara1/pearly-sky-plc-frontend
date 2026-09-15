@@ -841,6 +841,14 @@ export const no = {
   footerQuickLinksTitle: "Hurtiglenker",
   footerTermsLink: "Vilkår og betingelser",
   footerPrivacyLink: "Personvernpolicy",
+  footerCookieLink: "Retningslinjer for informasjonskapsler",
+
+  // Cookie consent banner
+  cookieBannerTitle: "Vi verdsetter ditt personvern",
+  cookieBannerDescription:
+    "Vi bruker informasjonskapsler for å forbedre nettleseropplevelsen din og analysere trafikken på nettstedet. Ved å klikke på “Godta” samtykker du til vår bruk av informasjonskapsler.",
+  cookieBannerAccept: "Godta",
+  cookieBannerReject: "Avvis",
 
   // About Us page
   aboutPageEyebrow: "OM PEARLY SKY RENGJØRINGSTJENESTER",

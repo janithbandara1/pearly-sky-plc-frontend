@@ -815,6 +815,14 @@ export const it = {
   footerQuickLinksTitle: "Link rapidi",
   footerTermsLink: "Termini e condizioni",
   footerPrivacyLink: "Informativa sulla privacy",
+  footerCookieLink: "Informativa sui cookie",
+
+  // Cookie consent banner
+  cookieBannerTitle: "Rispettiamo la tua privacy",
+  cookieBannerDescription:
+    "Utilizziamo i cookie per migliorare la tua esperienza di navigazione e analizzare il traffico del sito. Facendo clic su “Accetta”, acconsenti al nostro utilizzo dei cookie.",
+  cookieBannerAccept: "Accetta",
+  cookieBannerReject: "Rifiuta",
 
   // About Us page
   aboutPageEyebrow: "SU PEARLY SKY CLEANING SERVICES",

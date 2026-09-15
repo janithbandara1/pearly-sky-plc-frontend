@@ -839,6 +839,14 @@ export const sv = {
   footerQuickLinksTitle: "Snabblänkar",
   footerTermsLink: "Villkor",
   footerPrivacyLink: "Integritetspolicy",
+  footerCookieLink: "Cookiepolicy",
+
+  // Cookie consent banner
+  cookieBannerTitle: "Vi värdesätter din integritet",
+  cookieBannerDescription:
+    "Vi använder cookies för att förbättra din surfupplevelse och analysera webbplatstrafiken. Genom att klicka på ”Acceptera” samtycker du till vår användning av cookies.",
+  cookieBannerAccept: "Acceptera",
+  cookieBannerReject: "Avvisa",
 
   // About Us page
   aboutPageEyebrow: "OM PEARLY SKY STÄDNINGSTJÄNSTER",

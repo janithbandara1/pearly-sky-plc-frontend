@@ -11,6 +11,8 @@ import { buildLocalBusinessJsonLd } from "@/lib/seo/json-ld";
 import JoinWithUsSection from "@/components/booking/join-with-us-section";
 import RelatedServices from "@/components/services-links";
 import PaymentMarquee from "@/components/payment-method-services";
+import { CookieConsentBanner } from "@/components/cookie/cookie-consent-banner";
+import { CrispChat } from "@/components/cookie/crisp-chat";
 
 export default async function SiteLayout({
   children,
@@ -31,6 +33,8 @@ export default async function SiteLayout({
           <RelatedServices />
           <PaymentMarquee /> */}
           <SiteFooter />
+          <CookieConsentBanner />
+          <CrispChat />
         </LanguageProvider>
       </CurrencyProvider>
     </CountryProvider>

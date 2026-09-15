@@ -866,6 +866,14 @@ serviceLuxuryYachtCleaningTitleFiveFeatureTwo:"Complete linen turnover, sanitati
   footerQuickLinksTitle: "Quick Links",
   footerTermsLink: "Terms and Conditions",
   footerPrivacyLink: "Privacy Policy",
+  footerCookieLink: "Cookie Policy",
+
+  // Cookie consent banner
+  cookieBannerTitle: "We Value Your Privacy",
+  cookieBannerDescription:
+    "We use cookies to improve your browsing experience and analyze site traffic. By clicking “Accept”, you consent to our use of cookies.",
+  cookieBannerAccept: "Accept",
+  cookieBannerReject: "Reject",
 
   // About Us page
   aboutPageEyebrow: "ABOUT PEARLY SKY CLEANING SERVICES",

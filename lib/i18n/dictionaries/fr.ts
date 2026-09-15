@@ -924,6 +924,14 @@ AddsOnCategoryOvenFridgeRestoration: "Restauration professionnelle de four et r�
   footerQuickLinksTitle: "Liens Rapides",
   footerTermsLink: "Conditions Générales",
   footerPrivacyLink: "Politique de Confidentialité",
+  footerCookieLink: "Politique de Cookies",
+
+  // Cookie consent banner
+  cookieBannerTitle: "Nous respectons votre vie privée",
+  cookieBannerDescription:
+    "Nous utilisons des cookies pour améliorer votre navigation et analyser le trafic du site. En cliquant sur « Accepter », vous consentez à notre utilisation des cookies.",
+  cookieBannerAccept: "Accepter",
+  cookieBannerReject: "Refuser",
 
   serviceHighlightSectionHeader:"Checklist du Package Standard",
   serviceIntroBottomText:"Définissez votre calendrier récurrent",

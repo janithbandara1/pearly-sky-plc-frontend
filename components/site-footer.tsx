@@ -137,6 +137,9 @@ export function SiteFooter() {
           <Link href="/privacy-policy" className="transition-colors hover:text-brand-gold">
             {translate("footerPrivacyLink")}
           </Link>
+          <Link href="/cookie-policy" className="transition-colors hover:text-brand-gold">
+            {translate("footerCookieLink")}
+          </Link>
         </div>
       </div>
     </footer>

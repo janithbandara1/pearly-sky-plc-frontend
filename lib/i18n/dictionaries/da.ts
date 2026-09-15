@@ -814,6 +814,14 @@ export const da = {
   footerQuickLinksTitle: "Hurtige links",
   footerTermsLink: "Vilkår og betingelser",
   footerPrivacyLink: "Privatlivspolitik",
+  footerCookieLink: "Cookiepolitik",
+
+  // Cookie consent banner
+  cookieBannerTitle: "Vi værdsætter dit privatliv",
+  cookieBannerDescription:
+    "Vi bruger cookies til at forbedre din browsingoplevelse og analysere trafikken på siden. Ved at klikke på “Accepter” giver du samtykke til vores brug af cookies.",
+  cookieBannerAccept: "Accepter",
+  cookieBannerReject: "Afvis",
 
   // About Us page
   aboutPageEyebrow: "OM PEARLY SKY RENGØRINGSTJENESTER",

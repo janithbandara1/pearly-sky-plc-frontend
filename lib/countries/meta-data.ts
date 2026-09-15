@@ -1073,7 +1073,7 @@ export function getCountryPageMeta(page: CountryPageKey, country: CountryCode | 
   return getTranslatedCountryPageMeta(page, resolved, language) ?? COUNTRY_PAGE_META[page][resolved];
 }
 
-type StaticPageKey = "termsAndConditions" | "privacyPolicy";
+type StaticPageKey = "termsAndConditions" | "privacyPolicy" | "cookiePolicy";
 
 /** <title>/description for pages whose copy is identical for every country. */
 export const STATIC_PAGE_META: Record<StaticPageKey, PageMeta> = {
@@ -1082,5 +1082,8 @@ export const STATIC_PAGE_META: Record<StaticPageKey, PageMeta> = {
   },
   privacyPolicy: {
     title: "Privacy Policy | Pearly Sky",
+  },
+  cookiePolicy: {
+    title: "Cookie Policy | Pearly Sky",
   },
 };

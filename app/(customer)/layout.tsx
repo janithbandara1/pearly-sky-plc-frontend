@@ -7,6 +7,8 @@ import { getRequestLanguage } from "@/lib/i18n/server";
 import { LanguageProvider } from "@/lib/i18n/language-context";
 import { CurrencyProvider } from "@/lib/currency-context";
 import { SiteHeader } from "@/components/site-header";
+import { CookieConsentBanner } from "@/components/cookie/cookie-consent-banner";
+import { CrispChat } from "@/components/cookie/crisp-chat";
 
 export default async function DashboardLayout({
   children,
@@ -28,6 +30,8 @@ export default async function DashboardLayout({
             </div>
           </div>
           <SiteFooter />
+          <CookieConsentBanner />
+          <CrispChat />
         </CurrencyProvider>
       </LanguageProvider>
     </CountryProvider>

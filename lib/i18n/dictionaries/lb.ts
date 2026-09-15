@@ -829,6 +829,14 @@ export const lb = {
   footerQuickLinksTitle: "Schnell Linken",
   footerTermsLink: "Allgemeng Konditiounen",
   footerPrivacyLink: "Dateschutzrichtlinn",
+  footerCookieLink: "Cookie-Politik",
+
+  // Cookie consent banner
+  cookieBannerTitle: "Mir respektéieren Är Privatsphär",
+  cookieBannerDescription:
+    "Mir benotzen Cookien fir Äert Surferlebnis ze verbesseren an de Site-Traffic ze analyséieren. Andeems Dir op “Akzeptéieren” klickt, stëmmt Dir eiser Notzung vu Cookien zou.",
+  cookieBannerAccept: "Akzeptéieren",
+  cookieBannerReject: "Ofleenen",
 
   // About Us page
   aboutPageEyebrow: "IWWER PEARLY SKY CLEANING SERVICES",

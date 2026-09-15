@@ -838,6 +838,14 @@ export const nl = {
   footerQuickLinksTitle: "Snelle links",
   footerTermsLink: "Algemene voorwaarden",
   footerPrivacyLink: "Privacybeleid",
+  footerCookieLink: "Cookiebeleid",
+
+  // Cookie consent banner
+  cookieBannerTitle: "Wij hechten waarde aan uw privacy",
+  cookieBannerDescription:
+    "Wij gebruiken cookies om uw surfervaring te verbeteren en het websiteverkeer te analyseren. Door op “Accepteren” te klikken, stemt u in met ons gebruik van cookies.",
+  cookieBannerAccept: "Accepteren",
+  cookieBannerReject: "Weigeren",
 
   // About Us page
   aboutPageEyebrow: "OVER PEARLY SKY CLEANING SERVICES",

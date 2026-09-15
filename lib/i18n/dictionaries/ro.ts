@@ -841,6 +841,14 @@ export const ro = {
   footerQuickLinksTitle: "Linkuri rapide",
   footerTermsLink: "Termeni și condiții",
   footerPrivacyLink: "Politica de confidențialitate",
+  footerCookieLink: "Politica privind cookie-urile",
+
+  // Cookie consent banner
+  cookieBannerTitle: "Prețuim confidențialitatea dumneavoastră",
+  cookieBannerDescription:
+    "Folosim cookie-uri pentru a îmbunătăți experiența de navigare și a analiza traficul pe site. Făcând clic pe „Accept”, sunteți de acord cu utilizarea cookie-urilor.",
+  cookieBannerAccept: "Accept",
+  cookieBannerReject: "Refuz",
 
   // About Us page
   aboutPageEyebrow: "DESPRE SERVICIILE DE CURĂȚENIE PEARLY SKY",
