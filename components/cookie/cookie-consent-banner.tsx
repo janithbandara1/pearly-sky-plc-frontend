@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useSyncExternalStore } from "react";
+import { useEffect, useState } from "react";
 import { X } from "lucide-react";
 import { useLanguage } from "@/lib/i18n/language-context";
 import { CookiePolicyContent } from "@/components/legal/cookie-policy-content";
@@ -14,17 +14,12 @@ import {
 
 type PolicyType = "cookie" | "terms" | null;
 
-function subscribe(callback: () => void) {
-  window.addEventListener(COOKIE_CONSENT_EVENT, callback);
-  return () => window.removeEventListener(COOKIE_CONSENT_EVENT, callback);
-}
-
-// The server can't know the visitor's localStorage choice, so it always
-// renders as undecided; useSyncExternalStore reconciles this with the real
-// client value right after hydration without an extra render-then-setState.
-function getServerSnapshot() {
-  return null;
-}
+// The server can't know the visitor's localStorage choice, so it renders
+// nothing (hidden) by default on both server and initial client paint.
+// Only after mounting do we check localStorage and reveal the banner if
+// there's truly no stored decision — this avoids a flash of the banner
+// briefly appearing then disappearing for returning visitors.
+type ConsentState = CookieConsentValue | "pending" | null;
 
 const policyButtonClass =
   "px-3 py-2 rounded-md text-sm font-bold underline bg-[#121E2D] text-[#FFFDF4] transition-colors hover:bg-[#1a2b45]";
@@ -33,10 +28,17 @@ const policyButtonMobileClass =
 
 export function CookieConsentBanner() {
   const { translate } = useLanguage();
-  const consent = useSyncExternalStore(subscribe, getStoredCookieConsent, getServerSnapshot);
+  const [consent, setConsent] = useState<ConsentState>("pending");
   const [showPolicy, setShowPolicy] = useState<PolicyType>(null);
 
-  if (consent) return null;
+  useEffect(() => {
+    setConsent(getStoredCookieConsent());
+    const handleUpdate = () => setConsent(getStoredCookieConsent());
+    window.addEventListener(COOKIE_CONSENT_EVENT, handleUpdate);
+    return () => window.removeEventListener(COOKIE_CONSENT_EVENT, handleUpdate);
+  }, []);
+
+  if (consent !== null) return null;
 
   const decide = (value: CookieConsentValue) => {
     setStoredCookieConsent(value);
