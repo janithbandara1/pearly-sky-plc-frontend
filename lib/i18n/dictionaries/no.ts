@@ -1480,6 +1480,7 @@ export const no = {
     popUpConditionSectionSevenTwoBody: "Etter at jobben er gjort skal kunden sjekke arbeidet og signere rapporten.",
     popUpConditionCheckboxLabel: "Ved å krysse av her godtar jeg betingelsene",
     popUpConditionBtnAccept: "Godta",
+    popUpConditionAcceptWarning: "Kryss av i boksen ovenfor for å bekrefte at du har lest og godtar vilkårene før du fortsetter.",
 
   secJobCommercialOffice: "Kommersiell & Kontorsikkerhet",
   secJobScifAreas: "SCIF & Høysikkerhetsområder",
@@ -1917,6 +1918,7 @@ export const no = {
   quotationErrProvince: "Fylke / Stat er påkrevd.",
   quotationErrStreet: "Gateadresse er påkrevd.",
   quotationErrFillRequired: "Vennligst fyll ut alle obligatoriske felt merket med *",
+  quotationErrTerms: "Vennligst godta vilkårene og betingelsene for å fortsette.",
   quotationErrServiceNotFound: "Tjenesten ble ikke funnet.",
   quotationErrSubmitFailed: "Kunne ikke sende tilbudsforespørselen din.",
 

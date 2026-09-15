@@ -1480,6 +1480,7 @@ export const pt = {
     popUpConditionSectionSevenTwoBody: "Após o término, o responsável deve inspecionar as divisões e assinar o relatório.",
     popUpConditionCheckboxLabel: "Ao selecionar esta opção, aceito os termos e condições",
     popUpConditionBtnAccept: "Aceitar",
+    popUpConditionAcceptWarning: "Marque a caixa acima para confirmar que leu e aceita os termos antes de continuar.",
 
   secJobCommercialOffice: "Segurança comercial e de escritórios",
   secJobScifAreas: "Salas de servidores e áreas de alta segurança",
@@ -1917,6 +1918,7 @@ export const pt = {
   quotationErrProvince: "O distrito / estado é obrigatório.",
   quotationErrStreet: "O endereço é obrigatório.",
   quotationErrFillRequired: "Por favor preencha todos os campos obrigatórios marcados com *",
+  quotationErrTerms: "Por favor aceite os Termos e Condições para continuar.",
   quotationErrServiceNotFound: "Serviço não encontrado.",
   quotationErrSubmitFailed: "Falha ao enviar o seu pedido de orçamento.",
 

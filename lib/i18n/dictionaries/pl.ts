@@ -1480,6 +1480,7 @@ export const pl = {
     popUpConditionSectionSevenTwoBody: "Po zakończeniu sprzątania klient weryfikuje efekt i podpisuje protokół odbioru.",
     popUpConditionCheckboxLabel: "Zaznaczając to pole, akceptuję regulamin i warunki",
     popUpConditionBtnAccept: "Akceptuję",
+    popUpConditionAcceptWarning: "Zaznacz pole powyżej, aby potwierdzić, że przeczytałeś i akceptujesz warunki przed kontynuowaniem.",
 
   secJobCommercialOffice: "Ochrona Komercyjna i Biurowa",
   secJobScifAreas: "Strefy SCIF i Wysokiego Bezpieczeństwa",
@@ -1917,6 +1918,7 @@ export const pl = {
   quotationErrProvince: "Województwo / Stan jest wymagany.",
   quotationErrStreet: "Adres ulicy jest wymagany.",
   quotationErrFillRequired: "Proszę wypełnić wszystkie wymagane pola oznaczone *",
+  quotationErrTerms: "Zaakceptuj Regulamin, aby kontynuować.",
   quotationErrServiceNotFound: "Nie znaleziono usługi.",
   quotationErrSubmitFailed: "Nie udało się wysłać zapytania o wycenę.",
 

@@ -938,15 +938,6 @@ export default function CheckoutPage({
                 <label
                   htmlFor="agreed-to-terms-flow"
                   className="flex cursor-pointer items-center gap-2 text-xs text-brand-cream/70 select-none"
-                  onClick={(e) => {
-                    if (!agreedToTerms) {
-                      e.preventDefault();
-                      setShowTermsModal(true);
-                    } else {
-                      e.preventDefault();
-                      setAgreedToTerms(false);
-                    }
-                  }}
                 >
                   <Checkbox
                     id="agreed-to-terms-flow"

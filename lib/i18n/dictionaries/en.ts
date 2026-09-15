@@ -1516,6 +1516,7 @@ serviceLuxuryYachtCleaningTitleFiveFeatureTwo:"Complete linen turnover, sanitati
     popUpConditionSectionSevenTwoBody: "Upon completion of the service, the responsible person must check the cleaned area(s) and sign the Cleaning Services Report provided by the Cleaner. This signature confirms that the client is satisfied that the cleaning has been done properly according to the agreed-upon scope of work.",
     popUpConditionCheckboxLabel: "By selecting this I accept terms and conditions",
     popUpConditionBtnAccept: "Accept",
+    popUpConditionAcceptWarning: "Please check the box above to confirm you have read and agree before accepting.",
 
   secJobCommercialOffice: "Commercial & Office Security",
   secJobScifAreas: "SCIF & High-Security Areas",
@@ -1953,6 +1954,7 @@ serviceLuxuryYachtCleaningTitleFiveFeatureTwo:"Complete linen turnover, sanitati
   quotationErrProvince: "Province / State is required.",
   quotationErrStreet: "Street address is required.",
   quotationErrFillRequired: "Please fill in all required fields marked with *",
+  quotationErrTerms: "Please accept the Terms and Conditions to continue.",
   quotationErrServiceNotFound: "Service not found.",
   quotationErrSubmitFailed: "Failed to send your quotation request.",
 

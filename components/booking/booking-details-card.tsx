@@ -389,15 +389,6 @@ export function BookingDetailsCard({
             <label
               htmlFor="agreed-to-terms"
               className="mb-3 flex cursor-pointer items-center gap-2 text-xs text-brand-navy-foreground/70 select-none"
-              onClick={(e) => {
-                if (onOpenTermsModal && !agreedToTerms) {
-                  e.preventDefault();
-                  onOpenTermsModal();
-                } else if (agreedToTerms) {
-                  e.preventDefault();
-                  onAgreedToTermsChange(false);
-                }
-              }}
             >
               <Checkbox
                 id="agreed-to-terms"

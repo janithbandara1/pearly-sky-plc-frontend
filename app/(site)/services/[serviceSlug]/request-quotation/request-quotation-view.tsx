@@ -18,6 +18,7 @@ import { PoolJobSelection } from "@/components/booking/pool-job-selection";
 import { PressureWashingJobSelection } from "@/components/booking/pressure-washing-job-selection";
 import { ServiceIntroduction } from "@/components/booking/service-introduction";
 import { ServiceHighlights } from "@/components/booking/service-highlights";
+import TermsAndConditions from "@/components/booking/termsandConditionPops/terms-condition-pop-up";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -428,6 +429,9 @@ export function RequestQuotationView({ serviceSlug }: { serviceSlug: string }) {
   const [submitError, setSubmitError] = useState<string | null>(null);
   const [showSuccessToast, setShowSuccessToast] = useState(false);
 
+  const [agreedToTerms, setAgreedToTerms] = useState(false);
+  const [showTermsModal, setShowTermsModal] = useState(false);
+
   useEffect(() => {
     getServiceBySlug(serviceSlug, country)
       .then((data) => {
@@ -516,6 +520,7 @@ export function RequestQuotationView({ serviceSlug }: { serviceSlug: string }) {
     if (!city.trim()) next.city = translate("quotationErrCity");
     if (!province.trim()) next.province = translate("quotationErrProvince");
     if (!streetAddress.trim()) next.streetAddress = translate("quotationErrStreet");
+    if (!agreedToTerms) next.agreedToTerms = translate("quotationErrTerms");
 
     if (isPickupDeliveryService) {
       if (!deliveryCountry.trim()) next.deliveryCountry = translate("quotationErrCountry");
@@ -1211,6 +1216,52 @@ export function RequestQuotationView({ serviceSlug }: { serviceSlug: string }) {
               </div>
             )}
 
+            {/* TERMS AGREEMENT */}
+            <div className="space-y-1.5">
+              <label
+                htmlFor="agreed-to-terms-quotation"
+                className="flex cursor-pointer items-center gap-2 text-xs text-brand-navy select-none"
+              >
+                <Checkbox
+                  id="agreed-to-terms-quotation"
+                  checked={agreedToTerms}
+                  onCheckedChange={(checked) => {
+                    if (!agreedToTerms) {
+                      setShowTermsModal(true);
+                    } else {
+                      setAgreedToTerms(checked === true);
+                      if (checked === true && errors.agreedToTerms) {
+                        setErrors((prev) => ({ ...prev, agreedToTerms: "" }));
+                      }
+                    }
+                  }}
+                  className="border-[#A98B4B] data-[state=checked]:bg-[#A98B4B]"
+                />
+                <span>
+                  {translate("checkoutAgreeTo")}{" "}
+                  <Link
+                    href="/terms-and-conditions"
+                    target="_blank"
+                    className="underline"
+                    onClick={(e) => e.stopPropagation()}
+                  >
+                    {translate("footerTermsLink")}
+                  </Link>{" "}
+                  {translate("checkoutAnd")}{" "}
+                  <Link
+                    href="/privacy-policy"
+                    target="_blank"
+                    className="underline"
+                    onClick={(e) => e.stopPropagation()}
+                  >
+                    {translate("footerPrivacyLink")}
+                  </Link>
+                  .
+                </span>
+              </label>
+              {errors.agreedToTerms && <p className="text-xs text-destructive">{errors.agreedToTerms}</p>}
+            </div>
+
             {/* Error Message */}
             {submitError && (
               <div className="rounded-lg bg-red-50 p-3 text-center text-xs font-medium text-destructive border border-red-200">
@@ -1221,7 +1272,7 @@ export function RequestQuotationView({ serviceSlug }: { serviceSlug: string }) {
             {/* SUBMIT BUTTON Matching Image 2 */}
             <Button
               type="submit"
-              disabled={submitting}
+              disabled={submitting || !agreedToTerms}
               className="mt-2 h-12 sm:h-14 w-full rounded-xl bg-[#A98B4B] text-xs sm:text-sm font-bold tracking-widest text-white shadow-lg transition hover:bg-[#8F7034] hover:brightness-110 uppercase"
             >
               {submitting ? translate("quotationSubmitting") : translate("quotationSubmit")}
@@ -1239,6 +1290,16 @@ export function RequestQuotationView({ serviceSlug }: { serviceSlug: string }) {
           </Link>
         </div>
       </div>
+
+      <TermsAndConditions
+        open={showTermsModal}
+        onClose={() => setShowTermsModal(false)}
+        onAccept={() => {
+          setAgreedToTerms(true);
+          setShowTermsModal(false);
+          setErrors((prev) => ({ ...prev, agreedToTerms: "" }));
+        }}
+      />
     </main>
   );
 }

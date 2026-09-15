@@ -444,6 +444,7 @@ export default function TermsAndConditions({
   const { translate } = useLanguage();
   const [openId, setOpenId] = useState<number | null>(2);
   const [accepted, setAccepted] = useState(false);
+  const [showAcceptWarning, setShowAcceptWarning] = useState(false);
 
   if (!open) return null;
 
@@ -452,11 +453,15 @@ export default function TermsAndConditions({
   };
 
   const handleAccept = () => {
-    if (!accepted) return;
+    if (!accepted) {
+      setShowAcceptWarning(true);
+      return;
+    }
     onAccept();
     onClose();
     // reset for next open
     setAccepted(false);
+    setShowAcceptWarning(false);
     setOpenId(2);
   };
 
@@ -580,7 +585,10 @@ export default function TermsAndConditions({
         <input
           type="checkbox"
           checked={accepted}
-          onChange={(e) => setAccepted(e.target.checked)}
+          onChange={(e) => {
+            setAccepted(e.target.checked);
+            if (e.target.checked) setShowAcceptWarning(false);
+          }}
           className="peer sr-only"
         />
         <div
@@ -611,15 +619,18 @@ export default function TermsAndConditions({
       </span>
     </label>
 
+    {showAcceptWarning && !accepted && (
+      <p className="px-6 pb-1 text-xs font-medium text-destructive">
+        {translate("popUpConditionAcceptWarning")}
+      </p>
+    )}
+
     <div className="flex justify-end px-6 pb-5 pt-2">
       <button
         type="button"
-        disabled={!accepted}
         onClick={handleAccept}
-        className={`text-white w-[139px] h-[33px] rounded-[10px] font-medium text-[17px] flex items-center justify-center transition-opacity ${
-          accepted
-            ? "bg-[#A98B4B] cursor-pointer hover:opacity-90"
-            : "bg-[#A98B4B]/60 cursor-not-allowed"
+        className={`text-white w-[139px] h-[33px] rounded-[10px] font-medium text-[17px] flex items-center justify-center transition-opacity cursor-pointer ${
+          accepted ? "bg-[#A98B4B] hover:opacity-90" : "bg-[#A98B4B]/60 hover:opacity-90"
         }`}
       >
         {translate("popUpConditionBtnAccept")}

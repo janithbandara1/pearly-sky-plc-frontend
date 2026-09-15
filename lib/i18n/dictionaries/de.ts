@@ -1480,6 +1480,7 @@ export const de = {
     popUpConditionSectionSevenTwoBody: "Nach Abschluss muss der Bericht geprüft und vom Kunden unterzeichnet werden.",
     popUpConditionCheckboxLabel: "Ich akzeptiere die Allgemeinen Geschäftsbedingungen",
     popUpConditionBtnAccept: "Akzeptieren",
+    popUpConditionAcceptWarning: "Bitte aktivieren Sie das Kästchen oben, um zu bestätigen, dass Sie gelesen haben und zustimmen, bevor Sie fortfahren.",
 
   secJobCommercialOffice: "Gewerbe- & Bürosicherheit",
   secJobScifAreas: "SCIF & Hochsicherheitsbereiche",
@@ -1917,6 +1918,7 @@ export const de = {
   quotationErrProvince: "Bundesland / Provinz ist erforderlich.",
   quotationErrStreet: "Straße und Hausnummer ist erforderlich.",
   quotationErrFillRequired: "Bitte füllen Sie alle mit * markierten Pflichtfelder aus",
+  quotationErrTerms: "Bitte akzeptieren Sie die Allgemeinen Geschäftsbedingungen, um fortzufahren.",
   quotationErrServiceNotFound: "Dienstleistung nicht gefunden.",
   quotationErrSubmitFailed: "Senden Ihrer Angebotsanfrage fehlgeschlagen.",
 

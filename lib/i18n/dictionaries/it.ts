@@ -1441,6 +1441,7 @@ export const it = {
     popUpConditionSectionSevenTwoBody: "A fine pulizia occorre verificare il lavoro e firmare il rapporto del servizio.",
     popUpConditionCheckboxLabel: "Selezionando questo campo accetto i termini e le condizioni",
     popUpConditionBtnAccept: "Accetta",
+    popUpConditionAcceptWarning: "Seleziona la casella sopra per confermare di aver letto e accettato i termini prima di continuare.",
 
   secJobCommercialOffice: "Sicurezza commerciale e uffici",
   secJobScifAreas: "Aree SCIF e ad alta sicurezza",
@@ -1878,6 +1879,7 @@ export const it = {
   quotationErrProvince: "La provincia / stato è obbligatoria.",
   quotationErrStreet: "L'indirizzo è obbligatorio.",
   quotationErrFillRequired: "Compila tutti i campi obbligatori contrassegnati con *",
+  quotationErrTerms: "Accetta i Termini e Condizioni per continuare.",
   quotationErrServiceNotFound: "Servizio non trovato.",
   quotationErrSubmitFailed: "Impossibile inviare la richiesta di preventivo.",
 

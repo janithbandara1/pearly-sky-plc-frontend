@@ -1436,6 +1436,7 @@ export const es = {
     popUpConditionSectionSevenTwoBody: "Al finalizar, el cliente debe revisar las áreas y firmar el reporte.",
     popUpConditionCheckboxLabel: "Al seleccionar esto, acepto los términos y condiciones",
     popUpConditionBtnAccept: "Aceptar",
+    popUpConditionAcceptWarning: "Marca la casilla de arriba para confirmar que has leído y aceptas los términos antes de continuar.",
 
   secJobCommercialOffice: "Seguridad comercial y de oficinas",
   secJobScifAreas: "Áreas de alta seguridad y SCIF",
@@ -1872,6 +1873,7 @@ export const es = {
   quotationErrProvince: "La provincia / estado es obligatoria.",
   quotationErrStreet: "La dirección es obligatoria.",
   quotationErrFillRequired: "Por favor complete todos los campos obligatorios marcados con *",
+  quotationErrTerms: "Por favor acepta los Términos y Condiciones para continuar.",
   quotationErrServiceNotFound: "Servicio no encontrado.",
   quotationErrSubmitFailed: "No se pudo enviar su solicitud de cotización.",
 

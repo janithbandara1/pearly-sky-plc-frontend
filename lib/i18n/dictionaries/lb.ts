@@ -1455,6 +1455,7 @@ export const lb = {
     popUpConditionSectionSevenTwoBody: "No der Aarbecht gëtt d'Rengung kontrolléiert a de Rapport ënnerschriwwen.",
     popUpConditionCheckboxLabel: "Wann ech dëst auswielen, akzeptéieren ech d'Geschäftsbedéngungen",
     popUpConditionBtnAccept: "Akzeptéieren",
+    popUpConditionAcceptWarning: "Prosech kräizt d'Këscht hei driwwer un fir ze bestätegen, dass Dir gelies hutt an averstane sidd, ier Dir weiderfuert.",
 
   secJobCommercialOffice: "Kommerziell & Büro Sächerheet",
   secJobScifAreas: "SCIF & Héichsécherheetsberäicher",
@@ -1892,6 +1893,7 @@ export const lb = {
   quotationErrProvince: "Provinz / Staat ass erfuerderlech.",
   quotationErrStreet: "Strooss ass erfuerderlech.",
   quotationErrFillRequired: "Fëllt w.e.g. all erfuerderlech Felder mat * aus.",
+  quotationErrTerms: "Prosech akzeptéiert d'Allgemeng Geschäftsbedingungen fir weiderzefueren.",
   quotationErrServiceNotFound: "Service net fonnt.",
   quotationErrSubmitFailed: "Fehler beim Schécken vun der Offerte-Ufro.",
 

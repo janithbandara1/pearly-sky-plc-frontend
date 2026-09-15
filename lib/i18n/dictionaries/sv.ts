@@ -1478,6 +1478,7 @@ export const sv = {
     popUpConditionSectionSevenTwoBody: "Efter utfört arbete ska kunden kontrollera städningen och signera rapporten.",
     popUpConditionCheckboxLabel: "Genom att kryssa i detta godkänner jag villkoren",
     popUpConditionBtnAccept: "Godkänn",
+    popUpConditionAcceptWarning: "Markera rutan ovan för att bekräfta att du har läst och godkänner villkoren innan du fortsätter.",
 
   secJobCommercialOffice: "Kommersiell & Kontorssäkerhet",
   secJobScifAreas: "SCIF & Högsäkerhetsytor",
@@ -1914,6 +1915,7 @@ export const sv = {
   quotationErrProvince: "Län / Region krävs.",
   quotationErrStreet: "Gatuadress krävs.",
   quotationErrFillRequired: "Vänligen fyll i alla obligatoriska fält märkta med *",
+  quotationErrTerms: "Vänligen acceptera villkoren för att fortsätta.",
   quotationErrServiceNotFound: "Tjänsten hittades inte.",
   quotationErrSubmitFailed: "Misslyckades att skicka din offertförfrågan.",
 

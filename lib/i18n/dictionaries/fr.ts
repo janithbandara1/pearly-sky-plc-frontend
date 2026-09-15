@@ -798,6 +798,7 @@ AddsOnCategoryOvenFridgeRestoration: "Restauration professionnelle de four et r�
     popUpConditionSectionSevenTwoBody: "Une fois le service terminé, la personne responsable doit vérifier les zones nettoyées et signer le rapport de prestation fourni par l'agent.",
     popUpConditionCheckboxLabel: "En cochant ceci, j'accepte les conditions générales",
     popUpConditionBtnAccept: "Accepter",
+    popUpConditionAcceptWarning: "Veuillez cocher la case ci-dessus pour confirmer que vous avez lu et acceptez les conditions avant de continuer.",
 
     ServiceLuxuryResidential:"Nettoyage résidentiel de luxe",
     ServiceCommercial:"Gestion de propriétés commerciales",
@@ -1913,6 +1914,7 @@ AddsOnCategoryOvenFridgeRestoration: "Restauration professionnelle de four et r�
   quotationErrProvince: "La province / l'état est obligatoire.",
   quotationErrStreet: "L'adresse postale est obligatoire.",
   quotationErrFillRequired: "Veuillez remplir tous les champs obligatoires marqués d'un *",
+  quotationErrTerms: "Veuillez accepter les Conditions Générales pour continuer.",
   quotationErrServiceNotFound: "Service introuvable.",
   quotationErrSubmitFailed: "Échec de l'envoi de votre demande de devis.",
 

@@ -1442,6 +1442,7 @@ export const da = {
     popUpConditionSectionSevenTwoBody: "Efter rengøringen skal kunden kontrollere arbejdet og underskrive rapporten.",
     popUpConditionCheckboxLabel: "Ved at markere dette felt accepterer jeg betingelserne",
     popUpConditionBtnAccept: "Accepter",
+    popUpConditionAcceptWarning: "Markér venligst feltet ovenfor for at bekræfte, at du har læst og accepterer, før du fortsætter.",
 
   secJobCommercialOffice: "Erhverv- & kontorsikkerhed",
   secJobScifAreas: "SCIF & højsikkerhedsområder",
@@ -1879,6 +1880,7 @@ export const da = {
   quotationErrProvince: "Region / Stat er påkrævet.",
   quotationErrStreet: "Gadeadresse er påkrævet.",
   quotationErrFillRequired: "Udfyld venligst alle obligatoriske felter mærket med *",
+  quotationErrTerms: "Accepter venligst vilkårene og betingelserne for at fortsætte.",
   quotationErrServiceNotFound: "Tjeneste ikke fundet.",
   quotationErrSubmitFailed: "Kunne ikke sende din tilbudsanmodning.",
 

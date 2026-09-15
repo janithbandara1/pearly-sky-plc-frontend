@@ -1480,6 +1480,7 @@ export const ro = {
     popUpConditionSectionSevenTwoBody: "La final, clientul inspectează zonele curățate și semnează raportul de execuție.",
     popUpConditionCheckboxLabel: "Selectând această bifă, sunt de acord cu termenii și condițiile",
     popUpConditionBtnAccept: "Acceptă",
+    popUpConditionAcceptWarning: "Te rugăm să bifezi caseta de mai sus pentru a confirma că ai citit și accepți termenii înainte de a continua.",
 
   secJobCommercialOffice: "Securitate comercială și birouri",
   secJobScifAreas: "Zone SCIF și de înaltă securitate",
@@ -1917,6 +1918,7 @@ export const ro = {
   quotationErrProvince: "Județul / Statul este obligatoriu.",
   quotationErrStreet: "Adresa este obligatorie.",
   quotationErrFillRequired: "Te rugăm să completezi toate câmpurile obligatorii marcate cu *",
+  quotationErrTerms: "Te rugăm să accepți Termenii și Condițiile pentru a continua.",
   quotationErrServiceNotFound: "Serviciul nu a fost găsit.",
   quotationErrSubmitFailed: "Trimiterea cererii de ofertă a eșuat.",
 

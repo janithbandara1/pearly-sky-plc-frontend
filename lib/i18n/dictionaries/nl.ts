@@ -1464,6 +1464,7 @@ export const nl = {
     popUpConditionSectionSevenTwoBody: "Na afloop controleert de klant de ruimtes en ondertekent het opleverrapport.",
     popUpConditionCheckboxLabel: "Door dit te selecteren ga ik akkoord met de algemene voorwaarden",
     popUpConditionBtnAccept: "Accepteren",
+    popUpConditionAcceptWarning: "Vink het vakje hierboven aan om te bevestigen dat u de voorwaarden hebt gelezen en ermee akkoord gaat voordat u doorgaat.",
 
   secJobCommercialOffice: "Commerciële & kantoorbeveiliging",
   secJobScifAreas: "SCIF & hoogbeveiligde zones",
@@ -1901,6 +1902,7 @@ export const nl = {
   quotationErrProvince: "Provincie / Staat is verplicht.",
   quotationErrStreet: "Straatnaam & huisnummer is verplicht.",
   quotationErrFillRequired: "Vul a.u.b. alle verplichte velden in die zijn gemarkeerd met *",
+  quotationErrTerms: "Accepteer de Algemene Voorwaarden om door te gaan.",
   quotationErrServiceNotFound: "Dienst niet gevonden.",
   quotationErrSubmitFailed: "Verzenden van uw offerteaanvraag is mislukt.",
 

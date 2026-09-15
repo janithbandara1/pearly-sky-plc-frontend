@@ -1441,6 +1441,7 @@ export const fi = {
     popUpConditionSectionSevenTwoBody: "Siivouksen päätyttyä asiakkaan tulee tarkistaa jälki ja allekirjoittaa raportti.",
     popUpConditionCheckboxLabel: "Valitsemalla tämän hyväksyn käyttöehdot",
     popUpConditionBtnAccept: "Hyväksy",
+    popUpConditionAcceptWarning: "Merkitse yllä oleva ruutu vahvistaaksesi, että olet lukenut ja hyväksyt ehdot ennen jatkamista.",
 
   secJobCommercialOffice: "Liike- ja toimistoturvallisuus",
   secJobScifAreas: "SCIF & Korkean turvallisuustason alueet",
@@ -1877,6 +1878,7 @@ export const fi = {
   quotationErrProvince: "Maakunta / Osavaltio on pakollinen.",
   quotationErrStreet: "Katuosoite on pakollinen.",
   quotationErrFillRequired: "Täytä kaikki pakolliset kentät, jotka on merkitty *-merkillä.",
+  quotationErrTerms: "Hyväksy käyttöehdot jatkaaksesi.",
   quotationErrServiceNotFound: "Palvelua ei löytynyt.",
   quotationErrSubmitFailed: "Tarjouspyynnön lähetys epäonnistui.",
 
