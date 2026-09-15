@@ -36,6 +36,13 @@ const securityHeaders = [
 ];
 
 const nextConfig: NextConfig = {
+  // Inlines route CSS into <style> tags instead of render-blocking <link>
+  // requests — Tailwind's output stays small enough per route that this is a
+  // net win for first-time visitors (see next.config docs for the trade-off
+  // with repeat-visitor stylesheet caching).
+  experimental: {
+    inlineCss: true,
+  },
   async headers() {
     return [{ source: "/:path*", headers: securityHeaders }];
   },
