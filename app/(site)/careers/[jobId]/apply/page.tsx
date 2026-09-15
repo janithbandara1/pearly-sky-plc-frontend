@@ -52,7 +52,7 @@ export default function JobApplyPage({ params }: { params: Promise<{ jobId: stri
 
   return (
     <main className="flex-1">
-      <PageHero image="/images/careers/hero.webp" title={translate("careersApplyPageTitle")} subtitle={job.title} />
+      <PageHero image="/images/careers/hero.webp" title={translate("careersApplyPageTitle")} subtitle={job.title} hidePriceSelector />
 
       <section className="mx-auto w-full max-w-xl px-4 py-16 sm:px-6">
         <p className="mb-6 rounded-lg bg-secondary px-4 py-3 text-sm text-secondary-foreground">

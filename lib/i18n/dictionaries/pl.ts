@@ -989,7 +989,7 @@ export const pl = {
   jobCategoryElderCare: "Opieka nad seniorami",
   jobEmploymentFullPartFlexible: "Pełny etat / Część etatu / Elastyczne zmiany",
   jobEmploymentPartFull: "Część etatu / Pełny etat",
-  jobLocationFranceUK: "Francja / Wielka Brytania",
+  jobLocationFrance: "Francja",
 
   // Job 1: Residential Cleaner
   jobResidentialCleanerTitle: "Pracownik Sprzątający (K/M) — Nieruchomości Mieszkalne i Komercyjne",

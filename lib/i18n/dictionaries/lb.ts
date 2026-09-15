@@ -964,7 +964,7 @@ export const lb = {
   jobCategoryElderCare: "Seniorebetreiung",
   jobEmploymentFullPartFlexible: "Volläzäit / Deelzäit / Flexibel Schichten",
   jobEmploymentPartFull: "Deelzäit / Volläzäit",
-  jobLocationFranceUK: "Frankräich / Groussbritannien",
+  jobLocationFrance: "Frankräich",
 
   // Job 1: Residential Cleaner
   jobResidentialCleanerTitle: "Botzkraaft (m/w) — Wunn- a Gewerbeimmobilien",

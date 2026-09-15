@@ -950,7 +950,7 @@ export const fi = {
   jobCategoryElderCare: "Vanhustenhoito",
   jobEmploymentFullPartFlexible: "Kokoaikainen / Osa-aikainen / Joustavat vuorot",
   jobEmploymentPartFull: "Osa-aikainen / Kokoaikainen",
-  jobLocationFranceUK: "Ranska / Yhdistynyt kuningaskunta",
+  jobLocationFrance: "Ranska",
 
   // Job 1: Residential Cleaner
   jobResidentialCleanerTitle: "Siivooja (Mies / Nainen) — Asunto- ja liikekiinteistöt",

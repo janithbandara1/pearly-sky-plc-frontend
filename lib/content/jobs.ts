@@ -31,9 +31,9 @@ export const jobs: Job[] = [
     titleKey: "jobResidentialCleanerTitle",
     categoryKey: "jobCategoryCleaning",
     employmentTypeKey: "jobEmploymentFullPartFlexible",
-    locationKey: "jobLocationFranceUK",
+    locationKey: "jobLocationFrance",
     bookable: true,
-    datePosted: "2025-12-01",
+    datePosted: "2026-09-15",
     aboutParagraphKeys: ["jobResidentialCleanerAbout1", "jobResidentialCleanerAbout2"],
     responsibilityKeys: [
       "jobResidentialCleanerResp1",
@@ -60,7 +60,7 @@ export const jobs: Job[] = [
     title: "Cleaner (Male / Female) — Residential and Commercial Properties",
     category: "Cleaning",
     employmentType: "Full-Time / Part-Time / Flexible Shifts",
-    location: "France / United Kingdom",
+    location: "France",
     aboutParagraphs: [
       "At Pearly Sky, we are committed to maintaining clean, safe, and welcoming environments for our clients. Whether it's homes, offices, or specialized facilities, we deliver excellence with every sweep, mop, and dusting motion.",
       "Joining our team means becoming part of a supportive and innovative organization that values your skills and offers opportunities for personal and professional growth.",
@@ -92,9 +92,9 @@ export const jobs: Job[] = [
     titleKey: "jobChildcareAssistantTitle",
     categoryKey: "jobCategoryChildcare",
     employmentTypeKey: "jobEmploymentPartFull",
-    locationKey: "jobLocationFranceUK",
+    locationKey: "jobLocationFrance",
     bookable: true,
-    datePosted: "2025-12-01",
+    datePosted: "2026-09-15",
     aboutParagraphKeys: ["jobChildcareAssistantAbout1"],
     responsibilityKeys: [
       "jobChildcareAssistantResp1",
@@ -120,7 +120,7 @@ export const jobs: Job[] = [
     title: "Children Care Worker (Male / Female)",
     category: "Childcare",
     employmentType: "Part-Time / Full-Time",
-    location: "France / United Kingdom",
+    location: "France",
     aboutParagraphs: [
       "Pearly Sky's care team supports families with trusted, attentive childcare in the home. We're looking for warm, reliable individuals who genuinely love working with children.",
     ],
@@ -150,9 +150,9 @@ export const jobs: Job[] = [
     titleKey: "jobElderCareAssistantTitle",
     categoryKey: "jobCategoryElderCare",
     employmentTypeKey: "jobEmploymentFullPartFlexible",
-    locationKey: "jobLocationFranceUK",
+    locationKey: "jobLocationFrance",
     bookable: true,
-    datePosted: "2025-12-01",
+    datePosted: "2026-09-15",
     aboutParagraphKeys: ["jobElderCareAssistantAbout1"],
     responsibilityKeys: [
       "jobElderCareAssistantResp1",
@@ -178,7 +178,7 @@ export const jobs: Job[] = [
     title: "Elder Care Worker (Male / Female)",
     category: "Elder Care",
     employmentType: "Full-Time / Part-Time / Flexible Shifts",
-    location: "France / United Kingdom",
+    location: "France",
     aboutParagraphs: [
       "Pearly Sky's elder care team brings compassionate, professional support to seniors in their own homes, helping them live safely and comfortably with dignity.",
     ],

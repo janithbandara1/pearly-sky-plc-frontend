@@ -989,7 +989,7 @@ export const de = {
   jobCategoryElderCare: "Seniorenbetreuung",
   jobEmploymentFullPartFlexible: "Vollzeit / Teilzeit / Flexible Schichten",
   jobEmploymentPartFull: "Teilzeit / Vollzeit",
-  jobLocationFranceUK: "Frankreich / Vereinigtes Königreich",
+  jobLocationFrance: "Frankreich",
 
   // Job 1: Residential Cleaner
   jobResidentialCleanerTitle: "Reinigungskraft (m/w/d) — Wohn- und Gewerbeimmobilien",

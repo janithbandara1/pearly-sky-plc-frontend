@@ -945,7 +945,7 @@ export const es = {
   jobCategoryElderCare: "Cuidado de mayores",
   jobEmploymentFullPartFlexible: "Tiempo completo / Tiempo parcial / Turnos flexibles",
   jobEmploymentPartFull: "Tiempo parcial / Tiempo completo",
-  jobLocationFranceUK: "Francia / Reino Unido",
+  jobLocationFrance: "Francia",
 
   // Job 1: Residential Cleaner
   jobResidentialCleanerTitle: "Personal de Limpieza (H/M) — Propiedades Residenciales y Comerciales",

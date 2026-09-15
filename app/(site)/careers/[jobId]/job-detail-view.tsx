@@ -13,7 +13,7 @@ export function JobDetailView({ job: rawJob }: { job: Job }) {
 
   return (
     <main className="flex-1">
-      <PageHero image="/images/careers/hero.webp" title={job.title} />
+      <PageHero image="/images/careers/hero.webp" title={job.title} hidePriceSelector />
 
       <section className="mx-auto w-full max-w-3xl px-4 py-16 sm:px-6">
         <Link href="/careers" className="mb-6 inline-flex items-center gap-1 text-sm text-brand-gold-dark hover:underline">

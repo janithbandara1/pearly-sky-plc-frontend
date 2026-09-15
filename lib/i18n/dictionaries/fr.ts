@@ -1080,7 +1080,7 @@ AddsOnCategoryOvenFridgeRestoration: "Restauration professionnelle de four et r�
   jobCategoryElderCare: "Aide aux personnes âgées",
   jobEmploymentFullPartFlexible: "Temps plein / Temps partiel / Horaires flexibles",
   jobEmploymentPartFull: "Temps partiel / Temps plein",
-  jobLocationFranceUK: "France / Royaume-Uni",
+  jobLocationFrance: "France",
 
   // Job 1: Residential Cleaner
   jobResidentialCleanerTitle: "Agent de nettoyage (H/F) — Propriétés résidentielles et commerciales",

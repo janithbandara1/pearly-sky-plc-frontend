@@ -950,7 +950,7 @@ export const it = {
   jobCategoryElderCare: "Assistenza agli anziani",
   jobEmploymentFullPartFlexible: "Tempo pieno / Part-time / Turni flessibili",
   jobEmploymentPartFull: "Part-time / Tempo pieno",
-  jobLocationFranceUK: "Francia / Regno Unito",
+  jobLocationFrance: "Francia",
 
   // Job 1: Residential Cleaner
   jobResidentialCleanerTitle: "Addetto/a alle Pulizie — Proprietà Residenziali e Commerciali",

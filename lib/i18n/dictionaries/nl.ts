@@ -973,7 +973,7 @@ export const nl = {
   jobCategoryElderCare: "Ouderenzorg",
   jobEmploymentFullPartFlexible: "Fulltime / Parttime / Flexibele diensten",
   jobEmploymentPartFull: "Parttime / Fulltime",
-  jobLocationFranceUK: "Frankrijk / Verenigd Koninkrijk",
+  jobLocationFrance: "Frankrijk",
 
   // Job 1: Residential Cleaner
   jobResidentialCleanerTitle: "Schoonmaker (M/V) — Residentieel en Commercieel Vastgoed",

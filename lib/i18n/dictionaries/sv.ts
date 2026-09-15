@@ -987,7 +987,7 @@ export const sv = {
   jobCategoryElderCare: "Äldreomsorg",
   jobEmploymentFullPartFlexible: "Heltid / Deltid / Flexibla skift",
   jobEmploymentPartFull: "Deltid / Heltid",
-  jobLocationFranceUK: "Frankrike / Storbritannien",
+  jobLocationFrance: "Frankrike",
 
   // Job 1: Residential Cleaner
   jobResidentialCleanerTitle: "Städare (M/K) — Bostäder och Kommersiella Fastigheter",

@@ -1015,7 +1015,7 @@ serviceLuxuryYachtCleaningTitleFiveFeatureTwo:"Complete linen turnover, sanitati
   jobCategoryElderCare: "Elder Care",
   jobEmploymentFullPartFlexible: "Full-Time / Part-Time / Flexible Shifts",
   jobEmploymentPartFull: "Part-Time / Full-Time",
-  jobLocationFranceUK: "France / United Kingdom",
+  jobLocationFrance: "France",
 
   // Job 1: Residential Cleaner
   jobResidentialCleanerTitle: "Cleaner (Male / Female) — Residential and Commercial Properties",

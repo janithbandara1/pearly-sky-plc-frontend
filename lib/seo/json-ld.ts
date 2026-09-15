@@ -1,4 +1,4 @@
-import type { Location } from "@/lib/content/locations";
+import { locations, type Location } from "@/lib/content/locations";
 import type { Job } from "@/lib/content/jobs";
 import type { BlogPost } from "@/lib/content/blog-posts";
 import type { CountryCode } from "@/lib/countries/config";
@@ -118,6 +118,14 @@ function mapEmploymentTypes(employmentType: string): string[] {
   return types.length > 0 ? types : ["OTHER"];
 }
 
+const LOCATIONS_BY_NAME = new Map(locations.map((loc) => [loc.name, loc]));
+
+/** Postings don't carry an explicit expiry, so treat them as valid for 6 months from datePosted — refresh datePosted to extend. */
+function computeValidThrough(datePosted: string): string {
+  const [year, month, day] = datePosted.split("-").map(Number);
+  return new Date(Date.UTC(year, month - 1 + 6, day)).toISOString().slice(0, 10);
+}
+
 export function buildJobPostingJsonLd(job: Job) {
   return {
     "@context": "https://schema.org",
@@ -125,6 +133,7 @@ export function buildJobPostingJsonLd(job: Job) {
     title: job.title,
     description: job.aboutParagraphs.join(" "),
     datePosted: job.datePosted,
+    validThrough: computeValidThrough(job.datePosted),
     employmentType: mapEmploymentTypes(job.employmentType),
     hiringOrganization: {
       "@type": "Organization",
@@ -132,9 +141,20 @@ export function buildJobPostingJsonLd(job: Job) {
       sameAs: SAME_AS,
       logo: LOGO_URL,
     },
-    jobLocation: job.location.split("/").map((loc) => ({
-      "@type": "Place",
-      address: { "@type": "PostalAddress", addressCountry: loc.trim() },
-    })),
+    jobLocation: job.location.split("/").map((loc) => {
+      const name = loc.trim();
+      const office = LOCATIONS_BY_NAME.get(name);
+      return {
+        "@type": "Place",
+        address: {
+          "@type": "PostalAddress",
+          addressCountry: name,
+          ...(office?.streetAddress && { streetAddress: office.streetAddress }),
+          ...(office?.addressLocality && { addressLocality: office.addressLocality }),
+          ...(office?.addressRegion && { addressRegion: office.addressRegion }),
+          ...(office?.postalCode && { postalCode: office.postalCode }),
+        },
+      };
+    }),
   };
 }

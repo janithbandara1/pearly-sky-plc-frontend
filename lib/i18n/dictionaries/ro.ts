@@ -989,7 +989,7 @@ export const ro = {
   jobCategoryElderCare: "Îngrijire bătrâni",
   jobEmploymentFullPartFlexible: "Normă întreagă / Partială / Ture flexibile",
   jobEmploymentPartFull: "Normă parțială / Întreagă",
-  jobLocationFranceUK: "Franța / Marea Britanie",
+  jobLocationFrance: "Franța",
 
   // Job 1: Residential Cleaner
   jobResidentialCleanerTitle: "Personal Curățenie (M/F) — Spații Rezidențiale și Comerciale",

@@ -989,7 +989,7 @@ export const no = {
   jobCategoryElderCare: "Eldreomsorg",
   jobEmploymentFullPartFlexible: "Heltid / Deltid / Fleksible skift",
   jobEmploymentPartFull: "Deltid / Heltid",
-  jobLocationFranceUK: "Frankrike / Storbritannia",
+  jobLocationFrance: "Frankrike",
 
   // Job 1: Residential Cleaner
   jobResidentialCleanerTitle: "Renholdsoperatør (M/K) — Bolig- og næringseiendom",

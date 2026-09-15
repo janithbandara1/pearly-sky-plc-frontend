@@ -9,6 +9,11 @@ export interface Location {
   serviceCities: string[];
   hasOfficeDetail: boolean;
   address?: string;
+  /** Structured breakout of `address`, for schema.org PostalAddress fields (e.g. JobPosting jobLocation). */
+  streetAddress?: string;
+  addressLocality?: string;
+  addressRegion?: string;
+  postalCode?: string;
   contactNo?: string;
   companyNumber?: string;
   mapSrc?: string;
@@ -25,6 +30,10 @@ export const locations: Location[] = [
     serviceCities: ["Paris", "Nice", "Cannes", "Monaco", "Lyon", "Bordeaux"],
     hasOfficeDetail: true,
     address: "15 Rue Des Halles, 75001 Paris.",
+    streetAddress: "15 Rue Des Halles",
+    addressLocality: "Paris",
+    addressRegion: "Île-de-France",
+    postalCode: "75001",
     contactNo: "+33 743 708 780",
     companyNumber: "930 651 625",
     country: "fr",
@@ -39,6 +48,10 @@ export const locations: Location[] = [
     serviceCities: ["London", "Manchester", "Edinburgh"],
     hasOfficeDetail: true,
     address: "60 Tottenham Court Road, Office 775, Fitzrovia, London, W1T 2EW, United Kingdom",
+    streetAddress: "60 Tottenham Court Road, Office 775, Fitzrovia",
+    addressLocality: "London",
+    addressRegion: "England",
+    postalCode: "W1T 2EW",
     contactNo: "+44 7349 369400",
     companyNumber: "15307255",
     country: "gb",
