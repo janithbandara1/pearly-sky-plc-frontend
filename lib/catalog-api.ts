@@ -153,3 +153,16 @@ export function getServiceQuote(id: number, propertySizeSqm: number, country?: s
 export function getItems(country?: string | null) {
   return apiFetch<CatalogItem[]>("/catalog/items", { country });
 }
+
+export interface CurrencyMeta {
+  country: string;
+  currency: string;
+  code: string;
+  symbol: string;
+  thousandSeparator: string;
+  decimalSeparator: string;
+}
+
+export function getCurrencies() {
+  return apiFetch<CurrencyMeta[]>("/catalog/currencies");
+}

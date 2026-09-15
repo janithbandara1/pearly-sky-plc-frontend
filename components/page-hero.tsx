@@ -4,7 +4,6 @@ import Image from "next/image";
 import Link from "next/link";
 import { useState, useEffect } from "react";
 import { getServices, ServicePriceEntry } from "@/lib/catalog-api";
-import { getCountries, type CountryMeta } from "@/lib/countries/api";
 import { COUNTRY_FLAGS } from "@/components/country-switcher";
 import { SUPPORTED_COUNTRIES, type CountryCode } from "@/lib/countries/config";
 import { useCountry } from "@/lib/countries/country-context";
@@ -47,15 +46,9 @@ export function PageHero({
   unitLabelKey?: TranslationKey;
 }) {
   /** The site-wide country (same one the navbar's CountrySwitcher/LocaleSwitcher drive) — picking a country here navigates the whole site, same as picking it there. */
-  const { country, setCountry } = useCountry();
-  const [metaByCode, setMetaByCode] = useState<Record<string, CountryMeta>>({});
+  const { country, countries, setCountry } = useCountry();
+  const metaByCode = Object.fromEntries(countries.map((c) => [c.code, c]));
   const [priceByCode, setPriceByCode] = useState<Record<string, number | null>>({});
-
-  useEffect(() => {
-    getCountries()
-      .then((countries) => setMetaByCode(Object.fromEntries(countries.map((c) => [c.code, c]))))
-      .catch(() => setMetaByCode({}));
-  }, []);
 
   useEffect(() => {
     function processPrices(prices: ServicePriceEntry[]) {

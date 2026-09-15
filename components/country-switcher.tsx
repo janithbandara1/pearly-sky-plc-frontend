@@ -1,6 +1,5 @@
 "use client";
 
-import { useEffect, useState } from "react";
 import {
   FR,
   DE,
@@ -31,7 +30,6 @@ import {
   BH,
   LK,
 } from "country-flag-icons/react/3x2";
-import { getCountries, type CountryMeta } from "@/lib/countries/api";
 import { SUPPORTED_COUNTRIES, type CountryCode } from "@/lib/countries/config";
 import { useCountry } from "@/lib/countries/country-context";
 import {
@@ -106,16 +104,8 @@ export const COUNTRY_FLAGS: Record<CountryCode, typeof FR> = {
 };
 
 export function CountrySwitcher({ className }: { className?: string }) {
-  const { country, setCountry } = useCountry();
-  const [metaByCode, setMetaByCode] = useState<Record<string, CountryMeta>>({});
-
-  useEffect(() => {
-    getCountries()
-      .then((countries) => {
-        setMetaByCode(Object.fromEntries(countries.map((c) => [c.code, c])));
-      })
-      .catch(() => setMetaByCode({}));
-  }, []);
+  const { country, countries, setCountry } = useCountry();
+  const metaByCode = Object.fromEntries(countries.map((c) => [c.code, c]));
 
   const current = country ?? SUPPORTED_COUNTRIES[0];
 
