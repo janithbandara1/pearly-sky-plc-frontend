@@ -9,7 +9,6 @@ import { useLanguage } from "@/lib/i18n/language-context";
 import { useCountry } from "@/lib/countries/country-context";
 import { getCountryHomeContent } from "@/lib/countries/home-content";
 import { IoSparkles } from "react-icons/io5";
-import Link from "next/link";
 
 const HERO_IMAGES = ["/images/hero/hero-1.webp", "/images/hero/hero-2.webp"];
 
@@ -66,7 +65,6 @@ export function Hero() {
             onClick={() => scrollToId("services")}
             className="border-2 w-fit p-2 border-brand-gold bg-brand-navy text-brand-navy-foreground hover:bg-brand-navy/80"
           >
-            <Link href="/contact-us"></Link>
             {translate("heroCtaSecondary")}
           </Button>
           

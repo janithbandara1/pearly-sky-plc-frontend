@@ -98,17 +98,17 @@ export function SiteFooter() {
         <div className="order-3 flex flex-col items-center text-center md:items-start md:text-left">
           <h3 className="text-base font-semibold text-brand-gold sm:text-lg">{translate("footerQuickLinksTitle")}</h3>
           <div className="mt-3 grid w-full grid-cols-2 gap-x-6">
-            <ul className="space-y-1 text-xs text-brand-navy-foreground/85">
+            <ul className="text-xs text-brand-navy-foreground/85">
               {NAV_LINKS.slice(0, 4).map((link) => (
-                <li key={link.href}><Link href={link.href} className="transition-colors hover:text-brand-gold">{translate(link.labelKey)}</Link></li>
+                <li key={link.href}><Link href={link.href} className="inline-block py-1.5 transition-colors hover:text-brand-gold">{translate(link.labelKey)}</Link></li>
               ))}
             </ul>
-            <ul className="space-y-1 text-xs text-brand-navy-foreground/85">
+            <ul className="text-xs text-brand-navy-foreground/85">
               {NAV_LINKS.slice(4).map((link) => (
-                <li key={link.href}><Link href={link.href} className="transition-colors hover:text-brand-gold">{translate(link.labelKey)}</Link></li>
+                <li key={link.href}><Link href={link.href} className="inline-block py-1.5 transition-colors hover:text-brand-gold">{translate(link.labelKey)}</Link></li>
               ))}
               <li>
-                <button type="button" onClick={() => setServicesOpen((open) => !open)} aria-expanded={servicesOpen} className="flex items-center gap-1 transition-colors hover:text-brand-gold">
+                <button type="button" onClick={() => setServicesOpen((open) => !open)} aria-expanded={servicesOpen} className="flex items-center gap-1 py-1.5 transition-colors hover:text-brand-gold">
                   {translate("navServices")}
                   {servicesOpen ? <ChevronUp className="size-3" /> : <ChevronDown className="size-3" />}
                 </button>
@@ -131,13 +131,13 @@ export function SiteFooter() {
           © {new Date().getFullYear()} Pearly Sky. {translate("footerRights")}
         </p>
         <div className="flex items-center gap-4">
-          <Link href="/terms-and-conditions" className="transition-colors hover:text-brand-gold">
+          <Link href="/terms-and-conditions" className="inline-block py-1.5 transition-colors hover:text-brand-gold">
             {translate("footerTermsLink")}
           </Link>
-          <Link href="/privacy-policy" className="transition-colors hover:text-brand-gold">
+          <Link href="/privacy-policy" className="inline-block py-1.5 transition-colors hover:text-brand-gold">
             {translate("footerPrivacyLink")}
           </Link>
-          <Link href="/cookie-policy" className="transition-colors hover:text-brand-gold">
+          <Link href="/cookie-policy" className="inline-block py-1.5 transition-colors hover:text-brand-gold">
             {translate("footerCookieLink")}
           </Link>
         </div>
