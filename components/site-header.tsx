@@ -99,23 +99,31 @@ export function SiteHeader({ navLinks: navLinksProp, showServicesMenu = true }: 
 
   return (
     <header className="sticky top-0 z-50 bg-brand-navy text-brand-navy-foreground">
-      <div className="mx-auto flex h-16 w-full max-w-7xl items-center justify-between gap-4 px-4 sm:px-6">
-        
-        <Link href="/" className="flex shrink-0 items-center gap-2.5">
+      <div className="mx-auto  flex h-16 w-full max-w-7xl items-center justify-between gap-1 px-2 sm:px-6">
+
+        <Link href="/" className="flex items-center gap-2.5 overflow-hidden">
           <Image
             src="/images/brand/logo.webp"
             alt="Pearly Sky"
             width={36}
             height={36}
-            className="rounded-full bg-brand-navy"
+            className="rounded-full bg-brand-navy z-20"
             priority
           />
-          <span className="hidden text-base font-semibold whitespace-nowrap text-brand-gold sm:inline">
-            Pearly Sky Cleaning
-          </span>
+
+          <div className="flex w-max-[50px] relative ml-2 gap-3 animate-marquee-header group-hover:[animation-play-state:paused]">
+            <span className="hidden w-max z-10 text-base  font-semibold whitespace-nowrap text-brand-gold sm:inline">
+              Pearly Sky Eco Luxury Cleaning Service
+            </span>
+            <span className="hidden w-max z-10 text-base  font-semibold whitespace-nowrap text-brand-gold sm:inline">
+              Pearly Sky Eco Luxury Cleaning Service
+            </span>
+
+          </div>
+
         </Link>
 
-        <nav className="hidden border border-[#C9B678] px-2 py-1 rounded-3xl items-center gap-1 lg:flex">
+        <nav className="hidden bg-brand-navy absolute right-0 translate-x-[-38%] z-20 border border-[#C9B678] px-2 py-1 rounded-3xl items-center gap-1 lg:flex">
           <Link
             href="/"
             className={cn(navLinkClass, pathname === "/" && navLinkActiveClass)}
@@ -237,13 +245,13 @@ export function SiteHeader({ navLinks: navLinksProp, showServicesMenu = true }: 
           )}
         </nav>
 
-            
+
         <div className="flex items-center gap-2 sm:gap-3">
           <div className="flex items-center gap-1.5">
             <LanguageSelect className="h-8 gap-1.5 border-brand-gold/70 bg-transparent px-2 text-xs" />
             <CountrySelect className="h-8 gap-1.5 border-brand-gold/70 bg-transparent px-2 text-xs" />
           </div>
-          
+
           {status === "authenticated" && (
             <div className="md:hidden lg:hidden flex">
               <div className="relative" ref={accountMobileRef}>

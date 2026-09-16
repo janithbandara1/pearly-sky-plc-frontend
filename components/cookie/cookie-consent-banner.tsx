@@ -73,11 +73,11 @@ export function CookieConsentBanner() {
         </div>
       )}
 
-      <div className="fixed inset-x-4 bottom-4 z-5050 md:inset-x-6 md:bottom-6">
-        <div className="mx-auto flex flex-col gap-2 rounded-xl bg-[#FFFBF4] p-4 text-[#002F6D] shadow-lg md:flex-row md:items-center md:justify-between md:gap-4">
+      <div className="fixed inset-x-4  bottom-4 z-5050 md:inset-x-6 md:bottom-10">
+        <div className="mx-auto py-6 border-2 border-brand-gold/90 flex flex-col gap-2 rounded-xl bg-[#FFFBF4] p-4 text-[#002F6D] shadow-lg md:flex-row md:items-center md:justify-between md:gap-4">
           <div className="min-w-0">
-            <div className="text-sm font-semibold">{translate("cookieBannerTitle")}</div>
-            <div className="truncate text-xs opacity-90">{translate("cookieBannerDescription")}</div>
+            <div className="text-lg font-semibold">{translate("cookieBannerTitle")}</div>
+            <div className=" text-sm opacity-90">{translate("cookieBannerDescription")}</div>
           </div>
 
           <div className="hidden shrink-0 items-center gap-3 md:flex">

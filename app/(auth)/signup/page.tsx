@@ -18,7 +18,7 @@ export default function SignupPage() {
             height={24}
             className="rounded-full"
           />
-          Pearly Sky Cleaning
+          Pearly Sky Eco Luxury Cleaning Service
         </Link>
         <div className="flex w-full  flex-col gap-6 px-4 py-5 sm:px-6 md:mx-auto">
           <Link href="/" title="Back to home" className="mb-6 inline-flex items-center gap-1 text-sm text-brand-gold-dark hover:underline">
