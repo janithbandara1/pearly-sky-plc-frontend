@@ -13,8 +13,11 @@ const securityHeaders = [
       // Next.js needs inline/eval script in dev; unsafe-inline is also
       // required for its production hydration/style bootstrap scripts.
       // challenges.cloudflare.com serves the Turnstile widget script;
-      // client.crisp.chat serves the Crisp live-chat widget.
-      "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://challenges.cloudflare.com https://client.crisp.chat",
+      // client.crisp.chat serves the Crisp live-chat widget;
+      // static.cloudflareinsights.com is Cloudflare's own RUM beacon, auto-injected
+      // into proxied responses by the zone's Web Analytics setting — not something
+      // this app opts into per-request, so it must be allow-listed unconditionally.
+      "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://challenges.cloudflare.com https://client.crisp.chat https://static.cloudflareinsights.com",
       "style-src 'self' 'unsafe-inline' https://client.crisp.chat",
       "img-src 'self' data: https:",
       "font-src 'self' data: https://client.crisp.chat",

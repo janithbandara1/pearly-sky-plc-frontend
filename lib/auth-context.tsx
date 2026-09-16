@@ -18,7 +18,12 @@ import {
   signupCustomer,
   SignupPayload,
 } from "./auth-api";
-import { CUSTOMER_SESSION_HINT_COOKIE, clearSessionHintCookie, setSessionHintCookie } from "./session-hint";
+import {
+  CUSTOMER_SESSION_HINT_COOKIE,
+  clearSessionHintCookie,
+  hasSessionHintCookie,
+  setSessionHintCookie,
+} from "./session-hint";
 
 type AuthStatus = "loading" | "authenticated" | "unauthenticated";
 
@@ -47,8 +52,15 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   }, []);
 
   // On first load, try to silently restore the session from the httpOnly
-  // refresh-token cookie (set on the backend's own origin).
+  // refresh-token cookie (set on the backend's own origin). Skipped when the
+  // hint cookie is absent — no session was ever established on this browser,
+  // so the refresh call would just be a guaranteed 401 (visible as a console
+  // error to every anonymous visitor and crawler).
   useEffect(() => {
+    if (!hasSessionHintCookie(CUSTOMER_SESSION_HINT_COOKIE)) {
+      setStatus("unauthenticated");
+      return;
+    }
     refreshCustomer()
       .then(({ accessToken: token }) => applySession(token))
       .catch(() => {
