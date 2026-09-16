@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
@@ -48,6 +48,28 @@ export function ContactSection() {
   const [sendError, setSendError] = useState<string | null>(null);
   const [turnstileToken, setTurnstileToken] = useState("");
   const turnstileRef = useRef<TurnstileHandle>(null);
+  const sectionRef = useRef<HTMLElement>(null);
+  const [turnstileVisible, setTurnstileVisible] = useState(false);
+
+  // This section sits below the fold on the homepage — deferring the
+  // Turnstile mount until it's about to scroll into view keeps Cloudflare's
+  // challenge script (and its main-thread cost) out of initial page load
+  // for the common case of visitors who never reach the contact form.
+  useEffect(() => {
+    const node = sectionRef.current;
+    if (!node) return;
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setTurnstileVisible(true);
+          observer.disconnect();
+        }
+      },
+      { rootMargin: "300px" },
+    );
+    observer.observe(node);
+    return () => observer.disconnect();
+  }, []);
 
   const office = getCountryOffice(country);
   const hotline = office.contactNo ?? "";
@@ -84,7 +106,7 @@ export function ContactSection() {
   };
 
   return (
-    <section id="contact" className="w-full scroll-mt-16">
+    <section id="contact" ref={sectionRef} className="w-full scroll-mt-16">
       <div className="bg-[#0a1530] py-10 w-full">
         <h2 className="text-center text-brand-gold font-bold text-2xl  tracking-wide lg:text-3xl md:text-3xl">
           {translate("contactTitle")}
@@ -154,12 +176,14 @@ export function ContactSection() {
               {errors.message && <p className="text-xs text-destructive">{errors.message.message}</p>}
             </div>
 
-            <TurnstileWidget
-              ref={turnstileRef}
-              onVerify={setTurnstileToken}
-              onExpire={() => setTurnstileToken("")}
-              className="flex justify-center"
-            />
+            {turnstileVisible && (
+              <TurnstileWidget
+                ref={turnstileRef}
+                onVerify={setTurnstileToken}
+                onExpire={() => setTurnstileToken("")}
+                className="flex justify-center"
+              />
+            )}
 
             <Button
               type="submit"
