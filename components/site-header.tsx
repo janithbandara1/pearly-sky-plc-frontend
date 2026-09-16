@@ -123,7 +123,7 @@ export function SiteHeader({ navLinks: navLinksProp, showServicesMenu = true }: 
 
         </Link>
 
-        <nav className="hidden bg-brand-navy absolute right-0 translate-x-[-40%] z-20 border border-[#C9B678] px-2 py-1 rounded-3xl items-center gap-1 lg:flex">
+        <nav className="hidden bg-brand-navy absolute right-0 translate-x-[-38%] z-20 border border-[#C9B678] px-2 py-1 rounded-3xl items-center gap-1 lg:flex">
           <Link
             href="/"
             className={cn(navLinkClass, pathname === "/" && navLinkActiveClass)}
