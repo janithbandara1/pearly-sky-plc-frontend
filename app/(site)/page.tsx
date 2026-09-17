@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { unstable_cache } from "next/cache";
 import { getServices } from "@/lib/catalog-api";
 import { Hero } from "@/components/home/hero";
 import { TrustBar } from "@/components/home/trust-bar";
@@ -31,9 +32,22 @@ export async function generateMetadata(): Promise<Metadata> {
   };
 }
 
+/**
+ * force-dynamic means every SSR request re-runs this page for every one of
+ * the ~390 country/language combos, and all of that server-side traffic
+ * shares one source IP at the backend's throttler (see lib/api.ts's
+ * loopback API_INTERNAL_URL) — without this, the shared bucket blows past
+ * the backend's rate limit and getServices starts throwing 429s.
+ */
+const getCachedServices = unstable_cache(
+  (country: string | null, language: string | null) => getServices(country, language),
+  ["home-services"],
+  { revalidate: 60 },
+);
+
 export default async function Home() {
   const [country, language] = await Promise.all([getRequestCountry(), getRequestLanguage()]);
-  const services = await getServices(country, language);
+  const services = await getCachedServices(country, language);
 
   return (
     <main className="flex-1">

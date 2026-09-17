@@ -1,3 +1,4 @@
+import { unstable_cache } from "next/cache";
 import { apiFetch } from "./api";
 import { TranslationKey } from "./i18n/dictionaries/en";
 
@@ -163,6 +164,13 @@ export interface CurrencyMeta {
   decimalSeparator: string;
 }
 
-export function getCurrencies() {
-  return apiFetch<CurrencyMeta[]>("/catalog/currencies");
-}
+/**
+ * Cached — fetched uncached-otherwise on every request in both the (site) and
+ * (customer) layouts (i.e. every page), which floods the backend's shared
+ * loopback-IP rate limit (see lib/api.ts, app/(site)/page.tsx).
+ */
+export const getCurrencies = unstable_cache(
+  () => apiFetch<CurrencyMeta[]>("/catalog/currencies"),
+  ["currencies"],
+  { revalidate: 300 },
+);

@@ -155,11 +155,11 @@ export default function FormSubmitPage({
   const heroImage =
     service?.imageUrl ??
     (isCarpet
-      ? "/images/services/updated-home-property-cleaning-services-5-carpet-upholstery-cleaning.webp"
+      ? "/images/services/updated-home-property-cleaning-services-10-carpet-upholstery-cleaning.webp"
       : isPool
-        ? "/images/services/updated-home-property-cleaning-services-9-swimming-pool-cleaning.webp"
+        ? "/images/services/updated-home-property-cleaning-services-13-pool-cleaning.webp"
         : isPressure
-          ? "/images/services/updated-home-property-cleaning-services-10-high-pressure-cleaning.webp"
+          ? "/images/services/updated-home-property-cleaning-services-14-precision-pressure-washing.webp"
           : isYacht
             ? "/images/services/updated-home-property-cleaning-services-16-luxury-yacht-cleaning.webp"
             : isElder
