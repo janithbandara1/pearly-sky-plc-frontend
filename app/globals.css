@@ -136,11 +136,38 @@
   * {
     @apply border-border outline-ring/50;
   }
-  body {
-    @apply bg-background text-foreground;
-  }
+  
   html {
     @apply font-sans;
+    font-size: 16px; /* Sets root scaling to 16px */
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+    font-size: 1rem; /* body text is at least 16px */
+    line-height: 1.5;
+  }
+
+  /* Prevent text scaling smaller than 12px for audit compliance across paragraphs or spans */
+  p, span, li, label, input, select, textarea {
+    font-size: inherit;
+  }
+
+  /* Global Tactile Elements: Ensure buttons meet the minimum 48x48px touch dimensions on mobile */
+  button:not(.inline-icon), 
+  .btn-interactive {
+    min-height: 48px;
+    min-width: 48px;
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+
+  /* touch-target links meet comfortable mobile sizes */
+  a {
+    min-height: 44px;
+    display: inline-flex;
+    align-items: center;
   }
 }
 
