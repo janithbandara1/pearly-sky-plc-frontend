@@ -26,7 +26,7 @@ const securityHeaders = [
       // broad "https:" already covers challenges.cloudflare.com (Turnstile's
       // verification endpoint) and Crisp's REST calls, so they need no
       // separate entry here; the Crisp chat socket needs its own wss: entry.
-      `connect-src 'self' https: wss://client.relay.crisp.chat$ {isDev ? " http://localhost:* ws://localhost:*" : ""}`,
+      `connect-src 'self' https: wss://client.relay.crisp.chat${isDev ? " http://localhost:* ws://localhost:*" : ""}`,
       // Added THIS LINE – allows Google Maps iframes. challenges.cloudflare.com
       // renders Turnstile's interactive-challenge iframe; client.crisp.chat
       // renders the chat widget's iframe.
