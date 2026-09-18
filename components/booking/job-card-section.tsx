@@ -106,11 +106,11 @@ export function JobCardSection({
                 </span>
 
                 {isSelectedCategory ? (
-                  <span className="px-2.5 py-1 rounded-lg bg-[#B89642] text-white text-[11px] font-bold shrink-0">
+                  <span className="px-4 min-h-[48px] py-3  rounded-lg bg-[#B89642] text-white text-[11px] font-bold ">
                     {translate("securitySelected")}
                   </span>
                 ) : (
-                  <span className="px-2.5 py-1 rounded-lg border border-[#B89642] text-[#B89642] text-[11px] font-bold shrink-0">
+                  <span className="px-4 min-h-[48px] py-3 rounded-lg border border-[#B89642] text-[#B89642] text-[11px] font-bold ">
                     {translate("securitySelect")}
                   </span>
                 )}
@@ -130,7 +130,7 @@ export function JobCardSection({
                         disabled={isDisabled}
                         onClick={() => onToggle(item.id)}
                         aria-pressed={isSelected}
-                        className={`min-h-[64px] px-3.5 py-3.5 rounded-xl  bg-white flex items-center justify-between text-left transition-all duration-200 select-none group
+                        className={`min-h-[48px] px-4 py-3 rounded-xl  bg-white flex items-center justify-between text-left transition-all duration-200 select-none group
                           ${isSelected
                             ? "border-2 border-[#B89642] ring-1 ring-[#B89642] shadow-sm"
                             : isDisabled

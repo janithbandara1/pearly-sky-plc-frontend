@@ -54,8 +54,8 @@ export function SiteFooter() {
     <footer className="border-t border-brand-gold/30 bg-brand-navy text-brand-navy-foreground">
       <div className="flex justify-center px-4 pb-2 pt-4 sm:pt-5">
         <div className="flex flex-wrap items-center justify-center gap-2">
-          <LanguageSwitcher className="h-8 border-brand-gold/70 bg-transparent text-xs" />
-          <CountrySwitcher className="h-8 border-brand-gold/70 bg-transparent text-xs" />
+          <LanguageSwitcher className="h-8 min-h-[48px] py-3 border-brand-gold/70 bg-transparent text-xs" />
+          <CountrySwitcher className="h-8 min-h-[48px] py-3 border-brand-gold/70 bg-transparent text-xs" />
         </div>
       </div>
 

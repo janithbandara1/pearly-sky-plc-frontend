@@ -165,7 +165,7 @@ export function ContactSection() {
             <Button
               type="submit"
               disabled={isSubmitting || !turnstileToken}
-              className="w-full bg-brand-navy text-brand-navy-foreground hover:bg-brand-navy/90 sm:w-auto"
+              className="w-full min-h-[48px] px-6 py-3 bg-brand-navy text-brand-navy-foreground hover:bg-brand-navy/90 sm:w-auto"
             >
               {translate("contactSend")}
             </Button>

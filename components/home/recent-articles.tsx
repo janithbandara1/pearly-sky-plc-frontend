@@ -45,7 +45,7 @@ export function RecentArticles() {
       <div className="mt-10 flex justify-center">
         <Link
           href="/blog"
-          className="flex items-center gap-1.5 rounded-lg border border-brand-gold bg-brand-navy px-5 py-2 text-sm font-semibold text-brand-navy-foreground transition-colors hover:bg-brand-navy/80"
+          className="flex items-center gap-1.5 rounded-lg border border-brand-gold bg-brand-navy px-4 py-3 min-h-[48px] text-sm font-semibold text-brand-navy-foreground transition-colors hover:bg-brand-navy/80"
         >
           {translate("blogViewAll")}
           <ArrowRight className="h-4 w-4" />

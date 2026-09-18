@@ -53,7 +53,7 @@ const  {translate }=useLanguage();
   //const { translate } = useLanguage(); 
 
   return (
-    <div className="px-4 max-w-7xl mx-auto">
+    <div className="px-4 mt-2 max-w-7xl mx-auto">
       <div
         ref={emblaRef}
         className="overflow-hidden cursor-grab active:cursor-grabbing select-none pb-4"
@@ -233,7 +233,7 @@ export function ServiceHighlights({ title, cards }: ServiceHighlightsProps) {
   const gridConfig = getGridConfig(cards.length);
 
   return (
-    <section className="py-6 max-[541px]:!bg-[#121E2D] bg-transparent">
+    <section className="py-6 mt-3 max-[541px]:!bg-[#121E2D] bg-transparent">
       <h2 className="text-center font-bold text-xl sm:text-2xl mb-6 text-[#121E2D] max-[541px]:text-white">
         {title ? translate(title) : translate("serviceHighlightSectionHeader")}
       </h2>

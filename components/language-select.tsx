@@ -61,7 +61,7 @@ export function LanguageSelect({ className }: { className?: string }) {
         aria-expanded={open}
         aria-label="Select language"
         className={cn(
-          "flex h-9 items-center gap-2 rounded-md border border-white/15 bg-white/5 px-3 py-1.5 text-sm text-brand-navy-foreground outline-none transition-colors hover:border-brand-gold/50",
+          "flex h-9 items-center px-4 py-3 gap-2 rounded-md border border-white/15 bg-white/5  text-sm text-brand-navy-foreground outline-none transition-colors hover:border-brand-gold/50",
           open && "border-brand-gold/50",
           className,
         )}

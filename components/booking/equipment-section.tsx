@@ -203,7 +203,7 @@ export function EquipmentSection({
                       type="button"
                       onClick={() => onToggleItem?.(item.id)}
                       aria-pressed={isSelected}
-                      className={`rounded-[6px] px-4 py-1.5 text-xs font-bold transition-all ${
+                      className={`rounded-[6px] px-4 min-h-[48px] py-3 text-xs font-bold transition-all ${
                         isSelected
                           ? "border border-[#C5A253] bg-[#C5A253] text-[#0B1528]"
                           : "border border-[#C5A253] bg-transparent text-[#C5A253] hover:bg-[#C5A253] hover:text-[#0B1528]"

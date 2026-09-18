@@ -85,7 +85,7 @@ export function CareersView() {
                   {job.location}
                 </p>
                 <Button asChild size="sm" className="mt-auto w-fit">
-                  <Link href={`/careers/${job.id}`}>{translate("careersApplyNow")}</Link>
+                  <Link className="min-h-[48px] py-3 px-4" href={`/careers/${job.id}`}>{translate("careersApplyNow")}</Link>
                 </Button>
               </CardContent>
             </Card>

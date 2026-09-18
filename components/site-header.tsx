@@ -99,14 +99,14 @@ export function SiteHeader({ navLinks: navLinksProp, showServicesMenu = true }: 
 
   return (
     <header className="sticky top-0 z-50 bg-brand-navy text-brand-navy-foreground">
-      <div className="mx-auto  flex h-16 w-full max-w-7xl items-center justify-between gap-1 px-2 sm:px-6">
+      <div className="mx-auto  flex h-16 w-full max-w-7xl items-center justify-between gap-1 px-2 ">
 
         <Link href="/" className="flex items-center gap-2.5 overflow-hidden">
           <Image
             src="/images/brand/logo.webp"
             alt="Pearly Sky"
-            width={36}
-            height={36}
+            width={40}
+            height={40}
             className="rounded-full bg-brand-navy z-20"
             priority
           />
@@ -246,10 +246,10 @@ export function SiteHeader({ navLinks: navLinksProp, showServicesMenu = true }: 
         </nav>
 
 
-        <div className="flex items-center gap-2 sm:gap-3">
-          <div className="flex items-center gap-1.5">
-            <LanguageSelect className="h-8 gap-1.5 border-brand-gold/70 bg-transparent px-2 text-xs" />
-            <CountrySelect className="h-8 gap-1.5 border-brand-gold/70 bg-transparent px-2 text-xs" />
+        <div className="flex items-center gap-2 sm:gap-3 ">
+          <div className="flex items-center gap-1.5 ">
+            <LanguageSelect className="h-8  min-h-[48px] py-3 gap-1.5 border-brand-gold/70 bg-transparent  text-xs" />
+            <CountrySelect className="h-8  min-h-[48px]  py-3 gap-1.5 border-brand-gold/70 bg-transparent  text-xs" />
           </div>
 
           {status === "authenticated" && (
@@ -323,10 +323,10 @@ export function SiteHeader({ navLinks: navLinksProp, showServicesMenu = true }: 
               <Button
                 size="icon-sm"
                 variant="ghost"
-                className="text-brand-navy-foreground hover:bg-brand-gold/10 lg:hidden"
+                className="px-4 py-3 min-h-[48px] min-w-[48px] text-brand-navy-foreground hover:bg-brand-gold/10 lg:hidden"
                 aria-label={translate("navMenu")}
               >
-                <Menu className="h-5 w-5" />
+                <Menu className="h-5 w-5 " />
               </Button>
             </SheetTrigger>
             <SheetContent
