@@ -79,17 +79,15 @@ export function SiteFooter() {
         </div>
 
         <div className="order-1 flex flex-col items-center text-center md:order-2">
-          <address className="mt-4 whitespace-pre-line text-left text-xs not-italic leading-relaxed text-brand-navy-foreground/75">
-            {office.address ?? "Address available on request"}
-          </address>
+          
           <div className="flex h-30 w-42 items-center justify-center bg-brand-navy/40" aria-label="Logo placeholder">
             <Image src="/images/brand/logo.webp" alt="Pearly Sky logo" width={100} height={100} className="max-h-30 w-auto object-contain" />
           </div>
           <h2 className="mt-2 font-serif text-3xl lowercase tracking-wide text-brand-gold sm:text-4xl">pearly sky</h2>
           <p className="text-[11px] text-brand-gold/90">Eco-Luxury Cleaning</p>
-          <p className="mt-5 text-sm text-brand-navy-foreground/85">
-            {translate("numberNow")}
-          </p>
+          <address className="mt-4 whitespace-pre-line text-left text-xs not-italic leading-relaxed text-brand-navy-foreground/75">
+            {office.address ?? "Address available on request"}
+          </address>
           <p className="mt-3 max-w-xs text-xs leading-relaxed text-brand-navy-foreground/60">
             {footerTagline}
           </p>

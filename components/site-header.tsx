@@ -20,6 +20,7 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet";
+import { id } from "zod/v4/locales";
 
 //test cmd
 const navLinkClass =
@@ -97,11 +98,14 @@ export function SiteHeader({ navLinks: navLinksProp, showServicesMenu = true }: 
     };
   }, [accountOpen]);
 
+  let textContent = [{id:1,text:"Pearly Sky Eco Luxury Cleaning Service"},{id:2,text:"Pearly Sky Eco Luxury Cleaning Service"}];
+  const marqueeList=[...textContent]
+
   return (
     <header className="sticky top-0 z-50 bg-brand-navy text-brand-navy-foreground">
-      <div className="mx-auto  flex h-16 w-full max-w-7xl items-center justify-between gap-1 px-2 ">
+      <div className="mx-auto flex h-16 w-full max-w-7xl items-center justify-between gap-1 px-1 ">
 
-        <Link href="/" className="flex items-center gap-2.5 overflow-hidden">
+        <Link href="/" className="w-[16%] flex items-center gap-3.5 overflow-hidden">
           <Image
             src="/images/brand/logo.webp"
             alt="Pearly Sky"
@@ -109,21 +113,20 @@ export function SiteHeader({ navLinks: navLinksProp, showServicesMenu = true }: 
             height={40}
             className="rounded-full bg-brand-navy z-20"
             priority
-          />
+          /> 
 
-          <div className="flex w-max-[50px] relative ml-2 gap-3 animate-marquee-header group-hover:[animation-play-state:paused]">
-            <span className="hidden w-max z-10 text-base  font-semibold whitespace-nowrap text-brand-gold sm:inline">
-              Pearly Sky Eco Luxury Cleaning Service
-            </span>
-            <span className="hidden w-max z-10 text-base  font-semibold whitespace-nowrap text-brand-gold sm:inline">
-              Pearly Sky Eco Luxury Cleaning Service
-            </span>
-
+          <div className=" w-max-[50px] relative ml-2  animate-marquee-header group-hover:[animation-play-state:paused]">
+           {marqueeList.map((text,index)=>(
+            <span key={index} className="hidden w-max z-10 text-base px-[2px] font-semibold whitespace-nowrap text-brand-gold sm:inline">
+              {text.text}
+              </span>
+            ))}
+              
           </div>
 
         </Link>
 
-        <nav className="hidden bg-brand-navy absolute right-0 translate-x-[-38%] z-20 border border-[#C9B678] px-2 py-1 rounded-3xl items-center gap-1 lg:flex">
+        <nav className="hidden bg-brand-navy max-w-full border border-[#C9B678] px-2 py-1 rounded-3xl items-center gap-1 lg:flex">
           <Link
             href="/"
             className={cn(navLinkClass, pathname === "/" && navLinkActiveClass)}
