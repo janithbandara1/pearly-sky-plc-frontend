@@ -56,7 +56,7 @@ export function defaultLanguageForCountry(country: CountryCode): LanguageCode {
 
 /**
  * True when this deployment is the country-picker gateway
- * (NEXT_PUBLIC_COUNTRY=global) rather than one of the three real
+ * (NEXT_PUBLIC_COUNTRY=global) rather than one of the three real 
  * per-country sites. The gateway has no backend/database behind it at
  * all — no catalog, no bookings, no accounts — it's just the shared home
  * page chrome with the services/login pieces hidden (see site-header.tsx,

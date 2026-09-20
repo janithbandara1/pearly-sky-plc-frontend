@@ -18,7 +18,8 @@ import { getCountryPageMeta, GLOBAL_META } from "@/lib/countries/meta-data";
 import { IS_GLOBAL_SITE } from "@/lib/countries/config";
 import { Welcome } from "@/components/home/welcome";
 import { VisionaryTeam } from "@/components/home/visionary-team";
-
+import GlobalHeroSection from "@/components/ui/global-hero";
+import CountryWiseDomains from "@/components/ui/country-wise-domains";
 export const dynamic = "force-dynamic";
 
 export async function generateMetadata(): Promise<Metadata> {
@@ -27,10 +28,13 @@ export async function generateMetadata(): Promise<Metadata> {
   // copy (which defaults to France's when CURRENT_COUNTRY has no real
   // value to fall back to — see IS_GLOBAL_SITE in lib/countries/config.ts).
   if (IS_GLOBAL_SITE) {
+     
+    const {title,description} = GLOBAL_META.home;
+
     return {
-      title: GLOBAL_META.title,
-      description: GLOBAL_META.description,
-      ...buildSocialMeta(GLOBAL_META.title, GLOBAL_META.description),
+      title: title,
+      description: description,
+      ...buildSocialMeta(title, description),
     };
   }
 
@@ -67,11 +71,12 @@ export default async function Home() {
 
   return (
     <main className="flex-1">
-      <Hero />
-      <TrustBar />
+      {IS_GLOBAL_SITE ? <GlobalHeroSection /> :<Hero />}
+      {!IS_GLOBAL_SITE && <TrustBar />}
       {!IS_GLOBAL_SITE && <ServicesSection services={services} />}
       <Welcome />
       <AboutSection />
+      {IS_GLOBAL_SITE && <CountryWiseDomains />  }
       <CoverageStrip />
       <VisionaryTeam />
       <SectorsMarquee />

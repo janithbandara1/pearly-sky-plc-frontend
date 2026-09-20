@@ -3,10 +3,24 @@ import { getRequestLanguage } from "@/lib/i18n/server";
 import { buildCountryAlternates, buildSocialMeta } from "@/lib/countries/seo";
 import { buildBreadcrumbJsonLd } from "@/lib/seo/json-ld";
 import { JsonLd } from "@/components/json-ld";
-import { getCountryPageMeta } from "@/lib/countries/meta-data";
+import { getCountryPageMeta, GLOBAL_META } from "@/lib/countries/meta-data";
 import { CareersView } from "./careers-view";
+import { IS_GLOBAL_SITE } from "@/lib/countries/config";
 
 export async function generateMetadata(): Promise<Metadata> {
+  
+  if (IS_GLOBAL_SITE) {
+           
+          const {title,description} = GLOBAL_META.career;
+          
+          return {
+            title: title,
+            description: description,
+            ...buildSocialMeta(title, description),
+          };
+    }
+  
+  
   const language = await getRequestLanguage();
   const { title, description } = getCountryPageMeta("careers", language ?? "en");
 
