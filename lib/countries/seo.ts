@@ -1,5 +1,12 @@
 import type { Metadata, MetadataRoute } from "next";
-import { COUNTRY_DOMAINS, COUNTRY_LANGUAGES, CURRENT_COUNTRY, SUPPORTED_COUNTRIES, type CountryCode } from "./config";
+import {
+  COUNTRY_DOMAINS,
+  COUNTRY_LANGUAGES,
+  CURRENT_COUNTRY,
+  CURRENT_COUNTRY_LANGUAGES,
+  SUPPORTED_COUNTRIES,
+  type CountryCode,
+} from "./config";
 import type { LanguageCode } from "@/lib/i18n/config";
 import { buildLocalePath } from "@/lib/locale";
 import type { ServiceLocaleSlug } from "@/lib/catalog-api";
@@ -32,7 +39,7 @@ export function buildCountryAlternates(
   current?: { language: LanguageCode | null },
 ): NonNullable<Metadata["alternates"]> {
   const languages: Record<string, string> = {
-    "x-default": absoluteLocalePath(pathname, CURRENT_COUNTRY, COUNTRY_LANGUAGES[CURRENT_COUNTRY][0]),
+    "x-default": absoluteLocalePath(pathname, CURRENT_COUNTRY, CURRENT_COUNTRY_LANGUAGES[0]),
   };
 
   for (const country of SUPPORTED_COUNTRIES) {
@@ -45,7 +52,7 @@ export function buildCountryAlternates(
 
   return {
     languages,
-    canonical: buildLocalePath(pathname, current.language ?? COUNTRY_LANGUAGES[CURRENT_COUNTRY][0]),
+    canonical: buildLocalePath(pathname, current.language ?? CURRENT_COUNTRY_LANGUAGES[0]),
   };
 }
 
@@ -87,7 +94,7 @@ export function buildSitemapEntries(
   pathname: string,
   opts: { lastModified?: Date; changeFrequency?: MetadataRoute.Sitemap[number]["changeFrequency"]; priority?: number } = {},
 ): MetadataRoute.Sitemap {
-  return COUNTRY_LANGUAGES[CURRENT_COUNTRY].map((language) => ({
+  return CURRENT_COUNTRY_LANGUAGES.map((language) => ({
     url: `${SITE_URL}${buildLocalePath(pathname, language)}`,
     ...opts,
   }));
@@ -124,7 +131,7 @@ export function buildServiceAlternates(
   current?: { language: LanguageCode | null },
 ): NonNullable<Metadata["alternates"]> {
   const slugFor = makeServiceSlugResolver(baseSlug, locales);
-  const defaultLanguage = COUNTRY_LANGUAGES[CURRENT_COUNTRY][0];
+  const defaultLanguage = CURRENT_COUNTRY_LANGUAGES[0];
   const languages: Record<string, string> = {
     "x-default": absoluteLocalePath(pathFor(slugFor(defaultLanguage, CURRENT_COUNTRY)), CURRENT_COUNTRY, defaultLanguage),
   };
@@ -156,7 +163,7 @@ export function buildServiceSitemapEntries(
   opts: { lastModified?: Date; changeFrequency?: MetadataRoute.Sitemap[number]["changeFrequency"]; priority?: number } = {},
 ): MetadataRoute.Sitemap {
   const slugFor = makeServiceSlugResolver(baseSlug, locales);
-  return COUNTRY_LANGUAGES[CURRENT_COUNTRY].map((language) => ({
+  return CURRENT_COUNTRY_LANGUAGES.map((language) => ({
     url: `${SITE_URL}${buildLocalePath(pathFor(slugFor(language, CURRENT_COUNTRY)), language)}`,
     ...opts,
   }));

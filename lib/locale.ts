@@ -1,4 +1,4 @@
-import { CURRENT_COUNTRY, isLanguageSupportedForCountry } from "./countries/config";
+import { isLanguageSupportedHere } from "./countries/config";
 import { isSupportedLanguage, type LanguageCode } from "./i18n/config";
 
 /**
@@ -31,7 +31,7 @@ export function extractLocalePrefix(
   const [, lang, rest] = match;
   const language = lang.toLowerCase();
   if (!isSupportedLanguage(language)) return null;
-  if (!isLanguageSupportedForCountry(CURRENT_COUNTRY, language)) return "invalid";
+  if (!isLanguageSupportedHere(language)) return "invalid";
 
   return { language, rest: rest || "/" };
 }

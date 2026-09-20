@@ -7,6 +7,7 @@ import { usePathname } from "next/navigation";
 import { CalendarDays, ChevronDown, FileText, LogOut, Menu, UserRound, XIcon } from "lucide-react";
 import { useAuth } from "@/lib/auth-context";
 import { useLanguage } from "@/lib/i18n/language-context";
+import { IS_GLOBAL_SITE } from "@/lib/countries/config";
 import { cn } from "@/lib/utils";
 import { ServicesNavList } from "@/components/services-nav-list";
 import { LanguageSelect } from "@/components/language-select";
@@ -33,7 +34,10 @@ export interface SiteHeaderProps {
   showServicesMenu?: boolean;
 }
 
-export function SiteHeader({ navLinks: navLinksProp, showServicesMenu = true }: SiteHeaderProps = {}) {
+export function SiteHeader({ navLinks: navLinksProp, showServicesMenu: showServicesMenuProp = true }: SiteHeaderProps = {}) {
+  // The global gateway has no catalog or accounts behind it at all — never
+  // show the services menu or login/signup/account UI there.
+  const showServicesMenu = showServicesMenuProp && !IS_GLOBAL_SITE;
   const { translate } = useLanguage();
   const { status, logout } = useAuth();
   const pathname = usePathname();
@@ -171,7 +175,7 @@ export function SiteHeader({ navLinks: navLinksProp, showServicesMenu = true }: 
             </Link>
           ))}
 
-          {status === "authenticated" ? (
+          {!IS_GLOBAL_SITE && (status === "authenticated" ? (
             <div className="relative ml-3" ref={accountDesktopRef}>
               <button
                 type="button"
@@ -244,7 +248,7 @@ export function SiteHeader({ navLinks: navLinksProp, showServicesMenu = true }: 
                 <Link href="/signup">{translate("navSignup")}</Link>
               </Button>
             </>
-          )}
+          ))}
         </nav>
 
 
@@ -253,7 +257,7 @@ export function SiteHeader({ navLinks: navLinksProp, showServicesMenu = true }: 
             <LanguageSelect className="h-8  min-h-[48px] py-3 gap-1.5 border-brand-gold/70 bg-transparent  text-xs" />
           </div>
 
-          {status === "authenticated" && (
+          {!IS_GLOBAL_SITE && status === "authenticated" && (
             <div className="md:hidden lg:hidden flex">
               <div className="relative" ref={accountMobileRef}>
                 <button
@@ -400,7 +404,7 @@ export function SiteHeader({ navLinks: navLinksProp, showServicesMenu = true }: 
                   </Link>
                 ))}
 
-                {status !== "authenticated" && (
+                {!IS_GLOBAL_SITE && status !== "authenticated" && (
                   <div className="mt-2 flex flex-col gap-2">
                     <Button
                       asChild

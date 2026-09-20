@@ -14,6 +14,7 @@ import { useLanguage } from "@/lib/i18n/language-context";
 import { useCountry } from "@/lib/countries/country-context";
 import { getCountryHomeContent } from "@/lib/countries/home-content";
 import { getCountryContactEmail, getCountryOffice, getWhatsappUrl } from "@/lib/countries/office";
+import { IS_GLOBAL_SITE } from "@/lib/countries/config";
 import { LanguageSwitcher } from "@/components/language-switcher";
 import { ServicesNavList } from "@/components/services-nav-list";
 import type { TranslationKey } from "@/lib/i18n/dictionaries/en";
@@ -42,6 +43,8 @@ export function SiteFooter() {
   const { translate, language } = useLanguage();
   const { country } = useCountry();
   const [servicesOpen, setServicesOpen] = useState(false);
+
+  const navLinks = NAV_LINKS;
 
   const { footerTagline } = getCountryHomeContent(language);
   const office = getCountryOffice(country);
@@ -95,21 +98,23 @@ export function SiteFooter() {
           <h3 className="text-base font-semibold text-brand-gold sm:text-lg">{translate("footerQuickLinksTitle")}</h3>
           <div className="mt-3 grid w-full grid-cols-2 gap-x-6">
             <ul className="text-xs text-brand-navy-foreground/85">
-              {NAV_LINKS.slice(0, 4).map((link) => (
+              {navLinks.slice(0, 4).map((link) => (
                 <li key={link.href}><Link href={link.href} className="inline-block py-1.5 transition-colors hover:text-brand-gold">{translate(link.labelKey)}</Link></li>
               ))}
             </ul>
             <ul className="text-xs text-brand-navy-foreground/85">
-              {NAV_LINKS.slice(4).map((link) => (
+              {navLinks.slice(4).map((link) => (
                 <li key={link.href}><Link href={link.href} className="inline-block py-1.5 transition-colors hover:text-brand-gold">{translate(link.labelKey)}</Link></li>
               ))}
-              <li>
-                <button type="button" onClick={() => setServicesOpen((open) => !open)} aria-expanded={servicesOpen} className="flex items-center gap-1 py-1.5 transition-colors hover:text-brand-gold">
-                  {translate("navServices")}
-                  {servicesOpen ? <ChevronUp className="size-3" /> : <ChevronDown className="size-3" />}
-                </button>
-                {servicesOpen && <div className="mt-2 rounded-md bg-popover text-popover-foreground shadow"><ServicesNavList className="w-full grid-cols-1" /></div>}
-              </li>
+              {!IS_GLOBAL_SITE && (
+                <li>
+                  <button type="button" onClick={() => setServicesOpen((open) => !open)} aria-expanded={servicesOpen} className="flex items-center gap-1 py-1.5 transition-colors hover:text-brand-gold">
+                    {translate("navServices")}
+                    {servicesOpen ? <ChevronUp className="size-3" /> : <ChevronDown className="size-3" />}
+                  </button>
+                  {servicesOpen && <div className="mt-2 rounded-md bg-popover text-popover-foreground shadow"><ServicesNavList className="w-full grid-cols-1" /></div>}
+                </li>
+              )}
             </ul>
           </div>
           

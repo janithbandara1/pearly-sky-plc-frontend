@@ -3,6 +3,7 @@ import { buildServiceSitemapEntries, buildSitemapEntries } from "@/lib/countries
 import { blogPosts } from "@/lib/content/blog-posts";
 import { jobs } from "@/lib/content/jobs";
 import { getServices } from "@/lib/catalog-api";
+import { IS_GLOBAL_SITE } from "@/lib/countries/config";
 
 const STATIC_PAGES: { path: string; changeFrequency: MetadataRoute.Sitemap[number]["changeFrequency"]; priority: number }[] = [
   { path: "/", changeFrequency: "weekly", priority: 1 },
@@ -40,31 +41,36 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   // has no /request-quotation page to index, and a service with neither
   // flow (isBookable: false, isQuotable: false) has no live URL at all, so
   // it's skipped entirely.
-  try {
-    const services = await getServices();
-    for (const service of services) {
-      if (service.status !== "active") continue;
-      if (service.isBookable) {
-        entries.push(
-          ...buildServiceSitemapEntries((slug) => `/services/${slug}`, service.name, service.locales, {
-            changeFrequency: "monthly",
-            priority: 0.6,
-          }),
-        );
+  // The global gateway has no backend behind it at all, and /services/* is
+  // blocked there anyway (see proxy.ts) — skip the fetch rather than let it
+  // fail against a backend that was never meant to exist.
+  if (!IS_GLOBAL_SITE) {
+    try {
+      const services = await getServices();
+      for (const service of services) {
+        if (service.status !== "active") continue;
+        if (service.isBookable) {
+          entries.push(
+            ...buildServiceSitemapEntries((slug) => `/services/${slug}`, service.name, service.locales, {
+              changeFrequency: "monthly",
+              priority: 0.6,
+            }),
+          );
+        }
+        if (service.isQuotable) {
+          entries.push(
+            ...buildServiceSitemapEntries(
+              (slug) => `/services/${slug}/request-quotation`,
+              service.name,
+              service.locales,
+              { changeFrequency: "monthly", priority: 0.6 },
+            ),
+          );
+        }
       }
-      if (service.isQuotable) {
-        entries.push(
-          ...buildServiceSitemapEntries(
-            (slug) => `/services/${slug}/request-quotation`,
-            service.name,
-            service.locales,
-            { changeFrequency: "monthly", priority: 0.6 },
-          ),
-        );
-      }
+    } catch {
+      // Backend unreachable — sitemap still returns the static + local-content entries above.
     }
-  } catch {
-    // Backend unreachable — sitemap still returns the static + local-content entries above.
   }
 
   return entries;

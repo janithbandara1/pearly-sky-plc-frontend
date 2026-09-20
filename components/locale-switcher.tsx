@@ -2,17 +2,17 @@
 
 import { useEffect, useRef, useState } from "react";
 import { Check, ChevronDown, Globe } from "lucide-react";
-import { COUNTRY_LANGUAGES, CURRENT_COUNTRY } from "@/lib/countries/config";
+import { CURRENT_COUNTRY_LANGUAGES } from "@/lib/countries/config";
 import { SUPPORTED_LANGUAGES, useLanguage } from "@/lib/i18n/language-context";
 import { cn } from "@/lib/utils";
 
 /**
  * Plain-markup language dropdown for the customer header — no shadcn/ui
  * here per user preference (see the site-footer's shadcn-based
- * LanguageSwitcher for elsewhere). Lists whichever languages
- * CURRENT_COUNTRY offers — just English for the UK/Sri Lanka deployments,
- * English+French+German+Spanish+Italian for France (see
- * lib/countries/config.ts's COUNTRY_LANGUAGES).
+ * LanguageSwitcher for elsewhere). Lists whichever languages this
+ * deployment offers (CURRENT_COUNTRY_LANGUAGES) — just English for the
+ * UK/Sri Lanka/global deployments, English+French+German+Spanish+Italian
+ * for France.
  *
  * No longer shows a country picker — each deployment is now a single
  * country's own site (see CURRENT_COUNTRY), not a shared multi-country
@@ -23,8 +23,7 @@ export function LocaleSwitcher({ className }: { className?: string }) {
   const [open, setOpen] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
 
-  const availableLanguages = COUNTRY_LANGUAGES[CURRENT_COUNTRY];
-  const languageOptions = SUPPORTED_LANGUAGES.filter((l) => availableLanguages.includes(l.code));
+  const languageOptions = SUPPORTED_LANGUAGES.filter((l) => CURRENT_COUNTRY_LANGUAGES.includes(l.code));
 
   useEffect(() => {
     if (!open) return;

@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 import { CUSTOMER_SESSION_HINT_COOKIE, STAFF_SESSION_HINT_COOKIE } from "@/lib/session-hint";
-import { CURRENT_COUNTRY, defaultLanguageForCountry, isLanguageSupportedForCountry } from "@/lib/countries/config";
+import { CURRENT_COUNTRY_LANGUAGES, IS_GLOBAL_SITE, isLanguageSupportedHere } from "@/lib/countries/config";
 import {
   LANGUAGE_COOKIE_MAX_AGE,
   LANGUAGE_COOKIE_NAME,
@@ -12,6 +12,33 @@ import { detectLanguageFromHeaders } from "@/lib/i18n/geo";
 import { buildLocalePath, extractLocalePrefix } from "@/lib/locale";
 
 const CUSTOMER_PROTECTED_PREFIXES = ["/bookings", "/quotations", "/profile", "/addresses"];
+
+// The global gateway (IS_GLOBAL_SITE) has no backend behind it at all — no
+// catalog, no bookings, no accounts — so anything that would need one
+// (services/*, login/signup, bookings/quotations/profile, staff) is
+// blocked. The rest of the marketing site (nav pages + legal pages) is
+// content-only (static data, no API calls — see app/(site)/blog/[slug] and
+// app/(site)/careers/[jobId]) and stays reachable. Checked against the
+// *unprefixed* path; "/blog" and "/careers" are prefixes so their
+// [slug]/[jobId] detail pages are included too.
+const GLOBAL_SITE_ALLOWED_EXACT_PATHS = [
+  "/",
+  "/about-us",
+  "/our-customers",
+  "/our-locations",
+  "/contact-us",
+  "/privacy-policy",
+  "/terms-and-conditions",
+  "/cookie-policy",
+];
+const GLOBAL_SITE_ALLOWED_PREFIXES = ["/blog", "/careers"];
+
+function isGlobalSiteAllowedPath(pathname: string): boolean {
+  if (GLOBAL_SITE_ALLOWED_EXACT_PATHS.includes(pathname)) return true;
+  return GLOBAL_SITE_ALLOWED_PREFIXES.some(
+    (prefix) => pathname === prefix || pathname.startsWith(`${prefix}/`),
+  );
+}
 
 // Pages with no LanguageProvider above them (see their layouts) — never
 // candidates for the unprefixed -> /{language} redirect below.
@@ -44,15 +71,16 @@ function resolveAuthRedirect(pathname: string, request: NextRequest): NextRespon
   return null;
 }
 
-// Clamped to whatever CURRENT_COUNTRY actually offers — sniffing the
-// browser's language only matters for France (the one country with a
-// choice); the UK and Sri Lanka deployments always resolve to English.
+// Clamped to whatever this deployment actually offers (CURRENT_COUNTRY_LANGUAGES
+// — just "en" on the global gateway) — sniffing the browser's language only
+// matters for France (the one country with a choice); everyone else always
+// resolves to English.
 function resolveLanguage(request: NextRequest): LanguageCode {
   const cookieValue = request.cookies.get(LANGUAGE_COOKIE_NAME)?.value;
-  if (isLanguageSupportedForCountry(CURRENT_COUNTRY, cookieValue)) return cookieValue.toLowerCase() as LanguageCode;
+  if (isLanguageSupportedHere(cookieValue)) return cookieValue.toLowerCase() as LanguageCode;
 
   const detected = detectLanguageFromHeaders(request.headers);
-  return isLanguageSupportedForCountry(CURRENT_COUNTRY, detected) ? detected : defaultLanguageForCountry(CURRENT_COUNTRY);
+  return isLanguageSupportedHere(detected) ? detected : CURRENT_COUNTRY_LANGUAGES[0];
 }
 
 function localeCookieOptions(maxAge: number) {
@@ -68,6 +96,12 @@ export function proxy(request: NextRequest) {
   }
 
   const effectivePath = locale ? locale.rest : pathname;
+
+  if (IS_GLOBAL_SITE && !isGlobalSiteAllowedPath(effectivePath)) {
+    const target = request.nextUrl.clone();
+    target.pathname = buildLocalePath("/", locale?.language ?? resolveLanguage(request));
+    return NextResponse.redirect(target, 308);
+  }
 
   const authRedirect = resolveAuthRedirect(effectivePath, request);
   if (authRedirect) return authRedirect;
@@ -91,7 +125,7 @@ export function proxy(request: NextRequest) {
 
   // No prefix: there is no unprefixed site to serve, so redirect into the
   // resolved /{language} URL — pin cookie if available, otherwise
-  // Accept-Language, otherwise CURRENT_COUNTRY's default language.
+  // Accept-Language, otherwise this deployment's default language.
   // Permanent (308) so search engines consolidate ranking signals onto the
   // language URL instead of keeping the bare root indexed as its own page.
   const language = resolveLanguage(request);

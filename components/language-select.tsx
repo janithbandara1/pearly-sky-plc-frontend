@@ -2,8 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import { Check, ChevronDown, Globe } from "lucide-react";
-import { COUNTRY_LANGUAGES, SUPPORTED_COUNTRIES } from "@/lib/countries/config";
-import { useCountry } from "@/lib/countries/country-context";
+import { CURRENT_COUNTRY_LANGUAGES } from "@/lib/countries/config";
 import { SUPPORTED_LANGUAGES, useLanguage } from "@/lib/i18n/language-context";
 import { cn } from "@/lib/utils";
 
@@ -15,15 +14,12 @@ import { cn } from "@/lib/utils";
  * box, full label) without pulling in shadcn's Select.
  */
 export function LanguageSelect({ className }: { className?: string }) {
-  const { country } = useCountry();
   const { language, setLanguage } = useLanguage();
   const [open, setOpen] = useState(false);
   const [align, setAlign] = useState<"left" | "right">("left");
   const ref = useRef<HTMLDivElement>(null);
 
-  const currentCountry = country ?? SUPPORTED_COUNTRIES[0];
-  const availableLanguages = COUNTRY_LANGUAGES[currentCountry];
-  const languageOptions = SUPPORTED_LANGUAGES.filter((l) => availableLanguages.includes(l.code));
+  const languageOptions = SUPPORTED_LANGUAGES.filter((l) => CURRENT_COUNTRY_LANGUAGES.includes(l.code));
   const currentLabel = languageOptions.find((l) => l.code === language)?.label ?? language.toUpperCase();
 
   const toggleOpen = () => {

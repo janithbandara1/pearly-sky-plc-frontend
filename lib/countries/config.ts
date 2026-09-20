@@ -55,15 +55,44 @@ export function defaultLanguageForCountry(country: CountryCode): LanguageCode {
 }
 
 /**
+ * True when this deployment is the country-picker gateway
+ * (NEXT_PUBLIC_COUNTRY=global) rather than one of the three real
+ * per-country sites. The gateway has no backend/database behind it at
+ * all — no catalog, no bookings, no accounts — it's just the shared home
+ * page chrome with the services/login pieces hidden (see site-header.tsx,
+ * site-footer.tsx, and app/(site)/page.tsx) plus a link to each real
+ * country site. proxy.ts blocks every route except "/" and the static
+ * legal pages on this mode.
+ */
+export const IS_GLOBAL_SITE = process.env.NEXT_PUBLIC_COUNTRY === "global";
+
+/**
  * This deployment's fixed country. Unlike the old single-domain model,
  * there is no per-request country to detect here — each domain runs the
  * same codebase pointed at its own country/database via env vars, decided
  * once at deploy time. Set NEXT_PUBLIC_COUNTRY in each deployment's .env
  * (see .env.example); defaults to "fr" for local development when unset.
+ *
+ * On the global gateway (IS_GLOBAL_SITE) this is just a structural
+ * placeholder — nothing on that deployment ever actually calls the
+ * backend or reads country-specific content, so which real country it
+ * falls back to doesn't matter.
  */
 export const CURRENT_COUNTRY: CountryCode = isSupportedCountry(process.env.NEXT_PUBLIC_COUNTRY)
   ? (process.env.NEXT_PUBLIC_COUNTRY.toLowerCase() as CountryCode)
   : "fr";
 
-/** Languages CURRENT_COUNTRY's portal offers — shorthand for COUNTRY_LANGUAGES[CURRENT_COUNTRY]. */
-export const CURRENT_COUNTRY_LANGUAGES = COUNTRY_LANGUAGES[CURRENT_COUNTRY];
+/**
+ * Languages this deployment's portal offers — CURRENT_COUNTRY's languages,
+ * or just English on the global gateway (IS_GLOBAL_SITE), which has no
+ * country/content to offer a choice over.
+ */
+export const CURRENT_COUNTRY_LANGUAGES: readonly LanguageCode[] = IS_GLOBAL_SITE
+  ? (["en"] as const)
+  : COUNTRY_LANGUAGES[CURRENT_COUNTRY];
+
+/** Whether `language` is valid on *this* deployment — see CURRENT_COUNTRY_LANGUAGES. Use this (not isLanguageSupportedForCountry) for anything routing- or request-level, so it accounts for IS_GLOBAL_SITE. */
+export function isLanguageSupportedHere(language: string | null | undefined): language is LanguageCode {
+  if (!language) return false;
+  return (CURRENT_COUNTRY_LANGUAGES as readonly string[]).includes(language.toLowerCase());
+}
