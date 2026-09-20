@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { blogPosts, getBlogPost } from "@/lib/content/blog-posts";
-import { getRequestCountry } from "@/lib/countries/server";
 import { getRequestLanguage } from "@/lib/i18n/server";
 import { buildCountryAlternates, buildSocialMeta } from "@/lib/countries/seo";
 import { buildArticleJsonLd, buildBreadcrumbJsonLd } from "@/lib/seo/json-ld";
@@ -13,7 +12,7 @@ export async function generateMetadata({
 }: {
   params: Promise<{ slug: string }>;
 }): Promise<Metadata> {
-  const [{ slug }, country, language] = await Promise.all([params, getRequestCountry(), getRequestLanguage()]);
+  const [{ slug }, language] = await Promise.all([params, getRequestLanguage()]);
   const post = getBlogPost(slug);
   const title = post ? `${post.title} | Pearly Sky Blog` : "Blog | Pearly Sky";
 

@@ -5,7 +5,6 @@ import { PageHero } from "@/components/hero-components/hero-with-social-links";
 import { ContactSection } from "@/components/home/contact-section";
 import { LocationCard } from "@/components/location-card";
 import { useLanguage } from "@/lib/i18n/language-context";
-import { useCountry } from "@/lib/countries/country-context";
 import { getCountryPageContent } from "@/lib/countries/page-content";
 import { locations, officeLocations } from "@/lib/content/locations";
 import { Socialmedialinks } from "@/components/contactus/social-media";
@@ -13,8 +12,7 @@ import Link from "next/link";
 
 export function ContactUsView() {
   const { translate, language } = useLanguage();
-  const { country } = useCountry();
-  const { contactSubtitle } = getCountryPageContent(country, language);
+  const { contactSubtitle } = getCountryPageContent(language);
   
   const [openLocationId, setOpenLocationId] = useState<string | null>(null);
 

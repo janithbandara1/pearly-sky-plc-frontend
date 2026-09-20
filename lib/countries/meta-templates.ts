@@ -31,10 +31,10 @@ function isTranslatedLanguage(language: LanguageCode): language is TranslatedLan
 
 /** Bare country display name per language, used to fill a template's {country} slot. */
 export const COUNTRY_DISPLAY_NAMES: Record<TranslatedLanguage, Record<CountryCode, string>> = {
-  fr: { fr: "France & Monaco", gb: "Royaume-Uni", lk: "Sri Lanka" },
-  de: { fr: "Frankreich & Monaco", gb: "Vereinigtes Königreich", lk: "Sri Lanka" },
-  es: { fr: "Francia y Mónaco", gb: "Reino Unido", lk: "Sri Lanka" },
-  it: { fr: "Francia e Monaco", gb: "Regno Unito", lk: "Sri Lanka" },
+  fr: { fr: "France", gb: "Royaume-Uni", lk: "Sri Lanka" },
+  de: { fr: "Frankreich", gb: "Vereinigtes Königreich", lk: "Sri Lanka" },
+  es: { fr: "Francia", gb: "Reino Unido", lk: "Sri Lanka" },
+  it: { fr: "Francia", gb: "Regno Unito", lk: "Sri Lanka" },
 };
 
 interface PageMetaTemplate {

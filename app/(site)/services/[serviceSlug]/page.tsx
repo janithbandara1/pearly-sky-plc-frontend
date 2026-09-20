@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { redirect } from "next/navigation";
 import { getServiceBySlug } from "@/lib/catalog-api";
 import { getRequestCountry } from "@/lib/countries/server";
 import { getRequestLanguage } from "@/lib/i18n/server";
@@ -6,6 +7,7 @@ import { buildCountryAlternates, buildServiceAlternates, buildSocialMeta } from 
 import { getServiceMeta } from "@/lib/countries/service-meta";
 import { buildBreadcrumbJsonLd } from "@/lib/seo/json-ld";
 import { JsonLd } from "@/components/json-ld";
+import { buildLocalePath } from "@/lib/locale";
 import { ServiceBookingView } from "./service-booking-view";
 import JoinWithUsSection from "@/components/booking/join-with-us-section";
 import RelatedServices from "@/components/services-links";
@@ -26,7 +28,7 @@ export async function generateMetadata({
     // Country+language override / language translation SEO copy, then the
     // existing per-country (language-agnostic) hand-authored copy, then a
     // plain generated fallback — see the fallback hierarchy in seo.ts.
-    const legacy = getServiceMeta(service.name, country);
+    const legacy = getServiceMeta(service.name);
     const title = service.seo.title || legacy?.title || `${service.localizedName} | Pearly Sky`;
     const description =
       service.seo.description ||
@@ -54,12 +56,22 @@ export default async function ServiceDetailPage({
   // URL used — so it always gets `service.name`, never the raw `serviceSlug`.
   let canonicalSlug = serviceSlug;
   let label = serviceSlug;
+  let localizedSlug: string | null = null;
   try {
     const service = await getServiceBySlug(serviceSlug, country, language);
     canonicalSlug = service.name;
     label = service.localizedName;
+    localizedSlug = service.slug;
   } catch {
     // Unknown slug — fall through with the raw values; the booking view's own fallback handles it.
+  }
+
+  // Reached via a non-canonical slug for this language (e.g. the base
+  // English slug, or another locale's slug shared by an old link/bookmark)
+  // — 308 onto the current language's own slug so the visible URL always
+  // matches what buildServiceAlternates' canonical tag above claims.
+  if (localizedSlug && localizedSlug !== serviceSlug) {
+    redirect(buildLocalePath(`/services/${localizedSlug}`, language ?? "en"));
   }
 
   return (

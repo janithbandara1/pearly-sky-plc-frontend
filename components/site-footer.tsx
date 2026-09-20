@@ -43,7 +43,7 @@ export function SiteFooter() {
   const { country } = useCountry();
   const [servicesOpen, setServicesOpen] = useState(false);
 
-  const { footerTagline } = getCountryHomeContent(country, language);
+  const { footerTagline } = getCountryHomeContent(language);
   const office = getCountryOffice(country);
   const hotline = office.contactNo ?? "";
   const whatsappUrl = getWhatsappUrl(hotline);

@@ -3,7 +3,6 @@
 import Image from "next/image";
 import { Globe2, Laptop, Leaf, Phone, type LucideIcon } from "lucide-react";
 import { useLanguage } from "@/lib/i18n/language-context";
-import { useCountry } from "@/lib/countries/country-context";
 import { getCountryHomeContent } from "@/lib/countries/home-content";
 
 const ICON_COLORS: Record<string, string> = {
@@ -38,8 +37,7 @@ function HighlightsPanel({
 
 export function AboutSection() {
   const { translate, language } = useLanguage();
-  const { country } = useCountry();
-  const { aboutBilingualLabel, aboutBilingualDesc } = getCountryHomeContent(country, language);
+  const { aboutBilingualLabel, aboutBilingualDesc } = getCountryHomeContent(language);
 
   const highlights = [
     {

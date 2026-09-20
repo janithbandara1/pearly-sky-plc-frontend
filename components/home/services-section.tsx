@@ -248,7 +248,7 @@ function ServiceCard({ service }: { service: CatalogService }) {
               </Link>
           ):isDedicatedFlow ? (
             <Link
-              href={`/services/${service.name}`}
+              href={`/services/${service.slug}`}
               className="flex w-full items-center justify-center gap-1.5 rounded-lg border border-brand-gold bg-brand-navy px-4 py-2.5 text-xs font-bold uppercase tracking-wider text-brand-gold transition-colors hover:bg-brand-gold hover:text-brand-navy"
             >
               {translate("servicesRequestQuotation")}
@@ -272,7 +272,7 @@ function ServiceCard({ service }: { service: CatalogService }) {
             </>
           ) : service.isQuotable ? (
             <Link
-              href={`/services/${service.name}/request-quotation`}
+              href={`/services/${service.slug}/request-quotation`}
               className="flex w-full items-center justify-center rounded-lg border border-brand-gold bg-brand-navy px-4 py-2.5 text-xs font-bold uppercase tracking-wider text-brand-gold transition-colors hover:bg-brand-gold hover:text-brand-navy"
             >
               {translate("servicesRequestQuotation")}

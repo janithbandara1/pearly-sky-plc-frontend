@@ -1,4 +1,4 @@
-import { SUPPORTED_COUNTRIES, type CountryCode } from "./config";
+import { CURRENT_COUNTRY, SUPPORTED_COUNTRIES, type CountryCode } from "./config";
 
 interface ServiceMeta {
   title: string;
@@ -126,7 +126,6 @@ export const SERVICE_META: Record<string, Record<CountryCode, ServiceMeta>> = {
   ),
 };
 
-/** Falls back to France when country is null (unprefixed/global site). */
-export function getServiceMeta(slug: string, country: CountryCode | null): ServiceMeta | undefined {
-  return SERVICE_META[slug]?.[country ?? "fr"];
+export function getServiceMeta(slug: string): ServiceMeta | undefined {
+  return SERVICE_META[slug]?.[CURRENT_COUNTRY];
 }

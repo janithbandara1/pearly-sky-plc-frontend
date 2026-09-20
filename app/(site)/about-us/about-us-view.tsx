@@ -6,7 +6,6 @@ import { Compass, Leaf,Shield, Layers, Users, Sparkles, Clock, Wallet, ArrowLeft
 import { Button } from "@/components/ui/button";
 import { PageHero } from "@/components/hero-components/hero-with-social-links";
 import { useLanguage } from "@/lib/i18n/language-context";
-import { useCountry } from "@/lib/countries/country-context";
 import { getCountryPageContent } from "@/lib/countries/page-content";
 import type { TranslationKey } from "@/lib/i18n/dictionaries/en";
 import PaymentMarquee from "@/components/payment-method-services";
@@ -64,8 +63,7 @@ const OBJECTIVES: TranslationKey[] = [
 
 export function AboutUsView() {
   const { translate, language } = useLanguage();
-  const { country } = useCountry();
-  const { aboutStoryParagraph2 } = getCountryPageContent(country, language);
+  const { aboutStoryParagraph2 } = getCountryPageContent(language);
 
   return (
     <main className="flex-1 bg-[#f4fff8] relative">

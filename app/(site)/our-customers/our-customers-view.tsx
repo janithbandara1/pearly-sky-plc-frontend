@@ -5,7 +5,6 @@ import { PageHero } from "@/components/customers/customer-hero";
 import { MomentsOfExcellence } from "@/components/home/moments-of-excellence";
 import { Testimonials } from "@/components/home/testimonials";
 import { useLanguage } from "@/lib/i18n/language-context";
-import { useCountry } from "@/lib/countries/country-context";
 import { getCountryPageContent } from "@/lib/countries/page-content";
 import type { TranslationKey } from "@/lib/i18n/dictionaries/en";
 import CustomerFeedback from "@/components/customers/customer-feedbacks";
@@ -24,8 +23,7 @@ const CLIENTELE: TranslationKey[] = [
 
 export function OurCustomersView() {
   const { translate, language } = useLanguage();
-  const { country } = useCountry();
-  const { customersSubtitle } = getCountryPageContent(country, language);
+  const { customersSubtitle } = getCountryPageContent(language);
 
   return (
     <main className="flex-1 bg-[#f6f2e8]">

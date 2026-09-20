@@ -9,8 +9,8 @@ import RecentProjects from "./recent-projects";
 export function CoverageStrip() {
   const {translate, language } = useLanguage();
   const { country } = useCountry();
-  const { coverageTitle, coverageSubtitle } = getCountryHomeContent(country, language);
-  const cities = COVERAGE_CITIES[country ?? "fr"];
+  const { coverageTitle, coverageSubtitle } = getCountryHomeContent(language);
+  const cities = COVERAGE_CITIES[country];
   const cityIcons = [Landmark, Palmtree, Castle, Building2, ShieldCheck, Landmark, Palmtree, Castle, Building2, ShieldCheck];
   const features = [
     { Icon: ShieldCheck, title: translate("coveragePeaceTitle"), description: translate("coveragePeaceDescription") },

@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { PageHero } from "@/components/page-hero";
 import { JsonLd } from "@/components/json-ld";
-import { getRequestCountry } from "@/lib/countries/server";
 import { getRequestLanguage } from "@/lib/i18n/server";
 import { buildCountryAlternates, buildSocialMeta } from "@/lib/countries/seo";
 import { buildBreadcrumbJsonLd } from "@/lib/seo/json-ld";
@@ -12,7 +11,7 @@ import { ArrowLeft } from "lucide-react";
 const { title: TITLE } = STATIC_PAGE_META.privacyPolicy;
 
 export async function generateMetadata(): Promise<Metadata> {
-  const [country, language] = await Promise.all([getRequestCountry(), getRequestLanguage()]);
+  const language = await getRequestLanguage();
 
   return {
     title: TITLE,

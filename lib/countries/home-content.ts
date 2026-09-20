@@ -1,4 +1,4 @@
-import type { CountryCode } from "./config";
+import { CURRENT_COUNTRY, type CountryCode } from "./config";
 import type { LanguageCode } from "@/lib/i18n/config";
 
 /** Rotating coverage-strip marquee, per country. */
@@ -81,60 +81,64 @@ interface CountryHomeCopy {
 }
 
 /**
- * Home page copy per country, in that country's default (English) language.
- * France's French variant lives separately in FR_HOME_CONTENT_FR below — every
- * other country is English-only (see lib/countries/config.ts's
- * COUNTRY_LANGUAGES), so a full [country][language] matrix would be mostly
- * unreachable dead entries. fr/gb/lk carry the site's original hand-written
- * copy; the other 22 markets use generic-but-distinct placeholder copy (real
- * office/coverage detail pending) built from each country's name and top cities.
+ * Home page copy, keyed by [country][language] — mirrors COUNTRY_LANGUAGES
+ * in ./config: France has hand-written "en" and "fr" copy; the UK and Sri
+ * Lanka are English-only, so they only ever have an "en" entry.
  */
-export const COUNTRY_HOME_CONTENT: Record<CountryCode, CountryHomeCopy> = {
+const COUNTRY_HOME_CONTENT: Record<CountryCode, Partial<Record<LanguageCode, CountryHomeCopy>>> = {
   fr: {
-    heroSubtitle: "Pearly Sky Eco-Luxury Home & Office Cleaning Services — France.",
-    trustCoverage: "France / 24 Cities",
-    coverageTitle: "Service Excellence Throughout France",
-    coverageSubtitle: "Paris, Nice, Cannes, Monaco, Lyon, Bordeaux, and more across France.",
-    footerTagline:
-      "Pearly Sky Cleaning propose des services de nettoyage professionnels et écologiques pour les maisons, les bureaux et les hôtels partout en France. Nous privilégions la qualité et la satisfaction client, en fournissant des solutions sur mesure pour un résultat impeccable.",
-    aboutBilingualLabel: "Bilingual French & English Teams",
-    aboutBilingualDesc: "Seamless communication for a diverse clientele.",
+    en: {
+      heroSubtitle: "Pearly Sky Eco-Luxury Home & Office Cleaning Services — France.",
+      trustCoverage: "France / 24 Cities",
+      coverageTitle: "Service Excellence Throughout France",
+      coverageSubtitle: "Paris, Nice, Cannes, Monaco, Lyon, Bordeaux, and more across France.",
+      footerTagline:
+        "Pearly Sky Cleaning propose des services de nettoyage professionnels et écologiques pour les maisons, les bureaux et les hôtels partout en France. Nous privilégions la qualité et la satisfaction client, en fournissant des solutions sur mesure pour un résultat impeccable.",
+      aboutBilingualLabel: "Bilingual French & English Teams",
+      aboutBilingualDesc: "Seamless communication for a diverse clientele.",
+    },
+    fr: {
+      heroSubtitle: "Services de Nettoyage Éco-Luxe Pearly Sky pour Maisons et Bureaux — France.",
+      trustCoverage: "France / 24 Villes",
+      coverageTitle: "Excellence de Service Partout en France",
+      coverageSubtitle: "Paris, Nice, Cannes, Monaco, Lyon, Bordeaux, et plus encore à travers la France.",
+      footerTagline: "Services de nettoyage et de soin éco-luxe partout en France.",
+      aboutBilingualLabel: "Équipes Bilingues Français & Anglais",
+      aboutBilingualDesc: "Communication fluide pour une clientèle diverse.",
+    },
   },
   gb: {
-    heroSubtitle: "Pearly Sky Eco-Luxury Home & Office Cleaning Services — United Kingdom.",
-    trustCoverage: "United Kingdom / 24 Cities",
-    coverageTitle: "Service Excellence Throughout the United Kingdom",
-    coverageSubtitle: "London, Birmingham, Glasgow, Leeds, and more across the UK.",
-    footerTagline:
-      "Pearly Sky Cleaning offers professional, eco-friendly cleaning services for homes, offices, and hotels across the United Kingdom. We focus on quality and customer satisfaction, delivering tailored solutions to keep your space spotless.",
-    aboutBilingualLabel: "English-Speaking Concierge Teams",
-    aboutBilingualDesc: "Clear, professional communication for every client across the UK.",
+    en: {
+      heroSubtitle: "Pearly Sky Eco-Luxury Home & Office Cleaning Services — United Kingdom.",
+      trustCoverage: "United Kingdom / 24 Cities",
+      coverageTitle: "Service Excellence Throughout the United Kingdom",
+      coverageSubtitle: "London, Birmingham, Glasgow, Leeds, and more across the UK.",
+      footerTagline:
+        "Pearly Sky Cleaning offers professional, eco-friendly cleaning services for homes, offices, and hotels across the United Kingdom. We focus on quality and customer satisfaction, delivering tailored solutions to keep your space spotless.",
+      aboutBilingualLabel: "English-Speaking Concierge Teams",
+      aboutBilingualDesc: "Clear, professional communication for every client across the UK.",
+    },
   },
   lk: {
-    heroSubtitle: "Pearly Sky Eco-Luxury Home & Office Cleaning Services — Sri Lanka.",
-    trustCoverage: "Sri Lanka / 10 Cities",
-    coverageTitle: "Service Excellence Throughout Sri Lanka",
-    coverageSubtitle: "Colombo, Kandy, Galle, Negombo, and more across Sri Lanka.",
-    footerTagline:
-      "Pearly Sky Cleaning offers professional, eco-friendly cleaning services for homes, offices, and hotels across Sri Lanka. We focus on quality and customer satisfaction, delivering tailored solutions to keep your space spotless.",
-    aboutBilingualLabel: "Multilingual Local Teams",
-    aboutBilingualDesc: "Friendly, English-speaking teams who know Sri Lanka inside and out.",
+    en: {
+      heroSubtitle: "Pearly Sky Eco-Luxury Home & Office Cleaning Services — Sri Lanka.",
+      trustCoverage: "Sri Lanka / 10 Cities",
+      coverageTitle: "Service Excellence Throughout Sri Lanka",
+      coverageSubtitle: "Colombo, Kandy, Galle, Negombo, and more across Sri Lanka.",
+      footerTagline:
+        "Pearly Sky Cleaning offers professional, eco-friendly cleaning services for homes, offices, and hotels across Sri Lanka. We focus on quality and customer satisfaction, delivering tailored solutions to keep your space spotless.",
+      aboutBilingualLabel: "Multilingual Local Teams",
+      aboutBilingualDesc: "Friendly, English-speaking teams who know Sri Lanka inside and out.",
+    },
   },
 };
-/** France's home page copy in French — the one country/language combo besides each country's English default. */
-const FR_HOME_CONTENT_FR: CountryHomeCopy = {
-  heroSubtitle: "Services de Nettoyage Éco-Luxe Pearly Sky pour Maisons et Bureaux — France.",
-  trustCoverage: "France / 24 Villes",
-  coverageTitle: "Excellence de Service Partout en France",
-  coverageSubtitle: "Paris, Nice, Cannes, Monaco, Lyon, Bordeaux, et plus encore à travers la France.",
-  footerTagline: "Services de nettoyage et de soin éco-luxe partout en France.",
-  aboutBilingualLabel: "Équipes Bilingues Français & Anglais",
-  aboutBilingualDesc: "Communication fluide pour une clientèle diverse.",
-};
 
-/** Falls back to France when country is null (unprefixed/global site). */
-export function getCountryHomeContent(country: CountryCode | null, language: LanguageCode): CountryHomeCopy {
-  const resolved = country ?? "fr";
-  if (resolved === "fr" && language === "fr") return FR_HOME_CONTENT_FR;
-  return COUNTRY_HOME_CONTENT[resolved];
+/**
+ * CURRENT_COUNTRY's home page copy in `language`, falling back to its
+ * English copy if that language has no hand-written entry yet (only ever
+ * applies to France's "de"/"es"/"it").
+ */
+export function getCountryHomeContent(language: LanguageCode): CountryHomeCopy {
+  const forCountry = COUNTRY_HOME_CONTENT[CURRENT_COUNTRY];
+  return forCountry[language] ?? forCountry.en!;
 }

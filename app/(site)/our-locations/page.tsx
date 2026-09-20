@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import { getRequestCountry } from "@/lib/countries/server";
 import { getRequestLanguage } from "@/lib/i18n/server";
 import { buildCountryAlternates, buildSocialMeta } from "@/lib/countries/seo";
 import { buildBreadcrumbJsonLd } from "@/lib/seo/json-ld";
@@ -9,8 +8,8 @@ import { OurLocationsView } from "./our-locations-view";
 import PaymentMarquee from "@/components/payment-method-services";
 
 export async function generateMetadata(): Promise<Metadata> {
-  const [country, language] = await Promise.all([getRequestCountry(), getRequestLanguage()]);
-  const { title, description } = getCountryPageMeta("ourLocations", country, language ?? "en");
+  const language = await getRequestLanguage();
+  const { title, description } = getCountryPageMeta("ourLocations", language ?? "en");
 
   return {
     title,

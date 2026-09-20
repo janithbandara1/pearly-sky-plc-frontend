@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import { PageHero } from "@/components/page-hero";
 import { JsonLd } from "@/components/json-ld";
-import { getRequestCountry } from "@/lib/countries/server";
 import { getRequestLanguage } from "@/lib/i18n/server";
 import { buildCountryAlternates, buildSocialMeta } from "@/lib/countries/seo";
 import { buildBreadcrumbJsonLd } from "@/lib/seo/json-ld";
@@ -11,7 +10,7 @@ import { TermsAndConditionsContent } from "@/components/legal/terms-and-conditio
 const { title: TITLE } = STATIC_PAGE_META.termsAndConditions;
 
 export async function generateMetadata(): Promise<Metadata> {
-  const [country, language] = await Promise.all([getRequestCountry(), getRequestLanguage()]);
+  const language = await getRequestLanguage();
 
   return {
     title: TITLE,

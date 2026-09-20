@@ -6,7 +6,6 @@ import Autoplay from "embla-carousel-autoplay";
 import { Carousel, CarouselContent, CarouselItem } from "@/components/ui/carousel";
 import { Button } from "@/components/ui/button";
 import { useLanguage } from "@/lib/i18n/language-context";
-import { useCountry } from "@/lib/countries/country-context";
 import { getCountryHomeContent } from "@/lib/countries/home-content";
 import { IoSparkles } from "react-icons/io5";
 
@@ -18,8 +17,7 @@ function scrollToId(id: string) {
 
 export function Hero() {
   const { translate, language } = useLanguage();
-  const { country } = useCountry();
-  const { heroSubtitle } = getCountryHomeContent(country, language);
+  const { heroSubtitle } = getCountryHomeContent(language);
   const [plugins] = useState(() => [Autoplay({ delay: 6000, stopOnInteraction: false })]);
 
   return (

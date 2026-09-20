@@ -2,13 +2,11 @@
 
 import { Globe2, Leaf, Network, Star } from "lucide-react";
 import { useLanguage } from "@/lib/i18n/language-context";
-import { useCountry } from "@/lib/countries/country-context";
 import { getCountryHomeContent } from "@/lib/countries/home-content";
 
 export function TrustBar() {
   const { translate, language } = useLanguage();
-  const { country } = useCountry();
-  const { trustCoverage } = getCountryHomeContent(country, language);
+  const { trustCoverage } = getCountryHomeContent(language);
 
   const items = [
     {
