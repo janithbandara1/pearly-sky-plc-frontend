@@ -1,32 +1,43 @@
 import type { Metadata, MetadataRoute } from "next";
-import { COUNTRY_LANGUAGES, COUNTRY_URL_SLUGS, SUPPORTED_COUNTRIES, type CountryCode } from "./config";
+import { COUNTRY_DOMAINS, COUNTRY_LANGUAGES, CURRENT_COUNTRY, SUPPORTED_COUNTRIES, type CountryCode } from "./config";
 import type { LanguageCode } from "@/lib/i18n/config";
 import { buildLocalePath } from "@/lib/locale";
 import type { ServiceLocaleSlug } from "@/lib/catalog-api";
 
+/** `fr` -> "https://pearlyskyglobalclean.fr/en/about-us" — an absolute URL on `country`'s own domain. */
+function absoluteLocalePath(pathname: string, country: CountryCode, language: LanguageCode): string {
+  return `${COUNTRY_DOMAINS[country]}${buildLocalePath(pathname, language)}`;
+}
+
 /**
  * Builds the `alternates.languages` block for a given unprefixed path
- * (e.g. "/about"), telling search engines the /fr-en, /fr-fr, /de-en, ...
- * versions are alternates of the same page (not duplicate content) and
- * that the unprefixed path is the version to serve when no country
- * matches ("x-default"). Each country contributes one entry per language it
- * actually offers (see COUNTRY_LANGUAGES — every country but France offers
- * just "en"). When `current` is passed (the country/language this specific
- * request resolved to), also sets a self-referencing `canonical` so each
- * locale URL canonicalizes to itself.
+ * (e.g. "/about-us"), telling search engines that the same page on every
+ * sibling country's domain (fr/gb/lk — see COUNTRY_DOMAINS) is an alternate
+ * of this one, not duplicate content, and which one to serve when no more
+ * specific hreflang matches ("x-default"). Each country contributes one
+ * entry per language it actually offers (see COUNTRY_LANGUAGES — only
+ * France offers more than "en"), tagged `{language}-{COUNTRY}` using the
+ * country's own ISO code as the region subtag (fr/GB/LK are all valid
+ * region subtags as-is, so no separate slug mapping is needed). When
+ * `current` is passed (the language this specific request resolved to),
+ * also sets a self-referencing `canonical` on CURRENT_COUNTRY's own domain.
  *
- * Requires `metadataBase` to be set (done in the root layout) since these
- * are relative paths — see the Next.js metadata docs.
+ * Requires `metadataBase` to be set to this deployment's own domain (done
+ * in the root layout) since `canonical` and any same-domain paths resolve
+ * against it — the cross-domain alternates below are absolute, so they're
+ * unaffected by metadataBase.
  */
 export function buildCountryAlternates(
   pathname: string,
-  current?: { country: CountryCode | null; language: LanguageCode | null },
+  current?: { language: LanguageCode | null },
 ): NonNullable<Metadata["alternates"]> {
-  const languages: Record<string, string> = { "x-default": pathname };
+  const languages: Record<string, string> = {
+    "x-default": absoluteLocalePath(pathname, CURRENT_COUNTRY, COUNTRY_LANGUAGES[CURRENT_COUNTRY][0]),
+  };
 
   for (const country of SUPPORTED_COUNTRIES) {
     for (const language of COUNTRY_LANGUAGES[country]) {
-      languages[`${language}-${COUNTRY_URL_SLUGS[country].toUpperCase()}`] = buildLocalePath(pathname, country, language);
+      languages[`${language}-${country.toUpperCase()}`] = absoluteLocalePath(pathname, country, language);
     }
   }
 
@@ -34,7 +45,7 @@ export function buildCountryAlternates(
 
   return {
     languages,
-    canonical: buildLocalePath(pathname, current.country ?? "fr", current.language ?? "en"),
+    canonical: buildLocalePath(pathname, current.language ?? COUNTRY_LANGUAGES[CURRENT_COUNTRY][0]),
   };
 }
 
@@ -64,26 +75,22 @@ export function buildSocialMeta(
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000";
 
 /**
- * Builds one sitemap.xml entry per country/language combo a country offers
- * (see COUNTRY_LANGUAGES) for a given unprefixed path (e.g. "/about-us").
- * Hreflang alternates stay in page metadata; repeating the full alternate map
- * on every sitemap entry makes the XML grow quadratically with locale count.
- * Used by app/sitemap.ts.
+ * Builds one sitemap.xml entry per language CURRENT_COUNTRY offers (see
+ * COUNTRY_LANGUAGES) for a given unprefixed path (e.g. "/about-us"). A
+ * sitemap only ever lists URLs on its own domain, so — unlike the old
+ * single-domain model — this no longer loops over every country, just this
+ * deployment's own. Hreflang alternates to sibling countries' domains stay
+ * in page metadata (buildCountryAlternates); repeating them here would
+ * point Google at URLs this sitemap doesn't own. Used by app/sitemap.ts.
  */
 export function buildSitemapEntries(
   pathname: string,
   opts: { lastModified?: Date; changeFrequency?: MetadataRoute.Sitemap[number]["changeFrequency"]; priority?: number } = {},
 ): MetadataRoute.Sitemap {
-  const entries: MetadataRoute.Sitemap = [];
-  for (const country of SUPPORTED_COUNTRIES) {
-    for (const language of COUNTRY_LANGUAGES[country]) {
-      entries.push({
-        url: `${SITE_URL}${buildLocalePath(pathname, country, language)}`,
-        ...opts,
-      });
-    }
-  }
-  return entries;
+  return COUNTRY_LANGUAGES[CURRENT_COUNTRY].map((language) => ({
+    url: `${SITE_URL}${buildLocalePath(pathname, language)}`,
+    ...opts,
+  }));
 }
 
 /**
@@ -93,8 +100,8 @@ export function buildSitemapEntries(
  * override's slug if that exact country+language has one, else a
  * translation's slug for that language, else `baseSlug` (the base English
  * `Service.name`). This is what makes hreflang/sitemap/canonical URLs use
- * "nettoyage-regulier" for fr-fr while every other locale still uses the
- * base slug — see buildServiceAlternates/buildServiceSitemapEntries below.
+ * "nettoyage-regulier" for France's fr language while every other locale
+ * still uses the base slug — see buildServiceAlternates/buildServiceSitemapEntries below.
  */
 export function makeServiceSlugResolver(baseSlug: string, locales: ServiceLocaleSlug[]) {
   const overrides = new Map(locales.filter((l) => l.country).map((l) => [`${l.language}:${l.country}`, l.slug]));
@@ -114,14 +121,17 @@ export function buildServiceAlternates(
   pathFor: (slug: string) => string,
   baseSlug: string,
   locales: ServiceLocaleSlug[],
-  current?: { country: CountryCode | null; language: LanguageCode | null },
+  current?: { language: LanguageCode | null },
 ): NonNullable<Metadata["alternates"]> {
   const slugFor = makeServiceSlugResolver(baseSlug, locales);
-  const languages: Record<string, string> = { "x-default": pathFor(baseSlug) };
+  const defaultLanguage = COUNTRY_LANGUAGES[CURRENT_COUNTRY][0];
+  const languages: Record<string, string> = {
+    "x-default": absoluteLocalePath(pathFor(slugFor(defaultLanguage, CURRENT_COUNTRY)), CURRENT_COUNTRY, defaultLanguage),
+  };
 
   for (const country of SUPPORTED_COUNTRIES) {
     for (const language of COUNTRY_LANGUAGES[country]) {
-      languages[`${language}-${COUNTRY_URL_SLUGS[country].toUpperCase()}`] = buildLocalePath(
+      languages[`${language}-${country.toUpperCase()}`] = absoluteLocalePath(
         pathFor(slugFor(language, country)),
         country,
         language,
@@ -131,11 +141,10 @@ export function buildServiceAlternates(
 
   if (!current) return { languages };
 
-  const currentCountry = current.country ?? "fr";
-  const currentLanguage = current.language ?? "en";
+  const currentLanguage = current.language ?? defaultLanguage;
   return {
     languages,
-    canonical: buildLocalePath(pathFor(slugFor(currentLanguage, currentCountry)), currentCountry, currentLanguage),
+    canonical: buildLocalePath(pathFor(slugFor(currentLanguage, CURRENT_COUNTRY)), currentLanguage),
   };
 }
 
@@ -147,14 +156,8 @@ export function buildServiceSitemapEntries(
   opts: { lastModified?: Date; changeFrequency?: MetadataRoute.Sitemap[number]["changeFrequency"]; priority?: number } = {},
 ): MetadataRoute.Sitemap {
   const slugFor = makeServiceSlugResolver(baseSlug, locales);
-  const entries: MetadataRoute.Sitemap = [];
-  for (const country of SUPPORTED_COUNTRIES) {
-    for (const language of COUNTRY_LANGUAGES[country]) {
-      entries.push({
-        url: `${SITE_URL}${buildLocalePath(pathFor(slugFor(language, country)), country, language)}`,
-        ...opts,
-      });
-    }
-  }
-  return entries;
+  return COUNTRY_LANGUAGES[CURRENT_COUNTRY].map((language) => ({
+    url: `${SITE_URL}${buildLocalePath(pathFor(slugFor(language, CURRENT_COUNTRY)), language)}`,
+    ...opts,
+  }));
 }

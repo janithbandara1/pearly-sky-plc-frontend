@@ -96,7 +96,7 @@ serviceCommercialOfficeCleaningDescription:"Professional cleaning for business s
   servicePostEventCleaningDescription: "Cleanup after events and celebrations.",
   servicePoolCleaning: "Pool Cleaning",
   servicePoolCleaningDescription: "Careful cleaning and maintenance for pools.",
-  servicePrecisionPressureWashing: "Exterior cleaning for outdoor surfaces.",
+  servicePrecisionPressureWashing: "Precision Pressure Washing",
   servicePrecisionPressureWashingDescription: "Exterior cleaning for outdoor surfaces.",
   serviceChildCareService: "Child Care Service",
   serviceChildCareServiceDescription: "Trusted support for families.",

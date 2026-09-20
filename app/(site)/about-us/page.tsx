@@ -14,7 +14,7 @@ export async function generateMetadata(): Promise<Metadata> {
   return {
     title,
     description,
-    alternates: buildCountryAlternates("/about-us", { country, language }),
+    alternates: buildCountryAlternates("/about-us", { language }),
     ...buildSocialMeta(title, description),
   };
 }

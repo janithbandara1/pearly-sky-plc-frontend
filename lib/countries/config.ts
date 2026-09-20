@@ -1,47 +1,15 @@
 import { SUPPORTED_LANGUAGES, type LanguageCode } from "@/lib/i18n/config";
 
 /**
- * Single source of truth for which country prefixes the redirect logic
- * (proxy.ts) and routing understand. Adding a country is just adding its
- * code here — proxy.ts, the switcher, and the hreflang helper all read
- * from this list rather than hardcoding codes themselves.
- *
- * Richer metadata (name, currency, language) intentionally lives on the
- * backend (`GET /countries`) instead of here, so it isn't duplicated in
- * two places. This file only needs the bare codes because proxy.ts runs
- * on every request and must not make a network call to decide whether a
- * prefix is valid.
+ * Single source of truth for the countries this codebase serves. Each is a
+ * standalone deployment — its own domain, its own database, its own PM2/env
+ * config (see ecosystem.config.js and .env.example) — rather than one
+ * shared site with a country picker. Adding a country means adding its code
+ * here, giving it an entry in COUNTRY_DOMAINS/COUNTRY_LANGUAGES below, and
+ * standing up its own deployment; nothing else in this file hardcodes the
+ * list of countries.
  */
-export const SUPPORTED_COUNTRIES = [
-  "fr",
-  "de",
-  "lu",
-  "nl",
-  "fi",
-  "se",
-  "it",
-  "pl",
-  "be",
-  "at",
-  "dk",
-  "es",
-  "pt",
-  "ro",
-  "ie",
-  "mc",
-  "ch",
-  "gb",
-  "us",
-  "ca",
-  "au",
-  "nz",
-  "qa",
-  "sa",
-  "ae",
-  "om",
-  "bh",
-  "lk",
-] as const;
+export const SUPPORTED_COUNTRIES = ["fr", "gb", "lk"] as const;
 
 export type CountryCode = (typeof SUPPORTED_COUNTRIES)[number];
 
@@ -51,86 +19,26 @@ export function isSupportedCountry(value: string | null | undefined): value is C
 }
 
 /**
- * URL directory code per the master blueprint (frontend/docs/pearly-sky-global-master-blueprint.md).
- * Identical to the internal `CountryCode` for every country except the UK:
- * the internal code stays `gb` (renaming it would mean a live data migration
- * across customers/quotations/prices tables — see the backend's countries
- * constant), but the blueprint's directory is `/uk-en/`, not `/gb-en/`.
+ * Live production origin for each country's standalone deployment. Used to
+ * build cross-domain hreflang alternates (lib/countries/seo.ts) and the
+ * country switcher's cross-domain links (setCountry in country-context.tsx)
+ * — the only two places one country's site needs to know another's URL.
  */
-export const COUNTRY_URL_SLUGS: Record<CountryCode, string> = {
-  fr: "fr",
-  de: "de",
-  lu: "lu",
-  nl: "nl",
-  fi: "fi",
-  se: "se",
-  it: "it",
-  pl: "pl",
-  be: "be",
-  at: "at",
-  dk: "dk",
-  es: "es",
-  pt: "pt",
-  ro: "ro",
-  ie: "ie",
-  mc: "mc",
-  ch: "ch",
-  gb: "uk",
-  us: "us",
-  ca: "ca",
-  au: "au",
-  nz: "nz",
-  qa: "qa",
-  sa: "sa",
-  ae: "ae",
-  om: "om",
-  bh: "bh",
-  lk: "lk",
+export const COUNTRY_DOMAINS: Record<CountryCode, string> = {
+  fr: "https://pearlyskyglobalclean.fr",
+  gb: "https://pearlyskyglobalclean.co.uk",
+  lk: "https://pearlyskyglobalclean.lk",
 };
 
-const URL_SLUG_TO_COUNTRY: Record<string, CountryCode> = Object.fromEntries(
-  SUPPORTED_COUNTRIES.map((code) => [COUNTRY_URL_SLUGS[code], code]),
-);
-
-/** Resolves a `/{slug}-{lang}/...` URL directory code back to its internal `CountryCode`. */
-export function countryFromUrlSlug(slug: string | null | undefined): CountryCode | null {
-  if (!slug) return null;
-  return URL_SLUG_TO_COUNTRY[slug.toLowerCase()] ?? null;
-}
-
 /**
- * Every supplied dictionary is available in every market so visitors can
- * choose their preferred language from the header or footer switcher.
+ * Which of SUPPORTED_LANGUAGES each country's portal offers. France is the
+ * only market that gives visitors a language choice; the UK and Sri Lanka
+ * portals are English-only.
  */
 export const COUNTRY_LANGUAGES: Record<CountryCode, readonly LanguageCode[]> = {
   fr: SUPPORTED_LANGUAGES,
-  de: SUPPORTED_LANGUAGES,
-  lu: SUPPORTED_LANGUAGES,
-  nl: SUPPORTED_LANGUAGES,
-  fi: SUPPORTED_LANGUAGES,
-  se: SUPPORTED_LANGUAGES,
-  it: SUPPORTED_LANGUAGES,
-  pl: SUPPORTED_LANGUAGES,
-  be: SUPPORTED_LANGUAGES,
-  at: SUPPORTED_LANGUAGES,
-  dk: SUPPORTED_LANGUAGES,
-  es: SUPPORTED_LANGUAGES,
-  pt: SUPPORTED_LANGUAGES,
-  ro: SUPPORTED_LANGUAGES,
-  ie: SUPPORTED_LANGUAGES,
-  mc: SUPPORTED_LANGUAGES,
-  ch: SUPPORTED_LANGUAGES,
-  gb: SUPPORTED_LANGUAGES,
-  us: SUPPORTED_LANGUAGES,
-  ca: SUPPORTED_LANGUAGES,
-  au: SUPPORTED_LANGUAGES,
-  nz: SUPPORTED_LANGUAGES,
-  qa: SUPPORTED_LANGUAGES,
-  sa: SUPPORTED_LANGUAGES,
-  ae: SUPPORTED_LANGUAGES,
-  om: SUPPORTED_LANGUAGES,
-  bh: SUPPORTED_LANGUAGES,
-  lk: SUPPORTED_LANGUAGES,
+  gb: ["en"],
+  lk: ["en"],
 };
 
 export function isLanguageSupportedForCountry(
@@ -146,11 +54,16 @@ export function defaultLanguageForCountry(country: CountryCode): LanguageCode {
   return COUNTRY_LANGUAGES[country][0];
 }
 
-/** Name of the cookie that pins a visitor to a country once known. */
-export const COUNTRY_COOKIE_NAME = "country";
+/**
+ * This deployment's fixed country. Unlike the old single-domain model,
+ * there is no per-request country to detect here — each domain runs the
+ * same codebase pointed at its own country/database via env vars, decided
+ * once at deploy time. Set NEXT_PUBLIC_COUNTRY in each deployment's .env
+ * (see .env.example); defaults to "fr" for local development when unset.
+ */
+export const CURRENT_COUNTRY: CountryCode = isSupportedCountry(process.env.NEXT_PUBLIC_COUNTRY)
+  ? (process.env.NEXT_PUBLIC_COUNTRY.toLowerCase() as CountryCode)
+  : "fr";
 
-/** ~30 days, in seconds (used for both the proxy's Set-Cookie and the client-side switcher). */
-export const COUNTRY_COOKIE_MAX_AGE = 60 * 60 * 24 * 30;
-
-/** Request header proxy.ts sets so server components/layouts can read the resolved country. */
-export const COUNTRY_HEADER_NAME = "x-country";
+/** Languages CURRENT_COUNTRY's portal offers — shorthand for COUNTRY_LANGUAGES[CURRENT_COUNTRY]. */
+export const CURRENT_COUNTRY_LANGUAGES = COUNTRY_LANGUAGES[CURRENT_COUNTRY];

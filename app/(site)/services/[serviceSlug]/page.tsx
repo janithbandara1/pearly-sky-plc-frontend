@@ -22,7 +22,7 @@ export async function generateMetadata({
 
   try {
     const service = await getServiceBySlug(serviceSlug, country, language);
-    const alternates = buildServiceAlternates(pathFor, service.name, service.locales, { country, language });
+    const alternates = buildServiceAlternates(pathFor, service.name, service.locales, { language });
     // Country+language override / language translation SEO copy, then the
     // existing per-country (language-agnostic) hand-authored copy, then a
     // plain generated fallback — see the fallback hierarchy in seo.ts.
@@ -37,7 +37,7 @@ export async function generateMetadata({
     const ogDescription = service.seo.ogDescription || description;
     return { title, description, alternates, ...buildSocialMeta(ogTitle, ogDescription, service.imageUrl ?? undefined) };
   } catch {
-    const alternates = buildCountryAlternates(`/services/${serviceSlug}`, { country, language });
+    const alternates = buildCountryAlternates(`/services/${serviceSlug}`, { language });
     return { title: "Services | Pearly Sky", alternates };
   }
 }

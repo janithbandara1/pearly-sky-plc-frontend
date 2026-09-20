@@ -2,42 +2,26 @@
 
 import { createContext, useContext, useMemo, useRef, type ReactNode } from "react";
 import { usePathname, useSearchParams } from "next/navigation";
-import { extractLocalePrefix, buildPrefixedPath } from "@/lib/countries/geo";
+import { CURRENT_COUNTRY } from "@/lib/countries/config";
+import { buildLocalePath, extractLocalePrefix } from "@/lib/locale";
 import { makeServiceSlugResolver } from "@/lib/countries/seo";
 import type { ServiceLocaleSlug } from "@/lib/catalog-api";
 import { en, type TranslationKey } from "./dictionaries/en";
-import { da } from "./dictionaries/da";
 import { de } from "./dictionaries/de";
 import { es } from "./dictionaries/es";
-import { fi } from "./dictionaries/fi";
 import { fr } from "./dictionaries/fr";
 import { it } from "./dictionaries/it";
-import { lb } from "./dictionaries/lb";
-import { nl } from "./dictionaries/nl";
-import { no } from "./dictionaries/no";
-import { pl } from "./dictionaries/pl";
-import { pt } from "./dictionaries/pt";
-import { ro } from "./dictionaries/ro";
-import { sv } from "./dictionaries/sv";
 import { LANGUAGE_COOKIE_MAX_AGE, LANGUAGE_COOKIE_NAME, type LanguageCode } from "./config";
 
 export type SupportedLanguage = LanguageCode;
 
+/** Every SUPPORTED_LANGUAGES entry has a dictionary here, but only France's COUNTRY_LANGUAGES actually offers more than "en" — see lib/countries/config.ts. */
 export const SUPPORTED_LANGUAGES: { code: SupportedLanguage; label: string }[] = [
   { code: "en", label: "English" },
   { code: "fr", label: "Français" },
-  { code: "da", label: "Dansk" },
   { code: "de", label: "Deutsch" },
   { code: "es", label: "Español" },
-  { code: "fi", label: "Suomi" },
   { code: "it", label: "Italiano" },
-  { code: "lb", label: "Lëtzebuergesch" },
-  { code: "nl", label: "Nederlands" },
-  { code: "no", label: "Norsk" },
-  { code: "pl", label: "Polski" },
-  { code: "pt", label: "Português" },
-  { code: "ro", label: "Română" },
-  { code: "sv", label: "Svenska" },
 ];
 
 export type TranslationValue = string | readonly string[];
@@ -45,18 +29,9 @@ export type TranslationValue = string | readonly string[];
 const dictionaries: Record<SupportedLanguage, Partial<Record<TranslationKey, TranslationValue>>> = {
   en,
   fr,
-  da,
   de,
   es,
-  fi,
   it,
-  lb,
-  nl,
-  no,
-  pl,
-  pt,
-  ro,
-  sv,
 };
 
 type LanguageContextType = {
@@ -113,12 +88,12 @@ export function LanguageProvider({
         const serviceSlugMatch = registeredService && rest.match(/^(\/services\/)[^/]+(\/.*)?$/);
         if (registeredService && serviceSlugMatch) {
           const slugFor = makeServiceSlugResolver(registeredService.baseSlug, registeredService.locales);
-          const newSlug = slugFor(next, locale.country);
+          const newSlug = slugFor(next, CURRENT_COUNTRY);
           rest = `${serviceSlugMatch[1]}${newSlug}${serviceSlugMatch[2] ?? ""}`;
         }
 
         const search = searchParams.toString();
-        const target = buildPrefixedPath(rest, locale.country, next);
+        const target = buildLocalePath(rest, next);
 
         // Full page load (not router.push) — a soft navigation only clears the
         // client router cache, not Next's server-side fetch/data cache, so

@@ -97,7 +97,7 @@ export const de = {
   servicePostEventCleaningDescription: "Reinigungsdienst nach Events und Feiern.",
   servicePoolCleaning: "Poolreinigung",
   servicePoolCleaningDescription: "Sorgfältige Reinigung und Wartung für Pools.",
-  servicePrecisionPressureWashing: "Aussenreinigung für Aussenflächen.",
+  servicePrecisionPressureWashing: "Präzisions-Hochdruckreinigung",
   servicePrecisionPressureWashingDescription: "Aussenreinigung für Aussenflächen.",
   serviceChildCareService: "Kinderbetreuungsservice",
   serviceChildCareServiceDescription: "Zuverlässige Unterstützung für Familien.",

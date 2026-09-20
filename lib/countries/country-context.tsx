@@ -2,21 +2,27 @@
 
 import { createContext, useContext, useMemo, type ReactNode } from "react";
 import { usePathname, useSearchParams } from "next/navigation";
-import { COUNTRY_COOKIE_MAX_AGE, COUNTRY_COOKIE_NAME, defaultLanguageForCountry, type CountryCode } from "./config";
-import { buildPrefixedPath, extractLocalePrefix } from "./geo";
+import { COUNTRY_DOMAINS, defaultLanguageForCountry, type CountryCode } from "./config";
+import { buildLocalePath, extractLocalePrefix } from "@/lib/locale";
 import type { CountryMeta } from "./api";
 
 type CountryContextType = {
-  /** Resolved by proxy.ts for the current request; null on the unprefixed/global site. */
-  country: CountryCode | null;
-  /** Writes the cookie (~30 days) and navigates to the equivalent path under `next`, resetting language to that country's default. */
+  /** This deployment's fixed country (see CURRENT_COUNTRY in ./config) — always set, never null. */
+  country: CountryCode;
+  /**
+   * Navigates to `next`'s own domain — under the per-country-domain
+   * architecture, "switching country" means leaving this site entirely for
+   * a sibling deployment, not changing state on this one. Resets to that
+   * country's default language rather than trying to carry the current one
+   * over, since most countries only offer "en" anyway.
+   */
   setCountry: (next: CountryCode) => void;
   /** Fetched server-side (see the (site)/(customer) layouts) — names/currencies for every supported country, for the switcher and similar UI. */
   countries: CountryMeta[];
 };
 
 const CountryContext = createContext<CountryContextType>({
-  country: null,
+  country: "fr",
   setCountry: () => {},
   countries: [],
 });
@@ -26,7 +32,7 @@ export function CountryProvider({
   countries,
   children,
 }: {
-  country: CountryCode | null;
+  country: CountryCode;
   countries: CountryMeta[];
   children: ReactNode;
 }) {
@@ -38,21 +44,14 @@ export function CountryProvider({
       country,
       countries,
       setCountry: (next) => {
-        document.cookie = `${COUNTRY_COOKIE_NAME}=${next}; path=/; max-age=${COUNTRY_COOKIE_MAX_AGE}; samesite=lax`;
+        if (next === country) return;
 
         const locale = extractLocalePrefix(pathname);
         const unprefixedPath = locale && locale !== "invalid" ? locale.rest : pathname;
         const search = searchParams.toString();
+        const target = `${COUNTRY_DOMAINS[next]}${buildLocalePath(unprefixedPath, defaultLanguageForCountry(next))}`;
 
-        // Reset to the target country's default language rather than trying to
-        // carry the current one over — most countries only offer "en" anyway,
-        // and a France-only "fr" selection has no equivalent elsewhere.
-        const nextPath = buildPrefixedPath(unprefixedPath, next, defaultLanguageForCountry(next));
-        // Full page load (not router.push) — a soft navigation only clears the
-        // client router cache, not Next's server-side fetch/data cache, so
-        // switching country could still render the previous country's cached
-        // data for a beat.
-        window.location.href = `${nextPath}${search ? `?${search}` : ""}`;
+        window.location.href = `${target}${search ? `?${search}` : ""}`;
       },
     }),
     [country, countries, pathname, searchParams],

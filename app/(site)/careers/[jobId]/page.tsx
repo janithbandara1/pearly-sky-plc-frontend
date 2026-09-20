@@ -21,7 +21,7 @@ export async function generateMetadata({
   return {
     title,
     description,
-    alternates: buildCountryAlternates(`/careers/${jobId}`, { country, language }),
+    alternates: buildCountryAlternates(`/careers/${jobId}`, { language }),
     ...buildSocialMeta(title, description),
   };
 }

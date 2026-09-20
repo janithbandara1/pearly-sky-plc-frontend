@@ -15,7 +15,6 @@ import { useCountry } from "@/lib/countries/country-context";
 import { getCountryHomeContent } from "@/lib/countries/home-content";
 import { getCountryContactEmail, getCountryOffice, getWhatsappUrl } from "@/lib/countries/office";
 import { LanguageSwitcher } from "@/components/language-switcher";
-import { CountrySwitcher } from "@/components/country-switcher";
 import { ServicesNavList } from "@/components/services-nav-list";
 import type { TranslationKey } from "@/lib/i18n/dictionaries/en";
 import { SOCIAL_URLS } from "@/lib/content/social-links";
@@ -55,7 +54,6 @@ export function SiteFooter() {
       <div className="flex justify-center px-4 pb-2 pt-4 sm:pt-5">
         <div className="flex flex-wrap items-center justify-center gap-2">
           <LanguageSwitcher className="h-8 min-h-[48px] py-3 border-brand-gold/70 bg-transparent text-xs" />
-          <CountrySwitcher className="h-8 min-h-[48px] py-3 border-brand-gold/70 bg-transparent text-xs" />
         </div>
       </div>
 

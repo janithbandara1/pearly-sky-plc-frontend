@@ -90,7 +90,7 @@ export default function AddServicePage() {
 
       <ServiceFormFields form={form} onChange={setForm} />
 
-      <CountryPricesField prices={prices} onChange={setPrices} label="Hourly rate by country" />
+      <CountryPricesField prices={prices} onChange={setPrices} label="Hourly rate" />
 
       <ServicePackagesField
         allPackages={allPackages}

@@ -10,7 +10,6 @@ import { useLanguage } from "@/lib/i18n/language-context";
 import { cn } from "@/lib/utils";
 import { ServicesNavList } from "@/components/services-nav-list";
 import { LanguageSelect } from "@/components/language-select";
-import { CountrySelect } from "@/components/country-select";
 import { Button } from "@/components/ui/button";
 import {
   Sheet,
@@ -252,7 +251,6 @@ export function SiteHeader({ navLinks: navLinksProp, showServicesMenu = true }: 
         <div className="flex items-center gap-2 sm:gap-3 ">
           <div className="flex items-center gap-1.5 ">
             <LanguageSelect className="h-8  min-h-[48px] py-3 gap-1.5 border-brand-gold/70 bg-transparent  text-xs" />
-            <CountrySelect className="h-8  min-h-[48px]  py-3 gap-1.5 border-brand-gold/70 bg-transparent  text-xs" />
           </div>
 
           {status === "authenticated" && (

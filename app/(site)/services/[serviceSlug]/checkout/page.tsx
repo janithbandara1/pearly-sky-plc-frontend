@@ -46,7 +46,7 @@ import {
   getMyProfile,
 } from "@/lib/customers-api";
 import { useCountry } from "@/lib/countries/country-context";
-import { SUPPORTED_COUNTRIES } from "@/lib/countries/config";
+import { CURRENT_COUNTRY } from "@/lib/countries/config";
 import { COUNTRY_FLAGS, FALLBACK_COUNTRY_NAMES } from "@/components/country-switcher";
 import { createQuotation } from "@/lib/quotation-api";
 import {
@@ -84,12 +84,14 @@ const emptyContactForm: ContactForm = {
   contact: "",
 };
 
-/** Same country list (and country-flag-icons flags) as the navbar's CountrySwitcher/LocaleSwitcher. */
-const COUNTRY_OPTIONS = SUPPORTED_COUNTRIES.map((code) => ({
-  code: code.toUpperCase(),
-  name: FALLBACK_COUNTRY_NAMES[code],
-  Flag: COUNTRY_FLAGS[code],
-}));
+/** Single-item on purpose — this deployment only ever serves CURRENT_COUNTRY, so the "select country" field below has nothing else to offer. */
+const COUNTRY_OPTIONS = [
+  {
+    code: CURRENT_COUNTRY.toUpperCase(),
+    name: FALLBACK_COUNTRY_NAMES[CURRENT_COUNTRY],
+    Flag: COUNTRY_FLAGS[CURRENT_COUNTRY],
+  },
+];
 
 export default function CheckoutPage({
   params,
@@ -129,8 +131,8 @@ export default function CheckoutPage({
   const [phonePrefix, setPhonePrefix] = useState("+33");
   const [addressForm, setAddressForm] = useState<AddressPayload>(emptyAddressForm);
 
-  // Care Checkout Location & Logistics
-  const [selectedCountry, setSelectedCountry] = useState("France");
+  // Care Checkout Location & Logistics — locked to this deployment's own country (see CURRENT_COUNTRY)
+  const [selectedCountry, setSelectedCountry] = useState(FALLBACK_COUNTRY_NAMES[CURRENT_COUNTRY]);
   const [postalCode, setPostalCode] = useState("");
   const [city, setCity] = useState("");
   const [stateProvince, setStateProvince] = useState("");

@@ -22,12 +22,12 @@ export async function generateMetadata({
 
   try {
     const service = await getServiceBySlug(serviceSlug, country, language);
-    const alternates = buildServiceAlternates(pathFor, service.name, service.locales, { country, language });
+    const alternates = buildServiceAlternates(pathFor, service.name, service.locales, { language });
     const title = `Request a Quote — ${service.localizedName} | Pearly Sky`;
     const description = `Request a free, no-obligation quote for ${service.localizedName.toLowerCase()} with Pearly Sky's eco-luxury cleaning team.`;
     return { title, description, alternates, ...buildSocialMeta(title, description, service.imageUrl ?? undefined) };
   } catch {
-    const alternates = buildCountryAlternates(`/services/${serviceSlug}/request-quotation`, { country, language });
+    const alternates = buildCountryAlternates(`/services/${serviceSlug}/request-quotation`, { language });
     return { title: "Request a Quote | Pearly Sky", alternates };
   }
 }

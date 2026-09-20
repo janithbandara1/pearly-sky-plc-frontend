@@ -20,7 +20,7 @@ export async function generateMetadata({
   return {
     title,
     description: post?.description,
-    alternates: buildCountryAlternates(`/blog/${slug}`, { country, language }),
+    alternates: buildCountryAlternates(`/blog/${slug}`, { language }),
     ...buildSocialMeta(title, post?.description, post?.image),
   };
 }

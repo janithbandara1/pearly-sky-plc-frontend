@@ -5,7 +5,7 @@ import Link from "next/link";
 import { useState, useEffect } from "react";
 import { getServices, ServicePriceEntry } from "@/lib/catalog-api";
 import { COUNTRY_FLAGS } from "@/components/country-switcher";
-import { SUPPORTED_COUNTRIES, type CountryCode } from "@/lib/countries/config";
+import { CURRENT_COUNTRY, SUPPORTED_COUNTRIES, type CountryCode } from "@/lib/countries/config";
 import { useCountry } from "@/lib/countries/country-context";
 import { HeroPriceSelector, type HeroPriceOption } from "@/components/hero-price-selector";
 import { transcode } from "buffer";
@@ -45,8 +45,8 @@ export function PageHero({
   /** "Hour Per Cleaner" by default — pass "hourPerProfessional" for Child/Elder Care. */
   unitLabelKey?: TranslationKey;
 }) {
-  /** The site-wide country (same one the navbar's CountrySwitcher/LocaleSwitcher drive) — picking a country here navigates the whole site, same as picking it there. */
-  const { country, countries, setCountry } = useCountry();
+  /** This deployment's fixed country (see CURRENT_COUNTRY) — no picker anymore now that each country is its own site. */
+  const { country, countries } = useCountry();
   const metaByCode = Object.fromEntries(countries.map((c) => [c.code, c]));
   const [priceByCode, setPriceByCode] = useState<Record<string, number | null>>({});
 
@@ -80,16 +80,17 @@ export function PageHero({
     }
   }, [servicePrices, serviceId]);
 
-  /** Every country the navbar's switcher offers, not just whichever ones happen to have a price set. */
-  const activePrices: HeroPriceOption[] = SUPPORTED_COUNTRIES.map((code) => ({
-    country: code,
-    price: priceByCode[code] ?? null,
-    currency: metaByCode[code]?.currency ?? "",
-  }));
+  /** Just this deployment's own country — no other country's price ever shows here anymore. */
+  const activePrices: HeroPriceOption[] = [
+    {
+      country: CURRENT_COUNTRY,
+      price: priceByCode[CURRENT_COUNTRY] ?? null,
+      currency: metaByCode[CURRENT_COUNTRY]?.currency ?? "",
+    },
+  ];
 
-  const selectedCountryCode = country ?? SUPPORTED_COUNTRIES[0];
-  const selectedData =
-    activePrices.find((c) => c.country === selectedCountryCode) || activePrices[0];
+  const selectedCountryCode = country;
+  const selectedData = activePrices[0];
   const SelectedFlag = getFlagComponent(selectedData.country);
 
   /* const navigateToPreviousService = 
@@ -159,7 +160,7 @@ export function PageHero({
             selectedData={selectedData}
             selectedFlag={SelectedFlag}
             getFlagComponent={getFlagComponent}
-            onCountryChange={(nextCountry) => setCountry(normalizeCountryCode(nextCountry))}
+            onCountryChange={() => {}}
             unitLabelKey={unitLabelKey}
           />
         )}

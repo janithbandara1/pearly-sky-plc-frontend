@@ -1,14 +1,13 @@
-import { headers } from "next/headers";
-import { COUNTRY_HEADER_NAME, isSupportedCountry, type CountryCode } from "./config";
+import { CURRENT_COUNTRY, type CountryCode } from "./config";
 
 /**
- * Server Components only. Reads the country proxy.ts resolved for the
- * current request (null on the unprefixed/global site). Use this instead
- * of re-reading the header directly so every call site agrees on the
- * header name and validation.
+ * Server Components only. Returns this deployment's fixed country. Kept as
+ * an async function (rather than importing CURRENT_COUNTRY directly) so
+ * call sites written against the old per-request-detection API don't need
+ * to change — under the old single-domain model this read the country
+ * proxy.ts resolved per request; now every request on this deployment
+ * resolves to the same country, so there's nothing left to detect.
  */
-export async function getRequestCountry(): Promise<CountryCode | null> {
-  const headerList = await headers();
-  const value = headerList.get(COUNTRY_HEADER_NAME);
-  return isSupportedCountry(value) ? value : null;
+export async function getRequestCountry(): Promise<CountryCode> {
+  return CURRENT_COUNTRY;
 }

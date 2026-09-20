@@ -28,7 +28,7 @@ import { ApiError, useAuth } from "@/lib/auth-context";
 import { CatalogItem, CatalogServiceDetail, getServiceBySlug, withLocaleDefaults } from "@/lib/catalog-api";
 import { calculateEquipmentItemPrice } from "@/lib/equipment-pricing";
 import { CustomerAddress, getMyProfile, listMyAddresses } from "@/lib/customers-api";
-import { SUPPORTED_COUNTRIES, type CountryCode } from "@/lib/countries/config";
+import { CURRENT_COUNTRY, type CountryCode } from "@/lib/countries/config";
 import { useCountry } from "@/lib/countries/country-context";
 import { COUNTRY_FLAGS, FALLBACK_COUNTRY_NAMES } from "@/components/country-switcher";
 import { useLanguage } from "@/lib/i18n/language-context";
@@ -93,41 +93,18 @@ const HIDE_CHEM_EQUIP_SLUGS = new Set([
 
 const COUNTRY_NAMES: Record<CountryCode, string> = {
   fr: "France",
-  de: "Germany",
-  lu: "Luxembourg",
-  nl: "Netherlands",
-  fi: "Finland",
-  se: "Sweden",
-  it: "Italy",
-  pl: "Poland",
-  be: "Belgium",
-  at: "Austria",
-  dk: "Denmark",
-  es: "Spain",
-  pt: "Portugal",
-  ro: "Romania",
-  ie: "Ireland",
-  mc: "Monaco",
-  ch: "Switzerland",
   gb: "United Kingdom",
-  us: "United States",
-  ca: "Canada",
-  au: "Australia",
-  nz: "New Zealand",
-  qa: "Qatar",
-  sa: "Saudi Arabia",
-  ae: "United Arab Emirates",
-  om: "Oman",
-  bh: "Bahrain",
   lk: "Sri Lanka",
 };
 
-/** Same country list (and country-flag-icons flags) as the navbar's CountrySwitcher/LocaleSwitcher and the checkout page's country select. */
-const COUNTRY_OPTIONS = SUPPORTED_COUNTRIES.map((code) => ({
-  code: code.toUpperCase(),
-  name: FALLBACK_COUNTRY_NAMES[code],
-  Flag: COUNTRY_FLAGS[code],
-}));
+/** Single-item on purpose — this deployment only ever serves CURRENT_COUNTRY, so the "select country" field below has nothing else to offer (see checkout page's matching country select). */
+const COUNTRY_OPTIONS = [
+  {
+    code: CURRENT_COUNTRY.toUpperCase(),
+    name: FALLBACK_COUNTRY_NAMES[CURRENT_COUNTRY],
+    Flag: COUNTRY_FLAGS[CURRENT_COUNTRY],
+  },
+];
 
 // Gender preference values — labels are translated at render time via translate()
 const GENDER_PREFERENCE_VALUES = [
@@ -408,16 +385,16 @@ export function RequestQuotationView({ serviceSlug }: { serviceSlug: string }) {
   const [email, setEmail] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
 
-  // Location of the residence
-  const [selectedCountry, setSelectedCountry] = useState("France");
+  // Location of the residence — locked to this deployment's own country (see CURRENT_COUNTRY)
+  const [selectedCountry, setSelectedCountry] = useState(FALLBACK_COUNTRY_NAMES[CURRENT_COUNTRY]);
   const [postalCode, setPostalCode] = useState("");
   const [city, setCity] = useState("");
   const [province, setProvince] = useState("");
   const [streetAddress, setStreetAddress] = useState("");
   const [unit, setUnit] = useState("");
 
-  // Delivery location (laundry-services / move-in-out-transport-service only)
-  const [deliveryCountry, setDeliveryCountry] = useState("France");
+  // Delivery location (laundry-services / move-in-out-transport-service only) — locked to CURRENT_COUNTRY too
+  const [deliveryCountry, setDeliveryCountry] = useState(FALLBACK_COUNTRY_NAMES[CURRENT_COUNTRY]);
   const [deliveryPostalCode, setDeliveryPostalCode] = useState("");
   const [deliveryCity, setDeliveryCity] = useState("");
   const [deliveryProvince, setDeliveryProvince] = useState("");
