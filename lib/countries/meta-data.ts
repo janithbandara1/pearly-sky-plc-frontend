@@ -1,4 +1,4 @@
-import { CURRENT_COUNTRY, type CountryCode } from "./config";
+import { CURRENT_COUNTRY, IS_GLOBAL_SITE, type CountryCode } from "./config";
 import type { LanguageCode } from "@/lib/i18n/config";
 import { getTranslatedCountryPageMeta } from "./meta-templates";
 
@@ -147,13 +147,62 @@ const COUNTRY_PAGE_META: Record<CountryCode, Partial<Record<LanguageCode, Record
 };
 
 /**
- * Title/description for `page` in CURRENT_COUNTRY, in `language`. Resolution
- * order: hand-written English copy (COUNTRY_PAGE_META above; the only
- * hand-written entry any country has) -> a generated translation
- * (meta-templates.ts; covers France's "fr"/"de"/"es"/"it") ->
- * CURRENT_COUNTRY's English copy as a last-resort fallback.
+ * <title>/description for the global gateway (IS_GLOBAL_SITE) — France's
+ * English copy above with the country reference stripped out, since the
+ * gateway isn't any one country. Kept as its own table (rather than a 4th
+ * "country" in COUNTRY_PAGE_META) because CountryCode intentionally only
+ * has real, database-backed countries — "global" isn't one.
+ */
+const GLOBAL_PAGE_META: Record<CountryPageKey, PageMeta> = {
+  home: {
+    title: "Premium Eco-Luxury Cleaning Services | Pearly Sky",
+    description:
+      "Experience elite, eco-luxury residential & commercial cleaning. Five-star premium property care using sustainable, high-performance practices.",
+  },
+  about: {
+    title: "About Us: Eco-Luxury Property Care | Pearly Sky",
+    description:
+      "Discover the story, strict standards, and values driving Pearly Sky Global. Dedicated to elite property care and lifestyle support.",
+  },
+  customers: {
+    title: "Verified Client Reviews & Testimonials | Pearly Sky",
+    description:
+      "See what our clients say about us. Read verified reviews from premium homeowners, corporate offices, and luxury estates.",
+  },
+  contact: {
+    title: "Contact Our Eco-Luxury Cleaning Team | Pearly Sky",
+    description:
+      "Get in touch with Pearly Sky Global for booking inquiries or custom service quotes. Reliable, immediate assistance.",
+  },
+  careers: {
+    title: "Careers in Luxury Property Care | Pearly Sky",
+    description:
+      "Build a rewarding career in luxury property care. Explore open positions for professional cleaners and premium specialists.",
+  },
+  ourLocations: {
+    title: "Our Service Locations | Pearly Sky Global",
+    description:
+      "Operating premium service clusters. Find your local Pearly Sky Global service portal and book elite eco-luxury care.",
+  },
+  blog: {
+    title: "Eco-Luxury Cleaning Blog & Insights | Pearly Sky",
+    description:
+      "Read professional care advice, sustainable housekeeping guides, and elite property maintenance insights for premium spaces.",
+  },
+};
+
+/**
+ * Title/description for `page`. On the global gateway this is always
+ * GLOBAL_PAGE_META — no country/language resolution applies there. On a
+ * real country site, resolution order for CURRENT_COUNTRY in `language` is:
+ * hand-written English copy (COUNTRY_PAGE_META above; the only hand-written
+ * entry any country has) -> a generated translation (meta-templates.ts;
+ * covers France's "fr"/"de"/"es"/"it") -> CURRENT_COUNTRY's English copy as
+ * a last-resort fallback.
  */
 export function getCountryPageMeta(page: CountryPageKey, language: LanguageCode): PageMeta {
+  if (IS_GLOBAL_SITE) return GLOBAL_PAGE_META[page];
+
   const forCountry = COUNTRY_PAGE_META[CURRENT_COUNTRY];
   const handWritten = forCountry[language]?.[page];
   if (handWritten) return handWritten;

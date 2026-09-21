@@ -96,3 +96,12 @@ export function isLanguageSupportedHere(language: string | null | undefined): la
   if (!language) return false;
   return (CURRENT_COUNTRY_LANGUAGES as readonly string[]).includes(language.toLowerCase());
 }
+
+/**
+ * Careers/job listings only exist for France's hiring — the UK and Sri
+ * Lanka deployments have no positions to list, so /careers is hidden and
+ * blocked there (see proxy.ts, site-header.tsx, site-footer.tsx, and
+ * app/sitemap.ts). Also shown on the global gateway, whose content isn't
+ * country-specific to begin with.
+ */
+export const IS_CAREERS_ENABLED = IS_GLOBAL_SITE || CURRENT_COUNTRY === "fr";

@@ -54,6 +54,9 @@ export function SiteHeader({ navLinks: navLinksProp, showServicesMenu: showServi
     { href: "/our-customers", label: translate("navCustomers") },
     { href: "/our-locations", label: translate("navLocations") },
     { href: "/blog", label: translate("navBlog") },
+    // Careers is France-only hiring, but shown in nav everywhere — the UK/Sri
+    // Lanka sites' /careers renders a "no openings" notice instead of a listing
+    // (see IS_CAREERS_ENABLED), rather than hiding the link entirely.
     { href: "/careers", label: translate("navCareers") },
     { href: "/contact-us", label: translate("navContact") },
   ];

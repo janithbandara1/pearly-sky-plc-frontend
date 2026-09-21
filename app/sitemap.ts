@@ -3,7 +3,7 @@ import { buildServiceSitemapEntries, buildSitemapEntries } from "@/lib/countries
 import { blogPosts } from "@/lib/content/blog-posts";
 import { jobs } from "@/lib/content/jobs";
 import { getServices } from "@/lib/catalog-api";
-import { IS_GLOBAL_SITE } from "@/lib/countries/config";
+import { IS_CAREERS_ENABLED, IS_GLOBAL_SITE } from "@/lib/countries/config";
 
 const STATIC_PAGES: { path: string; changeFrequency: MetadataRoute.Sitemap[number]["changeFrequency"]; priority: number }[] = [
   { path: "/", changeFrequency: "weekly", priority: 1 },
@@ -11,6 +11,11 @@ const STATIC_PAGES: { path: string; changeFrequency: MetadataRoute.Sitemap[numbe
   { path: "/our-customers", changeFrequency: "monthly", priority: 0.7 },
   { path: "/our-locations", changeFrequency: "monthly", priority: 0.7 },
   { path: "/blog", changeFrequency: "weekly", priority: 0.7 },
+  // /careers is a real, indexable page everywhere now — a job listing on
+  // France/global, a "no openings" notice on the UK/Sri Lanka sites (see
+  // IS_CAREERS_ENABLED) — so it's listed unconditionally. Individual job
+  // postings below stay France/global-only: including them on UK/Sri Lanka
+  // would just be N duplicate URLs all showing that same notice.
   { path: "/careers", changeFrequency: "weekly", priority: 0.6 },
   { path: "/contact-us", changeFrequency: "monthly", priority: 0.8 },
   { path: "/privacy-policy", changeFrequency: "yearly", priority: 0.3 },
@@ -28,8 +33,10 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     entries.push(...buildSitemapEntries(`/blog/${post.slug}`, { changeFrequency: "monthly", priority: 0.6 }));
   }
 
-  for (const job of jobs) {
-    entries.push(...buildSitemapEntries(`/careers/${job.id}`, { changeFrequency: "weekly", priority: 0.5 }));
+  if (IS_CAREERS_ENABLED) {
+    for (const job of jobs) {
+      entries.push(...buildSitemapEntries(`/careers/${job.id}`, { changeFrequency: "weekly", priority: 0.5 }));
+    }
   }
 
   // Service list (base slugs + each service's own locale-specific slugs, if

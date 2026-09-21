@@ -12,6 +12,8 @@ import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { useLanguage } from "@/lib/i18n/language-context";
 import { getJob, getTranslatedJob } from "@/lib/content/jobs";
+import { IS_CAREERS_ENABLED } from "@/lib/countries/config";
+import { NoCareersNotice } from "@/components/careers/no-careers-notice";
 
 const CONTACT_EMAIL = "info@pearlyskyglobalclean.com";
 
@@ -37,6 +39,10 @@ export default function JobApplyPage({ params }: { params: Promise<{ jobId: stri
     reset,
     formState: { errors, isSubmitting },
   } = useForm<ApplyFormValues>({ resolver: zodResolver(applySchema), mode: "onChange" });
+
+  // Careers is France-only hiring (see IS_CAREERS_ENABLED) — every job id is
+  // treated as "no jobs" on the UK/Sri Lanka sites, without even looking one up.
+  if (!IS_CAREERS_ENABLED) return <NoCareersNotice />;
 
   if (!job) notFound();
 

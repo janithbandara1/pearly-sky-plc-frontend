@@ -14,7 +14,7 @@ import { ContactSection } from "@/components/home/home-contact-us";
 import { buildCountryAlternates, buildSocialMeta } from "@/lib/countries/seo";
 import { getRequestCountry } from "@/lib/countries/server";
 import { getRequestLanguage } from "@/lib/i18n/server";
-import { getCountryPageMeta, GLOBAL_META } from "@/lib/countries/meta-data";
+import { getCountryPageMeta } from "@/lib/countries/meta-data";
 import { IS_GLOBAL_SITE } from "@/lib/countries/config";
 import { Welcome } from "@/components/home/welcome";
 import { VisionaryTeam } from "@/components/home/visionary-team";
@@ -22,20 +22,16 @@ import { VisionaryTeam } from "@/components/home/visionary-team";
 export const dynamic = "force-dynamic";
 
 export async function generateMetadata(): Promise<Metadata> {
-  // The global gateway isn't any one country, so it gets the generic
-  // site-wide title instead of getCountryPageMeta's France/UK/Sri Lanka
-  // copy (which defaults to France's when CURRENT_COUNTRY has no real
-  // value to fall back to — see IS_GLOBAL_SITE in lib/countries/config.ts).
-  if (IS_GLOBAL_SITE) {
-    return {
-      title: GLOBAL_META.title,
-      description: GLOBAL_META.description,
-      ...buildSocialMeta(GLOBAL_META.title, GLOBAL_META.description),
-    };
-  }
-
   const language = await getRequestLanguage();
   const { title, description } = getCountryPageMeta("home", language ?? "en");
+
+  // The global gateway's pages aren't "the same content in another
+  // language/region" as any real country site's — they're generic instead
+  // of country-specific — so hreflang alternates cross-linking them would
+  // misrepresent duplicate content that isn't actually duplicate.
+  if (IS_GLOBAL_SITE) {
+    return { title, description, ...buildSocialMeta(title, description) };
+  }
 
   return {
     title,

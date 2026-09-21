@@ -35,6 +35,9 @@ const NAV_LINKS: { href: string; labelKey: TranslationKey; external?: boolean }[
   { href: "/our-customers", labelKey: "navCustomers" },
   { href: "/our-locations", labelKey: "navLocations" },
   { href: "/blog", labelKey: "navBlog" },
+  // Careers is France-only hiring, but shown in nav everywhere — the UK/Sri
+  // Lanka sites' /careers renders a "no openings" notice instead of a listing
+  // (see IS_CAREERS_ENABLED), rather than hiding the link entirely.
   { href: "/careers", labelKey: "navCareers" },
   { href: "/contact-us", labelKey: "navContact" },
 ];

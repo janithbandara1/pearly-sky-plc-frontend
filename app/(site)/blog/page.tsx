@@ -4,11 +4,16 @@ import { buildCountryAlternates, buildSocialMeta } from "@/lib/countries/seo";
 import { buildBreadcrumbJsonLd } from "@/lib/seo/json-ld";
 import { JsonLd } from "@/components/json-ld";
 import { getCountryPageMeta } from "@/lib/countries/meta-data";
+import { IS_GLOBAL_SITE } from "@/lib/countries/config";
 import { BlogView } from "./blog-view";
 
 export async function generateMetadata(): Promise<Metadata> {
   const language = await getRequestLanguage();
   const { title, description } = getCountryPageMeta("blog", language ?? "en");
+
+  if (IS_GLOBAL_SITE) {
+    return { title, description, ...buildSocialMeta(title, description) };
+  }
 
   return {
     title,
