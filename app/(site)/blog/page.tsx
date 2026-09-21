@@ -6,8 +6,21 @@ import { JsonLd } from "@/components/json-ld";
 import { getCountryPageMeta } from "@/lib/countries/meta-data";
 import { IS_GLOBAL_SITE } from "@/lib/countries/config";
 import { BlogView } from "./blog-view";
+import { IS_GLOBAL_SITE } from "@/lib/countries/config";
 
 export async function generateMetadata(): Promise<Metadata> {
+
+  if (IS_GLOBAL_SITE) {
+         
+        const {title,description} = GLOBAL_META.blog;
+        
+        return {
+          title: title,
+          description: description,
+          ...buildSocialMeta(title, description),
+        };
+  }
+
   const language = await getRequestLanguage();
   const { title, description } = getCountryPageMeta("blog", language ?? "en");
 

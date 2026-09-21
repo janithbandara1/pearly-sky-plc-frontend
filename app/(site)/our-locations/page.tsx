@@ -7,8 +7,21 @@ import { getCountryPageMeta } from "@/lib/countries/meta-data";
 import { IS_GLOBAL_SITE } from "@/lib/countries/config";
 import { OurLocationsView } from "./our-locations-view";
 import PaymentMarquee from "@/components/payment-method-services";
+import { IS_GLOBAL_SITE } from "@/lib/countries/config";
 
 export async function generateMetadata(): Promise<Metadata> {
+  
+  if (IS_GLOBAL_SITE) {
+           
+    const {title,description} = GLOBAL_META.ourLocation;
+    
+    return {
+      title: title,
+      description: description,
+      ...buildSocialMeta(title, description),
+    };
+  }
+  
   const language = await getRequestLanguage();
   const { title, description } = getCountryPageMeta("ourLocations", language ?? "en");
 

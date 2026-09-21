@@ -5,6 +5,8 @@ import { useCountry } from "@/lib/countries/country-context";
 import { COVERAGE_CITIES, getCountryHomeContent } from "@/lib/countries/home-content";
 import { Building2, Castle, Landmark, Palmtree, ShieldCheck, Star, Timer, UsersRound } from "lucide-react";
 import RecentProjects from "./recent-projects";
+import { IS_GLOBAL_SITE } from "@/lib/countries/config";
+import CountryWiseDomains from "../ui/country-wise-domains";
 
 export function CoverageStrip() {
   const {translate, language } = useLanguage();
@@ -22,16 +24,17 @@ export function CoverageStrip() {
   return (
     <section className="w-full border-t-2 border-[#A98B4B] bg-[#0A1530] px-3 py-7 text-[#fffdf4] sm:px-6 sm:py-10 lg:px-8 lg:py-12">
       <div className="mx-auto w-full max-w-6xl">
-        <h2 className="text-center font-bold tracking-tight text-[#C9B678]  text-lg  lg:text-xl">
+        {!IS_GLOBAL_SITE && <h2 className="text-center font-bold tracking-tight text-[#C9B678]  text-lg  lg:text-xl">
           {translate("aboutPageWhyTitle")} - {coverageTitle}
-        </h2>
+        </h2>}
 
-        <p className="mx-auto mt-1 max-w-3xl text-center text-[10px] leading-4 text-[#fffdf4]/75 text-[10px] lg:text-[14px]">
+        {!IS_GLOBAL_SITE && <p className="mx-auto mt-1 max-w-3xl text-center text-[10px] leading-4 text-[#fffdf4]/75 text-[10px] lg:text-[14px]">
           {coverageSubtitle}
         </p>
+        }
 
         <div className="mt-4 overflow-hidden sm:mt-5 lg:mt-6">
-          <div className="grid w-max grid-flow-col grid-rows-2 gap-1.5 motion-reduce:animate-none animate-marquee hover:[animation-play-state:paused] sm:gap-2.5">
+          {!IS_GLOBAL_SITE && <div className="grid w-max grid-flow-col grid-rows-2 gap-1.5 motion-reduce:animate-none animate-marquee hover:[animation-play-state:paused] sm:gap-2.5">
             {[...cities, ...cities].map((city, index) => {
               const Icon = cityIcons[index % cityIcons.length];
 
@@ -48,7 +51,7 @@ export function CoverageStrip() {
                 </div>
               );
             })}
-          </div>
+          </div>}
         </div>
 
         <h3 className="mt-7 text-center font-bold text-[#C9B678] sm:mt-9 text-lg lg:mt-10 md:text-2xl lg:text-2xl">

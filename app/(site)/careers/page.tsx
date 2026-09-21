@@ -9,6 +9,19 @@ import { CareersView } from "./careers-view";
 import { NoCareersNotice } from "@/components/careers/no-careers-notice";
 
 export async function generateMetadata(): Promise<Metadata> {
+  
+  if (IS_GLOBAL_SITE) {
+           
+          const {title,description} = GLOBAL_META.career;
+          
+          return {
+            title: title,
+            description: description,
+            ...buildSocialMeta(title, description),
+          };
+    }
+  
+  
   const language = await getRequestLanguage();
   const { title, description } = getCountryPageMeta("careers", language ?? "en");
 
