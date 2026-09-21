@@ -1,4 +1,4 @@
-import { SUPPORTED_COUNTRIES, type CountryCode } from "./config";
+import { CURRENT_COUNTRY, SUPPORTED_COUNTRIES, type CountryCode } from "./config";
 
 interface ServiceMeta {
   title: string;
@@ -44,6 +44,14 @@ function metaByCountryFrom(title: string, description: string): Record<CountryCo
  * app/(site)/services/[serviceSlug]/page.tsx.
  */
 export const SERVICE_META: Record<string, Record<CountryCode, ServiceMeta>> = {
+  "regular-home-cleaning": metaByCountryFrom(
+    "Regular Home Cleaning | Pearly Sky Eco-Luxury Care",
+    "Recurring, detail-driven upkeep that keeps every room fresh, tidy, and welcoming between visits.",
+  ),
+  "quick-touch-up-cleaning": metaByCountryFrom(
+    "Essential Touch-Up Cleaning | Fast Refresh Service",
+    "A focused, efficient refresh for high-traffic areas — ideal for a quick reset before guests or the next appointment.",
+  ),
   "deep-cleaning": metaByCountryFrom(
     "Elite Luxury Deep Cleaning Services | Pearly Sky Specialized",
     "An exhaustive, detail-driven interior sterilization targeting structural buildup, scaling, and precision rejuvenation. Experience ultimate freshness.",
@@ -55,6 +63,14 @@ export const SERVICE_META: Record<string, Record<CountryCode, ServiceMeta>> = {
   "post-construction-renovation-cleaning": metaByCountryFrom(
     "Post-Construction Detail Cleaning | Luxury Site Handover",
     "Advanced elimination of airborne fine dust, tracking residues, paint splatters, and structural masonry polishing. Turn builds into move-in spaces.",
+  ),
+  "same-day-priority-cleaning": metaByCountryFrom(
+    "Same-Day Priority Cleaning | Rapid-Dispatch Service",
+    "Urgent, fully-staffed cleaning dispatched the same day for last-minute arrivals, inspections, or unexpected guests.",
+  ),
+  "high-security-property-care": metaByCountryFrom(
+    "High-Security Property Care | Vetted Discreet Teams",
+    "Background-checked, NDA-bound cleaning crews for high-profile residences and secure facilities, with strict access and confidentiality protocols.",
   ),
   "premium-rental-concierge-cleaning": metaByCountryFrom(
     "Premium Rental Concierge Cleaning | Airbnb Turnover Experts",
@@ -100,9 +116,16 @@ export const SERVICE_META: Record<string, Record<CountryCode, ServiceMeta>> = {
     "Premium Elder Care Companion & Safe Home Maintenance",
     "Compassionate senior support schedules coupled with specialized domestic mobility safety setups and organic clean home upkeep routines.",
   ),
+  "laundry-service": metaByCountryFrom(
+    "Laundry & Linen Care | Wash, Press & Fold Service",
+    "Premium garment and linen care — washing, pressing, and folding handled with hotel-grade attention to fabric and finish.",
+  ),
+  "move-in-out-transport-service": metaByCountryFrom(
+    "Move-In & Move-Out Transport Health | Pearly Sky Concierge",
+    "Coordinated transport and handling support for relocations, paired with sanitized, health-conscious packing and moving practices.",
+  ),
 };
 
-/** Falls back to France when country is null (unprefixed/global site). */
-export function getServiceMeta(slug: string, country: CountryCode | null): ServiceMeta | undefined {
-  return SERVICE_META[slug]?.[country ?? "fr"];
+export function getServiceMeta(slug: string): ServiceMeta | undefined {
+  return SERVICE_META[slug]?.[CURRENT_COUNTRY];
 }

@@ -1,20 +1,25 @@
 import type { Metadata } from "next";
-import { getRequestCountry } from "@/lib/countries/server";
 import { getRequestLanguage } from "@/lib/i18n/server";
 import { buildCountryAlternates, buildSocialMeta } from "@/lib/countries/seo";
 import { buildBreadcrumbJsonLd } from "@/lib/seo/json-ld";
 import { JsonLd } from "@/components/json-ld";
 import { getCountryPageMeta } from "@/lib/countries/meta-data";
+import { IS_CAREERS_ENABLED, IS_GLOBAL_SITE } from "@/lib/countries/config";
 import { CareersView } from "./careers-view";
+import { NoCareersNotice } from "@/components/careers/no-careers-notice";
 
 export async function generateMetadata(): Promise<Metadata> {
-  const [country, language] = await Promise.all([getRequestCountry(), getRequestLanguage()]);
-  const { title, description } = getCountryPageMeta("careers", country);
+  const language = await getRequestLanguage();
+  const { title, description } = getCountryPageMeta("careers", language ?? "en");
+
+  if (IS_GLOBAL_SITE) {
+    return { title, description, ...buildSocialMeta(title, description) };
+  }
 
   return {
     title,
     description,
-    alternates: buildCountryAlternates("/careers", { country, language }),
+    alternates: buildCountryAlternates("/careers", { language }),
     ...buildSocialMeta(title, description),
   };
 }
@@ -23,7 +28,7 @@ export default function CareersPage() {
   return (
     <>
       <JsonLd data={buildBreadcrumbJsonLd([{ name: "Home", path: "/" }, { name: "Careers", path: "/careers" }])} />
-      <CareersView />
+      {IS_CAREERS_ENABLED ? <CareersView /> : <NoCareersNotice />}
     </>
   );
 }

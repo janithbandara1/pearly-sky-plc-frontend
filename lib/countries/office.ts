@@ -10,3 +10,7 @@ export function getCountryOffice(country: CountryCode | null) {
 export function getWhatsappUrl(contactNo: string): string {
   return `https://wa.me/${contactNo.replace(/\D/g, "")}`;
 }
+
+export function getCountryContactEmail(_country: CountryCode | null): string {
+  return "info@pearlyskyglobalclean.com";
+}

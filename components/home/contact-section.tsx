@@ -1,10 +1,10 @@
 "use client";
 
-import { useState } from "react";
-import { useForm } from "react-hook-form";
+import { useRef, useState } from "react";
+import { Controller, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
-import { Mail, Phone } from "lucide-react";
+import { ArrowLeft, Mail, Phone } from "lucide-react";
 import { FaWhatsapp, FaFacebookF, FaYoutube, FaLinkedinIn } from "react-icons/fa";
 import { AiOutlineTikTok, AiFillInstagram } from "react-icons/ai";
 import { RiTwitterXFill } from "react-icons/ri";
@@ -18,6 +18,9 @@ import { getCountryOffice, getWhatsappUrl } from "@/lib/countries/office";
 import { SOCIAL_URLS } from "@/lib/content/social-links";
 import { ApiError } from "@/lib/api";
 import { sendContactMessage } from "@/lib/contact-api";
+import { PhoneInput } from "@/components/phone-input";
+import { TurnstileWidget, type TurnstileHandle } from "@/components/turnstile";
+import Link from "next/link";
 
 const CONTACT_EMAIL = "info@pearlyskyglobalclean.com";
 
@@ -44,6 +47,8 @@ export function ContactSection() {
   const { country } = useCountry();
   const [sent, setSent] = useState(false);
   const [sendError, setSendError] = useState<string | null>(null);
+  const [turnstileToken, setTurnstileToken] = useState("");
+  const turnstileRef = useRef<TurnstileHandle>(null);
 
   const office = getCountryOffice(country);
   const hotline = office.contactNo ?? "";
@@ -51,6 +56,7 @@ export function ContactSection() {
 
   const {
     register,
+    control,
     handleSubmit,
     reset,
     formState: { errors, isSubmitting },
@@ -60,158 +66,191 @@ export function ContactSection() {
   });
 
   const onSubmit = async (values: ContactFormValues) => {
+    if (!turnstileToken) {
+      setSendError("Please complete the verification challenge.");
+      return;
+    }
     setSendError(null);
     try {
-      await sendContactMessage(values);
+      await sendContactMessage({ ...values, turnstileToken });
       setSent(true);
       reset();
+      setTurnstileToken("");
+      turnstileRef.current?.reset();
     } catch (err) {
       setSendError(err instanceof ApiError ? err.message : "Failed to send your message. Please try again.");
+      turnstileRef.current?.reset();
+      setTurnstileToken("");
     }
   };
 
   return (
-    <section id="contact" className="mx-auto w-full max-w-6xl scroll-mt-16 px-4 py-16 sm:px-6">
-      <h2 className="mb-8 text-center text-2xl font-bold tracking-tight text-brand-navy sm:text-3xl">
-        {translate("contactTitle")}
-      </h2>
+    <section id="contact" className=" w-full  scroll-mt-16 ">
+      <div className="bg-[#0a1530] py-10 w-full">
+        <h2 className="text-center text-white text-2xl font-bold tracking-tight  sm:text-3xl">
+          {translate("contactTitle")}
+        </h2>
+      </div>
+      <div className="flex w-full  flex-col gap-6 px-4 py-5 sm:px-6 md:mx-auto">
+        <Link href="/" title="Back to home" className="mb-6 inline-flex items-center gap-1 text-sm text-brand-gold-dark hover:underline">
+          <ArrowLeft className="h-4 w-4" />
+          {translate("commonBack")}
+        </Link>
+      </div>
+      <div className="md:py-4 md:px-8">
+          <div className="grid gap-0 overflow-hidden rounded-2xl   border-2 border-brand-gold md:grid-cols-2 lg:grid-cols-2">
+          <form onSubmit={handleSubmit(onSubmit)} className="space-y-4 p-6 sm:p-8" noValidate>
+            <div className="space-y-1.5">
+              <Label htmlFor="contact-name" className="block text-[#002F6D] font-semibold mb-1 text-[17px]">{translate("contactNameLabel")}</Label>
+              <Input
+                id="contact-name"
+                placeholder={translate("contactNamePlaceholder")}
+                aria-invalid={!!errors.name}
+                {...register("name")}
+              />
+              {errors.name && <p className="text-xs text-destructive">{errors.name.message}</p>}
+            </div>
 
-      <div className="grid gap-0 overflow-hidden rounded-2xl border-2 border-brand-gold lg:grid-cols-2">
-        <form onSubmit={handleSubmit(onSubmit)} className="space-y-4 p-6 sm:p-8" noValidate>
-          <div className="space-y-1.5">
-            <Label htmlFor="contact-name">{translate("contactNameLabel")}</Label>
-            <Input
-              id="contact-name"
-              placeholder={translate("contactNamePlaceholder")}
-              aria-invalid={!!errors.name}
-              {...register("name")}
+            <div className="space-y-1.5">
+              <Label htmlFor="contact-email" className="block text-[#002F6D] font-semibold mb-1 text-[17px]">{translate("contactEmailLabel")}</Label>
+              <Input
+                id="contact-email"
+                type="email"
+                placeholder={translate("contactEmailPlaceholder")}
+                aria-invalid={!!errors.email}
+                {...register("email")}
+              />
+              {errors.email && <p className="text-xs text-destructive">{errors.email.message}</p>}
+            </div>
+
+            <div className="space-y-1.5">
+              <Label htmlFor="contact-phone" className="block text-[#002F6D] font-semibold mb-1 text-[17px]">{translate("contactPhoneLabel")}</Label>
+              <Controller
+                name="phone"
+                control={control}
+                render={({ field }) => (
+                  <PhoneInput
+                    id="contact-phone"
+                    name={field.name}
+                    value={field.value}
+                    onChange={field.onChange}
+                    onBlur={field.onBlur}
+                    placeholder={translate("contactPhonePlaceholder")}
+                    aria-invalid={!!errors.phone}
+                    initialCountry={country ?? "fr"}
+                  />
+                )}
+              />
+              {errors.phone && <p className="text-xs text-destructive">{errors.phone.message}</p>}
+            </div>
+
+            <div className="space-y-1.5">
+              <Label htmlFor="contact-message" className="block text-[#002F6D] font-semibold mb-1 text-[17px]">{translate("contactMessageLabel")}</Label>
+              <Textarea
+                id="contact-message"
+                rows={4}
+                placeholder={translate("contactMessagePlaceholder")}
+                aria-invalid={!!errors.message}
+                {...register("message")}
+              />
+              {errors.message && <p className="text-xs text-destructive">{errors.message.message}</p>}
+            </div>
+
+            <TurnstileWidget
+              ref={turnstileRef}
+              onVerify={setTurnstileToken}
+              onExpire={() => setTurnstileToken("")}
             />
-            {errors.name && <p className="text-xs text-destructive">{errors.name.message}</p>}
-          </div>
 
-          <div className="space-y-1.5">
-            <Label htmlFor="contact-email">{translate("contactEmailLabel")}</Label>
-            <Input
-              id="contact-email"
-              type="email"
-              placeholder={translate("contactEmailPlaceholder")}
-              aria-invalid={!!errors.email}
-              {...register("email")}
-            />
-            {errors.email && <p className="text-xs text-destructive">{errors.email.message}</p>}
-          </div>
+            <Button
+              type="submit"
+              disabled={isSubmitting || !turnstileToken}
+              className="w-full min-h-[48px] px-6 py-3 bg-brand-navy text-brand-navy-foreground hover:bg-brand-navy/90 sm:w-auto"
+            >
+              {translate("contactSend")}
+            </Button>
 
-          <div className="space-y-1.5">
-            <Label htmlFor="contact-phone">{translate("contactPhoneLabel")}</Label>
-            <Input
-              id="contact-phone"
-              type="tel"
-              placeholder={translate("contactPhonePlaceholder")}
-              aria-invalid={!!errors.phone}
-              {...register("phone")}
-            />
-            {errors.phone && <p className="text-xs text-destructive">{errors.phone.message}</p>}
-          </div>
+            {sent && (
+              <p className="text-sm text-muted-foreground">
+                Your message has been sent. We&apos;ll get back to you soon.
+              </p>
+            )}
+            {sendError && <p className="text-sm text-destructive">{sendError}</p>}
+          </form>
 
-          <div className="space-y-1.5">
-            <Label htmlFor="contact-message">{translate("contactMessageLabel")}</Label>
-            <Textarea
-              id="contact-message"
-              rows={4}
-              placeholder={translate("contactMessagePlaceholder")}
-              aria-invalid={!!errors.message}
-              {...register("message")}
-            />
-            {errors.message && <p className="text-xs text-destructive">{errors.message.message}</p>}
-          </div>
+          <div className="flex flex-col items-center justify-center gap-6 bg-brand-navy p-6 text-center text-brand-navy-foreground sm:p-8">
+            <h3 className="text-sm font-bold tracking-widest">{translate("contactSupportTitle")}</h3>
 
-          <Button
-            type="submit"
-            disabled={isSubmitting}
-            className="w-full bg-brand-navy text-brand-navy-foreground hover:bg-brand-navy/90 sm:w-auto"
-          >
-            {translate("contactSend")}
-          </Button>
+            <div>
+              <p className="mb-2 text-xs font-semibold uppercase tracking-wide text-brand-navy-foreground/70">
+                {translate("contactCallAnytime")}
+              </p>
+              <div className="flex flex-wrap gap-3">
+                <Button
+                  asChild
+                  variant="outline"
+                  size="sm"
+                  className="border-brand-gold bg-transparent text-brand-navy-foreground hover:bg-brand-gold/10"
+                >
+                  <a href={whatsappUrl} target="_blank" rel="noopener noreferrer">
+                    <FaWhatsapp className="h-4 w-4" />
+                    {translate("contactWhatsapp")}
+                  </a>
+                </Button>
+                <Button
+                  asChild
+                  variant="outline"
+                  size="sm"
+                  className="border-brand-gold bg-transparent text-brand-navy-foreground hover:bg-brand-gold/10"
+                >
+                  <a href={`tel:${hotline.replace(/\s/g, "")}`}>
+                    <Phone className="h-4 w-4" />
+                    {translate("contactHotline")}
+                  </a>
+                </Button>
+              </div>
+            </div>
 
-          {sent && (
-            <p className="text-sm text-muted-foreground">
-              Your message has been sent. We&apos;ll get back to you soon.
-            </p>
-          )}
-          {sendError && <p className="text-sm text-destructive">{sendError}</p>}
-        </form>
-
-        <div className="flex flex-col items-center justify-center gap-6 bg-brand-navy p-6 text-center text-brand-navy-foreground sm:p-8">
-          <h3 className="text-sm font-bold tracking-widest">{translate("contactSupportTitle")}</h3>
-
-          <div>
-            <p className="mb-2 text-xs font-semibold uppercase tracking-wide text-brand-navy-foreground/70">
-              {translate("contactCallAnytime")}
-            </p>
-            <div className="flex flex-wrap gap-3">
+            <div>
+              <p className="mb-2 text-xs font-semibold uppercase tracking-wide text-brand-navy-foreground/70">
+                {translate("contactWriteToUs")}
+              </p>
               <Button
                 asChild
                 variant="outline"
                 size="sm"
                 className="border-brand-gold bg-transparent text-brand-navy-foreground hover:bg-brand-gold/10"
               >
-                <a href={whatsappUrl} target="_blank" rel="noopener noreferrer">
-                  <FaWhatsapp className="h-4 w-4" />
-                  {translate("contactWhatsapp")}
-                </a>
-              </Button>
-              <Button
-                asChild
-                variant="outline"
-                size="sm"
-                className="border-brand-gold bg-transparent text-brand-navy-foreground hover:bg-brand-gold/10"
-              >
-                <a href={`tel:${hotline.replace(/\s/g, "")}`}>
-                  <Phone className="h-4 w-4" />
-                  {translate("contactHotline")}
+                <a href={`mailto:${CONTACT_EMAIL}`}>
+                  <Mail className="h-4 w-4" />
+                  {translate("contactMail")}
                 </a>
               </Button>
             </div>
-          </div>
 
-          <div>
-            <p className="mb-2 text-xs font-semibold uppercase tracking-wide text-brand-navy-foreground/70">
-              {translate("contactWriteToUs")}
-            </p>
-            <Button
-              asChild
-              variant="outline"
-              size="sm"
-              className="border-brand-gold bg-transparent text-brand-navy-foreground hover:bg-brand-gold/10"
-            >
-              <a href={`mailto:${CONTACT_EMAIL}`}>
-                <Mail className="h-4 w-4" />
-                {translate("contactMail")}
-              </a>
-            </Button>
-          </div>
-
-          <div>
-            <p className="mb-2 text-xs font-semibold uppercase tracking-wide text-brand-navy-foreground/70">
-              {translate("contactConnect")}
-            </p>
-            <div className="flex gap-2">
-              {SOCIAL_LINKS.map(({ href, label, Icon }) => (
-                <a
-                  key={label}
-                  href={href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  aria-label={label}
-                  className="flex h-8 w-8 items-center justify-center rounded-full border border-brand-gold/50 text-brand-navy-foreground transition-colors hover:bg-brand-gold hover:text-brand-navy"
-                >
-                  <Icon className="h-3.5 w-3.5" />
-                </a>
-              ))}
+            <div>
+              <p className="mb-2 text-xs font-semibold uppercase tracking-wide text-brand-navy-foreground/70">
+                {translate("contactConnect")}
+              </p>
+              <div className="flex gap-2">
+                {SOCIAL_LINKS.map(({ href, label, Icon }) => (
+                  <a
+                    key={label}
+                    href={href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label={label}
+                    className="flex h-8 w-8 items-center justify-center rounded-full border border-brand-gold/50 text-brand-navy-foreground transition-colors hover:bg-brand-gold hover:text-brand-navy"
+                  >
+                    <Icon className="h-3.5 w-3.5" />
+                  </a>
+                ))}
+              </div>
             </div>
           </div>
         </div>
       </div>
+      
     </section>
   );
 }

@@ -1,4 +1,4 @@
-import type { CountryCode } from "./config";
+import { CURRENT_COUNTRY, type CountryCode } from "./config";
 import type { LanguageCode } from "@/lib/i18n/config";
 
 interface CountryPageCopy {
@@ -8,10 +8,12 @@ interface CountryPageCopy {
 }
 
 /**
- * Strings that vary by country AND language, for pages other than the home
- * page. Same [country][language] matrix pattern as lib/countries/home-content.ts.
+ * Copy for pages other than the home page (see home-content.ts), keyed by
+ * [country][language] — mirrors COUNTRY_LANGUAGES in ./config: France has
+ * hand-written "en" and "fr" copy; the UK and Sri Lanka are English-only,
+ * so they only ever have an "en" entry.
  */
-export const COUNTRY_PAGE_CONTENT: Record<CountryCode, Record<LanguageCode, CountryPageCopy>> = {
+const COUNTRY_PAGE_CONTENT: Record<CountryCode, Partial<Record<LanguageCode, CountryPageCopy>>> = {
   fr: {
     en: {
       aboutStoryParagraph2:
@@ -33,12 +35,6 @@ export const COUNTRY_PAGE_CONTENT: Record<CountryCode, Record<LanguageCode, Coun
       customersSubtitle: "Trusted by discerning clients across the United Kingdom",
       contactSubtitle: "We're here to help, wherever you are in the United Kingdom.",
     },
-    fr: {
-      aboutStoryParagraph2:
-        "Depuis, nous sommes devenus une référence de confiance à travers le Royaume-Uni et au-delà. Notre parcours est guidé par une passion profonde du détail, des méthodes de nettoyage novatrices et une satisfaction client sans faille.",
-      customersSubtitle: "La confiance d'une clientèle exigeante à travers le Royaume-Uni",
-      contactSubtitle: "Nous sommes là pour vous aider, où que vous soyez au Royaume-Uni.",
-    },
   },
   lk: {
     en: {
@@ -47,16 +43,16 @@ export const COUNTRY_PAGE_CONTENT: Record<CountryCode, Record<LanguageCode, Coun
       customersSubtitle: "Trusted by discerning clients across Sri Lanka",
       contactSubtitle: "We're here to help, wherever you are in Sri Lanka.",
     },
-    fr: {
-      aboutStoryParagraph2:
-        "Depuis, nous sommes devenus une référence de confiance à travers le Sri Lanka et au-delà. Notre parcours est guidé par une passion profonde du détail, des méthodes de nettoyage novatrices et une satisfaction client sans faille.",
-      customersSubtitle: "La confiance d'une clientèle exigeante à travers le Sri Lanka",
-      contactSubtitle: "Nous sommes là pour vous aider, où que vous soyez au Sri Lanka.",
-    },
   },
 };
 
-/** Falls back to France when country is null (unprefixed/global site). */
-export function getCountryPageContent(country: CountryCode | null, language: LanguageCode): CountryPageCopy {
-  return COUNTRY_PAGE_CONTENT[country ?? "fr"][language];
+/**
+ * CURRENT_COUNTRY's page copy in `language`, falling back to its English
+ * copy if that language has no hand-written entry yet (only ever applies
+ * to France's "de"/"es"/"it" — meta-data.ts's page titles do generate copy
+ * for those from templates, but this body copy has no such generator).
+ */
+export function getCountryPageContent(language: LanguageCode): CountryPageCopy {
+  const forCountry = COUNTRY_PAGE_CONTENT[CURRENT_COUNTRY];
+  return forCountry[language] ?? forCountry.en!;
 }

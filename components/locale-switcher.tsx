@@ -1,21 +1,29 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { Check, ChevronDown } from "lucide-react";
-import { COUNTRY_FLAGS, FALLBACK_COUNTRY_NAMES } from "@/components/country-switcher";
-import { SUPPORTED_COUNTRIES } from "@/lib/countries/config";
-import { useCountry } from "@/lib/countries/country-context";
+import { Check, ChevronDown, Globe } from "lucide-react";
+import { CURRENT_COUNTRY_LANGUAGES } from "@/lib/countries/config";
 import { SUPPORTED_LANGUAGES, useLanguage } from "@/lib/i18n/language-context";
 import { cn } from "@/lib/utils";
 
+/**
+ * Plain-markup language dropdown for the customer header — no shadcn/ui
+ * here per user preference (see the site-footer's shadcn-based
+ * LanguageSwitcher for elsewhere). Lists whichever languages this
+ * deployment offers (CURRENT_COUNTRY_LANGUAGES) — just English for the
+ * UK/Sri Lanka/global deployments, English+French+German+Spanish+Italian
+ * for France.
+ *
+ * No longer shows a country picker — each deployment is now a single
+ * country's own site (see CURRENT_COUNTRY), not a shared multi-country
+ * site with a switcher, so there's nothing to switch to.
+ */
 export function LocaleSwitcher({ className }: { className?: string }) {
-  const { country, setCountry } = useCountry();
   const { language, setLanguage } = useLanguage();
   const [open, setOpen] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
 
-  const currentCountry = country ?? SUPPORTED_COUNTRIES[0];
-  const CurrentFlag = COUNTRY_FLAGS[currentCountry];
+  const languageOptions = SUPPORTED_LANGUAGES.filter((l) => CURRENT_COUNTRY_LANGUAGES.includes(l.code));
 
   useEffect(() => {
     if (!open) return;
@@ -41,61 +49,36 @@ export function LocaleSwitcher({ className }: { className?: string }) {
         type="button"
         onClick={() => setOpen((prev) => !prev)}
         aria-expanded={open}
-        aria-label="Select language and country"
+        aria-label="Select language"
         className={cn(
           "flex items-center gap-1.5 rounded-lg p-2 text-sm font-medium text-brand-navy-foreground outline-none transition-colors hover:bg-brand-gold/10 hover:text-brand-gold",
           open && "bg-brand-gold/10 text-brand-gold",
         )}
       >
-        <CurrentFlag className="shrink-0 rounded-[2px] object-cover" style={{ width: 20, height: 15 }} />
+        <Globe className="size-4 shrink-0" aria-hidden="true" />
         <span>{language.toUpperCase()}</span>
         <ChevronDown className={cn("size-3 transition-transform", open && "rotate-180")} />
       </button>
 
       {open && (
-        <div className="absolute top-full right-0 z-50 mt-1.5 w-56 rounded-lg bg-popover p-1 text-popover-foreground shadow ring-1 ring-foreground/10">
-          <p className="px-2 pt-1.5 pb-1 text-xs font-semibold tracking-wide text-muted-foreground uppercase">
-            Country
-          </p>
-          {SUPPORTED_COUNTRIES.map((code) => {
-            const Flag = COUNTRY_FLAGS[code];
-            return (
+        <div className="absolute top-full md:right-0 lg:right-0 z-50 mt-1.5 w-56 overflow-hidden rounded-lg bg-popover text-popover-foreground shadow ring-1 ring-foreground/10">
+          <div className="max-h-96 overflow-y-auto p-1">
+            {languageOptions.map(({ code, label }) => (
               <button
                 key={code}
                 type="button"
                 onClick={() => {
                   setOpen(false);
-                  setCountry(code);
+                  setLanguage(code);
                 }}
                 className="flex w-full items-center gap-2.5 rounded-lg p-2 text-sm hover:bg-muted"
               >
-                <Flag className="shrink-0 rounded-[2px] object-cover" style={{ width: 20, height: 15 }} />
-                <span>{FALLBACK_COUNTRY_NAMES[code]}</span>
-                {code === currentCountry && <Check className="ml-auto size-4" />}
+                <span className="w-6 shrink-0 text-xs font-semibold">{code.toUpperCase()}</span>
+                <span>{label}</span>
+                {code === language && <Check className="ml-auto size-4" />}
               </button>
-            );
-          })}
-
-          <div className="my-1 border-t" />
-
-          <p className="px-2 pt-1.5 pb-1 text-xs font-semibold tracking-wide text-muted-foreground uppercase">
-            Language
-          </p>
-          {SUPPORTED_LANGUAGES.map(({ code, label }) => (
-            <button
-              key={code}
-              type="button"
-              onClick={() => {
-                setOpen(false);
-                setLanguage(code);
-              }}
-              className="flex w-full items-center gap-2.5 rounded-lg p-2 text-sm hover:bg-muted"
-            >
-              <span className="w-6 shrink-0 text-xs font-semibold">{code.toUpperCase()}</span>
-              <span>{label}</span>
-              {code === language && <Check className="ml-auto size-4" />}
-            </button>
-          ))}
+            ))}
+          </div>
         </div>
       )}
     </div>

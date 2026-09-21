@@ -15,11 +15,13 @@ export interface SignupPayload {
   email: string;
   password: string;
   contact?: string;
+  turnstileToken: string;
 }
 
 export interface LoginPayload {
   email: string;
   password: string;
+  turnstileToken: string;
 }
 
 export function signupCustomer(payload: SignupPayload) {

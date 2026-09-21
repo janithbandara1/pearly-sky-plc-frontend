@@ -57,8 +57,6 @@ export default function EditServicePage() {
       category: detail.category,
       description: detail.description ?? "",
       imageUrl: detail.imageUrl ?? "",
-      isBookable: detail.isBookable,
-      isQuotable: detail.isQuotable,
     });
     setPrices(fromCountryPricesPayload(detail.prices));
     setAllPackages(packagesData);
@@ -105,7 +103,7 @@ export default function EditServicePage() {
         <>
           <ServiceFormFields form={form} onChange={setForm} />
 
-          <CountryPricesField prices={prices} onChange={setPrices} label="Hourly rate by country" />
+          <CountryPricesField prices={prices} onChange={setPrices} label="Hourly rate" />
 
           <ServicePackagesField
             allPackages={allPackages}

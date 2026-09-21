@@ -1,3 +1,16 @@
+// Each country (fr/gb/lk) is its own standalone deployment of this same
+// codebase — its own domain, its own backend, its own database (see
+// lib/countries/config.ts's CURRENT_COUNTRY and backend/.env's comment on
+// DB_DATABASE). This file describes a single deployment; running more than
+// one country from the same server means copying this app block per
+// country with its own `name`/port and its own .env (NEXT_PUBLIC_COUNTRY,
+// NEXT_PUBLIC_API_URL, NEXT_PUBLIC_SITE_URL) behind that country's vhost.
+// A 4th deployment, NEXT_PUBLIC_COUNTRY=global (pearlyskyglobalclean.com),
+// runs the same way and needs no backend/database of its own — except its
+// NEXT_PUBLIC_API_URL still points at France's backend, since the contact
+// form on the global site posts there (see .env and IS_GLOBAL_SITE in
+// lib/countries/config.ts). France's backend must allow this site's origin
+// via its own ADDITIONAL_CORS_ORIGINS (see backend/.env).
 module.exports = {
   apps: [
     {

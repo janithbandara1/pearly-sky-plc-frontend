@@ -11,7 +11,9 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { useLanguage } from "@/lib/i18n/language-context";
-import { getJob } from "@/lib/content/jobs";
+import { getJob, getTranslatedJob } from "@/lib/content/jobs";
+import { IS_CAREERS_ENABLED } from "@/lib/countries/config";
+import { NoCareersNotice } from "@/components/careers/no-careers-notice";
 
 const CONTACT_EMAIL = "info@pearlyskyglobalclean.com";
 
@@ -27,7 +29,8 @@ type ApplyFormValues = z.infer<typeof applySchema>;
 export default function JobApplyPage({ params }: { params: Promise<{ jobId: string }> }) {
   const { jobId } = use(params);
   const { translate } = useLanguage();
-  const job = getJob(jobId);
+  const rawJob = getJob(jobId);
+  const job = rawJob ? getTranslatedJob(rawJob, translate) : null;
   const [sent, setSent] = useState(false);
 
   const {
@@ -36,6 +39,10 @@ export default function JobApplyPage({ params }: { params: Promise<{ jobId: stri
     reset,
     formState: { errors, isSubmitting },
   } = useForm<ApplyFormValues>({ resolver: zodResolver(applySchema), mode: "onChange" });
+
+  // Careers is France-only hiring (see IS_CAREERS_ENABLED) — every job id is
+  // treated as "no jobs" on the UK/Sri Lanka sites, without even looking one up.
+  if (!IS_CAREERS_ENABLED) return <NoCareersNotice />;
 
   if (!job) notFound();
 
@@ -51,7 +58,7 @@ export default function JobApplyPage({ params }: { params: Promise<{ jobId: stri
 
   return (
     <main className="flex-1">
-      <PageHero image="/images/careers/hero.webp" title={translate("careersApplyPageTitle")} subtitle={job.title} />
+      <PageHero image="/images/careers/hero.webp" title={translate("careersApplyPageTitle")} subtitle={job.title} hidePriceSelector />
 
       <section className="mx-auto w-full max-w-xl px-4 py-16 sm:px-6">
         <p className="mb-6 rounded-lg bg-secondary px-4 py-3 text-sm text-secondary-foreground">

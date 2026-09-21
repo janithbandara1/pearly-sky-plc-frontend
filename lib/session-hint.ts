@@ -24,3 +24,7 @@ export function setSessionHintCookie(name: string): void {
 export function clearSessionHintCookie(name: string): void {
   document.cookie = `${name}=; path=/; max-age=0; samesite=lax`;
 }
+
+export function hasSessionHintCookie(name: string): boolean {
+  return document.cookie.split("; ").some((entry) => entry.startsWith(`${name}=`));
+}

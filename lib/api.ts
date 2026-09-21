@@ -1,8 +1,17 @@
-const API_URL = process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:3001";
+const PUBLIC_API_URL = process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:3001";
+
+// On the server, hit the backend directly over loopback instead of going back out
+// through the public domain — the public URL is proxied through Cloudflare, whose
+// bot protection blocks the plain server-to-server fetch (no browser to solve its
+// JS challenge) even though the same request from an actual browser works fine.
+const API_URL =
+  typeof window === "undefined"
+    ? (process.env.API_INTERNAL_URL ?? PUBLIC_API_URL)
+    : PUBLIC_API_URL;
 
 /** Builds an absolute API URL — for links the browser navigates to directly (e.g. a PDF download), not for apiFetch calls. */
 export function apiUrl(path: string): string {
-  return `${API_URL}${path}`;
+  return `${PUBLIC_API_URL}${path}`;
 }
 
 export class ApiError extends Error {
@@ -18,9 +27,12 @@ interface ApiFetchOptions extends Omit<RequestInit, "body"> {
   accessToken?: string;
   /** Current country (see lib/countries), forwarded as `x-country` so the backend can serve country-specific data. */
   country?: string | null;
+  /** Current language (see lib/i18n), forwarded as `x-language` so the backend can resolve localized slugs/content. */
+  language?: string | null;
   body?: unknown;
   /** Internal — set on the retried request so a second 401 doesn't loop forever. */
   _retried?: boolean;
+  
 }
 
 type UnauthorizedHandler = () => Promise<string | null>;
@@ -57,7 +69,7 @@ function refreshAccessToken(): Promise<string | null> {
  * included on cross-origin requests from the Next.js frontend.
  */
 export async function apiFetch<T>(path: string, options: ApiFetchOptions = {}): Promise<T> {
-  const { accessToken, country, headers, body, _retried, ...rest } = options;
+  const { accessToken, country, language, headers, body, _retried, ...rest } = options;
 
   const res = await fetch(`${API_URL}${path}`, {
     ...rest,
@@ -66,6 +78,7 @@ export async function apiFetch<T>(path: string, options: ApiFetchOptions = {}): 
       "Content-Type": "application/json",
       ...(accessToken ? { Authorization: `Bearer ${accessToken}` } : {}),
       ...(country ? { "x-country": country } : {}),
+      ...(language ? { "x-language": language } : {}),
       ...headers,
     },
     body: body !== undefined ? JSON.stringify(body) : undefined,

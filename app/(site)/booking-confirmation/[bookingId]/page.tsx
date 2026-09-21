@@ -3,17 +3,19 @@
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { Suspense, use, useEffect, useState } from "react";
-import { AlertTriangle, CheckCircle2, Clock, Download, type LucideIcon } from "lucide-react";
+import {
+  AlertTriangle,
+  CalendarDays,
+  CheckCircle2,
+  Clock,
+  DollarSign,
+  Download,
+  FileText,
+  Tag,
+} from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
+import { ConfirmationCard, ConfirmationStatusRow } from "@/components/booking/confirmation-card";
 import { ApiError, useAuth } from "@/lib/auth-context";
 import {
   BookingStatusSummary,
@@ -23,63 +25,33 @@ import {
   initiateGuestCheckout,
 } from "@/lib/booking-api";
 import { useCurrency } from "@/lib/currency-context";
-import { cn } from "@/lib/utils";
+import { useLanguage } from "@/lib/i18n/language-context";
 
-type StatusTone = "success" | "warning" | "neutral";
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000";
 
-interface StatusMeta {
-  title: string;
-  description: string;
-  tone: StatusTone;
-  icon: LucideIcon;
-  badge: string;
+function formatLocation(address: BookingStatusSummary["address"]): string {
+  if (!address) return "—";
+  return [address.streetAddress, address.city].filter(Boolean).join(", ");
 }
 
-const STATUS_META: Record<BookingStatusSummary["status"], StatusMeta> = {
-  confirmed: {
-    title: "Payment successful",
-    description: "Thank you! We've received your payment and confirmed your booking.",
-    tone: "success",
-    icon: CheckCircle2,
-    badge: "Confirmed",
-  },
-  pending: {
-    title: "Booking received",
-    description: "Your booking is saved. Complete payment below to confirm it.",
-    tone: "neutral",
-    icon: Clock,
-    badge: "Pending",
-  },
-  cancelled: {
-    title: "Booking cancelled",
-    description: "This booking has been cancelled.",
-    tone: "warning",
-    icon: AlertTriangle,
-    badge: "Cancelled",
-  },
-};
+function formatDuration(
+  minHours: string | null,
+  maxHours: string | null,
+  hoursLabel: string
+): string {
+  if (!minHours) return "—";
+  const min = Number(minHours);
+  const max = maxHours ? Number(maxHours) : min;
+  return min === max ? `${min} ${hoursLabel}` : `${min}-${max} ${hoursLabel}`;
+}
 
-const TONE_STYLES: Record<StatusTone, { icon: string; badge: string }> = {
-  success: { icon: "text-emerald-600", badge: "bg-emerald-100 text-emerald-800" },
-  warning: { icon: "text-amber-600", badge: "bg-amber-100 text-amber-800" },
-  neutral: { icon: "text-muted-foreground", badge: "bg-muted text-muted-foreground" },
-};
-
-function DetailRow({
-  label,
-  value,
-  capitalize = false,
-}: {
-  label: string;
-  value: React.ReactNode;
-  capitalize?: boolean;
-}) {
-  return (
-    <div className="flex items-center justify-between gap-3 py-2 text-sm">
-      <span className="text-muted-foreground">{label}</span>
-      <span className={cn("font-medium", capitalize && "capitalize")}>{value}</span>
-    </div>
-  );
+function formatTeamSize(
+  cleanerCount: number | null,
+  singularLabel: string,
+  pluralLabel: string
+): string {
+  if (!cleanerCount) return "—";
+  return `${cleanerCount} ${cleanerCount === 1 ? singularLabel : pluralLabel}`;
 }
 
 function BookingStatus({ bookingId }: { bookingId: number }) {
@@ -88,6 +60,7 @@ function BookingStatus({ bookingId }: { bookingId: number }) {
 
   const { status: authStatus, accessToken } = useAuth();
   const { formatPrice } = useCurrency();
+  const { translate } = useLanguage();
 
   const [booking, setBooking] = useState<BookingStatusSummary | null>(null);
   const [notFound, setNotFound] = useState(false);
@@ -113,96 +86,176 @@ function BookingStatus({ bookingId }: { bookingId: number }) {
         : await initiateGuestCheckout(bookingId, reference as string);
       window.location.assign(redirectUrl);
     } catch (err) {
-      setError(err instanceof ApiError ? err.message : "Could not start the payment.");
+      setError(
+        err instanceof ApiError ? err.message : translate("bookConfirmPaymentError")
+      );
       setPaying(false);
     }
   }
 
   if (notFound) {
     return (
-      <Card className="mx-auto w-full max-w-md">
-        <CardHeader className="flex flex-col items-center gap-2 text-center">
-          <AlertTriangle className="mb-1 h-10 w-10 text-muted-foreground" />
-          <CardTitle className="text-xl">Booking not found</CardTitle>
-          <CardDescription className="max-w-xs">
-            We couldn&rsquo;t find a booking matching this link.
-          </CardDescription>
-        </CardHeader>
-        <CardFooter>
-          <Button asChild variant="outline" className="w-full">
-            <Link href="/">Back to home</Link>
-          </Button>
-        </CardFooter>
-      </Card>
+      <div className="mx-auto flex w-full max-w-md flex-col items-center gap-3 rounded-3xl border border-slate-200 bg-white p-8 text-center shadow-xl">
+        <AlertTriangle className="mb-1 h-10 w-10 text-muted-foreground" />
+        <h1 className="text-xl font-bold text-brand-navy">
+          {translate("confirmBookingNotFoundTitle")}
+        </h1>
+        <p className="max-w-xs text-sm text-muted-foreground">
+          {translate("confirmBookingNotFoundDesc")}
+        </p>
+        <Button asChild variant="outline" className="mt-2 w-full">
+          <Link href="/">{translate("confirmBackToHome")}</Link>
+        </Button>
+      </div>
     );
   }
 
   if (!booking) {
     return (
-      <Card className="mx-auto w-full max-w-md">
-        <CardHeader className="flex flex-col items-center gap-2 text-center">
-          <Clock className="mb-1 h-10 w-10 text-muted-foreground animate-pulse" />
-          <CardTitle className="text-xl">Loading…</CardTitle>
-        </CardHeader>
-      </Card>
+      <div className="mx-auto flex w-full max-w-md flex-col items-center gap-3 rounded-3xl border border-slate-200 bg-white p-8 text-center shadow-xl">
+        <Clock className="mb-1 h-10 w-10 animate-pulse text-muted-foreground" />
+        <h1 className="text-xl font-bold text-brand-navy">{translate("confirmLoading")}</h1>
+      </div>
     );
   }
 
-  const meta = STATUS_META[booking.status];
-  const tone = TONE_STYLES[meta.tone];
-  const Icon = meta.icon;
-  const canRetryPayment = booking.status === "pending";
+  const location = formatLocation(booking.address);
+  const teamSize = formatTeamSize(
+    booking.cleanerCount,
+    translate("bookConfirmCleaningSpecialist"),
+    translate("bookConfirmCleaningSpecialists")
+  );
+  const duration = formatDuration(
+    booking.minHours,
+    booking.maxHours,
+    translate("bookConfirmHours")
+  );
+  const priceLabel = booking.price ? formatPrice(booking.price) : "—";
+
+  const detailsRows = [
+    { label: translate("bookConfirmServiceType"), value: booking.service?.label ?? "—" },
+    { label: translate("bookConfirmLocationLabel"), value: location },
+    { label: translate("bookConfirmTeamSize"), value: teamSize },
+    { label: translate("bookConfirmDuration"), value: duration },
+  ];
+
+  const dashboardHref = authStatus === "authenticated" ? "/bookings" : "/signup";
+  const bookingDetailsUrl = `${SITE_URL}/bookings/${bookingId}`;
+
+  const downloadAction = (
+    <a
+      href={getBookingPdfUrl(bookingId, reference as string)}
+      download
+      className="flex h-11 w-full items-center justify-center gap-2 rounded-xl border border-brand-gold-dark/50 text-sm font-bold tracking-wider text-brand-navy transition hover:bg-brand-cream/60"
+    >
+      <Download className="size-4" />
+      {translate("bookConfirmDownloadPdf")}
+    </a>
+  );
+
+  if (booking.status === "confirmed") {
+    const statusRows: ConfirmationStatusRow[] = [
+      { icon: FileText, label: translate("bookConfirmRefLabel"), value: booking.referenceNumber },
+      {
+        icon: DollarSign,
+        label: translate("bookConfirmPaymentLabel"),
+        value: <Badge className="bg-emerald-100 text-emerald-700">{translate("bookConfirmPaymentSuccessful")}</Badge>,
+      },
+      {
+        icon: CheckCircle2,
+        label: translate("bookConfirmOrderLabel"),
+        value: <Badge className="bg-brand-navy text-white">{translate("bookConfirmOrderConfirmed")}</Badge>,
+      },
+      { icon: Tag, label: translate("bookConfirmPriceLabel"), value: priceLabel },
+      { icon: CalendarDays, label: translate("bookConfirmDateLabel"), value: booking.date ?? "—" },
+    ];
+
+    return (
+      <ConfirmationCard
+        headline={translate("bookConfirmHeadlineConfirmed")}
+        description={translate("bookConfirmDescConfirmed")}
+        statusRows={statusRows}
+        detailsTitle={translate("bookConfirmDetailTitle")}
+        detailsRows={detailsRows}
+        infoTitle={translate("bookConfirmInfoTitle")}
+        infoBody={translate("bookConfirmInfoBodyConfirmed")}
+        primaryAction={{ label: translate("bookConfirmPrimaryAction"), href: dashboardHref }}
+        secondaryActions={downloadAction}
+        qrCodeUrl={bookingDetailsUrl}
+      />
+    );
+  }
+
+  if (booking.status === "pending") {
+    const statusRows: ConfirmationStatusRow[] = [
+      { icon: FileText, label: translate("bookConfirmRefLabel"), value: booking.referenceNumber },
+      {
+        icon: DollarSign,
+        label: translate("bookConfirmPaymentLabel"),
+        value: <Badge className="bg-amber-100 text-amber-700">{translate("bookConfirmPaymentPending")}</Badge>,
+      },
+      {
+        icon: Clock,
+        label: translate("bookConfirmOrderLabel"),
+        value: <Badge className="bg-slate-200 text-slate-700">{translate("bookConfirmOrderAwaiting")}</Badge>,
+      },
+      { icon: Tag, label: translate("bookConfirmPriceLabel"), value: priceLabel },
+      { icon: CalendarDays, label: translate("bookConfirmDateLabel"), value: booking.date ?? "—" },
+    ];
+
+    return (
+      <ConfirmationCard
+        headline={translate("bookConfirmHeadlinePending")}
+        description={translate("bookConfirmDescPending")}
+        statusRows={statusRows}
+        detailsTitle={translate("bookConfirmDetailTitle")}
+        detailsRows={detailsRows}
+        infoTitle={translate("bookConfirmInfoTitle")}
+        infoBody={translate("bookConfirmInfoBodyPending")}
+        primaryAction={{ label: translate("bookConfirmPrimaryAction"), href: dashboardHref }}
+        secondaryActions={
+          <div className="flex flex-col gap-3">
+            <button
+              type="button"
+              onClick={handleRetryPayment}
+              disabled={paying}
+              className="flex h-11 w-full items-center justify-center rounded-xl bg-brand-gold-dark text-sm font-bold tracking-wider text-white shadow-md transition hover:brightness-110 disabled:opacity-60"
+            >
+              {paying ? translate("bookConfirmRedirecting") : translate("bookConfirmCompletePayment")}
+            </button>
+            {error && <p className="text-center text-xs text-destructive">{error}</p>}
+            {downloadAction}
+          </div>
+        }
+        qrCodeUrl={bookingDetailsUrl}
+      />
+    );
+  }
+
+  // cancelled
+  const statusRows: ConfirmationStatusRow[] = [
+    { icon: FileText, label: translate("bookConfirmRefLabel"), value: booking.referenceNumber },
+    {
+      icon: AlertTriangle,
+      label: translate("bookConfirmOrderLabel"),
+      value: <Badge className="bg-rose-100 text-rose-700">{translate("bookConfirmOrderCancelled")}</Badge>,
+    },
+    { icon: Tag, label: translate("bookConfirmPriceLabel"), value: priceLabel },
+    { icon: CalendarDays, label: translate("bookConfirmDateLabel"), value: booking.date ?? "—" },
+  ];
 
   return (
-    <Card className="mx-auto w-full max-w-md">
-      <CardHeader className="flex flex-col items-center gap-2 text-center">
-        <Icon className={cn("mb-1 h-10 w-10", tone.icon)} />
-        <CardTitle className="text-xl">{meta.title}</CardTitle>
-        <CardDescription className="max-w-xs">{meta.description}</CardDescription>
-      </CardHeader>
-
-      <CardContent className="flex flex-col gap-4">
-        <div>
-          <DetailRow label="Reference" value={booking.referenceNumber} />
-          <DetailRow label="Status" value={<Badge className={tone.badge}>{meta.badge}</Badge>} />
-          {booking.service && (
-            <>
-              <DetailRow label="Service" value={booking.service.label} />
-              <DetailRow label="Date & time" value={`${booking.date} at ${booking.time}`} />
-            </>
-          )}
-          {booking.price && <DetailRow label="Price" value={formatPrice(booking.price)} />}
-        </div>
-
-        {error && <p className="text-sm text-destructive">{error}</p>}
-      </CardContent>
-
-      <CardFooter className="flex flex-col gap-2">
-        {canRetryPayment && (
-          <Button onClick={handleRetryPayment} disabled={paying} className="w-full">
-            {paying ? "Redirecting…" : "Complete payment"}
-          </Button>
-        )}
-        <Button asChild variant="outline" className="w-full">
-          <a href={getBookingPdfUrl(bookingId, booking.referenceNumber)} download>
-            <Download className="h-4 w-4" />
-            Download PDF
-          </a>
-        </Button>
-        {authStatus === "authenticated" ? (
-          <Button asChild variant={canRetryPayment ? "outline" : "default"} className="w-full">
-            <Link href="/bookings">Go to my bookings</Link>
-          </Button>
-        ) : (
-          <Button asChild variant={canRetryPayment ? "outline" : "default"} className="w-full">
-            <Link href="/signup">Create an account</Link>
-          </Button>
-        )}
-        <Button asChild variant="outline" className="w-full">
-          <Link href="/">Back to home</Link>
-        </Button>
-      </CardFooter>
-    </Card>
+    <ConfirmationCard
+      headline={translate("bookConfirmHeadlineCancelled")}
+      description={translate("bookConfirmDescCancelled")}
+      statusRows={statusRows}
+      detailsTitle={translate("bookConfirmDetailTitle")}
+      detailsRows={detailsRows}
+      infoTitle={translate("bookConfirmInfoTitle")}
+      infoBody={translate("bookConfirmInfoBodyCancelled")}
+      primaryAction={{ label: translate("bookConfirmPrimaryAction"), href: dashboardHref }}
+      qrCodeUrl={bookingDetailsUrl}
+    />
   );
 }
 
@@ -214,10 +267,10 @@ export default function BookingStatusPage({
   const { bookingId } = use(params);
 
   return (
-    <div className="mx-auto w-full max-w-lg flex-1 p-6">
+    <main className="flex min-h-screen items-center justify-center bg-[rgb(199,209,217)] p-4 sm:p-6">
       <Suspense fallback={null}>
         <BookingStatus bookingId={Number(bookingId)} />
       </Suspense>
-    </div>
+    </main>
   );
 }

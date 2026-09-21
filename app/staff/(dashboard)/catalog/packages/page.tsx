@@ -15,15 +15,15 @@ import {
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import { DataTable } from "@/components/staff/data-table";
 import { ConfirmDeleteDialog } from "@/components/staff/confirm-delete-dialog";
-import {
-  CountryPricesField,
-  CountryPricesForm,
-  EMPTY_COUNTRY_PRICES,
-  fromCountryPricesPayload,
-  toCountryPricesPayload,
-} from "@/components/staff/country-prices-field";
 import { ApiError } from "@/lib/auth-context";
 import {
   AdminPackage,
@@ -31,12 +31,16 @@ import {
   createPackage,
   deletePackage,
   listPackagesAdmin,
-  setPackagePrices,
   updatePackage,
 } from "@/lib/admin-catalog-api";
+import { PACKAGE_CATEGORY_LABELS, type PackageCategory } from "@/lib/catalog-api";
 import { useStaffAuth } from "@/lib/staff-auth-context";
 
-const emptyForm: CreatePackagePayload = { name: "", image: "" };
+const emptyForm: CreatePackagePayload = {
+  name: "",
+  image: "",
+  category: "deep_and_specialized_cleaning",
+};
 
 export default function AdminCatalogPackagesPage() {
   const { accessToken } = useStaffAuth();
@@ -45,7 +49,6 @@ export default function AdminCatalogPackagesPage() {
   const [open, setOpen] = useState(false);
   const [editing, setEditing] = useState<AdminPackage | null>(null);
   const [form, setForm] = useState<CreatePackagePayload>(emptyForm);
-  const [prices, setPrices] = useState<CountryPricesForm>(EMPTY_COUNTRY_PRICES);
   const [saving, setSaving] = useState(false);
 
   const load = useCallback(async () => {
@@ -62,14 +65,12 @@ export default function AdminCatalogPackagesPage() {
   function openCreate() {
     setEditing(null);
     setForm(emptyForm);
-    setPrices(EMPTY_COUNTRY_PRICES);
     setOpen(true);
   }
 
   function openEdit(pkg: AdminPackage) {
     setEditing(pkg);
-    setForm({ name: pkg.name, image: pkg.image ?? "" });
-    setPrices(fromCountryPricesPayload(pkg.prices));
+    setForm({ name: pkg.name, image: pkg.image ?? "", category: pkg.category });
     setOpen(true);
   }
 
@@ -88,13 +89,10 @@ export default function AdminCatalogPackagesPage() {
       const saved = editing
         ? await updatePackage(accessToken, editing.id, form)
         : await createPackage(accessToken, form);
-      const updated = await setPackagePrices(accessToken, saved.id, toCountryPricesPayload(prices));
       setPackages((prev) =>
-        editing
-          ? prev.map((p) => (p.id === updated.id ? updated : p))
-          : [...prev, updated],
+        editing ? prev.map((p) => (p.id === saved.id ? saved : p)) : [...prev, saved],
       );
-      toast.success(`Package "${updated.name}" ${editing ? "updated" : "created"}.`);
+      toast.success(`Package "${saved.name}" ${editing ? "updated" : "created"}.`);
       setOpen(false);
     } catch (err) {
       toast.error(err instanceof ApiError ? err.message : "Failed to save package.");
@@ -116,6 +114,11 @@ export default function AdminCatalogPackagesPage() {
 
   const columns: ColumnDef<AdminPackage>[] = [
     { accessorKey: "name", header: "Name" },
+    {
+      accessorKey: "category",
+      header: "Category",
+      cell: ({ row }) => PACKAGE_CATEGORY_LABELS[row.original.category],
+    },
     {
       id: "actions",
       header: "",
@@ -157,7 +160,26 @@ export default function AdminCatalogPackagesPage() {
                 <Label htmlFor="name">Name</Label>
                 <Input id="name" value={form.name} onChange={(e) => setForm({ ...form, name: e.target.value })} />
               </div>
-              <CountryPricesField prices={prices} onChange={setPrices} />
+              <div className="flex flex-col gap-1">
+                <Label htmlFor="category">Category</Label>
+                <Select
+                  value={form.category}
+                  onValueChange={(value) =>
+                    setForm({ ...form, category: value as PackageCategory })
+                  }
+                >
+                  <SelectTrigger id="category">
+                    <SelectValue />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {Object.entries(PACKAGE_CATEGORY_LABELS).map(([value, label]) => (
+                      <SelectItem key={value} value={value}>
+                        {label}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+              </div>
               <div className="flex flex-col gap-1">
                 <Label htmlFor="image">Image</Label>
                 {form.image && (

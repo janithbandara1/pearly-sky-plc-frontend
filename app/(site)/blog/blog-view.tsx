@@ -6,6 +6,7 @@ import { PageHero } from "@/components/page-hero";
 import { Card, CardContent } from "@/components/ui/card";
 import { useLanguage } from "@/lib/i18n/language-context";
 import { blogPosts } from "@/lib/content/blog-posts";
+import { ArrowLeft } from "lucide-react";
 
 export function BlogView() {
   const { translate } = useLanguage();
@@ -16,9 +17,15 @@ export function BlogView() {
         image="/images/about/hero.webp"
         title={translate("blogPageTitle")}
         subtitle={translate("blogPageSubtitle")}
+        hidePriceSelector
       />
-
-      <section className="mx-auto w-full max-w-6xl px-4 py-16 sm:px-6">
+      <div className="flex w-full  flex-col gap-6 px-4 py-5 sm:px-6 md:mx-auto">
+        <Link href="/" title="Back to home" className="mb-6 inline-flex items-center gap-1 text-sm text-brand-gold-dark hover:underline">
+          <ArrowLeft className="h-4 w-4" />
+          {translate("commonBack")}
+        </Link>
+      </div>
+      <section className="mx-auto w-full max-w-6xl px-4 py-5 sm:px-6">
         <h2 className="mb-8 text-xl font-bold tracking-tight">{translate("blogRecentArticles")}</h2>
         <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
           {blogPosts.map((post) => (

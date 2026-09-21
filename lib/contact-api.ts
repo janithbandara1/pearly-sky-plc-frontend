@@ -5,6 +5,7 @@ export interface SendContactMessagePayload {
   email: string;
   phone: string;
   message: string;
+  turnstileToken: string;
 }
 
 export function sendContactMessage(payload: SendContactMessagePayload) {

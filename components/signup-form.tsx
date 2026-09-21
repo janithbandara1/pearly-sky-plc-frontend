@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import {
@@ -21,7 +21,10 @@ import {
   FieldLabel,
 } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
+import { PasswordInput } from "@/components/password-input";
+import { TurnstileWidget, type TurnstileHandle } from "@/components/turnstile";
 import { ApiError, useAuth } from "@/lib/auth-context";
+import { useLanguage } from "@/lib/i18n/language-context";
 
 export function SignupForm({
   className,
@@ -29,6 +32,7 @@ export function SignupForm({
 }: React.ComponentProps<"div">) {
   const router = useRouter();
   const { signup } = useAuth();
+  const { translate } = useLanguage();
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
@@ -36,17 +40,23 @@ export function SignupForm({
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [agreedToTerms, setAgreedToTerms] = useState(false);
+  const [turnstileToken, setTurnstileToken] = useState("");
+  const turnstileRef = useRef<TurnstileHandle>(null);
   const [error, setError] = useState<string | null>(null);
   const [pending, setPending] = useState(false);
 
   async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
     if (password !== confirmPassword) {
-      setError("Passwords do not match.");
+      setError(translate("signupErrorPasswordMismatch"));
       return;
     }
     if (!agreedToTerms) {
-      setError("Please agree to the Terms and Conditions and Privacy Policy to continue.");
+      setError(translate("signupErrorTermsRequired"));
+      return;
+    }
+    if (!turnstileToken) {
+      setError(translate("signupTurnstileRequired"));
       return;
     }
     setError(null);
@@ -58,10 +68,13 @@ export function SignupForm({
         email,
         contact: phone || undefined,
         password,
+        turnstileToken,
       });
       router.push("/bookings");
     } catch (err) {
-      setError(err instanceof ApiError ? err.message : "Something went wrong.");
+      setError(err instanceof ApiError ? err.message : translate("signupGenericError"));
+      turnstileRef.current?.reset();
+      setTurnstileToken("");
     } finally {
       setPending(false);
     }
@@ -71,9 +84,9 @@ export function SignupForm({
     <div className={cn("flex flex-col gap-6", className)} {...props}>
       <Card>
         <CardHeader className="text-center">
-          <CardTitle className="text-xl">Create your account</CardTitle>
+          <CardTitle className="text-xl">{translate("signupTitle")}</CardTitle>
           <CardDescription>
-            Fill in the form below to create your account
+            {translate("signupDescription")}
           </CardDescription>
         </CardHeader>
         <CardContent>
@@ -81,7 +94,7 @@ export function SignupForm({
             <FieldGroup>
               <div className="grid grid-cols-2 gap-3">
                 <Field>
-                  <FieldLabel htmlFor="firstName">First name</FieldLabel>
+                  <FieldLabel htmlFor="firstName">{translate("signupFirstName")}</FieldLabel>
                   <Input
                     id="firstName"
                     required
@@ -90,7 +103,7 @@ export function SignupForm({
                   />
                 </Field>
                 <Field>
-                  <FieldLabel htmlFor="lastName">Last name</FieldLabel>
+                  <FieldLabel htmlFor="lastName">{translate("signupLastName")}</FieldLabel>
                   <Input
                     id="lastName"
                     value={lastName}
@@ -99,7 +112,7 @@ export function SignupForm({
                 </Field>
               </div>
               <Field>
-                <FieldLabel htmlFor="email">Email</FieldLabel>
+                <FieldLabel htmlFor="email">{translate("signupEmail")}</FieldLabel>
                 <Input
                   id="email"
                   type="email"
@@ -110,7 +123,7 @@ export function SignupForm({
                 />
               </Field>
               <Field>
-                <FieldLabel htmlFor="phone">Phone</FieldLabel>
+                <FieldLabel htmlFor="phone">{translate("signupPhone")}</FieldLabel>
                 <Input
                   id="phone"
                   type="tel"
@@ -121,10 +134,9 @@ export function SignupForm({
               <Field>
                 <Field className="grid grid-cols-2 gap-3">
                   <Field>
-                    <FieldLabel htmlFor="password">Password</FieldLabel>
-                    <Input
+                    <FieldLabel htmlFor="password">{translate("signupPassword")}</FieldLabel>
+                    <PasswordInput
                       id="password"
-                      type="password"
                       required
                       minLength={8}
                       value={password}
@@ -133,11 +145,10 @@ export function SignupForm({
                   </Field>
                   <Field>
                     <FieldLabel htmlFor="confirmPassword">
-                      Confirm password
+                      {translate("signupConfirmPassword")}
                     </FieldLabel>
-                    <Input
+                    <PasswordInput
                       id="confirmPassword"
-                      type="password"
                       required
                       minLength={8}
                       value={confirmPassword}
@@ -146,7 +157,7 @@ export function SignupForm({
                   </Field>
                 </Field>
                 <FieldDescription>
-                  Must be at least 8 characters long.
+                  {translate("signupPasswordHelper")}
                 </FieldDescription>
               </Field>
               <Field>
@@ -162,35 +173,43 @@ export function SignupForm({
                     }
                   />
                   <span className="text-muted-foreground">
-                    I agree to the{" "}
+                    {translate("signupAgreeText")}{" "}
                     <Link
                       href="/terms-and-conditions"
                       target="_blank"
                       className="underline underline-offset-4"
                     >
-                      Terms and Conditions
+                      {translate("signupTerms")}
                     </Link>{" "}
-                    and{" "}
+                    {translate("signupAnd")}{" "}
                     <Link
                       href="/privacy-policy"
                       target="_blank"
                       className="underline underline-offset-4"
                     >
-                      Privacy Policy
+                      {translate("signupPrivacy")}
                     </Link>
                     .
                   </span>
                 </label>
               </Field>
+              <Field>
+                <TurnstileWidget
+                  ref={turnstileRef}
+                  onVerify={setTurnstileToken}
+                  onExpire={() => setTurnstileToken("")}
+                  className="flex justify-center"
+                />
+              </Field>
               {error && <FieldError>{error}</FieldError>}
               <Field>
-                <Button type="submit" disabled={pending || !agreedToTerms}>
-                  {pending ? "Creating account…" : "Sign up"}
+                <Button type="submit" disabled={pending || !agreedToTerms || !turnstileToken}>
+                  {pending ? translate("signupPending") : translate("signupSubmit")}
                 </Button>
                 <FieldDescription className="text-center">
-                  Already have an account?{" "}
+                  {translate("signupAlreadyAccount")}{" "}
                   <Link href="/login" className="underline underline-offset-4">
-                    Log in
+                    {translate("signupLoginLink")}
                   </Link>
                 </FieldDescription>
               </Field>
@@ -201,3 +220,4 @@ export function SignupForm({
     </div>
   );
 }
+

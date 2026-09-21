@@ -5,14 +5,15 @@ import { ArrowLeft, MapPin, Clock } from "lucide-react";
 import { PageHero } from "@/components/page-hero";
 import { Button } from "@/components/ui/button";
 import { useLanguage } from "@/lib/i18n/language-context";
-import type { Job } from "@/lib/content/jobs";
+import { getTranslatedJob, type Job } from "@/lib/content/jobs";
 
-export function JobDetailView({ job }: { job: Job }) {
+export function JobDetailView({ job: rawJob }: { job: Job }) {
   const { translate } = useLanguage();
+  const job = getTranslatedJob(rawJob, translate);
 
   return (
     <main className="flex-1">
-      <PageHero image="/images/careers/hero.webp" title={job.title} />
+      <PageHero image="/images/careers/hero.webp" title={job.title} hidePriceSelector />
 
       <section className="mx-auto w-full max-w-3xl px-4 py-16 sm:px-6">
         <Link href="/careers" className="mb-6 inline-flex items-center gap-1 text-sm text-brand-gold-dark hover:underline">

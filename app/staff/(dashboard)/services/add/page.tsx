@@ -32,11 +32,9 @@ const emptyForm: CreateServicePayload = {
   name: "",
   label: "",
   status: "active",
-  category: "property_care",
+  category: "residential_cleaning",
   description: "",
   imageUrl: "",
-  isBookable: false,
-  isQuotable: false,
 };
 
 export default function AddServicePage() {
@@ -92,7 +90,7 @@ export default function AddServicePage() {
 
       <ServiceFormFields form={form} onChange={setForm} />
 
-      <CountryPricesField prices={prices} onChange={setPrices} label="Hourly rate by country" />
+      <CountryPricesField prices={prices} onChange={setPrices} label="Hourly rate" />
 
       <ServicePackagesField
         allPackages={allPackages}

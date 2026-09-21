@@ -4,12 +4,13 @@ import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { CalendarDays, ChevronDown, FileText, LogOut, MapPin, Menu, UserRound, XIcon } from "lucide-react";
+import { CalendarDays, ChevronDown, FileText, LogOut, Menu, UserRound, XIcon } from "lucide-react";
 import { useAuth } from "@/lib/auth-context";
 import { useLanguage } from "@/lib/i18n/language-context";
+import { IS_GLOBAL_SITE } from "@/lib/countries/config";
 import { cn } from "@/lib/utils";
 import { ServicesNavList } from "@/components/services-nav-list";
-import { LocaleSwitcher } from "@/components/locale-switcher";
+import { LanguageSelect } from "@/components/language-select";
 import { Button } from "@/components/ui/button";
 import {
   Sheet,
@@ -19,9 +20,11 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet";
+import { id } from "zod/v4/locales";
 
+//test cmd
 const navLinkClass =
-  "rounded-lg p-2 text-sm font-medium text-brand-navy-foreground transition-colors hover:bg-brand-gold/10 hover:text-brand-gold";
+  "rounded-lg p-1 text-sm font-medium text-brand-navy-foreground transition-colors hover:bg-brand-gold/10 hover:text-brand-gold";
 const navLinkActiveClass = "bg-brand-gold/10 text-brand-gold";
 
 export interface SiteHeaderProps {
@@ -31,7 +34,10 @@ export interface SiteHeaderProps {
   showServicesMenu?: boolean;
 }
 
-export function SiteHeader({ navLinks: navLinksProp, showServicesMenu = true }: SiteHeaderProps = {}) {
+export function SiteHeader({ navLinks: navLinksProp, showServicesMenu: showServicesMenuProp = true }: SiteHeaderProps = {}) {
+  // The global gateway has no catalog or accounts behind it at all — never
+  // show the services menu or login/signup/account UI there.
+  const showServicesMenu = showServicesMenuProp && !IS_GLOBAL_SITE;
   const { translate } = useLanguage();
   const { status, logout } = useAuth();
   const pathname = usePathname();
@@ -40,13 +46,17 @@ export function SiteHeader({ navLinks: navLinksProp, showServicesMenu = true }: 
   const [mobileServicesOpen, setMobileServicesOpen] = useState(false);
   const [accountOpen, setAccountOpen] = useState(false);
   const servicesRef = useRef<HTMLDivElement>(null);
-  const accountRef = useRef<HTMLDivElement>(null);
+  const accountDesktopRef = useRef<HTMLDivElement>(null);
+  const accountMobileRef = useRef<HTMLDivElement>(null);
 
   const defaultNavLinks = [
     { href: "/about-us", label: translate("navAbout") },
     { href: "/our-customers", label: translate("navCustomers") },
     { href: "/our-locations", label: translate("navLocations") },
     { href: "/blog", label: translate("navBlog") },
+    // Careers is France-only hiring, but shown in nav everywhere — the UK/Sri
+    // Lanka sites' /careers renders a "no openings" notice instead of a listing
+    // (see IS_CAREERS_ENABLED), rather than hiding the link entirely.
     { href: "/careers", label: translate("navCareers") },
     { href: "/contact-us", label: translate("navContact") },
   ];
@@ -78,9 +88,10 @@ export function SiteHeader({ navLinks: navLinksProp, showServicesMenu = true }: 
   useEffect(() => {
     if (!accountOpen) return;
     function handlePointerDown(event: MouseEvent) {
-      if (!accountRef.current?.contains(event.target as Node)) {
-        setAccountOpen(false);
-      }
+      const target = event.target as Node;
+      if (accountDesktopRef.current?.contains(target)) return;
+      if (accountMobileRef.current?.contains(target)) return;
+      setAccountOpen(false);
     }
     function handleKeyDown(event: KeyboardEvent) {
       if (event.key === "Escape") setAccountOpen(false);
@@ -93,24 +104,35 @@ export function SiteHeader({ navLinks: navLinksProp, showServicesMenu = true }: 
     };
   }, [accountOpen]);
 
+  let textContent = [{id:1,text:"Pearly Sky Eco Luxury Cleaning Service"},{id:2,text:"Pearly Sky Eco Luxury Cleaning Service"}];
+  const marqueeList=[...textContent]
+
   return (
     <header className="sticky top-0 z-50 bg-brand-navy text-brand-navy-foreground">
-      <div className="mx-auto flex h-16 w-full max-w-7xl items-center justify-between gap-4 px-4 sm:px-6">
-        <Link href="/" className="flex shrink-0 items-center gap-2.5">
+      <div className="mx-auto flex h-16 w-full max-w-7xl items-center justify-between gap-1 px-1 ">
+
+        <Link href="/" className="w-[16%] flex items-center gap-3.5 overflow-hidden">
           <Image
             src="/images/brand/logo.webp"
             alt="Pearly Sky"
-            width={36}
-            height={36}
-            className="rounded-full bg-brand-navy"
+            width={40}
+            height={40}
+            className="rounded-full bg-brand-navy z-20"
             priority
-          />
-          <span className="hidden text-base font-semibold whitespace-nowrap text-brand-gold sm:inline">
-            Pearly Sky Cleaning
-          </span>
+          /> 
+
+          <div className=" w-max-[50px] relative ml-2  animate-marquee-header group-hover:[animation-play-state:paused]">
+           {marqueeList.map((text,index)=>(
+            <span key={index} className="hidden w-max z-10 text-base px-[2px] font-semibold whitespace-nowrap text-brand-gold sm:inline">
+              {text.text}
+              </span>
+            ))}
+              
+          </div>
+
         </Link>
 
-        <nav className="hidden items-center gap-1 lg:flex">
+        <nav className="hidden bg-brand-navy max-w-full border border-[#C9B678] px-2 py-1 rounded-3xl items-center gap-1 lg:flex">
           <Link
             href="/"
             className={cn(navLinkClass, pathname === "/" && navLinkActiveClass)}
@@ -155,13 +177,9 @@ export function SiteHeader({ navLinks: navLinksProp, showServicesMenu = true }: 
               {link.label}
             </Link>
           ))}
-        </nav>
 
-        <div className="flex items-center gap-2 sm:gap-3">
-          <LocaleSwitcher />
-
-          {status === "authenticated" ? (
-            <div className="relative" ref={accountRef}>
+          {!IS_GLOBAL_SITE && (status === "authenticated" ? (
+            <div className="relative ml-3" ref={accountDesktopRef}>
               <button
                 type="button"
                 onClick={() => setAccountOpen((open) => !open)}
@@ -200,14 +218,6 @@ export function SiteHeader({ navLinks: navLinksProp, showServicesMenu = true }: 
                     <UserRound className="size-4" />
                     Profile
                   </Link>
-                  <Link
-                    href="/addresses"
-                    onClick={() => setAccountOpen(false)}
-                    className="flex items-center gap-2.5 rounded-lg p-2 text-sm hover:bg-muted"
-                  >
-                    <MapPin className="size-4" />
-                    Addresses
-                  </Link>
                   <div className="my-1 border-t" />
                   <button
                     type="button"
@@ -215,7 +225,7 @@ export function SiteHeader({ navLinks: navLinksProp, showServicesMenu = true }: 
                       setAccountOpen(false);
                       logout();
                     }}
-                    className="flex w-full items-center gap-2.5 rounded-lg p-2 text-left text-sm text-destructive hover:bg-muted"
+                    className="flex w-full items-center gap-2.5 rounded-3xl p-2 text-left text-sm text-destructive hover:bg-muted"
                   >
                     <LogOut className="size-4" />
                     Log out
@@ -229,19 +239,86 @@ export function SiteHeader({ navLinks: navLinksProp, showServicesMenu = true }: 
                 asChild
                 size="sm"
                 variant="outline"
-                className="border-brand-gold bg-transparent font-semibold text-brand-gold hover:bg-brand-gold/10 hover:text-brand-gold"
+                className="border-brand-gold rounded-2xl ml-3 bg-transparent font-semibold text-brand-gold hover:bg-brand-gold/10 hover:text-brand-gold"
               >
                 <Link href="/login">{translate("navLogin")}</Link>
               </Button>
               <Button
                 asChild
                 size="sm"
-                className="bg-brand-gold text-brand-navy hover:bg-brand-gold/90"
+                className="bg-brand-gold rounded-2xl text-brand-navy hover:bg-brand-gold/90"
               >
                 <Link href="/signup">{translate("navSignup")}</Link>
               </Button>
             </>
+          ))}
+        </nav>
+
+
+        <div className="flex items-center gap-2 sm:gap-3 ">
+          <div className="flex items-center gap-1.5 ">
+            <LanguageSelect className="h-8  min-h-[48px] py-3 gap-1.5 border-brand-gold/70 bg-transparent  text-xs" />
+          </div>
+
+          {!IS_GLOBAL_SITE && status === "authenticated" && (
+            <div className="md:hidden lg:hidden flex">
+              <div className="relative" ref={accountMobileRef}>
+                <button
+                  type="button"
+                  onClick={() => setAccountOpen((open) => !open)}
+                  aria-expanded={accountOpen}
+                  aria-label="Account menu"
+                  className={cn(
+                    "flex size-9 items-center justify-center rounded-full border border-brand-gold bg-brand-gold/10 text-brand-gold transition-colors hover:bg-brand-gold/20",
+                    accountOpen && "bg-brand-gold/20",
+                  )}
+                >
+                  <UserRound className="size-5" />
+                </button>
+                {accountOpen && (
+                  <div className="absolute top-full right-0 z-50 mt-1.5 flex w-56 flex-col gap-1 rounded-lg bg-popover p-1 text-popover-foreground shadow ring-1 ring-foreground/10">
+                    <Link
+                      href="/bookings"
+                      onClick={() => setAccountOpen(false)}
+                      className="flex items-center gap-2.5 rounded-lg p-2 text-sm hover:bg-muted"
+                    >
+                      <CalendarDays className="size-4" />
+                      Bookings
+                    </Link>
+                    <Link
+                      href="/quotations"
+                      onClick={() => setAccountOpen(false)}
+                      className="flex items-center gap-2.5 rounded-lg p-2 text-sm hover:bg-muted"
+                    >
+                      <FileText className="size-4" />
+                      Quotations
+                    </Link>
+                    <Link
+                      href="/profile"
+                      onClick={() => setAccountOpen(false)}
+                      className="flex items-center gap-2.5 rounded-lg p-2 text-sm hover:bg-muted"
+                    >
+                      <UserRound className="size-4" />
+                      Profile
+                    </Link>
+                    <div className="my-1 border-t" />
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setAccountOpen(false);
+                        logout();
+                      }}
+                      className="flex w-full items-center gap-2.5 rounded-lg p-2 text-left text-sm text-destructive hover:bg-muted"
+                    >
+                      <LogOut className="size-4" />
+                      Log out
+                    </button>
+                  </div>
+                )}
+              </div>
+            </div>
           )}
+
 
           <Sheet
             open={mobileOpen}
@@ -254,10 +331,10 @@ export function SiteHeader({ navLinks: navLinksProp, showServicesMenu = true }: 
               <Button
                 size="icon-sm"
                 variant="ghost"
-                className="text-brand-navy-foreground hover:bg-brand-gold/10 lg:hidden"
+                className="px-4 py-3 min-h-[48px] min-w-[48px] text-brand-navy-foreground hover:bg-brand-gold/10 lg:hidden"
                 aria-label={translate("navMenu")}
               >
-                <Menu className="h-5 w-5" />
+                <Menu className="h-5 w-5 " />
               </Button>
             </SheetTrigger>
             <SheetContent
@@ -329,6 +406,30 @@ export function SiteHeader({ navLinks: navLinksProp, showServicesMenu = true }: 
                     {link.label}
                   </Link>
                 ))}
+
+                {!IS_GLOBAL_SITE && status !== "authenticated" && (
+                  <div className="mt-2 flex flex-col gap-2">
+                    <Button
+                      asChild
+                      size="sm"
+                      variant="outline"
+                      className="border-brand-gold rounded-lg bg-transparent font-semibold text-brand-gold hover:bg-brand-gold/10 hover:text-brand-gold"
+                    >
+                      <Link href="/login" onClick={() => setMobileOpen(false)}>
+                        {translate("navLogin")}
+                      </Link>
+                    </Button>
+                    <Button
+                      asChild
+                      size="sm"
+                      className="bg-brand-gold rounded-lg text-brand-navy hover:bg-brand-gold/90"
+                    >
+                      <Link href="/signup" onClick={() => setMobileOpen(false)}>
+                        {translate("navSignup")}
+                      </Link>
+                    </Button>
+                  </div>
+                )}
               </nav>
             </SheetContent>
           </Sheet>

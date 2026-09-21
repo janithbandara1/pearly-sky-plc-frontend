@@ -1,0 +1,30 @@
+# Pearly Sky
+
+> Eco-luxury residential & commercial cleaning company. Pearly Sky provides premium, sustainability-focused property care — cleaning, maintenance, and lifestyle support services — booked online on a per-country storefront across 28 countries (France, Germany, Luxembourg, Netherlands, Finland, Sweden, Italy, Poland, Belgium, Austria, Denmark, Spain, Portugal, Romania, Ireland, Monaco, Switzerland, United Kingdom, United States, Canada, Australia, New Zealand, Qatar, Saudi Arabia, United Arab Emirates, Oman, Bahrain, Sri Lanka).
+
+Every page is served under a `/{country}-{language}/` prefix (e.g. `/fr-en/`, `/uk-en/`); visiting the bare path redirects to the visitor's detected country and its default language. Content, pricing, and the local office/contact details vary by country; France is also available with fully translated (French-language) copy.
+
+## Company
+
+- [Home](https://pearlyskyglobalclean.com/): Overview of the service, brand positioning, and country coverage; also lists the bookable service catalog.
+- [About Us](https://pearlyskyglobalclean.com/about-us): Company story, standards, and values.
+- [Our Customers](https://pearlyskyglobalclean.com/our-customers): Verified client reviews and testimonials.
+- [Our Locations](https://pearlyskyglobalclean.com/our-locations): Countries and regional service clusters covered.
+- [Blog](https://pearlyskyglobalclean.com/blog): Cleaning tips, sustainability guides, and company news; individual posts are linked from here.
+- [Careers](https://pearlyskyglobalclean.com/careers): Open positions in luxury property care; individual listings are linked from here.
+- [Contact Us](https://pearlyskyglobalclean.com/contact-us): General inquiries and office details for the visitor's country.
+
+## Services
+
+- Individual service pages live at `/services/{slug}` and are linked from the homepage — each one either supports direct booking (`/services/{slug}/checkout`) or a custom quotation request (`/services/{slug}/request-quotation`), depending on the service.
+- [Request a Detailed Quotation](https://pearlyskyglobalclean.com/request-a-detailed-quotation): General-purpose custom quote request, not tied to one service.
+
+## Legal
+
+- [Terms and Conditions](https://pearlyskyglobalclean.com/terms-and-conditions)
+- [Privacy Policy](https://pearlyskyglobalclean.com/privacy-policy)
+- [Cookie Policy](https://pearlyskyglobalclean.com/cookie-policy)
+
+## Optional
+
+- Account, checkout, booking/quotation-confirmation, payment-confirmation, job-application, and staff-dashboard pages are intentionally omitted — they require an authenticated session or only make sense mid-transaction, not as standalone reference content.

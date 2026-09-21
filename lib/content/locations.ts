@@ -4,14 +4,20 @@ export interface Location {
   id: string;
   name: string;
   region: "europe" | "asia-pacific" | "americas";
-  flag: string;
+  /** Missing (not fabricated) for markets with no flag asset yet — LocationCard falls back to a generic icon. */
+  flag?: string;
   serviceCities: string[];
   hasOfficeDetail: boolean;
   address?: string;
+  /** Structured breakout of `address`, for schema.org PostalAddress fields (e.g. JobPosting jobLocation). */
+  streetAddress?: string;
+  addressLocality?: string;
+  addressRegion?: string;
+  postalCode?: string;
   contactNo?: string;
   companyNumber?: string;
   mapSrc?: string;
-  /** Matches lib/countries/config.ts's CountryCode, set only for the three routable countries. */
+  /** Matches lib/countries/config.ts's CountryCode, set for every routable country. */
   country?: CountryCode;
 }
 
@@ -24,6 +30,10 @@ export const locations: Location[] = [
     serviceCities: ["Paris", "Nice", "Cannes", "Monaco", "Lyon", "Bordeaux"],
     hasOfficeDetail: true,
     address: "15 Rue Des Halles, 75001 Paris.",
+    streetAddress: "15 Rue Des Halles",
+    addressLocality: "Paris",
+    addressRegion: "Île-de-France",
+    postalCode: "75001",
     contactNo: "+33 743 708 780",
     companyNumber: "930 651 625",
     country: "fr",
@@ -38,6 +48,10 @@ export const locations: Location[] = [
     serviceCities: ["London", "Manchester", "Edinburgh"],
     hasOfficeDetail: true,
     address: "60 Tottenham Court Road, Office 775, Fitzrovia, London, W1T 2EW, United Kingdom",
+    streetAddress: "60 Tottenham Court Road, Office 775, Fitzrovia",
+    addressLocality: "London",
+    addressRegion: "England",
+    postalCode: "W1T 2EW",
     contactNo: "+44 7349 369400",
     companyNumber: "15307255",
     country: "gb",
@@ -55,7 +69,7 @@ export const locations: Location[] = [
     contactNo: "+94 332 218 900",
     companyNumber: "PV 00295748",
     country: "lk",
-    mapSrc:
+    mapSrc: 
       "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3959.780671969282!2d79.99062740000001!3d7.035044999999999!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3ae2f9b10fb26561%3A0x111cf200d8a4fc9a!2sPEARLY%20SKY%20COMPANY%20PRIVATE%20LTD!5e0!3m2!1sen!2slk!4v1753536876865!5m2!1sen!2slk",
   },
   { id: "germany", name: "Germany", region: "europe", flag: "/images/flags/germany.webp", serviceCities: ["Berlin", "Munich"], hasOfficeDetail: false },
@@ -73,8 +87,13 @@ export const locations: Location[] = [
   { id: "netherlands", name: "Netherlands", region: "europe", flag: "/images/flags/netherlands.webp", serviceCities: ["Amsterdam"], hasOfficeDetail: false },
   { id: "luxembourg", name: "Luxembourg", region: "europe", flag: "/images/flags/luxembourg.webp", serviceCities: ["Luxembourg City"], hasOfficeDetail: false },
   { id: "scotland", name: "Scotland", region: "europe", flag: "/images/flags/scotland.webp", serviceCities: ["Edinburgh", "Glasgow"], hasOfficeDetail: false },
+  { id: "sweden", name: "Sweden", region: "europe", flag: "/images/flags/sweden.png", serviceCities: ["Stockholm", "Gothenburg"], hasOfficeDetail: false },
+  { id: "romania", name: "Romania", region: "europe", flag: "/images/flags/romania.png", serviceCities: ["Bucharest", "Cluj-Napoca"], hasOfficeDetail: false },
   { id: "uae", name: "United Arab Emirates", region: "asia-pacific", flag: "/images/flags/uae.webp", serviceCities: ["Dubai", "Abu Dhabi"], hasOfficeDetail: false },
   { id: "qatar", name: "Qatar", region: "asia-pacific", flag: "/images/flags/qatar.webp", serviceCities: ["Doha"], hasOfficeDetail: false },
+  { id: "saudiarabia", name: "Saudi Arabia", region: "asia-pacific", flag: "/images/flags/soudi.png", serviceCities: ["Riyadh", "Jeddah"], hasOfficeDetail: false },
+  { id: "oman", name: "Oman", region: "asia-pacific",flag: "/images/flags/oman.png", serviceCities: ["Muscat", "Salalah"], hasOfficeDetail: false },
+  { id: "bahrain", name: "Bahrain", region: "asia-pacific",flag: "/images/flags/bahrain.png", serviceCities: ["Manama", "Riffa"], hasOfficeDetail: false },
   { id: "australia", name: "Australia", region: "asia-pacific", flag: "/images/flags/australia.webp", serviceCities: ["Sydney", "Melbourne"], hasOfficeDetail: false },
   { id: "newzealand", name: "New Zealand", region: "asia-pacific", flag: "/images/flags/newzealand.webp", serviceCities: ["Auckland"], hasOfficeDetail: false },
   { id: "us", name: "United States", region: "americas", flag: "/images/flags/us.webp", serviceCities: ["New York", "Los Angeles"], hasOfficeDetail: false },
