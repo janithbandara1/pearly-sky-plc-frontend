@@ -6,8 +6,11 @@
 // country with its own `name`/port and its own .env (NEXT_PUBLIC_COUNTRY,
 // NEXT_PUBLIC_API_URL, NEXT_PUBLIC_SITE_URL) behind that country's vhost.
 // A 4th deployment, NEXT_PUBLIC_COUNTRY=global (pearlyskyglobalclean.com),
-// runs the same way but needs no backend/database at all — see
-// IS_GLOBAL_SITE in lib/countries/config.ts.
+// runs the same way and needs no backend/database of its own — except its
+// NEXT_PUBLIC_API_URL still points at France's backend, since the contact
+// form on the global site posts there (see .env and IS_GLOBAL_SITE in
+// lib/countries/config.ts). France's backend must allow this site's origin
+// via its own ADDITIONAL_CORS_ORIGINS (see backend/.env).
 module.exports = {
   apps: [
     {
