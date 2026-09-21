@@ -24,15 +24,18 @@ export function FieldInput({
   field,
   values,
   onChange,
+  translateText,
 }: {
   field: QuoteFieldSpec;
   values: Record<string, string>;
   onChange: (key: string, value: string) => void;
+  translateText?: (value: string) => string;
 }) {
+  const display = translateText ?? ((value: string) => value);
   if (field.kind === "size") {
     return (
       <div className="space-y-1.5">
-        <Label>{field.label}</Label>
+        <Label>{display(field.label)}</Label>
         <div className="flex gap-2">
           <Input
             type="number"
@@ -64,14 +67,14 @@ export function FieldInput({
   if (field.kind === "dimensions") {
     return (
       <div className="space-y-1.5">
-        <Label>{field.label}</Label>
+        <Label>{display(field.label)}</Label>
         <div className="flex items-center gap-2">
           {field.parts.map((part) => (
             <Input
               key={part}
               type="number"
               min="0"
-              placeholder={part[0].toUpperCase() + part.slice(1)}
+              placeholder={display(part[0].toUpperCase() + part.slice(1))}
               value={values[`${field.key}_${part}`] ?? ""}
               onChange={(e) => onChange(`${field.key}_${part}`, e.target.value)}
               className="bg-white"
@@ -86,7 +89,7 @@ export function FieldInput({
   if (field.kind === "radio") {
     return (
       <div className="space-y-1.5">
-        <Label>{field.label}</Label>
+        <Label>{display(field.label)}</Label>
         <div className="grid gap-2" style={{ gridTemplateColumns: `repeat(${field.options.length}, minmax(0, 1fr))` }}>
           {field.options.map((option) => {
             const checked = values[field.key] === option;
@@ -95,11 +98,10 @@ export function FieldInput({
                 key={option}
                 type="button"
                 onClick={() => onChange(field.key, option)}
-                className={`w-full rounded-[10px] bg-white px-3 py-2 text-xs font-medium text-[#121E2D] transition ${
-                  checked ? "border-2 border-[#A98B4B] shadow-[0_0_8px_rgba(169,139,75,0.3)]" : "border-[1.5px] border-[#A98B4B]"
-                }`}
+                className={`w-full rounded-[10px] bg-white px-3 py-2 text-xs font-medium text-[#121E2D] transition ${checked ? "border-2 border-[#A98B4B] shadow-[0_0_8px_rgba(169,139,75,0.3)]" : "border-[1.5px] border-[#A98B4B]"
+                  }`}
               >
-                {option}
+                {display(option)}
               </button>
             );
           })}
@@ -169,7 +171,9 @@ export function QuoteItemsSection({
   return (
     <section className="overflow-hidden rounded-[12px] border border-brand-gold-dark">
       <div className="bg-brand-navy px-5 py-4 text-center">
-        <h2 className="text-[1.1rem] font-bold text-brand-cream sm:text-[1.3rem]">{title}</h2>
+        <h2 className="text-[1.1rem] font-bold text-brand-cream sm:text-[1.3rem]">
+          {title}
+        </h2>
       </div>
 
       <div className="flex flex-col gap-4 bg-[#F8F9FA] p-4 sm:p-5">
@@ -182,22 +186,22 @@ export function QuoteItemsSection({
             <SelectContent>
               {groups.length > 0
                 ? groups.map((group) => (
-                    <SelectGroup key={group}>
-                      <SelectLabel>{group}</SelectLabel>
-                      {itemOptions
-                        .filter((opt) => opt.group === group)
-                        .map((opt) => (
-                          <SelectItem key={opt.value} value={opt.value}>
-                            {opt.label}
-                          </SelectItem>
-                        ))}
-                    </SelectGroup>
-                  ))
+                  <SelectGroup key={group}>
+                    <SelectLabel>{group}</SelectLabel>
+                    {itemOptions
+                      .filter((opt) => opt.group === group)
+                      .map((opt) => (
+                        <SelectItem key={opt.value} value={opt.value}>
+                          {opt.label}
+                        </SelectItem>
+                      ))}
+                  </SelectGroup>
+                ))
                 : itemOptions.map((opt) => (
-                    <SelectItem key={opt.value} value={opt.value}>
-                      {opt.label}
-                    </SelectItem>
-                  ))}
+                  <SelectItem key={opt.value} value={opt.value}>
+                    {opt.label}
+                  </SelectItem>
+                ))}
             </SelectContent>
           </Select>
         </div>

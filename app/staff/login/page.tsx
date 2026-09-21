@@ -5,10 +5,12 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { LoginForm } from "@/components/login-form";
 import { useStaffAuth } from "@/lib/staff-auth-context";
+import { useLanguage } from "@/lib/i18n/language-context";
 
 export default function AdminLoginPage() {
   const router = useRouter();
   const { login } = useStaffAuth();
+  const { translate } = useLanguage();
 
   return (
     <div className="flex min-h-svh flex-col items-center justify-center gap-6 bg-muted p-6 md:p-10">
@@ -24,10 +26,9 @@ export default function AdminLoginPage() {
           Pearly Sky Cleaning
         </Link>
         <LoginForm
-          title="Login to your account"
-          description="Enter your email below to login to your account"
-          submitLabel="Login"
-          footer="© 2026 Pearly Sky. All rights reserved."
+          description={translate("loginDescription")}
+          footer={`© 2026 Pearly Sky. ${translate("footerRights")}`}
+          showTurnstile={false}
           onLogin={async (email, password) => {
             await login(email, password);
             router.push("/staff/dashboard");

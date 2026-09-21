@@ -1,43 +1,72 @@
-import type { CountryCode } from "./config";
+import { CURRENT_COUNTRY, type CountryCode } from "./config";
 import type { LanguageCode } from "@/lib/i18n/config";
 
 /** Rotating coverage-strip marquee, per country. */
 export const COVERAGE_CITIES: Record<CountryCode, string[]> = {
   fr: [
     "Paris",
-    "Nice",
-    "Cannes",
-    "Monaco",
-    "Lyon",
-    "Bordeaux",
-    "Saint-Tropez",
-    "Strasbourg",
-    "Aix-en-Provence",
-    "Annecy",
+  "Nice",
+  "Saint-Tropez",
+  "Antibes",
+  "Cannes",
+  "Lyon",
+  "Bordeaux",
+  "Toulouse",
+  "Toulon",
+  "Montpellier",
+  "Strasbourg",
+  "Normandy",
+  "Deauville",
+  "Dieppe",
+  "La Rochelle",
+  "Neuilly-sur-Seine",
+  "Annecy",
+  "Aix-en-Provence",
+  "Nantes",
+  "Biarritz",
+  "Monaco Border / Menton",
+  "Cassis",
+  "Saint-Jean-Cap-Ferrat",
+  "Versailles"
   ],
+  
   gb: [
     "London",
-    "Manchester",
-    "Edinburgh",
-    "Birmingham",
-    "Liverpool",
-    "Leeds",
-    "Bristol",
-    "Glasgow",
-    "Cardiff",
-    "Oxford",
+  "Birmingham",
+  "Glasgow",
+  "Leeds",
+  "Sheffield",
+  "Edinburgh",
+  "Bristol",
+  "Liverpool",
+  "Belfast",
+  "Manchester",
+  "Cardiff",
+  "Leicester",
+  "Coventry",
+  "Nottingham",
+  "Newcastle upon Tyne",
+  "Kingston upon Hull",
+  "Stoke-on-Trent",
+  "Southampton",
+  "Derby",
+  "Portsmouth",
+  "Brighton and Hove",
+  "Plymouth",
+  "Reading",
+  "Aberdeen"
   ],
   lk: [
     "Colombo",
-    "Kandy",
-    "Galle",
-    "Negombo",
-    "Jaffna",
-    "Ella",
-    "Nuwara Eliya",
-    "Trincomalee",
-    "Anuradhapura",
-    "Matara",
+  "Kandy",
+  "Galle",
+  "Negombo",
+  "Anuradhapura",
+  "Badulla",
+  "Sigiriya",
+  "Ella",
+  "Nuwara Eliya",
+  "Kurunegala"
   ],
 };
 
@@ -52,26 +81,25 @@ interface CountryHomeCopy {
 }
 
 /**
- * Strings that vary by country AND language. Country and language are
- * independent (any /country/language URL is valid — see proxy.ts), so this
- * is a full [country][language] matrix rather than piggybacking on the
- * flat en.ts/fr.ts dictionaries.
+ * Home page copy, keyed by [country][language] — mirrors COUNTRY_LANGUAGES
+ * in ./config: France has hand-written "en" and "fr" copy; the UK and Sri
+ * Lanka are English-only, so they only ever have an "en" entry.
  */
-export const COUNTRY_HOME_CONTENT: Record<CountryCode, Record<LanguageCode, CountryHomeCopy>> = {
+const COUNTRY_HOME_CONTENT: Record<CountryCode, Partial<Record<LanguageCode, CountryHomeCopy>>> = {
   fr: {
     en: {
       heroSubtitle: "Pearly Sky Eco-Luxury Home & Office Cleaning Services — France.",
-      trustCoverage: "France / 10 Cities",
+      trustCoverage: "France / 24 Cities",
       coverageTitle: "Service Excellence Throughout France",
       coverageSubtitle: "Paris, Nice, Cannes, Monaco, Lyon, Bordeaux, and more across France.",
       footerTagline:
-        "Pearly Sky Cleaning offers professional, eco-friendly cleaning services for homes, offices, and hotels across France. We focus on quality and customer satisfaction, delivering tailored solutions to keep your space spotless.",
+        "Pearly Sky Cleaning propose des services de nettoyage professionnels et écologiques pour les maisons, les bureaux et les hôtels partout en France. Nous privilégions la qualité et la satisfaction client, en fournissant des solutions sur mesure pour un résultat impeccable.",
       aboutBilingualLabel: "Bilingual French & English Teams",
       aboutBilingualDesc: "Seamless communication for a diverse clientele.",
     },
     fr: {
       heroSubtitle: "Services de Nettoyage Éco-Luxe Pearly Sky pour Maisons et Bureaux — France.",
-      trustCoverage: "France / 10 Villes",
+      trustCoverage: "France / 24 Villes",
       coverageTitle: "Excellence de Service Partout en France",
       coverageSubtitle: "Paris, Nice, Cannes, Monaco, Lyon, Bordeaux, et plus encore à travers la France.",
       footerTagline: "Services de nettoyage et de soin éco-luxe partout en France.",
@@ -82,22 +110,13 @@ export const COUNTRY_HOME_CONTENT: Record<CountryCode, Record<LanguageCode, Coun
   gb: {
     en: {
       heroSubtitle: "Pearly Sky Eco-Luxury Home & Office Cleaning Services — United Kingdom.",
-      trustCoverage: "United Kingdom / 10 Cities",
+      trustCoverage: "United Kingdom / 24 Cities",
       coverageTitle: "Service Excellence Throughout the United Kingdom",
-      coverageSubtitle: "London, Manchester, Edinburgh, Birmingham, and more across the UK.",
+      coverageSubtitle: "London, Birmingham, Glasgow, Leeds, and more across the UK.",
       footerTagline:
         "Pearly Sky Cleaning offers professional, eco-friendly cleaning services for homes, offices, and hotels across the United Kingdom. We focus on quality and customer satisfaction, delivering tailored solutions to keep your space spotless.",
       aboutBilingualLabel: "English-Speaking Concierge Teams",
       aboutBilingualDesc: "Clear, professional communication for every client across the UK.",
-    },
-    fr: {
-      heroSubtitle: "Services de Nettoyage Éco-Luxe Pearly Sky pour Maisons et Bureaux — Royaume-Uni.",
-      trustCoverage: "Royaume-Uni / 10 Villes",
-      coverageTitle: "Excellence de Service Partout au Royaume-Uni",
-      coverageSubtitle: "Londres, Manchester, Édimbourg, Birmingham, et plus encore à travers le Royaume-Uni.",
-      footerTagline: "Services de nettoyage et de soin éco-luxe partout au Royaume-Uni.",
-      aboutBilingualLabel: "Équipes de Conciergerie Anglophones",
-      aboutBilingualDesc: "Une communication claire et professionnelle pour chaque client au Royaume-Uni.",
     },
   },
   lk: {
@@ -105,25 +124,21 @@ export const COUNTRY_HOME_CONTENT: Record<CountryCode, Record<LanguageCode, Coun
       heroSubtitle: "Pearly Sky Eco-Luxury Home & Office Cleaning Services — Sri Lanka.",
       trustCoverage: "Sri Lanka / 10 Cities",
       coverageTitle: "Service Excellence Throughout Sri Lanka",
-      coverageSubtitle: "Colombo, Kandy, Galle, and more across Sri Lanka.",
+      coverageSubtitle: "Colombo, Kandy, Galle, Negombo, and more across Sri Lanka.",
       footerTagline:
         "Pearly Sky Cleaning offers professional, eco-friendly cleaning services for homes, offices, and hotels across Sri Lanka. We focus on quality and customer satisfaction, delivering tailored solutions to keep your space spotless.",
       aboutBilingualLabel: "Multilingual Local Teams",
       aboutBilingualDesc: "Friendly, English-speaking teams who know Sri Lanka inside and out.",
     },
-    fr: {
-      heroSubtitle: "Services de Nettoyage Éco-Luxe Pearly Sky pour Maisons et Bureaux — Sri Lanka.",
-      trustCoverage: "Sri Lanka / 10 Villes",
-      coverageTitle: "Excellence de Service Partout au Sri Lanka",
-      coverageSubtitle: "Colombo, Kandy, Galle, et plus encore à travers le Sri Lanka.",
-      footerTagline: "Services de nettoyage et de soin éco-luxe partout au Sri Lanka.",
-      aboutBilingualLabel: "Équipes Locales Multilingues",
-      aboutBilingualDesc: "Des équipes anglophones chaleureuses qui connaissent parfaitement le Sri Lanka.",
-    },
   },
 };
 
-/** Falls back to France when country is null (unprefixed/global site). */
-export function getCountryHomeContent(country: CountryCode | null, language: LanguageCode): CountryHomeCopy {
-  return COUNTRY_HOME_CONTENT[country ?? "fr"][language];
+/**
+ * CURRENT_COUNTRY's home page copy in `language`, falling back to its
+ * English copy if that language has no hand-written entry yet (only ever
+ * applies to France's "de"/"es"/"it").
+ */
+export function getCountryHomeContent(language: LanguageCode): CountryHomeCopy {
+  const forCountry = COUNTRY_HOME_CONTENT[CURRENT_COUNTRY];
+  return forCountry[language] ?? forCountry.en!;
 }

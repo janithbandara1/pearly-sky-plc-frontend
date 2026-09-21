@@ -1,17 +1,8 @@
 "use client";
 
-import { createContext, useContext, useEffect, useState, type ReactNode } from "react";
-import { apiFetch } from "./api";
+import { createContext, useContext, type ReactNode } from "react";
 import { useCountry } from "./countries/country-context";
-
-interface CurrencyMeta {
-  country: string;
-  currency: string;
-  code: string;
-  symbol: string;
-  thousandSeparator: string;
-  decimalSeparator: string;
-}
+import type { CurrencyMeta } from "./catalog-api";
 
 type CurrencyContextType = {
   symbol: string;
@@ -45,15 +36,17 @@ const CurrencyContext = createContext<CurrencyContextType>({
   formatPrice: (price) => formatWith(DEFAULT_SYMBOL, price),
 });
 
-export function CurrencyProvider({ children }: { children: ReactNode }) {
+/** `currencies` is fetched server-side (see the (site)/(customer) layouts) so the
+ * correct symbol is present in the initial render — including for crawlers, whose
+ * renderer won't itself fetch `/catalog/currencies` since it's disallowed in robots.txt. */
+export function CurrencyProvider({
+  currencies,
+  children,
+}: {
+  currencies: CurrencyMeta[];
+  children: ReactNode;
+}) {
   const { country } = useCountry();
-  const [currencies, setCurrencies] = useState<CurrencyMeta[]>([]);
-
-  useEffect(() => {
-    apiFetch<CurrencyMeta[]>("/catalog/currencies")
-      .then(setCurrencies)
-      .catch(() => setCurrencies([]));
-  }, []);
 
   const symbol = currencies.find((c) => c.country === country)?.symbol ?? DEFAULT_SYMBOL;
 

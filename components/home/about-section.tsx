@@ -3,7 +3,6 @@
 import Image from "next/image";
 import { Globe2, Laptop, Leaf, Phone, type LucideIcon } from "lucide-react";
 import { useLanguage } from "@/lib/i18n/language-context";
-import { useCountry } from "@/lib/countries/country-context";
 import { getCountryHomeContent } from "@/lib/countries/home-content";
 
 const ICON_COLORS: Record<string, string> = {
@@ -25,7 +24,7 @@ function HighlightsPanel({
           key={key}
           className="flex items-start gap-3 rounded-lg bg-muted/60 px-3 py-2 sm:bg-transparent sm:px-0 sm:py-1"
         >
-          <Icon className={`mt-0.5 h-5 w-5 shrink-0 ${ICON_COLORS[key]}`} />
+          <Icon className={`mt-0.5 h-5 w-5 stroke-[#c8a089] shrink-0 ${ICON_COLORS[key]}`} />
           <p className="text-sm sm:text-base">
             <span className="font-bold text-brand-navy">{label}:</span>{" "}
             <span className="text-muted-foreground">{desc}</span>
@@ -38,8 +37,7 @@ function HighlightsPanel({
 
 export function AboutSection() {
   const { translate, language } = useLanguage();
-  const { country } = useCountry();
-  const { aboutBilingualLabel, aboutBilingualDesc } = getCountryHomeContent(country, language);
+  const { aboutBilingualLabel, aboutBilingualDesc } = getCountryHomeContent(language);
 
   const highlights = [
     {
@@ -68,45 +66,78 @@ export function AboutSection() {
     },
   ];
 
+  const servicesList = [
+    {id: "LuxuryResidential",name:translate("ServiceLuxuryResidential")},
+    {id: "Commercial",name:translate("ServiceCommercial")},
+    {id: "LuxuryProperty",name:translate("ServiceLuxuryProperty")},
+    {id: "Hospitality",name:translate("ServiceHospitality")},
+    {id: "Sports",name:translate("ServiceSports")},
+    {id: "Public",name:translate("ServicePublic")}
+  ] 
+
   return (
-    <section className="bg-background py-12">
-      <div className="mx-auto w-full max-w-5xl px-4 sm:px-6">
-        <h2 className="mb-6 text-center text-2xl font-bold tracking-tight sm:text-3xl">
+    <section className="bg-background mx-0 py-12">
+      
+      <div className=" ">
+        <h3 className="text-[#224b36] font-bold text-2xl lg:text-3xl md:text-3xl mb-4 text-center">
+         
+          {translate("aboutOurServices")}
+        </h3>
+        <div className="px-4 sm:px-6 mx-auto w-full max-w-5xl grid grid-cols-2 md:grid-cols-3 gap-3 mb-8">
+        {servicesList.map((service) => (
+          <div key={service.id} className="bg-brand-navy  border-2 border-brand-gold rounded-xl px-4 py-3 text-[#fff] text-sm font-semibold text-center shadow-sm hover:shadow-md transition-shadow">
+            {service.name}
+          </div>
+        ))}
+      </div>
+      <div className="px-4 bg-[#b8d1dc] py-5 mb-6">
+        <h3 className="text-[#224b36] font-bold text-xl md:text-2xl mb-4 text-left">
+         
+          {translate("aboutOurServices")}
+        </h3>
+          <p className="text-gray-700 text-sm md:text-base leading-relaxed text-justify md:text-left">
+            {translate("aboutOurServicesContent")}
+          </p>
+        </div>
+        <h2 className="mb-6 hidden text-center text-2xl font-bold tracking-tight sm:text-3xl">
           {translate("aboutWhyChooseUsTitle")}
         </h2>
 
-        <div className="overflow-hidden rounded-2xl border border-brand-gold-dark">
-          {/* Desktop: image fills the card behind the overlaid highlights panel */}
-          <div className="relative hidden sm:block sm:aspect-[21/9]">
-            <Image
-              src="/images/about/welcome.webp"
-              alt="Pearly Sky team at work"
-              fill
-              sizes="(min-width: 640px) 1024px, 0px"
-              className="object-cover object-right"
-            />
-            <div className="pointer-events-none absolute inset-0 w-3/5 bg-gradient-to-r from-white via-white/85 to-transparent" />
-            <div className="absolute inset-y-0 left-0 flex w-1/2 flex-col justify-center px-10">
-              <HighlightsPanel highlights={highlights} />
-            </div>
-          </div>
+        <div className="px-4 mx-auto sm:px-6  w-full max-w-5xl">
+            <div className="overflow-hidden rounded-2xl border border-brand-gold-dark">
+            {/* Desktop: image fills the card behind the overlaid highlights panel */}
+              <div className="relative hidden sm:block sm:aspect-[21/9]">
+                <Image
+                  src="/images/about/welcome.webp"
+                  alt="Pearly Sky team at work"
+                  fill
+                  sizes="(min-width: 640px) 1024px, 0px"
+                  className="object-cover object-right"
+                />
+                <div className="pointer-events-none absolute inset-0 w-3/5 bg-gradient-to-r from-white via-white/85 to-transparent" />
+                <div className="absolute inset-y-0 left-0 flex w-1/2 flex-col justify-center px-10">
+                  <HighlightsPanel highlights={highlights} />
+                </div>
+              </div>
 
-          {/* Mobile: highlights card on top, full-width image below */}
-          <div className="sm:hidden">
-            <div className="bg-white px-4 py-6">
-              <HighlightsPanel highlights={highlights} />
-            </div>
-            <div className="relative aspect-[4/3] w-full">
-              <Image
-                src="/images/about/welcome.webp"
-                alt="Pearly Sky team at work"
-                fill
-                sizes="100vw"
-                className="object-cover"
-              />
+            {/* Mobile: highlights card on top, full-width image below */}
+            <div className="sm:hidden">
+              <div className="bg-white px-4 py-6">
+                <HighlightsPanel highlights={highlights} />
+              </div>
+              <div className="relative aspect-[4/3] w-full">
+                <Image
+                  src="/images/about/welcome.webp"
+                  alt="Pearly Sky team at work"
+                  fill
+                  sizes="100vw"
+                  className="object-cover"
+                />
+              </div>
             </div>
           </div>
         </div>
+       
       </div>
     </section>
   );

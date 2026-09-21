@@ -122,6 +122,8 @@ export default function StaffQuotationDetailsPage() {
           genderPreference={quotation.genderPreference}
           languagePreference={quotation.languagePreference}
           specialRequirements={quotation.specialRequirements}
+          howGetIn={quotation.howGetIn}
+          howHeard={quotation.howHeard}
           supplySource={quotation.supplySource}
           equipmentItems={quotation.equipmentItems}
           customerName={
@@ -131,10 +133,24 @@ export default function StaffQuotationDetailsPage() {
           customerPhone={quotation.customer?.contact ?? undefined}
           address={{
             streetAddress: quotation.streetAddress,
+            unit: quotation.unit,
             city: quotation.city,
+            state: quotation.state,
             country: quotation.country,
             postalCode: quotation.postalCode,
           }}
+          deliveryAddress={
+            quotation.deliveryStreetAddress
+              ? {
+                  streetAddress: quotation.deliveryStreetAddress,
+                  unit: quotation.deliveryUnit,
+                  city: quotation.deliveryCity ?? "",
+                  state: quotation.deliveryState,
+                  country: quotation.deliveryCountry,
+                  postalCode: quotation.deliveryPostalCode,
+                }
+              : undefined
+          }
         />
       )}
 

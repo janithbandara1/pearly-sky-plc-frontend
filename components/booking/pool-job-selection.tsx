@@ -7,7 +7,14 @@ import { FieldInput } from "@/components/booking/quote-items-section";
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from "@/components/ui/dialog";
-import { formatQuoteItem, POOL_ITEM_OPTIONS, type QuoteItem, type QuoteItemOption } from "@/lib/content/quote-items";
+import {
+  formatQuoteItem,
+  POOL_ITEM_OPTIONS,
+  POOL_TRANSLATION_KEYS,
+  type QuoteItem,
+  type QuoteItemOption,
+} from "@/lib/content/quote-items";
+import { useLanguage } from "@/lib/i18n/language-context";
 
 const POOL_TYPE_OPTIONS = POOL_ITEM_OPTIONS.filter((o) => o.group === "Pool Type");
 const ADDITIONAL_SERVICE_OPTIONS = POOL_ITEM_OPTIONS.filter((o) => o.group === "Additional Services");
@@ -23,13 +30,15 @@ function CheckRow({
   checked: boolean;
   onToggle: () => void;
 }) {
+  const { translate } = useLanguage();
   return (
     <label
-      className={`flex cursor-pointer items-center justify-between gap-3 rounded-[10px] bg-white px-3 py-2.5 transition ${
-        checked ? "border-2 border-[#A98B4B] shadow-[0_0_8px_rgba(169,139,75,0.3)]" : "border-[1.5px] border-[#A98B4B]"
-      }`}
+      className={`flex cursor-pointer items-center justify-between gap-3 rounded-[10px] bg-white px-3 py-2.5 transition ${checked ? "border-2 border-[#A98B4B] shadow-[0_0_8px_rgba(169,139,75,0.3)]" : "border-[1.5px] border-[#A98B4B]"
+        }`}
     >
-      <span className="text-sm font-medium text-[#121E2D]">{option.label}</span>
+      <span className="text-sm font-medium text-[#121E2D]">
+        {translate(POOL_TRANSLATION_KEYS[option.label])}
+      </span>
       <Checkbox
         checked={checked}
         onCheckedChange={onToggle}
@@ -45,6 +54,7 @@ export interface PoolJobSelectionProps {
 }
 
 export function PoolJobSelection({ items, onItemsChange }: PoolJobSelectionProps) {
+  const { translate } = useLanguage();
   const [activeOption, setActiveOption] = useState<QuoteItemOption | null>(null);
   const [quantity, setQuantity] = useState(1);
   const [values, setValues] = useState<Record<string, string>>({});
@@ -80,10 +90,12 @@ export function PoolJobSelection({ items, onItemsChange }: PoolJobSelectionProps
   return (
     <section className="overflow-hidden rounded-[12px] border border-[#A98B4B]">
       <div className="bg-[#121E2D] px-5 py-4 text-center">
-        <h2 className="text-[1.1rem] font-bold text-[#FFFDF4] sm:text-[1.3rem]">Pool Details</h2>
+        <h1 className="md:text-[1.4rem] font-bold text-[#FFFDF4] text-[1.3rem]">
+          {translate("poolSectionTitle")}</h1>
+        <p className="text-white">{translate("poolSelectingJob")}</p>
       </div>
 
-      <div className="flex flex-col gap-4 bg-[#F8F9FA] p-4 sm:p-5">
+      <div className="flex flex-col gap-4 bg-[#121E2D] p-4 sm:p-5">
         <div className="grid grid-cols-1 gap-4 md:grid-cols-[1fr_1.1fr_1fr]">
           <div className="flex flex-col gap-2.5">
             {LEFT_TYPES.map((option) => (
@@ -99,7 +111,7 @@ export function PoolJobSelection({ items, onItemsChange }: PoolJobSelectionProps
           <div className="relative hidden min-h-[280px] overflow-hidden rounded-[12px] border border-[#A98B4B] md:block">
             <Image
               src="/images/services/updated-home-property-cleaning-services-13-pool-cleaning.webp"
-              alt="Pool cleaning"
+              alt={translate("servicePoolCleaning")}
               fill
               className="object-cover"
             />
@@ -108,9 +120,11 @@ export function PoolJobSelection({ items, onItemsChange }: PoolJobSelectionProps
                 {items.map((item) => (
                   <div
                     key={item.id}
-                    className="rounded-lg bg-white/90 px-3 py-1.5 text-center text-xs text-[#121E2D]"
+                    className="rounded-lg px-3 py-1.5 text-center text-xs text-[#121E2D]"
                   >
-                    {formatQuoteItem(item, POOL_ITEM_OPTIONS)}
+                    {formatQuoteItem(item, POOL_ITEM_OPTIONS, (value) =>
+                      POOL_TRANSLATION_KEYS[value] ? translate(POOL_TRANSLATION_KEYS[value]) : value,
+                    )}
                   </div>
                 ))}
               </div>
@@ -141,8 +155,10 @@ export function PoolJobSelection({ items, onItemsChange }: PoolJobSelectionProps
       <Dialog open={activeOption !== null} onOpenChange={(next) => !next && setActiveOption(null)}>
         <DialogContent className="gap-0 overflow-hidden border-0 bg-[#F9F7F2] p-0 ring-0 sm:max-w-md">
           <DialogHeader className="pt-4">
-            <DialogTitle className="text-center text-sm font-bold text-[#121E2D]">{activeOption?.label}</DialogTitle>
-            <DialogDescription className="sr-only">Pool service details</DialogDescription>
+            <DialogTitle className="text-center text-sm font-bold text-[#121E2D]">
+              {activeOption && translate(POOL_TRANSLATION_KEYS[activeOption.label])}
+            </DialogTitle>
+            <DialogDescription className="sr-only">{translate("poolServiceDetails")}</DialogDescription>
           </DialogHeader>
 
           <div className="flex flex-col gap-3 p-4">
@@ -150,13 +166,16 @@ export function PoolJobSelection({ items, onItemsChange }: PoolJobSelectionProps
               <FieldInput
                 key={field.key}
                 field={field}
+                translateText={(value) =>
+                  POOL_TRANSLATION_KEYS[value] ? translate(POOL_TRANSLATION_KEYS[value]) : value
+                }
                 values={values}
                 onChange={(key, value) => setValues((prev) => ({ ...prev, [key]: value }))}
               />
             ))}
 
             <div className="space-y-1.5">
-              <span className="text-sm font-medium text-[#121E2D]">Quantity</span>
+              <span className="text-sm font-medium text-[#121E2D]">{translate("poolQuantity")}</span>
               <div className="flex h-9 w-full items-center justify-between rounded-lg border border-[#A98B4B] bg-white px-1.5">
                 <button
                   type="button"
@@ -183,7 +202,7 @@ export function PoolJobSelection({ items, onItemsChange }: PoolJobSelectionProps
               variant="outline"
               className="mt-2 w-full border-0 bg-[#A98B4B] text-sm font-semibold text-white hover:bg-[#A98B4B]/90"
             >
-              Save
+              {translate("poolSave")}
             </Button>
           </div>
         </DialogContent>

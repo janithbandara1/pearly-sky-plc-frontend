@@ -14,6 +14,8 @@ interface BookingPreferencesPayload {
   genderPreference?: string;
   languagePreference?: string;
   specialRequirements?: string;
+  howGetIn?: string;
+  howHeard?: string;
   propertyType?: string;
   /** healthguard-sanitization only. */
   facilities?: string[];
@@ -25,6 +27,10 @@ interface BookingPreferencesPayload {
   eventTypes?: string[];
   /** high-security-property-care / luxury-yacht-cleaning only. */
   category?: string;
+  /** Exact requested duration — child-care-service / elder-care-service only (everyone else's hours come from the property-size pricing table). */
+  durationHours?: number;
+  /** Number of requested professionals — child-care-service / elder-care-service only. */
+  numCleaners?: number;
 }
 
 export interface CreateBookingPayload extends BookingPreferencesPayload {
@@ -59,6 +65,8 @@ export interface BookingServiceDetails {
   genderPreference: string | null;
   languagePreference: string | null;
   specialRequirements: string | null;
+  howGetIn: string | null;
+  howHeard: string | null;
   propertyType: string | null;
   facilities: string[] | null;
   disinfectionLevel: BookingLineItem | null;
@@ -88,6 +96,8 @@ export interface BookingAddress {
 export interface Booking {
   id: number;
   referenceNumber: string;
+  /** High-entropy capability token for the public guest checkout/status/PDF endpoints — never referenceNumber, which is guessable. */
+  accessToken: string;
   status: "pending" | "confirmed" | "cancelled";
   price: string | null;
   currency: string | null;
@@ -149,18 +159,27 @@ export interface BookingStatusSummary {
   service: { label: string } | null;
   date: string | null;
   time: string | null;
+  cleanerCount: number | null;
+  minHours: string | null;
+  maxHours: string | null;
+  address: {
+    streetAddress: string;
+    city: string;
+    state: string | null;
+    country: string | null;
+  } | null;
 }
 
-/** Public — the reference number authenticates the request, so this works for guests too. */
-export function getBookingStatus(bookingId: number, referenceNumber: string) {
+/** Public — the access token authenticates the request, so this works for guests too. */
+export function getBookingStatus(bookingId: number, accessToken: string) {
   return apiFetch<BookingStatusSummary>(
-    `/bookings/${bookingId}/status?ref=${encodeURIComponent(referenceNumber)}`,
+    `/bookings/${bookingId}/status?ref=${encodeURIComponent(accessToken)}`,
   );
 }
 
-/** Public — the reference number authenticates the request, so this works for guests too. */
-export function getBookingPdfUrl(bookingId: number, referenceNumber: string) {
-  return apiUrl(`/bookings/${bookingId}/pdf?ref=${encodeURIComponent(referenceNumber)}`);
+/** Public — the access token authenticates the request, so this works for guests too. */
+export function getBookingPdfUrl(bookingId: number, accessToken: string) {
+  return apiUrl(`/bookings/${bookingId}/pdf?ref=${encodeURIComponent(accessToken)}`);
 }
 
 export function initiateCheckout(accessToken: string, bookingId: number) {
@@ -171,9 +190,10 @@ export function initiateCheckout(accessToken: string, bookingId: number) {
   });
 }
 
-export function initiateGuestCheckout(bookingId: number, referenceNumber: string) {
+/** `bookingAccessToken` is the booking's own capability token (Booking.accessToken), not a session token. */
+export function initiateGuestCheckout(bookingId: number, bookingAccessToken: string) {
   return apiFetch<{ redirectUrl: string }>(`/payments/bookings/${bookingId}/checkout/guest`, {
     method: "POST",
-    body: { provider: "stripe", referenceNumber },
+    body: { provider: "stripe", accessToken: bookingAccessToken },
   });
 }

@@ -1,22 +1,33 @@
 import type { Metadata } from "next";
-import { getRequestCountry } from "@/lib/countries/server";
 import { getRequestLanguage } from "@/lib/i18n/server";
 import { buildCountryAlternates, buildSocialMeta } from "@/lib/countries/seo";
 import { buildBreadcrumbJsonLd } from "@/lib/seo/json-ld";
 import { JsonLd } from "@/components/json-ld";
-import { STATIC_PAGE_META } from "@/lib/countries/meta-data";
+import { getCountryPageMeta, GLOBAL_META } from "@/lib/countries/meta-data";
 import { BlogView } from "./blog-view";
-
-const { title: TITLE, description: DESCRIPTION } = STATIC_PAGE_META.blog;
+import { IS_GLOBAL_SITE } from "@/lib/countries/config";
 
 export async function generateMetadata(): Promise<Metadata> {
-  const [country, language] = await Promise.all([getRequestCountry(), getRequestLanguage()]);
+
+  if (IS_GLOBAL_SITE) {
+         
+        const {title,description} = GLOBAL_META.blog;
+        
+        return {
+          title: title,
+          description: description,
+          ...buildSocialMeta(title, description),
+        };
+  }
+
+  const language = await getRequestLanguage();
+  const { title, description } = getCountryPageMeta("blog", language ?? "en");
 
   return {
-    title: TITLE,
-    description: DESCRIPTION,
-    alternates: buildCountryAlternates("/blog", { country, language }),
-    ...buildSocialMeta(TITLE, DESCRIPTION),
+    title,
+    description,
+    alternates: buildCountryAlternates("/blog", { language }),
+    ...buildSocialMeta(title, description),
   };
 }
 

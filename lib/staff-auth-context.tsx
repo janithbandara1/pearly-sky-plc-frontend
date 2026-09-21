@@ -9,7 +9,12 @@ import {
   useState,
 } from "react";
 import { apiFetch } from "./api";
-import { STAFF_SESSION_HINT_COOKIE, clearSessionHintCookie, setSessionHintCookie } from "./session-hint";
+import {
+  STAFF_SESSION_HINT_COOKIE,
+  clearSessionHintCookie,
+  hasSessionHintCookie,
+  setSessionHintCookie,
+} from "./session-hint";
 
 type StaffAuthStatus = "loading" | "authenticated" | "unauthenticated";
 
@@ -65,7 +70,13 @@ export function StaffAuthProvider({ children }: { children: React.ReactNode }) {
     setSessionHintCookie(STAFF_SESSION_HINT_COOKIE);
   }, []);
 
+  // Skipped when the hint cookie is absent — see auth-context.tsx's identical
+  // check for why (avoids a guaranteed 401 for every anonymous visit).
   useEffect(() => {
+    if (!hasSessionHintCookie(STAFF_SESSION_HINT_COOKIE)) {
+      setStatus("unauthenticated");
+      return;
+    }
     refreshStaff()
       .then(({ accessToken: token }) => applySession(token))
       .catch(() => {

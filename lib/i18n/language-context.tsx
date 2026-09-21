@@ -1,23 +1,37 @@
 "use client";
 
-import { createContext, useContext, useMemo, type ReactNode } from "react";
-import { usePathname, useRouter, useSearchParams } from "next/navigation";
-import { extractCountryPrefix } from "@/lib/countries/geo";
+import { createContext, useContext, useMemo, useRef, type ReactNode } from "react";
+import { usePathname, useSearchParams } from "next/navigation";
+import { CURRENT_COUNTRY } from "@/lib/countries/config";
+import { buildLocalePath, extractLocalePrefix } from "@/lib/locale";
+import { makeServiceSlugResolver } from "@/lib/countries/seo";
+import type { ServiceLocaleSlug } from "@/lib/catalog-api";
 import { en, type TranslationKey } from "./dictionaries/en";
+import { de } from "./dictionaries/de";
+import { es } from "./dictionaries/es";
 import { fr } from "./dictionaries/fr";
+import { it } from "./dictionaries/it";
 import { LANGUAGE_COOKIE_MAX_AGE, LANGUAGE_COOKIE_NAME, type LanguageCode } from "./config";
-import { extractLanguagePrefix } from "./geo";
 
 export type SupportedLanguage = LanguageCode;
 
+/** Every SUPPORTED_LANGUAGES entry has a dictionary here, but only France's COUNTRY_LANGUAGES actually offers more than "en" — see lib/countries/config.ts. */
 export const SUPPORTED_LANGUAGES: { code: SupportedLanguage; label: string }[] = [
   { code: "en", label: "English" },
   { code: "fr", label: "Français" },
+  { code: "de", label: "Deutsch" },
+  { code: "es", label: "Español" },
+  { code: "it", label: "Italiano" },
 ];
 
-const dictionaries: Record<SupportedLanguage, Record<TranslationKey, string>> = {
+export type TranslationValue = string | readonly string[];
+
+const dictionaries: Record<SupportedLanguage, Partial<Record<TranslationKey, TranslationValue>>> = {
   en,
   fr,
+  de,
+  es,
+  it,
 };
 
 type LanguageContextType = {
@@ -25,12 +39,22 @@ type LanguageContextType = {
   /** No-op when there's no country in the URL to pair a language segment with. */
   setLanguage: (language: SupportedLanguage) => void;
   translate: (key: TranslationKey) => string;
+  /**
+   * Lets a `/services/[serviceSlug]` page (and its `/checkout`,
+   * `/request-quotation`, etc. subroutes) tell `setLanguage` how to
+   * translate the slug segment of the URL, not just the `/{country}-{lang}`
+   * prefix — so switching language on "regular-home-cleaning" lands on its
+   * French slug ("nettoyage-regulier") instead of keeping the English one.
+   * Call with `null` on unmount so unrelated pages aren't affected.
+   */
+  registerServiceSlugs: (service: { baseSlug: string; locales: ServiceLocaleSlug[] } | null) => void;
 };
 
 const LanguageContext = createContext<LanguageContextType>({
   language: "en",
   setLanguage: () => {},
   translate: (key) => key,
+  registerServiceSlugs: () => {},
 });
 
 export function LanguageProvider({
@@ -41,10 +65,14 @@ export function LanguageProvider({
   language: SupportedLanguage | null;
   children: ReactNode;
 }) {
-  const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
   const resolvedLanguage = language ?? "en";
+
+  // A ref, not state — registering doesn't need to trigger a re-render, and
+  // setLanguage (created fresh on every pathname change) must always see the
+  // latest registration rather than whatever was captured at creation time.
+  const serviceSlugsRef = useRef<{ baseSlug: string; locales: ServiceLocaleSlug[] } | null>(null);
 
   const value = useMemo<LanguageContextType>(
     () => ({
@@ -52,22 +80,36 @@ export function LanguageProvider({
       setLanguage: (next) => {
         document.cookie = `${LANGUAGE_COOKIE_NAME}=${next}; path=/; max-age=${LANGUAGE_COOKIE_MAX_AGE}; samesite=lax`;
 
-        const country = extractCountryPrefix(pathname);
-        if (!country) return;
+        const locale = extractLocalePrefix(pathname);
+        if (!locale || locale === "invalid") return;
 
-        const languagePrefixed = extractLanguagePrefix(country.rest);
-        const unprefixedPath = languagePrefixed ? languagePrefixed.rest : country.rest;
+        let rest = locale.rest;
+        const registeredService = serviceSlugsRef.current;
+        const serviceSlugMatch = registeredService && rest.match(/^(\/services\/)[^/]+(\/.*)?$/);
+        if (registeredService && serviceSlugMatch) {
+          const slugFor = makeServiceSlugResolver(registeredService.baseSlug, registeredService.locales);
+          const newSlug = slugFor(next, CURRENT_COUNTRY);
+          rest = `${serviceSlugMatch[1]}${newSlug}${serviceSlugMatch[2] ?? ""}`;
+        }
+
         const search = searchParams.toString();
+        const target = buildLocalePath(rest, next);
 
-        const prefix = `/${country.country}/${next}`;
-        const target = unprefixedPath === "/" ? prefix : `${prefix}${unprefixedPath}`;
-
-        router.push(`${target}${search ? `?${search}` : ""}`);
-        router.refresh();
+        // Full page load (not router.push) — a soft navigation only clears the
+        // client router cache, not Next's server-side fetch/data cache, so
+        // switching language could still render the previous language's cached
+        // data for a beat.
+        window.location.href = `${target}${search ? `?${search}` : ""}`;
       },
-      translate: (key: TranslationKey) => dictionaries[resolvedLanguage][key] ?? key,
+      translate: (key: TranslationKey) => {
+        const value = dictionaries[resolvedLanguage][key] ?? en[key] ?? key;
+        return typeof value === "string" ? value : value.join("\n\n");
+      },
+      registerServiceSlugs: (service) => {
+        serviceSlugsRef.current = service;
+      },
     }),
-    [resolvedLanguage, pathname, router, searchParams],
+    [resolvedLanguage, pathname, searchParams],
   );
 
   return <LanguageContext.Provider value={value}>{children}</LanguageContext.Provider>;

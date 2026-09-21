@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { getJob } from "@/lib/content/jobs";
-import { getRequestCountry } from "@/lib/countries/server";
 import { getRequestLanguage } from "@/lib/i18n/server";
 import { buildCountryAlternates, buildSocialMeta } from "@/lib/countries/seo";
 import { buildBreadcrumbJsonLd, buildJobPostingJsonLd } from "@/lib/seo/json-ld";
@@ -13,7 +12,7 @@ export async function generateMetadata({
 }: {
   params: Promise<{ jobId: string }>;
 }): Promise<Metadata> {
-  const [{ jobId }, country, language] = await Promise.all([params, getRequestCountry(), getRequestLanguage()]);
+  const [{ jobId }, language] = await Promise.all([params, getRequestLanguage()]);
   const job = getJob(jobId);
   const title = job ? `${job.title} | Careers at Pearly Sky` : "Careers | Pearly Sky";
   const description = job ? `${job.title} — ${job.employmentType} role at Pearly Sky, ${job.location}.` : undefined;
@@ -21,7 +20,7 @@ export async function generateMetadata({
   return {
     title,
     description,
-    alternates: buildCountryAlternates(`/careers/${jobId}`, { country, language }),
+    alternates: buildCountryAlternates(`/careers/${jobId}`, { language }),
     ...buildSocialMeta(title, description),
   };
 }

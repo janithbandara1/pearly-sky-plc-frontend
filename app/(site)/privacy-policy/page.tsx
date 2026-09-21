@@ -2,20 +2,20 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { PageHero } from "@/components/page-hero";
 import { JsonLd } from "@/components/json-ld";
-import { getRequestCountry } from "@/lib/countries/server";
 import { getRequestLanguage } from "@/lib/i18n/server";
 import { buildCountryAlternates, buildSocialMeta } from "@/lib/countries/seo";
 import { buildBreadcrumbJsonLd } from "@/lib/seo/json-ld";
 import { STATIC_PAGE_META } from "@/lib/countries/meta-data";
+import { ArrowLeft } from "lucide-react";
 
 const { title: TITLE } = STATIC_PAGE_META.privacyPolicy;
 
 export async function generateMetadata(): Promise<Metadata> {
-  const [country, language] = await Promise.all([getRequestCountry(), getRequestLanguage()]);
+  const language = await getRequestLanguage();
 
   return {
     title: TITLE,
-    alternates: buildCountryAlternates("/privacy-policy", { country, language }),
+    alternates: buildCountryAlternates("/privacy-policy", { language }),
     ...buildSocialMeta(TITLE),
   };
 }
@@ -29,8 +29,9 @@ export default function PrivacyPolicyPage() {
           { name: "Privacy Policy", path: "/privacy-policy" },
         ])}
       />
-      <PageHero image="/images/about/hero.webp" title="Privacy Policy" />
+      <PageHero image="/images/about/hero.webp" hidePriceSelector title="Privacy Policy" />
 
+          
       <div className="mx-auto flex w-full max-w-3xl flex-col gap-8 px-4 py-16 sm:px-6">
         <p className="text-sm text-muted-foreground">Last updated: August 8, 2026</p>
 

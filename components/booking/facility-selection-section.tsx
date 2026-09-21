@@ -1,6 +1,7 @@
 "use client";
 
 import { Checkbox } from "@/components/ui/checkbox";
+import { useLanguage } from "@/lib/i18n/language-context";
 
 export interface FacilityCategory {
   key: string;
@@ -64,22 +65,67 @@ export interface FacilitySelectionSectionProps {
 }
 
 export function FacilitySelectionSection({ selectedIds, onToggle }: FacilitySelectionSectionProps) {
+  const { translate } = useLanguage();
+
+  const TRANSLATED_FACILITY_CATEGORIES = [
+    {
+      key: "healthcare",
+      title: translate("facilityCategoryHealthcare"),
+      description: translate("facilityCategoryHealthcareDesc"),
+    },
+    {
+      key: "commercial",
+      title: translate("facilityCategoryCommercial"),
+      description: translate("facilityCategoryCommercialDesc"),
+    },
+    {
+      key: "hospitality",
+      title: translate("facilityCategoryHospitality"),
+      description: translate("facilityCategoryHospitalityDesc"),
+    },
+    {
+      key: "community",
+      title: translate("facilityCategoryCommunity"),
+      description: translate("facilityCategoryCommunityDesc"),
+    },
+  ];
+
+  const FACILITY_TITLE_KEY_MAP: Record<string, { title: string; desc: string }> = {
+    hospital:  { title: translate("facilityHospitalTitle"),   desc: translate("facilityHospitalDesc") },
+    dental:    { title: translate("facilityDentalTitle"),     desc: translate("facilityDentalDesc") },
+    labs:      { title: translate("facilityLabsTitle"),       desc: translate("facilityLabsDesc") },
+    biohazard: { title: translate("facilityBiohazardTitle"),  desc: translate("facilityBiohazardDesc") },
+    office:    { title: translate("facilityOfficeTitle"),     desc: translate("facilityOfficeDesc") },
+    government:{ title: translate("facilityGovernmentTitle"),desc: translate("facilityGovernmentDesc") },
+    factory:   { title: translate("facilityFactoryTitle"),    desc: translate("facilityFactoryDesc") },
+    post:      { title: translate("facilityPostTitle"),       desc: translate("facilityPostDesc") },
+    hotel:     { title: translate("facilityHotelTitle"),      desc: translate("facilityHotelDesc") },
+    retail:    { title: translate("facilityRetailTitle"),     desc: translate("facilityRetailDesc") },
+    restaurant:{ title: translate("facilityRestaurantTitle"),desc: translate("facilityRestaurantDesc") },
+    food:      { title: translate("facilityFoodTitle"),       desc: translate("facilityFoodDesc") },
+    transport: { title: translate("facilityTransportTitle"),  desc: translate("facilityTransportDesc") },
+    school:    { title: translate("facilitySchoolTitle"),     desc: translate("facilitySchoolDesc") },
+    gym:       { title: translate("facilityGymTitle"),        desc: translate("facilityGymDesc") },
+    apartment: { title: translate("facilityApartmentTitle"), desc: translate("facilityApartmentDesc") },
+  };
+
   return (
-    <section className="overflow-hidden rounded-[12px] border border-[#A98B4B]">
+    <section className="overflow-hidden rounded-[12px] bg-[#121E2D] border border-[#A98B4B]">
       <div className="bg-[#121E2D] px-5 py-4 text-center">
-        <h2 className="text-[1.1rem] font-bold text-[#FFFDF4] sm:text-[1.3rem]">Facilities</h2>
+        <h2 className="text-[1.1rem] font-bold text-[rgb(169,139,75)] sm:text-[32px]">{translate("facilitySelectTitle")}</h2>
       </div>
 
-      <div className="flex flex-col gap-6 bg-[#F8F9FA] p-4 sm:p-5">
-        {FACILITY_CATEGORIES.map((cat) => {
+      <div className="flex flex-col gap-6 bg-[#121E2D] p-4 sm:p-5">
+        {TRANSLATED_FACILITY_CATEGORIES.map((cat) => {
           const cards = FACILITY_CARDS.filter((c) => c.categoryKey === cat.key);
           return (
             <div key={cat.key}>
-              <h3 className="text-sm font-semibold text-[#121E2D]">{cat.title}</h3>
-              <p className="mb-3 text-xs text-[#555]">{cat.description}</p>
-              <div className="grid grid-cols-1 gap-2.5 sm:grid-cols-2 lg:grid-cols-4">
+              <h3 className="text-sm font-black text-[rgb(169,139,75)]">{cat.title}</h3>
+              <p className="mb-3 py-1 text-xs text-[#fff]">{cat.description}</p>
+              <div className="grid grid-cols-1 gap-2.5 sm:grid-cols-2 lg:grid-cols-4 ">
                 {cards.map((card) => {
                   const isChecked = selectedIds.has(card.id);
+                  const translated = FACILITY_TITLE_KEY_MAP[card.id];
                   return (
                     <div
                       key={card.id}
@@ -93,11 +139,10 @@ export function FacilitySelectionSection({ selectedIds, onToggle }: FacilitySele
                         }
                       }}
                       aria-pressed={isChecked}
-                      className={`relative flex cursor-pointer flex-col items-start gap-1 rounded-[10px] bg-white px-3 py-2.5 text-left transition ${
-                        isChecked
-                          ? "border-2 border-[#A98B4B] shadow-[0_0_8px_rgba(169,139,75,0.3)]"
-                          : "border-[1.5px] border-[#A98B4B]"
-                      }`}
+                      className={`relative flex cursor-pointer hover:outline-2 hover:outline-[rgb(169,139,75)] flex-col items-start gap-1 rounded-[10px] bg-white px-3 py-2.5 text-left transition ${isChecked
+                        ? "border-2 border-[#A98B4B] shadow-[0_0_8px_rgba(169,139,75,0.3)]"
+                        : "border-[1.5px] border-[#A98B4B]"
+                        }`}
                     >
                       <Checkbox
                         checked={isChecked}
@@ -106,8 +151,8 @@ export function FacilitySelectionSection({ selectedIds, onToggle }: FacilitySele
                         className="absolute top-2 right-2 border-[#A98B4B] data-checked:border-[#A98B4B] data-checked:bg-[#A98B4B]"
                       />
                       <span className="text-xl">{card.icon}</span>
-                      <p className="pr-6 text-sm font-medium text-[#121E2D]">{card.title}</p>
-                      <p className="text-xs text-[#555]">{card.description}</p>
+                      <p className="pr-6 text-sm font-medium text-[#121E2D]">{translated?.title ?? card.title}</p>
+                      <p className="text-xs text-[#555]">{translated?.desc ?? card.description}</p>
                     </div>
                   );
                 })}

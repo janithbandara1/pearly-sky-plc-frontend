@@ -1,10 +1,13 @@
 /**
- * Single source of truth for which language codes prefix.ts and routing
- * understand — mirrors lib/countries/config.ts. Labels for the switcher
- * UI stay in language-context.tsx since, unlike countries, there's no
- * backend endpoint for them.
+ * Single source of truth for which language codes proxy.ts and routing
+ * understand — mirrors lib/countries/config.ts. Which of these each
+ * *country* actually offers lives in lib/countries/config.ts's
+ * COUNTRY_LANGUAGES: France (pearlyskyglobalclean.fr) offers all five;
+ * the UK and Sri Lanka portals are English-only.
+ * Labels for the switcher UI stay in language-context.tsx since, unlike
+ * countries, there's no backend endpoint for them.
  */
-export const SUPPORTED_LANGUAGES = ["en", "fr"] as const;
+export const SUPPORTED_LANGUAGES = ["en", "fr", "de", "es", "it"] as const;
 
 export type LanguageCode = (typeof SUPPORTED_LANGUAGES)[number];
 
