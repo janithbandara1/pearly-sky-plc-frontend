@@ -49,7 +49,7 @@ export function SiteHeader({ navLinks: navLinksProp, showServicesMenu: showServi
   const accountDesktopRef = useRef<HTMLDivElement>(null);
   const accountMobileRef = useRef<HTMLDivElement>(null);
 
-  const defaultNavLinks = [
+  const defaultNavLinks = IS_GLOBAL_SITE ? [
     { href: "/about-us", label: translate("navAbout") },
     { href: "/our-services", label: translate("navServices") },
     { href: "/our-customers", label: translate("navCustomers") },
@@ -57,7 +57,17 @@ export function SiteHeader({ navLinks: navLinksProp, showServicesMenu: showServi
     { href: "/blog", label: translate("navBlog") },
     { href: "/careers", label: translate("navCareers") },
     { href: "/contact-us", label: translate("navContact") },
-  ];
+  ]:[
+    { href: "/about-us", label: translate("navAbout") },
+    { href: "/our-customers", label: translate("navCustomers") },
+    { href: "/our-locations", label: translate("navLocations") },
+    { href: "/blog", label: translate("navBlog") },
+    { href: "/careers", label: translate("navCareers") },
+    { href: "/contact-us", label: translate("navContact") },
+  ] ;
+
+  
+
   const navLinks = navLinksProp ?? defaultNavLinks;
 
   useEffect(() => {
