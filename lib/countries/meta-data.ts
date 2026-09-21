@@ -9,7 +9,19 @@ export interface PageMeta {
 
 export type PageMetaContent = Record<string, PageMeta>;
 
-/** Fallback <title>/description, used by app/layout.tsx's root `metadata` export whenever a page has no `generateMetadata()` of its own. */
+/**
+ * Fallback <title>/description, used by app/layout.tsx's root `metadata`
+ * export whenever a page has no `generateMetadata()` of its own. Distinct
+ * from GLOBAL_META below despite the similar name — this one is "the
+ * whole site's fallback," GLOBAL_META is "content for the global gateway
+ * deployment specifically."
+ */
+export const SITE_META: PageMeta = {
+  title: "Pearly Sky",
+  description: "Cleaning services, booking, and account management.",
+};
+
+/** <title>/description content for the global gateway deployment (IS_GLOBAL_SITE) — one entry per page, keyed the same way getCountryPageMeta's callers ask for. */
 export const GLOBAL_META: PageMetaContent = {
   // Core Pages
   home: {
@@ -264,61 +276,33 @@ const COUNTRY_PAGE_META: Record<CountryCode, Partial<Record<LanguageCode, Record
 };
 
 /**
- * <title>/description for the global gateway (IS_GLOBAL_SITE) — France's
- * English copy above with the country reference stripped out, since the
- * gateway isn't any one country. Kept as its own table (rather than a 4th
- * "country" in COUNTRY_PAGE_META) because CountryCode intentionally only
- * has real, database-backed countries — "global" isn't one.
+ * Maps a CountryPageKey (what every page's generateMetadata already asks
+ * for) to its entry in GLOBAL_META above — the two were named differently
+ * ("ourLocations" vs. "ourLocation", "customers" vs. "ourCustomer", etc.)
+ * since GLOBAL_META covers more than just these 7 pages.
  */
-const GLOBAL_PAGE_META: Record<CountryPageKey, PageMeta> = {
-  home: {
-    title: "Premium Eco-Luxury Cleaning Services | Pearly Sky",
-    description:
-      "Experience elite, eco-luxury residential & commercial cleaning. Five-star premium property care using sustainable, high-performance practices.",
-  },
-  about: {
-    title: "About Us: Eco-Luxury Property Care | Pearly Sky",
-    description:
-      "Discover the story, strict standards, and values driving Pearly Sky Global. Dedicated to elite property care and lifestyle support.",
-  },
-  customers: {
-    title: "Verified Client Reviews & Testimonials | Pearly Sky",
-    description:
-      "See what our clients say about us. Read verified reviews from premium homeowners, corporate offices, and luxury estates.",
-  },
-  contact: {
-    title: "Contact Our Eco-Luxury Cleaning Team | Pearly Sky",
-    description:
-      "Get in touch with Pearly Sky Global for booking inquiries or custom service quotes. Reliable, immediate assistance.",
-  },
-  careers: {
-    title: "Careers in Luxury Property Care | Pearly Sky",
-    description:
-      "Build a rewarding career in luxury property care. Explore open positions for professional cleaners and premium specialists.",
-  },
-  ourLocations: {
-    title: "Our Service Locations | Pearly Sky Global",
-    description:
-      "Operating premium service clusters. Find your local Pearly Sky Global service portal and book elite eco-luxury care.",
-  },
-  blog: {
-    title: "Eco-Luxury Cleaning Blog & Insights | Pearly Sky",
-    description:
-      "Read professional care advice, sustainable housekeeping guides, and elite property maintenance insights for premium spaces.",
-  },
+const GLOBAL_META_KEY: Record<CountryPageKey, string> = {
+  home: "home",
+  about: "aboutUs",
+  customers: "ourCustomer",
+  contact: "contactUs",
+  careers: "career",
+  ourLocations: "ourLocation",
+  blog: "blog",
 };
 
 /**
- * Title/description for `page`. On the global gateway this is always
- * GLOBAL_PAGE_META — no country/language resolution applies there. On a
- * real country site, resolution order for CURRENT_COUNTRY in `language` is:
- * hand-written English copy (COUNTRY_PAGE_META above; the only hand-written
- * entry any country has) -> a generated translation (meta-templates.ts;
- * covers France's "fr"/"de"/"es"/"it") -> CURRENT_COUNTRY's English copy as
- * a last-resort fallback.
+ * Title/description for `page`. On the global gateway this always comes
+ * from GLOBAL_META (via GLOBAL_META_KEY) — no country/language resolution
+ * applies there. On a real country site, resolution order for
+ * CURRENT_COUNTRY in `language` is: hand-written English copy
+ * (COUNTRY_PAGE_META above; the only hand-written entry any country has)
+ * -> a generated translation (meta-templates.ts; covers France's
+ * "fr"/"de"/"es"/"it") -> CURRENT_COUNTRY's English copy as a last-resort
+ * fallback.
  */
 export function getCountryPageMeta(page: CountryPageKey, language: LanguageCode): PageMeta {
-  if (IS_GLOBAL_SITE) return GLOBAL_PAGE_META[page];
+  if (IS_GLOBAL_SITE) return GLOBAL_META[GLOBAL_META_KEY[page]];
 
   const forCountry = COUNTRY_PAGE_META[CURRENT_COUNTRY];
   const handWritten = forCountry[language]?.[page];

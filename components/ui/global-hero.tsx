@@ -12,10 +12,6 @@ import {
   Users,
   ArrowRight,
 } from "lucide-react";
-import Facebook from "/images/email/social-facebook.png";
-import Instagram from "/images/email/social-instagram.png";
-import Linkedin from "/images/email/social-linkedin.png";
-import Youtube from "/images/email/social-youtube.png";
 interface Region {
   id: string;
   name: string;
