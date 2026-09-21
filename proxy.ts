@@ -27,6 +27,7 @@ const GLOBAL_SITE_ALLOWED_EXACT_PATHS = [
   "/our-customers",
   "/our-locations",
   "/contact-us",
+  "/our-services",
   "/privacy-policy",
   "/terms-and-conditions",
   "/cookie-policy",

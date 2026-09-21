@@ -12,7 +12,7 @@ export async function generateMetadata(): Promise<Metadata> {
 
     if (IS_GLOBAL_SITE) {
        
-      const {title,description} = GLOBAL_META.about;
+      const {title,description} = GLOBAL_META.aboutUs;
       
       return {
         title: title,

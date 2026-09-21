@@ -51,6 +51,7 @@ export function SiteHeader({ navLinks: navLinksProp, showServicesMenu: showServi
 
   const defaultNavLinks = [
     { href: "/about-us", label: translate("navAbout") },
+    { href: "/our-services", label: translate("navServices") },
     { href: "/our-customers", label: translate("navCustomers") },
     { href: "/our-locations", label: translate("navLocations") },
     { href: "/blog", label: translate("navBlog") },
@@ -120,7 +121,7 @@ export function SiteHeader({ navLinks: navLinksProp, showServicesMenu: showServi
 
           <div className=" w-max-[50px] relative ml-2  animate-marquee-header group-hover:[animation-play-state:paused]">
            {marqueeList.map((text,index)=>(
-            <span key={index} className="hidden w-max z-10 text-base px-[2px] font-semibold whitespace-nowrap text-brand-gold sm:inline">
+            <span key={index} className="hidden w-max z-10 text-base px-[2px] font-semibold whitespace-nowrap text-white sm:inline">
               {text.text}
               </span>
             ))}

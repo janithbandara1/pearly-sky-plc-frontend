@@ -8,6 +8,7 @@ import { IS_GLOBAL_SITE } from "@/lib/countries/config";
 const STATIC_PAGES: { path: string; changeFrequency: MetadataRoute.Sitemap[number]["changeFrequency"]; priority: number }[] = [
   { path: "/", changeFrequency: "weekly", priority: 1 },
   { path: "/about-us", changeFrequency: "monthly", priority: 0.8 },
+  { path: "/our-services", changeFrequency: "monthly", priority: 0.8 },
   { path: "/our-customers", changeFrequency: "monthly", priority: 0.7 },
   { path: "/our-locations", changeFrequency: "monthly", priority: 0.7 },
   { path: "/blog", changeFrequency: "weekly", priority: 0.7 },
