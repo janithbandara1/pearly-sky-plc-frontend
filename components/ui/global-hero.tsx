@@ -20,6 +20,22 @@ interface Region {
   linkTag:string,
 }
 import Link from "next/link";
+import { SOCIAL_URLS } from "@/lib/content/social-links";
+import {
+  AiOutlineTikTok,
+  AiFillInstagram,
+} from "react-icons/ai";
+import { FaFacebookF, FaYoutube, FaLinkedinIn, FaWhatsapp } from "react-icons/fa";
+import { RiTwitterXFill } from "react-icons/ri";
+
+const SOCIAL_LINKS = [
+  { href: SOCIAL_URLS.tiktok, label: "TikTok", Icon: AiOutlineTikTok },
+  { href: SOCIAL_URLS.facebook, label: "Facebook", Icon: FaFacebookF },
+  { href: SOCIAL_URLS.instagram, label: "Instagram", Icon: AiFillInstagram },
+  { href: SOCIAL_URLS.x, label: "X", Icon: RiTwitterXFill },
+  { href: SOCIAL_URLS.youtube, label: "YouTube", Icon: FaYoutube },
+  { href: SOCIAL_URLS.linkedin, label: "LinkedIn", Icon: FaLinkedinIn },
+];
 
 const social_logos=[
     "/images/email/social-facebook.png",
@@ -285,11 +301,15 @@ export default function GlobalHeroSection() {
           </div>
 
           {/* Social Links Right */}
-          <div className="flex items-center gap-3">
-            <span className="hidden md:block lg:block text-[10px] uppercase tracking-widest text-gray-400 mr-2">Follow Us</span>
-            {social_logos.map((Icon, idx) => (
-              <Image key={idx} alt="social" src={Icon}  width={30} height={30} className="hover:opacity-75 " />
-            ))}
+          <div className="flex items-center gap-3 justify-center">
+            <span className="hidden md:block lg:block text-[12px] uppercase tracking-widest text-gray-400 mr-2">Follow Us</span>
+            <div className=" flex flex-wrap justify-center gap-2 md:justify-start">
+              {SOCIAL_LINKS.map(({ href, label, Icon }) => (
+                <a key={label} href={href} target="_blank" rel="noopener noreferrer" aria-label={label} className="flex h-8 w-8 items-center justify-center rounded-full border border-brand-gold/70 bg-brand-gold/15 text-brand-navy-foreground transition-colors hover:bg-brand-gold hover:text-brand-navy">
+                  <Icon className="h-3.5 w-3.5" />
+                </a>
+              ))}
+            </div>
           </div>
         </div>
       </footer>

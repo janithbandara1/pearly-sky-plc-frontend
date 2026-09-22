@@ -82,22 +82,22 @@ const REGIONAL_DATA: Region[] = [
     gridCols: "grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4",
     containerWidth: "lg:w-2/3",
     countries: [
-      { id: "gb", isLive: true, name: "United Kingdom", domain: "pearlysky.co.uk", flagCode: "gb" },
-      { id: "fr", isLive: true, name: "France", domain: "pearlysky.fr", flagCode: "fr" },
-      { id: "de", isLive: false, name: "Germany", domain: "pearlysky.de", flagCode: "de" },
-      { id: "it", isLive: false, name: "Italy", domain: "pearlysky.it", flagCode: "it" },
-      { id: "lu", isLive: false, name: "Luxembourg", domain: "pearlysky.lu", flagCode: "lu" },
-      { id: "be", isLive: false, name: "Belgium", domain: "pearlysky.be", flagCode: "be" },
-      { id: "at", isLive: false, name: "Austria", domain: "pearlysky.at", flagCode: "at" },
-      { id: "pl", isLive: false, name: "Poland", domain: "pearlysky.pl", flagCode: "pl" },
-      { id: "fi", isLive: false, name: "Finland", domain: "pearlysky.fi", flagCode: "fi" },
-      { id: "ie", isLive: false, name: "Ireland", domain: "pearlysky.ie", flagCode: "ie" },
-      { id: "scot", isLive: false, name: "Scotland", domain: "pearlysky.scot", flagCode: "gb_scot" },
-      { id: "es", isLive: false, name: "Spain", domain: "pearlysky.es", flagCode: "es" },
-      { id: "no", isLive: false, name: "Norway", domain: "pearlysky.no", flagCode: "no" },
-      { id: "ch", isLive: false, name: "Switzerland", domain: "pearlysky.ch", flagCode: "ch" },
-      { id: "pt", isLive: false, name: "Portugal", domain: "pearlysky.pt", flagCode: "pt" },
-      { id: "ee", isLive: false, name: "Estonia", domain: "pearlysky.ee", flagCode: "ee" },
+      { id: "gb", isLive: true, name: "United Kingdom", domain: "pearlyskyglobalclean.co.uk", flagCode: "gb" },
+      { id: "fr", isLive: true, name: "France", domain: "pearlyskyglobalclean.fr", flagCode: "fr" },
+      { id: "de", isLive: false, name: "Germany", domain: "coming soon...", flagCode: "de" },
+      { id: "it", isLive: false, name: "Italy", domain: "coming soon...", flagCode: "it" },
+      { id: "lu", isLive: false, name: "Luxembourg", domain: "coming soon...", flagCode: "lu" },
+      { id: "be", isLive: false, name: "Belgium", domain: "coming soon...", flagCode: "be" },
+      { id: "at", isLive: false, name: "Austria", domain: "coming soon...", flagCode: "at" },
+      { id: "pl", isLive: false, name: "Poland", domain: "coming soon...", flagCode: "pl" },
+      { id: "fi", isLive: false, name: "Finland", domain: "coming soon...", flagCode: "fi" },
+      { id: "ie", isLive: false, name: "Ireland", domain: "coming soon...", flagCode: "ie" },
+      { id: "scot", isLive: false, name: "Scotland", domain: "coming soon...", flagCode: "gb_scot" },
+      { id: "es", isLive: false, name: "Spain", domain: "coming soon...", flagCode: "es" },
+      { id: "no", isLive: false, name: "Norway", domain: "coming soon...", flagCode: "no" },
+      { id: "ch", isLive: false, name: "Switzerland", domain: "coming soon...", flagCode: "ch" },
+      { id: "pt", isLive: false, name: "Portugal", domain: "pcoming soon...", flagCode: "pt" },
+      { id: "ee", isLive: false, name: "Estonia", domain: "coming soon...", flagCode: "ee" },
     ],
   },
   {
@@ -105,8 +105,8 @@ const REGIONAL_DATA: Region[] = [
     gridCols: "grid-cols-2 sm:grid-cols-2",
     containerWidth: "lg:w-1/3",
     countries: [
-      { id: "au", isLive: false, name: "Australia", domain: "pearlysky.com.au", flagCode: "au" },
-      { id: "nz", isLive: false, name: "New Zealand", domain: "pearlysky.co.nz", flagCode: "nz" },
+      { id: "au", isLive: false, name: "Australia", domain: "coming soon...", flagCode: "au" },
+      { id: "nz", isLive: false, name: "New Zealand", domain: "coming soon...", flagCode: "nz" },
     ],
   },
   {
@@ -114,8 +114,8 @@ const REGIONAL_DATA: Region[] = [
     gridCols: "grid-cols-1 sm:grid-cols-2",
     containerWidth: "lg:w-1/3",
     countries: [
-      { id: "ca", isLive: false, name: "Canada", domain: "pearlysky.ca", flagCode: "ca" },
-      { id: "us", isLive: false, name: "United States of America", domain: "pearlysky.com", flagCode: "us" },
+      { id: "ca", isLive: false, name: "Canada", domain: "coming soon...", flagCode: "ca" },
+      { id: "us", isLive: false, name: "United States of America", domain: "coming soon...", flagCode: "us" },
     ],
   },
   {
@@ -123,12 +123,12 @@ const REGIONAL_DATA: Region[] = [
     gridCols: "grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5",
     containerWidth: "lg:w-2/3",
     countries: [
-      { id: "ae", isLive: false, name: "United Arab Emirates", domain: "pearlysky.ae", flagCode: "ae" },
-      { id: "qa", isLive: false, name: "Qatar", domain: "pearlysky.qa", flagCode: "qa" },
-      { id: "sa", isLive: false, name: "Saudi Arabia", domain: "pearlysky.sa", flagCode: "sa" },
-      { id: "bh", isLive: false, name: "Bahrain", domain: "pearlysky.bh", flagCode: "bh" },
-      { id: "om", isLive: false, name: "Oman", domain: "pearlysky.om", flagCode: "om" },
-      { id: "lk", isLive: true, name: "Sri Lanka", domain: "pearlysky.lk", flagCode: "lk" },
+      { id: "ae", isLive: false, name: "United Arab Emirates", domain: "coming soon...", flagCode: "ae" },
+      { id: "qa", isLive: false, name: "Qatar", domain: "coming soon...", flagCode: "qa" },
+      { id: "sa", isLive: false, name: "Saudi Arabia", domain: "coming soon...", flagCode: "sa" },
+      { id: "bh", isLive: false, name: "Bahrain", domain: "coming soon...", flagCode: "bh" },
+      { id: "om", isLive: false, name: "Oman", domain: "coming soon...", flagCode: "om" },
+      { id: "lk", isLive: true, name: "Sri Lanka", domain: "Pearlyskyglobalclean.lk", flagCode: "lk" },
     ],
   },
 ];
@@ -361,7 +361,8 @@ const CountryCard: React.FC<CountryCardProps> = ({
     return (
       <div
         onClick={onSelect}
-        className="group relative bg-white/80 hover:bg-white border border-stone-200/80 hover:border-amber-700/30 rounded-xl p-3 sm:p-3.5 shadow-2xs hover:shadow-sm transition-all cursor-pointer flex items-center justify-between min-h-[58px]"
+        
+        className="group  relative bg-white/80 hover:bg-white border border-stone-200/80 hover:border-amber-700/30 rounded-xl p-3 sm:p-3.5 shadow-2xs hover:shadow-sm transition-all cursor-pointer flex items-center justify-between min-h-[58px]"
       >
         <div className="absolute -top-0.5 -left-0.5 flex items-center gap-1.5">
           <span className="relative flex size-3">
@@ -377,7 +378,7 @@ const CountryCard: React.FC<CountryCardProps> = ({
             <h3 className="text-xs sm:text-sm font-normal text-stone-800 leading-snug truncate group-hover:text-amber-900 transition-colors">
               {country.name}
             </h3>
-            <p className="text-[11px] text-stone-400 font-mono leading-tight truncate">
+            <p className={`text-[11px] text-stone-400 font-mono leading-tight truncate  ${!country.isLive ? 'text-stone-400 animate-pulse' : 'text-stone-400'}`}>
               {country.domain}
             </p>
           </div>
@@ -410,7 +411,7 @@ const CountryCard: React.FC<CountryCardProps> = ({
             <h3 className="text-xs sm:text-sm font-medium text-[#2C2114] leading-snug truncate">
               {country.name}
             </h3>
-            <p className="text-[11px] text-[#5C4B33] font-mono leading-tight truncate mt-0.5">
+            <p className="text-[11px] text-[#5C4B33] font-mono leading-tight  mt-0.5">
               {country.domain}
             </p>
           </div>

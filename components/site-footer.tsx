@@ -149,7 +149,6 @@ export function SiteFooter() {
     </footer>
   );
 }
-
 function SocialLinks() {
   return (
     <div className="mt-3 flex flex-wrap justify-center gap-2 md:justify-start">
