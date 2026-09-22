@@ -3,7 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
-import { ArrowRight, ChevronDown, ChevronUp } from "lucide-react";
+import { ArrowRight, ChevronDown, ChevronUp, Key } from "lucide-react";
 import type { CatalogService, ServiceCategory } from "@/lib/catalog-api";
 import { useCurrency } from "@/lib/currency-context";
 import { useCountry } from "@/lib/countries/country-context";
@@ -195,97 +195,149 @@ function ServiceCard({ service }: { service: CatalogService }) {
   const pricePerUnitKey = isCareService ? "servicesPricePerProfessional" : "servicesPricePerCleaner";
 
   return (
-    <div className="flex h-full flex-col overflow-hidden rounded-xl border-2 border-brand-gold bg-brand-navy shadow-md transition-transform duration-200 hover:scale-[1.03] hover:shadow-xl">
-      <div className="relative h-40 w-full shrink-0 sm:h-44">
-        {service.imageUrl ? (
-          <Image
-            src={service.imageUrl}
-            alt={label}
-            fill
-            sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
-            className="object-cover"
-          />
-        ) : (
-          <div className="h-full w-full bg-brand-navy-foreground/10" />
-        )}
+<div className="relative w-full max-w-2xl  rounded-[1rem] bg-brand-navy  text-white shadow-2xl">
+  {/* Inner Double Border Frame */}
+  <div className="flex h-full flex-col overflow-hidden rounded-[1rem] border border-brand-gold p-2 pb-2 ring-1 ring-brand-gold/30">
+    
+    {/* Top Image Section with Corner Leaf Accents */}
+    <div className="relative -top-2 -left-2 -right-1 h-45 w-[calc(110%-0.1rem)] overflow-hidden rounded-b-[75px] md:rounded-b-[80px]">
+      {service.imageUrl ? (
+        <Image
+          src={service.imageUrl}
+          alt={label}
+          fill
+          sizes="(max-width: 640px) 110vw, (max-width: 1024px) 60vw, 35vw"
+          className="object-cover"
+        />
+      ) : (
+        <div className="h-full w-full bg-brand-navy-foreground/10" />
+      )}
+
+      {/* Top Left Leaf Decor Overlay */}
+      <div className="pointer-events-none absolute -left-4 top-2 rotate-y-[45deg] h-54 w-25 bg-contain bg-no-repeat opacity-90">
+        <Image src="/images/services/leaf_overlay.png" alt="Right Leaf" fill />
       </div>
 
-      <div className="flex flex-1 flex-col gap-2 px-4 pb-4 pt-3 text-center">
-        <div className="flex flex-1 flex-col items-center justify-center gap-1">
-          <h3 className="text-base font-bold text-brand-navy-foreground">
-            {label}
-          </h3>
-          {description && (
-            <p className="line-clamp-3 text-sm text-brand-navy-foreground/65">
-              {description}
-            </p>
-          )}
-          {!hidesHourlyRate && (
-            <>
-              <p className="text-sm font-semibold text-brand-gold">
-                {service.price
-                  ? `Rate: ${symbol}${service.price}${translate(pricePerUnitKey)}`
-                  : translate("servicesRequestQuotation")}
-              </p>
-              {service.price && taxStatusLabel && (
-                <p className="text-xs text-brand-navy-foreground/60">{taxStatusLabel}</p>
-              )}
-            </>
-          )}
-        </div>
-
-        <div className="mt-2 flex w-full flex-col gap-2">
-          {
-          service.name === "child-care-service" ||
-          service.name === "elder-care-service" ?
-          (
-            <Link
-                href={`/services/${service.slug}`}
-                className="flex w-full items-center justify-center gap-1.5 rounded-lg bg-brand-gold px-4 py-2.5 text-xs font-bold uppercase tracking-wider text-brand-navy transition-colors hover:bg-brand-gold/90"
-              >
-                {translate("servicesBookNow")}
-                <ArrowRight className="h-3.5 w-3.5" />
-              </Link>
-          ):isDedicatedFlow ? (
-            <Link
-              href={`/services/${service.slug}`}
-              className="flex w-full items-center justify-center gap-1.5 rounded-lg border border-brand-gold bg-brand-navy px-4 py-2.5 text-xs font-bold uppercase tracking-wider text-brand-gold transition-colors hover:bg-brand-gold hover:text-brand-navy"
-            >
-              {translate("servicesRequestQuotation")}
-              <ArrowRight className="h-3.5 w-3.5" />
-            </Link>
-          )  : service.isBookable  ? (
-            <>
-              <Link
-                href={`/services/${service.slug}/request-quotation`}
-                className="flex w-full items-center justify-center rounded-lg border border-brand-gold bg-brand-navy px-4 py-2.5 text-xs font-bold uppercase tracking-wider text-brand-gold transition-colors hover:bg-brand-gold hover:text-brand-navy"
-              >
-                {translate("servicesRequestQuotation")}
-              </Link>
-              <Link
-                href={`/services/${service.slug}`}
-                className="flex w-full items-center justify-center gap-1.5 rounded-lg bg-brand-gold px-4 py-2.5 text-xs font-bold uppercase tracking-wider text-brand-navy transition-colors hover:bg-brand-gold/90"
-              >
-                {translate("servicesBookNow")}
-                <ArrowRight className="h-3.5 w-3.5" />
-              </Link>
-            </>
-          ) : service.isQuotable ? (
-            <Link
-              href={`/services/${service.slug}/request-quotation`}
-              className="flex w-full items-center justify-center rounded-lg border border-brand-gold bg-brand-navy px-4 py-2.5 text-xs font-bold uppercase tracking-wider text-brand-gold transition-colors hover:bg-brand-gold hover:text-brand-navy"
-            >
-              {translate("servicesRequestQuotation")}
-              <ArrowRight className="h-3.5 w-3.5" />
-            </Link>
-          ) : (
-            <span className="block w-full rounded-lg border border-brand-navy-foreground/20 px-4 py-2.5 text-xs font-medium text-brand-navy-foreground/50">
-              {translate("servicesComingSoon")}
-            </span>
-          )}
-        </div>
+      {/* Top Right Leaf Decor Overlay */}
+      <div className="pointer-events-none absolute rotate-y-[45deg] md:-right-2 right-2 top-2 h-54 w-25 bg-contain bg-no-repeat opacity-90">
+         <Image src="/images/services/leaf_overlay_right.png" alt="Right Leaf" fill />
       </div>
     </div>
+
+      
+    {/* Content Body */}
+    <div className="flex flex-1 flex-col justify-between pt-5 text-center">
+      {/* Title */}
+      <h3 className="text-xl md:text-base font-bold tracking-wide text-white">
+        {label}
+      </h3>
+
+      {/* Description */}
+      {description && (
+        <p className="mt-1.5 line-clamp-2 text-sm text-slate-300">
+          {description}
+        </p>
+      )}
+
+      {/* Pricing Pill Container */}
+      {!hidesHourlyRate && (
+        <div className="mt-4 flex w-full items-center justify-center gap-3 rounded-xl bg-[#1e293b]/70 px-4 py-3 border border-slate-700/50">
+          {/* Clock / Service Icon */}
+          <div className="flex shrink-0 items-center justify-center text-slate-300">
+            <svg className="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <circle cx="12" cy="12" r="9" strokeWidth="1.5" />
+              <path strokeLinecap="round" strokeWidth="1.5" d="M12 7v5l3 3" />
+            </svg>
+          </div>
+
+          <div className="text-center">
+            <p className="text-base font-medium text-white">
+              {service.price ? (
+                <>
+                  Rate: <span className="font-bold">{symbol}{service.price}</span>
+                  <span className="text-sm font-normal">{translate(pricePerUnitKey)}</span>
+                </>
+              ) : (
+                translate("servicesRequestQuotation")
+              )}
+            </p>
+            {service.price && taxStatusLabel && (
+              <p className="text-xs text-slate-400">({taxStatusLabel})</p>
+            )}
+          </div>
+        </div>
+      )}
+
+      {/* Action Buttons */}
+      <div className="mt-4 flex w-full flex-col gap-3">
+        {service.name === "child-care-service" || service.name === "elder-care-service" ? (
+          <div className="relative">
+            <Link
+              href={`/services/${service.slug}`}
+              className="flex w-full items-center justify-center gap-2 rounded-xl bg-brand-gold py-3 text-sm font-bold uppercase tracking-wider text-slate-900 shadow-lg transition-transform hover:scale-[1.01]"
+            >
+              {translate("servicesBookNow")}
+              <ArrowRight className="h-4 w-4" />
+            </Link>
+            {/* Bottom Right Golden Leaf Icon Badge */}
+              <div className="pointer-events-none absolute -bottom-3.5 md:-bottom-1.5 -right-2 flex h-17 w-17 md:h-14 md:w-14 items-center justify-center rounded-full  bg-slate-900 text-brand-gold">
+                <svg className="h-12 w-12 md:h-10 md:w-10 border border-brand-gold rounded-full md:p-1 p-2" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M17,8C8,10 5,16 5,22C11.5,22 17,17 17,8Z" />
+                </svg>
+              </div>
+          </div>
+        ) : isDedicatedFlow ? (
+          <Link
+            href={`/services/${service.slug}`}
+            className="flex w-full items-center justify-center gap-2 rounded-xl border border-brand-gold/80 bg-transparent py-3 text-sm font-semibold uppercase tracking-wider text-white transition-colors hover:bg-brand-gold/10"
+          >
+            <Key className="h-4 w-4 text-brand-gold" />
+            {translate("servicesRequestQuotation")}
+          </Link>
+        ) : service.isBookable ? (
+          <>
+            <Link
+              href={`/services/${service.slug}/request-quotation`}
+              className="flex w-full items-center justify-center gap-2 rounded-xl border border-brand-gold/80 bg-transparent py-3 text-sm font-semibold uppercase tracking-wider text-white transition-colors hover:bg-brand-gold/10"
+            >
+              <Key className="h-4 w-4 text-brand-gold" />
+              {translate("servicesRequestQuotation")}
+            </Link>
+
+            <div className="relative">
+              <Link
+                href={`/services/${service.slug}`}
+                className="flex w-full items-center justify-center gap-2 rounded-xl bg-brand-gold py-3.5 text-sm font-bold uppercase tracking-wider text-slate-900 shadow-md transition-transform hover:scale-[1.01]"
+              >
+                {translate("servicesBookNow")}
+                <ArrowRight className="h-4 w-4" />
+              </Link>
+              {/* Bottom Right Golden Leaf Icon Badge */}
+              <div className="pointer-events-none absolute -bottom-3.5 md:-bottom-1.5 -right-2 flex h-17 w-17 md:h-14 md:w-14 items-center justify-center rounded-full  bg-slate-900 text-brand-gold">
+                <svg className="h-12 w-12 md:h-10 md:w-10 border border-brand-gold rounded-full md:p-1 p-2" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M17,8C8,10 5,16 5,22C11.5,22 17,17 17,8Z" />
+                </svg>
+              </div>
+            </div>
+          </>
+        ) : service.isQuotable ? (
+          <Link
+            href={`/services/${service.slug}/request-quotation`}
+            className="flex w-full items-center justify-center gap-2 rounded-xl border border-brand-gold/80 bg-transparent py-3 text-sm font-semibold uppercase tracking-wider text-white transition-colors hover:bg-brand-gold/10"
+          >
+            <Key className="h-4 w-4 text-brand-gold" />
+            {translate("servicesRequestQuotation")}
+            <ArrowRight className="h-4 w-4" />
+          </Link>
+        ) : (
+          <span className="block w-full rounded-xl border border-slate-700 bg-slate-800/40 py-3 text-center text-xs font-medium text-slate-400">
+            {translate("servicesComingSoon")}
+          </span>
+        )}
+      </div>
+    </div>
+  </div>
+</div>
   );
 }
 
