@@ -49,7 +49,15 @@ export function SiteHeader({ navLinks: navLinksProp, showServicesMenu: showServi
   const accountDesktopRef = useRef<HTMLDivElement>(null);
   const accountMobileRef = useRef<HTMLDivElement>(null);
 
-  const defaultNavLinks = [
+  const defaultNavLinks = IS_GLOBAL_SITE ? [
+    { href: "/about-us", label: translate("navAbout") },
+    { href: "/our-services", label: translate("navServices") },
+    { href: "/our-customers", label: translate("navCustomers") },
+    { href: "/our-locations", label: translate("navLocations") },
+    { href: "/blog", label: translate("navBlog") },
+    { href: "/careers", label: translate("navCareers") },
+    { href: "/contact-us", label: translate("navContact") },
+  ]:[
     { href: "/about-us", label: translate("navAbout") },
     { href: "/our-customers", label: translate("navCustomers") },
     { href: "/our-locations", label: translate("navLocations") },
@@ -59,7 +67,10 @@ export function SiteHeader({ navLinks: navLinksProp, showServicesMenu: showServi
     // (see IS_CAREERS_ENABLED), rather than hiding the link entirely.
     { href: "/careers", label: translate("navCareers") },
     { href: "/contact-us", label: translate("navContact") },
-  ];
+  ] ;
+
+  
+
   const navLinks = navLinksProp ?? defaultNavLinks;
 
   useEffect(() => {
@@ -123,7 +134,7 @@ export function SiteHeader({ navLinks: navLinksProp, showServicesMenu: showServi
 
           <div className=" w-max-[50px] relative ml-2  animate-marquee-header group-hover:[animation-play-state:paused]">
            {marqueeList.map((text,index)=>(
-            <span key={index} className="hidden w-max z-10 text-base px-[2px] font-semibold whitespace-nowrap text-brand-gold sm:inline">
+            <span key={index} className="hidden w-max z-10 text-base px-[2px] font-semibold whitespace-nowrap text-white sm:inline">
               {text.text}
               </span>
             ))}

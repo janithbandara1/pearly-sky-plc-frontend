@@ -15,8 +15,11 @@ import {
 interface Region {
   id: string;
   name: string;
-  iconSvg: React.ReactNode;
+  iconImage: string;
+  objectPosition:string;
+  linkTag:string,
 }
+import Link from "next/link";
 
 const social_logos=[
     "/images/email/social-facebook.png",
@@ -28,59 +31,33 @@ const social_logos=[
 const ALL_REGIONS: Region[] = [
   {
     id: "europe",
-    name: "EUROPE",
-    iconSvg: (
-      <svg className="w-10 h-10 text-[#C5A059]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.2">
-        <path d="M3 21h18M5 21V7l7-4 7 4v14M9 10h6M9 14h6M9 18h6" />
-      </svg>
-    ),
+    name: "EUROPE UNION",
+    iconImage: '/images/hero/europe.jpg',
+    objectPosition:"",
+    linkTag:"#europe"
   },
   {
     id: "australia",
-    name: "AUSTRALIA",
-    iconSvg: (
-      <svg className="w-10 h-10 text-[#C5A059]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.2">
-        <path d="M2 20c4-4 8 0 12-4s8 0 8-4M4 14c3-2 6 0 9-2" />
-      </svg>
-    ),
+    name: "AUSTRALIA & NEW ZEALAND",
+    iconImage: '/images/hero/austrailia.jpg',
+    objectPosition:"",
+    linkTag:"#australia"
   },
   {
     id: "north-america",
     name: "NORTH AMERICA",
-    iconSvg: (
-      <svg className="w-10 h-10 text-[#C5A059]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.2">
-        <path d="M12 2L4 22h16L12 2Z" />
-      </svg>
-    ),
+    iconImage: '/images/hero/north-america.jpg',
+    objectPosition:"object-top",
+    linkTag:"#north-america"
   },
   {
     id: "middle-east",
-    name: "MIDDLE EAST",
-    iconSvg: (
-      <svg className="w-10 h-10 text-[#C5A059]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.2">
-        <path d="M12 3v18M3 12h18M6 6l12 12M18 6L6 18" />
-      </svg>
-    ),
+    name: "Middle East & Asia",
+    iconImage: '/images/hero/middle-east.jpg',
+    objectPosition:"",
+    linkTag:"#middle-east"
   },
-  {
-    id: "south-asia",
-    name: "SOUTH ASIA",
-    iconSvg: (
-      <svg className="w-10 h-10 text-[#C5A059]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.2">
-        <path d="M12 2a10 10 0 100 20 10 10 0 000-20zm0 18a8 8 0 110-16 8 8 0 010 16z" />
-      </svg>
-    ),
-  },
-  {
-    id: "asia-pacific",
-    name: "ASIA PACIFIC",
-    iconSvg: (
-      <svg className="w-10 h-10 text-[#C5A059]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.2">
-        <circle cx="12" cy="12" r="9" />
-        <path d="M3.6 9h16.8M3.6 15h16.8" />
-      </svg>
-    ),
-  },
+  
 ];
 
 export default function GlobalHeroSection() {
@@ -100,10 +77,32 @@ export default function GlobalHeroSection() {
         });
         setIsAnimating(false);
       }, 400);
-    }, 3000);
+    }, 5000);
 
     return () => clearInterval(interval);
+
+
   }, []);
+
+  const redirectToRegions = (region: Region) => {
+    const targetId = region.linkTag.replace(/^#/, "");
+    const targetEl = document.getElementById(targetId);
+    if (targetEl) {
+      const headerOffset = 90;
+      const elementPosition = targetEl.getBoundingClientRect().top;
+      const offsetPosition = elementPosition + window.scrollY - headerOffset;
+
+      window.scrollTo({
+        top: offsetPosition,
+        behavior: "smooth",
+      });
+      history.pushState(null, "", region.linkTag);
+    } else {
+      location.href = region.linkTag;
+    }
+  };
+
+  
 
   const visibleRegions = regions.slice(0, 4);
 
@@ -146,7 +145,7 @@ export default function GlobalHeroSection() {
             <h1 className="text-5xl lg:text-6xl text-center font-normal tracking-tight text-[#0F1E36]">
               Pearly Sky
             </h1>
-            <p className="text-3xl lg:text-4xl text-[#C5A059] font-light tracking-wide">
+            <p className="text-2xl text-center md:text-3xl lg:text-4xl text-[#C5A059] font-light tracking-wide">
               Eco-Luxury Cleaning
             </p>
             <div className="flex justify-center items-center">
@@ -164,18 +163,18 @@ export default function GlobalHeroSection() {
           </div>
 
           {/* Action Buttons */}
-          <div className="flex flex-wrap items-center gap-4">
-            <button className="bg-[#0F1E36] hover:bg-[#1A2E4C] text-white text-xs tracking-widest uppercase font-sans font-medium px-6 py-3.5 rounded-full flex items-center gap-3 transition-all shadow-md">
+          <div className="flex  flex-wrap justify-center items-center gap-4">
+            <Link href="/our-services" className="bg-[#0F1E36] min-h-[48px] min-w-[48px] hover:bg-[#1A2E4C] text-white text-based tracking-widest uppercase font-sans font-medium px-4 py-3 rounded-full flex items-center gap-3 transition-all shadow-md">
               <span className="w-5 h-5 rounded-full bg-[#C5A059] flex items-center justify-center text-[#0F1E36]">
                 <Leaf className="w-3 h-3 fill-current" />
               </span>
               Our Services
-            </button>
+            </Link>
 
-            <button className="border border-[#C5A059] text-[#C5A059] hover:bg-[#C5A059]/10 text-xs tracking-widest uppercase font-sans font-medium px-6 py-3.5 rounded-full flex items-center gap-3 transition-all">
-              Our Promise
-              <ChevronRight className="w-4 h-4" />
-            </button>
+            <Link href="/about-us" className="border px-4 py-3 min-h-[48px] min-w-[48px] border-[#C5A059] text-[#C5A059] hover:bg-[#C5A059]/10 text-based tracking-widest uppercase font-sans font-medium  rounded-full flex items-center gap-3 transition-all">
+                About Us
+                <ChevronRight className="w-4 h-4" />
+            </Link>
           </div>
 
           {/* Feature Badges */}
@@ -221,19 +220,23 @@ export default function GlobalHeroSection() {
               {visibleRegions.map((region) => (
                 <div
                   key={region.id}
+                  onClick={() => redirectToRegions(region)}
                   className={`border border-[#EAE3D2] rounded-xl p-4 flex flex-col items-center justify-between h-32 hover:border-[#C5A059] hover:shadow-md transition-all duration-500 cursor-pointer group bg-[#FAF8F3] ${
                     isAnimating ? "opacity-0 scale-95" : "opacity-100 scale-100"
                   }`}
                 >
-                  <div className="flex-1 flex items-center justify-center group-hover:scale-105 transition-transform">
-                    {region.iconSvg}
+                  <div className="flex-1 flex items-center justify-center  transition-transform">
+                    
+                    <Image fill src={region.iconImage} alt={region.name} className={`object-cover ${region.objectPosition} object-top-[5px] `}/>
                   </div>
-                  <div className="w-full flex items-center justify-between pt-2 border-t border-[#EAE3D2]/40">
+                  <div className="w-full z-20 flex items-center justify-between pt-2 border-t border-[#EAE3D2]/40">
                     <span className="text-[10px] font-sans font-bold tracking-wider text-[#0F1E36]">
                       {region.name}
                     </span>
-                    <div className="w-5 h-5 rounded-full border border-[#C5A059] flex items-center justify-center text-[#C5A059] group-hover:bg-[#C5A059] group-hover:text-white transition-colors">
-                      <ArrowRight className="w-3 h-3" />
+                    <div onClick={()=>redirectToRegions(region)} className="w-5 h-5 scroll-smooth rounded-full border border-[#C5A059] flex items-center justify-center text-[#C5A059] group-hover:bg-[#C5A059] group-hover:text-white transition-colors">
+                      
+                      <ArrowRight className="w-2 h-2" />
+                        
                     </div>
                   </div>
                 </div>
@@ -257,7 +260,7 @@ export default function GlobalHeroSection() {
           {/* Brand Logo Left */}
           <div className="flex items-center gap-3">
             <div className="w-8 h-8 rounded-full border border-[#C5A059] flex items-center justify-center text-[#C5A059]">
-              <Image src="/images/brand/logo.webp" alt="Logo" width={30} height={30}/>
+              <Leaf className="w-3 h-3 fill-current" />
             </div>
             <div>
               <p className="font-serif text-sm leading-none tracking-wider text-white">PEARLY SKY</p>
@@ -283,7 +286,7 @@ export default function GlobalHeroSection() {
 
           {/* Social Links Right */}
           <div className="flex items-center gap-3">
-            <span className="text-[10px] uppercase tracking-widest text-gray-400 mr-2">Follow Us</span>
+            <span className="hidden md:block lg:block text-[10px] uppercase tracking-widest text-gray-400 mr-2">Follow Us</span>
             {social_logos.map((Icon, idx) => (
               <Image key={idx} alt="social" src={Icon}  width={30} height={30} className="hover:opacity-75 " />
             ))}

@@ -42,7 +42,7 @@ export default function PaymentMarquee() {
   const duplicatedMethods = [...paymentMethods, ...paymentMethods];
 
   return (
-    <div className="group relative flex w-full overflow-hidden py-4">
+    <div className="group z-30 bg-white relative flex w-full overflow-hidden py-4">
       {/* Left Fade Gradient */}
       <div className="pointer-events-none absolute left-0 top-0 z-10 h-full w-[100px] bg-gradient-to-r from-background to-transparent md:w-[200px]" />
 

@@ -56,7 +56,7 @@ export function SiteFooter() {
   const contactEmail = getCountryContactEmail(country);
 
   return (
-    <footer className="border-t border-brand-gold/30 bg-brand-navy text-brand-navy-foreground">
+    <footer className="border-t z-30 border-brand-gold/30 bg-brand-navy text-brand-navy-foreground">
       <div className="flex justify-center px-4 pb-2 pt-4 sm:pt-5">
         <div className="flex flex-wrap items-center justify-center gap-2">
           <LanguageSwitcher className="h-8 min-h-[48px] py-3 border-brand-gold/70 bg-transparent text-xs" />
