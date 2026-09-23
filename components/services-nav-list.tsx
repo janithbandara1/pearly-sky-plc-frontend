@@ -6,6 +6,7 @@ import { getServices } from "@/lib/catalog-api";
 import type { CatalogService } from "@/lib/catalog-api";
 import { useCountry } from "@/lib/countries/country-context";
 import { useLanguage } from "@/lib/i18n/language-context";
+import { buildLocalePath } from "@/lib/locale";
 import type { TranslationKey } from "@/lib/i18n/dictionaries/en";
 
 export function useCatalogServices() {
@@ -80,7 +81,7 @@ export function ServicesNavList({
   scrollable?: boolean;
 }) {
   const services = useCatalogServices();
-  const { translate } = useLanguage();
+  const { translate, language } = useLanguage();
 
   return (
     <ul
@@ -94,11 +95,12 @@ export function ServicesNavList({
           service.name === "pool-cleaning" ||
           service.name === "precision-pressure-washing" ||
           service.name === "luxury-yacht-cleaning";
-        const href = isDedicatedFlow || service.isBookable
+        const rawHref = isDedicatedFlow || service.isBookable
           ? `/services/${service.slug}`
           : service.isQuotable
             ? `/services/${service.slug}/request-quotation`
             : null;
+        const href = rawHref ? buildLocalePath(rawHref, language) : null;
 
         const translationKey =
           serviceTranslationKeyMap[service.name] ||

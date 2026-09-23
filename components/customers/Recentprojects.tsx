@@ -55,7 +55,7 @@ export default function RandomImageGrid() {
                     className="grid grid-cols-2 gap-1 border border-[#c5a880]/40 rounded-lg p-1 overflow-hidden shadow-xl transition-all duration-700 ease-in-out"
                 >
                     {/* Left Image: BEFORE */}
-                    <div className="relative h-64 md:h-100 w-full overflow-hidden rounded-l">
+                    <div className="relative h-64 md:h-100 w-full overflow-hidden rounded-l border-2 border-[#A98B4B]">
                     <Image
                         src={item.before}
                         alt="Before"
@@ -68,7 +68,7 @@ export default function RandomImageGrid() {
                     </div>
 
                     {/* Right Image: AFTER */}
-                    <div className="relative h-64 md:h-100 w-full overflow-hidden rounded-r">
+                    <div className="relative h-64 md:h-100 w-full overflow-hidden rounded-r border-2 border-[#A98B4B]">
                     <Image
                         src={item.after}
                         alt="After"

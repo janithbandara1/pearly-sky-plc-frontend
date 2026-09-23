@@ -33,6 +33,7 @@ import {
   getServiceBySlug,
   getServiceQuote,
   ServiceAddOnPackage,
+  ServiceLocaleSlug,
   SizeQuote,
   withLocaleDefaults,
 } from "@/lib/catalog-api";
@@ -188,7 +189,21 @@ const FALLBACK_SERVICES: Record<string, CatalogServiceDetail> = {
   }),
 };
 
-export function ServiceBookingView({ serviceSlug }: { serviceSlug: string }) {
+export function ServiceBookingView({
+  serviceSlug,
+  locales,
+}: {
+  serviceSlug: string;
+  /**
+   * This service's locale-specific slugs, resolved server-side (see
+   * `page.tsx`) and passed straight in — registered below without waiting
+   * on the client-side `getServiceBySlug` fetch further down, which over a
+   * real network (prod) can take long enough for a visitor to hit the
+   * language switcher before that fetch resolves, landing them on a
+   * mismatched locale+slug URL (e.g. "/en/services/nettoyage-regulier").
+   */
+  locales: ServiceLocaleSlug[];
+}) {
   const router = useRouter();
   const { country } = useCountry();
   const { registerServiceSlugs } = useLanguage();
@@ -276,11 +291,15 @@ export function ServiceBookingView({ serviceSlug }: { serviceSlug: string }) {
   // Tells the language switcher this service's locale-specific slugs, so
   // switching language lands on e.g. "nettoyage-regulier" instead of keeping
   // "regular-home-cleaning" — see registerServiceSlugs in language-context.tsx.
+  // Uses the `locales` prop (resolved server-side in page.tsx) rather than
+  // the client-fetched `service` state below, so it's registered on mount
+  // instead of after that fetch's network round-trip resolves — otherwise a
+  // visitor who switches language before that fetch completes lands on a
+  // mismatched locale+slug URL.
   useEffect(() => {
-    if (!service) return;
-    registerServiceSlugs({ baseSlug: service.name, locales: service.locales });
+    registerServiceSlugs({ baseSlug: serviceSlug, locales });
     return () => registerServiceSlugs(null);
-  }, [service, registerServiceSlugs]);
+  }, [serviceSlug, locales, registerServiceSlugs]);
 
   useEffect(() => {
     if (!service || isFlowService) return;

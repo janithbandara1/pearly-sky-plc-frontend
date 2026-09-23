@@ -15,6 +15,7 @@ import { useCountry } from "@/lib/countries/country-context";
 import { getCountryHomeContent } from "@/lib/countries/home-content";
 import { getCountryContactEmail, getCountryOffice, getWhatsappUrl } from "@/lib/countries/office";
 import { IS_GLOBAL_SITE } from "@/lib/countries/config";
+import { buildLocalePath } from "@/lib/locale";
 import { LanguageSwitcher } from "@/components/language-switcher";
 import { ServicesNavList } from "@/components/services-nav-list";
 import type { TranslationKey } from "@/lib/i18n/dictionaries/en";
@@ -48,6 +49,10 @@ export function SiteFooter() {
   const [servicesOpen, setServicesOpen] = useState(false);
 
   const navLinks = NAV_LINKS;
+  // See the matching helper in site-header.tsx — an unprefixed href relies on
+  // proxy.ts's cookie-based redirect to land back on the current language,
+  // which is an extra round trip that can resolve to the wrong language.
+  const localeHref = (href: string) => buildLocalePath(href, language);
 
   const { footerTagline } = getCountryHomeContent(language);
   const office = getCountryOffice(country);
@@ -102,12 +107,12 @@ export function SiteFooter() {
           <div className="mt-3 grid w-full grid-cols-2 gap-x-6">
             <ul className="text-xs text-brand-navy-foreground/85">
               {navLinks.slice(0, 4).map((link) => (
-                <li key={link.href}><Link href={link.href} className="inline-block py-1.5 transition-colors hover:text-brand-gold">{translate(link.labelKey)}</Link></li>
+                <li key={link.href}><Link href={localeHref(link.href)} className="inline-block py-1.5 transition-colors hover:text-brand-gold">{translate(link.labelKey)}</Link></li>
               ))}
             </ul>
             <ul className="text-xs text-brand-navy-foreground/85">
               {navLinks.slice(4).map((link) => (
-                <li key={link.href}><Link href={link.href} className="inline-block py-1.5 transition-colors hover:text-brand-gold">{translate(link.labelKey)}</Link></li>
+                <li key={link.href}><Link href={localeHref(link.href)} className="inline-block py-1.5 transition-colors hover:text-brand-gold">{translate(link.labelKey)}</Link></li>
               ))}
               {!IS_GLOBAL_SITE && (
                 <li>
@@ -135,13 +140,13 @@ export function SiteFooter() {
           © {new Date().getFullYear()} Pearly Sky. {translate("footerRights")}
         </p>
         <div className="flex items-center gap-4">
-          <Link href="/terms-and-conditions" className="inline-block py-1.5 transition-colors hover:text-brand-gold">
+          <Link href={localeHref("/terms-and-conditions")} className="inline-block py-1.5 transition-colors hover:text-brand-gold">
             {translate("footerTermsLink")}
           </Link>
-          <Link href="/privacy-policy" className="inline-block py-1.5 transition-colors hover:text-brand-gold">
+          <Link href={localeHref("/privacy-policy")} className="inline-block py-1.5 transition-colors hover:text-brand-gold">
             {translate("footerPrivacyLink")}
           </Link>
-          <Link href="/cookie-policy" className="inline-block py-1.5 transition-colors hover:text-brand-gold">
+          <Link href={localeHref("/cookie-policy")} className="inline-block py-1.5 transition-colors hover:text-brand-gold">
             {translate("footerCookieLink")}
           </Link>
         </div>

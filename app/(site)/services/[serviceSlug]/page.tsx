@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { redirect } from "next/navigation";
-import { getServiceBySlug } from "@/lib/catalog-api";
+import { getServiceBySlug, type ServiceLocaleSlug } from "@/lib/catalog-api";
 import { getRequestCountry } from "@/lib/countries/server";
 import { getRequestLanguage } from "@/lib/i18n/server";
 import { buildCountryAlternates, buildServiceAlternates, buildSocialMeta } from "@/lib/countries/seo";
@@ -57,11 +57,13 @@ export default async function ServiceDetailPage({
   let canonicalSlug = serviceSlug;
   let label = serviceSlug;
   let localizedSlug: string | null = null;
+  let locales: ServiceLocaleSlug[] = [];
   try {
     const service = await getServiceBySlug(serviceSlug, country, language);
     canonicalSlug = service.name;
     label = service.localizedName;
     localizedSlug = service.slug;
+    locales = service.locales;
   } catch {
     // Unknown slug — fall through with the raw values; the booking view's own fallback handles it.
   }
@@ -82,7 +84,7 @@ export default async function ServiceDetailPage({
           { name: label, path: `/services/${serviceSlug}` },
         ])}
       />
-      <ServiceBookingView serviceSlug={canonicalSlug} />
+      <ServiceBookingView serviceSlug={canonicalSlug} locales={locales} />
       <JoinWithUsSection />
       <RelatedServices />
       <PaymentMarquee />

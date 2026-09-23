@@ -8,6 +8,7 @@ import { CalendarDays, ChevronDown, FileText, LogOut, Menu, UserRound, XIcon } f
 import { useAuth } from "@/lib/auth-context";
 import { useLanguage } from "@/lib/i18n/language-context";
 import { IS_GLOBAL_SITE } from "@/lib/countries/config";
+import { buildLocalePath } from "@/lib/locale";
 import { cn } from "@/lib/utils";
 import { ServicesNavList } from "@/components/services-nav-list";
 import { LanguageSelect } from "@/components/language-select";
@@ -38,7 +39,17 @@ export function SiteHeader({ navLinks: navLinksProp, showServicesMenu: showServi
   // The global gateway has no catalog or accounts behind it at all — never
   // show the services menu or login/signup/account UI there.
   const showServicesMenu = showServicesMenuProp && !IS_GLOBAL_SITE;
-  const { translate } = useLanguage();
+  const { translate, language } = useLanguage();
+  /**
+   * Internal nav links are built with this instead of a raw path — a plain
+   * unprefixed href (e.g. "/") relies on proxy.ts's cookie-based redirect to
+   * land back on the current language, which is one extra round trip that
+   * can resolve to the wrong language (or momentarily render a stale cached
+   * shell for the wrong one, e.g. the switcher still showing English right
+   * after landing on /fr). Pointing straight at `/{language}/...` matches
+   * what the switcher itself shows and skips that round trip entirely.
+   */
+  const localeHref = (href: string) => buildLocalePath(href, language);
   const { status, logout } = useAuth();
   const pathname = usePathname();
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -122,7 +133,7 @@ export function SiteHeader({ navLinks: navLinksProp, showServicesMenu: showServi
     <header className="sticky top-0 z-50 bg-brand-navy text-brand-navy-foreground">
       <div className="mx-auto flex h-16 w-full max-w-7xl items-center justify-between gap-1 px-1 ">
 
-        <Link href="/" className="w-[16%] flex items-center gap-3.5 overflow-hidden">
+        <Link href={localeHref("/")} className="w-[16%] flex items-center gap-3.5 overflow-hidden">
           <Image
             src="/images/brand/logo.webp"
             alt="Pearly Sky"
@@ -145,7 +156,7 @@ export function SiteHeader({ navLinks: navLinksProp, showServicesMenu: showServi
 
         <nav className="hidden bg-brand-navy max-w-full border border-[#C9B678] px-2 py-1 rounded-3xl items-center gap-1 lg:flex">
           <Link
-            href="/"
+            href={localeHref("/")}
             className={cn(navLinkClass, pathname === "/" && navLinkActiveClass)}
           >
             {translate("navHome")}
@@ -182,7 +193,7 @@ export function SiteHeader({ navLinks: navLinksProp, showServicesMenu: showServi
           {navLinks.map((link) => (
             <Link
               key={link.href}
-              href={link.href}
+              href={localeHref(link.href)}
               className={cn(navLinkClass, pathname === link.href && navLinkActiveClass)}
             >
               {link.label}
@@ -368,7 +379,7 @@ export function SiteHeader({ navLinks: navLinksProp, showServicesMenu: showServi
               </SheetHeader>
               <nav className="flex flex-1 flex-col gap-1 overflow-y-auto px-4 pb-4 text-sm font-medium">
                 <Link
-                  href="/"
+                  href={localeHref("/")}
                   onClick={() => setMobileOpen(false)}
                   className={cn(navLinkClass, pathname === "/" && navLinkActiveClass)}
                 >
@@ -410,7 +421,7 @@ export function SiteHeader({ navLinks: navLinksProp, showServicesMenu: showServi
                 {navLinks.map((link) => (
                   <Link
                     key={link.href}
-                    href={link.href}
+                    href={localeHref(link.href)}
                     onClick={() => setMobileOpen(false)}
                     className={cn(navLinkClass, pathname === link.href && navLinkActiveClass)}
                   >
