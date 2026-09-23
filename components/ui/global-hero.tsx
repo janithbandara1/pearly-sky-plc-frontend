@@ -1,5 +1,9 @@
 "use client";
 
+import { Globe2, Network, Star } from "lucide-react";
+import { useLanguage } from "@/lib/i18n/language-context";
+import { getCountryHomeContent } from "@/lib/countries/home-content";
+
 import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import {
@@ -272,9 +276,9 @@ export default function GlobalHeroSection() {
 
       {/* Footer Navigation Bar */}
       <footer className="relative z-10 bg-[#0F1E36] text-white border-t border-[#1C2A3A]">
-        <div className="max-w-7xl mx-auto px-6 py-4 flex flex-wrap items-center justify-between gap-4 text-xs font-sans">
+        <div className="max-w-7xl mx-auto px-6 py-4 flex  items-center justify-between gap-4 text-xs font-sans">
           {/* Brand Logo Left */}
-          <div className="flex items-center gap-3">
+          {/* <div className="flex items-center gap-3">
             <div className="w-8 h-8 rounded-full border border-[#C5A059] flex items-center justify-center text-[#C5A059]">
               <Leaf className="w-3 h-3 fill-current" />
             </div>
@@ -282,37 +286,77 @@ export default function GlobalHeroSection() {
               <p className="font-serif text-sm leading-none tracking-wider text-white">PEARLY SKY</p>
               <p className="text-[8px] tracking-widest text-[#C5A059] uppercase">Eco-Luxury Cleaning Global</p>
             </div>
+          </div> */}
+          <div className="flex w-full justify-center items-center">
+                 <TrustBarLine />
           </div>
-
-          {/* Middle Value Props */}
-          <div className="hidden md:flex items-center gap-8 text-[11px] uppercase tracking-wider text-gray-300">
-            <div className="flex items-center gap-2">
-              <Leaf className="w-4 h-4 text-[#C5A059]" />
-              <span>Sustainable Practices</span>
-            </div>
-            <div className="flex items-center gap-2 border-l border-gray-700 pl-8">
-              <Users className="w-4 h-4 text-[#C5A059]" />
-              <span>Community Focused</span>
-            </div>
-            <div className="flex items-center gap-2 border-l border-gray-700 pl-8">
-              <Globe className="w-4 h-4 text-[#C5A059]" />
-              <span>Global Presence</span>
-            </div>
-          </div>
-
-          {/* Social Links Right */}
-          <div className="flex items-center gap-3 justify-center">
-            <span className="hidden md:block lg:block text-[12px] uppercase tracking-widest text-gray-400 mr-2">Follow Us</span>
-            <div className=" flex flex-wrap justify-center gap-2 md:justify-start">
-              {SOCIAL_LINKS.map(({ href, label, Icon }) => (
-                <a key={label} href={href} target="_blank" rel="noopener noreferrer" aria-label={label} className="flex h-8 w-8 items-center justify-center rounded-full border border-brand-gold/70 bg-brand-gold/15 text-brand-navy-foreground transition-colors hover:bg-brand-gold hover:text-brand-navy">
-                  <Icon className="h-3.5 w-3.5" />
-                </a>
-              ))}
-            </div>
-          </div>
+         
         </div>
       </footer>
     </div>
+  );
+}
+
+function TrustBarLine() {
+  const { translate, language } = useLanguage();
+  const { trustCoverage } = getCountryHomeContent(language);
+
+  const items = [
+    {
+      Icon: Leaf,
+      label: translate("trustEcoCertified"),
+      description: translate("trustEcoDescription"),
+    },
+    {
+      Icon: Star,
+      label: translate("trustRating"),
+      description: translate("trustRatingDescription"),
+    },
+    {
+      Icon: Network,
+      label: translate("trustPartnership"),
+      description: translate("trustPartnershipDescription"),
+    },
+  ];
+
+  return (
+    <section className="  px-3 py-3 sm:px-5 sm:py-4 lg:px-8 lg:py-5">
+      <div className="mx-auto hidden w-full max-w-7xl grid-cols-2 gap-2 sm:gap-3 md:grid md:grid-cols-3 lg:gap-3">
+        {items.map(({ Icon, label, description }) => (
+          <div
+            key={label}
+            className="flex min-h-[148px]  flex-col items-center justify-start rounded-[7px] border border-brand-gold/20 bg-brand-navy px-2 py-4 text-center text-brand-navy-foreground sm:min-h-[158px] sm:px-3 sm:py-5 lg:min-h-[164px] lg:px-4"
+          >
+            <Icon className="mb-2 h-9 w-9 shrink-0 stroke-[1.5] text-brand-gold sm:mb-2.5 sm:h-10 sm:w-10 lg:h-11 lg:w-11" />
+            <h2 className="max-w-[170px] text-[14px] font-bold uppercase leading-[1.18] tracking-[0.01em] md:max-w-[250px] md:text-[16px] lg:max-w-[230px] lg:text-lg">
+              {label}
+            </h2>
+            <p className="mt-2 max-w-[190px] text-[12px] leading-[1.35] text-brand-navy-foreground/90 sm:mt-2.5 md:max-w-[250px] lg:max-w-[280px] lg:text-[13px]">
+              {description}
+            </p>
+          </div>
+        ))}
+      </div>
+
+      <div className="w-full md:max-w-7xl lg:max-w-7xl overflow-hidden md:hidden">
+        <div className="flex w-max md:w-7xl lg:w-7xl gap-2 motion-reduce:animate-none sm:gap-3 animate-marquee hover:[animation-play-state:paused]">
+          {[...items, ...items].map(({ Icon, label, description }, index) => (
+            <div
+              key={`${label}-${index}`}
+              aria-hidden={index >= items.length}
+              className="flex min-h-[148px] w-[200px] shrink-0 flex-col items-center justify-start rounded-[7px] border border-brand-gold/20 bg-brand-navy px-2 py-4 text-center text-brand-navy-foreground sm:min-h-[158px] sm:px-3 sm:py-5"
+            >
+              <Icon className="mb-2 h-9 w-9 shrink-0 stroke-[1.5] text-brand-gold sm:mb-2.5 sm:h-10 sm:w-10" />
+              <h2 className="max-w-[170px] text-[14px] font-bold uppercase leading-[1.18] tracking-[0.01em] sm:text-[15px] md:text-[16px] lg:text-lg">
+                {label}
+              </h2>
+              <p className="mt-2 max-w-[190px] text-[11px] leading-[1.35] text-brand-navy-foreground/90 sm:mt-2.5 lg:text-[13px]">
+                {description}
+              </p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
   );
 }

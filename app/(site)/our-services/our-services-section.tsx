@@ -51,7 +51,7 @@ const services: Service[] = [
     body: [
       "Stop stressing over everyday chores. Our Standard Residential Cleaning service establishes a reliable, recurring schedule that keeps your home effortlessly immaculate. We use exclusively green, certified eco-friendly products to deliver a deep, sparkling clean that is 100% safe for children and pets. Commit to consistency and enjoy the luxury of coming home to a healthier, reliably pristine space every week.",
     ],
-    icon: <Home className="w-5 h-5" />,
+    icon: <Home className="w-5 h-5 text-brand-gold" />,
     highlightsTitle: "Regular Home Cleaning Highlights",
     features: [
       {
@@ -94,7 +94,7 @@ const services: Service[] = [
     body: [
       "Short on time but need your home looking its best? Our Essential Touch-Up Cleaning is a high-speed, targeted service designed to restore polish to your primary living areas. Ideal before hosting guests, after an event, or between routine visits, we focus on high-traffic zones—like key surfaces, kitchens, and bathrooms—using 100% certified eco-friendly products.",
     ],
-    icon: <Zap className="w-5 h-5" />,
+    icon: <Zap className="w-5 h-5 text-brand-gold" />,
     highlightsTitle: "Essential Touch-Up Cleaning Highlights",
     features: [
       {
@@ -141,7 +141,7 @@ const services: Service[] = [
     body: [
       "Need immediate cleaning help on short notice? Our Same-Day Priority Cleaning offers rapid-dispatch service for unexpected visitors, last-minute events, or sudden emergencies. We prioritize your booking to send a professional cleaner to your home as fast as possible, using 100% certified eco-friendly, non-toxic products safe for your family and pets.",
     ],
-    icon: <Clock className="w-5 h-5" />,
+    icon: <Clock className="w-5 h-5 text-brand-gold" />,
     highlightsTitle: "Same-Day Priority Cleaning Highlights",
     features: [
       {
@@ -198,7 +198,7 @@ const services: Service[] = [
     body: [
       "If your home needs more than just a quick spruce, our Total Home Reset is the perfect solution. This is our most thorough and detailed cleaning package, designed to tackle the grime, dust, and build-up that standard cleaning overlooks. We dedicate the necessary time to deep-clean every corner, establishing a pristine foundation for your home.",
     ],
-    icon: <Sparkles className="w-5 h-5" />,
+    icon: <Sparkles className="w-5 h-5 text-brand-gold" />,
     highlightsTitle: "Deep Cleaning Highlights",
     features: [
       {
@@ -242,7 +242,7 @@ const services: Service[] = [
     body: [
       "Our Transition Tidy / Spotless Turnover service is a highly focused, comprehensive clean designed specifically for empty properties. This service goes beyond standard deep cleaning, focusing intensely on forgotten areas like inside cabinets, drawers, and utility spaces to meet the strict standards required for turnover.",
     ],
-    icon: <Home className="w-5 h-5" />,
+    icon: <Home className="w-5 h-5 text-brand-gold" />,
     highlightsTitle: "End of Tenancy Cleaning Highlights",
     features: [
       {
@@ -284,7 +284,7 @@ const services: Service[] = [
     body: [
       "Our Construction Dust-Buster service is essential for safely and thoroughly removing construction residue, fine drywall dust, paint splatter, and adhesive marks. This two-phase process (rough clean and final clean) focuses on microscopic dust removal from every surface using specialized equipment to achieve move-in readiness.",
     ],
-    icon: <Building2 className="w-5 h-5" />,
+    icon: <Building2 className="w-5 h-5 text-brand-gold" />,
     highlightsTitle: "Post-Construction & Renovation Cleaning Highlights",
     features: [
       {
@@ -326,7 +326,7 @@ const services: Service[] = [
     body: [
       "Our Rental Ready Turnover service is custom-built for the unique demands of short-term rental properties. The goal is to maximize efficiency while ensuring every detail meets the highest hospitality standards for immediate guest check-in. This service is time-critical and includes essential re-stocking and presentation tasks that standard cleaning services do not cover.",
     ],
-    icon: <Sparkles className="w-5 h-5" />,
+    icon: <Sparkles className="w-5 h-5 text-brand-gold" />,
     highlightsTitle: "Premium Rental Concierge Cleaning Highlights",
     features: [
       {
@@ -375,7 +375,7 @@ const services: Service[] = [
     body: [
       "Our Professional Premises Polish service is tailored to businesses seeking reliable, high-quality cleaning for their commercial spaces, offices, and corporate environments. Our teams operate with discretion and efficiency, typically scheduling outside of standard business hours to minimize disruption.",
     ],
-    icon: <Building2 className="w-5 h-5" />,
+    icon: <Building2 className="w-5 h-5 text-brand-gold" />,
     highlightsTitle: "Workplace Wellness Checklist",
     features: [
       {
@@ -423,7 +423,7 @@ const services: Service[] = [
     body: [
       "Our HealthGuard Sanitization service focuses exclusively on eliminating pathogens, bacteria, and viruses from high-touch and high-traffic surfaces. This service utilizes EPA/ECHA-registered, hospital-grade disinfectants and specialized application methods to achieve maximum coverage and microbial kill rates.",
     ],
-    icon: <ShieldCheck className="w-5 h-5" />,
+    icon: <ShieldCheck className="w-5 h-5 text-brand-gold" />,
     highlightsTitle: "Pure Space Disinfection Checklist",
     features: [
       {
@@ -465,7 +465,7 @@ const services: Service[] = [
     body: [
       "Our Fiber Renewal service uses professional hot-water extraction and fabric-safe treatments to lift embedded dirt, allergens, and odors from carpets, rugs, upholstery, mattresses, and curtains — going far deeper than a standard vacuum ever could.",
     ],
-    icon: <Sofa className="w-5 h-5" />,
+    icon: <Sofa className="w-5 h-5 text-brand-gold" />,
     highlightsTitle: "Carpet & Upholstery Cleaning Highlights",
     features: [
       {
@@ -518,7 +518,7 @@ const services: Service[] = [
     body: [
       "Our Vapor Virtue Cleaning service utilizes high-temperature, low-moisture steam to sanitize surfaces, dissolve grease, eliminate mold and mildew, and kill up to 99.9% of bacteria, germs, and dust mites.",
     ],
-    icon: <Wind className="w-5 h-5" />,
+    icon: <Wind className="w-5 h-5 text-brand-gold" />,
     highlightsTitle: "Steam Cleaning Highlights",
     features: [
       {
@@ -560,7 +560,7 @@ const services: Service[] = [
     body: [
       "Our special event cleaning service is designed to ensure your event space is spotless and ready, allowing you to focus on enjoying the occasion. From preparation to post-event, our professionals handle every detail to create a clean and welcoming environment for guests.",
     ],
-    icon: <PartyPopper className="w-5 h-5" />,
+    icon: <PartyPopper className="w-5 h-5 text-brand-gold" />,
     highlightsTitle: "Post-Event Cleaning Highlights",
     features: [
       {
@@ -609,7 +609,7 @@ const services: Service[] = [
     body: [
       "Our Aquatic Clarity service offers specialized, recurring maintenance for residential and commercial swimming pools. This service ensures optimal water chemistry, equipment longevity, and a clean, safe swimming environment.",
     ],
-    icon: <Waves className="w-5 h-5" />,
+    icon: <Waves className="w-5 h-5 text-brand-gold" />,
     highlightsTitle: "Pool Cleaning Highlights",
     features: [
       {
@@ -641,7 +641,7 @@ const services: Service[] = [
     body: [
       "Our Exterior Blast & Brighten service uses professional-grade, high-pressure equipment, often including hot water capabilities, specialized nozzles, and biodegradable detergents to safely and effectively clean tough exterior surfaces.",
     ],
-    icon: <SprayCan className="w-5 h-5" />,
+    icon: <SprayCan className="w-5 h-5 text-brand-gold" />,
     highlightsTitle: "Precision Pressure Washing Highlights",
     features: [
       {
@@ -671,7 +671,7 @@ const services: Service[] = [
     body: [
       "This service provides highly personalized, premium childcare, often in the home, specializing in educational engagement, flexible scheduling, and comprehensive support — including meals, hygiene, transportation, and light housekeeping.",
     ],
-    icon: <Baby className="w-5 h-5" />,
+    icon: <Baby className="w-5 h-5 text-brand-gold" />,
     highlightsTitle: "Child Care Service Highlights",
     features: [
       {
@@ -707,7 +707,7 @@ const services: Service[] = [
     body: [
       "This service provides highly personalized, non-medical supportive care for seniors, focusing on enhancing quality of life, safety, and independence through dedicated companionship, mobility assistance, meal preparation, and essential errands.",
     ],
-    icon: <HeartHandshake className="w-5 h-5" />,
+    icon: <HeartHandshake className="w-5 h-5 text-brand-gold" />,
     highlightsTitle: "Elder Care Service Highlights",
     features: [
       {
@@ -741,7 +741,7 @@ const services: Service[] = [
     body: [
       "Your time is precious — let us handle the laundry, from pickup to fresh, folded delivery.",
     ],
-    icon: <Shirt className="w-5 h-5" />,
+    icon: <Shirt className="w-5 h-5 text-brand-gold" />,
     highlightsTitle: "Laundry Service Highlights",
     features: [
       {
@@ -777,7 +777,7 @@ const services: Service[] = [
     body: [
       "This service provides bespoke transport and transition management for discerning residential and commercial clients. The fee is determined via a comprehensive quotation based on logistical complexity, inventory volume, and distance of transit.",
     ],
-    icon: <Truck className="w-5 h-5" />,
+    icon: <Truck className="w-5 h-5 text-brand-gold" />,
     highlightsTitle: "Move-In / Move-Out Transport Highlights",
     features: [
       {
@@ -813,7 +813,7 @@ const services: Service[] = [
     body: [
       "Specialist cleaning designed for VVIP and VIP clients, government facilities, private residences, and highly sensitive properties. Handled exclusively by security-vetted staff working under strict non-disclosure agreements, we provide complete discretion in restricted-access areas.",
     ],
-    icon: <Lock className="w-5 h-5" />,
+    icon: <Lock className="w-5 h-5 text-brand-gold" />,
     highlightsTitle: "High-Security Property Care Highlights",
     features: [
       {
@@ -854,7 +854,7 @@ const services: Service[] = [
       "Maintaining a world-class luxury vessel requires relentless care and uncompromising detail. Whether you are preparing your yacht for an exclusive charter, recovering from a multi-day sea voyage, or needing discreet interior housekeeping for high-profile guests, our Marine Cleaning Specialists are ready to step in.",
       "We specialize in high-end yacht detailing, marine-grade hull restoration, teak treatment, and ultra-discreet interior sanitation.",
     ],
-    icon: <Anchor className="w-5 h-5" />,
+    icon: <Anchor className="w-5 h-5 text-brand-gold" />,
     highlightsTitle: "Luxury Yacht Care Checklist",
     features: [
       {
@@ -964,7 +964,7 @@ export default function ServicesDetailsPage() {
         {/* ========== SIDEBAR ========== */}
         <aside className="lg:w-64 xl:w-72 shrink-0 max-h-screen">
           {/* Mobile: horizontal swipable sticky bar */}
-          <div className="lg:hidden fixed top-15 left-0 right-0 z-30 px-3 sm:px-6 py-2.5 bg-[#F8F6F0]/95 backdrop-blur-md border-b border-stone-200/60 shadow-xs">
+          <div className="lg:hidden fixed top-15 left-0 right-0 z-30 px-3 sm:px-6 py-2.5 bg-[#F8F6F0]/95 backdrop-blur-md border-b border-brand-gold shadow-xs">
             {/* Left fade indicator */}
             <div className="pointer-events-none absolute left-0 top-0 bottom-0 w-6 bg-gradient-to-r from-[#F8F6F0] to-transparent z-10" />
             {/* Right fade indicator */}
@@ -986,11 +986,11 @@ export default function ServicesDetailsPage() {
                   onClick={() => scrollToService(service.id)}
                   className={`flex items-center gap-2 px-3.5 py-2 rounded-full text-xs font-medium whitespace-nowrap transition-all shrink-0 cursor-pointer ${
                     activeId === service.id
-                      ? "bg-gradient-to-r from-[#EBDCB9] to-[#DFCB9F] text-[#2C2114] shadow-xs border border-[#BFA46F]/50 scale-[1.02]"
+                      ? "bg-gradient-to-r bg-brand-navy text-white shadow-xs border border-brand-gold scale-[1.02]"
                       : "bg-white/80 text-stone-600 border border-stone-200/80 hover:bg-white active:scale-95"
                   }`}
                 >
-                  <span className={activeId === service.id ? "text-amber-800" : "text-stone-400"}>
+                  <span className={activeId === service.id ? "text-brand-gold" : "text-brand-gold"}>
                     {service.icon}
                   </span>
                   <span>{service.title}</span>
@@ -1001,7 +1001,7 @@ export default function ServicesDetailsPage() {
 
           {/* Desktop: sticky left sidebar - brought higher */}
           <div className="hidden lg:block z-5 lg:w-[20%] mb-5 fixed bottom-0 top-20 px-4 max-h-screen overflow-y-auto pr-2">
-            <h2 className="text-xs font-medium text-stone-500 uppercase tracking-wider mb-3 px-1">
+            <h2 className="text-xs font-medium text-brand-navy uppercase tracking-wider mb-3 px-1">
               Browse Services
             </h2>
             <nav className="flex flex-col gap-1">
@@ -1011,13 +1011,13 @@ export default function ServicesDetailsPage() {
                   onClick={() => scrollToService(service.id)}
                   className={`flex items-center gap-3 px-3 py-2 rounded-xl text-left text-sm transition-all ${
                     activeId === service.id
-                      ? "bg-gradient-to-r from-[#EBDCB9] to-[#DFCB9F] text-[#2C2114] font-medium shadow-sm border border-[#BFA46F]/60"
-                      : "text-stone-600 hover:bg-white/80 hover:text-stone-900 border border-transparent"
+                      ? "bg-gradient-to-r bg-brand-navy text-white font-medium shadow-sm border-2 border-brand-gold scale-[1.02]"
+                      : "text-stone-600 hover:bg-white/20 hover:text-stone-900 border border-transparent"
                   }`}
                 >
                   <span
                     className={`shrink-0 ${
-                      activeId === service.id ? "text-amber-800" : "text-stone-400"
+                      activeId === service.id ? "text-brand-gold" : "text-brand-gold"
                     }`}
                   >
                     {service.icon}
@@ -1032,7 +1032,7 @@ export default function ServicesDetailsPage() {
       {/* Page Header - made more compact */}
       <div className="text-center max-w-3xl mx-auto mb-8 sm:mb-10">
         <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-stone-200/70 text-stone-700 text-xs tracking-wider uppercase font-medium mb-3 border border-stone-300/50">
-          <Sparkles className="w-3.5 h-3.5 text-amber-700" />
+          <Sparkles className="w-3.5 h-3.5 text-brand-gold" />
           Our Services
         </div>
         <h1 className="text-3xl sm:text-4xl lg:text-5xl font-serif tracking-tight text-stone-900 font-normal">
@@ -1057,7 +1057,7 @@ export default function ServicesDetailsPage() {
               {/* Service Header */}
               <div className="mb-7">
                 <div className="flex items-center gap-3 mb-3">
-                  <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-[#EBDCB9] to-[#DFCB9F] flex items-center justify-center text-amber-900 shadow-sm">
+                  <div className="w-10 h-10 rounded-xl bg-brand-navy flex items-center justify-center text-brand-gold shadow-sm">
                     {service.icon}
                   </div>
                   <h2 className="text-xl sm:text-2xl font-serif text-stone-900 font-medium tracking-tight">
@@ -1092,7 +1092,7 @@ export default function ServicesDetailsPage() {
                       className="bg-white/80 border border-stone-200/80 rounded-2xl p-5 shadow-sm hover:shadow-md hover:border-amber-700/20 transition-all"
                     >
                       <h5 className="text-sm font-medium text-stone-800 mb-3 flex items-center gap-2">
-                        <CheckCircle2 className="w-4 h-4 text-amber-700 shrink-0" />
+                        <CheckCircle2 className="w-4 h-4 text-brand-gold shrink-0" />
                         {feature.title}
                       </h5>
                       <ul className="space-y-2">
@@ -1101,7 +1101,7 @@ export default function ServicesDetailsPage() {
                             key={i}
                             className="flex items-start gap-2.5 text-sm text-stone-600 leading-snug"
                           >
-                            <ChevronRight className="w-3.5 h-3.5 text-amber-600/70 mt-0.5 shrink-0" />
+                            <ChevronRight className="w-3.5 h-3.5 text-brand-gold mt-0.5 shrink-0" />
                             <span>{item}</span>
                           </li>
                         ))}

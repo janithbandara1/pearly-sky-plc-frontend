@@ -133,7 +133,7 @@ export function SiteHeader({ navLinks: navLinksProp, showServicesMenu: showServi
     <header className="sticky top-0 z-50 bg-brand-navy text-brand-navy-foreground">
       <div className="mx-auto flex h-16 w-full max-w-7xl items-center justify-between gap-1 px-1 ">
 
-        <Link href={localeHref("/")} className="w-[16%] flex items-center gap-3.5 overflow-hidden">
+        <Link href={localeHref("/")} className="w-[16%] md:w-[30%] lg:w-[16%] flex items-center gap-3.5 overflow-hidden">
           <Image
             src="/images/brand/logo.webp"
             alt="Pearly Sky"
@@ -143,7 +143,7 @@ export function SiteHeader({ navLinks: navLinksProp, showServicesMenu: showServi
             priority
           /> 
 
-          <div className=" w-max-[50px] relative ml-2  animate-marquee-header group-hover:[animation-play-state:paused]">
+          <div className="w-max-[50px] md:w-max-[150px] lg:w-max-[50px] relative ml-2  animate-marquee-header group-hover:[animation-play-state:paused]">
            {marqueeList.map((text,index)=>(
             <span key={index} className="hidden w-max z-10 text-base px-[2px] font-semibold whitespace-nowrap text-white sm:inline">
               {text.text}
