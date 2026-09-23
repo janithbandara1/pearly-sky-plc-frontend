@@ -44,6 +44,14 @@ export function CoverageStrip() {
   { id: "uae", city: "abu dhabi" },
   { id: "uk", city: "london" },
   { id: "usa", city: "washington d.c." },
+  { id: "abu dhabi", city: "abu dhabi" },
+  { id: "cannes", city: "cannes" },
+  { id: "dubai", city: "dubai" },
+  { id: "frankfurt", city: "frankfurt" },
+  { id: "monaco", city: "monaco" },
+  { id: "newyork", city: "new york" },
+  { id: "sydney", city: "sydney" },
+  { id: "geneva", city: "geneva" }
 
 ];
 
