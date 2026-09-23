@@ -229,7 +229,7 @@ export default function CountryWiseDomains(): React.JSX.Element {
                       <CountryCard
                         key={country.id}
                         country={country}
-                        isSelected={selectedCountry === country.id}
+                        isSelected={selectedCountry === country.id || selectedCountry !== country.id }
                         onSelect={() => handleSelect(country.id)}
                         onVisit={(e) => handleVisit(e, country.domain)}
                       />
@@ -263,7 +263,7 @@ export default function CountryWiseDomains(): React.JSX.Element {
                       <CountryCard
                         key={country.id}
                         country={country}
-                        isSelected={selectedCountry === country.id}
+                        isSelected={selectedCountry === country.id || selectedCountry !== country.id }
                         onSelect={() => handleSelect(country.id)}
                         onVisit={(e) => handleVisit(e, country.domain)}
                       />
@@ -333,7 +333,7 @@ export default function CountryWiseDomains(): React.JSX.Element {
                       <CountryCard
                         key={country.id}
                         country={country}
-                        isSelected={selectedCountry === country.id}
+                        isSelected={selectedCountry === country.id || selectedCountry !== country.id}
                         onSelect={() => handleSelect(country.id)}
                         onVisit={(e) => handleVisit(e, country.domain)}
                       />
@@ -398,8 +398,13 @@ const CountryCard: React.FC<CountryCardProps> = ({
         className="relative bg-gradient-to-b from-[#EBDCB9] to-[#DFCB9F] border-2 border-[#BFA46F] rounded-xl p-3.5 shadow-md transition-all cursor-pointer transform scale-[1.02] z-10 flex flex-col justify-between min-h-[110px]"
       >
         {/* Checkmark Badge */}
-        <div className="absolute top-2.5 right-2.5 w-5 h-5 rounded-full bg-[#3B2C1A] text-amber-200 flex items-center justify-center shadow-xs">
-          <Check className="w-3 h-3 stroke-[3]" />
+        <div className="absolute top-2.5 right-2.5 w-5 h-5 rounded-full   flex items-center justify-center shadow-xs">
+          
+          <span className="relative flex size-3">
+            <span className={`absolute inline-flex h-full w-full ${country.isLive ? 'animate-ping' : 'animate-none'} rounded-full ${country.isLive ? 'bg-green-400' : 'bg-gray-400'} opacity-75`}></span>
+            <span className={`relative inline-flex size-3 rounded-full ${country.isLive ? 'bg-green-500' : 'bg-gray-500'}`}></span>
+          </span>
+        
         </div>
 
         {/* Country Details Header */}
@@ -411,7 +416,7 @@ const CountryCard: React.FC<CountryCardProps> = ({
             <h3 className="text-xs sm:text-sm font-medium text-[#2C2114] leading-snug truncate">
               {country.name}
             </h3>
-            <p className="text-[11px] text-[#5C4B33] font-mono leading-tight  mt-0.5">
+            <p className="text-[11px] text-[#5C4B33] font-mono leading-tight truncate mt-0.5">
               {country.domain}
             </p>
           </div>
