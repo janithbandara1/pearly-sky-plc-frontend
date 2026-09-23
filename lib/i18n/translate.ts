@@ -21,9 +21,25 @@ const dictionaries: Record<LanguageCode, Partial<Record<TranslationKey, string |
 };
 
 /** Returns a `translate(key)` bound to `language`, falling back to English — same resolution order as useLanguage()'s translate. */
-export function translateFor(language: LanguageCode) {
+/* export function translateFor(language: LanguageCode) {
   return (key: TranslationKey): string => {
     const value = dictionaries[language]?.[key] ?? en[key] ?? key;
     return typeof value === "string" ? value : value.join("\n\n");
+  };
+} */
+export function translateFor(language: LanguageCode) {
+  return (key: TranslationKey): string => {
+    const value = dictionaries[language]?.[key] ?? en[key] ?? key;
+
+    if (typeof value === "string") {
+      return value;
+    }
+
+    if (Array.isArray(value)) {
+      return value.filter(Boolean).join("\n\n");
+    }
+
+    // Fallback if value is null, undefined, or unexpected type
+    return String(value ?? key);
   };
 }
