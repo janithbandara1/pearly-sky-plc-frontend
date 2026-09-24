@@ -206,8 +206,8 @@ export default function GlobalHeroSection() {
               { icon: ShieldCheck, label: "TRUSTED PROFESSIONALS" },
             ].map((item, idx) => (
               <div key={idx} className="flex flex-col items-center text-center space-y-2">
-                <div className="w-10 h-10 rounded-full bg-[#F4EFE6] border border-[#E0D7C6] flex items-center justify-center text-[#C5A059]">
-                  <item.icon className="w-4 h-4" />
+                <div className="w-10 h-10 md:w-13 md:h-13 lg:w-11 lg:h-11 rounded-full bg-[#F4EFE6] border border-[#E0D7C6] flex items-center justify-center text-[#C5A059]">
+                  <item.icon className="w-4 h-4 md:w-6 md:h-6 lg:w-5 lg:h-5" />
                 </div>
                 <span className="text-[9px] uppercase tracking-wider text-[#0F1E36] font-sans font-medium leading-tight">
                   {item.label}
@@ -218,8 +218,8 @@ export default function GlobalHeroSection() {
         </div>
 
         {/* Right Column: Region Selection Modal Overlay */}
-        <div className="lg:col-span-6 flex justify-center md:my-0 my-2">
-          <div className="w-full max-w-md bg-[#FFFDF8] rounded-2xl shadow-2xl border border-[#EAE3D2] overflow-hidden relative">
+        <div className="lg:col-span-6 flex justify-center my-2">
+          <div className="w-full max-w-md lg:max-w-md md:max-w-2xl bg-[#FFFDF8] rounded-2xl shadow-2xl border border-[#EAE3D2] overflow-hidden relative">
             {/* Header / Close Button */}
             <div className="p-4 pb-1 text-center relative">
               <button className="absolute top-5 right-5 text-gray-400 hover:text-gray-600 transition-colors">
@@ -241,7 +241,7 @@ export default function GlobalHeroSection() {
                 <div
                   key={region.id}
                   onClick={() => redirectToRegions(region)}
-                  className={`border border-[#EAE3D2] rounded-xl p-4 flex flex-col items-center justify-between h-32 hover:border-[#C5A059] hover:shadow-md transition-all duration-500 cursor-pointer group bg-[#FAF8F3] ${
+                  className={`border border-[#EAE3D2] rounded-xl p-4 flex flex-col items-center justify-between h-32 lg:h-32 md:h-35 hover:border-[#C5A059] hover:shadow-md transition-all duration-500 cursor-pointer group bg-[#FAF8F3] ${
                     isAnimating ? "opacity-0 scale-95" : "opacity-100 scale-100"
                   }`}
                 >
