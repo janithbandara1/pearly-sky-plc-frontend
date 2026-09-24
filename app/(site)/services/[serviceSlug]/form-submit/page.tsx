@@ -14,6 +14,8 @@ import PaymentMarquee from "@/components/payment-method-services";
 import { loadBookingDraft, saveBookingDraft } from "@/lib/booking-draft";
 import { getServiceBySlug, CatalogServiceDetail } from "@/lib/catalog-api";
 import { useCountry } from "@/lib/countries/country-context";
+import { TranslationKey } from "@/lib/i18n/dictionaries/en";
+import { useLanguage } from "@/lib/i18n/language-context";
 
 const poppins = Poppins({ subsets: ["latin"], weight: ["400", "500", "600", "700", "800"] });
 
@@ -32,43 +34,47 @@ const DEFAULT_LANGUAGES = [
 
 const GENDER_OPTIONS = [
 
-  { value: "female", label: "Female" },
-  { value: "male", label: "Male" },
-  { value: "no-preference", label: "Non binary / others" },
-  { value: "prefer not to disclouse", label: "Prefer not to disclouse" },
+  { value: "female", label: "genderFemale" },
+  { value: "male", label: "genderMale" },
+  { value: "no-preference", label: "genderNonBinary" },
+  { value: "prefer not to disclouse", label: "genderPreferNotToDisclose" },
 
 ];
 
 const STAFF_GENDER_OPTIONS = [
 
-  { value: "female", label: "Female Staff" },
-  { value: "male", label: "Male Staff" },
-  { value: "no-preference", label: "Non binary / others" },
-  { value: "prefer not to disclouse", label: "Prefer not to disclouse" },
+  { value: "female", label: "staffGenderFemale" },
+  { value: "male", label: "staffGenderMale" },
+  { value: "no-preference", label: "genderNonBinary" },
+  { value: "prefer not to disclouse", label: "genderPreferNotToDisclose" },
 
 ];
 
+/**classResidential
+classCommercial
+classSpatial
+classOther */
 const PROPERTY_CLASSIFICATION_OPTIONS = [
-  "Residential",
-  "Commercial",
-  "Spartial",
-  "Other",
+  "classResidential",
+  "classCommercial",
+  "classSpatial",
+  "classOther",
 ];
 
 const CONTINUITY_PLAN_OPTIONS = [
-  "One-Time",
-  "every 6-12 months",
+  "planOneTime",
+  "planEvery6to12Months",
 
 ];
 
 const SPECIAL_REQUEST_OPTIONS = [
-  { value: "none", label: "None / No Specific Request" },
-  { value: "first-aid-cpr", label: "First Aid & CPR Certified" },
-  { value: "special-needs-certified", label: "Special Needs Certified Caregiver" },
-  { value: "bilingual", label: "Bilingual Caregiver" },
-  { value: "pet-friendly", label: "Pet-Friendly Caregiver" },
-  { value: "driver-license", label: "Valid Driver's License Required" },
-  { value: "non-smoker", label: "Non-Smoker Only" },
+  { value: "none", label: "specialReqNone" },
+  { value: "first-aid-cpr", label: "specialReqFirstAid" },
+  { value: "special-needs-certified", label: "specialReqSpecialNeeds" },
+  { value: "bilingual", label: "specialReqBilingual" },
+  { value: "pet-friendly", label: "specialReqPetFriendly" },
+  { value: "driver-license", label: "specialReqDriverLicense" },
+  { value: "non-smoker", label: "specialReqNonSmoker" },
 ];
 
 export default function FormSubmitPage({
@@ -77,6 +83,9 @@ export default function FormSubmitPage({
   params: Promise<{ serviceSlug: string }>;
 }) {
   const { serviceSlug } = use(params);
+
+  const{translate}=useLanguage()
+
   const router = useRouter();
   const { country } = useCountry();
   const fileInputRef = useRef<HTMLInputElement>(null);
@@ -197,24 +206,24 @@ export default function FormSubmitPage({
 
     if (isFormService) {
       if (!propertyClassification) {
-        setError("Please select a Property Classification.");
+        setError("formSubmitErrorClassification");
         return;
       }
       if (!serviceContinuityPlan) {
-        setError("Please select a Service Continuity Plan.");
+        setError("formSubmitErrorContinuity");
         return;
       }
       if (!staffGender) {
-        setError("Please select a Staff Gender Preference.");
+        setError("formSubmitErrorStaffGender");
         return;
       }
       if (!preferredLanguage) {
-        setError("Please select Linguistic Coordination.");
+        setError("formSubmitErrorLanguage");
         return;
       }
       
       if (!acceptedTerms) {
-        window.alert("By selecting this I accept terms and conditions is required.");
+        window.alert(translate("formSubmitErrorTermsRequired"));
         setIsTermsModalOpen(true);
         return;
       }
@@ -241,15 +250,15 @@ export default function FormSubmitPage({
 
     // Care flow validation
     if (!caregiverGender) {
-      setError("Please select a Care Professional Gender preference.");
+      setError("formSubmitErrorCareGender");
       return;
     }
     if (!specialRequest) {
-      setError("Please select a Special Request option.");
+      setError("formSubmitErrorSpecialRequest");
       return;
     }
     if (!acceptedTerms) {
-      window.alert("By selecting this I accept terms and conditions is required.");
+       window.alert(translate("formSubmitErrorTermsRequired"));
       setIsTermsModalOpen(true);
       return;
     }
@@ -309,7 +318,7 @@ export default function FormSubmitPage({
           <section className="overflow-hidden rounded-2xl border-2 border-[#A98B4B] bg-[#FFFDF4] shadow-2xl">
             <div className="bg-[#121E2D] py-4 px-6 text-center">
               <h2 className="text-base sm:text-lg md:text-xl font-bold text-white">
-                Fill the Following Details
+                {translate("formSubmitFillDetails")}
               </h2>
             </div>
 
@@ -318,7 +327,7 @@ export default function FormSubmitPage({
                 {/* 1. Property Classification */}
                 <div className="space-y-2">
                   <Label className="text-xs sm:text-sm font-bold text-[#121E2D]">
-                    Property Classification <span className="text-[#A98B4B]">*</span>
+                    {translate("formSubmitPropertyClassification")} <span className="text-[#A98B4B]">*</span>
                   </Label>
                   <Select value={propertyClassification} onValueChange={setPropertyClassification}>
                     <SelectTrigger className="h-12 w-full rounded-xl border border-[#A98B4B] bg-white text-[#121E2D] shadow-sm focus:ring-2 focus:ring-[#A98B4B]">
@@ -327,7 +336,7 @@ export default function FormSubmitPage({
                     <SelectContent className="bg-white border-[#A98B4B]/30">
                       {PROPERTY_CLASSIFICATION_OPTIONS.map((opt) => (
                         <SelectItem key={opt} value={opt}>
-                          {opt}
+                          {translate(opt as TranslationKey)}
                         </SelectItem>
                       ))}
                     </SelectContent>
@@ -346,7 +355,7 @@ export default function FormSubmitPage({
                     <SelectContent className="bg-white border-[#A98B4B]/30">
                       {CONTINUITY_PLAN_OPTIONS.map((opt) => (
                         <SelectItem key={opt} value={opt}>
-                          {opt}
+                          {translate(opt as TranslationKey)}
                         </SelectItem>
                       ))}
                     </SelectContent>
@@ -356,7 +365,7 @@ export default function FormSubmitPage({
                 {/* 3. Staff Gender Preference */}
                 <div className="space-y-2">
                   <Label className="text-xs sm:text-sm font-bold text-[#121E2D]">
-                    Staff Gender Preference <span className="text-[#A98B4B]">*</span>
+                    {translate("formSubmitStaffGender")} <span className="text-[#A98B4B]">*</span>
                   </Label>
                   <Select value={staffGender} onValueChange={setStaffGender}>
                     <SelectTrigger className="h-12 w-full rounded-xl border border-[#A98B4B] bg-white text-[#121E2D] shadow-sm focus:ring-2 focus:ring-[#A98B4B]">
@@ -365,7 +374,7 @@ export default function FormSubmitPage({
                     <SelectContent className="bg-white border-[#A98B4B]/30">
                       {STAFF_GENDER_OPTIONS.map((opt) => (
                         <SelectItem key={opt.value} value={opt.value}>
-                          {opt.label}
+                          {translate(opt.label as TranslationKey)}
                         </SelectItem>
                       ))}
                     </SelectContent>
@@ -375,7 +384,7 @@ export default function FormSubmitPage({
                 {/* 4. Linguistic Coordination */}
                 <div className="space-y-2">
                   <Label className="text-xs sm:text-sm font-bold text-[#121E2D]">
-                    Linguistic Coordination <span className="text-[#A98B4B]">*</span>
+                    {translate("formSubmitLinguisticCoordination")} <span className="text-[#A98B4B]">*</span>
                   </Label>
                   <Select value={preferredLanguage} onValueChange={setPreferredLanguage}>
                     <SelectTrigger className="h-12 w-full rounded-xl border border-[#A98B4B] bg-white text-[#121E2D] shadow-sm focus:ring-2 focus:ring-[#A98B4B]">
@@ -394,7 +403,7 @@ export default function FormSubmitPage({
                 {/* 5. Upload Images or Documents */}
                 <div className="space-y-2">
                   <Label className="text-xs sm:text-sm font-bold text-[#121E2D]">
-                    Upload Images or Documents <span className="text-[#A98B4B]">*</span>
+                    {translate("formSubmitUploadDocs")} <span className="text-[#A98B4B]">*</span>
                   </Label>
                   <input
                     type="file"
@@ -420,7 +429,7 @@ export default function FormSubmitPage({
                         ) : (
                           <>
                             <p className="text-xs font-semibold text-[#121E2D]">
-                              Click to upload or drag and drop
+                              {translate("formSubmitUploadClickDrag")}
                             </p>
                             <p className="text-[10px] text-gray-400">Maximum file size: 5MB</p>
                           </>
@@ -446,7 +455,7 @@ export default function FormSubmitPage({
                 {/* 6. Service Requirements & Specifics */}
                 <div className="space-y-2">
                   <Label className="text-xs sm:text-sm font-bold text-[#121E2D]">
-                    Service Requirements & Specifics
+                    {translate("formSubmitServiceRequirements")}
                   </Label>
                   <Input
                     value={specifics}
@@ -474,13 +483,13 @@ export default function FormSubmitPage({
                       <Square className="size-5 text-gray-400" />
                     )}
                   </button>
-                  <span>By selecting this I accept terms and conditions</span>
+                  <span>{translate("formSubmitAcceptTerms")}</span>
                 </label>
               </div>
 
               {error && (
                 <div className="rounded-xl bg-red-50 p-3.5 text-sm font-semibold text-red-600 border border-red-200">
-                  {error}
+                  {translate(error  as TranslationKey)}
                 </div>
               )}
 
@@ -492,7 +501,7 @@ export default function FormSubmitPage({
                   onClick={() => router.push(`/services/${serviceSlug}`)}
                   className="h-11 min-w-[120px] rounded-full border-2 border-[#121E2D] bg-white text-sm font-bold text-[#121E2D] hover:bg-gray-50 transition"
                 >
-                  Back
+                  {translate("commonBack")}
                 </Button>
                 <Button
                   type="button"
@@ -508,7 +517,7 @@ export default function FormSubmitPage({
           /* STANDARD CARE SERVICES FORM */
           <section className="overflow-hidden rounded-2xl border border-[#A98B4B]/30 bg-[#121E2D] p-6 shadow-2xl sm:p-8">
             <h2 className="mb-6 border-b border-white/10 pb-4 text-center text-lg font-bold text-white sm:text-xl md:text-2xl">
-              Fill the Following Details
+              {translate("formSubmitFillDetails")}
             </h2>
 
             <div className="space-y-6">
@@ -516,7 +525,7 @@ export default function FormSubmitPage({
                 {/* Preferred Language */}
                 <div className="space-y-2">
                   <Label className="text-sm font-medium text-brand-cream/90">
-                    Preferred Language to Contact *
+                    {translate("formSubmitPreferredLanguageContact")}
                   </Label>
                   <Select value={preferredLanguage} onValueChange={setPreferredLanguage}>
                     <SelectTrigger className="h-11 w-full rounded-lg border-0 bg-[#FFFDF4] text-brand-navy shadow-inner focus:ring-2 focus:ring-[#A98B4B]">
@@ -535,7 +544,7 @@ export default function FormSubmitPage({
                 {/* Care Professional Gender */}
                 <div className="space-y-2">
                   <Label className="text-sm font-medium text-brand-cream/90">
-                    Care Professional Gender *
+                    {translate("formSubmitCareGender")}
                   </Label>
                   <Select value={caregiverGender} onValueChange={setCaregiverGender}>
                     <SelectTrigger className="h-11 w-full rounded-lg border-0 bg-[#FFFDF4] text-brand-navy shadow-inner focus:ring-2 focus:ring-[#A98B4B]">
@@ -544,7 +553,7 @@ export default function FormSubmitPage({
                     <SelectContent>
                       {GENDER_OPTIONS.map((g) => (
                         <SelectItem key={g.value} value={g.value}>
-                          {g.label}
+                          {translate(g.label as TranslationKey)}
                         </SelectItem>
                       ))}
                     </SelectContent>
@@ -554,7 +563,7 @@ export default function FormSubmitPage({
                 {/* Special Request */}
                 <div className="space-y-2">
                   <Label className="text-sm font-medium text-brand-cream/90">
-                    Special Request *
+                   {translate("formSubmitSpecialRequest")}
                   </Label>
                   <Select value={specialRequest} onValueChange={setSpecialRequest}>
                     <SelectTrigger className="h-17 w-full rounded-lg border-0 bg-[#FFFDF4] text-brand-navy shadow-inner focus:ring-2 focus:ring-[#A98B4B]">
@@ -563,7 +572,7 @@ export default function FormSubmitPage({
                     <SelectContent>
                       {SPECIAL_REQUEST_OPTIONS.map((req) => (
                         <SelectItem key={req.value} value={req.value}>
-                          {req.label}
+                          {translate(req.label as TranslationKey)}
                         </SelectItem>
                       ))}
                     </SelectContent>
@@ -573,7 +582,7 @@ export default function FormSubmitPage({
                 {/* Service Requirements & Specifics */}
                 <div className="space-y-2">
                   <Label className="text-sm font-medium text-brand-cream/90">
-                    Service Requirements & Specifics *
+                    {translate("formSubmitServiceRequirements")}
                   </Label>
                   <Input
                     value={specifics}
@@ -601,13 +610,13 @@ export default function FormSubmitPage({
                       <Square className="size-5 text-brand-cream/60" />
                     )}
                   </button>
-                  <span>By selecting this I accept terms and conditions</span>
+                  <span>{translate("formSubmitAcceptTerms")}</span>
                 </label>
               </div>
 
               {error && (
                 <div className="rounded-lg bg-red-500/10 p-3 text-sm font-medium text-red-400 border border-red-500/20">
-                  {error}
+                  {translate(error as TranslationKey)}
                 </div>
               )}
 
@@ -619,7 +628,7 @@ export default function FormSubmitPage({
                   onClick={() => router.push(`/services/${serviceSlug}`)}
                   className="h-10 min-w-[100px] rounded-lg border-white/20 bg-transparent text-sm font-semibold text-white hover:bg-white/10"
                 >
-                  Back
+                  {translate("commonBack")}
                 </Button>
                 <Button
                   type="button"
@@ -637,7 +646,7 @@ export default function FormSubmitPage({
       {/* SUPPORT PAYMENT METHOD SECTION */}
       <div className="mx-auto mt-12 max-w-[1250px] px-4 text-center sm:px-6">
         <h3 className="mb-4 text-base sm:text-lg font-bold text-[#121E2D]">
-          Support Payment Method
+          {translate("formSubmitSupportPaymentMethod")}
         </h3>
         <PaymentMarquee />
       </div>

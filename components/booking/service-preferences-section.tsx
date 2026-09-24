@@ -4,6 +4,7 @@ import { GENDER_OPTIONS, LANGUAGE_OPTIONS } from "@/components/booking/quotation
 import { Card, CardContent } from "@/components/ui/card";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
+import { TranslationKey } from "@/lib/i18n/dictionaries/en";
 import { useLanguage } from "@/lib/i18n/language-context";
 
 export interface ServicePreferencesSectionProps {
@@ -28,7 +29,7 @@ export function ServicePreferencesSection({
     <Card className="bg-brand-navy text-brand-navy-foreground">
       <CardContent className="flex flex-col gap-0 p-0">
         <div className="px-4 py-3">
-          <h3 className="text-base font-bold text-brand-gold">Preferences</h3>
+          <h3 className="text-base font-bold text-brand-gold">{translate("quoteDetailPreferences")}</h3>
         </div>
 
         <div className="grid grid-cols-1 gap-5 border-t border-brand-gold/20 p-4 sm:grid-cols-2">
@@ -41,7 +42,7 @@ export function ServicePreferencesSection({
               <SelectContent>
                 {GENDER_OPTIONS.map((opt) => (
                   <SelectItem key={opt.value} value={opt.value}>
-                    {opt.label}
+                    {translate(opt.label as TranslationKey)}
                   </SelectItem>
                 ))}
               </SelectContent>

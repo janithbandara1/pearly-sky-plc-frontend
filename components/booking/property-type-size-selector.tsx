@@ -478,7 +478,8 @@ export function PropertyTypeSizeSelector({
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6 items-start">
         {/* Left Column: Property Type */}
         <div className="flex flex-col min-w-0">
-          <h3 className="text-base sm:text-lg font-bold text-[#0F172A] mb-3">{translate("propTypeTitle")}</h3>
+          <h3 className="text-base sm:text-lg font-bold text-[#0F172A] mb-3">
+            {translate("propTypeTitle")}</h3>
 
           <div
             className="flex flex-nowrap gap-3 overflow-x-auto overflow-y-hidden -mx-1 px-1 [&::-webkit-scrollbar]:hidden"

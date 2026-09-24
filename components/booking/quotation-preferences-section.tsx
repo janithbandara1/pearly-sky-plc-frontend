@@ -5,6 +5,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
 import { useLanguage } from "@/lib/i18n/language-context";
+import { TranslationKey } from "@/lib/i18n/dictionaries/en";
 
 function formatHM(hours: number): string {
   const h = Math.floor(hours);
@@ -50,10 +51,14 @@ function CounterField({ label, value, onChange, min = 0, step = 1, formatValue }
 }
 
 export const GENDER_OPTIONS = [
-  { value: "no-preference", label: "No Preference" },
-  { value: "female", label: "Female" },
-  { value: "male", label: "Male" },
+    { value: "female", label: "genderFemale" },
+  { value: "male", label: "genderMale" },
+  { value: "no-preference", label: "genderNonBinary" },
+  { value: "prefer not to disclouse", label: "genderPreferNotToDisclose" },
 ];
+
+
+
 
 export const LANGUAGE_OPTIONS = [
   { value: "no-preference", label: "No Preference" },
@@ -127,7 +132,7 @@ export function QuotationPreferencesSection({
               <SelectContent>
                 {GENDER_OPTIONS.map((opt) => (
                   <SelectItem key={opt.value} value={opt.value}>
-                    {opt.label}
+                    {translate(opt.label as TranslationKey)}
                   </SelectItem>
                 ))}
               </SelectContent>

@@ -282,35 +282,35 @@ export default function CheckoutPage({
     setError(null);
 
     if (!contactForm.firstName.trim()) {
-      setError("Please enter your First Name.");
+      setError("quoteErrorFirstName");
       return;
     }
     if (!contactForm.lastName.trim()) {
-      setError("Please enter your Last Name.");
+      setError("quoteErrorLastName");
       return;
     }
     if (!contactForm.email.trim()) {
-      setError("Please enter your Email.");
+      setError("quoteErrorEmail");
       return;
     }
     if (!contactForm.contact.trim()) {
-      setError("Please enter your Phone number.");
+      setError("quoteErrorPhone");
       return;
     }
     if (!streetAddress.trim()) {
-      setError("Please enter your Street Address.");
+      setError("quoteErrorStreet");
       return;
     }
     if (!city.trim()) {
-      setError("Please enter your City.");
+      setError("quoteErrorCity");
       return;
     }
     if (!postalCode.trim()) {
-      setError("Please enter your Postal Code.");
+      setError("quoteErrorPostal");
       return;
     }
     if (!agreedToTerms) {
-      setError("Please agree to the Terms and Conditions and Privacy Policy to continue.");
+      setError("signupErrorTermsRequired");
       return;
     }
 
@@ -1015,11 +1015,13 @@ export default function CheckoutPage({
 
                 <div className="flex flex-col gap-4 border-t border-brand-gold/20 p-4">
                   <p className="text-xs font-bold uppercase tracking-wider text-brand-gold">
-                    Contact Information
+                    {translate("summaryContactInfo")} 
                   </p>
                   <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
                     <div className="space-y-1.5">
-                      <Label htmlFor="contact-first-name" className="text-xs font-medium text-brand-cream/90">First Name *</Label>
+                      <Label htmlFor="contact-first-name" className="text-xs font-medium text-brand-cream/90">
+                        {translate("quoteFormFirstName")} *
+                      </Label>
                       <Input
                         id="contact-first-name"
                         required
@@ -1027,24 +1029,27 @@ export default function CheckoutPage({
                         onChange={(e) =>
                           setContactForm((f) => ({ ...f, firstName: e.target.value }))
                         }
-                        placeholder="First Name"
+                        placeholder={translate("quotationFirstNamePlaceholder")}
                         className="bg-brand-cream text-brand-navy placeholder:text-muted-foreground"
                       />
                     </div>
                     <div className="space-y-1.5">
-                      <Label htmlFor="contact-last-name" className="text-xs font-medium text-brand-cream/90">Last Name</Label>
+                      <Label htmlFor="contact-last-name" className="text-xs font-medium text-brand-cream/90">
+                      {translate("quoteFormLastName")}
+                      </Label>
                       <Input
                         id="contact-last-name"
                         value={contactForm.lastName}
                         onChange={(e) =>
                           setContactForm((f) => ({ ...f, lastName: e.target.value }))
                         }
-                        placeholder="Last Name"
+                        placeholder={translate("quotationLastNamePlaceholder")}
                         className="bg-brand-cream text-brand-navy placeholder:text-muted-foreground"
                       />
                     </div>
                     <div className="space-y-1.5">
-                      <Label htmlFor="contact-email" className="text-xs font-medium text-brand-cream/90">Email *</Label>
+                      <Label htmlFor="contact-email" className="text-xs font-medium text-brand-cream/90">
+                      {translate("quoteFormEmail")} *</Label>
                       <Input
                         id="contact-email"
                         type="email"
@@ -1053,12 +1058,13 @@ export default function CheckoutPage({
                         onChange={(e) =>
                           setContactForm((f) => ({ ...f, email: e.target.value }))
                         }
-                        placeholder="Email"
+                        placeholder={translate("quotationEmailPlaceholder")}
                         className="bg-brand-cream text-brand-navy placeholder:text-muted-foreground"
                       />
                     </div>
                     <div className="space-y-1.5">
-                      <Label htmlFor="contact-phone" className="text-xs font-medium text-brand-cream/90">Phone *</Label>
+                      <Label htmlFor="contact-phone" className="text-xs font-medium text-brand-cream/90">
+                      {translate("quoteFormPhone")} *</Label>
                       <Input
                         id="contact-phone"
                         type="tel"
@@ -1067,7 +1073,7 @@ export default function CheckoutPage({
                         onChange={(e) =>
                           setContactForm((f) => ({ ...f, contact: e.target.value }))
                         }
-                        placeholder="Phone number"
+                        placeholder={translate("quotationPhonePlaceholder")}
                         className="bg-brand-cream text-brand-navy placeholder:text-muted-foreground"
                       />
                     </div>
@@ -1076,17 +1082,19 @@ export default function CheckoutPage({
 
                 <div className="flex flex-col gap-4 border-t border-brand-gold/20 p-4">
                   <p className="text-xs font-bold uppercase tracking-wider text-brand-gold">
-                    Address
+                    {translate("summaryAddress")}
                   </p>
                   <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
                     <div className="space-y-1.5">
-                      <Label htmlFor="addressCountry" className="text-xs font-medium text-brand-cream/90">Country</Label>
+                      <Label htmlFor="addressCountry" className="text-xs font-medium text-brand-cream/90">
+                        {translate("quoteFormCountry")}
+                      </Label>
                       <Select
                         value={addressForm.country}
                         onValueChange={(value) => setAddressForm((f) => ({ ...f, country: value }))}
                       >
                         <SelectTrigger id="addressCountry" className="w-full bg-brand-cream text-brand-navy">
-                          <SelectValue placeholder="Select Country" />
+                          <SelectValue placeholder= {translate("quotationSelectCountry")} />
                         </SelectTrigger>
                         <SelectContent>
                           {COUNTRY_OPTIONS.map((c) => (
@@ -1101,19 +1109,22 @@ export default function CheckoutPage({
                       </Select>
                     </div>
                     <div className="space-y-1.5">
-                      <Label htmlFor="postalCode" className="text-xs font-medium text-brand-cream/90">Postal Code</Label>
+                      <Label htmlFor="postalCode" className="text-xs font-medium text-brand-cream/90">
+                        {translate("quoteFormPostalCode")}
+                      </Label>
                       <Input
                         id="postalCode"
                         value={addressForm.postalCode}
                         onChange={(e) =>
                           setAddressForm((f) => ({ ...f, postalCode: e.target.value }))
                         }
-                        placeholder="Postal Code"
+                        placeholder={translate("quoteFormPostalCode")}
                         className="bg-brand-cream text-brand-navy placeholder:text-muted-foreground"
                       />
                     </div>
                     <div className="space-y-1.5">
-                      <Label htmlFor="city" className="text-xs font-medium text-brand-cream/90">City *</Label>
+                      <Label htmlFor="city" className="text-xs font-medium text-brand-cream/90">
+                      {translate("quoteFormCity")} *</Label>
                       <Input
                         id="city"
                         required
@@ -1121,24 +1132,26 @@ export default function CheckoutPage({
                         onChange={(e) =>
                           setAddressForm((f) => ({ ...f, city: e.target.value }))
                         }
-                        placeholder="City"
+                        placeholder={translate("quoteFormCity")}
                         className="bg-brand-cream text-brand-navy placeholder:text-muted-foreground"
                       />
                     </div>
                     <div className="space-y-1.5">
-                      <Label htmlFor="state" className="text-xs font-medium text-brand-cream/90">Province/State</Label>
+                      <Label htmlFor="state" className="text-xs font-medium text-brand-cream/90">
+                      {translate("summaryProvinceState")}</Label>
                       <Input
                         id="state"
                         value={addressForm.state}
                         onChange={(e) =>
                           setAddressForm((f) => ({ ...f, state: e.target.value }))
                         }
-                        placeholder="Province/State"
+                        placeholder={translate("summaryProvinceState")}
                         className="bg-brand-cream text-brand-navy placeholder:text-muted-foreground"
                       />
                     </div>
                     <div className="space-y-1.5 sm:col-span-2">
-                      <Label htmlFor="streetAddress" className="text-xs font-medium text-brand-cream/90">Street Address *</Label>
+                      <Label htmlFor="streetAddress" className="text-xs font-medium text-brand-cream/90">
+                      {translate("quoteFormStreetAddress")} *</Label>
                       <Input
                         id="streetAddress"
                         required
@@ -1146,7 +1159,7 @@ export default function CheckoutPage({
                         onChange={(e) =>
                           setAddressForm((f) => ({ ...f, streetAddress: e.target.value }))
                         }
-                        placeholder="Street Address"
+                        placeholder={translate("quoteFormStreetAddress")}
                         className="bg-brand-cream text-brand-navy placeholder:text-muted-foreground"
                       />
                     </div>
@@ -1171,10 +1184,10 @@ export default function CheckoutPage({
                   </p>
                   <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
                     <div className="space-y-1.5">
-                      <Label className="text-xs font-medium text-brand-cream/90">How will we get in? *</Label>
+                      <Label className="text-xs font-medium text-brand-cream/90">{translate("checkoutHowGetIn")} *</Label>
                       <Select value={howGetIn} onValueChange={setHowGetIn}>
                         <SelectTrigger className="w-full bg-brand-cream text-brand-navy">
-                          <SelectValue placeholder="How will we get in?" />
+                          <SelectValue placeholder={translate("checkoutHowGetIn")}/>
                         </SelectTrigger>
                         <SelectContent>
                           <SelectItem value="I'll be at home">I&apos;ll be at home</SelectItem>

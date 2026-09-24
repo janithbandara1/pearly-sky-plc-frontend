@@ -38,7 +38,7 @@ const CountryFlag: React.FC<CountryFlagProps> = ({
   const flags: Record<string, string> = {
     gb: "/images/flags/uk.webp",
     fr: "/images/flags/france.webp",
-    de: "/images/flags/denmark.webp",
+    de: "/images/flags/germany.webp",
     it: "/images/flags/italy.webp",
     lu: "/images/flags/luxembourg.webp",
     be: "/images/flags/belgium.webp",
