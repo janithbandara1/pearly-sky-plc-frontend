@@ -102,9 +102,23 @@ export function LanguageProvider({
         window.location.href = `${target}${search ? `?${search}` : ""}`;
       },
       translate: (key: TranslationKey) => {
-        const value = dictionaries[resolvedLanguage][key] ?? en[key] ?? key;
-        return typeof value === "string" ? value : value.join("\n\n");
-      },
+        /* const value = dictionaries[resolvedLanguage][key] ?? en[key] ?? key;
+        return typeof value === "string" ? value : value.join("\n\n"); */
+       
+            const value = dictionaries[resolvedLanguage]?.[key] ?? en[key] ?? key;
+        
+            if (typeof value === "string") {
+              return value;
+            }
+        
+            if (Array.isArray(value)) {
+              return value.filter(Boolean).join("\n\n");
+            }
+        
+            // Fallback if value is null, undefined, or unexpected type
+            return String(value ?? key);
+          
+      },  
       registerServiceSlugs: (service) => {
         serviceSlugsRef.current = service;
       },
