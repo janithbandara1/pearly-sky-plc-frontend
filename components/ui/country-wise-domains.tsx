@@ -169,7 +169,7 @@ export default function CountryWiseDomains(): React.JSX.Element {
         {/* Header Title Section */}
         <div className="text-center max-w-2xl mx-auto mb-8 sm:mb-10">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-stone-200/60 text-stone-700 text-xs tracking-wider uppercase font-medium mb-3 border border-stone-300/40">
-            <Globe className="w-3.5 h-3.5 text-amber-700" />
+            <Globe className="w-3.5 h-3.5 text-[#0A1530]" />
             Global Network
           </div>
           <h1 id="ausieurope" className="text-2xl sm:text-4xl font-serif tracking-tight text-stone-900 font-normal">
