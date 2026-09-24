@@ -2,9 +2,6 @@ import type { NextConfig } from "next";
 
 const isDev = process.env.NODE_ENV !== "production";
 
-const connectSrc = isDev
-  ? "'self' http://localhost:* http://127.0.0.1:* ws://localhost:* ws://127.0.0.1:*"
-  : "'self' https:";
 
 const securityHeaders = [
   { key: "X-Frame-Options", value: "DENY" },
@@ -30,12 +27,12 @@ const securityHeaders = [
       // broad "https:" already covers challenges.cloudflare.com (Turnstile's
       // verification endpoint) and Crisp's REST calls, so they need no
       // separate entry here; the Crisp chat socket needs its own wss: entry.
-     `connect-src ${connectSrc}`,// Added THIS LINE – allows Google Maps iframes. challenges.cloudflare.com
+     `connect-src 'self' https: wss://client.relay.crisp.chat${isDev ? " http://localhost:* ws://localhost:*" : ""}`,
       // renders Turnstile's interactive-challenge iframe; client.crisp.chat
       // renders the chat widget's iframe.
       "frame-src 'self' https://www.google.com https://maps.google.com https://www.google.com/maps/ https://challenges.cloudflare.com https://client.crisp.chat",
       "frame-ancestors 'none'",
-      "base-uri 'self'",
+      "base-uri 'self'",  
       "form-action 'self'",
     ].join("; "),
   },
