@@ -88,7 +88,25 @@ function localeCookieOptions(maxAge: number) {
   return { path: "/", maxAge, sameSite: "lax" as const };
 }
 
+// Each deployment's canonical origin is the bare apex (NEXT_PUBLIC_SITE_URL,
+// backend FRONTEND_URL). Served as-is on "www.", the page's browser-side API
+// calls are cross-origin to a host the backend's CORS list doesn't include,
+// so pricing/auth/checkout all fail — and the session-hint cookies and
+// language cookie live on a different host too. Permanently redirect instead
+// so there's only ever one origin. Host comes from the headers (Nginx passes
+// the public one through) rather than request.nextUrl, which reflects the
+// internal upstream address behind the proxy.
+function resolveWwwRedirect(request: NextRequest): NextResponse | null {
+  const host = (request.headers.get("x-forwarded-host") ?? request.headers.get("host"))?.split(",")[0].trim();
+  if (!host?.toLowerCase().startsWith("www.")) return null;
+  const { pathname, search } = request.nextUrl;
+  return NextResponse.redirect(`https://${host.slice(4)}${pathname}${search}`, 308);
+}
+
 export function proxy(request: NextRequest) {
+  const wwwRedirect = resolveWwwRedirect(request);
+  if (wwwRedirect) return wwwRedirect;
+
   const { pathname } = request.nextUrl;
 
   const locale = extractLocalePrefix(pathname);

@@ -3,8 +3,8 @@ import type { NextConfig } from "next";
 const isDev = process.env.NODE_ENV !== "production";
 
 const connectSrc = isDev
-  ? "'self' http://localhost:* http://127.0.0.1:* ws://localhost:* ws://127.0.0.1:*"
-  : "'self' https:";
+  ? "'self' http://localhost:* http://127.0.0.1:* ws://localhost:* ws://127.0.0.1:* wss://client.relay.crisp.chat"
+  : "'self' https: wss://client.relay.crisp.chat";
 
 const securityHeaders = [
   { key: "X-Frame-Options", value: "DENY" },
