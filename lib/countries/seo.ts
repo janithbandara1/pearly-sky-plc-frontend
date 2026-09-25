@@ -22,8 +22,8 @@ function absoluteLocalePath(pathname: string, country: CountryCode, language: La
  * sibling country's domain (fr/gb/lk — see COUNTRY_DOMAINS) is an alternate
  * of this one, not duplicate content, and which one to serve when no more
  * specific hreflang matches ("x-default"). Each country contributes one
- * entry per language it actually offers (see COUNTRY_LANGUAGES — only
- * France offers more than "en"), tagged `{language}-{COUNTRY}` using the
+ * entry per language it actually offers (see COUNTRY_LANGUAGES),
+ * tagged `{language}-{COUNTRY}` using the
  * country's own ISO code as the region subtag (fr/GB/LK are all valid
  * region subtags as-is, so no separate slug mapping is needed). When
  * `current` is passed (the language this specific request resolved to),

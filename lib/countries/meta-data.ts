@@ -198,39 +198,39 @@ const COUNTRY_PAGE_META: Record<CountryCode, Partial<Record<LanguageCode, Record
   gb: {
     en: {
       home: {
-        title: "Premium Eco-Luxury Cleaning Services United Kingdom | Pearly Sky",
+        title: "Premium Eco-Luxury Cleaning Services UK | Pearly Sky",
         description:
-          "Experience elite, eco-luxury residential & commercial cleaning in The United Kingdom. Five-star premium property care using sustainable, high-performance practices.",
+          "Experience elite, eco-luxury residential & commercial cleaning in the United Kingdom. Five-star premium property care using sustainable, high-performance practices.",
       },
       about: {
-        title: "About Us: Eco-Luxury Property Care United Kingdom | Pearly Sky",
+        title: "About Us: Eco-Luxury Property Care UK | Pearly Sky",
         description:
-          "Discover the story, strict standards, and values driving Pearly Sky Global in The United Kingdom. Dedicated to elite property care and lifestyle support.",
+          "Discover the story, strict standards, and values driving Pearly Sky Global in the United Kingdom. Dedicated to elite property care and lifestyle support.",
       },
       customers: {
-        title: "Verified Client Reviews & Testimonials United Kingdom | Pearly Sky",
+        title: "Verified Client Reviews & Testimonials UK | Pearly Sky",
         description:
-          "See what our clients say about us. Read verified reviews from premium homeowners, corporate offices, and luxury estates in The United Kingdom.",
+          "See what our clients say about us. Read verified reviews from premium homeowners, corporate offices, and luxury estates in the United Kingdom.",
       },
       contact: {
-        title: "Contact Our Eco-Luxury Cleaning Team United Kingdom | Pearly Sky",
+        title: "Contact Our Eco-Luxury Cleaning Team UK | Pearly Sky",
         description:
           "Get in touch with Pearly Sky Global United Kingdom for booking inquiries or custom service quotes. Reliable, immediate assistance.",
       },
       careers: {
-        title: "Careers in Luxury Property Care United Kingdom | Pearly Sky",
+        title: "Careers in Luxury Property Care UK | Pearly Sky",
         description:
-          "Build a rewarding career in luxury property care in The United Kingdom. Explore open positions for professional cleaners and premium specialists.",
+          "Build a rewarding career in luxury property care in the United Kingdom. Explore open positions for professional cleaners and premium specialists.",
       },
       ourLocations: {
-        title: "Our Service Locations in United Kingdom | Pearly Sky Global",
+        title: "Our Service Locations in the UK | Pearly Sky Global",
         description:
-          "Operating premium service clusters across The United Kingdom. Find your local Pearly Sky Global service portal and book elite eco-luxury care.",
+          "Operating premium service clusters across the United Kingdom. Find your local Pearly Sky Global service portal and book elite eco-luxury care.",
       },
       blog: {
-        title: "Eco-Luxury Cleaning Blog & Insights United Kingdom | Pearly Sky",
+        title: "Eco-Luxury Cleaning Blog & Insights UK | Pearly Sky",
         description:
-          "Read professional care advice, sustainable housekeeping guides, and elite property maintenance insights for premium spaces in The United Kingdom.",
+          "Read professional care advice, sustainable housekeeping guides, and elite property maintenance insights for premium spaces in the United Kingdom.",
       },
     },
   },
@@ -297,8 +297,8 @@ const GLOBAL_META_KEY: Record<CountryPageKey, string> = {
  * applies there. On a real country site, resolution order for
  * CURRENT_COUNTRY in `language` is: hand-written English copy
  * (COUNTRY_PAGE_META above; the only hand-written entry any country has)
- * -> a generated translation (meta-templates.ts; covers France's
- * "fr"/"de"/"es"/"it") -> CURRENT_COUNTRY's English copy as a last-resort
+ * -> a generated translation (meta-templates.ts; covers every
+ * country's "fr"/"de"/"es"/"it") -> CURRENT_COUNTRY's English copy as a last-resort
  * fallback.
  */
 export function getCountryPageMeta(page: CountryPageKey, language: LanguageCode): PageMeta {

@@ -12,7 +12,7 @@ import {
 } from "@/components/ui/select";
 import { cn } from "@/lib/utils";
 
-/** Always rendered; the option list is just the current country's languages — English-only for most, English+French for France. */
+/** Always rendered; the option list is just the current country's languages. */
 export function LanguageSwitcher({ className }: { className?: string }) {
   const { language, setLanguage } = useLanguage();
 

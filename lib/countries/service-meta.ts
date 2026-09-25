@@ -8,7 +8,7 @@ interface ServiceMeta {
 /** Short country label for a title suffix ("Elite Deep Cleaning – France"). */
 const COUNTRY_TITLE_SUFFIX: Record<CountryCode, string> = {
   fr: "France",
-  gb: "United Kingdom",
+  gb: "UK",
   lk: "Sri Lanka",
 };
 

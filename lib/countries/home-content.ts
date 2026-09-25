@@ -81,9 +81,9 @@ interface CountryHomeCopy {
 }
 
 /**
- * Home page copy, keyed by [country][language] — mirrors COUNTRY_LANGUAGES
- * in ./config: France has hand-written "en" and "fr" copy; the UK and Sri
- * Lanka are English-only, so they only ever have an "en" entry.
+ * Home page copy, keyed by [country][language]. Every country has
+ * hand-written copy for all of SUPPORTED_LANGUAGES; any language missing
+ * here falls back to "en".
  */
 const COUNTRY_HOME_CONTENT: Record<CountryCode, Partial<Record<LanguageCode, CountryHomeCopy>>> = {
   fr: {
@@ -93,7 +93,7 @@ const COUNTRY_HOME_CONTENT: Record<CountryCode, Partial<Record<LanguageCode, Cou
       coverageTitle: "Service Excellence Throughout France",
       coverageSubtitle: "Paris, Nice, Cannes, Monaco, Lyon, Bordeaux, and more across France.",
       footerTagline:
-        "Pearly Sky Cleaning propose des services de nettoyage professionnels et écologiques pour les maisons, les bureaux et les hôtels partout en France. Nous privilégions la qualité et la satisfaction client, en fournissant des solutions sur mesure pour un résultat impeccable.",
+        "Pearly Sky Cleaning offers professional, eco-friendly cleaning services for homes, offices, and hotels across France. We focus on quality and customer satisfaction, delivering tailored solutions to keep your space spotless.",
       aboutBilingualLabel: "Bilingual French & English Teams",
       aboutBilingualDesc: "Seamless communication for a diverse clientele.",
     },
@@ -102,9 +102,40 @@ const COUNTRY_HOME_CONTENT: Record<CountryCode, Partial<Record<LanguageCode, Cou
       trustCoverage: "France / 24 Villes",
       coverageTitle: "Excellence de Service Partout en France",
       coverageSubtitle: "Paris, Nice, Cannes, Monaco, Lyon, Bordeaux, et plus encore à travers la France.",
-      footerTagline: "Services de nettoyage et de soin éco-luxe partout en France.",
+      footerTagline:
+        "Pearly Sky Cleaning propose des services de nettoyage professionnels et écologiques pour les maisons, les bureaux et les hôtels partout en France. Nous privilégions la qualité et la satisfaction client, en fournissant des solutions sur mesure pour un résultat impeccable.",
       aboutBilingualLabel: "Équipes Bilingues Français & Anglais",
       aboutBilingualDesc: "Communication fluide pour une clientèle diverse.",
+    },
+    de: {
+      heroSubtitle: "Pearly Sky Eco-Luxus-Reinigung für Haus & Büro — Frankreich.",
+      trustCoverage: "Frankreich / 24 Städte",
+      coverageTitle: "Erstklassiger Service in ganz Frankreich",
+      coverageSubtitle: "Paris, Nizza, Cannes, Monaco, Lyon, Bordeaux und viele weitere Orte in ganz Frankreich.",
+      footerTagline:
+        "Pearly Sky Cleaning bietet professionelle, umweltfreundliche Reinigungsdienste für Privathaushalte, Büros und Hotels in ganz Frankreich. Wir legen Wert auf Qualität und Kundenzufriedenheit und liefern maßgeschneiderte Lösungen für makellose Räume.",
+      aboutBilingualLabel: "Zweisprachige Teams (Französisch & Englisch)",
+      aboutBilingualDesc: "Reibungslose Kommunikation für eine vielfältige Kundschaft.",
+    },
+    es: {
+      heroSubtitle: "Servicios de Limpieza Eco-Lujo Pearly Sky para Hogares y Oficinas — Francia.",
+      trustCoverage: "Francia / 24 Ciudades",
+      coverageTitle: "Excelencia en el Servicio en Toda Francia",
+      coverageSubtitle: "París, Niza, Cannes, Mónaco, Lyon, Burdeos y muchas más en toda Francia.",
+      footerTagline:
+        "Pearly Sky Cleaning ofrece servicios de limpieza profesionales y ecológicos para hogares, oficinas y hoteles en toda Francia. Priorizamos la calidad y la satisfacción del cliente, con soluciones a medida para que su espacio quede impecable.",
+      aboutBilingualLabel: "Equipos Bilingües en Francés e Inglés",
+      aboutBilingualDesc: "Comunicación fluida para una clientela diversa.",
+    },
+    it: {
+      heroSubtitle: "Servizi di Pulizia Eco-Luxury Pearly Sky per Casa e Ufficio — Francia.",
+      trustCoverage: "Francia / 24 Città",
+      coverageTitle: "Eccellenza del Servizio in Tutta la Francia",
+      coverageSubtitle: "Parigi, Nizza, Cannes, Monaco, Lione, Bordeaux e molte altre in tutta la Francia.",
+      footerTagline:
+        "Pearly Sky Cleaning offre servizi di pulizia professionali ed ecologici per case, uffici e hotel in tutta la Francia. Puntiamo su qualità e soddisfazione del cliente, con soluzioni su misura per spazi impeccabili.",
+      aboutBilingualLabel: "Team Bilingui Francese e Inglese",
+      aboutBilingualDesc: "Comunicazione fluida per una clientela diversificata.",
     },
   },
   gb: {
@@ -118,6 +149,46 @@ const COUNTRY_HOME_CONTENT: Record<CountryCode, Partial<Record<LanguageCode, Cou
       aboutBilingualLabel: "English-Speaking Concierge Teams",
       aboutBilingualDesc: "Clear, professional communication for every client across the UK.",
     },
+    fr: {
+      heroSubtitle: "Services de Nettoyage Éco-Luxe Pearly Sky pour Maisons et Bureaux — Royaume-Uni.",
+      trustCoverage: "Royaume-Uni / 24 Villes",
+      coverageTitle: "Excellence de Service Partout au Royaume-Uni",
+      coverageSubtitle: "Londres, Birmingham, Glasgow, Leeds, et plus encore à travers le Royaume-Uni.",
+      footerTagline:
+        "Pearly Sky Cleaning propose des services de nettoyage professionnels et écologiques pour les maisons, les bureaux et les hôtels partout au Royaume-Uni. Nous privilégions la qualité et la satisfaction client, en fournissant des solutions sur mesure pour un résultat impeccable.",
+      aboutBilingualLabel: "Équipes de Conciergerie Anglophones",
+      aboutBilingualDesc: "Une communication claire et professionnelle pour chaque client au Royaume-Uni.",
+    },
+    de: {
+      heroSubtitle: "Pearly Sky Eco-Luxus-Reinigung für Haus & Büro — Vereinigtes Königreich.",
+      trustCoverage: "UK / 24 Städte",
+      coverageTitle: "Erstklassiger Service im ganzen Vereinigten Königreich",
+      coverageSubtitle: "London, Birmingham, Glasgow, Leeds und viele weitere Orte im ganzen Vereinigten Königreich.",
+      footerTagline:
+        "Pearly Sky Cleaning bietet professionelle, umweltfreundliche Reinigungsdienste für Privathaushalte, Büros und Hotels im gesamten Vereinigten Königreich. Wir legen Wert auf Qualität und Kundenzufriedenheit und liefern maßgeschneiderte Lösungen für makellose Räume.",
+      aboutBilingualLabel: "Englischsprachige Concierge-Teams",
+      aboutBilingualDesc: "Klare, professionelle Kommunikation für jeden Kunden im Vereinigten Königreich.",
+    },
+    es: {
+      heroSubtitle: "Servicios de Limpieza Eco-Lujo Pearly Sky para Hogares y Oficinas — Reino Unido.",
+      trustCoverage: "Reino Unido / 24 Ciudades",
+      coverageTitle: "Excelencia en el Servicio en Todo el Reino Unido",
+      coverageSubtitle: "Londres, Birmingham, Glasgow, Leeds y muchas más en todo el Reino Unido.",
+      footerTagline:
+        "Pearly Sky Cleaning ofrece servicios de limpieza profesionales y ecológicos para hogares, oficinas y hoteles en todo el Reino Unido. Priorizamos la calidad y la satisfacción del cliente, con soluciones a medida para que su espacio quede impecable.",
+      aboutBilingualLabel: "Equipos de Conserjería de Habla Inglesa",
+      aboutBilingualDesc: "Comunicación clara y profesional para cada cliente en el Reino Unido.",
+    },
+    it: {
+      heroSubtitle: "Servizi di Pulizia Eco-Luxury Pearly Sky per Casa e Ufficio — Regno Unito.",
+      trustCoverage: "Regno Unito / 24 Città",
+      coverageTitle: "Eccellenza del Servizio in Tutto il Regno Unito",
+      coverageSubtitle: "Londra, Birmingham, Glasgow, Leeds e molte altre in tutto il Regno Unito.",
+      footerTagline:
+        "Pearly Sky Cleaning offre servizi di pulizia professionali ed ecologici per case, uffici e hotel in tutto il Regno Unito. Puntiamo su qualità e soddisfazione del cliente, con soluzioni su misura per spazi impeccabili.",
+      aboutBilingualLabel: "Team Concierge di Lingua Inglese",
+      aboutBilingualDesc: "Comunicazione chiara e professionale per ogni cliente nel Regno Unito.",
+    },
   },
   lk: {
     en: {
@@ -130,13 +201,52 @@ const COUNTRY_HOME_CONTENT: Record<CountryCode, Partial<Record<LanguageCode, Cou
       aboutBilingualLabel: "Multilingual Local Teams",
       aboutBilingualDesc: "Friendly, English-speaking teams who know Sri Lanka inside and out.",
     },
+    fr: {
+      heroSubtitle: "Services de Nettoyage Éco-Luxe Pearly Sky pour Maisons et Bureaux — Sri Lanka.",
+      trustCoverage: "Sri Lanka / 10 Villes",
+      coverageTitle: "Excellence de Service Partout au Sri Lanka",
+      coverageSubtitle: "Colombo, Kandy, Galle, Negombo, et plus encore à travers le Sri Lanka.",
+      footerTagline:
+        "Pearly Sky Cleaning propose des services de nettoyage professionnels et écologiques pour les maisons, les bureaux et les hôtels partout au Sri Lanka. Nous privilégions la qualité et la satisfaction client, en fournissant des solutions sur mesure pour un résultat impeccable.",
+      aboutBilingualLabel: "Équipes Locales Multilingues",
+      aboutBilingualDesc: "Des équipes anglophones chaleureuses qui connaissent le Sri Lanka sur le bout des doigts.",
+    },
+    de: {
+      heroSubtitle: "Pearly Sky Eco-Luxus-Reinigung für Haus & Büro — Sri Lanka.",
+      trustCoverage: "Sri Lanka / 10 Städte",
+      coverageTitle: "Erstklassiger Service in ganz Sri Lanka",
+      coverageSubtitle: "Colombo, Kandy, Galle, Negombo und viele weitere Orte in ganz Sri Lanka.",
+      footerTagline:
+        "Pearly Sky Cleaning bietet professionelle, umweltfreundliche Reinigungsdienste für Privathaushalte, Büros und Hotels in ganz Sri Lanka. Wir legen Wert auf Qualität und Kundenzufriedenheit und liefern maßgeschneiderte Lösungen für makellose Räume.",
+      aboutBilingualLabel: "Mehrsprachige lokale Teams",
+      aboutBilingualDesc: "Freundliche, englischsprachige Teams, die Sri Lanka in- und auswendig kennen.",
+    },
+    es: {
+      heroSubtitle: "Servicios de Limpieza Eco-Lujo Pearly Sky para Hogares y Oficinas — Sri Lanka.",
+      trustCoverage: "Sri Lanka / 10 Ciudades",
+      coverageTitle: "Excelencia en el Servicio en Todo Sri Lanka",
+      coverageSubtitle: "Colombo, Kandy, Galle, Negombo y muchas más en todo Sri Lanka.",
+      footerTagline:
+        "Pearly Sky Cleaning ofrece servicios de limpieza profesionales y ecológicos para hogares, oficinas y hoteles en todo Sri Lanka. Priorizamos la calidad y la satisfacción del cliente, con soluciones a medida para que su espacio quede impecable.",
+      aboutBilingualLabel: "Equipos Locales Multilingües",
+      aboutBilingualDesc: "Equipos amables y de habla inglesa que conocen Sri Lanka a la perfección.",
+    },
+    it: {
+      heroSubtitle: "Servizi di Pulizia Eco-Luxury Pearly Sky per Casa e Ufficio — Sri Lanka.",
+      trustCoverage: "Sri Lanka / 10 Città",
+      coverageTitle: "Eccellenza del Servizio in Tutto lo Sri Lanka",
+      coverageSubtitle: "Colombo, Kandy, Galle, Negombo e molte altre in tutto lo Sri Lanka.",
+      footerTagline:
+        "Pearly Sky Cleaning offre servizi di pulizia professionali ed ecologici per case, uffici e hotel in tutto lo Sri Lanka. Puntiamo su qualità e soddisfazione del cliente, con soluzioni su misura per spazi impeccabili.",
+      aboutBilingualLabel: "Team Locali Multilingue",
+      aboutBilingualDesc: "Team cordiali e di lingua inglese che conoscono lo Sri Lanka come le proprie tasche.",
+    },
   },
 };
 
 /**
  * CURRENT_COUNTRY's home page copy in `language`, falling back to its
- * English copy if that language has no hand-written entry yet (only ever
- * applies to France's "de"/"es"/"it").
+ * English copy if that language has no hand-written entry.
  */
 export function getCountryHomeContent(language: LanguageCode): CountryHomeCopy {
   const forCountry = COUNTRY_HOME_CONTENT[CURRENT_COUNTRY];

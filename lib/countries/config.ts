@@ -31,14 +31,13 @@ export const COUNTRY_DOMAINS: Record<CountryCode, string> = {
 };
 
 /**
- * Which of SUPPORTED_LANGUAGES each country's portal offers. France is the
- * only market that gives visitors a language choice; the UK and Sri Lanka
- * portals are English-only.
+ * Which of SUPPORTED_LANGUAGES each country's portal offers. Every country
+ * currently offers all of them.
  */
 export const COUNTRY_LANGUAGES: Record<CountryCode, readonly LanguageCode[]> = {
   fr: SUPPORTED_LANGUAGES,
-  gb: ["en"],
-  lk: ["en"],
+  gb: SUPPORTED_LANGUAGES,
+  lk: SUPPORTED_LANGUAGES,
 };
 
 export function isLanguageSupportedForCountry(
