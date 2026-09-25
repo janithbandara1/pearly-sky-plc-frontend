@@ -48,12 +48,13 @@ export default function robots(): MetadataRoute.Robots {
         disallow: COMMON_DISALLOW,
       },
       {
-        // Lets Googlebot render page layouts that fetch these two endpoints
-        // client-side, without letting the raw JSON itself get indexed —
-        // these Allow rules are more specific than the "/api/*" disallow
-        // below, so they win under robots.txt's longest-match precedence.
+        // Lets Googlebot render pages that fetch these public read-only
+        // endpoints client-side (e.g. service pages load the service by slug,
+        // the services list and size quotes from /api/catalog/) — these Allow
+        // rules are more specific than the "/api/*" disallow below, so they
+        // win under robots.txt's longest-match precedence.
         userAgent: "Googlebot",
-        allow: ["/", "/api/catalog/currencies", "/api/countries"],
+        allow: ["/", "/api/catalog/", "/api/countries"],
         disallow: [...COMMON_DISALLOW, "/api/auth/"],
       },
     ],

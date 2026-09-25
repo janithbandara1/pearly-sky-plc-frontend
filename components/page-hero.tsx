@@ -17,11 +17,18 @@ function getFlagComponent(code: string) {
   return COUNTRY_FLAGS[code.toLowerCase() as CountryCode] ?? COUNTRY_FLAGS.fr;
 }
 
-/** A few legacy price rows use `GBR`; the site's own code for the UK is `gb`. Falls back to `fr` for anything outside the supported list. */
-function normalizeCountryCode(raw: string | null | undefined): CountryCode {
-  const lower = (raw ?? "fr").toLowerCase();
+/**
+ * A few legacy price rows use `GBR`; the site's own code for the UK is `gb`.
+ * Returns null for anything outside the supported list — the backend still
+ * holds prices for many other countries (de, ch, ie, …), and those must be
+ * skipped rather than folded into another country's slot (they used to fall
+ * back to `fr`, so whichever came last, e.g. ch's 29.70, showed as France's).
+ */
+function normalizeCountryCode(raw: string | null | undefined): CountryCode | null {
+  if (!raw) return null;
+  const lower = raw.toLowerCase();
   const code = lower === "gbr" ? "gb" : lower;
-  return (SUPPORTED_COUNTRIES as readonly string[]).includes(code) ? (code as CountryCode) : "fr";
+  return (SUPPORTED_COUNTRIES as readonly string[]).includes(code) ? (code as CountryCode) : null;
 }
 
 export function PageHero({
@@ -56,6 +63,7 @@ export function PageHero({
       const byCode: Record<string, number | null> = {};
       for (const p of prices) {
         const code = normalizeCountryCode(p.country);
+        if (!code) continue;
         byCode[code] = p.price !== null && p.price !== undefined ? parseFloat(p.price) : null;
       }
       setPriceByCode(byCode);

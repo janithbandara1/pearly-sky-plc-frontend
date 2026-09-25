@@ -189,9 +189,36 @@ const FALLBACK_SERVICES: Record<string, CatalogServiceDetail> = {
   }),
 };
 
+/**
+ * Turns a fetched service into the view's `service`/`serviceError` state —
+ * shared by the server-provided `initialService` and the client-side fetch
+ * fallback, so both paths gate bookability and fill in default packages the
+ * same way.
+ */
+function resolveServiceState(
+  data: CatalogServiceDetail,
+  isFlowService: boolean,
+): { service: CatalogServiceDetail | null; error: string | null } {
+  if (!data.isBookable && !isFlowService) {
+    return { service: null, error: `Book now for "${data.label}" isn't available yet.` };
+  }
+  return {
+    service: {
+      ...data,
+      servicePackages:
+        data.servicePackages && data.servicePackages.length > 0
+          ? data.servicePackages
+          : DEFAULT_PACKAGES.map((p) => ({ package: p })),
+      serviceItems: data.serviceItems ?? [],
+    },
+    error: null,
+  };
+}
+
 export function ServiceBookingView({
   serviceSlug,
   locales,
+  initialService,
 }: {
   serviceSlug: string;
   /**
@@ -203,6 +230,14 @@ export function ServiceBookingView({
    * mismatched locale+slug URL (e.g. "/en/services/nettoyage-regulier").
    */
   locales: ServiceLocaleSlug[];
+  /**
+   * The service as already fetched server-side in `page.tsx`, so the full
+   * page (hero, introduction, booking form) is in the initial HTML rather
+   * than a "Loading…" placeholder that only fills in after a client-side
+   * fetch — crawlers index what the server sends. Null if that server fetch
+   * failed, in which case the client-side fetch below takes over.
+   */
+  initialService: CatalogServiceDetail | null;
 }) {
   const router = useRouter();
   const { country } = useCountry();
@@ -229,8 +264,11 @@ export function ServiceBookingView({
     isYachtService; 
   const serviceContent = SERVICE_CONTENT[serviceSlug];
 
-  const [service, setService] = useState<CatalogServiceDetail | null>(null);
-  const [serviceError, setServiceError] = useState<string | null>(null);
+  const [initialState] = useState(() =>
+    initialService ? resolveServiceState(initialService, isFlowService) : null,
+  );
+  const [service, setService] = useState<CatalogServiceDetail | null>(initialState?.service ?? null);
+  const [serviceError, setServiceError] = useState<string | null>(initialState?.error ?? null);
 
   const [supplySource, setSupplySource] = useState<SupplySource>("company");
   const [selectedItemIds, setSelectedItemIds] = useState<Set<number>>(new Set());
@@ -261,21 +299,16 @@ export function ServiceBookingView({
   const [submitting, setSubmitting] = useState(false);
 
   useEffect(() => {
+    // Already resolved server-side — only fetch client-side if that failed.
+    if (initialState) return;
     getServiceBySlug(serviceSlug, country)
       .then((data) => {
-        if (!data.isBookable && !isFlowService) {
-          setServiceError(`Book now for "${data.label}" isn't available yet.`);
+        const next = resolveServiceState(data, isFlowService);
+        if (next.error) {
+          setServiceError(next.error);
           return;
         }
-        const enhanced: CatalogServiceDetail = {
-          ...data,
-          servicePackages:
-            data.servicePackages && data.servicePackages.length > 0
-              ? data.servicePackages
-              : DEFAULT_PACKAGES.map((p) => ({ package: p })),
-          serviceItems: data.serviceItems ?? [],
-        };
-        setService(enhanced);
+        setService(next.service);
       })
       .catch((err) => {
         const fallback = FALLBACK_SERVICES[serviceSlug] ?? FALLBACK_SERVICES["regular-maintenance-cleaning"];
@@ -286,7 +319,7 @@ export function ServiceBookingView({
           setServiceError(err instanceof ApiError ? err.message : "Service not found.");
         }
       });
-  }, [serviceSlug, country, isFlowService]);
+  }, [initialState, serviceSlug, country, isFlowService]);
 
   // Tells the language switcher this service's locale-specific slugs, so
   // switching language lands on e.g. "nettoyage-regulier" instead of keeping
