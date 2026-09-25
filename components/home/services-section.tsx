@@ -195,12 +195,12 @@ function ServiceCard({ service }: { service: CatalogService }) {
   const pricePerUnitKey = isCareService ? "servicesPricePerProfessional" : "servicesPricePerCleaner";
 
   return (
-<div className="relative w-full max-w-2xl  rounded-[1rem] bg-brand-navy  text-white shadow-2xl">
+<div className="relative  w-screen md:max-w-2xl max-w-[90%] rounded-[1rem] bg-brand-navy  text-white shadow-2xl">
   {/* Inner Double Border Frame */}
   <div className="flex h-full flex-col overflow-hidden rounded-[1rem] border border-brand-gold p-2 pb-2 ring-1 ring-brand-gold/30">
     
     {/* Top Image Section with Corner Leaf Accents */}
-    <div className="relative -top-2 -left-2 -right-1 h-45 w-[calc(110%-0.1rem)]  overflow-hidden rounded-b-[75px] md:rounded-b-[80px]">
+    <div className="relative -top-2 -left-2 -right-1 h-45 md:w-[calc(110%-0.1rem)] w-[calc(110%-0.1rem)]  overflow-hidden rounded-b-[75px] md:rounded-b-[80px]">
       {service.imageUrl ? (
         <Image
           src={service.imageUrl}
@@ -243,7 +243,7 @@ function ServiceCard({ service }: { service: CatalogService }) {
     {/* Content Body */}
     <div className="flex flex-1 flex-col justify-between pt-5 text-center">
       {/* Title */}
-      <h3 className="text-xl md:text-base font-bold tracking-wide text-white">
+      <h3 className="md:text-xl text-base font-bold tracking-wide truncate text-white">
         {label}
       </h3>
 
@@ -365,7 +365,7 @@ function CategoryGrid({ services, limit }: { services: CatalogService[]; limit?:
 
   return (
     <>
-      <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+      <div className="grid gap-5 sm:grid-cols-2  lg:grid-cols-4">
         {visible.map((service) => (
           <ServiceCard key={service.id} service={service} />
         ))}
@@ -391,10 +391,10 @@ export function ServicesSection({ services }: { services: CatalogService[] }) {
   const active = services.filter((service) => service.status === "active");
 
   return (
-    <section id="services" className="scroll-mt-16 bg-brand-navy py-16 text-brand-navy-foreground">
+    <section id="services" className="scroll-mt-16 bg-brand-navy py-16 text-brand-navy-foreground overflow-hidden">
       <div className="mx-auto w-full max-w-6xl px-4 sm:px-6">
         <div className="mb-10 text-center">
-          <h2 className="md:text-4xl font-bold tracking-tight text-3xl">
+          <h2 className="md:text-4xl font-bold tracking-tight text-2xl">
             {translate("servicesHeading")}
           </h2>
           
@@ -406,7 +406,7 @@ export function ServicesSection({ services }: { services: CatalogService[] }) {
 
           return (
             <div key={key} className="mt-12 first:mt-0">
-              <h3 className="letter-spacing-tight mb-1 text-center text-2xl font-bold tracking-wider text-brand-navy-foreground md:text-3xl">
+              <h3 className="letter-spacing-tight mb-1 max-w-full text-center text-xl font-bold tracking-wider text-brand-navy-foreground md:text-3xl">
                 {translate(headingKey)}
               </h3>
               <p className="mb-6 mt-2 text-center mx-0 font-poppins font-normal text-base leading-normal text-[rgba(255,253,244,0.75)]">

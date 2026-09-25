@@ -994,7 +994,7 @@ export default function CheckoutPage({
         </div>
       ) : (
         /* STANDARD SERVICE CHECKOUT VIEW */
-        <div className="mx-auto grid w-full max-w-[1150px] flex-1 gap-6 p-4 sm:p-6 lg:grid-cols-[1fr_380px] lg:items-start">
+        <div className="mx-auto grid w-full max-w-full md:max-w-[1150px] flex-1 gap-6 p-4 sm:p-6 lg:grid-cols-[1fr_380px] lg:items-start">
           <div className="flex flex-col gap-6">
             {error && <p className="text-sm text-destructive">{error}</p>}
 

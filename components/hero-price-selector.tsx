@@ -109,7 +109,7 @@ function CountryPicker({
         </div>
       )}
       {isOpen && (
-        <div className="absolute block md:hidden -right-[150px] -top-28 max-h-[200px] z-50 mb-2 w-35 overflow-hidden rounded-l-lg border border-[rgb(169,139,75)]/40 bg-[rgb(18,30,45)] shadow-xl">
+        <div className="absolute block md:hidden -right-[150px] -top-[25px] max-h-[200px] z-50 mb-2 w-35 overflow-hidden rounded-l-lg border border-[rgb(169,139,75)]/40 bg-[rgb(18,30,45)] shadow-xl">
           <CountryOptions
             activePrices={activePrices}
             selectedCountryCode={selectedCountryCode}
