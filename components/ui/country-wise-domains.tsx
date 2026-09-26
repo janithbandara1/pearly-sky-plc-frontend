@@ -52,6 +52,8 @@ const CountryFlag: React.FC<CountryFlagProps> = ({
     ch: "/images/flags/switzerland.webp",
     pt: "/images/flags/portugal.webp",
     ee: "/images/flags/ee.png",
+    nl: "/images/flags/netherlands.webp",
+    mc: "/images/flags/monaco.webp",
     au: "/images/flags/australia.webp",
     nz: "/images/flags/newzealand.webp",
     ca: "/images/flags/canada.webp",
@@ -98,6 +100,8 @@ const REGIONAL_DATA: Region[] = [
       { id: "ch", isLive: false, name: "Switzerland", domain: "coming soon...", flagCode: "ch" },
       { id: "pt", isLive: false, name: "Portugal", domain: "pcoming soon...", flagCode: "pt" },
       { id: "ee", isLive: false, name: "Estonia", domain: "coming soon...", flagCode: "ee" },
+      { id: "nl", isLive: false, name: "Netherlands", domain: "coming soon...", flagCode: "nl" },
+      { id: "mc", isLive: false, name: "Monaco", domain: "coming soon...", flagCode: "mc" },
     ],
   },
   {
