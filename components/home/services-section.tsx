@@ -406,7 +406,7 @@ export function ServicesSection({ services }: { services: CatalogService[] }) {
 
           return (
             <div key={key} className="mt-12 first:mt-0">
-              <h3 className="letter-spacing-tight mb-1 text-center text-2xl font-bold tracking-wider text-brand-navy-foreground md:text-3xl">
+              <h3 className="letter-spacing-tight mb-1 text-center text-2xl break-words font-bold tracking-wider text-brand-navy-foreground md:text-3xl">
                 {translate(headingKey)}
               </h3>
               <p className="mb-6 mt-2 text-center mx-0 font-poppins font-normal text-base leading-normal text-[rgba(255,253,244,0.75)]">

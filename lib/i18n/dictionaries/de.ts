@@ -142,9 +142,12 @@ export const de = {
   clientFeedback: "Die Reinigung war großartig und die Leute, die gearbeitet haben, waren so freundlich und nett. Wir fühlten uns sehr gut betreut. Ich empfehle",
 
   //updated 4 categories which are visible in Home page services section
-  servicesCategoryResidentialCleaning: "🏠 WOHNUNGSREINIGUNGSDIENSTE",
-  servicesCategoryPremiumAddOns: "➕ PREMIUM-ZUSATZDIENSTE",
-  servicesCategoryCommercialSpecialised: "🏢 GEWERBLICHE & SPEZIALISIERTE REINIGUNGSDIENSTE",
+  // ­ = soft hyphen: invisible unless the browser has to break the
+  // compound word there, so these long all-caps words wrap on phones
+  // instead of overflowing the screen.
+  servicesCategoryResidentialCleaning: "🏠 WOHNUNGS­REINIGUNGS­DIENSTE",
+  servicesCategoryPremiumAddOns: "➕ PREMIUM-ZUSATZ­DIENSTE",
+  servicesCategoryCommercialSpecialised: "🏢 GEWERBLICHE & SPEZIALISIERTE REINIGUNGS­DIENSTE",
   servicesCategoryCareConcierge: "🤝 PFLEGE- & CONCIERGE-DIENSTE",
 
   servicesSubHeaderResidentialCleaning: "Sorgfältige, nachhaltige Pflege, entwickelt für Luxusresidenzen, Anwesen und zeitgenössische Stadthäuser",
