@@ -177,7 +177,7 @@ export function BookingDetailsCard({
           />
           <SummaryRow
             label={translate(isCareService ? "bookingDetailPricePerProfessional" : "bookingDetailPricePerCleaner")}
-            value={hourlyRate ? `${money(Number(hourlyRate))}/h` : "—"}
+            value={hourlyRate ? money(Number(hourlyRate)) : "—"}
           />
         </div>
 

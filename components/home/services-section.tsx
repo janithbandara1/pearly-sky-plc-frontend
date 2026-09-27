@@ -269,7 +269,8 @@ function ServiceCard({ service }: { service: CatalogService }) {
             <p className="text-base font-medium text-white">
               {service.price ? (
                 <>
-                  Rate: <span className="font-bold">{symbol}{service.price}</span>
+                  {translate("servicesHourlyRateLabel")}{" "}
+                  <span className="font-bold">{symbol}{Number(service.price).toFixed(2)}</span>{" "}
                   <span className="text-sm font-normal">{translate(pricePerUnitKey)}</span>
                 </>
               ) : (
