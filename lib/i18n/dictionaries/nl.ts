@@ -51,8 +51,9 @@ export const nl = {
   // Services
   servicesHeading: "Onze diensten",
   servicesSubheading: "Vastgoedzorg, lifestyle en wellness — geboekt in minder dan een minuut.",
-  servicesBookNow: "Nu boeken",
+  servicesBookNow: "Online boeken",
   servicesRequestQuotation: "Offerte aanvragen",
+  servicesGetFreeQuote: "Gratis offerte",
   servicesComingSoon: "Binnenkort beschikbaar",
   servicesPricingSoon: "Prijzen binnenkort beschikbaar",
   servicesHourlyRateLabel: "Uurtarief:",

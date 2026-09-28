@@ -49,8 +49,9 @@ export const de = {
   // Services
   servicesHeading: "Unsere Dienstleistungen",
   servicesSubheading: "Immobilienpflege, Lifestyle und Wellness — in unter einer Minute gebucht.",
-  servicesBookNow: "Jetzt buchen",
+  servicesBookNow: "Online buchen",
   servicesRequestQuotation: "Angebot anfordern",
+  servicesGetFreeQuote: "Kostenloses Angebot",
   servicesComingSoon: "Demnächst verfügbar",
   servicesPricingSoon: "Preise demnächst verfügbar",
   servicesHourlyRateLabel: "Stundensatz:",

@@ -51,8 +51,9 @@ export const pl = {
   // Services
   servicesHeading: "Nasze usługi",
   servicesSubheading: "Opieka nad nieruchomościami, styl życia i wellness — rezerwacja w mniej niż minutę.",
-  servicesBookNow: "Zarezerwuj teraz",
+  servicesBookNow: "Zarezerwuj online",
   servicesRequestQuotation: "Poproś o wycenę",
+  servicesGetFreeQuote: "Bezpłatna wycena",
   servicesComingSoon: "Wkrótce",
   servicesPricingSoon: "Cennik wkrótce",
   servicesHourlyRateLabel: "Stawka godzinowa:",

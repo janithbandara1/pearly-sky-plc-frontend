@@ -51,8 +51,9 @@ export const pt = {
   // Services
   servicesHeading: "Os nossos serviços",
   servicesSubheading: "Cuidado de propriedades, estilo de vida e bem-estar — reservado em menos de um minuto.",
-  servicesBookNow: "Reservar agora",
+  servicesBookNow: "Reservar online",
   servicesRequestQuotation: "Solicitar orçamento",
+  servicesGetFreeQuote: "Orçamento grátis",
   servicesComingSoon: "Em breve",
   servicesPricingSoon: "Preços em breve",
   servicesHourlyRateLabel: "Tarifa horária:",

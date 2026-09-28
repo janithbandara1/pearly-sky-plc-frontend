@@ -630,8 +630,9 @@ serviceLuxuryYachtCleaningTitleFiveFeatureTwo: "Turnover complet du linge, assai
   // Services
   servicesHeading: "Nos Services",
   servicesSubheading: "Entretien de propriété, art de vivre et bien-être — réservés en moins d'une minute.",
-  servicesBookNow: "Réserver Maintenant",
+  servicesBookNow: "Réserver en ligne",
   servicesRequestQuotation: "Demander un Devis",
+  servicesGetFreeQuote: "Devis gratuit",
   servicesComingSoon: "Bientôt disponible",
   servicesPricingSoon: "Tarif à venir",
   servicesHourlyRateLabel: "Tarif horaire :",

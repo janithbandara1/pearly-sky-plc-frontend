@@ -51,8 +51,9 @@ export const fi = {
   // Services
   servicesHeading: "Palvelumme",
   servicesSubheading: "Kiinteistönhoito, elämäntapa ja hyvinvointi — varattavissa alle minuutissa.",
-  servicesBookNow: "Varaa nyt",
+  servicesBookNow: "Varaa verkossa",
   servicesRequestQuotation: "Pyydä tarjous",
+  servicesGetFreeQuote: "Ilmainen tarjous",
   servicesComingSoon: "Tulossa pian",
   servicesPricingSoon: "Hinnasto tulossa pian",
   servicesHourlyRateLabel: "Tuntihinta:",

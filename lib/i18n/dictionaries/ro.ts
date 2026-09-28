@@ -51,8 +51,9 @@ export const ro = {
   // Services
   servicesHeading: "Serviciile noastre",
   servicesSubheading: "Îngrijirea proprietății, stil de viață și wellness — rezervat în mai puțin de un minut.",
-  servicesBookNow: "Rezervă acum",
+  servicesBookNow: "Rezervă online",
   servicesRequestQuotation: "Solicită ofertă",
+  servicesGetFreeQuote: "Ofertă gratuită",
   servicesComingSoon: "În curând",
   servicesPricingSoon: "Prețuri în curând",
   servicesHourlyRateLabel: "Tarif orar:",

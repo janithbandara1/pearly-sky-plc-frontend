@@ -308,7 +308,7 @@ function ServiceCard({ service }: { service: CatalogService }) {
             className="flex w-full items-center justify-center gap-2 rounded-xl border border-brand-gold/80 bg-transparent py-3 text-sm font-semibold uppercase tracking-wider text-white transition-colors hover:bg-brand-gold/10"
           >
             <Key className="h-4 w-4 text-brand-gold" />
-            {translate("servicesRequestQuotation")}
+            {translate("servicesGetFreeQuote")}
           </Link>
         ) : service.isBookable ? (
           <>
@@ -317,7 +317,7 @@ function ServiceCard({ service }: { service: CatalogService }) {
               className="flex w-full items-center justify-center gap-2 rounded-xl border border-brand-gold/80 bg-transparent py-3 text-sm font-semibold uppercase tracking-wider text-white transition-colors hover:bg-brand-gold/10"
             >
               <Key className="h-4 w-4 text-brand-gold" />
-              {translate("servicesRequestQuotation")}
+              {translate("servicesGetFreeQuote")}
             </Link>
 
             <div className="relative">
@@ -342,7 +342,7 @@ function ServiceCard({ service }: { service: CatalogService }) {
             className="flex w-full items-center justify-center gap-2 rounded-xl border border-brand-gold/80 bg-transparent py-3 text-sm font-semibold uppercase tracking-wider text-white transition-colors hover:bg-brand-gold/10"
           >
             <Key className="h-4 w-4 text-brand-gold" />
-            {translate("servicesRequestQuotation")}
+            {translate("servicesGetFreeQuote")}
             <ArrowRight className="h-4 w-4" />
           </Link>
         ) : (

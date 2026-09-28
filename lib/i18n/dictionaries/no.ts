@@ -51,8 +51,9 @@ export const no = {
   // Services
   servicesHeading: "Våre tjenester",
   servicesSubheading: "Eiendomspleie, livsstil og velvære — bestilt på under ett minutt.",
-  servicesBookNow: "Bestill nå",
+  servicesBookNow: "Bestill på nett",
   servicesRequestQuotation: "Be om tilbud",
+  servicesGetFreeQuote: "Få gratis tilbud",
   servicesComingSoon: "Kommer snart",
   servicesPricingSoon: "Priser kommer snart",
   servicesHourlyRateLabel: "Timepris:",

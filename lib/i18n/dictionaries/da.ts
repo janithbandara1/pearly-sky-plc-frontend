@@ -49,8 +49,9 @@ export const da = {
   // Services
   servicesHeading: "Vores tjenester",
   servicesSubheading: "Ejendomspleje, livsstil og velvære — booket på under et minut.",
-  servicesBookNow: "Book Nu",
+  servicesBookNow: "Book online",
   servicesRequestQuotation: "Anmod om tilbud",
+  servicesGetFreeQuote: "Få gratis tilbud",
   servicesComingSoon: "Kommer snart",
   servicesPricingSoon: "Priser kommer snart",
   servicesHourlyRateLabel: "Timesats:",

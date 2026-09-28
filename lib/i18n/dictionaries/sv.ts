@@ -51,8 +51,9 @@ export const sv = {
   // Services
   servicesHeading: "Våra tjänster",
   servicesSubheading: "Fastighetsvård, livsstil och välbefinnande — bokad på under en minut.",
-  servicesBookNow: "Boka nu",
+  servicesBookNow: "Boka online",
   servicesRequestQuotation: "Begär offert",
+  servicesGetFreeQuote: "Få kostnadsfri offert",
   servicesComingSoon: "Kommer snart",
   servicesPricingSoon: "Priser kommer snart",
   servicesHourlyRateLabel: "Timpris:",

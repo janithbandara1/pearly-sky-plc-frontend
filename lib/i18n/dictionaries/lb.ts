@@ -51,8 +51,9 @@ export const lb = {
   // Services
   servicesHeading: "Eis Servicer",
   servicesSubheading: "Immobiliëfleeg, Lifestyle a Wellness — an ënner enger Minutt gebucht.",
-  servicesBookNow: "Elo buchen",
+  servicesBookNow: "Online buchen",
   servicesRequestQuotation: "Offerte ufroen",
+  servicesGetFreeQuote: "Gratis Offert",
   servicesComingSoon: "Kommt geschwënn",
   servicesPricingSoon: "Präisser kommen geschwënn",
   servicesHourlyRateLabel: "Stonnentarif:",
