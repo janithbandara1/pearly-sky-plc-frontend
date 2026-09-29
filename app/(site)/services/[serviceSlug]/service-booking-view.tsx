@@ -288,8 +288,6 @@ export function ServiceBookingView({
   const [selectedFacilityIds, setSelectedFacilityIds] = useState<Set<string>>(new Set());
   const [disinfectionLevelId, setDisinfectionLevelId] = useState("");
 
-  const [selectedGeneralSteam, setSelectedGeneralSteam] = useState<Set<string>>(new Set());
-  const [selectedIndustrialSteam, setSelectedIndustrialSteam] = useState<Set<string>>(new Set());
   const [selectedEventTypes, setSelectedEventTypes] = useState<Set<string>>(new Set());
 
   /** Shared by High-Security Property Care and Luxury Yacht Cleaning's single-select category pickers. */
@@ -453,10 +451,6 @@ export function ServiceBookingView({
       setError("Please select a package to continue.");
       return;
     }
-    if (isSteam && selectedGeneralSteam.size === 0 && selectedIndustrialSteam.size === 0) {
-      setError("Please select at least one steam cleaning job type to continue.");
-      return;
-    }
     if (isEvent && selectedEventTypes.size === 0) {
       setError("Please select at least one event type to continue.");
       return;
@@ -512,7 +506,6 @@ export function ServiceBookingView({
       disinfectionLevel: selectedDisinfectionLevel
         ? { name: selectedDisinfectionLevel.title, price: selectedDisinfectionLevel.priceAdder }
         : undefined,
-      steamItems: isSteam ? [...selectedGeneralSteam, ...selectedIndustrialSteam] : undefined,
       eventTypes: isEvent ? [...selectedEventTypes] : undefined,
       category: isCategoryQuote ? selectedCategory ?? undefined : undefined,
     });
@@ -547,9 +540,7 @@ export function ServiceBookingView({
     ? "Select at least one facility above to continue."
     : isSanitization && !disinfectionLevelId
       ? "Select a package above to continue."
-      : isSteam && selectedGeneralSteam.size === 0 && selectedIndustrialSteam.size === 0
-        ? "Select at least one steam cleaning job type above to continue."
-        : isEvent && selectedEventTypes.size === 0
+      : isEvent && selectedEventTypes.size === 0
           ? "Select at least one event type above to continue."
           : isCategoryQuote && !selectedCategory
             ? "Select a job type above to continue."
@@ -679,14 +670,8 @@ export function ServiceBookingView({
 
             {isSteam && (
               <div className="w-full bg-[#121E2D] rounded-[12px]">
-                <GeneralSteamSection
-                  selectedTitles={selectedGeneralSteam}
-                  onToggle={(title) => toggleSetEntry(setSelectedGeneralSteam, title)}
-                />
-                <IndustrialCommercialSteamSection
-                  selectedTitles={selectedIndustrialSteam}
-                  onToggle={(title) => toggleSetEntry(setSelectedIndustrialSteam, title)}
-                />
+                <GeneralSteamSection />
+                <IndustrialCommercialSteamSection />
               </div>
             )}
 

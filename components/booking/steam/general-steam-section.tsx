@@ -1,7 +1,6 @@
 "use client";
 
 import Image from "next/image";
-import { Checkbox } from "@/components/ui/checkbox";
 import { useLanguage } from "@/lib/i18n/language-context";
 import type { TranslationKey } from "@/lib/i18n/dictionaries/en";
 
@@ -16,6 +15,7 @@ export const GENERAL_STEAM_CARDS: GeneralSteamCard[] = [
   { title: "Furniture & Soft Furnishings", image: "/images/steam/furniture-and-soft-furnishings.webp" },
   { title: "Surface Cleaning", image: "/images/steam/surface-cleaning.webp" },
   { title: "Speciality Cleaning", image: "/images/steam/speciality-cleaning.webp" },
+  { title: "Tile & Grout", image: "/images/services/carpet-items/tile-grout-cleaning.jpeg" },
 ];
 
 const CARD_TITLE_KEYS: Record<string, TranslationKey> = {
@@ -24,14 +24,11 @@ const CARD_TITLE_KEYS: Record<string, TranslationKey> = {
   "Furniture & Soft Furnishings": "steamCardFurniture",
   "Surface Cleaning": "steamCardSurface",
   "Speciality Cleaning": "steamCardSpeciality",
+  "Tile & Grout": "steamCardTileGrout",
 };
 
-export interface GeneralSteamSectionProps {
-  selectedTitles: Set<string>;
-  onToggle: (title: string) => void;
-}
-
-export function GeneralSteamSection({ selectedTitles, onToggle }: GeneralSteamSectionProps) {
+/** Display-only showcase of general steam work — not selectable; job selection happens in the industrial/commercial section. */
+export function GeneralSteamSection() {
   const { translate } = useLanguage();
 
   return (
@@ -44,42 +41,23 @@ export function GeneralSteamSection({ selectedTitles, onToggle }: GeneralSteamSe
       </div>
 
       <div className="bg-[#121E2D] p-4 sm:p-5">
-        <div className="grid grid-cols-2 gap-2.5 sm:grid-cols-3 lg:grid-cols-5">
+        <div className="grid grid-cols-2 gap-2.5 sm:grid-cols-3 lg:grid-cols-6">
           {GENERAL_STEAM_CARDS.map((card) => {
-            const isChecked = selectedTitles.has(card.title);
             const key = CARD_TITLE_KEYS[card.title];
             const translatedTitle = key ? translate(key) : card.title;
 
             return (
-              <div
-                key={card.title}
-                role="button"
-                tabIndex={0}
-                onClick={() => onToggle(card.title)}
-                onKeyDown={(e) => {
-                  if (e.key === "Enter" || e.key === " ") {
-                    e.preventDefault();
-                    onToggle(card.title);
-                  }
-                }}
-                aria-pressed={isChecked}
-                className="flex cursor-pointer flex-col items-center gap-1.5 text-center transition"
-              >
-                <div
-                  className={`relative aspect-square w-full overflow-hidden rounded-[10px] ${isChecked
-                    ? "border-2 border-[#A98B4B] shadow-[0_0_8px_rgba(169,139,75,0.3)]"
-                    : "border-[1.5px] border-[#A98B4B]"
-                    }`}
-                >
-                  <Image src={card.image} alt={translatedTitle} fill className="object-cover" />
-                  <Checkbox
-                    checked={isChecked}
-                    onCheckedChange={() => onToggle(card.title)}
-                    onClick={(e) => e.stopPropagation()}
-                    className="absolute top-2 right-2 border-white bg-white/80 shadow-sm data-checked:border-[#A98B4B] data-checked:bg-[#A98B4B]"
+              <div key={card.title} className="flex flex-col items-center gap-1.5 text-center">
+                <div className="relative aspect-square w-full overflow-hidden rounded-[10px] border-[1.5px] border-[#A98B4B]">
+                  <Image
+                    src={card.image}
+                    alt={translatedTitle}
+                    fill
+                    sizes="(min-width: 1024px) 16vw, (min-width: 640px) 33vw, 50vw"
+                    className="object-cover"
                   />
                 </div>
-                <p className="px-0.5 text-xs font-medium text-[#ececec]">{translatedTitle}</p>
+                <p className="px-0.5 text-xs font-semibold text-[#ececec] sm:text-sm">{translatedTitle}</p>
               </div>
             );
           })}

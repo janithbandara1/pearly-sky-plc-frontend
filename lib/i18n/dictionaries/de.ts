@@ -1388,14 +1388,14 @@ export const de = {
   disinfectionLevelSubtitle: "Bestimmen Sie die Häufigkeit und Intensität der erforderlichen Reinigung.",
 
   // Steam Sections
-  steamEcoLuxuryTitle: "WÄHLEN SIE IHREN ÖKO-LUXUS-SERVICE",
+  steamEcoLuxuryTitle: "ÖKO-LUXUS-SERVICE",
   steamGeneralJobTypes: "Allgemeine Dampfreinigungsarten",
   steamCardRooms: "Räume & Bereiche",
   steamCardKitchen: "Küche & Geräte",
   steamCardFurniture: "Möbel & Polster",
   steamCardSurface: "Oberflächenreinigung",
   steamCardSpeciality: "Spezialreinigung",
-  steamIndustrialTitle: "Gewerbliche & Industrielle Dampfanwendungen",
+  steamCardTileGrout: "Fliesen & Fugen",
 
   // SecurityCategorySelection
   securitySelectJobTitle: "Wählen Sie Ihre Auftragsart",
@@ -1806,10 +1806,9 @@ export const de = {
   careContinueButton: "Weiter",
 
   // Steam Sections Extra
+  steamIndustrialTitle: "Gewerbliche & Industrielle Dampfanwendungen",
   steamIndustrialSubtitle: "Wir bieten gründliche Desinfektion, Entfettung und Wiederherstellung für kritische Oberflächen.",
   steamViewDetails: "Details anzeigen",
-  steamAdd: "Hinzufügen",
-  steamAdded: "Hinzugefügt",
   steamIndManufacturing: "Fertigungs- & Industrieanlagen",
   steamIndFoodBeverage: "Lebensmittel- & Getränkeindustrie",
   steamIndAutomotive: "Automobil- & Transportwesen",

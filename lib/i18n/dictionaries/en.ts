@@ -1419,14 +1419,14 @@ serviceLuxuryYachtCleaningTitleFiveFeatureTwo:"Complete linen turnover, sanitati
   //disinfectionBotanicalDesc: "Certified green, natural ingredients.",
 
   // Steam Sections
-  steamEcoLuxuryTitle: "SELECT YOUR ECO-LUXURY SERVICE",
+  steamEcoLuxuryTitle: "ECO-LUXURY SERVICE",
   steamGeneralJobTypes: "General Steam Cleaning Job Types",
   steamCardRooms: "Rooms & Areas",
   steamCardKitchen: "Kitchen & Appliances",
   steamCardFurniture: "Furniture & Soft Furnishings",
   steamCardSurface: "Surface Cleaning",
   steamCardSpeciality: "Speciality Cleaning",
-  steamIndustrialTitle: "Commercial & Industrial Steam Applications",
+  steamCardTileGrout: "Tile & Grout",
 
   // SecurityCategorySelection
   securitySelectJobTitle: "Select Your Job Type",
@@ -1839,10 +1839,9 @@ serviceLuxuryYachtCleaningTitleFiveFeatureTwo:"Complete linen turnover, sanitati
   careContinueButton: "Continue",
 
   // Steam Sections Extra
+  steamIndustrialTitle: "Commercial & Industrial Steam Applications",
   steamIndustrialSubtitle: "We provide deep sanitization, degreasing, and restoration for critical surfaces.",
   steamViewDetails: "View details",
-  steamAdd: "Add",
-  steamAdded: "Added",
   steamIndManufacturing: "Manufacturing & Industrial Facilities",
   steamIndFoodBeverage: "Food & Beverage Industry",
   steamIndAutomotive: "Automotive & Transportation",

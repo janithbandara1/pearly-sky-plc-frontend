@@ -1341,14 +1341,14 @@ export const es = {
   disinfectionLevelSubtitle: "Determine la frecuencia e intensidad de la limpieza requerida.",
 
   // Steam Sections
-  steamEcoLuxuryTitle: "SELECCIONE SU SERVICIO ECO-LUJO",
+  steamEcoLuxuryTitle: "SERVICIO ECO-LUJO",
   steamGeneralJobTypes: "Tipos de trabajos generales de limpieza a vapor",
   steamCardRooms: "Habitaciones y áreas",
   steamCardKitchen: "Cocina y electrodomésticos",
   steamCardFurniture: "Muebles y tapicería",
   steamCardSurface: "Limpieza de superficies",
   steamCardSpeciality: "Limpieza especializada",
-  steamIndustrialTitle: "Aplicaciones industriales y comerciales a vapor",
+  steamCardTileGrout: "Azulejos y Juntas",
 
   // SecurityCategorySelection
   securitySelectJobTitle: "Seleccione su tipo de trabajo",
@@ -1758,10 +1758,9 @@ export const es = {
   careContinueButton: "Continuar",
 
   // Steam Sections Extra
+  steamIndustrialTitle: "Aplicaciones industriales y comerciales a vapor",
   steamIndustrialSubtitle: "Proporcionamos desinfección profunda, desengrase y restauración para superficies críticas.",
   steamViewDetails: "Ver detalles",
-  steamAdd: "Añadir",
-  steamAdded: "Añadido",
   steamIndManufacturing: "Instalaciones de fabricación e industriales",
   steamIndFoodBeverage: "Industria de alimentos y bebidas",
   steamIndAutomotive: "Automotriz y transporte",

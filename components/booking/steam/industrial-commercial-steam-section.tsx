@@ -102,11 +102,6 @@ export const INDUSTRIAL_STEAM_CATEGORIES: IndustrialSteamCategory[] = [
 import { useLanguage } from "@/lib/i18n/language-context";
 import type { TranslationKey } from "@/lib/i18n/dictionaries/en";
 
-export interface IndustrialCommercialSteamSectionProps {
-  selectedTitles: Set<string>;
-  onToggle: (title: string) => void;
-}
-
 const CATEGORY_TITLE_KEYS: Record<string, TranslationKey> = {
   "Manufacturing & Industrial Facilities": "steamIndManufacturing",
   "Food & Beverage Industry": "steamIndFoodBeverage",
@@ -119,10 +114,8 @@ const CATEGORY_TITLE_KEYS: Record<string, TranslationKey> = {
   "Other Specialized Applications": "steamIndOtherSpecialized",
 };
 
-export function IndustrialCommercialSteamSection({
-  selectedTitles,
-  onToggle,
-}: IndustrialCommercialSteamSectionProps) {
+/** Display-only showcase of industrial/commercial steam work — not selectable; click a card to view its details. */
+export function IndustrialCommercialSteamSection() {
   const { translate } = useLanguage();
   const [openTitle, setOpenTitle] = useState<string | null>(null);
   const openCategory = INDUSTRIAL_STEAM_CATEGORIES.find((c) => c.title === openTitle) ?? null;
@@ -144,35 +137,20 @@ export function IndustrialCommercialSteamSection({
       <div className=" p-4 sm:p-5">
         <div className="grid grid-cols-1 gap-2.5 sm:grid-cols-2 lg:grid-cols-3">
           {INDUSTRIAL_STEAM_CATEGORIES.map((category) => {
-            const isChecked = selectedTitles.has(category.title);
             const translatedCategoryTitle = getCategoryTitle(category.title);
 
             return (
-              <div
+              <button
                 key={category.title}
-                className={`flex items-center justify-between gap-2.5 rounded-[10px] bg-[#123c2a] px-3 py-2.5 text-left transition ${isChecked
-                  ? "border-2 border-[#A98B4B] shadow-[0_0_8px_rgba(169,139,75,0.3)]"
-                  : "border-[1.5px] border-[#A98B4B]"
-                  }`}
+                type="button"
+                onClick={() => setOpenTitle(category.title)}
+                className="flex min-w-0 items-center gap-2.5 rounded-[10px] border-[1.5px] border-[#A98B4B] bg-[#123c2a] px-3 py-2.5 text-left transition cursor-pointer"
               >
-                <button
-                  type="button"
-                  onClick={() => setOpenTitle(category.title)}
-                  className="min-w-0 flex-1 text-left cursor-pointer"
-                >
+                <div className="min-w-0 flex-1">
                   <p className="truncate text-sm font-medium text-[white]">{translatedCategoryTitle}</p>
                   <p className="text-xs text-gray-300">{translate("steamViewDetails")}</p>
-                </button>
-                <button
-                  type="button"
-                  onClick={() => onToggle(category.title)}
-                  aria-pressed={isChecked}
-                  className={`shrink-0 rounded-[6px] border-[1.5px] border-[#A98B4B] px-2.5 py-1 text-xs font-semibold cursor-pointer ${isChecked ? "bg-[#A98B4B] text-white" : "text-[#A98B4B]"
-                    }`}
-                >
-                  {isChecked ? translate("steamAdded") : translate("steamAdd")}
-                </button>
-              </div>
+                </div>
+              </button>
             );
           })}
         </div>

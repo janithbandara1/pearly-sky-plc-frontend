@@ -1474,14 +1474,14 @@ AddsOnCategoryOvenFridgeRestoration: "Restauration professionnelle de four et r�
   disinfectionBotanicalDesc: "Certifié écologique, ingrédients d'origine naturelle.",
 
   // Steam Sections
-  steamEcoLuxuryTitle: "SÉLECTIONNEZ VOTRE PRESTATION ÉCO-LUXE",
+  steamEcoLuxuryTitle: "PRESTATION ÉCO-LUXE",
   steamGeneralJobTypes: "Types de Nettoyage Vapeur Général",
   steamCardRooms: "Pièces & Espaces",
   steamCardKitchen: "Cuisine & Électroménager",
   steamCardFurniture: "Mobilier & Tissus d'Ameublement",
   steamCardSurface: "Nettoyage des Surfaces",
   steamCardSpeciality: "Nettoyage Spécialisé",
-  steamIndustrialTitle: "Applications Vapeur Commerciales & Industrielles",
+  steamCardTileGrout: "Carrelage et Joints",
 
   // SecurityCategorySelection
   securitySelectJobTitle: "Sélectionnez Votre Type de Prestation",
@@ -1799,10 +1799,9 @@ AddsOnCategoryOvenFridgeRestoration: "Restauration professionnelle de four et r�
   careContinueButton: "Continuer",
 
   // Steam Sections Extra
+  steamIndustrialTitle: "Applications Vapeur Commerciales & Industrielles",
   steamIndustrialSubtitle: "Nous assurons une désinfection en profondeur, un dégraissage et une remise en état des surfaces critiques.",
   steamViewDetails: "Voir les détails",
-  steamAdd: "Ajouter",
-  steamAdded: "Ajouté",
   steamIndManufacturing: "Installations de Fabrication et Industrielles",
   steamIndFoodBeverage: "Industrie Agroalimentaire et Boissons",
   steamIndAutomotive: "Automobile et Transport",
