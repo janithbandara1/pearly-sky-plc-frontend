@@ -65,7 +65,8 @@ export const LANGUAGE_OPTIONS = [
   { value: "english", label: "English" },
   { value: "french", label: "French" },
   { value: "german", label: "German" },
-  { value: "sinhala", label: "Sinhala" },
+  { value: "spanish", label: "Spanish" },
+  { value: "italian", label: "Italian" },
   { value: "other", label: "Other (specify in special requirements)" },
 ];
 

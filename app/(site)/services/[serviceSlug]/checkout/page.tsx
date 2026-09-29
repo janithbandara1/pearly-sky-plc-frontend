@@ -1,6 +1,6 @@
 "use client";
 
-import { useLanguage } from "@/lib/i18n/language-context";
+import { useLanguage, type SupportedLanguage } from "@/lib/i18n/language-context";
 
 
 
@@ -84,6 +84,21 @@ const emptyContactForm: ContactForm = {
   contact: "",
 };
 
+/**
+ * Matches LANGUAGE_OPTIONS' values (quotation-preferences-section.tsx) — the
+ * cleaner-language preference the checkout page defaults to when the
+ * customer hasn't chosen one, based on the site language they're currently
+ * browsing in (not CURRENT_COUNTRY — e.g. "/en/..." on the .fr deployment
+ * should default to "english", not "french").
+ */
+const DEFAULT_LANGUAGE_PREFERENCE: Record<SupportedLanguage, string> = {
+  en: "english",
+  fr: "french",
+  de: "german",
+  es: "spanish",
+  it: "italian",
+};
+
 /** Single-item on purpose — this deployment only ever serves CURRENT_COUNTRY, so the "select country" field below has nothing else to offer. */
 const COUNTRY_OPTIONS = [
   {
@@ -141,19 +156,19 @@ export default function CheckoutPage({
   const [howGetIn, setHowGetIn] = useState("");
   const [howHeard, setHowHeard] = useState("");
 
+  const { language: siteLanguage, translate, registerServiceSlugs } = useLanguage();
+
   // Preferences (flow-service checkout)
   const [numCleaners, setNumCleaners] = useState(1);
   const [durationHours, setDurationHours] = useState(3);
   const [gender, setGender] = useState("no-preference");
-  const [language, setLanguage] = useState("no-preference");
+  const [language, setLanguage] = useState(DEFAULT_LANGUAGE_PREFERENCE[siteLanguage]);
   const [requirements, setRequirements] = useState("");
 
   const [error, setError] = useState<string | null>(null);
   const [submitting, setSubmitting] = useState(false);
   const [agreedToTerms, setAgreedToTerms] = useState(false);
   const [showTermsModal, setShowTermsModal] = useState(false);
-
-  const { translate, registerServiceSlugs } = useLanguage();
 
   useEffect(() => {
     const stored = loadBookingDraft();
@@ -169,7 +184,11 @@ export default function CheckoutPage({
     if (stored.numCleaners) setNumCleaners(stored.numCleaners);
     if (stored.durationHours) setDurationHours(stored.durationHours);
     if (stored.genderPreference) setGender(stored.genderPreference);
-    if (stored.languagePreference) setLanguage(stored.languagePreference);
+    // Earlier booking steps have no language selector and always save the
+    // "no-preference" placeholder, so only a real choice overrides the default.
+    if (stored.languagePreference && stored.languagePreference !== "no-preference") {
+      setLanguage(stored.languagePreference);
+    }
     if (stored.specialRequirements) setRequirements(stored.specialRequirements);
   }, [serviceSlug, router]);
 
