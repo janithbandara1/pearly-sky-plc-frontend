@@ -6,16 +6,12 @@ import { CURRENT_COUNTRY } from "@/lib/countries/config";
 import { buildLocalePath, extractLocalePrefix } from "@/lib/locale";
 import { makeServiceSlugResolver } from "@/lib/countries/seo";
 import type { ServiceLocaleSlug } from "@/lib/catalog-api";
-import { en, type TranslationKey } from "./dictionaries/en";
-import { de } from "./dictionaries/de";
-import { es } from "./dictionaries/es";
-import { fr } from "./dictionaries/fr";
-import { it } from "./dictionaries/it";
+import type { TranslationKey } from "./dictionaries/en";
 import { LANGUAGE_COOKIE_MAX_AGE, LANGUAGE_COOKIE_NAME, type LanguageCode } from "./config";
 
 export type SupportedLanguage = LanguageCode;
 
-/** Every SUPPORTED_LANGUAGES entry has a dictionary here, but only France's COUNTRY_LANGUAGES actually offers more than "en" — see lib/countries/config.ts. */
+/** Every entry has a dictionary in lib/i18n/translate.ts; which ones a deployment offers is COUNTRY_LANGUAGES in lib/countries/config.ts. */
 export const SUPPORTED_LANGUAGES: { code: SupportedLanguage; label: string }[] = [
   { code: "en", label: "English" },
   { code: "fr", label: "Français" },
@@ -26,13 +22,7 @@ export const SUPPORTED_LANGUAGES: { code: SupportedLanguage; label: string }[] =
 
 export type TranslationValue = string | readonly string[];
 
-const dictionaries: Record<SupportedLanguage, Partial<Record<TranslationKey, TranslationValue>>> = {
-  en,
-  fr,
-  de,
-  es,
-  it,
-};
+export type Dictionary = Partial<Record<TranslationKey, TranslationValue>>;
 
 type LanguageContextType = {
   language: SupportedLanguage;
@@ -59,10 +49,13 @@ const LanguageContext = createContext<LanguageContextType>({
 
 export function LanguageProvider({
   language,
+  dictionary,
   children,
 }: {
   /** Resolved by proxy.ts for the current request; null on the unprefixed/global site. */
   language: SupportedLanguage | null;
+  /** Only the current language, English-filled — from getDictionary() in lib/i18n/translate.ts on the server. */
+  dictionary: Dictionary;
   children: ReactNode;
 }) {
   const pathname = usePathname();
@@ -102,28 +95,15 @@ export function LanguageProvider({
         window.location.href = `${target}${search ? `?${search}` : ""}`;
       },
       translate: (key: TranslationKey) => {
-        /* const value = dictionaries[resolvedLanguage][key] ?? en[key] ?? key;
-        return typeof value === "string" ? value : value.join("\n\n"); */
-       
-            const value = dictionaries[resolvedLanguage]?.[key] ?? en[key] ?? key;
-        
-            if (typeof value === "string") {
-              return value;
-            }
-        
-            if (Array.isArray(value)) {
-              return value.filter(Boolean).join("\n\n");
-            }
-        
-            // Fallback if value is null, undefined, or unexpected type
-            return String(value ?? key);
-          
-      },  
+        const value = dictionary[key] ?? key;
+        if (typeof value === "string") return value;
+        return value.filter(Boolean).join("\n\n");
+      },
       registerServiceSlugs: (service) => {
         serviceSlugsRef.current = service;
       },
     }),
-    [resolvedLanguage, pathname, searchParams],
+    [resolvedLanguage, dictionary, pathname, searchParams],
   );
 
   return <LanguageContext.Provider value={value}>{children}</LanguageContext.Provider>;

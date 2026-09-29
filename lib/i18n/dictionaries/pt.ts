@@ -2014,4 +2014,16 @@ export const pt = {
     ValuedCustomerReviews: "Avaliações de clientes valiosos",
     CustomerReview: "Avaliação de cliente",
 
+  checkoutGetInAtHome: "Estarei em casa",
+  checkoutGetInDoorman: "A chave está com o porteiro",
+  checkoutGetInLockbox: "Cofre de chaves no local",
+  checkoutGetInCall: "Ligar para combinar",
+  checkoutOptionOther: "Outro",
+  checkoutHeardFriend: "Amigo/indicação",
+  checkoutHeardRealEstate: "Profissional imobiliário",
+  pressureSelectBtn: "Selecionar",
+  pressureSelectedBtn: "Selecionado",
+  pressureEditBtn: "Editar",
+  propOther: "Outro",
+  steamCardTileGrout: "Azulejos e juntas",
 } as Record<TranslationKey, TranslationValue>;

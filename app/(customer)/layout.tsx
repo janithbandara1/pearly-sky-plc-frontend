@@ -5,6 +5,7 @@ import { getRequestCountry } from "@/lib/countries/server";
 import { CountryProvider } from "@/lib/countries/country-context";
 import { getCountries } from "@/lib/countries/api";
 import { getRequestLanguage } from "@/lib/i18n/server";
+import { getDictionary } from "@/lib/i18n/translate";
 import { LanguageProvider } from "@/lib/i18n/language-context";
 import { CurrencyProvider } from "@/lib/currency-context";
 import { getCurrencies } from "@/lib/catalog-api";
@@ -26,7 +27,7 @@ export default async function DashboardLayout({
 
   return (
     <CountryProvider country={country} countries={countries}>
-      <LanguageProvider language={language}>
+      <LanguageProvider language={language} dictionary={getDictionary(language ?? "en")}>
         <CurrencyProvider currencies={currencies}>
           <SiteHeader />
           <div className="flex flex-1 flex-col p-4 md:p-6">

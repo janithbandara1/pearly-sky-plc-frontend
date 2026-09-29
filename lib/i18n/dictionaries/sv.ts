@@ -2010,4 +2010,16 @@ scanQrDesc: "Skanna den här koden med din telefon för att öppna alla detaljer
     ValuedCustomerReviews: "Värderade kundrecensioner",
     CustomerReview: "Kundrecension",
 
+  checkoutGetInAtHome: "Jag är hemma",
+  checkoutGetInDoorman: "Nyckeln finns hos portvakten",
+  checkoutGetInLockbox: "Nyckelbox på plats",
+  checkoutGetInCall: "Ring för att boka",
+  checkoutOptionOther: "Annat",
+  checkoutHeardFriend: "Vän/rekommendation",
+  checkoutHeardRealEstate: "Fastighetsmäklare",
+  pressureSelectBtn: "Välj",
+  pressureSelectedBtn: "Vald",
+  pressureEditBtn: "Redigera",
+  propOther: "Annat",
+  steamCardTileGrout: "Kakel & fogar",
 } as Record<TranslationKey, TranslationValue>;

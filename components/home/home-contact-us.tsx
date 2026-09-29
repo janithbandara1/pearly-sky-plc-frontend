@@ -3,7 +3,8 @@
 import { useEffect, useRef, useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { z } from "zod";
+// zod/mini: the full "zod" build added ~70 KiB (gzip) to the home page for four string checks.
+import * as z from "zod/mini";
 import { Mail, Phone } from "lucide-react";
 import { FaWhatsapp, FaFacebookF, FaYoutube, FaLinkedinIn } from "react-icons/fa";
 import { AiOutlineTikTok, AiFillInstagram } from "react-icons/ai";
@@ -33,10 +34,10 @@ const SOCIAL_LINKS = [
 ];
 
 const contactSchema = z.object({
-  name: z.string().trim().min(2, "Please enter your full name."),
-  email: z.string().trim().email("Please enter a valid email address."),
-  phone: z.string().trim().min(6, "Please enter a valid phone number."),
-  message: z.string().trim().min(10, "Please enter a message (min. 10 characters)."),
+  name: z.string().check(z.trim(), z.minLength(2, "Please enter your full name.")),
+  email: z.pipe(z.string().check(z.trim()), z.email("Please enter a valid email address.")),
+  phone: z.string().check(z.trim(), z.minLength(6, "Please enter a valid phone number.")),
+  message: z.string().check(z.trim(), z.minLength(10, "Please enter a message (min. 10 characters).")),
 });
 
 type ContactFormValues = z.infer<typeof contactSchema>;

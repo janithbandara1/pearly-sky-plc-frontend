@@ -5,7 +5,7 @@ import { useLanguage } from "@/lib/i18n/language-context";
 import { getCountryHomeContent } from "@/lib/countries/home-content";
 
 import React, { useState, useEffect } from "react";
-import Image from "next/image";
+import Image, { getImageProps } from "next/image";
 import {
   Leaf,
   Diamond,
@@ -31,6 +31,17 @@ import {
 } from "react-icons/ai";
 import { FaFacebookF, FaYoutube, FaLinkedinIn, FaWhatsapp } from "react-icons/fa";
 import { RiTwitterXFill } from "react-icons/ri";
+
+const {
+  props: { srcSet: heroBgDesktopSrcSet },
+} = getImageProps({ src: "/images/hero/global_hero_bg.png", alt: "", width: 1672, height: 941, sizes: "100vw" });
+const { props: heroBgMobileProps } = getImageProps({
+  src: "/images/hero/mobile_hero.png",
+  alt: "",
+  width: 768,
+  height: 1376,
+  sizes: "100vw",
+});
 
 const SOCIAL_LINKS = [
   { href: SOCIAL_URLS.tiktok, label: "TikTok", Icon: AiOutlineTikTok },
@@ -130,22 +141,17 @@ export default function GlobalHeroSection() {
     <div className="relative min-h-screen bg-[#FBF9F1] font-serif text-[#1C2A3A] flex flex-col justify-between overflow-hidden selection:bg-[#C5A059] selection:text-white">
       {/* Background Leaf Image Overlay */}
       <div className="absolute top-0 left-0 bottom-0 md:-top-1 md:-left-25 lg:-top-1 lg:-left-25 w-full h-full pointer-events-none z-0 opacity-90">
-        <Image
-          src="/images/hero/global_hero_bg.png"
-          alt="Eco Leaf Decorative"
-          width={600}
-          height={700}
-          className="hidden md:block lg:object-contain object-left-top objec w-full h-full"
-          priority
-        />
-        <Image
-          src="/images/hero/mobile_hero.png"
-          alt="Eco Leaf Decorative"
-          width={600}
-          height={700}
-          className="md:hidden block lg:object-contain object-left-top  w-full h-full"
-          priority
-        />
+        {/* One <picture> so the browser downloads only the image for the current viewport. */}
+        <picture>
+          <source media="(min-width: 768px)" srcSet={heroBgDesktopSrcSet} />
+          <img
+            {...heroBgMobileProps}
+            alt=""
+            loading="eager"
+            fetchPriority="high"
+            className="object-cover md:object-contain object-left-top w-full h-full"
+          />
+        </picture>
       </div>
 
       {/* Main Content Body */}
@@ -222,8 +228,12 @@ export default function GlobalHeroSection() {
           <div className="w-full max-w-md lg:max-w-md md:max-w-2xl bg-[#FFFDF8] rounded-2xl shadow-2xl border border-[#EAE3D2] overflow-hidden relative">
             {/* Header / Close Button */}
             <div className="p-4 pb-1 text-center relative">
-              <button className="absolute top-5 right-5 text-gray-400 hover:text-gray-600 transition-colors">
-                <X className="w-5 h-5" />
+              <button
+                type="button"
+                aria-label="Close"
+                className="absolute top-5 right-5 text-gray-500 hover:text-gray-700 transition-colors"
+              >
+                <X className="w-5 h-5" aria-hidden="true" />
               </button>
 
               <div className="w-8 h-8 mx-auto rounded-full border border-[#C5A059] flex items-center justify-center text-[#C5A059] mb-3">
@@ -231,7 +241,7 @@ export default function GlobalHeroSection() {
               </div>
 
               <h2 className="text-2xl font-normal text-[#0F1E36]">Select Your Region</h2>
-              <p className="text-xs text-gray-400 font-sans italic mt-1">Choose your location to continue</p>
+              <p className="text-xs text-gray-600 font-sans italic mt-1">Choose your location to continue</p>
               <div className="w-12 h-[1px] bg-[#C5A059] mx-auto mt-3" />
             </div>
 

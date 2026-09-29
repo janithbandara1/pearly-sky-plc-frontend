@@ -180,7 +180,7 @@ export function PhoneInput({
         onClick={() => setIsOpen((open) => !open)}
         className="flex text-white border border-[#C9B678] bg-gray-600 shrink-0 items-center gap-2 rounded-l-lg  border-r-0   px-2.5 outline-none transition-colors focus-visible:ring-3 focus-visible:ring-ring/50 disabled:pointer-events-none disabled:opacity-50"
       >
-        <Flag code={selectedOption.code} className="h-3.5 w-5 object-cover" />
+        <Flag code={selectedOption.code} flagSet={flagSet} className="h-3.5 w-5 object-cover" />
         <span className="text-sm text-white ">{selectedOption.dialCode}</span>
         <span className="text-xs text-white ">▾</span>
       </button>
@@ -221,7 +221,7 @@ export function PhoneInput({
                       option.code === selectedCountry && "bg-muted",
                     )}
                   >
-                    <Flag code={option.code} className="h-3.5 w-5 shrink-0 object-cover" />
+                    <Flag code={option.code} flagSet={flagSet} className="h-3.5 w-5 shrink-0 object-cover" />
                     <span className="min-w-0 flex-1 truncate text-foreground">{option.name}</span>
                     <span className="text-muted-foreground">{option.dialCode}</span>
                   </button>

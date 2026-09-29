@@ -4,21 +4,26 @@ import { es } from "./dictionaries/es";
 import { fr } from "./dictionaries/fr";
 import { it } from "./dictionaries/it";
 import type { LanguageCode } from "./config";
+import type { Dictionary } from "./language-context";
 
 /**
- * Server-safe mirror of language-context.tsx's `translate` — that one is a
- * client hook (useLanguage), so anything running in a Server Component
- * (generateMetadata, JSON-LD builders) needs its own copy of the same
- * dictionaries + English-fallback logic rather than a hook it can't call.
- * Keep this dictionary list in sync with language-context.tsx's.
+ * Server-only home of the dictionaries. Server Components translate through
+ * translateFor(); client components get a single language's dictionary via
+ * getDictionary() -> LanguageProvider, so the browser never downloads the
+ * other languages.
  */
-const dictionaries: Record<LanguageCode, Partial<Record<TranslationKey, string | readonly string[]>>> = {
+const dictionaries: Record<LanguageCode, Dictionary> = {
   en,
   fr,
   de,
   es,
   it,
 };
+
+/** `language`'s dictionary with English filled in for any key it lacks — pass to LanguageProvider. */
+export function getDictionary(language: LanguageCode): Dictionary {
+  return language === "en" ? en : { ...en, ...dictionaries[language] };
+}
 
 /** Returns a `translate(key)` bound to `language`, falling back to English — same resolution order as useLanguage()'s translate. */
 /* export function translateFor(language: LanguageCode) {

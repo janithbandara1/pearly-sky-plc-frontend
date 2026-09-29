@@ -1973,4 +1973,16 @@ export const fi = {
   ValuedCustomerReviews: "Arvostetut asiakasarvostelut",
   CustomerReview: "Asiakasarvostelu",
   
+  checkoutGetInAtHome: "Olen kotona",
+  checkoutGetInDoorman: "Avain on ovimiehellä",
+  checkoutGetInLockbox: "Avainsäilö paikan päällä",
+  checkoutGetInCall: "Soita sopiaksesi",
+  checkoutOptionOther: "Muu",
+  checkoutHeardFriend: "Ystävä/suositus",
+  checkoutHeardRealEstate: "Kiinteistönvälittäjä",
+  pressureSelectBtn: "Valitse",
+  pressureSelectedBtn: "Valittu",
+  pressureEditBtn: "Muokkaa",
+  propOther: "Muu",
+  steamCardTileGrout: "Laatat & saumat",
 } as Record<TranslationKey, TranslationValue>;
