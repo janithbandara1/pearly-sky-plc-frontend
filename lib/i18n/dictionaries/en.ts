@@ -1759,6 +1759,7 @@ serviceLuxuryYachtCleaningTitleFiveFeatureTwo:"Complete linen turnover, sanitati
   propPenthouse: "Penthouse",
   propRoughClean: "Rough Clean",
   propTouchUpClean: "Touch-Up Clean",
+  propOther: "Other",
   propFinalPostBuildClean: "Final Post-Build Clean",
   propHeavyDutyDeepClean: "Heavy-Duty Deep Clean",
   propPrivateParties: "Private Parties & Celebrations",

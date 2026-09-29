@@ -1678,6 +1678,7 @@ export const es = {
   propPenthouse: "Ático / Penthouse",
   propRoughClean: "Limpieza gruesa",
   propTouchUpClean: "Limpieza de retoque",
+  propOther: "Otro",
   propFinalPostBuildClean: "Limpieza final posterior a la obra",
   propHeavyDutyDeepClean: "Limpieza profunda de alto rendimiento",
   propPrivateParties: "Fiestas privadas y celebraciones",

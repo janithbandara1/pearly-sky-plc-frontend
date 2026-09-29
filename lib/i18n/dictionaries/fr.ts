@@ -1719,6 +1719,7 @@ AddsOnCategoryOvenFridgeRestoration: "Restauration professionnelle de four et r�
   propPenthouse: "Penthouse",
   propRoughClean: "Nettoyage de Gros Œuvre",
   propTouchUpClean: "Nettoyage de Finition",
+  propOther: "Autre",
   propFinalPostBuildClean: "Nettoyage Final Post-Chantier",
   propHeavyDutyDeepClean: "Nettoyage Intensif Haute Performance",
   propPrivateParties: "Fêtes Privées & Célébrations",

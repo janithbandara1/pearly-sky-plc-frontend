@@ -19,6 +19,7 @@ const CATEGORY_LABEL_KEYS: Record<string, TranslationKey> = {
   "Touch-Up Clean": "propTouchUpClean",
   "Final Post-Build Clean": "propFinalPostBuildClean",
   "Heavy-Duty Deep Clean": "propHeavyDutyDeepClean",
+  "Other": "propOther",
   "Private Parties & Celebrations": "propPrivateParties",
   "Weddings & Large Receptions": "propWeddings",
   "Corporate Events & Galas": "propCorporateEvents",
@@ -78,7 +79,7 @@ export const PROPERTY_CATEGORIES: PropertyCategory[] = [
 
 /**
  * Residential sizing scheme (m² / ft²) for standard-residential, deep-cleaning, end-of-tenancy,
- * last-minute, express-refresh, premium-rental-concierge, and steam-cleaning services.
+ * last-minute, express-refresh, and steam-cleaning services.
  * Ranges intentionally overlap (e.g. a 120m² unit is both a "Home" and a "Townhouse") so the
  * active category is tracked explicitly rather than re-derived from the size on every render.
  */
@@ -119,7 +120,6 @@ const RESIDENTIAL_SCHEME_SERVICE_SLUGS = new Set([
   "end-of-tenancy-cleaning",
   "same-day-priority-cleaning",
   "essential-touch-up-cleaning",
-  "premium-rental-concierge-cleaning",
   "laundry-service",
   "laundry-services",
   "laundry-linen-care",
@@ -127,6 +127,17 @@ const RESIDENTIAL_SCHEME_SERVICE_SLUGS = new Set([
   "move-in-out-transport-health",
 ]);
 
+
+/** Catch-all type for properties that don't fit a service's named tiers. */
+const OTHER_PROPERTY_CATEGORY: PropertyCategory = {
+  id: "other",
+  label: "Other",
+  icon: "📐",
+  min: 20,
+  max: 1000,
+  step: 10,
+  locked: false,
+};
 
 const PREMIUM_PROPERTY_SLUGS = new Set(["premium-rental-concierge-cleaning"]);
 export const PREMIUM_PROPERTY_CATEGORIES: PropertyCategory[] = [
@@ -154,8 +165,9 @@ export const PREMIUM_PROPERTY_CATEGORIES: PropertyCategory[] = [
     sizes: [250, 300, 350, 400, 450, 500, 600, 700, 800],
     locked: false,
   },
+  OTHER_PROPERTY_CATEGORY,
 ];
- 
+
 
 /** Post-construction sizing scheme, tracked by clean-up phase rather than property type. */
 export const POST_CONSTRUCTION_PROPERTY_CATEGORIES: PropertyCategory[] = [
@@ -199,6 +211,7 @@ export const POST_CONSTRUCTION_PROPERTY_CATEGORIES: PropertyCategory[] = [
     step: 20,
     locked: false,
   },
+  OTHER_PROPERTY_CATEGORY,
 ];
 
 const POST_CONSTRUCTION_SERVICE_SLUGS = new Set([
@@ -229,6 +242,7 @@ export const COMMERCIAL_OFFICE_PROPERTY_CATEGORIES: PropertyCategory[] = [
   { id: "medium", label: "Medium", icon: "🏬", min: 151, max: 300, step: 10, locked: false },
   { id: "large", label: "Large", icon: "🌆", min: 301, max: 600, step: 20, locked: false },
   { id: "luxury", label: "Luxury / Enterprise", icon: "🏛️", min: 601, max: 1000, step: 20, locked: false },
+  OTHER_PROPERTY_CATEGORY,
 ];
 
 const COMMERCIAL_OFFICE_SERVICE_SLUGS = new Set(["commercial-office-cleaning"]);

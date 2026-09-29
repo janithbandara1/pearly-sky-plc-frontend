@@ -1726,6 +1726,7 @@ export const de = {
   propPenthouse: "Penthouse",
   propRoughClean: "Grobreinigung",
   propTouchUpClean: "Auffrischungsreinigung",
+  propOther: "Sonstiges",
   propFinalPostBuildClean: "Bauendreinigung",
   propHeavyDutyDeepClean: "Intensive Grundreinigung",
   propPrivateParties: "Private Feiern & Feste",

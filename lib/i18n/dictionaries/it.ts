@@ -1684,6 +1684,7 @@ export const it = {
   propPenthouse: "Attico",
   propRoughClean: "Pulizia sgrossatura",
   propTouchUpClean: "Pulizia ritocco",
+  propOther: "Altro",
   propFinalPostBuildClean: "Pulizia finale post-costruzione",
   propHeavyDutyDeepClean: "Pulizia profonda ad alta intensità",
   propPrivateParties: "Feste private e celebrazioni",
