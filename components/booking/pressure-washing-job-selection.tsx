@@ -192,7 +192,7 @@ export function PressureWashingJobSelection({ items, onItemsChange }: PressureWa
               key={cat.key}
               type="button"
               onClick={() => handleCategoryActivation(cat.key)}
-              className={`flex flex-col w-[80%] h-full items-center justify-center gap-3.5 rounded-2xl p-4 sm:p-5 text-center transition-all duration-200 cursor-pointer ${isSelected
+              className={`group flex flex-col w-[80%] h-full items-center justify-center gap-3.5 rounded-2xl p-4 sm:p-5 text-center transition-all duration-200 cursor-pointer ${isSelected
                 ? "bg-[#A98B4B] text-white shadow-lg scale-[1.02] border-2 border-[#A98B4B]"
                 : "bg-[#FFFDF4] text-[#121E2D] hover:bg-white border-2 border-[#A98B4B]/80 hover:border-[#A98B4B]"
                 }`}
@@ -207,6 +207,16 @@ export function PressureWashingJobSelection({ items, onItemsChange }: PressureWa
               </div>
               <span className="whitespace-pre-line text-sm font-bold leading-tight sm:text-base">
                 {translate(cat.labelKey)}
+              </span>
+              {/* Styled span, not a <button> — the whole card is already the button. */}
+              <span
+                className={`mt-auto inline-flex items-center justify-center gap-1 rounded-lg px-4 py-1.5 text-xs font-bold uppercase tracking-wider transition-colors ${isSelected
+                  ? "bg-white text-[#A98B4B]"
+                  : "bg-[#A98B4B] text-white group-hover:bg-[#967A3E]"
+                  }`}
+              >
+                {isSelected && <Check className="size-3.5" />}
+                {translate(isSelected ? "pressureSelectedBtn" : "pressureSelectBtn")}
               </span>
             </button>
           );
@@ -256,6 +266,14 @@ export function PressureWashingJobSelection({ items, onItemsChange }: PressureWa
                         : `Qty: ${existingItem.quantity}`}
                     </span>
                   )}
+                  <span
+                    className={`mt-auto inline-flex items-center justify-center rounded-lg px-4 py-1.5 text-xs font-bold uppercase tracking-wider transition-colors ${existingItem
+                      ? "border-2 border-[#A98B4B] bg-white text-[#A98B4B]"
+                      : "bg-[#A98B4B] text-white group-hover:bg-[#967A3E]"
+                      }`}
+                  >
+                    {translate(existingItem ? "pressureEditBtn" : "pressureSelectBtn")}
+                  </span>
                 </button>
               );
             })}
