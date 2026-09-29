@@ -98,8 +98,8 @@ const REGIONAL_DATA: Region[] = [
       { id: "es", isLive: false, name: "Spain", domain: "coming soon...", flagCode: "es" },
       { id: "no", isLive: false, name: "Norway", domain: "coming soon...", flagCode: "no" },
       { id: "ch", isLive: false, name: "Switzerland", domain: "coming soon...", flagCode: "ch" },
-      { id: "pt", isLive: false, name: "Portugal", domain: "pcoming soon...", flagCode: "pt" },
-      { id: "ee", isLive: false, name: "Estonia", domain: "coming soon...", flagCode: "ee" },
+      /* { id: "pt", isLive: false, name: "Portugal", domain: "pcoming soon...", flagCode: "pt" },
+      { id: "ee", isLive: false, name: "Estonia", domain: "coming soon...", flagCode: "ee" }, */
       { id: "nl", isLive: false, name: "Netherlands", domain: "coming soon...", flagCode: "nl" },
       { id: "mc", isLive: false, name: "Monaco", domain: "coming soon...", flagCode: "mc" },
     ],
@@ -124,8 +124,8 @@ const REGIONAL_DATA: Region[] = [
   },
   {
     region: "Middle East & Asia",
-    gridCols: "grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5",
-    containerWidth: "lg:w-2/3",
+    gridCols: "grid-cols-1 sm:grid-cols-2 md:grid-cols-5 lg:grid-cols-6",
+    containerWidth: "lg:w-full",
     countries: [
       { id: "ae", isLive: false, name: "United Arab Emirates", domain: "coming soon...", flagCode: "ae" },
       { id: "qa", isLive: false, name: "Qatar", domain: "coming soon...", flagCode: "qa" },
@@ -243,77 +243,79 @@ export default function CountryWiseDomains(): React.JSX.Element {
               );
             })}
           
+            <div className="grid grid-cols-1  lg:col-span-3">
+                {/* Australia & New Zealand */}
+                {REGIONAL_DATA.slice(1, 2).map((regionGroup) => {
+                  const filteredCountries = regionGroup.countries.filter(
+                    c => c.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+                        c.domain.toLowerCase().includes(searchQuery.toLowerCase())
+                  );
 
-            {/* Australia & New Zealand */}
-            {REGIONAL_DATA.slice(1, 2).map((regionGroup) => {
-              const filteredCountries = regionGroup.countries.filter(
-                c => c.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-                     c.domain.toLowerCase().includes(searchQuery.toLowerCase())
-              );
+                  if (searchQuery && filteredCountries.length === 0) return null;
 
-              if (searchQuery && filteredCountries.length === 0) return null;
+                  return (
+                    <div key={regionGroup.region} id="australia" className="lg:col-span-3 space-y-3 scroll-mt-24 sm:scroll-mt-28">
+                      <div className="flex items-center gap-4">
+                        <h2 className="text-base sm:text-lg font-serif text-stone-800 font-medium tracking-wide">
+                          {regionGroup.region}
+                        </h2>
+                        <div className="h-px bg-stone-300/60 flex-1" />
+                      </div>
 
-              return (
-                <div key={regionGroup.region} id="australia" className="lg:col-span-3 space-y-3 scroll-mt-24 sm:scroll-mt-28">
-                  <div className="flex items-center gap-4">
-                    <h2 className="text-base sm:text-lg font-serif text-stone-800 font-medium tracking-wide">
-                      {regionGroup.region}
-                    </h2>
-                    <div className="h-px bg-stone-300/60 flex-1" />
-                  </div>
+                      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-1 gap-2.5 sm:gap-3">
+                        {filteredCountries.map((country) => (
+                          <CountryCard
+                            key={country.id}
+                            country={country}
+                            isSelected={selectedCountry === country.id || selectedCountry !== country.id }
+                            onSelect={() => handleSelect(country.id)}
+                            onVisit={(e) => handleVisit(e, country.domain)}
+                          />
+                        ))}
+                      </div>
+                    </div>
+                  );
+                })}
 
-                  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-1 gap-2.5 sm:gap-3">
-                    {filteredCountries.map((country) => (
-                      <CountryCard
-                        key={country.id}
-                        country={country}
-                        isSelected={selectedCountry === country.id || selectedCountry !== country.id }
-                        onSelect={() => handleSelect(country.id)}
-                        onVisit={(e) => handleVisit(e, country.domain)}
-                      />
-                    ))}
-                  </div>
-                </div>
-              );
-            })}
+                {/* North America */}
+                {REGIONAL_DATA.slice(2, 3).map((regionGroup) => {
+                  const filteredCountries = regionGroup.countries.filter(
+                    c => c.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+                        c.domain.toLowerCase().includes(searchQuery.toLowerCase())
+                  );
+
+                  if (searchQuery && filteredCountries.length === 0) return null;
+
+                  return (
+                    <div key={regionGroup.region} id="north-america" className="lg:col-span-4 space-y-3 scroll-mt-24 sm:scroll-mt-28">
+                      <div className="flex items-center gap-4">
+                        <h2 className="text-base sm:text-lg font-serif text-stone-800 font-medium tracking-wide">
+                          {regionGroup.region}
+                        </h2>
+                        <div className="h-px bg-stone-300/60 flex-1" />
+                      </div>
+
+                      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-1 gap-2.5 sm:gap-3">
+                        {filteredCountries.map((country) => (
+                          <CountryCard
+                            key={country.id}
+                            country={country}
+                            isSelected={selectedCountry === country.id}
+                            onSelect={() => handleSelect(country.id)}
+                            onVisit={(e) => handleVisit(e, country.domain)}
+                          />
+                        ))}
+                      </div>
+                    </div>
+                  );
+                })}
+            </div>
           </div>
 
           {/* NORTH AMERICA & MIDDLE EAST/ASIA */}
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 sm:gap-10" >
             
-            {/* North America */}
-            {REGIONAL_DATA.slice(2, 3).map((regionGroup) => {
-              const filteredCountries = regionGroup.countries.filter(
-                c => c.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-                     c.domain.toLowerCase().includes(searchQuery.toLowerCase())
-              );
-
-              if (searchQuery && filteredCountries.length === 0) return null;
-
-              return (
-                <div key={regionGroup.region} id="north-america" className="lg:col-span-4 space-y-3 scroll-mt-24 sm:scroll-mt-28">
-                  <div className="flex items-center gap-4">
-                    <h2 className="text-base sm:text-lg font-serif text-stone-800 font-medium tracking-wide">
-                      {regionGroup.region}
-                    </h2>
-                    <div className="h-px bg-stone-300/60 flex-1" />
-                  </div>
-
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5 sm:gap-3">
-                    {filteredCountries.map((country) => (
-                      <CountryCard
-                        key={country.id}
-                        country={country}
-                        isSelected={selectedCountry === country.id}
-                        onSelect={() => handleSelect(country.id)}
-                        onVisit={(e) => handleVisit(e, country.domain)}
-                      />
-                    ))}
-                  </div>
-                </div>
-              );
-            })}
-
+            
             {/* Middle East & Asia */}
             {REGIONAL_DATA.slice(3, 4).map((regionGroup) => {
               const filteredCountries = regionGroup.countries.filter(
@@ -324,7 +326,7 @@ export default function CountryWiseDomains(): React.JSX.Element {
               if (searchQuery && filteredCountries.length === 0) return null;
 
               return (
-                <div key={regionGroup.region} id="middle-east" className="lg:col-span-8 space-y-3 scroll-mt-24 sm:scroll-mt-28">
+                <div key={regionGroup.region} id="middle-east" className="lg:col-span-12 space-y-3 scroll-mt-24 sm:scroll-mt-28">
                   <div className="flex items-center gap-4">
                     <h2 className="text-base sm:text-lg font-serif text-stone-800 font-medium tracking-wide">
                       {regionGroup.region}
@@ -332,7 +334,7 @@ export default function CountryWiseDomains(): React.JSX.Element {
                     <div className="h-px bg-stone-300/60 flex-1" />
                   </div>
 
-                  <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2.5 sm:gap-3">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-2.5 sm:gap-3">
                     {filteredCountries.map((country) => (
                       <CountryCard
                         key={country.id}

@@ -91,10 +91,6 @@ export function AboutSection() {
         ))}
       </div>
       <div className="px-4 bg-[#b8d1dc] py-5 mb-6">
-        <h3 className="text-[#224b36] font-bold text-xl md:text-2xl mb-4 text-left">
-         
-          {translate("aboutOurServices")}
-        </h3>
           <p className="text-gray-700 text-sm md:text-base leading-relaxed text-justify md:text-left">
             {translate("aboutOurServicesContent")}
           </p>
