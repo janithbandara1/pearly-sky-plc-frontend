@@ -7,7 +7,6 @@ import { useEffect, useState, type Dispatch, type SetStateAction } from "react";
 import { ArrowLeft } from "lucide-react";
 import { DateTimeSection } from "@/components/booking/date-time-section";
 import { DISINFECTION_LEVELS, DisinfectionLevelSection } from "@/components/booking/disinfection-level-section";
-import { EventTypeSection } from "@/components/booking/event-type-section";
 import { EquipmentSection, type SupplySource } from "@/components/booking/equipment-section";
 import { FACILITY_CARDS, FacilitySelectionSection } from "@/components/booking/facility-selection-section";
 import { JobCardSection } from "@/components/booking/job-card-section";
@@ -288,7 +287,6 @@ export function ServiceBookingView({
   const [selectedFacilityIds, setSelectedFacilityIds] = useState<Set<string>>(new Set());
   const [disinfectionLevelId, setDisinfectionLevelId] = useState("");
 
-  const [selectedEventTypes, setSelectedEventTypes] = useState<Set<string>>(new Set());
 
   /** Shared by High-Security Property Care and Luxury Yacht Cleaning's single-select category pickers. */
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
@@ -413,15 +411,6 @@ export function ServiceBookingView({
     });
   }
 
-  function toggleSetEntry(setter: Dispatch<SetStateAction<Set<string>>>, value: string) {
-    setter((prev) => {
-      const next = new Set(prev);
-      if (next.has(value)) next.delete(value);
-      else next.add(value);
-      return next;
-    });
-  }
-
   const allPackages = (service?.servicePackages ?? []).map((sp) => sp.package);
   const selectedPackages = allPackages.filter((pkg) => selectedPackageIds.has(pkg.id));
   const items = (service?.serviceItems ?? []).map((si) => si.item);
@@ -449,10 +438,6 @@ export function ServiceBookingView({
     }
     if (isSanitization && !disinfectionLevelId) {
       setError("Please select a package to continue.");
-      return;
-    }
-    if (isEvent && selectedEventTypes.size === 0) {
-      setError("Please select at least one event type to continue.");
       return;
     }
     if (isCategoryQuote && !selectedCategory) {
@@ -506,7 +491,6 @@ export function ServiceBookingView({
       disinfectionLevel: selectedDisinfectionLevel
         ? { name: selectedDisinfectionLevel.title, price: selectedDisinfectionLevel.priceAdder }
         : undefined,
-      eventTypes: isEvent ? [...selectedEventTypes] : undefined,
       category: isCategoryQuote ? selectedCategory ?? undefined : undefined,
     });
     router.push(`/services/${serviceSlug}/checkout`);
@@ -540,9 +524,7 @@ export function ServiceBookingView({
     ? "Select at least one facility above to continue."
     : isSanitization && !disinfectionLevelId
       ? "Select a package above to continue."
-      : isEvent && selectedEventTypes.size === 0
-          ? "Select at least one event type above to continue."
-          : isCategoryQuote && !selectedCategory
+      : isCategoryQuote && !selectedCategory
             ? "Select a job type above to continue."
             : !date || !time
               ? "Select a date and time above to continue."
@@ -681,13 +663,6 @@ export function ServiceBookingView({
 
             {isYachtCategory && (
               <YachtCategorySelection selected={selectedCategory} onSelect={setSelectedCategory} />
-            )}
-
-            {isEvent && (
-              <EventTypeSection
-                selectedTitles={selectedEventTypes}
-                onToggle={(title) => toggleSetEntry(setSelectedEventTypes, title)}
-              />
             )}
 
             {!isSanitization && !isSteam && !isEvent && !isCategoryQuote && (

@@ -221,15 +221,15 @@ const POST_CONSTRUCTION_SERVICE_SLUGS = new Set([
 
 /** Venue-scale sizing scheme for post-event-cleaning, tracked by event type rather than property type. */
 export const EVENT_PROPERTY_CATEGORIES: PropertyCategory[] = [
-  { id: "private-parties", label: "Private Parties & Celebrations", icon: "🎈", min: 20, max: 150, step: 5, locked: false },
-  { id: "weddings", label: "Weddings & Large Receptions", icon: "💒", min: 150, max: 600, step: 25, locked: false },
-  { id: "corporate-events", label: "Corporate Events & Galas", icon: "💼", min: 100, max: 1000, step: 25, locked: false },
-  { id: "concerts-festivals", label: "Concerts, Festivals & Live Venues", icon: "🎤", min: 300, max: 1000, step: 25, locked: false },
-  { id: "pop-up-shops", label: "Pop-Up Shops & Retail Exhibitions", icon: "🛍️", min: 50, max: 300, step: 10, locked: false },
-  { id: "art-galleries", label: "Art Galleries & Cultural Exhibitions", icon: "🎨", min: 50, max: 500, step: 25, locked: false },
-  { id: "fashion-shows", label: "Fashion Shows & Runway Events", icon: "👗", min: 100, max: 800, step: 25, locked: false },
-  { id: "film-tv-shoots", label: "Film, TV & Commercial Shoots", icon: "📽️", min: 50, max: 1000, step: 25, locked: false },
-  { id: "charity-auctions", label: "Charity Auctions & Fundraisers", icon: "🤝", min: 150, max: 800, step: 25, locked: false },
+  { id: "private-parties", label: "Private Parties & Celebrations", icon: "🎈", min: 20, max: 1000, step: 25, locked: false },
+  { id: "weddings", label: "Weddings & Large Receptions", icon: "💒", min: 20, max: 1000, step: 25, locked: false },
+  { id: "corporate-events", label: "Corporate Events & Galas", icon: "💼", min: 20, max: 1000, step: 25, locked: false },
+  { id: "concerts-festivals", label: "Concerts, Festivals & Live Venues", icon: "🎤", min: 20, max: 1000, step: 25, locked: false },
+  { id: "pop-up-shops", label: "Pop-Up Shops & Retail Exhibitions", icon: "🛍️", min: 20, max: 1000, step: 25, locked: false },
+  { id: "art-galleries", label: "Art Galleries & Cultural Exhibitions", icon: "🎨", min: 20, max: 1000, step: 25, locked: false },
+  { id: "fashion-shows", label: "Fashion Shows & Runway Events", icon: "👗", min: 20, max: 1000, step: 25, locked: false },
+  { id: "film-tv-shoots", label: "Film, TV & Commercial Shoots", icon: "📽️", min: 20, max: 1000, step: 25, locked: false },
+  { id: "charity-auctions", label: "Charity Auctions & Fundraisers", icon: "🤝", min: 20, max: 1000, step: 25, locked: false },
 ];
 
 const EVENT_SCHEME_SERVICE_SLUGS = new Set(["post-event-cleaning"]);

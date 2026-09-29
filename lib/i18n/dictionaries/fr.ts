@@ -1234,6 +1234,7 @@ AddsOnCategoryOvenFridgeRestoration: "Restauration professionnelle de four et r�
   facilityClearSelection: "Effacer la sélection",
 
   // Event Cleaning
+  eventSelectTypeTitle: "Sélectionnez Votre Type d'Événement",
   eventSelectTypeSub: "Choisissez le type d'événement pour assurer la taille d'équipe et les protocoles de nettoyage adaptés.",
 
   // Request Quotation Form & Steps
@@ -1506,37 +1507,6 @@ AddsOnCategoryOvenFridgeRestoration: "Restauration professionnelle de four et r�
   yachtSuperyacht: "Superyacht",
   yachtMegayacht: "Mégayacht",
   yachtSailingCatamaran: "Voilier / Catamaran",
-
-  // EventTypeSection
-  eventTypeSelectionTitle: "SÉLECTION DU TYPE D'ÉVÉNEMENT",
-  eventTypeSelectionSubtitle: "Réservez Votre Service de Nettoyage d'Excellence",
-  eventSelectTypeTitle: "SÉLECTION DU TYPE D'ÉVÉNEMENT",
-  eventConferences: "Conférences",
-  eventRedCarpet: "Événements Tapis Rouge",
-  eventMusicConcerts: "Concerts & Festivals de Musique",
-  eventTradeShows: "Salons Professionnels",
-  eventProductLaunches: "Lancements de Produits",
-  eventSeminars: "Séminaires",
-  eventNetworking: "Événements de Réseautage",
-  eventSports: "Événements Sportifs",
-  eventFestivals: "Festivals",
-  eventTeamBuilding: "Événements de Team Building",
-  eventCompanyParties: "Fêtes d'Entreprise",
-  eventCorporate: "Événements Corporate",
-  eventWeddings: "Mariages",
-  eventCharity: "Événements Caritatifs",
-  eventCultural: "Événements Culturels",
-  eventMeetings: "Réunions",
-  eventSocial: "Événements Sociaux",
-  eventTheatre: "Spectacles & Théâtre",
-  eventCareerFairs: "Salons de l'Emploi",
-  eventExhibition: "Expositions",
-  eventFashion: "Défilés & Événements Mode",
-  eventInternal: "Événements Internes",
-  eventCompanyMeetings: "Séminaires & Réunions Hors Site",
-  eventWorkshops: "Ateliers",
-  eventVip: "Événements VIP",
-  eventOther: "Autre",
 
   // BookingDetailsCard
   bookingDetailsTitle: "Détails de la Réservation",
