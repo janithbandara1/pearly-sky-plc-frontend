@@ -7,7 +7,6 @@ import {
   YACHT_PROPERTY_TYPES,
   type PropertyCategory,
 } from "@/components/booking/Yatchpropertytypes";
-import { YachtCategorySelection } from "@/components/booking/yacht-category-selection";
 import { DateTimeSection } from "@/components/booking/date-time-section";
 import { GENDER_OPTIONS, LANGUAGE_OPTIONS } from "@/components/booking/quotation-preferences-section";
 import { EquipmentSection, type SupplySource } from "@/components/booking/equipment-section";
@@ -45,13 +44,6 @@ export function YachtScheduleSection({
     return draft && draft.serviceSlug === serviceSlug && draft.propertyType
       ? draft.propertyType
       : YACHT_PROPERTY_TYPES[0].label;
-  });
-
-  const [selectedCategory, setSelectedCategory] = useState<string | null>(() => {
-    const draft = loadBookingDraft();
-    return draft && draft.serviceSlug === serviceSlug && draft.category
-      ? draft.category
-      : null;
   });
 
   const [date, setDate] = useState<string>(() => {
@@ -150,23 +142,16 @@ export function YachtScheduleSection({
   const activeCategory =
     YACHT_PROPERTY_TYPES.find((c) => c.label === propertyType) ?? YACHT_PROPERTY_TYPES[0];
 
-  const bookDisabledReason = !selectedCategory
-    ? "Select a Yacht Job Type above to continue."
-    : !date || !time
-      ? "Select a date and time above to continue."
-      : items.length > 0 && !supplySource
-        ? "Select a Cleaning Solvents & Equipment above to continue."
-        : supplySource === "company" && selectedItemIds.size === 0
-          ? "Add at least one Cleaning Solvent & Equipment item above to continue."
-          : undefined;
+  const bookDisabledReason = !date || !time
+    ? "Select a date and time above to continue."
+    : items.length > 0 && !supplySource
+      ? "Select a Cleaning Solvents & Equipment above to continue."
+      : supplySource === "company" && selectedItemIds.size === 0
+        ? "Add at least one Cleaning Solvent & Equipment item above to continue."
+        : undefined;
 
   function handleSchedule() {
     setError(null);
-
-    if (!selectedCategory) {
-      setError("Please select a Yacht Job Type to continue.");
-      return;
-    }
 
     if (!date || !time) {
       setError("Please select a date and time to book your appointment.");
@@ -192,7 +177,6 @@ export function YachtScheduleSection({
       serviceLabel,
       propertySizeSqm,
       propertyType,
-      category: selectedCategory,
       date,
       time,
       packages: [],
@@ -217,15 +201,6 @@ export function YachtScheduleSection({
 
   return (
     <div className="w-full space-y-8">
-      {/* 1. SELECT YOUR JOB TYPE */}
-      <YachtCategorySelection
-        selected={selectedCategory}
-        onSelect={(cat) => {
-          setSelectedCategory(cat);
-          if (error) setError(null);
-        }}
-      />
-
       {/* 2. DATE & TIME PICKER */}
       <DateTimeSection
         date={date}

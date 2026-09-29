@@ -73,11 +73,16 @@ export interface BookingDraft {
   documentData?: string;
 }
 
+// These run during the server-side render of client components (every schedule
+// section loads its initial state from the draft in a useState initializer,
+// which executes on the server too), where sessionStorage doesn't exist.
 export function saveBookingDraft(draft: BookingDraft) {
+  if (typeof window === "undefined") return;
   sessionStorage.setItem(STORAGE_KEY, JSON.stringify(draft));
 }
 
 export function loadBookingDraft(): BookingDraft | null {
+  if (typeof window === "undefined") return null;
   const raw = sessionStorage.getItem(STORAGE_KEY);
   if (!raw) return null;
   try {
@@ -88,6 +93,7 @@ export function loadBookingDraft(): BookingDraft | null {
 }
 
 export function clearBookingDraft() {
+  if (typeof window === "undefined") return;
   sessionStorage.removeItem(STORAGE_KEY);
 }
 

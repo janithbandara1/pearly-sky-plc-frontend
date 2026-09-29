@@ -1459,7 +1459,6 @@ export const es = {
   secJobSmbNetworkAudit: "Auditoría de red y ciberseguridad para PYMES",
 
   // YachtCategorySelection
-  yachtSelectCategoryTitle: "Seleccione su categoría de limpieza de yates",
   yachtMotorboat: "Lancha a motor / Cruiser de día",
   yachtLuxuryExpress: "Crucero de lujo...",
   yachtFlybridge: "Yate a motor Flybridge",

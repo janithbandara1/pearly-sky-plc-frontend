@@ -1500,7 +1500,6 @@ AddsOnCategoryOvenFridgeRestoration: "Restauration professionnelle de four et r�
   secJobSmbNetworkAudit: "Audit Cyber & Réseau PME",
 
   // YachtCategorySelection
-  yachtSelectCategoryTitle: "Sélectionnez Votre Catégorie de Nettoyage de Yacht",
   yachtMotorboat: "Bateau à Moteur / Day Cruiser",
   yachtLuxuryExpress: "Express de Luxe...",
   yachtFlybridge: "Yacht à Moteur Flybridge",

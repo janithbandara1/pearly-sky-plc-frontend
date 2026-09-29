@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState, useCallback } from "react";
+import { useEffect, useRef, useState, useCallback } from "react";
 import useEmblaCarousel from "embla-carousel-react";
 import { useLanguage } from "@/lib/i18n/language-context";
 import type { TranslationKey } from "@/lib/i18n/dictionaries/en";
@@ -196,6 +196,22 @@ export function PropertyTypeSizeSelector({
     }
   }
 
+  // Scrolling over the size wheel changes the size instead of scrolling the page. React
+  // attaches onWheel as a passive listener, so preventDefault must happen on a native,
+  // non-passive listener instead.
+  const wheelContainerRef = useRef<HTMLDivElement>(null);
+  useEffect(() => {
+    const el = wheelContainerRef.current;
+    if (!el) return;
+    function onWheel(e: WheelEvent) {
+      e.preventDefault();
+      if (e.deltaY > 0) handleNext();
+      else handlePrev();
+    }
+    el.addEventListener("wheel", onWheel, { passive: false });
+    return () => el.removeEventListener("wheel", onWheel);
+  });
+
   return (
     <section className="rounded-2xl border border-[#C6A868] bg-[#FAF8F5] p-5 sm:p-6 shadow-sm w-full">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6 items-start">
@@ -250,11 +266,8 @@ export function PropertyTypeSizeSelector({
           <div className="flex items-center gap-3">
             {/* Wheel Display Container */}
             <div
+              ref={wheelContainerRef}
               className="flex-1 h-[122px] rounded-xl border border-[#C6A868] bg-white overflow-hidden shadow-sm flex flex-col justify-between select-none"
-              onWheel={(e) => {
-                if (e.deltaY > 0) handleNext();
-                else handlePrev();
-              }}
             >
               {/* Top Row: Previous size preview */}
               <button

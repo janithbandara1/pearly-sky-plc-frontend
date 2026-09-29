@@ -1539,7 +1539,6 @@ serviceLuxuryYachtCleaningTitleFiveFeatureTwo:"Complete linen turnover, sanitati
   secJobSmbNetworkAudit: "SMB Network & Cyber Audit",
 
   // YachtCategorySelection
-  yachtSelectCategoryTitle: "Select Your Yacht Cleaning Category",
   yachtMotorboat: "Motorboat / Day Cruiser",
   yachtLuxuryExpress: "Luxury Express...",
   yachtFlybridge: "Flybridge Motor Yacht",

@@ -1506,7 +1506,6 @@ export const de = {
   secJobSmbNetworkAudit: "KMU-Netzwerk- & Cyber-Audit",
 
   // YachtCategorySelection
-  yachtSelectCategoryTitle: "Wählen Sie Ihre Yachtreinigungskategorie",
   yachtMotorboat: "Motorboot / Daycruiser",
   yachtLuxuryExpress: "Luxus-Expressyacht...",
   yachtFlybridge: "Flybridge-Motoryacht",

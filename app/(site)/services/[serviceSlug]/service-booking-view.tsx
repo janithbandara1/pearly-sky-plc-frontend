@@ -11,7 +11,6 @@ import { EquipmentSection, type SupplySource } from "@/components/booking/equipm
 import { FACILITY_CARDS, FacilitySelectionSection } from "@/components/booking/facility-selection-section";
 import { JobCardSection } from "@/components/booking/job-card-section";
 import { SecurityCategorySelection } from "@/components/booking/security-category-selection";
-import { YachtCategorySelection } from "@/components/booking/yacht-category-selection";
 import { GeneralSteamSection } from "@/components/booking/steam/general-steam-section";
 import { IndustrialCommercialSteamSection } from "@/components/booking/steam/industrial-commercial-steam-section";
 import { GENDER_OPTIONS, LANGUAGE_OPTIONS } from "@/components/booking/quotation-preferences-section";
@@ -246,7 +245,6 @@ export function ServiceBookingView({
   const isSteam = serviceSlug === STEAM_SLUG;
   const isEvent = serviceSlug === EVENT_SLUG;
   const isSecurityCategory = serviceSlug === SECURITY_SLUG;
-  const isYachtCategory = serviceSlug === YACHT_SLUG;
   const isCategoryQuote = isSecurityCategory;
   const isChildCare = serviceSlug === CHILD_CARE_SLUG;
   const isElderCare = serviceSlug === ELDER_CARE_SLUG;
@@ -441,11 +439,7 @@ export function ServiceBookingView({
       return;
     }
     if (isCategoryQuote && !selectedCategory) {
-      setError(
-        isYachtCategory
-          ? "Please select a yacht service category to continue."
-          : "Please select a security service category to continue.",
-      );
+      setError("Please select a security service category to continue.");
       return;
     }
     if (!date || !time) {
@@ -659,10 +653,6 @@ export function ServiceBookingView({
 
             {isSecurityCategory && (
               <SecurityCategorySelection selected={selectedCategory} onSelect={setSelectedCategory} />
-            )}
-
-            {isYachtCategory && (
-              <YachtCategorySelection selected={selectedCategory} onSelect={setSelectedCategory} />
             )}
 
             {!isSanitization && !isSteam && !isEvent && !isCategoryQuote && (
