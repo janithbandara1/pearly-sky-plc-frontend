@@ -257,7 +257,13 @@ export default function GlobalHeroSection() {
                 >
                   <div className="flex-1 flex items-center justify-center  transition-transform">
                     
-                    <Image fill src={region.iconImage} alt={region.name} className={`object-cover ${region.objectPosition} object-top-[5px] `}/>
+                    <Image
+                      fill
+                      sizes="(min-width: 768px) 310px, 50vw"
+                      src={region.iconImage}
+                      alt={region.name}
+                      className={`object-cover ${region.objectPosition} object-top-[5px] `}
+                    />
                   </div>
                   <div className="w-full z-20 flex items-center justify-between pt-2 border-t border-[#EAE3D2]/40">
                     <span className="text-[10px] font-sans font-bold tracking-wider text-[#0F1E36]">

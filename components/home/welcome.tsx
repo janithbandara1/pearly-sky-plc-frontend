@@ -1,6 +1,9 @@
 "use client";
 
 import { useLanguage } from "@/lib/i18n/language-context";
+import { optimizedBackgroundImage } from "@/lib/background-image";
+
+const WELCOME_BG = optimizedBackgroundImage("/images/hero/bg-welcom.png", 1645, 656);
 
 export function Welcome() {
 
@@ -9,7 +12,7 @@ export function Welcome() {
     return (
         <section
             className="relative flex w-full items-center justify-center overflow-hidden border-t-2 border-[#A98B4B] bg-cover lg:bg-cover md:bg-cover bg-center px-4 py-12 sm:py-16 lg:min-h-[390px] lg:py-20"
-            style={{ backgroundImage: "url('/images/hero/bg-welcom.png')" }}
+            style={{ backgroundImage: WELCOME_BG }}
         >
             <div className="absolute inset-0" />
             <div className="relative z-10 w-full max-w-4xl text-center">

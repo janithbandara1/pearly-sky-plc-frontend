@@ -2,6 +2,9 @@
 import { useLanguage } from "@/lib/i18n/language-context";
 import { Mail } from "lucide-react";
 import Image from "next/image";
+import { optimizedBackgroundImage } from "@/lib/background-image";
+
+const TEAM_BG = optimizedBackgroundImage("/images/about/visionary-team-bg.png", 1668, 624);
 
 interface TeamMember {
   id: number;
@@ -54,7 +57,7 @@ export function VisionaryTeam() {
         {/* ================= OUR VISIONARY TEAM SECTION ================= */}
               <div
                 className="relative flex w-full max-w-8xl  flex-col items-center overflow-hidden bg-cover bg-center  py-8 sm:px-6 sm:py-10  lg:py-12"
-                style={{ backgroundImage: "url('/images/about/visionary-team-bg.png')" }}
+                style={{ backgroundImage: TEAM_BG }}
               >
                 <div className="absolute inset-0 bg-gradient-to-b from-[#0B1528]/95 via-[#0B1528]/80 to-transparent pointer-events-none" />
                 <h2 className="relative z-10 mb-6 text-center text-xl font-bold tracking-wide text-white sm:mb-9 sm:text-2xl lg:text-3xl">
