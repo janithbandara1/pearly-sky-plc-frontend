@@ -99,6 +99,26 @@ const DEFAULT_LANGUAGE_PREFERENCE: Record<SupportedLanguage, string> = {
   it: "italian",
 };
 
+// Values stay English (they're stored on the booking and shown to staff); only the labels are translated.
+const HOW_GET_IN_OPTIONS: { value: string; labelKey: TranslationKey }[] = [
+  { value: "I'll be at home", labelKey: "checkoutGetInAtHome" },
+  { value: "The key is with doorman", labelKey: "checkoutGetInDoorman" },
+  { value: "Lockbox on premises", labelKey: "checkoutGetInLockbox" },
+  { value: "Call to organize", labelKey: "checkoutGetInCall" },
+  { value: "Other", labelKey: "checkoutOptionOther" },
+];
+
+// Brand names have no labelKey and render as-is.
+const HOW_HEARD_OPTIONS: { value: string; labelKey?: TranslationKey }[] = [
+  { value: "Google" },
+  { value: "Yelp" },
+  { value: "Instagram" },
+  { value: "Facebook" },
+  { value: "Friend/Referred", labelKey: "checkoutHeardFriend" },
+  { value: "Real Estate Professional", labelKey: "checkoutHeardRealEstate" },
+  { value: "Other", labelKey: "checkoutOptionOther" },
+];
+
 /** Single-item on purpose — this deployment only ever serves CURRENT_COUNTRY, so the "select country" field below has nothing else to offer. */
 const COUNTRY_OPTIONS = [
   {
@@ -810,11 +830,11 @@ export default function CheckoutPage({
                         <SelectValue placeholder={translate("checkoutHowGetIn")} />
                       </SelectTrigger>
                       <SelectContent className="w-full">
-                        <SelectItem value="I'll be at home">I&apos;ll be at home</SelectItem>
-                        <SelectItem value="The key is with doorman">The key is with doorman</SelectItem>
-                        <SelectItem value="Lockbox on premises">Lockbox on premises</SelectItem>
-                        <SelectItem value="Call to organize">Call to organize</SelectItem>
-                        <SelectItem value="Other">Other</SelectItem>
+                        {HOW_GET_IN_OPTIONS.map((opt) => (
+                          <SelectItem key={opt.value} value={opt.value}>
+                            {translate(opt.labelKey)}
+                          </SelectItem>
+                        ))}
                       </SelectContent>
                     </Select>
                   </div>
@@ -828,13 +848,11 @@ export default function CheckoutPage({
                         <SelectValue placeholder={translate("checkoutHowHeard")} />
                       </SelectTrigger>
                       <SelectContent className="w-full">
-                        <SelectItem value="Google">Google</SelectItem>
-                        <SelectItem value="Yelp">Yelp</SelectItem>
-                        <SelectItem value="Instagram">Instagram</SelectItem>
-                        <SelectItem value="Facebook">Facebook</SelectItem>
-                        <SelectItem value="Friend/Referred">Friend/Referred</SelectItem>
-                        <SelectItem value="Real Estate Professional">Real Estate Professional</SelectItem>
-                        <SelectItem value="Other">Other</SelectItem>
+                        {HOW_HEARD_OPTIONS.map((opt) => (
+                          <SelectItem key={opt.value} value={opt.value}>
+                            {opt.labelKey ? translate(opt.labelKey) : opt.value}
+                          </SelectItem>
+                        ))}
                       </SelectContent>
                     </Select>
                   </div>
@@ -1199,7 +1217,7 @@ export default function CheckoutPage({
 
                 <div className="flex flex-col gap-4 border-t border-brand-gold/20 p-4">
                   <p className="text-xs font-bold uppercase tracking-wider text-brand-gold">
-                    Logistics &amp; Marketing
+                    {translate("summaryLogisticsMarketing")}
                   </p>
                   <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
                     <div className="space-y-1.5">
@@ -1209,11 +1227,11 @@ export default function CheckoutPage({
                           <SelectValue placeholder={translate("checkoutHowGetIn")}/>
                         </SelectTrigger>
                         <SelectContent>
-                          <SelectItem value="I'll be at home">I&apos;ll be at home</SelectItem>
-                          <SelectItem value="The key is with doorman">The key is with doorman</SelectItem>
-                          <SelectItem value="Lockbox on premises">Lockbox on premises</SelectItem>
-                          <SelectItem value="Call to organize">Call to organize</SelectItem>
-                          <SelectItem value="Other">Other</SelectItem>
+                          {HOW_GET_IN_OPTIONS.map((opt) => (
+                            <SelectItem key={opt.value} value={opt.value}>
+                              {translate(opt.labelKey)}
+                            </SelectItem>
+                          ))}
                         </SelectContent>
                       </Select>
                     </div>
@@ -1227,13 +1245,11 @@ export default function CheckoutPage({
                           <SelectValue placeholder={translate("checkoutHowHeard")} />
                         </SelectTrigger>
                         <SelectContent>
-                          <SelectItem value="Google">Google</SelectItem>
-                          <SelectItem value="Yelp">Yelp</SelectItem>
-                          <SelectItem value="Instagram">Instagram</SelectItem>
-                          <SelectItem value="Facebook">Facebook</SelectItem>
-                          <SelectItem value="Friend/Referred">Friend/Referred</SelectItem>
-                          <SelectItem value="Real Estate Professional">Real Estate Professional</SelectItem>
-                          <SelectItem value="Other">Other</SelectItem>
+                          {HOW_HEARD_OPTIONS.map((opt) => (
+                            <SelectItem key={opt.value} value={opt.value}>
+                              {opt.labelKey ? translate(opt.labelKey) : opt.value}
+                            </SelectItem>
+                          ))}
                         </SelectContent>
                       </Select>
                     </div>
