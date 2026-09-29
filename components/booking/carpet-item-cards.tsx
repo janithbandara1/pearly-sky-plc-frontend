@@ -73,7 +73,7 @@ function CarpetItemCard({
     }
 
   return (
-    <Card className="relative h-56 gap-0 rounded-2xl border-2 border-[#A98B4B] bg-white py-0 ring-0">
+    <Card className="relative h-64 sm:h-72 gap-0 rounded-2xl border-2 border-[#A98B4B] bg-white py-0 ring-0">
       {option.image && (
         <Image
           src={option.image}
