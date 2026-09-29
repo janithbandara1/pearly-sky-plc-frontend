@@ -1,12 +1,12 @@
 import type { Metadata } from "next";
-import { redirect } from "next/navigation";
+import { notFound, permanentRedirect } from "next/navigation";
+import { ApiError } from "@/lib/api";
 import { getServiceBySlug, type CatalogServiceDetail, type ServiceLocaleSlug } from "@/lib/catalog-api";
 import { getRequestCountry } from "@/lib/countries/server";
 import { getRequestLanguage } from "@/lib/i18n/server";
-import { buildCountryAlternates, buildServiceAlternates, buildSocialMeta } from "@/lib/countries/seo";
+import { buildServiceAlternates, buildSocialMeta } from "@/lib/countries/seo";
 import { getServiceMeta } from "@/lib/countries/service-meta";
-import { buildBreadcrumbJsonLd } from "@/lib/seo/json-ld";
-import { JsonLd } from "@/components/json-ld";
+import { BreadcrumbJsonLd } from "@/components/json-ld";
 import { buildLocalePath } from "@/lib/locale";
 import { ServiceBookingView } from "./service-booking-view";
 import JoinWithUsSection from "@/components/booking/join-with-us-section";
@@ -38,9 +38,12 @@ export async function generateMetadata({
     const ogTitle = service.seo.ogTitle || title;
     const ogDescription = service.seo.ogDescription || description;
     return { title, description, alternates, ...buildSocialMeta(ogTitle, ogDescription, service.imageUrl ?? undefined) };
-  } catch {
-    const alternates = buildCountryAlternates(`/services/${serviceSlug}`, { language });
-    return { title: "Services | Pearly Sky", alternates };
+  } catch (err) {
+    if (err instanceof ApiError && err.status === 404) notFound();
+    // Transient API failure (e.g. rate-limited): keep the page usable but
+    // never let search engines index the generic fallback, and don't
+    // advertise hreflang alternates built from an unverified slug.
+    return { title: "Services | Pearly Sky", robots: { index: false, follow: true } };
   }
 }
 
@@ -65,8 +68,9 @@ export default async function ServiceDetailPage({
     label = service.localizedName;
     localizedSlug = service.slug;
     locales = service.locales;
-  } catch {
-    // Unknown slug — fall through with the raw values; the booking view's own fallback handles it.
+  } catch (err) {
+    if (err instanceof ApiError && err.status === 404) notFound();
+    // Transient API failure — fall through with the raw values; the booking view's own fallback handles it.
   }
 
   // Reached via a non-canonical slug for this language (e.g. the base
@@ -74,17 +78,15 @@ export default async function ServiceDetailPage({
   // — 308 onto the current language's own slug so the visible URL always
   // matches what buildServiceAlternates' canonical tag above claims.
   if (localizedSlug && localizedSlug !== serviceSlug) {
-    redirect(buildLocalePath(`/services/${localizedSlug}`, language ?? "en"));
+    permanentRedirect(buildLocalePath(`/services/${localizedSlug}`, language ?? "en"));
   }
 
   return (
     <>
-      <JsonLd
-        data={buildBreadcrumbJsonLd([
+      <BreadcrumbJsonLd items={[
           { name: "Home", path: "/" },
           { name: label, path: `/services/${serviceSlug}` },
-        ])}
-      />
+        ]} />
       <ServiceBookingView serviceSlug={canonicalSlug} locales={locales} initialService={service} />
       <JoinWithUsSection />
       <RelatedServices />

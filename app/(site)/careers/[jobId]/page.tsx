@@ -5,8 +5,8 @@ import { getRequestLanguage } from "@/lib/i18n/server";
 import { translateFor } from "@/lib/i18n/translate";
 import type { LanguageCode } from "@/lib/i18n/config";
 import { buildCountryAlternates, buildSocialMeta } from "@/lib/countries/seo";
-import { buildBreadcrumbJsonLd, buildJobPostingJsonLd } from "@/lib/seo/json-ld";
-import { JsonLd } from "@/components/json-ld";
+import { buildJobPostingJsonLd } from "@/lib/seo/json-ld";
+import { BreadcrumbJsonLd, JsonLd } from "@/components/json-ld";
 import { IS_CAREERS_ENABLED } from "@/lib/countries/config";
 import { JobDetailView } from "./job-detail-view";
 import { NoCareersNotice } from "@/components/careers/no-careers-notice";
@@ -100,13 +100,11 @@ export default async function JobDetailPage({ params }: { params: Promise<{ jobI
 
   return (
     <>
-      <JsonLd
-        data={buildBreadcrumbJsonLd([
+      <BreadcrumbJsonLd items={[
           { name: "Home", path: "/" },
           { name: "Careers", path: "/careers" },
           { name: job.title, path: `/careers/${jobId}` },
-        ])}
-      />
+        ]} />
       <JsonLd data={buildJobPostingJsonLd(job)} />
       <JobDetailView job={rawJob} />
     </>

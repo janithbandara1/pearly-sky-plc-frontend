@@ -1,8 +1,7 @@
 import type { Metadata } from "next";
 import { getRequestLanguage } from "@/lib/i18n/server";
 import { buildCountryAlternates, buildSocialMeta } from "@/lib/countries/seo";
-import { buildBreadcrumbJsonLd } from "@/lib/seo/json-ld";
-import { JsonLd } from "@/components/json-ld";
+import { BreadcrumbJsonLd } from "@/components/json-ld";
 import { getCountryPageMeta } from "@/lib/countries/meta-data";
 import { IS_GLOBAL_SITE } from "@/lib/countries/config";
 import { OurLocationsView } from "./our-locations-view";
@@ -27,12 +26,10 @@ export async function generateMetadata(): Promise<Metadata> {
 export default function OurLocationsPage() {
   return (
     <>
-      <JsonLd
-        data={buildBreadcrumbJsonLd([
+      <BreadcrumbJsonLd items={[
           { name: "Home", path: "/" },
           { name: "Our Locations", path: "/our-locations" },
-        ])}
-      />
+        ]} />
       <OurLocationsView />
       <PaymentMarquee />
     </>

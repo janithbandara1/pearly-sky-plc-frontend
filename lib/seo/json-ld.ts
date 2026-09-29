@@ -2,6 +2,8 @@ import { locations, type Location } from "@/lib/content/locations";
 import type { Job } from "@/lib/content/jobs";
 import type { BlogPost } from "@/lib/content/blog-posts";
 import type { CountryCode } from "@/lib/countries/config";
+import type { LanguageCode } from "@/lib/i18n/config";
+import { buildLocalePath } from "@/lib/locale";
 import { SOCIAL_URLS } from "@/lib/content/social-links";
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000";
@@ -33,7 +35,8 @@ export function buildLocalBusinessJsonLd(office: Location, country: CountryCode)
   };
 }
 
-export function buildBreadcrumbJsonLd(items: { name: string; path: string }[]) {
+/** `path` is unprefixed; it's placed under `/{language}` since bare paths only redirect (and search engines display these URLs). */
+export function buildBreadcrumbJsonLd(items: { name: string; path: string }[], language: LanguageCode) {
   return {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
@@ -41,7 +44,7 @@ export function buildBreadcrumbJsonLd(items: { name: string; path: string }[]) {
       "@type": "ListItem",
       position: index + 1,
       name: item.name,
-      item: `${SITE_URL}${item.path}`,
+      item: `${SITE_URL}${buildLocalePath(item.path, language)}`,
     })),
   };
 }

@@ -1,10 +1,9 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { PageHero } from "@/components/page-hero";
-import { JsonLd } from "@/components/json-ld";
+import { BreadcrumbJsonLd } from "@/components/json-ld";
 import { getRequestLanguage } from "@/lib/i18n/server";
 import { buildCountryAlternates, buildSocialMeta } from "@/lib/countries/seo";
-import { buildBreadcrumbJsonLd } from "@/lib/seo/json-ld";
 import { STATIC_PAGE_META } from "@/lib/countries/meta-data";
 import { ArrowLeft } from "lucide-react";
 
@@ -23,12 +22,10 @@ export async function generateMetadata(): Promise<Metadata> {
 export default function PrivacyPolicyPage() {
   return (
     <main className="flex-1">
-      <JsonLd
-        data={buildBreadcrumbJsonLd([
+      <BreadcrumbJsonLd items={[
           { name: "Home", path: "/" },
           { name: "Privacy Policy", path: "/privacy-policy" },
-        ])}
-      />
+        ]} />
       <PageHero image="/images/about/hero.webp" hidePriceSelector title="Privacy Policy" />
 
           

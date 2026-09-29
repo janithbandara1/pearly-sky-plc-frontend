@@ -2,10 +2,10 @@ import type { Metadata } from "next";
 import { getServiceBySlug } from "@/lib/catalog-api";
 import { getRequestCountry } from "@/lib/countries/server";
 import { getRequestLanguage } from "@/lib/i18n/server";
-import { buildCountryAlternates, buildServiceAlternates, buildSocialMeta } from "@/lib/countries/seo";
-import { buildBreadcrumbJsonLd } from "@/lib/seo/json-ld";
-import { JsonLd } from "@/components/json-ld";
-import { redirect } from "next/navigation";
+import { buildServiceAlternates, buildSocialMeta } from "@/lib/countries/seo";
+import { BreadcrumbJsonLd } from "@/components/json-ld";
+import { notFound, permanentRedirect } from "next/navigation";
+import { ApiError } from "@/lib/api";
 import { buildLocalePath } from "@/lib/locale";
 import { RequestQuotationView } from "./request-quotation-view";
 import JoinWithUsSection from "@/components/booking/join-with-us-section";
@@ -27,9 +27,10 @@ export async function generateMetadata({
     const title = `Request a Quote — ${service.localizedName} | Pearly Sky`;
     const description = `Request a free, no-obligation quote for ${service.localizedName.toLowerCase()} with Pearly Sky's eco-luxury cleaning team.`;
     return { title, description, alternates, ...buildSocialMeta(title, description, service.imageUrl ?? undefined) };
-  } catch {
-    const alternates = buildCountryAlternates(`/services/${serviceSlug}/request-quotation`, { language });
-    return { title: "Request a Quote | Pearly Sky", alternates };
+  } catch (err) {
+    if (err instanceof ApiError && err.status === 404) notFound();
+    // Transient API failure: never let search engines index the generic fallback.
+    return { title: "Request a Quote | Pearly Sky", robots: { index: false, follow: true } };
   }
 }
 
@@ -48,8 +49,9 @@ export default async function RequestQuotationPage({
     canonicalSlug = service.name;
     label = service.localizedName;
     localizedSlug = service.slug;
-  } catch {
-    // Unknown slug — fall through with the raw values; the quotation view's own fallback handles it.
+  } catch (err) {
+    if (err instanceof ApiError && err.status === 404) notFound();
+    // Transient API failure — fall through with the raw values; the quotation view's own fallback handles it.
   }
 
   if (
@@ -59,7 +61,7 @@ export default async function RequestQuotationPage({
     canonicalSlug === "pool-cleaning" ||
     canonicalSlug === "precision-pressure-washing"
   ) {
-    redirect(buildLocalePath(`/services/${localizedSlug ?? serviceSlug}`, language ?? "en"));
+    permanentRedirect(buildLocalePath(`/services/${localizedSlug ?? serviceSlug}`, language ?? "en"));
   }
 
   // Reached via a non-canonical slug for this language (e.g. the base
@@ -67,18 +69,16 @@ export default async function RequestQuotationPage({
   // language's own slug so the visible URL always matches what
   // buildServiceAlternates' canonical tag above claims.
   if (localizedSlug && localizedSlug !== serviceSlug) {
-    redirect(buildLocalePath(`/services/${localizedSlug}/request-quotation`, language ?? "en"));
+    permanentRedirect(buildLocalePath(`/services/${localizedSlug}/request-quotation`, language ?? "en"));
   }
 
   return (
     <>
-      <JsonLd
-        data={buildBreadcrumbJsonLd([
+      <BreadcrumbJsonLd items={[
           { name: "Home", path: "/" },
           { name: label, path: `/services/${serviceSlug}` },
           { name: "Request a Quotation", path: `/services/${serviceSlug}/request-quotation` },
-        ])}
-      />
+        ]} />
       <RequestQuotationView serviceSlug={canonicalSlug} />
       <JoinWithUsSection />
       <RelatedServices />

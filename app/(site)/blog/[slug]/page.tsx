@@ -3,8 +3,8 @@ import { notFound } from "next/navigation";
 import { blogPosts, getBlogPost } from "@/lib/content/blog-posts";
 import { getRequestLanguage } from "@/lib/i18n/server";
 import { buildCountryAlternates, buildSocialMeta } from "@/lib/countries/seo";
-import { buildArticleJsonLd, buildBreadcrumbJsonLd } from "@/lib/seo/json-ld";
-import { JsonLd } from "@/components/json-ld";
+import { buildArticleJsonLd } from "@/lib/seo/json-ld";
+import { BreadcrumbJsonLd, JsonLd } from "@/components/json-ld";
 import { BlogPostView } from "./blog-post-view";
 
 export async function generateMetadata({
@@ -34,13 +34,11 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
 
   return (
     <>
-      <JsonLd
-        data={buildBreadcrumbJsonLd([
+      <BreadcrumbJsonLd items={[
           { name: "Home", path: "/" },
           { name: "Blog", path: "/blog" },
           { name: post.title, path: `/blog/${slug}` },
-        ])}
-      />
+        ]} />
       <JsonLd data={buildArticleJsonLd(post)} />
       <BlogPostView post={post} otherPosts={otherPosts} />
     </>
