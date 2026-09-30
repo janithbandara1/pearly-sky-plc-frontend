@@ -139,7 +139,7 @@ export function OurLocationsView() {
           REGIONS.map(({ key, titleKey }) => {
             const items = filtered.filter((loc) => loc.region === key);
             if (items.length === 0) return null;
-            const marqueeDuration = `${Math.max(items.length * 4, 40)}s`;
+            const marqueeDuration = `${Math.max(items.length * 8, 80)}s`;
             return (
               <div key={key} className="mb-12">
                 <h2 className="mb-4 text-3xl text-white text-center font-bold tracking-tight">{translate(titleKey)}</h2>
