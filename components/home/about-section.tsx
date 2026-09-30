@@ -90,8 +90,8 @@ export function AboutSection() {
           </div>
         ))}
       </div>
-      <div className="px-4 bg-[#b8d1dc] py-5 mb-6">
-          <p className="text-gray-700 text-sm md:text-base leading-relaxed text-justify md:text-left">
+      <div className="px-4 bg-brand-navy py-5 mb-6">
+          <p className="text-white text-sm md:text-base leading-relaxed text-justify md:text-left">
             {translate("aboutOurServicesContent")}
           </p>
         </div>
