@@ -347,7 +347,7 @@ const SERVICE_TRANSLATION_KEYS: Record<
 
 export function RequestQuotationView({ serviceSlug }: { serviceSlug: string }) {
   const router = useRouter();
-  const { translate, registerServiceSlugs } = useLanguage();
+  const { language: siteLanguage, translate, registerServiceSlugs } = useLanguage();
   const { country } = useCountry();
   const { status, accessToken } = useAuth();
 
@@ -559,6 +559,7 @@ export function RequestQuotationView({ serviceSlug }: { serviceSlug: string }) {
         durationHours: isPickupDeliveryService ? undefined : durationHours,
         genderPreference: gender || undefined,
         languagePreference: language || undefined,
+        language: siteLanguage,
         specialRequirements: requirements.trim() || undefined,
         firstName: firstName.trim(),
         lastName: lastName.trim() || undefined,

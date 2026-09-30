@@ -33,7 +33,7 @@ function QuotationStatus({ quotationId }: { quotationId: number }) {
   const reference = searchParams.get("ref");
 
   const { status: authStatus } = useAuth();
-  const { translate } = useLanguage();
+  const { translate, language } = useLanguage();
 
   const [quotation, setQuotation] = useState<QuotationStatusSummary | null>(null);
   const [notFound, setNotFound] = useState(false);
@@ -121,7 +121,7 @@ function QuotationStatus({ quotationId }: { quotationId: number }) {
 
   const downloadAction = (
     <a
-      href={getQuotationPdfUrl(quotationId, reference as string)}
+      href={getQuotationPdfUrl(quotationId, reference as string, language)}
       download
       className="flex h-11 w-full items-center justify-center gap-2 rounded-xl border border-brand-gold-dark/50 text-sm font-bold tracking-wider text-brand-navy transition hover:bg-brand-cream/60"
     >

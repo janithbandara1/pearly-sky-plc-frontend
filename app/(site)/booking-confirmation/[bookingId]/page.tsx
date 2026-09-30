@@ -60,7 +60,7 @@ function BookingStatus({ bookingId }: { bookingId: number }) {
 
   const { status: authStatus, accessToken } = useAuth();
   const { formatPrice } = useCurrency();
-  const { translate } = useLanguage();
+  const { translate, language } = useLanguage();
 
   const [booking, setBooking] = useState<BookingStatusSummary | null>(null);
   const [notFound, setNotFound] = useState(false);
@@ -144,7 +144,7 @@ function BookingStatus({ bookingId }: { bookingId: number }) {
 
   const downloadAction = (
     <a
-      href={getBookingPdfUrl(bookingId, reference as string)}
+      href={getBookingPdfUrl(bookingId, reference as string, language)}
       download
       className="flex h-11 w-full items-center justify-center gap-2 rounded-xl border border-brand-gold-dark/50 text-sm font-bold tracking-wider text-brand-navy transition hover:bg-brand-cream/60"
     >

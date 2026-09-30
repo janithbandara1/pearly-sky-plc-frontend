@@ -391,6 +391,7 @@ export default function CheckoutPage({
         durationHours: durationHours || draft.durationHours || 4,
         genderPreference: gender,
         languagePreference: language,
+        language: siteLanguage,
         specialRequirements: [
           draft.serviceContinuityPlan ? `Continuity Plan: ${draft.serviceContinuityPlan}` : null,
           draft.specialRequest ? `Special Request: ${draft.specialRequest}` : null,
@@ -487,6 +488,7 @@ export default function CheckoutPage({
           supplySource: draft.supplySource || undefined,
           genderPreference: gender,
           languagePreference: language,
+          language: siteLanguage,
           specialRequirements,
           howGetIn: howGetIn.trim() || undefined,
           howHeard: howHeard.trim() || undefined,
@@ -529,6 +531,7 @@ export default function CheckoutPage({
           supplySource: draft.supplySource || undefined,
           genderPreference: gender,
           languagePreference: language,
+          language: siteLanguage,
           specialRequirements,
           howGetIn: howGetIn.trim() || undefined,
           howHeard: howHeard.trim() || undefined,

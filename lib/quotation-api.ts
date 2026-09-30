@@ -17,6 +17,8 @@ export interface CreateQuotationPayload {
   durationHours?: number;
   genderPreference?: string;
   languagePreference?: string;
+  /** Current site language — the confirmation email/PDF are rendered in it. */
+  language?: string;
   specialRequirements?: string;
   howGetIn?: string;
   howHeard?: string;
@@ -106,8 +108,9 @@ export function getMyQuotation(accessToken: string, id: number) {
 }
 
 /** Public — the access token authenticates the request, so this works for guests too. */
-export function getQuotationPdfUrl(id: number, accessToken: string) {
-  return apiUrl(`/quotations/${id}/pdf?ref=${encodeURIComponent(accessToken)}`);
+export function getQuotationPdfUrl(id: number, accessToken: string, language?: string) {
+  const lang = language ? `&lang=${encodeURIComponent(language)}` : "";
+  return apiUrl(`/quotations/${id}/pdf?ref=${encodeURIComponent(accessToken)}${lang}`);
 }
 
 export interface QuotationStatusSummary {

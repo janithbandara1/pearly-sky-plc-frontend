@@ -13,6 +13,8 @@ interface BookingPreferencesPayload {
   supplySource?: BookingSupplySource;
   genderPreference?: string;
   languagePreference?: string;
+  /** Current site language — the confirmation email/PDF are rendered in it. */
+  language?: string;
   specialRequirements?: string;
   howGetIn?: string;
   howHeard?: string;
@@ -178,8 +180,9 @@ export function getBookingStatus(bookingId: number, accessToken: string) {
 }
 
 /** Public — the access token authenticates the request, so this works for guests too. */
-export function getBookingPdfUrl(bookingId: number, accessToken: string) {
-  return apiUrl(`/bookings/${bookingId}/pdf?ref=${encodeURIComponent(accessToken)}`);
+export function getBookingPdfUrl(bookingId: number, accessToken: string, language?: string) {
+  const lang = language ? `&lang=${encodeURIComponent(language)}` : "";
+  return apiUrl(`/bookings/${bookingId}/pdf?ref=${encodeURIComponent(accessToken)}${lang}`);
 }
 
 export function initiateCheckout(accessToken: string, bookingId: number) {
