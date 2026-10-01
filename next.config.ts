@@ -3,7 +3,7 @@ import type { NextConfig } from "next";
 const isDev = process.env.NODE_ENV !== "production";
 
 const connectSrc = isDev
-  ? "'self' http://localhost:* http://127.0.0.1:* ws://localhost:* ws://127.0.0.1:* wss://client.relay.crisp.chat"
+  ? "'self' http://localhost:* http://127.0.0.1:* ws://localhost:* ws://127.0.0.1:* wss://client.relay.crisp.chat https://*.crisp.chat https://*.r2.cloudflarestorage.com"
   : "'self' https: wss://client.relay.crisp.chat";
 
 const securityHeaders = [
@@ -23,13 +23,16 @@ const securityHeaders = [
       // this app opts into per-request, so it must be allow-listed unconditionally.
       "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://challenges.cloudflare.com https://client.crisp.chat https://static.cloudflareinsights.com",
       "style-src 'self' 'unsafe-inline' https://client.crisp.chat",
-      "img-src 'self' data: https:",
+      // blob: is the local preview of a photo picked in the checkout attachment field.
+      "img-src 'self' data: blob: https:",
       "font-src 'self' data: https://client.crisp.chat",
       // The dev API backend runs on plain http://localhost — only allowed
       // outside production so the production CSP stays https-only. The
       // broad "https:" already covers challenges.cloudflare.com (Turnstile's
       // verification endpoint) and Crisp's REST calls, so they need no
       // separate entry here; the Crisp chat socket needs its own wss: entry.
+      // Checkout attachments upload straight to Cloudflare R2 — covered by
+      // "https:" in production, listed explicitly in the dev allow-list.
      `connect-src ${connectSrc}`,// Added THIS LINE – allows Google Maps iframes. challenges.cloudflare.com
       // renders Turnstile's interactive-challenge iframe; client.crisp.chat
       // renders the chat widget's iframe.

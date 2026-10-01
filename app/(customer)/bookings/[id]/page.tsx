@@ -101,6 +101,7 @@ export default function BookingDetailsPage() {
       {!loading && booking && (
         <BookingSummaryCard
           referenceNumber={booking.referenceNumber}
+          attachmentLinks={booking.attachmentLinks}
           status={booking.status}
           dueAtBooking={dueAtBooking}
           estimatedMin={hasEstimate ? estimatedMin : null}

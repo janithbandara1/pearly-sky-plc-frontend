@@ -1,3 +1,4 @@
+import type { AttachmentLink, AttachmentRef } from "./upload-api";
 import { apiFetch, apiUrl } from "./api";
 
 export type BookingSupplySource = "customer" | "company";
@@ -15,6 +16,8 @@ interface BookingPreferencesPayload {
   languagePreference?: string;
   /** Current site language — the confirmation email/PDF are rendered in it. */
   language?: string;
+  /** Files uploaded at checkout / on the quotation form (see lib/upload-api.ts). */
+  attachments?: AttachmentRef[];
   specialRequirements?: string;
   howGetIn?: string;
   howHeard?: string;
@@ -96,6 +99,8 @@ export interface BookingAddress {
 }
 
 export interface Booking {
+  /** Files attached at checkout, with short-lived open links (detail endpoints only). */
+  attachmentLinks?: AttachmentLink[];
   id: number;
   referenceNumber: string;
   /** High-entropy capability token for the public guest checkout/status/PDF endpoints — never referenceNumber, which is guessable. */

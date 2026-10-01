@@ -17,12 +17,15 @@ import {
   Users,
   Wallet,
   Wind,
+  Paperclip,
 } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { GENDER_OPTIONS, LANGUAGE_OPTIONS } from "@/components/booking/quotation-preferences-section";
 import { GENERAL_STEAM_CARDS } from "@/components/booking/steam/general-steam-section";
 import { INDUSTRIAL_STEAM_CATEGORIES } from "@/components/booking/steam/industrial-commercial-steam-section";
+import { SummaryAttachments } from "@/components/booking/summary-attachments";
+import type { AttachmentLink } from "@/lib/upload-api";
 import { useLanguage } from "@/lib/i18n/language-context";
 
 const GENERAL_STEAM_TITLES = new Set(GENERAL_STEAM_CARDS.map((card) => card.title));
@@ -98,6 +101,8 @@ export interface BookingSummaryCardProps {
   footer?: ReactNode;
   /** default true — set false to hide pricing from viewers who shouldn't see it (e.g. cleaners) */
   showPaymentInfo?: boolean;
+  /** Files attached at checkout, with short-lived open links. */
+  attachmentLinks?: AttachmentLink[];
 }
 
 function Field({ label, value }: { label: string; value: ReactNode }) {
@@ -174,6 +179,7 @@ export function BookingSummaryCard({
   address,
   footer,
   showPaymentInfo = true,
+  attachmentLinks,
 }: BookingSummaryCardProps) {
   const { translate } = useLanguage();
   const hasEstimate = estimatedMin !== null && estimatedMax !== null;
@@ -407,6 +413,12 @@ export function BookingSummaryCard({
                   ))}
                 </ul>
               ) : null}
+            </SectionCard>
+          ) : null}
+
+          {attachmentLinks?.length ? (
+            <SectionCard icon={Paperclip} label={translate("summaryAttachments")}>
+              <SummaryAttachments attachments={attachmentLinks} />
             </SectionCard>
           ) : null}
         </div>

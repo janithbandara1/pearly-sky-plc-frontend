@@ -65,6 +65,7 @@ export default function QuotationDetailsPage() {
       {!loading && quotation && (
         <QuotationSummaryCard
           referenceNumber={quotation.referenceNumber}
+          attachmentLinks={quotation.attachmentLinks}
           status={quotation.status}
           serviceLabel={quotation.service.label}
           date={quotation.date}

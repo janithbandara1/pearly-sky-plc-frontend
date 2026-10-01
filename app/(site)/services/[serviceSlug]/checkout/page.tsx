@@ -58,6 +58,11 @@ import {
 
 import TermsAndConditions  from "@/components/booking/termsandConditionPops/terms-condition-pop-up";
 import { TranslationKey } from "@/lib/i18n/dictionaries/en";
+import {
+  hasPendingAttachmentUploads,
+  uploadedAttachments,
+  type CheckoutAttachment,
+} from "@/components/booking/checkout-attachment-upload";
 
 const poppins = Poppins({ subsets: ["latin"], weight: ["400", "500", "600", "700", "800"] });
 
@@ -184,6 +189,7 @@ export default function CheckoutPage({
   const [gender, setGender] = useState("no-preference");
   const [language, setLanguage] = useState(DEFAULT_LANGUAGE_PREFERENCE[siteLanguage]);
   const [requirements, setRequirements] = useState("");
+  const [attachments, setAttachments] = useState<CheckoutAttachment[]>([]);
 
   const [error, setError] = useState<string | null>(null);
   const [submitting, setSubmitting] = useState(false);
@@ -352,6 +358,10 @@ export default function CheckoutPage({
       setError("signupErrorTermsRequired");
       return;
     }
+    if (hasPendingAttachmentUploads(attachments)) {
+      setError(translate("preferencesAttachmentsWait"));
+      return;
+    }
 
     setSubmitting(true);
     try {
@@ -392,6 +402,7 @@ export default function CheckoutPage({
         genderPreference: gender,
         languagePreference: language,
         language: siteLanguage,
+        attachments: uploadedAttachments(attachments),
         specialRequirements: [
           draft.serviceContinuityPlan ? `Continuity Plan: ${draft.serviceContinuityPlan}` : null,
           draft.specialRequest ? `Special Request: ${draft.specialRequest}` : null,
@@ -436,6 +447,10 @@ export default function CheckoutPage({
     if (!draft) return;
     if (!agreedToTerms) {
       setError("Please agree to the Terms and Conditions and Privacy Policy to continue.");
+      return;
+    }
+    if (hasPendingAttachmentUploads(attachments)) {
+      setError(translate("preferencesAttachmentsWait"));
       return;
     }
     setError(null);
@@ -489,6 +504,7 @@ export default function CheckoutPage({
           genderPreference: gender,
           languagePreference: language,
           language: siteLanguage,
+          attachments: uploadedAttachments(attachments),
           specialRequirements,
           howGetIn: howGetIn.trim() || undefined,
           howHeard: howHeard.trim() || undefined,
@@ -532,6 +548,7 @@ export default function CheckoutPage({
           genderPreference: gender,
           languagePreference: language,
           language: siteLanguage,
+          attachments: uploadedAttachments(attachments),
           specialRequirements,
           howGetIn: howGetIn.trim() || undefined,
           howHeard: howHeard.trim() || undefined,
@@ -669,6 +686,8 @@ export default function CheckoutPage({
               onLanguageChange={setLanguage}
               requirements={requirements}
               onRequirementsChange={setRequirements}
+              attachments={attachments}
+              onAttachmentsChange={setAttachments}
             />
           )}
 
@@ -1045,6 +1064,8 @@ export default function CheckoutPage({
               onLanguageChange={setLanguage}
               requirements={requirements}
               onRequirementsChange={setRequirements}
+              attachments={attachments}
+              onAttachmentsChange={setAttachments}
             />
 
             <Card className="bg-brand-navy text-brand-navy-foreground">

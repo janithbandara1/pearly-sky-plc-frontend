@@ -1,3 +1,4 @@
+import type { AttachmentLink, AttachmentRef } from "./upload-api";
 import { apiFetch, apiUrl } from "./api";
 import type { BookingLineItem, BookingSupplySource } from "./booking-api";
 
@@ -19,6 +20,8 @@ export interface CreateQuotationPayload {
   languagePreference?: string;
   /** Current site language — the confirmation email/PDF are rendered in it. */
   language?: string;
+  /** Files uploaded at checkout / on the quotation form (see lib/upload-api.ts). */
+  attachments?: AttachmentRef[];
   specialRequirements?: string;
   howGetIn?: string;
   howHeard?: string;
@@ -56,6 +59,8 @@ export interface QuotationCustomer {
 }
 
 export interface Quotation {
+  /** Files attached at checkout, with short-lived open links (detail endpoints only). */
+  attachmentLinks?: AttachmentLink[];
   id: number;
   customerId: number;
   serviceId: number;

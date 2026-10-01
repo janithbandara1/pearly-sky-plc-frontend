@@ -36,6 +36,12 @@ import type { TranslationKey } from "@/lib/i18n/dictionaries/en";
 import { SERVICE_CONTENT } from "@/lib/content/service-details";
 import { createQuotation } from "@/lib/quotation-api";
 import {
+  CheckoutAttachmentUpload,
+  hasPendingAttachmentUploads,
+  uploadedAttachments,
+  type CheckoutAttachment,
+} from "@/components/booking/checkout-attachment-upload";
+import {
   CARPET_ITEM_OPTIONS,
   formatQuoteItem,
   POOL_ITEM_OPTIONS,
@@ -378,6 +384,7 @@ export function RequestQuotationView({ serviceSlug }: { serviceSlug: string }) {
   const [gender, setGender] = useState("");
   const [language, setLanguage] = useState("");
   const [requirements, setRequirements] = useState("");
+  const [attachments, setAttachments] = useState<CheckoutAttachment[]>([]);
 
   // Contact profile
   const [firstName, setFirstName] = useState("");
@@ -523,6 +530,11 @@ export function RequestQuotationView({ serviceSlug }: { serviceSlug: string }) {
 
     if (!service) return;
 
+    if (hasPendingAttachmentUploads(attachments)) {
+      setSubmitError(translate("preferencesAttachmentsWait"));
+      return;
+    }
+
     const items = (service.serviceItems ?? []).map((si) => si.item);
     const selectedItems =
       supplySource === "customer"
@@ -560,6 +572,7 @@ export function RequestQuotationView({ serviceSlug }: { serviceSlug: string }) {
         genderPreference: gender || undefined,
         languagePreference: language || undefined,
         language: siteLanguage,
+        attachments: uploadedAttachments(attachments),
         specialRequirements: requirements.trim() || undefined,
         firstName: firstName.trim(),
         lastName: lastName.trim() || undefined,
@@ -901,6 +914,14 @@ export function RequestQuotationView({ serviceSlug }: { serviceSlug: string }) {
                 className="h-24 w-full rounded-lg border border-[#A98B4B]/40 bg-[#FFFDF4] p-3 text-xs sm:text-sm text-brand-navy shadow-inner placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#A98B4B]"
               />
             </div>
+
+            {/* Photos */}
+            <CheckoutAttachmentUpload
+              attachments={attachments}
+              onAttachmentsChange={setAttachments}
+              tone="light"
+              labelPrefix={hideChemEquip ? "5." : isPickupDeliveryService ? "6." : "9."}
+            />
 
             {/* CONTACT PROFILE SECTION */}
             <div className="space-y-4 pt-2">

@@ -10,11 +10,14 @@ import {
   SlidersHorizontal,
   SprayCan,
   Users,
+  Paperclip,
 } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { GENDER_OPTIONS, LANGUAGE_OPTIONS } from "@/components/booking/quotation-preferences-section";
 import type { QuotationStatus } from "@/lib/quotation-api";
+import { SummaryAttachments } from "@/components/booking/summary-attachments";
+import type { AttachmentLink } from "@/lib/upload-api";
 import { useLanguage } from "@/lib/i18n/language-context";
 
 /** Matches the quoteItemsTitle set for child/elder care quotations — see careQuoteItemsTitle in request-quotation/page.tsx. */
@@ -111,6 +114,8 @@ export interface QuotationSummaryCardProps {
   deliveryAddress?: QuotationSummaryAddress | null;
   /** e.g. a status-change action rendered under the overview card */
   footer?: ReactNode;
+  /** Files attached at checkout, with short-lived open links. */
+  attachmentLinks?: AttachmentLink[];
 }
 
 export function QuotationSummaryCard({
@@ -138,6 +143,7 @@ export function QuotationSummaryCard({
   address,
   deliveryAddress,
   footer,
+  attachmentLinks,
 }: QuotationSummaryCardProps) {
   const { translate } = useLanguage();
   const hasContact = customerName !== undefined || customerEmail !== undefined || customerPhone !== undefined;
@@ -292,6 +298,12 @@ export function QuotationSummaryCard({
                 ))}
               </ul>
             ) : null}
+          </SectionCard>
+        ) : null}
+
+        {attachmentLinks?.length ? (
+          <SectionCard icon={Paperclip} label={translate("summaryAttachments")}>
+            <SummaryAttachments attachments={attachmentLinks} />
           </SectionCard>
         ) : null}
       </div>

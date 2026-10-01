@@ -1,6 +1,7 @@
 "use client";
 
 import { Minus, Plus } from "lucide-react";
+import { CheckoutAttachmentUpload, type CheckoutAttachment } from "@/components/booking/checkout-attachment-upload";
 import { Card, CardContent } from "@/components/ui/card";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
@@ -83,6 +84,9 @@ export interface QuotationPreferencesSectionProps {
   onLanguageChange: (value: string) => void;
   requirements: string;
   onRequirementsChange: (value: string) => void;
+  /** File upload is shown only when these are passed (checkout). */
+  attachments?: CheckoutAttachment[];
+  onAttachmentsChange?: (update: (prev: CheckoutAttachment[]) => CheckoutAttachment[]) => void;
 }
 
 export function QuotationPreferencesSection({
@@ -97,6 +101,8 @@ export function QuotationPreferencesSection({
   onLanguageChange,
   requirements,
   onRequirementsChange,
+  attachments,
+  onAttachmentsChange,
 }: QuotationPreferencesSectionProps) {
   const { translate } = useLanguage();
   return (
@@ -165,6 +171,12 @@ export function QuotationPreferencesSection({
               className="bg-brand-cream text-brand-navy"
             />
           </div>
+
+          {attachments && onAttachmentsChange && (
+            <div className="md:col-span-2">
+              <CheckoutAttachmentUpload attachments={attachments} onAttachmentsChange={onAttachmentsChange} />
+            </div>
+          )}
         </div>
       </CardContent>
     </Card>

@@ -1,6 +1,7 @@
 "use client";
 
 import { GENDER_OPTIONS, LANGUAGE_OPTIONS } from "@/components/booking/quotation-preferences-section";
+import { CheckoutAttachmentUpload, type CheckoutAttachment } from "@/components/booking/checkout-attachment-upload";
 import { Card, CardContent } from "@/components/ui/card";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
@@ -14,6 +15,9 @@ export interface ServicePreferencesSectionProps {
   onLanguageChange: (value: string) => void;
   requirements: string;
   onRequirementsChange: (value: string) => void;
+  /** File upload is shown only when these are passed (checkout). */
+  attachments?: CheckoutAttachment[];
+  onAttachmentsChange?: (update: (prev: CheckoutAttachment[]) => CheckoutAttachment[]) => void;
 }
 
 export function ServicePreferencesSection({
@@ -23,6 +27,8 @@ export function ServicePreferencesSection({
   onLanguageChange,
   requirements,
   onRequirementsChange,
+  attachments,
+  onAttachmentsChange,
 }: ServicePreferencesSectionProps) {
   const { translate } = useLanguage();
   return (
@@ -74,6 +80,12 @@ export function ServicePreferencesSection({
               className="bg-brand-cream text-brand-navy"
             />
           </div>
+
+          {attachments && onAttachmentsChange && (
+            <div className="sm:col-span-2">
+              <CheckoutAttachmentUpload attachments={attachments} onAttachmentsChange={onAttachmentsChange} />
+            </div>
+          )}
         </div>
       </CardContent>
     </Card>

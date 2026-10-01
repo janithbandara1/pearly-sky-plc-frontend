@@ -1,3 +1,4 @@
+import type { AttachmentLink } from "./upload-api";
 import { apiFetch } from "./api";
 
 export interface AdminBookingCustomer {
@@ -57,6 +58,8 @@ export interface AdminBookingServiceDetails {
 }
 
 export interface AdminBooking {
+  /** Files attached at checkout, with short-lived open links (detail endpoints only). */
+  attachmentLinks?: AttachmentLink[];
   id: number;
   referenceNumber: string;
   status: "pending" | "confirmed" | "cancelled";
