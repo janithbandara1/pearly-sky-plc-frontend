@@ -11,7 +11,7 @@ import CustomerFeedback from "@/components/customers/customer-feedbacks";
 import RandomImageGrid from "@/components/customers/Recentprojects";
 import ReviewMarquee from "@/components/customers/customer-reviews";
 import PaymentMarquee from "@/components/payment-method-services";
-import Link from "next/link"
+import Link from "@/components/locale-link";
 
 const CLIENTELE: TranslationKey[] = [
   "customersClientele1",

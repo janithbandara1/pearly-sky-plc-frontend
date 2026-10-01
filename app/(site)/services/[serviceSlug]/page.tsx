@@ -8,6 +8,7 @@ import { buildServiceAlternates, buildSocialMeta } from "@/lib/countries/seo";
 import { getServiceMeta } from "@/lib/countries/service-meta";
 import { BreadcrumbJsonLd } from "@/components/json-ld";
 import { buildLocalePath } from "@/lib/locale";
+import { hasServicePage } from "@/lib/service-flows";
 import { ServiceBookingView } from "./service-booking-view";
 import JoinWithUsSection from "@/components/booking/join-with-us-section";
 import RelatedServices from "@/components/services-links";
@@ -71,6 +72,18 @@ export default async function ServiceDetailPage({
   } catch (err) {
     if (err instanceof ApiError && err.status === 404) notFound();
     // Transient API failure — fall through with the raw values; the booking view's own fallback handles it.
+  }
+
+  // No Book Now flow for this service (e.g. laundry-service): rather than a
+  // 200 "Book now … isn't available yet" page that search engines index as
+  // a real page, send the visitor (and crawler) to the quotation form, or
+  // 404 when the service takes neither bookings nor quotations. Checked
+  // before the slug fix-up below so an old link reaches the form in one hop.
+  if (service && !hasServicePage(service)) {
+    if (service.isQuotable) {
+      permanentRedirect(buildLocalePath(`/services/${service.slug}/request-quotation`, language ?? "en"));
+    }
+    notFound();
   }
 
   // Reached via a non-canonical slug for this language (e.g. the base

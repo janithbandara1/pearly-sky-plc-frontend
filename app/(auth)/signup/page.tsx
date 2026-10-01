@@ -1,6 +1,6 @@
 "use client";
 import Image from "next/image";
-import Link from "next/link";
+import Link from "@/components/locale-link";
 import { SignupForm } from "@/components/signup-form";
 import { useLanguage } from "@/lib/i18n/language-context";
 import { ArrowLeft } from "lucide-react";

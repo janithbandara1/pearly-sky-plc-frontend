@@ -1,7 +1,7 @@
 "use client";
 
 import { useMemo, useState } from "react";
-import Link from "next/link";
+import Link from "@/components/locale-link";
 import { ArrowLeft, Briefcase, MapPin, Search } from "lucide-react";
 import { PageHero } from "@/components/careers/careers-hero";
 import { Card, CardContent } from "@/components/ui/card";

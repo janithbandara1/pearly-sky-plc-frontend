@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import Link from "next/link";
+import Link from "@/components/locale-link";
 import { useState, useRef, useEffect } from "react";
 import { getServices, ServicePriceEntry } from "@/lib/catalog-api";
 

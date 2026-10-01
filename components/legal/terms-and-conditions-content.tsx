@@ -1,4 +1,4 @@
-import Link from "next/link";
+import Link from "@/components/locale-link";
 
 /** Shared by the full `/terms-and-conditions` page and the cookie banner's policy modal — one source of truth for the copy. */
 export function TermsAndConditionsContent() {

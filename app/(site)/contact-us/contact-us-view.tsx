@@ -8,7 +8,7 @@ import { useLanguage } from "@/lib/i18n/language-context";
 import { getCountryPageContent } from "@/lib/countries/page-content";
 import { locations, officeLocations } from "@/lib/content/locations";
 import { Socialmedialinks } from "@/components/contactus/social-media";
-import Link from "next/link";
+import Link from "@/components/locale-link";
 
 export function ContactUsView() {
   const { translate, language } = useLanguage();

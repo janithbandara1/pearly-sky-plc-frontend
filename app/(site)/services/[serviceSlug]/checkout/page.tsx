@@ -5,7 +5,7 @@ import { useLanguage, type SupportedLanguage } from "@/lib/i18n/language-context
 
 
 import { Poppins } from "next/font/google";
-import Link from "next/link";
+import Link from "@/components/locale-link";
 import { useRouter } from "next/navigation";
 import { use, useCallback, useEffect, useState } from "react";
 import { BookingDetailsCard } from "@/components/booking/booking-details-card";

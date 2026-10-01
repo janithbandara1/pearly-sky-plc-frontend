@@ -35,3 +35,31 @@ export function extractLocalePrefix(
 
   return { language, rest: rest || "/" };
 }
+
+/**
+ * Pages with no language prefix of their own (no LanguageProvider-driven
+ * URL language above them — see their layouts). proxy.ts never redirects
+ * them into a /{language} URL, and localizeHref never prefixes links to them.
+ */
+export function isLocaleExcluded(pathname: string): boolean {
+  return pathname === "/login" || pathname === "/signup" || pathname.startsWith("/staff");
+}
+
+/**
+ * Prefixes an internal link with the current page's language, e.g.
+ * "/services/nettoyage-regulier" -> "/fr/services/nettoyage-regulier", so
+ * crawlers (which carry no language cookie) never hit proxy.ts's unprefixed
+ * redirect — and a link on a French page leads to the French page. Leaves
+ * external/protocol-relative links, hash/query-only links, already-prefixed
+ * paths and isLocaleExcluded pages untouched.
+ */
+export function localizeHref(href: string, language: LanguageCode): string {
+  if (!href.startsWith("/") || href.startsWith("//")) return href;
+
+  const match = href.match(/^([^?#]*)(.*)$/);
+  const pathname = match?.[1] || "/";
+  const suffix = match?.[2] ?? "";
+  if (extractLocalePrefix(pathname) !== null || isLocaleExcluded(pathname)) return href;
+
+  return `${buildLocalePath(pathname, language)}${suffix}`;
+}

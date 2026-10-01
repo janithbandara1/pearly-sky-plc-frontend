@@ -26,6 +26,12 @@ export type Dictionary = Partial<Record<TranslationKey, TranslationValue>>;
 
 type LanguageContextType = {
   language: SupportedLanguage;
+  /**
+   * The language segment actually in the current URL ("/fr/..."), or null on
+   * unprefixed pages (/login, /signup, /staff). Internal links are prefixed
+   * with it (see components/locale-link.tsx) only when it is set.
+   */
+  urlLanguage: SupportedLanguage | null;
   /** No-op when there's no country in the URL to pair a language segment with. */
   setLanguage: (language: SupportedLanguage) => void;
   translate: (key: TranslationKey) => string;
@@ -42,6 +48,7 @@ type LanguageContextType = {
 
 const LanguageContext = createContext<LanguageContextType>({
   language: "en",
+  urlLanguage: null,
   setLanguage: () => {},
   translate: (key) => key,
   registerServiceSlugs: () => {},
@@ -70,6 +77,7 @@ export function LanguageProvider({
   const value = useMemo<LanguageContextType>(
     () => ({
       language: resolvedLanguage,
+      urlLanguage: language,
       setLanguage: (next) => {
         document.cookie = `${LANGUAGE_COOKIE_NAME}=${next}; path=/; max-age=${LANGUAGE_COOKIE_MAX_AGE}; samesite=lax`;
 
@@ -103,7 +111,7 @@ export function LanguageProvider({
         serviceSlugsRef.current = service;
       },
     }),
-    [resolvedLanguage, dictionary, pathname, searchParams],
+    [resolvedLanguage, language, dictionary, pathname, searchParams],
   );
 
   return <LanguageContext.Provider value={value}>{children}</LanguageContext.Provider>;

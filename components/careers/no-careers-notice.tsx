@@ -1,4 +1,4 @@
-import Link from "next/link";
+import Link from "@/components/locale-link";
 import { ArrowLeft } from "lucide-react";
 import { PageHero } from "@/components/careers/careers-hero";
 

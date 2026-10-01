@@ -1,6 +1,6 @@
 "use client";
 
-import Link from "next/link";
+import Link from "@/components/locale-link";
 import { ReactNode } from "react";
 import { ArrowLeft, LucideIcon, Sparkles } from "lucide-react";
 import { QRCodeSVG } from "qrcode.react";

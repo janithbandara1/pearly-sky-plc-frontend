@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { getServiceBySlug } from "@/lib/catalog-api";
+import { getServiceBySlug, type CatalogServiceDetail } from "@/lib/catalog-api";
 import { getRequestCountry } from "@/lib/countries/server";
 import { getRequestLanguage } from "@/lib/i18n/server";
 import { buildServiceAlternates, buildSocialMeta } from "@/lib/countries/seo";
@@ -7,6 +7,7 @@ import { BreadcrumbJsonLd } from "@/components/json-ld";
 import { notFound, permanentRedirect } from "next/navigation";
 import { ApiError } from "@/lib/api";
 import { buildLocalePath } from "@/lib/locale";
+import { hasServicePage } from "@/lib/service-flows";
 import { RequestQuotationView } from "./request-quotation-view";
 import JoinWithUsSection from "@/components/booking/join-with-us-section";
 import RelatedServices from "@/components/services-links";
@@ -44,8 +45,9 @@ export default async function RequestQuotationPage({
   let canonicalSlug = serviceSlug;
   let label = serviceSlug;
   let localizedSlug: string | null = null;
+  let service: CatalogServiceDetail | null = null;
   try {
-    const service = await getServiceBySlug(serviceSlug, country, language);
+    service = await getServiceBySlug(serviceSlug, country, language);
     canonicalSlug = service.name;
     label = service.localizedName;
     localizedSlug = service.slug;
@@ -62,6 +64,17 @@ export default async function RequestQuotationPage({
     canonicalSlug === "precision-pressure-washing"
   ) {
     permanentRedirect(buildLocalePath(`/services/${localizedSlug ?? serviceSlug}`, language ?? "en"));
+  }
+
+  // Service takes no quotation requests: rather than a 200 form whose
+  // submission the backend rejects (and that search engines index as a real
+  // page), send the visitor to its Book Now page, or 404 when it has none —
+  // the mirror of the booking page's check (see lib/service-flows.ts).
+  if (service && !service.isQuotable) {
+    if (hasServicePage(service)) {
+      permanentRedirect(buildLocalePath(`/services/${service.slug}`, language ?? "en"));
+    }
+    notFound();
   }
 
   // Reached via a non-canonical slug for this language (e.g. the base

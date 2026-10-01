@@ -8,7 +8,7 @@ import { LocationCard } from "@/components/locations/locations-grids";
 import { useLanguage } from "@/lib/i18n/language-context";
 import { locations, type Location } from "@/lib/content/locations";
 import { Socialmedialinks } from "@/components/contactus/social-media";
-import Link from "next/link";
+import Link from "@/components/locale-link";
 
 const REGIONS: { key: Location["region"]; titleKey: "locationsEurope" | "locationsAsiaPacific" | "locationsAmericas" }[] = [
   { key: "europe", titleKey: "locationsEurope" },

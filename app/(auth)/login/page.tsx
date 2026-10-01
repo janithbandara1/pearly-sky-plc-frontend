@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import Link from "next/link";
+import Link from "@/components/locale-link";
 import { useRouter } from "next/navigation";
 import { LoginForm } from "@/components/login-form";
 import { useAuth } from "@/lib/auth-context";

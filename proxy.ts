@@ -9,7 +9,7 @@ import {
   type LanguageCode,
 } from "@/lib/i18n/config";
 import { detectLanguageFromHeaders } from "@/lib/i18n/geo";
-import { buildLocalePath, extractLocalePrefix } from "@/lib/locale";
+import { buildLocalePath, extractLocalePrefix, isLocaleExcluded } from "@/lib/locale";
 
 const CUSTOMER_PROTECTED_PREFIXES = ["/bookings", "/quotations", "/profile", "/addresses"];
 
@@ -39,12 +39,6 @@ function isGlobalSiteAllowedPath(pathname: string): boolean {
   return GLOBAL_SITE_ALLOWED_PREFIXES.some(
     (prefix) => pathname === prefix || pathname.startsWith(`${prefix}/`),
   );
-}
-
-// Pages with no LanguageProvider above them (see their layouts) — never
-// candidates for the unprefixed -> /{language} redirect below.
-function isLocaleExcluded(pathname: string): boolean {
-  return pathname === "/login" || pathname === "/signup" || pathname.startsWith("/staff");
 }
 
 // Optimistic-only: a present hint cookie doesn't guarantee a valid session, and a

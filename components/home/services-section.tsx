@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import Link from "next/link";
+import Link from "@/components/locale-link";
 import { useState } from "react";
 import { ArrowRight, ChevronDown, ChevronUp, Key } from "lucide-react";
 import type { CatalogService, ServiceCategory } from "@/lib/catalog-api";

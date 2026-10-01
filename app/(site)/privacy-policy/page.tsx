@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import Link from "next/link";
+import Link from "@/components/locale-link";
 import { PageHero } from "@/components/page-hero";
 import { BreadcrumbJsonLd } from "@/components/json-ld";
 import { getRequestLanguage } from "@/lib/i18n/server";

@@ -20,7 +20,7 @@ import { ApiError } from "@/lib/api";
 import { sendContactMessage } from "@/lib/contact-api";
 import { PhoneInput } from "@/components/phone-input";
 import { TurnstileWidget, type TurnstileHandle } from "@/components/turnstile";
-import Link from "next/link";
+import Link from "@/components/locale-link";
 
 const CONTACT_EMAIL = "info@pearlyskyglobalclean.com";
 

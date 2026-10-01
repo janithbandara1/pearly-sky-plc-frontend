@@ -1,6 +1,7 @@
 "use client";
 
-import Link from "next/link";
+import Link from "@/components/locale-link";
+import { isDedicatedFlowService } from "@/lib/service-flows";
 import { Poppins } from "next/font/google";
 import { useRouter } from "next/navigation";
 import { useEffect, useState, type Dispatch, type SetStateAction } from "react";
@@ -253,12 +254,7 @@ export function ServiceBookingView({
   const isPressureWashing = serviceSlug === PRESSURE_WASHING_SLUG;
   const isYachtService = serviceSlug === YACHT_SLUG;
   const isCareService = isChildCare || isElderCare;
-  const isFlowService =
-    isCareService ||
-    isCarpetService ||
-    isPoolCleaning ||
-    isPressureWashing ||
-    isYachtService; 
+  const isFlowService = isDedicatedFlowService(serviceSlug);
   const serviceContent = SERVICE_CONTENT[serviceSlug];
 
   const [initialState] = useState(() =>

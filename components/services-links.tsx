@@ -1,6 +1,6 @@
 "use client"
 import { useLanguage } from "@/lib/i18n/language-context";
-import Link from "next/link";
+import Link from "@/components/locale-link";
 import { TranslationKey } from "@/lib/i18n/dictionaries/en";
 interface ServiceLink {
   title: TranslationKey;
@@ -22,7 +22,8 @@ const relatedServices: ServiceLink[] = [
     title: "serviceLablePostConstructionRenovationCleaning",
     href: "/services/post-construction-renovation-cleaning",
   },
-  { title: "serviceLableLaundryService", href: "/services/laundry-service" },
+  // Quotation-only — laundry has no Book Now flow (see lib/service-flows.ts).
+  { title: "serviceLableLaundryService", href: "/services/laundry-service/request-quotation" },
   { title: "serviceLableCommercialOfficeCleaning", href: "/services/commercial-office-cleaning" },
 ];
 

@@ -1,13 +1,14 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import Link from "next/link";
+import Link from "@/components/locale-link";
 import { getServices } from "@/lib/catalog-api";
 import type { CatalogService } from "@/lib/catalog-api";
 import { useCountry } from "@/lib/countries/country-context";
 import { useLanguage } from "@/lib/i18n/language-context";
 import { buildLocalePath } from "@/lib/locale";
 import type { TranslationKey } from "@/lib/i18n/dictionaries/en";
+import { hasServicePage } from "@/lib/service-flows";
 
 export function useCatalogServices() {
   const { country } = useCountry();
@@ -88,14 +89,7 @@ export function ServicesNavList({
       className={`grid min-w-0 gap-1 p-1 ${scrollable ? "max-h-[60vh] overflow-y-auto" : ""} ${className}`}
     >
       {services.map((service) => {
-        const isDedicatedFlow =
-          service.name === "child-care-service" ||
-          service.name === "elder-care-service" ||
-          service.name === "carpet-upholstery-cleaning" ||
-          service.name === "pool-cleaning" ||
-          service.name === "precision-pressure-washing" ||
-          service.name === "luxury-yacht-cleaning";
-        const rawHref = isDedicatedFlow || service.isBookable
+        const rawHref = hasServicePage(service)
           ? `/services/${service.slug}`
           : service.isQuotable
             ? `/services/${service.slug}/request-quotation`

@@ -23,7 +23,7 @@ interface Region {
   objectPosition:string;
   linkTag:string,
 }
-import Link from "next/link";
+import Link from "@/components/locale-link";
 import { SOCIAL_URLS } from "@/lib/content/social-links";
 import {
   AiOutlineTikTok,
