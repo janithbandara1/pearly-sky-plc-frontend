@@ -47,6 +47,8 @@ import { CarpetScheduleSection } from "@/components/booking/carpet/carpet-schedu
 import { PoolScheduleSection } from "@/components/booking/pool/pool-schedule-section";
 import { PressureWashingScheduleSection } from "@/components/booking/pressure-washing/pressure-washing-schedule-section";
 import { YachtScheduleSection } from "@/components/booking/yacht/yacht-schedule-section";
+import { getPropertyCategoriesForServiceOfSanitize, PropertyTypeSizeSelectorSanitize } from "@/components/booking/sanitize/sanitize-property-types";
+import { EquipmentSectionOfSanitize } from "@/components/booking/sanitize/sanitize-equipment-section";
 
 const poppins = Poppins({ subsets: ["latin"], weight: ["400", "500", "600", "700", "800"] });
 
@@ -67,7 +69,7 @@ const YACHT_SLUG = "luxury-yacht-cleaning";
 
 /** Care and quotation services with dedicated scheduling and profile flows. */
 const CHILD_CARE_SLUG = "child-care-service";
-const ELDER_CARE_SLUG = "elder-care-service";
+const ELDER_CARE_SLUG = "elder-care-service"; 
 const CARPET_UPHOLSTERY_SLUG = "carpet-upholstery-cleaning";
 const POOL_CLEANING_SLUG = "pool-cleaning";
 const PRESSURE_WASHING_SLUG = "precision-pressure-washing";
@@ -267,7 +269,7 @@ export function ServiceBookingView({
   const [selectedItemIds, setSelectedItemIds] = useState<Set<number>>(new Set());
 
   const [propertySizeSqm, setPropertySizeSqm] = useState(20);
-  const [propertyType, setPropertyType] = useState("");
+  const [propertyType, setPropertyType] = useState(""); 
   const [quote, setQuote] = useState<SizeQuote | null>(null);
   const [quoteLoading, setQuoteLoading] = useState(false);
 
@@ -660,13 +662,22 @@ export function ServiceBookingView({
             )}
 
             <DateTimeSection date={date} onDateChange={setDate} time={time} onTimeChange={setTime} />
-
-            <PropertyTypeSizeSelector
+ 
+            {isSanitization ? 
+            (<PropertyTypeSizeSelectorSanitize 
+              value={propertySizeSqm}
+              onChange={setPropertySizeSqm}
+              categories={getPropertyCategoriesForServiceOfSanitize(serviceSlug)}
+              onCategoryChange={(cat: PropertyCategory) => setPropertyType(cat.dropdownLabel ?? cat.label)}
+            
+            />)
+            :(<PropertyTypeSizeSelector
               value={propertySizeSqm}
               onChange={setPropertySizeSqm}
               categories={getPropertyCategoriesForService(serviceSlug)}
               onCategoryChange={(cat: PropertyCategory) => setPropertyType(cat.dropdownLabel ?? cat.label)}
-            />
+            />)}
+            
             
 
             {isEvent ? ((() => {
@@ -698,6 +709,37 @@ export function ServiceBookingView({
                 />
               );
             })()) :
+            isSanitization ? (
+              (() => {
+                const categories = getPropertyCategoriesForService(serviceSlug);
+                const pTypeLower = (propertyType || "").toLowerCase();
+                const activeCategory =
+                  categories.find(
+                    (c: PropertyCategory) =>
+                      pTypeLower.includes(c.id.toLowerCase()) ||
+                      pTypeLower.includes(c.label.toLowerCase()),
+                  ) ?? categories[0];
+
+                return (
+                  <EquipmentSectionOfSanitize
+                    propertyType={propertyType || activeCategory.label}
+                    categoryIcon={activeCategory.icon}
+                    propertySizeSqm={propertySizeSqm}
+                    quote={quote}
+                    hourlyRate={service.price}
+                    supplySource={supplySource}
+                    onSupplySourceChange={handleSupplySourceChange}
+                    items={items}
+                    selectedItemIds={selectedItemIds}
+                    onToggleItem={toggleItem}
+                    addOnsTotal={addOnsTotal + (selectedDisinfectionLevel?.priceAdder ?? 0)}
+                    onBookNow={handleBookNow}
+                    submitting={submitting}
+                    bookDisabledReason={bookDisabledReason}
+                  />
+                );
+              })()
+            ):
               (() => {
                 const categories = getPropertyCategoriesForService(serviceSlug);
                 const pTypeLower = (propertyType || "").toLowerCase();
