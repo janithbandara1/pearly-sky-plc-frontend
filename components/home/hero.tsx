@@ -47,14 +47,17 @@ export function Hero() {
       <div className="absolute inset-0 bg-gradient-to-b from-black/55 via-black/25 to-black/40" />
 
       <div className="relative z-10 flex h-[90%] lg:h-full md:h-full max-w-7xl flex-col justify-end md:justify-center gap-2 px-4 mx-auto sm:px-6">
-        <h1 className="max-w-xl text-lg lg:text-2xl md:text-left text-center font-normal tracking-wide text-brand-gold drop-shadow-lg md:text-3xl">
+        {/* The slogan is styling only; the H1 is the descriptive line below,
+            whose words (eco-luxury, cleaning services, home, office, country)
+            are what the page's content is actually about. */}
+        <p className="max-w-xl text-lg lg:text-2xl md:text-left text-center font-normal tracking-wide text-brand-gold drop-shadow-lg md:text-3xl">
           <IoSparkles aria-hidden="true" className="mr-1 inline-block h-6 w-6 align-[-0.2em]" />
           {translate("heroTitle")}
           <IoSparkles aria-hidden="true" className="ml-1 inline-block h-6 w-6 align-[-0.2em]" />
-        </h1>
-        <h2 className="max-w-lg md:text-left md:text-2xl lg:text-2xl text-center text-lg text-brand-cream drop-shadow sm:text-xl">
+        </p>
+        <h1 className="max-w-lg md:text-left md:text-2xl lg:text-2xl text-center text-lg font-normal text-brand-cream drop-shadow sm:text-xl">
           {heroSubtitle}
-        </h2>
+        </h1>
         <p className="max-w-2xl md:text-left text-center text-[12px] text-brand-cream drop-shadow sm:text-base">
           {translate("heroSubPara")}
         </p>
