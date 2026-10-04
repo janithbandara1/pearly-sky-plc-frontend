@@ -262,19 +262,19 @@ export function EquipmentSectionOfSanitize({
   const estimatedPriceRange = `${money(totalMin)} – ${money(totalMax)}`;
 
   return (
-    <div className="flex flex-col gap-6 pb-[40px] w-full">
+    <div className="flex flex-col gap-6 pb-[40px] w-full ">
       
 
       {/* Booking Overview & Summary Card */}
-      <section className="overflow-hidden rounded-[20px] border border-[#DDD5C7] bg-[#F3EFE7]  text-[#1D2128] shadow-sm  mt-2">
+      <section className="overflow-hidden rounded-[20px]  bg-[#0B1528] border border-[#DDD5C7]   text-[#1D2128] shadow-sm  mt-2">
         
         {/* Top Header: Atelier Title & Residence Pill */}
-        <div className="flex  px-5 sm:px-7 py-5 flex-col bg-white  gap-4 sm:flex-row sm:items-center sm:justify-between">
+        <div className="flex  px-5 sm:px-7 py-5 flex-col bg-[#05122b] gap-4 sm:flex-row sm:items-center sm:justify-between">
               <div className="flex flex-col">
-                <span className="text-[10.5px] font-semibold uppercase tracking-[0.2em] text-[#7A7468]">
+                <span className="text-[10.5px] font-semibold uppercase tracking-[0.2em] text-gray-400">
                   PRIVATE CLIENT ATELIER &bull; PEARLY SKY
                 </span>
-                <h1 className="font-serif text-3xl sm:text-[38px] font-normal leading-[1.15] tracking-[-0.01em] text-[#1D2128] my-1">
+                <h1 className="font-serif text-3xl sm:text-[38px] font-normal leading-[1.15] tracking-[-0.01em] text-white my-1">
                   Curated Engagement
                 </h1>
                 <span className="text-[10px] font-semibold uppercase tracking-[0.18em] text-[#7A7468]">
@@ -291,15 +291,15 @@ export function EquipmentSectionOfSanitize({
         </div>
         
         {/* Thin Divider Line */}
-        <div className="border-b  border-[#DDD5C7]/90 " />
+        <div className="border-b  border-[#DDD5C7]/60 " />
           
     
         {/* Selected Services & Folio Row */}
         <div className="flex items-center px-5 sm:px-7  py-3 justify-between">
-          <h2 className="text-[10.5px] font-bold uppercase tracking-[0.18em] text-[#30333A] sm:text-[11px]">
+          <h2 className="text-[10.5px] font-bold uppercase tracking-[0.18em] text-gray-400 sm:text-[11px]">
             {translate("equipSelectedServices")} &bull; SPECIFICATIONS
           </h2>
-          <span className="text-[10.5px] font-semibold uppercase tracking-[0.18em] text-[#868074] sm:text-[11px]">
+          <span className="text-[10.5px] font-semibold uppercase tracking-[0.18em] text-gray-400 sm:text-[11px]">
             FOLIO {propertySizeSqm}M-LUXE
           </span>
         </div>
@@ -308,34 +308,36 @@ export function EquipmentSectionOfSanitize({
         <div className="grid grid-cols-2 gap-y-4 gap-x-6 px-5  py-3 sm:px-7 sm:grid-cols-4 mt-4 mb-6">
           {/* Item 1: PROPERTY SCALE */}
           <div className="flex flex-col">
-            <span className="text-[10px] font-bold uppercase tracking-[0.16em] text-[#80796E]">
+            <span className="text-[10px] font-bold uppercase tracking-[0.16em] text-gray-300">
               {translate("equipPropertyScale")}
             </span>
-            <span className="font-serif text-[22px] sm:text-[26px] font-normal text-[#1D2128] leading-tight mt-1">
+            <span className="font-serif text-[22px] sm:text-[26px] font-normal text-white text-shadow
+             leading-tight mt-1">
               {propertySizeSqm} m²
             </span>
           </div>
 
           {/* Item 2: TOTAL DURATION */}
           <div className="flex flex-col">
-            <span className="text-[10px] font-bold uppercase tracking-[0.16em] text-[#80796E]">
+            <span className="text-[10px] font-bold uppercase tracking-[0.16em] text-gray-300">
               TOTAL DURATION
             </span>
-            <span className="font-serif text-[22px] sm:text-[26px] font-normal text-[#1D2128] leading-tight mt-1">
+            <span className="font-serif text-[22px] sm:text-[26px] font-normal text-white text-shadow leading-tight mt-1">
               {hasDuration ? `${quote!.minHours} – ${quote!.maxHours}h` : "2.5 – 5h"}
             </span>
           </div>
 
           {/* Item 3: ALLOCATED STAFF */}
           <div className="flex flex-col">
-            <span className="text-[10px] font-bold uppercase tracking-[0.16em] text-[#80796E]">
+            <span className="text-[10px] font-bold uppercase tracking-[0.16em] text-gray-300">
               ALLOCATED STAFF
             </span>
             <div className="flex items-baseline mt-1">
-              <span className="font-serif text-[22px] sm:text-[26px] font-normal text-[#1D2128] leading-tight">
+              <span className="font-serif text-[22px] sm:text-[26px] font-normal text-white text-shadow leading-tight">
                 {cleanersCount}
               </span>
-              <span className="ml-1.5 text-xs sm:text-[13px] font-bold uppercase tracking-wider text-[#1D2128]">
+              <span className="ml-1.5 text-xs sm:text-[13px] font-bold uppercase tracking-wider
+               text-white text-shadow">
                 SENIOR
               </span>
             </div>
@@ -343,10 +345,10 @@ export function EquipmentSectionOfSanitize({
 
           {/* Item 4: ON-SITE WINDOW */}
           <div className="flex flex-col">
-            <span className="text-[10px] font-bold uppercase tracking-[0.16em] text-[#80796E]">
+            <span className="text-[10px] font-bold uppercase tracking-[0.16em] text-gray-300">
               ON-SITE WINDOW
             </span>
-            <span className="font-serif text-[22px] sm:text-[26px] font-normal text-[#1D2128] leading-tight mt-1">
+            <span className="font-serif text-[22px] sm:text-[26px] font-normal text-white text-shadow leading-tight mt-1">
               {durationText}
             </span>
           </div>
@@ -354,20 +356,20 @@ export function EquipmentSectionOfSanitize({
 
         {/* Highlighted Price Card */}
         <div className="px-5 sm:px-7  py-3 w-full flex justify-center items-center">
-          <div className="rounded-[16px] w-[60%] md:w-full border border-[#D5CEC0]/90 bg-white px-5 py-4 sm:px-6 sm:py-5 flex flex-col sm:flex-row sm:items-center justify-between gap-3 shadow-xs">
+          <div className="rounded-[16px] w-[60%] md:w-full border border-purple-700/90 bg-blue-950 px-5 py-4 sm:px-6 sm:py-5 flex flex-col sm:flex-row sm:items-center justify-between gap-3 shadow-xs">
             <div className="flex flex-col ">
-              <span className="text-[11px] font-extrabold uppercase tracking-[0.16em] text-[#24272D]">
+              <span className="text-[11px] font-extrabold uppercase tracking-[0.16em] text-white">
                 CLEANING DURATION PRICE RANGE
               </span>
-              <p className="text-[12px] text-[#716C62] font-normal mt-0.5">
+              <p className="text-[12px] text-gray-400 font-normal mt-0.5">
                 Baseline appointment honoring white-glove artisan methodology
               </p>
             </div>
             <div className="flex flex-col md:items-start items-center sm:items-end justify-center shrink-0">
-              <span className="font-serif text-[22px] sm:text-[25px] font-normal text-[#1A1D22] leading-tight tracking-tight">
+              <span className="font-serif text-[22px] sm:text-[25px] font-normal text-white leading-tight tracking-tight">
                 {money(hasPrice ? quote!.priceMin : 67.5)}
               </span>
-              <span className="font-serif text-[22px] sm:text-[25px] font-normal text-[#1A1D22] leading-tight tracking-tight">
+              <span className="font-serif text-[22px] sm:text-[25px] font-normal text-white leading-tight tracking-tight">
                 {money(hasPrice ? quote!.priceMax : 135.0)}
               </span>
             </div>
@@ -375,27 +377,27 @@ export function EquipmentSectionOfSanitize({
         </div>
 
         {/* Top Toggle Switch: BY CLIENT vs BY COMPANY */}
-        <div className="w-full bg-[#f5f5dc] p-5 sm:p-7 shadow-lg shadow-gray-700 py-3">
+        <div className="w-full bg-[#08163dbd] p-5 sm:p-7 shadow-lg shadow-gray-700 py-3">
 
           <div className="flex flex-col justify-center w-full   ">
                 {/**cleaning chemical and equiment */}
-              <div className="w-full flex flex-row mt-1 mb-8 pb-7 border-gray-300 border-b justify-between items-center">
+              <div className="w-full flex flex-row mt-1 mb-8 pb-7 border-gray-600 border-b  justify-between items-center">
                 <div className="flex flex-col gap-1">
-                  <h1 className="text-[14px] md:text-[17px] uppercase tracking-widest font-bold">
+                  <h1 className="text-[14px] md:text-[17px] text-brand-gold uppercase tracking-widest font-bold">
                     Cleaning chemical and equipments</h1>
-                  <p className="text-gray-700 text-[12px] md:text-[13px]">
+                  <p className="text-gray-300 text-[12px] md:text-[13px]">
                     Curated organic compounds and specialized instrumentation</p>
                 </div>
-                <p  className="text-gray-700 text-[12px] md:text-[13px]">Bespoke additions</p>
+                <p  className="text-gray-400 text-[12px] md:text-[13px]">Bespoke additions</p>
               </div>
-            <div className="inline-flex w-[100%] p-2 items-center justify-center rounded-full bg-[#E5E0D8]/80 p-1 border border-[#D5CFC4]/50 shadow-inner">
+            <div className="inline-flex w-[100%] p-2 items-center justify-center rounded-full bg-[#E5E0D8]/10 p-1 border border-[#D5CFC4]/50 shadow-inner">
               <button
                 type="button"
                 onClick={() => onSupplySourceChange("customer")}
                 className={`inline-flex w-[60%] items-center  gap-1.5 rounded-full px-5 py-4 text-xs font-bold uppercase tracking-wider transition-all cursor-pointer ${
                   isClient
                     ? "bg-[#C5A253] text-white shadow-md"
-                    : "bg-transparent text-[#64748B] hover:text-[#1E293B]"
+                    : "bg-transparent text-white hover:text-gray-400"
                 }`}
               >
                 <User className="w-3.5 h-3.5 shrink-0" />
@@ -407,7 +409,7 @@ export function EquipmentSectionOfSanitize({
                 className={`inline-flex w-[60%] items-center gap-1.5 rounded-full px-5 py-4 text-xs font-bold uppercase tracking-wider transition-all cursor-pointer ${
                   isCompany
                     ? "bg-[#C5A253] text-white shadow-md"
-                    : "bg-transparent text-[#64748B] hover:text-[#1E293B]"
+                    : "bg-transparent text-white hover:text-gray-400"
                 }`}
               >
                 <Briefcase className="w-3.5 h-3.5 shrink-0" />
@@ -428,24 +430,24 @@ export function EquipmentSectionOfSanitize({
                 return (
                   <div
                     key={item.id}
-                    className={`rounded-[18px] bg-white hover:border hover:border-brand-gold p-4 sm:p-5 transition-all flex flex-col sm:flex-row sm:items-center justify-between gap-3 sm:gap-4 ${
+                    className={`rounded-[18px] bg-brand-navy/60 border border-gray-500 hover:border hover:border-brand-gold p-4 sm:p-5 transition-all flex flex-col sm:flex-row sm:items-center justify-between gap-3 sm:gap-4 ${
                       isSelected
-                        ? "bg-[#f5ffdc] border-[1.5px] border-[#C5A253] shadow-[0_2px_12px_rgba(197,162,83,0.18)]"
-                        : "bg-[#f5ffdc] hover:border hover:border-brand-gold shadow-sm"
+                        ? "bg-brand-navy border-[1.5px] border-[#C5A253] shadow-[0_2px_12px_rgba(197,162,83,0.18)]"
+                        : "bg-brand-navy hover:border hover:border-brand-gold shadow-sm"
                     }`}
                   >
                     {/* Left Content */}
                     <div className="flex flex-col min-w-0 flex-1 pr-2 ">
                       <div className="flex flex-wrap items-center gap-1.5 leading-tight">
-                        <span className="font-extrabold text-[#1E293B] text-sm sm:text-[15px] tracking-wide uppercase">
+                        <span className="font-extrabold text-white text-sm sm:text-[15px] tracking-wide uppercase">
                           {meta.displayName}
                         </span>
-                        <span className="text-[#94A3B8]">•</span>
-                        <span className="text-xs text-[#64748B] italic font-medium">
+                        <span className="text-[#9e9e9e]">•</span>
+                        <span className="text-xs text-gray-300 italic font-medium">
                           {meta.subtitle}
                         </span>
                       </div>
-                      <p className="text-xs text-[#64748B] leading-relaxed mt-1 line-clamp-2">
+                      <p className="text-xs text-gray-400 leading-relaxed mt-1 line-clamp-2">
                         {meta.description}
                       </p>
                     </div>
@@ -453,10 +455,10 @@ export function EquipmentSectionOfSanitize({
                     {/* Right Price & Stepper / ADD Button */}
                     <div className="flex items-center  justify-between sm:justify-end gap-4 sm:gap-6 shrink-0 pt-2 sm:pt-0 border-t sm:border-t-0 border-[#E7E2D8]/60">
                       <div className="flex flex-col items-start sm:items-end">
-                        <span className="font-bold text-[#1E293B] text-sm sm:text-base leading-tight">
+                        <span className="font-bold text-white text-sm sm:text-base leading-tight">
                           {money(unitPrice)}
                         </span>
-                        <span className="text-[9px] font-extrabold tracking-widest text-[#94A3B8] uppercase mt-0.5">
+                        <span className="text-[9px] font-extrabold tracking-widest text-gray-300 uppercase mt-0.5">
                           PER UNIT
                         </span>
                       </div>
@@ -501,17 +503,17 @@ export function EquipmentSectionOfSanitize({
             </div>
           )}
           {/* Highlighted Box: ESTIMATED PRICE RANGE */}
-          <div className="mt-5 flex items-center justify-between gap-2 rounded-[8px] border px-4 py-3.5 sm:px-5">
+          <div className="mt-5 flex border-purple-700/90 bg-blue-950  items-center justify-between gap-2 rounded-[8px] border px-4 py-3.5 sm:px-5">
             <div className="">
                <h2 className="text-xs font-bold uppercase tracking-wider text-[#C5A253] sm:text-sm">
                 {translate("equipEstimatedPriceRange")}
               </h2>
-              <p className="text-[12px] text-[#716C62] font-normal mt-0.5">
+              <p className="text-[12px] text-gray-300 font-normal mt-0.5">
                 Includes elite materials,eco-preservative formulations & transit
               </p>
             </div>
            
-            <span className="font-serif text-[22px] sm:text-[26px] font-normal text-[#1D2128] leading-tight mt-1 sm:text-base">
+            <span className="font-serif text-[22px] sm:text-[26px] font-normal text-white leading-tight mt-1 sm:text-base">
               {estimatedPriceRange}
             </span>
           </div>

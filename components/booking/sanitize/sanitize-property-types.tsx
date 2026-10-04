@@ -279,6 +279,7 @@ const RESIDENTIAL_CATEGORYIES = [
     min: 250,
     max: 800,
     step: 0,
+    sizes: [250, 300, 350, 400, 450, 500, 600, 700, 800],
     locked: false,
   },
   { ...OTHER_PROPERTY_CATEGORY }
@@ -293,6 +294,7 @@ const INDUSTRIAL_CATEGORYIES = [
     min: 20,
     max: 1000,
     step: 5,
+    sizes: [250, 300, 350, 400, 450, 500, 600, 700, 800],
     locked: false,
   },
   {
@@ -302,6 +304,7 @@ const INDUSTRIAL_CATEGORYIES = [
     min: 20,
     max: 1000,
     step: 5,
+    sizes: [250, 300, 350, 400, 450, 500, 600, 700, 800],
     locked: false,
   },
   {
@@ -311,6 +314,7 @@ const INDUSTRIAL_CATEGORYIES = [
     min: 20,
     max: 1000,
     step: 5,
+    sizes: [250, 300, 350, 400, 450, 500, 600, 700, 800],
     locked: false,
   },
   {
@@ -320,6 +324,7 @@ const INDUSTRIAL_CATEGORYIES = [
     min: 20,
     max: 1000,
     step: 5,
+    sizes: [250, 300, 350, 400, 450, 500, 600, 700, 800],
     locked: false,
   },
   {
@@ -329,6 +334,7 @@ const INDUSTRIAL_CATEGORYIES = [
     min: 20,
     max: 1000,
     step: 5,
+    sizes: [250, 300, 350, 400, 450, 500, 600, 700, 800],
     locked: false,
   },
   {
@@ -338,6 +344,7 @@ const INDUSTRIAL_CATEGORYIES = [
     min: 20,
     max: 1000,
     step: 5,
+    sizes: [250, 300, 350, 400, 450, 500, 600, 700, 800],
     locked: false,
   },
   {
@@ -347,6 +354,7 @@ const INDUSTRIAL_CATEGORYIES = [
     min: 20,
     max: 1000,
     step: 5,
+    sizes: [250, 300, 350, 400, 450, 500, 600, 700, 800],
     locked: false,
   },
   {
@@ -356,6 +364,7 @@ const INDUSTRIAL_CATEGORYIES = [
     min: 20,
     max: 1000,
     step: 5,
+    sizes: [250, 300, 350, 400, 450, 500, 600, 700, 800],
     locked: false,
   },
   {
@@ -365,6 +374,7 @@ const INDUSTRIAL_CATEGORYIES = [
     min: 20,
     max: 1000,
     step: 5,
+    sizes: [250, 300, 350, 400, 450, 500, 600, 700, 800],
     locked: false,
   },
   {
@@ -374,6 +384,7 @@ const INDUSTRIAL_CATEGORYIES = [
     min: 20,
     max: 1000,
     step: 5,
+    sizes: [250, 300, 350, 400, 450, 500, 600, 700, 800],
     locked: false,
   },
 ]
@@ -673,7 +684,7 @@ export function PropertyTypeSizeSelectorSanitize({
     const nextCat = selectableCategories.find((c) => c.id === id);
     if (nextCat) {
       setActiveCategoryId(nextCat.id);
-      onChange(nextCat.sizes ? nextCat.sizes[0] : nextCat.min);
+      onChange(nextCat?.sizes ? nextCat?.sizes[0] : nextCat.min);
     }
   }
 
