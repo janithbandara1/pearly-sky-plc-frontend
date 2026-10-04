@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { getServiceBySlug, type CatalogServiceDetail } from "@/lib/catalog-api";
+import { getServiceBySlug, getServiceSlugMap, type CatalogServiceDetail } from "@/lib/catalog-api";
 import { getRequestCountry } from "@/lib/countries/server";
 import { getRequestLanguage } from "@/lib/i18n/server";
 import { buildServiceAlternates, buildSocialMeta } from "@/lib/countries/seo";
@@ -30,8 +30,9 @@ export async function generateMetadata({
     return { title, description, alternates, ...buildSocialMeta(title, description, service.imageUrl ?? undefined) };
   } catch (err) {
     if (err instanceof ApiError && err.status === 404) notFound();
-    // Transient API failure: never let search engines index the generic fallback.
-    return { title: "Request a Quote | Pearly Sky", robots: { index: false, follow: true } };
+    // Transient API failure: fail with a 5xx so crawlers retry, rather than
+    // indexing (or noindexing) a generic fallback — see ../page.tsx.
+    throw err;
   }
 }
 
@@ -94,7 +95,7 @@ export default async function RequestQuotationPage({
         ]} />
       <RequestQuotationView serviceSlug={canonicalSlug} />
       <JoinWithUsSection />
-      <RelatedServices />
+      <RelatedServices slugs={await getServiceSlugMap(country, language)} />
       <PaymentMarquee />
     </>
   );

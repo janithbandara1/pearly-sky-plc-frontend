@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { notFound, permanentRedirect } from "next/navigation";
 import { ApiError } from "@/lib/api";
-import { getServiceBySlug, type CatalogServiceDetail, type ServiceLocaleSlug } from "@/lib/catalog-api";
+import { getServiceBySlug, getServiceSlugMap, type CatalogServiceDetail, type ServiceLocaleSlug } from "@/lib/catalog-api";
 import { getRequestCountry } from "@/lib/countries/server";
 import { getRequestLanguage } from "@/lib/i18n/server";
 import { buildServiceAlternates, buildSocialMeta } from "@/lib/countries/seo";
@@ -41,10 +41,11 @@ export async function generateMetadata({
     return { title, description, alternates, ...buildSocialMeta(ogTitle, ogDescription, service.imageUrl ?? undefined) };
   } catch (err) {
     if (err instanceof ApiError && err.status === 404) notFound();
-    // Transient API failure (e.g. rate-limited): keep the page usable but
-    // never let search engines index the generic fallback, and don't
-    // advertise hreflang alternates built from an unverified slug.
-    return { title: "Services | Pearly Sky", robots: { index: false, follow: true } };
+    // Transient API failure: fail the request (5xx) rather than serve a
+    // generic "Services | Pearly Sky" page. A 200 with that title is what
+    // got indexed for every service, and a noindex would drop the page from
+    // the index outright; a 5xx makes crawlers retry and keep the last good copy.
+    throw err;
   }
 }
 
@@ -102,7 +103,7 @@ export default async function ServiceDetailPage({
         ]} />
       <ServiceBookingView serviceSlug={canonicalSlug} locales={locales} initialService={service} />
       <JoinWithUsSection />
-      <RelatedServices />
+      <RelatedServices slugs={await getServiceSlugMap(country, language)} />
       <PaymentMarquee />
     </>
   );

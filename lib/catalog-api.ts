@@ -132,6 +132,23 @@ export function getServices(country?: string | null, language?: string | null) {
   return apiFetch<CatalogService[]>("/catalog/services", { country, language });
 }
 
+/**
+ * Server-only cached getServices — for SSR callers that run on every request
+ * (home page, service pages' related-service links), so they don't each hit
+ * the backend uncached.
+ */
+export const getCachedServices = unstable_cache(
+  (country: string | null, language: string | null) => getServices(country, language),
+  ["services"],
+  { revalidate: 60 },
+);
+
+/** Base slug (`name`) -> this language's effective slug, for writing links straight to the localized URL. Empty on API failure. */
+export async function getServiceSlugMap(country: string | null, language: string | null): Promise<Record<string, string>> {
+  const services = await getCachedServices(country, language).catch(() => []);
+  return Object.fromEntries(services.map((s) => [s.name, s.slug]));
+}
+
 export function getService(id: number, country?: string | null, language?: string | null) {
   return apiFetch<CatalogServiceDetail>(`/catalog/services/${id}`, { country, language });
 }
