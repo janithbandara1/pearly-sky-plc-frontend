@@ -64,7 +64,7 @@ import {
   type CheckoutAttachment,
 } from "@/components/booking/checkout-attachment-upload";
 
-const poppins = Poppins({ subsets: ["latin"], weight: ["400", "500", "600", "700", "800"] });
+const poppins = Poppins({ subsets: ["latin"], weight: ["400", "500", "600", "700", "800"], adjustFontFallback: false });
 
 const emptyAddressForm: AddressPayload = {
   streetAddress: "",

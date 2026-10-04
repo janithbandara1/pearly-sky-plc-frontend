@@ -48,7 +48,7 @@ import { PoolScheduleSection } from "@/components/booking/pool/pool-schedule-sec
 import { PressureWashingScheduleSection } from "@/components/booking/pressure-washing/pressure-washing-schedule-section";
 import { YachtScheduleSection } from "@/components/booking/yacht/yacht-schedule-section";
 
-const poppins = Poppins({ subsets: ["latin"], weight: ["400", "500", "600", "700", "800"] });
+const poppins = Poppins({ subsets: ["latin"], weight: ["400", "500", "600", "700", "800"], adjustFontFallback: false });
 
 /** Only healthguard-sanitization collects facility type + disinfection level. */
 const SANITIZATION_SLUG = "healthguard-sanitization";

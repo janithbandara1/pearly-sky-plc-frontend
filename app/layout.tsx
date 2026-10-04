@@ -10,11 +10,17 @@ import "./globals.css";
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
+  // Without this Next.js injects an empty <meta name="next-size-adjust">
+  // that SEO audits flag; costs a little layout shift while the font loads.
+  adjustFontFallback: false,
 });
 
 const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
   subsets: ["latin"],
+  // Without this Next.js injects an empty <meta name="next-size-adjust">
+  // that SEO audits flag; costs a little layout shift while the font loads.
+  adjustFontFallback: false,
 });
 
 // Lets country-aware pages use relative paths in `alternates.languages`

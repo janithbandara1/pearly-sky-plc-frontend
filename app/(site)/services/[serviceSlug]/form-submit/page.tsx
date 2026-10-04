@@ -17,7 +17,7 @@ import { useCountry } from "@/lib/countries/country-context";
 import { TranslationKey } from "@/lib/i18n/dictionaries/en";
 import { useLanguage } from "@/lib/i18n/language-context";
 
-const poppins = Poppins({ subsets: ["latin"], weight: ["400", "500", "600", "700", "800"] });
+const poppins = Poppins({ subsets: ["latin"], weight: ["400", "500", "600", "700", "800"], adjustFontFallback: false });
 
 const DEFAULT_LANGUAGES = [
   "English",
