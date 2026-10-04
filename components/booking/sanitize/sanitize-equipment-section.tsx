@@ -270,7 +270,7 @@ export function EquipmentSectionOfSanitize({
         
         {/* Top Header: Atelier Title & Residence Pill */}
         <div className="flex  px-5 sm:px-7 py-5 flex-col bg-[#05122b] gap-4 sm:flex-row sm:items-center sm:justify-between">
-              <div className="flex flex-col">
+              <div className="flex flex-col py-3">
                 <span className="text-[10.5px] font-semibold uppercase tracking-[0.2em] text-gray-400">
                   PRIVATE CLIENT ATELIER &bull; PEARLY SKY
                 </span>
@@ -282,16 +282,16 @@ export function EquipmentSectionOfSanitize({
                 </span>
               </div>
 
-              <div className="inline-flex self-start sm:self-center items-center gap-2 rounded-full border border-[#D5CEC0]/90 bg-[#E8E2D6]/80 px-4 py-2 text-xs font-bold tracking-wider text-[#33373E] shadow-xs">
-                <Folder className="h-3.5 w-3.5 text-[#B89358] fill-[#B89358]/20" />
-                <span className="text-[11px] font-bold tracking-[0.14em] uppercase text-[#33373E]">
-                  {propertyType ? (propertyType.toUpperCase().includes("RESIDENCE") ? propertyType.toUpperCase() : `${propertyType.toUpperCase()} RESIDENCE`) : "STUDIO RESIDENCE"}
+              <div className="inline-flex self-start sm:self-center items-center gap-2 rounded-full border border-brand-gold bg-blue-950 px-4 py-2 text-xs font-bold tracking-wider text-[#33373E] shadow-xs">
+                <Folder className="h-3.5 w-3.5 text-brand-gold fill-[#B89358]/20" />
+                <span className="text-[11px] font-bold tracking-[0.14em] uppercase text-gray-300">
+                  {propertyType ? propertyType.toUpperCase() : "STUDIO"}
                 </span>
               </div>
         </div>
         
         {/* Thin Divider Line */}
-        <div className="border-b  border-[#DDD5C7]/60 " />
+        <div className="border-b  border-brand-gold " />
           
     
         {/* Selected Services & Folio Row */}
@@ -355,8 +355,8 @@ export function EquipmentSectionOfSanitize({
         </div>
 
         {/* Highlighted Price Card */}
-        <div className="px-5 sm:px-7  py-3 w-full flex justify-center items-center">
-          <div className="rounded-[16px] w-[60%] md:w-full border border-purple-700/90 bg-blue-950 px-5 py-4 sm:px-6 sm:py-5 flex flex-col sm:flex-row sm:items-center justify-between gap-3 shadow-xs">
+        <div className="px-5 sm:px-7 mb-3 py-3 w-full flex justify-center items-center">
+          <div className="rounded-[16px] w-[60%] md:w-full border border-brand-gold bg-blue-950 px-5 py-4 sm:px-6 sm:py-5 flex flex-col sm:flex-row sm:items-center justify-between gap-3 shadow-xs">
             <div className="flex flex-col ">
               <span className="text-[11px] font-extrabold uppercase tracking-[0.16em] text-white">
                 CLEANING DURATION PRICE RANGE
@@ -377,11 +377,11 @@ export function EquipmentSectionOfSanitize({
         </div>
 
         {/* Top Toggle Switch: BY CLIENT vs BY COMPANY */}
-        <div className="w-full bg-[#08163dbd] p-5 sm:p-7 shadow-lg shadow-gray-700 py-3">
+        <div className="w-full bg-[#08163dbd] p-5 sm:p-7 shadow-lg shadow-gray-700 py-3 border-t border-gray-600">
 
-          <div className="flex flex-col justify-center w-full   ">
+          <div className="flex flex-col justify-center w-full  ">
                 {/**cleaning chemical and equiment */}
-              <div className="w-full flex flex-row mt-1 mb-8 pb-7 border-gray-600 border-b  justify-between items-center">
+              <div className="w-full flex flex-row mt-1 mb-8 pb-7 border-brand-gold border-b  justify-between items-center">
                 <div className="flex flex-col gap-1">
                   <h1 className="text-[14px] md:text-[17px] text-brand-gold uppercase tracking-widest font-bold">
                     Cleaning chemical and equipments</h1>
@@ -430,10 +430,10 @@ export function EquipmentSectionOfSanitize({
                 return (
                   <div
                     key={item.id}
-                    className={`rounded-[18px] bg-brand-navy/60 border border-gray-500 hover:border hover:border-brand-gold p-4 sm:p-5 transition-all flex flex-col sm:flex-row sm:items-center justify-between gap-3 sm:gap-4 ${
+                    className={`rounded-[18px] bg-brand-navy/60 border  hover:border hover:border-brand-gold p-4 sm:p-5 transition-all flex flex-col sm:flex-row sm:items-center justify-between gap-3 sm:gap-4 ${
                       isSelected
                         ? "bg-brand-navy border-[1.5px] border-[#C5A253] shadow-[0_2px_12px_rgba(197,162,83,0.18)]"
-                        : "bg-brand-navy hover:border hover:border-brand-gold shadow-sm"
+                        : "bg-brand-navy border-gray-500 hover:border hover:border-brand-gold shadow-sm"
                     }`}
                   >
                     {/* Left Content */}
@@ -503,10 +503,10 @@ export function EquipmentSectionOfSanitize({
             </div>
           )}
           {/* Highlighted Box: ESTIMATED PRICE RANGE */}
-          <div className="mt-5 flex border-purple-700/90 bg-blue-950  items-center justify-between gap-2 rounded-[8px] border px-4 py-3.5 sm:px-5">
+          <div className="mt-7 mb-2 flex border-brand-gold bg-blue-950  items-center justify-between gap-2 rounded-[8px] border px-4 py-4.5 sm:px-5">
             <div className="">
                <h2 className="text-xs font-bold uppercase tracking-wider text-[#C5A253] sm:text-sm">
-                {translate("equipEstimatedPriceRange")}
+                {translate("equipEstimatedPriceRange")} 
               </h2>
               <p className="text-[12px] text-gray-300 font-normal mt-0.5">
                 Includes elite materials,eco-preservative formulations & transit
@@ -539,10 +539,10 @@ export function EquipmentSectionOfSanitize({
                 <KeyRound className="h-4 w-4 shrink-0 text-[#A6803E]" />
                 <span>{translate("equipQualityGuarantee")}</span>
               </div>
-              <p className="text-[11px] leading-relaxed text-[#6E6A62] sm:text-xs">
+              <p className="text-[11px] leading-relaxed text-gray-400 sm:text-xs">
                 {translate("equipGuaranteeDesc1")}
               </p>
-              <p className="text-[11px] leading-relaxed text-[#6E6A62] sm:text-xs">
+              <p className="text-[11px] leading-relaxed text-gray-400 sm:text-xs">
                 {translate("equipGuaranteeDesc2")}
               </p>
             </div>

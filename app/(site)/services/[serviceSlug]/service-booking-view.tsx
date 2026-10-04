@@ -711,7 +711,7 @@ export function ServiceBookingView({
             })()) :
             isSanitization ? (
               (() => {
-                const categories = getPropertyCategoriesForService(serviceSlug);
+                const categories = getPropertyCategoriesForServiceOfSanitize(serviceSlug);
                 const pTypeLower = (propertyType || "").toLowerCase();
                 const activeCategory =
                   categories.find(

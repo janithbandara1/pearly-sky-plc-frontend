@@ -140,12 +140,12 @@ const RESIDENTIAL_SCHEME_SERVICE_SLUGS = new Set([
 
 
 /** Catch-all type for properties that don't fit a service's named tiers. */
-const OTHER_PROPERTY_CATEGORY: PropertyCategory = {
+const SANITIZE_OTHER_PROPERTY_CATEGORY: PropertyCategory = {
   id: "other",
   label: "Other",
   icon: "📐",
   min: 20,
-  max: 1000,
+  max: 500,
   step: 10,
   locked: false,
 };
@@ -247,152 +247,330 @@ export const HEALTHGUARD_SANITIZE_SLUGS_PROPERTY_CATEGORIES: PropertyCategory[] 
 ];
 
 //sanitize categories
-const RESIDENTIAL_CATEGORYIES = [
-  { id: "studio", label: "Studio", icon: "🏢", min: 20, max: 50, step: 1, locked: false },
-  { id: "apartment", label: "Apartment / Flat", icon: "🏬", min: 40, max: 120, step: 1, locked: false },
-  { id: "townhouse", label: "Townhouse", icon: "🏘️", min: 100, max: 250, step: 5, locked: false },
-  { id: "home", label: "Home / House", icon: "🏡", min: 120, max: 350, step: 10, locked: false },
+const SANITIZE_RESIDENTIAL_CATEGORYIES = [
+  { id: "studio", label: "Studio", icon: "🏢", min: 20, max: 40, step: 1, locked: false },
+  { id: "apartment", label: "Apartment / Flat", icon: "🏬", min: 45, max: 120, step: 1, locked: false },
+  { id: "townhouse", label: "Townhouse", icon: "🏘️", min: 90, max: 220, step: 5, locked: false },
+  { id: "home", label: "Home / House", icon: "🏡", min: 100, max: 350, step: 10, locked: false },
   {
     id: "penthouse",
     label: "Penthouse",
     icon: "🏙️",
-    min: 150,
+    min: 120,
     max: 400,
-    step: 0,
-    sizes: [150, 175, 200, 225, 250, 275, 300, 350, 400],
+    step: 10,
+    
     locked: false,
   },
   {
     id: "luxury-villa",
     label: "Luxury Villa",
     icon: "🏰",
-    min: 250,
-    max: 800,
-    step: 0,
-    sizes: [250, 300, 350, 400, 450, 500, 600, 700, 800],
+    min: 20,
+    max: 150,
+    step: 5,
+    
     locked: false,
   },
   {
     id: "airbnb",
     label: "Airbnb",
     icon: "🌟",
-    min: 250,
-    max: 800,
-    step: 0,
-    sizes: [250, 300, 350, 400, 450, 500, 600, 700, 800],
+    min: 20,
+    max: 150,
+    step: 5,
+    
     locked: false,
   },
-  { ...OTHER_PROPERTY_CATEGORY }
+  { ...SANITIZE_OTHER_PROPERTY_CATEGORY }
 
 ]
 
-const INDUSTRIAL_CATEGORYIES = [
+const SANITIZE_INDUSTRIAL_CATEGORYIES =[
   {
-    id: "corporate-legal",
-    label: "Corporate & Legal Office",
+    id: "micro-office",
+    label: "Micro Office",
     icon: "🏢",
     min: 20,
-    max: 1000,
+    max: 50,
     step: 5,
-    sizes: [250, 300, 350, 400, 450, 500, 600, 700, 800],
+    //sizes: [20, 25, 30, 35, 40, 45, 50],
     locked: false,
   },
   {
-    id: "government-scif-data",
-    label: "Government / SCIF / Data...",
-    icon: "🛡️",
+    id: "office",
+    label: "Office",
+    icon: "💼",
+    min: 50,
+    max: 200,
+    step: 10,
+    //sizes: [50, 68, 86, 104, 122, 140, 158, 176, 194],
+    locked: false,
+  },
+  {
+    id: "corporate-office",
+    label: "Corporate Office",
+    icon: "🏙️",
+    min: 200,
+    max: 500,
+    step: 25,
+    //sizes: [200, 237, 274, 311, 348, 385, 422, 459, 496],
+    locked: false,
+  },
+  {
+    id: "co-working-space",
+    label: "Co-working Space",
+    icon: "🧑‍💻",
+    min: 100,
+    max: 500,
+    step: 25,
+   // sizes: [100, 150, 200, 250, 300, 350, 400, 450, 500],
+    locked: false,
+  },
+  {
+    id: "hotel",
+    label: "Hotel",
+    icon: "🏨",
+    min: 250,
+    max: 500,
+    step: 25,
+   // sizes: [250, 281, 312, 343, 374, 405, 436, 467, 498,500],
+    locked: false,
+  },
+  {
+    id: "airbnb",
+    label: "Airbnb",
+    icon: "🏠",
     min: 20,
-    max: 1000,
+    max: 150,
     step: 5,
-    sizes: [250, 300, 350, 400, 450, 500, 600, 700, 800],
+    //sizes: [20, 36, 52, 68, 84, 100, 116, 132, 148,150],
     locked: false,
   },
   {
-    id: "healthcare-medical",
-    label: "Healthcare & Medical...",
+    id: "restaurant",
+    label: "Restaurant",
+    icon: "🍽️",
+    min: 60,
+    max: 300,
+    step: 10,
+    //sizes: [60, 90, 120, 150, 180, 210, 240, 270, 300],
+    locked: false,
+  },
+  {
+    id: "cafe",
+    label: "Cafe",
+    icon: "☕",
+    min: 30,
+    max: 120,
+    step: 5,
+    //sizes: [30, 41, 52, 63, 74, 85, 96, 107, 118],
+    locked: false,
+  },
+  {
+    id: "bar",
+    label: "Bar",
+    icon: "🍸",
+    min: 40,
+    max: 200,
+    step: 10,
+    //sizes: [40, 60, 80, 100, 120, 140, 160, 180, 200],
+    locked: false,
+  },
+  {
+    id: "clinic",
+    label: "Clinic",
+    icon: "🩺",
+    min: 50,
+    max: 180,
+    step: 10,
+    //sizes: [50, 66, 82, 98, 114, 130, 146, 162, 178,180],
+    locked: false,
+  },
+  {
+    id: "hospital",
+    label: "Hospital",
     icon: "🏥",
-    min: 20,
-    max: 1000,
-    step: 5,
-    sizes: [250, 300, 350, 400, 450, 500, 600, 700, 800],
+    min: 350,
+    max: 500,
+    step: 25,
+    //sizes: [350, 368, 386, 404, 422, 440, 458, 476, 494,500],
     locked: false,
   },
   {
-    id: "industrial-construction",
-    label: "Industrial & Construction",
-    icon: "🏗️",
-    min: 20,
-    max: 1000,
+    id: "dental-clinic",
+    label: "Dental Clinic",
+    icon: "🦷",
+    min: 40,
+    max: 150,
     step: 5,
-    sizes: [250, 300, 350, 400, 450, 500, 600, 700, 800],
+    //sizes: [40, 53, 66, 79, 92, 105, 118, 131, 144],
     locked: false,
   },
   {
-    id: "vip-estate-executive",
-    label: "VIP Estate / Executive...",
-    icon: "🏰",
-    min: 20,
-    max: 1000,
+    id: "pharmacy",
+    label: "Pharmacy",
+    icon: "💊",
+    min: 30,
+    max: 120,
     step: 5,
-    sizes: [250, 300, 350, 400, 450, 500, 600, 700, 800],
+    //sizes: [30, 41, 52, 63, 74, 85, 96, 107, 118],
     locked: false,
   },
   {
-    id: "event-venue",
-    label: "Event Venue &...",
-    icon: "🎪",
-    min: 20,
-    max: 1000,
-    step: 5,
-    sizes: [250, 300, 350, 400, 450, 500, 600, 700, 800],
+    id: "laboratory",
+    label: "Laboratory",
+    icon: "🔬",
+    min: 50,
+    max: 250,
+    step: 10,
+   // sizes: [50, 75, 100, 125, 150, 175, 200, 225, 250],
     locked: false,
   },
   {
-    id: "emergency-biohazard",
-    label: "Emergency / Biohazard...",
-    icon: "☣️",
-    min: 20,
-    max: 1000,
+    id: "beauty-salon",
+    label: "Beauty Salon",
+    icon: "💇",
+    min: 30,
+    max: 100,
     step: 5,
-    sizes: [250, 300, 350, 400, 450, 500, 600, 700, 800],
+    //sizes: [30, 38, 46, 54, 62, 70, 78, 86, 94],
     locked: false,
   },
   {
-    id: "retail-commercial",
-    label: "Retail & Commercial...",
+    id: "spa",
+    label: "Spa",
+    icon: "💆",
+    min: 80,
+    max: 300,
+    step: 10,
+    //sizes: [80, 107, 134, 161, 188, 215, 242, 269, 296],
+    locked: false,
+  },
+  {
+    id: "bakery",
+    label: "Bakery",
+    icon: "🥖",
+    min: 30,
+    max: 100,
+    step: 5,
+    //sizes: [30, 38, 46, 54, 62, 70, 78, 86, 94],
+    locked: false,
+  },
+  {
+    id: "fast-food",
+    label: "Fast Food",
+    icon: "🍔",
+    min: 40,
+    max: 150,
+    step: 5,
+    //sizes: [40, 53, 66, 79, 92, 105, 118, 131, 144],
+    locked: false,
+  },
+  {
+    id: "boutique-shop",
+    label: "Boutique / Shop",
+    icon: "🛍️",
+    min: 25,
+    max: 150,
+    step: 5,
+    //sizes: [25, 40, 55, 70, 85, 100, 115, 130, 145],
+    locked: false,
+  },
+  {
+    id: "supermarket",
+    label: "Supermarket",
+    icon: "🛒",
+    min: 200,
+    max: 500,
+    step: 25,
+   // sizes: [200, 237, 274, 311, 348, 385, 422, 459, 496],
+    locked: false,
+  },
+  {
+    id: "mall",
+    label: "Mall",
     icon: "🏬",
-    min: 20,
-    max: 1000,
-    step: 5,
-    sizes: [250, 300, 350, 400, 450, 500, 600, 700, 800],
+    min: 400,
+    max: 500,
+    step: 25,
+    //sizes: [400, 412, 424, 436, 448, 460, 472, 484, 496],
     locked: false,
   },
   {
-    id: "personal-work-device",
-    label: "Personal / Work Device...",
-    icon: "💻",
-    min: 20,
-    max: 1000,
-    step: 5,
-    sizes: [250, 300, 350, 400, 450, 500, 600, 700, 800],
+    id: "showroom",
+    label: "Showroom",
+    icon: "🛋️",
+    min: 100,
+    max: 400,
+    step: 25,
+    //sizes: [100, 137, 174, 211, 248, 285, 322, 359, 396],
     locked: false,
   },
   {
-    id: "corporate-network",
-    label: "Corporate Network /...",
-    icon: "🌐",
-    min: 20,
-    max: 1000,
-    step: 5,
-    sizes: [250, 300, 350, 400, 450, 500, 600, 700, 800],
+    id: "gym",
+    label: "Gym",
+    icon: "🏋️",
+    min: 80,
+    max: 400,
+    step: 25,
+    //sizes: [80, 120, 160, 200, 240, 280, 320, 360, 400],
     locked: false,
   },
+  {
+    id: "yoga-studio",
+    label: "Yoga Studio",
+    icon: "🧘",
+    min: 40,
+    max: 150,
+    step: 5,
+    //sizes: [40, 53, 66, 79, 92, 105, 118, 131, 144],
+    locked: false,
+  },
+  {
+    id: "school",
+    label: "School",
+    icon: "🏫",
+    min: 300,
+    max: 500,
+    step: 25,
+    //sizes: [300, 325, 350, 375, 400, 425, 450, 475, 500],
+    locked: false,
+  },
+  {
+    id: "nursery",
+    label: "Nursery",
+    icon: "👶",
+    min: 60,
+    max: 200,
+    step: 10,
+    //sizes: [60, 77, 94, 111, 128, 145, 162, 179, 196],
+    locked: false,
+  },
+  {
+    id: "airport",
+    label: "Airport",
+    icon: "✈️",
+    min: 450,
+    max: 500,
+    step: 25,
+    //sizes: [450, 456, 462, 468, 474, 480, 486, 492, 498],
+    locked: false,
+  },
+  {
+    id: "other",
+    label: "Other",
+    icon: "📦",
+    min: 20,
+    max: 500,
+    step: 25,
+    //sizes: [20, 80, 140, 200, 260, 320, 380, 440, 500],
+    locked: false,
+  }
 ]
 
-export function getPropertyCategoriesForServiceOfSanitize(serviceSlug: string): PropertyCategory[] {
-
-  return HEALTHGUARD_SANITIZE_SLUGS_PROPERTY_CATEGORIES;
-
+export function getPropertyCategoriesForServiceOfSanitize(serviceSlug?: string): PropertyCategory[] {
+  return [...SANITIZE_RESIDENTIAL_CATEGORYIES, ...SANITIZE_INDUSTRIAL_CATEGORYIES];
 }
 
 function getPropertyCategory(value: number, categories: PropertyCategory[]): PropertyCategory {
@@ -619,10 +797,11 @@ export interface PropertyTypeSizeSelectorProps {
   onDeepCleanChange?: (selected: boolean) => void;
 }
 
+
 export function PropertyTypeSizeSelectorSanitize({
   value,
   onChange,
-  categories = PROPERTY_CATEGORIES,
+  categories = [...SANITIZE_RESIDENTIAL_CATEGORYIES ,...SANITIZE_INDUSTRIAL_CATEGORYIES],
   onCategoryChange,
   disinfection: controlledDisinfection,
   onDisinfectionChange,
@@ -652,39 +831,40 @@ export function PropertyTypeSizeSelectorSanitize({
   };
 
   //handle Service Catagory button active
-  const [isActiveCategorySwitch, setIsActiveCategorySwitch] = useState<string>("residential")
+  const [isActiveCategorySwitch, setIsActiveCategorySwitch] = useState<string>("residential");
 
   const { translate } = useLanguage();
 
   //set sanitizing categories
-  //industial and residential categories
-
+  //industrial and residential categories
   const selectableCategories =
-    isActiveCategorySwitch === "residential" ? RESIDENTIAL_CATEGORYIES : INDUSTRIAL_CATEGORYIES
+    isActiveCategorySwitch === "residential" ? SANITIZE_RESIDENTIAL_CATEGORYIES : SANITIZE_INDUSTRIAL_CATEGORYIES;
 
-  // Tracked explicitly (not re-derived from `value` every render) because some schemes have
-  // overlapping category ranges — re-deriving would silently snap back to a different category.
-  const [activeCategoryId, setActiveCategoryId] = useState(() => getPropertyCategory(value, categories).id);
-  const [categoriesForActiveId, setCategoriesForActiveId] = useState(categories);
+  // Tracked explicitly (not re-derived from `value` every render)
+  const [activeCategoryId, setActiveCategoryId] = useState(() => selectableCategories[0].id);
 
-  if (categories !== categoriesForActiveId) {
-    setCategoriesForActiveId(categories);
-    setActiveCategoryId(getPropertyCategory(value, categories).id);
-  }
-
-  const activeCategory = categories.find((c) => c.id === activeCategoryId) ?? categories[0];
+  const activeCategory = selectableCategories.find((c) => c.id === activeCategoryId) ?? selectableCategories[0];
   const sizeOptions = buildSizeOptions(activeCategory);
 
   useEffect(() => {
     onCategoryChange?.(activeCategory);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [activeCategory]);
+  }, [activeCategory, onCategoryChange]);
+
+  // Ensure value stays strictly within activeCategory bounds [min, max]
+  useEffect(() => {
+    if (value > activeCategory.max) {
+      onChange(activeCategory.max);
+    } else if (value < activeCategory.min) {
+      onChange(activeCategory.min);
+    }
+  }, [activeCategory, value, onChange]);
 
   function handleCardClick(id: string) {
     const nextCat = selectableCategories.find((c) => c.id === id);
     if (nextCat) {
       setActiveCategoryId(nextCat.id);
-      onChange(nextCat?.sizes ? nextCat?.sizes[0] : nextCat.min);
+      const initialSize = nextCat?.sizes ? nextCat.sizes[0] : nextCat.min;
+      onChange(initialSize);
     }
   }
 
@@ -698,19 +878,19 @@ export function PropertyTypeSizeSelectorSanitize({
 
   function handleNext() {
     if (currentIndex < sizeOptions.length - 1) {
-      onChange(sizeOptions[currentIndex + 1]);
+      const nextVal = sizeOptions[currentIndex + 1];
+      if (nextVal <= activeCategory.max) {
+        onChange(nextVal);
+      }
     }
   }
 
   function handlePrev() {
     if (currentIndex > 0) {
-      onChange(sizeOptions[currentIndex - 1]);
-    }
-  }
-
-  function handleSelect() {
-    if (currentIndex > 0) {
-      onChange(sizeOptions[currentIndex]);
+      const prevVal = sizeOptions[currentIndex - 1];
+      if (prevVal >= activeCategory.min) {
+        onChange(prevVal);
+      }
     }
   }
 
@@ -732,18 +912,14 @@ export function PropertyTypeSizeSelectorSanitize({
 
   //dynamically changes category of sanitize
   const handleCategorySwitch = (categoryName: string): void => {
-    console.log(categoryName);
-
-    setIsActiveCategorySwitch(categoryName)
-  }
-
-  useEffect(() => {
-    handleCategorySwitch(isActiveCategorySwitch)
-  }, [isActiveCategorySwitch])
-
-  const sizesValues = [
-    40, 60, 80, 100, 130, 150, 200, 300, 450, 600, 800
-  ]
+    setIsActiveCategorySwitch(categoryName);
+    const nextCategories =
+      categoryName === "residential" ? SANITIZE_RESIDENTIAL_CATEGORYIES : SANITIZE_INDUSTRIAL_CATEGORYIES;
+    const firstCat = nextCategories[0];
+    setActiveCategoryId(firstCat.id);
+    const initialSize = firstCat.sizes ? firstCat.sizes[0] : firstCat.min;
+    onChange(initialSize);
+  };
 
   return (
     <section className="rounded-2xl border border-[#C6A868] bg-brand-navy p-5 sm:p-6 shadow-sm w-full">
@@ -757,30 +933,30 @@ export function PropertyTypeSizeSelectorSanitize({
 
       <div className="w-full">
         <h2 className="text-base sm:text-lg font-bold text-gray-300 mb-3">Service Catagory</h2>
-        <div className="w-full p-1 flex justify-between items-center mb-6 bg-white/5 backdrop-blur-md] rounded-[15px]">
+        <div className="w-full p-1 flex justify-between items-center mb-6 bg-white/5 backdrop-blur-md] rounded-[27px]">
           <button
-            className={`md:w-[49%]  
-            w-[45%] py-4 px-3 
+            className={`md:w-[49.5%]  
+            w-[45%] py-4 px-3 rounded-4xl
             ${isActiveCategorySwitch === "residential" ? "bg-blue-500 border-[#C6A868]/60" : "bg-transparent"} cursor-pointer text-[13px] md:text-[15px] text-white 
-            font-bold rounded-[10px]`}
+            font-bold `}
             onClick={() => handleCategorySwitch("residential")}
           >
             <span className="text-white">🏠</span>  Residential
           </button>
           <button
-            className={`md:w-[49%]  
-            w-[45%] py-4 px-3 
+            className={`md:w-[49.5%]  
+            w-[45%] py-4 px-3  rounded-4xl
             ${isActiveCategorySwitch === "industrial" ? "bg-blue-500 border-[#C6A868]/60" : "bg-transparent"} cursor-pointer text-[13px] md:text-[15px]  text-white 
-            font-bold rounded-[10px]`}
+            font-bold `}
             onClick={() => handleCategorySwitch("industrial")}
           >
             <span className="text-white">🏭</span>  Industrial
           </button>
         </div>
       </div>
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 items-start">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 items-start h-full">
         {/* Left Column: Property Type */}
-        <div className="flex flex-col min-w-0">
+        <div className="flex flex-col min-w-0 ">
           <h3 className="text-base sm:text-lg font-bold text-gray-300 mb-3">
             {translate("propTypeTitle")}</h3>
 
@@ -789,8 +965,6 @@ export function PropertyTypeSizeSelectorSanitize({
             style={{ scrollbarWidth: "none", scrollSnapType: "x proximity" }}
           >
             {selectableCategories.map((cat) => {
-              const checkPropCat = isActiveCategorySwitch === "residential" ? RESIDENTIAL_CATEGORYIES : INDUSTRIAL_CATEGORYIES
-              const activeCategory = checkPropCat.find((c) => c.id === activeCategoryId) ?? checkPropCat[0];
               const isSelected = cat.id === activeCategory.id;
               return (
                 <button
@@ -825,13 +999,17 @@ export function PropertyTypeSizeSelectorSanitize({
             {translate("propTypeSwipe")}
           </p>
 
-          {/* Disinfection & Deep Clean Selectable Cards */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mt-4 w-full">
+          
+        </div>
+
+       
+        {/* Disinfection & Deep Clean Selectable Cards */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3  items-center mt-4 h-full w-full">
             {/* Disinfection Card */}
             <button
               type="button"
               onClick={handleToggleDisinfection}
-              className={`flex items-center justify-between p-3.5 sm:p-4 rounded-xl border transition-all cursor-pointer select-none text-left ${isDisinfection
+              className={`flex items-center justify-between p-4.5 sm:p-5 rounded-xl border transition-all cursor-pointer select-none text-left ${isDisinfection
                   ? "bg-[#1E2E4A] border-2 border-blue-500 shadow-[0_0_15px_rgba(59,130,246,0.25)]"
                   : "bg-white/5 border-white/10 hover:border-white/20 hover:bg-white/[0.08]"
                 }`}
@@ -861,7 +1039,7 @@ export function PropertyTypeSizeSelectorSanitize({
             <button
               type="button"
               onClick={handleToggleDeepClean}
-              className={`flex items-center justify-between p-3.5 sm:p-4 rounded-xl border transition-all cursor-pointer select-none text-left ${isDeepClean
+              className={`flex items-center justify-between  p-4.5 sm:p-5 rounded-xl border transition-all cursor-pointer select-none text-left ${isDeepClean
                   ? "bg-[#1E2E4A] border-2 border-blue-500 shadow-[0_0_15px_rgba(59,130,246,0.25)]"
                   : "bg-white/5 border-white/10 hover:border-white/20 hover:bg-white/[0.08]"
                 }`}
@@ -887,13 +1065,12 @@ export function PropertyTypeSizeSelectorSanitize({
               </div>
             </button>
           </div>
-        </div>
-
-        {/* Right Column: Property Size */}
-        <div className="flex flex-col w-full">
+      </div>
+      {/* Right Column: Property Size */}
+        <div className="flex flex-col w-full mt-8">
           <h3 className="text-base sm:text-lg font-bold text-white mb-3">{translate("propSizeTitle")}</h3>
 
-          <div className="flex  flex-col md:flex-row items-center  gap-3">
+          <div className="flex   flex-col md:flex-row items-center w-full  gap-3">
             {/* Wheel Display Container */}
             <div
               ref={wheelContainerRef}
@@ -910,7 +1087,7 @@ export function PropertyTypeSizeSelectorSanitize({
               </button>
 
               {/* Middle Row: Active selected size */}
-              <div className=" flex-[1.6] bg-gray-700 text-white flex flex-col md:items-center px-4 items-start justify-center py-2 border-y border-[#C6A868]/40 shadow-inner">
+              <div className=" relative flex-[1.6] bg-gray-700 text-white flex flex-col md:items-center px-4 items-start justify-center py-2 border-y border-[#C6A868]/40 shadow-inner">
                 <span className="text-xl sm:text-2xl font-bold  leading-tight">
                   {value} m²
                 </span>
@@ -919,14 +1096,20 @@ export function PropertyTypeSizeSelectorSanitize({
                 </span>
                 <select
                   value={value}
-                  onChange={(e) => onChange(Number(e.target.value))}
-                  className="absolute md:hidden p-1 block right-15 border border-gray-600 focus:border-gray-500 rounded-[10px] bg-gray-800 text-white"
+                  onChange={(e) => {
+                    const selectedVal = Number(e.target.value);
+                    const clampedVal = Math.min(Math.max(selectedVal, activeCategory.min), activeCategory.max);
+                    onChange(clampedVal);
+                  }}
+                  className="absolute md:right-[100px] p-2 block right-15 border border-gray-600 focus:border-gray-500 rounded-[10px] bg-gray-800 text-white"
                 >
-                  {sizeOptions.map((Val, i) => (
-                    <option key={i} value={Val} className="bg-gray-700 text-white">
-                      {Val} m²
-                    </option>
-                  ))}
+                  {sizeOptions
+                    .filter((val) => val <= activeCategory.max && val >= activeCategory.min)
+                    .map((Val, i) => (
+                      <option key={i} value={Val} className="bg-gray-700 text-white">
+                        {Val} m²
+                      </option>
+                    ))}
                 </select>
               </div>
 
@@ -945,12 +1128,12 @@ export function PropertyTypeSizeSelectorSanitize({
 
             {/* Right Buttons Stack */}
             {/**desktop view */}
-            <div className="md:flex hidden  h-[110px] sm:h-[118px] w-[52px] flex-col gap-2 shrink-0">
+            <div className="md:flex hidden w-[30%] h-[110px] sm:h-[118px]  flex-col gap-2 shrink-0">
               <button
                 type="button"
                 onClick={handleNext}
                 disabled={nextSize === null}
-                className="flex-1 rounded-xl border-2 border-[#C6A868]/60 bg-gray-800 text-white active:bg-gray-700 active:scale-95 transition-all shadow-sm flex flex-col items-center justify-center cursor-pointer disabled:opacity-40 disabled:cursor-not-allowed"
+                className="flex-1 w-[100%] rounded-xl border-2 hover:bg-blue-600 border-[#C6A868]/60 bg-gray-800 text-white active:bg-gray-700 active:scale-95 transition-all shadow-sm flex flex-col items-center justify-center cursor-pointer disabled:opacity-40 disabled:cursor-not-allowed"
                 aria-label="Increase Property Size"
               >
                 <span className="text-sm leading-none font-bold">↑</span>
@@ -961,7 +1144,7 @@ export function PropertyTypeSizeSelectorSanitize({
                 type="button"
                 onClick={handlePrev}
                 disabled={prevSize === null}
-                className="flex-1 rounded-xl border-2 border-[#C6A868]/60 bg-gray-800 text-white active:bg-gray-700 active:scale-95 transition-all shadow-sm flex flex-col items-center justify-center cursor-pointer disabled:opacity-40 disabled:cursor-not-allowed"
+                className="flex-1 rounded-xl w-[100%] hover:bg-blue-600 border-2 border-[#C6A868]/60 bg-gray-800 text-white active:bg-gray-700 active:scale-95 transition-all shadow-sm flex flex-col items-center justify-center cursor-pointer disabled:opacity-40 disabled:cursor-not-allowed"
                 aria-label="Decrease Property Size"
               >
                 <span className="text-sm leading-none font-bold">↓</span>
@@ -995,7 +1178,6 @@ export function PropertyTypeSizeSelectorSanitize({
             </div>
           </div>
         </div>
-      </div>
     </section>
   );
 }
