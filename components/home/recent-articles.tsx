@@ -21,8 +21,11 @@ export function RecentArticles() {
 
       <div className="grid gap-6 sm:grid-cols-3">
         {posts.map((post) => (
-          <Link key={post.slug} href={`/blog/${post.slug}`}>
-            <Card className="h-full overflow-hidden border border-[#c8a089] transition-shadow hover:shadow-md">
+          // Only the title is the link (stretched over the whole card by its
+          // ::after overlay), so the anchor text is the title alone rather than
+          // date + title + description + image alt.
+          <div key={post.slug}>
+            <Card className="relative h-full overflow-hidden border border-[#c8a089] transition-shadow hover:shadow-md">
               <div className="relative aspect-video">
                 <Image
                   src={post.image}
@@ -34,11 +37,15 @@ export function RecentArticles() {
               </div>
               <CardContent className="pt-4">
                 <p className="text-xs text-muted-foreground">{post.date}</p>
-                <p className="mt-1 font-semibold leading-snug">{post.title}</p>
+                <p className="mt-1 font-semibold leading-snug">
+                  <Link href={`/blog/${post.slug}`} className="after:absolute after:inset-0">
+                    {post.title}
+                  </Link>
+                </p>
                 <p className="mt-1 text-sm text-muted-foreground">{post.description}</p>
               </CardContent>
             </Card>
-          </Link>
+          </div>
         ))}
       </div>
 

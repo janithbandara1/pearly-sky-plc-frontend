@@ -281,6 +281,7 @@ function ServiceCard({ service }: { service: CatalogService }) {
               className="flex w-full items-center justify-center gap-2 rounded-xl bg-brand-gold py-3 text-sm font-bold uppercase tracking-wider text-slate-900 shadow-lg transition-transform hover:scale-[1.01]"
             >
               {translate("servicesBookNow")}
+              <span className="sr-only"> – {label}</span>
               <ArrowRight className="h-4 w-4" />
             </Link>
             {/* Bottom Right Golden Leaf Icon Badge */}
@@ -297,6 +298,7 @@ function ServiceCard({ service }: { service: CatalogService }) {
           >
             <Key className="h-4 w-4 text-brand-gold" />
             {translate("servicesGetFreeQuote")}
+            <span className="sr-only"> – {label}</span>
           </Link>
         ) : service.isBookable ? (
           <>
@@ -306,6 +308,7 @@ function ServiceCard({ service }: { service: CatalogService }) {
             >
               <Key className="h-4 w-4 text-brand-gold" />
               {translate("servicesGetFreeQuote")}
+              <span className="sr-only"> – {label}</span>
             </Link>
 
             <div className="relative">
@@ -314,6 +317,7 @@ function ServiceCard({ service }: { service: CatalogService }) {
                 className="flex w-full items-center justify-center gap-2 rounded-xl bg-brand-gold py-3.5 text-sm font-bold uppercase tracking-wider text-slate-900 shadow-md transition-transform hover:scale-[1.01]"
               >
                 {translate("servicesBookNow")}
+                <span className="sr-only"> – {label}</span>
                 <ArrowRight className="h-4 w-4" />
               </Link>
               {/* Bottom Right Golden Leaf Icon Badge */}
@@ -331,6 +335,7 @@ function ServiceCard({ service }: { service: CatalogService }) {
           >
             <Key className="h-4 w-4 text-brand-gold" />
             {translate("servicesGetFreeQuote")}
+            <span className="sr-only"> – {label}</span>
             <ArrowRight className="h-4 w-4" />
           </Link>
         ) : (

@@ -64,18 +64,19 @@ export function VisionaryTeam() {
                   {translate("visionaryTeamTitle")}
                 </h2>
         
-                <div className="relative z-10 block w-full overflow-hidden sm:hidden">
-                  <div className="flex w-max md:max-w-4xl lg:max-w-5xl animate-marquee gap-2.5 py-1 motion-reduce:animate-none hover:[animation-play-state:paused]">
-                    {[...teamData, ...teamData].map((member, index) => (
-                      <TeamCard key={`${member.id}-${index}`} member={member} />
+                {/* One list for both layouts — a marquee on mobile, a grid from
+                    sm up — so each email link exists once in the page. The
+                    second copy only completes the mobile marquee loop: it's
+                    decorative (no links, aria-hidden) and hidden from sm up. */}
+                <div className="relative z-10 w-full overflow-hidden md:max-w-4xl lg:max-w-5xl">
+                  <div className="flex w-max animate-marquee gap-2.5 py-1 motion-reduce:animate-none hover:[animation-play-state:paused] sm:grid sm:w-full sm:animate-none sm:grid-cols-4 sm:justify-items-center sm:gap-4 sm:py-0 lg:gap-5">
+                    {teamData.map((member) => (
+                      <TeamCard key={member.id} member={member} />
+                    ))}
+                    {teamData.map((member) => (
+                      <TeamCard key={`${member.id}-loop`} member={member} decorative />
                     ))}
                   </div>
-                </div>
-        
-                <div className="relative z-10 hidden w-full md:max-w-4xl lg:max-w-5xl grid-cols-4 gap-4 sm:grid justify-items-center lg:gap-5">
-                  {teamData.map((member) => (
-                    <TeamCard key={member.id} member={member} />
-                  ))}
                 </div>
               </div>
     </div>
@@ -83,16 +84,25 @@ export function VisionaryTeam() {
 }
 
 
-function TeamCard({ member }: { member: TeamMember }) {
+function TeamCard({ member, decorative = false }: { member: TeamMember; decorative?: boolean }) {
 
    const { translate } = useLanguage();
+   const emailPillClass = "mt-3 flex min-h-9 max-w-full items-center justify-center gap-1 rounded-full bg-[#fffdf4] px-2.5 py-2 text-[10px] leading-tight text-[#0A1530] transition-colors hover:bg-[#C9B678] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#fffdf4] md:text-[11px] lg:text-[14px]";
+   const emailContent = (
+     <>
+       <Mail size={16} className="shrink-0 text-[#C9B678]" />
+       <span className="max-w-0 overflow-hidden whitespace-nowrap opacity-0 transition-[max-width,opacity] duration-300 group-hover:max-w-[220px] group-hover:opacity-100 group-focus-within:max-w-[220px] group-focus-within:opacity-100">
+         {member.email}
+       </span>
+     </>
+   );
 
   return (
-    <article className="group flex min-h-[170px] w-[200px] shrink-0 flex-col items-center rounded-lg border border-[#C9B678]/80 bg-[#0A1530]/90 px-2 py-2.5 text-center shadow-lg transition-transform duration-300 hover:-translate-y-1 px-3 :py-3 ">
+    <article aria-hidden={decorative || undefined} className={`${decorative ? "sm:hidden " : ""}group flex min-h-[170px] w-[200px] shrink-0 flex-col items-center rounded-lg border border-[#C9B678]/80 bg-[#0A1530]/90 px-2 py-2.5 text-center shadow-lg transition-transform duration-300 hover:-translate-y-1 px-3 :py-3 `}>
       <div className="relative h-36 w-36 shrink-0 overflow-hidden rounded-full border-2 border-[#D9C07E] sm:h-20 sm:w-20 lg:h-24 lg:w-24">
             <Image
               src={member.photo}
-              alt={member.name}
+              alt={decorative ? "" : member.name}
               fill
               className="object-cover"
             />
@@ -102,16 +112,13 @@ function TeamCard({ member }: { member: TeamMember }) {
         {translate(member.role)}
       </p>
       
-      <a
-        href={`mailto:${member.email}`}
-        className="mt-3 flex min-h-9 max-w-full items-center justify-center gap-1 rounded-full bg-[#fffdf4] px-2.5 py-2 text-[10px] leading-tight text-[#0A1530] transition-colors hover:bg-[#C9B678] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#fffdf4] md:text-[11px] lg:text-[14px]"
-        title={`Send email to ${member.email}`}
-      >
-        <Mail size={16} className="shrink-0 text-[#C9B678]" />
-        <span className="max-w-0 overflow-hidden whitespace-nowrap opacity-0 transition-[max-width,opacity] duration-300 group-hover:max-w-[220px] group-hover:opacity-100 group-focus-within:max-w-[220px] group-focus-within:opacity-100">
-          {member.email}
-        </span>
-      </a>
+      {decorative ? (
+        <span className={emailPillClass}>{emailContent}</span>
+      ) : (
+        <a href={`mailto:${member.email}`} className={emailPillClass} title={`Send email to ${member.email}`}>
+          {emailContent}
+        </a>
+      )}
     </article>
   );
 }

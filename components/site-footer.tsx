@@ -158,8 +158,9 @@ function SocialLinks() {
   return (
     <div className="mt-3 flex flex-wrap justify-center gap-2 md:justify-start">
       {SOCIAL_LINKS.map(({ href, label, Icon }) => (
-        <a key={label} href={href} target="_blank" rel="noopener noreferrer" aria-label={label} className="flex h-8 w-8 items-center justify-center rounded-full border border-brand-gold/70 bg-brand-gold/15 text-brand-navy-foreground transition-colors hover:bg-brand-gold hover:text-brand-navy">
-          <Icon className="h-3.5 w-3.5" />
+        <a key={label} href={href} target="_blank" rel="noopener noreferrer" className="flex h-8 w-8 items-center justify-center rounded-full border border-brand-gold/70 bg-brand-gold/15 text-brand-navy-foreground transition-colors hover:bg-brand-gold hover:text-brand-navy">
+          <Icon className="h-3.5 w-3.5" aria-hidden="true" />
+          <span className="sr-only">{label}</span>
         </a>
       ))}
     </div>

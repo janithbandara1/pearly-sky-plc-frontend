@@ -144,9 +144,17 @@ export function SiteHeader({ navLinks: navLinksProp, showServicesMenu: showServi
           /> 
 
           <div className="w-max-[50px] md:w-max-[150px] lg:w-max-[50px] relative ml-2  animate-marquee-header group-hover:[animation-play-state:paused]">
+           {/* The second copy only completes the marquee loop; its text comes
+               from CSS (attr(data-text)) so the logo link's anchor text isn't
+               the name twice. */}
            {marqueeList.map((text,index)=>(
-            <span key={index} className="inline w-max z-10 text-sm sm:text-base px-[2px] font-semibold whitespace-nowrap text-white">
-              {text.text}
+            <span
+              key={index}
+              aria-hidden={index > 0 || undefined}
+              data-text={index > 0 ? text.text : undefined}
+              className="inline w-max z-10 text-sm sm:text-base px-[2px] font-semibold whitespace-nowrap text-white before:content-[attr(data-text)]"
+            >
+              {index === 0 ? text.text : null}
               </span>
             ))}
               
