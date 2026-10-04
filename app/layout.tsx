@@ -4,6 +4,7 @@ import { AuthProvider } from "@/lib/auth-context";
 import { Toaster } from "@/components/ui/sonner";
 import { getRequestLanguage } from "@/lib/i18n/server";
 import { SITE_META } from "@/lib/countries/meta-data";
+import { CURRENT_COUNTRY, IS_GLOBAL_SITE } from "@/lib/countries/config";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -44,11 +45,16 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const language = await getRequestLanguage();
+  const language = (await getRequestLanguage()) ?? "en";
+  // Region-qualified on a country site ("en-FR"), matching the hreflang this
+  // page lists for itself (see lib/countries/seo.ts) — a bare "en" there
+  // reads as a mismatch with the self-referencing alternate. The global
+  // gateway has no country, so it stays a bare language.
+  const htmlLang = IS_GLOBAL_SITE ? language : `${language}-${CURRENT_COUNTRY.toUpperCase()}`;
 
   return (
     <html
-      lang={language ?? "en"}
+      lang={htmlLang}
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col">
