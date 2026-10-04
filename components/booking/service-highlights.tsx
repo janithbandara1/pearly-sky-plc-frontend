@@ -155,9 +155,9 @@ const  {translate }=useLanguage();
             >
               <div className="bg-[#F8F9FA] p-5 shadow-[rgba(169,139,75,0.15)_0px_4px_15px]">
                 <div className="rounded-3xl p-5 flex flex-col bg-[#F8F9FA] border-3 border-[#A98B4B] min-h-[280px]">
-                  <h3 className="font-semibold text-lg text-center mb-4 text-[#A98B4B]">
+                  <p className="font-semibold text-lg text-center mb-4 text-[#A98B4B]">
                     {translate(card.title)}
-                  </h3>
+                  </p>
                   <ul className="text-sm leading-relaxed list-disc text-[#151E2D] pl-5 space-y-1.5">
                     {card.features.map((feature, fIndex) => (
                       <li key={fIndex}>{translate(feature)}</li>

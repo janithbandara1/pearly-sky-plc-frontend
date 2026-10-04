@@ -1091,10 +1091,10 @@ export default function ServicesDetailsPage() {
                       key={idx}
                       className="bg-white/80 border border-stone-200/80 rounded-2xl p-5 shadow-sm hover:shadow-md hover:border-amber-700/20 transition-all"
                     >
-                      <h5 className="text-sm font-medium text-stone-800 mb-3 flex items-center gap-2">
+                      <p className="text-sm font-medium text-stone-800 mb-3 flex items-center gap-2">
                         <CheckCircle2 className="w-4 h-4 text-brand-gold shrink-0" />
                         {feature.title}
-                      </h5>
+                      </p>
                       <ul className="space-y-2">
                         {feature.items.map((item, i) => (
                           <li
