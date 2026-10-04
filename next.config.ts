@@ -45,6 +45,9 @@ const securityHeaders = [
 ];
 
 const nextConfig: NextConfig = {
+  // Drops the "X-Powered-By: Next.js" response header — no use to visitors,
+  // and SEO audits flag it as unnecessary.
+  poweredByHeader: false,
   // No experimental.inlineCss: the CSS is ~215 KB, and inlining put it in
   // every page ~3 times (a <style> tag plus two copies in the RSC payload),
   // making the HTML ~1.6 MB. As a <link> it's downloaded once and cached.
