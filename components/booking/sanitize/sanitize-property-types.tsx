@@ -748,7 +748,7 @@ export function PropertyTypeSizeSelectorSanitize({
         <h2 className="text-base sm:text-lg font-bold text-gray-300 mb-3">Service Catagory</h2>
         <div className="w-full p-1 flex justify-between items-center mb-6 bg-white/5 backdrop-blur-md] rounded-[15px]">
           <button
-            className={`md:w-[49%]  hover:bg-blue-500 hover:transition-colors hover:duration-300
+            className={`md:w-[49%]  
             w-[45%] py-4 px-3 
             ${isActiveCategorySwitch === "residential" ? "bg-blue-500 border-[#C6A868]/60" : "bg-transparent"} cursor-pointer text-[13px] md:text-[15px] text-white 
             font-bold rounded-[10px]`}
@@ -757,7 +757,7 @@ export function PropertyTypeSizeSelectorSanitize({
             <span className="text-white">🏠</span>  Residential
           </button>
           <button
-            className={`md:w-[49%]  hover:bg-blue-500 hover:transition-colors hover:duration-300
+            className={`md:w-[49%]  
             w-[45%] py-4 px-3 
             ${isActiveCategorySwitch === "industrial" ? "bg-blue-500 border-[#C6A868]/60" : "bg-transparent"} cursor-pointer text-[13px] md:text-[15px]  text-white 
             font-bold rounded-[10px]`}

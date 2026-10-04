@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 import Link from "@/components/locale-link";
-import { User, Briefcase, KeyRound, ArrowRight } from "lucide-react";
+import { User, Briefcase, KeyRound, ArrowRight, Folder } from "lucide-react";
 import type { CatalogItem, SizeQuote } from "@/lib/catalog-api";
 import { calculateEquipmentItemPrice, EQUIPMENT_ITEM_SKU } from "@/lib/equipment-pricing";
 import { useCurrency } from "@/lib/currency-context";
@@ -188,22 +188,24 @@ export function EquipmentSectionOfSanitize({
   };
 
   const handleDecrement = (id: number) => {
-    setQuantities((prev) => {
-      const current = prev[id] || 0;
-      const next = current - 1;
-      if (next <= 0) {
+    const current = quantities[id] || 0;
+    const next = current - 1;
+
+    if (next <= 0) {
+      setQuantities((prev) => {
         const copy = { ...prev };
         delete copy[id];
-        if (selectedItemIds.has(id)) {
-          onToggleItem?.(id);
-        }
         return copy;
+      });
+      if (selectedItemIds.has(id)) {
+        onToggleItem?.(id);
       }
-      return {
+    } else {
+      setQuantities((prev) => ({
         ...prev,
         [id]: next,
-      };
-    });
+      }));
+    }
   };
 
   const getItemMeta = (item: CatalogItem): ItemDetailMeta => {
@@ -264,219 +266,285 @@ export function EquipmentSectionOfSanitize({
       
 
       {/* Booking Overview & Summary Card */}
-      <section className="overflow-hidden rounded-[16px] border border-[#1E2D45] bg-[#0B1528] p-4 text-[#FFFDF4] shadow-2xl sm:p-6 mt-2">
-        {/* Header Row: SELECTED SERVICES & Category Pill */}
-        <div className="flex items-center justify-between pb-3.5 border-b border-[#1E2D45]">
-          <h2 className="text-xs font-bold uppercase tracking-wider text-[#FFFDF4] sm:text-sm">
-            {translate("equipSelectedServices")}
+      <section className="overflow-hidden rounded-[20px] border border-[#DDD5C7] bg-[#F3EFE7]  text-[#1D2128] shadow-sm  mt-2">
+        
+        {/* Top Header: Atelier Title & Residence Pill */}
+        <div className="flex  px-5 sm:px-7 py-5 flex-col bg-white  gap-4 sm:flex-row sm:items-center sm:justify-between">
+              <div className="flex flex-col">
+                <span className="text-[10.5px] font-semibold uppercase tracking-[0.2em] text-[#7A7468]">
+                  PRIVATE CLIENT ATELIER &bull; PEARLY SKY
+                </span>
+                <h1 className="font-serif text-3xl sm:text-[38px] font-normal leading-[1.15] tracking-[-0.01em] text-[#1D2128] my-1">
+                  Curated Engagement
+                </h1>
+                <span className="text-[10px] font-semibold uppercase tracking-[0.18em] text-[#7A7468]">
+                  SANCTUARY MAINTENANCE &bull; BESPOKE PROTOCOL
+                </span>
+              </div>
+
+              <div className="inline-flex self-start sm:self-center items-center gap-2 rounded-full border border-[#D5CEC0]/90 bg-[#E8E2D6]/80 px-4 py-2 text-xs font-bold tracking-wider text-[#33373E] shadow-xs">
+                <Folder className="h-3.5 w-3.5 text-[#B89358] fill-[#B89358]/20" />
+                <span className="text-[11px] font-bold tracking-[0.14em] uppercase text-[#33373E]">
+                  {propertyType ? (propertyType.toUpperCase().includes("RESIDENCE") ? propertyType.toUpperCase() : `${propertyType.toUpperCase()} RESIDENCE`) : "STUDIO RESIDENCE"}
+                </span>
+              </div>
+        </div>
+        
+        {/* Thin Divider Line */}
+        <div className="border-b  border-[#DDD5C7]/90 " />
+          
+    
+        {/* Selected Services & Folio Row */}
+        <div className="flex items-center px-5 sm:px-7  py-3 justify-between">
+          <h2 className="text-[10.5px] font-bold uppercase tracking-[0.18em] text-[#30333A] sm:text-[11px]">
+            {translate("equipSelectedServices")} &bull; SPECIFICATIONS
           </h2>
-          <div className="flex items-center gap-1.5 text-xs font-bold text-[#C5A253]">
-            <span>{categoryIcon}</span>
-            <span>{propertyType}</span>
+          <span className="text-[10.5px] font-semibold uppercase tracking-[0.18em] text-[#868074] sm:text-[11px]">
+            FOLIO {propertySizeSqm}M-LUXE
+          </span>
+        </div>
+
+        {/* 4-Column Specifications Grid */}
+        <div className="grid grid-cols-2 gap-y-4 gap-x-6 px-5  py-3 sm:px-7 sm:grid-cols-4 mt-4 mb-6">
+          {/* Item 1: PROPERTY SCALE */}
+          <div className="flex flex-col">
+            <span className="text-[10px] font-bold uppercase tracking-[0.16em] text-[#80796E]">
+              {translate("equipPropertyScale")}
+            </span>
+            <span className="font-serif text-[22px] sm:text-[26px] font-normal text-[#1D2128] leading-tight mt-1">
+              {propertySizeSqm} m²
+            </span>
+          </div>
+
+          {/* Item 2: TOTAL DURATION */}
+          <div className="flex flex-col">
+            <span className="text-[10px] font-bold uppercase tracking-[0.16em] text-[#80796E]">
+              TOTAL DURATION
+            </span>
+            <span className="font-serif text-[22px] sm:text-[26px] font-normal text-[#1D2128] leading-tight mt-1">
+              {hasDuration ? `${quote!.minHours} – ${quote!.maxHours}h` : "2.5 – 5h"}
+            </span>
+          </div>
+
+          {/* Item 3: ALLOCATED STAFF */}
+          <div className="flex flex-col">
+            <span className="text-[10px] font-bold uppercase tracking-[0.16em] text-[#80796E]">
+              ALLOCATED STAFF
+            </span>
+            <div className="flex items-baseline mt-1">
+              <span className="font-serif text-[22px] sm:text-[26px] font-normal text-[#1D2128] leading-tight">
+                {cleanersCount}
+              </span>
+              <span className="ml-1.5 text-xs sm:text-[13px] font-bold uppercase tracking-wider text-[#1D2128]">
+                SENIOR
+              </span>
+            </div>
+          </div>
+
+          {/* Item 4: ON-SITE WINDOW */}
+          <div className="flex flex-col">
+            <span className="text-[10px] font-bold uppercase tracking-[0.16em] text-[#80796E]">
+              ON-SITE WINDOW
+            </span>
+            <span className="font-serif text-[22px] sm:text-[26px] font-normal text-[#1D2128] leading-tight mt-1">
+              {durationText}
+            </span>
           </div>
         </div>
 
-        {/* Row 1: PROPERTY SCALE */}
-        <div className="flex items-center justify-between py-3 border-b border-[#1E2D45]">
-          <span className="text-xs font-bold uppercase tracking-wide text-[#8A99AD]">
-            {translate("equipPropertyScale")}
-          </span>
-          <span className="text-xs font-bold text-[#FFFDF4] sm:text-sm">
-            {propertySizeSqm} m²
-          </span>
+        {/* Highlighted Price Card */}
+        <div className="px-5 sm:px-7  py-3 w-full flex justify-center items-center">
+          <div className="rounded-[16px] w-[60%] md:w-full border border-[#D5CEC0]/90 bg-white px-5 py-4 sm:px-6 sm:py-5 flex flex-col sm:flex-row sm:items-center justify-between gap-3 shadow-xs">
+            <div className="flex flex-col ">
+              <span className="text-[11px] font-extrabold uppercase tracking-[0.16em] text-[#24272D]">
+                CLEANING DURATION PRICE RANGE
+              </span>
+              <p className="text-[12px] text-[#716C62] font-normal mt-0.5">
+                Baseline appointment honoring white-glove artisan methodology
+              </p>
+            </div>
+            <div className="flex flex-col md:items-start items-center sm:items-end justify-center shrink-0">
+              <span className="font-serif text-[22px] sm:text-[25px] font-normal text-[#1A1D22] leading-tight tracking-tight">
+                {money(hasPrice ? quote!.priceMin : 67.5)}
+              </span>
+              <span className="font-serif text-[22px] sm:text-[25px] font-normal text-[#1A1D22] leading-tight tracking-tight">
+                {money(hasPrice ? quote!.priceMax : 135.0)}
+              </span>
+            </div>
+          </div>
         </div>
 
-        {/* Row 2: TOTAL SERVICE DURATION */}
-        <div className="flex items-center justify-between py-3 border-b border-[#1E2D45]">
-          <span className="text-xs font-bold uppercase tracking-wide text-[#8A99AD]">
-            {translate("equipTotalServiceDuration")}
-          </span>
-          <span className="text-xs font-bold text-[#FFFDF4] sm:text-sm">
-            {durationText}
-          </span>
-        </div>
-
-        {/* Row 3: ALLOCATED PROFESSIONALS */}
-        <div className="flex items-center justify-between py-3 border-b border-[#1E2D45]">
-          <span className="text-xs font-bold uppercase tracking-wide text-[#8A99AD]">
-            {translate("equipAllocatedProfessionals")}
-          </span>
-          <span className="text-xs font-bold text-[#FFFDF4] sm:text-sm">
-            {cleanersCount}
-          </span>
-        </div>
-
-        {/* Row 4: CLEANER DURATION (ON-SITE) */}
-        <div className="flex items-center justify-between py-3 border-b border-[#1E2D45]">
-          <span className="text-xs font-bold uppercase tracking-wide text-[#8A99AD]">
-            {translate("equipCleanerDuration")}
-          </span>
-          <span className="text-xs font-bold text-[#FFFDF4] sm:text-sm">
-            {durationText}
-          </span>
-        </div>
-
-        {/* Row 5: CLEANING DURATION PRICE RANGE */}
-        <div className="flex items-center justify-between gap-2 py-3 border-b border-[#1E2D45]">
-          <span className="text-xs font-bold uppercase tracking-wide text-[#8A99AD]">
-            {translate("equipPriceRange")}
-          </span>
-          <span className="shrink-0 whitespace-nowrap text-xs font-bold text-[#FFFDF4] sm:text-sm">
-            {cleaningPriceRange}
-          </span>
-        </div>
-
-        {/* Highlighted Box: ESTIMATED PRICE RANGE */}
-        <div className="mt-5 flex items-center justify-between gap-2 rounded-[10px] border border-[#2D3F59] bg-[#0E1A2E] px-4 py-3.5 sm:px-5">
-          <span className="text-xs font-bold uppercase tracking-wider text-[#C5A253] sm:text-sm">
-            {translate("equipEstimatedPriceRange")}
-          </span>
-          <span className="shrink-0 whitespace-nowrap text-sm font-extrabold text-[#FFFDF4] sm:text-base">
-            {estimatedPriceRange}
-          </span>
-        </div>
         {/* Top Toggle Switch: BY CLIENT vs BY COMPANY */}
-      <div className="flex justify-center w-full my-3">
-        <div className="inline-flex w-[70%] p-2 items-center rounded-full bg-[#E5E0D8]/80 p-1 border border-[#D5CFC4]/50 shadow-inner">
-          <button
-            type="button"
-            onClick={() => onSupplySourceChange("customer")}
-            className={`inline-flex w-[60%] items-center gap-1.5 rounded-full px-5 py-4 text-xs font-bold uppercase tracking-wider transition-all cursor-pointer ${
-              isClient
-                ? "bg-[#C5A253] text-white shadow-md"
-                : "bg-transparent text-[#64748B] hover:text-[#1E293B]"
-            }`}
-          >
-            <User className="w-3.5 h-3.5 shrink-0" />
-            {translate("equipByClient")}
-          </button>
-          <button
-            type="button"
-            onClick={() => onSupplySourceChange("company")}
-            className={`inline-flex w-[60%] items-center gap-1.5 rounded-full px-5 py-4 text-xs font-bold uppercase tracking-wider transition-all cursor-pointer ${
-              isCompany
-                ? "bg-[#C5A253] text-white shadow-md"
-                : "bg-transparent text-[#64748B] hover:text-[#1E293B]"
-            }`}
-          >
-            <Briefcase className="w-3.5 h-3.5 shrink-0" />
-            {translate("equipByCompany")}
-          </button>
-        </div>
-      </div>
+        <div className="w-full bg-[#f5f5dc] p-5 sm:p-7 shadow-lg shadow-gray-700 py-3">
 
-      {/* Equipment Items List (Displayed when BY COMPANY is selected) */}
-      {isCompany && (
-        <div className="flex flex-col gap-3.5 w-full">
-          {displayedItems.map((item) => {
-            const meta = getItemMeta(item);
-            const qty = quantities[item.id] || 0;
-            const isSelected = qty > 0;
-            const unitPrice = calculateEquipmentItemPrice(item, propertySizeSqm) || meta.defaultPrice;
-
-            return (
-              <div
-                key={item.id}
-                className={`rounded-[18px] p-4 sm:p-5 transition-all flex flex-col sm:flex-row sm:items-center justify-between gap-3 sm:gap-4 ${
-                  isSelected
-                    ? "bg-[#FAF7F2] border-[1.5px] border-[#C5A253] shadow-[0_2px_12px_rgba(197,162,83,0.18)]"
-                    : "bg-[#FAF7F2]/90 border border-[#E7E2D8] hover:border-[#D5CFC2] shadow-sm"
+          <div className="flex flex-col justify-center w-full   ">
+                {/**cleaning chemical and equiment */}
+              <div className="w-full flex flex-row mt-1 mb-8 pb-7 border-gray-300 border-b justify-between items-center">
+                <div className="flex flex-col gap-1">
+                  <h1 className="text-[14px] md:text-[17px] uppercase tracking-widest font-bold">
+                    Cleaning chemical and equipments</h1>
+                  <p className="text-gray-700 text-[12px] md:text-[13px]">
+                    Curated organic compounds and specialized instrumentation</p>
+                </div>
+                <p  className="text-gray-700 text-[12px] md:text-[13px]">Bespoke additions</p>
+              </div>
+            <div className="inline-flex w-[100%] p-2 items-center justify-center rounded-full bg-[#E5E0D8]/80 p-1 border border-[#D5CFC4]/50 shadow-inner">
+              <button
+                type="button"
+                onClick={() => onSupplySourceChange("customer")}
+                className={`inline-flex w-[60%] items-center  gap-1.5 rounded-full px-5 py-4 text-xs font-bold uppercase tracking-wider transition-all cursor-pointer ${
+                  isClient
+                    ? "bg-[#C5A253] text-white shadow-md"
+                    : "bg-transparent text-[#64748B] hover:text-[#1E293B]"
                 }`}
               >
-                {/* Left Content */}
-                <div className="flex flex-col min-w-0 flex-1 pr-2">
-                  <div className="flex flex-wrap items-center gap-1.5 leading-tight">
-                    <span className="font-extrabold text-[#1E293B] text-sm sm:text-[15px] tracking-wide uppercase">
-                      {meta.displayName}
-                    </span>
-                    <span className="text-[#94A3B8]">•</span>
-                    <span className="text-xs text-[#64748B] italic font-medium">
-                      {meta.subtitle}
-                    </span>
-                  </div>
-                  <p className="text-xs text-[#64748B] leading-relaxed mt-1 line-clamp-2">
-                    {meta.description}
-                  </p>
-                </div>
-
-                {/* Right Price & Stepper / ADD Button */}
-                <div className="flex items-center justify-between sm:justify-end gap-4 sm:gap-6 shrink-0 pt-2 sm:pt-0 border-t sm:border-t-0 border-[#E7E2D8]/60">
-                  <div className="flex flex-col items-start sm:items-end">
-                    <span className="font-bold text-[#1E293B] text-sm sm:text-base leading-tight">
-                      {money(unitPrice)}
-                    </span>
-                    <span className="text-[9px] font-extrabold tracking-widest text-[#94A3B8] uppercase mt-0.5">
-                      PER UNIT
-                    </span>
-                  </div>
-
-                  {/* Action Control: ADD button vs Stepper */}
-                  {qty === 0 ? (
-                    <button
-                      type="button"
-                      onClick={() => handleAdd(item.id)}
-                      className="bg-[#C5A253] hover:bg-[#B8943F] active:scale-95 text-white font-extrabold text-xs px-6 py-2.5 rounded-full uppercase tracking-wider shadow-sm transition-all cursor-pointer min-w-[80px]"
-                    >
-                      ADD
-                    </button>
-                  ) : (
-                    <div className="flex items-center bg-[#EBE6DD] rounded-full p-0.5 border border-[#D8D2C6] shadow-inner">
-                      <button
-                        type="button"
-                        onClick={() => handleDecrement(item.id)}
-                        aria-label="Decrease quantity"
-                        className="w-7 h-7 flex items-center justify-center text-sm font-bold text-[#1E293B] hover:bg-black/5 active:scale-90 rounded-full transition-all cursor-pointer"
-                      >
-                        −
-                      </button>
-                      <span className="w-6 text-center font-extrabold text-sm text-[#1E293B] select-none">
-                        {qty}
-                      </span>
-                      <button
-                        type="button"
-                        onClick={() => handleIncrement(item.id)}
-                        disabled={qty >= 10}
-                        aria-label="Increase quantity"
-                        className="w-7 h-7 flex items-center justify-center text-sm font-bold bg-[#C5A253] text-white hover:bg-[#B8943F] disabled:opacity-50 disabled:cursor-not-allowed active:scale-90 rounded-full transition-all cursor-pointer shadow-sm"
-                      >
-                        +
-                      </button>
-                    </div>
-                  )}
-                </div>
-              </div>
-            );
-          })}
-        </div>
-      )}
-        {/* Action Button: BOOK NOW */}
-        {onBookNow && (
-          <button
-            type="button"
-            onClick={onBookNow}
-            disabled={submitting || !!bookDisabledReason}
-            className="mt-3.5 w-full rounded-[10px] bg-[#C5A253] py-3.5 text-center text-sm font-extrabold uppercase tracking-wider text-[#0B1528] shadow-[0_4px_14px_rgba(197,162,83,0.35)] transition-all hover:bg-[#B39144] disabled:cursor-not-allowed disabled:opacity-50 cursor-pointer"
-          >
-            {submitting ? translate("equipBooking") : translate("equipBookNow")}
-          </button>
-        )}
-
-        {bookDisabledReason && (
-          <p className="mt-2 text-center text-xs text-[#94A3B8]">{bookDisabledReason}</p>
-        )}
-
-        {/* Quality Guarantee and Disclaimer */}
-        <div className="mt-5 flex flex-col gap-1.5 border-t border-[#1E2D45]/60 pt-4">
-          <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-wide text-[#C5A253]">
-            <KeyRound className="h-4 w-4 shrink-0 text-[#C5A253]" />
-            <span>{translate("equipQualityGuarantee")}</span>
+                <User className="w-3.5 h-3.5 shrink-0" />
+                {translate("equipByClient")}
+              </button>
+              <button
+                type="button"
+                onClick={() => onSupplySourceChange("company")}
+                className={`inline-flex w-[60%] items-center gap-1.5 rounded-full px-5 py-4 text-xs font-bold uppercase tracking-wider transition-all cursor-pointer ${
+                  isCompany
+                    ? "bg-[#C5A253] text-white shadow-md"
+                    : "bg-transparent text-[#64748B] hover:text-[#1E293B]"
+                }`}
+              >
+                <Briefcase className="w-3.5 h-3.5 shrink-0" />
+                {translate("equipByCompany")}
+              </button>
+            </div>
           </div>
-          <p className="text-[11px] leading-relaxed text-[#94A3B8] sm:text-xs">
-            {translate("equipGuaranteeDesc1")}
-          </p>
-          <p className="text-[11px] leading-relaxed text-[#94A3B8] sm:text-xs">
-            {translate("equipGuaranteeDesc2")}
-          </p>
+
+          {/* Equipment Items List (Displayed when BY COMPANY is selected) */}
+          {isCompany && (
+            <div className="flex flex-col gap-3.5 w-full  p-2 mt-4 rounded-2xl">
+              {displayedItems.map((item) => {
+                const meta = getItemMeta(item);
+                const qty = quantities[item.id] || 0;
+                const isSelected = qty > 0;
+                const unitPrice = calculateEquipmentItemPrice(item, propertySizeSqm) || meta.defaultPrice;
+
+                return (
+                  <div
+                    key={item.id}
+                    className={`rounded-[18px] bg-white hover:border hover:border-brand-gold p-4 sm:p-5 transition-all flex flex-col sm:flex-row sm:items-center justify-between gap-3 sm:gap-4 ${
+                      isSelected
+                        ? "bg-[#f5ffdc] border-[1.5px] border-[#C5A253] shadow-[0_2px_12px_rgba(197,162,83,0.18)]"
+                        : "bg-[#f5ffdc] hover:border hover:border-brand-gold shadow-sm"
+                    }`}
+                  >
+                    {/* Left Content */}
+                    <div className="flex flex-col min-w-0 flex-1 pr-2 ">
+                      <div className="flex flex-wrap items-center gap-1.5 leading-tight">
+                        <span className="font-extrabold text-[#1E293B] text-sm sm:text-[15px] tracking-wide uppercase">
+                          {meta.displayName}
+                        </span>
+                        <span className="text-[#94A3B8]">•</span>
+                        <span className="text-xs text-[#64748B] italic font-medium">
+                          {meta.subtitle}
+                        </span>
+                      </div>
+                      <p className="text-xs text-[#64748B] leading-relaxed mt-1 line-clamp-2">
+                        {meta.description}
+                      </p>
+                    </div>
+
+                    {/* Right Price & Stepper / ADD Button */}
+                    <div className="flex items-center  justify-between sm:justify-end gap-4 sm:gap-6 shrink-0 pt-2 sm:pt-0 border-t sm:border-t-0 border-[#E7E2D8]/60">
+                      <div className="flex flex-col items-start sm:items-end">
+                        <span className="font-bold text-[#1E293B] text-sm sm:text-base leading-tight">
+                          {money(unitPrice)}
+                        </span>
+                        <span className="text-[9px] font-extrabold tracking-widest text-[#94A3B8] uppercase mt-0.5">
+                          PER UNIT
+                        </span>
+                      </div>
+
+                      {/* Action Control: ADD button vs Stepper */}
+                      {qty === 0 ? (
+                        <button
+                          type="button"
+                          onClick={() => handleAdd(item.id)}
+                          className="bg-[#C5A253] hover:bg-[#B8943F] active:scale-95 text-white font-extrabold text-xs px-6 py-2.5 rounded-full uppercase tracking-wider shadow-sm transition-all cursor-pointer min-w-[80px]"
+                        >
+                          ADD
+                        </button>
+                      ) : (
+                        <div className="flex items-center bg-[#EBE6DD] rounded-full p-0.5 border border-[#D8D2C6] shadow-inner">
+                          <button
+                            type="button"
+                            onClick={() => handleDecrement(item.id)}
+                            aria-label="Decrease quantity"
+                            className="w-7 h-7 flex items-center justify-center text-sm font-bold text-[#1E293B] hover:bg-black/5 active:scale-90 rounded-full transition-all cursor-pointer"
+                          >
+                            −
+                          </button>
+                          <span className="w-6 text-center font-extrabold text-sm text-[#1E293B] select-none">
+                            {qty}
+                          </span>
+                          <button
+                            type="button"
+                            onClick={() => handleIncrement(item.id)}
+                            disabled={qty >= 10}
+                            aria-label="Increase quantity"
+                            className="w-7 h-7 flex items-center justify-center text-sm font-bold bg-[#C5A253] text-white hover:bg-[#B8943F] disabled:opacity-50 disabled:cursor-not-allowed active:scale-90 rounded-full transition-all cursor-pointer shadow-sm"
+                          >
+                            +
+                          </button>
+                        </div>
+                      )}
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          )}
+          {/* Highlighted Box: ESTIMATED PRICE RANGE */}
+          <div className="mt-5 flex items-center justify-between gap-2 rounded-[8px] border px-4 py-3.5 sm:px-5">
+            <div className="">
+               <h2 className="text-xs font-bold uppercase tracking-wider text-[#C5A253] sm:text-sm">
+                {translate("equipEstimatedPriceRange")}
+              </h2>
+              <p className="text-[12px] text-[#716C62] font-normal mt-0.5">
+                Includes elite materials,eco-preservative formulations & transit
+              </p>
+            </div>
+           
+            <span className="font-serif text-[22px] sm:text-[26px] font-normal text-[#1D2128] leading-tight mt-1 sm:text-base">
+              {estimatedPriceRange}
+            </span>
+          </div>
+            {/* Action Button: BOOK NOW */}
+            {onBookNow && (
+              <button
+                type="button"
+                onClick={onBookNow}
+                disabled={submitting || !!bookDisabledReason}
+                className="mt-3.5 w-full rounded-[10px] bg-[#C5A253] py-3.5 text-center text-sm font-extrabold uppercase tracking-wider text-[#0B1528] shadow-[0_4px_14px_rgba(197,162,83,0.35)] transition-all hover:bg-[#B39144] disabled:cursor-not-allowed disabled:opacity-50 cursor-pointer"
+              >
+                {submitting ? translate("equipBooking") : translate("equipBookNow")}
+              </button>
+            )}
+
+            {bookDisabledReason && (
+              <p className="mt-2 text-center text-xs text-[#94A3B8]">{bookDisabledReason}</p>
+            )}
+
+            {/* Quality Guarantee and Disclaimer */}
+            <div className="mt-5 flex flex-col gap-1.5 border-t border-[#DDD5C7]/80 pt-4">
+              <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-wide text-[#A6803E]">
+                <KeyRound className="h-4 w-4 shrink-0 text-[#A6803E]" />
+                <span>{translate("equipQualityGuarantee")}</span>
+              </div>
+              <p className="text-[11px] leading-relaxed text-[#6E6A62] sm:text-xs">
+                {translate("equipGuaranteeDesc1")}
+              </p>
+              <p className="text-[11px] leading-relaxed text-[#6E6A62] sm:text-xs">
+                {translate("equipGuaranteeDesc2")}
+              </p>
+            </div>
+          
         </div>
       </section>
 
