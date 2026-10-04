@@ -45,13 +45,9 @@ const securityHeaders = [
 ];
 
 const nextConfig: NextConfig = {
-  // Inlines route CSS into <style> tags instead of render-blocking <link>
-  // requests — Tailwind's output stays small enough per route that this is a
-  // net win for first-time visitors (see next.config docs for the trade-off
-  // with repeat-visitor stylesheet caching).
-  experimental: {
-    inlineCss: true,
-  },
+  // No experimental.inlineCss: the CSS is ~215 KB, and inlining put it in
+  // every page ~3 times (a <style> tag plus two copies in the RSC payload),
+  // making the HTML ~1.6 MB. As a <link> it's downloaded once and cached.
   async headers() {
     return [{ source: "/:path*", headers: securityHeaders }];
   },
