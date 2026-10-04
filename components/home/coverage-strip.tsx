@@ -105,9 +105,9 @@ export function CoverageStrip() {
           </div>}
         </div>
 
-        <h3 className="mt-7 text-center font-bold text-[#C9B678] sm:mt-9 text-lg lg:mt-10 md:text-2xl lg:text-2xl">
+        <p className="mt-7 text-center font-bold text-[#C9B678] sm:mt-9 text-lg lg:mt-10 md:text-2xl lg:text-2xl">
           {translate("aboutPageWhyTitle")}
-        </h3>
+        </p>
 
         <div className="mt-4 grid grid-cols-2 gap-x-3 gap-y-5 sm:mt-5 sm:grid-cols-4 sm:gap-5 lg:mt-6 lg:gap-8">
           {features.map(({ Icon, title, description }) => (

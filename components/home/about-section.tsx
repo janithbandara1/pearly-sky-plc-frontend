@@ -79,10 +79,10 @@ export function AboutSection() {
     <section className="bg-background mx-0 py-12">
       
       <div className=" ">
-        <h3 className="text-[#224b36] font-bold text-2xl lg:text-3xl md:text-3xl mb-4 text-center">
+        <p className="text-[#224b36] font-bold text-2xl lg:text-3xl md:text-3xl mb-4 text-center">
          
           {translate("aboutOurServices")}
-        </h3>
+        </p>
         <div className="px-4 sm:px-6 mx-auto w-full max-w-5xl grid grid-cols-2 md:grid-cols-3 gap-3 mb-8">
         {servicesList.map((service) => (
           <div key={service.id} className="bg-brand-navy  border-2 border-brand-gold rounded-xl px-4 py-3 text-[#fff] text-sm font-semibold text-center shadow-sm hover:shadow-md transition-shadow">

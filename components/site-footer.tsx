@@ -70,7 +70,7 @@ export function SiteFooter() {
 
       <div className="mx-auto grid w-full max-w-7xl items-start gap-8 px-4 py-8 sm:px-8 md:grid-cols-3 md:gap-10 lg:px-12">
         <div className="order-2 flex flex-col items-center text-center md:order-1 md:items-start md:text-left">
-          <h3 className="text-base font-semibold text-brand-gold sm:text-lg">{translate("quickConnect")}</h3>
+          <p className="text-base font-semibold text-brand-gold sm:text-lg">{translate("quickConnect")}</p>
           <div className="mt-4 flex flex-wrap justify-center gap-2 md:justify-start">
             <a href={whatsappUrl} target="_blank" rel="noopener noreferrer" className="flex items-center gap-1.5 rounded-md bg-brand-gold px-3 py-2 text-[11px] font-semibold text-brand-navy shadow-sm transition-colors hover:bg-brand-gold/80">
               <FaWhatsapp className="h-3.5 w-3.5" /> {translate("contactWhatsapp")}
@@ -92,7 +92,7 @@ export function SiteFooter() {
           <div className="flex h-30 w-42 items-center justify-center bg-brand-navy/40" aria-label="Logo placeholder">
             <Image src="/images/brand/logo.webp" alt="Pearly Sky logo" width={100} height={100} className="max-h-30 w-auto object-contain" />
           </div>
-          <h2 className="mt-2 font-serif text-3xl lowercase tracking-wide text-brand-gold sm:text-4xl">pearly sky</h2>
+          <p className="mt-2 font-serif text-3xl lowercase tracking-wide text-brand-gold sm:text-4xl">pearly sky</p>
           <p className="text-[11px] text-brand-gold/90">Eco-Luxury Cleaning</p>
           <address className="mt-4 whitespace-pre-line text-left text-xs not-italic leading-relaxed text-brand-navy-foreground/75">
             {office.address ?? "Address available on request"}
@@ -103,7 +103,7 @@ export function SiteFooter() {
         </div>
 
         <div className="order-3 flex flex-col items-center text-center md:items-start md:text-left">
-          <h3 className="text-base font-semibold text-brand-gold sm:text-lg">{translate("footerQuickLinksTitle")}</h3>
+          <p className="text-base font-semibold text-brand-gold sm:text-lg">{translate("footerQuickLinksTitle")}</p>
           <div className="mt-3 grid w-full grid-cols-2 gap-x-6">
             <ul className="text-xs text-brand-navy-foreground/85">
               {navLinks.slice(0, 4).map((link) => (

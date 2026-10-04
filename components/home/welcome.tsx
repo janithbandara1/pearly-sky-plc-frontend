@@ -24,9 +24,9 @@ export function Welcome() {
                 <h2 className="mb-2 text-xl font-serif font-bold tracking-[0.04em] text-white sm:text-3xl lg:text-4xl">
                     {translate("heroWelcome")}
                 </h2>
-                <h3 className="mb-4 text-[10px] font-semibold tracking-wide text-[#C9B678] sm:mb-5 sm:text-sm lg:text-base">
+                <p className="mb-4 text-[10px] font-semibold tracking-wide text-[#C9B678] sm:mb-5 sm:text-sm lg:text-base">
                     {translate("heroWelcomeSubText")}
-                </h3>
+                </p>
                 <p className="mx-auto max-w-3xl text-[9px] leading-[1.55] text-gray-200 sm:text-xs sm:leading-[1.65] lg:text-sm">
                     {translate("heroWelcomeContent")}
                 </p>
