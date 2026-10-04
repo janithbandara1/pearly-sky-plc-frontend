@@ -11,7 +11,7 @@ import { MomentsOfExcellence } from "@/components/home/moments-of-excellence";
 import { Testimonials } from "@/components/home/testimonials";
 import { RecentArticles } from "@/components/home/recent-articles";
 import { ContactSection } from "@/components/home/home-contact-us";
-import { buildCountryAlternates, buildSocialMeta } from "@/lib/countries/seo";
+import { buildCountryAlternates, buildGlobalAlternates, buildSocialMeta } from "@/lib/countries/seo";
 import { getRequestCountry } from "@/lib/countries/server";
 import { getRequestLanguage } from "@/lib/i18n/server";
 import { getCountryPageMeta } from "@/lib/countries/meta-data";
@@ -31,7 +31,8 @@ export async function generateMetadata(): Promise<Metadata> {
   // of country-specific — so hreflang alternates cross-linking them would
   // misrepresent duplicate content that isn't actually duplicate.
   if (IS_GLOBAL_SITE) {
-    return { title, description, ...buildSocialMeta(title, description) };
+    return { title, description, alternates: buildGlobalAlternates("C:/Program Files/Git/", language),
+      ...buildSocialMeta(title, description) };
   }
 
   return {

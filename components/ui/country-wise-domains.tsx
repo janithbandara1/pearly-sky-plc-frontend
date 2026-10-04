@@ -176,9 +176,9 @@ export default function CountryWiseDomains(): React.JSX.Element {
             <Globe className="w-3.5 h-3.5 text-[#0A1530]" />
             Global Network
           </div>
-          <h1 id="ausieurope" className="text-2xl sm:text-4xl font-serif tracking-tight text-stone-900 font-normal">
+          <h2 id="ausieurope" className="text-2xl sm:text-4xl font-serif tracking-tight text-stone-900 font-normal">
             Select Your Regional Store
-          </h1>
+          </h2>
           <p className="mt-2 text-sm sm:text-base text-stone-600 font-light">
             Choose your local Pearly Sky destination for tailored pricing, localized shipping, and currency options.
           </p>
@@ -222,9 +222,9 @@ export default function CountryWiseDomains(): React.JSX.Element {
               return (
                 <div key={regionGroup.region} id="europe" className="lg:col-span-9 space-y-3 scroll-mt-24 sm:scroll-mt-28">
                   <div className="flex items-center gap-4">
-                    <h2 className="text-base sm:text-lg font-serif text-stone-800 font-medium tracking-wide">
+                    <h3 className="text-base sm:text-lg font-serif text-stone-800 font-medium tracking-wide">
                       {regionGroup.region}
-                    </h2>
+                    </h3>
                     <div className="h-px bg-stone-300/60 flex-1" />
                   </div>
 
@@ -256,9 +256,9 @@ export default function CountryWiseDomains(): React.JSX.Element {
                   return (
                     <div key={regionGroup.region} id="australia" className="lg:col-span-3 space-y-3 scroll-mt-24 sm:scroll-mt-28">
                       <div className="flex items-center gap-4">
-                        <h2 className="text-base sm:text-lg font-serif text-stone-800 font-medium tracking-wide">
+                        <h3 className="text-base sm:text-lg font-serif text-stone-800 font-medium tracking-wide">
                           {regionGroup.region}
-                        </h2>
+                        </h3>
                         <div className="h-px bg-stone-300/60 flex-1" />
                       </div>
 
@@ -289,9 +289,9 @@ export default function CountryWiseDomains(): React.JSX.Element {
                   return (
                     <div key={regionGroup.region} id="north-america" className="lg:col-span-4 space-y-3 scroll-mt-24 sm:scroll-mt-28">
                       <div className="flex items-center gap-4">
-                        <h2 className="text-base sm:text-lg font-serif text-stone-800 font-medium tracking-wide">
+                        <h3 className="text-base sm:text-lg font-serif text-stone-800 font-medium tracking-wide">
                           {regionGroup.region}
-                        </h2>
+                        </h3>
                         <div className="h-px bg-stone-300/60 flex-1" />
                       </div>
 
@@ -328,9 +328,9 @@ export default function CountryWiseDomains(): React.JSX.Element {
               return (
                 <div key={regionGroup.region} id="middle-east" className="lg:col-span-12 space-y-3 scroll-mt-24 sm:scroll-mt-28">
                   <div className="flex items-center gap-4">
-                    <h2 className="text-base sm:text-lg font-serif text-stone-800 font-medium tracking-wide">
+                    <h3 className="text-base sm:text-lg font-serif text-stone-800 font-medium tracking-wide">
                       {regionGroup.region}
-                    </h2>
+                    </h3>
                     <div className="h-px bg-stone-300/60 flex-1" />
                   </div>
 
@@ -381,9 +381,9 @@ const CountryCard: React.FC<CountryCardProps> = ({
             <CountryFlag code={country.flagCode} className="w-5 h-3.5 sm:w-6 sm:h-4 rounded-2xs object-cover shadow-2xs border border-stone-200" />
           </div>
           <div className="min-w-0">
-            <h3 className="text-xs sm:text-sm font-normal text-stone-800 leading-snug truncate group-hover:text-amber-900 transition-colors">
+            <p className="text-xs sm:text-sm font-normal text-stone-800 leading-snug truncate group-hover:text-amber-900 transition-colors">
               {country.name}
-            </h3>
+            </p>
             <p className={`text-[11px] text-stone-400 font-mono leading-tight truncate  ${!country.isLive ? 'text-stone-400 animate-pulse' : 'text-stone-400'}`}>
               {country.domain}
             </p>
@@ -419,9 +419,9 @@ const CountryCard: React.FC<CountryCardProps> = ({
             <CountryFlag code={country.flagCode} className="w-5 h-3.5 sm:w-6 sm:h-4 rounded-2xs object-cover shadow-xs border border-amber-900/10" />
           </div>
           <div className="min-w-0">
-            <h3 className="text-xs sm:text-sm font-medium text-[#2C2114] leading-snug truncate">
+            <p className="text-xs sm:text-sm font-medium text-[#2C2114] leading-snug truncate">
               {country.name}
-            </h3>
+            </p>
             <p className="text-[11px] text-[#5C4B33] font-mono leading-tight truncate mt-0.5">
               {country.domain}
             </p>
@@ -458,9 +458,9 @@ const CountryCard: React.FC<CountryCardProps> = ({
           <CountryFlag code={country.flagCode} className="w-5 h-3.5 sm:w-6 sm:h-4 rounded-2xs object-cover shadow-2xs border border-stone-200" />
         </div>
         <div className="min-w-0">
-          <h3 className="text-xs sm:text-sm font-normal text-stone-800 leading-snug truncate group-hover:text-amber-900 transition-colors">
+          <p className="text-xs sm:text-sm font-normal text-stone-800 leading-snug truncate group-hover:text-amber-900 transition-colors">
             {country.name}
-          </h3>
+          </p>
           <p className="text-[11px] text-stone-400 font-mono leading-tight truncate">
             {country.domain}
           </p>

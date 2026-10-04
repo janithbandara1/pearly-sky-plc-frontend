@@ -146,7 +146,7 @@ export default function GlobalHeroSection() {
           <source media="(min-width: 768px)" srcSet={heroBgDesktopSrcSet} />
           <img
             {...heroBgMobileProps}
-            alt=""
+            alt="Pearly Sky eco-luxury cleaning"
             loading="eager"
             fetchPriority="high"
             className="object-cover md:object-contain object-left-top w-full h-full"
@@ -168,12 +168,16 @@ export default function GlobalHeroSection() {
               <div className="h-[1px] w-18 bg-[#C5A059]" />
             </div>
 
-            <h1 className="text-5xl lg:text-6xl text-center font-normal tracking-tight text-[#0F1E36]">
-              Pearly Sky
+            {/* One H1 for both lines — "Pearly Sky" alone was too short and
+                said nothing about the page. */}
+            <h1 className="space-y-2 text-center">
+              <span className="block text-5xl lg:text-6xl font-normal tracking-tight text-[#0F1E36]">
+                Pearly Sky
+              </span>{" "}
+              <span className="block text-2xl md:text-3xl lg:text-4xl text-[#C5A059] font-light tracking-wide">
+                Eco-Luxury Cleaning
+              </span>
             </h1>
-            <p className="text-2xl text-center md:text-3xl lg:text-4xl text-[#C5A059] font-light tracking-wide">
-              Eco-Luxury Cleaning
-            </p>
             <div className="flex justify-center items-center">
                  <div className="h-[1px] w-[70%] bg-[#C5A059]" />
             </div>
@@ -184,7 +188,7 @@ export default function GlobalHeroSection() {
               Cleaner Spaces. Pure Conscience. Global Impact.
             </p>
             <p className="text-xs max-w-md sm:text-sm text-[#4d4e4e] leading-relaxed text-center font-sans font-light">
-              Pearly Sky Eco-Luxury Cleaning Global delivers exceptional cleaning experiences with a commitment to sustainability, elegance, and global well-being.
+              Pearly Sky Eco-Luxury Cleaning Global delivers exceptional cleaning experiences worldwide with a commitment to sustainability, elegance, and global well-being.
             </p>
           </div>
 

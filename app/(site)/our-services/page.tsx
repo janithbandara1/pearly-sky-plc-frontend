@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { getRequestLanguage } from "@/lib/i18n/server";
-import { buildCountryAlternates, buildSocialMeta } from "@/lib/countries/seo";
+import { buildCountryAlternates, buildGlobalAlternates, buildSocialMeta } from "@/lib/countries/seo";
 import { BreadcrumbJsonLd } from "@/components/json-ld";
 import { getCountryPageMeta, GLOBAL_META } from "@/lib/countries/meta-data";
 import PaymentMarquee from "@/components/payment-method-services";
@@ -18,6 +18,7 @@ export async function generateMetadata(): Promise<Metadata> {
     return {
       title,
       description,
+      alternates: buildGlobalAlternates("C:/Program Files/Git/our-services", language),
       ...buildSocialMeta(title, description),
     };
   }

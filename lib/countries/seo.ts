@@ -56,6 +56,15 @@ export function buildCountryAlternates(
   };
 }
 
+/**
+ * The global gateway's alternates: a self-canonical only. No hreflang — its
+ * pages aren't translations of any country site's (see app/(site)/page.tsx)
+ * — but every page still needs a canonical, or audits flag it as missing.
+ */
+export function buildGlobalAlternates(pathname: string, language: LanguageCode | null): NonNullable<Metadata["alternates"]> {
+  return { canonical: buildLocalePath(pathname, language ?? "en") };
+}
+
 /** Open Graph + Twitter Card metadata, reused by every page's metadata export. */
 export function buildSocialMeta(
   title: string,
