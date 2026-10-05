@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 import Link from "@/components/locale-link";
-import { User, Briefcase, KeyRound, ArrowRight, Folder } from "lucide-react";
+import { User, Briefcase, KeyRound, ArrowRight, Folder, Check } from "lucide-react";
 import type { CatalogItem, SizeQuote } from "@/lib/catalog-api";
 import { calculateEquipmentItemPrice, EQUIPMENT_ITEM_SKU } from "@/lib/equipment-pricing";
 import { useCurrency } from "@/lib/currency-context";
@@ -178,35 +178,15 @@ export function EquipmentSectionOfCommonSanitize({
     }
   };
 
-  const handleIncrement = (id: number) => {
+  // Each item can be added once — clicking "Added" removes it again
+  const handleRemove = (id: number) => {
     setQuantities((prev) => {
-      const current = prev[id] || 0;
-      if (current >= 10) return prev;
-      return {
-        ...prev,
-        [id]: current + 1,
-      };
+      const copy = { ...prev };
+      delete copy[id];
+      return copy;
     });
-  };
-
-  const handleDecrement = (id: number) => {
-    const current = quantities[id] || 0;
-    const next = current - 1;
-
-    if (next <= 0) {
-      setQuantities((prev) => {
-        const copy = { ...prev };
-        delete copy[id];
-        return copy;
-      });
-      if (selectedItemIds.has(id)) {
-        onToggleItem?.(id);
-      }
-    } else {
-      setQuantities((prev) => ({
-        ...prev,
-        [id]: next,
-      }));
+    if (selectedItemIds.has(id)) {
+      onToggleItem?.(id);
     }
   };
 
@@ -242,17 +222,9 @@ export function EquipmentSectionOfCommonSanitize({
 
   const cleanersCount = quote?.cleanerCount ?? 1;
 
-  // Equipment add-ons calculated with quantities
-  const dynamicEquipmentTotal = isCompany
-    ? displayedItems.reduce((sum, item) => {
-      const meta = getItemMeta(item);
-      const unitPrice = calculateEquipmentItemPrice(item, propertySizeSqm) || meta.defaultPrice;
-      const qty = quantities[item.id] || 0;
-      return sum + unitPrice * qty;
-    }, 0)
-    : 0;
-
-  const totalAddOns = addOnsTotal + dynamicEquipmentTotal;
+  // addOnsTotal from the booking page already includes the selected equipment
+  // (and the disinfection level) — the same figure checkout and the backend use.
+  const totalAddOns = addOnsTotal;
 
   const hasPrice = hasDuration && quote?.priceMin != null && quote?.priceMax != null;
   const cleaningPriceRange = hasPrice
@@ -463,7 +435,7 @@ export function EquipmentSectionOfCommonSanitize({
                         </span>
                       </div>
 
-                      {/* Action Control: ADD button vs Stepper */}
+                      {/* Action Control: ADD / ADDED toggle — each item can be added once */}
                       {qty === 0 ? (
                         <button
                           type="button"
@@ -473,28 +445,15 @@ export function EquipmentSectionOfCommonSanitize({
                           {translate("equipmentAddButton")}
                         </button>
                       ) : (
-                        <div className="flex items-center bg-[#EBE6DD] rounded-full p-0.5 border border-[#D8D2C6] shadow-inner">
-                          <button
-                            type="button"
-                            onClick={() => handleDecrement(item.id)}
-                            aria-label="Decrease quantity"
-                            className="w-7 h-7 flex items-center justify-center text-sm font-bold text-[#1E293B] hover:bg-black/5 active:scale-90 rounded-full transition-all cursor-pointer"
-                          >
-                            −
-                          </button>
-                          <span className="w-6 text-center font-extrabold text-sm text-[#1E293B] select-none">
-                            {qty}
-                          </span>
-                          <button
-                            type="button"
-                            onClick={() => handleIncrement(item.id)}
-                            disabled={qty >= 10}
-                            aria-label="Increase quantity"
-                            className="w-7 h-7 flex items-center justify-center text-sm font-bold bg-[#C5A253] text-white hover:bg-[#B8943F] disabled:opacity-50 disabled:cursor-not-allowed active:scale-90 rounded-full transition-all cursor-pointer shadow-sm"
-                          >
-                            +
-                          </button>
-                        </div>
+                        <button
+                          type="button"
+                          onClick={() => handleRemove(item.id)}
+                          aria-pressed
+                          className="inline-flex items-center justify-center gap-1.5 border-[1.5px] border-[#C5A253] text-[#C5A253] hover:bg-[#C5A253]/10 active:scale-95 font-extrabold text-xs px-5 py-2.5 rounded-full uppercase tracking-wider transition-all cursor-pointer min-w-[80px]"
+                        >
+                          <Check className="w-3.5 h-3.5 stroke-[3]" />
+                          {translate("bookingDetailAdded")}
+                        </button>
                       )}
                     </div>
                   </div>

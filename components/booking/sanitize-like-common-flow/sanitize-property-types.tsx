@@ -6,6 +6,7 @@ import { YACHT_PROPERTY_TYPES } from "@/components/booking/Yatchpropertytypes";
 import { useLanguage } from "@/lib/i18n/language-context";
 import { useCurrency } from "@/lib/currency-context";
 import type { TranslationKey } from "@/lib/i18n/dictionaries/en";
+import type { SizeQuote } from "@/lib/catalog-api";
 
 export const CATEGORY_LABEL_KEYS: Record<string, TranslationKey> = {
   "Studio": "propStudio",
@@ -87,6 +88,16 @@ export const CATEGORY_LABEL_KEYS: Record<string, TranslationKey> = {
      "Airport":"propAirport",
 
 };
+
+/**
+ * Some categories store a translation key (e.g. "propMicroOffice") as their
+ * label. The backend renders property type as-is in emails/PDFs/admin, so
+ * send it the English name instead.
+ */
+export function propertyTypeEnglishName(propertyType: string): string {
+  const match = Object.entries(CATEGORY_LABEL_KEYS).find(([, key]) => key === propertyType);
+  return match ? match[0] : propertyType;
+}
 
 export interface PropertyCategory {
   id: string;
@@ -530,6 +541,7 @@ interface SanitizeSizeVisualizationProps {
   activeCategory?: PropertyCategory;
   isDisinfection?: boolean;
   isDeepClean?: boolean;
+  quote?: SizeQuote | null;
 }
 
 export function SanitizeSizeVisualization({
@@ -537,6 +549,7 @@ export function SanitizeSizeVisualization({
   activeCategory,
   isDisinfection,
   isDeepClean,
+  quote,
 }: SanitizeSizeVisualizationProps) {
   const { symbol } = useCurrency();
 
@@ -545,12 +558,19 @@ export function SanitizeSizeVisualization({
   const span = Number(Math.sqrt(value * 1.33).toFixed(1));
   const depth = Number((value / span).toFixed(1));
 
-  // Dynamic cost, rate, and labor calculations
-  const rate = 4.9;
-  const multiplier = isDeepClean ? 1.4 : 1.0;
-  const estimatedCost = Math.round(value * rate * multiplier + 50);
-  const laborHours = Number(Math.max(1.5, value * 0.12 * (isDeepClean ? 1.3 : 1.0) + 1.8).toFixed(1));
-  const crewCount = value > 250 ? 4 : value > 100 ? 3 : 2;
+  // Cost, rate and labor come from the same size quote the booking is priced with
+  const range = (min: string, max: string) => (min === max ? min : `${min} – ${max}`);
+  const hasPrice = !!quote?.bookable && quote.priceMin != null && quote.priceMax != null;
+  const hasHours = !!quote?.bookable && quote.minHours != null && quote.maxHours != null;
+  const estimatedCost = hasPrice
+    ? range(`${symbol}${quote!.priceMin!.toFixed(2)}`, `${symbol}${quote!.priceMax!.toFixed(2)}`)
+    : "—";
+  const serviceRate = hasPrice && value > 0
+    ? `${range(`${symbol}${(quote!.priceMin! / value).toFixed(2)}`, `${symbol}${(quote!.priceMax! / value).toFixed(2)}`)}/m²`
+    : "—";
+  const labor = hasHours
+    ? `${range(String(quote!.minHours), String(quote!.maxHours))}h (${quote!.cleanerCount ?? 1} ${translate("CrewWord")})`
+    : "—";
 
   const partition = getPartitionNames(activeCategory?.label);
 
@@ -645,20 +665,20 @@ export function SanitizeSizeVisualization({
       <div className="grid grid-cols-3 gap-2 sm:gap-6 pt-4 border-t border-white/10 w-full text-center">
         <div>
           <p className="text-xs text-gray-400 font-medium mb-1">{translate("EstimatedCost")}</p>
-          <p className="text-lg sm:text-2xl font-bold text-[#38BDF8]">
-            {"$"} {estimatedCost}
+          <p className="text-base sm:text-xl font-bold text-[#38BDF8]">
+            {estimatedCost}
           </p>
         </div>
         <div>
           <p className="text-xs text-gray-400 font-medium mb-1">{translate("ServiceRate")}</p>
-          <p className="text-lg sm:text-2xl font-bold text-white">
-            {"$"}{rate}/m²
+          <p className="text-base sm:text-xl font-bold text-white">
+            {serviceRate}
           </p>
         </div>
         <div>
           <p className="text-xs text-gray-400 font-medium mb-1">{translate("EstLabor")}</p>
-          <p className="text-lg sm:text-2xl font-bold text-white"> 
-            {laborHours}h ({crewCount} {translate("CrewWord")})
+          <p className="text-base sm:text-xl font-bold text-white">
+            {labor}
           </p>
         </div>
       </div>
@@ -676,6 +696,9 @@ export interface PropertyTypeSizeSelectorProps {
   onDisinfectionChange?: (selected: boolean) => void;
   deepClean?: boolean;
   onDeepCleanChange?: (selected: boolean) => void;
+  /** Fires when the Residential / Industrial switch changes. */
+  onServiceCategoryChange?: (category: "residential" | "industrial") => void;
+  quote?: SizeQuote | null;
 }
 
 
@@ -688,6 +711,8 @@ export function PropertyTypeSizeSelectorSanitizeCommonFlow({
   onDisinfectionChange,
   deepClean: controlledDeepClean,
   onDeepCleanChange,
+  onServiceCategoryChange,
+  quote,
 }: PropertyTypeSizeSelectorProps) {
   const [internalDisinfection, setInternalDisinfection] = useState(false);
   const [internalDeepClean, setInternalDeepClean] = useState(false);
@@ -805,6 +830,7 @@ export function PropertyTypeSizeSelectorSanitizeCommonFlow({
   //dynamically changes category of sanitize
   const handleCategorySwitch = (categoryName: string): void => {
     setIsActiveCategorySwitch(categoryName);
+    onServiceCategoryChange?.(categoryName === "industrial" ? "industrial" : "residential");
     const nextCategories =
       categoryName === "residential" ? SANITIZE_RESIDENTIAL_CATEGORYIES : SANITIZE_INDUSTRIAL_CATEGORYIES;
     const firstCat = nextCategories[0];
@@ -821,6 +847,7 @@ export function PropertyTypeSizeSelectorSanitizeCommonFlow({
         activeCategory={activeCategory}
         isDisinfection={isDisinfection}
         isDeepClean={isDeepClean}
+        quote={quote}
       />
 
       <div className="w-full">

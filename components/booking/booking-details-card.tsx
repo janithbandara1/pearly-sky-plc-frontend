@@ -10,6 +10,8 @@ import type { BookingDraftItem, BookingDraftPackage, CareProfileDraft } from "@/
 import type { CatalogItem, SizeQuote } from "@/lib/catalog-api";
 import { useCurrency } from "@/lib/currency-context";
 import { useLanguage } from "@/lib/i18n/language-context";
+import type { TranslationKey } from "@/lib/i18n/dictionaries/en";
+import { CATEGORY_LABEL_KEYS } from "@/components/booking/sanitize-like-common-flow/sanitize-property-types";
 
 function formatHM(hours: number): string {
   const h = Math.floor(hours);
@@ -44,6 +46,10 @@ export interface BookingDetailsCardProps {
   industrialSteamItems?: string[];
   /** high-security-property-care / luxury-yacht-cleaning only — the Job type selected above. */
   serviceCategory?: string;
+  /** steam/sanitization/post-construction only — the Residential / Industrial switch. */
+  propertyCategory?: "residential" | "industrial";
+  /** steam/sanitization/post-construction only — "Deep Clean" (+40%, already in hourlyRate/quote). */
+  deepClean?: boolean;
   /** post-event-cleaning only — the event types selected above. */
   eventTypes?: string[];
   /** child-care-service / elder-care-service only — the per-person profiles collected above. */
@@ -107,6 +113,8 @@ export function BookingDetailsCard({
   generalSteamItems,
   industrialSteamItems,
   serviceCategory,
+  propertyCategory,
+  deepClean,
   eventTypes,
   careProfiles,
   personLabel,
@@ -157,10 +165,22 @@ export function BookingDetailsCard({
           <SummaryRow label={translate("bookingDetailService")} value={serviceLabel} />
           <SummaryRow label={translate("bookingDetailDate")} value={date} />
           <SummaryRow label={translate("bookingDetailTime")} value={time} />
-          {propertyType && <SummaryRow label={translate("bookingDetailPropertyType")} value={propertyType} />}
+          {propertyCategory && (
+            <SummaryRow
+              label={translate("propServiceCatagory")}
+              value={translate(propertyCategory === "industrial" ? "propCatIndustrial" : "propCatResidential")}
+            />
+          )}
+          {propertyType && (
+            <SummaryRow
+              label={translate("bookingDetailPropertyType")}
+              value={translate((CATEGORY_LABEL_KEYS[propertyType] ?? propertyType) as TranslationKey)}
+            />
+          )}
           {!hidePropertySize && (
             <SummaryRow label={translate("bookingDetailPropertySize")} value={`${propertySizeSqm} m²`} />
           )}
+          {deepClean && <SummaryRow label={translate("deepCleanName")} value="+40%" />}
           <SummaryRow
             label={translate("bookingDetailDuration")}
             value={

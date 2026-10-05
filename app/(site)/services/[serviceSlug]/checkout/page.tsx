@@ -32,6 +32,8 @@ import {
   initiateGuestCheckout,
 } from "@/lib/booking-api";
 import { BookingDraft, clearBookingDraft, loadBookingDraft } from "@/lib/booking-draft";
+import { applyDeepCleanToQuote, applyDeepCleanToRate } from "@/lib/deep-clean";
+import { propertyTypeEnglishName } from "@/components/booking/sanitize-like-common-flow/sanitize-property-types";
 import {
   CatalogServiceDetail,
   SizeQuote,
@@ -508,8 +510,12 @@ export default function CheckoutPage({
           specialRequirements,
           howGetIn: howGetIn.trim() || undefined,
           howHeard: howHeard.trim() || undefined,
-          propertyType: isCareService ? draft.scheduleMode || "In-home care" : draft.propertyType,
+          propertyType: isCareService
+            ? draft.scheduleMode || "In-home care"
+            : draft.propertyType && propertyTypeEnglishName(draft.propertyType),
           facilities: draft.facilities,
+          deepClean: draft.deepClean || undefined,
+          serviceCategory: draft.serviceCategory,
           disinfectionLevel: draft.disinfectionLevel
             ? { name: draft.disinfectionLevel.name, price: draft.disinfectionLevel.price ?? undefined }
             : undefined,
@@ -552,8 +558,12 @@ export default function CheckoutPage({
           specialRequirements,
           howGetIn: howGetIn.trim() || undefined,
           howHeard: howHeard.trim() || undefined,
-          propertyType: isCareService ? draft.scheduleMode || "In-home care" : draft.propertyType,
+          propertyType: isCareService
+            ? draft.scheduleMode || "In-home care"
+            : draft.propertyType && propertyTypeEnglishName(draft.propertyType),
           facilities: draft.facilities,
+          deepClean: draft.deepClean || undefined,
+          serviceCategory: draft.serviceCategory,
           disinfectionLevel: draft.disinfectionLevel
             ? { name: draft.disinfectionLevel.name, price: draft.disinfectionLevel.price ?? undefined }
             : undefined,
@@ -1286,8 +1296,8 @@ export default function CheckoutPage({
           <div className="lg:sticky lg:top-6">
             <BookingDetailsCard
               serviceLabel={service.label}
-              hourlyRate={service.price}
-              quote={quote}
+              hourlyRate={applyDeepCleanToRate(service.price, !!draft.deepClean)}
+              quote={applyDeepCleanToQuote(quote, !!draft.deepClean)}
               quoteLoading={quoteLoading}
               date={draft.date}
               time={draft.time}
@@ -1319,6 +1329,8 @@ export default function CheckoutPage({
                   : []
               }
               serviceCategory={draft.category}
+              propertyCategory={draft.serviceCategory}
+              deepClean={draft.deepClean}
               eventTypes={draft.eventTypes}
               careProfiles={summaryCareProfiles}
               personLabel={isCareService ? personLabel : undefined}

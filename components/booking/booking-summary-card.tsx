@@ -27,6 +27,8 @@ import { INDUSTRIAL_STEAM_CATEGORIES } from "@/components/booking/steam/industri
 import { SummaryAttachments } from "@/components/booking/summary-attachments";
 import type { AttachmentLink } from "@/lib/upload-api";
 import { useLanguage } from "@/lib/i18n/language-context";
+import type { TranslationKey } from "@/lib/i18n/dictionaries/en";
+import { CATEGORY_LABEL_KEYS } from "@/components/booking/sanitize-like-common-flow/sanitize-property-types";
 
 const GENERAL_STEAM_TITLES = new Set(GENERAL_STEAM_CARDS.map((card) => card.title));
 const INDUSTRIAL_STEAM_TITLES = new Set(INDUSTRIAL_STEAM_CATEGORIES.map((category) => category.title));
@@ -68,6 +70,10 @@ export interface BookingSummaryServiceDetails {
   steamItems: string[] | null;
   eventTypes: string[] | null;
   category: string | null;
+  /** steam/sanitization/post-construction only — "Deep Clean" (+40%, already in the price). */
+  deepClean?: boolean;
+  /** steam/sanitization/post-construction only — the Residential / Industrial switch. */
+  serviceCategory?: "residential" | "industrial" | null;
   service: { label: string };
 }
 
@@ -283,8 +289,20 @@ export function BookingSummaryCard({
             <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
               <Field label={translate("summaryService")} value={details.service.label} />
               <Field label={translate("summaryDateTime")} value={`${details.date} · ${details.time}`} />
-              {details.propertyType && <Field label={translate("summaryPropertyType")} value={details.propertyType} />}
+              {details.serviceCategory && (
+                <Field
+                  label={translate("propServiceCatagory")}
+                  value={translate(details.serviceCategory === "industrial" ? "propCatIndustrial" : "propCatResidential")}
+                />
+              )}
+              {details.propertyType && (
+                <Field
+                  label={translate("summaryPropertyType")}
+                  value={translate((CATEGORY_LABEL_KEYS[details.propertyType] ?? details.propertyType) as TranslationKey)}
+                />
+              )}
               <Field label={translate("summaryPropertySize")} value={`${details.propertySizeSqm} m²`} />
+              {details.deepClean && <Field label={translate("deepCleanName")} value="+40%" />}
               <Field label={translate("summaryDuration")} value={`${details.minHours}-${details.maxHours} ${translate("summaryHours")}`} />
               <Field label={translate("summaryCleaners")} value={details.cleanerCount + details.extraCleanerCount} />
               {showPaymentInfo && (

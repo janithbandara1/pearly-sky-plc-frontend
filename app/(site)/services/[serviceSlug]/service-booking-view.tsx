@@ -27,6 +27,7 @@ import { SERVICE_CONTENT } from "@/lib/content/service-details";
 import { ApiError } from "@/lib/auth-context";
 import { saveBookingDraft } from "@/lib/booking-draft";
 import { calculateEquipmentItemPrice } from "@/lib/equipment-pricing";
+import { applyDeepCleanToQuote, applyDeepCleanToRate } from "@/lib/deep-clean";
 import {
   CatalogServiceDetail,
   getServiceBySlug,
@@ -282,6 +283,8 @@ export function ServiceBookingView({
   const [propertyType, setPropertyType] = useState("");
   const [quote, setQuote] = useState<SizeQuote | null>(null);
   const [quoteLoading, setQuoteLoading] = useState(false);
+  const [deepClean, setDeepClean] = useState(false);
+  const [serviceCategory, setServiceCategory] = useState<"residential" | "industrial">("residential");
 
   const [selectedPackageIds, setSelectedPackageIds] = useState<Set<number>>(new Set());
   const [date, setDate] = useState("");
@@ -436,6 +439,11 @@ export function ServiceBookingView({
     0,
   );
 
+  // Deep Clean (+40%) is only offered on the common property-type flow
+  const appliedDeepClean = isCommonPropertyTypeServices && deepClean;
+  const pricedQuote = applyDeepCleanToQuote(quote, appliedDeepClean);
+  const pricedRate = applyDeepCleanToRate(service?.price ?? null, appliedDeepClean);
+
   function handleBookNow() {
     if (!service) return;
     /* if (isSanitization && selectedFacilityIds.size === 0 || selectedFacilityIds.size === 0 ) {
@@ -493,6 +501,8 @@ export function ServiceBookingView({
       disinfectionLevel: selectedDisinfectionLevel
         ? { name: selectedDisinfectionLevel.title, price: selectedDisinfectionLevel.priceAdder }
         : undefined,
+      deepClean: appliedDeepClean || undefined,
+      serviceCategory: isCommonPropertyTypeServices ? serviceCategory : undefined,
       category: isCategoryQuote ? selectedCategory ?? undefined : undefined,
     });
     router.push(`/services/${serviceSlug}/checkout`);
@@ -681,7 +691,10 @@ export function ServiceBookingView({
                 onChange={setPropertySizeSqm}
                 categories={getPropertyCategoriesForServiceOfSanitize(serviceSlug)}
                 onCategoryChange={(cat: PropertyCategory) => setPropertyType(cat.dropdownLabel ?? cat.label)}
-
+                quote={pricedQuote}
+                deepClean={deepClean}
+                onDeepCleanChange={setDeepClean}
+                onServiceCategoryChange={setServiceCategory}
               />)
               : (<PropertyTypeSizeSelector
                 value={propertySizeSqm}
@@ -707,8 +720,8 @@ export function ServiceBookingView({
                   propertyType={propertyType || activeCategory.label}
                   categoryIcon={activeCategory.icon}
                   propertySizeSqm={propertySizeSqm}
-                  quote={quote}
-                  hourlyRate={service.price}
+                  quote={pricedQuote}
+                  hourlyRate={pricedRate}
                   supplySource={supplySource}
                   onSupplySourceChange={handleSupplySourceChange}
                   items={items}
@@ -737,8 +750,8 @@ export function ServiceBookingView({
                       propertyType={propertyType || activeCategory.label}
                       categoryIcon={activeCategory.icon}
                       propertySizeSqm={propertySizeSqm}
-                      quote={quote}
-                      hourlyRate={service.price}
+                      quote={pricedQuote}
+                      hourlyRate={pricedRate}
                       supplySource={supplySource}
                       onSupplySourceChange={handleSupplySourceChange}
                       items={items}
@@ -767,8 +780,8 @@ export function ServiceBookingView({
                       propertyType={propertyType || activeCategory.label}
                       categoryIcon={activeCategory.icon}
                       propertySizeSqm={propertySizeSqm}
-                      quote={quote}
-                      hourlyRate={service.price}
+                      quote={pricedQuote}
+                      hourlyRate={pricedRate}
                       supplySource={supplySource}
                       onSupplySourceChange={handleSupplySourceChange}
                       items={items}

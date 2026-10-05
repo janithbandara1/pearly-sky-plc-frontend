@@ -2102,7 +2102,7 @@ serviceLuxuryYachtCleaningTitleFiveFeatureTwo:"Complete linen turnover, sanitati
     CrewWord:"crew",
 
     //propert catagory
-    propServiceCatagory:"Service Catagory",
+    propServiceCatagory:"Service Category",
     propCatResidential:"Residential",
   propCatIndustrial:"Industrial",
 
