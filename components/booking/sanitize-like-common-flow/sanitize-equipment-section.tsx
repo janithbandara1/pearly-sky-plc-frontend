@@ -7,6 +7,7 @@ import type { CatalogItem, SizeQuote } from "@/lib/catalog-api";
 import { calculateEquipmentItemPrice, EQUIPMENT_ITEM_SKU } from "@/lib/equipment-pricing";
 import { useCurrency } from "@/lib/currency-context";
 import { useLanguage } from "@/lib/i18n/language-context";
+import { TranslationKey } from "@/lib/i18n/dictionaries/en";
 
 export type SupplySource = "" | "customer" | "company";
 
@@ -31,27 +32,27 @@ interface ItemDetailMeta {
 
 const ITEM_DETAILS_MAP: Record<string, ItemDetailMeta> = {
   [EQUIPMENT_ITEM_SKU.BIO_SOLVENT]: {
-    displayName: "BIO - SOLVENT",
-    subtitle: "Botanical neutral formula",
-    description: "Plant-derived solvent formulated for rare marble, aged brass & natural finishes.",
+    displayName: "BIODisplayName",
+    subtitle: "BIOSubtitle",
+    description: "BIODescription",
     defaultPrice: 14.0,
   },
-  [EQUIPMENT_ITEM_SKU.MOP]: {
-    displayName: "MOP (1 MOP)",
-    subtitle: "Triple-density microfiber",
-    description: "Acoustic-dampened microfiber system for streakless high-sheen polish.",
+  [EQUIPMENT_ITEM_SKU.MOP]: { 
+    displayName: "MOPDisplayName",
+    subtitle: "MOPSubtitle",
+    description: "MOPDescription",
     defaultPrice: 8.0,
   },
   [EQUIPMENT_ITEM_SKU.MATERIAL_KIT]: {
-    displayName: "MATERIALS (1 KIT)",
-    subtitle: "Single-use organic lint-free cotton",
-    description: "Unbleached botanical fibers, horsehair detailing buffers & chamois.",
+    displayName: "MATERIALSDisplay",
+    subtitle: "MATERIALSSubtitle",
+    description: "MATERIALSDescription",
     defaultPrice: 7.2,
   },
   [EQUIPMENT_ITEM_SKU.VACUUM]: {
-    displayName: "VACUUM (1 VAC)",
-    subtitle: "Hospital-grade HEPA 114",
-    description: "Ultra-silent medical filtration with sub-micron airborne particulate capture.",
+    displayName: "VACUUMDisplayName",
+    subtitle: "VACUUMSubtitle",
+    description: "VACUUMDescription",
     defaultPrice: 10.0,
   },
 };
@@ -108,7 +109,7 @@ export interface EquipmentSectionProps {
   bookDisabledReason?: string;
 }
 
-export function EquipmentSectionOfSanitize({
+export function EquipmentSectionOfCommonSanitize({
   propertyType = "Studio",
   categoryIcon = "🏢",
   propertySizeSqm,
@@ -243,11 +244,11 @@ export function EquipmentSectionOfSanitize({
   // Equipment add-ons calculated with quantities
   const dynamicEquipmentTotal = isCompany
     ? displayedItems.reduce((sum, item) => {
-        const meta = getItemMeta(item);
-        const unitPrice = calculateEquipmentItemPrice(item, propertySizeSqm) || meta.defaultPrice;
-        const qty = quantities[item.id] || 0;
-        return sum + unitPrice * qty;
-      }, 0)
+      const meta = getItemMeta(item);
+      const unitPrice = calculateEquipmentItemPrice(item, propertySizeSqm) || meta.defaultPrice;
+      const qty = quantities[item.id] || 0;
+      return sum + unitPrice * qty;
+    }, 0)
     : 0;
 
   const totalAddOns = addOnsTotal + dynamicEquipmentTotal;
@@ -263,37 +264,37 @@ export function EquipmentSectionOfSanitize({
 
   return (
     <div className="flex flex-col gap-6 pb-[40px] w-full ">
-      
+
 
       {/* Booking Overview & Summary Card */}
       <section className="overflow-hidden rounded-[20px]  bg-[#0B1528] border border-[#DDD5C7]   text-[#1D2128] shadow-sm  mt-2">
-        
+
         {/* Top Header: Atelier Title & Residence Pill */}
         <div className="flex  px-5 sm:px-7 py-5 flex-col bg-[#05122b] gap-4 sm:flex-row sm:items-center sm:justify-between">
-              <div className="flex flex-col py-3">
-                <span className="text-[10.5px] font-semibold uppercase tracking-[0.2em] text-gray-400">
-                  PRIVATE CLIENT ATELIER &bull; PEARLY SKY
-                </span>
-                <h1 className="font-serif text-3xl sm:text-[38px] font-normal leading-[1.15] tracking-[-0.01em] text-white my-1">
-                  Curated Engagement
-                </h1>
-                <span className="text-[10px] font-semibold uppercase tracking-[0.18em] text-[#7A7468]">
-                  SANCTUARY MAINTENANCE &bull; BESPOKE PROTOCOL
-                </span>
-              </div>
+          <div className="flex flex-col py-3">
+            <span className="text-[10.5px] font-semibold uppercase tracking-[0.2em] text-gray-400">
+              {translate("PRIVATECLIENTATELIERPEARLYSKY")}
+            </span>
+            <h1 className="font-serif text-3xl sm:text-[38px] font-normal leading-[1.15] tracking-[-0.01em] text-white my-1">
+              {translate("curated_engagement_default")}
+            </h1>
+            <span className="text-[10px] font-semibold uppercase tracking-[0.18em] text-[#7A7468]">
+              {translate("SANCTUARYMAINTENANCEBESPOKEPROTOCOL")}
+            </span>
+          </div>
 
-              <div className="inline-flex self-start sm:self-center items-center gap-2 rounded-full border border-brand-gold bg-blue-950 px-4 py-2 text-xs font-bold tracking-wider text-[#33373E] shadow-xs">
-                <Folder className="h-3.5 w-3.5 text-brand-gold fill-[#B89358]/20" />
-                <span className="text-[11px] font-bold tracking-[0.14em] uppercase text-gray-300">
-                  {propertyType ? propertyType.toUpperCase() : "STUDIO"}
-                </span>
-              </div>
+          <div className="inline-flex self-start sm:self-center items-center gap-2 rounded-full border border-brand-gold bg-blue-950 px-4 py-2 text-xs font-bold tracking-wider text-[#33373E] shadow-xs">
+            <Folder className="h-3.5 w-3.5 text-brand-gold fill-[#B89358]/20" />
+            <span className="text-[11px] font-bold tracking-[0.14em] uppercase text-gray-300">
+              {propertyType ? propertyType.toUpperCase() : "STUDIO"}
+            </span>
+          </div>
         </div>
-        
+
         {/* Thin Divider Line */}
         <div className="border-b  border-brand-gold " />
-          
-    
+
+
         {/* Selected Services & Folio Row */}
         <div className="flex items-center px-5 sm:px-7  py-3 justify-between">
           <h2 className="text-[10.5px] font-bold uppercase tracking-[0.18em] text-gray-400 sm:text-[11px]">
@@ -320,7 +321,7 @@ export function EquipmentSectionOfSanitize({
           {/* Item 2: TOTAL DURATION */}
           <div className="flex flex-col">
             <span className="text-[10px] font-bold uppercase tracking-[0.16em] text-gray-300">
-              TOTAL DURATION
+              {translate("totalDuration")}
             </span>
             <span className="font-serif text-[22px] sm:text-[26px] font-normal text-white text-shadow leading-tight mt-1">
               {hasDuration ? `${quote!.minHours} – ${quote!.maxHours}h` : "2.5 – 5h"}
@@ -330,7 +331,7 @@ export function EquipmentSectionOfSanitize({
           {/* Item 3: ALLOCATED STAFF */}
           <div className="flex flex-col">
             <span className="text-[10px] font-bold uppercase tracking-[0.16em] text-gray-300">
-              ALLOCATED STAFF
+              {translate("allocatedStaff")}
             </span>
             <div className="flex items-baseline mt-1">
               <span className="font-serif text-[22px] sm:text-[26px] font-normal text-white text-shadow leading-tight">
@@ -338,7 +339,7 @@ export function EquipmentSectionOfSanitize({
               </span>
               <span className="ml-1.5 text-xs sm:text-[13px] font-bold uppercase tracking-wider
                text-white text-shadow">
-                SENIOR
+                {translate("seniorname")}
               </span>
             </div>
           </div>
@@ -346,7 +347,7 @@ export function EquipmentSectionOfSanitize({
           {/* Item 4: ON-SITE WINDOW */}
           <div className="flex flex-col">
             <span className="text-[10px] font-bold uppercase tracking-[0.16em] text-gray-300">
-              ON-SITE WINDOW
+              {translate("onSiteWindow")}
             </span>
             <span className="font-serif text-[22px] sm:text-[26px] font-normal text-white text-shadow leading-tight mt-1">
               {durationText}
@@ -359,10 +360,10 @@ export function EquipmentSectionOfSanitize({
           <div className="rounded-[16px] w-[60%] md:w-full border border-brand-gold bg-blue-950 px-5 py-4 sm:px-6 sm:py-5 flex flex-col sm:flex-row sm:items-center justify-between gap-3 shadow-xs">
             <div className="flex flex-col ">
               <span className="text-[11px] font-extrabold uppercase tracking-[0.16em] text-white">
-                CLEANING DURATION PRICE RANGE
+                {translate("CLEANINGDURATION")}
               </span>
               <p className="text-[12px] text-gray-400 font-normal mt-0.5">
-                Baseline appointment honoring white-glove artisan methodology
+                {translate("BaselineAppointment")}
               </p>
             </div>
             <div className="flex flex-col md:items-start items-center sm:items-end justify-center shrink-0">
@@ -380,25 +381,25 @@ export function EquipmentSectionOfSanitize({
         <div className="w-full bg-[#08163dbd] p-5 sm:p-7 shadow-lg shadow-gray-700 py-3 border-t border-gray-600">
 
           <div className="flex flex-col justify-center w-full  ">
-                {/**cleaning chemical and equiment */}
-              <div className="w-full flex flex-row mt-1 mb-8 pb-7 border-brand-gold border-b  justify-between items-center">
-                <div className="flex flex-col gap-1">
-                  <h1 className="text-[14px] md:text-[17px] text-brand-gold uppercase tracking-widest font-bold">
-                    Cleaning chemical and equipments</h1>
-                  <p className="text-gray-300 text-[12px] md:text-[13px]">
-                    Curated organic compounds and specialized instrumentation</p>
-                </div>
-                <p  className="text-gray-400 text-[12px] md:text-[13px]">Bespoke additions</p>
+            {/**cleaning chemical and equiment */}
+            <div className="w-full flex flex-row mt-1 mb-8 pb-7 border-brand-gold border-b  justify-between items-center">
+              <div className="flex flex-col gap-1">
+                <h1 className="text-[14px] md:text-[17px] text-brand-gold uppercase tracking-widest font-bold">
+                  {translate("CleaningChemicalEquipments")}
+                </h1>
+                <p className="text-gray-300 text-[12px] md:text-[13px]">
+                  {translate("curated_engagement_default")}</p>
               </div>
+              <p className="text-gray-400 text-[12px] md:text-[13px]">{translate("BespokeAdditions")}</p>
+            </div>
             <div className="inline-flex w-[100%] p-2 items-center justify-center rounded-full bg-[#E5E0D8]/10 p-1 border border-[#D5CFC4]/50 shadow-inner">
               <button
                 type="button"
                 onClick={() => onSupplySourceChange("customer")}
-                className={`inline-flex w-[60%] items-center  gap-1.5 rounded-full px-5 py-4 text-xs font-bold uppercase tracking-wider transition-all cursor-pointer ${
-                  isClient
+                className={`inline-flex w-[60%] items-center  gap-1.5 rounded-full px-5 py-4 text-xs font-bold uppercase tracking-wider transition-all cursor-pointer ${isClient
                     ? "bg-[#C5A253] text-white shadow-md"
                     : "bg-transparent text-white hover:text-gray-400"
-                }`}
+                  }`}
               >
                 <User className="w-3.5 h-3.5 shrink-0" />
                 {translate("equipByClient")}
@@ -406,11 +407,10 @@ export function EquipmentSectionOfSanitize({
               <button
                 type="button"
                 onClick={() => onSupplySourceChange("company")}
-                className={`inline-flex w-[60%] items-center gap-1.5 rounded-full px-5 py-4 text-xs font-bold uppercase tracking-wider transition-all cursor-pointer ${
-                  isCompany
+                className={`inline-flex w-[60%] items-center gap-1.5 rounded-full px-5 py-4 text-xs font-bold uppercase tracking-wider transition-all cursor-pointer ${isCompany
                     ? "bg-[#C5A253] text-white shadow-md"
                     : "bg-transparent text-white hover:text-gray-400"
-                }`}
+                  }`}
               >
                 <Briefcase className="w-3.5 h-3.5 shrink-0" />
                 {translate("equipByCompany")}
@@ -430,25 +430,24 @@ export function EquipmentSectionOfSanitize({
                 return (
                   <div
                     key={item.id}
-                    className={`rounded-[18px] bg-brand-navy/60 border  hover:border hover:border-brand-gold p-4 sm:p-5 transition-all flex flex-col sm:flex-row sm:items-center justify-between gap-3 sm:gap-4 ${
-                      isSelected
+                    className={`rounded-[18px] bg-brand-navy/60 border  hover:border hover:border-brand-gold p-4 sm:p-5 transition-all flex flex-col sm:flex-row sm:items-center justify-between gap-3 sm:gap-4 ${isSelected
                         ? "bg-brand-navy border-[1.5px] border-[#C5A253] shadow-[0_2px_12px_rgba(197,162,83,0.18)]"
                         : "bg-brand-navy border-gray-500 hover:border hover:border-brand-gold shadow-sm"
-                    }`}
+                      }`}
                   >
                     {/* Left Content */}
                     <div className="flex flex-col min-w-0 flex-1 pr-2 ">
                       <div className="flex flex-wrap items-center gap-1.5 leading-tight">
                         <span className="font-extrabold text-white text-sm sm:text-[15px] tracking-wide uppercase">
-                          {meta.displayName}
+                          {translate(meta.displayName as TranslationKey)}
                         </span>
                         <span className="text-[#9e9e9e]">•</span>
                         <span className="text-xs text-gray-300 italic font-medium">
-                          {meta.subtitle}
+                          {translate(meta.subtitle as TranslationKey)}
                         </span>
                       </div>
                       <p className="text-xs text-gray-400 leading-relaxed mt-1 line-clamp-2">
-                        {meta.description}
+                        {translate(meta.description as TranslationKey)}
                       </p>
                     </div>
 
@@ -459,7 +458,7 @@ export function EquipmentSectionOfSanitize({
                           {money(unitPrice)}
                         </span>
                         <span className="text-[9px] font-extrabold tracking-widest text-gray-300 uppercase mt-0.5">
-                          PER UNIT
+                          {translate("PERUNIT")}
                         </span>
                       </div>
 
@@ -470,7 +469,7 @@ export function EquipmentSectionOfSanitize({
                           onClick={() => handleAdd(item.id)}
                           className="bg-[#C5A253] hover:bg-[#B8943F] active:scale-95 text-white font-extrabold text-xs px-6 py-2.5 rounded-full uppercase tracking-wider shadow-sm transition-all cursor-pointer min-w-[80px]"
                         >
-                          ADD
+                          {translate("equipmentAddButton")}
                         </button>
                       ) : (
                         <div className="flex items-center bg-[#EBE6DD] rounded-full p-0.5 border border-[#D8D2C6] shadow-inner">
@@ -505,48 +504,48 @@ export function EquipmentSectionOfSanitize({
           {/* Highlighted Box: ESTIMATED PRICE RANGE */}
           <div className="mt-7 mb-2 flex border-brand-gold bg-blue-950  items-center justify-between gap-2 rounded-[8px] border px-4 py-4.5 sm:px-5">
             <div className="">
-               <h2 className="text-xs font-bold uppercase tracking-wider text-[#C5A253] sm:text-sm">
-                {translate("equipEstimatedPriceRange")} 
+              <h2 className="text-xs font-bold uppercase tracking-wider text-[#C5A253] sm:text-sm">
+                {translate("equipEstimatedPriceRange")}
               </h2>
               <p className="text-[12px] text-gray-300 font-normal mt-0.5">
-                Includes elite materials,eco-preservative formulations & transit
+                {translate("eliteMaterialDescription")}
               </p>
             </div>
-           
+
             <span className="font-serif text-[22px] sm:text-[26px] font-normal text-white leading-tight mt-1 sm:text-base">
               {estimatedPriceRange}
             </span>
           </div>
-            {/* Action Button: BOOK NOW */}
-            {onBookNow && (
-              <button
-                type="button"
-                onClick={onBookNow}
-                disabled={submitting || !!bookDisabledReason}
-                className="mt-3.5 w-full rounded-[10px] bg-[#C5A253] py-3.5 text-center text-sm font-extrabold uppercase tracking-wider text-[#0B1528] shadow-[0_4px_14px_rgba(197,162,83,0.35)] transition-all hover:bg-[#B39144] disabled:cursor-not-allowed disabled:opacity-50 cursor-pointer"
-              >
-                {submitting ? translate("equipBooking") : translate("equipBookNow")}
-              </button>
-            )}
+          {/* Action Button: BOOK NOW */}
+          {onBookNow && (
+            <button
+              type="button"
+              onClick={onBookNow}
+              disabled={submitting || !!bookDisabledReason}
+              className="mt-3.5 w-full rounded-[10px] bg-[#C5A253] py-3.5 text-center text-sm font-extrabold uppercase tracking-wider text-[#0B1528] shadow-[0_4px_14px_rgba(197,162,83,0.35)] transition-all hover:bg-[#B39144] disabled:cursor-not-allowed disabled:opacity-50 cursor-pointer"
+            >
+              {submitting ? translate("equipBooking") : translate("equipBookNow")}
+            </button>
+          )}
 
-            {bookDisabledReason && (
-              <p className="mt-2 text-center text-xs text-[#94A3B8]">{bookDisabledReason}</p>
-            )}
+          {bookDisabledReason && (
+            <p className="mt-2 text-center text-xs text-[#94A3B8]">{bookDisabledReason}</p>
+          )}
 
-            {/* Quality Guarantee and Disclaimer */}
-            <div className="mt-5 flex flex-col gap-1.5 border-t border-[#DDD5C7]/80 pt-4">
-              <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-wide text-[#A6803E]">
-                <KeyRound className="h-4 w-4 shrink-0 text-[#A6803E]" />
-                <span>{translate("equipQualityGuarantee")}</span>
-              </div>
-              <p className="text-[11px] leading-relaxed text-gray-400 sm:text-xs">
-                {translate("equipGuaranteeDesc1")}
-              </p>
-              <p className="text-[11px] leading-relaxed text-gray-400 sm:text-xs">
-                {translate("equipGuaranteeDesc2")}
-              </p>
+          {/* Quality Guarantee and Disclaimer */}
+          <div className="mt-5 flex flex-col gap-1.5 border-t border-[#DDD5C7]/80 pt-4">
+            <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-wide text-[#A6803E]">
+              <KeyRound className="h-4 w-4 shrink-0 text-[#A6803E]" />
+              <span>{translate("equipQualityGuarantee")}</span>
             </div>
-          
+            <p className="text-[11px] leading-relaxed text-gray-400 sm:text-xs">
+              {translate("equipGuaranteeDesc1")}
+            </p>
+            <p className="text-[11px] leading-relaxed text-gray-400 sm:text-xs">
+              {translate("equipGuaranteeDesc2")}
+            </p>
+          </div>
+
         </div>
       </section>
 

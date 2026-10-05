@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "@/components/locale-link";
-import { isDedicatedFlowService } from "@/lib/service-flows";
+import { isCommonPropertyTypeFlow, isDedicatedFlowService } from "@/lib/service-flows";
 import { Poppins } from "next/font/google";
 import { useRouter } from "next/navigation";
 import { useEffect, useState, type Dispatch, type SetStateAction } from "react";
@@ -47,8 +47,8 @@ import { CarpetScheduleSection } from "@/components/booking/carpet/carpet-schedu
 import { PoolScheduleSection } from "@/components/booking/pool/pool-schedule-section";
 import { PressureWashingScheduleSection } from "@/components/booking/pressure-washing/pressure-washing-schedule-section";
 import { YachtScheduleSection } from "@/components/booking/yacht/yacht-schedule-section";
-import { getPropertyCategoriesForServiceOfSanitize, PropertyTypeSizeSelectorSanitize } from "@/components/booking/sanitize/sanitize-property-types";
-import { EquipmentSectionOfSanitize } from "@/components/booking/sanitize/sanitize-equipment-section";
+import { getPropertyCategoriesForServiceOfSanitize, PropertyTypeSizeSelectorSanitizeCommonFlow } from "@/components/booking/sanitize-like-common-flow/sanitize-property-types";
+import { EquipmentSectionOfCommonSanitize } from "@/components/booking/sanitize-like-common-flow/sanitize-equipment-section";
 
 const poppins = Poppins({ subsets: ["latin"], weight: ["400", "500", "600", "700", "800"] });
 
@@ -69,14 +69,14 @@ const YACHT_SLUG = "luxury-yacht-cleaning";
 
 /** Care and quotation services with dedicated scheduling and profile flows. */
 const CHILD_CARE_SLUG = "child-care-service";
-const ELDER_CARE_SLUG = "elder-care-service"; 
+const ELDER_CARE_SLUG = "elder-care-service";
 const CARPET_UPHOLSTERY_SLUG = "carpet-upholstery-cleaning";
 const POOL_CLEANING_SLUG = "pool-cleaning";
 const PRESSURE_WASHING_SLUG = "precision-pressure-washing";
 
 //used for fallback data when the service API fails to return a service
 const DEFAULT_PACKAGES: ServiceAddOnPackage[] = [
-  { id: 101, name:  "AddOnsDefaultCatagoryDeep", image: null, category: "deep_and_specialized_cleaning" },
+  { id: 101, name: "AddOnsDefaultCatagoryDeep", image: null, category: "deep_and_specialized_cleaning" },
   { id: 102, name: "AddOnsDefaultCatagoryInteriorRefrigerator", image: null, category: "deep_and_specialized_cleaning" },
   { id: 103, name: "AddOnsDefaultCatagoryInteriorWindow", image: null, category: "general_interior_maintenance" },
   { id: 104, name: "AddOnsDefaultCatagoryBalcony", image: null, category: "outdoor_and_exterior_spaces" },
@@ -259,6 +259,16 @@ export function ServiceBookingView({
   const isFlowService = isDedicatedFlowService(serviceSlug);
   const serviceContent = SERVICE_CONTENT[serviceSlug];
 
+
+  /**common property types for controlled services
+   * 
+   *"steam-cleaning" ,
+    "healthguard-sanitization", 
+    "post-construction-renovation-cleaning"
+   */
+  const isCommonPropertyTypeServices = isCommonPropertyTypeFlow(serviceSlug)
+
+
   const [initialState] = useState(() =>
     initialService ? resolveServiceState(initialService, isFlowService) : null,
   );
@@ -269,7 +279,7 @@ export function ServiceBookingView({
   const [selectedItemIds, setSelectedItemIds] = useState<Set<number>>(new Set());
 
   const [propertySizeSqm, setPropertySizeSqm] = useState(20);
-  const [propertyType, setPropertyType] = useState(""); 
+  const [propertyType, setPropertyType] = useState("");
   const [quote, setQuote] = useState<SizeQuote | null>(null);
   const [quoteLoading, setQuoteLoading] = useState(false);
 
@@ -428,10 +438,10 @@ export function ServiceBookingView({
 
   function handleBookNow() {
     if (!service) return;
-    if (isSanitization && selectedFacilityIds.size === 0) {
+    /* if (isSanitization && selectedFacilityIds.size === 0 || selectedFacilityIds.size === 0 ) {
       setError("Please select at least one facility to continue.");
       return;
-    }
+    } */
     if (isSanitization && !disinfectionLevelId) {
       setError("Please select a package to continue.");
       return;
@@ -512,52 +522,54 @@ export function ServiceBookingView({
   const genderLabel = GENDER_OPTIONS.find((o) => o.value === gender)?.label ?? "No Preference";
   const languageLabel = LANGUAGE_OPTIONS.find((o) => o.value === language)?.label ?? "None";
 
-  const bookDisabledReason = isSanitization && selectedFacilityIds.size === 0
-    ? "Select at least one facility above to continue."
-    : isSanitization && !disinfectionLevelId
-      ? "Select a package above to continue."
-      : isCategoryQuote && !selectedCategory
-            ? "Select a job type above to continue."
-            : !date || !time
-              ? "Select a date and time above to continue."
-              : !propertyType
-                ? "Select a property type above to continue."
-                : items.length > 0 && !supplySource
-                  ? "Select a Cleaning Solvents & Equipment above to continue."
-                  : supplySource === "company" && selectedItemIds.size === 0
-                    ? "Add at least one Cleaning Solvent & Equipment item above to continue."
-                    : undefined;
+  const bookDisabledReason = isSanitization && !disinfectionLevelId
+    ? "Select a package above to continue."
+    : isCategoryQuote && !selectedCategory
+      ? "Select a job type above to continue."
+      : !date || !time
+        ? "Select a date and time above to continue."
+        : !propertyType
+          ? "Select a property type above to continue."
+          : items.length > 0 && !supplySource
+            ? "Select a Cleaning Solvents & Equipment above to continue."
+            : supplySource === "company" && selectedItemIds.size === 0
+              ? "Add at least one Cleaning Solvent & Equipment item above to continue."
+              : undefined;
 
-  const getServiceName=()=>{
-    if(serviceSlug==="regular-home-cleaning") return "serviceRegularHomeCleaning"
-    if(serviceSlug==="healthguard-sanitization") return "serviceHealthguardSanitization"
-    if(serviceSlug==="carpet-upholstery-cleaning") return "serviceCarpetUpholsteryCleaning"
-    if(serviceSlug==="steam-cleaning") return "serviceSteamCleaning"
-    if(serviceSlug==="post-event-cleaning") return "servicePostEventCleaning"
-    if(serviceSlug==="high-security-property-care") return "serviceHighSecurityPropertyCare"
-    if(serviceSlug==="luxury-yacht-cleaning") return "serviceLuxuryYachtCleaning"
-    if(serviceSlug==="child-care-service") return "serviceChildCareService"
-    if(serviceSlug==="elder-care-service") return "serviceElderCareService"
-    if(serviceSlug==="pool-cleaning") return "servicePoolCleaning"
-    if(serviceSlug==="precision-pressure-washing") return "servicePrecisionPressureWashing"
-    if(serviceSlug==="commercial-office-cleaning") return "serviceCommercialCleaningServices"
-    if(
+  const getServiceName = () => {
+    if (serviceSlug === "regular-home-cleaning") return "serviceRegularHomeCleaning"
+    if (serviceSlug === "healthguard-sanitization") return "serviceHealthguardSanitization"
+    if (serviceSlug === "carpet-upholstery-cleaning") return "serviceCarpetUpholsteryCleaning"
+    if (serviceSlug === "steam-cleaning") return "serviceSteamCleaning"
+    if (serviceSlug === "post-event-cleaning") return "servicePostEventCleaning"
+    if (serviceSlug === "high-security-property-care") return "serviceHighSecurityPropertyCare"
+    if (serviceSlug === "luxury-yacht-cleaning") return "serviceLuxuryYachtCleaning"
+    if (serviceSlug === "child-care-service") return "serviceChildCareService"
+    if (serviceSlug === "elder-care-service") return "serviceElderCareService"
+    if (serviceSlug === "pool-cleaning") return "servicePoolCleaning"
+    if (serviceSlug === "precision-pressure-washing") return "servicePrecisionPressureWashing"
+    if (serviceSlug === "commercial-office-cleaning") return "serviceCommercialCleaningServices"
+    if (
       serviceSlug === "move-in-out-transport-service" ||
       serviceSlug === "move-in-out-transport-health"
     ) return "serviceMoveInOutTransportService"
-    if(serviceSlug==="quick-touch-up-cleaning") return "serviceEssentialTouchUpCleaning"
-    if(serviceSlug==="deep-cleaning") return "serviceDeepCleaning"
-    if(serviceSlug==="end-of-tenancy-cleaning") return "serviceEndOfTenancyCleaning"
-    if(serviceSlug==="post-construction-renovation-cleaning") return "servicePostConstructionCleaning"
-    if(serviceSlug==="premium-rental-concierge-cleaning") return "servicePremiumRentalConciergeCleaning"
-    if(
+    if (serviceSlug === "quick-touch-up-cleaning") return "serviceEssentialTouchUpCleaning"
+    if (serviceSlug === "deep-cleaning") return "serviceDeepCleaning"
+    if (serviceSlug === "end-of-tenancy-cleaning") return "serviceEndOfTenancyCleaning"
+    if (serviceSlug === "post-construction-renovation-cleaning") return "servicePostConstructionCleaning"
+    if (serviceSlug === "premium-rental-concierge-cleaning") return "servicePremiumRentalConciergeCleaning"
+    if (
       serviceSlug === "laundry-service" ||
       serviceSlug === "laundry-services" ||
       serviceSlug === "laundry-linen-care"
     ) return "serviceLaundryService"
-    if(serviceSlug==="same-day-priority-cleaning") return "serviceSameDayPriorityCleaning"
+    if (serviceSlug === "same-day-priority-cleaning") return "serviceSameDayPriorityCleaning"
     return service.label
-  } 
+  }
+
+
+
+
 
   return (
     <div className={`${poppins.className}  bg-[rgb(199,209,217)]`}>
@@ -568,7 +580,7 @@ export function ServiceBookingView({
         subtitle={service.description ?? undefined}
         servicePrices={service.prices}
         serviceId={service.id}
-        hidePriceSelector={isPoolCleaning  || isCarpetService || isPressureWashing}
+        hidePriceSelector={isPoolCleaning || isCarpetService || isPressureWashing}
         unitLabelKey={isChildCare || isElderCare ? "hourPerProfessional" : undefined}
       />
 
@@ -662,23 +674,23 @@ export function ServiceBookingView({
             )}
 
             <DateTimeSection date={date} onDateChange={setDate} time={time} onTimeChange={setTime} />
- 
-            {isSanitization ? 
-            (<PropertyTypeSizeSelectorSanitize 
-              value={propertySizeSqm}
-              onChange={setPropertySizeSqm}
-              categories={getPropertyCategoriesForServiceOfSanitize(serviceSlug)}
-              onCategoryChange={(cat: PropertyCategory) => setPropertyType(cat.dropdownLabel ?? cat.label)}
-            
-            />)
-            :(<PropertyTypeSizeSelector
-              value={propertySizeSqm}
-              onChange={setPropertySizeSqm}
-              categories={getPropertyCategoriesForService(serviceSlug)}
-              onCategoryChange={(cat: PropertyCategory) => setPropertyType(cat.dropdownLabel ?? cat.label)}
-            />)}
-            
-            
+
+            {isCommonPropertyTypeServices ?
+              (<PropertyTypeSizeSelectorSanitizeCommonFlow
+                value={propertySizeSqm}
+                onChange={setPropertySizeSqm}
+                categories={getPropertyCategoriesForServiceOfSanitize(serviceSlug)}
+                onCategoryChange={(cat: PropertyCategory) => setPropertyType(cat.dropdownLabel ?? cat.label)}
+
+              />)
+              : (<PropertyTypeSizeSelector
+                value={propertySizeSqm}
+                onChange={setPropertySizeSqm}
+                categories={getPropertyCategoriesForService(serviceSlug)}
+                onCategoryChange={(cat: PropertyCategory) => setPropertyType(cat.dropdownLabel ?? cat.label)}
+              />)}
+
+
 
             {isEvent ? ((() => {
               const categories = getPropertyCategoriesForService(serviceSlug);
@@ -709,66 +721,66 @@ export function ServiceBookingView({
                 />
               );
             })()) :
-            isSanitization ? (
-              (() => {
-                const categories = getPropertyCategoriesForServiceOfSanitize(serviceSlug);
-                const pTypeLower = (propertyType || "").toLowerCase();
-                const activeCategory =
-                  categories.find(
-                    (c: PropertyCategory) =>
-                      pTypeLower.includes(c.id.toLowerCase()) ||
-                      pTypeLower.includes(c.label.toLowerCase()),
-                  ) ?? categories[0];
+              isCommonPropertyTypeServices ? (
+                (() => {
+                  const categories = getPropertyCategoriesForServiceOfSanitize(serviceSlug);
+                  const pTypeLower = (propertyType || "").toLowerCase();
+                  const activeCategory =
+                    categories.find(
+                      (c: PropertyCategory) =>
+                        pTypeLower.includes(c.id.toLowerCase()) ||
+                        pTypeLower.includes(c.label.toLowerCase()),
+                    ) ?? categories[0];
 
-                return (
-                  <EquipmentSectionOfSanitize
-                    propertyType={propertyType || activeCategory.label}
-                    categoryIcon={activeCategory.icon}
-                    propertySizeSqm={propertySizeSqm}
-                    quote={quote}
-                    hourlyRate={service.price}
-                    supplySource={supplySource}
-                    onSupplySourceChange={handleSupplySourceChange}
-                    items={items}
-                    selectedItemIds={selectedItemIds}
-                    onToggleItem={toggleItem}
-                    addOnsTotal={addOnsTotal + (selectedDisinfectionLevel?.priceAdder ?? 0)}
-                    onBookNow={handleBookNow}
-                    submitting={submitting}
-                    bookDisabledReason={bookDisabledReason}
-                  />
-                );
-              })()
-            ):
-              (() => {
-                const categories = getPropertyCategoriesForService(serviceSlug);
-                const pTypeLower = (propertyType || "").toLowerCase();
-                const activeCategory =
-                  categories.find(
-                    (c: PropertyCategory) =>
-                      pTypeLower.includes(c.id.toLowerCase()) ||
-                      pTypeLower.includes(c.label.toLowerCase()),
-                  ) ?? categories[0];
+                  return (
+                    <EquipmentSectionOfCommonSanitize
+                      propertyType={propertyType || activeCategory.label}
+                      categoryIcon={activeCategory.icon}
+                      propertySizeSqm={propertySizeSqm}
+                      quote={quote}
+                      hourlyRate={service.price}
+                      supplySource={supplySource}
+                      onSupplySourceChange={handleSupplySourceChange}
+                      items={items}
+                      selectedItemIds={selectedItemIds}
+                      onToggleItem={toggleItem}
+                      addOnsTotal={addOnsTotal + (selectedDisinfectionLevel?.priceAdder ?? 0)}
+                      onBookNow={handleBookNow}
+                      submitting={submitting}
+                      bookDisabledReason={bookDisabledReason}
+                    />
+                  );
+                })()
+              ) :
+                (() => {
+                  const categories = getPropertyCategoriesForService(serviceSlug);
+                  const pTypeLower = (propertyType || "").toLowerCase();
+                  const activeCategory =
+                    categories.find(
+                      (c: PropertyCategory) =>
+                        pTypeLower.includes(c.id.toLowerCase()) ||
+                        pTypeLower.includes(c.label.toLowerCase()),
+                    ) ?? categories[0];
 
-                return (
-                  <EquipmentSection
-                    propertyType={propertyType || activeCategory.label}
-                    categoryIcon={activeCategory.icon}
-                    propertySizeSqm={propertySizeSqm}
-                    quote={quote}
-                    hourlyRate={service.price}
-                    supplySource={supplySource}
-                    onSupplySourceChange={handleSupplySourceChange}
-                    items={items}
-                    selectedItemIds={selectedItemIds}
-                    onToggleItem={toggleItem}
-                    addOnsTotal={addOnsTotal + (selectedDisinfectionLevel?.priceAdder ?? 0)}
-                    onBookNow={handleBookNow}
-                    submitting={submitting}
-                    bookDisabledReason={bookDisabledReason}
-                  />
-                );
-              })()}
+                  return (
+                    <EquipmentSection
+                      propertyType={propertyType || activeCategory.label}
+                      categoryIcon={activeCategory.icon}
+                      propertySizeSqm={propertySizeSqm}
+                      quote={quote}
+                      hourlyRate={service.price}
+                      supplySource={supplySource}
+                      onSupplySourceChange={handleSupplySourceChange}
+                      items={items}
+                      selectedItemIds={selectedItemIds}
+                      onToggleItem={toggleItem}
+                      addOnsTotal={addOnsTotal + (selectedDisinfectionLevel?.priceAdder ?? 0)}
+                      onBookNow={handleBookNow}
+                      submitting={submitting}
+                      bookDisabledReason={bookDisabledReason}
+                    />
+                  );
+                })()}
 
             {error && <p className="text-sm text-destructive">{error}</p>}
           </>
