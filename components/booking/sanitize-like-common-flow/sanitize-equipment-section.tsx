@@ -8,6 +8,7 @@ import { calculateEquipmentItemPrice, EQUIPMENT_ITEM_SKU } from "@/lib/equipment
 import { useCurrency } from "@/lib/currency-context";
 import { useLanguage } from "@/lib/i18n/language-context";
 import { TranslationKey } from "@/lib/i18n/dictionaries/en";
+import { CATEGORY_LABEL_KEYS } from "./sanitize-property-types";
 
 export type SupplySource = "" | "customer" | "company";
 
@@ -44,7 +45,7 @@ const ITEM_DETAILS_MAP: Record<string, ItemDetailMeta> = {
     defaultPrice: 8.0,
   },
   [EQUIPMENT_ITEM_SKU.MATERIAL_KIT]: {
-    displayName: "MATERIALSDisplay",
+    displayName: "MATERIALSDisplayName",
     subtitle: "MATERIALSSubtitle",
     description: "MATERIALSDescription",
     defaultPrice: 7.2,
@@ -286,7 +287,7 @@ export function EquipmentSectionOfCommonSanitize({
           <div className="inline-flex self-start sm:self-center items-center gap-2 rounded-full border border-brand-gold bg-blue-950 px-4 py-2 text-xs font-bold tracking-wider text-[#33373E] shadow-xs">
             <Folder className="h-3.5 w-3.5 text-brand-gold fill-[#B89358]/20" />
             <span className="text-[11px] font-bold tracking-[0.14em] uppercase text-gray-300">
-              {propertyType ? propertyType.toUpperCase() : "STUDIO"}
+              {translate((CATEGORY_LABEL_KEYS[propertyType || "Studio"] ?? propertyType) as TranslationKey)}
             </span>
           </div>
         </div>

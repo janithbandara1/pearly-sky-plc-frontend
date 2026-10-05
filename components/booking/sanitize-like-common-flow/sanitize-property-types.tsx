@@ -1,13 +1,13 @@
 "use client";
 
 import { useEffect, useState, useRef } from "react";
-import { Check, Sparkles } from "lucide-react";
+import { Check, ChevronDown, Sparkles } from "lucide-react";
 import { YACHT_PROPERTY_TYPES } from "@/components/booking/Yatchpropertytypes";
 import { useLanguage } from "@/lib/i18n/language-context";
 import { useCurrency } from "@/lib/currency-context";
 import type { TranslationKey } from "@/lib/i18n/dictionaries/en";
 
-const CATEGORY_LABEL_KEYS: Record<string, TranslationKey> = {
+export const CATEGORY_LABEL_KEYS: Record<string, TranslationKey> = {
   "Studio": "propStudio",
   "Home": "propHome",
   "Villa": "propVilla",
@@ -548,8 +548,7 @@ export function SanitizeSizeVisualization({
   // Dynamic cost, rate, and labor calculations
   const rate = 4.9;
   const multiplier = isDeepClean ? 1.4 : 1.0;
-  const disinfectionExtra = isDisinfection ? 25 : 0;
-  const estimatedCost = Math.round(value * rate * multiplier + 50 + disinfectionExtra);
+  const estimatedCost = Math.round(value * rate * multiplier + 50);
   const laborHours = Number(Math.max(1.5, value * 0.12 * (isDeepClean ? 1.3 : 1.0) + 1.8).toFixed(1));
   const crewCount = value > 250 ? 4 : value > 100 ? 3 : 2;
 
@@ -587,27 +586,28 @@ export function SanitizeSizeVisualization({
       </div>
 
       {/* Center Floorplan Diagram */}
-      <div className="flex flex-col items-center justify-center my-4 sm:my-6 w-full max-w-[650px] mx-auto">
-        {/* Top Span Dimension */}
-        <div className="flex flex-col items-center w-full max-w-[380px] sm:max-w-[440px] mb-2">
-          <span className="text-xs text-gray-300 font-medium mb-1 tracking-wide">
-            {span} m span
-          </span>
-          <div className="flex items-center w-full">
-            <div className="w-px h-3 bg-gray-500" />
-            <div className="flex-1 h-px bg-gray-600" />
-            <div className="w-px h-3 bg-gray-500" />
-          </div>
-        </div>
+      <div className="grid grid-cols-[auto_minmax(0,380px)] sm:grid-cols-[auto_minmax(0,440px)] justify-center items-center gap-2 sm:gap-4 my-4 sm:my-6 w-full max-w-[650px] mx-auto">
+          {/* Empty cell above the depth dimension so the span aligns with the box */}
+          <div />
 
-        {/* Floorplan Body with Left Depth Dimension */}
-        <div className="flex items-center justify-center w-full gap-2 sm:gap-4">
+          {/* Top Span Dimension */}
+          <div className="flex flex-col items-center w-full">
+            <span className="text-xs text-gray-300 font-medium mb-1 tracking-wide">
+              {span} m span
+            </span>
+            <div className="flex items-center w-full">
+              <div className="w-px h-3 bg-gray-500" />
+              <div className="flex-1 h-px bg-gray-600" />
+              <div className="w-px h-3 bg-gray-500" />
+            </div>
+          </div>
+
           {/* Left Depth Dimension */}
-          <div className="flex items-center gap-1 shrink-0">
+          <div className="flex items-center gap-1 shrink-0 self-stretch">
             <span className="text-xs text-gray-300 font-medium -rotate-90 origin-center whitespace-nowrap">
               {depth} m depth
             </span>
-            <div className="flex flex-col items-center h-28 sm:h-36 justify-between">
+            <div className="flex flex-col items-center self-stretch justify-between">
               <div className="w-3 h-px bg-gray-500" />
               <div className="w-px flex-1 bg-gray-600" />
               <div className="w-3 h-px bg-gray-500" />
@@ -615,7 +615,7 @@ export function SanitizeSizeVisualization({
           </div>
 
           {/* Blueprint Box */}
-          <div className="w-full max-w-[380px] sm:max-w-[440px] h-[120px] sm:h-[150px] rounded-2xl border-2 border-[#38BDF8] bg-[#142A4A]/80 shadow-[0_0_25px_rgba(56,189,248,0.2)] relative flex flex-col justify-between p-3 sm:p-4 backdrop-blur-sm transition-all duration-300">
+          <div className="w-full h-[120px] sm:h-[150px] rounded-2xl border-2 border-[#38BDF8] bg-[#142A4A]/80 shadow-[0_0_25px_rgba(56,189,248,0.2)] relative flex flex-col justify-between p-3 sm:p-4 backdrop-blur-sm transition-all duration-300">
             <span className="text-[10px] sm:text-[11px] font-bold text-[#38BDF8] tracking-widest uppercase">
               {translate(surfaceTitle as TranslationKey)}
             </span>
@@ -639,7 +639,6 @@ export function SanitizeSizeVisualization({
               </div>
             </div>
           </div>
-        </div>
       </div>
 
       {/* Bottom Metrics 3 Columns */}
@@ -696,20 +695,31 @@ export function PropertyTypeSizeSelectorSanitizeCommonFlow({
   const isDisinfection = controlledDisinfection !== undefined ? controlledDisinfection : internalDisinfection;
   const isDeepClean = controlledDeepClean !== undefined ? controlledDeepClean : internalDeepClean;
 
+  const setDisinfection = (val: boolean) => {
+    if (controlledDisinfection === undefined) {
+      setInternalDisinfection(val);
+    }
+    onDisinfectionChange?.(val);
+  };
+
+  const setDeepClean = (val: boolean) => {
+    if (controlledDeepClean === undefined) {
+      setInternalDeepClean(val);
+    }
+    onDeepCleanChange?.(val);
+  };
+
+  // Disinfection and Deep Clean are mutually exclusive: selecting one clears the other
   const handleToggleDisinfection = () => {
     const nextVal = !isDisinfection;
-    if (controlledDisinfection === undefined) {
-      setInternalDisinfection(nextVal);
-    }
-    onDisinfectionChange?.(nextVal);
+    setDisinfection(nextVal);
+    if (nextVal && isDeepClean) setDeepClean(false);
   };
 
   const handleToggleDeepClean = () => {
     const nextVal = !isDeepClean;
-    if (controlledDeepClean === undefined) {
-      setInternalDeepClean(nextVal);
-    }
-    onDeepCleanChange?.(nextVal);
+    setDeepClean(nextVal);
+    if (nextVal && isDisinfection) setDisinfection(false);
   };
 
   //handle Service Catagory button active
@@ -903,7 +913,7 @@ export function PropertyTypeSizeSelectorSanitizeCommonFlow({
                   {translate("DisinfectionName")}
                 </span>
                 <span className="text-xs text-[#94A3B8] font-medium leading-tight mt-0.5">
-                  {translate("HospitalGradeName")}
+                  {translate("HospitalGradeName")} (+0%)
                 </span>
               </div>
             </div>
@@ -976,6 +986,7 @@ export function PropertyTypeSizeSelectorSanitizeCommonFlow({
               <span className=" text-xs font-semibold text-[#B89642] leading-none mt-0.5">
                 {formatFt2(value)} ft²
               </span>
+              <div className="absolute right-4">
               <select
                 value={value}
                 onChange={(e) => {
@@ -983,7 +994,7 @@ export function PropertyTypeSizeSelectorSanitizeCommonFlow({
                   const clampedVal = Math.min(Math.max(selectedVal, activeCategory.min), activeCategory.max);
                   onChange(clampedVal);
                 }}
-                className="absolute md:right-[100px] p-2 block right-15 border border-gray-600 focus:border-gray-500 rounded-[10px] bg-gray-800 text-white"
+                className="appearance-none py-2 pl-2 pr-9 block border border-gray-600 focus:border-gray-500 rounded-[10px] bg-gray-800 text-white cursor-pointer"
               >
                 {sizeOptions
                   .filter((val) => val <= activeCategory.max && val >= activeCategory.min)
@@ -993,6 +1004,8 @@ export function PropertyTypeSizeSelectorSanitizeCommonFlow({
                     </option>
                   ))}
               </select>
+              <ChevronDown className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-300" />
+              </div>
             </div>
 
 
