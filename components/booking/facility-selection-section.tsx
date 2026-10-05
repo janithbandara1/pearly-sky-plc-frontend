@@ -131,7 +131,7 @@ export function FacilitySelectionSection({ selectedIds, onToggle }: FacilitySele
                       key={card.id}
                       role="button"
                       tabIndex={0}
-                      onClick={() => onToggle(card.id)}
+                      onClick={() => onToggle(card.id)} 
                       onKeyDown={(e) => {
                         if (e.key === "Enter" || e.key === " ") {
                           e.preventDefault();

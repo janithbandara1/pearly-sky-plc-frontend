@@ -2041,6 +2041,119 @@ serviceLuxuryYachtCleaningTitleFiveFeatureTwo:"Complete linen turnover, sanitati
     ValuedCustomerReviews: "Valued Customer Reviews",
     CustomerReview: "Customer Review",
 
+    //26/10/05 updates
+    //property types
+    propLuxuryVilla: "Luxury Villa",
+    propAirbnb: "Airbnb",
+
+    //industrial property types
+    propMicroOffice: "Micro Office",
+    propOffice: "Office",
+    propCorporateOffice: "Corporate Office",
+    propCoWorkingSpace: "Co-working Space",
+    propHotel: "Hotel",
+    propRestaurant: "Restaurant",
+    propCafe: "Cafe",
+    propBar: "Bar",
+    propClinic: "Clinic",
+    propHospital: "Hospital",
+    propDentalClinic: "Dental Clinic",
+    propPharmacy: "Pharmacy",
+    propLaboratory: "Laboratory",
+    propBeautySalon: "Beauty Salon",
+    propSpa: "Spa",
+    propBakery: "Bakery",
+    propFastFood: "Fast Food",
+    propBoutiqueShop: "Boutique Shop",
+    propSupermarket: "Supermarket",
+    propMall: "Mall",
+    propShowroom: "Showroom",
+    propGym: "Gym",
+    propYogaStudio: "Yoga Studio",
+    propSchool: "School",
+    propNursery: "Nursery",
+    propAirport: "Airport",
+    
+ 
+    //partion names
+    studioLeft: "Living & Sleeping Area", studioRight: "Kitchenette & Bath",
+    apartmentLeft: "Bedrooms & Suites", apartmentRight: "Living & Dinette",
+    corporateOfficeLeft: "Executive & Workstations", corporateOfficeRight: "Conference & Facilities",
+    govermmentLeft: "Sterile Zone & Labs", LaboratoryRight: "Reception & Common Areas",
+
+    //partitions left right
+    industrialLeft: "Production & Heavy Bays", industrialRight: "Control & Utility Spaces",
+    villaLeft: "Master Wings & Suites", villaRight: "Grand Salon & Dining",
+    penthouseLeft: "Sky Suite & Terraces", penthouseRight: "Open Living & Kitchen",
+    defaultLeft: "Upper Levels", defaultright: "Lower Living & Dinette",
+
+    //serface titles
+    deepCleanDisinfection: "DEEP CLEAN & HOSPITAL-GRADE DISINFECTION",
+    intensiveDeepClean: "INTENSIVE DEEP CLEAN",
+    hospitalGradeDisinfection: "HOSPITAL-GRADE DISINFECTION",
+    standardSurfaceClean: "STANDARD SURFACE CLEAN",
+
+    serviceTargetArea:"SERVICE TARGET AREA",
+
+    //
+    EstimatedCost:"Estimated Cost",
+    ServiceRate:"Service Rate",
+    EstLabor:"Est. Labor",
+    CrewWord:"crew",
+
+    //propert catagory
+    propServiceCatagory:"Service Catagory",
+    propCatResidential:"Residential",
+  propCatIndustrial:"Industrial",
+
+  //disinfection
+  DisinfectionName:"Disinfection",
+  HospitalGradeName:"Hospital-grade",
+  deepCleanName:"Deep Clean",
+  deepCleanNameIntensive:"Intensive",
+
+  //cleaning chemical details
+  
+    
+      BIODisplayName: "BIO - SOLVENT",
+      BIOSubtitle: "Botanical neutral formula",
+      BIODescription: "Plant-derived solvent formulated for rare marble, aged brass & natural finishes.",
+      
+    
+      MOPDisplayName: "MOP (1 MOP)",
+      MOPSubtitle: "Triple-density microfiber",
+      MOPDescription: "Acoustic-dampened microfiber system for streakless high-sheen polish.",
+      
+    
+      MATERIALSDisplayName: "MATERIALS (1 KIT)",
+      MATERIALSSubtitle: "Single-use organic lint-free cotton",
+      MATERIALSDescription: "Unbleached botanical fibers, horsehair detailing buffers & chamois.",
+      
+    
+      VACUUMDisplayName: "VACUUM (1 VAC)",
+      VACUUMSubtitle: "Hospital-grade HEPA 114",
+      VACUUMDescription: "Ultra-silent medical filtration with sub-micron airborne particulate capture.",
+      
+      //header description
+      PRIVATECLIENTATELIERPEARLYSKY: "PRIVATE CLIENT ATELIER &bull; PEARLY SKY",
+      SANCTUARYMAINTENANCEBESPOKEPROTOCOL: "SANCTUARY MAINTENANCE &bull; BESPOKE PROTOCOL",
+
+      //next content
+      totalDuration:"TOTAL DURATION",
+      allocatedStaff:"ALLOCATED STAFF",
+      seniorname:"SENIOR",
+      onSiteWindow:"ON-SITE WINDOW",
+      CLEANINGDURATION:"CLEANING DURATION PRICE RANGE",
+      BaselineAppointment:"Baseline appointment honoring white-glove artisan methodology",
+      CleaningChemicalEquipments:"Cleaning chemical and equipments",
+      CuratedOrganic:"Curated organic compounds and specialized instrumentation",
+      BespokeAdditions:"Bespoke additions",
+      PERUNIT:"PER UNIT",
+      eliteMaterialDescription:"Includes elite materials,eco-preservative formulations & transit",
+      curated_engagement_default: "Curated Engagement",
+
+    
+
 } as const;
 
 export type TranslationKey = keyof typeof en;

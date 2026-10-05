@@ -14,8 +14,19 @@ const DEDICATED_FLOW_SERVICES = new Set([
   "luxury-yacht-cleaning",
 ]);
 
+//common property type for this set
+const commonFlowOfPropertyTypes = new Set([
+  "steam-cleaning" ,
+  "healthguard-sanitization", 
+  "post-construction-renovation-cleaning"
+])
+
 export function isDedicatedFlowService(baseSlug: string): boolean {
   return DEDICATED_FLOW_SERVICES.has(baseSlug);
+}
+
+export function isCommonPropertyTypeFlow(baseSlug:string):boolean{
+  return commonFlowOfPropertyTypes.has(baseSlug);
 }
 
 /** Whether /services/{slug} has a real page for this service (vs. the "Book now isn't available" dead end). */
