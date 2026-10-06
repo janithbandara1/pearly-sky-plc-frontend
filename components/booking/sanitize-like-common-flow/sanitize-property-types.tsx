@@ -138,7 +138,7 @@ const SANITIZE_OTHER_PROPERTY_CATEGORY: PropertyCategory = {
 
 
 //sanitize categories
-const SANITIZE_RESIDENTIAL_CATEGORYIES = [
+const SANITIZE_RESIDENTIAL_CATEGORYIES: PropertyCategory[] = [
   { id: "studio", label: "propStudio", icon: "🏢", min: 20, max: 40, step: 1, locked: false },
   { id: "apartment", label: "propApartment", icon: "🏬", min: 45, max: 120, step: 1, locked: false },
   { id: "townhouse", label: "propTownhouse", icon: "🏘️", min: 90, max: 220, step: 5, locked: false },
@@ -177,7 +177,7 @@ const SANITIZE_RESIDENTIAL_CATEGORYIES = [
 
 ]
 
-const SANITIZE_INDUSTRIAL_CATEGORYIES = [
+const SANITIZE_INDUSTRIAL_CATEGORYIES: PropertyCategory[] = [
   {
     id: "micro-office",
     label: "propMicroOffice",
