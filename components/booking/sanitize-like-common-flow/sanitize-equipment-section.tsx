@@ -178,6 +178,38 @@ export function EquipmentSectionOfCommonSanitize({
     }
   };
 
+  const handleIncrement = (id: number) => {
+    setQuantities((prev) => {
+      const current = prev[id] || 0;
+      if (current >= 10) return prev;
+      return {
+        ...prev,
+        [id]: current + 1,
+      };
+    });
+  };
+
+  const handleDecrement = (id: number) => {
+    const current = quantities[id] || 0;
+    const next = current - 1;
+
+    if (next <= 0) {
+      setQuantities((prev) => {
+        const copy = { ...prev };
+        delete copy[id];
+        return copy;
+      });
+      if (selectedItemIds.has(id)) {
+        onToggleItem?.(id);
+      }
+    } else {
+      setQuantities((prev) => ({
+        ...prev,
+        [id]: next,
+      }));
+    }
+  };
+
   // Each item can be added once — clicking "Added" removes it again
   const handleRemove = (id: number) => {
     setQuantities((prev) => {
@@ -330,7 +362,7 @@ export function EquipmentSectionOfCommonSanitize({
 
         {/* Highlighted Price Card */}
         <div className="px-5 sm:px-7 mb-3 py-3 w-full flex justify-center items-center">
-          <div className="rounded-[16px] w-[60%] md:w-full border border-brand-gold bg-blue-950 px-5 py-4 sm:px-6 sm:py-5 flex flex-col sm:flex-row sm:items-center justify-between gap-3 shadow-xs">
+          <div className="rounded-[16px] w-[80%] md:w-full border border-brand-gold bg-blue-950 px-5 py-4 sm:px-6 sm:py-5 flex flex-row sm:flex-row sm:items-center justify-between gap-3 shadow-xs">
             <div className="flex flex-col ">
               <span className="text-[11px] font-extrabold uppercase tracking-[0.16em] text-white">
                 {translate("CLEANINGDURATION")}
@@ -392,6 +424,7 @@ export function EquipmentSectionOfCommonSanitize({
           </div>
 
           {/* Equipment Items List (Displayed when BY COMPANY is selected) */}
+          {/* Equipment Items List (Displayed when BY COMPANY is selected) */}
           {isCompany && (
             <div className="flex flex-col gap-3.5 w-full  p-2 mt-4 rounded-2xl">
               {displayedItems.map((item) => {
@@ -435,7 +468,7 @@ export function EquipmentSectionOfCommonSanitize({
                         </span>
                       </div>
 
-                      {/* Action Control: ADD / ADDED toggle — each item can be added once */}
+                      {/* Action Control: ADD button vs Stepper */}
                       {qty === 0 ? (
                         <button
                           type="button"
@@ -445,15 +478,28 @@ export function EquipmentSectionOfCommonSanitize({
                           {translate("equipmentAddButton")}
                         </button>
                       ) : (
-                        <button
-                          type="button"
-                          onClick={() => handleRemove(item.id)}
-                          aria-pressed
-                          className="inline-flex items-center justify-center gap-1.5 border-[1.5px] border-[#C5A253] text-[#C5A253] hover:bg-[#C5A253]/10 active:scale-95 font-extrabold text-xs px-5 py-2.5 rounded-full uppercase tracking-wider transition-all cursor-pointer min-w-[80px]"
-                        >
-                          <Check className="w-3.5 h-3.5 stroke-[3]" />
-                          {translate("bookingDetailAdded")}
-                        </button>
+                        <div className="flex items-center bg-[#EBE6DD] rounded-full p-0.5 border border-[#D8D2C6] shadow-inner">
+                          <button
+                            type="button"
+                            onClick={() => handleDecrement(item.id)}
+                            aria-label="Decrease quantity"
+                            className="w-7 h-7 flex items-center justify-center text-sm font-bold text-[#1E293B] hover:bg-black/5 active:scale-90 rounded-full transition-all cursor-pointer"
+                          >
+                            −
+                          </button>
+                          <span className="w-6 text-center font-extrabold text-sm text-[#1E293B] select-none">
+                            {qty}
+                          </span>
+                          <button
+                            type="button"
+                            onClick={() => handleIncrement(item.id)}
+                            disabled={qty >= 10}
+                            aria-label="Increase quantity"
+                            className="w-7 h-7 flex items-center justify-center text-sm font-bold bg-[#C5A253] text-white hover:bg-[#B8943F] disabled:opacity-50 disabled:cursor-not-allowed active:scale-90 rounded-full transition-all cursor-pointer shadow-sm"
+                          >
+                            +
+                          </button>
+                        </div>
                       )}
                     </div>
                   </div>
