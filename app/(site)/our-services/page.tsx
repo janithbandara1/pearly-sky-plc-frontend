@@ -18,7 +18,7 @@ export async function generateMetadata(): Promise<Metadata> {
     return {
       title,
       description,
-      alternates: buildGlobalAlternates("C:/Program Files/Git/our-services", language),
+      alternates: buildGlobalAlternates("/our-services", language),
       ...buildSocialMeta(title, description),
     };
   }

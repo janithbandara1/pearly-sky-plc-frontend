@@ -8,9 +8,9 @@ import type { Dictionary } from "./language-context";
 
 /**
  * Server-only home of the dictionaries. Server Components translate through
- * translateFor(); client components get a single language's dictionary via
- * getDictionary() -> LanguageProvider, so the browser never downloads the
- * other languages.
+ * translateFor(); client components load a single language's dictionary via
+ * lib/i18n/client-dictionary.ts, so the browser never downloads the other
+ * languages.
  */
 const dictionaries: Record<LanguageCode, Dictionary> = {
   en,
@@ -19,11 +19,6 @@ const dictionaries: Record<LanguageCode, Dictionary> = {
   es,
   it,
 };
-
-/** `language`'s dictionary with English filled in for any key it lacks — pass to LanguageProvider. */
-export function getDictionary(language: LanguageCode): Dictionary {
-  return language === "en" ? en : { ...en, ...dictionaries[language] };
-}
 
 /** Returns a `translate(key)` bound to `language`, falling back to English — same resolution order as useLanguage()'s translate. */
 /* export function translateFor(language: LanguageCode) {

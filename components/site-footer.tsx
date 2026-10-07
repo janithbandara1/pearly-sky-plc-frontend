@@ -130,8 +130,6 @@ export function SiteFooter() {
           <div className="relative my-4 h-[120px] w-[120px] overflow-hidden rounded-md border border-brand-gold/70 bg-brand-navy/40">
             <Image src="/images/hero/qr.jpeg" alt="Eco-friendly" fill className="object-cover" />
           </div>
-
-          <SocialLinks />
         </div>
       </div>
 

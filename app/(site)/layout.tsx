@@ -5,7 +5,6 @@ import { getRequestCountry } from "@/lib/countries/server";
 import { CountryProvider } from "@/lib/countries/country-context";
 import { getCountries } from "@/lib/countries/api";
 import { getRequestLanguage } from "@/lib/i18n/server";
-import { getDictionary } from "@/lib/i18n/translate";
 import { LanguageProvider } from "@/lib/i18n/language-context";
 import { CurrencyProvider } from "@/lib/currency-context";
 import { getCurrencies } from "@/lib/catalog-api";
@@ -33,7 +32,7 @@ export default async function SiteLayout({
   return (
     <CountryProvider country={country} countries={countries}>
       <CurrencyProvider currencies={currencies}>
-        <LanguageProvider language={language} dictionary={getDictionary(language ?? "en")}>
+        <LanguageProvider language={language}>
           <JsonLd data={buildLocalBusinessJsonLd(office, country ?? "fr")} />
           <SiteHeader />
           <div className="flex flex-1 flex-col">{children}</div>

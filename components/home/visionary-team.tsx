@@ -100,12 +100,14 @@ function TeamCard({ member, decorative = false }: { member: TeamMember; decorati
   return (
     <article aria-hidden={decorative || undefined} className={`${decorative ? "sm:hidden " : ""}group flex min-h-[170px] w-[200px] shrink-0 flex-col items-center rounded-lg border border-[#C9B678]/80 bg-[#0A1530]/90 px-2 py-2.5 text-center shadow-lg transition-transform duration-300 hover:-translate-y-1 px-3 :py-3 `}>
       <div className="relative h-36 w-36 shrink-0 overflow-hidden rounded-full border-2 border-[#D9C07E] sm:h-20 sm:w-20 lg:h-24 lg:w-24">
-            <Image
-              src={member.photo}
-              alt={decorative ? "" : member.name}
-              fill
-              className="object-cover"
-            />
+        {/* The marquee's loop copy draws the photo as a background instead of
+            an <img>, so the page has no alt-less duplicate images. Fixed
+            width/height (the largest rendered size) keeps the srcSet to 1x/2x. */}
+        {decorative ? (
+          <div className="h-full w-full bg-cover bg-center" style={{ backgroundImage: optimizedBackgroundImage(member.photo, 144, 144) }} />
+        ) : (
+          <Image src={member.photo} alt={member.name} width={144} height={144} className="h-full w-full object-cover" />
+        )}
       </div>
 
       <p className="mt-1 text-[13px] font-medium leading-tight text-[#C9B678] md:text-[15px] lg:text-[17px]">

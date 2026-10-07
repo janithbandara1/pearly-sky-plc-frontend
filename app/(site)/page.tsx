@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { unstable_cache } from "next/cache";
-import { getServices } from "@/lib/catalog-api";
+import { getServices, toHomeService } from "@/lib/catalog-api";
 import { Hero } from "@/components/home/hero";
 import { TrustBar } from "@/components/home/trust-bar";
 import { ServicesSection } from "@/components/home/services-section";
@@ -31,7 +31,7 @@ export async function generateMetadata(): Promise<Metadata> {
   // of country-specific — so hreflang alternates cross-linking them would
   // misrepresent duplicate content that isn't actually duplicate.
   if (IS_GLOBAL_SITE) {
-    return { title, description, alternates: buildGlobalAlternates("C:/Program Files/Git/", language),
+    return { title, description, alternates: buildGlobalAlternates("/", language),
       ...buildSocialMeta(title, description) };
   }
 
@@ -61,7 +61,7 @@ export default async function Home() {
   const [country, language] = await Promise.all([getRequestCountry(), getRequestLanguage()]);
   // The global gateway has no backend behind it at all — never fetch the
   // catalog, and don't render the section that would show it.
-  const services = IS_GLOBAL_SITE ? [] : await getCachedServices(country, language);
+  const services = IS_GLOBAL_SITE ? [] : (await getCachedServices(country, language)).map(toHomeService);
 
   return (
     <main className="flex-1">

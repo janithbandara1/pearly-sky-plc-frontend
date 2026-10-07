@@ -1,12 +1,13 @@
 "use client";
 
-import { createContext, useContext, useMemo, useRef, type ReactNode } from "react";
+import { createContext, use, useContext, useMemo, useRef, type ReactNode } from "react";
 import { usePathname, useSearchParams } from "next/navigation";
 import { CURRENT_COUNTRY } from "@/lib/countries/config";
 import { buildLocalePath, extractLocalePrefix } from "@/lib/locale";
 import { makeServiceSlugResolver } from "@/lib/countries/seo";
 import type { ServiceLocaleSlug } from "@/lib/catalog-api";
 import type { TranslationKey } from "./dictionaries/en";
+import { loadDictionary } from "./client-dictionary";
 import { LANGUAGE_COOKIE_MAX_AGE, LANGUAGE_COOKIE_NAME, type LanguageCode } from "./config";
 
 export type SupportedLanguage = LanguageCode;
@@ -56,18 +57,18 @@ const LanguageContext = createContext<LanguageContextType>({
 
 export function LanguageProvider({
   language,
-  dictionary,
   children,
 }: {
   /** Resolved by proxy.ts for the current request; null on the unprefixed/global site. */
   language: SupportedLanguage | null;
-  /** Only the current language, English-filled — from getDictionary() in lib/i18n/translate.ts on the server. */
-  dictionary: Dictionary;
   children: ReactNode;
 }) {
   const pathname = usePathname();
   const searchParams = useSearchParams();
   const resolvedLanguage = language ?? "en";
+  // Loaded as a cacheable chunk rather than passed as a prop — a prop would
+  // inline the whole dictionary into every page's HTML (see client-dictionary.ts).
+  const dictionary = use(loadDictionary(resolvedLanguage));
 
   // A ref, not state — registering doesn't need to trigger a re-render, and
   // setLanguage (created fresh on every pathname change) must always see the

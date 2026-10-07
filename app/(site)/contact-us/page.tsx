@@ -12,7 +12,7 @@ export async function generateMetadata(): Promise<Metadata> {
   const { title, description } = getCountryPageMeta("contact", language ?? "en");
 
   if (IS_GLOBAL_SITE) {
-    return { title, description, alternates: buildGlobalAlternates("C:/Program Files/Git/contact-us", language),
+    return { title, description, alternates: buildGlobalAlternates("/contact-us", language),
       ...buildSocialMeta(title, description) };
   }
 

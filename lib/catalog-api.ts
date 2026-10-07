@@ -77,6 +77,20 @@ export interface CatalogService {
   locales: ServiceLocaleSlug[];
 }
 
+/**
+ * Only the fields the homepage service cards render. The full CatalogService also carries
+ * per-country prices, locale slugs and SEO copy, which would otherwise be
+ * serialized into the homepage HTML for nothing.
+ */
+const HOME_SERVICE_FIELDS = [
+  "id", "name", "label", "price", "status", "category", "description", "imageUrl", "isBookable", "isQuotable", "slug",
+] as const;
+export type HomeService = Pick<CatalogService, (typeof HOME_SERVICE_FIELDS)[number]>;
+
+export function toHomeService(service: CatalogService): HomeService {
+  return Object.fromEntries(HOME_SERVICE_FIELDS.map((field) => [field, service[field]])) as HomeService;
+}
+
 export interface ServiceAddOnPackage {
   id: number;
   name: TranslationKey;

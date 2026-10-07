@@ -4,7 +4,7 @@ import Image from "next/image";
 import Link from "@/components/locale-link";
 import { useState } from "react";
 import { ArrowRight, ChevronDown, ChevronUp, Key } from "lucide-react";
-import type { CatalogService, ServiceCategory } from "@/lib/catalog-api";
+import type { HomeService, ServiceCategory } from "@/lib/catalog-api";
 import { useCurrency } from "@/lib/currency-context";
 import { useCountry } from "@/lib/countries/country-context";
 import { useLanguage } from "@/lib/i18n/language-context";
@@ -156,7 +156,7 @@ function getTaxStatusLabel(serviceName: string, country: string | null): string 
   return `(${TAX_BUCKET_LABEL[bucket]} - ${wording[bucket]})`;
 }
 
-function ServiceCard({ service }: { service: CatalogService }) {
+function ServiceCard({ service }: { service: HomeService }) {
   const { translate } = useLanguage();
   const { symbol } = useCurrency();
   const { country } = useCountry();
@@ -215,25 +215,20 @@ function ServiceCard({ service }: { service: CatalogService }) {
 
       
       {/* Top Left Leaf Decor Overlay */}
-      <div className="pointer-events-none rounded-t-[1rem] absolute -left-3.5 md:-left-4 top-5 md:top-4 rotate-y-[45deg] h-48 w-20 md:h-54 md:w-25 bg-contain bg-no-repeat bg-transparent">
-          {/* eslint-disable-next-line @next/next/no-img-element -- static decorative SVG; next/image adds nothing here */}
-          <img src="/images/decor/leaf-left.svg" alt="" aria-hidden="true" width={80} height={185} loading="lazy" decoding="async" />
-      </div>
+      {/* A CSS background, not an <img> — purely decorative, so it shouldn't count as an image without alt text. */}
+      <div className="pointer-events-none rounded-t-[1rem] absolute -left-3.5 md:-left-4 top-5 md:top-4 rotate-y-[45deg] h-48 w-20 md:h-54 md:w-25 bg-[url(/images/decor/leaf-left.svg)] bg-size-[80px_185px] bg-left-top bg-no-repeat" />
 
       {/* Top Right Leaf Decor Overlay */}
-      <div className="pointer-events-none rounded-t-[1rem] absolute rotate-y-[45deg] -right-1 md:-right-6 top-5 md:top-4 h-48 w-20 md:h-54 md:w-25 bg-contain bg-no-repeat bg-transparent">
-          {/* eslint-disable-next-line @next/next/no-img-element -- static decorative SVG; next/image adds nothing here */}
-          <img src="/images/decor/leaf-right.svg" alt="" aria-hidden="true" width={80} height={185} loading="lazy" decoding="async" />
-      </div>
+      <div className="pointer-events-none rounded-t-[1rem] absolute rotate-y-[45deg] -right-1 md:-right-6 top-5 md:top-4 h-48 w-20 md:h-54 md:w-25 bg-[url(/images/decor/leaf-right.svg)] bg-size-[80px_185px] bg-left-top bg-no-repeat" />
     </div>
 
       
     {/* Content Body */}
     <div className="flex flex-1 flex-col justify-between pt-5 text-center">
       {/* Title */}
-      <h3 className="text-xl md:text-base font-bold tracking-wide text-white">
+      <h4 className="text-xl md:text-base font-bold tracking-wide text-white">
         {label}
-      </h3>
+      </h4>
 
       {/* Description */}
       {description && (
@@ -350,7 +345,7 @@ function ServiceCard({ service }: { service: CatalogService }) {
   );
 }
 
-function CategoryGrid({ services, limit }: { services: CatalogService[]; limit?: number }) {
+function CategoryGrid({ services, limit }: { services: HomeService[]; limit?: number }) {
   const { translate } = useLanguage();
   const [expanded, setExpanded] = useState(false);
 
@@ -380,7 +375,7 @@ function CategoryGrid({ services, limit }: { services: CatalogService[]; limit?:
   );
 }
 
-export function ServicesSection({ services }: { services: CatalogService[] }) {
+export function ServicesSection({ services }: { services: HomeService[] }) {
   const { translate } = useLanguage();
   const active = services.filter((service) => service.status === "active");
 

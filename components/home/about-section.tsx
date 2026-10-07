@@ -95,9 +95,6 @@ export function AboutSection() {
             {translate("aboutOurServicesContent")}
           </p>
         </div>
-        <h2 className="mb-6 hidden text-center text-2xl font-bold tracking-tight sm:text-3xl">
-          {translate("aboutWhyChooseUsTitle")}
-        </h2>
 
         <div className="px-4 mx-auto sm:px-6  w-full max-w-5xl">
             <div className="overflow-hidden rounded-2xl border border-brand-gold-dark">
