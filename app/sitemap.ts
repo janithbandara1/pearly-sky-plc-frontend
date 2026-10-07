@@ -4,6 +4,7 @@ import { blogPosts } from "@/lib/content/blog-posts";
 import { jobs } from "@/lib/content/jobs";
 import { getServices } from "@/lib/catalog-api";
 import { IS_CAREERS_ENABLED, IS_GLOBAL_SITE } from "@/lib/countries/config";
+import { hasQuotationPage, hasServicePage } from "@/lib/service-flows";
 
 const STATIC_PAGES: { path: string; changeFrequency: MetadataRoute.Sitemap[number]["changeFrequency"]; priority: number }[] = [
   { path: "/", changeFrequency: "weekly", priority: 1 },
@@ -20,6 +21,7 @@ const STATIC_PAGES: { path: string; changeFrequency: MetadataRoute.Sitemap[numbe
   { path: "/careers", changeFrequency: "weekly", priority: 0.6 },
   { path: "/contact-us", changeFrequency: "monthly", priority: 0.8 },
   { path: "/privacy-policy", changeFrequency: "yearly", priority: 0.3 },
+  { path: "/cookie-policy", changeFrequency: "yearly", priority: 0.3 },
   { path: "/terms-and-conditions", changeFrequency: "yearly", priority: 0.3 },
 ];
 
@@ -44,11 +46,11 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   // any) is fetched uncountried/unlanguaged — `service.name` and
   // `service.locales` already cover every locale's slug, so no per-locale
   // refetch is needed. If the backend is unreachable, service URLs are
-  // simply omitted rather than failing the sitemap. Only the flows a
-  // service actually supports get a sitemap entry — a booking-only service
-  // has no /request-quotation page to index, and a service with neither
-  // flow (isBookable: false, isQuotable: false) has no live URL at all, so
-  // it's skipped entirely.
+  // simply omitted rather than failing the sitemap. Only URLs that serve a
+  // 200 get an entry, per lib/service-flows.ts: /services/{slug} when the
+  // service is bookable or has a dedicated flow (which includes quote-only
+  // services like pool-cleaning whose quote form lives there), and
+  // /request-quotation only when it isn't just a redirect to that page.
   // The global gateway has no backend behind it at all, and /services/* is
   // blocked there anyway (see proxy.ts) — skip the fetch rather than let it
   // fail against a backend that was never meant to exist.
@@ -57,7 +59,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       const services = await getServices();
       for (const service of services) {
         if (service.status !== "active") continue;
-        if (service.isBookable) {
+        if (hasServicePage(service)) {
           entries.push(
             ...buildServiceSitemapEntries((slug) => `/services/${slug}`, service.name, service.locales, {
               changeFrequency: "monthly",
@@ -65,7 +67,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
             }),
           );
         }
-        if (service.isQuotable) {
+        if (hasQuotationPage(service)) {
           entries.push(
             ...buildServiceSitemapEntries(
               (slug) => `/services/${slug}/request-quotation`,

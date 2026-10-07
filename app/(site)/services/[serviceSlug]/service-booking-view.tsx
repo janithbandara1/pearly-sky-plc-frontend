@@ -243,7 +243,7 @@ export function ServiceBookingView({
 }) {
   const router = useRouter();
   const { country } = useCountry();
-  const { registerServiceSlugs } = useLanguage();
+  const { registerServiceSlugs, translate } = useLanguage();
   const { symbol } = useCurrency();
   const isSanitization = serviceSlug === SANITIZATION_SLUG;
   const isSteam = serviceSlug === STEAM_SLUG;
@@ -565,17 +565,17 @@ export function ServiceBookingView({
   const languageLabel = LANGUAGE_OPTIONS.find((o) => o.value === language)?.label ?? "None";
 
   const bookDisabledReason = isSanitization && !disinfectionLevelId
-    ? "Select a package above to continue."
+    ? translate("bookingSelectPackage")
     : isCategoryQuote && !selectedCategory
-      ? "Select a job type above to continue."
+      ? translate("bookingSelectJobType")
       : !date || !time
-        ? "Select a date and time above to continue."
+        ? translate("bookingSelectDateTime")
         : !propertyType
-          ? "Select a property type above to continue."
+          ? translate("bookingSelectPropertyType")
           : items.length > 0 && !supplySource
-            ? "Select a Cleaning Solvents & Equipment above to continue."
+            ? translate("bookingSelectSupplies")
             : supplySource === "company" && selectedItemIds.size === 0
-              ? "Add at least one Cleaning Solvent & Equipment item above to continue."
+              ? translate("bookingAddSupplyItem")
               : undefined;
 
   const getServiceName = () => {

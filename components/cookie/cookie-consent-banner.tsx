@@ -27,7 +27,7 @@ const policyButtonMobileClass =
   "md:hidden px-2 py-1.5 rounded-md text-xs text-center font-bold underline bg-[#121E2D] text-[#FFFDF4] transition-colors hover:bg-[#1a2b45]";
 
 export function CookieConsentBanner() {
-  const { translate } = useLanguage();
+  const { translate, language } = useLanguage();
   const [consent, setConsent] = useState<ConsentState>("pending");
   const [showPolicy, setShowPolicy] = useState<PolicyType>(null);
 
@@ -66,7 +66,7 @@ export function CookieConsentBanner() {
 
             <div className="max-h-[70vh] overflow-y-auto p-4 text-[#002F6D]">
               <div className="flex flex-col gap-8">
-                {showPolicy === "cookie" ? <CookiePolicyContent /> : <TermsAndConditionsContent />}
+                {showPolicy === "cookie" ? <CookiePolicyContent language={language} /> : <TermsAndConditionsContent language={language} />}
               </div>
             </div>
           </div>

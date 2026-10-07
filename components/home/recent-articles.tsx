@@ -5,13 +5,13 @@ import Link from "@/components/locale-link";
 import { ArrowRight } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { useLanguage } from "@/lib/i18n/language-context";
-import { blogPosts } from "@/lib/content/blog-posts";
+import { formatBlogDate, getBlogPosts } from "@/lib/content/blog-posts";
 
 const RECENT_COUNT = 3;
 
 export function RecentArticles() {
-  const { translate } = useLanguage();
-  const posts = blogPosts.slice(0, RECENT_COUNT);
+  const { translate, language } = useLanguage();
+  const posts = getBlogPosts(language).slice(0, RECENT_COUNT);
 
   return (
     <section className="mx-auto w-full max-w-6xl px-4 py-16 sm:px-6">
@@ -36,7 +36,7 @@ export function RecentArticles() {
                 />
               </div>
               <CardContent className="pt-4">
-                <p className="text-xs text-muted-foreground">{post.date}</p>
+                <p className="text-xs text-muted-foreground">{formatBlogDate(post.date, language)}</p>
                 <p className="mt-1 font-semibold leading-snug">
                   <Link href={`/blog/${post.slug}`} className="after:absolute after:inset-0">
                     {post.title}

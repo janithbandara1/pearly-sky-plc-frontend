@@ -6,6 +6,7 @@ import { getCountryPageMeta, GLOBAL_META } from "@/lib/countries/meta-data";
 import PaymentMarquee from "@/components/payment-method-services";
 import { IS_GLOBAL_SITE } from "@/lib/countries/config";
 import ServicesDetailsPage from "./our-services-section";
+import { getOurServicesContent } from "@/lib/content/our-services";
 
 
 
@@ -31,7 +32,9 @@ export async function generateMetadata(): Promise<Metadata> {
   };
 }
 
-export default function OurServicesPage() {
+export default async function OurServicesPage() {
+  const content = getOurServicesContent(await getRequestLanguage());
+
   return (
     <>
       <BreadcrumbJsonLd items={[
@@ -39,7 +42,7 @@ export default function OurServicesPage() {
           { name: "Our Services", path: "/our-services" },
         ]} />
       <div className="overflow-hidden">
-            <ServicesDetailsPage />
+            <ServicesDetailsPage content={content} />
       </div>   
       <PaymentMarquee />
     </>

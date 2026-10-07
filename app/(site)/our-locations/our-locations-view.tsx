@@ -1,12 +1,12 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useCallback, useMemo, useState } from "react";
 import { ArrowLeft, Search } from "lucide-react";
 import { PageHero } from "@/components/locations/locations-hero";
 import { Input } from "@/components/ui/input";
 import { LocationCard } from "@/components/locations/locations-grids";
 import { useLanguage } from "@/lib/i18n/language-context";
-import { locations, type Location } from "@/lib/content/locations";
+import { getLocationName, locations, type Location } from "@/lib/content/locations";
 import { Socialmedialinks } from "@/components/contactus/social-media";
 import Link from "@/components/locale-link";
 
@@ -17,28 +17,35 @@ const REGIONS: { key: Location["region"]; titleKey: "locationsEurope" | "locatio
 ];
 
 export function OurLocationsView() {
-  const { translate } = useLanguage();
+  const { translate, language } = useLanguage();
   const [country, setCountry] = useState("");
   const [city, setCity] = useState("");
   const [countrySearchOpen, setCountrySearchOpen] = useState(false);
   const [openLocationId, setOpenLocationId] = useState<string | null>(null);
 
+  // Visitors type (or pick) the country in their own language; English still matches too.
+  const matchesCountryQuery = useCallback(
+    (location: Location, query: string) =>
+      getLocationName(location, language).toLowerCase().includes(query) || location.name.toLowerCase().includes(query),
+    [language],
+  );
+
   const countrySuggestions = useMemo(() => {
     const query = country.trim().toLowerCase();
     return locations
-      .filter((location) => !query || location.name.toLowerCase().includes(query))
+      .filter((location) => !query || matchesCountryQuery(location, query))
       .slice(0, 8);
-  }, [country]);
+  }, [country, matchesCountryQuery]);
 
   const filtered = useMemo(() => {
     const c = country.trim().toLowerCase();
     const ci = city.trim().toLowerCase();
     return locations.filter((loc) => {
-      const matchesCountry = !c || loc.name.toLowerCase().includes(c);
+      const matchesCountry = !c || matchesCountryQuery(loc, c);
       const matchesCity = !ci || loc.serviceCities.some((sc) => sc.toLowerCase().includes(ci));
       return matchesCountry && matchesCity;
     });
-  }, [country, city]);
+  }, [country, city, matchesCountryQuery]);
 
   const hasResults = filtered.length > 0;
   const isSearching = Boolean(country.trim() || city.trim());
@@ -96,16 +103,16 @@ export function OurLocationsView() {
                     type="button"
                     onMouseDown={(event) => event.preventDefault()}
                     onClick={() => {
-                      setCountry(location.name);
+                      setCountry(getLocationName(location, language));
                       setCountrySearchOpen(false);
                     }}
                     className="flex w-full items-center rounded-lg px-3 py-2 text-left text-sm transition-colors hover:bg-accent hover:text-accent-foreground"
                   >
-                    {location.name}
+                    {getLocationName(location, language)}
                   </button>
                 ))
               ) : (
-                <p className="px-3 py-2 text-sm text-muted-foreground">No countries found</p>
+                <p className="px-3 py-2 text-sm text-muted-foreground">{translate("locationsNoCountriesFound")}</p>
               )}
             </div>
           </div>

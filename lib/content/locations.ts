@@ -1,4 +1,5 @@
 import type { CountryCode } from "@/lib/countries/config";
+import type { LanguageCode } from "@/lib/i18n/config";
 
 export interface Location {
   id: string;
@@ -101,3 +102,26 @@ export const locations: Location[] = [
 ];
 
 export const officeLocations = locations.filter((l) => l.hasOfficeDetail);
+
+/** ISO 3166 region code per location id, so Intl.DisplayNames can name the country in any language. */
+const REGION_CODES: Record<string, string> = {
+  france: "FR", uk: "GB", srilanka: "LK", germany: "DE", belgium: "BE", finland: "FI", monaco: "MC",
+  italy: "IT", spain: "ES", austria: "AT", switzerland: "CH", denmark: "DK", poland: "PL", portugal: "PT",
+  ireland: "IE", netherlands: "NL", luxembourg: "LU", sweden: "SE", romania: "RO", uae: "AE", qatar: "QA",
+  saudiarabia: "SA", oman: "OM", bahrain: "BH", australia: "AU", newzealand: "NZ", us: "US", canada: "CA",
+};
+
+/** Scotland has no ISO country code of its own, so Intl can't name it. */
+const SCOTLAND: Record<LanguageCode, string> = { en: "Scotland", fr: "Écosse", de: "Schottland", es: "Escocia", it: "Scozia" };
+
+/** `location.name` in `language` ("Germany" → "Allemagne"); falls back to the English name. */
+export function getLocationName(location: Location, language: LanguageCode): string {
+  if (location.id === "scotland") return SCOTLAND[language];
+  const region = REGION_CODES[location.id];
+  if (!region || language === "en") return location.name;
+  try {
+    return new Intl.DisplayNames([language], { type: "region" }).of(region) ?? location.name;
+  } catch {
+    return location.name;
+  }
+}

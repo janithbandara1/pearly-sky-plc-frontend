@@ -5,14 +5,14 @@ import Link from "@/components/locale-link";
 import { ArrowLeft } from "lucide-react";
 import { PageHero } from "@/components/page-hero";
 import { useLanguage } from "@/lib/i18n/language-context";
-import type { BlogPost } from "@/lib/content/blog-posts";
+import { formatBlogDate, type BlogPost } from "@/lib/content/blog-posts";
 
 export function BlogPostView({ post, otherPosts }: { post: BlogPost; otherPosts: BlogPost[] }) {
-  const { translate } = useLanguage();
+  const { translate, language } = useLanguage();
 
   return (
     <main className="flex-1">
-      <PageHero image={post.image} title={post.title} subtitle={post.date} hidePriceSelector />
+      <PageHero image={post.image} title={post.title} subtitle={formatBlogDate(post.date, language)} hidePriceSelector />
       
       <section className="mx-auto grid w-full max-w-6xl gap-10 px-4 py-16 sm:px-6 lg:grid-cols-[2fr_1fr]">
         <article>
@@ -43,7 +43,7 @@ export function BlogPostView({ post, otherPosts }: { post: BlogPost; otherPosts:
                 </div>
                 <div>
                   <p className="text-sm font-medium leading-snug">{p.title}</p>
-                  <p className="text-xs text-muted-foreground">{p.date}</p>
+                  <p className="text-xs text-muted-foreground">{formatBlogDate(p.date, language)}</p>
                 </div>
               </Link>
             ))}

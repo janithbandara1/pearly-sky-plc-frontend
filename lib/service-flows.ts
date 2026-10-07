@@ -29,7 +29,30 @@ export function isCommonPropertyTypeFlow(baseSlug:string):boolean{
   return commonFlowOfPropertyTypes.has(baseSlug);
 }
 
+/**
+ * Dedicated-flow services whose quotation is taken on /services/{slug}
+ * itself (care profiles, carpet/pool/pressure-washing item pickers), so
+ * /services/{slug}/request-quotation just 308s there. Yacht is the one
+ * dedicated-flow service that still has a separate quotation page.
+ */
+const QUOTE_ON_SERVICE_PAGE = new Set([
+  "child-care-service",
+  "elder-care-service",
+  "carpet-upholstery-cleaning",
+  "pool-cleaning",
+  "precision-pressure-washing",
+]);
+
+export function quotesOnServicePage(baseSlug: string): boolean {
+  return QUOTE_ON_SERVICE_PAGE.has(baseSlug);
+}
+
 /** Whether /services/{slug} has a real page for this service (vs. the "Book now isn't available" dead end). */
 export function hasServicePage(service: { name: string; isBookable: boolean }): boolean {
   return service.isBookable || isDedicatedFlowService(service.name);
+}
+
+/** Whether /services/{slug}/request-quotation is a real page (vs. a redirect to the service page or a 404). */
+export function hasQuotationPage(service: { name: string; isQuotable: boolean }): boolean {
+  return service.isQuotable && !quotesOnServicePage(service.name);
 }

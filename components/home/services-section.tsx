@@ -82,53 +82,54 @@ const SERVICE_TAX_BUCKET: Partial<Record<string, TaxBucket>> = {
   "elder-care-service": "specialized",
 };
 
-const TAX_BUCKET_LABEL: Record<TaxBucket, string> = {
-  residential: "Residential",
-  commercial: "Commercial",
-  specialized: "Specialized",
+const TAX_BUCKET_LABEL: Record<TaxBucket, TranslationKey> = {
+  residential: "taxBucketResidential",
+  commercial: "taxBucketCommercial",
+  specialized: "taxBucketSpecialized",
 };
 
-type TaxStatusWording = Record<TaxBucket, string>;
+/** Dictionary keys, so the wording follows the visitor's language. */
+type TaxStatusWording = Record<TaxBucket, TranslationKey>;
 
 const EU_TAX_WORDING: TaxStatusWording = {
-  residential: "VAT Included [TTC]",
-  commercial: "VAT Excluded [HT]",
-  specialized: "VAT Included [TTC]",
+  residential: "taxVatIncludedTtc",
+  commercial: "taxVatExcludedHt",
+  specialized: "taxVatIncludedTtc",
 };
 const UK_TAX_WORDING: TaxStatusWording = {
-  residential: "Tax Included",
-  commercial: "Excl. VAT",
-  specialized: "Tax Included",
+  residential: "taxTaxIncluded",
+  commercial: "taxExclVat",
+  specialized: "taxTaxIncluded",
 };
 const CH_TAX_WORDING: TaxStatusWording = {
-  residential: "Incl. VAT",
-  commercial: "Excl. VAT",
-  specialized: "Incl. VAT",
+  residential: "taxInclVat",
+  commercial: "taxExclVat",
+  specialized: "taxInclVat",
 };
 const US_TAX_WORDING: TaxStatusWording = {
-  residential: "Plus Tax",
-  commercial: "Plus Tax",
-  specialized: "Plus Tax",
+  residential: "taxPlusTax",
+  commercial: "taxPlusTax",
+  specialized: "taxPlusTax",
 };
 const CA_TAX_WORDING: TaxStatusWording = {
-  residential: "Tax Included",
-  commercial: "Excl. Tax",
-  specialized: "Tax Included",
+  residential: "taxTaxIncluded",
+  commercial: "taxExclTax",
+  specialized: "taxTaxIncluded",
 };
 const GST_TAX_WORDING: TaxStatusWording = {
-  residential: "Incl. GST",
-  commercial: "Excl. GST",
-  specialized: "Incl. GST",
+  residential: "taxInclGst",
+  commercial: "taxExclGst",
+  specialized: "taxInclGst",
 };
 const GCC_TAX_WORDING: TaxStatusWording = {
-  residential: "Incl. VAT",
-  commercial: "Excl. VAT",
-  specialized: "Incl. VAT",
+  residential: "taxInclVat",
+  commercial: "taxExclVat",
+  specialized: "taxInclVat",
 };
 const LK_TAX_WORDING: TaxStatusWording = {
-  residential: "Incl. VAT",
-  commercial: "Excl. VAT",
-  specialized: "Incl. VAT",
+  residential: "taxInclVat",
+  commercial: "taxExclVat",
+  specialized: "taxInclVat",
 };
 
 /** Per-country tax-status wording for the web display spec — covers all 28 supported countries (see backend's countries.constant.ts). */
@@ -149,11 +150,15 @@ const COUNTRY_TAX_WORDING: Record<string, TaxStatusWording> = {
 };
 
 /** e.g. "(Residential - VAT Included [TTC])" for regular-home-cleaning in France. */
-function getTaxStatusLabel(serviceName: string, country: string | null): string | null {
+function getTaxStatusLabel(
+  serviceName: string,
+  country: string | null,
+  translate: (key: TranslationKey) => string,
+): string | null {
   const bucket = SERVICE_TAX_BUCKET[serviceName];
   const wording = country ? COUNTRY_TAX_WORDING[country] : undefined;
   if (!bucket || !wording) return null;
-  return `(${TAX_BUCKET_LABEL[bucket]} - ${wording[bucket]})`;
+  return `(${translate(TAX_BUCKET_LABEL[bucket])} - ${translate(wording[bucket])})`;
 }
 
 function ServiceCard({ service }: { service: HomeService }) {
@@ -189,7 +194,7 @@ function ServiceCard({ service }: { service: HomeService }) {
     service.name === "laundry-service" ||
     service.name === "move-in-out-transport-service";
 
-  const taxStatusLabel = getTaxStatusLabel(service.name, country);
+  const taxStatusLabel = getTaxStatusLabel(service.name, country, translate);
 
   const isCareService = service.name === "child-care-service" || service.name === "elder-care-service";
   const pricePerUnitKey = isCareService ? "servicesPricePerProfessional" : "servicesPricePerCleaner";

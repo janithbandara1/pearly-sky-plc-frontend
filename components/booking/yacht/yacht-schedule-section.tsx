@@ -13,6 +13,7 @@ import { EquipmentSection, type SupplySource } from "@/components/booking/equipm
 import { saveBookingDraft, loadBookingDraft } from "@/lib/booking-draft";
 import { getServiceQuote, type CatalogItem, type SizeQuote } from "@/lib/catalog-api";
 import { useCountry } from "@/lib/countries/country-context";
+import { useLanguage } from "@/lib/i18n/language-context";
 
 export interface YachtScheduleSectionProps {
   serviceId: number;
@@ -31,6 +32,7 @@ export function YachtScheduleSection({
 }: YachtScheduleSectionProps) {
   const router = useRouter();
   const { country } = useCountry();
+  const { translate } = useLanguage();
 
   const [propertySizeSqm, setPropertySizeSqm] = useState<number>(() => {
     const draft = loadBookingDraft();
@@ -143,11 +145,11 @@ export function YachtScheduleSection({
     YACHT_PROPERTY_TYPES.find((c) => c.label === propertyType) ?? YACHT_PROPERTY_TYPES[0];
 
   const bookDisabledReason = !date || !time
-    ? "Select a date and time above to continue."
+    ? translate("bookingSelectDateTime")
     : items.length > 0 && !supplySource
-      ? "Select a Cleaning Solvents & Equipment above to continue."
+      ? translate("bookingSelectSupplies")
       : supplySource === "company" && selectedItemIds.size === 0
-        ? "Add at least one Cleaning Solvent & Equipment item above to continue."
+        ? translate("bookingAddSupplyItem")
         : undefined;
 
   function handleSchedule() {

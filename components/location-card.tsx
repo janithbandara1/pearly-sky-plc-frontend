@@ -3,7 +3,7 @@
 import Image from "next/image";
 import { Globe2, Plus, Minus } from "lucide-react";
 import { useLanguage } from "@/lib/i18n/language-context";
-import type { Location } from "@/lib/content/locations";
+import { getLocationName, type Location } from "@/lib/content/locations";
 import { COVERAGE_CITIES } from "@/lib/countries/home-content";
 import { CountryCode } from "@/lib/countries/config";
 
@@ -14,7 +14,8 @@ interface LocationCardProps {
 }
 
 export function LocationCard({ location, isOpen, onToggle }: LocationCardProps) {
-  const { translate } = useLanguage();
+  const { translate, language } = useLanguage();
+  const name = getLocationName(location, language);
 
   //const isSoudi = location.name.toLowerCase().includes("saudi") || location.name.toLowerCase().includes("ksa");
 
@@ -41,7 +42,7 @@ export function LocationCard({ location, isOpen, onToggle }: LocationCardProps) 
             {location.flag ? (
               <Image
                 src={location.flag}
-                alt={location.name}
+                alt={name}
                 fill
                 sizes="24px"
                 className="object-cover"
@@ -51,7 +52,7 @@ export function LocationCard({ location, isOpen, onToggle }: LocationCardProps) 
             )}
           </div>
           <span className="text-sm font-medium tracking-wide text-gray-200">
-            {location.name}
+            {name}
           </span>
         </div>
 
@@ -69,7 +70,7 @@ export function LocationCard({ location, isOpen, onToggle }: LocationCardProps) 
         <div className="border-t border-[#2d3f53] bg-[#121A24] p-4">
           <div className="flex flex-wrap items-baseline justify-between gap-2 border-b border-gray-800 pb-2">
             <h4 className="text-sm font-semibold tracking-wide text-white">
-              {location.name || `${location.name} Office`}
+              {name}
             </h4>
             {location.contactNo && (
               <div className="text-xs text-gray-300">
@@ -90,14 +91,14 @@ export function LocationCard({ location, isOpen, onToggle }: LocationCardProps) 
             <div className="relative h-36 w-full overflow-hidden rounded border border-gray-700 bg-gray-900">
               {location.mapSrc ? (
                 <iframe
-                  title={`${location.name} Map`}
+                  title={name}
                   src={location.mapSrc}
                   className="h-full w-full border-0"
                   loading="lazy"
                 ></iframe>
               ) : (
                 <div className="flex h-full w-full items-center justify-center text-xs text-gray-500">
-                  Map Unavailable
+                  {translate("locationsMapUnavailable")}
                 </div>
               )}
 
@@ -117,7 +118,7 @@ export function LocationCard({ location, isOpen, onToggle }: LocationCardProps) 
               {location.address && (
                 <div>
                   <span className="text-[10px] font-bold tracking-wider text-gray-400 uppercase">
-                    ADDRESS :
+                    {translate("locationsAddressLabel")}
                   </span>
                   <p className="mt-0.5 leading-relaxed text-gray-200">
                     {location.address}
@@ -128,7 +129,7 @@ export function LocationCard({ location, isOpen, onToggle }: LocationCardProps) 
               {location.companyNumber && (
                 <div>
                   <span className="text-[10px] font-bold tracking-wider text-gray-400 uppercase">
-                    COMPANY NO :
+                    {translate("locationsCompanyNoLabel")}
                   </span>
                   <p className="mt-0.5 text-gray-200">{location.companyNumber}</p>
                 </div>
@@ -141,7 +142,7 @@ export function LocationCard({ location, isOpen, onToggle }: LocationCardProps) 
           {cities.length > 0 && (
             <div className="mt-4 w-full">
               <span className="text-[10px] font-bold tracking-wider text-gray-400 uppercase">
-                SERVICE CITIES :
+                {translate("locationsServiceCitiesLabel")}
               </span>
               <div className="mt-1.5 overflow-hidden w-full">
                 <div

@@ -4,6 +4,7 @@ import { BreadcrumbJsonLd } from "@/components/json-ld";
 import { getRequestLanguage } from "@/lib/i18n/server";
 import { buildCountryAlternates, buildSocialMeta } from "@/lib/countries/seo";
 import { STATIC_PAGE_META } from "@/lib/countries/meta-data";
+import { COOKIE_POLICY } from "@/lib/content/legal/cookie-policy";
 import { CookiePolicyContent } from "@/components/legal/cookie-policy-content";
 
 const { title: TITLE } = STATIC_PAGE_META.cookiePolicy;
@@ -18,17 +19,20 @@ export async function generateMetadata(): Promise<Metadata> {
   };
 }
 
-export default function CookiePolicyPage() {
+export default async function CookiePolicyPage() {
+  const language = (await getRequestLanguage()) ?? "en";
+  const { title } = COOKIE_POLICY[language];
+
   return (
     <main className="flex-1">
       <BreadcrumbJsonLd items={[
           { name: "Home", path: "/" },
-          { name: "Cookie Policy", path: "/cookie-policy" },
+          { name: title, path: "/cookie-policy" },
         ]} />
-      <PageHero hidePriceSelector image="/images/about/hero.webp" title="Cookie Policy" />
+      <PageHero hidePriceSelector image="/images/about/hero.webp" title={title} />
 
       <div className="mx-auto flex w-full max-w-3xl flex-col gap-8 px-4 py-16 sm:px-6">
-        <CookiePolicyContent />
+        <CookiePolicyContent language={language} />
       </div>
     </main>
   );

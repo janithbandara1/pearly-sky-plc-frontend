@@ -31,26 +31,26 @@ const VISION_MISSION: { Icon: typeof Compass; titleKey: TranslationKey; textKey:
   { Icon: Sparkles, titleKey: "aboutPageMissionTitle", textKey: "aboutMissionText" },
 ];
 
-const CORE_VALUES: { titleKey: TranslationKey; description: string }[] = [
+const CORE_VALUES: { titleKey: TranslationKey; textKey: TranslationKey }[] = [
   {
     titleKey: "aboutValue1",
-    description: "Embracing differences and ensuring equal opportunities for all.",
+    textKey: "aboutValue1Text",
   },
   {
     titleKey: "aboutValue2",
-    description: "Maintaining transparency and trust through responsible and honest actions.",
+    textKey: "aboutValue2Text",
   },
   {
     titleKey: "aboutValue3",
-    description: "Adopting practices that benefit both current and future generations.",
+    textKey: "aboutValue3Text",
   },
   {
     titleKey: "aboutValue4",
-    description: "Collaborating effectively to achieve common goals and superior results.",
+    textKey: "aboutValue4Text",
   },
   {
     titleKey: "aboutValue5",
-    description: "Providing outstanding care to clients and partners in every interaction.",
+    textKey: "aboutValue5Text",
   },
 ];
 const OBJECTIVES: TranslationKey[] = [
@@ -180,10 +180,10 @@ export function AboutUsView() {
               <div className="absolute right-[-66px] top-1/2 hidden h-1 w-16 -translate-y-1/2 bg-brand-gold md:block" />
               <p className="text-center font-bold text-white">{translate("aboutPageValuesTitle")}</p>
               <ul className="mt-5 space-y-3 text-sm leading-6 text-brand-navy-foreground/90 sm:text-base">
-                {CORE_VALUES.map(({ titleKey, description }) => (
+                {CORE_VALUES.map(({ titleKey, textKey }) => (
                   <li key={titleKey}>
                     <span className="font-bold text-white">{translate(titleKey)}:</span>{" "}
-                    <span>{description}</span>
+                    <span>{translate(textKey)}</span>
                   </li>
                 ))}
               </ul>

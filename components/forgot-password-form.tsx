@@ -22,6 +22,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { forgotPassword, resetPassword, verifyResetOtp } from "@/lib/auth-api";
 import { ApiError } from "@/lib/auth-context";
+import { useLanguage } from "@/lib/i18n/language-context";
 
 type Step = "email" | "otp" | "password" | "done";
 
@@ -29,6 +30,7 @@ export function ForgotPasswordForm({
   className,
   ...props
 }: React.ComponentProps<"div">) {
+  const { translate } = useLanguage();
   const [step, setStep] = useState<Step>("email");
   const [email, setEmail] = useState("");
   const [otp, setOtp] = useState("");
@@ -45,7 +47,7 @@ export function ForgotPasswordForm({
       await forgotPassword(email);
       setStep("otp");
     } catch (err) {
-      setError(err instanceof ApiError ? err.message : "Something went wrong.");
+      setError(err instanceof ApiError ? err.message : translate("forgotPasswordGenericError"));
     } finally {
       setPending(false);
     }
@@ -59,7 +61,7 @@ export function ForgotPasswordForm({
       await verifyResetOtp({ email, otp });
       setStep("password");
     } catch (err) {
-      setError(err instanceof ApiError ? err.message : "Something went wrong.");
+      setError(err instanceof ApiError ? err.message : translate("forgotPasswordGenericError"));
     } finally {
       setPending(false);
     }
@@ -68,7 +70,7 @@ export function ForgotPasswordForm({
   async function handleResetPassword(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
     if (newPassword !== confirmPassword) {
-      setError("Passwords do not match.");
+      setError(translate("forgotPasswordMismatch"));
       return;
     }
     setError(null);
@@ -77,7 +79,7 @@ export function ForgotPasswordForm({
       await resetPassword({ email, otp, newPassword });
       setStep("done");
     } catch (err) {
-      setError(err instanceof ApiError ? err.message : "Something went wrong.");
+      setError(err instanceof ApiError ? err.message : translate("forgotPasswordGenericError"));
     } finally {
       setPending(false);
     }
@@ -87,14 +89,12 @@ export function ForgotPasswordForm({
     <div className={cn("flex flex-col gap-6", className)} {...props}>
       <Card>
         <CardHeader className="text-center">
-          <CardTitle className="text-xl">Reset password</CardTitle>
+          <CardTitle className="text-xl">{translate("forgotPasswordTitle")}</CardTitle>
           <CardDescription>
-            {step === "email" &&
-              "Enter the email associated with your account. We'll send you a verification code."}
-            {step === "otp" && "Enter the 6-digit code we sent to your email."}
-            {step === "password" &&
-              "Create a strong password with a mix of letters, numbers, and symbols."}
-            {step === "done" && "Your password has been updated successfully. You can now login with your new credentials."}
+            {step === "email" && translate("forgotPasswordEmailStep")}
+            {step === "otp" && translate("forgotPasswordOtpStep")}
+            {step === "password" && translate("forgotPasswordPasswordStep")}
+            {step === "done" && translate("forgotPasswordDoneStep")}
           </CardDescription>
         </CardHeader>
         <CardContent>
@@ -102,7 +102,7 @@ export function ForgotPasswordForm({
             <form onSubmit={handleRequestCode}>
               <FieldGroup>
                 <Field>
-                  <FieldLabel htmlFor="email">Email</FieldLabel>
+                  <FieldLabel htmlFor="email">{translate("forgotPasswordEmailLabel")}</FieldLabel>
                   <Input
                     id="email"
                     type="email"
@@ -115,12 +115,12 @@ export function ForgotPasswordForm({
                 {error && <FieldError>{error}</FieldError>}
                 <Field>
                   <Button type="submit" disabled={pending}>
-                    {pending ? "Sending verification code…" : "Send verification code"}
+                    {pending ? translate("forgotPasswordSendingCode") : translate("forgotPasswordSendCode")}
                   </Button>
                   <FieldDescription className="text-center">
-                    Remember your password?{" "}
+                    {translate("forgotPasswordRemember")}{" "}
                     <Link href="/login" className="underline underline-offset-4">
-                      Log in
+                      {translate("forgotPasswordLogInLink")}
                     </Link>
                   </FieldDescription>
                 </Field>
@@ -132,7 +132,7 @@ export function ForgotPasswordForm({
             <form onSubmit={handleVerifyOtp}>
               <FieldGroup>
                 <Field>
-                  <FieldLabel htmlFor="otp">Verification code</FieldLabel>
+                  <FieldLabel htmlFor="otp">{translate("forgotPasswordCodeLabel")}</FieldLabel>
                   <Input
                     id="otp"
                     inputMode="numeric"
@@ -147,10 +147,10 @@ export function ForgotPasswordForm({
                 {error && <FieldError>{error}</FieldError>}
                 <Field>
                   <Button type="submit" disabled={pending}>
-                    {pending ? "Verifying…" : "Verify code"}
+                    {pending ? translate("forgotPasswordVerifying") : translate("forgotPasswordVerify")}
                   </Button>
                   <FieldDescription className="text-center">
-                    Didn&apos;t receive the code?{" "}
+                    {translate("forgotPasswordNoCode")}{" "}
                     <button
                       type="button"
                       className="underline underline-offset-4"
@@ -165,14 +165,14 @@ export function ForgotPasswordForm({
                           setError(
                             err instanceof ApiError
                               ? err.message
-                              : "Something went wrong.",
+                              : translate("forgotPasswordGenericError"),
                           );
                         } finally {
                           setPending(false);
                         }
                       }}
                     >
-                      Resend code
+                      {translate("forgotPasswordResend")}
                     </button>
                   </FieldDescription>
                 </Field>
@@ -184,7 +184,7 @@ export function ForgotPasswordForm({
             <form onSubmit={handleResetPassword}>
               <FieldGroup>
                 <Field>
-                  <FieldLabel htmlFor="newPassword">New password</FieldLabel>
+                  <FieldLabel htmlFor="newPassword">{translate("forgotPasswordNewPassword")}</FieldLabel>
                   <Input
                     id="newPassword"
                     type="password"
@@ -194,12 +194,12 @@ export function ForgotPasswordForm({
                     onChange={(e) => setNewPassword(e.target.value)}
                   />
                   <FieldDescription>
-                    Must be at least 8 characters long.
+                    {translate("forgotPasswordMinLength")}
                   </FieldDescription>
                 </Field>
                 <Field>
                   <FieldLabel htmlFor="confirmPassword">
-                    Confirm password
+                    {translate("forgotPasswordConfirm")}
                   </FieldLabel>
                   <Input
                     id="confirmPassword"
@@ -213,7 +213,7 @@ export function ForgotPasswordForm({
                 {error && <FieldError>{error}</FieldError>}
                 <Field>
                   <Button type="submit" disabled={pending}>
-                    {pending ? "Resetting…" : "Reset password"}
+                    {pending ? translate("forgotPasswordResetting") : translate("forgotPasswordSubmit")}
                   </Button>
                 </Field>
               </FieldGroup>
@@ -222,7 +222,7 @@ export function ForgotPasswordForm({
 
           {step === "done" && (
             <Button asChild className="w-full">
-              <Link href="/login">Login</Link>
+              <Link href="/login">{translate("forgotPasswordLoginButton")}</Link>
             </Button>
           )}
         </CardContent>

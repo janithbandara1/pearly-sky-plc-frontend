@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { blogPosts, getBlogPost } from "@/lib/content/blog-posts";
+import { getBlogPost, getBlogPosts } from "@/lib/content/blog-posts";
 import { getRequestLanguage } from "@/lib/i18n/server";
 import { buildCountryAlternates, buildSocialMeta } from "@/lib/countries/seo";
 import { buildArticleJsonLd } from "@/lib/seo/json-ld";
@@ -13,7 +13,7 @@ export async function generateMetadata({
   params: Promise<{ slug: string }>;
 }): Promise<Metadata> {
   const [{ slug }, language] = await Promise.all([params, getRequestLanguage()]);
-  const post = getBlogPost(slug);
+  const post = getBlogPost(slug, language);
   const title = post ? `${post.title} | Pearly Sky Blog` : "Blog | Pearly Sky";
 
   return {
@@ -25,12 +25,12 @@ export async function generateMetadata({
 }
 
 export default async function BlogPostPage({ params }: { params: Promise<{ slug: string }> }) {
-  const { slug } = await params;
-  const post = getBlogPost(slug);
+  const [{ slug }, language] = await Promise.all([params, getRequestLanguage()]);
+  const post = getBlogPost(slug, language);
 
   if (!post) notFound();
 
-  const otherPosts = blogPosts.filter((p) => p.slug !== slug);
+  const otherPosts = getBlogPosts(language).filter((p) => p.slug !== slug);
 
   return (
     <>

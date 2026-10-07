@@ -7,7 +7,7 @@ import { BreadcrumbJsonLd } from "@/components/json-ld";
 import { notFound, permanentRedirect } from "next/navigation";
 import { ApiError } from "@/lib/api";
 import { buildLocalePath } from "@/lib/locale";
-import { hasServicePage } from "@/lib/service-flows";
+import { hasServicePage, quotesOnServicePage } from "@/lib/service-flows";
 import { RequestQuotationView } from "./request-quotation-view";
 import JoinWithUsSection from "@/components/booking/join-with-us-section";
 import RelatedServices from "@/components/services-links";
@@ -57,13 +57,7 @@ export default async function RequestQuotationPage({
     // Transient API failure — fall through with the raw values; the quotation view's own fallback handles it.
   }
 
-  if (
-    canonicalSlug === "child-care-service" ||
-    canonicalSlug === "elder-care-service" ||
-    canonicalSlug === "carpet-upholstery-cleaning" ||
-    canonicalSlug === "pool-cleaning" ||
-    canonicalSlug === "precision-pressure-washing"
-  ) {
+  if (quotesOnServicePage(canonicalSlug)) {
     permanentRedirect(buildLocalePath(`/services/${localizedSlug ?? serviceSlug}`, language ?? "en"));
   }
 
