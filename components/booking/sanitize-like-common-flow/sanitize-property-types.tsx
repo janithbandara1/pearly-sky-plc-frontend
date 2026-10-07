@@ -760,7 +760,7 @@ export function SanitizeSizeVisualization({
           <div className="w-2.5 h-2.5 bg-cyan-400 rounded-full shadow-[0_0_10px_#00ffff] shrink-0" />
           <div className="min-w-0">
             <h4 className="text-[11px] sm:text-xs font-bold tracking-widest text-cyan-200 uppercase truncate">
-              ARCHI_SYS // {activeCategory ? (CATEGORY_LABEL_KEYS[activeCategory.label] ? translate(CATEGORY_LABEL_KEYS[activeCategory.label] as TranslationKey) : translate(activeCategory.label as TranslationKey)) : (isResidential ? "RESIDENTIAL" : "INDUSTRIAL")} BLUEPRINT
+               {activeCategory ? (CATEGORY_LABEL_KEYS[activeCategory.label] ? translate(CATEGORY_LABEL_KEYS[activeCategory.label] as TranslationKey) : translate(activeCategory.label as TranslationKey)) : (isResidential ? "RESIDENTIAL" : "INDUSTRIAL")} BLUEPRINT
             </h4>
             <p className="text-[9px] sm:text-[10px] text-cyan-400/80 tracking-wider truncate">
               {value} m² • {formatFt2(value)} ft² | GRID: {span}m × {depth}m
@@ -781,16 +781,18 @@ export function SanitizeSizeVisualization({
       {/* Blueprint Canvas Frame */}
       <div className="relative w-full bg-[#091122]/90 border border-cyan-500/50 rounded-xl shadow-[0_0_25px_rgba(0,180,255,0.15)] p-2 sm:p-4 overflow-hidden">
         {/* Top Dimension Indicator */}
-        <div className="flex items-center justify-center text-[10px] text-cyan-300 font-semibold tracking-wider mb-1">
-          <div className="w-3 border-t border-cyan-500/70 mr-1.5" />
-          <span>{span} m SPAN WIDTH</span>
-          <div className="w-3 border-t border-cyan-500/70 ml-1.5" />
+        <div className="flex items-center justify-center text-[10px] text-cyan-300 font-semibold tracking-wider mb-1 ml-10 md:ml-25">
+          <div className="w-13 md:w-40 border-t border-cyan-500/70 mr-1.5" />
+          <span className="text-center text-[10px] md:text-[13px]">{span} m SPAN WIDTH</span>
+          <div className="w-13 md:w-40 border-t border-cyan-500/70 ml-1.5" />
         </div>
 
         {/* Diagram Area with Left Depth Dimension */}
         <div className="flex items-center gap-1.5 w-full">
-          <div className="flex flex-col items-center justify-center text-[9px] text-cyan-400 font-semibold [writing-mode:vertical-lr] rotate-180 shrink-0 py-2">
-            <span>{depth} m DEPTH</span>
+          <div className="flex items-center justify-center text-[9px] text-cyan-400 font-semibold [writing-mode:vertical-lr] rotate-180 shrink-0 px-2">
+            <div className="w-13 md:w-30 border-b border-cyan-500/70 mb-8.5 md:mb-15.5  rotate-90" />
+              <span className="text-center text-[10px] md:text-[13px]">{depth} m DEPTH</span>
+            <div className="w-13 md:w-30 border-b border-cyan-500/70 mt-8.5 md:mt-15.5  rotate-90" />
           </div>
 
           <div className="flex-1 min-w-0 max-h-[250px] sm:max-h-[270px] md:max-h-[420px] flex items-center justify-center">
