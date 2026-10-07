@@ -1,10 +1,9 @@
 "use client";
 
-import { useState, useEffect } from "react";
 import Link from "@/components/locale-link";
-import { User, Briefcase, KeyRound, ArrowRight, Folder, Check } from "lucide-react";
+import { User, Briefcase, KeyRound, ArrowRight, Folder } from "lucide-react";
 import type { CatalogItem, SizeQuote } from "@/lib/catalog-api";
-import { calculateEquipmentItemPrice, EQUIPMENT_ITEM_SKU } from "@/lib/equipment-pricing";
+import { EQUIPMENT_ITEM_SKU, EQUIPMENT_MAX_QTY, flatEquipmentUnitPrice } from "@/lib/equipment-pricing";
 import { useCurrency } from "@/lib/currency-context";
 import { useLanguage } from "@/lib/i18n/language-context";
 import { TranslationKey } from "@/lib/i18n/dictionaries/en";
@@ -104,6 +103,10 @@ export interface EquipmentSectionProps {
   items?: CatalogItem[];
   selectedItemIds?: Set<number>;
   onToggleItem?: (id: number) => void;
+  /** Units added per item id (1–EQUIPMENT_MAX_QTY); a missing id means not added. */
+  itemQuantities?: Record<number, number>;
+  /** Sets an item's quantity; 0 removes it. */
+  onQuantityChange?: (id: number, qty: number) => void;
   addOnsTotal?: number;
   onBookNow?: () => void;
   submitting?: boolean;
@@ -120,7 +123,8 @@ export function EquipmentSectionOfCommonSanitize({
   onSupplySourceChange,
   items = [],
   selectedItemIds = new Set(),
-  onToggleItem,
+  itemQuantities = {},
+  onQuantityChange,
   addOnsTotal = 0,
   onBookNow,
   submitting = false,
@@ -140,87 +144,14 @@ export function EquipmentSectionOfCommonSanitize({
   // Display items fallback if empty
   const displayedItems = items.length > 0 ? items : FALLBACK_EQUIPMENT_ITEMS;
 
-  // Track quantity per item (0 to 10)
-  const [quantities, setQuantities] = useState<Record<number, number>>(() => {
-    const initial: Record<number, number> = {};
-    if (selectedItemIds) {
-      selectedItemIds.forEach((id) => {
-        initial[id] = 1;
-      });
-    }
-    return initial;
-  });
-
-  // Sync when selectedItemIds changes from outside
-  useEffect(() => {
-    setQuantities((prev) => {
-      const updated = { ...prev };
-      selectedItemIds.forEach((id) => {
-        if (!updated[id]) updated[id] = 1;
-      });
-      Object.keys(updated).forEach((idStr) => {
-        const numId = Number(idStr);
-        if (!selectedItemIds.has(numId) && prev[numId]) {
-          delete updated[numId];
-        }
-      });
-      return updated;
-    });
-  }, [selectedItemIds]);
-
-  const handleAdd = (id: number) => {
-    setQuantities((prev) => ({
-      ...prev,
-      [id]: 1,
-    }));
-    if (!selectedItemIds.has(id)) {
-      onToggleItem?.(id);
-    }
-  };
-
-  const handleIncrement = (id: number) => {
-    setQuantities((prev) => {
-      const current = prev[id] || 0;
-      if (current >= 10) return prev;
-      return {
-        ...prev,
-        [id]: current + 1,
-      };
-    });
-  };
-
-  const handleDecrement = (id: number) => {
-    const current = quantities[id] || 0;
-    const next = current - 1;
-
-    if (next <= 0) {
-      setQuantities((prev) => {
-        const copy = { ...prev };
-        delete copy[id];
-        return copy;
-      });
-      if (selectedItemIds.has(id)) {
-        onToggleItem?.(id);
-      }
-    } else {
-      setQuantities((prev) => ({
-        ...prev,
-        [id]: next,
-      }));
-    }
-  };
-
-  // Each item can be added once — clicking "Added" removes it again
-  const handleRemove = (id: number) => {
-    setQuantities((prev) => {
-      const copy = { ...prev };
-      delete copy[id];
-      return copy;
-    });
-    if (selectedItemIds.has(id)) {
-      onToggleItem?.(id);
-    }
-  };
+  // Quantities (1–EQUIPMENT_MAX_QTY per item) live on the booking page so the
+  // totals, checkout and the booking itself all use the same numbers.
+  const quantityOf = (id: number) => itemQuantities[id] ?? (selectedItemIds.has(id) ? 1 : 0);
+  const handleAdd = (id: number) => onQuantityChange?.(id, 1);
+  const handleIncrement = (id: number) =>
+    onQuantityChange?.(id, Math.min(EQUIPMENT_MAX_QTY, quantityOf(id) + 1));
+  // Going below 1 removes the item
+  const handleDecrement = (id: number) => onQuantityChange?.(id, quantityOf(id) - 1);
 
   const getItemMeta = (item: CatalogItem): ItemDetailMeta => {
     if (item.sku && ITEM_DETAILS_MAP[item.sku]) {
@@ -429,9 +360,10 @@ export function EquipmentSectionOfCommonSanitize({
             <div className="flex flex-col gap-3.5 w-full  p-2 mt-4 rounded-2xl">
               {displayedItems.map((item) => {
                 const meta = getItemMeta(item);
-                const qty = quantities[item.id] || 0;
+                const qty = quantityOf(item.id);
                 const isSelected = qty > 0;
-                const unitPrice = calculateEquipmentItemPrice(item, propertySizeSqm) || meta.defaultPrice;
+                // Fixed price per unit — not scaled by the selected property size
+                const unitPrice = item.price != null ? flatEquipmentUnitPrice(item) : meta.defaultPrice;
 
                 return (
                   <div
@@ -460,11 +392,12 @@ export function EquipmentSectionOfCommonSanitize({
                     {/* Right Price & Stepper / ADD Button */}
                     <div className="flex items-center  justify-between sm:justify-end gap-4 sm:gap-6 shrink-0 pt-2 sm:pt-0 border-t sm:border-t-0 border-[#E7E2D8]/60">
                       <div className="flex flex-col items-start sm:items-end">
+                        {/* Line total (unit price × units added); the unit price until one is added */}
                         <span className="font-bold text-white text-sm sm:text-base leading-tight">
-                          {money(unitPrice)}
+                          {money(unitPrice * Math.max(qty, 1))}
                         </span>
                         <span className="text-[9px] font-extrabold tracking-widest text-gray-300 uppercase mt-0.5">
-                          {translate("PERUNIT")}
+                          {qty > 1 ? `${money(unitPrice)} × ${qty}` : translate("PERUNIT")}
                         </span>
                       </div>
 
@@ -493,7 +426,7 @@ export function EquipmentSectionOfCommonSanitize({
                           <button
                             type="button"
                             onClick={() => handleIncrement(item.id)}
-                            disabled={qty >= 10}
+                            disabled={qty >= EQUIPMENT_MAX_QTY}
                             aria-label="Increase quantity"
                             className="w-7 h-7 flex items-center justify-center text-sm font-bold bg-[#C5A253] text-white hover:bg-[#B8943F] disabled:opacity-50 disabled:cursor-not-allowed active:scale-90 rounded-full transition-all cursor-pointer shadow-sm"
                           >

@@ -28,6 +28,8 @@ interface BookingPreferencesPayload {
   disinfectionLevel?: BookingLineItem;
   /** steam-cleaning / healthguard-sanitization / post-construction only — the backend charges 1.4× the rate. */
   deepClean?: boolean;
+  /** steam-cleaning / healthguard-sanitization / post-construction only — hospital-grade disinfection, no surcharge. */
+  disinfection?: boolean;
   /** steam-cleaning / healthguard-sanitization / post-construction only — Residential / Industrial switch. */
   serviceCategory?: "residential" | "industrial";
   /** steam-cleaning only. */
@@ -80,6 +82,7 @@ export interface BookingServiceDetails {
   facilities: string[] | null;
   disinfectionLevel: BookingLineItem | null;
   deepClean?: boolean;
+  disinfection?: boolean;
   serviceCategory?: "residential" | "industrial" | null;
   steamItems: string[] | null;
   eventTypes: string[] | null;

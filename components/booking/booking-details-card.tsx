@@ -50,6 +50,8 @@ export interface BookingDetailsCardProps {
   propertyCategory?: "residential" | "industrial";
   /** steam/sanitization/post-construction only — "Deep Clean" (+40%, already in hourlyRate/quote). */
   deepClean?: boolean;
+  /** steam/sanitization/post-construction only — hospital-grade "Disinfection" (no surcharge). */
+  disinfection?: boolean;
   /** post-event-cleaning only — the event types selected above. */
   eventTypes?: string[];
   /** child-care-service / elder-care-service only — the per-person profiles collected above. */
@@ -115,6 +117,7 @@ export function BookingDetailsCard({
   serviceCategory,
   propertyCategory,
   deepClean,
+  disinfection,
   eventTypes,
   careProfiles,
   personLabel,
@@ -181,6 +184,9 @@ export function BookingDetailsCard({
             <SummaryRow label={translate("bookingDetailPropertySize")} value={`${propertySizeSqm} m²`} />
           )}
           {deepClean && <SummaryRow label={translate("deepCleanName")} value="+40%" />}
+          {disinfection && (
+            <SummaryRow label={translate("DisinfectionName")} value={translate("HospitalGradeName")} />
+          )}
           <SummaryRow
             label={translate("bookingDetailDuration")}
             value={

@@ -140,19 +140,19 @@ const SANITIZE_OTHER_PROPERTY_CATEGORY: PropertyCategory = {
 //sanitize categories
 const SANITIZE_RESIDENTIAL_CATEGORYIES: PropertyCategory[] = [
   { id: "studio", label: "propStudio", icon: "🏢", 
-    min: 20, max: 40, step: 1, locked: false }, 
+    min: 20, max: 500, step: 1, locked: false }, 
   { id: "apartment", label: "propApartment", icon: "🏬", 
-    min: 45, max: 120, step: 1, locked: false },
+    min: 20, max: 500, step: 1, locked: false },
   { id: "townhouse", label: "propTownhouse", icon: "🏘️", 
-    min: 90, max: 220, step: 1, locked: false },
+    min: 20, max: 500, step: 1, locked: false },
   { id: "home", label: "propHome", icon: "🏡", 
-    min: 100, max: 350, step: 1, locked: false },
+    min: 20, max: 500, step: 1, locked: false },
   {
     id: "penthouse",
     label: "propPenthouse",
     icon: "🏙️",
-    min: 120,
-    max: 400,
+    min: 20,
+    max: 500,
     step: 1,
 
     locked: false,
@@ -161,7 +161,7 @@ const SANITIZE_RESIDENTIAL_CATEGORYIES: PropertyCategory[] = [
     id: "luxury-villa",
     label: "propLuxuryVilla",
     icon: "🏰",
-    min: 200,
+    min: 20,
     max: 500,
     step: 1,
 
@@ -172,7 +172,7 @@ const SANITIZE_RESIDENTIAL_CATEGORYIES: PropertyCategory[] = [
     label: "propAirbnb",
     icon: "🌟",
     min: 20,
-    max: 150,
+    max: 500,
     step: 1,
 
     locked: false,
@@ -187,7 +187,7 @@ const SANITIZE_INDUSTRIAL_CATEGORYIES: PropertyCategory[] = [
     label: "propMicroOffice",
     icon: "🏢",
     min: 20,
-    max: 50,
+    max: 500,
     step: 1,
     //sizes: [20, 25, 30, 35, 40, 45, 50],
     locked: false,
@@ -196,8 +196,8 @@ const SANITIZE_INDUSTRIAL_CATEGORYIES: PropertyCategory[] = [
     id: "office",
     label: "propOffice",
     icon: "💼",
-    min: 50,
-    max: 200,
+    min: 20,
+    max: 500,
     step: 1,
     //sizes: [50, 68, 86, 104, 122, 140, 158, 176, 194],
     locked: false,
@@ -206,7 +206,7 @@ const SANITIZE_INDUSTRIAL_CATEGORYIES: PropertyCategory[] = [
     id: "corporate-office",
     label: "propCorporateOffice",
     icon: "🏙️",
-    min: 200,
+    min: 20,
     max: 500,
     step: 1,
     //sizes: [200, 237, 274, 311, 348, 385, 422, 459, 496],
@@ -216,7 +216,7 @@ const SANITIZE_INDUSTRIAL_CATEGORYIES: PropertyCategory[] = [
     id: "co-working-space",
     label: "propCoWorkingSpace",
     icon: "🧑‍💻",
-    min: 100,
+    min: 20,
     max: 500,
     step: 1,
     // sizes: [100, 150, 200, 250, 300, 350, 400, 450, 500],
@@ -226,7 +226,7 @@ const SANITIZE_INDUSTRIAL_CATEGORYIES: PropertyCategory[] = [
     id: "hotel",
     label: "propHotel",
     icon: "🏨",
-    min: 250,
+    min: 20,
     max: 500,
     step: 1,
     // sizes: [250, 281, 312, 343, 374, 405, 436, 467, 498,500],
@@ -237,7 +237,7 @@ const SANITIZE_INDUSTRIAL_CATEGORYIES: PropertyCategory[] = [
     label: "propAirbnb",
     icon: "🏠",
     min: 20,
-    max: 150,
+    max: 500,
     step: 1,
     //sizes: [20, 36, 52, 68, 84, 100, 116, 132, 148,150],
     locked: false,
@@ -246,8 +246,8 @@ const SANITIZE_INDUSTRIAL_CATEGORYIES: PropertyCategory[] = [
     id: "restaurant",
     label: "propRestaurant",
     icon: "🍽️",
-    min: 60,
-    max: 300,
+    min: 20,
+    max: 500,
     step: 1,
     //sizes: [60, 90, 120, 150, 180, 210, 240, 270, 300],
     locked: false,
@@ -256,8 +256,8 @@ const SANITIZE_INDUSTRIAL_CATEGORYIES: PropertyCategory[] = [
     id: "cafe",
     label: "propCafe",
     icon: "☕",
-    min: 30,
-    max: 120,
+    min: 20,
+    max: 500,
     step: 1,
     //sizes: [30, 41, 52, 63, 74, 85, 96, 107, 118],
     locked: false,
@@ -266,8 +266,8 @@ const SANITIZE_INDUSTRIAL_CATEGORYIES: PropertyCategory[] = [
     id: "bar",
     label: "propBar",
     icon: "🍸",
-    min: 40,
-    max: 200,
+    min: 20,
+    max: 500,
     step: 1,
     //sizes: [40, 60, 80, 100, 120, 140, 160, 180, 200],
     locked: false,
@@ -276,8 +276,8 @@ const SANITIZE_INDUSTRIAL_CATEGORYIES: PropertyCategory[] = [
     id: "clinic",
     label: "propClinic",
     icon: "🩺",
-    min: 50,
-    max: 180,
+    min: 20,
+    max: 500,
     step: 1,
     //sizes: [50, 66, 82, 98, 114, 130, 146, 162, 178,180],
     locked: false,
@@ -286,7 +286,7 @@ const SANITIZE_INDUSTRIAL_CATEGORYIES: PropertyCategory[] = [
     id: "hospital",
     label: "propHospital",
     icon: "🏥",
-    min: 350,
+    min: 20,
     max: 500,
     step: 1,
     //sizes: [350, 368, 386, 404, 422, 440, 458, 476, 494,500],
@@ -296,8 +296,8 @@ const SANITIZE_INDUSTRIAL_CATEGORYIES: PropertyCategory[] = [
     id: "dental-clinic",
     label: "propDentalClinic",
     icon: "🦷",
-    min: 40,
-    max: 150,
+    min: 20,
+    max: 500,
     step: 1,
     //sizes: [40, 53, 66, 79, 92, 105, 118, 131, 144],
     locked: false,
@@ -306,8 +306,8 @@ const SANITIZE_INDUSTRIAL_CATEGORYIES: PropertyCategory[] = [
     id: "pharmacy",
     label: "propPharmacy",
     icon: "💊",
-    min: 30,
-    max: 120,
+    min: 20,
+    max: 500,
     step: 1,
     //sizes: [30, 41, 52, 63, 74, 85, 96, 107, 118],
     locked: false,
@@ -316,8 +316,8 @@ const SANITIZE_INDUSTRIAL_CATEGORYIES: PropertyCategory[] = [
     id: "laboratory",
     label: "propLaboratory",
     icon: "🔬",
-    min: 50,
-    max: 250,
+    min: 20,
+    max: 500,
     step: 1,
     // sizes: [50, 75, 100, 125, 150, 175, 200, 225, 250],
     locked: false,
@@ -326,8 +326,8 @@ const SANITIZE_INDUSTRIAL_CATEGORYIES: PropertyCategory[] = [
     id: "beauty-salon",
     label: "propBeautySalon",
     icon: "💇",
-    min: 30,
-    max: 100,
+    min: 20,
+    max: 500,
     step: 1,
     //sizes: [30, 38, 46, 54, 62, 70, 78, 86, 94],
     locked: false,
@@ -336,8 +336,8 @@ const SANITIZE_INDUSTRIAL_CATEGORYIES: PropertyCategory[] = [
     id: "spa",
     label: "propSpa",
     icon: "💆",
-    min: 80,
-    max: 300,
+    min: 20,
+    max: 500,
     step: 1,
     //sizes: [80, 107, 134, 161, 188, 215, 242, 269, 296],
     locked: false,
@@ -346,8 +346,8 @@ const SANITIZE_INDUSTRIAL_CATEGORYIES: PropertyCategory[] = [
     id: "bakery",
     label: "propBakery",
     icon: "🥖",
-    min: 30,
-    max: 100,
+    min: 20,
+    max: 500,
     step: 1,
     //sizes: [30, 38, 46, 54, 62, 70, 78, 86, 94],
     locked: false,
@@ -356,8 +356,8 @@ const SANITIZE_INDUSTRIAL_CATEGORYIES: PropertyCategory[] = [
     id: "fast-food",
     label: "propFastFood",
     icon: "🍔",
-    min: 40,
-    max: 150,
+    min: 20,
+    max: 500,
     step: 1,
     //sizes: [40, 53, 66, 79, 92, 105, 118, 131, 144],
     locked: false,
@@ -366,8 +366,8 @@ const SANITIZE_INDUSTRIAL_CATEGORYIES: PropertyCategory[] = [
     id: "boutique-shop",
     label: "propBoutiqueShop",
     icon: "🛍️",
-    min: 25,
-    max: 150,
+    min: 20,
+    max: 500,
     step: 1,
     //sizes: [25, 40, 55, 70, 85, 100, 115, 130, 145],
     locked: false,
@@ -376,7 +376,7 @@ const SANITIZE_INDUSTRIAL_CATEGORYIES: PropertyCategory[] = [
     id: "supermarket",
     label: "propSupermarket",
     icon: "🛒",
-    min: 200,
+    min: 20,
     max: 500,
     step: 1,
     // sizes: [200, 237, 274, 311, 348, 385, 422, 459, 496],
@@ -386,7 +386,7 @@ const SANITIZE_INDUSTRIAL_CATEGORYIES: PropertyCategory[] = [
     id: "mall",
     label: "propMall",
     icon: "🏬",
-    min: 400,
+    min: 20,
     max: 500,
     step: 1,
     //sizes: [400, 412, 424, 436, 448, 460, 472, 484, 496],
@@ -396,8 +396,8 @@ const SANITIZE_INDUSTRIAL_CATEGORYIES: PropertyCategory[] = [
     id: "showroom",
     label: "propShowroom",
     icon: "🛋️",
-    min: 100,
-    max: 400,
+    min: 20,
+    max: 500,
     step: 1,
     //sizes: [100, 137, 174, 211, 248, 285, 322, 359, 396],
     locked: false,
@@ -406,8 +406,8 @@ const SANITIZE_INDUSTRIAL_CATEGORYIES: PropertyCategory[] = [
     id: "gym",
     label: "propGym",
     icon: "🏋️",
-    min: 80,
-    max: 400,
+    min: 20,
+    max: 500,
     step: 1,
     //sizes: [80, 120, 160, 200, 240, 280, 320, 360, 400],
     locked: false,
@@ -416,8 +416,8 @@ const SANITIZE_INDUSTRIAL_CATEGORYIES: PropertyCategory[] = [
     id: "yoga-studio",
     label: "propYogaStudio",
     icon: "🧘",
-    min: 40,
-    max: 150,
+    min: 20,
+    max: 500,
     step: 1,
     //sizes: [40, 53, 66, 79, 92, 105, 118, 131, 144],
     locked: false,
@@ -426,7 +426,7 @@ const SANITIZE_INDUSTRIAL_CATEGORYIES: PropertyCategory[] = [
     id: "school",
     label: "propSchool",
     icon: "🏫",
-    min: 300,
+    min: 20,
     max: 500,
     step: 1,
     //sizes: [300, 325, 350, 375, 400, 425, 450, 475, 500],
@@ -436,8 +436,8 @@ const SANITIZE_INDUSTRIAL_CATEGORYIES: PropertyCategory[] = [
     id: "nursery",
     label: "propNursery",
     icon: "👶",
-    min: 60,
-    max: 200,
+    min: 20,
+    max: 500,
     step: 1,
     //sizes: [60, 77, 94, 111, 128, 145, 162, 179, 196],
     locked: false,
@@ -446,7 +446,7 @@ const SANITIZE_INDUSTRIAL_CATEGORYIES: PropertyCategory[] = [
     id: "airport",
     label: "propAirport",
     icon: "✈️",
-    min: 450,
+    min: 20,
     max: 500,
     step: 1,
     //sizes: [450, 456, 462, 468, 474, 480, 486, 492, 498],
@@ -516,16 +516,13 @@ function findAppropriateCategory(
   const currentCat = currentCatId ? categories.find((c) => c.id === currentCatId) ?? null : null;
   const isCurrentInLadder = currentCat ? ladderCats.some((c) => c.id === currentCat.id) : false;
 
-  // Residential gap handling: 41..44 is between studio (40) and apartment (45)
-  if (!isIndustrial && val > 40 && val < 45) {
-    return null;
-  }
-
-  // If user explicitly selected a non-ladder (specialized) card and is within its range:
-  if (currentCat && !isCurrentInLadder) {
-    if (val >= currentCat.min && val <= currentCat.max) {
-      return currentCat;
-    }
+  // Keep whatever card the user picked while the size is still inside its
+  // range. Every category now spans the same 20–500 m², so without this the
+  // ladder below would always jump to its last (largest) category and the
+  // user's pick would be overwritten. The ladder only matters for a size
+  // outside the current category's range.
+  if (currentCat && val >= currentCat.min && val <= currentCat.max) {
+    return currentCat;
   }
 
   if (direction === "up") {
@@ -665,6 +662,64 @@ function getPartitionNames(categoryLabel?: string) {
   return { left: "defaultLeft", right: "defaultright" };
 }
 
+/** Size dropdown step (m²) — the size wheel still moves in 1 m² steps. */
+const DROPDOWN_SIZE_STEP = 10;
+
+/*
+ * Both floorplans draw their outer wall at x 50–900, y 50–680. The viewBox
+ * starts at -50 so there's room above/left of the wall for the dimension
+ * lines, which sit the same distance (75 units) from the wall on both sides.
+ */
+const BLUEPRINT_VIEWBOX = "-50 -50 1000 800";
+const WALL = { left: 50, right: 900, top: 50, bottom: 680 };
+const DIM_OFFSET = 75;
+const DIM_TICK = 10;
+const DIM_STROKE = "rgba(6, 182, 212, 0.7)";
+const DIM_TEXT = "#67e8f9";
+const DIM_BG = "#091122";
+
+/** Span (top) and depth (left) dimension lines, spanning exactly the outer wall. */
+function BlueprintDimensions({ span, depth }: { span: number; depth: number }) {
+  const y = WALL.top - DIM_OFFSET;
+  const x = WALL.left - DIM_OFFSET;
+  const midX = (WALL.left + WALL.right) / 2;
+  const midY = (WALL.top + WALL.bottom) / 2;
+  // A thick stroke in the canvas colour, painted under the text, masks the
+  // line behind each label.
+  const labelProps = {
+    fill: DIM_TEXT,
+    fontSize: 24,
+    fontWeight: 600,
+    fontFamily: "monospace",
+    textAnchor: "middle" as const,
+    dominantBaseline: "central" as const,
+    stroke: DIM_BG,
+    strokeWidth: 14,
+    paintOrder: "stroke",
+  };
+
+  return (
+    <g>
+      <g stroke={DIM_STROKE} strokeWidth="2.5">
+        {/* Span: left wall → right wall */}
+        <line x1={WALL.left} y1={y} x2={WALL.right} y2={y} />
+        <line x1={WALL.left} y1={y - DIM_TICK} x2={WALL.left} y2={y + DIM_TICK} />
+        <line x1={WALL.right} y1={y - DIM_TICK} x2={WALL.right} y2={y + DIM_TICK} />
+        {/* Depth: top wall → bottom wall */}
+        <line x1={x} y1={WALL.top} x2={x} y2={WALL.bottom} />
+        <line x1={x - DIM_TICK} y1={WALL.top} x2={x + DIM_TICK} y2={WALL.top} />
+        <line x1={x - DIM_TICK} y1={WALL.bottom} x2={x + DIM_TICK} y2={WALL.bottom} />
+      </g>
+      <text x={midX} y={y} {...labelProps}>
+        {span} m SPAN WIDTH
+      </text>
+      <text x={x} y={midY} transform={`rotate(-90 ${x} ${midY})`} {...labelProps}>
+        {depth} m DEPTH
+      </text>
+    </g>
+  );
+}
+
 interface SanitizeSizeVisualizationProps {
   value: number;
   activeCategory?: PropertyCategory | null;
@@ -780,28 +835,18 @@ export function SanitizeSizeVisualization({
 
       {/* Blueprint Canvas Frame */}
       <div className="relative w-full bg-[#091122]/90 border border-cyan-500/50 rounded-xl shadow-[0_0_25px_rgba(0,180,255,0.15)] p-2 sm:p-4 overflow-hidden">
-        {/* Top Dimension Indicator */}
-        <div className="flex items-center justify-center text-[10px] text-cyan-300 font-semibold tracking-wider mb-1 ml-10 md:ml-25">
-          <div className="w-13 md:w-40 border-t border-cyan-500/70 mr-1.5" />
-          <span className="text-center text-[10px] md:text-[13px]">{span} m SPAN WIDTH</span>
-          <div className="w-13 md:w-40 border-t border-cyan-500/70 ml-1.5" />
-        </div>
-
-        {/* Diagram Area with Left Depth Dimension */}
-        <div className="flex items-center gap-1.5 w-full">
-          <div className="flex items-center justify-center text-[9px] text-cyan-400 font-semibold [writing-mode:vertical-lr] rotate-180 shrink-0 px-2">
-            <div className="w-13 md:w-30 border-b border-cyan-500/70 mb-8.5 md:mb-15.5  rotate-90" />
-              <span className="text-center text-[10px] md:text-[13px]">{depth} m DEPTH</span>
-            <div className="w-13 md:w-30 border-b border-cyan-500/70 mt-8.5 md:mt-15.5  rotate-90" />
-          </div>
-
+        {/* Diagram Area — the span/depth dimension lines are drawn inside the SVG
+            (see BlueprintDimensions) so they always match the outer wall exactly */}
+        <div className="flex items-center w-full">
           <div className="flex-1 min-w-0 max-h-[250px] sm:max-h-[270px] md:max-h-[420px] flex items-center justify-center">
             {isResidential ? (
               /* Residential SVG Floorplan */
               <svg
-                viewBox="0 0 950 750"
+                viewBox={BLUEPRINT_VIEWBOX}
                 className="w-full h-full max-h-[220px] sm:max-h-[260px] md:max-h-[420px] drop-shadow-[0_0_12px_rgba(0,210,255,0.3)] object-contain"
               >
+                <BlueprintDimensions span={span} depth={depth} />
+
                 {/* Outer Boundary Walls */}
                 <rect
                   x="50"
@@ -963,9 +1008,11 @@ export function SanitizeSizeVisualization({
             ) : (
               /* Industrial / Retail Showroom SVG Floorplan */
               <svg
-                viewBox="0 0 950 750"
+                viewBox={BLUEPRINT_VIEWBOX}
                 className="w-full h-full max-h-[250px] sm:max-h-[270px] md:max-h-[420px] drop-shadow-[0_0_12px_rgba(0,210,255,0.3)] object-contain"
               >
+                <BlueprintDimensions span={span} depth={depth} />
+
                 {/* Outer Boundary Walls */}
                 <rect
                   x="50"
@@ -1171,18 +1218,9 @@ export function PropertyTypeSizeSelectorSanitizeCommonFlow({
     onDeepCleanChange?.(val);
   };
 
-  // Disinfection and Deep Clean are mutually exclusive: selecting one clears the other
-  const handleToggleDisinfection = () => {
-    const nextVal = !isDisinfection;
-    setDisinfection(nextVal);
-    if (nextVal && isDeepClean) setDeepClean(false);
-  };
-
-  const handleToggleDeepClean = () => {
-    const nextVal = !isDeepClean;
-    setDeepClean(nextVal);
-    if (nextVal && isDisinfection) setDisinfection(false);
-  };
+  // Disinfection and Deep Clean toggle independently — either, both or neither
+  const handleToggleDisinfection = () => setDisinfection(!isDisinfection);
+  const handleToggleDeepClean = () => setDeepClean(!isDeepClean);
 
   //handle Service Catagory button active
   const [isActiveCategorySwitch, setIsActiveCategorySwitch] = useState<string>("residential");
@@ -1199,6 +1237,16 @@ export function PropertyTypeSizeSelectorSanitizeCommonFlow({
 
   const activeCategory = selectableCategories.find((c) => c.id === activeCategoryId) ?? null;
   const sizeOptions = activeCategory ? buildSizeOptions(activeCategory) : [value];
+  // The dropdown jumps in 10 m² steps (plus the range ends); the wheel keeps
+  // 1 m² steps. The current size is always listed so the select can show it.
+  const dropdownOptions = Array.from(
+    new Set([
+      ...sizeOptions.filter(
+        (s, i) => s % DROPDOWN_SIZE_STEP === 0 || i === 0 || i === sizeOptions.length - 1,
+      ),
+      value,
+    ]),
+  ).sort((a, b) => a - b);
 
   useEffect(() => {
     if (activeCategory) {
@@ -1375,7 +1423,7 @@ export function PropertyTypeSizeSelectorSanitizeCommonFlow({
             {/* Disinfection Card */}
             <button
               type="button"
-              
+              onClick={handleToggleDisinfection}
               className={`flex items-center justify-between p-4.5 sm:p-5 rounded-xl border transition-all cursor-pointer select-none text-left ${isDisinfection
                 ? "bg-[#1E2E4A] border-2 border-blue-500 shadow-[0_0_15px_rgba(59,130,246,0.25)]"
                 : "bg-white/5 border-white/10 hover:border-white/20 hover:bg-white/[0.08]"
@@ -1471,8 +1519,8 @@ export function PropertyTypeSizeSelectorSanitizeCommonFlow({
                     }}
                     className="appearance-none py-2 pl-2 pr-9 block border border-gray-600 focus:border-gray-500 rounded-[10px] bg-gray-800 text-white cursor-pointer"
                   >
-                    {sizeOptions.map((Val, i) => (
-                      <option key={i} value={Val} className="bg-gray-700 text-white">
+                    {dropdownOptions.map((Val) => (
+                      <option key={Val} value={Val} className="bg-gray-700 text-white">
                         {Val} m²
                       </option>
                     ))}

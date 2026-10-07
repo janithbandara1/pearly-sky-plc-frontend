@@ -44,6 +44,8 @@ export interface BookingDraft {
   disinfectionLevel?: BookingDraftPackage;
   /** steam-cleaning / healthguard-sanitization / post-construction only — +40% on the rate. */
   deepClean?: boolean;
+  /** steam-cleaning / healthguard-sanitization / post-construction only — hospital-grade disinfection, no surcharge. */
+  disinfection?: boolean;
   /** steam-cleaning / healthguard-sanitization / post-construction only — Residential / Industrial switch. */
   serviceCategory?: "residential" | "industrial";
   /** steam-cleaning only. */

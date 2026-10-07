@@ -72,6 +72,8 @@ export interface BookingSummaryServiceDetails {
   category: string | null;
   /** steam/sanitization/post-construction only — "Deep Clean" (+40%, already in the price). */
   deepClean?: boolean;
+  /** steam/sanitization/post-construction only — hospital-grade "Disinfection" (no surcharge). */
+  disinfection?: boolean;
   /** steam/sanitization/post-construction only — the Residential / Industrial switch. */
   serviceCategory?: "residential" | "industrial" | null;
   service: { label: string };
@@ -303,6 +305,9 @@ export function BookingSummaryCard({
               )}
               <Field label={translate("summaryPropertySize")} value={`${details.propertySizeSqm} m²`} />
               {details.deepClean && <Field label={translate("deepCleanName")} value="+40%" />}
+              {details.disinfection && (
+                <Field label={translate("DisinfectionName")} value={translate("HospitalGradeName")} />
+              )}
               <Field label={translate("summaryDuration")} value={`${details.minHours}-${details.maxHours} ${translate("summaryHours")}`} />
               <Field label={translate("summaryCleaners")} value={details.cleanerCount + details.extraCleanerCount} />
               {showPaymentInfo && (

@@ -515,6 +515,7 @@ export default function CheckoutPage({
             : draft.propertyType && propertyTypeEnglishName(draft.propertyType),
           facilities: draft.facilities,
           deepClean: draft.deepClean || undefined,
+          disinfection: draft.disinfection || undefined,
           serviceCategory: draft.serviceCategory,
           disinfectionLevel: draft.disinfectionLevel
             ? { name: draft.disinfectionLevel.name, price: draft.disinfectionLevel.price ?? undefined }
@@ -563,6 +564,7 @@ export default function CheckoutPage({
             : draft.propertyType && propertyTypeEnglishName(draft.propertyType),
           facilities: draft.facilities,
           deepClean: draft.deepClean || undefined,
+          disinfection: draft.disinfection || undefined,
           serviceCategory: draft.serviceCategory,
           disinfectionLevel: draft.disinfectionLevel
             ? { name: draft.disinfectionLevel.name, price: draft.disinfectionLevel.price ?? undefined }
@@ -1331,6 +1333,7 @@ export default function CheckoutPage({
               serviceCategory={draft.category}
               propertyCategory={draft.serviceCategory}
               deepClean={draft.deepClean}
+              disinfection={draft.disinfection}
               eventTypes={draft.eventTypes}
               careProfiles={summaryCareProfiles}
               personLabel={isCareService ? personLabel : undefined}

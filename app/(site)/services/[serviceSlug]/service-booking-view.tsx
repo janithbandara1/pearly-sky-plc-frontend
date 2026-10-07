@@ -26,7 +26,7 @@ import { PageHero } from "@/components/page-hero";
 import { SERVICE_CONTENT } from "@/lib/content/service-details";
 import { ApiError } from "@/lib/auth-context";
 import { saveBookingDraft } from "@/lib/booking-draft";
-import { calculateEquipmentItemPrice } from "@/lib/equipment-pricing";
+import { calculateEquipmentItemPrice, calculateFlatEquipmentPrice, EQUIPMENT_MAX_QTY } from "@/lib/equipment-pricing";
 import { applyDeepCleanToQuote, applyDeepCleanToRate } from "@/lib/deep-clean";
 import {
   CatalogServiceDetail,
@@ -278,12 +278,14 @@ export function ServiceBookingView({
 
   const [supplySource, setSupplySource] = useState<SupplySource>("company");
   const [selectedItemIds, setSelectedItemIds] = useState<Set<number>>(new Set());
+  const [itemQuantities, setItemQuantities] = useState<Record<number, number>>({});
 
   const [propertySizeSqm, setPropertySizeSqm] = useState(20);
   const [propertyType, setPropertyType] = useState("");
   const [quote, setQuote] = useState<SizeQuote | null>(null);
   const [quoteLoading, setQuoteLoading] = useState(false);
   const [deepClean, setDeepClean] = useState(false);
+  const [disinfection, setDisinfection] = useState(false);
   const [serviceCategory, setServiceCategory] = useState<"residential" | "industrial">("residential");
 
   const [selectedPackageIds, setSelectedPackageIds] = useState<Set<number>>(new Set());
@@ -399,7 +401,27 @@ export function ServiceBookingView({
     setSupplySource(value);
     // Added items only make sense once the company is supplying equipment —
     // drop any leftover picks so they don't silently linger in the total.
-    if (value !== "company") setSelectedItemIds(new Set());
+    if (value !== "company") {
+      setSelectedItemIds(new Set());
+      setItemQuantities({});
+    }
+  }
+
+  // Steam/sanitization/post-construction flow: 1–EQUIPMENT_MAX_QTY units per item; 0 removes it
+  function setItemQuantity(id: number, qty: number) {
+    const clamped = Math.max(0, Math.min(EQUIPMENT_MAX_QTY, qty));
+    setItemQuantities((prev) => {
+      const next = { ...prev };
+      if (clamped === 0) delete next[id];
+      else next[id] = clamped;
+      return next;
+    });
+    setSelectedItemIds((prev) => {
+      const next = new Set(prev);
+      if (clamped === 0) next.delete(id);
+      else next.add(id);
+      return next;
+    });
   }
 
   function toggleItem(id: number) {
@@ -434,10 +456,19 @@ export function ServiceBookingView({
 
   const selectedDisinfectionLevel = DISINFECTION_LEVELS.find((l) => l.id === disinfectionLevelId);
 
-  const addOnsTotal = selectedItems.reduce(
-    (sum, entry) => sum + calculateEquipmentItemPrice(entry, propertySizeSqm),
-    0,
-  );
+  // Steam/sanitization/post-construction price equipment flat × quantity;
+  // every other service keeps the size-scaled pricing.
+  const equipmentQty = (id: number) => itemQuantities[id] ?? 1;
+  const equipmentLinePrice = (item: (typeof items)[number]) =>
+    isCommonPropertyTypeServices
+      ? calculateFlatEquipmentPrice(item, equipmentQty(item.id))
+      : calculateEquipmentItemPrice(item, propertySizeSqm);
+  const equipmentLineName = (item: (typeof items)[number]) =>
+    isCommonPropertyTypeServices && selectedItemIds.has(item.id) && equipmentQty(item.id) > 1
+      ? `${item.name} × ${equipmentQty(item.id)}`
+      : item.name;
+
+  const addOnsTotal = selectedItems.reduce((sum, entry) => sum + equipmentLinePrice(entry), 0);
 
   // Deep Clean (+40%) is only offered on the common property-type flow
   const appliedDeepClean = isCommonPropertyTypeServices && deepClean;
@@ -488,8 +519,8 @@ export function ServiceBookingView({
         price: null,
       })),
       items: displayedEquipmentItems.map((i) => ({
-        name: i.name,
-        price: calculateEquipmentItemPrice(i, propertySizeSqm),
+        name: equipmentLineName(i),
+        price: equipmentLinePrice(i),
       })),
       supplySource,
       addOnsTotal: addOnsTotal + (selectedDisinfectionLevel?.priceAdder ?? 0),
@@ -502,6 +533,7 @@ export function ServiceBookingView({
         ? { name: selectedDisinfectionLevel.title, price: selectedDisinfectionLevel.priceAdder }
         : undefined,
       deepClean: appliedDeepClean || undefined,
+      disinfection: (isCommonPropertyTypeServices && disinfection) || undefined,
       serviceCategory: isCommonPropertyTypeServices ? serviceCategory : undefined,
       category: isCategoryQuote ? selectedCategory ?? undefined : undefined,
     });
@@ -694,6 +726,8 @@ export function ServiceBookingView({
                 quote={pricedQuote}
                 deepClean={deepClean}
                 onDeepCleanChange={setDeepClean}
+                disinfection={disinfection}
+                onDisinfectionChange={setDisinfection}
                 onServiceCategoryChange={setServiceCategory}
               />)
               : (<PropertyTypeSizeSelector
@@ -756,7 +790,8 @@ export function ServiceBookingView({
                       onSupplySourceChange={handleSupplySourceChange}
                       items={items}
                       selectedItemIds={selectedItemIds}
-                      onToggleItem={toggleItem}
+                      itemQuantities={itemQuantities}
+                      onQuantityChange={setItemQuantity}
                       addOnsTotal={addOnsTotal + (selectedDisinfectionLevel?.priceAdder ?? 0)}
                       onBookNow={handleBookNow}
                       submitting={submitting}
