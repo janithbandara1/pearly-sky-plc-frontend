@@ -94,7 +94,7 @@ Set in `app/layout.tsx` and `lib/countries/seo.ts` (`buildSocialMeta`), applied 
 
 ## Main pages
 
-*Metadata source:* `lib/countries/meta-data.ts` (`getCountryPageMeta`), translated via `lib/countries/meta-templates.ts`; `/our-services` is hard-coded in `app/(site)/our-services/page.tsx`.
+*Metadata source:* `lib/countries/meta-data.ts` (`getCountryPageMeta`), translated via `lib/countries/meta-templates.ts`.
 
 ### Home
 
@@ -182,15 +182,7 @@ Set in `app/layout.tsx` and `lib/countries/seo.ts` (`buildSocialMeta`), applied 
 
 ### Our Services
 
-**og:image:** `https://pearlyskyglobalclean.lk/images/hero/hero-1.webp`
-
-| Lang | URL | Title | Meta description |
-|---|---|---|---|
-| `en` | https://pearlyskyglobalclean.lk/en/our-services | Our Services \| Pearly Sky Eco-Luxury Cleaning | Explore our comprehensive suite of residential, commercial, and specialty eco-luxury cleaning services. |
-| `fr` | https://pearlyskyglobalclean.lk/fr/our-services | Our Services \| Pearly Sky Eco-Luxury Cleaning | Explore our comprehensive suite of residential, commercial, and specialty eco-luxury cleaning services. |
-| `de` | https://pearlyskyglobalclean.lk/de/our-services | Our Services \| Pearly Sky Eco-Luxury Cleaning | Explore our comprehensive suite of residential, commercial, and specialty eco-luxury cleaning services. |
-| `es` | https://pearlyskyglobalclean.lk/es/our-services | Our Services \| Pearly Sky Eco-Luxury Cleaning | Explore our comprehensive suite of residential, commercial, and specialty eco-luxury cleaning services. |
-| `it` | https://pearlyskyglobalclean.lk/it/our-services | Our Services \| Pearly Sky Eco-Luxury Cleaning | Explore our comprehensive suite of residential, commercial, and specialty eco-luxury cleaning services. |
+*Not served on this site* — `/our-services` exists only on the global site (pearlyskyglobalclean.com). Every language variant here 308-redirects to that language's home page (`GLOBAL_SITE_ONLY_PATHS` in `proxy.ts`) and is left out of the sitemap.
 
 ## Legal pages
 

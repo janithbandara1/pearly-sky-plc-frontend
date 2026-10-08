@@ -9,7 +9,6 @@ import { hasQuotationPage, hasServicePage } from "@/lib/service-flows";
 const STATIC_PAGES: { path: string; changeFrequency: MetadataRoute.Sitemap[number]["changeFrequency"]; priority: number }[] = [
   { path: "/", changeFrequency: "weekly", priority: 1 },
   { path: "/about-us", changeFrequency: "monthly", priority: 0.8 },
-  { path: "/our-services", changeFrequency: "monthly", priority: 0.8 },
   { path: "/our-customers", changeFrequency: "monthly", priority: 0.7 },
   { path: "/our-locations", changeFrequency: "monthly", priority: 0.7 },
   { path: "/blog", changeFrequency: "weekly", priority: 0.7 },
@@ -30,6 +29,11 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
   for (const { path, changeFrequency, priority } of STATIC_PAGES) {
     entries.push(...buildSitemapEntries(path, { changeFrequency, priority }));
+  }
+
+  // Global-gateway-only page — redirected away on the country sites (see proxy.ts).
+  if (IS_GLOBAL_SITE) {
+    entries.push(...buildSitemapEntries("/our-services", { changeFrequency: "monthly", priority: 0.8 }));
   }
 
   for (const post of blogPosts) {

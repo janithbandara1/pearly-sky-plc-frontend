@@ -34,6 +34,10 @@ const GLOBAL_SITE_ALLOWED_EXACT_PATHS = [
 ];
 const GLOBAL_SITE_ALLOWED_PREFIXES = ["/blog", "/careers"];
 
+// The reverse: pages that exist only on the global gateway. The country
+// sites list their services in the header's services menu instead.
+const GLOBAL_SITE_ONLY_PATHS = ["/our-services"];
+
 function isGlobalSiteAllowedPath(pathname: string): boolean {
   if (GLOBAL_SITE_ALLOWED_EXACT_PATHS.includes(pathname)) return true;
   return GLOBAL_SITE_ALLOWED_PREFIXES.some(
@@ -110,7 +114,11 @@ export function proxy(request: NextRequest) {
 
   const effectivePath = locale ? locale.rest : pathname;
 
-  if (IS_GLOBAL_SITE && !isGlobalSiteAllowedPath(effectivePath)) {
+  if (
+    IS_GLOBAL_SITE
+      ? !isGlobalSiteAllowedPath(effectivePath)
+      : GLOBAL_SITE_ONLY_PATHS.includes(effectivePath)
+  ) {
     const target = request.nextUrl.clone();
     target.pathname = buildLocalePath("/", locale?.language ?? resolveLanguage(request));
     return NextResponse.redirect(target, 308);
