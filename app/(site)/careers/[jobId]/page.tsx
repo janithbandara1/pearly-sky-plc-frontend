@@ -151,9 +151,12 @@ export async function generateMetadata({
 
   // Careers is France-only hiring (see IS_CAREERS_ENABLED) — every job id is
   // treated as "no jobs" on the UK/Sri Lanka sites, without even looking one up.
+  // Not indexable there: each job URL would be one more copy of the same
+  // "no openings" notice. Kept out of the sitemap too (see app/sitemap.ts),
+  // and given no canonical/hreflang, which must only list indexable pages.
   if (!IS_CAREERS_ENABLED) {
     const title = "Careers | Pearly Sky";
-    return { title, ...buildSocialMeta(title) };
+    return { title, robots: { index: false, follow: true }, ...buildSocialMeta(title) };
   }
 
   const resolvedLanguage = language ?? "en";

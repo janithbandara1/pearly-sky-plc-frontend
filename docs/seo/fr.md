@@ -66,10 +66,12 @@ Set in `app/layout.tsx` and `lib/countries/seo.ts` (`buildSocialMeta`), applied 
 ### Canonical & hreflang
 
 - **Canonical:** every page's canonical is its own URL (verified for all URLs in this file).
-- **hreflang:** every page lists 16 alternates — `x-default`, plus each of the 5 languages on each of the 3 country domains:
-  `en-FR … it-FR` → pearlyskyglobalclean.fr, `en-GB … it-GB` → pearlyskyglobalclean.co.uk, `en-LK … it-LK` → pearlyskyglobalclean.lk.
-  The path for each language is the same on all three domains (the URLs in each page's table below), and
-  `x-default` points to this site's English URL. Verified for every URL in this file.
+- **hreflang:** every indexable page lists 6 alternates, all on pearlyskyglobalclean.fr — one per language with plain codes
+  (`en`, `fr`, `de`, `es`, `it`; no regional variants) plus `x-default`, which points to this site's
+  English (`/en/…`) URL. Other countries' domains are not listed. Every page on the site lists the same set (so
+  references are reciprocal), each URL is the equivalent page in that language (the URLs in each page's table
+  below, including translated service slugs), and redirecting, 404 and noindex URLs are never listed.
+  Canonical and hreflang URLs are absolute. Built by `buildAlternates` in `lib/countries/seo.ts`.
 
 ## Main pages
 
