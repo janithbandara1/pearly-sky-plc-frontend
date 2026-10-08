@@ -18,8 +18,46 @@ const DEDICATED_FLOW_SERVICES = new Set([
 const commonFlowOfPropertyTypes = new Set([
   "steam-cleaning" ,
   "healthguard-sanitization", 
-  "post-construction-renovation-cleaning"
+  "post-construction-renovation-cleaning",
+
+  //access to new property types for the services which has the room 
+  // components to be selected
+  "regular-home-cleaning",
+  "quick-touch-up-cleaning",
+  "deep-cleaning",
+  "end-of-tenancy-cleaning",
+  "same-day-priority-cleaning",
+  "premium-rental-concierge-cleaning",
 ])
+
+
+//common properties which has the room components to be selected for the service
+const commonPropertyTypesWithRoomComponents = new Set([
+  "regular-home-cleaning",
+  "quick-touch-up-cleaning",
+  "deep-cleaning",
+  "end-of-tenancy-cleaning",
+  "same-day-priority-cleaning",
+  "premium-rental-concierge-cleaning",
+]);
+
+export function isCommonPropertyTypeWithRoomComponents(baseSlug: string): boolean {
+  return commonPropertyTypesWithRoomComponents.has(baseSlug) && isCommonPropertyTypeFlow(baseSlug);
+}
+
+//Rest services which has the common flow of booking new view
+const commonFlowOfNewBookingSectionView = new Set([
+  "high-security-property-care", 
+  "commercial-office-cleaning",
+  "luxury-yacht-cleaning",
+  "post-event-cleaning",
+])
+
+const listOfCommonBookingViewServices=[...commonFlowOfPropertyTypes,...commonFlowOfNewBookingSectionView];
+export function isCommonFlowOfNewBookingSectionView(baseSlug:string):boolean{
+  return listOfCommonBookingViewServices.includes(baseSlug);
+}
+
 
 export function isDedicatedFlowService(baseSlug: string): boolean {
   return DEDICATED_FLOW_SERVICES.has(baseSlug);
@@ -28,6 +66,8 @@ export function isDedicatedFlowService(baseSlug: string): boolean {
 export function isCommonPropertyTypeFlow(baseSlug:string):boolean{
   return commonFlowOfPropertyTypes.has(baseSlug);
 }
+
+
 
 /**
  * Dedicated-flow services whose quotation is taken on /services/{slug}

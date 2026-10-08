@@ -2097,4 +2097,13 @@ scanQrDesc: "Escanee este código con su teléfono para ver los detalles complet
   bookingAddSupplyItem: "Añade al menos un producto o equipo de limpieza arriba para continuar.",
   locationsNoCountriesFound: "No se han encontrado países",
 
+  bedrooms: "Dormitorios",
+    bathrooms: "Baños",
+    living_rooms: "Salones / Salas de Estar",
+    kitchens: "Cocinas",
+    verandas_outdoor_spaces: "Verandas y Espacios Exteriores",
+    home_offices: "Oficinas en Casa",
+    laundry_rooms: "Cuartos de Lavado",
+    dining_areas: "Comedores"
+
 } as Record<TranslationKey, TranslationValue>;

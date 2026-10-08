@@ -113,7 +113,7 @@ export interface EquipmentSectionProps {
   bookDisabledReason?: string;
 }
 
-export function EquipmentSectionOfCommonSanitize({
+export function EquipmentSectionOfCommonServicesSlugs({
   propertyType = "Studio",
   categoryIcon = "🏢",
   propertySizeSqm,

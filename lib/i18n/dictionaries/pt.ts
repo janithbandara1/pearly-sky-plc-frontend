@@ -2178,4 +2178,13 @@ export const pt = {
   bookingAddSupplyItem: "Add at least one Cleaning Solvent & Equipment item above to continue.",
   locationsNoCountriesFound: "No countries found",
 
+  bedrooms: "Quartos",
+    bathrooms: "Casas de Banho",
+    living_rooms: "Salas de Estar",
+    kitchens: "Cozinhas",
+    verandas_outdoor_spaces: "Varandas e Espaços Exteriores",
+    home_offices: "Escritórios em Casa",
+    laundry_rooms: "Lavandarias",
+    dining_areas: "Salas de Jantar"
+
 } as Record<TranslationKey, TranslationValue>;

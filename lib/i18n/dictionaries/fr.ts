@@ -2139,6 +2139,15 @@ AddsOnCategoryOvenFridgeRestoration: "Restauration professionnelle de four et r�
   bookingAddSupplyItem: "Ajoutez au moins un produit ou équipement de nettoyage ci-dessus pour continuer.",
   locationsNoCountriesFound: "Aucun pays trouvé",
 
+  bedrooms: "Chambres",
+    bathrooms: "Salles de Bain",
+    living_rooms: "Salles de Séjour",
+    kitchens: "Cuisines",
+    verandas_outdoor_spaces: "Vérandas & Espaces Extérieurs",
+    home_offices: "Bureaux à Domicile",
+    laundry_rooms: "Buanderies",
+    dining_areas: "Salles à Manger"
+
 } as Record<TranslationKey, TranslationValue>;
 
 

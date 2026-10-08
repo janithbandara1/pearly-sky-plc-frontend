@@ -33,7 +33,7 @@ import {
 } from "@/lib/booking-api";
 import { BookingDraft, clearBookingDraft, loadBookingDraft } from "@/lib/booking-draft";
 import { applyDeepCleanToQuote, applyDeepCleanToRate } from "@/lib/deep-clean";
-import { propertyTypeEnglishName } from "@/components/booking/sanitize-like-common-flow/sanitize-property-types";
+import { propertyTypeEnglishName } from "@/components/booking/common-flows-propertis-and-equipments/sanitize-property-types";
 import {
   CatalogServiceDetail,
   SizeQuote,

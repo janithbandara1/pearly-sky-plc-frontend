@@ -2137,4 +2137,13 @@ scanQrDesc: "Scan denne kode med din telefon for at åbne de fulde oplysninger o
   bookingAddSupplyItem: "Add at least one Cleaning Solvent & Equipment item above to continue.",
   locationsNoCountriesFound: "No countries found",
 
+  bedrooms: "Soveværelser",
+    bathrooms: "Badeværelser",
+    living_rooms: "Stuer",
+    kitchens: "Køkkener",
+    verandas_outdoor_spaces: "Verandaer & Udendørsarealer",
+    home_offices: "Hjemmekontorer",
+    laundry_rooms: "Bryggers / Vaskerum",
+    dining_areas: "Spiseområder"
+
 } as Record<TranslationKey, TranslationValue>;

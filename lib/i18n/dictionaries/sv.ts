@@ -2174,4 +2174,13 @@ scanQrDesc: "Skanna den här koden med din telefon för att öppna alla detaljer
   bookingAddSupplyItem: "Add at least one Cleaning Solvent & Equipment item above to continue.",
   locationsNoCountriesFound: "No countries found",
 
+  bedrooms: "Sovrum",
+    bathrooms: "Badrum",
+    living_rooms: "Vardagsrum",
+    kitchens: "Kök",
+    verandas_outdoor_spaces: "Verandor & Utomhusytor",
+    home_offices: "Hemmakontor",
+    laundry_rooms: "Tvättstugor",
+    dining_areas: "Matplatser"
+
 } as Record<TranslationKey, TranslationValue>;

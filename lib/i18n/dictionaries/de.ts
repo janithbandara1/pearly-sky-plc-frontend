@@ -2144,4 +2144,13 @@ export const de = {
   bookingAddSupplyItem: "Fügen Sie oben mindestens ein Reinigungsmittel oder Ausrüstungsteil hinzu, um fortzufahren.",
   locationsNoCountriesFound: "Keine Länder gefunden",
 
+  bedrooms: "Schlafzimmer",
+    bathrooms: "Badezimmer",
+    living_rooms: "Wohnzimmer",
+    kitchens: "Küchen",
+    verandas_outdoor_spaces: "Veranden & Außenbereiche",
+    home_offices: "Arbeitszimmer / Home-Offices",
+    laundry_rooms: "Waschküchen",
+    dining_areas: "Essbereiche"
+
 } as Record<TranslationKey, TranslationValue>;

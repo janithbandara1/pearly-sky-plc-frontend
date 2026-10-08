@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "@/components/locale-link";
-import { isCommonPropertyTypeFlow, isDedicatedFlowService } from "@/lib/service-flows";
+import { isCommonFlowOfNewBookingSectionView, isCommonPropertyTypeFlow, isCommonPropertyTypeWithRoomComponents, isDedicatedFlowService } from "@/lib/service-flows";
 import { Poppins } from "next/font/google";
 import { useRouter } from "next/navigation";
 import { useEffect, useState, type Dispatch, type SetStateAction } from "react";
@@ -48,8 +48,9 @@ import { CarpetScheduleSection } from "@/components/booking/carpet/carpet-schedu
 import { PoolScheduleSection } from "@/components/booking/pool/pool-schedule-section";
 import { PressureWashingScheduleSection } from "@/components/booking/pressure-washing/pressure-washing-schedule-section";
 import { YachtScheduleSection } from "@/components/booking/yacht/yacht-schedule-section";
-import { getPropertyCategoriesForServiceOfSanitize, PropertyTypeSizeSelectorSanitizeCommonFlow } from "@/components/booking/sanitize-like-common-flow/sanitize-property-types";
-import { EquipmentSectionOfCommonSanitize } from "@/components/booking/sanitize-like-common-flow/sanitize-equipment-section";
+import { getPropertyCategoriesForServiceOfSanitize, PropertyTypeSizeSelectorCommonFlowOfServices}
+ from "@/components/booking/common-flows-propertis-and-equipments/sanitize-property-types";
+import { EquipmentSectionOfCommonServicesSlugs } from "@/components/booking/common-flows-propertis-and-equipments/common-equipment-flow-section";
 
 const poppins = Poppins({ subsets: ["latin"], weight: ["400", "500", "600", "700", "800"], adjustFontFallback: false });
 
@@ -268,6 +269,8 @@ export function ServiceBookingView({
     "post-construction-renovation-cleaning"
    */
   const isCommonPropertyTypeServices = isCommonPropertyTypeFlow(serviceSlug)
+
+  const isCommonBookingSectionView= isCommonFlowOfNewBookingSectionView(serviceSlug);
 
 
   const [initialState] = useState(() =>
@@ -608,6 +611,8 @@ export function ServiceBookingView({
   }
 
 
+  
+
 
 
 
@@ -716,9 +721,11 @@ export function ServiceBookingView({
             <DateTimeSection date={date} onDateChange={setDate} time={time} onTimeChange={setTime} />
 
             {isCommonPropertyTypeServices ?
-              (<PropertyTypeSizeSelectorSanitizeCommonFlow
+              
+              (<PropertyTypeSizeSelectorCommonFlowOfServices
                 value={propertySizeSqm}
                 onChange={setPropertySizeSqm}
+                serviceSlug={serviceSlug}
                 categories={getPropertyCategoriesForServiceOfSanitize(serviceSlug)}
                 onCategoryChange={(cat: PropertyCategory) => setPropertyType(cat.dropdownLabel ?? cat.label)}
                 quote={pricedQuote}
@@ -737,7 +744,8 @@ export function ServiceBookingView({
 
 
 
-            {isEvent ? ((() => {
+            {
+            /* isEvent ? ((() => {
               const categories = getPropertyCategoriesForService(serviceSlug);
               const pTypeLower = (propertyType || "").toLowerCase();
               const activeCategory =
@@ -765,8 +773,8 @@ export function ServiceBookingView({
                   bookDisabledReason={bookDisabledReason}
                 />
               );
-            })()) :
-              isCommonPropertyTypeServices ? (
+            })()) : */
+              isCommonBookingSectionView ? (
                 (() => {
                   const categories = getPropertyCategoriesForServiceOfSanitize(serviceSlug);
                   const pTypeLower = (propertyType || "").toLowerCase();
@@ -778,7 +786,7 @@ export function ServiceBookingView({
                     ) ?? categories[0];
 
                   return (
-                    <EquipmentSectionOfCommonSanitize
+                    <EquipmentSectionOfCommonServicesSlugs
                       propertyType={propertyType || activeCategory.label}
                       categoryIcon={activeCategory.icon}
                       propertySizeSqm={propertySizeSqm}
