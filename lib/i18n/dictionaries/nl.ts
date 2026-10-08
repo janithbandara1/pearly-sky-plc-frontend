@@ -2160,4 +2160,13 @@ export const nl = {
   bookingAddSupplyItem: "Add at least one Cleaning Solvent & Equipment item above to continue.",
   locationsNoCountriesFound: "No countries found",
 
+  bedrooms: "Slaapkamers",
+    bathrooms: "Badkamers",
+    living_rooms: "Woonkamers",
+    kitchens: "Keukens",
+    verandas_outdoor_spaces: "Veranda's & Buitenruimtes",
+    home_offices: "Thuiswerkplekken / Kantoren",
+    laundry_rooms: "Wasruimtes",
+    dining_areas: "Eetruimtes"
+
 } as Record<TranslationKey, TranslationValue>;

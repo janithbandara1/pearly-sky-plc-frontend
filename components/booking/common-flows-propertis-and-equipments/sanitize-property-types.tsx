@@ -7,6 +7,9 @@ import { useLanguage } from "@/lib/i18n/language-context";
 import { useCurrency } from "@/lib/currency-context";
 import type { TranslationKey } from "@/lib/i18n/dictionaries/en";
 import type { SizeQuote } from "@/lib/catalog-api";
+import RoomSelector from "../room-components-counter";
+import { isCommonPropertyTypeWithRoomComponents } from "@/lib/service-flows";
+import { getPropertyCategoriesForService } from "../property-type-size-selector";
 
 export const CATEGORY_LABEL_KEYS: Record<string, TranslationKey> = {
   "Studio": "propStudio",
@@ -1173,6 +1176,7 @@ export function SanitizeSizeVisualization({
 export interface PropertyTypeSizeSelectorProps {
   value: number;
   onChange: (value: number) => void;
+  serviceSlug: string;
   categories?: PropertyCategory[];
   /** Fires with the active category whenever it changes (including on mount). */
   onCategoryChange?: (category: PropertyCategory) => void;
@@ -1186,10 +1190,11 @@ export interface PropertyTypeSizeSelectorProps {
 }
 
 
-export function PropertyTypeSizeSelectorSanitizeCommonFlow({
+export function PropertyTypeSizeSelectorCommonFlowOfServices({
   value,
   onChange,
-  categories = [...SANITIZE_RESIDENTIAL_CATEGORYIES, ...SANITIZE_INDUSTRIAL_CATEGORYIES],
+  serviceSlug, 
+  categories = isCommonPropertyTypeWithRoomComponents(serviceSlug) ? getPropertyCategoriesForService(serviceSlug) : [...SANITIZE_RESIDENTIAL_CATEGORYIES, ...SANITIZE_INDUSTRIAL_CATEGORYIES] ,
   onCategoryChange,
   disinfection: controlledDisinfection,
   onDisinfectionChange,
@@ -1211,6 +1216,9 @@ export function PropertyTypeSizeSelectorSanitizeCommonFlow({
     onDisinfectionChange?.(val);
   };
 
+
+  const ROOM_COMPONENTS_SERVICES = isCommonPropertyTypeWithRoomComponents(serviceSlug);
+
   const setDeepClean = (val: boolean) => {
     if (controlledDeepClean === undefined) {
       setInternalDeepClean(val);
@@ -1229,8 +1237,23 @@ export function PropertyTypeSizeSelectorSanitizeCommonFlow({
 
   //set sanitizing categories
   //industrial and residential categories
-  const selectableCategories =
+  //Check room components are existied
+  /* const selectablecategories = 
     isActiveCategorySwitch === "residential" ? SANITIZE_RESIDENTIAL_CATEGORYIES : SANITIZE_INDUSTRIAL_CATEGORYIES;
+ */
+  const getSerivesCategoriesBasedOnConditions=():PropertyCategory[]=>{
+    if(!ROOM_COMPONENTS_SERVICES){
+      if(isActiveCategorySwitch === "residential"){
+      return SANITIZE_RESIDENTIAL_CATEGORYIES;
+      }
+      if(isActiveCategorySwitch === "industrial"){
+        return SANITIZE_INDUSTRIAL_CATEGORYIES
+      }
+    }
+    return SANITIZE_RESIDENTIAL_CATEGORYIES
+  }
+
+  const selectableCategories = getSerivesCategoriesBasedOnConditions()
 
   // Tracked explicitly (not re-derived from `value` every render)
   const [activeCategoryId, setActiveCategoryId] = useState<string | null>(() => selectableCategories[0].id);
@@ -1345,29 +1368,31 @@ export function PropertyTypeSizeSelectorSanitizeCommonFlow({
       <div className="rounded-b-2xl py-4   border border-[#C6A868] bg-brand-navy pb-5 sm:pb-6 px-5 sm:px-6 shadow-sm w-full">
         
 
-        <div className="w-full">
-          <h2 className="text-base sm:text-lg font-bold text-gray-300 mb-3">{translate("propServiceCatagory")}</h2>
-          <div className="w-full p-1 flex justify-between items-center mb-6 bg-white/5 backdrop-blur-md] rounded-[27px]">
-            <button
-              className={`md:w-[49.5%]  
-              w-[45%] py-4 px-3 rounded-4xl
-              ${isActiveCategorySwitch === "residential" ? "bg-blue-500 border-[#C6A868]/60" : "bg-transparent"} cursor-pointer text-[13px] md:text-[15px] text-white 
-              font-bold `}
-              onClick={() => handleCategorySwitch("residential")}
-            >
-              <span className="text-white">🏠</span>  {translate("propCatResidential")}
-            </button>
-            <button
-              className={`md:w-[49.5%]  
-              w-[45%] py-4 px-3  rounded-4xl
-              ${isActiveCategorySwitch === "industrial" ? "bg-blue-500 border-[#C6A868]/60" : "bg-transparent"} cursor-pointer text-[13px] md:text-[15px]  text-white 
-              font-bold `}
-              onClick={() => handleCategorySwitch("industrial")}
-            >
-              <span className="text-white">🏭</span>  {translate("propCatIndustrial")}
-            </button>
+        {!ROOM_COMPONENTS_SERVICES && (
+          <div className="w-full">
+            <h2 className="text-base sm:text-lg font-bold text-gray-300 mb-3">{translate("propServiceCatagory")}</h2>
+            <div className="w-full p-1 flex justify-between items-center mb-6 bg-white/5 backdrop-blur-md] rounded-[27px]">
+              <button
+                className={`md:w-[49.5%]  
+                w-[45%] py-4 px-3 rounded-4xl
+                ${isActiveCategorySwitch === "residential" ? "bg-blue-500 border-[#C6A868]/60" : "bg-transparent"} cursor-pointer text-[13px] md:text-[15px] text-white 
+                font-bold `}
+                onClick={() => handleCategorySwitch("residential")}
+              >
+                <span className="text-white">🏠</span>  {translate("propCatResidential")}
+              </button>
+              <button
+                className={`md:w-[49.5%]  
+                w-[45%] py-4 px-3  rounded-4xl
+                ${isActiveCategorySwitch === "industrial" ? "bg-blue-500 border-[#C6A868]/60" : "bg-transparent"} cursor-pointer text-[13px] md:text-[15px]  text-white 
+                font-bold `}
+                onClick={() => handleCategorySwitch("industrial")}
+              >
+                <span className="text-white">🏭</span>  {translate("propCatIndustrial")}
+              </button>
+            </div>
           </div>
-        </div>
+        )}
         <div className="grid grid-cols-1 gap-6 items-start h-full">
           {/* Left Column: Property Type */}
           <div className="flex flex-col min-w-0 ">
@@ -1375,10 +1400,10 @@ export function PropertyTypeSizeSelectorSanitizeCommonFlow({
               {translate("propTypeTitle")}</h3>
 
             <div
-              className="flex flex-nowrap  gap-3 overflow-x-auto overflow-y-hidden -mx-1  px-1 lg:-ml-5 lg:pl-25  [&::-webkit-scrollbar]:hidden"
+              className="flex flex-nowrap  gap-3 overflow-x-auto overflow-y-hidden -mx-1  px-1 lg:-ml-5 lg:pl-15 md:-ml-5 md:pl-15  [&::-webkit-scrollbar]:hidden"
               style={{ scrollbarWidth: "none", scrollSnapType: "x proximity" }} 
             >
-              {/**display categories */} 
+              {/**display categories */}  
               {selectableCategories.map((cat) => {
                 const isSelected = activeCategory ? cat.id === activeCategory.id : false;
                 return (
@@ -1417,9 +1442,9 @@ export function PropertyTypeSizeSelectorSanitizeCommonFlow({
 
           </div>
 
-
           {/* Disinfection & Deep Clean Selectable Cards */}
-          <div className="grid grid-cols-2 gap-3  items-center mt-4 h-full w-full">
+          {!ROOM_COMPONENTS_SERVICES && (
+            <div className="grid grid-cols-2 gap-3  items-center mt-4 h-full w-full">
             {/* Disinfection Card */}
             <button
               type="button"
@@ -1479,8 +1504,13 @@ export function PropertyTypeSizeSelectorSanitizeCommonFlow({
                 {isDeepClean && <Check className="w-3.5 h-3.5 stroke-[3]" />}
               </div>
             </button>
-          </div>
+          </div>)
+          }
         </div>
+
+        {/**Room selector for services types */}
+        {ROOM_COMPONENTS_SERVICES && <RoomSelector />}
+
         {/* Right Column: Property Size */}
         <div className="flex flex-col w-full mt-8">
           <h3 className="text-base sm:text-lg font-bold text-white mb-3">{translate("propSizeTitle")}</h3>
@@ -1592,6 +1622,7 @@ export function PropertyTypeSizeSelectorSanitizeCommonFlow({
             </div>
             
           </div>
+          
           <EstimatioMatrixBottom 
           activeCategory={activeCategory || null}
             />

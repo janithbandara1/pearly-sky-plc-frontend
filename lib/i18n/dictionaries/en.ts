@@ -2205,6 +2205,15 @@ serviceLuxuryYachtCleaningTitleFiveFeatureTwo:"Complete linen turnover, sanitati
   bookingAddSupplyItem: "Add at least one Cleaning Solvent & Equipment item above to continue.",
   locationsNoCountriesFound: "No countries found",
 
+    bedrooms: "Bedrooms",
+    bathrooms: "Bathrooms",
+    living_rooms: "Living Rooms",
+    kitchens: "Kitchens",
+    verandas_outdoor_spaces: "Verandas & Outdoor Spaces",
+    home_offices: "Home Offices",
+    laundry_rooms: "Laundry Rooms",
+    dining_areas: "Dining Areas"
+
 } as const;
 
 export type TranslationKey = keyof typeof en;

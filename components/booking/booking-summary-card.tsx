@@ -28,7 +28,7 @@ import { SummaryAttachments } from "@/components/booking/summary-attachments";
 import type { AttachmentLink } from "@/lib/upload-api";
 import { useLanguage } from "@/lib/i18n/language-context";
 import type { TranslationKey } from "@/lib/i18n/dictionaries/en";
-import { CATEGORY_LABEL_KEYS } from "@/components/booking/sanitize-like-common-flow/sanitize-property-types";
+import { CATEGORY_LABEL_KEYS } from "@/components/booking/common-flows-propertis-and-equipments/sanitize-property-types";
 
 const GENERAL_STEAM_TITLES = new Set(GENERAL_STEAM_CARDS.map((card) => card.title));
 const INDUSTRIAL_STEAM_TITLES = new Set(INDUSTRIAL_STEAM_CATEGORIES.map((category) => category.title));

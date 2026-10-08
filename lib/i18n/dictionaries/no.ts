@@ -2177,4 +2177,13 @@ CustomerFeedBack: "Kundetilbakemelding",
   bookingAddSupplyItem: "Add at least one Cleaning Solvent & Equipment item above to continue.",
   locationsNoCountriesFound: "No countries found",
 
+  bedrooms: "Soverom",
+    bathrooms: "Badrom",
+    living_rooms: "Stuer",
+    kitchens: "Kjøkken",
+    verandas_outdoor_spaces: "Verandaer og Uterom",
+    home_offices: "Hjemmekontorer",
+    laundry_rooms: "Vaskerom",
+    dining_areas: "Spiseplasser"
+
 } as Record<TranslationKey, TranslationValue>;

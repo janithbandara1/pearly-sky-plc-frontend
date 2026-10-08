@@ -2175,4 +2175,13 @@ CustomerFeedBack: "Opinie klientów",
   bookingAddSupplyItem: "Add at least one Cleaning Solvent & Equipment item above to continue.",
   locationsNoCountriesFound: "No countries found",
 
+  bedrooms: "Sypialnie",
+    bathrooms: "Łazienki",
+    living_rooms: "Salony",
+    kitchens: "Kuchnie",
+    verandas_outdoor_spaces: "Werandy i Przestrzenie Zewnętrzne",
+    home_offices: "Biura Domowe",
+    laundry_rooms: "Pralnie",
+    dining_areas: "Jadalnie"
+
 } as Record<TranslationKey, TranslationValue>;

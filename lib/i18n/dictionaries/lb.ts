@@ -2150,4 +2150,13 @@ export const lb = {
   bookingAddSupplyItem: "Add at least one Cleaning Solvent & Equipment item above to continue.",
   locationsNoCountriesFound: "No countries found",
 
+    bedrooms: "Schlofzëmmeren",
+    bathrooms: "Buedzëmmeren",
+    living_rooms: "Wunnzëmmeren",
+    kitchens: "Kichen",
+    verandas_outdoor_spaces: "Verandaen & Bausseberäicher",
+    home_offices: "Heembüroen",
+    laundry_rooms: "Wäschkichen",
+    dining_areas: "Iessberäicher"
+
 } as Record<TranslationKey, TranslationValue>;

@@ -2102,4 +2102,13 @@ export const it = {
   bookingAddSupplyItem: "Aggiungi almeno un prodotto o un’attrezzatura per la pulizia qui sopra per continuare.",
   locationsNoCountriesFound: "Nessun paese trovato",
 
+  bedrooms: "Camere da Letto",
+    bathrooms: "Bagni",
+    living_rooms: "Soggiorni",
+    kitchens: "Cucine",
+    verandas_outdoor_spaces: "Verande e Spazi Esterni",
+    home_offices: "Uffici Domestici",
+    laundry_rooms: "Lavanderie",
+    dining_areas: "Zone Pranzo"
+
 } as Record<TranslationKey, TranslationValue>;
