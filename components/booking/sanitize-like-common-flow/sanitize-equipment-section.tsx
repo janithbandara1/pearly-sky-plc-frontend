@@ -3,7 +3,7 @@
 import Link from "@/components/locale-link";
 import { User, Briefcase, KeyRound, ArrowRight, Folder } from "lucide-react";
 import type { CatalogItem, SizeQuote } from "@/lib/catalog-api";
-import { EQUIPMENT_ITEM_SKU, EQUIPMENT_MAX_QTY, flatEquipmentUnitPrice } from "@/lib/equipment-pricing";
+import { calculateEquipmentItemPrice, EQUIPMENT_ITEM_SKU, EQUIPMENT_MAX_QTY } from "@/lib/equipment-pricing";
 import { useCurrency } from "@/lib/currency-context";
 import { useLanguage } from "@/lib/i18n/language-context";
 import { TranslationKey } from "@/lib/i18n/dictionaries/en";
@@ -362,8 +362,8 @@ export function EquipmentSectionOfCommonSanitize({
                 const meta = getItemMeta(item);
                 const qty = quantityOf(item.id);
                 const isSelected = qty > 0;
-                // Fixed price per unit — not scaled by the selected property size
-                const unitPrice = item.price != null ? flatEquipmentUnitPrice(item) : meta.defaultPrice;
+                // Per-unit price scales with the selected property size, as in the other services
+                const unitPrice = item.price != null ? calculateEquipmentItemPrice(item, propertySizeSqm) : meta.defaultPrice;
 
                 return (
                   <div

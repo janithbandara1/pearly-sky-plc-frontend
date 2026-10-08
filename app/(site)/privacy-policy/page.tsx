@@ -7,15 +7,15 @@ import { STATIC_PAGE_META } from "@/lib/countries/meta-data";
 import { PRIVACY_POLICY } from "@/lib/content/legal/privacy-policy";
 import { LegalDocumentView } from "@/components/legal/legal-document";
 
-const { title: TITLE } = STATIC_PAGE_META.privacyPolicy;
-
 export async function generateMetadata(): Promise<Metadata> {
   const language = await getRequestLanguage();
+  const { title, description } = STATIC_PAGE_META.privacyPolicy[language ?? "en"];
 
   return {
-    title: TITLE,
+    title,
+    description,
     alternates: buildCountryAlternates("/privacy-policy", { language }),
-    ...buildSocialMeta(TITLE),
+    ...buildSocialMeta(title, description),
   };
 }
 

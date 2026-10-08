@@ -56,29 +56,9 @@ export function calculateEquipmentItemPrice(
   }
 }
 
-/** Most units of one equipment item a customer can add (steam/sanitization/post-construction flow). */
+/**
+ * Most units of one equipment item a customer can add (steam/sanitization/
+ * post-construction flow, where each unit costs calculateEquipmentItemPrice
+ * for the selected property size).
+ */
 export const EQUIPMENT_MAX_QTY = 10;
-
-/**
- * Smallest bookable property size. The flat flow's unit price is each item's
- * price at this size (e.g. in EUR: Bio-Solvent €14.00, Mop €8.00, Material
- * Kit €7.20, Vacuum €10.00), so it still follows each country's catalog price.
- */
-const FLAT_EQUIPMENT_PRICE_SIZE_SQM = 20;
-
-/** Steam-cleaning / healthguard-sanitization / post-construction flow: one unit's fixed price, whatever the property size. */
-export function flatEquipmentUnitPrice(item: { sku: string; price: string | number | null }): number {
-  return calculateEquipmentItemPrice(item, FLAT_EQUIPMENT_PRICE_SIZE_SQM);
-}
-
-/**
- * Steam-cleaning / healthguard-sanitization / post-construction flow: the
- * fixed unit price × the quantity the customer picked — not scaled by the
- * selected property size like calculateEquipmentItemPrice.
- */
-export function calculateFlatEquipmentPrice(
-  item: { sku: string; price: string | number | null },
-  qty: number,
-): number {
-  return flatEquipmentUnitPrice(item) * qty;
-}

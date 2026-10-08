@@ -7,15 +7,15 @@ import { STATIC_PAGE_META } from "@/lib/countries/meta-data";
 import { TERMS_AND_CONDITIONS } from "@/lib/content/legal/terms-and-conditions";
 import { TermsAndConditionsContent } from "@/components/legal/terms-and-conditions-content";
 
-const { title: TITLE } = STATIC_PAGE_META.termsAndConditions;
-
 export async function generateMetadata(): Promise<Metadata> {
   const language = await getRequestLanguage();
+  const { title, description } = STATIC_PAGE_META.termsAndConditions[language ?? "en"];
 
   return {
-    title: TITLE,
+    title,
+    description,
     alternates: buildCountryAlternates("/terms-and-conditions", { language }),
-    ...buildSocialMeta(TITLE),
+    ...buildSocialMeta(title, description),
   };
 }
 

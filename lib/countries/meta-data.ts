@@ -316,15 +316,91 @@ export function getCountryPageMeta(page: CountryPageKey, language: LanguageCode)
 
 type StaticPageKey = "termsAndConditions" | "privacyPolicy" | "cookiePolicy";
 
-/** <title>/description for pages whose copy is identical for every country. */
-export const STATIC_PAGE_META: Record<StaticPageKey, PageMeta> = {
+/**
+ * <title>/description for the legal pages — identical for every country, but
+ * translated per language. Titles match each document's own heading in
+ * lib/content/legal.
+ */
+export const STATIC_PAGE_META: Record<StaticPageKey, Record<LanguageCode, PageMeta>> = {
   termsAndConditions: {
-    title: "Terms and Conditions | Pearly Sky",
+    en: {
+      title: "Terms and Conditions | Pearly Sky",
+      description:
+        "The terms for using the Pearly Sky website and cleaning services: user responsibilities, intellectual property, liability and governing law.",
+    },
+    fr: {
+      title: "Conditions générales | Pearly Sky",
+      description:
+        "Conditions d’utilisation du site et des services Pearly Sky : obligations de l’utilisateur, propriété intellectuelle, responsabilité et droit applicable.",
+    },
+    de: {
+      title: "Allgemeine Geschäftsbedingungen | Pearly Sky",
+      description:
+        "Bedingungen für die Nutzung der Website und Reinigungsdienste von Pearly Sky: Pflichten der Nutzer, geistiges Eigentum, Haftung und anwendbares Recht.",
+    },
+    es: {
+      title: "Términos y condiciones | Pearly Sky",
+      description:
+        "Condiciones de uso del sitio web y los servicios de Pearly Sky: obligaciones del usuario, propiedad intelectual, responsabilidad y ley aplicable.",
+    },
+    it: {
+      title: "Termini e condizioni | Pearly Sky",
+      description:
+        "Condizioni d’uso del sito e dei servizi Pearly Sky: obblighi dell’utente, proprietà intellettuale, limitazione di responsabilità e legge applicabile.",
+    },
   },
   privacyPolicy: {
-    title: "Privacy Policy | Pearly Sky",
+    en: {
+      title: "Privacy Policy | Pearly Sky",
+      description:
+        "How Pearly Sky collects, uses, shares and protects your personal data when you book our cleaning services, and how to exercise your GDPR rights.",
+    },
+    fr: {
+      title: "Politique de confidentialité | Pearly Sky",
+      description:
+        "Comment Pearly Sky collecte, utilise, partage et protège vos données personnelles lorsque vous réservez nos services de nettoyage, et vos droits RGPD.",
+    },
+    de: {
+      title: "Datenschutzerklärung | Pearly Sky",
+      description:
+        "Wie Pearly Sky Ihre personenbezogenen Daten bei der Buchung unserer Reinigungsdienste erhebt, nutzt, weitergibt und schützt – und Ihre DSGVO-Rechte.",
+    },
+    es: {
+      title: "Política de privacidad | Pearly Sky",
+      description:
+        "Cómo Pearly Sky recopila, utiliza, comparte y protege sus datos personales al reservar nuestros servicios de limpieza, y sus derechos según el RGPD.",
+    },
+    it: {
+      title: "Informativa sulla privacy | Pearly Sky",
+      description:
+        "Come Pearly Sky raccoglie, utilizza, condivide e protegge i tuoi dati personali quando prenoti i nostri servizi di pulizia, e i tuoi diritti GDPR.",
+    },
   },
   cookiePolicy: {
-    title: "Cookie Policy | Pearly Sky",
+    en: {
+      title: "Cookie Policy | Pearly Sky",
+      description:
+        "Which cookies the Pearly Sky website uses and why, which third parties set cookies, and how you can manage or disable them in your browser.",
+    },
+    fr: {
+      title: "Politique relative aux cookies | Pearly Sky",
+      description:
+        "Les cookies utilisés par le site Pearly Sky et leur finalité, les cookies tiers, et comment les gérer ou les désactiver dans votre navigateur.",
+    },
+    de: {
+      title: "Cookie-Richtlinie | Pearly Sky",
+      description:
+        "Welche Cookies die Pearly-Sky-Website verwendet und wozu, welche Drittanbieter Cookies setzen und wie Sie diese im Browser verwalten oder deaktivieren.",
+    },
+    es: {
+      title: "Política de cookies | Pearly Sky",
+      description:
+        "Qué cookies utiliza el sitio web de Pearly Sky y para qué, qué terceros instalan cookies y cómo puede gestionarlas o desactivarlas en su navegador.",
+    },
+    it: {
+      title: "Informativa sui cookie | Pearly Sky",
+      description:
+        "Quali cookie utilizza il sito Pearly Sky e a cosa servono, quali terze parti li installano e come gestirli o disattivarli nel tuo browser.",
+    },
   },
 };

@@ -7,15 +7,15 @@ import { STATIC_PAGE_META } from "@/lib/countries/meta-data";
 import { COOKIE_POLICY } from "@/lib/content/legal/cookie-policy";
 import { CookiePolicyContent } from "@/components/legal/cookie-policy-content";
 
-const { title: TITLE } = STATIC_PAGE_META.cookiePolicy;
-
 export async function generateMetadata(): Promise<Metadata> {
   const language = await getRequestLanguage();
+  const { title, description } = STATIC_PAGE_META.cookiePolicy[language ?? "en"];
 
   return {
-    title: TITLE,
+    title,
+    description,
     alternates: buildCountryAlternates("/cookie-policy", { language }),
-    ...buildSocialMeta(TITLE),
+    ...buildSocialMeta(title, description),
   };
 }
 

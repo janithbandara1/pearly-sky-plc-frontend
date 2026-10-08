@@ -26,7 +26,7 @@ import { PageHero } from "@/components/page-hero";
 import { SERVICE_CONTENT } from "@/lib/content/service-details";
 import { ApiError } from "@/lib/auth-context";
 import { saveBookingDraft } from "@/lib/booking-draft";
-import { calculateEquipmentItemPrice, calculateFlatEquipmentPrice, EQUIPMENT_MAX_QTY } from "@/lib/equipment-pricing";
+import { calculateEquipmentItemPrice, EQUIPMENT_MAX_QTY } from "@/lib/equipment-pricing";
 import { applyDeepCleanToQuote, applyDeepCleanToRate } from "@/lib/deep-clean";
 import {
   CatalogServiceDetail,
@@ -456,13 +456,11 @@ export function ServiceBookingView({
 
   const selectedDisinfectionLevel = DISINFECTION_LEVELS.find((l) => l.id === disinfectionLevelId);
 
-  // Steam/sanitization/post-construction price equipment flat × quantity;
-  // every other service keeps the size-scaled pricing.
+  // Equipment is priced off the property size everywhere; steam/sanitization/
+  // post-construction also let the customer pick a quantity of each item.
   const equipmentQty = (id: number) => itemQuantities[id] ?? 1;
   const equipmentLinePrice = (item: (typeof items)[number]) =>
-    isCommonPropertyTypeServices
-      ? calculateFlatEquipmentPrice(item, equipmentQty(item.id))
-      : calculateEquipmentItemPrice(item, propertySizeSqm);
+    calculateEquipmentItemPrice(item, propertySizeSqm) * (isCommonPropertyTypeServices ? equipmentQty(item.id) : 1);
   const equipmentLineName = (item: (typeof items)[number]) =>
     isCommonPropertyTypeServices && selectedItemIds.has(item.id) && equipmentQty(item.id) > 1
       ? `${item.name} × ${equipmentQty(item.id)}`
