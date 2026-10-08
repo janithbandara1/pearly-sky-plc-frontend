@@ -602,7 +602,7 @@ serviceLuxuryYachtCleaningTitleFiveFeatureTwo: "Turnover complet du linge, assai
   heroTitle: "PEARLY SKY",
   heroCtaSecondary: "VOIR NOS SERVICES",
 
-  heroSubPara:"Votre espace mérite de briller. Laissez Pearl Sky s'occuper du reste grâce à notre service méticuleux, non toxique et éco-certifié.",
+  heroSubPara: "Votre espace mérite de briller. Laissez Pearly Sky s'occuper du reste grâce à notre service méticuleux, non toxique et éco-certifié.",
 
   heroWelcome: "BIENVENUE CHEZ PEARLY SKY",
   heroWelcomeSubText: "Nettoyage éco-luxe, sur mesure",
