@@ -2182,6 +2182,7 @@ CustomerFeedBack: "Opinie klientów",
     verandas_outdoor_spaces: "Werandy i Przestrzenie Zewnętrzne",
     home_offices: "Biura Domowe",
     laundry_rooms: "Pralnie",
-    dining_areas: "Jadalnie"
+    dining_areas: "Jadalnie",
+    bookingDetailRooms: "Pokoje i Obszary"
 
 } as Record<TranslationKey, TranslationValue>;

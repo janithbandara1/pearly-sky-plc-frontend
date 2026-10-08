@@ -2183,6 +2183,7 @@ export const ro = {
     verandas_outdoor_spaces: "Verande și Spații Exterioare",
     home_offices: "Birouri de Acasă",
     laundry_rooms: "Spălătorii",
-    dining_areas: "Zone de Dining"
+    dining_areas: "Zone de Dining",
+    bookingDetailRooms: "Camere și Zone"
 
 } as Record<TranslationKey, TranslationValue>;

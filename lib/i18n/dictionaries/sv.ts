@@ -2181,6 +2181,7 @@ scanQrDesc: "Skanna den här koden med din telefon för att öppna alla detaljer
     verandas_outdoor_spaces: "Verandor & Utomhusytor",
     home_offices: "Hemmakontor",
     laundry_rooms: "Tvättstugor",
-    dining_areas: "Matplatser"
+    dining_areas: "Matplatser",
+    bookingDetailRooms: "Rum & Ytor"
 
 } as Record<TranslationKey, TranslationValue>;

@@ -2146,7 +2146,8 @@ AddsOnCategoryOvenFridgeRestoration: "Restauration professionnelle de four et r�
     verandas_outdoor_spaces: "Vérandas & Espaces Extérieurs",
     home_offices: "Bureaux à Domicile",
     laundry_rooms: "Buanderies",
-    dining_areas: "Salles à Manger"
+    dining_areas: "Salles à Manger",
+    bookingDetailRooms: "Pièces & Espaces"
 
 } as Record<TranslationKey, TranslationValue>;
 

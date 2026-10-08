@@ -2109,6 +2109,7 @@ export const it = {
     verandas_outdoor_spaces: "Verande e Spazi Esterni",
     home_offices: "Uffici Domestici",
     laundry_rooms: "Lavanderie",
-    dining_areas: "Zone Pranzo"
+    dining_areas: "Zone Pranzo",
+    bookingDetailRooms: "Stanze e aree"
 
 } as Record<TranslationKey, TranslationValue>;

@@ -2144,6 +2144,7 @@ scanQrDesc: "Scan denne kode med din telefon for at åbne de fulde oplysninger o
     verandas_outdoor_spaces: "Verandaer & Udendørsarealer",
     home_offices: "Hjemmekontorer",
     laundry_rooms: "Bryggers / Vaskerum",
-    dining_areas: "Spiseområder"
+    dining_areas: "Spiseområder",
+    bookingDetailRooms: "Værelser & områder"
 
 } as Record<TranslationKey, TranslationValue>;

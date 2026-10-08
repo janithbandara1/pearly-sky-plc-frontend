@@ -2167,6 +2167,7 @@ export const nl = {
     verandas_outdoor_spaces: "Veranda's & Buitenruimtes",
     home_offices: "Thuiswerkplekken / Kantoren",
     laundry_rooms: "Wasruimtes",
-    dining_areas: "Eetruimtes"
+    dining_areas: "Eetruimtes",
+    bookingDetailRooms: "Kamers & zones"
 
 } as Record<TranslationKey, TranslationValue>;

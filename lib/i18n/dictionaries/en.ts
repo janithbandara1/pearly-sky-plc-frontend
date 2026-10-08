@@ -2212,7 +2212,8 @@ serviceLuxuryYachtCleaningTitleFiveFeatureTwo:"Complete linen turnover, sanitati
     verandas_outdoor_spaces: "Verandas & Outdoor Spaces",
     home_offices: "Home Offices",
     laundry_rooms: "Laundry Rooms",
-    dining_areas: "Dining Areas"
+    dining_areas: "Dining Areas",
+    bookingDetailRooms: "Rooms & Areas"
 
 } as const;
 

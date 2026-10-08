@@ -13,6 +13,11 @@ export interface BookingDraftItem {
   price: number | null;
 }
 
+export interface BookingDraftRoom {
+  key: string;
+  count: number;
+}
+
 export interface CareProfileDraft {
   name: string;
   specialNeeds: string;
@@ -48,6 +53,12 @@ export interface BookingDraft {
   disinfection?: boolean;
   /** steam-cleaning / healthguard-sanitization / post-construction only — Residential / Industrial switch. */
   serviceCategory?: "residential" | "industrial";
+  /**
+   * Room-component services only (regular-home / quick-touch-up / deep / end-of-tenancy /
+   * same-day-priority / premium-rental-concierge cleaning) — `key` is a RoomKey
+   * (e.g. "bedrooms", also its translation key).
+   */
+  rooms?: BookingDraftRoom[];
   /** steam-cleaning only. */
   steamItems?: string[];
   /** post-event-cleaning only. */

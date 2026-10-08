@@ -2104,6 +2104,7 @@ scanQrDesc: "Escanee este código con su teléfono para ver los detalles complet
     verandas_outdoor_spaces: "Verandas y Espacios Exteriores",
     home_offices: "Oficinas en Casa",
     laundry_rooms: "Cuartos de Lavado",
-    dining_areas: "Comedores"
+    dining_areas: "Comedores",
+    bookingDetailRooms: "Habitaciones y áreas"
 
 } as Record<TranslationKey, TranslationValue>;

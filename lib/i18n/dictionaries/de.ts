@@ -2151,6 +2151,7 @@ export const de = {
     verandas_outdoor_spaces: "Veranden & Außenbereiche",
     home_offices: "Arbeitszimmer / Home-Offices",
     laundry_rooms: "Waschküchen",
-    dining_areas: "Essbereiche"
+    dining_areas: "Essbereiche",
+    bookingDetailRooms: "Räume & Bereiche"
 
 } as Record<TranslationKey, TranslationValue>;

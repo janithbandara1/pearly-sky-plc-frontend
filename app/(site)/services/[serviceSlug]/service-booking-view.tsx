@@ -50,6 +50,7 @@ import { PressureWashingScheduleSection } from "@/components/booking/pressure-wa
 import { YachtScheduleSection } from "@/components/booking/yacht/yacht-schedule-section";
 import { getPropertyCategoriesForServiceOfSanitize, PropertyTypeSizeSelectorCommonFlowOfServices}
  from "@/components/booking/common-flows-propertis-and-equipments/sanitize-property-types";
+import { roomCountsToList, type RoomCounts } from "@/components/booking/room-components-counter";
 import { EquipmentSectionOfCommonServicesSlugs } from "@/components/booking/common-flows-propertis-and-equipments/common-equipment-flow-section";
 
 const poppins = Poppins({ subsets: ["latin"], weight: ["400", "500", "600", "700", "800"], adjustFontFallback: false });
@@ -290,6 +291,7 @@ export function ServiceBookingView({
   const [deepClean, setDeepClean] = useState(false);
   const [disinfection, setDisinfection] = useState(false);
   const [serviceCategory, setServiceCategory] = useState<"residential" | "industrial">("residential");
+  const [rooms, setRooms] = useState<RoomCounts>({});
 
   const [selectedPackageIds, setSelectedPackageIds] = useState<Set<number>>(new Set());
   const [date, setDate] = useState("");
@@ -536,6 +538,9 @@ export function ServiceBookingView({
       deepClean: appliedDeepClean || undefined,
       disinfection: (isCommonPropertyTypeServices && disinfection) || undefined,
       serviceCategory: isCommonPropertyTypeServices ? serviceCategory : undefined,
+      rooms: isCommonPropertyTypeWithRoomComponents(serviceSlug) && roomCountsToList(rooms).length > 0
+        ? roomCountsToList(rooms)
+        : undefined,
       category: isCategoryQuote ? selectedCategory ?? undefined : undefined,
     });
     router.push(`/services/${serviceSlug}/checkout`);
@@ -734,6 +739,8 @@ export function ServiceBookingView({
                 disinfection={disinfection}
                 onDisinfectionChange={setDisinfection}
                 onServiceCategoryChange={setServiceCategory}
+                rooms={rooms}
+                onRoomsChange={setRooms}
               />)
               : (<PropertyTypeSizeSelector
                 value={propertySizeSqm}

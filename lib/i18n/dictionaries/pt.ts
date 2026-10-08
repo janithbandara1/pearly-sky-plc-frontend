@@ -2185,6 +2185,7 @@ export const pt = {
     verandas_outdoor_spaces: "Varandas e Espaços Exteriores",
     home_offices: "Escritórios em Casa",
     laundry_rooms: "Lavandarias",
-    dining_areas: "Salas de Jantar"
+    dining_areas: "Salas de Jantar",
+    bookingDetailRooms: "Quartos e áreas"
 
 } as Record<TranslationKey, TranslationValue>;
