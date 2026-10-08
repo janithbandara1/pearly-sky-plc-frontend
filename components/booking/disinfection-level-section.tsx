@@ -39,7 +39,7 @@ export const DISINFECTION_LEVELS: DisinfectionLevel[] = [
 ];
 
 export interface DisinfectionLevelSectionProps {
-  selectedId: string;
+  selectedId: string ;
   onSelect: (level: DisinfectionLevel) => void;
 }
 

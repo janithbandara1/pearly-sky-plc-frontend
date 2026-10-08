@@ -131,25 +131,25 @@ export function FacilitySelectionSection({ selectedIds, onToggle }: FacilitySele
                       key={card.id}
                       role="button"
                       tabIndex={0}
-                      onClick={() => onToggle(card.id)} 
-                      onKeyDown={(e) => {
+                      //onClick={() => onToggle(card.id)} 
+                      /* onKeyDown={(e) => {
                         if (e.key === "Enter" || e.key === " ") {
                           e.preventDefault();
                           onToggle(card.id);
                         }
-                      }}
+                      }} */
                       aria-pressed={isChecked}
                       className={`relative flex cursor-pointer hover:outline-2 hover:outline-[rgb(169,139,75)] flex-col items-start gap-1 rounded-[10px] bg-white px-3 py-2.5 text-left transition ${isChecked
                         ? "border-2 border-[#A98B4B] shadow-[0_0_8px_rgba(169,139,75,0.3)]"
                         : "border-[1.5px] border-[#A98B4B]"
                         }`}
                     >
-                      <Checkbox
+                     {/*  <Checkbox
                         checked={isChecked}
                         onCheckedChange={() => onToggle(card.id)}
                         onClick={(e) => e.stopPropagation()}
                         className="absolute top-2 right-2 border-[#A98B4B] data-checked:border-[#A98B4B] data-checked:bg-[#A98B4B]"
-                      />
+                      /> */}
                       <span className="text-xl">{card.icon}</span>
                       <p className="pr-6 text-sm font-medium text-[#121E2D]">{translated?.title ?? card.title}</p>
                       <p className="text-xs text-[#555]">{translated?.desc ?? card.description}</p>
