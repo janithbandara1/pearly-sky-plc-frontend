@@ -183,7 +183,7 @@ Set in `app/layout.tsx` and `lib/countries/seo.ts` (`buildSocialMeta`), applied 
 
 | Lang | URL | Title | Meta description |
 |---|---|---|---|
-| `en` | https://pearlyskyglobalclean.com/en/careers/residential-cleaner | Cleaner (Male / Female) — Residential and Commercial Properties \| Careers at Pearly Sky | Cleaner (Male / Female) — Residential and Commercial Properties — Full-Time / Part-Time / Flexible Shifts role at Pearly Sky, France. |
+| `en` | https://pearlyskyglobalclean.com/en/careers/residential-cleaner | Residential & Commercial Cleaner \| Careers at Pearly Sky | Join Pearly Sky as a Residential & Commercial Cleaner in France. Full-time, part-time and flexible opportunities may be available depending on location. |
 
 ### Job — Children Care Worker (Male / Female)
 
@@ -191,7 +191,7 @@ Set in `app/layout.tsx` and `lib/countries/seo.ts` (`buildSocialMeta`), applied 
 
 | Lang | URL | Title | Meta description |
 |---|---|---|---|
-| `en` | https://pearlyskyglobalclean.com/en/careers/childcare-assistant | Children Care Worker (Male / Female) \| Careers at Pearly Sky | Children Care Worker (Male / Female) — Part-Time / Full-Time role at Pearly Sky, France. |
+| `en` | https://pearlyskyglobalclean.com/en/careers/childcare-assistant | Childcare Assistant \| Careers at Pearly Sky | Explore Childcare Assistant opportunities with Pearly Sky in France. Part-time and full-time roles may be available depending on location and requirements. |
 
 ### Job — Elder Care Worker (Male / Female)
 
@@ -199,7 +199,7 @@ Set in `app/layout.tsx` and `lib/countries/seo.ts` (`buildSocialMeta`), applied 
 
 | Lang | URL | Title | Meta description |
 |---|---|---|---|
-| `en` | https://pearlyskyglobalclean.com/en/careers/elder-care-assistant | Elder Care Worker (Male / Female) \| Careers at Pearly Sky | Elder Care Worker (Male / Female) — Full-Time / Part-Time / Flexible Shifts role at Pearly Sky, France. |
+| `en` | https://pearlyskyglobalclean.com/en/careers/elder-care-assistant | Elder Care Assistant \| Careers at Pearly Sky | Explore Elder Care Assistant opportunities with Pearly Sky in France. Full-time, part-time and flexible roles may be available depending on location. |
 
 ## Blocked routes
 

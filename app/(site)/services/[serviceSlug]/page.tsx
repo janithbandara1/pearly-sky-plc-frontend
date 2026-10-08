@@ -26,14 +26,14 @@ export async function generateMetadata({
   try {
     const service = await getServiceBySlug(serviceSlug, country, language);
     const alternates = buildServiceAlternates(pathFor, service.name, service.locales, { language });
-    // Country+language override / language translation SEO copy, then the
-    // existing per-country (language-agnostic) hand-authored copy, then a
-    // plain generated fallback — see the fallback hierarchy in seo.ts.
-    const legacy = getServiceMeta(service.name);
-    const title = service.seo.title || legacy?.title || `${service.localizedName} | Pearly Sky`;
+    // Approved per-language copy in service-meta.ts, then the catalog API's
+    // country+language override / translation SEO copy, then a plain
+    // generated fallback.
+    const approved = getServiceMeta(service.name, language ?? "en");
+    const title = approved?.title || service.seo.title || `${service.localizedName} | Pearly Sky`;
     const description =
+      approved?.description ||
       service.seo.description ||
-      legacy?.description ||
       service.localizedDescription ||
       `Book ${service.localizedName} with Pearly Sky's eco-luxury cleaning team.`;
     const ogTitle = service.seo.ogTitle || title;

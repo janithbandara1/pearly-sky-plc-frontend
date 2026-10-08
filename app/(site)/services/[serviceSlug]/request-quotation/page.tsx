@@ -3,6 +3,7 @@ import { getServiceBySlug, getServiceSlugMap, type CatalogServiceDetail } from "
 import { getRequestCountry } from "@/lib/countries/server";
 import { getRequestLanguage } from "@/lib/i18n/server";
 import { buildServiceAlternates, buildSocialMeta } from "@/lib/countries/seo";
+import { getQuoteMeta } from "@/lib/countries/service-meta";
 import { BreadcrumbJsonLd } from "@/components/json-ld";
 import { notFound, permanentRedirect } from "next/navigation";
 import { ApiError } from "@/lib/api";
@@ -25,8 +26,7 @@ export async function generateMetadata({
   try {
     const service = await getServiceBySlug(serviceSlug, country, language);
     const alternates = buildServiceAlternates(pathFor, service.name, service.locales, { language });
-    const title = `Request a Quote — ${service.localizedName} | Pearly Sky`;
-    const description = `Request a free, no-obligation quote for ${service.localizedName.toLowerCase()} with Pearly Sky's eco-luxury cleaning team.`;
+    const { title, description } = getQuoteMeta(service.localizedName, language ?? "en");
     return { title, description, alternates, ...buildSocialMeta(title, description, service.imageUrl ?? undefined) };
   } catch (err) {
     if (err instanceof ApiError && err.status === 404) notFound();
