@@ -893,7 +893,7 @@ export function PropertyTypeSizeSelectorCommonFlowOfServices({
             </h3>
 
             <div
-              className="flex flex-nowrap gap-3 overflow-x-auto overflow-y-hidden -mx-1 px-1 lg:-ml-5 lg:pl-15 md:-ml-5 md:pl-15 [&::-webkit-scrollbar]:hidden"
+              className="flex flex-nowrap gap-3 overflow-x-auto overflow-y-hidden -mx-1 px-1 [&>*:first-child]:ml-auto [&>*:last-child]:mr-auto [&::-webkit-scrollbar]:hidden"
               style={{ scrollbarWidth: "none", scrollSnapType: "x proximity" }} 
             >
  {/**display categories */}  
