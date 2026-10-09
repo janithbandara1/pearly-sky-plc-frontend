@@ -644,15 +644,15 @@ export function SanitizeSizeVisualization({
       <div className="grid grid-cols-3 gap-2 sm:gap-6 pt-3.5 mt-3 border-t border-cyan-900/40 w-full text-center">
         <div>
           <p className="text-[11px] sm:text-xs text-gray-400 font-medium mb-0.5">{translate("EstimatedCost")}</p>
-          <p className="text-[12px] sm:text-lg font-bold text-[#38BDF8]">{estimatedCost}</p>
+          <p className="text-[10px] sm:text-lg font-bold text-[#38BDF8]">{estimatedCost}</p>
         </div>
         <div>
           <p className="text-[11px] sm:text-xs text-gray-400 font-medium mb-0.5">{translate("ServiceRate")}</p>
-          <p className="text-[12px] sm:text-lg font-bold text-white">{serviceRate}</p>
+          <p className="text-[10px] sm:text-lg font-bold text-white">{serviceRate}</p>
         </div>
         <div>
           <p className="text-[11px] sm:text-xs text-gray-400 font-medium mb-0.5">{translate("EstLabor")}</p>
-          <p className="text-[12px] sm:text-lg font-bold text-white">{labor}</p>
+          <p className="text-[10px] sm:text-lg font-bold text-white">{labor}</p>
         </div>
       </div>
     </div>
@@ -1136,7 +1136,7 @@ export function EstimatioMatrixBottom({
   const { translate } = useLanguage();
   
   return(
-    <div className="grid grid-cols-2 items-center py-4 align-items-center bg-[#132238]/90 border border-blue-500/20 rounded-xl gap-2 sm:gap-6 pt-2 mt-4 border-t w-full text-center">
+    <div className="grid grid-cols-2 items-center py-4 px-1 align-items-center bg-[#132238]/90 border border-blue-500/20 rounded-xl gap-2 sm:gap-6 pt-2 mt-4 border-t w-full text-center">
       <div className="">
         <p className="text-xs text-gray-400 font-medium mb-1">{translate("EstimatedCost")}</p>
         <p className="text-base sm:text-xl font-bold text-[#38BDF8]">
@@ -1152,7 +1152,7 @@ export function EstimatioMatrixBottom({
         <p className="text-base sm:text-xl font-bold text-white">
           {surfaceMatrixes.serviceTargetArea}
         </p>
-        {isSanitizeService && <p className="text-[13px] md:text-[14px] font-medium text-green-400" >
+        {isSanitizeService && <p className="text-[10px] md:text-[14px] font-medium text-green-400" >
           Included Full santization</p>}
       </div>
     </div>

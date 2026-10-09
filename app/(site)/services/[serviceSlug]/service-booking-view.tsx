@@ -698,7 +698,7 @@ export function ServiceBookingView({
             )}
 
             {isSanitization && (
-              <DisinfectionLevelSection selectedId={disinfectionLevelId} onSelect={(level) => setDisinfectionLevelId(level.id)} />
+              <DisinfectionLevelSection selectedId={disinfectionLevelId} onSelect={(level) => setDisinfectionLevelId(level ?.id ?? "")} />
             )}
 
             {isSteam && (

@@ -31,11 +31,19 @@ const SECURITY_CATEGORY_KEYS: Record<string, TranslationKey> = {
 
 export interface SecurityCategorySelectionProps {
   selected: string | null;
-  onSelect: (category: string) => void;
+  onSelect: (category: string | null) => void;
 }
 
 export function SecurityCategorySelection({ selected, onSelect }: SecurityCategorySelectionProps) {
   const { translate } = useLanguage();
+
+  const handleOnClick=(d:string)=>{
+    if (!selected) {
+      onSelect(d)
+    }else{
+      onSelect(null)
+    }
+  }
 
   return (
     <section className="overflow-hidden my-3 rounded-[12px] border border-[#A98B4B]">
@@ -63,7 +71,7 @@ export function SecurityCategorySelection({ selected, onSelect }: SecurityCatego
                 <p className="min-w-0 flex-1 truncate text-sm font-medium text-[#121E2D]">{translatedTitle}</p>
                 <button
                   type="button"
-                  onClick={() => onSelect(category)}
+                  onClick={() => handleOnClick(category)}
                   aria-pressed={isSelected}
                   className={`shrink-0 rounded-[6px] border-[1.5px] border-[#A98B4B] px-4.5 py-2 text-xs font-semibold cursor-pointer ${isSelected ? "bg-[#A98B4B] text-white" : "text-[#A98B4B]"
                     }`}

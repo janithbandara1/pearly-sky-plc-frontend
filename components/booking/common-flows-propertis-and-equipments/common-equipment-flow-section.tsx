@@ -248,7 +248,7 @@ export function EquipmentSectionOfCommonServicesSlugs({
             <span className="text-[10px] font-bold uppercase tracking-[0.16em] text-gray-300">
               {translate("equipPropertyScale")}
             </span>
-            <span className="font-serif text-[22px] sm:text-[26px] font-normal text-white text-shadow
+            <span className="font-serif text-[17px] md:text-[26px] font-normal text-white text-shadow
              leading-tight mt-1">
               {propertySizeSqm} m²
             </span>
@@ -259,7 +259,7 @@ export function EquipmentSectionOfCommonServicesSlugs({
             <span className="text-[10px] font-bold uppercase tracking-[0.16em] text-gray-300">
               {translate("totalDuration")}
             </span>
-            <span className="font-serif text-[22px] sm:text-[26px] font-normal text-white text-shadow leading-tight mt-1">
+            <span className="font-serif text-[17px] md:text-[26px] font-normal text-white text-shadow leading-tight mt-1">
               {hasDuration ? `${quote!.minHours} – ${quote!.maxHours}h` : "2.5 – 5h"}
             </span>
           </div>
@@ -270,7 +270,7 @@ export function EquipmentSectionOfCommonServicesSlugs({
               {translate("allocatedStaff")}
             </span>
             <div className="flex items-baseline mt-1">
-              <span className="font-serif text-[22px] sm:text-[26px] font-normal text-white text-shadow leading-tight">
+              <span className="font-serif text-[17px] md:text-[26px] font-normal text-white text-shadow leading-tight">
                 {cleanersCount}
               </span>
               <span className="ml-1.5 text-xs sm:text-[13px] font-bold uppercase tracking-wider
@@ -293,7 +293,7 @@ export function EquipmentSectionOfCommonServicesSlugs({
 
         {/* Highlighted Price Card */}
         <div className="px-5 sm:px-7 mb-3 py-3 w-full flex justify-center items-center">
-          <div className="rounded-[16px] w-[80%] md:w-full border border-brand-gold bg-blue-950 px-5 py-4 sm:px-6 sm:py-5 flex flex-row sm:flex-row sm:items-center justify-between gap-3 shadow-xs">
+          <div className="rounded-[16px] w-[95%] md:w-full border border-brand-gold bg-blue-950 px-5 py-4 sm:px-6 sm:py-5 flex flex-row sm:flex-row sm:items-center justify-between gap-3 shadow-xs">
             <div className="flex flex-col ">
               <span className="text-[11px] font-extrabold uppercase tracking-[0.16em] text-white">
                 {translate("CLEANINGDURATION")}
@@ -303,10 +303,13 @@ export function EquipmentSectionOfCommonServicesSlugs({
               </p>
             </div>
             <div className="flex flex-col md:items-start items-center sm:items-end justify-center shrink-0">
-              <span className="font-serif text-[22px] sm:text-[25px] font-normal text-white leading-tight tracking-tight">
+              <span className="font-serif text-[16px] md:text-[25px] font-normal text-white leading-tight tracking-tight">
                 {money(hasPrice ? quote!.priceMin : 67.5)}
               </span>
-              <span className="font-serif text-[22px] sm:text-[25px] font-normal text-white leading-tight tracking-tight">
+              <span className="text-[12px] text-gray-400 font-normal mt-0.5">
+                -
+              </span>
+              <span className="font-serif text-[16px] md:text-[25px] font-normal text-white leading-tight tracking-tight">
                 {money(hasPrice ? quote!.priceMax : 135.0)}
               </span>
             </div>

@@ -40,7 +40,7 @@ export const DISINFECTION_LEVELS: DisinfectionLevel[] = [
 
 export interface DisinfectionLevelSectionProps {
   selectedId: string ;
-  onSelect: (level: DisinfectionLevel) => void;
+  onSelect: (level: DisinfectionLevel | null) => void;
 }
 
 export function DisinfectionLevelSection({ selectedId, onSelect }: DisinfectionLevelSectionProps) {
@@ -66,6 +66,14 @@ export function DisinfectionLevelSection({ selectedId, onSelect }: DisinfectionL
     },
   };
 
+  const handleOnClick = (level: DisinfectionLevel) => {
+  if (selectedId === level.id) {
+    onSelect(null);
+  } else {
+    onSelect(level);
+  }
+};
+
   return (
     <section className="overflow-hidden rounded-[12px] border border-[#A98B4B]">
       <div className="bg-[#121E2D] px-5 py-6 text-center">
@@ -84,7 +92,7 @@ export function DisinfectionLevelSection({ selectedId, onSelect }: DisinfectionL
               key={level.id}
               role="button"
               tabIndex={0}
-              onClick={() => onSelect(level)}
+              onClick={() => handleOnClick(level)}
               onKeyDown={(e) => {
                 if (e.key === "Enter" || e.key === " ") {
                   e.preventDefault();
@@ -114,7 +122,7 @@ export function DisinfectionLevelSection({ selectedId, onSelect }: DisinfectionL
               </div>
               <Checkbox
                 checked={isChecked}
-                onCheckedChange={() => onSelect(level)}
+                onCheckedChange={() => handleOnClick(level)}
                 onClick={(e) => e.stopPropagation()}
                 className="shrink-0 border-2 border-[#A98B4B] data-checked:border-[#A98B4B] data-checked:bg-[#A98B4B]"
               />
