@@ -89,7 +89,7 @@ export default function RoomSelector({
     <div className="w-full bg-[#070d1b] my-5 p-6 md:p-10 rounded-2xl text-white font-sans shadow-2xl border border-blue-950/50">
       
       {/* Grid of Rooms */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-5">
         {INITIAL_ROOMS.map((room) => {
           const count = roomCounts[room.id] || 0;
           const isAdded = count > 0;
@@ -97,7 +97,7 @@ export default function RoomSelector({
           return (
             <div 
               key={room.id}
-              className={`relative flex flex-col justify-between p-5 rounded-xl transition-all duration-300 border ${
+              className={`relative flex  flex-row justify-between items-center  p-3 rounded-xl transition-all duration-300 border ${
                 isAdded 
                   ? 'bg-[#101b35] border-blue-500 shadow-[0_0_15px_rgba(59,130,246,0.15)]' 
                   : 'bg-[#0d162d]/80 border-slate-800 hover:border-slate-700'
@@ -114,7 +114,7 @@ export default function RoomSelector({
               </div>
 
               {/* Action Area: Toggle between "Add" Button and Counter */}
-              <div className="mt-auto">
+              <div className="">
                 {!isAdded ? (
                   <button
                     type="button"
@@ -131,7 +131,7 @@ export default function RoomSelector({
                       <button
                         type="button"
                         onClick={() => handleDecrement(room.id)}
-                        className="w-10 h-10 flex items-center justify-center rounded-lg bg-[#1f305e] hover:bg-[#273b75] text-white transition-colors shadow-sm"
+                        className="w-5 md:w-10 h-5 md:h-10 flex items-center justify-center rounded-lg bg-[#1f305e] hover:bg-[#273b75] text-white transition-colors shadow-sm"
                         aria-label="Decrement"
                       >
                         <Minus className="w-4 h-4" />
@@ -145,7 +145,7 @@ export default function RoomSelector({
                         type="button"
                         onClick={() => handleIncrement(room.id)}
                         disabled={count >= ROOM_MAX_COUNT}
-                        className={`w-10 h-10 flex items-center justify-center rounded-lg transition-colors shadow-sm ${
+                        className={`w-5 md:w-10 h-5 md:h-10 flex items-center justify-center rounded-lg transition-colors shadow-sm ${
                           count >= ROOM_MAX_COUNT
                             ? 'opacity-40 cursor-not-allowed bg-[#1f305e]' 
                             : 'bg-[#1f305e] hover:bg-[#273b75] text-white'

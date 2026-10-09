@@ -64,6 +64,8 @@ export function JobCardSection({
 }: JobCardSectionProps) {
   const [activeCategoryId, setActiveCategoryId] = useState<PackageCategory | null>(null);
 
+  const {translate}=useLanguage()
+
   const categories = PACKAGE_CATEGORIES.map((id) => ({
     id,
     label: PACKAGE_CATEGORY_LABELS[id],
@@ -73,10 +75,11 @@ export function JobCardSection({
   if (categories.length === 0) return null;
 
   const activeCategory = categories.find((c) => c.id === activeCategoryId) ?? categories[0];
-  const { translate } = useLanguage();
-
-  const translatePackageName = (name: string) =>
-    translate(name as TranslationKey);
+  const getPackageItemLabel = (name: string) => {
+    const mappedKey = categoryItemsMapping[name];
+    if (mappedKey) return translate(mappedKey);
+    return translate(name as TranslationKey);
+  };
 
   return (
     <section className="w-full md:px-6 mt-10 px-1">
@@ -102,7 +105,7 @@ export function JobCardSection({
                   }`}
               >
                 <span className="text-sm font-normal text-white text-left leading-snug">
-                  {translate(category.label)}
+                  {translate(category.label as TranslationKey)}
                 </span>
 
                 {isSelectedCategory ? (
@@ -152,7 +155,7 @@ export function JobCardSection({
                             className={`text-xs sm:text-sm leading-snug font-semibold text-[#1E293B] ${isDisabled ? "text-slate-400" : ""
                               }`}
                           >
-                            {translate(categoryItemsMapping[item.name] as TranslationKey)}
+                            {translate(getPackageItemLabel(item.name) as TranslationKey)}
                           </span>
                         </div>
 
@@ -196,7 +199,7 @@ export function JobCardSection({
                     : "bg-white border border-[#C6A868]/60 hover:border-[#B89642] text-[#1E293B] hover:bg-slate-50 shadow-sm"
                   }`}
               >
-                {translate(category.label)}
+                {translate(category.label as TranslationKey)}
               </button>
             );
           })}
@@ -240,7 +243,7 @@ export function JobCardSection({
                       className={`text-sm sm:text-[15px] leading-snug font-semibold text-[#1E293B] ${isDisabled ? "text-slate-400" : ""
                         }`}
                     >
-                      {translate(categoryItemsMapping[item.name] as TranslationKey)}
+                      {translate(getPackageItemLabel(item.name) as TranslationKey)}
                     </span>
                   </div>
 

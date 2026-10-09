@@ -11,7 +11,6 @@ const DEDICATED_FLOW_SERVICES = new Set([
   "carpet-upholstery-cleaning",
   "pool-cleaning",
   "precision-pressure-washing",
-  "luxury-yacht-cleaning",
 ]);
 
 //common property type for this set
@@ -28,6 +27,12 @@ const commonFlowOfPropertyTypes = new Set([
   "end-of-tenancy-cleaning",
   "same-day-priority-cleaning",
   "premium-rental-concierge-cleaning",
+
+  
+  "luxury-yacht-cleaning",
+  "post-event-cleaning",
+  "commercial-office-cleaning",
+  "high-security-property-care",
 ])
 
 

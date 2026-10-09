@@ -48,8 +48,8 @@ import { CarpetScheduleSection } from "@/components/booking/carpet/carpet-schedu
 import { PoolScheduleSection } from "@/components/booking/pool/pool-schedule-section";
 import { PressureWashingScheduleSection } from "@/components/booking/pressure-washing/pressure-washing-schedule-section";
 import { YachtScheduleSection } from "@/components/booking/yacht/yacht-schedule-section";
-import { getPropertyCategoriesForServiceOfSanitize, PropertyTypeSizeSelectorCommonFlowOfServices}
- from "@/components/booking/common-flows-propertis-and-equipments/sanitize-property-types";
+import { getPropertyCategoriesForServiceOfSanitize, PropertyTypeSizeSelectorCommonFlowOfServices }
+  from "@/components/booking/common-flows-propertis-and-equipments/sanitize-property-types";
 import { roomCountsToList, type RoomCounts } from "@/components/booking/room-components-counter";
 import { EquipmentSectionOfCommonServicesSlugs } from "@/components/booking/common-flows-propertis-and-equipments/common-equipment-flow-section";
 
@@ -250,6 +250,8 @@ export function ServiceBookingView({
   const isSanitization = serviceSlug === SANITIZATION_SLUG;
   const isSteam = serviceSlug === STEAM_SLUG;
   const isEvent = serviceSlug === EVENT_SLUG;
+  const isCommonPropertyTypeServices = isCommonPropertyTypeFlow(serviceSlug);
+  const isCommonBookingSectionView = isCommonFlowOfNewBookingSectionView(serviceSlug);
   const isSecurityCategory = serviceSlug === SECURITY_SLUG;
   const isCategoryQuote = isSecurityCategory;
   const isChildCare = serviceSlug === CHILD_CARE_SLUG;
@@ -257,21 +259,11 @@ export function ServiceBookingView({
   const isCarpetService = serviceSlug === CARPET_UPHOLSTERY_SLUG;
   const isPoolCleaning = serviceSlug === POOL_CLEANING_SLUG;
   const isPressureWashing = serviceSlug === PRESSURE_WASHING_SLUG;
-  const isYachtService = serviceSlug === YACHT_SLUG;
+  const isYachtService = serviceSlug === YACHT_SLUG && isDedicatedFlowService(serviceSlug);
+  
   const isCareService = isChildCare || isElderCare;
   const isFlowService = isDedicatedFlowService(serviceSlug);
   const serviceContent = SERVICE_CONTENT[serviceSlug];
-
-
-  /**common property types for controlled services
-   * 
-   *"steam-cleaning" ,
-    "healthguard-sanitization", 
-    "post-construction-renovation-cleaning"
-   */
-  const isCommonPropertyTypeServices = isCommonPropertyTypeFlow(serviceSlug)
-
-  const isCommonBookingSectionView= isCommonFlowOfNewBookingSectionView(serviceSlug);
 
 
   const [initialState] = useState(() =>
@@ -288,9 +280,9 @@ export function ServiceBookingView({
   const [propertyType, setPropertyType] = useState("");
   const [quote, setQuote] = useState<SizeQuote | null>(null);
   const [quoteLoading, setQuoteLoading] = useState(false);
-  const [deepClean, setDeepClean] = useState(false);
+  const [deepClean, setDeepClean] = useState(false); 
   const [disinfection, setDisinfection] = useState(false);
-  const [serviceCategory, setServiceCategory] = useState<"residential" | "industrial">("residential");
+  const [serviceCategory, setServiceCategory] = useState<string | null>("residential");
   const [rooms, setRooms] = useState<RoomCounts>({});
 
   const [selectedPackageIds, setSelectedPackageIds] = useState<Set<number>>(new Set());
@@ -306,6 +298,10 @@ export function ServiceBookingView({
 
   /** Shared by High-Security Property Care and Luxury Yacht Cleaning's single-select category pickers. */
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
+
+
+  /**store service frequency*/
+  const [selectServiceFrequency, setSelectServiceFrequency] = useState<string | null>(null);
 
   const [error, setError] = useState<string | null>(null);
   const [submitting, setSubmitting] = useState(false);
@@ -616,7 +612,7 @@ export function ServiceBookingView({
   }
 
 
-  
+
 
 
 
@@ -701,7 +697,7 @@ export function ServiceBookingView({
             )}
 
             {isSanitization && (
-              <DisinfectionLevelSection selectedId={disinfectionLevelId} onSelect={(level) => setDisinfectionLevelId(level ?.id ?? "")} />
+              <DisinfectionLevelSection selectedId={disinfectionLevelId} onSelect={(level) => setDisinfectionLevelId(level?.id ?? "")} />
             )}
 
             {isSteam && (
@@ -715,7 +711,7 @@ export function ServiceBookingView({
               <SecurityCategorySelection selected={selectedCategory} onSelect={setSelectedCategory} />
             )}
 
-            {!isSanitization && !isSteam && !isEvent && !isCategoryQuote && (
+            {!isSanitization && serviceSlug !== YACHT_SLUG && !isSteam && !isEvent && !isCategoryQuote &&(
               <JobCardSection
                 packages={allPackages}
                 selectedIds={selectedPackageIds}
@@ -726,7 +722,7 @@ export function ServiceBookingView({
             <DateTimeSection date={date} onDateChange={setDate} time={time} onTimeChange={setTime} />
 
             {isCommonPropertyTypeServices ?
-              
+
               (<PropertyTypeSizeSelectorCommonFlowOfServices
                 value={propertySizeSqm}
                 onChange={setPropertySizeSqm}
@@ -741,6 +737,8 @@ export function ServiceBookingView({
                 onServiceCategoryChange={setServiceCategory}
                 rooms={rooms}
                 onRoomsChange={setRooms}
+                selectServiceFrequency={selectServiceFrequency}
+                setSelectServiceFrequency={setSelectServiceFrequency}
               />)
               : (<PropertyTypeSizeSelector
                 value={propertySizeSqm}
@@ -752,35 +750,35 @@ export function ServiceBookingView({
 
 
             {
-            /* isEvent ? ((() => {
-              const categories = getPropertyCategoriesForService(serviceSlug);
-              const pTypeLower = (propertyType || "").toLowerCase();
-              const activeCategory =
-                categories.find(
-                  (c: PropertyCategory) =>
-                    pTypeLower.includes(c.id.toLowerCase()) ||
-                    pTypeLower.includes(c.label.toLowerCase()),
-                ) ?? categories[0];
-
-              return (
-                <EventbookSection
-                  propertyType={propertyType || activeCategory.label}
-                  categoryIcon={activeCategory.icon}
-                  propertySizeSqm={propertySizeSqm}
-                  quote={pricedQuote}
-                  hourlyRate={pricedRate}
-                  supplySource={supplySource}
-                  onSupplySourceChange={handleSupplySourceChange}
-                  items={items}
-                  selectedItemIds={selectedItemIds}
-                  onToggleItem={toggleItem}
-                  addOnsTotal={addOnsTotal + (selectedDisinfectionLevel?.priceAdder ?? 0)}
-                  onBookNow={handleBookNow}
-                  submitting={submitting}
-                  bookDisabledReason={bookDisabledReason}
-                />
-              );
-            })()) : */
+              /* isEvent ? ((() => {
+                const categories = getPropertyCategoriesForService(serviceSlug);
+                const pTypeLower = (propertyType || "").toLowerCase();
+                const activeCategory =
+                  categories.find(
+                    (c: PropertyCategory) =>
+                      pTypeLower.includes(c.id.toLowerCase()) ||
+                      pTypeLower.includes(c.label.toLowerCase()),
+                  ) ?? categories[0];
+  
+                return (
+                  <EventbookSection
+                    propertyType={propertyType || activeCategory.label}
+                    categoryIcon={activeCategory.icon}
+                    propertySizeSqm={propertySizeSqm}
+                    quote={pricedQuote}
+                    hourlyRate={pricedRate}
+                    supplySource={supplySource}
+                    onSupplySourceChange={handleSupplySourceChange}
+                    items={items}
+                    selectedItemIds={selectedItemIds}
+                    onToggleItem={toggleItem}
+                    addOnsTotal={addOnsTotal + (selectedDisinfectionLevel?.priceAdder ?? 0)}
+                    onBookNow={handleBookNow}
+                    submitting={submitting}
+                    bookDisabledReason={bookDisabledReason}
+                  />
+                );
+              })()) : */
               isCommonBookingSectionView ? (
                 (() => {
                   const categories = getPropertyCategoriesForServiceOfSanitize(serviceSlug);

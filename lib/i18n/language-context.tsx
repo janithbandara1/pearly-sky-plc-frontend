@@ -103,10 +103,12 @@ export function LanguageProvider({
         // data for a beat.
         window.location.href = `${target}${search ? `?${search}` : ""}`;
       },
-      translate: (key: TranslationKey) => {
-        const value = dictionary[key] ?? key;
+      translate: (key?: TranslationKey | string | null) => {
+        if (!key) return "";
+        const value = (dictionary as Record<string, unknown>)[key] ?? key;
         if (typeof value === "string") return value;
-        return value.filter(Boolean).join("\n\n");
+        if (Array.isArray(value)) return value.filter(Boolean).join("\n\n");
+        return String(value ?? "");
       },
       registerServiceSlugs: (service) => {
         serviceSlugsRef.current = service;

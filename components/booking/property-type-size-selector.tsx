@@ -212,6 +212,7 @@ const POST_CONSTRUCTION_SERVICE_SLUGS = new Set([
 
 /** Venue-scale sizing scheme for post-event-cleaning, tracked by event type rather than property type. */
 export const EVENT_PROPERTY_CATEGORIES: PropertyCategory[] = [
+  
   { id: "private-parties", label: "Private Parties & Celebrations", icon: "🎈", ...BOOKING_SIZE_RANGE, locked: false },
   { id: "weddings", label: "Weddings & Large Receptions", icon: "💒", ...BOOKING_SIZE_RANGE, locked: false },
   { id: "corporate-events", label: "Corporate Events & Galas", icon: "💼", ...BOOKING_SIZE_RANGE, locked: false },
@@ -221,6 +222,7 @@ export const EVENT_PROPERTY_CATEGORIES: PropertyCategory[] = [
   { id: "fashion-shows", label: "Fashion Shows & Runway Events", icon: "👗", ...BOOKING_SIZE_RANGE, locked: false },
   { id: "film-tv-shoots", label: "Film, TV & Commercial Shoots", icon: "📽️", ...BOOKING_SIZE_RANGE, locked: false },
   { id: "charity-auctions", label: "Charity Auctions & Fundraisers", icon: "🤝", ...BOOKING_SIZE_RANGE, locked: false },
+
 ];
 
 const EVENT_SCHEME_SERVICE_SLUGS = new Set(["post-event-cleaning"]);
