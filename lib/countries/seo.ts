@@ -1,59 +1,62 @@
 import type { Metadata, MetadataRoute } from "next";
-import {
-  COUNTRY_DOMAINS,
-  COUNTRY_LANGUAGES,
-  CURRENT_COUNTRY,
-  CURRENT_COUNTRY_LANGUAGES,
-  SUPPORTED_COUNTRIES,
-  type CountryCode,
-} from "./config";
+import { COUNTRY_DOMAINS, CURRENT_COUNTRY, CURRENT_COUNTRY_LANGUAGES, type CountryCode } from "./config";
 import type { LanguageCode } from "@/lib/i18n/config";
 import { buildLocalePath } from "@/lib/locale";
 import type { ServiceLocaleSlug } from "@/lib/catalog-api";
 
-/** `fr` -> "https://pearlyskyglobalclean.fr/en/about-us" — an absolute URL on `country`'s own domain. */
-function absoluteLocalePath(pathname: string, country: CountryCode, language: LanguageCode): string {
-  return `${COUNTRY_DOMAINS[country]}${buildLocalePath(pathname, language)}`;
+/** The language whose page is the hreflang "x-default" on each country's domain. */
+const X_DEFAULT_LANGUAGE: Record<CountryCode, LanguageCode> = {
+  fr: "en",
+  gb: "en",
+  lk: "en",
+};
+
+/** "/about-us" + "fr" -> "https://pearlyskyglobalclean.fr/fr/about-us" — an absolute URL on this deployment's own domain. */
+function absoluteLocalePath(pathname: string, language: LanguageCode): string {
+  return `${COUNTRY_DOMAINS[CURRENT_COUNTRY]}${buildLocalePath(pathname, language)}`;
 }
 
 /**
- * Builds the `alternates.languages` block for a given unprefixed path
- * (e.g. "/about-us"), telling search engines that the same page on every
- * sibling country's domain (fr/gb/lk — see COUNTRY_DOMAINS) is an alternate
- * of this one, not duplicate content, and which one to serve when no more
- * specific hreflang matches ("x-default"). Each country contributes one
- * entry per language it actually offers (see COUNTRY_LANGUAGES),
- * tagged `{language}-{COUNTRY}` using the
- * country's own ISO code as the region subtag (fr/GB/LK are all valid
- * region subtags as-is, so no separate slug mapping is needed). When
- * `current` is passed (the language this specific request resolved to),
- * also sets a self-referencing `canonical` on CURRENT_COUNTRY's own domain.
+ * Builds a page's self-referencing canonical plus its hreflang set, given
+ * `pathFor(language)` — the unprefixed path of the equivalent page in each
+ * language (it differs per language only for translated service slugs).
  *
- * Requires `metadataBase` to be set to this deployment's own domain (done
- * in the root layout) since `canonical` and any same-domain paths resolve
- * against it — the cross-domain alternates below are absolute, so they're
- * unaffected by metadataBase.
+ * The hreflang set covers this domain only: one plain language code
+ * (en/fr/de/es/it) per language this deployment serves, plus "x-default"
+ * (see X_DEFAULT_LANGUAGE). Every page on the domain builds the same set,
+ * so the references are reciprocal. The other countries' domains are not
+ * listed — without an approved regional strategy (en-GB, fr-FR…), plain
+ * language codes can't distinguish between them.
+ *
+ * Callers must only use this on pages that return 200 and are indexable in
+ * every language — never on a redirect, 404 or noindex page.
  */
-export function buildCountryAlternates(
-  pathname: string,
-  current?: { language: LanguageCode | null },
+function buildAlternates(
+  pathFor: (language: LanguageCode) => string,
+  currentLanguage: LanguageCode | null,
 ): NonNullable<Metadata["alternates"]> {
+  const xDefault = X_DEFAULT_LANGUAGE[CURRENT_COUNTRY];
+  // Rendered in insertion order: x-default first, then each language.
   const languages: Record<string, string> = {
-    "x-default": absoluteLocalePath(pathname, CURRENT_COUNTRY, CURRENT_COUNTRY_LANGUAGES[0]),
+    "x-default": absoluteLocalePath(pathFor(xDefault), xDefault),
   };
-
-  for (const country of SUPPORTED_COUNTRIES) {
-    for (const language of COUNTRY_LANGUAGES[country]) {
-      languages[`${language}-${country.toUpperCase()}`] = absoluteLocalePath(pathname, country, language);
-    }
+  for (const language of CURRENT_COUNTRY_LANGUAGES) {
+    languages[language] = absoluteLocalePath(pathFor(language), language);
   }
 
-  if (!current) return { languages };
-
+  const canonicalLanguage = currentLanguage ?? xDefault;
   return {
+    canonical: absoluteLocalePath(pathFor(canonicalLanguage), canonicalLanguage),
     languages,
-    canonical: buildLocalePath(pathname, current.language ?? CURRENT_COUNTRY_LANGUAGES[0]),
   };
+}
+
+/** Canonical + hreflang for a page whose path is the same in every language (e.g. "/about-us"). See buildAlternates. */
+export function buildCountryAlternates(
+  pathname: string,
+  current: { language: LanguageCode | null },
+): NonNullable<Metadata["alternates"]> {
+  return buildAlternates(() => pathname, current.language);
 }
 
 /**
@@ -128,40 +131,19 @@ export function makeServiceSlugResolver(baseSlug: string, locales: ServiceLocale
 
 /**
  * Like `buildCountryAlternates`, but for a service page whose slug can vary
- * by locale — `pathFor(slug)` builds the unprefixed path for a given
- * locale's slug (e.g. `(slug) => \`/services/${slug}\``), so each hreflang
- * alternate and the canonical point at that locale's own slug instead of
- * reusing the requested one.
+ * by language — `pathFor(slug)` builds the unprefixed path for a given
+ * slug (e.g. `(slug) => \`/services/${slug}\``), so each hreflang
+ * alternate and the canonical point at that language's own slug
+ * ("nettoyage-regulier" for fr) instead of reusing the requested one.
  */
 export function buildServiceAlternates(
   pathFor: (slug: string) => string,
   baseSlug: string,
   locales: ServiceLocaleSlug[],
-  current?: { language: LanguageCode | null },
+  current: { language: LanguageCode | null },
 ): NonNullable<Metadata["alternates"]> {
   const slugFor = makeServiceSlugResolver(baseSlug, locales);
-  const defaultLanguage = CURRENT_COUNTRY_LANGUAGES[0];
-  const languages: Record<string, string> = {
-    "x-default": absoluteLocalePath(pathFor(slugFor(defaultLanguage, CURRENT_COUNTRY)), CURRENT_COUNTRY, defaultLanguage),
-  };
-
-  for (const country of SUPPORTED_COUNTRIES) {
-    for (const language of COUNTRY_LANGUAGES[country]) {
-      languages[`${language}-${country.toUpperCase()}`] = absoluteLocalePath(
-        pathFor(slugFor(language, country)),
-        country,
-        language,
-      );
-    }
-  }
-
-  if (!current) return { languages };
-
-  const currentLanguage = current.language ?? defaultLanguage;
-  return {
-    languages,
-    canonical: buildLocalePath(pathFor(slugFor(currentLanguage, CURRENT_COUNTRY)), currentLanguage),
-  };
+  return buildAlternates((language) => pathFor(slugFor(language, CURRENT_COUNTRY)), current.language);
 }
 
 /** Like `buildSitemapEntries`, but for a service page — see `buildServiceAlternates` for why `pathFor` takes the resolved slug. */

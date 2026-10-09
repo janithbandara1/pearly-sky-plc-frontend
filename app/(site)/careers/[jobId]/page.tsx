@@ -28,6 +28,96 @@ const CAREERS_TITLE_SUFFIX: Record<LanguageCode, string> = {
   it: "Lavora con noi da Pearly Sky",
 };
 
+/**
+ * Approved per-job SEO copy, keyed by job id. Takes precedence over the
+ * generated title/description below, which only covers jobs missing here.
+ * Every listing is France-based (jobLocationFrance), so the copy names France
+ * on every site that has careers enabled.
+ */
+const JOB_META: Record<string, Record<LanguageCode, { title: string; description: string }>> = {
+  "residential-cleaner": {
+    en: {
+      title: "Residential & Commercial Cleaner | Careers at Pearly Sky",
+      description:
+        "Join Pearly Sky as a Residential & Commercial Cleaner in France. Full-time, part-time and flexible opportunities may be available depending on location.",
+    },
+    fr: {
+      title: "Agent d'entretien résidentiel et commercial | Carrières chez Pearly Sky",
+      description:
+        "Rejoignez Pearly Sky en tant qu'agent d'entretien résidentiel et commercial en France. Des postes à temps plein, à temps partiel et flexibles peuvent être proposés selon le lieu.",
+    },
+    de: {
+      title: "Reinigungskraft für Privat- & Gewerbeobjekte | Karriere bei Pearly Sky",
+      description:
+        "Werden Sie Teil von Pearly Sky als Reinigungskraft für Privat- und Gewerbeobjekte in Frankreich. Je nach Standort sind Vollzeit-, Teilzeit- und flexible Stellen möglich.",
+    },
+    es: {
+      title: "Limpiador/a residencial y comercial | Empleo en Pearly Sky",
+      description:
+        "Únase a Pearly Sky como limpiador/a residencial y comercial en Francia. Según la ubicación, puede haber oportunidades a tiempo completo, a tiempo parcial y flexibles.",
+    },
+    it: {
+      title: "Addetto/a alle pulizie residenziali e commerciali | Lavora con noi da Pearly Sky",
+      description:
+        "Unisciti a Pearly Sky come addetto/a alle pulizie residenziali e commerciali in Francia. In base alla località possono essere disponibili posizioni a tempo pieno, part-time e flessibili.",
+    },
+  },
+  "childcare-assistant": {
+    en: {
+      title: "Childcare Assistant | Careers at Pearly Sky",
+      description:
+        "Explore Childcare Assistant opportunities with Pearly Sky in France. Part-time and full-time roles may be available depending on location and requirements.",
+    },
+    fr: {
+      title: "Assistant(e) de garde d'enfants | Carrières chez Pearly Sky",
+      description:
+        "Découvrez les opportunités d'assistant(e) de garde d'enfants chez Pearly Sky en France. Des postes à temps partiel et à temps plein peuvent être proposés selon le lieu et les besoins.",
+    },
+    de: {
+      title: "Kinderbetreuer/in | Karriere bei Pearly Sky",
+      description:
+        "Entdecken Sie Stellen als Kinderbetreuer/in bei Pearly Sky in Frankreich. Je nach Standort und Anforderungen sind Teilzeit- und Vollzeitstellen möglich.",
+    },
+    es: {
+      title: "Asistente de cuidado infantil | Empleo en Pearly Sky",
+      description:
+        "Descubra las oportunidades como asistente de cuidado infantil en Pearly Sky en Francia. Según la ubicación y las necesidades, puede haber puestos a tiempo parcial y a tiempo completo.",
+    },
+    it: {
+      title: "Assistente all'infanzia | Lavora con noi da Pearly Sky",
+      description:
+        "Scopri le opportunità come assistente all'infanzia con Pearly Sky in Francia. In base alla località e alle esigenze possono essere disponibili posizioni part-time e a tempo pieno.",
+    },
+  },
+  "elder-care-assistant": {
+    en: {
+      title: "Elder Care Assistant | Careers at Pearly Sky",
+      description:
+        "Explore Elder Care Assistant opportunities with Pearly Sky in France. Full-time, part-time and flexible roles may be available depending on location.",
+    },
+    fr: {
+      title: "Auxiliaire d'aide aux personnes âgées | Carrières chez Pearly Sky",
+      description:
+        "Découvrez les opportunités d'auxiliaire d'aide aux personnes âgées chez Pearly Sky en France. Des postes à temps plein, à temps partiel et flexibles peuvent être proposés selon le lieu.",
+    },
+    de: {
+      title: "Seniorenbetreuer/in | Karriere bei Pearly Sky",
+      description:
+        "Entdecken Sie Stellen als Seniorenbetreuer/in bei Pearly Sky in Frankreich. Je nach Standort sind Vollzeit-, Teilzeit- und flexible Stellen möglich.",
+    },
+    es: {
+      title: "Asistente de cuidado de mayores | Empleo en Pearly Sky",
+      description:
+        "Descubra las oportunidades como asistente de cuidado de mayores en Pearly Sky en Francia. Según la ubicación, puede haber puestos a tiempo completo, a tiempo parcial y flexibles.",
+    },
+    it: {
+      title: "Assistente agli anziani | Lavora con noi da Pearly Sky",
+      description:
+        "Scopri le opportunità come assistente agli anziani con Pearly Sky in Francia. In base alla località possono essere disponibili posizioni a tempo pieno, part-time e flessibili.",
+    },
+  },
+};
+
 function buildJobMetaTitle(language: LanguageCode, jobTitle: string): string {
   return `${jobTitle} | ${CAREERS_TITLE_SUFFIX[language]}`;
 }
@@ -61,9 +151,12 @@ export async function generateMetadata({
 
   // Careers is France-only hiring (see IS_CAREERS_ENABLED) — every job id is
   // treated as "no jobs" on the UK/Sri Lanka sites, without even looking one up.
+  // Not indexable there: each job URL would be one more copy of the same
+  // "no openings" notice. Kept out of the sitemap too (see app/sitemap.ts),
+  // and given no canonical/hreflang, which must only list indexable pages.
   if (!IS_CAREERS_ENABLED) {
     const title = "Careers | Pearly Sky";
-    return { title, ...buildSocialMeta(title) };
+    return { title, robots: { index: false, follow: true }, ...buildSocialMeta(title) };
   }
 
   const resolvedLanguage = language ?? "en";
@@ -73,10 +166,12 @@ export async function generateMetadata({
   // client-side via useLanguage(), so the title/description below don't
   // read "undefined".
   const job = rawJob ? getTranslatedJob(rawJob, translateFor(resolvedLanguage)) : undefined;
-  const title = job ? buildJobMetaTitle(resolvedLanguage, job.title) : "Careers | Pearly Sky";
-  const description = job
-    ? buildJobMetaDescription(resolvedLanguage, job.title, job.employmentType, job.location)
-    : undefined;
+  const approved = job ? JOB_META[jobId]?.[resolvedLanguage] : undefined;
+  const title =
+    approved?.title ?? (job ? buildJobMetaTitle(resolvedLanguage, job.title) : "Careers | Pearly Sky");
+  const description =
+    approved?.description ??
+    (job ? buildJobMetaDescription(resolvedLanguage, job.title, job.employmentType, job.location) : undefined);
 
   return {
     title,

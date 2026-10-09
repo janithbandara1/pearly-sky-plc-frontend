@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Checkbox } from "@/components/ui/checkbox";
 import { SUPPLY_SOURCE_OPTIONS, type SupplySource } from "@/components/booking/equipment-section";
-import type { BookingDraftItem, BookingDraftPackage, CareProfileDraft } from "@/lib/booking-draft";
+import type { BookingDraftItem, BookingDraftPackage, BookingDraftRoom, CareProfileDraft } from "@/lib/booking-draft";
 import type { CatalogItem, SizeQuote } from "@/lib/catalog-api";
 import { useCurrency } from "@/lib/currency-context";
 import { useLanguage } from "@/lib/i18n/language-context";
@@ -54,6 +54,8 @@ export interface BookingDetailsCardProps {
   disinfection?: boolean;
   /** post-event-cleaning only — the event types selected above. */
   eventTypes?: string[];
+  /** Room-component services only — the rooms (and how many of each) selected above. */
+  rooms?: BookingDraftRoom[];
   /** child-care-service / elder-care-service only — the per-person profiles collected above. */
   careProfiles?: CareProfileDraft[];
   /** child-care-service / elder-care-service only — "Child" or "Elder", used for the section heading and per-profile numbering. */
@@ -119,6 +121,7 @@ export function BookingDetailsCard({
   deepClean,
   disinfection,
   eventTypes,
+  rooms,
   careProfiles,
   personLabel,
   items,
@@ -212,6 +215,15 @@ export function BookingDetailsCard({
             <SectionHeading label={translate("bookingDetailFacilities")} />
             {facilities.map((facility) => (
               <SummaryRow key={facility} label={facility} value="" />
+            ))}
+          </div>
+        )}
+
+        {rooms && rooms.length > 0 && (
+          <div className="flex flex-col border-t border-brand-gold/20">
+            <SectionHeading label={translate("bookingDetailRooms")} />
+            {rooms.map((room) => (
+              <SummaryRow key={room.key} label={translate(room.key as TranslationKey)} value={`× ${room.count}`} />
             ))}
           </div>
         )}

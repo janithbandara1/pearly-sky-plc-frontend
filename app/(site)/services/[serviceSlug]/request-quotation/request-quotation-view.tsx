@@ -3,7 +3,7 @@
 import Link from "@/components/locale-link";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { CheckCircle2, Minus, Plus } from "lucide-react";
 import { DateTimeSection } from "@/components/booking/date-time-section";
 import type { SupplySource } from "@/components/booking/equipment-section";
@@ -11,6 +11,8 @@ import {
   getPropertyCategoriesForService,
   PropertyCategory,
   PropertyTypeSizeSelector,
+  RESIDENTIAL_QUOTATION_MAX_SQM,
+  RESIDENTIAL_QUOTATION_SIZES,
 } from "@/components/booking/property-type-size-selector";
 import { QuoteItemsSection } from "@/components/booking/quote-items-section";
 import { CarpetItemCards } from "@/components/booking/carpet-item-cards";
@@ -376,6 +378,20 @@ export function RequestQuotationView({ serviceSlug }: { serviceSlug: string }) {
   const [selectedItemIds, setSelectedItemIds] = useState<Set<number>>(new Set());
 
   const [propertySizeSqm, setPropertySizeSqm] = useState(20);
+  // Residential services quote up to 5000 m² (booking stops at 500 m²), with
+  // wider steps past 500 m² so the wheel gets there quickly. Memoized:
+  // the selector resets its category whenever it gets a new categories array.
+  const isResidentialService = service?.category === "residential_cleaning";
+  const sizeCategories = useMemo(() => {
+    const categories = getPropertyCategoriesForService(serviceSlug);
+    return isResidentialService
+      ? categories.map((category) => ({
+          ...category,
+          max: RESIDENTIAL_QUOTATION_MAX_SQM,
+          sizes: RESIDENTIAL_QUOTATION_SIZES,
+        }))
+      : categories;
+  }, [serviceSlug, isResidentialService]);
   const [propertyType, setPropertyType] = useState("Studio");
   const [quoteItems, setQuoteItems] = useState<QuoteItem[]>([]);
 
@@ -797,7 +813,7 @@ export function RequestQuotationView({ serviceSlug }: { serviceSlug: string }) {
                 <PropertyTypeSizeSelector
                   value={propertySizeSqm}
                   onChange={setPropertySizeSqm}
-                  categories={getPropertyCategoriesForService(serviceSlug)}
+                  categories={sizeCategories}
                   onCategoryChange={(cat: PropertyCategory) =>
                     setPropertyType(cat.dropdownLabel ?? cat.label)
                   }

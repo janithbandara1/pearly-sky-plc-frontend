@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React from 'react';
 import { 
   Bed, 
   Bath, 
@@ -17,56 +17,71 @@ import {
 import { useLanguage } from '@/lib/i18n/language-context';
 import { TranslationKey } from '@/lib/i18n/dictionaries/en';
 
+/**
+ * Room keys double as translation keys (frontend dictionaries) and are what
+ * gets stored on the booking — the backend translates the same keys for the
+ * confirmation email/PDF (see ROOM_KEYS in the backend booking DTO).
+ */
+export const ROOM_KEYS = [
+  "bedrooms",
+  "bathrooms",
+  "living_rooms",
+  "kitchens",
+  "verandas_outdoor_spaces",
+  "home_offices",
+  "laundry_rooms",
+  "dining_areas",
+] as const satisfies readonly TranslationKey[];
+
+export type RoomKey = (typeof ROOM_KEYS)[number];
+export type RoomCounts = Partial<Record<RoomKey, number>>;
+
+export const ROOM_MAX_COUNT = 10;
+
+/** Selected rooms as an ordered list (ROOM_KEYS order) — the shape saved to the booking draft. */
+export function roomCountsToList(counts: RoomCounts): { key: RoomKey; count: number }[] {
+  return ROOM_KEYS.filter((key) => (counts[key] ?? 0) > 0).map((key) => ({ key, count: counts[key]! }));
+}
+
 interface Room {
-  id: string;
-  name: string;
+  id: RoomKey;
   icon: React.ReactNode;
 }
 
 // Room definitions with respective icons matching image content
 const INITIAL_ROOMS: Room[] = [
-  { id: 'bedrooms', name: "bedrooms", icon: <Bed className="w-6 h-6 text-blue-400" /> },
-  { id: 'bathrooms', name: "bathrooms", icon: <Bath className="w-6 h-6 text-blue-400" /> },
-  { id: 'livingRooms', name: "living_rooms", icon: <Tv className="w-6 h-6 text-blue-400" /> },
-  { id: 'kitchens', name: "kitchens", icon: <Utensils className="w-6 h-6 text-blue-400" /> },
-  { id: 'verandas', name: "verandas_outdoor_spaces", icon: <Trees className="w-6 h-6 text-blue-400" /> },
-  { id: 'homeOffices', name: "home_offices", icon: <Briefcase className="w-6 h-6 text-blue-400" /> },
-  { id: 'laundryRooms', name: "laundry_rooms", icon: <WashingMachine className="w-6 h-6 text-blue-400" /> },
-  { id: 'diningAreas', name: "dining_areas", icon: <UtensilsCrossed className="w-6 h-6 text-blue-400" /> },
+  { id: "bedrooms", icon: <Bed className="w-6 h-6 text-blue-400" /> },
+  { id: "bathrooms", icon: <Bath className="w-6 h-6 text-blue-400" /> },
+  { id: "living_rooms", icon: <Tv className="w-6 h-6 text-blue-400" /> },
+  { id: "kitchens", icon: <Utensils className="w-6 h-6 text-blue-400" /> },
+  { id: "verandas_outdoor_spaces", icon: <Trees className="w-6 h-6 text-blue-400" /> },
+  { id: "home_offices", icon: <Briefcase className="w-6 h-6 text-blue-400" /> },
+  { id: "laundry_rooms", icon: <WashingMachine className="w-6 h-6 text-blue-400" /> },
+  { id: "dining_areas", icon: <UtensilsCrossed className="w-6 h-6 text-blue-400" /> },
 ];
 
-export default function RoomSelector() {
-  // State mapping room ID to its numerical count
-  const [roomCounts, setRoomCounts] = useState<Record<string, number>>({});
-
-  const handleAddClick = (id: string): void => {
-    setRoomCounts((prev) => ({ ...prev, [id]: 1 }));
+export default function RoomSelector({
+  value: roomCounts,
+  onChange,
+}: {
+  /** Room key → selected count; a missing key means not added. */
+  value: RoomCounts;
+  onChange: (next: RoomCounts) => void;
+}) {
+  const setCount = (id: RoomKey, count: number): void => {
+    const next = { ...roomCounts };
+    // Less than 1 removes it so it reverts to the "Add" button
+    if (count < 1) delete next[id];
+    else next[id] = Math.min(ROOM_MAX_COUNT, count);
+    onChange(next);
   };
 
-  const handleIncrement = (id: string): void => {
-    setRoomCounts((prev) => {
-      const current = prev[id] || 0;
-      if (current >= 10) return prev; // Maximum 10 limit per category
-      return { ...prev, [id]: current + 1 };
-    });
-  };
-
-  const handleDecrement = (id: string): void => {
-    setRoomCounts((prev) => {
-      const current = prev[id] || 0;
-      const updated = current - 1;
-      if (updated < 1) {
-        // Less than 1 removes it from state so it reverts to the "Add" button
-        const copy = { ...prev };
-        delete copy[id];
-        return copy;
-      }
-      return { ...prev, [id]: updated };
-    });
-  };
+  const handleAddClick = (id: RoomKey): void => setCount(id, 1);
+  const handleIncrement = (id: RoomKey): void => setCount(id, (roomCounts[id] || 0) + 1);
+  const handleDecrement = (id: RoomKey): void => setCount(id, (roomCounts[id] || 0) - 1);
 
   // Calculate total selected rooms
-  const totalRooms: number = Object.values(roomCounts).reduce((acc, val) => acc + val, 0);
+  const totalRooms: number = Object.values(roomCounts).reduce((acc, val) => acc + (val ?? 0), 0);
 
   const {translate}=useLanguage();
 
@@ -94,7 +109,7 @@ export default function RoomSelector() {
                   {room.icon}
                 </div>
                 <h3 className="font-semibold text-base text-slate-100 tracking-wide">
-                  {translate(room.name as TranslationKey)}
+                  {translate(room.id)}
                 </h3>
               </div>
 
@@ -102,6 +117,7 @@ export default function RoomSelector() {
               <div className="mt-auto">
                 {!isAdded ? (
                   <button
+                    type="button"
                     onClick={() => handleAddClick(room.id)}
                     className="w-full py-3 px-4 rounded-xl font-medium text-sm transition-all duration-200 bg-[#172548] hover:bg-[#1e3061] text-blue-400 border border-blue-900/50 shadow-inner flex items-center justify-center gap-2 group"
                   >
@@ -113,6 +129,7 @@ export default function RoomSelector() {
                     {/* Counter Row */}
                     <div className="flex items-center justify-between bg-[#152243] rounded-xl p-1.5 border border-blue-900/40">
                       <button
+                        type="button"
                         onClick={() => handleDecrement(room.id)}
                         className="w-10 h-10 flex items-center justify-center rounded-lg bg-[#1f305e] hover:bg-[#273b75] text-white transition-colors shadow-sm"
                         aria-label="Decrement"
@@ -125,10 +142,11 @@ export default function RoomSelector() {
                       </span>
 
                       <button
+                        type="button"
                         onClick={() => handleIncrement(room.id)}
-                        disabled={count >= 10}
+                        disabled={count >= ROOM_MAX_COUNT}
                         className={`w-10 h-10 flex items-center justify-center rounded-lg transition-colors shadow-sm ${
-                          count >= 10 
+                          count >= ROOM_MAX_COUNT
                             ? 'opacity-40 cursor-not-allowed bg-[#1f305e]' 
                             : 'bg-[#1f305e] hover:bg-[#273b75] text-white'
                         }`}

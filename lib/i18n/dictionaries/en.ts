@@ -20,7 +20,7 @@ export const en = {
   heroCtaSecondary: "REQUEST SERVICE NOW",
   heroCtaThird:"EXPLORE OUR GLOBAL COMMITMENT",
 
-  heroSubPara:"your space deserves to shine.Let Pearl Sky take care of the rest with our meticulous,non-toxic ,eco-certified service",
+  heroSubPara: "Your space deserves to shine. Let Pearly Sky take care of the rest with our meticulous, non-toxic, eco-certified service.",
 
   heroWelcome: "WELCOME TO PEARLY SKY",
   heroWelcomeSubText:"Eco-Luxury Cleaning, Tailored for You",
@@ -2212,7 +2212,8 @@ serviceLuxuryYachtCleaningTitleFiveFeatureTwo:"Complete linen turnover, sanitati
     verandas_outdoor_spaces: "Verandas & Outdoor Spaces",
     home_offices: "Home Offices",
     laundry_rooms: "Laundry Rooms",
-    dining_areas: "Dining Areas"
+    dining_areas: "Dining Areas",
+    bookingDetailRooms: "Rooms & Areas"
 
 } as const;
 

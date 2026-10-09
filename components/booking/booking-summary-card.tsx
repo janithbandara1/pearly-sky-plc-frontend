@@ -4,6 +4,7 @@ import type { ReactNode } from "react";
 import {
   Building2,
   ClipboardList,
+  DoorOpen,
   Info,
   type LucideIcon,
   MapPin,
@@ -76,6 +77,8 @@ export interface BookingSummaryServiceDetails {
   disinfection?: boolean;
   /** steam/sanitization/post-construction only — the Residential / Industrial switch. */
   serviceCategory?: "residential" | "industrial" | null;
+  /** Room-component services only — `key` is a RoomKey (e.g. "bedrooms"), also its translation key. */
+  rooms?: { key: string; count: number }[] | null;
   service: { label: string };
 }
 
@@ -329,6 +332,19 @@ export function BookingSummaryCard({
               <ul className="list-inside list-disc text-sm">
                 {details.facilities.map((facility) => (
                   <li key={facility}>{facility}</li>
+                ))}
+              </ul>
+            </SectionCard>
+          ) : null}
+
+          {details.rooms?.length ? (
+            <SectionCard icon={DoorOpen} label={translate("bookingDetailRooms")}>
+              <ul className="text-sm">
+                {details.rooms.map((room) => (
+                  <li key={room.key} className="flex justify-between gap-4">
+                    <span>{translate(room.key as TranslationKey)}</span>
+                    <span>× {room.count}</span>
+                  </li>
                 ))}
               </ul>
             </SectionCard>

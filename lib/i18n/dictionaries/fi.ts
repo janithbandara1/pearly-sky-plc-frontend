@@ -2144,6 +2144,7 @@ export const fi = {
     verandas_outdoor_spaces: "Kuistit & Ulkotilat",
     home_offices: "Kotitoimistot",
     laundry_rooms: "Kodinhoitohuoneet",
-    dining_areas: "Ruokailutilat"
+    dining_areas: "Ruokailutilat",
+    bookingDetailRooms: "Huoneet & alueet"
 
 } as Record<TranslationKey, TranslationValue>;

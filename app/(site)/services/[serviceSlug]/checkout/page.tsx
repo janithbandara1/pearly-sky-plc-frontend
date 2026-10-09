@@ -517,6 +517,7 @@ export default function CheckoutPage({
           deepClean: draft.deepClean || undefined,
           disinfection: draft.disinfection || undefined,
           serviceCategory: draft.serviceCategory,
+          rooms: draft.rooms,
           disinfectionLevel: draft.disinfectionLevel
             ? { name: draft.disinfectionLevel.name, price: draft.disinfectionLevel.price ?? undefined }
             : undefined,
@@ -566,6 +567,7 @@ export default function CheckoutPage({
           deepClean: draft.deepClean || undefined,
           disinfection: draft.disinfection || undefined,
           serviceCategory: draft.serviceCategory,
+          rooms: draft.rooms,
           disinfectionLevel: draft.disinfectionLevel
             ? { name: draft.disinfectionLevel.name, price: draft.disinfectionLevel.price ?? undefined }
             : undefined,
@@ -1332,6 +1334,7 @@ export default function CheckoutPage({
               }
               serviceCategory={draft.category}
               propertyCategory={draft.serviceCategory}
+              rooms={draft.rooms}
               deepClean={draft.deepClean}
               disinfection={draft.disinfection}
               eventTypes={draft.eventTypes}

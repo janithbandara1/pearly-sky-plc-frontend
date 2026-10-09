@@ -2184,6 +2184,7 @@ CustomerFeedBack: "Kundetilbakemelding",
     verandas_outdoor_spaces: "Verandaer og Uterom",
     home_offices: "Hjemmekontorer",
     laundry_rooms: "Vaskerom",
-    dining_areas: "Spiseplasser"
+    dining_areas: "Spiseplasser",
+    bookingDetailRooms: "Rom & Områder"
 
 } as Record<TranslationKey, TranslationValue>;

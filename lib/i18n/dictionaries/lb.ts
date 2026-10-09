@@ -2157,6 +2157,7 @@ export const lb = {
     verandas_outdoor_spaces: "Verandaen & Bausseberäicher",
     home_offices: "Heembüroen",
     laundry_rooms: "Wäschkichen",
-    dining_areas: "Iessberäicher"
+    dining_areas: "Iessberäicher",
+    bookingDetailRooms: "Raim & Beräicher"
 
 } as Record<TranslationKey, TranslationValue>;

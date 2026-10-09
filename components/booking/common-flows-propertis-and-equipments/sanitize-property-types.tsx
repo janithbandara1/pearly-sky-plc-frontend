@@ -7,7 +7,7 @@ import { useLanguage } from "@/lib/i18n/language-context";
 import { useCurrency } from "@/lib/currency-context";
 import type { TranslationKey } from "@/lib/i18n/dictionaries/en";
 import type { SizeQuote } from "@/lib/catalog-api";
-import RoomSelector from "../room-components-counter";
+import RoomSelector, { type RoomCounts } from "../room-components-counter";
 import { isCommonPropertyTypeWithRoomComponents } from "@/lib/service-flows";
 import { getPropertyCategoriesForService } from "../property-type-size-selector";
 
@@ -671,6 +671,9 @@ export interface PropertyTypeSizeSelectorProps {
   onDeepCleanChange?: (selected: boolean) => void;
   onServiceCategoryChange?: (category: "residential" | "industrial") => void;
   quote?: SizeQuote | null;
+  /** Room-component services only (regular/touch-up/deep/end-of-tenancy/same-day/premium-rental). */
+  rooms?: RoomCounts;
+  onRoomsChange?: (rooms: RoomCounts) => void;
 }
 
 export function PropertyTypeSizeSelectorCommonFlowOfServices({
@@ -685,6 +688,8 @@ export function PropertyTypeSizeSelectorCommonFlowOfServices({
   onDeepCleanChange,
   onServiceCategoryChange,
   quote,
+  rooms = {},
+  onRoomsChange,
 }: PropertyTypeSizeSelectorProps) {
   const [internalDisinfection, setInternalDisinfection] = useState(false);
   const [internalDeepClean, setInternalDeepClean] = useState(false);
@@ -888,7 +893,7 @@ export function PropertyTypeSizeSelectorCommonFlowOfServices({
             </h3>
 
             <div
-              className="flex flex-nowrap gap-3 overflow-x-auto overflow-y-hidden -mx-1 px-1 lg:-ml-5 lg:pl-15 md:-ml-5 md:pl-15 [&::-webkit-scrollbar]:hidden"
+              className="flex flex-nowrap gap-3 overflow-x-auto overflow-y-hidden -mx-1 px-1 [&>*:first-child]:ml-auto [&>*:last-child]:mr-auto [&::-webkit-scrollbar]:hidden"
               style={{ scrollbarWidth: "none", scrollSnapType: "x proximity" }} 
             >
  {/**display categories */}  
@@ -999,7 +1004,7 @@ export function PropertyTypeSizeSelectorCommonFlowOfServices({
 
 {/**Room selector for services types */}
         
-        {ROOM_COMPONENTS_SERVICES && <RoomSelector />}
+        {ROOM_COMPONENTS_SERVICES && <RoomSelector value={rooms} onChange={(next) => onRoomsChange?.(next)} />}
 
         {/* Right Column: Property Size */}
        

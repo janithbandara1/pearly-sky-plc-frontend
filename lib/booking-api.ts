@@ -3,6 +3,11 @@ import { apiFetch, apiUrl } from "./api";
 
 export type BookingSupplySource = "customer" | "company";
 
+export interface BookingRoom {
+  key: string;
+  count: number;
+}
+
 export interface BookingLineItem {
   name: string;
   price?: number;
@@ -32,6 +37,8 @@ interface BookingPreferencesPayload {
   disinfection?: boolean;
   /** steam-cleaning / healthguard-sanitization / post-construction only — Residential / Industrial switch. */
   serviceCategory?: "residential" | "industrial";
+  /** Room-component services only — `key` is a RoomKey (e.g. "bedrooms"). */
+  rooms?: BookingRoom[];
   /** steam-cleaning only. */
   steamItems?: string[];
   /** post-event-cleaning only. */
@@ -84,6 +91,7 @@ export interface BookingServiceDetails {
   deepClean?: boolean;
   disinfection?: boolean;
   serviceCategory?: "residential" | "industrial" | null;
+  rooms?: BookingRoom[] | null;
   steamItems: string[] | null;
   eventTypes: string[] | null;
   category: string | null;

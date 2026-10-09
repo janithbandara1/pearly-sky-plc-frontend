@@ -68,43 +68,51 @@ export interface PropertyCategory {
   dropdownLabel?: string;
 }
 
+/**
+ * Booking sizes, shared by every booking flow: 5 m² steps up to 100, 10 m² up
+ * to 200, then 25 m² up to 500 — 38 stops, so the wheel reaches 500 quickly.
+ */
+export const BOOKING_SIZES: number[] = [
+  ...Array.from({ length: (100 - 20) / 5 + 1 }, (_, i) => 20 + i * 5),
+  ...Array.from({ length: (200 - 100) / 10 }, (_, i) => 110 + i * 10),
+  ...Array.from({ length: (500 - 200) / 25 }, (_, i) => 225 + i * 25),
+];
+
+const BOOKING_SIZE_RANGE = { min: 20, max: 500, step: 0, sizes: BOOKING_SIZES };
+
 /** Generic scale used by services without a dedicated sizing scheme (e.g. commercial, post-construction). */
 export const PROPERTY_CATEGORIES: PropertyCategory[] = [
-  { id: "studio", label: "Studio", sublabel: "Apt", icon: "🏢", min: 20, max: 500, step: 5, locked: false },
-  { id: "home", label: "Home", icon: "🏡", min: 20, max: 500, step: 5, locked: false },
-  { id: "villa", label: "Villa", icon: "🏰", min: 20, max: 500, step: 5, locked: false },
-  { id: "estate", label: "Estate", icon: "🏛️", min: 20, max: 500, step: 5, locked: true },
-  { id: "vip", label: "VIP", sublabel: "Diamond", icon: "💎", min: 20, max: 500, step: 5, locked: true },
+  { id: "studio", label: "Studio", sublabel: "Apt", icon: "🏢", ...BOOKING_SIZE_RANGE, locked: false },
+  { id: "home", label: "Home", icon: "🏡", ...BOOKING_SIZE_RANGE, locked: false },
+  { id: "villa", label: "Villa", icon: "🏰", ...BOOKING_SIZE_RANGE, locked: false },
+  { id: "estate", label: "Estate", icon: "🏛️", ...BOOKING_SIZE_RANGE, locked: true },
+  { id: "vip", label: "VIP", sublabel: "Diamond", icon: "💎", ...BOOKING_SIZE_RANGE, locked: true },
 ];
 
 /**
  * Residential sizing scheme (m² / ft²) for standard-residential, deep-cleaning, end-of-tenancy,
  * last-minute, express-refresh, and steam-cleaning services.
- * Every property type, in every scheme here, spans 20–500 m² in 5 m² steps (the same range as the shared
+ * Every property type, in every scheme here, spans 20–500 m² using BOOKING_SIZES (the same range as the shared
  * sanitize/steam/post-construction flow), so the active category is tracked explicitly
  * rather than re-derived from the size on every render.
  */
 export const RESIDENTIAL_PROPERTY_CATEGORIES: PropertyCategory[] = [
-  { id: "studio", label: "Studio", icon: "🏢", min: 20, max: 500, step: 5, locked: false },
-  { id: "apartment", label: "Apartment / Flat", icon: "🏬", min: 20, max: 500, step: 5, locked: false },
-  { id: "townhouse", label: "Townhouse", icon: "🏘️", min: 20, max: 500, step: 5, locked: false },
-  { id: "home", label: "Home / House", icon: "🏡", min: 20, max: 500, step: 5, locked: false },
+  { id: "studio", label: "Studio", icon: "🏢", ...BOOKING_SIZE_RANGE, locked: false },
+  { id: "apartment", label: "Apartment / Flat", icon: "🏬", ...BOOKING_SIZE_RANGE, locked: false },
+  { id: "townhouse", label: "Townhouse", icon: "🏘️", ...BOOKING_SIZE_RANGE, locked: false },
+  { id: "home", label: "Home / House", icon: "🏡", ...BOOKING_SIZE_RANGE, locked: false },
   {
     id: "penthouse",
     label: "Penthouse",
     icon: "🏙️",
-    min: 20,
-    max: 500,
-    step: 5,
+    ...BOOKING_SIZE_RANGE,
     locked: false,
   },
   {
     id: "villa",
     label: "Villa",
     icon: "🏰",
-    min: 20,
-    max: 500,
-    step: 5,
+    ...BOOKING_SIZE_RANGE,
     locked: false,
   },
 ];
@@ -132,34 +140,28 @@ const OTHER_PROPERTY_CATEGORY: PropertyCategory = {
   id: "other",
   label: "Other",
   icon: "📐",
-  min: 20,
-  max: 500,
-  step: 5,
+  ...BOOKING_SIZE_RANGE,
   locked: false,
 };
 
 const PREMIUM_PROPERTY_SLUGS = new Set(["premium-rental-concierge-cleaning"]);
 export const PREMIUM_PROPERTY_CATEGORIES: PropertyCategory[] = [
-  { id: "studio", label: "Studio", icon: "🏢", min: 20, max: 500, step: 5, locked: false },
-  { id: "apartment", label: "Apartment / Flat", icon: "🏬", min: 20, max: 500, step: 5, locked: false },
-  { id: "townhouse", label: "Townhouse", icon: "🏘️", min: 20, max: 500, step: 5, locked: false },
-  { id: "home", label: "Home / House", icon: "🏡", min: 20, max: 500, step: 5, locked: false },
+  { id: "studio", label: "Studio", icon: "🏢", ...BOOKING_SIZE_RANGE, locked: false },
+  { id: "apartment", label: "Apartment / Flat", icon: "🏬", ...BOOKING_SIZE_RANGE, locked: false },
+  { id: "townhouse", label: "Townhouse", icon: "🏘️", ...BOOKING_SIZE_RANGE, locked: false },
+  { id: "home", label: "Home / House", icon: "🏡", ...BOOKING_SIZE_RANGE, locked: false },
   {
     id: "penthouse",
     label: "Penthouse",
     icon: "🏙️",
-    min: 20,
-    max: 500,
-    step: 5,
+    ...BOOKING_SIZE_RANGE,
     locked: false,
   },
   {
     id: "villa",
     label: "Villa",
     icon: "🏰",
-    min: 20,
-    max: 500,
-    step: 5,
+    ...BOOKING_SIZE_RANGE,
     locked: false,
   },
   OTHER_PROPERTY_CATEGORY,
@@ -173,9 +175,7 @@ export const POST_CONSTRUCTION_PROPERTY_CATEGORIES: PropertyCategory[] = [
     label: "Rough Clean",
     dropdownLabel: "Rough Clean (Initial Debris & Dust Removal)",
     icon: "🧱",
-    min: 20,
-    max: 500,
-    step: 5,
+    ...BOOKING_SIZE_RANGE,
     locked: false,
   },
   {
@@ -183,9 +183,7 @@ export const POST_CONSTRUCTION_PROPERTY_CATEGORIES: PropertyCategory[] = [
     label: "Touch-Up Clean",
     dropdownLabel: "Touch-Up Clean",
     icon: "🧽",
-    min: 20,
-    max: 500,
-    step: 5,
+    ...BOOKING_SIZE_RANGE,
     locked: false,
   },
   {
@@ -193,9 +191,7 @@ export const POST_CONSTRUCTION_PROPERTY_CATEGORIES: PropertyCategory[] = [
     label: "Final Post-Build Clean",
     dropdownLabel: "Final Post-Build Clean",
     icon: "✨",
-    min: 20,
-    max: 500,
-    step: 5,
+    ...BOOKING_SIZE_RANGE,
     locked: false,
   },
   {
@@ -203,9 +199,7 @@ export const POST_CONSTRUCTION_PROPERTY_CATEGORIES: PropertyCategory[] = [
     label: "Heavy-Duty Deep Clean",
     dropdownLabel: "Heavy-Duty Deep Clean",
     icon: "🏗️",
-    min: 20,
-    max: 500,
-    step: 5,
+    ...BOOKING_SIZE_RANGE,
     locked: false,
   },
   OTHER_PROPERTY_CATEGORY,
@@ -218,27 +212,27 @@ const POST_CONSTRUCTION_SERVICE_SLUGS = new Set([
 
 /** Venue-scale sizing scheme for post-event-cleaning, tracked by event type rather than property type. */
 export const EVENT_PROPERTY_CATEGORIES: PropertyCategory[] = [
-  { id: "private-parties", label: "Private Parties & Celebrations", icon: "🎈", min: 20, max: 500, step: 5, locked: false },
-  { id: "weddings", label: "Weddings & Large Receptions", icon: "💒", min: 20, max: 500, step: 5, locked: false },
-  { id: "corporate-events", label: "Corporate Events & Galas", icon: "💼", min: 20, max: 500, step: 5, locked: false },
-  { id: "concerts-festivals", label: "Concerts, Festivals & Live Venues", icon: "🎤", min: 20, max: 500, step: 5, locked: false },
-  { id: "pop-up-shops", label: "Pop-Up Shops & Retail Exhibitions", icon: "🛍️", min: 20, max: 500, step: 5, locked: false },
-  { id: "art-galleries", label: "Art Galleries & Cultural Exhibitions", icon: "🎨", min: 20, max: 500, step: 5, locked: false },
-  { id: "fashion-shows", label: "Fashion Shows & Runway Events", icon: "👗", min: 20, max: 500, step: 5, locked: false },
-  { id: "film-tv-shoots", label: "Film, TV & Commercial Shoots", icon: "📽️", min: 20, max: 500, step: 5, locked: false },
-  { id: "charity-auctions", label: "Charity Auctions & Fundraisers", icon: "🤝", min: 20, max: 500, step: 5, locked: false },
+  { id: "private-parties", label: "Private Parties & Celebrations", icon: "🎈", ...BOOKING_SIZE_RANGE, locked: false },
+  { id: "weddings", label: "Weddings & Large Receptions", icon: "💒", ...BOOKING_SIZE_RANGE, locked: false },
+  { id: "corporate-events", label: "Corporate Events & Galas", icon: "💼", ...BOOKING_SIZE_RANGE, locked: false },
+  { id: "concerts-festivals", label: "Concerts, Festivals & Live Venues", icon: "🎤", ...BOOKING_SIZE_RANGE, locked: false },
+  { id: "pop-up-shops", label: "Pop-Up Shops & Retail Exhibitions", icon: "🛍️", ...BOOKING_SIZE_RANGE, locked: false },
+  { id: "art-galleries", label: "Art Galleries & Cultural Exhibitions", icon: "🎨", ...BOOKING_SIZE_RANGE, locked: false },
+  { id: "fashion-shows", label: "Fashion Shows & Runway Events", icon: "👗", ...BOOKING_SIZE_RANGE, locked: false },
+  { id: "film-tv-shoots", label: "Film, TV & Commercial Shoots", icon: "📽️", ...BOOKING_SIZE_RANGE, locked: false },
+  { id: "charity-auctions", label: "Charity Auctions & Fundraisers", icon: "🤝", ...BOOKING_SIZE_RANGE, locked: false },
 ];
 
 const EVENT_SCHEME_SERVICE_SLUGS = new Set(["post-event-cleaning"]);
 
 /** Commercial office cleaning uses bespoke office-size tiers instead of the generic residential scale. */
 export const COMMERCIAL_OFFICE_PROPERTY_CATEGORIES: PropertyCategory[] = [
-  { id: "micro", label: "Micro", icon: "🧳", min: 20, max: 500, step: 5, locked: false },
-  { id: "compact", label: "Compact", icon: "📦", min: 20, max: 500, step: 5, locked: false },
-  { id: "small", label: "Small", icon: "🏢", min: 20, max: 500, step: 5, locked: false },
-  { id: "medium", label: "Medium", icon: "🏬", min: 20, max: 500, step: 5, locked: false },
-  { id: "large", label: "Large", icon: "🌆", min: 20, max: 500, step: 5, locked: false },
-  { id: "luxury", label: "Luxury / Enterprise", icon: "🏛️", min: 20, max: 500, step: 5, locked: false },
+  { id: "micro", label: "Micro", icon: "🧳", ...BOOKING_SIZE_RANGE, locked: false },
+  { id: "compact", label: "Compact", icon: "📦", ...BOOKING_SIZE_RANGE, locked: false },
+  { id: "small", label: "Small", icon: "🏢", ...BOOKING_SIZE_RANGE, locked: false },
+  { id: "medium", label: "Medium", icon: "🏬", ...BOOKING_SIZE_RANGE, locked: false },
+  { id: "large", label: "Large", icon: "🌆", ...BOOKING_SIZE_RANGE, locked: false },
+  { id: "luxury", label: "Luxury / Enterprise", icon: "🏛️", ...BOOKING_SIZE_RANGE, locked: false },
   OTHER_PROPERTY_CATEGORY,
 ];
 
@@ -246,26 +240,22 @@ const COMMERCIAL_OFFICE_SERVICE_SLUGS = new Set(["commercial-office-cleaning"]);
 
 const STEAM_CLEANING_SERVICES_SLUGS = new Set(["steam-cleaning"]);
 export const STEAM_CLEANING_CATEGORIES: PropertyCategory[] = [
-  { id: "studio", label: "Studio", icon: "🏢", min: 20, max: 500, step: 5, locked: false },
-  { id: "apartment", label: "Apartment / Flat", icon: "🏬", min: 20, max: 500, step: 5, locked: false },
-  { id: "townhouse", label: "Townhouse", icon: "🏘️", min: 20, max: 500, step: 5, locked: false },
-  { id: "home", label: "Home / House", icon: "🏡", min: 20, max: 500, step: 5, locked: false },
+  { id: "studio", label: "Studio", icon: "🏢", ...BOOKING_SIZE_RANGE, locked: false },
+  { id: "apartment", label: "Apartment / Flat", icon: "🏬", ...BOOKING_SIZE_RANGE, locked: false },
+  { id: "townhouse", label: "Townhouse", icon: "🏘️", ...BOOKING_SIZE_RANGE, locked: false },
+  { id: "home", label: "Home / House", icon: "🏡", ...BOOKING_SIZE_RANGE, locked: false },
   {
     id: "penthouse",
     label: "Penthouse",
     icon: "🏙️",
-    min: 20,
-    max: 500,
-    step: 5,
+    ...BOOKING_SIZE_RANGE,
     locked: false,
   },
   {
     id: "villa",
     label: "Villa",
     icon: "🏰",
-    min: 20,
-    max: 500,
-    step: 5,
+    ...BOOKING_SIZE_RANGE,
     locked: false,
   },
 ];
@@ -278,92 +268,85 @@ export const HIGH_SECURITY_PROPERTY_CATEGORIES: PropertyCategory[] = [
     id: "corporate-legal",
     label: "Corporate & Legal Office",
     icon: "🏢",
-    min: 20,
-    max: 500,
-    step: 5,
+    ...BOOKING_SIZE_RANGE,
     locked: false,
   },
   {
     id: "government-scif-data",
     label: "Government / SCIF / Data...",
     icon: "🛡️",
-    min: 20,
-    max: 500,
-    step: 5,
+    ...BOOKING_SIZE_RANGE,
     locked: false,
   },
   {
     id: "healthcare-medical",
     label: "Healthcare & Medical...",
     icon: "🏥",
-    min: 20,
-    max: 500,
-    step: 5,
+    ...BOOKING_SIZE_RANGE,
     locked: false,
   },
   {
     id: "industrial-construction",
     label: "Industrial & Construction",
     icon: "🏗️",
-    min: 20,
-    max: 500,
-    step: 5,
+    ...BOOKING_SIZE_RANGE,
     locked: false,
   },
   {
     id: "vip-estate-executive",
     label: "VIP Estate / Executive...",
     icon: "🏰",
-    min: 20,
-    max: 500,
-    step: 5,
+    ...BOOKING_SIZE_RANGE,
     locked: false,
   },
   {
     id: "event-venue",
     label: "Event Venue &...",
     icon: "🎪",
-    min: 20,
-    max: 500,
-    step: 5,
+    ...BOOKING_SIZE_RANGE,
     locked: false,
   },
   {
     id: "emergency-biohazard",
     label: "Emergency / Biohazard...",
     icon: "☣️",
-    min: 20,
-    max: 500,
-    step: 5,
+    ...BOOKING_SIZE_RANGE,
     locked: false,
   },
   {
     id: "retail-commercial",
     label: "Retail & Commercial...",
     icon: "🏬",
-    min: 20,
-    max: 500,
-    step: 5,
+    ...BOOKING_SIZE_RANGE,
     locked: false,
   },
   {
     id: "personal-work-device",
     label: "Personal / Work Device...",
     icon: "💻",
-    min: 20,
-    max: 500,
-    step: 5,
+    ...BOOKING_SIZE_RANGE,
     locked: false,
   },
   {
     id: "corporate-network",
     label: "Corporate Network /...",
     icon: "🌐",
-    min: 20,
-    max: 500,
-    step: 5,
+    ...BOOKING_SIZE_RANGE,
     locked: false,
   },
+];
+
+/** Largest property size the request-quotation form offers for residential cleaning services (booking stops at 500 m²). */
+export const RESIDENTIAL_QUOTATION_MAX_SQM = 5000;
+
+/**
+ * Residential quotation sizes: 5 m² steps up to 500, then 50 m² up to 1000,
+ * then 100 m² up to 5000 — 147 stops, so the wheel reaches 5000 quickly.
+ */
+export const RESIDENTIAL_QUOTATION_SIZES: number[] = [
+  ...Array.from({ length: (500 - 20) / 5 + 1 }, (_, i) => 20 + i * 5),
+  ...Array.from({ length: (1000 - 500) / 50 }, (_, i) => 550 + i * 50),
+  ...Array.from({ length: (RESIDENTIAL_QUOTATION_MAX_SQM - 1000) / 100 }, (_, i) => 1100 + i * 100),
 ];
 
 export function getPropertyCategoriesForService(serviceSlug: string): PropertyCategory[] {
