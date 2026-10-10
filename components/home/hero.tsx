@@ -1,15 +1,17 @@
 "use client";
 
-import { useState } from "react";
 import Image from "next/image";
-import Autoplay from "embla-carousel-autoplay";
-import { Carousel, CarouselContent, CarouselItem } from "@/components/ui/carousel";
 import { Button } from "@/components/ui/button";
 import { useLanguage } from "@/lib/i18n/language-context";
 import { getCountryHomeContent } from "@/lib/countries/home-content";
+import { CURRENT_COUNTRY, type CountryCode } from "@/lib/countries/config";
 import { IoSparkles } from "react-icons/io5";
 
-const HERO_IMAGES = ["/images/hero/hero-1.webp", "/images/hero/hero-2.webp"];
+const HERO_IMAGES: Record<CountryCode, string> = {
+  fr: "/images/hero/hero-fr.webp",
+  gb: "/images/hero/hero-gb.webp",
+  lk: "/images/hero/hero-lk.webp",
+};
 
 function scrollToId(id: string) {
   document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
@@ -18,33 +20,20 @@ function scrollToId(id: string) {
 export function Hero() {
   const { translate, language } = useLanguage();
   const { heroSubtitle, heroAvailability } =getCountryHomeContent(language);
-  const [plugins] = useState(() => [Autoplay({ delay: 6000, stopOnInteraction: false })]);
 
   return (
     <section className="relative h-[70vh] min-h-[420px] w-full overflow-hidden bg-brand-navy sm:h-[85vh]">
-      <Carousel
-        plugins={plugins}
-        opts={{ loop: true }}
-        className="absolute inset-0 h-full w-full [&>div]:h-full"
-      >
-        <CarouselContent className="h-full ml-0">
-          {HERO_IMAGES.map((src, index) => (
-            <CarouselItem key={src} className="relative h-[70vh] min-h-[420px] pl-0 sm:h-[85vh]">
-              <Image
-                src={src}
-                alt={`Pearly Sky eco-luxury cleaning ${index + 1}`}
-                fill
-                priority={index === 0}
-                fetchPriority={index === 0 ? "high" : undefined}
-                sizes="100vw"
-                className="object-cover"
-              />
-            </CarouselItem>
-          ))}
-        </CarouselContent>
-      </Carousel>
+      <Image
+        src={HERO_IMAGES[CURRENT_COUNTRY]}
+        alt="Pearly Sky eco-luxury cleaning"
+        fill
+        priority
+        fetchPriority="high"
+        sizes="100vw"
+        className="object-cover"
+      />
 
-      <div className="absolute inset-0 bg-gradient-to-b from-black/55 via-black/25 to-black/40" />
+      <div className="absolute inset-0 bg-black/50" />
 
       <div className="relative z-10 flex h-[90%] lg:h-full md:h-full max-w-7xl flex-col justify-end md:justify-center gap-2 px-4 mx-auto sm:px-6">
         {/* The slogan is styling only; the H1 is the descriptive line below,
