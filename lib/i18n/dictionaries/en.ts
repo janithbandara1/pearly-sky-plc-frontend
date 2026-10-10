@@ -56,6 +56,7 @@ export const en = {
   servicesPricingSoon: "Pricing coming soon",
   servicesHourlyRateLabel: "Hourly rate:",
   servicesPricePerCleaner: "per cleaner",
+  servicesRatePerCleanerHour: "per cleaner / hour",
   servicesPricePerProfessional: "per professional",
   servicesSeeMore: "See more",
   servicesSeeLess: "See less",
@@ -2095,7 +2096,7 @@ serviceLuxuryYachtCleaningTitleFiveFeatureTwo:"Complete linen turnover, sanitati
     hospitalGradeDisinfection: "HOSPITAL-GRADE DISINFECTION",
     standardSurfaceClean: "STANDARD SURFACE CLEAN",
 
-    serviceTargetArea:"SERVICE TARGET AREA",
+    serviceTargetArea:"Service Target Area",
 
     //
     EstimatedCost:"Estimated Cost",

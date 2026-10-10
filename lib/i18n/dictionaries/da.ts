@@ -57,6 +57,7 @@ export const da = {
   servicesPricingSoon: "Priser kommer snart",
   servicesHourlyRateLabel: "Timesats:",
   servicesPricePerCleaner: "pr. rengøringsassistent",
+  servicesRatePerCleanerHour: "per cleaner / hour",
   servicesPricePerProfessional: "pr. fagperson",
   servicesSeeMore: "Se mere",
   servicesSeeLess: "Se mindre",

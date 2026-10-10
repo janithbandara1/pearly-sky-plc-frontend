@@ -59,6 +59,7 @@ export const nl = {
   servicesPricingSoon: "Prijzen binnenkort beschikbaar",
   servicesHourlyRateLabel: "Uurtarief:",
   servicesPricePerCleaner: "per schoonmaker",
+  servicesRatePerCleanerHour: "per cleaner / hour",
   servicesPricePerProfessional: "per professional",
   servicesSeeMore: "Meer zien",
   servicesSeeLess: "Minder zien",

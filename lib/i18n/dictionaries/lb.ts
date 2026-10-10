@@ -59,6 +59,7 @@ export const lb = {
   servicesPricingSoon: "Präisser kommen geschwënn",
   servicesHourlyRateLabel: "Stonnentarif:",
   servicesPricePerCleaner: "pro Botzer",
+  servicesRatePerCleanerHour: "per cleaner / hour",
   servicesPricePerProfessional: "pro Fachpersonal",
   servicesSeeMore: "Méi gesinn",
   servicesSeeLess: "Manner gesinn",

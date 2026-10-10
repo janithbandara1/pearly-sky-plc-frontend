@@ -59,6 +59,7 @@ export const sv = {
   servicesPricingSoon: "Priser kommer snart",
   servicesHourlyRateLabel: "Timpris:",
   servicesPricePerCleaner: "per städare",
+  servicesRatePerCleanerHour: "per cleaner / hour",
   servicesPricePerProfessional: "per yrkesperson",
   servicesSeeMore: "Se mer",
   servicesSeeLess: "Se mindre",

@@ -1273,8 +1273,9 @@ export function SanitizeSizeVisualization({
   const estimatedCost = hasPrice
     ? range(`${symbol}${quote!.priceMin!.toFixed(2)}`, `${symbol}${quote!.priceMax!.toFixed(2)}`)
     : "—";
-  const serviceRate = hasPrice && value > 0
-    ? `${range(`${symbol}${(quote!.priceMin! / value).toFixed(2)}`, `${symbol}${(quote!.priceMax! / value).toFixed(2)}`)}/m²`
+  // Price is hours × the hourly rate per cleaner (Deep Clean already applied), so this recovers that rate.
+  const serviceRate = hasPrice && quote!.minHours
+    ? `${symbol}${(quote!.priceMin! / quote!.minHours).toFixed(2)} ${translate("servicesRatePerCleanerHour")}`
     : "—";
   const labor = hasHours
     ? `${range(String(quote!.minHours), String(quote!.maxHours))}h (${quote!.cleanerCount ?? 1} ${translate("CrewWord")})`
@@ -2047,7 +2048,7 @@ export function EstimatioMatrixBottom({
       </div>
 
       <div>
-        <p className="text-[10px] md:text-xs text-gray-400 font-medium mb-1">{translate("serviceTargetArea")}</p>
+        <p className="text-xs text-gray-400 font-medium mb-1">{translate("serviceTargetArea")}</p>
         {activeCategory && (
           <p className="text-[12px]  md:text-base text-gray-200 font-medium mb-1">
             {CATEGORY_LABEL_KEYS[activeCategory.label]
@@ -2072,7 +2073,7 @@ export function EstimatioMatrixBottom({
         )}
       </div>
       <div>
-        <p className="text-[12px] md:text-xl text-gray-400 font-medium mb-0.5">{translate("EstLabor")}</p>
+        <p className="text-xs text-gray-400 font-medium mb-1">{translate("EstLabor")}</p>
         <p className="text-[10px] md:text-xl font-bold text-white">{labourData}</p>
       </div>
     </div>
@@ -2101,7 +2102,10 @@ function YatchSizeVisualization({
   const range = (min: string, max: string) => (min === max ? min : `${min} – ${max}`);
   const hasPrice = !!quote?.bookable && quote.priceMin != null && quote.priceMax != null;
   const estimatedCost = hasPrice ? range(`${symbol}${quote!.priceMin!.toFixed(2)}`, `${symbol}${quote!.priceMax!.toFixed(2)}`) : "—";
-  const serviceRate = hasPrice && value > 0 ? `${range(`${symbol}${(quote!.priceMin! / value).toFixed(2)}`, `${symbol}${(quote!.priceMax! / value).toFixed(2)}`)}/m²` : "—";
+  // Price is hours × the hourly rate per cleaner (Deep Clean already applied), so this recovers that rate.
+  const serviceRate = hasPrice && quote!.minHours
+    ? `${symbol}${(quote!.priceMin! / quote!.minHours).toFixed(2)} ${translate("servicesRatePerCleanerHour")}`
+    : "—";
 
   const hasHours = !!quote?.bookable && quote.minHours != null && quote.maxHours != null;
   

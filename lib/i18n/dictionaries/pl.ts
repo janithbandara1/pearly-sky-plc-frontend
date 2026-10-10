@@ -59,6 +59,7 @@ export const pl = {
   servicesPricingSoon: "Cennik wkrótce",
   servicesHourlyRateLabel: "Stawka godzinowa:",
   servicesPricePerCleaner: "na sprzątacza",
+  servicesRatePerCleanerHour: "per cleaner / hour",
   servicesPricePerProfessional: "na specjalistę",
   servicesSeeMore: "Zobacz więcej",
   servicesSeeLess: "Zobacz mniej",

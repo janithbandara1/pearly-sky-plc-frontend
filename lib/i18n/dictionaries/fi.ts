@@ -59,6 +59,7 @@ export const fi = {
   servicesPricingSoon: "Hinnasto tulossa pian",
   servicesHourlyRateLabel: "Tuntihinta:",
   servicesPricePerCleaner: "siivoojaa kohden",
+  servicesRatePerCleanerHour: "per cleaner / hour",
   servicesPricePerProfessional: "ammattilaista kohden",
   servicesSeeMore: "Näytä lisää",
   servicesSeeLess: "Näytä vähemmän",

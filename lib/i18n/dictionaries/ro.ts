@@ -59,6 +59,7 @@ export const ro = {
   servicesPricingSoon: "Prețuri în curând",
   servicesHourlyRateLabel: "Tarif orar:",
   servicesPricePerCleaner: "per curățător",
+  servicesRatePerCleanerHour: "per cleaner / hour",
   servicesPricePerProfessional: "per profesionist",
   servicesSeeMore: "Vezi mai mult",
   servicesSeeLess: "Vezi mai puțin",
