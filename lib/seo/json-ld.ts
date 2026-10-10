@@ -17,6 +17,13 @@ const COUNTRY_NAMES: Record<CountryCode, string> = {
   lk: "Sri Lanka",
 };
 
+/** schema.org LocalBusiness `priceRange`, per country — omitted for a country with none set. */
+const PRICE_RANGES: Partial<Record<CountryCode, string>> = {
+  fr: "€27–€50 per cleaner per hour",
+  gb: "£25–£80 per cleaner per hour",
+  lk: "LKR 1,350–LKR 9,000 per cleaner per hour",
+};
+
 export function buildLocalBusinessJsonLd(office: Location, country: CountryCode) {
   const countryName = COUNTRY_NAMES[country];
   return {
@@ -26,10 +33,14 @@ export function buildLocalBusinessJsonLd(office: Location, country: CountryCode)
     image: LOGO_URL,
     url: SITE_URL,
     telephone: office.contactNo,
+    ...(PRICE_RANGES[country] && { priceRange: PRICE_RANGES[country] }),
     address: {
       "@type": "PostalAddress",
-      streetAddress: office.address,
-      addressCountry: countryName,
+      // The full one-line address only when there's no structured breakout (e.g. Sri Lanka).
+      streetAddress: office.streetAddress ?? office.address,
+      ...(office.postalCode && { postalCode: office.postalCode }),
+      ...(office.addressLocality && { addressLocality: office.addressLocality }),
+      addressCountry: country.toUpperCase(),
     },
     sameAs: SAME_AS,
   };
