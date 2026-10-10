@@ -1527,6 +1527,7 @@ export const lb = {
   bookingDetailService: "Service",
   bookingDetailDate: "Datum",
   bookingDetailTime: "Zäit",
+  bookingDetailFrequency: "Frequency",
   bookingDetailPropertyType: "Immobilientyp",
   bookingDetailPropertySize: "Immobiliengréisst",
   bookingDetailDuration: "Dauer",

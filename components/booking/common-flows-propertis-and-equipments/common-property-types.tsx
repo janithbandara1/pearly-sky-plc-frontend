@@ -5,7 +5,7 @@ import { Check, ChevronDown, Sparkles } from "lucide-react";
 import { YACHT_PROPERTY_TYPES } from "@/components/booking/Yatchpropertytypes";
 import { useLanguage } from "@/lib/i18n/language-context";
 import { useCurrency } from "@/lib/currency-context";
-import type { TranslationKey } from "@/lib/i18n/dictionaries/en";
+import { en, type TranslationKey } from "@/lib/i18n/dictionaries/en";
 import type { SizeQuote } from "@/lib/catalog-api";
 import RoomSelector, { type RoomCounts } from "../room-components-counter";
 import { isCommonPropertyTypeWithRoomComponents } from "@/lib/service-flows";
@@ -94,13 +94,15 @@ export const CATEGORY_LABEL_KEYS: Record<string, TranslationKey> = {
 };
 
 /**
- * Some categories store a translation key (e.g. "propMicroOffice") as their
- * label. The backend renders property type as-is in emails/PDFs/admin, so
- * send it the English name instead.
+ * Some categories store a translation key (e.g. "propMicroOffice",
+ * "cabin_cleaning") as their label. The backend renders property type as-is
+ * in emails/PDFs/admin, so send it the English name instead.
  */
 export function propertyTypeEnglishName(propertyType: string): string {
   const match = Object.entries(CATEGORY_LABEL_KEYS).find(([, key]) => key === propertyType);
-  return match ? match[0] : propertyType;
+  if (match) return match[0];
+  const english = (en as Record<string, unknown>)[propertyType];
+  return typeof english === "string" ? english : propertyType;
 }
 
 export interface PropertyCategory {
@@ -974,6 +976,15 @@ export const SERVICE_CATEGORY_TABS_MAP: Record<string, [ServiceCategoryTab, Serv
   ],
 };
 
+/** Translation key for a Service Category tab id (e.g. "yatch-cleaning" -> "yachtCleaning"), for summaries. */
+export function serviceCategoryLabelKey(tabId: string): TranslationKey | undefined {
+  for (const tabs of [DEFAULT_CATEGORY_TABS, ...Object.values(SERVICE_CATEGORY_TABS_MAP)]) {
+    const tab = tabs.find((t) => t.id === tabId);
+    if (tab) return tab.translationKey ?? (tab.label as TranslationKey);
+  }
+  return undefined;
+}
+
 export function getCategoryTabsForService(serviceSlug?: string): [ServiceCategoryTab, ServiceCategoryTab] {
   if (serviceSlug && SERVICE_CATEGORY_TABS_MAP[serviceSlug]) {
     return SERVICE_CATEGORY_TABS_MAP[serviceSlug];
@@ -1693,7 +1704,7 @@ export function PropertyTypeSizeSelectorCommonFlowOfServices({
 
   const handleCategorySwitch = (tabId: string): void => {
     setIsActiveCategorySwitch(tabId);
-    onServiceCategoryChange?.(tabId as "residential" | "industrial");
+    onServiceCategoryChange?.(tabId);
     const targetTab = categoryTabs.find((t) => t.id === tabId) ?? categoryTabs[0];
     const nextCategories = targetTab.categories;
     const firstCat = nextCategories[0];
@@ -1998,6 +2009,7 @@ export function PropertyTypeSizeSelectorCommonFlowOfServices({
           {isFrequencyService && (
             <ServiceFrequencySelector
               selectedServiceSlug={serviceSlug}
+              value={selectServiceFrequency}
               onSelectionChange={setSelectServiceFrequency}
             />
           )}

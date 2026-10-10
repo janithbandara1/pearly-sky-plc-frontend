@@ -1512,6 +1512,7 @@ export const fi = {
   bookingDetailService: "Palvelu",
   bookingDetailDate: "Päivämäärä",
   bookingDetailTime: "Aika",
+  bookingDetailFrequency: "Frequency",
   bookingDetailPropertyType: "Kiinteistön tyyppi",
   bookingDetailPropertySize: "Kiinteistön koko",
   bookingDetailDuration: "Kesto",

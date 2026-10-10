@@ -1530,6 +1530,7 @@ export const de = {
   bookingDetailService: "Dienstleistung",
   bookingDetailDate: "Datum",
   bookingDetailTime: "Uhrzeit",
+  bookingDetailFrequency: "Häufigkeit",
   bookingDetailPropertyType: "Immobilientyp",
   bookingDetailPropertySize: "Immobiliengröße",
   bookingDetailDuration: "Dauer",

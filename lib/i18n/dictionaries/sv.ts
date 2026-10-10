@@ -1549,6 +1549,7 @@ export const sv = {
   bookingDetailService: "Tjänst",
   bookingDetailDate: "Datum",
   bookingDetailTime: "Tid",
+  bookingDetailFrequency: "Frequency",
   bookingDetailPropertyType: "Fastighetstyp",
   bookingDetailPropertySize: "Fastighetsstorlek",
   bookingDetailDuration: "Varaktighet",

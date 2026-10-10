@@ -1563,6 +1563,7 @@ serviceLuxuryYachtCleaningTitleFiveFeatureTwo:"Complete linen turnover, sanitati
   bookingDetailService: "Service",
   bookingDetailDate: "Date",
   bookingDetailTime: "Time",
+  bookingDetailFrequency: "Frequency",
   bookingDetailPropertyType: "Property type",
   bookingDetailPropertySize: "Property size",
   bookingDetailDuration: "Duration",

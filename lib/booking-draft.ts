@@ -71,6 +71,8 @@ export interface BookingDraft {
    * (e.g. "bedrooms", also its translation key).
    */
   rooms?: BookingDraftRoom[];
+  /** Selected service frequency id (e.g. "weekly") — informational only, doesn't affect pricing. */
+  frequency?: string;
   /** steam-cleaning only. */
   steamItems?: string[];
   /** post-event-cleaning only. */

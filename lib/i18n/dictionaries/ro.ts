@@ -1552,6 +1552,7 @@ export const ro = {
   bookingDetailService: "Serviciu",
   bookingDetailDate: "Dată",
   bookingDetailTime: "Ora",
+  bookingDetailFrequency: "Frequency",
   bookingDetailPropertyType: "Tipul proprietății",
   bookingDetailPropertySize: "Dimensiunea proprietății",
   bookingDetailDuration: "Durată",

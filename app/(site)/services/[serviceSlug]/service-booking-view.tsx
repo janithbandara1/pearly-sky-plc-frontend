@@ -538,6 +538,7 @@ export function ServiceBookingView({
       rooms: isCommonPropertyTypeWithRoomComponents(serviceSlug) && roomCountsToList(rooms).length > 0
         ? roomCountsToList(rooms)
         : undefined,
+      frequency: selectServiceFrequency ?? undefined,
       category: isCategoryQuote ? selectedCategory ?? undefined : undefined,
     });
     router.push(`/services/${serviceSlug}/checkout`);

@@ -1,7 +1,7 @@
 "tsx"
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React from "react";
 import {
   Home,
   Sparkles,
@@ -299,33 +299,36 @@ const cleaningServices: ServiceOption[] = [
   },
 ];
 
+/** Translation key for a frequency id's display name (e.g. "bi-weekly" -> "freqBiWeeklyName"), for summaries. */
+export function frequencyNameKey(frequencyId: string): TranslationKey | undefined {
+  for (const service of cleaningServices) {
+    const match = service.frequencies.find((f) => f.id === frequencyId);
+    if (match) return match.name as TranslationKey;
+  }
+  return undefined;
+}
+
 interface ServiceFrequencySelectorProps {
   selectedServiceSlug?: string;
-  onSelectionChange?: (serviceSlug: string, frequencyId: string) => void;
+  /** The selected frequency id, or null when none is chosen (frequency is optional). */
+  value?: string | null;
+  onSelectionChange?: (frequencyId: string | null) => void;
 }
 
 export default function ServiceFrequencySelector({
   selectedServiceSlug = "regular-home-cleaning",
+  value = null,
   onSelectionChange,
 }: ServiceFrequencySelectorProps) {
-  const [activeServiceSlug, setActiveServiceSlug] = useState<string | "">(selectedServiceSlug);
-  const [selectedFrequencies, setSelectedFrequencies] = useState<Record<string, string>>({
-    [selectedServiceSlug]: cleaningServices.find((s) => s.slug === selectedServiceSlug)?.frequencies[0]?.id || "",
-  });
-
- 
-
   // Find current active service object
   const currentService =
-    cleaningServices.find((s) => s.slug === activeServiceSlug) || cleaningServices[0];
+    cleaningServices.find((s) => s.slug === selectedServiceSlug) || cleaningServices[0];
 
-  const currentFrequencyId = selectedFrequencies[activeServiceSlug] || "";
+  const currentFrequencyId = value ?? "";
 
   // Toggle selection logic: unselect if already active
   const handleFrequencySelect = (freqId: string) => {
-    const nextFreqId = currentFrequencyId === freqId ? "" : freqId;
-    setSelectedFrequencies((prev) => ({ ...prev, [activeServiceSlug]: nextFreqId }));
-    if (onSelectionChange) onSelectionChange(activeServiceSlug, nextFreqId);
+    onSelectionChange?.(currentFrequencyId === freqId ? null : freqId);
   };
 
   const {translate}=useLanguage();

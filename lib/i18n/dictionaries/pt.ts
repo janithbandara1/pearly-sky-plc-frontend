@@ -1552,6 +1552,7 @@ export const pt = {
   bookingDetailService: "Serviço",
   bookingDetailDate: "Data",
   bookingDetailTime: "Hora",
+  bookingDetailFrequency: "Frequency",
   bookingDetailPropertyType: "Tipo de propriedade",
   bookingDetailPropertySize: "Tamanho da propriedade",
   bookingDetailDuration: "Duração",

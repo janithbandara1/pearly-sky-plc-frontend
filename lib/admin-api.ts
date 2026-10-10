@@ -53,8 +53,9 @@ export interface AdminBookingServiceDetails {
   disinfectionLevel: AdminBookingLineItem | null;
   deepClean?: boolean;
   disinfection?: boolean;
-  serviceCategory?: "residential" | "industrial" | null;
+  serviceCategory?: string | null;
   rooms?: { key: string; count: number }[] | null;
+  frequency?: string | null;
   steamItems: string[] | null;
   eventTypes: string[] | null;
   category: string | null;

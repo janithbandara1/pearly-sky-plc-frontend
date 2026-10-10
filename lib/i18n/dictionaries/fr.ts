@@ -1524,6 +1524,7 @@ AddsOnCategoryOvenFridgeRestoration: "Restauration professionnelle de four et r�
   bookingDetailService: "Service",
   bookingDetailDate: "Date",
   bookingDetailTime: "Heure",
+  bookingDetailFrequency: "Fréquence",
   bookingDetailPropertyType: "Type de propriété",
   bookingDetailPropertySize: "Surface de la propriété",
   bookingDetailDuration: "Durée",

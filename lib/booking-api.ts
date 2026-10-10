@@ -36,9 +36,11 @@ interface BookingPreferencesPayload {
   /** steam-cleaning / healthguard-sanitization / post-construction only — hospital-grade disinfection, no surcharge. */
   disinfection?: boolean;
   /** steam-cleaning / healthguard-sanitization / post-construction only — Residential / Industrial switch. */
-  serviceCategory?: "residential" | "industrial";
+  serviceCategory?: string;
   /** Room-component services only — `key` is a RoomKey (e.g. "bedrooms"). */
   rooms?: BookingRoom[];
+  /** Selected service frequency id (e.g. "weekly") — informational only, doesn't affect pricing. */
+  frequency?: string;
   /** steam-cleaning only. */
   steamItems?: string[];
   /** post-event-cleaning only. */
@@ -90,8 +92,9 @@ export interface BookingServiceDetails {
   disinfectionLevel: BookingLineItem | null;
   deepClean?: boolean;
   disinfection?: boolean;
-  serviceCategory?: "residential" | "industrial" | null;
+  serviceCategory?: string | null;
   rooms?: BookingRoom[] | null;
+  frequency?: string | null;
   steamItems: string[] | null;
   eventTypes: string[] | null;
   category: string | null;

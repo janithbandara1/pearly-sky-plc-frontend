@@ -1514,6 +1514,7 @@ export const da = {
   bookingDetailService: "Service",
   bookingDetailDate: "Dato",
   bookingDetailTime: "Tidspunkt",
+  bookingDetailFrequency: "Frequency",
   bookingDetailPropertyType: "Ejendomstype",
   bookingDetailPropertySize: "Ejendomsstørrelse",
   bookingDetailDuration: "Varighed",

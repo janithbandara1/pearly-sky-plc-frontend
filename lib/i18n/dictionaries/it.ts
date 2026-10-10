@@ -1488,6 +1488,7 @@ export const it = {
   bookingDetailService: "Servizio",
   bookingDetailDate: "Data",
   bookingDetailTime: "Ora",
+  bookingDetailFrequency: "Frequenza",
   bookingDetailPropertyType: "Tipo di proprietà",
   bookingDetailPropertySize: "Dimensione della proprietà",
   bookingDetailDuration: "Durata",

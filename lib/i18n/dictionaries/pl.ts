@@ -1552,6 +1552,7 @@ export const pl = {
   bookingDetailService: "Usługa",
   bookingDetailDate: "Data",
   bookingDetailTime: "Czas",
+  bookingDetailFrequency: "Frequency",
   bookingDetailPropertyType: "Typ nieruchomości",
   bookingDetailPropertySize: "Rozmiar nieruchomości",
   bookingDetailDuration: "Czas trwania",

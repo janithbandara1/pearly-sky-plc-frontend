@@ -29,7 +29,8 @@ import { SummaryAttachments } from "@/components/booking/summary-attachments";
 import type { AttachmentLink } from "@/lib/upload-api";
 import { useLanguage } from "@/lib/i18n/language-context";
 import type { TranslationKey } from "@/lib/i18n/dictionaries/en";
-import { CATEGORY_LABEL_KEYS } from "@/components/booking/common-flows-propertis-and-equipments/common-property-types";
+import { CATEGORY_LABEL_KEYS, serviceCategoryLabelKey } from "@/components/booking/common-flows-propertis-and-equipments/common-property-types";
+import { frequencyNameKey } from "@/components/booking/common-flows-propertis-and-equipments/service-frequency";
 
 const GENERAL_STEAM_TITLES = new Set(GENERAL_STEAM_CARDS.map((card) => card.title));
 const INDUSTRIAL_STEAM_TITLES = new Set(INDUSTRIAL_STEAM_CATEGORIES.map((category) => category.title));
@@ -76,9 +77,11 @@ export interface BookingSummaryServiceDetails {
   /** steam/sanitization/post-construction only — hospital-grade "Disinfection" (no surcharge). */
   disinfection?: boolean;
   /** steam/sanitization/post-construction only — the Residential / Industrial switch. */
-  serviceCategory?: "residential" | "industrial" | null;
+  serviceCategory?: string | null;
   /** Room-component services only — `key` is a RoomKey (e.g. "bedrooms"), also its translation key. */
   rooms?: { key: string; count: number }[] | null;
+  /** Selected service frequency id (e.g. "weekly"). */
+  frequency?: string | null;
   service: { label: string };
 }
 
@@ -294,10 +297,16 @@ export function BookingSummaryCard({
             <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
               <Field label={translate("summaryService")} value={details.service.label} />
               <Field label={translate("summaryDateTime")} value={`${details.date} · ${details.time}`} />
+              {details.frequency && (
+                <Field
+                  label={translate("bookingDetailFrequency")}
+                  value={translate(frequencyNameKey(details.frequency) ?? (details.frequency as TranslationKey))}
+                />
+              )}
               {details.serviceCategory && (
                 <Field
                   label={translate("propServiceCatagory")}
-                  value={translate(details.serviceCategory === "industrial" ? "propCatIndustrial" : "propCatResidential")}
+                  value={translate(serviceCategoryLabelKey(details.serviceCategory) ?? (details.serviceCategory as TranslationKey))}
                 />
               )}
               {details.propertyType && (

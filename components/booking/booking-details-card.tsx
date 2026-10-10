@@ -11,7 +11,8 @@ import type { CatalogItem, SizeQuote } from "@/lib/catalog-api";
 import { useCurrency } from "@/lib/currency-context";
 import { useLanguage } from "@/lib/i18n/language-context";
 import type { TranslationKey } from "@/lib/i18n/dictionaries/en";
-import { CATEGORY_LABEL_KEYS } from "@/components/booking/common-flows-propertis-and-equipments/common-property-types";
+import { CATEGORY_LABEL_KEYS, serviceCategoryLabelKey } from "@/components/booking/common-flows-propertis-and-equipments/common-property-types";
+import { frequencyNameKey } from "@/components/booking/common-flows-propertis-and-equipments/service-frequency";
 
 function formatHM(hours: number): string {
   const h = Math.floor(hours);
@@ -47,7 +48,7 @@ export interface BookingDetailsCardProps {
   /** high-security-property-care / luxury-yacht-cleaning only — the Job type selected above. */
   serviceCategory?: string;
   /** steam/sanitization/post-construction only — the Residential / Industrial switch. */
-  propertyCategory?: "residential" | "industrial";
+  propertyCategory?: string;
   /** steam/sanitization/post-construction only — "Deep Clean" (+40%, already in hourlyRate/quote). */
   deepClean?: boolean;
   /** steam/sanitization/post-construction only — hospital-grade "Disinfection" (no surcharge). */
@@ -56,6 +57,8 @@ export interface BookingDetailsCardProps {
   eventTypes?: string[];
   /** Room-component services only — the rooms (and how many of each) selected above. */
   rooms?: BookingDraftRoom[];
+  /** Selected service frequency id (e.g. "weekly") — informational only. */
+  frequency?: string;
   /** child-care-service / elder-care-service only — the per-person profiles collected above. */
   careProfiles?: CareProfileDraft[];
   /** child-care-service / elder-care-service only — "Child" or "Elder", used for the section heading and per-profile numbering. */
@@ -122,6 +125,7 @@ export function BookingDetailsCard({
   disinfection,
   eventTypes,
   rooms,
+  frequency,
   careProfiles,
   personLabel,
   items,
@@ -171,10 +175,16 @@ export function BookingDetailsCard({
           <SummaryRow label={translate("bookingDetailService")} value={serviceLabel} />
           <SummaryRow label={translate("bookingDetailDate")} value={date} />
           <SummaryRow label={translate("bookingDetailTime")} value={time} />
+          {frequency && (
+            <SummaryRow
+              label={translate("bookingDetailFrequency")}
+              value={translate(frequencyNameKey(frequency) ?? (frequency as TranslationKey))}
+            />
+          )}
           {propertyCategory && (
             <SummaryRow
               label={translate("propServiceCatagory")}
-              value={translate(propertyCategory === "industrial" ? "propCatIndustrial" : "propCatResidential")}
+              value={translate(serviceCategoryLabelKey(propertyCategory) ?? (propertyCategory as TranslationKey))}
             />
           )}
           {propertyType && (

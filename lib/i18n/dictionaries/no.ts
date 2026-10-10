@@ -1552,6 +1552,7 @@ export const no = {
   bookingDetailService: "Tjeneste",
   bookingDetailDate: "Dato",
   bookingDetailTime: "Tid",
+  bookingDetailFrequency: "Frequency",
   bookingDetailPropertyType: "Eiendoms-type",
   bookingDetailPropertySize: "Eiendommens størrelse",
   bookingDetailDuration: "Varighet",

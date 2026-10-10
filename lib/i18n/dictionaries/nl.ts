@@ -1536,6 +1536,7 @@ export const nl = {
   bookingDetailService: "Dienst",
   bookingDetailDate: "Datum",
   bookingDetailTime: "Tijd",
+  bookingDetailFrequency: "Frequency",
   bookingDetailPropertyType: "Type vastgoed",
   bookingDetailPropertySize: "Grootte vastgoed",
   bookingDetailDuration: "Duur",
