@@ -341,18 +341,18 @@ Careers are France-only: this URL renders a “no openings” notice, is `noinde
 | `es` | https://pearlyskyglobalclean.lk/es/services/limpieza-regular-hogar | Limpieza Regular del Hogar \| Pearly Sky Eco-Lujo – Sri Lanka | Un mantenimiento regular para un hogar siempre fresco y ordenado. Atendemos a clientes en todo Sri Lanka. |
 | `it` | https://pearlyskyglobalclean.lk/it/services/pulizia-regolare-casa | Pulizia Regolare della Casa \| Pearly Sky Eco-Luxury – Sri Lanka | Una manutenzione regolare per una casa sempre fresca e in ordine. Al servizio dei clienti in tutto lo Sri Lanka. |
 
-### Service — Quick Touch-Up Cleaning
+### Service — Essential Touch-Up Cleaning
 
 **Flow:** Booking + quotation  
 **og:image:** `https://pearlyskyglobalclean.lk/images/services/updated-home-property-cleaning-services-2-express-refresh-cleaning.webp`
 
 | Lang | URL | Title | Meta description |
 |---|---|---|---|
-| `en` | https://pearlyskyglobalclean.lk/en/services/quick-touch-up-cleaning | Essential Touch-Up Cleaning \| Fast Refresh Service – Sri Lanka | A focused, efficient refresh for high-traffic areas — ideal for a quick reset before guests or the next appointment. Serving clients across Sri Lanka. |
-| `fr` | https://pearlyskyglobalclean.lk/fr/services/nettoyage-express | Nettoyage Express \| Pearly Sky Éco-Luxe – Sri Lanka | Un nettoyage rapide pour retrouver un intérieur impeccable en un instant. Au service de nos clients au Sri Lanka. |
-| `de` | https://pearlyskyglobalclean.lk/de/services/schnellreinigung | Schnellreinigung \| Pearly Sky Eco-Luxus-Pflege – Sri Lanka | Eine schnelle Reinigung für ein gepflegtes Erscheinungsbild. Wir betreuen Kunden in ganz Sri Lanka. |
-| `es` | https://pearlyskyglobalclean.lk/es/services/limpieza-rapida | Limpieza Rápida \| Pearly Sky Eco-Lujo – Sri Lanka | Una limpieza rápida para recuperar un aspecto impecable. Atendemos a clientes en todo Sri Lanka. |
-| `it` | https://pearlyskyglobalclean.lk/it/services/pulizia-rapida | Pulizia Rapida \| Pearly Sky Eco-Luxury – Sri Lanka | Una pulizia veloce per un aspetto impeccabile. Al servizio dei clienti in tutto lo Sri Lanka. |
+| `en` | https://pearlyskyglobalclean.lk/en/services/essential-touch-up-cleaning | Essential Touch-Up Cleaning \| Fast Refresh Service – Sri Lanka | A focused, efficient refresh for high-traffic areas — ideal for a quick reset before guests or the next appointment. Serving clients across Sri Lanka. |
+| `fr` | https://pearlyskyglobalclean.lk/fr/services/nettoyage-retouche-essentiel | Nettoyage de retouche essentiel \| Pearly Sky Éco-Luxe – Sri Lanka | Un nettoyage rapide pour retrouver un intérieur impeccable en un instant. Au service de nos clients au Sri Lanka. |
+| `de` | https://pearlyskyglobalclean.lk/de/services/wichtige-auffrischungsreinigung | Wichtige Auffrischungsreinigung \| Pearly Sky Eco-Luxus-Pflege – Sri Lanka | Eine schnelle Reinigung für ein gepflegtes Erscheinungsbild. Wir betreuen Kunden in ganz Sri Lanka. |
+| `es` | https://pearlyskyglobalclean.lk/es/services/limpieza-esencial-retoque | Limpieza esencial de retoque \| Pearly Sky Eco-Lujo – Sri Lanka | Una limpieza rápida para recuperar un aspecto impecable. Atendemos a clientes en todo Sri Lanka. |
+| `it` | https://pearlyskyglobalclean.lk/it/services/pulizia-essenziale-ritocco | Pulizia essenziale di ritocco \| Pearly Sky Eco-Luxury – Sri Lanka | Una pulizia veloce per un aspetto impeccabile. Al servizio dei clienti in tutto lo Sri Lanka. |
 
 ### Service — Same-Day Priority Cleaning
 
@@ -584,18 +584,18 @@ Quotation form is on this page (its /request-quotation URL 308-redirects here).
 | `es` | https://pearlyskyglobalclean.lk/es/services/limpieza-regular-hogar/request-quotation | Solicitar un Presupuesto — Limpieza Regular del Hogar \| Pearly Sky | Solicite un presupuesto gratuito y sin compromiso para limpieza regular del hogar con Pearly Sky en Sri Lanka. |
 | `it` | https://pearlyskyglobalclean.lk/it/services/pulizia-regolare-casa/request-quotation | Richiedi un Preventivo — Pulizia Regolare della Casa \| Pearly Sky | Richiedi un preventivo gratuito e senza impegno per pulizia regolare della casa con Pearly Sky in Sri Lanka. |
 
-### Request a Quote — Quick Touch-Up Cleaning
+### Request a Quote — Essential Touch-Up Cleaning
 
 **Flow:** Booking + quotation  
 **og:image:** `https://pearlyskyglobalclean.lk/images/services/updated-home-property-cleaning-services-2-express-refresh-cleaning.webp`
 
 | Lang | URL | Title | Meta description |
 |---|---|---|---|
-| `en` | https://pearlyskyglobalclean.lk/en/services/quick-touch-up-cleaning/request-quotation | Request a Quote — Quick Touch-Up Cleaning \| Pearly Sky | Request a free, no-obligation quote for quick touch-up cleaning with Pearly Sky in Sri Lanka. |
-| `fr` | https://pearlyskyglobalclean.lk/fr/services/nettoyage-express/request-quotation | Demander un Devis — Nettoyage Express \| Pearly Sky | Demandez un devis gratuit et sans engagement pour nettoyage express avec Pearly Sky au Sri Lanka. |
-| `de` | https://pearlyskyglobalclean.lk/de/services/schnellreinigung/request-quotation | Angebot Anfordern — Schnellreinigung \| Pearly Sky | Fordern Sie ein kostenloses und unverbindliches Angebot für Schnellreinigung bei Pearly Sky in Sri Lanka an. |
-| `es` | https://pearlyskyglobalclean.lk/es/services/limpieza-rapida/request-quotation | Solicitar un Presupuesto — Limpieza Rápida \| Pearly Sky | Solicite un presupuesto gratuito y sin compromiso para limpieza rápida con Pearly Sky en Sri Lanka. |
-| `it` | https://pearlyskyglobalclean.lk/it/services/pulizia-rapida/request-quotation | Richiedi un Preventivo — Pulizia Rapida \| Pearly Sky | Richiedi un preventivo gratuito e senza impegno per pulizia rapida con Pearly Sky in Sri Lanka. |
+| `en` | https://pearlyskyglobalclean.lk/en/services/essential-touch-up-cleaning/request-quotation | Request a Quote — Essential Touch-Up Cleaning \| Pearly Sky | Request a free, no-obligation quote for essential touch-up cleaning with Pearly Sky in Sri Lanka. |
+| `fr` | https://pearlyskyglobalclean.lk/fr/services/nettoyage-retouche-essentiel/request-quotation | Demander un Devis — Nettoyage de retouche essentiel \| Pearly Sky | Demandez un devis gratuit et sans engagement pour nettoyage de retouche essentiel avec Pearly Sky au Sri Lanka. |
+| `de` | https://pearlyskyglobalclean.lk/de/services/wichtige-auffrischungsreinigung/request-quotation | Angebot Anfordern — Wichtige Auffrischungsreinigung \| Pearly Sky | Fordern Sie ein kostenloses und unverbindliches Angebot für Wichtige Auffrischungsreinigung bei Pearly Sky in Sri Lanka an. |
+| `es` | https://pearlyskyglobalclean.lk/es/services/limpieza-esencial-retoque/request-quotation | Solicitar un Presupuesto — Limpieza esencial de retoque \| Pearly Sky | Solicite un presupuesto gratuito y sin compromiso para limpieza esencial de retoque con Pearly Sky en Sri Lanka. |
+| `it` | https://pearlyskyglobalclean.lk/it/services/pulizia-essenziale-ritocco/request-quotation | Richiedi un Preventivo — Pulizia essenziale di ritocco \| Pearly Sky | Richiedi un preventivo gratuito e senza impegno per pulizia essenziale di ritocco con Pearly Sky in Sri Lanka. |
 
 ### Request a Quote — Same-Day Priority Cleaning
 

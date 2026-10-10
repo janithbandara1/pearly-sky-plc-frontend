@@ -314,18 +314,18 @@ Set in `app/layout.tsx` and `lib/countries/seo.ts` (`buildSocialMeta`), applied 
 | `es` | https://pearlyskyglobalclean.fr/es/services/limpieza-regular-hogar | Limpieza Regular del Hogar \| Pearly Sky Eco-Lujo – Francia | Un mantenimiento regular para un hogar siempre fresco y ordenado. Atendemos a clientes en toda Francia. |
 | `it` | https://pearlyskyglobalclean.fr/it/services/pulizia-regolare-casa | Pulizia Regolare della Casa \| Pearly Sky Eco-Luxury – Francia | Una manutenzione regolare per una casa sempre fresca e in ordine. Al servizio dei clienti in tutta la Francia. |
 
-### Service — Quick Touch-Up Cleaning
+### Service — Essential Touch-Up Cleaning
 
 **Flow:** Booking + quotation  
 **og:image:** `https://pearlyskyglobalclean.fr/images/services/updated-home-property-cleaning-services-2-express-refresh-cleaning.webp`
 
 | Lang | URL | Title | Meta description |
 |---|---|---|---|
-| `en` | https://pearlyskyglobalclean.fr/en/services/quick-touch-up-cleaning | Essential Touch-Up Cleaning \| Fast Refresh Service – France | A focused, efficient refresh for high-traffic areas — ideal for a quick reset before guests or the next appointment. Serving clients across France. |
-| `fr` | https://pearlyskyglobalclean.fr/fr/services/nettoyage-express | Nettoyage Express \| Pearly Sky Éco-Luxe – France | Un nettoyage rapide pour retrouver un intérieur impeccable en un instant. Au service de nos clients en France. |
-| `de` | https://pearlyskyglobalclean.fr/de/services/schnellreinigung | Schnellreinigung \| Pearly Sky Eco-Luxus-Pflege – Frankreich | Eine schnelle Reinigung für ein gepflegtes Erscheinungsbild. Wir betreuen Kunden in ganz Frankreich. |
-| `es` | https://pearlyskyglobalclean.fr/es/services/limpieza-rapida | Limpieza Rápida \| Pearly Sky Eco-Lujo – Francia | Una limpieza rápida para recuperar un aspecto impecable. Atendemos a clientes en toda Francia. |
-| `it` | https://pearlyskyglobalclean.fr/it/services/pulizia-rapida | Pulizia Rapida \| Pearly Sky Eco-Luxury – Francia | Una pulizia veloce per un aspetto impeccabile. Al servizio dei clienti in tutta la Francia. |
+| `en` | https://pearlyskyglobalclean.fr/en/services/essential-touch-up-cleaning | Essential Touch-Up Cleaning \| Fast Refresh Service – France | A focused, efficient refresh for high-traffic areas — ideal for a quick reset before guests or the next appointment. Serving clients across France. |
+| `fr` | https://pearlyskyglobalclean.fr/fr/services/nettoyage-retouche-essentiel | Nettoyage de retouche essentiel \| Pearly Sky Éco-Luxe – France | Un nettoyage rapide pour retrouver un intérieur impeccable en un instant. Au service de nos clients en France. |
+| `de` | https://pearlyskyglobalclean.fr/de/services/wichtige-auffrischungsreinigung | Wichtige Auffrischungsreinigung \| Pearly Sky Eco-Luxus-Pflege – Frankreich | Eine schnelle Reinigung für ein gepflegtes Erscheinungsbild. Wir betreuen Kunden in ganz Frankreich. |
+| `es` | https://pearlyskyglobalclean.fr/es/services/limpieza-esencial-retoque | Limpieza esencial de retoque \| Pearly Sky Eco-Lujo – Francia | Una limpieza rápida para recuperar un aspecto impecable. Atendemos a clientes en toda Francia. |
+| `it` | https://pearlyskyglobalclean.fr/it/services/pulizia-essenziale-ritocco | Pulizia essenziale di ritocco \| Pearly Sky Eco-Luxury – Francia | Una pulizia veloce per un aspetto impeccabile. Al servizio dei clienti in tutta la Francia. |
 
 ### Service — Same-Day Priority Cleaning
 
@@ -557,18 +557,18 @@ Quotation form is on this page (its /request-quotation URL 308-redirects here).
 | `es` | https://pearlyskyglobalclean.fr/es/services/limpieza-regular-hogar/request-quotation | Solicitar un Presupuesto — Limpieza Regular del Hogar \| Pearly Sky | Solicite un presupuesto gratuito y sin compromiso para limpieza regular del hogar con Pearly Sky en Francia. |
 | `it` | https://pearlyskyglobalclean.fr/it/services/pulizia-regolare-casa/request-quotation | Richiedi un Preventivo — Pulizia Regolare della Casa \| Pearly Sky | Richiedi un preventivo gratuito e senza impegno per pulizia regolare della casa con Pearly Sky in Francia. |
 
-### Request a Quote — Quick Touch-Up Cleaning
+### Request a Quote — Essential Touch-Up Cleaning
 
 **Flow:** Booking + quotation  
 **og:image:** `https://pearlyskyglobalclean.fr/images/services/updated-home-property-cleaning-services-2-express-refresh-cleaning.webp`
 
 | Lang | URL | Title | Meta description |
 |---|---|---|---|
-| `en` | https://pearlyskyglobalclean.fr/en/services/quick-touch-up-cleaning/request-quotation | Request a Quote — Quick Touch-Up Cleaning \| Pearly Sky | Request a free, no-obligation quote for quick touch-up cleaning with Pearly Sky in France. |
-| `fr` | https://pearlyskyglobalclean.fr/fr/services/nettoyage-express/request-quotation | Demander un Devis — Nettoyage Express \| Pearly Sky | Demandez un devis gratuit et sans engagement pour nettoyage express avec Pearly Sky en France. |
-| `de` | https://pearlyskyglobalclean.fr/de/services/schnellreinigung/request-quotation | Angebot Anfordern — Schnellreinigung \| Pearly Sky | Fordern Sie ein kostenloses und unverbindliches Angebot für Schnellreinigung bei Pearly Sky in Frankreich an. |
-| `es` | https://pearlyskyglobalclean.fr/es/services/limpieza-rapida/request-quotation | Solicitar un Presupuesto — Limpieza Rápida \| Pearly Sky | Solicite un presupuesto gratuito y sin compromiso para limpieza rápida con Pearly Sky en Francia. |
-| `it` | https://pearlyskyglobalclean.fr/it/services/pulizia-rapida/request-quotation | Richiedi un Preventivo — Pulizia Rapida \| Pearly Sky | Richiedi un preventivo gratuito e senza impegno per pulizia rapida con Pearly Sky in Francia. |
+| `en` | https://pearlyskyglobalclean.fr/en/services/essential-touch-up-cleaning/request-quotation | Request a Quote — Essential Touch-Up Cleaning \| Pearly Sky | Request a free, no-obligation quote for essential touch-up cleaning with Pearly Sky in France. |
+| `fr` | https://pearlyskyglobalclean.fr/fr/services/nettoyage-retouche-essentiel/request-quotation | Demander un Devis — Nettoyage de retouche essentiel \| Pearly Sky | Demandez un devis gratuit et sans engagement pour nettoyage de retouche essentiel avec Pearly Sky en France. |
+| `de` | https://pearlyskyglobalclean.fr/de/services/wichtige-auffrischungsreinigung/request-quotation | Angebot Anfordern — Wichtige Auffrischungsreinigung \| Pearly Sky | Fordern Sie ein kostenloses und unverbindliches Angebot für Wichtige Auffrischungsreinigung bei Pearly Sky in Frankreich an. |
+| `es` | https://pearlyskyglobalclean.fr/es/services/limpieza-esencial-retoque/request-quotation | Solicitar un Presupuesto — Limpieza esencial de retoque \| Pearly Sky | Solicite un presupuesto gratuito y sin compromiso para limpieza esencial de retoque con Pearly Sky en Francia. |
+| `it` | https://pearlyskyglobalclean.fr/it/services/pulizia-essenziale-ritocco/request-quotation | Richiedi un Preventivo — Pulizia essenziale di ritocco \| Pearly Sky | Richiedi un preventivo gratuito e senza impegno per pulizia essenziale di ritocco con Pearly Sky in Francia. |
 
 ### Request a Quote — Same-Day Priority Cleaning
 

@@ -341,18 +341,18 @@ Careers are France-only: this URL renders a “no openings” notice, is `noinde
 | `es` | https://pearlyskyglobalclean.co.uk/es/services/limpieza-regular-hogar | Limpieza Regular del Hogar \| Pearly Sky Eco-Lujo – Reino Unido | Un mantenimiento regular para un hogar siempre fresco y ordenado. Atendemos a clientes en todo el Reino Unido. |
 | `it` | https://pearlyskyglobalclean.co.uk/it/services/pulizia-regolare-casa | Pulizia Regolare della Casa \| Pearly Sky Eco-Luxury – Regno Unito | Una manutenzione regolare per una casa sempre fresca e in ordine. Al servizio dei clienti in tutto il Regno Unito. |
 
-### Service — Quick Touch-Up Cleaning
+### Service — Essential Touch-Up Cleaning
 
 **Flow:** Booking + quotation  
 **og:image:** `https://pearlyskyglobalclean.co.uk/images/services/updated-home-property-cleaning-services-2-express-refresh-cleaning.webp`
 
 | Lang | URL | Title | Meta description |
 |---|---|---|---|
-| `en` | https://pearlyskyglobalclean.co.uk/en/services/quick-touch-up-cleaning | Essential Touch-Up Cleaning \| Fast Refresh Service – UK | A focused, efficient refresh for high-traffic areas — ideal for a quick reset before guests or the next appointment. Serving clients across the United Kingdom. |
-| `fr` | https://pearlyskyglobalclean.co.uk/fr/services/nettoyage-express | Nettoyage Express \| Pearly Sky Éco-Luxe – Royaume-Uni | Un nettoyage rapide pour retrouver un intérieur impeccable en un instant. Au service de nos clients au Royaume-Uni. |
-| `de` | https://pearlyskyglobalclean.co.uk/de/services/schnellreinigung | Schnellreinigung \| Pearly Sky Eco-Luxus-Pflege – UK | Eine schnelle Reinigung für ein gepflegtes Erscheinungsbild. Wir betreuen Kunden im gesamten Vereinigten Königreich. |
-| `es` | https://pearlyskyglobalclean.co.uk/es/services/limpieza-rapida | Limpieza Rápida \| Pearly Sky Eco-Lujo – Reino Unido | Una limpieza rápida para recuperar un aspecto impecable. Atendemos a clientes en todo el Reino Unido. |
-| `it` | https://pearlyskyglobalclean.co.uk/it/services/pulizia-rapida | Pulizia Rapida \| Pearly Sky Eco-Luxury – Regno Unito | Una pulizia veloce per un aspetto impeccabile. Al servizio dei clienti in tutto il Regno Unito. |
+| `en` | https://pearlyskyglobalclean.co.uk/en/services/essential-touch-up-cleaning | Essential Touch-Up Cleaning \| Fast Refresh Service – UK | A focused, efficient refresh for high-traffic areas — ideal for a quick reset before guests or the next appointment. Serving clients across the United Kingdom. |
+| `fr` | https://pearlyskyglobalclean.co.uk/fr/services/nettoyage-retouche-essentiel | Nettoyage de retouche essentiel \| Pearly Sky Éco-Luxe – Royaume-Uni | Un nettoyage rapide pour retrouver un intérieur impeccable en un instant. Au service de nos clients au Royaume-Uni. |
+| `de` | https://pearlyskyglobalclean.co.uk/de/services/wichtige-auffrischungsreinigung | Wichtige Auffrischungsreinigung \| Pearly Sky Eco-Luxus-Pflege – UK | Eine schnelle Reinigung für ein gepflegtes Erscheinungsbild. Wir betreuen Kunden im gesamten Vereinigten Königreich. |
+| `es` | https://pearlyskyglobalclean.co.uk/es/services/limpieza-esencial-retoque | Limpieza esencial de retoque \| Pearly Sky Eco-Lujo – Reino Unido | Una limpieza rápida para recuperar un aspecto impecable. Atendemos a clientes en todo el Reino Unido. |
+| `it` | https://pearlyskyglobalclean.co.uk/it/services/pulizia-essenziale-ritocco | Pulizia essenziale di ritocco \| Pearly Sky Eco-Luxury – Regno Unito | Una pulizia veloce per un aspetto impeccabile. Al servizio dei clienti in tutto il Regno Unito. |
 
 ### Service — Same-Day Priority Cleaning
 
@@ -584,18 +584,18 @@ Quotation form is on this page (its /request-quotation URL 308-redirects here).
 | `es` | https://pearlyskyglobalclean.co.uk/es/services/limpieza-regular-hogar/request-quotation | Solicitar un Presupuesto — Limpieza Regular del Hogar \| Pearly Sky | Solicite un presupuesto gratuito y sin compromiso para limpieza regular del hogar con Pearly Sky en el Reino Unido. |
 | `it` | https://pearlyskyglobalclean.co.uk/it/services/pulizia-regolare-casa/request-quotation | Richiedi un Preventivo — Pulizia Regolare della Casa \| Pearly Sky | Richiedi un preventivo gratuito e senza impegno per pulizia regolare della casa con Pearly Sky nel Regno Unito. |
 
-### Request a Quote — Quick Touch-Up Cleaning
+### Request a Quote — Essential Touch-Up Cleaning
 
 **Flow:** Booking + quotation  
 **og:image:** `https://pearlyskyglobalclean.co.uk/images/services/updated-home-property-cleaning-services-2-express-refresh-cleaning.webp`
 
 | Lang | URL | Title | Meta description |
 |---|---|---|---|
-| `en` | https://pearlyskyglobalclean.co.uk/en/services/quick-touch-up-cleaning/request-quotation | Request a Quote — Quick Touch-Up Cleaning \| Pearly Sky | Request a free, no-obligation quote for quick touch-up cleaning with Pearly Sky in the UK. |
-| `fr` | https://pearlyskyglobalclean.co.uk/fr/services/nettoyage-express/request-quotation | Demander un Devis — Nettoyage Express \| Pearly Sky | Demandez un devis gratuit et sans engagement pour nettoyage express avec Pearly Sky au Royaume-Uni. |
-| `de` | https://pearlyskyglobalclean.co.uk/de/services/schnellreinigung/request-quotation | Angebot Anfordern — Schnellreinigung \| Pearly Sky | Fordern Sie ein kostenloses und unverbindliches Angebot für Schnellreinigung bei Pearly Sky im Vereinigten Königreich an. |
-| `es` | https://pearlyskyglobalclean.co.uk/es/services/limpieza-rapida/request-quotation | Solicitar un Presupuesto — Limpieza Rápida \| Pearly Sky | Solicite un presupuesto gratuito y sin compromiso para limpieza rápida con Pearly Sky en el Reino Unido. |
-| `it` | https://pearlyskyglobalclean.co.uk/it/services/pulizia-rapida/request-quotation | Richiedi un Preventivo — Pulizia Rapida \| Pearly Sky | Richiedi un preventivo gratuito e senza impegno per pulizia rapida con Pearly Sky nel Regno Unito. |
+| `en` | https://pearlyskyglobalclean.co.uk/en/services/essential-touch-up-cleaning/request-quotation | Request a Quote — Essential Touch-Up Cleaning \| Pearly Sky | Request a free, no-obligation quote for essential touch-up cleaning with Pearly Sky in the UK. |
+| `fr` | https://pearlyskyglobalclean.co.uk/fr/services/nettoyage-retouche-essentiel/request-quotation | Demander un Devis — Nettoyage de retouche essentiel \| Pearly Sky | Demandez un devis gratuit et sans engagement pour nettoyage de retouche essentiel avec Pearly Sky au Royaume-Uni. |
+| `de` | https://pearlyskyglobalclean.co.uk/de/services/wichtige-auffrischungsreinigung/request-quotation | Angebot Anfordern — Wichtige Auffrischungsreinigung \| Pearly Sky | Fordern Sie ein kostenloses und unverbindliches Angebot für Wichtige Auffrischungsreinigung bei Pearly Sky im Vereinigten Königreich an. |
+| `es` | https://pearlyskyglobalclean.co.uk/es/services/limpieza-esencial-retoque/request-quotation | Solicitar un Presupuesto — Limpieza esencial de retoque \| Pearly Sky | Solicite un presupuesto gratuito y sin compromiso para limpieza esencial de retoque con Pearly Sky en el Reino Unido. |
+| `it` | https://pearlyskyglobalclean.co.uk/it/services/pulizia-essenziale-ritocco/request-quotation | Richiedi un Preventivo — Pulizia essenziale di ritocco \| Pearly Sky | Richiedi un preventivo gratuito e senza impegno per pulizia essenziale di ritocco con Pearly Sky nel Regno Unito. |
 
 ### Request a Quote — Same-Day Priority Cleaning
 
