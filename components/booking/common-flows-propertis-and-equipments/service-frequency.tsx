@@ -345,7 +345,7 @@ export default function ServiceFrequencySelector({
           <h3 className="text-lg font-bold text-slate-100">{translate(currentService.title as TranslationKey)} Frequencies</h3>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div className={`grid grid-cols-1 ${currentService.frequencies.length === 3 ? 'md:grid-cols-3' : 'md:grid-cols-2'} gap-4`}>
           {currentService.frequencies.map((freq) => {
             const isSelected = currentFrequencyId === freq.id;
             return (
