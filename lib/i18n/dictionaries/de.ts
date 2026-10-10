@@ -64,7 +64,7 @@ export const de = {
   //service cards translations
   serviceRegularHomeCleaning: "Regelmäßige Haushaltsreinigung",
   serviceRegularHomeCleaningDescription: "Regelmäßige Pflege für ein frisches, ordentliches Zuhause.",
-  serviceEssentialTouchUpCleaning: "Wichtige Auffrischungsreinigung",
+  serviceEssentialTouchUpCleaning: "Schnellreinigung",
   servicePostConstructionCleaning: "Reinigung nach Bau- & Renovierungsarbeiten",
   serviceEssentialTouchUpCleaningDescription: "Eine schnelle Reinigung für einen gepflegten Eindruck.",
   serviceDeepCleaning: "Grundreinigung",
@@ -163,7 +163,7 @@ export const de = {
 
   //services mapping for navigation links
   serviceLableRegularHomeCleaning: "Regelmäßige Haushaltsreinigung",
-  serviceLableEssentialTouchUpCleaning: "Wichtige Auffrischungsreinigung",
+  serviceLableEssentialTouchUpCleaning: "Schnellreinigung",
   serviceLableDeepCleaning: "Grundreinigung",
   serviceLableEndOfTenancyCleaning: "Endreinigung bei Auszug",
   serviceLablePostConstructionRenovationCleaning: "Reinigung nach Bau- & Renovierungsarbeiten",

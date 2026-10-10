@@ -151,14 +151,14 @@ const FALLBACK_SERVICES: Record<string, Partial<CatalogServiceDetail>> = {
   "essential-touch-up-cleaning": {
     id: 2,
     name: "essential-touch-up-cleaning",
-    label: "Essential Touch-Up Cleaning",
+    label: "Quick Touch-Up Cleaning",
     description: "A quick clean to restore a polished look.",
     imageUrl: "/images/services/updated-home-property-cleaning-services-2-express-refresh-cleaning.webp",
   },
   "quick-touch-up-cleaning": {
     id: 2,
     name: "quick-touch-up-cleaning",
-    label: "Essential Touch-Up Cleaning",
+    label: "Quick Touch-Up Cleaning",
     description: "A quick clean to restore a polished look.",
     imageUrl: "/images/services/updated-home-property-cleaning-services-2-express-refresh-cleaning.webp",
   },

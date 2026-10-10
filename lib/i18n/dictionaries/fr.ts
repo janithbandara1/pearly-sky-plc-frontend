@@ -646,7 +646,7 @@ serviceLuxuryYachtCleaningTitleFiveFeatureTwo: "Turnover complet du linge, assai
   
   serviceRegularHomeCleaning: "Nettoyage régulier de la maison",
   serviceRegularHomeCleaningDescription: "Un entretien régulier pour un intérieur frais et ordonné.",
-  serviceEssentialTouchUpCleaning: "Nettoyage essentiel de rafraîchissement",
+  serviceEssentialTouchUpCleaning: "Nettoyage express",
   serviceEssentialTouchUpCleaningDescription: "Un nettoyage rapide pour retrouver un intérieur impeccable.",
   serviceDeepCleaning: "Nettoyage en profondeur",
   serviceDeepCleaningDescription: "Un nettoyage détaillé de fond en comble pour une finition parfaite.",
@@ -863,7 +863,7 @@ AddsOnCategoryOvenFridgeRestoration: "Restauration professionnelle de four et r�
 
   //services navigation links
   serviceLableRegularHomeCleaning: "Nettoyage régulier de la maison",
-  serviceLableEssentialTouchUpCleaning: "Nettoyage de retouche essentiel",
+  serviceLableEssentialTouchUpCleaning: "Nettoyage express",
   serviceLableDeepCleaning: "Nettoyage en profondeur",
   serviceLableEndOfTenancyCleaning: "Nettoyage de fin de bail",
   serviceLablePostConstructionRenovationCleaning: "Nettoyage post-construction et rénovation",

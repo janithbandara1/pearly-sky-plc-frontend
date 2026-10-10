@@ -53,9 +53,9 @@ export const en: OurServicesContent = {
       title: "Quick Touch-Up Cleaning",
       headline: "Fast-Track Freshness for High-Traffic Spaces",
       body: [
-        "Short on time but need your home looking its best? Our Essential Touch-Up Cleaning is a high-speed, targeted service designed to restore polish to your primary living areas. Ideal before hosting guests, after an event, or between routine visits, we focus on high-traffic zones—like key surfaces, kitchens, and bathrooms—using 100% certified eco-friendly products.",
+        "Short on time but need your home looking its best? Our Quick Touch-Up Cleaning is a high-speed, targeted service designed to restore polish to your primary living areas. Ideal before hosting guests, after an event, or between routine visits, we focus on high-traffic zones—like key surfaces, kitchens, and bathrooms—using 100% certified eco-friendly products.",
       ],
-      highlightsTitle: "Essential Touch-Up Cleaning Highlights",
+      highlightsTitle: "Quick Touch-Up Cleaning Highlights",
       features: [
         {
           title: "Kitchen",
