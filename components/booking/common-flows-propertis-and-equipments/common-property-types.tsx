@@ -1577,7 +1577,7 @@ export function PropertyTypeSizeSelectorCommonFlowOfServices({
   // services which have service frequency options
   const frequencyServiceSlugsSet = new Set([
     "regular-home-cleaning",
-    "quick-touch-up-cleaning",
+    "essential-touch-up-cleaning",
     "deep-cleaning",
     "end-of-tenancy-cleaning",
     "post-construction-renovation-cleaning",

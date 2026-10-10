@@ -28,6 +28,7 @@ const serviceTranslationKeyMap: Record<string, TranslationKey> = {
   // By service name (slug) - primary lookup for resilience
   "regular-home-cleaning": "serviceLableRegularHomeCleaning",
   "essential-touch-up-cleaning": "serviceLableEssentialTouchUpCleaning",
+  "quick-touch-up-cleaning": "serviceLableEssentialTouchUpCleaning",
   "deep-cleaning": "serviceLableDeepCleaning",
   "end-of-tenancy-cleaning": "serviceLableEndOfTenancyCleaning",
   "post-construction-renovation-cleaning": "serviceLablePostConstructionRenovationCleaning",
@@ -50,6 +51,7 @@ const serviceTranslationKeyMap: Record<string, TranslationKey> = {
   // By service label - secondary fallback lookup
   "Regular Home Cleaning": "serviceLableRegularHomeCleaning",
   "Essential Touch-Up Cleaning": "serviceLableEssentialTouchUpCleaning",
+  "Quick Touch-Up Cleaning": "serviceLableEssentialTouchUpCleaning",
   "Deep Cleaning": "serviceLableDeepCleaning",
   "End of Tenancy Cleaning": "serviceLableEndOfTenancyCleaning",
   "Post-Construction & Renovation Cleaning": "serviceLablePostConstructionRenovationCleaning",

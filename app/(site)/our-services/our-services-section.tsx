@@ -27,7 +27,7 @@ import type { OurServicesContent } from "@/lib/content/our-services/types";
 // Copy (every language) lives in lib/content/our-services/; only the icons are presentation-side.
 const SERVICE_ICONS: Record<string, React.ComponentType<{ className?: string }>> = {
   "regular-home-cleaning": Home,
-  "quick-touch-up-cleaning": Zap,
+  "essential-touch-up-cleaning": Zap,
   "same-day-priority-cleaning": Clock,
   "deep-cleaning": Sparkles,
   "end-of-tenancy-cleaning": Home,

@@ -56,10 +56,10 @@ serviceRegularCleaningTitleFourFeatureThree: "Nettoyage des miroirs et placement
 //quick-touch-up-cleaning///
 serviceQuickTouchUpCleaningIntroHeadLine: "Fraîcheur express pour les espaces à fort passage",
 serviceQuickTouchUpCleaningIntroBody: [
-  "Manque de temps mais besoin que votre maison soit impeccable ? Notre nettoyage express ciblé est un service rapide et précis conçu pour redonner de l’éclat à vos pièces de vie principales. Idéal avant de recevoir des invités, après un événement ou entre deux passages réguliers, nous nous concentrons sur les zones à fort trafic — surfaces clés, cuisines et salles de bain — avec des produits 100 % écologiques certifiés. Profitez d’un environnement propre et accueillant sans vous engager dans un nettoyage complet. Consultez nos tarifs transparents et réservez votre rafraîchissement express dès aujourd’hui."
+  "Manque de temps mais besoin que votre maison soit impeccable ? Notre nettoyage de retouche essentiel est un service rapide et précis conçu pour redonner de l’éclat à vos pièces de vie principales. Idéal avant de recevoir des invités, après un événement ou entre deux passages réguliers, nous nous concentrons sur les zones à fort trafic — surfaces clés, cuisines et salles de bain — avec des produits 100 % écologiques certifiés. Profitez d’un environnement propre et accueillant sans vous engager dans un nettoyage complet. Consultez nos tarifs transparents et réservez votre rafraîchissement express dès aujourd’hui."
 ],
 
-serviceQuickTouchUpCleaningHighlightTitleOne: "Points forts du nettoyage express ciblé",
+serviceQuickTouchUpCleaningHighlightTitleOne: "Points forts du nettoyage de retouche essentiel",
 serviceQuickTouchUpCleaningHighlightCardTitleTwo: "Cuisine",
 serviceQuickTouchUpCleaningHighlightCardTitleThree: "Salles de bain",
 serviceQuickTouchUpCleaningHighlightCardTitleFour: "Salon et chambres",
@@ -646,7 +646,7 @@ serviceLuxuryYachtCleaningTitleFiveFeatureTwo: "Turnover complet du linge, assai
   
   serviceRegularHomeCleaning: "Nettoyage régulier de la maison",
   serviceRegularHomeCleaningDescription: "Un entretien régulier pour un intérieur frais et ordonné.",
-  serviceEssentialTouchUpCleaning: "Nettoyage express",
+  serviceEssentialTouchUpCleaning: "Nettoyage essentiel de rafraîchissement",
   serviceEssentialTouchUpCleaningDescription: "Un nettoyage rapide pour retrouver un intérieur impeccable.",
   serviceDeepCleaning: "Nettoyage en profondeur",
   serviceDeepCleaningDescription: "Un nettoyage détaillé de fond en comble pour une finition parfaite.",
@@ -863,7 +863,7 @@ AddsOnCategoryOvenFridgeRestoration: "Restauration professionnelle de four et r�
 
   //services navigation links
   serviceLableRegularHomeCleaning: "Nettoyage régulier de la maison",
-  serviceLableEssentialTouchUpCleaning: "Nettoyage express",
+  serviceLableEssentialTouchUpCleaning: "Nettoyage de retouche essentiel",
   serviceLableDeepCleaning: "Nettoyage en profondeur",
   serviceLableEndOfTenancyCleaning: "Nettoyage de fin de bail",
   serviceLablePostConstructionRenovationCleaning: "Nettoyage post-construction et rénovation",

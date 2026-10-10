@@ -49,13 +49,13 @@ export const es: OurServicesContent = {
       ],
     },
     {
-      id: "quick-touch-up-cleaning",
-      title: "Limpieza rápida",
+      id: "essential-touch-up-cleaning",
+      title: "Limpieza esencial de retoque",
       headline: "Frescura exprés para los espacios más transitados",
       body: [
-        "¿Poco tiempo pero quieres que tu casa luzca lo mejor posible? Nuestra limpieza rápida es un servicio ágil y específico pensado para devolver el brillo a tus principales zonas de estar. Ideal antes de recibir invitados, después de un evento o entre visitas habituales, nos centramos en las zonas de más tránsito —superficies principales, cocina y baños— con productos 100 % ecológicos certificados.",
+        "¿Poco tiempo pero quieres que tu casa luzca lo mejor posible? Nuestra limpieza esencial de retoque es un servicio ágil y específico pensado para devolver el brillo a tus principales zonas de estar. Ideal antes de recibir invitados, después de un evento o entre visitas habituales, nos centramos en las zonas de más tránsito —superficies principales, cocina y baños— con productos 100 % ecológicos certificados.",
       ],
-      highlightsTitle: "Lo más destacado de la limpieza rápida",
+      highlightsTitle: "Lo más destacado de la limpieza esencial de retoque",
       features: [
         {
           title: "Cocina",

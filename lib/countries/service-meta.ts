@@ -492,8 +492,8 @@ const ENGLISH_SERVICE_META: Record<string, Record<CountryCode, ServiceMeta>> = {
     "Regular Home Cleaning | Pearly Sky Eco-Luxury Care",
     "Recurring, detail-driven upkeep that keeps every room fresh, tidy, and welcoming between visits.",
   ),
-  "quick-touch-up-cleaning": metaByCountryFrom(
-    "Quick Touch-Up Cleaning | Fast Refresh Service",
+  "essential-touch-up-cleaning": metaByCountryFrom(
+    "Essential Touch-Up Cleaning | Fast Refresh Service",
     "A focused, efficient refresh for high-traffic areas — ideal for a quick reset before guests or the next appointment.",
   ),
   "same-day-priority-cleaning": metaByCountryFrom(

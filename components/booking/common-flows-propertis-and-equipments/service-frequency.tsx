@@ -59,7 +59,7 @@ const cleaningServices: ServiceOption[] = [
     ],
   },
   {
-    slug: "quick-touch-up-cleaning",
+    slug: "essential-touch-up-cleaning",
     title: "serviceLableEssentialTouchUpCleaning",
     icon: <StarIcon className="w-6 h-6 text-purple-400" />,
     frequencies: [ 

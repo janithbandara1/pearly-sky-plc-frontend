@@ -49,13 +49,13 @@ export const fr: OurServicesContent = {
       ],
     },
     {
-      id: "quick-touch-up-cleaning",
-      title: "Nettoyage express",
+      id: "essential-touch-up-cleaning",
+      title: "Nettoyage de retouche essentiel",
       headline: "Une fraîcheur express pour les espaces les plus fréquentés",
       body: [
-        "Peu de temps, mais envie d’une maison sous son meilleur jour ? Notre nettoyage express est un service rapide et ciblé qui redonne de l’éclat à vos principales pièces de vie. Idéal avant de recevoir, après un événement ou entre deux passages habituels, il se concentre sur les zones de passage — surfaces principales, cuisine et salle de bain — avec des produits 100 % certifiés écologiques.",
+        "Peu de temps, mais envie d’une maison sous son meilleur jour ? Notre nettoyage de retouche essentiel est un service rapide et ciblé qui redonne de l’éclat à vos principales pièces de vie. Idéal avant de recevoir, après un événement ou entre deux passages habituels, il se concentre sur les zones de passage — surfaces principales, cuisine et salle de bain — avec des produits 100 % certifiés écologiques.",
       ],
-      highlightsTitle: "Points forts du nettoyage express",
+      highlightsTitle: "Points forts du nettoyage de retouche essentiel",
       features: [
         {
           title: "Cuisine",

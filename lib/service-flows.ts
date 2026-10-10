@@ -22,7 +22,7 @@ const commonFlowOfPropertyTypes = new Set([
   //access to new property types for the services which has the room 
   // components to be selected
   "regular-home-cleaning",
-  "quick-touch-up-cleaning",
+  "essential-touch-up-cleaning",
   "deep-cleaning",
   "end-of-tenancy-cleaning",
   "same-day-priority-cleaning",
@@ -39,7 +39,7 @@ const commonFlowOfPropertyTypes = new Set([
 //common properties which has the room components to be selected for the service
 const commonPropertyTypesWithRoomComponents = new Set([
   "regular-home-cleaning",
-  "quick-touch-up-cleaning",
+  "essential-touch-up-cleaning",
   "deep-cleaning",
   "end-of-tenancy-cleaning",
   "same-day-priority-cleaning",

@@ -222,7 +222,7 @@ export const da = {
   // Quick Touch Up Cleaning
   serviceQuickTouchUpCleaningIntroHeadLine: "Hurtig opfriskning til travle områder",
   serviceQuickTouchUpCleaningIntroBody: [
-    "Har du travlt, men brug for, at dit hjem ser bedst muligt ud? Vores Quick Touch-Up Cleaning er en målrettet hurtigservice designet til at genoprette glansen i dine primære opholdsrum. Ideel før gæster ankommer, efter et arrangement eller mellem rutinemæssige besøg. Vi fokuserer på højtrafikerede zoner med 100% certificerede miljøvenlige produkter."
+    "Har du travlt, men brug for, at dit hjem ser bedst muligt ud? Vores Essential Touch-Up Cleaning er en målrettet hurtigservice designet til at genoprette glansen i dine primære opholdsrum. Ideel før gæster ankommer, efter et arrangement eller mellem rutinemæssige besøg. Vi fokuserer på højtrafikerede zoner med 100% certificerede miljøvenlige produkter."
   ],
 
   serviceQuickTouchUpCleaningHighlightTitleOne: "Højdepunkter ved opfriskende rengøring",

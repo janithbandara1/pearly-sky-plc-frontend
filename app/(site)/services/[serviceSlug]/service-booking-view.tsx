@@ -598,7 +598,7 @@ export function ServiceBookingView({
       serviceSlug === "move-in-out-transport-service" ||
       serviceSlug === "move-in-out-transport-health"
     ) return "serviceMoveInOutTransportService"
-    if (serviceSlug === "quick-touch-up-cleaning") return "serviceEssentialTouchUpCleaning"
+    if (serviceSlug === "essential-touch-up-cleaning") return "serviceEssentialTouchUpCleaning"
     if (serviceSlug === "deep-cleaning") return "serviceDeepCleaning"
     if (serviceSlug === "end-of-tenancy-cleaning") return "serviceEndOfTenancyCleaning"
     if (serviceSlug === "post-construction-renovation-cleaning") return "servicePostConstructionCleaning"

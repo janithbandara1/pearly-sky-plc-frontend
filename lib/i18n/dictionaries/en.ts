@@ -63,7 +63,7 @@ export const en = {
   //service cards translations
   serviceRegularHomeCleaning: "Regular Home Cleaning",
   serviceRegularHomeCleaningDescription: "Routine home care for a fresh, tidy space.",
-  serviceEssentialTouchUpCleaning: "Quick Touch-Up Cleaning",
+  serviceEssentialTouchUpCleaning: "Essential Touch-Up Cleaning",
   servicePostConstructionCleaning:"Post-Construction & Renovation Cleaning",
   serviceEssentialTouchUpCleaningDescription: "A quick clean to restore a polished look.",
   serviceDeepCleaning: "Deep Cleaning",
@@ -161,7 +161,7 @@ serviceCommercialOfficeCleaningDescription:"Professional cleaning for business s
 
   //services mapping for navigation links
   serviceLableRegularHomeCleaning: "Regular Home Cleaning",
-  serviceLableEssentialTouchUpCleaning: "Quick Touch-Up Cleaning",
+  serviceLableEssentialTouchUpCleaning: "Essential Touch-Up Cleaning",
   serviceLableDeepCleaning: "Deep Cleaning",
   serviceLableEndOfTenancyCleaning: "End of Tenancy Cleaning",
   serviceLablePostConstructionRenovationCleaning: "Post-Construction & Renovation Cleaning",
@@ -228,7 +228,7 @@ serviceCommercialOfficeCleaningDescription:"Professional cleaning for business s
 serviceQuickTouchUpCleaningIntroHeadLine:"Fast-Track Freshness for High-Traffic Spaces",
 serviceQuickTouchUpCleaningIntroBody:
 [
-  "Short on time but need your home looking its best? Our Quick Touch-Up Cleaning is a high-speed, targeted service designed to restore polish to your primary living areas. Ideal before hosting guests, after an event, or between routine visits, we focus on high-traffic zones—like key surfaces, kitchens, and bathrooms—using 100% certified eco-friendly products. Enjoy a spotless, welcoming environment without committing to a full-home clean. View our transparent pricing and book your express refresh today."
+  "Short on time but need your home looking its best? Our Essential Touch-Up Cleaning is a high-speed, targeted service designed to restore polish to your primary living areas. Ideal before hosting guests, after an event, or between routine visits, we focus on high-traffic zones—like key surfaces, kitchens, and bathrooms—using 100% certified eco-friendly products. Enjoy a spotless, welcoming environment without committing to a full-home clean. View our transparent pricing and book your express refresh today."
 ],
 
 serviceQuickTouchUpCleaningHighlightTitleOne:"Essenstial Touch-Up Cleaning Highlights",

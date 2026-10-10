@@ -49,13 +49,13 @@ export const it: OurServicesContent = {
       ],
     },
     {
-      id: "quick-touch-up-cleaning",
-      title: "Pulizia rapida",
+      id: "essential-touch-up-cleaning",
+      title: "Pulizia essenziale di ritocco",
       headline: "Freschezza veloce per gli spazi più frequentati",
       body: [
-        "Poco tempo, ma vuoi che la tua casa sia al meglio? La nostra pulizia rapida è un servizio veloce e mirato pensato per ridare brillantezza ai principali ambienti della casa. Ideale prima di ricevere ospiti, dopo un evento o tra un intervento regolare e l’altro, si concentra sulle zone più frequentate — superfici principali, cucina e bagni — con prodotti certificati ecologici al 100%.",
+        "Poco tempo, ma vuoi che la tua casa sia al meglio? La nostra pulizia essenziale di ritocco è un servizio veloce e mirato pensato per ridare brillantezza ai principali ambienti della casa. Ideale prima di ricevere ospiti, dopo un evento o tra un intervento regolare e l’altro, si concentra sulle zone più frequentate — superfici principali, cucina e bagni — con prodotti certificati ecologici al 100%.",
       ],
-      highlightsTitle: "Punti salienti della pulizia rapida",
+      highlightsTitle: "Punti salienti della pulizia essenziale di ritocco",
       features: [
         {
           title: "Cucina",

@@ -67,7 +67,7 @@ export const SERVICE_CONTENT: Partial<Record<string, ServiceContentEntry>> = {
       },
     ],
   },
-  "quick-touch-up-cleaning": {
+  "essential-touch-up-cleaning": {
     introduction: {
       headline: "serviceQuickTouchUpCleaningIntroHeadLine",
       body: "serviceQuickTouchUpCleaningIntroBody",
@@ -985,8 +985,8 @@ export const SERVICE_CONTENT: Partial<Record<string, ServiceContentEntry>> = {
 if (SERVICE_CONTENT["regular-home-cleaning"]) {
   SERVICE_CONTENT["regular-maintenance-cleaning"] = SERVICE_CONTENT["regular-home-cleaning"];
 }
-if (SERVICE_CONTENT["quick-touch-up-cleaning"]) {
-  SERVICE_CONTENT["essential-touch-up-cleaning"] = SERVICE_CONTENT["quick-touch-up-cleaning"];
+if (SERVICE_CONTENT["essential-touch-up-cleaning"]) {
+  SERVICE_CONTENT["quick-touch-up-cleaning"] = SERVICE_CONTENT["essential-touch-up-cleaning"];
 }
 if (SERVICE_CONTENT["post-construction-renovation-cleaning"]) {
   SERVICE_CONTENT["post-construction-cleaning"] = SERVICE_CONTENT["post-construction-renovation-cleaning"];

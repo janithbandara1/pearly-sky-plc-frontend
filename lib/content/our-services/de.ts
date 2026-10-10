@@ -49,13 +49,13 @@ export const de: OurServicesContent = {
       ],
     },
     {
-      id: "quick-touch-up-cleaning",
-      title: "Schnellreinigung",
+      id: "essential-touch-up-cleaning",
+      title: "Wichtige Auffrischungsreinigung",
       headline: "Schnelle Frische für stark genutzte Bereiche",
       body: [
-        "Wenig Zeit, aber Ihr Zuhause soll sich von seiner besten Seite zeigen? Unsere Schnellreinigung ist ein zügiger, gezielter Service, der Ihren wichtigsten Wohnbereichen neuen Glanz verleiht. Ideal vor dem Besuch von Gästen, nach einer Veranstaltung oder zwischen regulären Terminen — wir konzentrieren uns auf stark genutzte Zonen wie zentrale Oberflächen, Küche und Bad und verwenden zu 100 % zertifiziert umweltfreundliche Produkte.",
+        "Wenig Zeit, aber Ihr Zuhause soll sich von seiner besten Seite zeigen? Unsere Wichtige Auffrischungsreinigung ist ein zügiger, gezielter Service, der Ihren wichtigsten Wohnbereichen neuen Glanz verleiht. Ideal vor dem Besuch von Gästen, nach einer Veranstaltung oder zwischen regulären Terminen — wir konzentrieren uns auf stark genutzte Zonen wie zentrale Oberflächen, Küche und Bad und verwenden zu 100 % zertifiziert umweltfreundliche Produkte.",
       ],
-      highlightsTitle: "Highlights der Schnellreinigung",
+      highlightsTitle: "Highlights der Wichtigen Auffrischungsreinigung",
       features: [
         {
           title: "Küche",
