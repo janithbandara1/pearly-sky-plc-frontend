@@ -24,6 +24,7 @@ export const nl = {
   heroCtaThird: "ONTDEK ONZE WERELDWIJDE BETROKKENHEID",
 
   heroSubPara: "Uw ruimte verdient het om te schitteren. Laat Pearly Sky de rest doen met onze nauwgezette, niet-toxische, eco-gecertificeerde service",
+  heroServiceTypes: "Residential · Commercial · Specialist Cleaning",
 
   heroWelcome: "WELKOM BIJ PEARLY SKY",
   heroWelcomeSubText: "Eco-luxe schoonmaak, op maat voor u",

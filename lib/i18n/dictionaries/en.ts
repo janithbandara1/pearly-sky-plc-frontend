@@ -17,10 +17,11 @@ export const en = {
 
   // Hero
   heroTitle: "Pure Spaces. Elevated Living.",
-  heroCtaSecondary: "REQUEST SERVICE NOW",
-  heroCtaThird:"EXPLORE OUR GLOBAL COMMITMENT",
+  heroCtaSecondary: "BOOK ONLINE",
+  heroCtaThird: "REQUEST A QUOTE",
 
-  heroSubPara: "Your space deserves to shine. Let Pearly Sky take care of the rest with our meticulous, non-toxic, eco-certified service.",
+  heroSubPara: "Thoughtful, professional cleaning for homes and workspaces. Enjoy meticulous care, clear communication, and a service tailored to your space.",
+  heroServiceTypes: "Residential · Commercial · Specialist Cleaning",
 
   heroWelcome: "WELCOME TO PEARLY SKY",
   heroWelcomeSubText:"Eco-Luxury Cleaning, Tailored for You",

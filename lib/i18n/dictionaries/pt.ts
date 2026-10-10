@@ -24,6 +24,7 @@ export const pt = {
   heroCtaThird: "EXPLORE O NOSSO COMPROMISSO GLOBAL",
 
   heroSubPara: "O seu espaço merece brilhar. Deixe a Pearly Sky tratar do resto com o nosso serviço meticuloso, não tóxico e eco-certificado.",
+  heroServiceTypes: "Residential · Commercial · Specialist Cleaning",
 
   heroWelcome: "BEM-VINDO À PEARLY SKY",
   heroWelcomeSubText: "Limpeza eco-luxo, personalizada para si",

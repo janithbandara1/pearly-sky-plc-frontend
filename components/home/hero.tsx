@@ -17,7 +17,7 @@ function scrollToId(id: string) {
 
 export function Hero() {
   const { translate, language } = useLanguage();
-  const { heroSubtitle } = getCountryHomeContent(language);
+  const { heroSubtitle, heroAvailability } =getCountryHomeContent(language);
   const [plugins] = useState(() => [Autoplay({ delay: 6000, stopOnInteraction: false })]);
 
   return (
@@ -61,7 +61,7 @@ export function Hero() {
         <p className="max-w-2xl md:text-left text-center text-[12px] text-brand-cream drop-shadow sm:text-base">
           {translate("heroSubPara")}
         </p>
-        <div className="flex md:flex-col flex-row flex-wrap gap-3 pt-2 justify-center md:justify-start">
+        <div className="flex flex-row gap-3 pt-2 justify-center md:justify-start">
           <Button
             size="lg"
             onClick={() => scrollToId("services")}
@@ -77,7 +77,13 @@ export function Hero() {
           >
             {translate("heroCtaThird")}
           </Button>
-          
+
+        </div>
+        <div className="max-w-2xl pt-1 md:text-left text-center text-brand-cream drop-shadow">
+          <p className="text-sm font-medium tracking-wide text-brand-gold sm:text-base md:text-lg">
+            {translate("heroServiceTypes")}
+          </p>
+          <p className="mt-2 text-[13px] sm:text-base">{heroAvailability}</p>
         </div>
       </div>
     </section>

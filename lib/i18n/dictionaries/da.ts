@@ -23,6 +23,7 @@ export const da = {
   heroCtaSecondary: "ANMOD OM SERVICE NU",
   heroCtaThird: "UDFORSK VORES GLOBALE FORPLIGTELSE",
   heroSubPara: "Dit rum fortjener at skinne. Lad Pearly Sky tage sig af resten med vores omhyggelige, giftfrie, øko-certificerede service.",
+  heroServiceTypes: "Residential · Commercial · Specialist Cleaning",
   heroWelcome: "VELKOMMEN TIL PEARLY SKY",
   heroWelcomeSubText: "Øko-luksusrengøring, skræddersyet til dig",
   heroWelcomeContent: "Velkommen til Pearly Sky, din førende partner for øko-luksusrengøringstjenester i Frankrig. Vi specialiserer os i at levere omhyggelige, miljøbevidste rengøringsløsninger til hjem og kontorer, der henvender sig til de mest kræsne kunder. Vores dedikerede teams af engelsktalende og fransktalende professionelle er forpligtet til at sikre, at dine rum ikke kun er pletfrie, men også opretholder et sundt, bæredygtigt miljø. Oplev toppen af renlighed med vores premium, skræddersyede tjenester designet til dine unikke krav i Paris, Nice, Cannes og Monaco.",

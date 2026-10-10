@@ -24,6 +24,7 @@ export const ro = {
   heroCtaThird: "EXPLOREAZĂ ANGAJAMENTUL NOSTRU GLOBAL",
 
   heroSubPara: "Spațiul tău merită să strălucească. Lasă Pearly Sky să aibă grijă de restul cu serviciul nostru meticulos, non-toxic, eco-certificat.",
+  heroServiceTypes: "Residential · Commercial · Specialist Cleaning",
 
   heroWelcome: "BINE AȚI VENIT LA PEARLY SKY",
   heroWelcomeSubText: "Curățenie eco-lux, adaptată pentru tine",

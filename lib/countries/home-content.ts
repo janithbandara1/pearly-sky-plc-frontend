@@ -72,6 +72,7 @@ export const COVERAGE_CITIES: Record<CountryCode, string[]> = {
 
 interface CountryHomeCopy {
   heroSubtitle: string;
+  heroAvailability: string;
   trustCoverage: string;
   coverageTitle: string;
   coverageSubtitle: string;
@@ -88,7 +89,8 @@ interface CountryHomeCopy {
 const COUNTRY_HOME_CONTENT: Record<CountryCode, Partial<Record<LanguageCode, CountryHomeCopy>>> = {
   fr: {
     en: {
-      heroSubtitle: "Pearly Sky Eco-Luxury Home & Office Cleaning Services — France.",
+      heroSubtitle: "Pearly Sky — Eco-Luxury Cleaning for Homes and Workspaces in France",
+      heroAvailability: "Serving selected locations across France. Availability depends on your location and service requirements.",
       trustCoverage: "France / 24 Cities",
       coverageTitle: "Service Excellence Throughout France",
       coverageSubtitle: "Paris, Nice, Cannes, Monaco, Lyon, Bordeaux, and more across France.",
@@ -98,7 +100,8 @@ const COUNTRY_HOME_CONTENT: Record<CountryCode, Partial<Record<LanguageCode, Cou
       aboutBilingualDesc: "Seamless communication for a diverse clientele.",
     },
     fr: {
-      heroSubtitle: "Services de Nettoyage Éco-Luxe Pearly Sky pour Maisons et Bureaux — France.",
+      heroSubtitle: "Pearly Sky — Nettoyage éco-luxe pour maisons et espaces de travail en France",
+      heroAvailability: "Nous intervenons dans une sélection de villes en France. La disponibilité dépend de votre localisation et de vos besoins.",
       trustCoverage: "France / 24 Villes",
       coverageTitle: "Excellence de Service Partout en France",
       coverageSubtitle: "Paris, Nice, Cannes, Monaco, Lyon, Bordeaux, et plus encore à travers la France.",
@@ -108,7 +111,8 @@ const COUNTRY_HOME_CONTENT: Record<CountryCode, Partial<Record<LanguageCode, Cou
       aboutBilingualDesc: "Communication fluide pour une clientèle diverse.",
     },
     de: {
-      heroSubtitle: "Pearly Sky Eco-Luxus-Reinigung für Haus & Büro — Frankreich.",
+      heroSubtitle: "Pearly Sky — Eco-Luxus-Reinigung für Wohnungen und Arbeitsräume in Frankreich",
+      heroAvailability: "Wir sind an ausgewählten Standorten in ganz Frankreich tätig. Die Verfügbarkeit hängt von Ihrem Standort und Ihren Anforderungen ab.",
       trustCoverage: "Frankreich / 24 Städte",
       coverageTitle: "Erstklassiger Service in ganz Frankreich",
       coverageSubtitle: "Paris, Nizza, Cannes, Monaco, Lyon, Bordeaux und viele weitere Orte in ganz Frankreich.",
@@ -118,7 +122,8 @@ const COUNTRY_HOME_CONTENT: Record<CountryCode, Partial<Record<LanguageCode, Cou
       aboutBilingualDesc: "Reibungslose Kommunikation für eine vielfältige Kundschaft.",
     },
     es: {
-      heroSubtitle: "Servicios de Limpieza Eco-Lujo Pearly Sky para Hogares y Oficinas — Francia.",
+      heroSubtitle: "Pearly Sky — Limpieza eco-lujo para hogares y espacios de trabajo en Francia",
+      heroAvailability: "Atendemos determinadas zonas de Francia. La disponibilidad depende de su ubicación y de sus necesidades de servicio.",
       trustCoverage: "Francia / 24 Ciudades",
       coverageTitle: "Excelencia en el Servicio en Toda Francia",
       coverageSubtitle: "París, Niza, Cannes, Mónaco, Lyon, Burdeos y muchas más en toda Francia.",
@@ -128,7 +133,8 @@ const COUNTRY_HOME_CONTENT: Record<CountryCode, Partial<Record<LanguageCode, Cou
       aboutBilingualDesc: "Comunicación fluida para una clientela diversa.",
     },
     it: {
-      heroSubtitle: "Servizi di Pulizia Eco-Luxury Pearly Sky per Casa e Ufficio — Francia.",
+      heroSubtitle: "Pearly Sky — Pulizia eco-luxury per case e spazi di lavoro in Francia",
+      heroAvailability: "Operiamo in località selezionate in tutta la Francia. La disponibilità dipende dalla tua posizione e dalle tue esigenze di servizio.",
       trustCoverage: "Francia / 24 Città",
       coverageTitle: "Eccellenza del Servizio in Tutta la Francia",
       coverageSubtitle: "Parigi, Nizza, Cannes, Monaco, Lione, Bordeaux e molte altre in tutta la Francia.",
@@ -140,7 +146,8 @@ const COUNTRY_HOME_CONTENT: Record<CountryCode, Partial<Record<LanguageCode, Cou
   },
   gb: {
     en: {
-      heroSubtitle: "Pearly Sky Eco-Luxury Home & Office Cleaning Services — United Kingdom.",
+      heroSubtitle: "Pearly Sky — Eco-Luxury Cleaning for Homes and Workspaces in the United Kingdom",
+      heroAvailability: "Serving selected locations across the United Kingdom. Availability depends on your location and service requirements.",
       trustCoverage: "United Kingdom / 24 Cities",
       coverageTitle: "Service Excellence Throughout the United Kingdom",
       coverageSubtitle: "London, Birmingham, Glasgow, Leeds, and more across the UK.",
@@ -150,7 +157,8 @@ const COUNTRY_HOME_CONTENT: Record<CountryCode, Partial<Record<LanguageCode, Cou
       aboutBilingualDesc: "Clear, professional communication for every client across the UK.",
     },
     fr: {
-      heroSubtitle: "Services de Nettoyage Éco-Luxe Pearly Sky pour Maisons et Bureaux — Royaume-Uni.",
+      heroSubtitle: "Pearly Sky — Nettoyage éco-luxe pour maisons et espaces de travail au Royaume-Uni",
+      heroAvailability: "Nous intervenons dans une sélection de villes au Royaume-Uni. La disponibilité dépend de votre localisation et de vos besoins.",
       trustCoverage: "Royaume-Uni / 24 Villes",
       coverageTitle: "Excellence de Service Partout au Royaume-Uni",
       coverageSubtitle: "Londres, Birmingham, Glasgow, Leeds, et plus encore à travers le Royaume-Uni.",
@@ -160,7 +168,8 @@ const COUNTRY_HOME_CONTENT: Record<CountryCode, Partial<Record<LanguageCode, Cou
       aboutBilingualDesc: "Une communication claire et professionnelle pour chaque client au Royaume-Uni.",
     },
     de: {
-      heroSubtitle: "Pearly Sky Eco-Luxus-Reinigung für Haus & Büro — Vereinigtes Königreich.",
+      heroSubtitle: "Pearly Sky — Eco-Luxus-Reinigung für Wohnungen und Arbeitsräume im Vereinigten Königreich",
+      heroAvailability: "Wir sind an ausgewählten Standorten im gesamten Vereinigten Königreich tätig. Die Verfügbarkeit hängt von Ihrem Standort und Ihren Anforderungen ab.",
       trustCoverage: "UK / 24 Städte",
       coverageTitle: "Erstklassiger Service im ganzen Vereinigten Königreich",
       coverageSubtitle: "London, Birmingham, Glasgow, Leeds und viele weitere Orte im ganzen Vereinigten Königreich.",
@@ -170,7 +179,8 @@ const COUNTRY_HOME_CONTENT: Record<CountryCode, Partial<Record<LanguageCode, Cou
       aboutBilingualDesc: "Klare, professionelle Kommunikation für jeden Kunden im Vereinigten Königreich.",
     },
     es: {
-      heroSubtitle: "Servicios de Limpieza Eco-Lujo Pearly Sky para Hogares y Oficinas — Reino Unido.",
+      heroSubtitle: "Pearly Sky — Limpieza eco-lujo para hogares y espacios de trabajo en el Reino Unido",
+      heroAvailability: "Atendemos determinadas zonas del Reino Unido. La disponibilidad depende de su ubicación y de sus necesidades de servicio.",
       trustCoverage: "Reino Unido / 24 Ciudades",
       coverageTitle: "Excelencia en el Servicio en Todo el Reino Unido",
       coverageSubtitle: "Londres, Birmingham, Glasgow, Leeds y muchas más en todo el Reino Unido.",
@@ -180,7 +190,8 @@ const COUNTRY_HOME_CONTENT: Record<CountryCode, Partial<Record<LanguageCode, Cou
       aboutBilingualDesc: "Comunicación clara y profesional para cada cliente en el Reino Unido.",
     },
     it: {
-      heroSubtitle: "Servizi di Pulizia Eco-Luxury Pearly Sky per Casa e Ufficio — Regno Unito.",
+      heroSubtitle: "Pearly Sky — Pulizia eco-luxury per case e spazi di lavoro nel Regno Unito",
+      heroAvailability: "Operiamo in località selezionate in tutto il Regno Unito. La disponibilità dipende dalla tua posizione e dalle tue esigenze di servizio.",
       trustCoverage: "Regno Unito / 24 Città",
       coverageTitle: "Eccellenza del Servizio in Tutto il Regno Unito",
       coverageSubtitle: "Londra, Birmingham, Glasgow, Leeds e molte altre in tutto il Regno Unito.",
@@ -192,7 +203,8 @@ const COUNTRY_HOME_CONTENT: Record<CountryCode, Partial<Record<LanguageCode, Cou
   },
   lk: {
     en: {
-      heroSubtitle: "Pearly Sky Eco-Luxury Home & Office Cleaning Services — Sri Lanka.",
+      heroSubtitle: "Pearly Sky — Eco-Luxury Cleaning for Homes and Workspaces in Sri Lanka",
+      heroAvailability: "Serving selected locations across Sri Lanka. Availability depends on your location and service requirements.",
       trustCoverage: "Sri Lanka / 10 Cities",
       coverageTitle: "Service Excellence Throughout Sri Lanka",
       coverageSubtitle: "Colombo, Kandy, Galle, Negombo, and more across Sri Lanka.",
@@ -202,7 +214,8 @@ const COUNTRY_HOME_CONTENT: Record<CountryCode, Partial<Record<LanguageCode, Cou
       aboutBilingualDesc: "Friendly, English-speaking teams who know Sri Lanka inside and out.",
     },
     fr: {
-      heroSubtitle: "Services de Nettoyage Éco-Luxe Pearly Sky pour Maisons et Bureaux — Sri Lanka.",
+      heroSubtitle: "Pearly Sky — Nettoyage éco-luxe pour maisons et espaces de travail au Sri Lanka",
+      heroAvailability: "Nous intervenons dans une sélection de villes au Sri Lanka. La disponibilité dépend de votre localisation et de vos besoins.",
       trustCoverage: "Sri Lanka / 10 Villes",
       coverageTitle: "Excellence de Service Partout au Sri Lanka",
       coverageSubtitle: "Colombo, Kandy, Galle, Negombo, et plus encore à travers le Sri Lanka.",
@@ -212,7 +225,8 @@ const COUNTRY_HOME_CONTENT: Record<CountryCode, Partial<Record<LanguageCode, Cou
       aboutBilingualDesc: "Des équipes anglophones chaleureuses qui connaissent le Sri Lanka sur le bout des doigts.",
     },
     de: {
-      heroSubtitle: "Pearly Sky Eco-Luxus-Reinigung für Haus & Büro — Sri Lanka.",
+      heroSubtitle: "Pearly Sky — Eco-Luxus-Reinigung für Wohnungen und Arbeitsräume in Sri Lanka",
+      heroAvailability: "Wir sind an ausgewählten Standorten in ganz Sri Lanka tätig. Die Verfügbarkeit hängt von Ihrem Standort und Ihren Anforderungen ab.",
       trustCoverage: "Sri Lanka / 10 Städte",
       coverageTitle: "Erstklassiger Service in ganz Sri Lanka",
       coverageSubtitle: "Colombo, Kandy, Galle, Negombo und viele weitere Orte in ganz Sri Lanka.",
@@ -222,7 +236,8 @@ const COUNTRY_HOME_CONTENT: Record<CountryCode, Partial<Record<LanguageCode, Cou
       aboutBilingualDesc: "Freundliche, englischsprachige Teams, die Sri Lanka in- und auswendig kennen.",
     },
     es: {
-      heroSubtitle: "Servicios de Limpieza Eco-Lujo Pearly Sky para Hogares y Oficinas — Sri Lanka.",
+      heroSubtitle: "Pearly Sky — Limpieza eco-lujo para hogares y espacios de trabajo en Sri Lanka",
+      heroAvailability: "Atendemos determinadas zonas de Sri Lanka. La disponibilidad depende de su ubicación y de sus necesidades de servicio.",
       trustCoverage: "Sri Lanka / 10 Ciudades",
       coverageTitle: "Excelencia en el Servicio en Todo Sri Lanka",
       coverageSubtitle: "Colombo, Kandy, Galle, Negombo y muchas más en todo Sri Lanka.",
@@ -232,7 +247,8 @@ const COUNTRY_HOME_CONTENT: Record<CountryCode, Partial<Record<LanguageCode, Cou
       aboutBilingualDesc: "Equipos amables y de habla inglesa que conocen Sri Lanka a la perfección.",
     },
     it: {
-      heroSubtitle: "Servizi di Pulizia Eco-Luxury Pearly Sky per Casa e Ufficio — Sri Lanka.",
+      heroSubtitle: "Pearly Sky — Pulizia eco-luxury per case e spazi di lavoro in Sri Lanka",
+      heroAvailability: "Operiamo in località selezionate in tutto lo Sri Lanka. La disponibilità dipende dalla tua posizione e dalle tue esigenze di servizio.",
       trustCoverage: "Sri Lanka / 10 Città",
       coverageTitle: "Eccellenza del Servizio in Tutto lo Sri Lanka",
       coverageSubtitle: "Colombo, Kandy, Galle, Negombo e molte altre in tutto lo Sri Lanka.",

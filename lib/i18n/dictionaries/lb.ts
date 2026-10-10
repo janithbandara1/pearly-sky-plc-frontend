@@ -24,6 +24,7 @@ export const lb = {
   heroCtaThird: "ENTDECKT EIS GLOBAL ENGAGEMENT",
 
   heroSubPara: "Äre Raum verdéngt et ze glänzen. Loosst Pearly Sky de Rescht mat eisem suergfältegen, net-toxeschen an ekocertifizéierte Service maachen",
+  heroServiceTypes: "Residential · Commercial · Specialist Cleaning",
 
   heroWelcome: "WËLLKOMM BEI PEARLY SKY",
   heroWelcomeSubText: "Öko-Luxus Botzen, op Iech zougepasst",

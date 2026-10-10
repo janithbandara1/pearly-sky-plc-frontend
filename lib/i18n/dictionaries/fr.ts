@@ -18,7 +18,7 @@ export const fr = {
   navServicesComingSoon: "Bientôt disponible",
   navMenu: "Menu",
 
-  heroCtaThird: "DÉCOUVRIR NOTRE ENGAGEMENT MONDIAL",
+  heroCtaThird: "DEMANDER UN DEVIS",
 
 servicesCategoryResidentialCleaning:" 🏠 SERVICES DE NETTOYAGE RÉSIDENTIEL",
 servicesCategoryPremiumAddOns:" ➕ SERVICES SUPPLÉMENTAIRES PREMIUM",
@@ -600,9 +600,10 @@ serviceLuxuryYachtCleaningTitleFiveFeatureTwo: "Turnover complet du linge, assai
 
 // Hero
   heroTitle: "PEARLY SKY",
-  heroCtaSecondary: "VOIR NOS SERVICES",
+  heroCtaSecondary: "RÉSERVER EN LIGNE",
 
-  heroSubPara: "Votre espace mérite de briller. Laissez Pearly Sky s'occuper du reste grâce à notre service méticuleux, non toxique et éco-certifié.",
+  heroSubPara: "Un nettoyage attentif et professionnel pour les maisons et les espaces de travail. Profitez d'un soin méticuleux, d'une communication claire et d'un service adapté à votre espace.",
+  heroServiceTypes: "Nettoyage résidentiel · commercial · spécialisé",
 
   heroWelcome: "BIENVENUE CHEZ PEARLY SKY",
   heroWelcomeSubText: "Nettoyage éco-luxe, sur mesure",

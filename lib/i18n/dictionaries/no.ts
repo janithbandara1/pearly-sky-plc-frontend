@@ -24,6 +24,7 @@ export const no = {
   heroCtaThird: "UTFORSK VÅRT GLOBALE ENGASJEMENT",
 
   heroSubPara: "Ditt rom fortjener å skinne. La Pearly Sky ta seg av resten med vår omhyggelige, giftfrie, øko-sertifiserte service",
+  heroServiceTypes: "Residential · Commercial · Specialist Cleaning",
 
   heroWelcome: "VELKOMMEN TIL PEARLY SKY",
   heroWelcomeSubText: "Øko-luksusrengjøring, skreddersydd for deg",

@@ -24,6 +24,7 @@ export const fi = {
   heroCtaThird: "TUTUSTU GLOBAALIIN SITOUMUKSEEMME",
 
   heroSubPara: "Tilasi ansaitsee loistaa. Anna Pearly Skyn hoitaa loput huolellisella, myrkyttömällä ja eko-sertifioidulla palvelullamme",
+  heroServiceTypes: "Residential · Commercial · Specialist Cleaning",
 
   heroWelcome: "TERVETULOA PEARLY SKYHIN",
   heroWelcomeSubText: "Eko-ylellinen siivous, räätälöity juuri sinulle",

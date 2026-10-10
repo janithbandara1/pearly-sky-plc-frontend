@@ -20,10 +20,11 @@ export const it = {
 
   // Hero
   heroTitle: "Spazi puri. Vivere elevato.",
-  heroCtaSecondary: "RICHIEDI IL SERVIZIO ORA",
-  heroCtaThird: "ESPLORA IL NOSTRO IMPEGNO GLOBALE",
+  heroCtaSecondary: "PRENOTA ONLINE",
+  heroCtaThird: "RICHIEDI UN PREVENTIVO",
 
-  heroSubPara: "Il tuo spazio merita di brillare. Lascia che Pearly Sky si occupi del resto con il nostro servizio meticoloso, non tossico ed eco-certificato",
+  heroSubPara: "Pulizia attenta e professionale per case e spazi di lavoro. Approfitta di una cura meticolosa, di una comunicazione chiara e di un servizio su misura per il tuo spazio.",
+  heroServiceTypes: "Pulizia residenziale · commerciale · specialistica",
 
   heroWelcome: "BENVENUTI IN PEARLY SKY",
   heroWelcomeSubText: "Pulizia eco-luxury, su misura per te",
