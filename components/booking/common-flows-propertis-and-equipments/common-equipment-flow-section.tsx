@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "@/components/locale-link";
-import { User, Briefcase, KeyRound, ArrowRight, Folder } from "lucide-react";
+import { User, Briefcase, KeyRound, ArrowRight, Folder, Ruler, Clock, Users, CalendarClock } from "lucide-react";
 import type { CatalogItem, SizeQuote } from "@/lib/catalog-api";
 import { calculateEquipmentItemPrice, EQUIPMENT_ITEM_SKU, EQUIPMENT_MAX_QTY } from "@/lib/equipment-pricing";
 import { useCurrency } from "@/lib/currency-context";
@@ -245,7 +245,8 @@ export function EquipmentSectionOfCommonServicesSlugs({
         <div className="grid grid-cols-2 gap-y-4 gap-x-6 px-5  py-3 sm:px-7 sm:grid-cols-4 mt-4 mb-6">
           {/* Item 1: PROPERTY SCALE */}
           <div className="flex flex-col">
-            <span className="text-[10px] font-bold uppercase tracking-[0.16em] text-gray-300">
+            <span className="flex items-center gap-1.5 text-[10px] font-bold uppercase tracking-[0.16em] text-gray-300">
+              <Ruler aria-hidden="true" className="h-3.5 w-3.5 shrink-0 text-brand-gold" />
               {translate("equipPropertyScale")}
             </span>
             <span className="font-serif text-[17px] md:text-[26px] font-normal text-white text-shadow
@@ -256,7 +257,8 @@ export function EquipmentSectionOfCommonServicesSlugs({
 
           {/* Item 2: TOTAL DURATION */}
           <div className="flex flex-col">
-            <span className="text-[10px] font-bold uppercase tracking-[0.16em] text-gray-300">
+            <span className="flex items-center gap-1.5 text-[10px] font-bold uppercase tracking-[0.16em] text-gray-300">
+              <Clock aria-hidden="true" className="h-3.5 w-3.5 shrink-0 text-brand-gold" />
               {translate("totalDuration")}
             </span>
             <span className="font-serif text-[17px] md:text-[26px] font-normal text-white text-shadow leading-tight mt-1">
@@ -266,7 +268,8 @@ export function EquipmentSectionOfCommonServicesSlugs({
 
           {/* Item 3: ALLOCATED STAFF */}
           <div className="flex flex-col">
-            <span className="text-[10px] font-bold uppercase tracking-[0.16em] text-gray-300">
+            <span className="flex items-center gap-1.5 text-[10px] font-bold uppercase tracking-[0.16em] text-gray-300">
+              <Users aria-hidden="true" className="h-3.5 w-3.5 shrink-0 text-brand-gold" />
               {translate("allocatedStaff")}
             </span>
             <div className="flex items-baseline mt-1">
@@ -282,7 +285,8 @@ export function EquipmentSectionOfCommonServicesSlugs({
 
           {/* Item 4: ON-SITE WINDOW */}
           <div className="flex flex-col">
-            <span className="text-[10px] font-bold uppercase tracking-[0.16em] text-gray-300">
+            <span className="flex items-center gap-1.5 text-[10px] font-bold uppercase tracking-[0.16em] text-gray-300">
+              <CalendarClock aria-hidden="true" className="h-3.5 w-3.5 shrink-0 text-brand-gold" />
               {translate("onSiteWindow")}
             </span>
             <span className="font-serif text-[22px] sm:text-[26px] font-normal text-white text-shadow leading-tight mt-1">
