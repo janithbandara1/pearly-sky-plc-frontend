@@ -2026,18 +2026,18 @@ export function EstimatioMatrixBottom({
   const { translate } = useLanguage();
 
   return (
-    <div className="grid grid-cols-2 items-center py-4 px-1 align-items-center bg-[#132238]/90 border border-blue-500/20 rounded-xl gap-2 sm:gap-6 pt-2 mt-4 border-t w-full text-center">
+    <div className="grid grid-cols-3 items-center py-4 px-1 align-items-center bg-[#132238]/90 border border-blue-500/20 rounded-xl gap-2 sm:gap-6 pt-2 mt-4 border-t w-full text-center">
       <div className="">
         <p className="text-xs text-gray-400 font-medium mb-1">{translate("EstimatedCost")}</p>
-        <p className="text-base sm:text-xl font-bold text-[#38BDF8]">
+        <p className=" text-[10px] md:text-2xl font-bold text-[#38BDF8]">
           {surfaceMatrixes.costOFEstimation}
         </p>
       </div>
 
       <div>
-        <p className="text-xs text-gray-400 font-medium mb-1">{translate("serviceTargetArea")}</p>
+        <p className="text-[10px] md:text-xs text-gray-400 font-medium mb-1">{translate("serviceTargetArea")}</p>
         {activeCategory && (
-          <p className="text-sm text-gray-200 font-medium mb-1">
+          <p className="text-[12px]  md:text-base text-gray-200 font-medium mb-1">
             {CATEGORY_LABEL_KEYS[activeCategory.label]
               ? translate(CATEGORY_LABEL_KEYS[activeCategory.label] as TranslationKey)
               : activeCategory.label.startsWith("prop") || activeCategory.label.startsWith("yacht") || activeCategory.label.startsWith("sec")
@@ -2045,7 +2045,7 @@ export function EstimatioMatrixBottom({
                 : translate(activeCategory.label as TranslationKey)}
           </p>
         )}
-        <p className="text-base sm:text-xl font-bold text-white">
+        <p className="text-[11px] md:text-[16px]  font-bold text-white">
           {surfaceMatrixes.serviceTargetArea}
         </p>
         {isSanitizeService && (
@@ -2058,6 +2058,10 @@ export function EstimatioMatrixBottom({
             Yatch Service
           </p>
         )}
+      </div>
+      <div>
+        <p className="text-[12px] md:text-xl text-gray-400 font-medium mb-0.5">{translate("EstLabor")}</p>
+        <p className="text-[10px] md:text-xl font-bold text-white">{labourData}</p>
       </div>
     </div>
   );
@@ -2294,9 +2298,9 @@ function YatchSizeVisualization({
         </div>
         <div>
           <div>
-          <p className="text-[11px] sm:text-xs text-gray-400 font-medium mb-0.5">{translate("EstLabor")}</p>
-          <p className="text-[10px] sm:text-lg font-bold text-white">{labor}</p>
-        </div>
+            <p className="text-[11px] sm:text-xs text-gray-400 font-medium mb-0.5">{translate("EstLabor")}</p>
+            <p className="text-[10px] sm:text-lg font-bold text-white">{labor}</p>
+          </div>
         </div>
       </div>
     </div>

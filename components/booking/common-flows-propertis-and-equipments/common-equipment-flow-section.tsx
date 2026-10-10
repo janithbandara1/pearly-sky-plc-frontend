@@ -302,18 +302,20 @@ export function EquipmentSectionOfCommonServicesSlugs({
                 {translate("BaselineAppointment")}
               </p>
             </div>
-            <div className="flex flex-col md:items-start items-center sm:items-end justify-center shrink-0">
-              <span className="font-serif text-[16px] md:text-[25px] font-normal text-white leading-tight tracking-tight">
+            <div className="flex flex-row gap-1 md:items-start items-center sm:items-end justify-center shrink-0">
+              <span className="font-serif text-[13px] md:text-[25px] font-normal text-white leading-tight tracking-tight">
                 {money(hasPrice ? quote!.priceMin : 67.5)}
               </span>
-              <span className="text-[12px] text-gray-400 font-normal mt-0.5">
+              <span className="text-[13px] my-[2px] text-gray-400 font-normal mt-0.5">
                 -
               </span>
-              <span className="font-serif text-[16px] md:text-[25px] font-normal text-white leading-tight tracking-tight">
+              <span className="font-serif text-[13px] md:text-[25px] font-normal text-white leading-tight tracking-tight">
                 {money(hasPrice ? quote!.priceMax : 135.0)}
               </span>
             </div>
+           
           </div>
+          
         </div>
 
         {/* Top Toggle Switch: BY CLIENT vs BY COMPANY */}

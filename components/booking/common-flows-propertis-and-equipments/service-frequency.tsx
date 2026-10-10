@@ -1,7 +1,7 @@
 "tsx"
 "use client";
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Home,
   Sparkles,
@@ -308,21 +308,24 @@ export default function ServiceFrequencySelector({
   selectedServiceSlug = "regular-home-cleaning",
   onSelectionChange,
 }: ServiceFrequencySelectorProps) {
-  const [activeServiceSlug, setActiveServiceSlug] = useState<string>(selectedServiceSlug);
+  const [activeServiceSlug, setActiveServiceSlug] = useState<string | "">(selectedServiceSlug);
   const [selectedFrequencies, setSelectedFrequencies] = useState<Record<string, string>>({
     [selectedServiceSlug]: cleaningServices.find((s) => s.slug === selectedServiceSlug)?.frequencies[0]?.id || "",
   });
+
+ 
 
   // Find current active service object
   const currentService =
     cleaningServices.find((s) => s.slug === activeServiceSlug) || cleaningServices[0];
 
-  const currentFrequencyId = selectedFrequencies[activeServiceSlug] || currentService.frequencies[0]?.id;
+  const currentFrequencyId = selectedFrequencies[activeServiceSlug] || "";
 
-  
+  // Toggle selection logic: unselect if already active
   const handleFrequencySelect = (freqId: string) => {
-    setSelectedFrequencies((prev) => ({ ...prev, [activeServiceSlug]: freqId }));
-    if (onSelectionChange) onSelectionChange(activeServiceSlug, freqId);
+    const nextFreqId = currentFrequencyId === freqId ? "" : freqId;
+    setSelectedFrequencies((prev) => ({ ...prev, [activeServiceSlug]: nextFreqId }));
+    if (onSelectionChange) onSelectionChange(activeServiceSlug, nextFreqId);
   };
 
   const {translate}=useLanguage();
