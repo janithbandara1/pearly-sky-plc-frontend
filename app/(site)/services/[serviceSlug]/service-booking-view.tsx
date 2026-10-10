@@ -25,7 +25,7 @@ import { ServiceHighlights } from "@/components/booking/service-highlights";
 import { PageHero } from "@/components/page-hero";
 import { SERVICE_CONTENT } from "@/lib/content/service-details";
 import { ApiError } from "@/lib/auth-context";
-import { saveBookingDraft } from "@/lib/booking-draft";
+import { saveBookingDraft, ServicePropertyCategoriesEnums } from "@/lib/booking-draft";
 import { calculateEquipmentItemPrice, EQUIPMENT_MAX_QTY } from "@/lib/equipment-pricing";
 import { applyDeepCleanToQuote, applyDeepCleanToRate } from "@/lib/deep-clean";
 import {
@@ -49,7 +49,7 @@ import { PoolScheduleSection } from "@/components/booking/pool/pool-schedule-sec
 import { PressureWashingScheduleSection } from "@/components/booking/pressure-washing/pressure-washing-schedule-section";
 import { YachtScheduleSection } from "@/components/booking/yacht/yacht-schedule-section";
 import { getPropertyCategoriesForServiceOfSanitize, PropertyTypeSizeSelectorCommonFlowOfServices }
-  from "@/components/booking/common-flows-propertis-and-equipments/sanitize-property-types";
+  from "@/components/booking/common-flows-propertis-and-equipments/common-property-types";
 import { roomCountsToList, type RoomCounts } from "@/components/booking/room-components-counter";
 import { EquipmentSectionOfCommonServicesSlugs } from "@/components/booking/common-flows-propertis-and-equipments/common-equipment-flow-section";
 
@@ -282,7 +282,8 @@ export function ServiceBookingView({
   const [quoteLoading, setQuoteLoading] = useState(false);
   const [deepClean, setDeepClean] = useState(false); 
   const [disinfection, setDisinfection] = useState(false);
-  const [serviceCategory, setServiceCategory] = useState<string | null>("residential");
+  const [serviceCategory, setServiceCategory] = 
+  useState<ServicePropertyCategoriesEnums[keyof ServicePropertyCategoriesEnums] | string>("residential");
   const [rooms, setRooms] = useState<RoomCounts>({});
 
   const [selectedPackageIds, setSelectedPackageIds] = useState<Set<number>>(new Set());
@@ -533,7 +534,7 @@ export function ServiceBookingView({
         : undefined,
       deepClean: appliedDeepClean || undefined,
       disinfection: (isCommonPropertyTypeServices && disinfection) || undefined,
-      serviceCategory: isCommonPropertyTypeServices ? serviceCategory : undefined,
+      serviceCategory: isCommonPropertyTypeServices ? (serviceCategory ?? undefined) : undefined,
       rooms: isCommonPropertyTypeWithRoomComponents(serviceSlug) && roomCountsToList(rooms).length > 0
         ? roomCountsToList(rooms)
         : undefined,
@@ -707,9 +708,9 @@ export function ServiceBookingView({
               </div>
             )}
 
-            {isSecurityCategory && (
+            {/* {isSecurityCategory && (
               <SecurityCategorySelection selected={selectedCategory} onSelect={setSelectedCategory} />
-            )}
+            )} */}
 
             {!isSanitization && serviceSlug !== YACHT_SLUG && !isSteam && !isEvent && !isCategoryQuote &&(
               <JobCardSection

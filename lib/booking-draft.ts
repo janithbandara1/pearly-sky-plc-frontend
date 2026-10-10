@@ -27,6 +27,18 @@ export interface CareProfileDraft {
   documentData?: string;
   behavioralNotes?: string;
 }
+/**current properties categories of services*/
+export interface ServicePropertyCategoriesEnums{
+  residential: "residential";
+  industrial: "industrial";
+  yatchCleaning: "yatch-cleaning";
+  passengerShipCleaning: "passenger-ship-cleaning";
+  privateSocialEvents: "private-social-events";
+  vipCoporateEvents: "vip-coporate-events";
+  commercialCleaning: "commercial-cleaning";
+  officeCleaning: "office-cleaning";
+  securityResidential: "security-residential";
+}
 
 export interface BookingDraft {
   serviceId: number;
@@ -52,7 +64,7 @@ export interface BookingDraft {
   /** steam-cleaning / healthguard-sanitization / post-construction only — hospital-grade disinfection, no surcharge. */
   disinfection?: boolean;
   /** steam-cleaning / healthguard-sanitization / post-construction only — Residential / Industrial switch. */
-  serviceCategory?: "residential" | "industrial";
+  serviceCategory?: ServicePropertyCategoriesEnums[keyof ServicePropertyCategoriesEnums] | string;
   /**
    * Room-component services only (regular-home / quick-touch-up / deep / end-of-tenancy /
    * same-day-priority / premium-rental-concierge cleaning) — `key` is a RoomKey

@@ -2278,7 +2278,112 @@ serviceLuxuryYachtCleaningTitleFiveFeatureTwo:"Complete linen turnover, sanitati
   hazmat_biohazard: "Hazmat & Biohazard",
   incident_restoration: "Incident Restoration",
   event_rapid_cleaning: "Event Rapid Cleaning",
-  executive_facility_care: "Executive Facility Care"
+  executive_facility_care: "Executive Facility Care",
+
+  //property categories
+    yachtCleaning: "Yacht Cleaning",
+    passengerShipCleaning: "Passenger Ship Cleaning",
+    privateSocialEvents: "Private & Social Events",
+    vipCorporateEvents: "VIP & Corporate Events",
+    commercialCleaning: "Commercial Cleaning",
+    officeCleaning: "Office Cleaning",
+    securityResidential: "Security & Residential",
+    securityOffice: "Commercial & Office",
+
+    //
+    freqOneTimeName: "One-Time",
+    freqWeeklyName: "Weekly",
+    freqBiWeeklyName: "Bi-Weekly",
+    freqMonthlyName: "Monthly",
+    freqWeekendName: "Weekend",
+    freqProDisinfectionName: "Professional Disinfection",
+    freqCharterTurnaroundName: "Charter Turnaround",
+    freqSameDayName: "Same-Day",
+    freqPrivateEventName: "Private Event",
+    
+
+    freqWeeklySubtitle: "Continuous sterile",
+    freqOneTimeSubtitle: "Hospital-grade",
+    freqBiWeeklySubtitle: "Bi-weekly shield",
+    freqMonthlySubtitle: "Monthly protection",
+    freqWeekendSubtitle: "Weekend disinfection",
+    freqProDisinfectionSubtitle: "Bio-hazard standard",
+
+    freqStandardCleanSubtitle: "Standard clean",
+    freqWeeklyPopularSubtitle: "Most popular save 20%",
+    freqRegularUpkeepSubtitle: "Regular upkeep",
+    freqLightMaintenanceSubtitle: "Light maintenance",
+
+    freqQuickRefreshSubtitle: "Quick refresh",
+    freqRegularTouchUpSubtitle: "Regular touch-up",
+    freqBiWeeklyUpkeepSubtitle: "Bi-weekly upkeep",
+    freqMonthlyLightPassSubtitle: "Monthly light pass",
+
+    freqIntensiveSubtitle: "Intensive",
+    freqDeepMaintenanceSubtitle: "Deep maintenance",
+    freqThoroughUpkeepSubtitle: "Thorough upkeep",
+    freqDeepPeriodicCleanSubtitle: "Deep periodic clean",
+
+    freqStandardCleanupSubtitle: "Standard cleanup",
+    
+    freqSameDaySubtitle: "Immediate post-party",
+    
+    freqPrivateEventSubtitle: "Residential gathering",
+    freqCorporateEventName: "Corporate Event",
+    freqCorporateEventSubtitle: "Large venue sweep",
+
+    freqMarineDetailingSubtitle: "Marine detailing",
+    freqPortMaintenanceSubtitle: "Port maintenance",
+    freqMonthlyDeckCareSubtitle: "Monthly deck care",
+    freqPreCruisePolishSubtitle: "Pre-cruise polish",
+    freqCharterTurnaroundSubtitle: "Fast yacht turn",
+
+    freqIntenseSanitizeSubtitle: "Intense sanitize",
+    freqRegularSteamCareSubtitle: "Regular steam care",
+    freqBiWeeklyRefreshSubtitle: "Bi-weekly refresh",
+    freqMonthlyDeepSteamSubtitle: "Monthly deep steam",
+
+    //
+    freqConstructionName: "Construction",
+    freqConstructionSubtitle: "Heavy dust & debris",
+    freqRenovationName: "Renovation",
+    freqRenovationSubtitle: "Post-remodel refresh",
+    freqBuildersName: "Builders'",
+    freqBuildersSubtitle: "Initial builder clean",
+    freqFinalHandoverName: "Final Handover",
+    freqFinalHandoverSubtitle: "Pristine sparkle",
+    freqImmediateDispatchSubtitle: "Immediate dispatch",
+    freqEmergencyName: "Emergency",
+    freqUrgentResponseSubtitle: "Urgent response",
+    freqPriorityName: "Priority",
+    freqFrontOfQueueSubtitle: "Front of queue",
+    freqWeekendPrioritySubtitle: "Weekend priority",
+    freqSecureClearanceSubtitle: "Secure clearance",
+    freqVettedWeeklyCareSubtitle: "Vetted weekly care",
+    freqScheduledSecureSubtitle: "Scheduled secure",
+    freqMonthlyAuditCheckSubtitle: "Monthly audit check",
+    freqWeekendClearanceSubtitle: "Weekend clearance",
+    freqDiscreetName: "Discreet",
+    freqDiscreetSubtitle: "Unmarked operatives",
+    freqSingleTurnSubtitle: "Single turn",
+    freqMultiTurnPackageSubtitle: "Multi-turn package",
+    freqBiWeeklyChecksSubtitle: "Bi-weekly checks",
+    freqMonthlyOverviewSubtitle: "Monthly overview",
+    freqPeakWeekendTurnSubtitle: "Peak weekend turn",
+    freqGuestTurnoverName: "Guest Turnover",
+    freqGuestTurnoverSubtitle: "Instant Airbnb turn",
+    freqOfficeDeepRefreshSubtitle: "Office deep refresh",
+    freqWeeklyCorporateSubtitle: "Weekly corporate",
+    freqBiWeeklyMaintenanceSubtitle: "Bi-weekly maintenance",
+    freqMonthlyDeepCleanSubtitle: "Monthly deep clean",
+
+    freqMoveInName: "Move-In",
+    freqMoveInSubtitle: "Pre-occupancy clean",
+    freqMoveOutName: "Move-Out",
+    freqMoveOutSubtitle: "Deposit back guarantee",
+    freqPropertyHandoverName: "Property Handover",
+    freqPropertyHandoverSubtitle: "Landlord standard",
+    
 
 } as const;
 

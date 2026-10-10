@@ -11,6 +11,7 @@ import RoomSelector, { type RoomCounts } from "../room-components-counter";
 import { isCommonPropertyTypeWithRoomComponents } from "@/lib/service-flows";
 import { getPropertyCategoriesForService } from "../property-type-size-selector";
 import ServiceFrequencySelector from "./service-frequency";
+import { ServicePropertyCategoriesEnums } from "@/lib/booking-draft";
 
 export const CATEGORY_LABEL_KEYS: Record<string, TranslationKey> = {
   "Studio": "propStudio",
@@ -903,18 +904,28 @@ export const DEFAULT_CATEGORY_TABS: [ServiceCategoryTab, ServiceCategoryTab] = [
   },
 ];
 
+/*yachtCleaning
+passengerShipCleaning
+privateSocialEvents
+vipCorporateEvents
+commercialCleaning
+officeCleaning
+securityResidential
+securityOffice
+*/
+
 export const SERVICE_CATEGORY_TABS_MAP: Record<string, [ServiceCategoryTab, ServiceCategoryTab]> = {
   "healthguard-sanitization": DEFAULT_CATEGORY_TABS,
   "luxury-yacht-cleaning": [
     {
       id: "yatch-cleaning",
-      label: "Yacht Cleaning",
+      label: "yachtCleaning",
       icon: "🛥️",
       categories: YACHT_CLEANING_CATEGORIES,
     },
     {
       id: "passenger-ship-cleaning",
-      label: "Passenger Ship Cleaning",
+      label: "passengerShipCleaning",
       icon: "🛳️",
       categories: PASSENGER_SHIP_CLEANING_CATEGORIES,
     },
@@ -922,13 +933,13 @@ export const SERVICE_CATEGORY_TABS_MAP: Record<string, [ServiceCategoryTab, Serv
   "post-event-cleaning": [
     {
       id: "private-social-events",
-      label: "Private & Social Events",
+      label: "privateSocialEvents",
       icon: "🎉",
       categories: PRIVATE_SOCIAL_EVENTS,
     },
     {
       id: "vip-coporate-events",
-      label: "VIP & Corporate Events",
+      label: "vipCorporateEvents",
       icon: "🌟",
       categories: VIP_AND_COPORATE_EVENTS,
     },
@@ -936,13 +947,13 @@ export const SERVICE_CATEGORY_TABS_MAP: Record<string, [ServiceCategoryTab, Serv
   "commercial-office-cleaning": [
     {
       id: "commercial-cleaning",
-      label: "Commercial Cleaning",
+      label: "commercialCleaning",
       icon: "🏢",
       categories: COMMERCIAL_AND_OFFICE_CLEANING_CATEGORIES,
     },
     {
       id: "office-cleaning",
-      label: "Office Cleaning",
+      label: "officeCleaning",
       icon: "💼",
       categories: OFFICE_CLEANING_CATEGORIES,
     },
@@ -950,13 +961,13 @@ export const SERVICE_CATEGORY_TABS_MAP: Record<string, [ServiceCategoryTab, Serv
   "high-security-property-care": [
     {
       id: "security-residential",
-      label: "Residential",
+      label: "propCatResidential",
       icon: "🛡️",
       categories: HIGH_SECURITY_RESIDENTIAL_CATEGORIES,
     },
     {
       id: "security-office-cleaning",
-      label: "Commercial & Office",
+      label: "securityOffice",
       icon: "🏢",
       categories: HIGH_SECURITY_COMMERCIAL_CATEGORIES,
     },
@@ -1214,6 +1225,8 @@ export let surfaceMatrixes: SurfaceBottomMatrix = {
   serviceTargetArea: "",
 };
 
+let labourData:string;
+
 export function SanitizeSizeVisualization({
   value,
   activeCategory,
@@ -1256,6 +1269,7 @@ export function SanitizeSizeVisualization({
     ? `${range(String(quote!.minHours), String(quote!.maxHours))}h (${quote!.cleanerCount ?? 1} ${translate("CrewWord")})`
     : "—";
 
+  labourData = labor;
   surfaceMatrixes.costOFEstimation = estimatedCost;
   surfaceMatrixes.serviceTargetArea = value + " m² • " + formatFt2(value) + " ft²";
 
@@ -1489,8 +1503,8 @@ export interface PropertyTypeSizeSelectorProps {
   onDisinfectionChange?: (selected: boolean) => void;
   deepClean?: boolean;
   onDeepCleanChange?: (selected: boolean) => void;
-  onServiceCategoryChange?: (category: "residential" | "industrial" | string) => void;
-  quote?: SizeQuote | null;
+  onServiceCategoryChange?: (category: ServicePropertyCategoriesEnums[keyof ServicePropertyCategoriesEnums] | string) => void;
+  quote?: SizeQuote | null; 
   /** Room-component services only (regular/touch-up/deep/end-of-tenancy/same-day/premium-rental). */
   rooms?: RoomCounts;
   onRoomsChange?: (rooms: RoomCounts) => void;
@@ -1726,19 +1740,19 @@ export function PropertyTypeSizeSelectorCommonFlowOfServices({
         />
       )}
 
-      <div className="rounded-b-2xl py-4 border border-[#C6A868] bg-brand-navy pb-5 sm:pb-6 px-5 sm:px-6 shadow-sm w-full">
+      <div className={` ${abortVisualization ? "rounded-2xl":"rounded-b-2xl"}  py-4 border border-[#C6A868] bg-brand-navy pb-5 sm:pb-6 px-5 sm:px-6 shadow-sm w-full`}>
         {!ROOM_COMPONENTS_SERVICES && (
           <div className="w-full">
             <h2 className="text-base sm:text-lg font-bold text-gray-300 mb-3">{translate("propServiceCatagory")}</h2>
             <div className="w-full p-1 flex justify-between items-center mb-6 bg-white/5 backdrop-blur-md rounded-[27px]">
               {categoryTabs.map((tab) => {
                 const isActive = isActiveCategorySwitch === tab.id;
-                const tabLabel = tab.translationKey ? translate(tab.translationKey) : tab.label;
+                const tabLabel = tab.translationKey ? translate(tab.translationKey) : translate(tab.label as TranslationKey);
                 return (
                   <button
                     key={tab.id}
                     type="button"
-                    className={`md:w-[49.5%] w-[48%] py-3 sm:py-4 px-3 rounded-4xl transition-colors ${isActive ? "bg-blue-500 border-[#C6A868]/60" : "bg-transparent"
+                    className={`md:w-[49.5%]  w-[48%] py-3 sm:py-4 px-3 rounded-4xl transition-colors ${isActive ? "bg-blue-500 border-[#C6A868]/60" : "bg-transparent"
                       } cursor-pointer text-[13px] md:text-[15px] text-white font-bold flex items-center justify-center gap-1.5`}
                     onClick={() => handleCategorySwitch(tab.id)}
                   >
@@ -1753,10 +1767,15 @@ export function PropertyTypeSizeSelectorCommonFlowOfServices({
         <div className="grid grid-cols-1 gap-6 items-start h-full">
           {/* Left Column: Property Type */}
           <div className="flex flex-col min-w-0">
-            <h3 className="text-base sm:text-lg font-bold text-gray-300 mb-3">
-              {translate("propTypeTitle")}
-            </h3>
-
+            <div className="flex justify-between">
+              <h3 className="text-base sm:text-lg font-bold text-gray-300 mb-3">
+                {translate("propTypeTitle")}
+              </h3>
+              <p className="text-[11px] text-[#94A3B8] text-center mt-1.5 font-medium tracking-wide select-none">
+                {translate("propTypeSwipe")}
+              </p>
+            </div>
+          
             <div
               className="flex flex-nowrap gap-3 overflow-x-auto overflow-y-hidden -mx-1 px-1 [&>*:first-child]:ml-auto [&>*:last-child]:mr-auto [&::-webkit-scrollbar]:hidden"
               style={{ scrollbarWidth: "none", scrollSnapType: "x proximity" }}
@@ -1790,7 +1809,9 @@ export function PropertyTypeSizeSelectorCommonFlowOfServices({
                   </button>
                 );
               })}
+              
             </div>
+            
 
             {/* Property Size Selector */}
             <div className="flex flex-col w-full mt-8">
@@ -1903,13 +1924,11 @@ export function PropertyTypeSizeSelectorCommonFlowOfServices({
               </div>
             </div>
 
-            <p className="text-[11px] text-[#94A3B8] text-center mt-1.5 font-medium tracking-wide select-none">
-              {translate("propTypeSwipe")}
-            </p>
+            
           </div>
 
           {/* Disinfection & Deep Clean Selectable Cards */}
-          {!ROOM_COMPONENTS_SERVICES && (
+          {isSanitizeService && !ROOM_COMPONENTS_SERVICES && (
             <div className="grid grid-cols-2 gap-3 items-center mt-4 h-full w-full">
               {/* Disinfection Card */}
               <button
@@ -1983,10 +2002,12 @@ export function PropertyTypeSizeSelectorCommonFlowOfServices({
             />
           )}
 
-          <EstimatioMatrixBottom
-            activeCategory={activeCategory || null}
+          {!abortVisualization &&  (
+            <EstimatioMatrixBottom
+            activeCategory={activeCategory || null} 
             isSanitizeService={isSanitizeService}
-          />
+            isYatch={isYachtSlug}
+          />)}
         </div>
       </div>
     </section>
@@ -1995,10 +2016,12 @@ export function PropertyTypeSizeSelectorCommonFlowOfServices({
 
 export function EstimatioMatrixBottom({
   activeCategory,
-  isSanitizeService
+  isSanitizeService,
+  isYatch
 }: {
   activeCategory: PropertyCategory | null,
   isSanitizeService?: boolean
+  isYatch?:boolean
 }) {
   const { translate } = useLanguage();
 
@@ -2019,7 +2042,7 @@ export function EstimatioMatrixBottom({
               ? translate(CATEGORY_LABEL_KEYS[activeCategory.label] as TranslationKey)
               : activeCategory.label.startsWith("prop") || activeCategory.label.startsWith("yacht") || activeCategory.label.startsWith("sec")
                 ? translate(activeCategory.label as TranslationKey)
-                : activeCategory.label}
+                : translate(activeCategory.label as TranslationKey)}
           </p>
         )}
         <p className="text-base sm:text-xl font-bold text-white">
@@ -2028,6 +2051,11 @@ export function EstimatioMatrixBottom({
         {isSanitizeService && (
           <p className="text-[10px] md:text-[14px] font-medium text-green-400">
             Included Full santization
+          </p>
+        )}
+        {isYatch && (
+          <p className="text-[10px] md:text-[14px] font-medium text-green-400">
+            Yatch Service
           </p>
         )}
       </div>
@@ -2058,6 +2086,17 @@ function YatchSizeVisualization({
   const hasPrice = !!quote?.bookable && quote.priceMin != null && quote.priceMax != null;
   const estimatedCost = hasPrice ? range(`${symbol}${quote!.priceMin!.toFixed(2)}`, `${symbol}${quote!.priceMax!.toFixed(2)}`) : "—";
   const serviceRate = hasPrice && value > 0 ? `${range(`${symbol}${(quote!.priceMin! / value).toFixed(2)}`, `${symbol}${(quote!.priceMax! / value).toFixed(2)}`)}/m²` : "—";
+
+  const hasHours = !!quote?.bookable && quote.minHours != null && quote.maxHours != null;
+  
+  
+  const labor = hasHours
+    ? `${range(String(quote!.minHours), String(quote!.maxHours))}h (${quote!.cleanerCount ?? 1} ${translate("CrewWord")})`
+    : "—";
+
+  labourData = labor
+
+  surfaceMatrixes.costOFEstimation = estimatedCost
 
   return (
     <div
@@ -2254,8 +2293,10 @@ function YatchSizeVisualization({
           <p className="text-xs sm:text-base font-bold text-white">{serviceRate}</p>
         </div>
         <div>
-          <p className="text-[11px] text-gray-400 font-medium mb-0.5">VESSEL STATUS</p>
-          <p className="text-xs sm:text-base font-bold text-emerald-400">ONLINE // CAD-RDY</p>
+          <div>
+          <p className="text-[11px] sm:text-xs text-gray-400 font-medium mb-0.5">{translate("EstLabor")}</p>
+          <p className="text-[10px] sm:text-lg font-bold text-white">{labor}</p>
+        </div>
         </div>
       </div>
     </div>

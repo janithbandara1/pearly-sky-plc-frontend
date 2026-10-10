@@ -18,6 +18,8 @@ import {
   Check,
   StarIcon,
 } from "lucide-react";
+import { TranslationKey } from "@/lib/i18n/dictionaries/en";
+import { useLanguage } from "@/lib/i18n/language-context";
 
 // Types
 export interface FrequencyOption {
@@ -38,59 +40,59 @@ export interface ServiceOption {
 const cleaningServices: ServiceOption[] = [
   {
     slug: "regular-home-cleaning",
-    title: "Regular Home Cleaning",
+    title: "serviceLableRegularHomeCleaning",
     icon: <Home className="w-6 h-6 text-blue-400" />,
     frequencies: [
       { 
-        id: "one-time", name: "One-Time", subtitle: "Standard clean",// priceTag: "(+0%)" 
+        id: "one-time", name: "freqOneTimeName", subtitle: "freqStandardCleanSubtitle",// priceTag: "(+0%)" 
         },
       { 
-        id: "weekly", name: "Weekly", subtitle: "Most popular save 20%",// priceTag: "(-20%)" 
+        id: "weekly", name: "freqWeeklyName", subtitle: "freqWeeklyPopularSubtitle",// priceTag: "(-20%)" 
         },
       { 
-        id: "bi-weekly", name: "Bi-Weekly", subtitle: "Regular upkeep",// priceTag: "(-10%)" 
+        id: "bi-weekly", name: "freqBiWeeklyName", subtitle: "freqRegularUpkeepSubtitle",// priceTag: "(-10%)" 
         },
       { 
-        id: "monthly", name: "Monthly", subtitle: "Light maintenance",// priceTag: "(+0%)" 
+        id: "monthly", name: "freqMonthlyName", subtitle: "freqLightMaintenanceSubtitle",// priceTag: "(+0%)" 
         },
       
     ],
   },
   {
     slug: "quick-touch-up-cleaning",
-    title: "Essential Touch-Up Cleaning",
+    title: "serviceLableEssentialTouchUpCleaning",
     icon: <StarIcon className="w-6 h-6 text-purple-400" />,
-    frequencies: [
+    frequencies: [ 
        { 
-        id: "one-time", name: "One-Time", subtitle: "Quick refresh", //priceTag: "(+0%)" 
+        id: "one-time", name: "freqOneTimeName", subtitle: "freqQuickRefreshSubtitle", //priceTag: "(+0%)" 
         },
       { 
-        id: "weekly", name: "Weekly", subtitle: "Regular touch-up", //priceTag: "(-15%)" 
+        id: "weekly", name: "freqWeeklyName", subtitle: "freqRegularTouchUpSubtitle", //priceTag: "(-15%)" 
       },
       { 
-        id: "bi-weekly", name: "Bi-Weekly", subtitle: "Bi-weekly upkeep", //priceTag: "(-5%)" 
+        id: "bi-weekly", name: "freqBiWeeklyName", subtitle: "freqBiWeeklyUpkeepSubtitle", //priceTag: "(-5%)" 
       },
       { 
-        id: "monthly", name: "Monthly", subtitle: "Monthly light pass", //priceTag: "(+0%)" 
+        id: "monthly", name: "freqMonthlyName", subtitle: "freqMonthlyLightPassSubtitle", //priceTag: "(+0%)" 
       },
       
     ],
   },
   {
     slug: "deep-cleaning",
-    title: "Deep Cleaning",
+    title: "serviceLableDeepCleaning",
     icon: <CheckSquare className="w-6 h-6 text-indigo-400" />,
     frequencies: [
-      { id: "one-time", name: "One-Time", subtitle: "Intensive", 
+      { id: "one-time", name: "freqOneTimeName", subtitle : "freqIntensiveSubtitle", 
         //priceTag: "(+40%)"
-         },
-      { id: "weekly", name: "Weekly", subtitle: "Deep maintenance", 
+         }, 
+      { id: "weekly", name: "freqWeeklyName", subtitle: "freqDeepMaintenanceSubtitle", 
         //priceTag: "(+25%)"
          },
-      { id: "bi-weekly", name: "Bi-Weekly", subtitle: "Thorough upkeep", 
+      { id: "bi-weekly", name: "freqBiWeeklyName", subtitle: "freqThoroughUpkeepSubtitle", 
         //priceTag: "(+30%)"
          },
-      { id: "monthly", name: "Monthly", subtitle: "Deep periodic clean", 
+      { id: "monthly", name: "freqMonthlyName", subtitle:"freqDeepPeriodicCleanSubtitle", 
         //priceTag: "(+35%)"
          },
      
@@ -98,198 +100,199 @@ const cleaningServices: ServiceOption[] = [
   },
   {
     slug: "end-of-tenancy-cleaning",
-    title: "End of Tenancy Cleaning",
-    icon: <Key className="w-6 h-6 text-amber-400" />,
+    title: "serviceLableEndOfTenancyCleaning",
+    icon: <Key className="w-6 h-6 text-amber-400" />, 
     frequencies: [
-      { id: "move-in", name: "Move-In", subtitle: "Pre-occupancy clean", //priceTag: "(+10%)"
+      { id: "move-in", name: "freqMoveInName", 
+        subtitle: "freqMoveInSubtitle", //priceTag: "(+10%)"
       },
-      { id: "move-out", name: "Move-Out", subtitle: "Deposit back guarantee", //priceTag: "(+20%)"
+      { id: "move-out", name: "freqMoveOutName", 
+        subtitle: "freqMoveOutSubtitle", //priceTag: "(+20%)"
       },
-      { id: "property-handover", name: "Property Handover", subtitle: "Landlord standard", //priceTag: "(+25%)"
+      { id: "property-handover", name: "freqPropertyHandoverName", 
+        subtitle: "freqPropertyHandoverSubtitle", //priceTag: "(+25%)"
       },
     ],
   },
   {
     slug: "post-construction-renovation-cleaning",
-    title: "Post-Construction & Renovation",
+    title: "serviceLablePostConstructionRenovationCleaning",
     icon: <Building className="w-6 h-6 text-orange-400" />,
     frequencies: [
-      { id: "construction", name: "Construction", subtitle: "Heavy dust & debris", //priceTag: "(+50%)"
+      { id: "construction", name: "freqConstructionName",
+         subtitle: "freqConstructionSubtitle", //priceTag: "(+50%)"
       },
-      { id: "renovation", name: "Renovation", subtitle: "Post-remodel refresh", //priceTag: "(+40%)"
+      { id: "renovation", name: "freqRenovationName",
+         subtitle: "freqRenovationSubtitle", //priceTag: "(+40%)"
       },
-      { id: "builders", name: "Builders'", subtitle: "Initial builder clean", //priceTag: "(+45%)"
+      { id: "builders", name: "freqBuildersName",
+         subtitle: "freqBuildersSubtitle", //priceTag: "(+45%)"
       },
-      { id: "final-handover", name: "Final Handover", subtitle: "Pristine sparkle", //priceTag: "(+60%)"
+      { id: "final-handover", name: "freqFinalHandoverName",
+         subtitle: "freqFinalHandoverSubtitle", //priceTag: "(+60%)"
       },
     ],
   },
   {
     slug: "same-day-priority-cleaning",
-    title: "Same-Day Priority Cleaning",
+    title: "serviceLableSameDayPriorityCleaning", 
     icon: <Zap className="w-6 h-6 text-yellow-400" />,
     frequencies: [
-      { id: "same-day", name: "Same-Day", subtitle: "Immediate dispatch", 
+      { id: "same-day", name: "freqSameDayName", subtitle: "freqImmediateDispatchSubtitle", 
        // priceTag: "(+50%)" 
     },
-      { id: "emergency", name: "Emergency", subtitle: "Urgent response", 
+      { id: "emergency", name: "freqEmergencyName", subtitle: "freqUrgentResponseSubtitle", 
        // priceTag: "(+75%)" 
     },
-      { id: "priority", name: "Priority", subtitle: "Front of queue", 
+      { id: "priority", name: "freqPriorityName", subtitle: "freqFrontOfQueueSubtitle", 
        // priceTag: "(+30%)" 
     },
-      { id: "weekend", name: "Weekend", subtitle: "Weekend priority", 
+      { id: "weekend", name: "freqWeekendName", subtitle: "freqWeekendPrioritySubtitle", 
        // priceTag: "(+40%)" 
     },
     ],
   },
   {
     slug: "high-security-property-care",
-    title: "High-Security Property Care",
+    title: "serviceLableHighSecurityPropertyCare",
     icon: <Lock className="w-6 h-6 text-red-400" />,
     frequencies: [
-      { id: "one-time", name: "One-Time", subtitle: "Secure clearance", //priceTag: "(+20%)"
+      { id: "one-time", name: "freqOneTimeName", subtitle: "freqSecureClearanceSubtitle", //priceTag: "(+20%)"
       },
-      { id: "weekly", name: "Weekly", subtitle: "Vetted weekly care", //priceTag: "(+10%)"
+      { id: "weekly", name: "freqWeeklyName", subtitle: "freqVettedWeeklyCareSubtitle", //priceTag: "(+10%)"
       },
-      { id: "bi-weekly", name: "Bi-Weekly", subtitle: "Scheduled secure", //priceTag: "(+15%)"
+      { id: "bi-weekly", name: "freqBiWeeklyName", subtitle: "freqScheduledSecureSubtitle", //priceTag: "(+15%)"
       },
-      { id: "monthly", name: "Monthly", subtitle: "Monthly audit check", //priceTag: "(+20%)"
+      { id: "monthly", name: "freqMonthlyName", subtitle: "freqMonthlyAuditCheckSubtitle", //priceTag: "(+20%)"
       },
-      { id: "weekend", name: "Weekend", subtitle: "Weekend clearance", //priceTag: "(+30%)"
+      { id: "weekend", name: "freqWeekendName", subtitle: "freqWeekendClearanceSubtitle", //priceTag: "(+30%)"
       },
-      { id: "discreet", name: "Discreet", subtitle: "Unmarked operatives", //priceTag: "(+50%)"
+      { id: "discreet", name: "freqDiscreetName", subtitle: "freqDiscreetSubtitle", //priceTag: "(+50%)"
       },
     ],
   },
   {
     slug: "premium-rental-concierge-cleaning",
-    title: "Premium Rental Concierge",
+    title: "serviceLablePremiumRentalConciergeCleaning", 
     icon: <Building2 className="w-6 h-6 text-teal-400" />,
     frequencies: [
-      { id: "one-time", name: "One-Time", subtitle: "Single turn", 
+      { id: "one-time", name: "freqOneTimeName", subtitle: "freqSingleTurnSubtitle", 
         //priceTag: "(+10%)"
          },
-      { id: "weekly", name: "Weekly", subtitle: "Multi-turn package", 
+      { id: "weekly", name: "freqWeeklyName", subtitle: "freqMultiTurnPackageSubtitle", 
         //priceTag: "(+0%)"
          },
-      { id: "bi-weekly", name: "Bi-Weekly", subtitle: "Bi-weekly checks", 
+      { id: "bi-weekly", name: "freqBiWeeklyName", subtitle: "freqBiWeeklyChecksSubtitle", 
         //priceTag: "(+5%)"
          },
-      { id: "monthly", name: "Monthly", subtitle: "Monthly overview", 
+      { id: "monthly", name: "freqMonthlyName", subtitle: "freqMonthlyOverviewSubtitle", 
         //priceTag: "(+10%)"
          },
-      { id: "weekend", name: "Weekend", subtitle: "Peak weekend turn", 
+      { id: "weekend", name: "freqWeekendName", subtitle: "freqPeakWeekendTurnSubtitle", 
         //priceTag: "(+25%)"
          },
-      { id: "guest-turnover", name: "Guest Turnover", subtitle: "Instant Airbnb turn", 
+      { id: "guest-turnover", name: "freqGuestTurnoverName", subtitle: "freqGuestTurnoverSubtitle", 
         //priceTag: "(+30%)"
          },
     ],
   },
   {
     slug: "commercial-office-cleaning",
-    title: "Commercial & Office Cleaning",
+    title: "serviceLableCommercialOfficeCleaning",
     icon: <Building className="w-6 h-6 text-cyan-400" />,
     frequencies: [
       { 
-        id: "one-time", name: "One-Time", subtitle: "Office deep refresh", //priceTag: "(+0%)"
+        id: "one-time", name: "freqOneTimeName", subtitle: "freqOfficeDeepRefreshSubtitle", //priceTag: "(+0%)"
          },
       { 
-        id: "weekly", name: "Weekly", subtitle: "Weekly corporate", //priceTag: "(-10%)"
+        id: "weekly", name: "freqWeeklyName", subtitle: "freqWeeklyCorporateSubtitle", //priceTag: "(-10%)"
          },
       { 
-        id: "bi-weekly", name: "Bi-Weekly", subtitle: "Bi-weekly maintenance", //priceTag: "(-5%)"
+        id: "bi-weekly", name: "freqBiWeeklyName", subtitle: "freqBiWeeklyMaintenanceSubtitle", //priceTag: "(-5%)"
          },
       { 
-        id: "monthly", name: "Monthly", subtitle: "Monthly deep clean", //priceTag: "(+0%)"
-         },
-      { 
-        id: "weekend", name: "Weekend", subtitle: "After-hours weekend", //priceTag: "(+20%)"
+        id: "monthly", name: "freqMonthlyName", subtitle: "freqMonthlyDeepCleanSubtitle", //priceTag: "(+0%)"
          },
     ],
   },
   {
     slug: "steam-cleaning",
-    title: "Steam Cleaning",
+    title: "serviceLableSteamCleaning",
     icon: <Flame className="w-6 h-6 text-rose-400" />,
     frequencies: [
-      { id: "one-time", name: "One-Time", subtitle: "Intense sanitize", //priceTag: "(+25%)"
+      { id: "one-time", name: "freqOneTimeName", subtitle: "freqIntenseSanitizeSubtitle", //priceTag: "(+25%)"
          },
-      { id: "weekly", name: "Weekly", subtitle: "Regular steam care", //priceTag: "(+15%)"
+      { id: "weekly", name: "freqWeeklyName", subtitle: "freqRegularSteamCareSubtitle", //priceTag: "(+15%)" 
          },
-      { id: "bi-weekly", name: "Bi-Weekly", subtitle: "Bi-weekly refresh", //priceTag: "(+20%)"
+      { id: "bi-weekly", name: "freqBiWeeklyName", subtitle: "freqBiWeeklyRefreshSubtitle", //priceTag: "(+20%)"
          },
-      { id: "monthly", name: "Monthly", subtitle: "Monthly deep steam", //priceTag: "(+25%)"
+      { id: "monthly", name: "freqMonthlyName", subtitle: "freqMonthlyDeepSteamSubtitle", //priceTag: "(+25%)"
          },
-      { id: "weekend", name: "Weekend", subtitle: "Weekend steaming", //priceTag: "(+35%)"
-         },
+      
     ],
   },
 
   {
     slug: "post-event-cleaning",
-    title: "Post-Event Cleaning",
+    title: "serviceLablePostEventCleaning",
     icon: <PartyPopper className="w-6 h-6 text-pink-400" />,
     frequencies: [
-      { id: "one-time", name: "One-Time", subtitle: "Standard cleanup", //priceTag: "(+20%)"
+      { id: "one-time", name: "freqOneTimeName", subtitle: "freqStandardCleanSubtitle", //priceTag: "(+20%)"
          },
-      { id: "same-day", name: "Same-Day", subtitle: "Immediate post-party", //priceTag: "(+40%)"
+      { id: "same-day", name: "freqSameDayName", subtitle: "freqSameDaySubtitle", //priceTag: "(+40%)"
          },
-      { id: "private-event", name: "Private Event", subtitle: "Residential gathering", //priceTag: "(+25%)"
+      { id: "private-event", name: "freqPrivateEventName", subtitle: "freqPrivateEventSubtitle", //priceTag: "(+25%)"
          },
-      { id: "corporate-event", name: "Corporate Event", subtitle: "Large venue sweep", //priceTag: "(+50%)"
-         },
-      { id: "weekend", name: "Weekend", subtitle: "Weekend event wrap", //priceTag: "(+30%)"
+      { id: "corporate-event", name: "freqCorporateEventName", subtitle: "freqCorporateEventSubtitle", //priceTag: "(+50%)"
          },
     ],
   },
   {
     slug: "luxury-yacht-cleaning",
-    title: "Luxury Yacht Cleaning",
+    title: "serviceLableLuxuryYachtCleaning",
     icon: <Ship className="w-6 h-6 text-sky-400" />,
     frequencies: [
-      { id: "one-time", name: "One-Time", subtitle: "Marine detailing",
+      { id: "one-time", name: "freqOneTimeName", subtitle: "freqRegularUpkeepSubtitle",
         // priceTag: "(+50%)" 
     },
-      { id: "weekly", name: "Weekly", subtitle: "Port maintenance", 
+      { id: "weekly", name: "freqWeeklyName", subtitle: "freqMarineDetailingSubtitle", 
         //priceTag: "(+30%)" 
     },
-      { id: "bi-weekly", name: "Bi-Weekly", subtitle: "Regular upkeep", 
+      { id: "bi-weekly", name: "freqBiWeeklyName", subtitle: "freqPortMaintenanceSubtitle", 
         //priceTag: "(+35%)" 
     },
-      { id: "monthly", name: "Monthly", subtitle: "Monthly deck care", 
+      { id: "monthly", name: "freqMonthlyName", subtitle: "freqMonthlyDeckCareSubtitle", 
         //priceTag: "(+40%)" 
     },
-      { id: "weekend", name: "Weekend", subtitle: "Pre-cruise polish", 
+      { id: "weekend", name: "freqWeekendName", subtitle: "freqPreCruisePolishSubtitle", 
         //priceTag: "(+60%)" 
     },
-      { id: "charter-turnaround", name: "Charter Turnaround", subtitle: "Fast yacht turn", 
+      { id: "charter-turnaround", name: "freqCharterTurnaroundName", subtitle: "freqCharterTurnaroundSubtitle", 
         //priceTag: "(+75%)" 
     },
     ],
   },
   {
     slug: "healthguard-sanitization",
-    title: "HealthGuard Sanitization",
+    title: "serviceLableHealthGuardSanitization",
     icon: <ShieldCheck className="w-6 h-6 text-emerald-400" />,
     frequencies: [
-      { id: "one-time", name: "One-Time", subtitle: "Hospital-grade", 
+      { id: "one-time", name: "freqOneTimeName", subtitle: "freqWeeklySubtitle", 
         //priceTag: "(+0%)"
          },
-      { id: "weekly", name: "Weekly", subtitle: "Continuous sterile", 
+      { id: "weekly", name: "freqWeeklyName", subtitle: "freqOneTimeSubtitle", 
         //priceTag: "(+10%)"
          },
-      { id: "bi-weekly", name: "Bi-Weekly", subtitle: "Bi-weekly shield", 
+      { id: "bi-weekly", name: "freqBiWeeklyName", subtitle: "freqBiWeeklySubtitle", 
         //priceTag: "(+5%)"
          },
-      { id: "monthly", name: "Monthly", subtitle: "Monthly protection", 
+      { id: "monthly", name: "freqMonthlyName", subtitle: "freqMonthlySubtitle", 
         //priceTag: "(+0%)"
          },
-      { id: "weekend", name: "Weekend", subtitle: "Weekend disinfection", 
+      { id: "weekend", name: "freqWeekendName", subtitle: "freqWeekendSubtitle", 
         //priceTag: "(+15%)"
          },
-      { id: "professional-disinfection", name: "Professional Disinfection", subtitle: "Bio-hazard standard", 
+      { id: "professional-disinfection", name: "freqProDisinfectionName", subtitle: "freqProDisinfectionSubtitle", 
         //priceTag: "(+40%)"
          },
     ],
@@ -322,6 +325,8 @@ export default function ServiceFrequencySelector({
     if (onSelectionChange) onSelectionChange(activeServiceSlug, freqId);
   };
 
+  const {translate}=useLanguage();
+
   return (
     <div className="w-full p-6 bg-[#0B132B] text-white rounded-2xl shadow-2xl font-sans">
       <h2 className="text-xl font-semibold mb-6 tracking-wide text-slate-200">
@@ -334,7 +339,7 @@ export default function ServiceFrequencySelector({
       <div className="mt-6">
         <div className="flex items-center gap-2 mb-4">
           <div className="p-1.5 bg-blue-500/20 rounded-lg">{currentService.icon}</div>
-          <h3 className="text-lg font-bold text-slate-100">{currentService.title} Frequencies</h3>
+          <h3 className="text-lg font-bold text-slate-100">{translate(currentService.title as TranslationKey)} Frequencies</h3>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -361,10 +366,10 @@ export default function ServiceFrequencySelector({
                   </div>
                   <div>
                     <h4 className="text-sm font-semibold text-white tracking-wide">
-                      {freq.name}
+                      {translate(freq.name as TranslationKey)}
                     </h4>
                     <p className="text-xs text-slate-400 mt-0.5">
-                      {freq.subtitle} <span className="text-slate-500">{freq.priceTag}</span>
+                      {translate(freq.subtitle as TranslationKey)} <span className="text-slate-500">{translate(freq.priceTag as TranslationKey)}</span>
                     </p>
                   </div>
                 </div>

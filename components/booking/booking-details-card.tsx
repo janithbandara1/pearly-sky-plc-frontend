@@ -11,7 +11,7 @@ import type { CatalogItem, SizeQuote } from "@/lib/catalog-api";
 import { useCurrency } from "@/lib/currency-context";
 import { useLanguage } from "@/lib/i18n/language-context";
 import type { TranslationKey } from "@/lib/i18n/dictionaries/en";
-import { CATEGORY_LABEL_KEYS } from "@/components/booking/common-flows-propertis-and-equipments/sanitize-property-types";
+import { CATEGORY_LABEL_KEYS } from "@/components/booking/common-flows-propertis-and-equipments/common-property-types";
 
 function formatHM(hours: number): string {
   const h = Math.floor(hours);

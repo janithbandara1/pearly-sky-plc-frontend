@@ -7,7 +7,7 @@ import { calculateEquipmentItemPrice, EQUIPMENT_ITEM_SKU, EQUIPMENT_MAX_QTY } fr
 import { useCurrency } from "@/lib/currency-context";
 import { useLanguage } from "@/lib/i18n/language-context";
 import { TranslationKey } from "@/lib/i18n/dictionaries/en";
-import { CATEGORY_LABEL_KEYS } from "./sanitize-property-types";
+import { CATEGORY_LABEL_KEYS } from "./common-property-types";
 
 export type SupplySource = "" | "customer" | "company";
 
