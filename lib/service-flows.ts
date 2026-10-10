@@ -44,6 +44,7 @@ const commonPropertyTypesWithRoomComponents = new Set([
   "end-of-tenancy-cleaning",
   "same-day-priority-cleaning",
   "premium-rental-concierge-cleaning",
+  "healthguard-sanitization", 
 ]);
 
 export function isCommonPropertyTypeWithRoomComponents(baseSlug: string): boolean {
