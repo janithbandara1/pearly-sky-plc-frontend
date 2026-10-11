@@ -37,7 +37,7 @@ export function YachtScheduleSection({
   const [propertySizeSqm, setPropertySizeSqm] = useState<number>(() => {
     const draft = loadBookingDraft();
     return draft && draft.serviceSlug === serviceSlug && draft.propertySizeSqm
-      ? draft.propertySizeSqm
+      ? Math.min(draft.propertySizeSqm, 500)
       : 20;
   });
 
