@@ -52,6 +52,7 @@ import { getPropertyCategoriesForServiceOfSanitize, PropertyTypeSizeSelectorComm
   from "@/components/booking/common-flows-propertis-and-equipments/common-property-types";
 import { roomCountsToList, type RoomCounts } from "@/components/booking/room-components-counter";
 import { EquipmentSectionOfCommonServicesSlugs } from "@/components/booking/common-flows-propertis-and-equipments/common-equipment-flow-section";
+import type { TranslationKey } from "@/lib/i18n/dictionaries/en";
 
 const poppins = Poppins({ subsets: ["latin"], weight: ["400", "500", "600", "700", "800"], adjustFontFallback: false });
 
@@ -564,7 +565,7 @@ export function ServiceBookingView({
     );
   }
 
-  const genderLabel = GENDER_OPTIONS.find((o) => o.value === gender)?.label ?? "No Preference";
+  const genderLabel = translate((GENDER_OPTIONS.find((o) => o.value === gender)?.label ?? "summaryNoPreference") as TranslationKey);
   const languageLabel = LANGUAGE_OPTIONS.find((o) => o.value === language)?.label ?? "None";
 
   const bookDisabledReason = isSanitization && !disinfectionLevelId

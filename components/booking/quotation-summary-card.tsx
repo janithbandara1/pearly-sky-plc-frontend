@@ -18,6 +18,7 @@ import { GENDER_OPTIONS, LANGUAGE_OPTIONS } from "@/components/booking/quotation
 import type { QuotationStatus } from "@/lib/quotation-api";
 import { SummaryAttachments } from "@/components/booking/summary-attachments";
 import type { AttachmentLink } from "@/lib/upload-api";
+import type { TranslationKey } from "@/lib/i18n/dictionaries/en";
 import { useLanguage } from "@/lib/i18n/language-context";
 
 /** Matches the quoteItemsTitle set for child/elder care quotations — see careQuoteItemsTitle in request-quotation/page.tsx. */
@@ -156,7 +157,7 @@ export function QuotationSummaryCard({
 
   const getOptionLabel = (options: { value: string; label: string }[], value: string | null): string => {
     if (!value || value === "no-preference") return translate("summaryNoPreference");
-    return options.find((o) => o.value === value)?.label ?? value;
+    return translate((options.find((o) => o.value === value)?.label ?? value) as TranslationKey);
   };
 
   const getSupplyLabel = (source: string | null) => {

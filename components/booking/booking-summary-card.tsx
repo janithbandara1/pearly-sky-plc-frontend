@@ -210,7 +210,7 @@ export function BookingSummaryCard({
 
   function getOptionLabel(options: { value: string; label: string }[], value: string | null): string {
     if (!value) return translate("summaryNoPreference");
-    return options.find((o) => o.value === value)?.label ?? value;
+    return translate((options.find((o) => o.value === value)?.label ?? value) as TranslationKey);
   }
 
   return (

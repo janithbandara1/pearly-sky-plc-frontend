@@ -974,7 +974,7 @@ export default function CheckoutPage({
                     <div className="flex justify-between gap-2 py-1 text-brand-cream/70">
                       <span className="font-medium">{translate("preferencesGender")}</span>
                       <span className="font-normal text-white">
-                        {GENDER_OPTIONS.find((o) => o.value === gender)?.label ?? "No Preference"}
+                        {translate((GENDER_OPTIONS.find((o) => o.value === gender)?.label ?? "summaryNoPreference") as TranslationKey)}
                       </span>
                     </div>
                     <div className="flex justify-between gap-2 py-1 text-brand-cream/70">
@@ -1310,8 +1310,7 @@ export default function CheckoutPage({
               hidePropertySize={isCareService}
               isCareService={isCareService}
               genderLabel={
-                GENDER_OPTIONS.find((o) => o.value === gender)?.label ??
-                "No Preference"
+                translate((GENDER_OPTIONS.find((o) => o.value === gender)?.label ?? "summaryNoPreference") as TranslationKey)
               }
               languageLabel={
                 LANGUAGE_OPTIONS.find((o) => o.value === language)?.label ??
