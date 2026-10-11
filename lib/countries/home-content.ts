@@ -1,4 +1,4 @@
-import { CURRENT_COUNTRY, type CountryCode } from "./config";
+import { CURRENT_COUNTRY, IS_GLOBAL_SITE, type CountryCode } from "./config";
 import type { LanguageCode } from "@/lib/i18n/config";
 
 /** Rotating coverage-strip marquee, per country. */
@@ -298,4 +298,13 @@ const COUNTRY_HOME_CONTENT: Record<CountryCode, Partial<Record<LanguageCode, Cou
 export function getCountryHomeContent(language: LanguageCode): CountryHomeCopy {
   const forCountry = COUNTRY_HOME_CONTENT[CURRENT_COUNTRY];
   return forCountry[language] ?? forCountry.en!;
+}
+
+/** Welcome paragraph for the global gateway, which has no country of its own (and is English-only). */
+const GLOBAL_WELCOME_CONTENT =
+  "Welcome to Pearly Sky, your premier partner for eco-luxury cleaning services around the world. We specialise in providing meticulous, environmentally conscious home and office cleaning solutions that cater to the most discerning clients. Our dedicated multilingual teams are committed to ensuring your spaces are not only spotless but also maintain a healthy, sustainable environment. Experience the pinnacle of cleanliness with our premium, tailored services in France, the United Kingdom and Sri Lanka.";
+
+/** Home welcome paragraph — this country's copy, or the worldwide copy on the global gateway. */
+export function getWelcomeContent(language: LanguageCode): string {
+  return IS_GLOBAL_SITE ? GLOBAL_WELCOME_CONTENT : getCountryHomeContent(language).welcomeContent;
 }

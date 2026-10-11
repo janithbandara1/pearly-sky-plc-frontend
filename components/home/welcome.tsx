@@ -2,14 +2,14 @@
 
 import { useLanguage } from "@/lib/i18n/language-context";
 import { optimizedBackgroundImage } from "@/lib/background-image";
-import { getCountryHomeContent } from "@/lib/countries/home-content";
+import { getWelcomeContent } from "@/lib/countries/home-content";
 
 const WELCOME_BG = optimizedBackgroundImage("/images/hero/bg-welcom.png", 1645, 656);
 
 export function Welcome() {
 
     const { translate, language } = useLanguage();
-    const { welcomeContent } = getCountryHomeContent(language);
+    const welcomeContent = getWelcomeContent(language);
 
     return (
         <section
