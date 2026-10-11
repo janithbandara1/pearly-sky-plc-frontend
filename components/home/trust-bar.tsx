@@ -48,8 +48,8 @@ export function TrustBar() {
     <section className="  px-3 py-3 sm:px-5 sm:py-4 lg:px-8 lg:py-5">
       <div className="mx-auto w-full max-w-7xl overflow-hidden">
         <div
-          className={`flex w-max gap-2 sm:gap-3 md:grid md:w-full md:grid-cols-4 md:animate-none lg:gap-4 ${
-            marqueeLoop.length ? "animate-marquee motion-reduce:animate-none hover:[animation-play-state:paused]" : ""
+          className={`flex w-max gap-2 sm:gap-3 md:grid md:w-full md:grid-cols-4 lg:gap-4 ${
+            marqueeLoop.length ? "max-md:animate-marquee motion-reduce:animate-none hover:[animation-play-state:paused]" : ""
           }`}
         >
           {[...items, ...marqueeLoop].map(({ Icon, label, description }, index) => (
