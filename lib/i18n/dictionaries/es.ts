@@ -825,7 +825,7 @@ export const es = {
 
   // About Us page
   aboutPageEyebrow: "SOBRE LOS SERVICIOS DE LIMPIEZA PEARLY SKY",
-  aboutPageHeroTitle: "Su socio de confianza en limpieza",
+  aboutPageHeroTitle: "Sobre Pearly Sky",
 
   aboutPageIdentityTitle: "Nuestra identidad central",
   aboutPageIdentitySubtitle: "Donde la limpieza se encuentra con el lujo",
@@ -905,7 +905,7 @@ export const es = {
   qualityAssured: "Garantía de calidad: Profesionales de limpieza capacitados y rigurosamente seleccionados.",
 
   // Our Locations page
-  locationsPageTitle: "Nuestras ubicaciones globales",
+  locationsPageTitle: "Nuestras ubicaciones",
   locationsPageSubtitle: "Encuentre su país y ciudad",
   locationsSearchCountryPlaceholder: "Buscar país...",
   locationsSearchCityPlaceholder: "Buscar ciudad...",
@@ -915,7 +915,7 @@ export const es = {
   locationsAsiaPacific: "Asia-Pacífico",
   locationsAmericas: "Américas",
 
-  locationSearchHeaderText: "NUESTRAS UBICACIONES GLOBALES",
+  locationSearchHeaderText: "Nuestras ubicaciones",
   locationSearchSubHeaderText: "Encuentre su país y ciudad",
 
   // Blog
@@ -927,7 +927,7 @@ export const es = {
   blogViewAll: "Ver todos los artículos",
 
   // Careers
-  careersPageTitle: "Únase a nuestro equipo",
+  careersPageTitle: "Empleo en Pearly Sky",
   careersPageSubtitle: "Construya su carrera con Pearly Sky",
   careersSearchTitlePlaceholder: "Título del puesto...",
   careersSearchLocationPlaceholder: "Ubicación...",
@@ -1008,7 +1008,7 @@ export const es = {
   jobElderCareAssistantBen4: "Entorno laboral respetuoso y de apoyo.",
 
   // Contact Us page
-  contactPageTitle: "Contacte a nuestro equipo de concierge",
+  contactPageTitle: "Contactar con Pearly Sky",
   contactOfficesTitle: "Nuestras oficinas",
 
   // Footer extra

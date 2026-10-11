@@ -953,7 +953,7 @@ AddsOnCategoryOvenFridgeRestoration: "Restauration professionnelle de four et r�
   aboutPageSectionSubHeader:"VOTRE PARTENAIRE DE CONFIANCE EN MATIÈRE DE NETTOYAGE",
 
   aboutPageEyebrow: "À PROPOS DE PEARLY SKY CLEANING SERVICES",
-  aboutPageHeroTitle: "Votre Partenaire de Confiance",
+  aboutPageHeroTitle: "À propos de Pearly Sky",
   aboutPageIdentityTitle: "Notre Identité",
   aboutPageIdentitySubtitle: "Là où la Propreté Rencontre le Luxe",
   aboutPageIdentityIntro:
@@ -1033,7 +1033,7 @@ AddsOnCategoryOvenFridgeRestoration: "Restauration professionnelle de four et r�
 
 
   // Our Locations page
-  locationsPageTitle: "Nos Implantations Mondiales",
+  locationsPageTitle: "Nos implantations",
   locationsPageSubtitle: "Trouvez Votre Pays et Ville",
   locationsSearchCountryPlaceholder: "Rechercher un pays...",
   locationsSearchCityPlaceholder: "Rechercher une ville...",
@@ -1050,7 +1050,7 @@ AddsOnCategoryOvenFridgeRestoration: "Restauration professionnelle de four et r�
   qualityAssured: "Qualité garantie : spécialistes du nettoyage formés et rigoureusement sélectionnés.",
 
 
-  locationSearchHeaderText: "NOS IMPLANTATIONS DANS LE MONDE",
+  locationSearchHeaderText: "Nos implantations",
   locationSearchSubHeaderText: "Trouvez votre pays et votre ville",
 
   // Blog
@@ -1062,7 +1062,7 @@ AddsOnCategoryOvenFridgeRestoration: "Restauration professionnelle de four et r�
   blogViewAll: "Voir Tous les Articles",
 
   // Careers
-  careersPageTitle: "Rejoignez Notre Équipe",
+  careersPageTitle: "Carrières chez Pearly Sky",
   careersPageSubtitle: "Construisez votre carrière avec Pearly Sky",
   careersSearchTitlePlaceholder: "Intitulé du poste...",
   careersSearchLocationPlaceholder: "Lieu...",
@@ -1144,7 +1144,7 @@ AddsOnCategoryOvenFridgeRestoration: "Restauration professionnelle de four et r�
   jobElderCareAssistantBen4: "Cadre de travail respectueux et solidaire.",
  
   // Contact Us page
-  contactPageTitle: "Contactez Notre Équipe Concierge",
+  contactPageTitle: "Contacter Pearly Sky",
   contactOfficesTitle: "Nos Bureaux",
 
   quickConnect:"Contactez-nous rapidement",

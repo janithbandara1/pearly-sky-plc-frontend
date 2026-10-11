@@ -159,34 +159,34 @@ const COUNTRY_PAGE_META: Record<CountryCode, Partial<Record<LanguageCode, Record
   fr: {
     en: {
       home: {
-        title: "Premium Eco-Luxury Cleaning Services France | Pearly Sky",
+        title: "Pearly Sky | Premium Cleaning Services France",
         description:
-          "Experience elite, eco-luxury residential & commercial cleaning in France. Five-star premium property care using sustainable, high-performance practices.",
+          "Thoughtful, professional cleaning for homes and workspaces across selected locations in France.",
       },
       about: {
-        title: "About Us: Eco-Luxury Property Care France | Pearly Sky",
+        title: "About Pearly Sky | Professional Cleaning France",
         description:
-          "Discover the story, strict standards, and values driving Pearly Sky Global in France. Dedicated to elite property care and lifestyle support.",
+          "Discover Pearly Sky's approach to professional residential, commercial and specialist cleaning in selected locations across France.",
       },
       customers: {
-        title: "Verified Client Reviews & Testimonials France | Pearly Sky",
+        title: "Our Customers | Pearly Sky Cleaning Services France",
         description:
-          "See what our clients say about us. Read verified reviews from premium homeowners, corporate offices, and luxury estates in France.",
+          "Discover how Pearly Sky serves homeowners, families, property owners and businesses with professional cleaning services tailored to their spaces across selected locations in France.",
       },
       contact: {
-        title: "Contact Our Eco-Luxury Cleaning Team France | Pearly Sky",
+        title: "Contact Pearly Sky | Professional Cleaning Services France",
         description:
-          "Get in touch with Pearly Sky Global France for booking inquiries or custom service quotes. Reliable, immediate assistance.",
+          "Contact Pearly Sky for professional home, office and specialist cleaning services in selected locations across France. Request a personalised quote or enquire about our services.",
       },
       careers: {
-        title: "Careers in Luxury Property Care France | Pearly Sky",
+        title: "Careers at Pearly Sky | Cleaning Jobs in France",
         description:
-          "Build a rewarding career in luxury property care in France. Explore open positions for professional cleaners and premium specialists.",
+          "Explore career opportunities with Pearly Sky. Discover potential cleaning and professional service roles and learn how to express your interest in joining our team in France.",
       },
       ourLocations: {
-        title: "Our Service Locations in France | Pearly Sky Global",
+        title: "Our Locations | Pearly Sky Cleaning Services",
         description:
-          "Operating premium service clusters across France. Find your local Pearly Sky Global service portal and book elite eco-luxury care.",
+          "Explore Pearly Sky Cleaning Services locations and discover professional, eco-conscious cleaning for homes and workspaces in our service areas.",
       },
       blog: {
         title: "Eco-Luxury Cleaning Blog & Insights France | Pearly Sky",
@@ -198,34 +198,34 @@ const COUNTRY_PAGE_META: Record<CountryCode, Partial<Record<LanguageCode, Record
   gb: {
     en: {
       home: {
-        title: "Premium Eco-Luxury Cleaning Services UK | Pearly Sky",
+        title: "Pearly Sky | Premium Cleaning Services UK",
         description:
-          "Experience elite, eco-luxury residential & commercial cleaning in the United Kingdom. Five-star premium property care using sustainable, high-performance practices.",
+          "Thoughtful, professional cleaning for homes and workspaces across selected locations in the UK.",
       },
       about: {
-        title: "About Us: Eco-Luxury Property Care UK | Pearly Sky",
+        title: "About Pearly Sky | Professional Cleaning UK",
         description:
-          "Discover the story, strict standards, and values driving Pearly Sky Global in the United Kingdom. Dedicated to elite property care and lifestyle support.",
+          "Discover Pearly Sky's approach to professional residential, commercial and specialist cleaning in selected locations across the UK.",
       },
       customers: {
-        title: "Verified Client Reviews & Testimonials UK | Pearly Sky",
+        title: "Our Customers | Pearly Sky Cleaning Services UK",
         description:
-          "See what our clients say about us. Read verified reviews from premium homeowners, corporate offices, and luxury estates in the United Kingdom.",
+          "Discover how Pearly Sky serves homeowners, families, property owners and businesses with professional cleaning services tailored to their spaces across selected locations in the UK.",
       },
       contact: {
-        title: "Contact Our Eco-Luxury Cleaning Team UK | Pearly Sky",
+        title: "Contact Pearly Sky | Professional Cleaning Services UK",
         description:
-          "Get in touch with Pearly Sky Global United Kingdom for booking inquiries or custom service quotes. Reliable, immediate assistance.",
+          "Contact Pearly Sky for professional home, office and specialist cleaning services in selected locations across the UK. Request a personalised quote or enquire about our services.",
       },
       careers: {
-        title: "Careers in Luxury Property Care UK | Pearly Sky",
+        title: "Careers at Pearly Sky | Cleaning Jobs in the UK",
         description:
-          "Build a rewarding career in luxury property care in the United Kingdom. Explore open positions for professional cleaners and premium specialists.",
+          "Explore career opportunities with Pearly Sky. Discover potential cleaning and professional service roles and learn how to express your interest in joining our team in the UK.",
       },
       ourLocations: {
-        title: "Our Service Locations in the UK | Pearly Sky Global",
+        title: "Our Locations | Pearly Sky Cleaning Services",
         description:
-          "Operating premium service clusters across the United Kingdom. Find your local Pearly Sky Global service portal and book elite eco-luxury care.",
+          "Explore Pearly Sky Cleaning Services locations and discover professional, eco-conscious cleaning for homes and workspaces in our service areas.",
       },
       blog: {
         title: "Eco-Luxury Cleaning Blog & Insights UK | Pearly Sky",
@@ -237,34 +237,34 @@ const COUNTRY_PAGE_META: Record<CountryCode, Partial<Record<LanguageCode, Record
   lk: {
     en: {
       home: {
-        title: "Premium Eco-Luxury Cleaning Services Sri Lanka | Pearly Sky",
+        title: "Pearly Sky | Premium Cleaning Services Sri Lanka",
         description:
-          "Experience elite, eco-luxury residential & commercial cleaning in Sri Lanka. Five-star premium property care using sustainable, high-performance practices.",
+          "Thoughtful, professional cleaning for homes and workspaces across selected locations in Sri Lanka.",
       },
       about: {
-        title: "About Us: Eco-Luxury Property Care Sri Lanka | Pearly Sky",
+        title: "About Pearly Sky | Professional Cleaning Sri Lanka",
         description:
-          "Discover the story, strict standards, and values driving Pearly Sky Global in Sri Lanka. Dedicated to elite property care and lifestyle support.",
+          "Discover Pearly Sky's approach to professional residential, commercial and specialist cleaning in selected locations across Sri Lanka.",
       },
       customers: {
-        title: "Verified Client Reviews & Testimonials Sri Lanka | Pearly Sky",
+        title: "Our Customers | Pearly Sky Cleaning Services Sri Lanka",
         description:
-          "See what our clients say about us. Read verified reviews from premium homeowners, corporate offices, and luxury estates in Sri Lanka.",
+          "Discover how Pearly Sky serves homeowners, families, property owners and businesses with professional cleaning services tailored to their spaces across selected locations in Sri Lanka.",
       },
       contact: {
-        title: "Contact Our Eco-Luxury Cleaning Team Sri Lanka | Pearly Sky",
+        title: "Contact Pearly Sky | Professional Cleaning Services Sri Lanka",
         description:
-          "Get in touch with Pearly Sky Global Sri Lanka for booking inquiries or custom service quotes. Reliable, immediate assistance.",
+          "Contact Pearly Sky for professional home, office and specialist cleaning services in selected locations across Sri Lanka. Request a personalised quote or enquire about our services.",
       },
       careers: {
-        title: "Careers in Luxury Property Care Sri Lanka | Pearly Sky",
+        title: "Careers at Pearly Sky | Cleaning Jobs in Sri Lanka",
         description:
-          "Build a rewarding career in luxury property care in Sri Lanka. Explore open positions for professional cleaners and premium specialists.",
+          "Explore career opportunities with Pearly Sky. Discover potential cleaning and professional service roles and learn how to express your interest in joining our team in Sri Lanka.",
       },
       ourLocations: {
-        title: "Our Service Locations in Sri Lanka | Pearly Sky Global",
+        title: "Our Locations | Pearly Sky Cleaning Services",
         description:
-          "Operating premium service clusters across Sri Lanka. Find your local Pearly Sky Global service portal and book elite eco-luxury care.",
+          "Explore Pearly Sky Cleaning Services locations and discover professional, eco-conscious cleaning for homes and workspaces in our service areas.",
       },
       blog: {
         title: "Eco-Luxury Cleaning Blog & Insights Sri Lanka | Pearly Sky",

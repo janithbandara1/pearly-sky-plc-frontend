@@ -1,4 +1,4 @@
-import { CURRENT_COUNTRY, SUPPORTED_COUNTRIES, type CountryCode } from "./config";
+import { CURRENT_COUNTRY, type CountryCode } from "./config";
 import type { LanguageCode } from "@/lib/i18n/config";
 
 interface ServiceMeta {
@@ -11,335 +11,340 @@ interface CountryPhrases {
   in: string;
   /** "Pearly Sky France" / "Pearly Sky UK" / "Pearly Sky Sri Lanka" (not translated) */
   brand: string;
+  /** Title-style country name — "Deep Cleaning Services France / UK / Sri Lanka". */
+  country: string;
+  /** Country as a sentence object — "across France", "across the UK". */
+  place: string;
 }
 
 const COUNTRY_PHRASES: Record<CountryCode, Record<LanguageCode, CountryPhrases>> = {
   fr: {
-    en: { in: "in France", brand: "Pearly Sky France" },
-    fr: { in: "en France", brand: "Pearly Sky France" },
-    de: { in: "in Frankreich", brand: "Pearly Sky France" },
-    es: { in: "en Francia", brand: "Pearly Sky France" },
-    it: { in: "in Francia", brand: "Pearly Sky France" },
+    en: { in: "in France", brand: "Pearly Sky France", country: "France", place: "France" },
+    fr: { in: "en France", brand: "Pearly Sky France", country: "France", place: "la France" },
+    de: { in: "in Frankreich", brand: "Pearly Sky France", country: "Frankreich", place: "Frankreich" },
+    es: { in: "en Francia", brand: "Pearly Sky France", country: "Francia", place: "Francia" },
+    it: { in: "in Francia", brand: "Pearly Sky France", country: "Francia", place: "la Francia" },
   },
   gb: {
-    en: { in: "in the UK", brand: "Pearly Sky UK" },
-    fr: { in: "au Royaume-Uni", brand: "Pearly Sky UK" },
-    de: { in: "im Vereinigten Königreich", brand: "Pearly Sky UK" },
-    es: { in: "en el Reino Unido", brand: "Pearly Sky UK" },
-    it: { in: "nel Regno Unito", brand: "Pearly Sky UK" },
+    en: { in: "in the UK", brand: "Pearly Sky UK", country: "UK", place: "the UK" },
+    fr: { in: "au Royaume-Uni", brand: "Pearly Sky UK", country: "Royaume-Uni", place: "le Royaume-Uni" },
+    de: { in: "im Vereinigten Königreich", brand: "Pearly Sky UK", country: "UK", place: "das Vereinigte Königreich" },
+    es: { in: "en el Reino Unido", brand: "Pearly Sky UK", country: "Reino Unido", place: "el Reino Unido" },
+    it: { in: "nel Regno Unito", brand: "Pearly Sky UK", country: "Regno Unito", place: "il Regno Unito" },
   },
   lk: {
-    en: { in: "in Sri Lanka", brand: "Pearly Sky Sri Lanka" },
-    fr: { in: "au Sri Lanka", brand: "Pearly Sky Sri Lanka" },
-    de: { in: "in Sri Lanka", brand: "Pearly Sky Sri Lanka" },
-    es: { in: "en Sri Lanka", brand: "Pearly Sky Sri Lanka" },
-    it: { in: "in Sri Lanka", brand: "Pearly Sky Sri Lanka" },
+    en: { in: "in Sri Lanka", brand: "Pearly Sky Sri Lanka", country: "Sri Lanka", place: "Sri Lanka" },
+    fr: { in: "au Sri Lanka", brand: "Pearly Sky Sri Lanka", country: "Sri Lanka", place: "le Sri Lanka" },
+    de: { in: "in Sri Lanka", brand: "Pearly Sky Sri Lanka", country: "Sri Lanka", place: "Sri Lanka" },
+    es: { in: "en Sri Lanka", brand: "Pearly Sky Sri Lanka", country: "Sri Lanka", place: "Sri Lanka" },
+    it: { in: "in Sri Lanka", brand: "Pearly Sky Sri Lanka", country: "Sri Lanka", place: "lo Sri Lanka" },
   },
 };
 
 /**
  * Approved SEO <title>/<meta description> copy per service and language,
- * keyed by service slug. "{in}" and "{brand}" are filled from
- * COUNTRY_PHRASES for the current deployment's country, so each country's
- * site names itself. Takes precedence over the catalog API's SEO fields —
- * see generateMetadata() in app/(site)/services/[serviceSlug]/page.tsx.
+ * keyed by service slug. "{in}", "{brand}", "{country}" and "{place}" are
+ * filled from COUNTRY_PHRASES for the current deployment's country, so each
+ * country's site names itself. Takes precedence over the catalog API's SEO
+ * fields — see generateMetadata() in app/(site)/services/[serviceSlug]/page.tsx.
+ * A language with no entry here falls back to the catalog API's copy.
  */
-const APPROVED_SERVICE_META: Record<string, Record<LanguageCode, ServiceMeta>> = {
+const APPROVED_SERVICE_META: Record<string, Partial<Record<LanguageCode, ServiceMeta>>> = {
   "deep-cleaning": {
     en: {
-      title: "Deep Cleaning Services {in} | Pearly Sky",
+      title: "Deep Cleaning Services {country} | Pearly Sky",
       description:
-        "Detailed deep cleaning for homes, apartments and premium properties {in}, including kitchens, bathrooms, living areas and high-touch surfaces.",
+        "Give your home a thorough refresh with Pearly Sky deep cleaning services. Explore detailed cleaning options tailored to your property and request a personalised quote {in}.",
     },
     fr: {
-      title: "Services de nettoyage en profondeur {in} | Pearly Sky",
+      title: "Services de nettoyage en profondeur {country} | Pearly Sky",
       description:
-        "Nettoyage en profondeur minutieux pour maisons, appartements et propriétés haut de gamme {in}, y compris cuisines, salles de bain, pièces de vie et surfaces fréquemment touchées.",
+        "Offrez à votre logement un renouveau complet avec les services de nettoyage en profondeur Pearly Sky. Découvrez des options de nettoyage détaillées adaptées à votre bien et demandez un devis personnalisé {in}.",
     },
     de: {
-      title: "Grundreinigung {in} | Pearly Sky",
+      title: "Grundreinigung {country} | Pearly Sky",
       description:
-        "Gründliche Grundreinigung für Häuser, Wohnungen und hochwertige Immobilien {in}, einschließlich Küchen, Bädern, Wohnbereichen und häufig berührter Oberflächen.",
+        "Gönnen Sie Ihrem Zuhause eine gründliche Auffrischung mit der Grundreinigung von Pearly Sky. Entdecken Sie detaillierte, auf Ihre Immobilie abgestimmte Reinigungsoptionen und fordern Sie ein individuelles Angebot {in} an.",
     },
     es: {
-      title: "Servicios de limpieza profunda {in} | Pearly Sky",
+      title: "Servicios de limpieza a fondo {country} | Pearly Sky",
       description:
-        "Limpieza profunda y detallada para viviendas, apartamentos y propiedades premium {in}, incluidas cocinas, baños, zonas de estar y superficies de contacto frecuente.",
+        "Dé a su hogar una renovación completa con los servicios de limpieza a fondo de Pearly Sky. Descubra opciones de limpieza detalladas adaptadas a su propiedad y solicite un presupuesto personalizado {in}.",
     },
     it: {
-      title: "Servizi di pulizia profonda {in} | Pearly Sky",
+      title: "Servizi di pulizia profonda {country} | Pearly Sky",
       description:
-        "Pulizia profonda e accurata per case, appartamenti e proprietà di pregio {in}, incluse cucine, bagni, zone giorno e superfici toccate di frequente.",
+        "Regala alla tua casa un rinnovo completo con i servizi di pulizia profonda di Pearly Sky. Scopri opzioni di pulizia dettagliate su misura per il tuo immobile e richiedi un preventivo personalizzato {in}.",
     },
   },
   "end-of-tenancy-cleaning": {
     en: {
-      title: "End-of-Tenancy Cleaning {in} | Pearly Sky",
+      title: "End of Tenancy Cleaning {country} | Pearly Sky",
       description:
-        "Thorough end-of-tenancy cleaning for move-ins, move-outs and property handovers {in}. Designed to help leave your property clean and ready for inspection.",
+        "Prepare your property for handover with Pearly Sky end of tenancy cleaning. Explore tailored move-out cleaning options for apartments and houses in selected locations across {place}.",
     },
     fr: {
-      title: "Nettoyage de fin de bail {in} | Pearly Sky",
+      title: "Nettoyage de fin de bail {country} | Pearly Sky",
       description:
-        "Nettoyage complet de fin de bail pour emménagements, déménagements et remises de clés {in}. Conçu pour vous aider à rendre un logement propre et prêt pour l'état des lieux.",
+        "Préparez votre bien pour la remise des clés avec le nettoyage de fin de bail Pearly Sky. Découvrez des options de nettoyage de départ adaptées aux appartements et maisons dans une sélection de villes {in}.",
     },
     de: {
-      title: "Endreinigung bei Mietende {in} | Pearly Sky",
+      title: "Endreinigung bei Auszug {country} | Pearly Sky",
       description:
-        "Gründliche Endreinigung für Ein- und Auszüge sowie Objektübergaben {in}. Damit Ihre Immobilie sauber und bereit für die Abnahme ist.",
+        "Bereiten Sie Ihre Immobilie mit der Endreinigung von Pearly Sky auf die Übergabe vor. Entdecken Sie maßgeschneiderte Auszugsreinigungen für Wohnungen und Häuser an ausgewählten Standorten {in}.",
     },
     es: {
-      title: "Limpieza de fin de alquiler {in} | Pearly Sky",
+      title: "Limpieza de fin de alquiler {country} | Pearly Sky",
       description:
-        "Limpieza a fondo de fin de alquiler para entradas, salidas y entregas de inmuebles {in}. Pensada para ayudarle a dejar la propiedad limpia y lista para la inspección.",
+        "Prepare su propiedad para la entrega con la limpieza de fin de alquiler de Pearly Sky. Descubra opciones de limpieza de salida adaptadas a pisos y casas en zonas seleccionadas {in}.",
     },
     it: {
-      title: "Pulizia di fine locazione {in} | Pearly Sky",
+      title: "Pulizia di fine locazione {country} | Pearly Sky",
       description:
-        "Pulizia accurata di fine locazione per ingressi, traslochi e consegne di immobili {in}. Pensata per aiutarvi a lasciare l'immobile pulito e pronto per l'ispezione.",
+        "Prepara il tuo immobile per la riconsegna con la pulizia di fine locazione di Pearly Sky. Scopri opzioni di pulizia per il trasloco su misura per appartamenti e case in località selezionate {in}.",
     },
   },
   "post-construction-renovation-cleaning": {
     en: {
-      title: "Post-Construction & Renovation Cleaning | {brand}",
+      title: "Post-Construction Cleaning {country} | Pearly Sky",
       description:
-        "Professional post-construction and renovation cleaning to remove dust, debris and marks before move-in, handover or reopening.",
+        "Get your property ready after building work or renovation with Pearly Sky post-construction cleaning. Enquire about tailored cleaning for homes and commercial spaces across selected locations {in}.",
     },
     fr: {
-      title: "Nettoyage post-travaux & rénovation | {brand}",
+      title: "Nettoyage après travaux {country} | Pearly Sky",
       description:
-        "Nettoyage professionnel après travaux et rénovation pour éliminer poussière, débris et traces avant un emménagement, une remise de clés ou une réouverture.",
+        "Préparez votre bien après des travaux de construction ou de rénovation avec le nettoyage après travaux Pearly Sky. Renseignez-vous sur un nettoyage adapté aux logements et locaux commerciaux dans une sélection de villes {in}.",
     },
     de: {
-      title: "Reinigung nach Bau & Renovierung | {brand}",
+      title: "Baureinigung nach Bau & Renovierung {country} | Pearly Sky",
       description:
-        "Professionelle Reinigung nach Bau- und Renovierungsarbeiten, die Staub, Schutt und Spuren vor Einzug, Übergabe oder Wiedereröffnung entfernt.",
+        "Machen Sie Ihre Immobilie nach Bau- oder Renovierungsarbeiten mit der Baureinigung von Pearly Sky wieder bezugsfertig. Fragen Sie nach maßgeschneiderter Reinigung für Wohn- und Gewerbeflächen an ausgewählten Standorten {in}.",
     },
     es: {
-      title: "Limpieza post-obra y reforma | {brand}",
+      title: "Limpieza de fin de obra {country} | Pearly Sky",
       description:
-        "Limpieza profesional tras obras y reformas para eliminar polvo, escombros y marcas antes de la mudanza, la entrega o la reapertura.",
+        "Deje su propiedad lista tras obras o reformas con la limpieza de fin de obra de Pearly Sky. Consulte opciones de limpieza adaptadas para viviendas y espacios comerciales en zonas seleccionadas {in}.",
     },
     it: {
-      title: "Pulizia post-cantiere e ristrutturazione | {brand}",
+      title: "Pulizia post-cantiere {country} | Pearly Sky",
       description:
-        "Pulizia professionale dopo lavori edili e ristrutturazioni per rimuovere polvere, detriti e segni prima del trasloco, della consegna o della riapertura.",
+        "Prepara il tuo immobile dopo lavori edili o ristrutturazioni con la pulizia post-cantiere di Pearly Sky. Informati su pulizie su misura per abitazioni e spazi commerciali in località selezionate {in}.",
     },
   },
   "premium-rental-concierge-cleaning": {
     en: {
-      title: "Premium Rental Turnover Cleaning {in} | Pearly Sky",
+      title: "Premium Rental Concierge Cleaning {country} | Pearly Sky",
       description:
-        "Premium cleaning and turnover support for short-term and luxury rental properties, with optional linen and guest-ready preparation services.",
+        "Elevate your rental property's presentation with Pearly Sky premium concierge cleaning. Tailored cleaning support for holiday rentals, apartments and managed properties across selected locations {in}.",
     },
     fr: {
-      title: "Ménage de rotation pour locations premium {in} | Pearly Sky",
+      title: "Nettoyage conciergerie pour locations premium {country} | Pearly Sky",
       description:
-        "Ménage haut de gamme et gestion des rotations pour locations courte durée et de luxe, avec services optionnels de linge et de préparation pour l'accueil des voyageurs.",
+        "Sublimez la présentation de votre bien locatif avec le nettoyage conciergerie premium Pearly Sky. Un accompagnement sur mesure pour locations saisonnières, appartements et biens gérés dans une sélection de villes {in}.",
     },
     de: {
-      title: "Wechselreinigung für Premium-Mietobjekte {in} | Pearly Sky",
+      title: "Concierge-Reinigung für Premium-Mietobjekte {country} | Pearly Sky",
       description:
-        "Hochwertige Reinigung und Wechselservice für Kurzzeit- und Luxusvermietungen, mit optionalem Wäscheservice und Vorbereitung für die Ankunft der Gäste.",
+        "Werten Sie die Präsentation Ihres Mietobjekts mit der Premium-Concierge-Reinigung von Pearly Sky auf. Maßgeschneiderte Reinigung für Ferienwohnungen, Apartments und verwaltete Immobilien an ausgewählten Standorten {in}.",
     },
     es: {
-      title: "Limpieza de rotación para alquileres premium {in} | Pearly Sky",
+      title: "Limpieza concierge para alquileres premium {country} | Pearly Sky",
       description:
-        "Limpieza premium y gestión de rotaciones para alquileres de corta estancia y de lujo, con servicios opcionales de ropa de cama y preparación para huéspedes.",
+        "Mejore la presentación de su propiedad en alquiler con la limpieza concierge premium de Pearly Sky. Limpieza a medida para alquileres vacacionales, apartamentos y propiedades gestionadas en zonas seleccionadas {in}.",
     },
     it: {
-      title: "Pulizia di cambio ospiti per affitti premium {in} | Pearly Sky",
+      title: "Pulizia concierge per affitti premium {country} | Pearly Sky",
       description:
-        "Pulizia premium e gestione del cambio ospiti per affitti brevi e di lusso, con servizi opzionali di biancheria e preparazione per l'arrivo degli ospiti.",
+        "Valorizza la presentazione del tuo immobile in affitto con la pulizia concierge premium di Pearly Sky. Supporto su misura per case vacanza, appartamenti e immobili gestiti in località selezionate {in}.",
     },
   },
   "commercial-office-cleaning": {
     en: {
-      title: "Commercial & Office Cleaning {in} | Pearly Sky",
+      title: "Commercial & Office Cleaning {country} | Pearly Sky",
       description:
-        "Professional commercial and office cleaning for workplaces, shared spaces and business premises {in}, tailored to your schedule and requirements.",
+        "Maintain a clean, welcoming workplace with Pearly Sky commercial and office cleaning services. Enquire about tailored cleaning plans for offices and business premises across selected locations {in}.",
     },
     fr: {
-      title: "Nettoyage de bureaux et locaux commerciaux {in} | Pearly Sky",
+      title: "Nettoyage de bureaux et locaux commerciaux {country} | Pearly Sky",
       description:
-        "Nettoyage professionnel de bureaux et locaux commerciaux pour lieux de travail, espaces partagés et locaux professionnels {in}, adapté à vos horaires et à vos besoins.",
+        "Maintenez un lieu de travail propre et accueillant avec les services de nettoyage commercial et de bureaux Pearly Sky. Renseignez-vous sur des plans de nettoyage adaptés aux bureaux et locaux professionnels dans une sélection de villes {in}.",
     },
     de: {
-      title: "Gewerbe- & Büroreinigung {in} | Pearly Sky",
+      title: "Gewerbe- & Büroreinigung {country} | Pearly Sky",
       description:
-        "Professionelle Gewerbe- und Büroreinigung für Arbeitsplätze, Gemeinschaftsflächen und Geschäftsräume {in}, abgestimmt auf Ihren Zeitplan und Ihre Anforderungen.",
+        "Sorgen Sie für einen sauberen, einladenden Arbeitsplatz mit der Gewerbe- und Büroreinigung von Pearly Sky. Fragen Sie nach maßgeschneiderten Reinigungsplänen für Büros und Geschäftsräume an ausgewählten Standorten {in}.",
     },
     es: {
-      title: "Limpieza comercial y de oficinas {in} | Pearly Sky",
+      title: "Limpieza comercial y de oficinas {country} | Pearly Sky",
       description:
-        "Limpieza profesional comercial y de oficinas para lugares de trabajo, espacios compartidos y locales de empresa {in}, adaptada a sus horarios y necesidades.",
+        "Mantenga un lugar de trabajo limpio y acogedor con los servicios de limpieza comercial y de oficinas de Pearly Sky. Consulte planes de limpieza a medida para oficinas y locales comerciales en zonas seleccionadas {in}.",
     },
     it: {
-      title: "Pulizia commerciale e di uffici {in} | Pearly Sky",
+      title: "Pulizia di uffici e locali commerciali {country} | Pearly Sky",
       description:
-        "Pulizia professionale commerciale e di uffici per luoghi di lavoro, spazi condivisi e locali aziendali {in}, su misura per i vostri orari e le vostre esigenze.",
+        "Mantieni un ambiente di lavoro pulito e accogliente con i servizi di pulizia commerciale e di uffici di Pearly Sky. Informati su piani di pulizia su misura per uffici e locali commerciali in località selezionate {in}.",
     },
   },
   "healthguard-sanitization": {
     en: {
-      title: "HealthGuard Surface Disinfection Service | {brand}",
+      title: "HealthGuard Sanitization {country} | Pearly Sky",
       description:
-        "Targeted cleaning and surface disinfection for frequently touched areas in homes, offices and shared spaces. Service availability depends on location and requirements.",
+        "Discover Pearly Sky HealthGuard Sanitization for homes and workplaces. Enquire about professional hygiene-focused cleaning and suitable sanitization options {in}.",
     },
     fr: {
-      title: "Service de désinfection des surfaces HealthGuard | {brand}",
+      title: "HealthGuard Sanitization {country} | Pearly Sky",
       description:
-        "Nettoyage ciblé et désinfection des surfaces fréquemment touchées dans les logements, bureaux et espaces partagés. Disponibilité selon le lieu et les besoins.",
+        "Découvrez HealthGuard Sanitization de Pearly Sky pour logements et lieux de travail. Renseignez-vous sur un nettoyage professionnel axé sur l'hygiène et des options de désinfection adaptées {in}.",
     },
     de: {
-      title: "HealthGuard Oberflächendesinfektion | {brand}",
+      title: "HealthGuard Sanitization {country} | Pearly Sky",
       description:
-        "Gezielte Reinigung und Desinfektion häufig berührter Oberflächen in Wohnungen, Büros und Gemeinschaftsräumen. Verfügbarkeit abhängig von Standort und Anforderungen.",
+        "Entdecken Sie HealthGuard Sanitization von Pearly Sky für Wohn- und Arbeitsräume. Fragen Sie nach professioneller, hygieneorientierter Reinigung und passenden Desinfektionsoptionen {in}.",
     },
     es: {
-      title: "Servicio de desinfección de superficies HealthGuard | {brand}",
+      title: "HealthGuard Sanitization {country} | Pearly Sky",
       description:
-        "Limpieza específica y desinfección de superficies de contacto frecuente en viviendas, oficinas y espacios compartidos. Disponibilidad según la ubicación y las necesidades.",
+        "Descubra HealthGuard Sanitization de Pearly Sky para hogares y lugares de trabajo. Consulte opciones de limpieza profesional centrada en la higiene y de desinfección adecuadas {in}.",
     },
     it: {
-      title: "Servizio di disinfezione delle superfici HealthGuard | {brand}",
+      title: "HealthGuard Sanitization {country} | Pearly Sky",
       description:
-        "Pulizia mirata e disinfezione delle superfici toccate di frequente in case, uffici e spazi condivisi. Disponibilità in base alla località e alle esigenze.",
+        "Scopri HealthGuard Sanitization di Pearly Sky per abitazioni e luoghi di lavoro. Informati su pulizie professionali orientate all'igiene e su soluzioni di sanificazione adeguate {in}.",
     },
   },
   "carpet-upholstery-cleaning": {
     en: {
-      title: "Carpet & Upholstery Cleaning {in} | Pearly Sky",
+      title: "Carpet & Upholstery Cleaning {country} | Pearly Sky",
       description:
-        "Professional deep cleaning for carpets, rugs, sofas and upholstery to refresh fabrics and help remove everyday marks and embedded dirt.",
+        "Refresh carpets, rugs and upholstered furniture with Pearly Sky cleaning services. Enquire about suitable cleaning options for your home or workspace in selected locations across {place}.",
     },
     fr: {
-      title: "Nettoyage de tapis et canapés {in} | Pearly Sky",
+      title: "Nettoyage de tapis et de tissus d'ameublement {country} | Pearly Sky",
       description:
-        "Nettoyage professionnel en profondeur des moquettes, tapis, canapés et tissus d'ameublement pour raviver les textiles et aider à éliminer les taches du quotidien et la saleté incrustée.",
+        "Ravivez moquettes, tapis et meubles rembourrés avec les services de nettoyage Pearly Sky. Renseignez-vous sur les options adaptées à votre logement ou espace de travail dans une sélection de villes {in}.",
     },
     de: {
-      title: "Teppich- & Polsterreinigung {in} | Pearly Sky",
+      title: "Teppich- & Polsterreinigung {country} | Pearly Sky",
       description:
-        "Professionelle Tiefenreinigung für Teppiche, Läufer, Sofas und Polster, die Stoffe auffrischt und hilft, alltägliche Flecken und tief sitzenden Schmutz zu entfernen.",
+        "Frischen Sie Teppichböden, Teppiche und Polstermöbel mit den Reinigungsleistungen von Pearly Sky auf. Fragen Sie nach passenden Reinigungsoptionen für Ihr Zuhause oder Ihren Arbeitsplatz an ausgewählten Standorten {in}.",
     },
     es: {
-      title: "Limpieza de alfombras y tapicerías {in} | Pearly Sky",
+      title: "Limpieza de alfombras y tapicerías {country} | Pearly Sky",
       description:
-        "Limpieza profunda profesional de moquetas, alfombras, sofás y tapicerías para renovar los tejidos y ayudar a eliminar manchas cotidianas y suciedad incrustada.",
+        "Renueve moquetas, alfombras y muebles tapizados con los servicios de limpieza de Pearly Sky. Consulte opciones de limpieza adecuadas para su hogar o espacio de trabajo en zonas seleccionadas {in}.",
     },
     it: {
-      title: "Pulizia di tappeti e imbottiti {in} | Pearly Sky",
+      title: "Pulizia di tappeti e imbottiti {country} | Pearly Sky",
       description:
-        "Pulizia profonda professionale di moquette, tappeti, divani e imbottiti per rinfrescare i tessuti e aiutare a rimuovere macchie quotidiane e sporco incrostato.",
+        "Rinfresca moquette, tappeti e mobili imbottiti con i servizi di pulizia di Pearly Sky. Informati sulle opzioni di pulizia adatte alla tua casa o al tuo spazio di lavoro in località selezionate {in}.",
     },
   },
   "steam-cleaning": {
     en: {
-      title: "Steam Cleaning Services {in} | Pearly Sky",
+      title: "Steam Cleaning Services {country} | Pearly Sky",
       description:
-        "High-temperature steam cleaning for tiles, hard floors and suitable surfaces. A practical option for deep cleaning with reduced use of cleaning products.",
+        "Discover Pearly Sky steam cleaning for suitable surfaces in homes and workspaces. Enquire about tailored cleaning options in selected locations across {place}, subject to availability.",
     },
     fr: {
-      title: "Services de nettoyage à la vapeur {in} | Pearly Sky",
+      title: "Services de nettoyage à la vapeur {country} | Pearly Sky",
       description:
-        "Nettoyage vapeur haute température pour carrelages, sols durs et surfaces adaptées. Une solution pratique pour un nettoyage en profondeur avec moins de produits d'entretien.",
+        "Découvrez le nettoyage à la vapeur Pearly Sky pour les surfaces adaptées des logements et espaces de travail. Renseignez-vous sur des options sur mesure dans une sélection de villes {in}, sous réserve de disponibilité.",
     },
     de: {
-      title: "Dampfreinigung {in} | Pearly Sky",
+      title: "Dampfreinigung {country} | Pearly Sky",
       description:
-        "Heißdampfreinigung für Fliesen, Hartböden und geeignete Oberflächen. Eine praktische Lösung für die Tiefenreinigung mit weniger Reinigungsmitteln.",
+        "Entdecken Sie die Dampfreinigung von Pearly Sky für geeignete Oberflächen in Wohn- und Arbeitsräumen. Fragen Sie nach maßgeschneiderten Reinigungsoptionen an ausgewählten Standorten {in}, je nach Verfügbarkeit.",
     },
     es: {
-      title: "Servicios de limpieza a vapor {in} | Pearly Sky",
+      title: "Servicios de limpieza a vapor {country} | Pearly Sky",
       description:
-        "Limpieza a vapor de alta temperatura para azulejos, suelos duros y superficies adecuadas. Una opción práctica para una limpieza profunda con menos productos de limpieza.",
+        "Descubra la limpieza a vapor de Pearly Sky para superficies adecuadas en hogares y espacios de trabajo. Consulte opciones de limpieza a medida en zonas seleccionadas {in}, sujeto a disponibilidad.",
     },
     it: {
-      title: "Servizi di pulizia a vapore {in} | Pearly Sky",
+      title: "Servizi di pulizia a vapore {country} | Pearly Sky",
       description:
-        "Pulizia a vapore ad alta temperatura per piastrelle, pavimenti duri e superfici idonee. Una soluzione pratica per una pulizia profonda con un uso ridotto di detergenti.",
+        "Scopri la pulizia a vapore di Pearly Sky per superfici idonee in abitazioni e spazi di lavoro. Informati su opzioni di pulizia su misura in località selezionate {in}, in base alla disponibilità.",
     },
   },
   "post-event-cleaning": {
     en: {
-      title: "Post-Event Cleaning Services {in} | Pearly Sky",
+      title: "Post-Event Cleaning Services | Pearly Sky",
       description:
-        "Flexible post-event cleaning for private events, celebrations and business occasions, including waste removal and venue reset support.",
+        "Restore your venue after a gathering with Pearly Sky post-event cleaning. Enquire about tailored cleanup for private events, offices and commercial venues across selected locations {in}.",
     },
     fr: {
-      title: "Nettoyage après événement {in} | Pearly Sky",
+      title: "Services de nettoyage après événement | Pearly Sky",
       description:
-        "Nettoyage flexible après vos événements privés, célébrations et rendez-vous professionnels, incluant l'évacuation des déchets et la remise en état des lieux.",
+        "Remettez votre lieu en état après une réception avec le nettoyage après événement Pearly Sky. Renseignez-vous sur un nettoyage adapté aux événements privés, bureaux et lieux commerciaux dans une sélection de villes {in}.",
     },
     de: {
-      title: "Reinigung nach Veranstaltungen {in} | Pearly Sky",
+      title: "Reinigung nach Veranstaltungen | Pearly Sky",
       description:
-        "Flexible Reinigung nach privaten Veranstaltungen, Feiern und Geschäftsanlässen, inklusive Abfallentsorgung und Unterstützung bei der Wiederherrichtung des Veranstaltungsorts.",
+        "Bringen Sie Ihre Location nach einer Veranstaltung mit der Event-Reinigung von Pearly Sky wieder in Ordnung. Fragen Sie nach maßgeschneiderter Reinigung für private Feiern, Büros und gewerbliche Veranstaltungsorte an ausgewählten Standorten {in}.",
     },
     es: {
-      title: "Servicios de limpieza post-evento {in} | Pearly Sky",
+      title: "Servicios de limpieza tras eventos | Pearly Sky",
       description:
-        "Limpieza flexible tras eventos privados, celebraciones y actos de empresa, incluida la retirada de residuos y la puesta a punto del espacio.",
+        "Recupere su espacio después de una reunión con la limpieza tras eventos de Pearly Sky. Consulte limpiezas a medida para eventos privados, oficinas y locales comerciales en zonas seleccionadas {in}.",
     },
     it: {
-      title: "Servizi di pulizia post-evento {in} | Pearly Sky",
+      title: "Servizi di pulizia post-evento | Pearly Sky",
       description:
-        "Pulizia flessibile dopo eventi privati, celebrazioni e occasioni aziendali, incluso lo smaltimento dei rifiuti e il ripristino della location.",
+        "Rimetti in ordine la tua location dopo un evento con la pulizia post-evento di Pearly Sky. Informati su pulizie su misura per eventi privati, uffici e locali commerciali in località selezionate {in}.",
     },
   },
   "pool-cleaning": {
     en: {
-      title: "Swimming Pool Cleaning & Maintenance | {brand}",
+      title: "Swimming Pool Cleaning Services {country} | Pearly Sky",
       description:
-        "Cleaning and maintenance support for private swimming pools, including surface cleaning, debris removal and routine care based on your requirements.",
+        "Keep your pool area fresh and inviting with Pearly Sky swimming pool cleaning enquiries. Explore pool-surface and surrounding-area cleaning options in selected locations across {place}, subject to availability.",
     },
     fr: {
-      title: "Nettoyage et entretien de piscine | {brand}",
+      title: "Services de nettoyage de piscine {country} | Pearly Sky",
       description:
-        "Nettoyage et entretien des piscines privées, incluant le nettoyage des surfaces, le retrait des débris et l'entretien régulier selon vos besoins.",
+        "Gardez votre espace piscine propre et accueillant grâce aux demandes de nettoyage de piscine Pearly Sky. Découvrez des options pour les surfaces du bassin et ses abords dans une sélection de villes {in}, sous réserve de disponibilité.",
     },
     de: {
-      title: "Poolreinigung & -wartung | {brand}",
+      title: "Poolreinigung {country} | Pearly Sky",
       description:
-        "Reinigung und Pflege privater Schwimmbecken, einschließlich Oberflächenreinigung, Entfernung von Schmutz und regelmäßiger Wartung nach Ihren Anforderungen.",
+        "Halten Sie Ihren Poolbereich sauber und einladend mit Anfragen zur Poolreinigung bei Pearly Sky. Entdecken Sie Reinigungsoptionen für Pooloberflächen und Umgebung an ausgewählten Standorten {in}, je nach Verfügbarkeit.",
     },
     es: {
-      title: "Limpieza y mantenimiento de piscinas | {brand}",
+      title: "Servicios de limpieza de piscinas {country} | Pearly Sky",
       description:
-        "Limpieza y mantenimiento de piscinas privadas, incluida la limpieza de superficies, la retirada de residuos y el cuidado periódico según sus necesidades.",
+        "Mantenga la zona de su piscina limpia y acogedora con las solicitudes de limpieza de piscinas de Pearly Sky. Descubra opciones de limpieza para la superficie de la piscina y su entorno en zonas seleccionadas {in}, sujeto a disponibilidad.",
     },
     it: {
-      title: "Pulizia e manutenzione piscine | {brand}",
+      title: "Servizi di pulizia piscine {country} | Pearly Sky",
       description:
-        "Pulizia e manutenzione di piscine private, inclusa la pulizia delle superfici, la rimozione dei detriti e la cura periodica in base alle vostre esigenze.",
+        "Mantieni l'area piscina pulita e invitante con le richieste di pulizia piscine di Pearly Sky. Scopri opzioni di pulizia per le superfici della piscina e le aree circostanti in località selezionate {in}, in base alla disponibilità.",
     },
   },
   "precision-pressure-washing": {
     en: {
-      title: "Pressure Washing Services {in} | Pearly Sky",
+      title: "Pressure Washing Services {country} | Pearly Sky",
       description:
-        "Professional exterior pressure washing for suitable terraces, driveways, façades and outdoor surfaces, assessed according to material and condition.",
+        "Refresh suitable outdoor surfaces with Pearly Sky pressure washing services. Enquire about cleaning patios, driveways and exterior hard surfaces in selected locations across {place}.",
     },
     fr: {
-      title: "Nettoyage haute pression {in} | Pearly Sky",
+      title: "Services de nettoyage haute pression {country} | Pearly Sky",
       description:
-        "Nettoyage extérieur professionnel haute pression pour terrasses, allées, façades et surfaces extérieures adaptées, évalué selon le matériau et son état.",
+        "Ravivez les surfaces extérieures adaptées avec les services de nettoyage haute pression Pearly Sky. Renseignez-vous sur le nettoyage des terrasses, allées et surfaces dures extérieures dans une sélection de villes {in}.",
     },
     de: {
-      title: "Hochdruckreinigung {in} | Pearly Sky",
+      title: "Hochdruckreinigung {country} | Pearly Sky",
       description:
-        "Professionelle Hochdruckreinigung im Außenbereich für geeignete Terrassen, Einfahrten, Fassaden und Außenflächen, abgestimmt auf Material und Zustand.",
+        "Frischen Sie geeignete Außenflächen mit der Hochdruckreinigung von Pearly Sky auf. Fragen Sie nach der Reinigung von Terrassen, Einfahrten und harten Außenflächen an ausgewählten Standorten {in}.",
     },
     es: {
-      title: "Servicios de limpieza a presión {in} | Pearly Sky",
+      title: "Servicios de limpieza a presión {country} | Pearly Sky",
       description:
-        "Limpieza exterior profesional a presión para terrazas, entradas, fachadas y superficies exteriores adecuadas, evaluada según el material y su estado.",
+        "Renueve las superficies exteriores adecuadas con los servicios de limpieza a presión de Pearly Sky. Consulte la limpieza de patios, entradas de vehículos y superficies duras exteriores en zonas seleccionadas {in}.",
     },
     it: {
-      title: "Servizi di idropulizia {in} | Pearly Sky",
+      title: "Servizi di lavaggio ad alta pressione {country} | Pearly Sky",
       description:
-        "Idropulizia professionale per esterni su terrazze, vialetti, facciate e superfici esterne idonee, valutata in base al materiale e alle condizioni.",
+        "Rinfresca le superfici esterne idonee con i servizi di lavaggio ad alta pressione di Pearly Sky. Informati sulla pulizia di patii, vialetti e superfici dure esterne in località selezionate {in}.",
     },
   },
   "high-security-property-care": {
@@ -371,147 +376,228 @@ const APPROVED_SERVICE_META: Record<string, Record<LanguageCode, ServiceMeta>> =
   },
   "luxury-yacht-cleaning": {
     en: {
-      title: "Luxury Yacht Cleaning & Marine Care | {brand}",
+      title: "Luxury Yacht Cleaning Services {country} | Pearly Sky",
       description:
-        "Premium cleaning and detailing support for yachts and marine interiors, including suitable interior surfaces, fabrics and exterior areas by arrangement.",
+        "Discover Pearly Sky luxury yacht cleaning enquiries for yacht interiors and suitable exterior surfaces. Request tailored cleaning support in selected coastal locations {in}, subject to availability.",
     },
     fr: {
-      title: "Nettoyage de yachts de luxe & entretien nautique | {brand}",
+      title: "Services de nettoyage de yachts de luxe {country} | Pearly Sky",
       description:
-        "Nettoyage et detailing haut de gamme pour yachts et intérieurs nautiques, incluant surfaces intérieures adaptées, textiles et zones extérieures sur demande.",
+        "Découvrez les demandes de nettoyage de yachts de luxe Pearly Sky pour les intérieurs et les surfaces extérieures adaptées. Demandez un accompagnement sur mesure dans une sélection de zones côtières {in}, sous réserve de disponibilité.",
     },
     de: {
-      title: "Luxusyacht-Reinigung & Bootspflege | {brand}",
+      title: "Luxusyacht-Reinigung {country} | Pearly Sky",
       description:
-        "Hochwertige Reinigung und Detailing für Yachten und maritime Innenräume, einschließlich geeigneter Innenflächen, Textilien und Außenbereiche nach Vereinbarung.",
+        "Entdecken Sie Anfragen zur Luxusyacht-Reinigung bei Pearly Sky für Yacht-Innenräume und geeignete Außenflächen. Fordern Sie maßgeschneiderte Reinigung an ausgewählten Küstenstandorten {in} an, je nach Verfügbarkeit.",
     },
     es: {
-      title: "Limpieza de yates de lujo y cuidado náutico | {brand}",
+      title: "Servicios de limpieza de yates de lujo {country} | Pearly Sky",
       description:
-        "Limpieza y detailing premium para yates e interiores náuticos, incluidas superficies interiores adecuadas, tejidos y zonas exteriores bajo acuerdo.",
+        "Descubra las solicitudes de limpieza de yates de lujo de Pearly Sky para interiores y superficies exteriores adecuadas. Solicite una limpieza a medida en zonas costeras seleccionadas {in}, sujeto a disponibilidad.",
     },
     it: {
-      title: "Pulizia di yacht di lusso e cura nautica | {brand}",
+      title: "Servizi di pulizia di yacht di lusso {country} | Pearly Sky",
       description:
-        "Pulizia e detailing premium per yacht e interni nautici, incluse superfici interne idonee, tessuti e aree esterne su accordo.",
+        "Scopri le richieste di pulizia di yacht di lusso di Pearly Sky per interni e superfici esterne idonee. Richiedi un supporto su misura in località costiere selezionate {in}, in base alla disponibilità.",
     },
   },
   "child-care-service": {
     en: {
-      title: "Childcare Support Services {in} | Pearly Sky",
+      title: "Pearly Sky Children Care Service {country} | Pearly Sky",
       description:
-        "Trusted childcare support for families {in}, with service arrangements tailored to each household’s needs and local availability.",
+        "Explore Pearly Sky children care service enquiries {in}. Contact us to discuss your family's needs, service availability and suitable care arrangements.",
     },
     fr: {
-      title: "Services de garde d'enfants {in} | Pearly Sky",
+      title: "Service de garde d'enfants Pearly Sky {country} | Pearly Sky",
       description:
-        "Une aide à la garde d'enfants de confiance pour les familles {in}, avec des modalités adaptées aux besoins de chaque foyer et aux disponibilités locales.",
+        "Découvrez les demandes de garde d'enfants Pearly Sky {in}. Contactez-nous pour parler des besoins de votre famille, des disponibilités et des modalités de garde adaptées.",
     },
     de: {
-      title: "Kinderbetreuung {in} | Pearly Sky",
+      title: "Pearly Sky Kinderbetreuung {country} | Pearly Sky",
       description:
-        "Vertrauensvolle Kinderbetreuung für Familien {in}, mit Leistungen, die auf die Bedürfnisse jedes Haushalts und die Verfügbarkeit vor Ort abgestimmt sind.",
+        "Entdecken Sie Anfragen zur Kinderbetreuung bei Pearly Sky {in}. Kontaktieren Sie uns, um die Bedürfnisse Ihrer Familie, die Verfügbarkeit und passende Betreuungsmodelle zu besprechen.",
     },
     es: {
-      title: "Servicios de apoyo al cuidado infantil {in} | Pearly Sky",
+      title: "Servicio de cuidado infantil Pearly Sky {country} | Pearly Sky",
       description:
-        "Apoyo de confianza en el cuidado infantil para familias {in}, con condiciones de servicio adaptadas a las necesidades de cada hogar y a la disponibilidad local.",
+        "Descubra las solicitudes de cuidado infantil de Pearly Sky {in}. Contáctenos para hablar de las necesidades de su familia, la disponibilidad del servicio y las opciones de cuidado adecuadas.",
     },
     it: {
-      title: "Servizi di assistenza all'infanzia {in} | Pearly Sky",
+      title: "Servizio di assistenza all'infanzia Pearly Sky {country} | Pearly Sky",
       description:
-        "Assistenza all'infanzia affidabile per le famiglie {in}, con modalità di servizio su misura per le esigenze di ogni nucleo familiare e la disponibilità locale.",
+        "Scopri le richieste di assistenza all'infanzia di Pearly Sky {in}. Contattaci per parlare delle esigenze della tua famiglia, della disponibilità del servizio e delle soluzioni di assistenza più adatte.",
     },
   },
   "elder-care-service": {
     en: {
-      title: "Senior Support & Home Assistance {in} | Pearly Sky",
+      title: "Elderly Care Services {country} | Pearly Sky",
       description:
-        "Respectful home-support and companionship services for seniors, tailored to daily routines, household needs and local availability.",
+        "Explore Pearly Sky elderly care service enquiries {in}. Contact us to discuss support needs, available services and suitable arrangements for older adults.",
     },
     fr: {
-      title: "Aide et accompagnement à domicile des seniors {in} | Pearly Sky",
+      title: "Services d'aide aux personnes âgées {country} | Pearly Sky",
       description:
-        "Services respectueux d'aide à domicile et de compagnie pour les seniors, adaptés aux habitudes quotidiennes, aux besoins du foyer et aux disponibilités locales.",
+        "Découvrez les demandes d'aide aux personnes âgées Pearly Sky {in}. Contactez-nous pour parler des besoins d'accompagnement, des services disponibles et des modalités adaptées aux seniors.",
     },
     de: {
-      title: "Seniorenbetreuung & Haushaltshilfe {in} | Pearly Sky",
+      title: "Seniorenbetreuung {country} | Pearly Sky",
       description:
-        "Respektvolle Unterstützung im Haushalt und Gesellschaft für Senioren, abgestimmt auf den Tagesablauf, die Bedürfnisse des Haushalts und die Verfügbarkeit vor Ort.",
+        "Entdecken Sie Anfragen zur Seniorenbetreuung bei Pearly Sky {in}. Kontaktieren Sie uns, um Unterstützungsbedarf, verfügbare Leistungen und passende Lösungen für ältere Menschen zu besprechen.",
     },
     es: {
-      title: "Apoyo a mayores y asistencia en el hogar {in} | Pearly Sky",
+      title: "Servicios de cuidado de mayores {country} | Pearly Sky",
       description:
-        "Servicios respetuosos de ayuda en el hogar y compañía para personas mayores, adaptados a sus rutinas diarias, a las necesidades del hogar y a la disponibilidad local.",
+        "Descubra las solicitudes de cuidado de mayores de Pearly Sky {in}. Contáctenos para hablar de las necesidades de apoyo, los servicios disponibles y las opciones adecuadas para personas mayores.",
     },
     it: {
-      title: "Assistenza agli anziani e supporto domestico {in} | Pearly Sky",
+      title: "Servizi di assistenza agli anziani {country} | Pearly Sky",
       description:
-        "Servizi rispettosi di supporto domestico e compagnia per anziani, su misura per le abitudini quotidiane, le esigenze della casa e la disponibilità locale.",
+        "Scopri le richieste di assistenza agli anziani di Pearly Sky {in}. Contattaci per parlare delle esigenze di supporto, dei servizi disponibili e delle soluzioni adatte alle persone anziane.",
+    },
+  },
+  "regular-home-cleaning": {
+    en: {
+      title: "Regular Home Cleaning {country} | Pearly Sky",
+      description:
+        "Keep your home fresh and comfortable with Pearly Sky regular home cleaning. Explore tailored cleaning services for your living space and request a personalised quote {in}.",
+    },
+    fr: {
+      title: "Ménage régulier à domicile {country} | Pearly Sky",
+      description:
+        "Gardez votre intérieur frais et confortable avec le ménage régulier Pearly Sky. Découvrez des services de nettoyage adaptés à votre logement et demandez un devis personnalisé {in}.",
+    },
+    de: {
+      title: "Regelmäßige Haushaltsreinigung {country} | Pearly Sky",
+      description:
+        "Halten Sie Ihr Zuhause frisch und gemütlich mit der regelmäßigen Haushaltsreinigung von Pearly Sky. Entdecken Sie auf Ihren Wohnraum abgestimmte Reinigungsleistungen und fordern Sie ein individuelles Angebot {in} an.",
+    },
+    es: {
+      title: "Limpieza regular del hogar {country} | Pearly Sky",
+      description:
+        "Mantenga su hogar fresco y acogedor con la limpieza regular de Pearly Sky. Descubra servicios de limpieza adaptados a su vivienda y solicite un presupuesto personalizado {in}.",
+    },
+    it: {
+      title: "Pulizia regolare della casa {country} | Pearly Sky",
+      description:
+        "Mantieni la tua casa fresca e accogliente con la pulizia regolare di Pearly Sky. Scopri servizi di pulizia su misura per i tuoi spazi e richiedi un preventivo personalizzato {in}.",
+    },
+  },
+  "essential-touch-up-cleaning": {
+    en: {
+      title: "Essential Touch-Up Cleaning {country} | Pearly Sky",
+      description:
+        "Refresh your home with Pearly Sky essential touch-up cleaning. Enjoy focused care for everyday mess, high-use areas and key surfaces. Enquire about availability and pricing {in}.",
+    },
+    fr: {
+      title: "Nettoyage de rafraîchissement essentiel {country} | Pearly Sky",
+      description:
+        "Redonnez de l'éclat à votre logement avec le nettoyage de rafraîchissement essentiel Pearly Sky : un soin ciblé pour le désordre du quotidien, les zones très fréquentées et les surfaces clés. Renseignez-vous sur les disponibilités et les tarifs {in}.",
+    },
+    de: {
+      title: "Schnelle Auffrischungsreinigung {country} | Pearly Sky",
+      description:
+        "Frischen Sie Ihr Zuhause mit der Auffrischungsreinigung von Pearly Sky auf: gezielte Pflege für alltägliche Unordnung, stark genutzte Bereiche und wichtige Oberflächen. Informieren Sie sich über Verfügbarkeit und Preise {in}.",
+    },
+    es: {
+      title: "Limpieza de repaso esencial {country} | Pearly Sky",
+      description:
+        "Renueve su hogar con la limpieza de repaso esencial de Pearly Sky: atención específica al desorden cotidiano, las zonas de mucho uso y las superficies clave. Consulte disponibilidad y precios {in}.",
+    },
+    it: {
+      title: "Pulizia di ritocco essenziale {country} | Pearly Sky",
+      description:
+        "Rinfresca la tua casa con la pulizia di ritocco essenziale di Pearly Sky: cura mirata per il disordine quotidiano, le zone più utilizzate e le superfici principali. Informati su disponibilità e prezzi {in}.",
+    },
+  },
+  "same-day-priority-cleaning": {
+    en: {
+      title: "Same-Day Cleaning Services {country} | Pearly Sky",
+      description:
+        "Need cleaning at short notice? Contact Pearly Sky for same-day priority cleaning enquiries for homes and workspaces in selected locations across {place}, subject to availability.",
+    },
+    fr: {
+      title: "Services de nettoyage le jour même {country} | Pearly Sky",
+      description:
+        "Besoin d'un nettoyage à la dernière minute ? Contactez Pearly Sky pour un nettoyage prioritaire le jour même pour logements et espaces de travail dans une sélection de villes {in}, sous réserve de disponibilité.",
+    },
+    de: {
+      title: "Reinigung am selben Tag {country} | Pearly Sky",
+      description:
+        "Kurzfristig eine Reinigung nötig? Kontaktieren Sie Pearly Sky für Anfragen zur priorisierten Reinigung am selben Tag für Wohn- und Arbeitsräume an ausgewählten Standorten {in}, je nach Verfügbarkeit.",
+    },
+    es: {
+      title: "Servicios de limpieza en el día {country} | Pearly Sky",
+      description:
+        "¿Necesita una limpieza con poca antelación? Contacte con Pearly Sky para solicitudes de limpieza prioritaria en el mismo día para hogares y espacios de trabajo en zonas seleccionadas {in}, sujeto a disponibilidad.",
+    },
+    it: {
+      title: "Servizi di pulizia in giornata {country} | Pearly Sky",
+      description:
+        "Hai bisogno di una pulizia con poco preavviso? Contatta Pearly Sky per richieste di pulizia prioritaria in giornata per abitazioni e spazi di lavoro in località selezionate {in}, in base alla disponibilità.",
+    },
+  },
+  "laundry-service": {
+    en: {
+      title: "Laundry Services {country} | Pearly Sky",
+      description:
+        "Discover Pearly Sky laundry services for homes and rental properties. Enquire about washing, drying, folding and linen care options in selected locations across {place}, subject to availability.",
+    },
+    fr: {
+      title: "Services de blanchisserie {country} | Pearly Sky",
+      description:
+        "Découvrez les services de blanchisserie Pearly Sky pour logements et biens locatifs. Renseignez-vous sur le lavage, le séchage, le pliage et l'entretien du linge dans une sélection de villes {in}, sous réserve de disponibilité.",
+    },
+    de: {
+      title: "Wäscheservice {country} | Pearly Sky",
+      description:
+        "Entdecken Sie den Wäscheservice von Pearly Sky für Privathaushalte und Mietobjekte. Fragen Sie nach Waschen, Trocknen, Falten und Wäschepflege an ausgewählten Standorten {in}, je nach Verfügbarkeit.",
+    },
+    es: {
+      title: "Servicios de lavandería {country} | Pearly Sky",
+      description:
+        "Descubra los servicios de lavandería de Pearly Sky para hogares y propiedades en alquiler. Consulte opciones de lavado, secado, doblado y cuidado de la ropa de cama en zonas seleccionadas {in}, sujeto a disponibilidad.",
+    },
+    it: {
+      title: "Servizi di lavanderia {country} | Pearly Sky",
+      description:
+        "Scopri i servizi di lavanderia di Pearly Sky per abitazioni e immobili in affitto. Informati su lavaggio, asciugatura, piegatura e cura della biancheria in località selezionate {in}, in base alla disponibilità.",
+    },
+  },
+  "move-in-out-transport-service": {
+    en: {
+      title: "Moving In & Out Services {country} | Pearly Sky",
+      description:
+        "Make moving easier with Pearly Sky moving support, move-in and move-out cleaning enquiries, and transport options. Contact us to discuss your requirements {in}.",
+    },
+    fr: {
+      title: "Services d'emménagement et de déménagement {country} | Pearly Sky",
+      description:
+        "Simplifiez votre déménagement avec Pearly Sky : aide au déménagement, nettoyage d'entrée et de sortie des lieux et options de transport. Contactez-nous pour discuter de vos besoins {in}.",
+    },
+    de: {
+      title: "Ein- & Auszugsservice {country} | Pearly Sky",
+      description:
+        "Machen Sie Ihren Umzug einfacher mit Pearly Sky: Umzugshilfe, Anfragen zur Ein- und Auszugsreinigung sowie Transportoptionen. Kontaktieren Sie uns, um Ihre Anforderungen {in} zu besprechen.",
+    },
+    es: {
+      title: "Servicios de mudanza de entrada y salida {country} | Pearly Sky",
+      description:
+        "Facilite su mudanza con Pearly Sky: ayuda con la mudanza, solicitudes de limpieza de entrada y salida y opciones de transporte. Contáctenos para hablar de sus necesidades {in}.",
+    },
+    it: {
+      title: "Servizi di trasloco in entrata e in uscita {country} | Pearly Sky",
+      description:
+        "Rendi il trasloco più semplice con Pearly Sky: supporto al trasloco, richieste di pulizia di ingresso e uscita e opzioni di trasporto. Contattaci per parlare delle tue esigenze {in}.",
     },
   },
 };
 
-/** Short country label for a title suffix ("Same-Day Priority Cleaning – France"). */
-const COUNTRY_TITLE_SUFFIX: Record<CountryCode, string> = {
-  fr: "France",
-  gb: "UK",
-  lk: "Sri Lanka",
-};
-
-/** Prose country label for a description sentence ("...across the United Kingdom."). */
-const COUNTRY_PROSE: Record<CountryCode, string> = {
-  fr: "France",
-  gb: "the United Kingdom",
-  lk: "Sri Lanka",
-};
-
-/**
- * Builds a distinct title/description per country from one base pair, so the
- * site's 3 hreflang country-alternates per service page aren't byte-identical
- * — search engines fold identical-content alternates into a single indexed
- * page, defeating the purpose of having per-country URLs at all.
- */
-function metaByCountryFrom(title: string, description: string): Record<CountryCode, ServiceMeta> {
-  const result = {} as Record<CountryCode, ServiceMeta>;
-  for (const country of SUPPORTED_COUNTRIES) {
-    result[country] = {
-      title: `${title} – ${COUNTRY_TITLE_SUFFIX[country]}`,
-      description: `${description} Serving clients across ${COUNTRY_PROSE[country]}.`,
-    };
-  }
-  return result;
-}
-
-/**
- * English-only copy for services without approved copy yet. Their other
- * languages come from the catalog API's per-language SEO fields.
- */
-const ENGLISH_SERVICE_META: Record<string, Record<CountryCode, ServiceMeta>> = {
-  "regular-home-cleaning": metaByCountryFrom(
-    "Regular Home Cleaning | Pearly Sky Eco-Luxury Care",
-    "Recurring, detail-driven upkeep that keeps every room fresh, tidy, and welcoming between visits.",
-  ),
-  "essential-touch-up-cleaning": metaByCountryFrom(
-    "Essential Touch-Up Cleaning | Fast Refresh Service",
-    "A focused, efficient refresh for high-traffic areas — ideal for a quick reset before guests or the next appointment.",
-  ),
-  "same-day-priority-cleaning": metaByCountryFrom(
-    "Same-Day Priority Cleaning | Rapid-Dispatch Service",
-    "Urgent, fully-staffed cleaning dispatched the same day for last-minute arrivals, inspections, or unexpected guests.",
-  ),
-  "laundry-service": metaByCountryFrom(
-    "Laundry & Linen Care | Wash, Press & Fold Service",
-    "Premium garment and linen care — washing, pressing, and folding handled with hotel-grade attention to fabric and finish.",
-  ),
-  "move-in-out-transport-service": metaByCountryFrom(
-    "Move-In & Move-Out Transport Health | Pearly Sky Concierge",
-    "Coordinated transport and handling support for relocations, paired with sanitized, health-conscious packing and moving practices.",
-  ),
-};
-
 function fill(text: string, phrases: CountryPhrases): string {
-  return text.replaceAll("{in}", phrases.in).replaceAll("{brand}", phrases.brand);
+  return text
+    .replaceAll("{in}", phrases.in)
+    .replaceAll("{brand}", phrases.brand)
+    .replaceAll("{country}", phrases.country)
+    .replaceAll("{place}", phrases.place);
 }
 
 /**
@@ -556,5 +642,5 @@ export function getServiceMeta(slug: string, language: LanguageCode): ServiceMet
     const phrases = COUNTRY_PHRASES[CURRENT_COUNTRY][language];
     return { title: fill(approved.title, phrases), description: fill(approved.description, phrases) };
   }
-  return language === "en" ? ENGLISH_SERVICE_META[slug]?.[CURRENT_COUNTRY] : undefined;
+  return undefined;
 }

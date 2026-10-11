@@ -49,34 +49,34 @@ interface PageMetaTemplate {
 export const TRANSLATED_PAGE_META_TEMPLATES: Record<TranslatedLanguage, Record<CountryPageKey, PageMetaTemplate>> = {
   fr: {
     home: {
-      title: "Services de Nettoyage Éco-Luxe Premium {country} | Pearly Sky",
+      title: "Pearly Sky | Services de nettoyage premium {country}",
       description:
-        "Découvrez un service de nettoyage résidentiel et commercial éco-luxe d'élite {inCountry}. Entretien immobilier cinq étoiles avec des pratiques durables et hautement performantes.",
+        "Un nettoyage professionnel et attentionné pour les logements et les espaces de travail dans une sélection de villes {inCountry}.",
     },
     about: {
-      title: "À Propos : Entretien de Propriétés Éco-Luxe {country} | Pearly Sky",
+      title: "À propos de Pearly Sky | Nettoyage professionnel {country}",
       description:
-        "Découvrez l'histoire, les normes strictes et les valeurs qui animent Pearly Sky Global {inCountry}. Dédiés à l'entretien immobilier d'élite et au soutien lifestyle.",
+        "Découvrez l'approche de Pearly Sky en matière de nettoyage professionnel résidentiel, commercial et spécialisé dans une sélection de villes {inCountry}.",
     },
     customers: {
-      title: "Avis et Témoignages Clients Vérifiés {country} | Pearly Sky",
+      title: "Nos clients | Services de nettoyage Pearly Sky {country}",
       description:
-        "Découvrez ce que nos clients disent de nous. Avis vérifiés de propriétaires premium, de bureaux d'entreprise et de propriétés de luxe {inCountry}.",
+        "Découvrez comment Pearly Sky accompagne propriétaires, familles, gestionnaires de biens et entreprises avec des services de nettoyage professionnels adaptés à leurs espaces dans une sélection de villes {inCountry}.",
     },
     contact: {
-      title: "Contactez Notre Équipe de Nettoyage Éco-Luxe {country} | Pearly Sky",
+      title: "Contacter Pearly Sky | Services de nettoyage professionnels {country}",
       description:
-        "Contactez Pearly Sky Global {inCountry} pour toute demande de réservation ou devis personnalisé. Une assistance fiable et immédiate.",
+        "Contactez Pearly Sky pour des services professionnels de nettoyage de logements, de bureaux et spécialisés dans une sélection de villes {inCountry}. Demandez un devis personnalisé ou renseignez-vous sur nos services.",
     },
     careers: {
-      title: "Carrières dans l'Entretien de Propriétés de Luxe {country} | Pearly Sky",
+      title: "Carrières chez Pearly Sky | Emplois dans le nettoyage {inCountry}",
       description:
-        "Construisez une carrière valorisante dans l'entretien de propriétés de luxe {inCountry}. Découvrez nos postes ouverts pour nettoyeurs professionnels et spécialistes premium.",
+        "Découvrez les opportunités de carrière chez Pearly Sky : postes dans le nettoyage et les services professionnels, et comment manifester votre intérêt pour rejoindre notre équipe {inCountry}.",
     },
     ourLocations: {
-      title: "Nos Zones de Service {country} | Pearly Sky Global",
+      title: "Nos implantations | Services de nettoyage Pearly Sky",
       description:
-        "Des clusters de service premium {inCountry}. Trouvez votre portail de service Pearly Sky Global local et réservez un entretien éco-luxe d'élite.",
+        "Découvrez les implantations de Pearly Sky et un nettoyage professionnel et écoresponsable pour les logements et les espaces de travail dans nos zones d'intervention.",
     },
     blog: {
       title: "Blog & Actualités Nettoyage Éco-Luxe {country} | Pearly Sky",
@@ -86,34 +86,34 @@ export const TRANSLATED_PAGE_META_TEMPLATES: Record<TranslatedLanguage, Record<C
   },
   de: {
     home: {
-      title: "Premium Eco-Luxus-Reinigungsdienste {country} | Pearly Sky",
+      title: "Pearly Sky | Premium-Reinigungsservice {country}",
       description:
-        "Erleben Sie elitäre Eco-Luxus-Reinigung für Wohn- und Gewerbeimmobilien {inCountry}. Fünf-Sterne-Immobilienpflege mit nachhaltigen, leistungsstarken Methoden.",
+        "Durchdachte, professionelle Reinigung für Wohnungen, Häuser und Arbeitsräume an ausgewählten Standorten {inCountry}.",
     },
     about: {
-      title: "Über Uns: Eco-Luxus-Immobilienpflege {country} | Pearly Sky",
+      title: "Über Pearly Sky | Professionelle Reinigung {country}",
       description:
-        "Entdecken Sie die Geschichte, die strengen Standards und die Werte von Pearly Sky Global {inCountry}. Wir engagieren uns für erstklassige Immobilienpflege und Lifestyle-Unterstützung.",
+        "Erfahren Sie mehr über den Ansatz von Pearly Sky für professionelle Wohn-, Gewerbe- und Spezialreinigung an ausgewählten Standorten {inCountry}.",
     },
     customers: {
-      title: "Verifizierte Kundenbewertungen & Erfahrungsberichte {country} | Pearly Sky",
+      title: "Unsere Kunden | Pearly Sky Reinigungsservice {country}",
       description:
-        "Erfahren Sie, was unsere Kunden über uns sagen. Verifizierte Bewertungen von Premium-Hausbesitzern, Unternehmen und Luxusimmobilien {inCountry}.",
+        "Erfahren Sie, wie Pearly Sky Hausbesitzer, Familien, Immobilieneigentümer und Unternehmen an ausgewählten Standorten {inCountry} mit professionellen, auf ihre Räume abgestimmten Reinigungsleistungen unterstützt.",
     },
     contact: {
-      title: "Kontaktieren Sie Unser Eco-Luxus-Reinigungsteam {country} | Pearly Sky",
+      title: "Pearly Sky kontaktieren | Professionelle Reinigung {country}",
       description:
-        "Kontaktieren Sie Pearly Sky Global {inCountry} für Buchungsanfragen oder individuelle Angebote. Zuverlässige, sofortige Unterstützung.",
+        "Kontaktieren Sie Pearly Sky für professionelle Haus-, Büro- und Spezialreinigung an ausgewählten Standorten {inCountry}. Fordern Sie ein individuelles Angebot an oder informieren Sie sich über unsere Leistungen.",
     },
     careers: {
-      title: "Karriere in der Luxus-Immobilienpflege {country} | Pearly Sky",
+      title: "Karriere bei Pearly Sky | Reinigungsjobs {inCountry}",
       description:
-        "Starten Sie eine lohnende Karriere in der Luxus-Immobilienpflege {inCountry}. Entdecken Sie offene Stellen für professionelle Reinigungskräfte und Premium-Spezialisten.",
+        "Entdecken Sie Karrieremöglichkeiten bei Pearly Sky: mögliche Stellen in der Reinigung und im professionellen Service – und wie Sie Ihr Interesse bekunden, unserem Team {inCountry} beizutreten.",
     },
     ourLocations: {
-      title: "Unsere Servicestandorte {country} | Pearly Sky Global",
+      title: "Unsere Standorte | Pearly Sky Reinigungsservice",
       description:
-        "Premium-Servicecluster {inCountry}. Finden Sie Ihr lokales Pearly Sky Global Serviceportal und buchen Sie erstklassige Eco-Luxus-Pflege.",
+        "Entdecken Sie die Standorte von Pearly Sky und professionelle, umweltbewusste Reinigung für Wohn- und Arbeitsräume in unseren Einsatzgebieten.",
     },
     blog: {
       title: "Eco-Luxus-Reinigungsblog & Einblicke {country} | Pearly Sky",
@@ -123,34 +123,34 @@ export const TRANSLATED_PAGE_META_TEMPLATES: Record<TranslatedLanguage, Record<C
   },
   es: {
     home: {
-      title: "Servicios Premium de Limpieza Eco-Lujo {country} | Pearly Sky",
+      title: "Pearly Sky | Servicios de limpieza premium {country}",
       description:
-        "Descubra un servicio de limpieza residencial y comercial eco-lujo de primer nivel {inCountry}. Cuidado de propiedades cinco estrellas con prácticas sostenibles y de alto rendimiento.",
+        "Limpieza profesional y cuidadosa para hogares y espacios de trabajo en zonas seleccionadas {inCountry}.",
     },
     about: {
-      title: "Sobre Nosotros: Cuidado de Propiedades Eco-Lujo {country} | Pearly Sky",
+      title: "Sobre Pearly Sky | Limpieza profesional {country}",
       description:
-        "Descubra la historia, los estrictos estándares y los valores que impulsan a Pearly Sky Global {inCountry}. Dedicados al cuidado de propiedades de élite y al soporte de estilo de vida.",
+        "Descubra el enfoque de Pearly Sky en la limpieza profesional residencial, comercial y especializada en zonas seleccionadas {inCountry}.",
     },
     customers: {
-      title: "Opiniones y Testimonios Verificados de Clientes {country} | Pearly Sky",
+      title: "Nuestros clientes | Servicios de limpieza Pearly Sky {country}",
       description:
-        "Descubra lo que dicen nuestros clientes. Opiniones verificadas de propietarios premium, oficinas corporativas y propiedades de lujo {inCountry}.",
+        "Descubra cómo Pearly Sky atiende a propietarios, familias, gestores de inmuebles y empresas con servicios de limpieza profesionales adaptados a sus espacios en zonas seleccionadas {inCountry}.",
     },
     contact: {
-      title: "Contacte a Nuestro Equipo de Limpieza Eco-Lujo {country} | Pearly Sky",
+      title: "Contactar con Pearly Sky | Limpieza profesional {country}",
       description:
-        "Póngase en contacto con Pearly Sky Global {inCountry} para consultas de reserva o cotizaciones personalizadas. Asistencia confiable e inmediata.",
+        "Contacte con Pearly Sky para servicios profesionales de limpieza de hogares, oficinas y limpieza especializada en zonas seleccionadas {inCountry}. Solicite un presupuesto personalizado o infórmese sobre nuestros servicios.",
     },
     careers: {
-      title: "Carreras en el Cuidado de Propiedades de Lujo {country} | Pearly Sky",
+      title: "Empleo en Pearly Sky | Trabajos de limpieza {inCountry}",
       description:
-        "Construya una carrera gratificante en el cuidado de propiedades de lujo {inCountry}. Explore vacantes para limpiadores profesionales y especialistas premium.",
+        "Descubra oportunidades profesionales en Pearly Sky: posibles puestos de limpieza y servicios profesionales, y cómo expresar su interés en unirse a nuestro equipo {inCountry}.",
     },
     ourLocations: {
-      title: "Nuestras Ubicaciones de Servicio {country} | Pearly Sky Global",
+      title: "Nuestras ubicaciones | Servicios de limpieza Pearly Sky",
       description:
-        "Clústeres de servicio premium {inCountry}. Encuentre su portal de servicio local de Pearly Sky Global y reserve un cuidado eco-lujo de primer nivel.",
+        "Explore las ubicaciones de Pearly Sky y descubra una limpieza profesional y respetuosa con el medio ambiente para hogares y espacios de trabajo en nuestras zonas de servicio.",
     },
     blog: {
       title: "Blog e Ideas de Limpieza Eco-Lujo {country} | Pearly Sky",
@@ -160,34 +160,34 @@ export const TRANSLATED_PAGE_META_TEMPLATES: Record<TranslatedLanguage, Record<C
   },
   it: {
     home: {
-      title: "Servizi Premium di Pulizia Eco-Luxury {country} | Pearly Sky",
+      title: "Pearly Sky | Servizi di pulizia premium {country}",
       description:
-        "Scopri un servizio di pulizia residenziale e commerciale eco-luxury d'élite {inCountry}. Cura della proprietà a cinque stelle con pratiche sostenibili e ad alte prestazioni.",
+        "Pulizie professionali e accurate per abitazioni e spazi di lavoro in località selezionate {inCountry}.",
     },
     about: {
-      title: "Chi Siamo: Cura di Proprietà Eco-Luxury {country} | Pearly Sky",
+      title: "Chi è Pearly Sky | Pulizie professionali {country}",
       description:
-        "Scopri la storia, gli standard rigorosi e i valori che guidano Pearly Sky Global {inCountry}. Dedicati alla cura delle proprietà d'élite e al supporto lifestyle.",
+        "Scopri l'approccio di Pearly Sky alle pulizie professionali residenziali, commerciali e specialistiche in località selezionate {inCountry}.",
     },
     customers: {
-      title: "Recensioni e Testimonianze Verificate dei Clienti {country} | Pearly Sky",
+      title: "I nostri clienti | Servizi di pulizia Pearly Sky {country}",
       description:
-        "Scopri cosa dicono di noi i nostri clienti. Recensioni verificate di proprietari premium, uffici aziendali e proprietà di lusso {inCountry}.",
+        "Scopri come Pearly Sky supporta proprietari di casa, famiglie, proprietari di immobili e aziende con servizi di pulizia professionali su misura per i loro spazi in località selezionate {inCountry}.",
     },
     contact: {
-      title: "Contatta il Nostro Team di Pulizia Eco-Luxury {country} | Pearly Sky",
+      title: "Contatta Pearly Sky | Servizi di pulizia professionali {country}",
       description:
-        "Contatta Pearly Sky Global {inCountry} per richieste di prenotazione o preventivi personalizzati. Assistenza affidabile e immediata.",
+        "Contatta Pearly Sky per servizi professionali di pulizia di abitazioni, uffici e pulizie specialistiche in località selezionate {inCountry}. Richiedi un preventivo personalizzato o informazioni sui nostri servizi.",
     },
     careers: {
-      title: "Carriere nella Cura di Proprietà di Lusso {country} | Pearly Sky",
+      title: "Lavora con Pearly Sky | Lavoro nelle pulizie {inCountry}",
       description:
-        "Costruisci una carriera gratificante nella cura delle proprietà di lusso {inCountry}. Scopri le posizioni aperte per addetti alle pulizie professionali e specialisti premium.",
+        "Scopri le opportunità di carriera con Pearly Sky: possibili ruoli nelle pulizie e nei servizi professionali, e come manifestare il tuo interesse a entrare nel nostro team {inCountry}.",
     },
     ourLocations: {
-      title: "Le Nostre Sedi di Servizio {country} | Pearly Sky Global",
+      title: "Le nostre sedi | Servizi di pulizia Pearly Sky",
       description:
-        "Cluster di servizio premium {inCountry}. Trova il tuo portale di servizio Pearly Sky Global locale e prenota una cura eco-luxury d'élite.",
+        "Esplora le sedi di Pearly Sky e scopri pulizie professionali ed ecosostenibili per abitazioni e spazi di lavoro nelle nostre aree di servizio.",
     },
     blog: {
       title: "Blog e Approfondimenti sulla Pulizia Eco-Luxury {country} | Pearly Sky",
@@ -208,8 +208,9 @@ export function getTranslatedCountryPageMeta(
 ): PageMeta | null {
   if (!isTranslatedLanguage(language)) return null;
   const template = TRANSLATED_PAGE_META_TEMPLATES[language][page];
-  return {
-    title: template.title.replace("{country}", COUNTRY_DISPLAY_NAMES[language][country]),
-    description: template.description.replace("{inCountry}", COUNTRY_IN_PHRASES[language][country]),
-  };
+  const fill = (text: string) =>
+    text
+      .replaceAll("{country}", COUNTRY_DISPLAY_NAMES[language][country])
+      .replaceAll("{inCountry}", COUNTRY_IN_PHRASES[language][country]);
+  return { title: fill(template.title), description: fill(template.description) };
 }

@@ -881,7 +881,7 @@ serviceLuxuryYachtCleaningTitleFiveFeatureTwo:"Complete linen turnover, sanitati
 
   // About Us page
   aboutPageEyebrow: "ABOUT PEARLY SKY CLEANING SERVICES",
-  aboutPageHeroTitle: "Your Trusted Cleaning Partner",
+  aboutPageHeroTitle: "About Pearly Sky",
   
   aboutPageIdentityTitle: "Our Core Identity",
   aboutPageIdentitySubtitle: "Where Cleanliness Meets Luxury",
@@ -974,7 +974,7 @@ serviceLuxuryYachtCleaningTitleFiveFeatureTwo:"Complete linen turnover, sanitati
   qualityAssured: "Quality Assured: Skilled Cleaning Professionals Formed And Rigorously Selected.",
 
   // Our Locations page
-  locationsPageTitle: "Our Global Locations",
+  locationsPageTitle: "Our Locations",
   locationsPageSubtitle: "Find Your Country & City",
   locationsSearchCountryPlaceholder: "Search country...",
   locationsSearchCityPlaceholder: "Search city...",
@@ -984,7 +984,7 @@ serviceLuxuryYachtCleaningTitleFiveFeatureTwo:"Complete linen turnover, sanitati
   locationsAsiaPacific: "Asia-Pacific",
   locationsAmericas: "Americas",
 
-  locationSearchHeaderText: "OUR GLOBAL LOCATIONS",
+  locationSearchHeaderText: "Our Locations",
   locationSearchSubHeaderText: "Find Your Country & City",
 
   // Blog
@@ -996,7 +996,7 @@ serviceLuxuryYachtCleaningTitleFiveFeatureTwo:"Complete linen turnover, sanitati
   blogViewAll: "View All Articles",
 
   // Careers
-  careersPageTitle: "Join Our Team",
+  careersPageTitle: "Careers at Pearly Sky",
   careersPageSubtitle: "Build your career with Pearly Sky",
   careersSearchTitlePlaceholder: "Job title...",
   careersSearchLocationPlaceholder: "Location...",
@@ -1078,7 +1078,7 @@ serviceLuxuryYachtCleaningTitleFiveFeatureTwo:"Complete linen turnover, sanitati
   jobElderCareAssistantBen4: "Supportive and inclusive work environment.",
 
   // Contact Us page
-  contactPageTitle: "Contact Our Concierge Team",
+  contactPageTitle: "Contact Pearly Sky",
   contactOfficesTitle: "Our Offices",
 
   //footer

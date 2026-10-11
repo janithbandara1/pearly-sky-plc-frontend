@@ -60,9 +60,9 @@ export function OurCustomersView() {
 
       <ReviewMarquee />
           
-       <h1 className="text-2xl font-semibold mb-6 text-blue-900 text-center mt-8 max-[541px]:text-lg text-center">
+       <h2 className="text-2xl font-semibold mb-6 text-blue-900 text-center mt-8 max-[541px]:text-lg text-center">
         {translate("supportPayementMethods")}
-        </h1>    
+        </h2>    
       <PaymentMarquee />
       
     </main>
