@@ -17,8 +17,9 @@ export const SUPPLY_SOURCE_OPTIONS = [
 ];
 
 function formatHM(hours: number): string {
-  const h = Math.floor(hours);
-  const m = Math.round((hours - h) * 60);
+  const total = Math.round(hours * 60);
+  const h = Math.floor(total / 60);
+  const m = total % 60;
   return m === 0 ? `${h}h` : `${h}h ${m}m`;
 }
 
@@ -71,6 +72,10 @@ export function EquipmentSection({
     : "2h 30m – 5h";
 
   const cleanersCount = quote?.cleanerCount ?? 1;
+  // On-site window is each cleaner's share of the job, not the total duration.
+  const onSiteText = hasDuration
+    ? `${formatHM((quote!.minHours as number) / cleanersCount)} – ${formatHM((quote!.maxHours as number) / cleanersCount)}`
+    : durationText;
 
   const hasPrice = hasDuration && quote?.priceMin != null && quote?.priceMax != null;
   const cleaningPriceRange = hasPrice
@@ -133,7 +138,7 @@ export function EquipmentSection({
             {translate("equipCleanerDuration")}
           </span>
           <span className="text-xs font-bold text-[#FFFDF4] sm:text-sm">
-            {durationText}
+            {onSiteText}
           </span>
         </div>
 

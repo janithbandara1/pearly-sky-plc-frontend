@@ -18,8 +18,9 @@ export const SUPPLY_SOURCE_OPTIONS = [
 ];
 
 function formatHM(hours: number): string {
-  const h = Math.floor(hours);
-  const m = Math.round((hours - h) * 60);
+  const total = Math.round(hours * 60);
+  const h = Math.floor(total / 60);
+  const m = total % 60;
   return m === 0 ? `${h}h` : `${h}h ${m}m`;
 }
 
@@ -184,6 +185,10 @@ export function EquipmentSectionOfCommonServicesSlugs({
     : "2h 30m – 5h";
 
   const cleanersCount = quote?.cleanerCount ?? 1;
+  // On-site window is each cleaner's share of the job, not the total duration.
+  const onSiteText = hasDuration
+    ? `${formatHM((quote!.minHours as number) / cleanersCount)} – ${formatHM((quote!.maxHours as number) / cleanersCount)}`
+    : durationText;
 
   // addOnsTotal from the booking page already includes the selected equipment
   // (and the disinfection level) — the same figure checkout and the backend use.
@@ -290,9 +295,21 @@ export function EquipmentSectionOfCommonServicesSlugs({
               {translate("onSiteWindow")}
             </span>
             <span className="font-serif text-[22px] sm:text-[26px] font-normal text-white text-shadow leading-tight mt-1">
-              {durationText}
+              {onSiteText}
             </span>
           </div>
+        </div>
+
+        {/* On-site estimate explainer */}
+        <div className="px-5 sm:px-7 -mt-2 mb-4">
+          <p className="text-[12px] sm:text-[13px] font-semibold text-white">
+            {translate(cleanersCount === 1 ? "onSiteEstimateOne" : "onSiteEstimateMany")
+              .replace("{duration}", onSiteText)
+              .replace("{count}", String(cleanersCount))}
+          </p>
+          <p className="mt-1 text-[11px] sm:text-[12px] leading-relaxed text-gray-400">
+            {translate("onSiteEstimateNote")}
+          </p>
         </div>
 
         {/* Highlighted Price Card */}
