@@ -28,7 +28,6 @@ export const lb = {
 
   heroWelcome: "WËLLKOMM BEI PEARLY SKY",
   heroWelcomeSubText: "Öko-Luxus Botzen, op Iech zougepasst",
-  heroWelcomeContent: "Wëllkomm bei Pearly Sky, Ären premium Partner fir Öko-Luxus Botzservicer a Frankräich. Mir spezialiséieren eis op suergfälteg, ëmweltsbewosst Haus- a Büro-Botzléisungen, déi de meescht usprochsvollen Clienten gerecht ginn. Eis engagéiert Teams vu englesch- a franséischsproochegen Professionnellen engagéieren sech, fir datt Är Raim net nëmme fleckelose sauber sinn, mee och e gesond, nohaltegt Ëmfeld behalen. Erlievt de Gipfel vun der Botz mat eisen premium, individuell ugepasste Servicer, déi fir Är eenzegaarteg Ufuerderungen zu Paräis, Nice, Cannes a Monaco entworf sinn.",
 
   // Trust bar
   trustEcoCertified: "Green Compass Öko-zertifizéiert",

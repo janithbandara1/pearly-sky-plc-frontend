@@ -28,7 +28,6 @@ export const pl = {
 
   heroWelcome: "WITAMY W PEARLY SKY",
   heroWelcomeSubText: "Ekologiczne czyszczenie premium, dostosowane do Ciebie",
-  heroWelcomeContent: "Witamy w Pearly Sky, Twoim wiodącym partnerze w zakresie ekologicznych usług czyszczenia premium we Francji. Specjalizujemy się w skrupulatnych, przyjaznych środowisku rozwiązaniach do czyszczenia domów i biur, które odpowiadają najbardziej wymagającym klientom. Nasze dedykowane zespoły angielsko- i francuskojęzycznych profesjonalistów dbają o to, by Twoje przestrzenie były nie tylko nieskazitelnie czyste, ale także zdrowe i zrównoważone. Doświadcz szczytu czystości dzięki naszym premium, indywidualnie dopasowanym usługom projektowanym z myślą o Twoich unikalnych potrzebach w Paryżu, Nicei, Cannes i Monako.",
 
   // Trust bar
   trustEcoCertified: "Certyfikat ekologiczny Green Compass",

@@ -28,7 +28,6 @@ export const sv = {
 
   heroWelcome: "VÄLKOMMEN TILL PEARLY SKY",
   heroWelcomeSubText: "Eko-lyxstädning, skräddarsydd för dig",
-  heroWelcomeContent: "Välkommen till Pearly Sky, din främsta partner för eko-lyxstädningstjänster i Frankrike. Vi specialiserar oss på att erbjuda noggranna, miljövänliga städningslösningar för hem och kontor som tillgodoser de mest kräsna kunderna. Våra dedikerade team av engelska- och fransktalande proffs är engagerade i att säkerställa att dina utrymmen inte bara är fläckfria utan också bibehåller en hälsosam, hållbar miljö. Upplev toppen av renlighet med våra premium, skräddarsydda tjänster utformade för dina unika krav i Paris, Nice, Cannes och Monaco.",
 
   // Trust bar
   trustEcoCertified: "Green Compass Eko-certifierad",

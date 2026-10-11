@@ -26,7 +26,6 @@ export const es = {
   heroServiceTypes: "Limpieza residencial · comercial · especializada",
   heroWelcome: "BIENVENIDO A PEARLY SKY",
   heroWelcomeSubText: "Limpieza eco-lujo, adaptada a ti",
-  heroWelcomeContent: "Bienvenido a Pearly Sky, tu socio principal de servicios de limpieza eco-lujo en Francia. Nos especializamos en proporcionar soluciones de limpieza meticulosas y conscientes del medio ambiente para hogares y oficinas, destinadas a los clientes más exigentes. Nuestros equipos dedicados de profesionales de habla inglesa y francesa están comprometidos a garantizar que tus espacios no solo estén impecables, sino que también mantengan un entorno saludable y sostenible. Experimenta la cúspide de la limpieza con nuestros servicios premium y personalizados, diseñados para tus requisitos únicos en París, Niza, Cannes y Mónaco.",
 
   // Trust bar
   trustEcoCertified: "Green Compass Eco-Certificado",

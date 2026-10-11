@@ -266,7 +266,7 @@ function ServiceCard({ service }: { service: HomeService }) {
               )}
             </p>
             {service.price && taxStatusLabel && (
-              <p className="text-xs text-slate-400">({taxStatusLabel})</p>
+              <p className="text-xs text-slate-400">{taxStatusLabel}</p>
             )}
           </div>
         </div>

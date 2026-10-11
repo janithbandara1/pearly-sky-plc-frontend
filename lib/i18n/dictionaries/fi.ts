@@ -28,7 +28,6 @@ export const fi = {
 
   heroWelcome: "TERVETULOA PEARLY SKYHIN",
   heroWelcomeSubText: "Eko-ylellinen siivous, räätälöity juuri sinulle",
-  heroWelcomeContent: "Tervetuloa Pearly Skyhin, johtavaan kumppaniisi eko-ylellisiin siivouspalveluihin Ranskassa. Erikoistumme huolellisiin, ympäristötietoisiin koti- ja toimistosiivousratkaisuihin, jotka palvelevat vaativimpia asiakkaita. Omistautuneet englantia ja ranskaa puhuvat ammattilaisryhmämme varmistavat, että tilasi eivät ole vain tahrattoman puhtaita, vaan myös terveellisiä ja kestäviä. Koe puhtauden huippu premium-palveluillamme, jotka on suunniteltu ainutlaatuisiin tarpeisiisi Pariisissa, Nizzassa, Cannesissa ja Monacossa.",
 
   // Trust bar
   trustEcoCertified: "Green Compass eko-sertifioitu",

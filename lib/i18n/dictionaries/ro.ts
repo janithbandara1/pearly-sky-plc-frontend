@@ -28,7 +28,6 @@ export const ro = {
 
   heroWelcome: "BINE AȚI VENIT LA PEARLY SKY",
   heroWelcomeSubText: "Curățenie eco-lux, adaptată pentru tine",
-  heroWelcomeContent: "Bine ați venit la Pearly Sky, partenerul tău principal pentru servicii de curățenie eco-lux în Franța. Ne specializăm în oferirea de soluții de curățenie meticuloase, conștiente de mediu pentru locuințe și birouri, care răspund celor mai pretențioși clienți. Echipele noastre dedicate de profesioniști vorbitori de engleză și franceză sunt angajate să asigure că spațiile tale nu sunt doar impecabile, ci mențin și un mediu sănătos și sustenabil. Experimentează culmea curățeniei cu serviciile noastre premium, personalizate, concepute pentru cerințele tale unice din Paris, Nisa, Cannes și Monaco.",
 
   // Trust bar
   trustEcoCertified: "Green Compass Eco-Certificat",

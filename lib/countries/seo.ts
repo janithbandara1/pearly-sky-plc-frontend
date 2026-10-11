@@ -1,5 +1,5 @@
 import type { Metadata, MetadataRoute } from "next";
-import { COUNTRY_DOMAINS, CURRENT_COUNTRY, CURRENT_COUNTRY_LANGUAGES, type CountryCode } from "./config";
+import { COUNTRY_DOMAINS, CURRENT_COUNTRY, CURRENT_COUNTRY_LANGUAGES, SOCIAL_SHARE_IMAGE, type CountryCode } from "./config";
 import type { LanguageCode } from "@/lib/i18n/config";
 import { buildLocalePath } from "@/lib/locale";
 import type { ServiceLocaleSlug } from "@/lib/catalog-api";
@@ -72,7 +72,7 @@ export function buildGlobalAlternates(pathname: string, language: LanguageCode |
 export function buildSocialMeta(
   title: string,
   description?: string,
-  imagePath = "/images/hero/hero-1.webp",
+  imagePath = SOCIAL_SHARE_IMAGE,
 ): Pick<Metadata, "openGraph" | "twitter"> {
   return {
     openGraph: {

@@ -2,12 +2,14 @@
 
 import { useLanguage } from "@/lib/i18n/language-context";
 import { optimizedBackgroundImage } from "@/lib/background-image";
+import { getCountryHomeContent } from "@/lib/countries/home-content";
 
 const WELCOME_BG = optimizedBackgroundImage("/images/hero/bg-welcom.png", 1645, 656);
 
 export function Welcome() {
 
-    const { translate } = useLanguage();
+    const { translate, language } = useLanguage();
+    const { welcomeContent } = getCountryHomeContent(language);
 
     return (
         <section
@@ -28,7 +30,7 @@ export function Welcome() {
                     {translate("heroWelcomeSubText")}
                 </p>
                 <p className="mx-auto max-w-3xl text-[9px] leading-[1.55] text-gray-200 sm:text-xs sm:leading-[1.65] lg:text-sm">
-                    {translate("heroWelcomeContent")}
+                    {welcomeContent}
                 </p>
             </div>
         </section>

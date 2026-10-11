@@ -28,7 +28,6 @@ export const nl = {
 
   heroWelcome: "WELKOM BIJ PEARLY SKY",
   heroWelcomeSubText: "Eco-luxe schoonmaak, op maat voor u",
-  heroWelcomeContent: "Welkom bij Pearly Sky, uw toonaangevende partner voor eco-luxe schoonmaakdiensten in Frankrijk. Wij specialiseren ons in nauwgezette, milieubewuste schoonmaakoplossingen voor woningen en kantoren die zijn afgestemd op de meest veeleisende klanten. Onze toegewijde teams van Engelstalige en Franstalige professionals zorgen ervoor dat uw ruimtes niet alleen vlekkeloos schoon zijn, maar ook gezond en duurzaam blijven. Ervaar het toppunt van reinheid met onze premium, op maat gemaakte diensten die zijn ontworpen voor uw unieke eisen in Parijs, Nice, Cannes en Monaco.",
 
   // Trust bar
   trustEcoCertified: "Green Compass Eco-gecertificeerd",

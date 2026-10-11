@@ -4,14 +4,8 @@ import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { useLanguage } from "@/lib/i18n/language-context";
 import { getCountryHomeContent } from "@/lib/countries/home-content";
-import { CURRENT_COUNTRY, type CountryCode } from "@/lib/countries/config";
+import { COUNTRY_HERO_IMAGES, CURRENT_COUNTRY } from "@/lib/countries/config";
 import { IoSparkles } from "react-icons/io5";
-
-const HERO_IMAGES: Record<CountryCode, string> = {
-  fr: "/images/hero/hero-fr.webp",
-  gb: "/images/hero/hero-gb.webp",
-  lk: "/images/hero/hero-lk.webp",
-};
 
 function scrollToId(id: string) {
   document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
@@ -24,7 +18,7 @@ export function Hero() {
   return (
     <section className="relative h-[70vh] min-h-[420px] w-full overflow-hidden bg-brand-navy sm:h-[85vh]">
       <Image
-        src={HERO_IMAGES[CURRENT_COUNTRY]}
+        src={COUNTRY_HERO_IMAGES[CURRENT_COUNTRY]}
         alt="Pearly Sky eco-luxury cleaning"
         fill
         priority

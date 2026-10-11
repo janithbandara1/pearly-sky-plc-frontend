@@ -28,7 +28,6 @@ export const no = {
 
   heroWelcome: "VELKOMMEN TIL PEARLY SKY",
   heroWelcomeSubText: "Øko-luksusrengjøring, skreddersydd for deg",
-  heroWelcomeContent: "Velkommen til Pearly Sky, din fremste partner for øko-luksusrengjøringstjenester i Frankrike. Vi spesialiserer oss på å tilby omhyggelige, miljøbevisste rengjøringsløsninger for hjem og kontor som imøtekommer de mest kresne kundene. Våre dedikerte team av engelsktalende og fransktalende profesjonelle er forpliktet til å sikre at dine rom ikke bare er plettfrie, men også opprettholder et sunt, bærekraftig miljø. Opplev høydepunktet av renhet med våre premium, skreddersydde tjenester designet for dine unike krav i Paris, Nice, Cannes og Monaco.",
 
   // Trust bar
   trustEcoCertified: "Green Compass Øko-sertifisert",

@@ -607,7 +607,6 @@ serviceLuxuryYachtCleaningTitleFiveFeatureTwo: "Turnover complet du linge, assai
 
   heroWelcome: "BIENVENUE CHEZ PEARLY SKY",
   heroWelcomeSubText: "Nettoyage éco-luxe, sur mesure",
-  heroWelcomeContent: "Bienvenue chez Pearly Sky, votre partenaire privilégié pour des services de nettoyage éco-luxe partout en France. Nous sommes spécialisés dans la fourniture de solutions de nettoyage méticuleuses et respectueuses de l'environnement pour les maisons et les bureaux, répondant aux attentes des clients les plus exigeants. Nos équipes dédiées de professionnels anglophones et francophones s'engagent à ce que vos espaces soient non seulement impeccables, mais aussi à préserver un environnement sain et durable. Découvrez le summum de la propreté avec nos services haut de gamme et personnalisés, conçus pour répondre à vos besoins spécifiques à Paris, Nice, Cannes et Monaco.",
 
   // Trust bar
   trustEcoCertified: "Certifié Éco Green Compass",

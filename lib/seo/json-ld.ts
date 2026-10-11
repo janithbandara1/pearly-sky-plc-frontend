@@ -19,7 +19,7 @@ const COUNTRY_NAMES: Record<CountryCode, string> = {
 
 /** schema.org LocalBusiness `priceRange`, per country — omitted for a country with none set. */
 const PRICE_RANGES: Partial<Record<CountryCode, string>> = {
-  fr: "€27–€50 per cleaner per hour",
+  fr: "€29–€50 per cleaner per hour",
   gb: "£25–£80 per cleaner per hour",
   lk: "LKR 1,350–LKR 9,000 per cleaner per hour",
 };

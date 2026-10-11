@@ -4,7 +4,7 @@ import { AuthProvider } from "@/lib/auth-context";
 import { Toaster } from "@/components/ui/sonner";
 import { getRequestLanguage } from "@/lib/i18n/server";
 import { SITE_META } from "@/lib/countries/meta-data";
-import { CURRENT_COUNTRY, IS_GLOBAL_SITE } from "@/lib/countries/config";
+import { CURRENT_COUNTRY, IS_GLOBAL_SITE, SOCIAL_SHARE_IMAGE } from "@/lib/countries/config";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -36,13 +36,13 @@ export const metadata: Metadata = {
     description: SITE_META.description,
     siteName: SITE_META.title,
     type: "website",
-    images: [{ url: "/images/hero/hero-1.webp" }],
+    images: [{ url: SOCIAL_SHARE_IMAGE }],
   },
   twitter: {
     card: "summary_large_image",
     title: SITE_META.title,
     description: SITE_META.description,
-    images: ["/images/hero/hero-1.webp"],
+    images: [SOCIAL_SHARE_IMAGE],
   },
 };
 
