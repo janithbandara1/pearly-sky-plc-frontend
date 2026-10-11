@@ -107,7 +107,6 @@ export function YachtScheduleSection({
               minHours: hours,
               maxHours: hours + 1,
               cleanerCount,
-              extraCleanerCount: 0,
               priceMin: hours * rate * cleanerCount,
               priceMax: (hours + 1) * rate * cleanerCount,
             });

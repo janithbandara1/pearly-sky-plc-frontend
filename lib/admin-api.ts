@@ -38,7 +38,6 @@ export interface AdminBookingServiceDetails {
   minHours: string;
   maxHours: string;
   cleanerCount: number;
-  extraCleanerCount: number;
   note: string | null;
   addOns: AdminBookingLineItem[] | null;
   equipmentItems: AdminBookingLineItem[] | null;

@@ -56,7 +56,6 @@ export interface BookingSummaryServiceDetails {
   minHours: string;
   maxHours: string;
   cleanerCount: number;
-  extraCleanerCount: number;
   note: string | null;
   addOns: BookingSummaryLineItem[] | null;
   equipmentItems: BookingSummaryLineItem[] | null;
@@ -321,7 +320,7 @@ export function BookingSummaryCard({
                 <Field label={translate("DisinfectionName")} value={translate("HospitalGradeName")} />
               )}
               <Field label={translate("summaryDuration")} value={`${details.minHours}-${details.maxHours} ${translate("summaryHours")}`} />
-              <Field label={translate("summaryCleaners")} value={details.cleanerCount + details.extraCleanerCount} />
+              <Field label={translate("summaryCleaners")} value={details.cleanerCount} />
               {showPaymentInfo && (
                 <Field
                   label={translate("summaryPricePerCleaner")}

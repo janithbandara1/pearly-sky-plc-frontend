@@ -278,7 +278,6 @@ export default function CheckoutPage({
         minHours: hours,
         maxHours: hours,
         cleanerCount,
-        extraCleanerCount: 0,
         priceMin: rate != null ? hours * cleanerCount * rate : null,
         priceMax: rate != null ? hours * cleanerCount * rate : null,
       });
@@ -298,7 +297,6 @@ export default function CheckoutPage({
           minHours: hours,
           maxHours: hours + 1,
           cleanerCount,
-          extraCleanerCount: 0,
           priceMin: hours * rate * cleanerCount,
           priceMax: (hours + 1) * rate * cleanerCount,
         });

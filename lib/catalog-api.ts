@@ -108,7 +108,6 @@ export interface SizeQuote {
   minHours?: number;
   maxHours?: number;
   cleanerCount?: number;
-  extraCleanerCount?: number;
   priceMin?: number | null;
   priceMax?: number | null;
 }

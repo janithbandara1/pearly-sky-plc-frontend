@@ -77,7 +77,6 @@ export interface BookingServiceDetails {
   minHours: string;
   maxHours: string;
   cleanerCount: number;
-  extraCleanerCount: number;
   note: string | null;
   addOns: BookingLineItem[] | null;
   equipmentItems: BookingLineItem[] | null;
