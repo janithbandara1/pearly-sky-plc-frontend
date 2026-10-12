@@ -107,9 +107,9 @@ export const IS_CAREERS_ENABLED = IS_GLOBAL_SITE || CURRENT_COUNTRY === "fr";
 
 /** Home page hero image per country — each site shows its own city. */
 export const COUNTRY_HERO_IMAGES: Record<CountryCode, string> = {
-  fr: "/images/hero/hero-fr.webp",
-  gb: "/images/hero/hero-gb.webp",
-  lk: "/images/hero/hero-lk.webp",
+  fr: "/images/hero/hero-fr-v2.webp",
+  gb: "/images/hero/hero-gb-v2.webp",
+  lk: "/images/hero/hero-lk-v2.webp",
 };
 
 /** Default Open Graph / Twitter image: this country's hero, or the old shared hero on the global gateway. */
