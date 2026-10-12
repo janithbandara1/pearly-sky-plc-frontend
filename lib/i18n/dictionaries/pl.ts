@@ -2349,4 +2349,9 @@ CustomerFeedBack: "Opinie klientów",
     freqPropertyHandoverName: "Przekazanie Nieruchomości",
     freqPropertyHandoverSubtitle: "Standard właściciela",
 
+    TotalselectedRooms: "Łącznie Wybranych Pomieszczeń",
+    maxOfCategory: "(Maks. 10 w kategorii)",
+    frequencyHeader: "Wybierz preferowaną częstotliwość usług",
+    frequenciesTitle: "Częstotliwości",
+
 } as Record<TranslationKey, TranslationValue>;

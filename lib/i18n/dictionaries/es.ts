@@ -2270,6 +2270,11 @@ scanQrDesc: "Escanee este código con su teléfono para ver los detalles complet
     freqMoveOutName: "Mudanza de Salida",
     freqMoveOutSubtitle: "Garantía de devolución de depósito",
     freqPropertyHandoverName: "Entrega de Propiedad",
-    freqPropertyHandoverSubtitle: "Estándar del propietario"
+    freqPropertyHandoverSubtitle: "Estándar del propietario",
+
+    TotalselectedRooms: "Total de Habitaciones Seleccionadas",
+    maxOfCategory: "(Máx. 10 por categoría)",
+    frequencyHeader: "Elija su frecuencia de servicio preferida",
+    frequenciesTitle: "Frecuencias",
 
 } as Record<TranslationKey, TranslationValue>;

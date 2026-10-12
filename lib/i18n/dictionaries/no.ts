@@ -2350,4 +2350,9 @@ CustomerFeedBack: "Kundetilbakemelding",
     freqPropertyHandoverName: "Eiendomsoverlevering",
     freqPropertyHandoverSubtitle: "Huseierstandard",
 
+    TotalselectedRooms: "Totalt Antall Valgte Rom",
+    maxOfCategory: "(Maks 10 per kategori)",
+    frequencyHeader: "Velg din foretrukne frekvens for tjenesten",
+    frequenciesTitle: "Frekvenser",
+
 } as Record<TranslationKey, TranslationValue>;

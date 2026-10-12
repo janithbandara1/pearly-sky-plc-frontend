@@ -2348,6 +2348,11 @@ export const pt = {
     freqMoveOutName: "Mudança de Saída",
     freqMoveOutSubtitle: "Garantia de devolução do depósito",
     freqPropertyHandoverName: "Entrega do Imóvel",
-    freqPropertyHandoverSubtitle: "Padrão do senhorio"
+    freqPropertyHandoverSubtitle: "Padrão do senhorio",
+
+    TotalselectedRooms: "Total de Divisões Selecionadas",
+    maxOfCategory: "(Máx. 10 por categoria)",
+    frequencyHeader: "Escolha a sua frequência de serviço preferida",
+    frequenciesTitle: "Frequências",
 
 } as Record<TranslationKey, TranslationValue>;

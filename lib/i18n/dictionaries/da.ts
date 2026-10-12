@@ -2309,4 +2309,9 @@ scanQrDesc: "Scan denne kode med din telefon for at åbne de fulde oplysninger o
     freqPropertyHandoverName: "Ejendomsoverdragelse",
     freqPropertyHandoverSubtitle: "Udlejerstandard",
 
+    TotalselectedRooms: "Totalt Antal Valgte Rum",
+    maxOfCategory: "(Maks. 10 pr. kategori)",
+    frequencyHeader: "Vælg din foretrukne servicefrekvens",
+    frequenciesTitle: "Frekvenser",
+
 } as Record<TranslationKey, TranslationValue>;

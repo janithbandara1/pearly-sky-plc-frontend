@@ -335,8 +335,8 @@ export default function ServiceFrequencySelector({
 
   return (
     <div className="w-full p-6 bg-[#0B132B] text-white rounded-2xl shadow-2xl font-sans">
-      <h2 className="text-xl font-semibold mb-6 tracking-wide text-slate-200">
-        Choose your preferred service frequency
+      <h2 className="text-xl font-semibold md:text-left text-center mb-6 tracking-wide text-slate-200">
+        {translate("frequencyHeader")}
       </h2>
 
       
@@ -345,7 +345,7 @@ export default function ServiceFrequencySelector({
       <div className="mt-6">
         <div className="flex items-center gap-2 mb-4">
           <div className="p-1.5 bg-blue-500/20 rounded-lg">{currentService.icon}</div>
-          <h3 className="text-lg font-bold text-slate-100">{translate(currentService.title as TranslationKey)} Frequencies</h3>
+          <h3 className="text-[16px] font-bold text-slate-100">{translate(currentService.title as TranslationKey)} {translate("frequenciesTitle")}</h3>
         </div>
 
         <div className={`grid grid-cols-1 ${currentService.frequencies.length === 3 ? 'md:grid-cols-3' : 'md:grid-cols-2'} gap-4`}>
@@ -358,7 +358,7 @@ export default function ServiceFrequencySelector({
                 className={`relative flex items-center justify-between p-4 rounded-xl border cursor-pointer transition-all duration-200 ${
                   isSelected
                     ? "bg-[#1E293B] border-blue-500 shadow-lg shadow-blue-500/10 ring-1 ring-blue-500"
-                    : "bg-[#111936] border-slate-800 hover:border-slate-700 hover:bg-[#162042]"
+                    : "bg-[#111936] border-gray-500 hover:border-gray-700 hover:bg-[#162042]"
                 }`}
               >
                 {/* Left side: Icon simulation matching UI layout style */}

@@ -2389,7 +2389,11 @@ serviceLuxuryYachtCleaningTitleFiveFeatureTwo:"Complete linen turnover, sanitati
     freqPropertyHandoverName: "Property Handover",
     freqPropertyHandoverSubtitle: "Landlord standard",
     
-
+    //
+    TotalselectedRooms:"Total Rooms Selected",
+    maxOfCategory:"(Max 10 per category)",
+    frequencyHeader:"Choose your preferred service frequency",
+    frequenciesTitle:"Frequencies",
 } as const;
 
 export type TranslationKey = keyof typeof en;

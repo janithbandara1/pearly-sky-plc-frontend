@@ -2272,6 +2272,11 @@ export const it = {
     freqMoveOutName: "Trasloco d'Uscita",
     freqMoveOutSubtitle: "Garanzia restituzione deposito",
     freqPropertyHandoverName: "Consegna Immobile",
-    freqPropertyHandoverSubtitle: "Standard del proprietario"
+    freqPropertyHandoverSubtitle: "Standard del proprietario",
+
+    TotalselectedRooms: "Totale Stanze Selezionate",
+    maxOfCategory: "(Max 10 per categoria)",
+    frequencyHeader: "Scegli la frequenza del servizio preferita",
+    frequenciesTitle: "Frequenze",
 
 } as Record<TranslationKey, TranslationValue>;

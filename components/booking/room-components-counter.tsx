@@ -86,7 +86,7 @@ export default function RoomSelector({
   const {translate}=useLanguage();
 
   return (
-    <div className="w-full bg-[#070d1b] my-5 p-6 md:p-10 rounded-2xl text-white font-sans shadow-2xl border border-blue-950/50">
+    <div className="w-full bg-[#070d1b] my-5 p-4 md:p-10 rounded-2xl text-white font-sans shadow-2xl border border-blue-950/50">
       
       {/* Grid of Rooms */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-5">
@@ -97,18 +97,18 @@ export default function RoomSelector({
           return (
             <div 
               key={room.id}
-              className={`relative flex  flex-row justify-between items-center  p-3 rounded-xl transition-all duration-300 border ${
+              className={`relative flex  flex-row justify-between gap-[5px] items-center  md:p-3 p-2.5  rounded-xl transition-all duration-300 border ${
                 isAdded 
                   ? 'bg-[#101b35] border-blue-500 shadow-[0_0_15px_rgba(59,130,246,0.15)]' 
-                  : 'bg-[#0d162d]/80 border-slate-800 hover:border-slate-700'
+                  : 'bg-[#0d162d]/80 border-gray-500 hover:border-gray-700'
               }`}
             >
               {/* Top Row: Icon & Name */}
-              <div className="flex items-center gap-3.5 mb-6">
-                <div className="p-2.5 rounded-lg bg-[#152243] border border-blue-900/40">
+              <div className="flex items-center gap-3.5 px-[2px]">
+                <div className="md:p-2.5 p-1.5 rounded-lg bg-[#152243] border border-blue-900/40">
                   {room.icon}
                 </div>
-                <h3 className="font-semibold text-base text-slate-100 tracking-wide">
+                <h3 className="font-semibold md:text-base text-[12px] text-slate-100 tracking-wide">
                   {translate(room.id)}
                 </h3>
               </div>
@@ -119,10 +119,10 @@ export default function RoomSelector({
                   <button
                     type="button"
                     onClick={() => handleAddClick(room.id)}
-                    className="w-full py-3 px-4 rounded-xl font-medium text-sm transition-all duration-200 bg-[#172548] hover:bg-[#1e3061] text-blue-400 border border-blue-900/50 shadow-inner flex items-center justify-center gap-2 group"
+                    className="w-full py-2 px-3 rounded-xl font-medium text-sm transition-all duration-200 bg-[#172548] hover:bg-[#1e3061] text-blue-400 border border-blue-900/50 shadow-inner flex items-center justify-center gap-2 group"
                   >
-                    <Plus className="w-4 h-4 transition-transform group-hover:scale-110" />
-                    <span>{translate("equipmentAddButton")}</span>
+                    <Plus className="md:w-4 w-3 h-3 md:h-4  transition-transform group-hover:scale-110" />
+                    <span className='md:text-base text-[13px]'>{translate("equipmentAddButton")}</span>
                   </button>
                 ) : (
                   <div className="flex flex-col gap-2">
@@ -134,10 +134,10 @@ export default function RoomSelector({
                         className="w-5 md:w-10 h-5 md:h-10 flex items-center justify-center rounded-lg bg-[#1f305e] hover:bg-[#273b75] text-white transition-colors shadow-sm"
                         aria-label="Decrement"
                       >
-                        <Minus className="w-4 h-4" />
+                        <Minus className="md:w-4 w-3 md:h-4 h-3" />
                       </button>
 
-                      <span className="font-bold text-lg text-slate-100 px-4">
+                      <span className="font-bold md:text-lg text-[13px]  text-slate-100 px-4">
                         {count}
                       </span>
 
@@ -152,16 +152,16 @@ export default function RoomSelector({
                         }`}
                         aria-label="Increment"
                       >
-                        <Plus className="w-4 h-4" />
+                        <Plus className="md:w-4 w-3 md:h-4 h-3" />
                       </button>
                     </div>
 
                     {/* Status hint text */}
                     <div className="text-center">
-                      <span className="text-xs text-slate-400 font-medium">
-                        Selected: <span className="text-blue-400 font-semibold">{count}</span> {count === 1 ? 'room' : 'rooms'}
+                      <span className="md:text-xs text-[11px] text-slate-400 font-medium">
+                        {translate("pressureSelectedBtn")}: <span className="text-blue-400 font-semibold ">{count}</span> {count === 1 ? ' room' : ' rooms'}
                       </span>
-                    </div>
+                    </div> 
                   </div>
                 )}
               </div>
@@ -172,8 +172,9 @@ export default function RoomSelector({
 
       {/* Bottom Summary Bar */}
       <div className="mt-8 pt-6 border-t border-slate-800/80 flex flex-col sm:flex-row items-center justify-between gap-4">
-        <div className="text-sm font-medium text-slate-300">
-          Total Rooms Selected: <span className="text-blue-400 font-bold text-base ml-1">{totalRooms}</span> <span className="text-xs text-slate-500">(Max 10 per category)</span>
+        <div className="text-sm font-medium text-slate-300 ">
+          <p>{translate("TotalselectedRooms")}: <span className="text-blue-400 font-bold text-base ml-1">{totalRooms}</span></p> 
+           <span className="text-xs text-slate-500">{translate("maxOfCategory")}</span>
         </div>
 
 

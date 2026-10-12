@@ -2311,4 +2311,10 @@ export const fi = {
     freqPropertyHandoverSubtitle: "Vuokranantajan standardi",
 
 
+    TotalselectedRooms: "Valitut Huoneet Yhteensä",
+    maxOfCategory: "(Enintään 10 luokkaa kohden)",
+    frequencyHeader: "Valitse haluamasi palvelutiheys",
+    frequenciesTitle: "Taajuudet",
+
+
 } as Record<TranslationKey, TranslationValue>;

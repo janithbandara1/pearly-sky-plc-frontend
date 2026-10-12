@@ -2319,4 +2319,9 @@ export const de = {
     freqPropertyHandoverName: "Immobilienübergabe",
     freqPropertyHandoverSubtitle: "Vermieter-Standard",
 
+    TotalselectedRooms: "Ausgewählte Räume Insgesamt",
+    maxOfCategory: "(Max. 10 pro Kategorie)",
+    frequencyHeader: "Wählen Sie Ihre bevorzugte Service-Häufigkeit",
+    frequenciesTitle: "Häufigkeiten"
+
 } as Record<TranslationKey, TranslationValue>;

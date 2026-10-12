@@ -2317,6 +2317,11 @@ AddsOnCategoryOvenFridgeRestoration: "Restauration professionnelle de four et r�
     freqPropertyHandoverName: "Remise des Clés",
     freqPropertyHandoverSubtitle: "Standard propriétaire",
 
+    TotalselectedRooms: "Nombre Total de Pièces Sélectionnées",
+    maxOfCategory: "(Max 10 par catégorie)",
+    frequencyHeader: "Choisissez votre fréquence de service préférée",
+    frequenciesTitle: "Fréquences",
+
 } as Record<TranslationKey, TranslationValue>;
 
 

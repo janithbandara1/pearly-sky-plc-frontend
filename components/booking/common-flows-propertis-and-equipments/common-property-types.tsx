@@ -1297,7 +1297,7 @@ export function SanitizeSizeVisualization({
 
   return (
     <div
-      className="w-full rounded-t-2xl rounded-r-2xl rounded-b-none rounded-l-2xl bg-[#070D1B] border border-cyan-500/40 p-3 sm:p-5 shadow-2xl relative overflow-hidden select-none"
+      className="w-full rounded-t-2xl rounded-r-2xl rounded-b-none rounded-l-2xl bg-[#070D1B] border border-cyan-500/40 md:p-3 p-5 shadow-2xl relative overflow-hidden select-none"
       style={{
         backgroundImage: `
           linear-gradient(to right, rgba(0, 180, 255, 0.06) 1px, transparent 1px),
@@ -2039,7 +2039,9 @@ export function EstimatioMatrixBottom({
   const { translate } = useLanguage();
 
   return (
-    <div className="grid grid-cols-3 items-center py-4 px-1 align-items-center bg-[#132238]/90 border border-blue-500/20 rounded-xl gap-2 sm:gap-6 pt-2 mt-4 border-t w-full text-center">
+    <div className="grid grid-cols-3 items-center py-4  align-items-center px-[3px] bg-[#132238]/90 border
+     border-blue-500/20 
+    rounded-xl gap-2 sm:gap-6 pt-2 mt-4 border-t w-full text-center">
       <div className="">
         <p className="text-xs text-gray-400 font-medium mb-1">{translate("EstimatedCost")}</p>
         <p className=" text-[10px] md:text-2xl font-bold text-[#38BDF8]">
@@ -2048,9 +2050,9 @@ export function EstimatioMatrixBottom({
       </div>
 
       <div>
-        <p className="text-xs text-gray-400 font-medium mb-1">{translate("serviceTargetArea")}</p>
+        <p className="text-[11px] text-gray-400 font-medium mb-1">{translate("serviceTargetArea")}</p>
         {activeCategory && (
-          <p className="text-[12px]  md:text-base text-gray-200 font-medium mb-1">
+          <p className="text-[11px]  md:text-base text-gray-200 font-medium mb-1">
             {CATEGORY_LABEL_KEYS[activeCategory.label]
               ? translate(CATEGORY_LABEL_KEYS[activeCategory.label] as TranslationKey)
               : activeCategory.label.startsWith("prop") || activeCategory.label.startsWith("yacht") || activeCategory.label.startsWith("sec")
@@ -2058,7 +2060,7 @@ export function EstimatioMatrixBottom({
                 : translate(activeCategory.label as TranslationKey)}
           </p>
         )}
-        <p className="text-[11px] md:text-[16px]  font-bold text-white">
+        <p className="text-[10px] md:text-[16px]  font-bold text-white">
           {surfaceMatrixes.serviceTargetArea}
         </p>
         {isSanitizeService && (

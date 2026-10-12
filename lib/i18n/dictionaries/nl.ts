@@ -2333,4 +2333,9 @@ export const nl = {
     freqPropertyHandoverName: "Woningoplevering",
     freqPropertyHandoverSubtitle: "Verhuurdersstandaard",
 
+    TotalselectedRooms: "Totale Stanze Selezionate",
+    maxOfCategory: "(Max 10 per categoria)",
+    frequencyHeader: "Scegli la frequenza del servizio preferita",
+    frequenciesTitle: "Frequenze",
+
 } as Record<TranslationKey, TranslationValue>;

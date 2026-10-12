@@ -2346,4 +2346,9 @@ scanQrDesc: "Skanna den här koden med din telefon för att öppna alla detaljer
     freqPropertyHandoverName: "Fastighetsöverlämning",
     freqPropertyHandoverSubtitle: "Hyresvärdsstandard",
 
+    TotalselectedRooms: "Totalt Antal Valda Rum",
+    maxOfCategory: "(Max 10 per kategori)",
+    frequencyHeader: "Välj din föredragna städfrekvens",
+    frequenciesTitle: "Frekvenser",
+
 } as Record<TranslationKey, TranslationValue>;

@@ -2324,4 +2324,9 @@ export const lb = {
     freqPropertyHandoverName: "Immobilien-Iwwergaab",
     freqPropertyHandoverSubtitle: "Propriétaire-Standard",
 
+    TotalselectedRooms: "Total gewielt Zëmmeren",
+    maxOfCategory: "(Max 10 pro Kategorie)",
+    frequencyHeader: "Wielt Är bevorzugt Service-Frequenz",
+    frequenciesTitle: "Frequenzen",
+
 } as Record<TranslationKey, TranslationValue>;

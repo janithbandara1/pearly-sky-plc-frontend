@@ -2350,4 +2350,9 @@ export const ro = {
     freqPropertyHandoverName: "Predare Proprietate",
     freqPropertyHandoverSubtitle: "Standard proprietar",
 
+    TotalselectedRooms: "Total Camere Selectate",
+    maxOfCategory: "(Max 10 pe categorie)",
+    frequencyHeader: "Alegeți frecvența preferată pentru serviciu",
+    frequenciesTitle: "Frecvențe",
+
 } as Record<TranslationKey, TranslationValue>;
