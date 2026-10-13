@@ -91,6 +91,13 @@ export const CATEGORY_LABEL_KEYS: Record<string, TranslationKey> = {
   "School": "propSchool",
   "Nursery": "propNursery",
   "Airport": "propAirport",
+  "Guest-Ready":"propGuestReady",
+  "Booking.com":"propBookingCom",
+  "Hotels":"propHotels",
+  "Serviced Apartments":"propServicedApartments",
+  "Guesthouses":"propGuesthouses",
+  "Holiday Rentals":"propHolidayRentals",
+  "Property Managers":"propPropertyManagers"
 };
 
 /**
@@ -146,7 +153,6 @@ const SANITIZE_RESIDENTIAL_CATEGORYIES: PropertyCategory[] = [
   { id: "home", label: "propHome", icon: "🏡", min: 100, max: 350, step: 1, locked: false },
   { id: "penthouse", label: "propPenthouse", icon: "🏙️", min: 120, max: 400, step: 1, locked: false },
   { id: "luxury-villa", label: "propLuxuryVilla", icon: "🏰", min: 200, max: 500, step: 1, locked: false },
-  { id: "airbnb", label: "propAirbnb", icon: "🌟", min: 20, max: 150, step: 1, locked: false },
   { ...SANITIZE_OTHER_PROPERTY_CATEGORY }
 ];
 
@@ -881,6 +887,28 @@ const HIGH_SECURITY_COMMERCIAL_CATEGORIES: PropertyCategory[] = [
   }
 ];
 
+
+const PREMIUM_RENTAL_PRIVATE_PROPERTY:PropertyCategory[]=[
+  { id: "studio", label: "propStudio", icon: "🏢", min: 20, max: 40, step: 1, locked: false },
+  { id: "apartment", label: "propApartment", icon: "🏬", min: 45, max: 120, step: 1, locked: false },
+  { id: "townhouse", label: "propTownhouse", icon: "🏘️", min: 90, max: 220, step: 1, locked: false },
+  { id: "home", label: "propHome", icon: "🏡", min: 100, max: 350, step: 1, locked: false },
+  { id: "penthouse", label: "propPenthouse", icon: "🏙️", min: 120, max: 400, step: 1, locked: false },
+  { id: "villa", label: "propVilla", icon: "🏰", min: 200, max: 500, step: 1, locked: false },
+  
+]
+
+const PREMIUM_RENTAL_MANAGEMENT_PROPERTY:PropertyCategory[]=[
+  { id: "airbnb", label: "propAirbnb", icon: "🛎️", min: 200, max: 500, step: 1, locked: false },
+  { id: "guest_ready", label: "propGuestReady", icon: "🛏️", min: 200, max: 500, step: 1, locked: false },
+  { id: "booking_com", label: "propBookingCom", icon: "📅", min: 200, max: 500, step: 1, locked: false },
+  { id: "hotels", label: "propHotels", icon: "🏨", min: 200, max: 500, step: 1, locked: false },
+  { id: "serviced_apartments", label: "propServicedApartments", icon: "🏢", min: 200, max: 500, step: 1, locked: false },
+  { id: "guesthouses", label: "propGuesthouses", icon: "🏡", min: 200, max: 500, step: 1, locked: false },
+  { id: "holiday_rentals", label: "propHolidayRentals", icon: "🌍", min: 200, max: 500, step: 1, locked: false },
+  { id: "property_managers", label: "propPropertyManagers", icon: "🏗️", min: 200, max: 500, step: 1, locked: false },
+]
+
 export interface ServiceCategoryTab {
   id: string;
   label: string;
@@ -932,15 +960,29 @@ export const SERVICE_CATEGORY_TABS_MAP: Record<string, [ServiceCategoryTab, Serv
       categories: PASSENGER_SHIP_CLEANING_CATEGORIES,
     },
   ],
+  "premium-rental-concierge-cleaning":[
+    {
+      id: "residential",
+      label: "premiumRentalPrivateProperty",
+      icon: "🏠",
+      categories: PREMIUM_RENTAL_PRIVATE_PROPERTY,
+    },
+    {
+      id: "industrial",
+      label: "premiumRentalManagementProperty",
+      icon: "🏢",
+      categories: PREMIUM_RENTAL_MANAGEMENT_PROPERTY,
+    }
+  ],
   "post-event-cleaning": [
     {
-      id: "private-social-events",
+      id: "residential",
       label: "privateSocialEvents",
       icon: "🎉",
       categories: PRIVATE_SOCIAL_EVENTS,
     },
     {
-      id: "vip-coporate-events",
+      id: "industrial",
       label: "vipCorporateEvents",
       icon: "🌟",
       categories: VIP_AND_COPORATE_EVENTS,
@@ -948,13 +990,13 @@ export const SERVICE_CATEGORY_TABS_MAP: Record<string, [ServiceCategoryTab, Serv
   ],
   "commercial-office-cleaning": [
     {
-      id: "commercial-cleaning",
+      id: "residential",
       label: "commercialCleaning",
       icon: "🏢",
       categories: COMMERCIAL_AND_OFFICE_CLEANING_CATEGORIES,
     },
     {
-      id: "office-cleaning",
+      id: "industrial",
       label: "officeCleaning",
       icon: "💼",
       categories: OFFICE_CLEANING_CATEGORIES,
@@ -962,13 +1004,13 @@ export const SERVICE_CATEGORY_TABS_MAP: Record<string, [ServiceCategoryTab, Serv
   ],
   "high-security-property-care": [
     {
-      id: "security-residential",
+      id: "residential",
       label: "propCatResidential",
       icon: "🛡️",
       categories: HIGH_SECURITY_RESIDENTIAL_CATEGORIES,
     },
     {
-      id: "security-office-cleaning",
+      id: "industrial",
       label: "securityOffice",
       icon: "🏢",
       categories: HIGH_SECURITY_COMMERCIAL_CATEGORIES,
@@ -1556,7 +1598,9 @@ export function PropertyTypeSizeSelectorCommonFlowOfServices({
     onDisinfectionChange?.(val);
   };
 
-  const ROOM_COMPONENTS_SERVICES = isCommonPropertyTypeWithRoomComponents(serviceSlug);
+  const ROOM_COMPONENTS_SERVICES = isCommonPropertyTypeWithRoomComponents(serviceSlug) 
+  
+  
   const isSanitizeService = serviceSlug === "healthguard-sanitization";
 
   const setDeepClean = (val: boolean) => {
@@ -1716,7 +1760,7 @@ export function PropertyTypeSizeSelectorCommonFlowOfServices({
     }
   };
 
-  const abortVisualization = NO_VISUALIZATION_SERVICES.has(serviceSlug) && serviceSlug !== "luxury-yacht-cleaning";
+  const abortVisualization =  serviceSlug !== "luxury-yacht-cleaning";
   const isYachtSlug = serviceSlug === "luxury-yacht-cleaning";
 
   const getCategoryDisplayLabel = (cat: PropertyCategory): string => {
@@ -1741,7 +1785,7 @@ export function PropertyTypeSizeSelectorCommonFlowOfServices({
           quote={quote}
           serviceCategory={isActiveCategorySwitch as "yatch-cleaning" | "passenger-ship-cleaning"}
         />
-      ) : !abortVisualization && (
+      ) :  (
         <SanitizeSizeVisualization
           value={value}
           activeCategory={activeCategory ?? undefined}
@@ -1752,7 +1796,7 @@ export function PropertyTypeSizeSelectorCommonFlowOfServices({
         />
       )}
 
-      <div className={` ${abortVisualization ? "rounded-2xl":"rounded-b-2xl"}  py-4 border border-[#C6A868] bg-brand-navy pb-5 sm:pb-6 px-5 sm:px-6 shadow-sm w-full`}>
+      <div className={`  rounded-b-2xl py-4 border border-[#C6A868] bg-brand-navy pb-5 sm:pb-6 px-5 sm:px-6 shadow-sm w-full`}>
         {!ROOM_COMPONENTS_SERVICES && (
           <div className="w-full">
             <h2 className="text-base sm:text-lg font-bold text-gray-300 mb-3">{translate("propServiceCatagory")}</h2>
@@ -1940,7 +1984,7 @@ export function PropertyTypeSizeSelectorCommonFlowOfServices({
           </div>
 
           {/* Disinfection & Deep Clean Selectable Cards */}
-          {isSanitizeService && !ROOM_COMPONENTS_SERVICES && (
+          {isSanitizeService && (
             <div className="grid grid-cols-2 gap-3 items-center mt-4 h-full w-full">
               {/* Disinfection Card */}
               <button
@@ -2002,7 +2046,11 @@ export function PropertyTypeSizeSelectorCommonFlowOfServices({
         </div>
 
         {/* Room selector for services types */}
-        {ROOM_COMPONENTS_SERVICES && <RoomSelector value={rooms} onChange={(next) => onRoomsChange?.(next)} />}
+        <RoomSelector 
+            value={rooms} 
+            onChange={(next) => onRoomsChange?.(next)} 
+            serviceSlug={serviceSlug}
+        />
 
         {/* Right Column: Property Size */}
         <div className="flex flex-col w-full mt-8">

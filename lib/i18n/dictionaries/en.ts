@@ -2394,7 +2394,71 @@ serviceLuxuryYachtCleaningTitleFiveFeatureTwo:"Complete linen turnover, sanitati
     maxOfCategory:"(Max 10 per category)",
     frequencyHeader:"Choose your preferred service frequency",
     frequenciesTitle:"Frequencies",
-} as const;
+
+
+    //rooms types
+    bathroom_toilet_cleaning: "Bathroom & Toilet Cleaning",
+    dining_area_cleaning: "Dining Area Cleaning",
+    lounge_cleaning: "Lounge Cleaning",
+    vip_suite_cleaning: "VIP Suite Cleaning",
+    crew_area_cleaning: "Crew Area Cleaning",
+    floor_carpet_cleaning: "Floor & Carpet Cleaning",
+    window_glass_cleaning: "Window & Glass Cleaning",
+
+    hall_cleaning: "Hall Cleaning",
+    vip_area_cleaning: "VIP Area Cleaning",
+    toilet_cleaning: "Toilet Cleaning",
+    entrance_cleaning: "Entrance Cleaning",
+    catering_area_cleaning: "Catering Area Cleaning",
+    stage_cleaning: "Stage Cleaning",
+    seating_area_cleaning: "Seating Area Cleaning",
+    corridor_cleaning: "Corridor Cleaning",
+    
+    waste_removal: "Waste Removal",
+    table_desk_cleaning: "Table & Desk Cleaning",
+    kitchen_cleaning: "Kitchen Cleaning",
+    window_cleaning: "Window Cleaning",
+
+    bathroom_toilet: "Bathroom & Toilet",
+    kitchen_surfaces: "Kitchen Surfaces",
+    floors_tiles: "Floors & Tiles",
+    carpets_rugs: "Carpets & Rugs",
+    sofas_upholstery: "Sofas & Upholstery",
+    office_floors: "Office Floors",
+    desks_workstations: "Desks & Workstations",
+    office_chairs: "Office Chairs",
+    meeting_rooms: "Meeting Rooms",
+    commercial_kitchens: "Commercial Kitchens",
+
+
+    hallways_staircases: "Hallways & Staircases",
+    windows_glass_area: "Windows & Glass Area",
+
+    cleaningBedrooms: "Cleaning Bedrooms",
+    bathroomsToilets: "Bathrooms & Toilets",
+    livingRooms: "Living Rooms",
+    windowsGlass: "Windows & Glass",
+    furnitureTables: "Furniture & Tables",
+    doorsFrames: "Doors & Frames",
+    wallsCeilings: "Walls & Ceilings",
+    floorsTiles: "Floors & Tiles",
+    stairsCommonArea: "Stairs & Common Area",
+
+  premiumRentalPrivateProperty:"Private Property",
+  premiumRentalManagementProperty:"Rental Management", 
+
+      propGuestReady:"Guest-Ready",
+      propBookingCom:"Booking.com",
+      propHotels:"Hotels",
+      propServicedApartments:"Serviced Apartments",
+      propGuesthouses:"Guesthouses",
+      propHolidayRentals:"Holiday Rentals",
+      propPropertyManagers:"Property Managers",
+
+
+    
+    
+    } as const;
 
 export type TranslationKey = keyof typeof en;
 

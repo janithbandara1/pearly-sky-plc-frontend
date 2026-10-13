@@ -43,12 +43,27 @@ const commonPropertyTypesWithRoomComponents = new Set([
   "deep-cleaning",
   "end-of-tenancy-cleaning",
   "same-day-priority-cleaning",
-  "premium-rental-concierge-cleaning",
-  "healthguard-sanitization", 
+  
+  
+  
 ]);
+
+const DedicatedRooms = new Set([
+  "yatch-cleaning",
+  "post-event-cleaning",
+  "high-security-property-care",
+  "post-construction-renovation-cleaning",
+  "commercial-office-cleaning",
+  "steam-cleaning"
+])
+
 
 export function isCommonPropertyTypeWithRoomComponents(baseSlug: string): boolean {
   return commonPropertyTypesWithRoomComponents.has(baseSlug) && isCommonPropertyTypeFlow(baseSlug);
+}
+
+export function isDedicatedProperyRooms(baseSlug:string):boolean{
+  return DedicatedRooms.has(baseSlug)
 }
 
 //Rest services which has the common flow of booking new view

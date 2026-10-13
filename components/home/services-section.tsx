@@ -199,8 +199,9 @@ function ServiceCard({ service }: { service: HomeService }) {
   const isCareService = service.name === "child-care-service" || service.name === "elder-care-service";
   const pricePerUnitKey = isCareService ? "servicesPricePerProfessional" : "servicesPricePerCleaner";
 
+  
   return (
-<div className="relative w-full max-w-2xl  rounded-[1rem] bg-brand-navy  text-white shadow-2xl">
+<div  className="relative w-full max-w-2xl  rounded-[1rem] bg-brand-navy  text-white shadow-2xl">
   {/* Inner Double Border Frame */}
   <div className="flex h-full flex-col overflow-hidden rounded-[1rem] border border-brand-gold p-2 pb-2 ring-1 ring-brand-gold/30">
     
@@ -359,7 +360,7 @@ function CategoryGrid({ services, limit }: { services: HomeService[]; limit?: nu
 
   return (
     <>
-      <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+      <div id="services" className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
         {visible.map((service) => (
           <ServiceCard key={service.id} service={service} />
         ))}
@@ -385,7 +386,7 @@ export function ServicesSection({ services }: { services: HomeService[] }) {
   const active = services.filter((service) => service.status === "active");
 
   return (
-    <section id="services" className="scroll-mt-16 bg-brand-navy py-16 text-brand-navy-foreground">
+    <section className="scroll-mt-16 bg-brand-navy py-16 text-brand-navy-foreground">
       <div className="mx-auto w-full max-w-6xl px-4 sm:px-6">
         <div className="mb-10 text-center">
           <h2 className="md:text-4xl font-bold tracking-tight text-3xl">
@@ -397,9 +398,11 @@ export function ServicesSection({ services }: { services: HomeService[] }) {
         {CATEGORIES.map(({ key, headingKey,subHeader, limit }) => {
           const categoryServices = active.filter((service) => service.category === key);
           if (categoryServices.length === 0) return null;
+          
+          const index = CATEGORIES.findIndex((cat) => cat.key === key);
 
           return (
-            <div key={key} className="mt-12 first:mt-0">
+            <div key={key}  className="mt-12 first:mt-0">
               <h3 className="letter-spacing-tight mb-1 text-center text-2xl break-words font-bold tracking-wider text-brand-navy-foreground md:text-3xl">
                 {translate(headingKey)}
               </h3>

@@ -12,7 +12,31 @@ import {
   UtensilsCrossed, 
   Plus, 
   Minus, 
-  LayoutGrid 
+  LayoutGrid, 
+  Ship,
+  BedDouble,
+  Coffee,
+  Armchair,
+  Crown,
+  Users,
+  Sparkles,
+  Columns2,
+  Trash,
+  Building,
+  DoorOpen,
+  LampFloorIcon,
+  Mic,
+  Trash2,
+  Footprints,
+  Grid,
+  LampDesk,
+  Maximize2,
+  Laptop,
+  ChefHat,
+  Sofa,
+  Sun,
+  Paintbrush,
+  
 } from 'lucide-react';
 import { useLanguage } from '@/lib/i18n/language-context';
 import { TranslationKey } from '@/lib/i18n/dictionaries/en';
@@ -29,9 +53,80 @@ export const ROOM_KEYS = [
   "kitchens",
   "verandas_outdoor_spaces",
   "home_offices",
-  "laundry_rooms",
+  
   "dining_areas",
+
+  "deck_cleaning",
+  "cabin_cleaning",
+  "bathroom_toilet_cleaning",
+  "galley_cleaning",
+  "dining_area_cleaning",
+  "lounge_cleaning",
+  "vip_suite_cleaning",
+  "crew_area_cleaning",
+  "floor_carpet_cleaning",
+  "window_glass_cleaning",
+
+  "hall_cleaning",
+  "vip_area_cleaning",
+  "toilet_cleaning",
+  "entrance_cleaning",
+  "catering_area_cleaning",
+  "stage_cleaning",
+  "seating_area_cleaning",
+  "corridor_cleaning",
+  "floor_cleaning",
+  "waste_removal",
+  "table_desk_cleaning",
+  "floor_cleaning",
+  "toilet_cleaning",
+  "kitchen_cleaning",
+  "reception_cleaning",
+  "meeting_room_cleaning",
+  "window_cleaning",
+  "carpet_cleaning",
+  "corridor_cleaning",
+  "waste_removal",
+
+"bathroom_toilet",
+"kitchen_surfaces",
+"floors_tiles",
+"carpets_rugs",
+"sofas_upholstery",
+"office_floors",
+"desks_workstations",
+"office_chairs",
+"meeting_rooms",
+"commercial_kitchens",
+
+"bedrooms",
+"bathrooms",
+"living_rooms",
+"kitchens",
+"verandas_outdoor_spaces",
+"home_offices",
+
+"dining_areas",
+"hallways_staircases",
+"windows_glass_area",
+
+"cleaningBedrooms",
+"bathroomsToilets",
+"kitchens",
+"livingRooms",
+"windowsGlass",
+"furnitureTables",
+"doorsFrames",
+"wallsCeilings",
+"floorsTiles",
+"stairsCommonArea",
+
+"laundry_rooms"
+
+
 ] as const satisfies readonly TranslationKey[];
+
+
 
 export type RoomKey = (typeof ROOM_KEYS)[number];
 export type RoomCounts = Partial<Record<RoomKey, number>>;
@@ -60,13 +155,93 @@ const INITIAL_ROOMS: Room[] = [
   { id: "dining_areas", icon: <UtensilsCrossed className="w-6 h-6 text-blue-400" /> },
 ];
 
+const YATCH_ROOMS: Room[] = [
+ { id: "deck_cleaning", icon: <Ship className="w-6 h-6 text-blue-400" /> },
+  { id: "cabin_cleaning",  icon: <BedDouble className="w-6 h-6 text-blue-400" /> },
+  { id: "bathroom_toilet_cleaning", icon: <Bath className="w-6 h-6 text-blue-400" /> },
+  { id: "galley_cleaning", icon: <Utensils className="w-6 h-6 text-blue-400" /> },
+  { id: "dining_area_cleaning", icon: <Coffee className="w-6 h-6 text-blue-400" /> },
+  { id: "lounge_cleaning", icon: <Armchair className="w-6 h-6 text-blue-400" /> },
+  { id: "vip_suite_cleaning", icon: <Crown className="w-6 h-6 text-blue-400" /> },
+  { id: "crew_area_cleaning", icon: <Users className="w-6 h-6 text-blue-400" /> },
+  { id: "floor_carpet_cleaning", icon: <Sparkles className="w-6 h-6 text-blue-400" /> },
+  { id: "window_glass_cleaning", icon: <Columns2 className="w-6 h-6 text-blue-400" /> },
+]
+
+const POST_EVENT_ROOMS: Room[] = [
+    { id: "hall_cleaning", icon: <Building className="w-6 h-6 text-blue-400" /> },
+    { id: "vip_area_cleaning", icon: <Crown className="w-6 h-6 text-blue-400" /> },
+    { id: "toilet_cleaning", icon: <Bath className="w-6 h-6 text-blue-400" /> },
+    { id: "entrance_cleaning", icon: <DoorOpen className="w-6 h-6 text-blue-400" /> },
+    { id: "catering_area_cleaning", icon: <Utensils className="w-6 h-6 text-blue-400" /> },
+    { id: "stage_cleaning", icon: <Mic className="w-6 h-6 text-blue-400" /> },
+    { id: "seating_area_cleaning", icon: <Armchair className="w-6 h-6 text-blue-400" /> },
+    { id: "corridor_cleaning", icon: <DoorOpen className="w-6 h-6 text-blue-400" /> },
+    { id: "floor_cleaning", icon: <LampFloorIcon className="w-6 h-6 text-blue-400" /> },
+    { id: "waste_removal", icon: <Trash className="w-6 h-6 text-blue-400" /> }
+]
+
+const COMMERCIAL_CLEANING_ROOMS :Room[]=[
+  { id: "table_desk_cleaning", icon: <LampDesk className="w-6 h-6 text-blue-400" /> },
+  { id: "floor_cleaning", icon: <Sparkles className="w-6 h-6 text-blue-400" /> },
+  { id: "toilet_cleaning", icon: <Bath className="w-6 h-6 text-blue-400" /> },
+  { id: "kitchen_cleaning", icon: <Utensils className="w-6 h-6 text-blue-400" /> },
+  { id: "reception_cleaning", icon: <DoorOpen className="w-6 h-6 text-blue-400" /> },
+  { id: "meeting_room_cleaning", icon: <Users className="w-6 h-6 text-blue-400" /> },
+  { id: "window_cleaning", icon: <Maximize2 className="w-6 h-6 text-blue-400" /> },
+  { id: "carpet_cleaning", icon: <Grid className="w-6 h-6 text-blue-400" /> },
+  { id: "corridor_cleaning", icon: <Footprints className="w-6 h-6 text-blue-400" /> },
+  { id: "waste_removal", icon: <Trash2 className="w-6 h-6 text-blue-400" /> },
+]
+
+const STEAM_CLEANING_ROOMS: Room[] = [
+  { id: "bathroom_toilet", icon: <Bath className="w-6 h-6 text-blue-400" /> },
+  { id: "kitchen_surfaces", icon: <Utensils className="w-6 h-6 text-blue-400" /> },
+  { id: "floors_tiles", icon: <Grid className="w-6 h-6 text-blue-400" /> },
+  { id: "carpets_rugs", icon: <Sparkles className="w-6 h-6 text-blue-400" /> },
+  { id: "sofas_upholstery", icon: <Armchair className="w-6 h-6 text-blue-400" /> },
+  { id: "office_floors", icon: <Building className="w-6 h-6 text-blue-400" /> },
+  { id: "desks_workstations", icon: <Laptop className="w-6 h-6 text-blue-400" /> },
+  { id: "office_chairs", icon: <Armchair className="w-6 h-6 text-blue-400" /> },
+  { id: "meeting_rooms", icon: <Users className="w-6 h-6 text-blue-400" /> },
+  { id: "commercial_kitchens", icon: <ChefHat className="w-6 h-6 text-blue-400" /> },
+]
+
+const HEALTHGUARD_ROOMS: Room[] = [
+  { id: "bedrooms", icon: <BedDouble className="w-6 h-6 text-blue-400" /> },
+  { id: "bathrooms", icon: <Bath className="w-6 h-6 text-blue-400" /> },
+  { id: "living_rooms", icon: <Sofa className="w-6 h-6 text-blue-400" /> },
+  { id: "kitchens", icon: <Utensils className="w-6 h-6 text-blue-400" /> },
+  { id: "verandas_outdoor_spaces", icon: <Sun className="w-6 h-6 text-blue-400" /> },
+  { id: "home_offices", icon: <Briefcase className="w-6 h-6 text-blue-400" /> },
+  { id: "laundry_rooms", icon: <WashingMachine className="w-6 h-6 text-blue-400" /> },
+  { id: "dining_areas", icon: <UtensilsCrossed className="w-6 h-6 text-blue-400" /> },
+  { id: "hallways_staircases", icon: <Footprints className="w-6 h-6 text-blue-400" /> },
+  { id: "windows_glass_area", icon: <Maximize2 className="w-6 h-6 text-blue-400" /> },
+   
+]
+
+const HIGH_SECURITY_AND_POST_CONSTRUCT_ROOMS: Room[] = [
+  { id: "cleaningBedrooms", icon: <BedDouble className="w-6 h-6 text-blue-400" /> },
+  { id: "bathroomsToilets", icon: <Bath className="w-6 h-6 text-blue-400" /> },
+  { id: "kitchens", icon: <Utensils className="w-6 h-6 text-blue-400" /> },
+  { id: "livingRooms", icon: <Sofa className="w-6 h-6 text-blue-400" /> },
+  { id: "windowsGlass", icon: <Maximize2 className="w-6 h-6 text-blue-400" /> },
+  { id: "furnitureTables", icon: <Armchair className="w-6 h-6 text-blue-400" /> },
+  { id: "doorsFrames", icon: <DoorOpen className="w-6 h-6 text-blue-400" /> },
+  { id: "wallsCeilings", icon: <Paintbrush className="w-6 h-6 text-blue-400" /> },
+  { id: "floorsTiles", icon: <Grid className="w-6 h-6 text-blue-400" /> },
+  { id: "stairsCommonArea", icon: <Footprints className="w-6 h-6 text-blue-400" /> },
+]
 export default function RoomSelector({
   value: roomCounts,
   onChange,
+  serviceSlug
 }: {
   /** Room key → selected count; a missing key means not added. */
   value: RoomCounts;
   onChange: (next: RoomCounts) => void;
+  serviceSlug: string;
 }) {
   const setCount = (id: RoomKey, count: number): void => {
     const next = { ...roomCounts };
@@ -85,12 +260,41 @@ export default function RoomSelector({
 
   const {translate}=useLanguage();
 
+  //display corrosponded rooms according to service
+  function getCorrectRooms():Room[]{
+
+    if(serviceSlug==="luxury-yacht-cleaning"){
+      return YATCH_ROOMS; 
+    }
+    if(serviceSlug==="healthguard-sanitization"){
+      return HEALTHGUARD_ROOMS;
+    }
+    if(serviceSlug==="post-event-cleaning"){
+      return POST_EVENT_ROOMS;
+    }
+    if(serviceSlug==="high-security-property-care" || serviceSlug==="post-construction-renovation-cleaning"){
+      return HIGH_SECURITY_AND_POST_CONSTRUCT_ROOMS;
+    }
+    if(serviceSlug==="commercial-office-cleaning"){
+      return COMMERCIAL_CLEANING_ROOMS;
+    }
+    if(serviceSlug==="steam-cleaning"){
+      return STEAM_CLEANING_ROOMS;
+    }
+    return INITIAL_ROOMS; 
+  }
+
+  const ROOMS = getCorrectRooms();
+  
+  //excluded rooms components
+  const EXCLUDE_SLUG_LIST=new Set(["premium-rental-concierge-cleaning"])
+
   return (
     <div className="w-full bg-[#070d1b] my-5 p-4 md:p-10 rounded-2xl text-white font-sans shadow-2xl border border-blue-950/50">
       
       {/* Grid of Rooms */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-5">
-        {INITIAL_ROOMS.map((room) => {
+        {ROOMS.map((room) => {
           const count = roomCounts[room.id] || 0;
           const isAdded = count > 0;
 
