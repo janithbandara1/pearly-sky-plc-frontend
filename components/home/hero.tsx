@@ -48,7 +48,7 @@ export function Hero() {
           <Button
             size="lg"
             onClick={() => scrollToId("services")}
-            className="border-2 w-fit max-w-full p-2 h-auto min-h-[48px] min-w-[48px] whitespace-normal text-center border-brand-gold bg-brand-navy text-brand-navy-foreground hover:bg-brand-navy/80"
+            className="border-2 w-fit max-w-full p-2 h-auto min-h-[48px] min-w-[48px] whitespace-normal text-center border-brand-gold bg-brand-gold text-white hover:bg-[#cfaa4b]"
           >
             {translate("heroCtaSecondary")}
           </Button>

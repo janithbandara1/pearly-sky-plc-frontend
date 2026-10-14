@@ -503,10 +503,10 @@ export function EquipmentSectionOfCommonServicesSlugs({
               <KeyRound className="h-4 w-4 shrink-0 text-[#A6803E]" />
               <span>{translate("equipQualityGuarantee")}</span>
             </div>
-            <p className="text-[11px] leading-relaxed text-gray-400 sm:text-xs">
+            <p className="text-[11px] leading-relaxed md:text-left text-center text-gray-400 sm:text-xs">
               {translate("equipGuaranteeDesc1")}
             </p>
-            <p className="text-[11px] leading-relaxed text-gray-400 sm:text-xs">
+            <p className="text-[11px] leading-relaxed md:text-left text-center text-gray-400 sm:text-xs">
               {translate("equipGuaranteeDesc2")}
             </p>
           </div>
