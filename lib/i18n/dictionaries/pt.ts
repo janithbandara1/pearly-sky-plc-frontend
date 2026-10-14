@@ -2446,5 +2446,9 @@ export const pt = {
     trustResidentialCleaningDescription: "Limpeza premium para casas de luxo, apartamentos, moradias e quintas.",
     trustCommercialCleaningDescription: "Escritórios impecáveis, espaços comerciais e ambientes profissionais.",
     trustYachtMarineCleaningDescription: "Cuidados de limpeza especializados para iates e interiores marítimos de luxo.",
-    trustShortTermRentalConciergeDescription: "Serviços de limpeza e rotatividade prontos para hóspedes em alojamentos de férias premium."
+    trustShortTermRentalConciergeDescription: "Serviços de limpeza e rotatividade prontos para hóspedes em alojamentos de férias premium.",
+    trustOfficeFrance: "Escritório em França",
+    trustOfficeUnitedKingdom: "Escritório no Reino Unido",
+    trustOfficeSriLanka: "Escritório no Sri Lanka",
+    trustOfficeRegNo: "N.º de registo",
 } as Record<TranslationKey, TranslationValue>;

@@ -2406,6 +2406,10 @@ scanQrDesc: "Scan denne kode med din telefon for at åbne de fulde oplysninger o
     trustResidentialCleaningDescription: "Premium rengøring af luksusboliger, lejligheder, villaer og godser.",
     trustCommercialCleaningDescription: "Pletfrie kontorer, erhvervsarealer og professionelle miljøer.",
     trustYachtMarineCleaningDescription: "Specialiseret rengøring af yachter og luksuriøse maritime interiører.",
-    trustShortTermRentalConciergeDescription: "Klargøring og gæsteskift af eksklusive ferieboliger."
+    trustShortTermRentalConciergeDescription: "Klargøring og gæsteskift af eksklusive ferieboliger.",
+    trustOfficeFrance: "Kontor i Frankrig",
+    trustOfficeUnitedKingdom: "Kontor i Storbritannien",
+    trustOfficeSriLanka: "Kontor i Sri Lanka",
+    trustOfficeRegNo: "CVR-nr.",
     
 } as Record<TranslationKey, TranslationValue>;

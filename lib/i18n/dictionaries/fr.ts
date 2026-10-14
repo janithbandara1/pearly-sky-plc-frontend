@@ -2414,6 +2414,10 @@ AddsOnCategoryOvenFridgeRestoration: "Restauration professionnelle de four et r�
     trustCommercialCleaningDescription: "Bureaux impeccables, espaces commerciaux et environnements professionnels.",
     trustYachtMarineCleaningDescription: "Soin de nettoyage spécialisé pour yachts et intérieurs maritimes de luxe.",
     trustShortTermRentalConciergeDescription: "Services de nettoyage et de rotation de voyageurs pour locations de vacances haut de gamme.",
+    trustOfficeFrance: "Bureau en France",
+    trustOfficeUnitedKingdom: "Bureau au Royaume-Uni",
+    trustOfficeSriLanka: "Bureau au Sri Lanka",
+    trustOfficeRegNo: "N° d'immatriculation",
 } as Record<TranslationKey, TranslationValue>;
 
 

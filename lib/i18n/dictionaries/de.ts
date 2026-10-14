@@ -2416,4 +2416,8 @@ export const de = {
     trustCommercialCleaningDescription: "Makellose Büros, Gewerbeflächen und professionelle Arbeitsumgebungen.",
     trustYachtMarineCleaningDescription: "Spezialisierte Reinigungspflege für Yachten und luxuriöse Schiffsinnenräume.",
     trustShortTermRentalConciergeDescription: "Gästefertige Reinigung und Gästewechsel-Services für erstklassige Ferienunterkünfte.",
+    trustOfficeFrance: "Büro Frankreich",
+    trustOfficeUnitedKingdom: "Büro Vereinigtes Königreich",
+    trustOfficeSriLanka: "Büro Sri Lanka",
+    trustOfficeRegNo: "Handelsregisternr.",
 } as Record<TranslationKey, TranslationValue>;

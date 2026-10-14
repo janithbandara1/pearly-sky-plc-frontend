@@ -2447,4 +2447,8 @@ CustomerFeedBack: "Kundetilbakemelding",
     trustCommercialCleaningDescription: "Plettfrie kontorer, næringslokaler og profesjonelle miljøer.",
     trustYachtMarineCleaningDescription: "Spesialisert rengjøringspleie for yachter og luksuriøse maritime interiører.",
     trustShortTermRentalConciergeDescription: "Klargjøring og skiftetjenester for eksklusive ferieboliger.",
+    trustOfficeFrance: "Kontor i Frankrike",
+    trustOfficeUnitedKingdom: "Kontor i Storbritannia",
+    trustOfficeSriLanka: "Kontor i Sri Lanka",
+    trustOfficeRegNo: "Org.nr.",
 } as Record<TranslationKey, TranslationValue>;

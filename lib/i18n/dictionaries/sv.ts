@@ -2443,4 +2443,8 @@ scanQrDesc: "Skanna den här koden med din telefon för att öppna alla detaljer
     trustCommercialCleaningDescription: "Fläckfria kontor, kommersiella lokaler och professionella miljöer.",
     trustYachtMarineCleaningDescription: "Specialiserad städvård för yachter och lyxiga marina interiörer.",
     trustShortTermRentalConciergeDescription: "Gästklara städ- och bytes-tjänster för exklusiva semesterbostäder.",
+    trustOfficeFrance: "Kontor i Frankrike",
+    trustOfficeUnitedKingdom: "Kontor i Storbritannien",
+    trustOfficeSriLanka: "Kontor i Sri Lanka",
+    trustOfficeRegNo: "Org.nr",
 } as Record<TranslationKey, TranslationValue>;

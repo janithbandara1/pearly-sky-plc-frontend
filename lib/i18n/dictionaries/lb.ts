@@ -2422,4 +2422,8 @@ export const lb = {
     trustCommercialCleaningDescription: "Makellos Büroen, Gewerberaim a professionell Aarbechtsëmfelder.",
     trustYachtMarineCleaningDescription: "Spezialiséiert Pfleeg fir Yachten a luxuriéis Schiffs-Interieuren.",
     trustShortTermRentalConciergeDescription: "Ready-for-Guest Botz a Guest-Turnover Servicer fir erstklasseg Feierengewunnengen.",
+    trustOfficeFrance: "Büro a Frankräich",
+    trustOfficeUnitedKingdom: "Büro am Vereenegte Kinnekräich",
+    trustOfficeSriLanka: "Büro a Sri Lanka",
+    trustOfficeRegNo: "Registréiernummer",
 } as Record<TranslationKey, TranslationValue>;

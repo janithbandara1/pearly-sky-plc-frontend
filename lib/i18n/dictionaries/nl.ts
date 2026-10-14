@@ -2430,4 +2430,8 @@ export const nl = {
     trustCommercialCleaningDescription: "Smetteloze kantoren, commerciële ruimtes en professionele werkomgevingen.",
     trustYachtMarineCleaningDescription: "Gespecialiseerde schoonmaakzorg voor jachten en luxueuse maritieme interieurs.",
     trustShortTermRentalConciergeDescription: "Schoonmaak- en wisseldiensten klaar voor gasten in luxe vakantiewoningen.",
+    trustOfficeFrance: "Kantoor Frankrijk",
+    trustOfficeUnitedKingdom: "Kantoor Verenigd Koninkrijk",
+    trustOfficeSriLanka: "Kantoor Sri Lanka",
+    trustOfficeRegNo: "KvK-nummer",
 } as Record<TranslationKey, TranslationValue>;

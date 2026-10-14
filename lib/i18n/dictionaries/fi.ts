@@ -2409,4 +2409,8 @@ export const fi = {
     trustCommercialCleaningDescription: "Tahrottomat toimistot, liiketilat ja ammattimaiset ympäristöt.",
     trustYachtMarineCleaningDescription: "Asiantunteva siivouspalvelu jahdeille ja luksusveneiden sisätiloihin.",
     trustShortTermRentalConciergeDescription: "Vierasvalmiit siivous- ja vaihtopalvelut laadukkaisiin loma-asuntoihin.",
+    trustOfficeFrance: "Toimisto Ranskassa",
+    trustOfficeUnitedKingdom: "Toimisto Isossa-Britanniassa",
+    trustOfficeSriLanka: "Toimisto Sri Lankassa",
+    trustOfficeRegNo: "Y-tunnus",
 } as Record<TranslationKey, TranslationValue>;

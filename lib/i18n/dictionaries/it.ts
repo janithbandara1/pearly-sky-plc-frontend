@@ -2372,4 +2372,8 @@ export const it = {
     trustCommercialCleaningDescription: "Uffici impeccabili, spazi commerciali ed ambienti professionali.",
     trustYachtMarineCleaningDescription: "Cura e pulizia specializzata per yacht ed interni nautici di lusso.",
     trustShortTermRentalConciergeDescription: "Servizi di pulizia e cambio ospiti pronti per affitti vacanze di fascia alta.",
+    trustOfficeFrance: "Ufficio in Francia",
+    trustOfficeUnitedKingdom: "Ufficio nel Regno Unito",
+    trustOfficeSriLanka: "Ufficio in Sri Lanka",
+    trustOfficeRegNo: "N. di registrazione",
 } as Record<TranslationKey, TranslationValue>;

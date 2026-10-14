@@ -2447,5 +2447,9 @@ CustomerFeedBack: "Opinie klientów",
     trustResidentialCleaningDescription: "Luksusowe sprzątanie domów, apartamentów, willi i rezydencji.",
     trustCommercialCleaningDescription: "Nieskazitelne biura, przestrzenie komercyjne i środowiska biznesowe.",
     trustYachtMarineCleaningDescription: "Specjalistyczna pielęgnacja i sprzątanie jachtów oraz luksusowych wnętrz morskich.",
-    trustShortTermRentalConciergeDescription: "Przygotowanie apartamentów i obsługa zmian gości w luksusowych lokalach wakacyjnych."
+    trustShortTermRentalConciergeDescription: "Przygotowanie apartamentów i obsługa zmian gości w luksusowych lokalach wakacyjnych.",
+    trustOfficeFrance: "Biuro we Francji",
+    trustOfficeUnitedKingdom: "Biuro w Wielkiej Brytanii",
+    trustOfficeSriLanka: "Biuro na Sri Lance",
+    trustOfficeRegNo: "Nr rejestrowy",
 } as Record<TranslationKey, TranslationValue>;

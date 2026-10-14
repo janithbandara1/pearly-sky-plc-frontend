@@ -2369,5 +2369,9 @@ scanQrDesc: "Escanee este código con su teléfono para ver los detalles complet
     trustResidentialCleaningDescription: "Limpieza de alta gama para casas de lujo, apartamentos, villas y fincas.",
     trustCommercialCleaningDescription: "Oficinas impecables, espacios comerciales y entornos profesionales.",
     trustYachtMarineCleaningDescription: "Cuidado de limpieza especializado para yates e interiores marinos de lujo.",
-    trustShortTermRentalConciergeDescription: "Servicios de limpieza y rotación listos para huéspedes en alquileres vacacionales exclusivos."
+    trustShortTermRentalConciergeDescription: "Servicios de limpieza y rotación listos para huéspedes en alquileres vacacionales exclusivos.",
+    trustOfficeFrance: "Oficina en Francia",
+    trustOfficeUnitedKingdom: "Oficina en el Reino Unido",
+    trustOfficeSriLanka: "Oficina en Sri Lanka",
+    trustOfficeRegNo: "N.º de registro",
 } as Record<TranslationKey, TranslationValue>;

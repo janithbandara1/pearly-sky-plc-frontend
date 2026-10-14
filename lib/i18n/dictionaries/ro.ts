@@ -2447,5 +2447,9 @@ export const ro = {
     trustResidentialCleaningDescription: "Curățenie premium pentru case de lux, apartamente, vile și domenii.",
     trustCommercialCleaningDescription: "Birouri impecabile, spații comerciale și medii profesionale.",
     trustYachtMarineCleaningDescription: "Servicii de curățenie specializată pentru iahturi și interioare maritime de lux.",
-    trustShortTermRentalConciergeDescription: "Servicii de pregătire și igienizare pentru închirieri de vacanță exclusive."
+    trustShortTermRentalConciergeDescription: "Servicii de pregătire și igienizare pentru închirieri de vacanță exclusive.",
+    trustOfficeFrance: "Birou în Franța",
+    trustOfficeUnitedKingdom: "Birou în Regatul Unit",
+    trustOfficeSriLanka: "Birou în Sri Lanka",
+    trustOfficeRegNo: "Nr. de înregistrare",
 } as Record<TranslationKey, TranslationValue>;

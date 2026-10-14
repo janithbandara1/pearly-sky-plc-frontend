@@ -2495,6 +2495,10 @@ serviceLuxuryYachtCleaningTitleFiveFeatureTwo:"Complete linen turnover, sanitati
     trustCommercialCleaningDescription: "Pristine offices, commercial spaces and professional environments.",
     trustYachtMarineCleaningDescription: "Specialist cleaning care for yachts and luxury marine interiors.",
     trustShortTermRentalConciergeDescription: "Guest-ready cleaning and turnover services for premium holiday rentals.",
+    trustOfficeFrance: "France Office",
+    trustOfficeUnitedKingdom: "United Kingdom Office",
+    trustOfficeSriLanka: "Sri Lanka Office",
+    trustOfficeRegNo: "Company Reg. No.",
 
     
     
