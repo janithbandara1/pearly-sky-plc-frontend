@@ -170,21 +170,8 @@
   }
 }
 
-@keyframes marqueetrustbar {
-  from {
-    transform: translateX(0);
-  }
-  to {
-    transform: translateX(-30%);
-  }
-}
-
 @utility animate-marquee {
   animation: marquee 40s linear infinite;
-}
-
-@utility animate-marquee-trustbar {
-  animation: marqueetrustbar 40s linear infinite;
 }
 
 /* site header marquee */
