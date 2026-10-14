@@ -2387,4 +2387,13 @@ export const de = {
     floorsTiles: "Böden & Fliesen",
     stairsCommonArea: "Treppen & Gemeinschaftsbereiche",
 
+    premiumRentalPrivateProperty: "Privatimmobilie",
+    premiumRentalManagementProperty: "Vermietungsmanagement",
+    propGuestReady: "Gästebereit",
+    propBookingCom: "Booking.com",
+    propHotels: "Hotels",
+    propServicedApartments: "Serviced Apartments",
+    propGuesthouses: "Gästehäuser",
+    propHolidayRentals: "Ferienvermietungen",
+    propPropertyManagers: "Immobilienverwalter",
 } as Record<TranslationKey, TranslationValue>;

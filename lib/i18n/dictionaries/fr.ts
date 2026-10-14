@@ -2385,6 +2385,15 @@ AddsOnCategoryOvenFridgeRestoration: "Restauration professionnelle de four et r�
     floorsTiles: "Sols & Carrelages",
     stairsCommonArea: "Escaliers & Zones Communes",
 
+    premiumRentalPrivateProperty: "Propriété privée",
+    premiumRentalManagementProperty: "Gestion locative",
+    propGuestReady: "Prêt pour les invités",
+    propBookingCom: "Booking.com",
+    propHotels: "Hôtels",
+    propServicedApartments: "Appartements meublés",
+    propGuesthouses: "Maisons d'hôtes",
+    propHolidayRentals: "Locations de vacances",
+    propPropertyManagers: "Gestionnaires immobiliers",
 } as Record<TranslationKey, TranslationValue>;
 
 

@@ -2343,4 +2343,13 @@ export const it = {
     floorsTiles: "Pavimenti e Piastrelle",
     stairsCommonArea: "Scale e Aree Comuni",
 
+    premiumRentalPrivateProperty: "Proprietà privata",
+    premiumRentalManagementProperty: "Gestione affitti",
+    propGuestReady: "Pronto per gli ospiti",
+    propBookingCom: "Booking.com",
+    propHotels: "Hotel",
+    propServicedApartments: "Appartamenti serviti",
+    propGuesthouses: "Pensioni",
+    propHolidayRentals: "Affitti vacanza",
+    propPropertyManagers: "Gestori immobiliari",
 } as Record<TranslationKey, TranslationValue>;

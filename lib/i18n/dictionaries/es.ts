@@ -2341,4 +2341,13 @@ scanQrDesc: "Escanee este código con su teléfono para ver los detalles complet
     floorsTiles: "Suelos y Azulejos",
     stairsCommonArea: "Escaleras y Áreas Comunes",
 
+    premiumRentalPrivateProperty: "Propiedad privada",
+    premiumRentalManagementProperty: "Gestión de alquileres",
+    propGuestReady: "Listo para huéspedes",
+    propBookingCom: "Booking.com",
+    propHotels: "Hoteles",
+    propServicedApartments: "Apartamentos con servicios",
+    propGuesthouses: "Casas de huéspedes",
+    propHolidayRentals: "Alquileres vacacionales",
+    propPropertyManagers: "Gestores inmobiliarios",
 } as Record<TranslationKey, TranslationValue>;
