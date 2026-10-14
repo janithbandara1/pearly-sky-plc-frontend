@@ -44,9 +44,9 @@ export const metadata: Metadata = {
     description: SITE_META.description,
     images: [SOCIAL_SHARE_IMAGE],
   },
-  // Bing Webmaster Tools ownership for pearlyskyglobalclean.fr only — every
-  // deployment shares this layout, so gate it to the France site.
-  ...(CURRENT_COUNTRY === "fr" && !IS_GLOBAL_SITE
+  // Bing Webmaster Tools ownership for the France and UK sites only — every
+  // deployment shares this layout, so gate it by country.
+  ...((CURRENT_COUNTRY === "fr" || CURRENT_COUNTRY === "gb") && !IS_GLOBAL_SITE
     ? { verification: { other: { "msvalidate.01": "4EA589A24EF6FF198C4772ECF4E39E56" } } }
     : {}),
 };
