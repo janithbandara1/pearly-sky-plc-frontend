@@ -301,14 +301,14 @@ export default function RoomSelector({
           return (
             <div 
               key={room.id}
-              className={`relative flex  flex-row justify-between gap-[5px] items-center  md:p-3 p-2.5  rounded-xl transition-all duration-300 border ${
+              className={`relative flex  flex-row justify-between gap-[5px] items-center  md:p-3 p-2  rounded-xl transition-all duration-300 border ${
                 isAdded 
                   ? 'bg-[#101b35] border-blue-500 shadow-[0_0_15px_rgba(59,130,246,0.15)]' 
                   : 'bg-[#0d162d]/80 border-gray-500 hover:border-gray-700'
               }`}
             >
               {/* Top Row: Icon & Name */}
-              <div className="flex items-center gap-3.5 px-[2px]">
+              <div className="flex items-center gap-3.5 ">
                 <div className="md:p-2.5 p-1.5 rounded-lg bg-[#152243] border border-blue-900/40">
                   {room.icon}
                 </div>

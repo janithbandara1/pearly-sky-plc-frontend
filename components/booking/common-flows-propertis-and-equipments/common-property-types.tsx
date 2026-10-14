@@ -1985,12 +1985,12 @@ export function PropertyTypeSizeSelectorCommonFlowOfServices({
 
           {/* Disinfection & Deep Clean Selectable Cards */}
           {isSanitizeService && (
-            <div className="grid grid-cols-2 gap-3 items-center mt-4 h-full w-full">
+            <div className="grid grid-cols-2 gap-3 items-center mt-2 h-full w-full">
               {/* Disinfection Card */}
               <button
                 type="button"
                 onClick={handleToggleDisinfection}
-                className={`flex items-center justify-between p-4.5 sm:p-5 rounded-xl border transition-all cursor-pointer select-none text-left ${isDisinfection
+                className={`flex items-center justify-between md:p-4.5 p-2.5 rounded-xl border transition-all cursor-pointer select-none text-left ${isDisinfection
                     ? "bg-[#1E2E4A] border-2 border-blue-500 shadow-[0_0_15px_rgba(59,130,246,0.25)]"
                     : "bg-white/5 border-white/10 hover:border-white/20 hover:bg-white/[0.08]"
                   }`}
@@ -1998,10 +1998,10 @@ export function PropertyTypeSizeSelectorCommonFlowOfServices({
                 <div className="flex items-center gap-3 min-w-0">
                   <DisinfectionSprayIcon className="w-5 h-5 sm:w-6 sm:h-6 shrink-0 text-gray-300" />
                   <div className="flex flex-col min-w-0">
-                    <span className="text-sm sm:text-[15px] font-bold text-white leading-tight">
+                    <span className="md:text-sm text-[12px] font-bold text-white leading-tight">
                       {translate("DisinfectionName")}
                     </span>
-                    <span className="text-xs text-[#94A3B8] font-medium leading-tight mt-0.5">
+                    <span className="md:text-xs text-[11px] text-[#94A3B8] font-medium leading-tight mt-0.5">
                       {translate("HospitalGradeName")} (+0%)
                     </span>
                   </div>
@@ -2018,7 +2018,7 @@ export function PropertyTypeSizeSelectorCommonFlowOfServices({
               <button
                 type="button"
                 onClick={handleToggleDeepClean}
-                className={`flex items-center justify-between p-4.5 sm:p-5 rounded-xl border transition-all cursor-pointer select-none text-left ${isDeepClean
+                className={`flex items-center justify-between md:p-4.5 p-2.5 rounded-xl border transition-all cursor-pointer select-none text-left ${isDeepClean
                     ? "bg-[#1E2E4A] border-2 border-blue-500 shadow-[0_0_15px_rgba(59,130,246,0.25)]"
                     : "bg-white/5 border-white/10 hover:border-white/20 hover:bg-white/[0.08]"
                   }`}
@@ -2026,7 +2026,7 @@ export function PropertyTypeSizeSelectorCommonFlowOfServices({
                 <div className="flex items-center gap-3 min-w-0">
                   <Sparkles className="w-5 h-5 sm:w-6 sm:h-6 shrink-0 text-blue-400" />
                   <div className="flex flex-col min-w-0">
-                    <span className="text-sm sm:text-[15px] font-bold text-white leading-tight">
+                    <span className="md:text-sm text-[12px] font-bold text-white leading-tight">
                       {translate("deepCleanName")}
                     </span>
                     <span className="text-xs text-[#94A3B8] font-medium leading-tight mt-0.5">
