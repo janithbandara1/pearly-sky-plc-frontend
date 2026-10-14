@@ -135,7 +135,8 @@ export const ROOM_MAX_COUNT = 10;
 
 /** Selected rooms as an ordered list (ROOM_KEYS order) — the shape saved to the booking draft. */
 export function roomCountsToList(counts: RoomCounts): { key: RoomKey; count: number }[] {
-  return ROOM_KEYS.filter((key) => (counts[key] ?? 0) > 0).map((key) => ({ key, count: counts[key]! }));
+  // ROOM_KEYS repeats some keys (shared across services) — list each room once.
+  return [...new Set(ROOM_KEYS)].filter((key) => (counts[key] ?? 0) > 0).map((key) => ({ key, count: counts[key]! }));
 }
 
 interface Room {
