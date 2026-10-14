@@ -2427,4 +2427,24 @@ CustomerFeedBack: "Kundetilbakemelding",
     propGuesthouses: "Guesthouses",
     propHolidayRentals: "Holiday Rentals",
     propPropertyManagers: "Property Managers",
+
+    // Labels
+    trustBooking60Sec: "60-Sekunders Onlinebooking",
+    trustEcoFriendlyProducts: "Miljøvennlige Produkter",
+    trustEnglishFrenchTeams: "Engelsk- og Fransktalende Team",
+    trustVettedProfessionalTeam: "Kvalitetssikret Profesjonelt Team",
+    trustResidentialCleaning: "Boligrengjøring",
+    trustCommercialCleaning: "Kommersiell Rengjøring",
+    trustYachtMarineCleaning: "Yacht- og Marinrengjøring",
+    trustShortTermRentalConcierge: "Concierge for Korttidsutleie",
+
+    // Descriptions
+    trustBooking60SecDescription: "Bestill rengjøringstjenesten din raskt og enkelt på bare 60 sekunder.",
+    trustEcoFriendlyProductsDescription: "Nyt et skinnende rent rom med miljøvennlige, plantebaserte rengjøringsprodukter.",
+    trustEnglishFrenchTeamsDescription: "Tospråklig støtte på engelsk og fransk for en sømløs kundeopplevelse.",
+    trustVettedProfessionalTeamDescription: "Profesjonelle rengjøringsteam med fokus på kvalitet, omsorg og pålitelighet.",
+    trustResidentialCleaningDescription: "Førsteklasses rengjøring for luksusboliger, leiligheter, villaer og eiendommer.",
+    trustCommercialCleaningDescription: "Plettfrie kontorer, næringslokaler og profesjonelle miljøer.",
+    trustYachtMarineCleaningDescription: "Spesialisert rengjøringspleie for yachter og luksuriøse maritime interiører.",
+    trustShortTermRentalConciergeDescription: "Klargjøring og skiftetjenester for eksklusive ferieboliger.",
 } as Record<TranslationKey, TranslationValue>;

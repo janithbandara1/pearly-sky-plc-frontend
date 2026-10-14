@@ -2423,4 +2423,24 @@ scanQrDesc: "Skanna den här koden med din telefon för att öppna alla detaljer
     propGuesthouses: "Guesthouses",
     propHolidayRentals: "Holiday Rentals",
     propPropertyManagers: "Property Managers",
+
+    // Labels
+    trustBooking60Sec: "60-Sekunders Onlinebokning",
+    trustEcoFriendlyProducts: "Miljövänliga Produkter",
+    trustEnglishFrenchTeams: "Engelsk- & Fransktalande Team",
+    trustVettedProfessionalTeam: "Granskat Professionellt Team",
+    trustResidentialCleaning: "Bostadsstädning",
+    trustCommercialCleaning: "Kommersiell Städning",
+    trustYachtMarineCleaning: "Yacht- & Marin-städning",
+    trustShortTermRentalConcierge: "Concierge för Korttidsboende",
+
+    // Descriptions
+    trustBooking60SecDescription: "Boka din städtjänst snabbt och enkelt på bara 60 sekunder.",
+    trustEcoFriendlyProductsDescription: "Njut av ett skinande rent utrymme med miljövänliga, växtbaserade rengöringsprodukter.",
+    trustEnglishFrenchTeamsDescription: "Tvåspråkig support på engelska och franska för en smidig kundupplevelse.",
+    trustVettedProfessionalTeamDescription: "Professionella städteam fokuserade på kvalitet, omsorg och pålitlighet.",
+    trustResidentialCleaningDescription: "Premiumstädning för lyxhus, lägenheter, villor och herrgårdar.",
+    trustCommercialCleaningDescription: "Fläckfria kontor, kommersiella lokaler och professionella miljöer.",
+    trustYachtMarineCleaningDescription: "Specialiserad städvård för yachter och lyxiga marina interiörer.",
+    trustShortTermRentalConciergeDescription: "Gästklara städ- och bytes-tjänster för exklusiva semesterbostäder.",
 } as Record<TranslationKey, TranslationValue>;

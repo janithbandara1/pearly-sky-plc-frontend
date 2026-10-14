@@ -2394,6 +2394,26 @@ AddsOnCategoryOvenFridgeRestoration: "Restauration professionnelle de four et r�
     propGuesthouses: "Maisons d'hôtes",
     propHolidayRentals: "Locations de vacances",
     propPropertyManagers: "Gestionnaires immobiliers",
+
+    // Labels
+    trustBooking60Sec: "Réservation en Ligne en 60 Secondes",
+    trustEcoFriendlyProducts: "Produits Écologiques",
+    trustEnglishFrenchTeams: "Équipes Anglophones & Francophones",
+    trustVettedProfessionalTeam: "Équipe Professionnelle Vérifiée",
+    trustResidentialCleaning: "Nettoyage Résidentiel",
+    trustCommercialCleaning: "Nettoyage Commercial",
+    trustYachtMarineCleaning: "Nettoyage de Yachts & Bateaux",
+    trustShortTermRentalConcierge: "Conciergerie pour Locations Saisonnières",
+
+    // Descriptions
+    trustBooking60SecDescription: "Réservez votre service de nettoyage rapidement et facilement en seulement 60 secondes.",
+    trustEcoFriendlyProductsDescription: "Profitez d'un espace impeccable grâce à des produits écologiques à base de plantes.",
+    trustEnglishFrenchTeamsDescription: "Assistance bilingue en anglais et en français pour une expérience client optimale.",
+    trustVettedProfessionalTeamDescription: "Des équipes de nettoyage professionnelles axées sur la qualité, le soin et la fiabilité.",
+    trustResidentialCleaningDescription: "Nettoyage haut de gamme pour demeures de luxe, appartements, villas et domaines.",
+    trustCommercialCleaningDescription: "Bureaux impeccables, espaces commerciaux et environnements professionnels.",
+    trustYachtMarineCleaningDescription: "Soin de nettoyage spécialisé pour yachts et intérieurs maritimes de luxe.",
+    trustShortTermRentalConciergeDescription: "Services de nettoyage et de rotation de voyageurs pour locations de vacances haut de gamme.",
 } as Record<TranslationKey, TranslationValue>;
 
 

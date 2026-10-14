@@ -2389,4 +2389,24 @@ export const fi = {
     propGuesthouses: "Guesthouses",
     propHolidayRentals: "Holiday Rentals",
     propPropertyManagers: "Property Managers",
+
+    // Labels
+    trustBooking60Sec: "60 Sekunnin Verkkovaraus",
+    trustEcoFriendlyProducts: "Ympäristöystävälliset Tuotteet",
+    trustEnglishFrenchTeams: "Englannin- ja Ranskankieliset Tiimit",
+    trustVettedProfessionalTeam: "Tarkastettu Ammattitaitoinen Tiimi",
+    trustResidentialCleaning: "Kotisiivous",
+    trustCommercialCleaning: "Toimitilasiivous",
+    trustYachtMarineCleaning: "Jahdin ja Veneiden Siivous",
+    trustShortTermRentalConcierge: "Loma-asuntojen Concierge-palvelu",
+
+    // Descriptions
+    trustBooking60SecDescription: "Varaa siivouspalvelusi nopeasti ja kätevästi vain 60 sekunnissa.",
+    trustEcoFriendlyProductsDescription: "Nauti tahrattomasta tilasta ympäristöystävällisillä, kasvipohjaisilla puhdistusaineilla.",
+    trustEnglishFrenchTeamsDescription: "Kaksikielinen asiakastuki englanniksi ja ranskaksi takaa sujuvan asiakaskokemuksen.",
+    trustVettedProfessionalTeamDescription: "Ammattimaiset siivoustiimit, jotka keskittyvät laatuun, huolellisuuteen ja luotettavuuteen.",
+    trustResidentialCleaningDescription: "Premium-tason siivous luksuskoteihin, huoneistoihin, villoihin ja kartanoihin.",
+    trustCommercialCleaningDescription: "Tahrottomat toimistot, liiketilat ja ammattimaiset ympäristöt.",
+    trustYachtMarineCleaningDescription: "Asiantunteva siivouspalvelu jahdeille ja luksusveneiden sisätiloihin.",
+    trustShortTermRentalConciergeDescription: "Vierasvalmiit siivous- ja vaihtopalvelut laadukkaisiin loma-asuntoihin.",
 } as Record<TranslationKey, TranslationValue>;

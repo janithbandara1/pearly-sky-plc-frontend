@@ -2396,4 +2396,24 @@ export const de = {
     propGuesthouses: "Gästehäuser",
     propHolidayRentals: "Ferienvermietungen",
     propPropertyManagers: "Immobilienverwalter",
+
+    // Labels
+    trustBooking60Sec: "60-Sekunden-Online-Buchung",
+    trustEcoFriendlyProducts: "Umweltfreundliche Produkte",
+    trustEnglishFrenchTeams: "Englisch- & Französischsprachige Teams",
+    trustVettedProfessionalTeam: "Geprüftes Professionelles Team",
+    trustResidentialCleaning: "Wohnraumreinigung",
+    trustCommercialCleaning: "Gewerbereinigung",
+    trustYachtMarineCleaning: "Yacht- & Bootsreinigung",
+    trustShortTermRentalConcierge: "Ferienunterkunft-Concierge",
+
+    // Descriptions
+    trustBooking60SecDescription: "Buchen Sie Ihren Reinigungsservice schnell und bequem in nur 60 Sekunden.",
+    trustEcoFriendlyProductsDescription: "Genießen Sie einen makellosen Raum mit umweltfreundlichen, pflanzlichen Reinigungsprodukten.",
+    trustEnglishFrenchTeamsDescription: "Zweisprachige Unterstützung auf Englisch und Französisch für ein reibungsloses Kundenerlebnis.",
+    trustVettedProfessionalTeamDescription: "Professionelle Reinigungsteams mit Fokus auf Qualität, Sorgfalt und Zuverlässigkeit.",
+    trustResidentialCleaningDescription: "Premium-Reinigung für Luxushäuser, Apartments, Villen und Anwesen.",
+    trustCommercialCleaningDescription: "Makellose Büros, Gewerbeflächen und professionelle Arbeitsumgebungen.",
+    trustYachtMarineCleaningDescription: "Spezialisierte Reinigungspflege für Yachten und luxuriöse Schiffsinnenräume.",
+    trustShortTermRentalConciergeDescription: "Gästefertige Reinigung und Gästewechsel-Services für erstklassige Ferienunterkünfte.",
 } as Record<TranslationKey, TranslationValue>;

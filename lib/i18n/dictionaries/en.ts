@@ -2476,6 +2476,25 @@ serviceLuxuryYachtCleaningTitleFiveFeatureTwo:"Complete linen turnover, sanitati
       propHolidayRentals:"Holiday Rentals",
       propPropertyManagers:"Property Managers",
 
+      // Labels
+    trustBooking60Sec: "60-Second Online Booking",
+    trustEcoFriendlyProducts: "Eco-Friendly Products",
+    trustEnglishFrenchTeams: "English & French Teams",
+    trustVettedProfessionalTeam: "Vetted Professional Team",
+    trustResidentialCleaning: "Residential Cleaning",
+    trustCommercialCleaning: "Commercial Cleaning",
+    trustYachtMarineCleaning: "Yacht & Marine Cleaning",
+    trustShortTermRentalConcierge: "Short-Term Rental Concierge",
+
+    // Descriptions
+    trustBooking60SecDescription: "Book your cleaning service quickly and conveniently in just 60 seconds.",
+    trustEcoFriendlyProductsDescription: "Enjoy a spotless space with eco-friendly, plant-based cleaning products.",
+    trustEnglishFrenchTeamsDescription: "Bilingual support in English and French for a seamless customer experience.",
+    trustVettedProfessionalTeamDescription: "Professional cleaning teams focused on quality, care and reliability.",
+    trustResidentialCleaningDescription: "Premium cleaning for luxury homes, apartments, villas and estates.",
+    trustCommercialCleaningDescription: "Pristine offices, commercial spaces and professional environments.",
+    trustYachtMarineCleaningDescription: "Specialist cleaning care for yachts and luxury marine interiors.",
+    trustShortTermRentalConciergeDescription: "Guest-ready cleaning and turnover services for premium holiday rentals.",
 
     
     

@@ -1,7 +1,13 @@
 "use client";
 
 import { useSyncExternalStore } from "react";
-import { Globe2, Leaf, Network, Star } from "lucide-react";
+import { Globe2, Leaf, Network, Star,Clock, 
+  Languages, 
+  ShieldCheck, 
+  Home, 
+  Building2, 
+  Ship, 
+  KeyRound } from "lucide-react";
 import { useLanguage } from "@/lib/i18n/language-context";
 import { getCountryHomeContent } from "@/lib/countries/home-content";
 
@@ -37,6 +43,46 @@ export function TrustBar() {
       label: translate("trustPartnership"),
       description: translate("trustPartnershipDescription"),
     },
+    {
+    Icon: Clock,
+    label: translate("trustBooking60Sec"),
+    description: translate("trustBooking60SecDescription"),
+  },
+  {
+    Icon: Leaf,
+    label: translate("trustEcoFriendlyProducts"),
+    description: translate("trustEcoFriendlyProductsDescription"),
+  },
+  {
+    Icon: Languages,
+    label: translate("trustEnglishFrenchTeams"),
+    description: translate("trustEnglishFrenchTeamsDescription"),
+  },
+  {
+    Icon: ShieldCheck,
+    label: translate("trustVettedProfessionalTeam"),
+    description: translate("trustVettedProfessionalTeamDescription"),
+  },
+  {
+    Icon: Home,
+    label: translate("trustResidentialCleaning"),
+    description: translate("trustResidentialCleaningDescription"),
+  },
+  {
+    Icon: Building2,
+    label: translate("trustCommercialCleaning"),
+    description: translate("trustCommercialCleaningDescription"),
+  },
+  {
+    Icon: Ship,
+    label: translate("trustYachtMarineCleaning"),
+    description: translate("trustYachtMarineCleaningDescription"),
+  },
+  {
+    Icon: KeyRound,
+    label: translate("trustShortTermRentalConcierge"),
+    description: translate("trustShortTermRentalConciergeDescription"),
+  },
   ];
 
   // One list serves both layouts: a 4-column grid from md up, a scrolling
@@ -48,16 +94,19 @@ export function TrustBar() {
     <section className="  px-3 py-3 sm:px-5 sm:py-4 lg:px-8 lg:py-5">
       <div className="mx-auto w-full max-w-7xl overflow-hidden">
         <div
-          className={`flex w-max gap-2 sm:gap-3 md:grid md:w-full md:grid-cols-4 lg:gap-4 ${
-            marqueeLoop.length ? "max-md:animate-marquee motion-reduce:animate-none hover:[animation-play-state:paused]" : ""
-          }`}
-        >
+  className={`flex w-max gap-2 sm:gap-3 ${
+    marqueeLoop.length
+      ? "animate-marquee-trustbar motion-reduce:animate-none hover:[animation-play-state:paused]"
+      : ""
+  }`}
+>
+          
           {[...items, ...marqueeLoop].map(({ Icon, label, description }, index) => (
             <div
               key={`${label}-${index}`}
               aria-hidden={index >= items.length || undefined}
               className={`flex min-h-[148px] w-[200px] shrink-0 flex-col items-center justify-start rounded-[7px] border border-brand-gold/20 bg-brand-navy px-2 py-4 text-center text-brand-navy-foreground sm:min-h-[158px] sm:px-3 sm:py-5 md:w-auto lg:min-h-[164px] lg:px-4 ${
-                index >= items.length ? "md:hidden" : ""
+                index >= items.length ? "" : ""
               }`}
             >
               <Icon className="mb-2 h-9 w-9 shrink-0 stroke-[1.5] text-brand-gold sm:mb-2.5 sm:h-10 sm:w-10 lg:h-11 lg:w-11" />

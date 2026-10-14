@@ -2350,4 +2350,24 @@ scanQrDesc: "Escanee este código con su teléfono para ver los detalles complet
     propGuesthouses: "Casas de huéspedes",
     propHolidayRentals: "Alquileres vacacionales",
     propPropertyManagers: "Gestores inmobiliarios",
+
+    // Labels
+    trustBooking60Sec: "Reserva en Línea en 60 Segundos",
+    trustEcoFriendlyProducts: "Productos Ecológicos",
+    trustEnglishFrenchTeams: "Equipos en Inglés y Francés",
+    trustVettedProfessionalTeam: "Equipo Profesional Verificado",
+    trustResidentialCleaning: "Limpieza Residencial",
+    trustCommercialCleaning: "Limpieza Comercial",
+    trustYachtMarineCleaning: "Limpieza de Yates y Embarcaciones",
+    trustShortTermRentalConcierge: "Conserjería para Alquileres Vacacionales",
+
+    // Descriptions
+    trustBooking60SecDescription: "Reserve su servicio de limpieza de forma rápida y cómoda en solo 60 segundos.",
+    trustEcoFriendlyProductsDescription: "Disfrute de un espacio impecable con productos de limpieza ecológicos a base de plantas.",
+    trustEnglishFrenchTeamsDescription: "Atención bilingüe en inglés y francés para una experiencia del cliente fluida.",
+    trustVettedProfessionalTeamDescription: "Equipos de limpieza profesionales centrados en la calidad, el cuidado y la fiabilidad.",
+    trustResidentialCleaningDescription: "Limpieza de alta gama para casas de lujo, apartamentos, villas y fincas.",
+    trustCommercialCleaningDescription: "Oficinas impecables, espacios comerciales y entornos profesionales.",
+    trustYachtMarineCleaningDescription: "Cuidado de limpieza especializado para yates e interiores marinos de lujo.",
+    trustShortTermRentalConciergeDescription: "Servicios de limpieza y rotación listos para huéspedes en alquileres vacacionales exclusivos."
 } as Record<TranslationKey, TranslationValue>;

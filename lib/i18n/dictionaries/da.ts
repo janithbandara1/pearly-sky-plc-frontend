@@ -2387,4 +2387,25 @@ scanQrDesc: "Scan denne kode med din telefon for at åbne de fulde oplysninger o
     propGuesthouses: "Guesthouses",
     propHolidayRentals: "Holiday Rentals",
     propPropertyManagers: "Property Managers",
+
+    // Labels
+    trustBooking60Sec: "60-Sekunders Onlinebooking",
+    trustEcoFriendlyProducts: "Miljøvenlige Produkter",
+    trustEnglishFrenchTeams: "Engelsk- & Fransktalende Teams",
+    trustVettedProfessionalTeam: "Godkendt Professionelt Team",
+    trustResidentialCleaning: "Privatrengøring",
+    trustCommercialCleaning: "Erhvervsrengøring",
+    trustYachtMarineCleaning: "Yacht- & Marinrengøring",
+    trustShortTermRentalConcierge: "Concierge til Ferieboliger",
+
+    // Descriptions
+    trustBooking60SecDescription: "Book din rengøringsservice hurtigt og nemt på kun 60 sekunder.",
+    trustEcoFriendlyProductsDescription: "Nyd et pletfrit rum med miljøvenlige, plantebaserede rengøringsprodukter.",
+    trustEnglishFrenchTeamsDescription: "Tosproget support på engelsk og fransk for en problemfri kundeoplevelse.",
+    trustVettedProfessionalTeamDescription: "Professionelle rengøringsteams med fokus på kvalitet, omhu og pålidelighed.",
+    trustResidentialCleaningDescription: "Premium rengøring af luksusboliger, lejligheder, villaer og godser.",
+    trustCommercialCleaningDescription: "Pletfrie kontorer, erhvervsarealer og professionelle miljøer.",
+    trustYachtMarineCleaningDescription: "Specialiseret rengøring af yachter og luksuriøse maritime interiører.",
+    trustShortTermRentalConciergeDescription: "Klargøring og gæsteskift af eksklusive ferieboliger."
+    
 } as Record<TranslationKey, TranslationValue>;

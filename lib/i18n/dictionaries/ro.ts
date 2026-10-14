@@ -2427,4 +2427,25 @@ export const ro = {
     propGuesthouses: "Guesthouses",
     propHolidayRentals: "Holiday Rentals",
     propPropertyManagers: "Property Managers",
+
+
+    // Labels
+    trustBooking60Sec: "Rezervare Online în 60 de Secunde",
+    trustEcoFriendlyProducts: "Produse Ecologice",
+    trustEnglishFrenchTeams: "Echipe Vorbitoare de Engleză și Franceză",
+    trustVettedProfessionalTeam: "Echipă Profesionistă Verificată",
+    trustResidentialCleaning: "Curățenie Rezidențială",
+    trustCommercialCleaning: "Curățenie Comercială",
+    trustYachtMarineCleaning: "Curățare Iahturi și Ambarcațiuni",
+    trustShortTermRentalConcierge: "Concierge pentru Închirieri pe Termen Scurt",
+
+    // Descriptions
+    trustBooking60SecDescription: "Rezervați serviciul de curățenie rapid și convenabil în doar 60 de secunde.",
+    trustEcoFriendlyProductsDescription: "Bucurați-vă de un spațiu impecabil cu produse ecologice pe bază de plante.",
+    trustEnglishFrenchTeamsDescription: "Asistență bilingvă în engleză și franceză pentru o experiență fără cusur.",
+    trustVettedProfessionalTeamDescription: "Echipe profesioniste de curățenie axate pe calitate, atenție și seriozitate.",
+    trustResidentialCleaningDescription: "Curățenie premium pentru case de lux, apartamente, vile și domenii.",
+    trustCommercialCleaningDescription: "Birouri impecabile, spații comerciale și medii profesionale.",
+    trustYachtMarineCleaningDescription: "Servicii de curățenie specializată pentru iahturi și interioare maritime de lux.",
+    trustShortTermRentalConciergeDescription: "Servicii de pregătire și igienizare pentru închirieri de vacanță exclusive."
 } as Record<TranslationKey, TranslationValue>;

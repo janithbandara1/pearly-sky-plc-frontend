@@ -2427,4 +2427,24 @@ export const pt = {
     propGuesthouses: "Guesthouses",
     propHolidayRentals: "Holiday Rentals",
     propPropertyManagers: "Property Managers",
+
+    // Labels
+    trustBooking60Sec: "Reserva Online em 60 Segundos",
+    trustEcoFriendlyProducts: "Produtos Ecológicos",
+    trustEnglishFrenchTeams: "Equipas em Inglês e Francês",
+    trustVettedProfessionalTeam: "Equipa Profissional Verificada",
+    trustResidentialCleaning: "Limpeza Residencial",
+    trustCommercialCleaning: "Limpeza Comercial",
+    trustYachtMarineCleaning: "Limpeza de Iates e Embarcações",
+    trustShortTermRentalConcierge: "Concierge para Alojamento Local",
+
+    // Descriptions
+    trustBooking60SecDescription: "Reserve o seu serviço de limpeza de forma rápida e conveniente em apenas 60 segundos.",
+    trustEcoFriendlyProductsDescription: "Desfrute de um espaço impecável com produtos de limpeza ecológicos e de origem vegetal.",
+    trustEnglishFrenchTeamsDescription: "Apoio bilingue em inglês e francês para uma experiência do cliente sem complicações.",
+    trustVettedProfessionalTeamDescription: "Equipas de limpeza profissionais focadas na qualidade, cuidado e fiabilidade.",
+    trustResidentialCleaningDescription: "Limpeza premium para casas de luxo, apartamentos, moradias e quintas.",
+    trustCommercialCleaningDescription: "Escritórios impecáveis, espaços comerciais e ambientes profissionais.",
+    trustYachtMarineCleaningDescription: "Cuidados de limpeza especializados para iates e interiores marítimos de luxo.",
+    trustShortTermRentalConciergeDescription: "Serviços de limpeza e rotatividade prontos para hóspedes em alojamentos de férias premium."
 } as Record<TranslationKey, TranslationValue>;

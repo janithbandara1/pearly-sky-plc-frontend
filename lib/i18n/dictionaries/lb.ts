@@ -2402,4 +2402,24 @@ export const lb = {
     propGuesthouses: "Guesthouses",
     propHolidayRentals: "Holiday Rentals",
     propPropertyManagers: "Property Managers",
+
+    // Labels
+    trustBooking60Sec: "60-Sekonnen Online-Buchung",
+    trustEcoFriendlyProducts: "Emweltfrëndlech Produkter",
+    trustEnglishFrenchTeams: "Englesch & Franséisch Équipen",
+    trustVettedProfessionalTeam: "Iwwerpréiften Professionell Équipe",
+    trustResidentialCleaning: "Wunnraum-Rengerung",
+    trustCommercialCleaning: "Gewerblech Rengerung",
+    trustYachtMarineCleaning: "Yacht- & Boot-Rengerung",
+    trustShortTermRentalConcierge: "Concierge fir Feierengewunnengen",
+
+    // Descriptions
+    trustBooking60SecDescription: "Bucht Är Botz-Prestatioun schnell a bequeem a just 60 Sekonnen.",
+    trustEcoFriendlyProductsDescription: "Genéisst ee perfekt propperen Raum mat emweltfrëndlechen, pflanzleche Produkter.",
+    trustEnglishFrenchTeamsDescription: "Zweesproocheg Ënnerstëtzung op Englesch a Franséisch fir eng optimal Clientserfahrung.",
+    trustVettedProfessionalTeamDescription: "Professionell Botz-Équipen fokusséiert op Qualitéit, Fleeg a Verlässlechkeet.",
+    trustResidentialCleaningDescription: "Premium-Rengerung fir Luxus-Haiser, Appartementer, Villaen a Landgüter.",
+    trustCommercialCleaningDescription: "Makellos Büroen, Gewerberaim a professionell Aarbechtsëmfelder.",
+    trustYachtMarineCleaningDescription: "Spezialiséiert Pfleeg fir Yachten a luxuriéis Schiffs-Interieuren.",
+    trustShortTermRentalConciergeDescription: "Ready-for-Guest Botz a Guest-Turnover Servicer fir erstklasseg Feierengewunnengen.",
 } as Record<TranslationKey, TranslationValue>;

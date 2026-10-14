@@ -2410,4 +2410,24 @@ export const nl = {
     propGuesthouses: "Guesthouses",
     propHolidayRentals: "Holiday Rentals",
     propPropertyManagers: "Property Managers",
+
+    // Labels
+    trustBooking60Sec: "60-Seconden Online Boeking",
+    trustEcoFriendlyProducts: "Milieuvriendelijke Producten",
+    trustEnglishFrenchTeams: "Engels & Franstalige Teams",
+    trustVettedProfessionalTeam: "Geverifieerd Professioneel Team",
+    trustResidentialCleaning: "Residentiële Schoonmaak",
+    trustCommercialCleaning: "Commerciële Schoonmaak",
+    trustYachtMarineCleaning: "Jacht- & Maritieme Schoonmaak",
+    trustShortTermRentalConcierge: "Concierge voor Vakantieverhuur",
+
+    // Descriptions
+    trustBooking60SecDescription: "Boek uw schoonmaakdienst snel en eenvoudig in slechts 60 seconden.",
+    trustEcoFriendlyProductsDescription: "Geniet van een vlekkeloze ruimte met milieuvriendelijke, plantaardige schoonmaakproducten.",
+    trustEnglishFrenchTeamsDescription: "Twee-talige ondersteuning in het Engels en Frans voor een zorgeloze klantervaring.",
+    trustVettedProfessionalTeamDescription: "Professionele schoonmaakteams gericht op kwaliteit, zorg en betrouwbaarheid.",
+    trustResidentialCleaningDescription: "Premium schoonmaak voor luxe woningen, appartementen, villa's en landgoederen.",
+    trustCommercialCleaningDescription: "Smetteloze kantoren, commerciële ruimtes en professionele werkomgevingen.",
+    trustYachtMarineCleaningDescription: "Gespecialiseerde schoonmaakzorg voor jachten en luxueuse maritieme interieurs.",
+    trustShortTermRentalConciergeDescription: "Schoonmaak- en wisseldiensten klaar voor gasten in luxe vakantiewoningen.",
 } as Record<TranslationKey, TranslationValue>;

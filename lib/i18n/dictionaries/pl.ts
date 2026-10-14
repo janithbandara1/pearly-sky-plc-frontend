@@ -2427,4 +2427,25 @@ CustomerFeedBack: "Opinie klientów",
     propGuesthouses: "Guesthouses",
     propHolidayRentals: "Holiday Rentals",
     propPropertyManagers: "Property Managers",
+
+
+    // Labels
+    trustBooking60Sec: "Rezerwacja Online w 60 Sekund",
+    trustEcoFriendlyProducts: "Produkty Ekologiczne",
+    trustEnglishFrenchTeams: "Zespoły Anglo- i Anglojęzyczne",
+    trustVettedProfessionalTeam: "Zweryfikowany Zespół Profesjonalistów",
+    trustResidentialCleaning: "Sprzątanie Rezydencjonalne",
+    trustCommercialCleaning: "Sprzątanie Komercyjne",
+    trustYachtMarineCleaning: "Sprzątanie Jachtów i Łodzi",
+    trustShortTermRentalConcierge: "Obsługa Najmu Krótkoterminowego",
+
+    // Descriptions
+    trustBooking60SecDescription: "Zarezerwuj usługę sprzątania szybko i wygodnie w zaledwie 60 sekund.",
+    trustEcoFriendlyProductsDescription: "Ciesz się nieskazitelną czystością dzięki ekologicznym produktom pochodzenia roślinnego.",
+    trustEnglishFrenchTeamsDescription: "Dwujęzyczna obsługa w języku angielskim i francuskim dla pełnej wygody klienta.",
+    trustVettedProfessionalTeamDescription: "Profesjonalne zespoły sprzątające stawiające na jakość, dbałość i niezawodność.",
+    trustResidentialCleaningDescription: "Luksusowe sprzątanie domów, apartamentów, willi i rezydencji.",
+    trustCommercialCleaningDescription: "Nieskazitelne biura, przestrzenie komercyjne i środowiska biznesowe.",
+    trustYachtMarineCleaningDescription: "Specjalistyczna pielęgnacja i sprzątanie jachtów oraz luksusowych wnętrz morskich.",
+    trustShortTermRentalConciergeDescription: "Przygotowanie apartamentów i obsługa zmian gości w luksusowych lokalach wakacyjnych."
 } as Record<TranslationKey, TranslationValue>;
