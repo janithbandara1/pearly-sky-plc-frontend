@@ -9,8 +9,10 @@ import {
   KeyRound,
   Languages,
   Leaf,
+  Mail,
   MapPin,
   Network,
+  Phone,
   ShieldCheck,
   Ship,
   Star,
@@ -62,6 +64,9 @@ type TrustItem = {
   description?: string;
   /** Rich body used instead of `description`; `hidden` is true for the marquee's looping copy. */
   details?: (hidden: boolean) => ReactNode;
+  /** Full-width row under the icon/text row (the office card's contacts). */
+  footer?: (hidden: boolean) => ReactNode;
+  /** Overrides the default card width. */
   className?: string;
 };
 
@@ -87,33 +92,41 @@ export function TrustBar() {
     {
       Icon: MapPin,
       label: translate(office.titleKey),
-      // Wider than the other cards so the address block wraps less and the
-      // card stays close to their height.
-      className: "w-[340px] sm:w-[400px]",
-      details: (hidden) => {
-        const linkTabIndex = hidden ? -1 : undefined;
-        return (
-          <div className="mt-1.5 space-y-0.5 text-[11px] leading-[1.3] text-brand-navy-foreground/90 md:text-[12px]">
-            <p className="font-semibold text-brand-navy-foreground">{office.company}</p>
-            <p>{office.address}</p>
-            {office.registrationNumber && (
-              <p>
-                {translate("trustOfficeRegNo")}: {office.registrationNumber}
-              </p>
-            )}
+      className: "w-[360px] sm:w-[480px]",
+      details: () => (
+        <div className="mt-2 space-y-0.5 text-[11px] leading-snug text-brand-navy-foreground/85 sm:mt-2.5 sm:space-y-1 sm:text-[13px]">
+          <p className="font-semibold text-white">{office.company}</p>
+          <p>{office.address}</p>
+          {office.registrationNumber && (
             <p>
-              <a
-                href={`tel:${office.phone.replace(/\s/g, "")}`}
-                tabIndex={linkTabIndex}
-                className="hover:text-brand-gold"
-              >
-                {office.phone}
-              </a>
-              {" · "}
-              <a href={`mailto:${office.email}`} tabIndex={linkTabIndex} className="hover:text-brand-gold">
-                {office.email}
-              </a>
+              {translate("trustOfficeRegNo")}: {office.registrationNumber}
             </p>
+          )}
+        </div>
+      ),
+      footer: (hidden) => {
+        const linkTabIndex = hidden ? -1 : undefined;
+        const contacts = [
+          { ContactIcon: Phone, href: `tel:${office.phone.replace(/\s/g, "")}`, text: office.phone },
+          { ContactIcon: Mail, href: `mailto:${office.email}`, text: office.email },
+        ];
+        return (
+          <div className="mt-3 flex flex-wrap items-center gap-x-2 gap-y-1.5 text-[11px] text-brand-navy-foreground/90 sm:mt-4 sm:gap-x-3 sm:text-[13px]">
+            {contacts.map(({ ContactIcon, href, text }, i) => (
+              <div key={href} className="flex items-center gap-2 sm:gap-3">
+                {i > 0 && <span aria-hidden="true" className="hidden h-5 w-px bg-brand-gold/60 sm:block" />}
+                <a
+                  href={href}
+                  tabIndex={linkTabIndex}
+                  className="flex items-center gap-1.5 transition-colors hover:text-brand-gold sm:gap-2"
+                >
+                  <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full border border-brand-gold/80 sm:h-7 sm:w-7">
+                    <ContactIcon className="h-3 w-3 text-brand-gold sm:h-3.5 sm:w-3.5" />
+                  </span>
+                  {text}
+                </a>
+              </div>
+            ))}
           </div>
         );
       },
@@ -182,34 +195,52 @@ export function TrustBar() {
   const marqueeLoop = useIsClient() ? items : [];
 
   return (
-    <section className="  px-3 py-3 sm:px-5 sm:py-4 lg:px-8 lg:py-5">
-      <div className="mx-auto w-full max-w-7xl overflow-hidden">
+    <section className="px-3 py-3 sm:px-5 sm:py-4 lg:px-8 lg:py-5">
+      {/* Vertical padding keeps the cards' shadows inside the clipped area. */}
+      <div className="mx-auto w-full max-w-7xl overflow-hidden py-3">
         <div
           className={`flex w-max ${
             marqueeLoop.length
               ? "animate-marquee motion-reduce:animate-none hover:[animation-play-state:paused]"
               : ""
           }`}
+          // Slower than the shared 40s marquee: these cards are wide, so 40s
+          // would scroll ~5000px of track far too fast.
+          style={{ animationDuration: "120s" }}
         >
-          {[...items, ...marqueeLoop].map(({ Icon, label, description, details, className }, index) => (
-            <div
-              key={`${label}-${index}`}
-              aria-hidden={index >= items.length || undefined}
-              className={`mr-2 flex min-h-[148px] ${className ?? "w-[200px] md:w-auto"} shrink-0 flex-col items-center justify-start rounded-[7px] border border-brand-gold/20 bg-brand-navy px-2 py-4 text-center text-brand-navy-foreground sm:min-h-[158px] sm:px-3 sm:py-5 sm:mr-3 lg:min-h-[164px] lg:px-4`}
-            >
-              <Icon className="mb-2 h-9 w-9 shrink-0 stroke-[1.5] text-brand-gold sm:mb-2.5 sm:h-10 sm:w-10 lg:h-11 lg:w-11" />
-              <p className="max-w-[170px] text-[14px] font-bold uppercase leading-[1.18] tracking-[0.01em] sm:text-[15px] md:max-w-[250px] md:text-[16px] lg:max-w-[230px] lg:text-lg">
-                {label}
-              </p>
-              {details ? (
-                details(index >= items.length)
-              ) : (
-                <p className="mt-2 max-w-[190px] text-[11px] leading-[1.35] text-brand-navy-foreground/90 sm:mt-2.5 md:max-w-[250px] md:text-[12px] lg:max-w-[280px] lg:text-[13px]">
-                  {description}
-                </p>
-              )}
-            </div>
-          ))}
+          {[...items, ...marqueeLoop].map(({ Icon, label, description, details, footer, className }, index) => {
+            const hidden = index >= items.length;
+            return (
+              <div
+                key={`${label}-${index}`}
+                aria-hidden={hidden || undefined}
+                className={`mr-3 flex min-h-[120px] shrink-0 flex-col justify-center rounded-xl border border-brand-gold/20 border-b-brand-gold/60 bg-gradient-to-br from-[#0f2a4d] to-brand-navy px-3.5 py-3.5 text-brand-navy-foreground shadow-[0_12px_24px_-12px_rgba(0,0,0,0.55)] sm:mr-4 sm:min-h-[170px] sm:p-5 ${
+                  className ?? "w-[340px] sm:w-[400px]"
+                }`}
+              >
+                <div className="flex items-center gap-3 sm:gap-5">
+                  <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full border border-brand-gold/80 shadow-[0_0_18px_rgba(201,168,88,0.3)] sm:h-20 sm:w-20">
+                    <Icon className="h-6 w-6 stroke-[1.5] text-brand-gold sm:h-9 sm:w-9" />
+                  </span>
+                  <span aria-hidden="true" className="w-px self-stretch bg-brand-gold/50" />
+                  <div className="min-w-0 flex-1 text-left">
+                    <p className="font-serif text-[15px] font-bold uppercase leading-tight tracking-[0.03em] text-white sm:text-[19px]">
+                      {label}
+                    </p>
+                    <span aria-hidden="true" className="mt-1.5 block h-px w-10 bg-brand-gold sm:mt-2" />
+                    {details ? (
+                      details(hidden)
+                    ) : (
+                      <p className="mt-2 text-[12px] leading-snug text-brand-navy-foreground/85 sm:mt-2.5 sm:text-[13px]">
+                        {description}
+                      </p>
+                    )}
+                  </div>
+                </div>
+                {footer?.(hidden)}
+              </div>
+            );
+          })}
         </div>
       </div>
     </section>
