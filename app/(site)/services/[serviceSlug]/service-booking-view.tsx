@@ -200,7 +200,7 @@ const FALLBACK_SERVICES: Record<string, CatalogServiceDetail> = {
  * fallback, so both paths gate bookability and fill in default packages the
  * same way.
  */
-function resolveServiceState(
+export function resolveServiceState(
   data: CatalogServiceDetail,
   isFlowService: boolean,
 ): { service: CatalogServiceDetail | null; error: string | null } {
@@ -741,6 +741,7 @@ export function ServiceBookingView({
                 onRoomsChange={setRooms}
                 selectServiceFrequency={selectServiceFrequency}
                 setSelectServiceFrequency={setSelectServiceFrequency}
+                isQuote={false}
               />)
               : (<PropertyTypeSizeSelector
                 value={propertySizeSqm}
@@ -809,6 +810,7 @@ export function ServiceBookingView({
                       onBookNow={handleBookNow}
                       submitting={submitting}
                       bookDisabledReason={bookDisabledReason}
+                      isQuote={false}
                     />
                   );
                 })()
