@@ -447,10 +447,10 @@ export function EquipmentSectionOfCommonServicesSlugs({
                       {translate("quotationStepLinguistic")}
                     </span>
                     <Select value={language} onValueChange={onLanguageChange}>
-                      <SelectTrigger className="h-8 w-full rounded-lg border border-blue-900/40 bg-[#152243] text-slate-100 text-[12px] font-semibold shadow-inner focus:ring-1 focus:ring-blue-500/50 [&>svg]:text-blue-400">
+                      <SelectTrigger className="h-8 w-full rounded-lg border border-blue-900/40 bg-[#152243] hover:text-white text-slate-100 text-[12px] font-semibold shadow-inner focus:ring-1 focus:ring-blue-500/50 [&>svg]:text-blue-400">
                         <SelectValue placeholder="Select..." />
                       </SelectTrigger>
-                      <SelectContent className="bg-[#121E2D] border border-blue-900/40 text-slate-100">
+                      <SelectContent className="bg-[#121E2D] border text-white border-blue-900/40 ">
                         {languageCoordinationOptions.map((lang) => (
                           <SelectItem
                             key={lang}
@@ -696,21 +696,23 @@ export function EquipmentSectionOfCommonServicesSlugs({
               })}
             </div>
           )}
-          {/* Highlighted Box: ESTIMATED PRICE RANGE */}
-          <div className="mt-7 mb-2 flex border-brand-gold bg-blue-950  items-center justify-between gap-2 rounded-[8px] border px-4 py-4.5 sm:px-5">
-            <div className="">
-              <h2 className="text-xs font-bold uppercase tracking-wider text-[#C5A253] sm:text-sm">
-                {translate("equipEstimatedPriceRange")}
-              </h2>
-              <p className="text-[12px] text-gray-300 font-normal mt-0.5">
-                {translate("eliteMaterialDescription")}
-              </p>
-            </div>
+          {/* Highlighted Box: ESTIMATED PRICE RANGE — not shown on quotation requests */}
+          {!isQuote && (
+            <div className="mt-7 mb-2 flex border-brand-gold bg-blue-950  items-center justify-between gap-2 rounded-[8px] border px-4 py-4.5 sm:px-5">
+              <div className="">
+                <h2 className="text-xs font-bold uppercase tracking-wider text-[#C5A253] sm:text-sm">
+                  {translate("equipEstimatedPriceRange")}
+                </h2>
+                <p className="text-[12px] text-gray-300 font-normal mt-0.5">
+                  {translate("eliteMaterialDescription")}
+                </p>
+              </div>
 
-            <span className="font-serif text-[22px] sm:text-[26px] font-normal text-white leading-tight mt-1 sm:text-base">
-              {estimatedPriceRange}
-            </span>
-          </div>
+              <span className="font-serif text-[22px] sm:text-[26px] font-normal text-white leading-tight mt-1 sm:text-base">
+                {estimatedPriceRange}
+              </span>
+            </div>
+          )}
           {/* Action Button: BOOK NOW */}
           {onBookNow && (
             <button

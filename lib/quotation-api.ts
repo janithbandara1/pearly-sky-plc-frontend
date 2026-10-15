@@ -1,6 +1,6 @@
 import type { AttachmentLink, AttachmentRef } from "./upload-api";
 import { apiFetch, apiUrl } from "./api";
-import type { BookingLineItem, BookingSupplySource } from "./booking-api";
+import type { BookingLineItem, BookingRoom, BookingSupplySource } from "./booking-api";
 
 export type QuotationStatus = "new" | "contacted" | "closed";
 
@@ -14,6 +14,18 @@ export interface CreateQuotationPayload {
   quoteItems?: string[];
   supplySource?: BookingSupplySource;
   equipmentItems?: BookingLineItem[];
+  /** Pricing country (e.g. "FR") — the backend records the equipment prices in its currency. */
+  pricingCountry?: string;
+  /** Room-component services only — `key` is a RoomKey (e.g. "bedrooms"). */
+  rooms?: BookingRoom[];
+  /** Selected service frequency id (e.g. "weekly"). */
+  frequency?: string;
+  /** The service's Service Category tab id (e.g. "residential", "yatch-cleaning"). */
+  serviceCategory?: string;
+  /** steam-cleaning / healthguard-sanitization / post-construction only. */
+  deepClean?: boolean;
+  /** steam-cleaning / healthguard-sanitization / post-construction only — hospital-grade disinfection. */
+  disinfection?: boolean;
   numCleaners?: number;
   durationHours?: number;
   genderPreference?: string;
@@ -76,6 +88,13 @@ export interface Quotation {
   quoteItems: string[] | null;
   supplySource: string | null;
   equipmentItems: BookingLineItem[] | null;
+  /** Currency code the equipment prices were quoted in (e.g. "EUR"); null on older quotations. */
+  currency: string | null;
+  rooms: BookingRoom[] | null;
+  frequency: string | null;
+  serviceCategory: string | null;
+  deepClean: boolean;
+  disinfection: boolean;
   numCleaners: number | null;
   durationHours: string | null;
   genderPreference: string | null;

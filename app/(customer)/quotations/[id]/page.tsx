@@ -6,6 +6,7 @@ import { useCallback, useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
 import { QuotationSummaryCard } from "@/components/booking/quotation-summary-card";
+import { symbolForCurrencyCode } from "@/lib/currency-context";
 import { ApiError, useAuth } from "@/lib/auth-context";
 import { getMyQuotation, type Quotation } from "@/lib/quotation-api";
 
@@ -83,6 +84,12 @@ export default function QuotationDetailsPage() {
           howHeard={quotation.howHeard}
           supplySource={quotation.supplySource}
           equipmentItems={quotation.equipmentItems}
+          money={(n) => `${symbolForCurrencyCode(quotation.currency)}${n.toFixed(2)}`}
+          rooms={quotation.rooms}
+          frequency={quotation.frequency}
+          serviceCategory={quotation.serviceCategory}
+          deepClean={quotation.deepClean}
+          disinfection={quotation.disinfection}
           customerName={
             quotation.customer ? `${quotation.customer.firstName} ${quotation.customer.lastName ?? ""}`.trim() : undefined
           }

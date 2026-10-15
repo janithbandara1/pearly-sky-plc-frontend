@@ -3,6 +3,7 @@
 import type { ReactNode } from "react";
 import {
   ClipboardList,
+  DoorOpen,
   Info,
   type LucideIcon,
   MapPin,
@@ -20,6 +21,8 @@ import { SummaryAttachments } from "@/components/booking/summary-attachments";
 import type { AttachmentLink } from "@/lib/upload-api";
 import type { TranslationKey } from "@/lib/i18n/dictionaries/en";
 import { useLanguage } from "@/lib/i18n/language-context";
+import { CATEGORY_LABEL_KEYS, serviceCategoryLabelKey } from "@/components/booking/common-flows-propertis-and-equipments/common-property-types";
+import { frequencyNameKey } from "@/components/booking/common-flows-propertis-and-equipments/service-frequency";
 
 /** Matches the quoteItemsTitle set for child/elder care quotations — see careQuoteItemsTitle in request-quotation/page.tsx. */
 const CARE_QUOTE_TITLES = new Set(["Child Details", "Elder Details"]);
@@ -55,7 +58,7 @@ function Field({ label, value }: { label: string; value: ReactNode }) {
   );
 }
 
-function LineItemRow({ name, price }: { name: string; price?: number | null }) {
+function LineItemRow({ name, price }: { name: string; price?: string | null }) {
   return (
     <li className="flex items-baseline justify-between gap-4">
       <span>{name}</span>
@@ -106,6 +109,16 @@ export interface QuotationSummaryCardProps {
   howHeard: string | null;
   supplySource: string | null;
   equipmentItems: { name: string; price?: number | null }[] | null;
+  /** Formats an equipment price in the quotation's own currency. */
+  money: (n: number) => string;
+  /** Room-component services only — `key` is a RoomKey (e.g. "bedrooms"), also its translation key. */
+  rooms?: { key: string; count: number }[] | null;
+  /** Selected service frequency id (e.g. "weekly"). */
+  frequency?: string | null;
+  /** The service's Service Category tab id (e.g. "residential", "yatch-cleaning"). */
+  serviceCategory?: string | null;
+  deepClean?: boolean;
+  disinfection?: boolean;
   /** staff view only */
   customerName?: string;
   customerEmail?: string;
@@ -138,6 +151,12 @@ export function QuotationSummaryCard({
   howHeard,
   supplySource,
   equipmentItems,
+  money,
+  rooms,
+  frequency,
+  serviceCategory,
+  deepClean,
+  disinfection,
   customerName,
   customerEmail,
   customerPhone,
@@ -226,16 +245,50 @@ export function QuotationSummaryCard({
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
             <Field label={translate("summaryService")} value={serviceLabel} />
             <Field label={translate("summaryDateTime")} value={date ? `${date}${time ? ` · ${time}` : ""}` : translate("summaryNotSpecified")} />
+            {frequency && (
+              <Field
+                label={translate("bookingDetailFrequency")}
+                value={translate(frequencyNameKey(frequency) ?? (frequency as TranslationKey))}
+              />
+            )}
+            {serviceCategory && (
+              <Field
+                label={translate("propServiceCatagory")}
+                value={translate(serviceCategoryLabelKey(serviceCategory) ?? (serviceCategory as TranslationKey))}
+              />
+            )}
             {!(quoteItemsTitle && !hideQuoteItems) && (
               <>
-                {propertyType && <Field label={translate("summaryPropertyType")} value={propertyType} />}
+                {propertyType && (
+                  <Field
+                    label={translate("summaryPropertyType")}
+                    value={translate((CATEGORY_LABEL_KEYS[propertyType] ?? propertyType) as TranslationKey)}
+                  />
+                )}
                 {propertySizeSqm != null && <Field label={translate("summaryPropertySize")} value={`${propertySizeSqm} m²`} />}
               </>
+            )}
+            {deepClean && <Field label={translate("deepCleanName")} value="+40%" />}
+            {disinfection && (
+              <Field label={translate("DisinfectionName")} value={translate("HospitalGradeName")} />
             )}
             {durationHours != null && <Field label={translate("summaryDuration")} value={`${Number(durationHours)} ${translate("summaryHours")}`} />}
             {numCleaners != null && <Field label={professionalsLabel} value={numCleaners} />}
           </div>
         </SectionCard>
+
+        {rooms?.length ? (
+          <SectionCard icon={DoorOpen} label={translate("bookingDetailRooms")}>
+            <ul className="text-sm">
+              {rooms.map((room) => (
+                <li key={room.key} className="flex justify-between gap-4">
+                  <span>{translate(room.key as TranslationKey)}</span>
+                  <span>× {room.count}</span>
+                </li>
+              ))}
+            </ul>
+          </SectionCard>
+        ) : null}
 
         {quoteItemsTitle && !hideQuoteItems && (
           <SectionCard icon={ClipboardList} label={quoteItemsTitle}>
@@ -295,7 +348,11 @@ export function QuotationSummaryCard({
             {supplySource === "company" && equipmentItems?.length ? (
               <ul className="mt-2 flex flex-col gap-2 text-sm">
                 {equipmentItems.map((item) => (
-                  <LineItemRow key={item.name} name={item.name} />
+                  <LineItemRow
+                    key={item.name}
+                    name={item.name}
+                    price={item.price != null ? `+${money(item.price)}` : null}
+                  />
                 ))}
               </ul>
             ) : null}
