@@ -47,8 +47,8 @@ export function Hero() {
         <div className="flex flex-row gap-3 pt-2 justify-center md:justify-start">
           <Button
             size="lg"
-            onClick={() => scrollToId("services")}
-            className="border-2 w-fit max-w-full p-2 h-auto min-h-[48px] min-w-[48px] whitespace-normal text-center border-brand-gold bg-brand-gold text-white hover:bg-[#cfaa4b]"
+            onClick={() => scrollToId("services")} 
+            className="border-2 w-fit max-w-full p-2 h-auto min-h-[48px] min-w-[48px] whitespace-normal text-center border-[#ac8e43] bg-brand-gold text-white hover:bg-[#cfaa4b]"
           >
             {translate("heroCtaSecondary")}
           </Button>

@@ -1,13 +1,15 @@
 "use client";
 
 import Link from "@/components/locale-link";
-import { User, Briefcase, KeyRound, ArrowRight, Folder, Ruler, Clock, Users, CalendarClock } from "lucide-react";
+import { User, Briefcase, KeyRound, ArrowRight, Folder, Ruler, Clock, Users, CalendarClock, Check, UserCircle, Languages } from "lucide-react";
 import type { CatalogItem, SizeQuote } from "@/lib/catalog-api";
 import { calculateEquipmentItemPrice, EQUIPMENT_ITEM_SKU, EQUIPMENT_MAX_QTY } from "@/lib/equipment-pricing";
 import { useCurrency } from "@/lib/currency-context";
 import { useLanguage } from "@/lib/i18n/language-context";
 import { TranslationKey } from "@/lib/i18n/dictionaries/en";
 import { CATEGORY_LABEL_KEYS } from "./common-property-types";
+import { Minus, Plus } from "lucide-react";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 
 export type SupplySource = "" | "customer" | "company";
 
@@ -112,6 +114,26 @@ export interface EquipmentSectionProps {
   onBookNow?: () => void;
   submitting?: boolean;
   bookDisabledReason?: string;
+
+  isQuote:boolean;
+  isPickupDeliveryServiceQuotation?: boolean;
+  onChangeSetNumCleanersIncrementQuotation?: ()=>void;
+  onChangeSetNumCleanerDecrementQuotation?: ()=>void;
+  numCleaners?: number;
+
+  onChangeNumberOfCleaningHoursChangeDecrement?: ()=>void;
+  onChangeNumberOfCleaningHoursChangeIncrement?: ()=>void;
+  durationHours?: number;
+
+  /** Gender preference select */
+  gender?: string;
+  onGenderChange?: (value: string) => void;
+  genderPreferenceValues?: { value: string; label: string }[];
+
+  /** Linguistic coordination select */
+  language?: string;
+  onLanguageChange?: (value: string) => void;
+  languageCoordinationOptions?: string[];
 }
 
 export function EquipmentSectionOfCommonServicesSlugs({
@@ -130,6 +152,21 @@ export function EquipmentSectionOfCommonServicesSlugs({
   onBookNow,
   submitting = false,
   bookDisabledReason,
+
+  isQuote,
+  isPickupDeliveryServiceQuotation,
+  onChangeSetNumCleanersIncrementQuotation,
+  onChangeSetNumCleanerDecrementQuotation,
+  numCleaners = 1,
+  onChangeNumberOfCleaningHoursChangeDecrement,
+  onChangeNumberOfCleaningHoursChangeIncrement,
+  durationHours = 2,
+  gender = "",
+  onGenderChange,
+  genderPreferenceValues = [],
+  language = "",
+  onLanguageChange,
+  languageCoordinationOptions = [],
 }: EquipmentSectionProps) {
   const { translate } = useLanguage();
   const { symbol } = useCurrency();
@@ -208,7 +245,7 @@ export function EquipmentSectionOfCommonServicesSlugs({
 
 
       {/* Booking Overview & Summary Card */}
-      <section className="overflow-hidden rounded-[20px]  bg-[#0B1528] border border-[#DDD5C7]   text-[#1D2128] shadow-sm  mt-2">
+      <section className="overflow-hidden rounded-[20px]  bg-[#0B1528] border border-brand-gold   text-[#1D2128] shadow-sm  mt-2">
 
         {/* Top Header: Atelier Title & Residence Pill */}
         <div className="flex  px-5 sm:px-7 py-5 flex-col bg-[#05122b] gap-4 sm:flex-row sm:items-center sm:justify-between">
@@ -235,19 +272,208 @@ export function EquipmentSectionOfCommonServicesSlugs({
         {/* Thin Divider Line */}
         <div className="border-b  border-brand-gold " />
 
-
+ 
         {/* Selected Services & Folio Row */}
-        <div className="flex items-center px-5 sm:px-7  py-3 justify-between">
+        {!isQuote && (<div className="flex items-center px-5 sm:px-7  py-3 justify-between">
           <h2 className="text-[10.5px] font-bold uppercase tracking-[0.18em] text-gray-400 sm:text-[11px]">
             {translate("equipSelectedServices")} &bull; SPECIFICATIONS
           </h2>
           <span className="text-[10.5px] font-semibold uppercase tracking-[0.18em] text-gray-400 sm:text-[11px]">
             FOLIO {propertySizeSqm}M-LUXE
           </span>
+        </div>)}
+
+
+        {/**Quotation view draft  */}
+        <div className="w-full flex justify-center items-center py-3 bg-brand-navy">
+          {isQuote && !isPickupDeliveryServiceQuotation && (
+            <div className="max-w-full grid md:grid-cols-1 grid-cols-1 justify-items-center items-center gap-4">
+              {/**Number of cleaners */}
+              <div className="col-span-2 grid grid-cols-1 sm:grid-cols-2 gap-4 w-full mt-1">
+                <div 
+                  className={`relative flex  flex-row justify-between gap-[5px] items-center  md:p-3 p-2.5  rounded-xl transition-all duration-300 border `}
+                    
+                >
+                  {/* Top Row: Icon & Name */}
+                  <div className="flex items-center gap-3.5 px-[2px]">
+                    <div className="md:p-2.5 p-1.5 rounded-lg bg-[#152243] border border-blue-900/40">
+                      <Users className="w-5 h-5 text-blue-400" />
+                    </div>
+                    <h3 className="font-semibold md:text-base text-[12px] text-slate-100 tracking-wide">
+                      {translate("quotationStep4AllocatedPros")?.split(".")[1]}
+                    </h3>
+                  </div>
+
+                  {/* Action Area: Toggle between "Add" Button and Counter */}
+                  <div className="">
+                      <div className="flex flex-col gap-2">
+                        {/* Counter Row */}
+                        <div className="flex items-center justify-between bg-[#152243] rounded-xl p-1.5 border border-blue-900/40">
+                          <button
+                            type="button"
+                            onClick={onChangeSetNumCleanerDecrementQuotation}
+                            disabled={(numCleaners ?? 1) <= 1}
+                            className={`w-5 md:w-10 h-5 md:h-10 flex items-center justify-center rounded-lg transition-colors shadow-sm ${
+                              (numCleaners ?? 1) <= 1
+                                ? 'opacity-60 cursor-not-allowed bg-[#1f2e5c] text-gray-400'
+                                : 'bg-[#1f305e] hover:bg-[#273b75] text-white'
+                            }`}
+                            aria-label="Decrement"
+                          >
+                            <Minus className="md:w-4 w-3 md:h-4 h-3" />
+                          </button>
+    
+                          <span className="font-bold md:text-lg text-[13px] text-slate-100 px-4">
+                            {numCleaners}
+                          </span>
+
+                          <button
+                            type="button"
+                            onClick={onChangeSetNumCleanersIncrementQuotation}
+                            disabled={(numCleaners ?? 1) >= 10} 
+                            className={`w-5 md:w-10 h-5 md:h-10 flex items-center justify-center rounded-lg transition-colors shadow-sm ${
+                              (numCleaners ?? 1) >= 10 
+                                ? 'opacity-60 cursor-not-allowed bg-[#1f2e5c] text-gray-400' 
+                                : 'bg-[#1f305e] hover:bg-[#273b75] text-white'
+                            }`}
+                            aria-label="Increment"
+                          >
+                            <Plus className="md:w-4 w-3 md:h-4 h-3" />
+                          </button>
+                        </div>
+
+                        
+                      </div>
+                    
+                  </div>
+                </div>
+
+                {/**Cleaning duration */}
+                <div 
+                  className={`relative flex  flex-row justify-between gap-[5px] items-center  md:p-3 p-2.5  rounded-xl transition-all duration-300 border `}
+                    
+                >
+                  {/* Top Row: Icon & Name */}
+                  <div className="flex items-center gap-3.5 px-[2px]">
+                    <div className="md:p-2.5 p-1.5 rounded-lg bg-[#152243] border border-blue-900/40">
+                      <Clock className="w-5 h-5 text-blue-400" />
+                    </div>
+                    <h3 className="font-semibold md:text-base text-[12px] text-slate-100 tracking-wide">
+                      {translate("quotationStep5CleanerDuration")?.split(".")[1]}
+                    </h3>
+                  </div>
+
+                  
+                  <div className="">
+                      <div className="flex flex-col gap-2">
+                        {/* Counter Row */}
+                        <div className="flex items-center justify-between bg-[#152243] rounded-xl p-1.5 border border-blue-900/40">
+                          <button
+                            type="button"
+                            onClick={onChangeNumberOfCleaningHoursChangeDecrement}
+                            disabled={(durationHours ?? 1) <= 1}
+                            className={`w-5 md:w-10 h-5 md:h-10 flex items-center justify-center rounded-lg transition-colors shadow-sm ${
+                              (durationHours ?? 1) <= 1
+                                ? 'opacity-60 cursor-not-allowed bg-[#1f2e5c] text-gray-400'
+                                : 'bg-[#1f305e] hover:bg-[#273b75] text-white'
+                            }`}
+                            aria-label="Decrement"
+                          >
+                            <Minus className="md:w-4 w-3 md:h-4 h-3" />
+                          </button>
+    
+                          <span className="font-bold md:text-lg text-[13px] text-slate-100 px-4">
+                            {durationHours}
+                          </span>
+
+                          <button
+                            type="button"
+                            onClick={onChangeNumberOfCleaningHoursChangeIncrement}
+                            disabled={(durationHours ?? 1) >= 10} 
+                            className={`w-5 md:w-10 h-5 md:h-10 flex items-center justify-center rounded-lg transition-colors shadow-sm ${
+                              (durationHours ?? 1) >= 10 
+                                ? 'opacity-60 cursor-not-allowed bg-[#1f2e5c] text-gray-400' 
+                                : 'bg-[#1f305e] hover:bg-[#273b75] text-white'
+                            }`}
+                            aria-label="Increment"
+                          >
+                            <Plus className="md:w-4 w-3 md:h-4 h-3" />
+                          </button>
+                        </div>
+
+                        
+                      </div>
+                    
+                  </div>
+                </div>
+              </div>
+              {/**linguistic coordinators, staff gender preferences */}
+              <div className="col-span-2 grid grid-cols-1 sm:grid-cols-2 gap-4 w-full mt-1">
+                {/* Staff Gender Preference */}
+                <div className="flex flex-row items-center gap-3 rounded-xl border  bg-[#0e1a2e] p-2.5 md:p-3">
+                  <div className="shrink-0 md:p-2.5 p-1.5 rounded-lg bg-[#152243] border border-blue-900/40">
+                    <UserCircle className="w-5 h-5 text-blue-400" />
+                  </div>
+                  <div className="flex flex-col gap-1 min-w-0 flex-1">
+                    <span className="text-[10px] font-bold uppercase tracking-[0.15em] text-gray-400">
+                      {translate("quotationStepGenderPref")}
+                    </span>
+                    <Select value={gender} onValueChange={onGenderChange}>
+                      <SelectTrigger className="h-8 w-full rounded-lg border border-blue-900/40 bg-[#152243] hover:text-white text-slate-100 text-[12px] font-semibold shadow-inner focus:ring-1 focus:ring-blue-500/50 [&>svg]:text-blue-400">
+                        <SelectValue placeholder="Select..." />
+                      </SelectTrigger>
+                      <SelectContent className="bg-[#121E2D] border text-white border-blue-900/40 ">
+                        {genderPreferenceValues.map((g) => (
+                          <SelectItem
+                            key={g.value}
+                            value={g.value}
+                            className="text-slate-100 focus:bg-[#dfdfdf] focus:text-white"
+                          >
+                            {g.label}
+                          </SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+                  </div>
+                </div>
+
+                {/* Linguistic Coordination */}
+                <div className="flex flex-row items-center gap-3 rounded-xl border  bg-[#0e1a2e] p-2.5 md:p-3">
+                  <div className="shrink-0 md:p-2.5 p-1.5 rounded-lg bg-[#152243] border border-blue-900/40">
+                    <Languages className="w-5 h-5 text-blue-400" />
+                  </div>
+                  <div className="flex flex-col gap-1 min-w-0 flex-1">
+                    <span className="text-[10px] font-bold uppercase tracking-[0.15em] text-gray-400">
+                      {translate("quotationStepLinguistic")}
+                    </span>
+                    <Select value={language} onValueChange={onLanguageChange}>
+                      <SelectTrigger className="h-8 w-full rounded-lg border border-blue-900/40 bg-[#152243] text-slate-100 text-[12px] font-semibold shadow-inner focus:ring-1 focus:ring-blue-500/50 [&>svg]:text-blue-400">
+                        <SelectValue placeholder="Select..." />
+                      </SelectTrigger>
+                      <SelectContent className="bg-[#121E2D] border border-blue-900/40 text-slate-100">
+                        {languageCoordinationOptions.map((lang) => (
+                          <SelectItem
+                            key={lang}
+                            value={lang}
+                            className="text-slate-100 focus:bg-[#dfdfdf] focus:text-white"
+                          >
+                            {lang}
+                          </SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+                  </div>
+                </div>
+              </div>
+              
+            </div>
+          )}
         </div>
 
         {/* 4-Column Specifications Grid */}
-        <div className="grid grid-cols-2 gap-y-4 gap-x-6 px-5  py-3 sm:px-7 sm:grid-cols-4 mt-4 mb-6">
+        {!isQuote && (
+          <>
+          <div className="grid grid-cols-2 gap-y-4 gap-x-6 px-5  py-3 sm:px-7 sm:grid-cols-4 mt-4 mb-6">
           {/* Item 1: PROPERTY SCALE */}
           <div className="flex flex-col">
             <span className="flex items-center gap-1.5 text-[10px] font-bold uppercase tracking-[0.16em] text-gray-300">
@@ -311,6 +537,7 @@ export function EquipmentSectionOfCommonServicesSlugs({
             {translate("onSiteEstimateNote")}
           </p>
         </div>
+      
 
         {/* Highlighted Price Card */}
         <div className="px-5 sm:px-7 mb-3 py-3 w-full flex justify-center items-center">
@@ -339,8 +566,11 @@ export function EquipmentSectionOfCommonServicesSlugs({
           
         </div>
 
+        </>
+      )}
+
         {/* Top Toggle Switch: BY CLIENT vs BY COMPANY */}
-        <div className="w-full bg-[#08163dbd] p-5 sm:p-7 shadow-lg shadow-gray-700 py-3 border-t border-gray-600">
+        <div className="w- mt-2 bg-[#08163dbd] p-5 sm:p-7 shadow-lg shadow-gray-700 py-3 border-t border-gray-600">
 
           <div className="flex flex-col justify-center w-full  ">
             {/**cleaning chemical and equiment */}
@@ -515,7 +745,7 @@ export function EquipmentSectionOfCommonServicesSlugs({
       </section>
 
       {/* Below-Card Navigation Bar */}
-      <div className="flex items-center py-2 justify-between md:justify-center gap-4">
+      {!isQuote && (<div className="flex items-center py-2 justify-between md:justify-center gap-4">
         <Link
           href="/"
           className="inline-flex items-center justify-center rounded-[8px] border border-[#C5A253] bg-white px-8 py-2.5 text-sm font-semibold text-[#0B1528] shadow-sm transition hover:bg-[#F8F9FA]"
@@ -525,7 +755,45 @@ export function EquipmentSectionOfCommonServicesSlugs({
         <span className="inline-flex items-center gap-1 text-sm font-bold text-[#C5A253]">
           {translate("equipServiceInfo")} <ArrowRight className="h-3.5 w-3.5" />
         </span>
-      </div>
+      </div>)}
     </div>
   );
+}
+
+
+const checkableBoxesPlaceHolder=()=>{
+  
+ 
+  <div 
+    className={`relative flex items-center justify-between p-4 rounded-xl border cursor-pointer transition-all duration-200 ${
+       "bg-[#111936] border-gray-500 hover:border-gray-700 hover:bg-[#162042]"
+    }`}
+    >
+      {/* Left side: Icon simulation matching UI layout style */}
+      <div className="flex items-center gap-3">
+        <div
+          className={`w-10 h-10 rounded-lg flex items-center justify-center transition-colors
+           "bg-[#1C2541] text-slate-400"
+          `}
+        >
+          🎞
+        </div>
+        <div>
+          <h4 className="text-sm font-semibold text-white tracking-wide">
+            placeholder
+          </h4>
+          <p className="text-xs text-slate-400 mt-0.5">
+            subtitle  
+          </p>
+        </div>
+      
+      {/* Right side checkbox indicator matching image look */}
+      <div
+        className={`w-6 h-6 rounded-md border flex items-center justify-center transition-all  "border-slate-700 bg-transparent"
+        }`}
+      >
+         <Check className="w-4 h-4 stroke-[3]" />
+      </div>
+    </div>
+  </div>
 }

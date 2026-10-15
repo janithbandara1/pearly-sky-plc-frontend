@@ -12,6 +12,7 @@ import { isCommonPropertyTypeWithRoomComponents } from "@/lib/service-flows";
 import { getPropertyCategoriesForService } from "../property-type-size-selector";
 import ServiceFrequencySelector from "./service-frequency";
 import { ServicePropertyCategoriesEnums } from "@/lib/booking-draft";
+import { set } from "zod";
 
 export const CATEGORY_LABEL_KEYS: Record<string, TranslationKey> = {
   "Studio": "propStudio",
@@ -1096,13 +1097,14 @@ function BlueprintDimensions({ span, depth }: { span: number; depth: number }) {
   );
 }
 
-interface SanitizeSizeVisualizationProps {
+interface visualizationProps {
   value: number;
   activeCategory?: PropertyCategory | null;
   isDisinfection?: boolean;
   isDeepClean?: boolean;
   quote?: SizeQuote | null;
   serviceCategory?: "residential" | "industrial" | "yatch-cleaning" | "passenger-ship-cleaning";
+  isQuote?: boolean;
 }
 
 interface SurfaceBottomMatrix {
@@ -1124,7 +1126,8 @@ export function SanitizeSizeVisualization({
   isDeepClean,
   quote,
   serviceCategory = "residential",
-}: SanitizeSizeVisualizationProps) {
+  isQuote,
+}: visualizationProps) {
   const { symbol } = useCurrency();
   const { translate } = useLanguage();
 
@@ -1366,7 +1369,7 @@ export function SanitizeSizeVisualization({
         </div>
       </div>
 
-      <div className="grid grid-cols-3 gap-2 sm:gap-6 pt-3.5 mt-3 border-t border-cyan-900/40 w-full text-center">
+      {!isQuote && (<div className="grid grid-cols-3 gap-2 sm:gap-6 pt-3.5 mt-3 border-t border-cyan-900/40 w-full text-center">
         <div>
           <p className="text-[11px] sm:text-xs text-gray-400 font-medium mb-0.5">{translate("EstimatedCost")}</p>
           <p className="text-[10px] sm:text-lg font-bold text-[#38BDF8]">{estimatedCost}</p>
@@ -1379,7 +1382,7 @@ export function SanitizeSizeVisualization({
           <p className="text-[11px] sm:text-xs text-gray-400 font-medium mb-0.5">{translate("EstLabor")}</p>
           <p className="text-[10px] sm:text-lg font-bold text-white">{labor}</p>
         </div>
-      </div>
+      </div>)}
     </div>
   );
 }
@@ -1401,6 +1404,7 @@ export interface PropertyTypeSizeSelectorProps {
   onRoomsChange?: (rooms: RoomCounts) => void;
   selectServiceFrequency?: string | null;
   setSelectServiceFrequency?: (frequency: string | null) => void;
+  isQuote?: boolean ; 
 }
 
 export function PropertyTypeSizeSelectorCommonFlowOfServices({
@@ -1420,10 +1424,21 @@ export function PropertyTypeSizeSelectorCommonFlowOfServices({
   rooms = {},
   onRoomsChange,
   selectServiceFrequency,
-  setSelectServiceFrequency
+  setSelectServiceFrequency,
+  isQuote,
 }: PropertyTypeSizeSelectorProps) {
   const [internalDisinfection, setInternalDisinfection] = useState(false);
   const [internalDeepClean, setInternalDeepClean] = useState(false);
+
+  const[quoteStatus,setQuoteStatus]=useState<boolean>(false);
+
+  useEffect(()=>{
+    if(isQuote){
+      setQuoteStatus(true);
+    }else{
+      setQuoteStatus(false);
+    }
+  },[quoteStatus])
 
   const isDisinfection = controlledDisinfection !== undefined ? controlledDisinfection : internalDisinfection;
   const isDeepClean = controlledDeepClean !== undefined ? controlledDeepClean : internalDeepClean;
@@ -1490,9 +1505,28 @@ export function PropertyTypeSizeSelectorCommonFlowOfServices({
   const activeTab = categoryTabs.find((t) => t.id === isActiveCategorySwitch) ?? categoryTabs[0];
 
   // Dynamically determine the selectable categories based on the service type and active category switch
-  const selectableCategories = ROOM_COMPONENTS_SERVICES
-    ? SANITIZE_RESIDENTIAL_CATEGORYIES
-    : activeTab.categories;
+  
+  /**
+   * Adjust the maximum size of categories when a quote is active.
+   * @param isQuote - Whether the current context is a quote.
+   * 
+   * @returns The adjusted list of categories.
+   */
+  const MaxSizeChangeWhenQuote=(checkIsQuote:boolean):PropertyCategory[]=>{
+
+    const baseCategories = ROOM_COMPONENTS_SERVICES
+      ? SANITIZE_RESIDENTIAL_CATEGORYIES
+      : activeTab.categories;
+
+    if (checkIsQuote || quoteStatus) {
+      return baseCategories.map(cat => ({ ...cat, max: 5000 }));
+    }
+    return baseCategories;
+  }
+
+  
+  const selectableCategories:PropertyCategory[] = MaxSizeChangeWhenQuote(quoteStatus);
+    
 
   // Tracked explicitly (not re-derived from `value` every render)
   const [activeCategoryId, setActiveCategoryId] = useState<string | null>(() => selectableCategories[0]?.id ?? null);
@@ -1523,14 +1557,21 @@ export function PropertyTypeSizeSelectorCommonFlowOfServices({
     }
   }, [activeCategory, onCategoryChange]);
 
+
+  console.log("quoteStatus",quoteStatus);
+
   // Sync active category when value changes externally or crosses category boundaries
   useEffect(() => {
-    const nextCat = findAppropriateCategory(value, activeCategoryId, selectableCategories);
-    const nextId = nextCat ? nextCat.id : null;
-    if (nextId && nextId !== activeCategoryId) {
-      setActiveCategoryId(nextId);
+    if(quoteStatus){
+      return
     }
-  }, [value, selectableCategories, activeCategoryId]);
+      const nextCat = findAppropriateCategory(value, activeCategoryId, selectableCategories);
+      const nextId = nextCat ? nextCat.id : null;
+      if (nextId && nextId !== activeCategoryId) {
+        setActiveCategoryId(nextId);
+      } 
+    
+  }, [value, selectableCategories, activeCategoryId,quoteStatus]);
 
   function handleCardClick(id: string) {
     const nextCat = selectableCategories.find((c) => c.id === id);
@@ -1550,10 +1591,15 @@ export function PropertyTypeSizeSelectorCommonFlowOfServices({
   function handleNext() {
     if (value < MAX_SIZE) {
       const nextVal = value + 1;
-      const nextCat = findAppropriateCategory(nextVal, activeCategoryId, selectableCategories, "up");
-      const nextId = nextCat ? nextCat.id : null;
-      if (nextId && nextId !== activeCategoryId) {
-        setActiveCategoryId(nextId);
+
+      if(!quoteStatus){
+
+        const nextCat = findAppropriateCategory(nextVal, activeCategoryId, selectableCategories, "up");
+        const nextId = nextCat ? nextCat.id : null;
+        if (nextId && nextId !== activeCategoryId) {
+          setActiveCategoryId(nextId);
+        }
+        
       }
       onChange(nextVal);
     }
@@ -1562,10 +1608,12 @@ export function PropertyTypeSizeSelectorCommonFlowOfServices({
   function handlePrev() {
     if (value > MIN_SIZE) {
       const prevVal = value - 1;
-      const prevCat = findAppropriateCategory(prevVal, activeCategoryId, selectableCategories, "down");
-      const prevId = prevCat ? prevCat.id : null;
-      if (prevId && prevId !== activeCategoryId) {
-        setActiveCategoryId(prevId);
+      if(!quoteStatus){
+        const prevCat = findAppropriateCategory(prevVal, activeCategoryId, selectableCategories, "down");
+        const prevId = prevCat ? prevCat.id : null;
+        if (prevId && prevId !== activeCategoryId) {
+          setActiveCategoryId(prevId);
+        }
       }
       onChange(prevVal);
     }
@@ -1621,6 +1669,7 @@ export function PropertyTypeSizeSelectorCommonFlowOfServices({
           isDeepClean={isDeepClean}
           quote={quote}
           serviceCategory={isActiveCategorySwitch as "yatch-cleaning" | "passenger-ship-cleaning"}
+          isQuote={isQuote}
         />
       ) :  (
         <SanitizeSizeVisualization
@@ -1630,6 +1679,7 @@ export function PropertyTypeSizeSelectorCommonFlowOfServices({
           isDeepClean={isDeepClean}
           quote={quote}
           serviceCategory={ROOM_COMPONENTS_SERVICES ? "residential" : (isActiveCategorySwitch as "residential" | "industrial")}
+          isQuote={isQuote}
         />
       )}
 
@@ -1821,7 +1871,7 @@ export function PropertyTypeSizeSelectorCommonFlowOfServices({
           </div>
 
           {/* Disinfection & Deep Clean Selectable Cards */}
-          {isSanitizeService && (
+          {!isQuote &&isSanitizeService && (
             <div className="grid grid-cols-2 gap-3 items-center mt-4 h-full w-full">
               {/* Disinfection Card */}
               <button
@@ -1892,7 +1942,7 @@ export function PropertyTypeSizeSelectorCommonFlowOfServices({
         {/* Right Column: Property Size */}
         <div className="flex flex-col w-full mt-8">
           {/* Services frequencies */}
-          {isFrequencyService && (
+          { isFrequencyService && (
             <ServiceFrequencySelector
               selectedServiceSlug={serviceSlug}
               value={selectServiceFrequency}
@@ -1900,7 +1950,7 @@ export function PropertyTypeSizeSelectorCommonFlowOfServices({
             />
           )}
 
-          {!abortVisualization &&  (
+          {!isQuote && !abortVisualization &&  (
             <EstimatioMatrixBottom
             activeCategory={activeCategory || null} 
             isSanitizeService={isSanitizeService}
@@ -1911,6 +1961,7 @@ export function PropertyTypeSizeSelectorCommonFlowOfServices({
     </section>
   );
 }
+
 
 export function EstimatioMatrixBottom({
   activeCategory,
@@ -1977,7 +2028,8 @@ function YatchSizeVisualization({
   isDeepClean,
   quote,
   serviceCategory = "yatch-cleaning",
-}: SanitizeSizeVisualizationProps) {
+  isQuote,
+}: visualizationProps) {
   const { symbol } = useCurrency();
   const { translate } = useLanguage();
 
@@ -2188,9 +2240,9 @@ function YatchSizeVisualization({
           </svg>
         )}
       </div>
-
+ 
       {/* Bottom Estimation Summary Bar */}
-      <div className="grid grid-cols-3 gap-2 sm:gap-4 pt-3 mt-4 border-t border-cyan-900/50 text-center">
+      {!isQuote && (<div className="grid grid-cols-3 gap-2 sm:gap-4 pt-3 mt-4 border-t border-cyan-900/50 text-center">
         <div>
           <p className="text-[11px] text-gray-400 font-medium mb-0.5">{translate("EstimatedCost")}</p>
           <p className="text-xs sm:text-base font-bold text-[#38BDF8]">{estimatedCost}</p>
@@ -2205,7 +2257,10 @@ function YatchSizeVisualization({
             <p className="text-[10px] sm:text-lg font-bold text-white">{labor}</p>
           </div>
         </div>
-      </div>
+      </div>)}
     </div>
   );
 }
+
+
+//Quotation matrix flow with 
