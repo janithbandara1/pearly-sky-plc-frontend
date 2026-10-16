@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "@/components/locale-link";
-import { User, Briefcase, KeyRound, ArrowRight, Folder, Ruler, Clock, Users, CalendarClock, Check, UserCircle, Languages } from "lucide-react";
+import { User, Briefcase, KeyRound, ArrowRight, Folder, Ruler, Clock, Users, CalendarClock, Check, UserCircle, Languages, FileText, Paperclip } from "lucide-react";
 import type { CatalogItem, SizeQuote } from "@/lib/catalog-api";
 import { calculateEquipmentItemPrice, EQUIPMENT_ITEM_SKU, EQUIPMENT_MAX_QTY } from "@/lib/equipment-pricing";
 import { useCurrency } from "@/lib/currency-context";
@@ -10,6 +10,7 @@ import { TranslationKey } from "@/lib/i18n/dictionaries/en";
 import { CATEGORY_LABEL_KEYS } from "./common-property-types";
 import { Minus, Plus } from "lucide-react";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { CheckoutAttachmentUpload, type CheckoutAttachment, type CheckoutAttachmentTone } from "../checkout-attachment-upload";
 
 export type SupplySource = "" | "customer" | "company";
 
@@ -134,6 +135,21 @@ export interface EquipmentSectionProps {
   language?: string;
   onLanguageChange?: (value: string) => void;
   languageCoordinationOptions?: string[];
+
+  /** Service requirements notes */
+  requirements?: string;
+  onRequirementsChange?: (value: string) => void;
+  setRequirements?: (value: string) => void;
+
+  /** Uploaded photo/doc attachments */
+  attachments?: CheckoutAttachment[];
+  onAttachmentsChange?: (update: (prev: CheckoutAttachment[]) => CheckoutAttachment[]) => void;
+  tone?: CheckoutAttachmentTone;
+  labelPrefix?: string;
+
+  /** Dynamic flow and step numbering flags */
+  hideChemEquip?: boolean;
+  isPickupDeliveryService?: boolean;
 }
 
 export function EquipmentSectionOfCommonServicesSlugs({
@@ -167,9 +183,23 @@ export function EquipmentSectionOfCommonServicesSlugs({
   language = "",
   onLanguageChange,
   languageCoordinationOptions = [],
+  requirements = "",
+  onRequirementsChange,
+  setRequirements,
+  attachments = [],
+  onAttachmentsChange,
+  tone,
+  labelPrefix,
+  hideChemEquip = false,
+  isPickupDeliveryService = false,
 }: EquipmentSectionProps) {
   const { translate } = useLanguage();
   const { symbol } = useCurrency();
+
+  const isPickup = isPickupDeliveryServiceQuotation ?? isPickupDeliveryService ?? false;
+  const reqStep = hideChemEquip ? "4." : isPickup ? "5." : "8.";
+  const photoStep = hideChemEquip ? "5." : isPickup ? "6." : "9.";
+  const handleRequirements = onRequirementsChange ?? setRequirements;
 
   const money = (n: number | null | undefined) => {
     const val = n != null && !Number.isNaN(Number(n)) ? Number(n) : 0;
@@ -285,13 +315,14 @@ export function EquipmentSectionOfCommonServicesSlugs({
 
 
         {/**Quotation view draft  */}
-        <div className="w-full flex justify-center items-center py-3 bg-brand-navy">
-          {isQuote && !isPickupDeliveryServiceQuotation && (
+        {isQuote && !isPickupDeliveryServiceQuotation && ( 
+          <div className="w-full flex px-3 justify-center items-center py-3 bg-brand-navy">
+          
             <div className="max-w-full grid md:grid-cols-1 grid-cols-1 justify-items-center items-center gap-4">
               {/**Number of cleaners */}
               <div className="col-span-2 grid grid-cols-1 sm:grid-cols-2 gap-4 w-full mt-1">
                 <div 
-                  className={`relative flex  flex-row justify-between gap-[5px] items-center  md:p-3 p-2.5  rounded-xl transition-all duration-300 border `}
+                  className={`relative flex  flex-row justify-between gap-[5px] items-center  md:p-3 p-2.5  rounded-xl transition-all duration-300 border border-gray-400`}
                     
                 >
                   {/* Top Row: Icon & Name */}
@@ -350,7 +381,7 @@ export function EquipmentSectionOfCommonServicesSlugs({
 
                 {/**Cleaning duration */}
                 <div 
-                  className={`relative flex  flex-row justify-between gap-[5px] items-center  md:p-3 p-2.5  rounded-xl transition-all duration-300 border `}
+                  className={`relative flex  flex-row justify-between gap-[5px] items-center  md:p-3 p-2.5  rounded-xl transition-all duration-300 border border-gray-400 `}
                     
                 >
                   {/* Top Row: Icon & Name */}
@@ -410,7 +441,7 @@ export function EquipmentSectionOfCommonServicesSlugs({
               {/**linguistic coordinators, staff gender preferences */}
               <div className="col-span-2 grid grid-cols-1 sm:grid-cols-2 gap-4 w-full mt-1">
                 {/* Staff Gender Preference */}
-                <div className="flex flex-row items-center gap-3 rounded-xl border  bg-[#0e1a2e] p-2.5 md:p-3">
+                <div className="flex flex-row items-center gap-3 rounded-xl border border-gray-400 bg-[#0e1a2e] p-2.5 md:p-3">
                   <div className="shrink-0 md:p-2.5 p-1.5 rounded-lg bg-[#152243] border border-blue-900/40">
                     <UserCircle className="w-5 h-5 text-blue-400" />
                   </div>
@@ -438,7 +469,7 @@ export function EquipmentSectionOfCommonServicesSlugs({
                 </div>
 
                 {/* Linguistic Coordination */}
-                <div className="flex flex-row items-center gap-3 rounded-xl border  bg-[#0e1a2e] p-2.5 md:p-3">
+                <div className="flex flex-row items-center gap-3 rounded-xl  border border-gray-400 bg-[#0e1a2e] p-2.5 md:p-3">
                   <div className="shrink-0 md:p-2.5 p-1.5 rounded-lg bg-[#152243] border border-blue-900/40">
                     <Languages className="w-5 h-5 text-blue-400" />
                   </div>
@@ -466,9 +497,60 @@ export function EquipmentSectionOfCommonServicesSlugs({
                 </div>
               </div>
               
+              {/* Service Requirements & Photos */}
+              <div className="col-span-2 grid grid-cols-1 sm:grid-cols-2 gap-4 w-full mt-1">
+                {/* Service Requirements & Specifics */}
+                <div className="flex flex-col justify-between gap-3 rounded-xl border border-gray-400 bg-[#0e1a2e] p-2.5 md:p-3">
+                  <div className="flex items-center gap-3">
+                    <div className="shrink-0 md:p-2.5 p-1.5 rounded-lg bg-[#152243] border border-blue-900/40">
+                      <FileText className="w-5 h-5 text-blue-400" />
+                    </div>
+                    <div className="flex flex-col gap-0.5 min-w-0 flex-1">
+                      <span className="text-[10px] font-bold uppercase tracking-[0.15em] text-gray-400">
+                        {reqStep} {translate("quotationStepRequirements")}
+                      </span>
+                    </div>
+                  </div>
+                  <textarea
+                    value={requirements}
+                    onChange={(e) => handleRequirements?.(e.target.value)}
+                    placeholder={translate("quotationRequirementsPlaceholder")}
+                    className="h-24 w-full rounded-lg border border-blue-900/40 bg-[#152243] p-2.5 text-xs sm:text-sm text-slate-100 placeholder:text-slate-500 shadow-inner focus:outline-none focus:ring-1 focus:ring-blue-500/50 resize-none"
+                  />
+                </div>
+
+                {/* Photos / Attachments */}
+                <div className="flex flex-col justify-between gap-3 rounded-xl border border-gray-400 bg-[#0e1a2e] p-2.5 md:p-3">
+                  <div className="flex items-center gap-3">
+                    <div className="shrink-0 md:p-2.5 p-1.5 rounded-lg bg-[#152243] border border-blue-900/40">
+                      <Paperclip className="w-5 h-5 text-blue-400" />
+                    </div>
+                    <div className="flex flex-col gap-0.5 min-w-0 flex-1">
+                      <span className="text-[10px] font-bold uppercase tracking-[0.15em] text-gray-400">
+                        {photoStep} {translate("preferencesAttachments")}
+                      </span>
+                      <span className="text-[11px] text-gray-400 line-clamp-1">
+                        {translate("preferencesAttachmentsHint")}
+                      </span>
+                    </div>
+                  </div>
+                  <div className="min-h-[96px] flex items-center">
+                    {onAttachmentsChange && (
+                      <CheckoutAttachmentUpload
+                        attachments={attachments}
+                        onAttachmentsChange={onAttachmentsChange}
+                        tone="blue"
+                        hideHeader={true}
+                      />
+                    )}
+                  </div>
+                </div>
+              </div>
+
             </div>
-          )}
-        </div>
+          
+          </div> 
+      )}
 
         {/* 4-Column Specifications Grid */}
         {!isQuote && (
@@ -697,7 +779,7 @@ export function EquipmentSectionOfCommonServicesSlugs({
             </div>
           )}
           {/* Highlighted Box: ESTIMATED PRICE RANGE */}
-          <div className="mt-7 mb-2 flex border-brand-gold bg-blue-950  items-center justify-between gap-2 rounded-[8px] border px-4 py-4.5 sm:px-5">
+          {!isQuote && (<div className="mt-7 mb-2 flex border-brand-gold bg-blue-950  items-center justify-between gap-2 rounded-[8px] border px-4 py-4.5 sm:px-5">
             <div className="">
               <h2 className="text-xs font-bold uppercase tracking-wider text-[#C5A253] sm:text-sm">
                 {translate("equipEstimatedPriceRange")}
@@ -710,7 +792,7 @@ export function EquipmentSectionOfCommonServicesSlugs({
             <span className="font-serif text-[22px] sm:text-[26px] font-normal text-white leading-tight mt-1 sm:text-base">
               {estimatedPriceRange}
             </span>
-          </div>
+          </div>)}
           {/* Action Button: BOOK NOW */}
           {onBookNow && (
             <button

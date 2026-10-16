@@ -1683,7 +1683,7 @@ export function PropertyTypeSizeSelectorCommonFlowOfServices({
         />
       )}
 
-      <div className={`  rounded-b-2xl py-4 border border-[#C6A868] bg-brand-navy pb-5 sm:pb-6 px-5 sm:px-6 shadow-sm w-full`}>
+      <div className={`  rounded-b-2xl py-4  ${isQuote ? "border border-cyan-500/40 " : "border border-[#C6A868]"}  bg-brand-navy pb-5 sm:pb-6 px-5 sm:px-6 shadow-sm w-full`}>
         {!ROOM_COMPONENTS_SERVICES && (
           <div className="w-full">
             <h2 className="text-base sm:text-lg font-bold text-gray-300 mb-3">{translate("propServiceCatagory")}</h2>
@@ -1871,7 +1871,7 @@ export function PropertyTypeSizeSelectorCommonFlowOfServices({
           </div>
 
           {/* Disinfection & Deep Clean Selectable Cards */}
-          {!isQuote &&isSanitizeService && (
+          {isSanitizeService && (
             <div className="grid grid-cols-2 gap-3 items-center mt-4 h-full w-full">
               {/* Disinfection Card */}
               <button

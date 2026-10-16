@@ -38,13 +38,16 @@ export function hasPendingAttachmentUploads(attachments: CheckoutAttachment[]): 
   return attachments.some((a) => a.status === "uploading");
 }
 
-interface CheckoutAttachmentUploadProps {
+export type CheckoutAttachmentTone = "dark" | "light" | "blue";
+
+export interface CheckoutAttachmentUploadProps {
   attachments: CheckoutAttachment[];
   onAttachmentsChange: (update: (prev: CheckoutAttachment[]) => CheckoutAttachment[]) => void;
-  /** "dark" for the navy checkout cards (default), "light" for cream forms like request-quotation. */
-  tone?: "dark" | "light";
+  /** "dark" for the navy checkout cards (default), "light" for cream forms, "blue" for dark blue cards. */
+  tone?: CheckoutAttachmentTone;
   /** Prefix for the heading, e.g. a form step number like "9.". */
   labelPrefix?: string;
+  hideHeader?: boolean;
 }
 
 const TONES = {
@@ -62,6 +65,13 @@ const TONES = {
     add: "border-[#A98B4B]/60 bg-[#FFFDF4] text-brand-navy/80 hover:border-[#A98B4B] hover:text-brand-navy",
     error: "text-destructive",
   },
+  blue: {
+    label: "mb-1 text-[10px] font-bold uppercase tracking-[0.15em] text-gray-400",
+    hint: "mb-3 text-[11px] text-gray-400",
+    tile: "border-blue-900/40 bg-[#152243] text-slate-100",
+    add: "border-blue-900/60 bg-[#152243]/60 text-slate-300 hover:border-blue-500 hover:text-white hover:bg-[#152243]",
+    error: "text-red-400",
+  },
 };
 
 /**
@@ -74,9 +84,10 @@ export function CheckoutAttachmentUpload({
   onAttachmentsChange,
   tone = "dark",
   labelPrefix,
+  hideHeader = false,
 }: CheckoutAttachmentUploadProps) {
   const { translate } = useLanguage();
-  const styles = TONES[tone];
+  const styles = TONES[tone] ?? TONES.dark;
   const inputRef = useRef<HTMLInputElement>(null);
   const [error, setError] = useState<string | null>(null);
 
@@ -148,11 +159,15 @@ export function CheckoutAttachmentUpload({
 
   return (
     <div>
-      <p className={styles.label}>
-        {labelPrefix ? `${labelPrefix} ` : ""}
-        {translate("preferencesAttachments")}
-      </p>
-      <p className={styles.hint}>{translate("preferencesAttachmentsHint")}</p>
+      {!hideHeader && (
+        <>
+          <p className={styles.label}>
+            {labelPrefix ? `${labelPrefix} ` : ""}
+            {translate("preferencesAttachments")}
+          </p>
+          <p className={styles.hint}>{translate("preferencesAttachmentsHint")}</p>
+        </>
+      )}
 
       <div className="flex flex-wrap gap-3">
         {attachments.map((attachment) => (
@@ -174,7 +189,7 @@ export function CheckoutAttachmentUpload({
             {attachment.status === "uploading" && (
               <div className="absolute inset-0 flex items-center justify-center bg-brand-navy/60">
                 <Loader2
-                  className="size-5 animate-spin text-brand-cream"
+                  className={`size-5 animate-spin ${tone === "blue" ? "text-blue-400" : "text-brand-cream"}`}
                   aria-label={translate("preferencesAttachmentsUploading")}
                 />
               </div>
@@ -195,7 +210,11 @@ export function CheckoutAttachmentUpload({
               type="button"
               onClick={() => remove(attachment)}
               aria-label={translate("preferencesAttachmentsRemove")}
-              className="absolute right-1 top-1 flex size-5 items-center justify-center rounded-full bg-brand-navy/80 text-brand-cream transition hover:bg-brand-navy"
+              className={`absolute right-1 top-1 flex size-5 items-center justify-center rounded-full transition ${
+                tone === "blue"
+                  ? "bg-[#0e1a2e]/90 text-slate-200 hover:bg-[#152243] hover:text-white"
+                  : "bg-brand-navy/80 text-brand-cream transition hover:bg-brand-navy"
+              }`}
             >
               <X className="size-3" />
             </button>
@@ -208,7 +227,7 @@ export function CheckoutAttachmentUpload({
             onClick={() => inputRef.current?.click()}
             className={`flex size-20 flex-col items-center justify-center gap-1 rounded-lg border border-dashed text-[11px] font-semibold transition ${styles.add}`}
           >
-            <Paperclip className="size-5 text-brand-gold" />
+            <Paperclip className={`size-5 ${tone === "blue" ? "text-blue-400" : "text-brand-gold"}`} />
             {translate("preferencesAttachmentsAdd")}
           </button>
         )}

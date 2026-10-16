@@ -750,7 +750,7 @@ export function RequestQuotationView({ serviceSlug }: { serviceSlug: string }) {
     }
 
   return (
-    <main className="flex-1 bg-[#f5f5fa] pb-16 font-sans">
+    <main className="flex-1 bg-[rgb(199,209,217)] pb-16 font-sans">
       {/* Floating Success Toast Matching Image 3 */}
       {showSuccessToast && (
         <div className="fixed bottom-8 left-1/2 -translate-x-1/2 z-50 animate-in fade-in slide-in-from-bottom-5 duration-300">
@@ -769,21 +769,7 @@ export function RequestQuotationView({ serviceSlug }: { serviceSlug: string }) {
         title={currentServiceLabel}
         subtitle={service?.description ?? currentServiceDescription}
         servicePrices={service?.prices}
-        serviceId={service?.id}
-        hidePriceSelector={
-          serviceSlug === "pool-cleaning" ||
-          serviceSlug === "pool-cleaning-maintenance" ||
-          serviceSlug === "carpet-upholstery-cleaning" ||
-          serviceSlug === "precision-pressure-washing"
-        }
-        unitLabelKey={
-          serviceSlug === CHILD_CARE_SLUG ||
-          serviceSlug === "childcare-services" ||
-          serviceSlug === ELDER_CARE_SLUG ||
-          serviceSlug === "elder-care-services"
-            ? "hourPerProfessional"
-            : undefined
-        }
+        serviceId={service?.id} 
       />
 
       {/* Introduction & Highlights Sections Matching Image 2 */}
@@ -968,28 +954,8 @@ export function RequestQuotationView({ serviceSlug }: { serviceSlug: string }) {
 
             
 
-            {/* Service Requirements & Specifics */}
-            <div className="space-y-1.5 hidden">
-              <Label className="text-xs font-semibold text-brand-navy">
-                {hideChemEquip ? "4." : isPickupDeliveryService ? "5." : "8."} {translate("quotationStepRequirements")}
-              </Label>
-              <textarea
-                value={requirements}
-                onChange={(e) => setRequirements(e.target.value)}
-                placeholder={translate("quotationRequirementsPlaceholder")}
-                className="h-24 w-full rounded-lg border border-[#A98B4B]/40 bg-[#FFFDF4] p-3 text-xs sm:text-sm text-brand-navy shadow-inner placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#A98B4B]"
-              />
-            </div>
-
-            {/* Photos */}
-            <div className="hidden">
-              <CheckoutAttachmentUpload
-                attachments={attachments}
-                onAttachmentsChange={setAttachments}
-                tone="light"
-                labelPrefix={hideChemEquip ? "5." : isPickupDeliveryService ? "6." : "9."}
-              />
-            </div> 
+            
+            
 
             {/**Structure of property type selector ,allows maximun 5000m and no price calculation */}
             <PropertyTypeSizeSelectorCommonFlowOfServices 
@@ -1011,7 +977,7 @@ export function RequestQuotationView({ serviceSlug }: { serviceSlug: string }) {
               isQuote={true}
             />
 
-            {(() => {
+            {!hideChemEquip && (() => {
               const categories = getPropertyCategoriesForServiceOfSanitize(serviceSlug);
               const pTypeLower = (propertyType || "").toLowerCase();
               const activeCategory =
@@ -1052,6 +1018,12 @@ export function RequestQuotationView({ serviceSlug }: { serviceSlug: string }) {
                   language={language}
                   onLanguageChange={setLanguage}
                   languageCoordinationOptions={LANGUAGE_COORDINATION_OPTIONS}
+                  requirements={requirements}
+                  onRequirementsChange={setRequirements}
+                  attachments={attachments}
+                  onAttachmentsChange={setAttachments}
+                  hideChemEquip={hideChemEquip}
+                  isPickupDeliveryService={isPickupDeliveryService}
                 />
               );
             })()}
@@ -1071,7 +1043,7 @@ export function RequestQuotationView({ serviceSlug }: { serviceSlug: string }) {
 
               <div className="grid grid-cols-1 gap-4 p-5 sm:grid-cols-2">
                 {/* First Name */}
-                <div className="space-y-1.5">
+                <div className="space-y-1.5 ">
                   <label className="flex items-center gap-1.5 text-[10px] font-bold uppercase tracking-[0.15em] text-gray-400">
                     <svg className="h-3 w-3 text-blue-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" /></svg>
                     {translate("quotationFirstName")} <span className="text-amber-400">*</span>
@@ -1083,7 +1055,7 @@ export function RequestQuotationView({ serviceSlug }: { serviceSlug: string }) {
                       if (errors.firstName) setErrors((prev) => ({ ...prev, firstName: "" }));
                     }}
                     placeholder={translate("quotationFirstNamePlaceholder")}
-                    className="h-11 rounded-lg border border-blue-900/40 bg-[#152243] text-slate-100 placeholder:text-slate-500 shadow-inner focus-visible:ring-2 focus-visible:ring-blue-500/40 focus-visible:border-blue-500/60"
+                    className="h-11 rounded-lg border border-gray-500 bg-[#152243] text-slate-100 placeholder:text-slate-500 shadow-inner focus-visible:ring-2 focus-visible:ring-blue-500/40 focus-visible:border-blue-500/60"
                   />
                   {errors.firstName && <p className="text-xs text-red-400 flex items-center gap-1"><svg className="h-3 w-3" fill="currentColor" viewBox="0 0 20 20"><path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clipRule="evenodd" /></svg>{errors.firstName}</p>}
                 </div>
@@ -1101,7 +1073,7 @@ export function RequestQuotationView({ serviceSlug }: { serviceSlug: string }) {
                       if (errors.lastName) setErrors((prev) => ({ ...prev, lastName: "" }));
                     }}
                     placeholder={translate("quotationLastNamePlaceholder")}
-                    className="h-11 rounded-lg border border-blue-900/40 bg-[#152243] text-slate-100 placeholder:text-slate-500 shadow-inner focus-visible:ring-2 focus-visible:ring-blue-500/40 focus-visible:border-blue-500/60"
+                    className="h-11 rounded-lg border border-gray-500 bg-[#152243] text-slate-100 placeholder:text-slate-500 shadow-inner focus-visible:ring-2 focus-visible:ring-blue-500/40 focus-visible:border-blue-500/60"
                   />
                   {errors.lastName && <p className="text-xs text-red-400 flex items-center gap-1"><svg className="h-3 w-3" fill="currentColor" viewBox="0 0 20 20"><path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clipRule="evenodd" /></svg>{errors.lastName}</p>}
                 </div>
@@ -1120,7 +1092,7 @@ export function RequestQuotationView({ serviceSlug }: { serviceSlug: string }) {
                       if (errors.email) setErrors((prev) => ({ ...prev, email: "" }));
                     }}
                     placeholder={translate("quotationEmailPlaceholder")}
-                    className="h-11 rounded-lg border border-blue-900/40 bg-[#152243] text-slate-100 placeholder:text-slate-500 shadow-inner focus-visible:ring-2 focus-visible:ring-blue-500/40 focus-visible:border-blue-500/60"
+                    className="h-11 rounded-lg border border-gray-500 bg-[#152243] text-slate-100 placeholder:text-slate-500 shadow-inner focus-visible:ring-2 focus-visible:ring-blue-500/40 focus-visible:border-blue-500/60"
                   />
                   {errors.email && <p className="text-xs text-red-400 flex items-center gap-1"><svg className="h-3 w-3" fill="currentColor" viewBox="0 0 20 20"><path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clipRule="evenodd" /></svg>{errors.email}</p>}
                 </div>
@@ -1139,7 +1111,7 @@ export function RequestQuotationView({ serviceSlug }: { serviceSlug: string }) {
                       if (errors.phoneNumber) setErrors((prev) => ({ ...prev, phoneNumber: "" }));
                     }}
                     placeholder={translate("quotationPhonePlaceholder")}
-                    className="h-11 w-full rounded-lg border border-blue-900/40 bg-[#152243] px-3 text-sm text-slate-100 placeholder:text-slate-500 shadow-inner focus:outline-none focus:ring-2 focus:ring-blue-500/40 focus:border-blue-500/60"
+                    className="h-11 w-full rounded-lg border border-gray-500 bg-[#152243] px-3 text-sm text-slate-100 placeholder:text-slate-500 shadow-inner focus:outline-none focus:ring-2 focus:ring-blue-500/40 focus:border-blue-500/60"
                   />
                   {errors.phoneNumber && <p className="text-xs text-red-400 flex items-center gap-1"><svg className="h-3 w-3" fill="currentColor" viewBox="0 0 20 20"><path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clipRule="evenodd" /></svg>{errors.phoneNumber}</p>}
                 </div>
@@ -1169,10 +1141,10 @@ export function RequestQuotationView({ serviceSlug }: { serviceSlug: string }) {
                     {translate("quotationSelectCountry")} <span className="text-amber-400">*</span>
                   </label>
                   <Select value={selectedCountry} onValueChange={setSelectedCountry}>
-                    <SelectTrigger className="h-11 w-full rounded-lg border border-blue-900/40 bg-[#152243] text-slate-100 shadow-inner focus:ring-2 focus:ring-blue-500/40 [&>svg]:text-blue-400">
+                    <SelectTrigger className="h-11 w-full rounded-lg border border-gray-500 bg-[#152243] text-slate-100 shadow-inner focus:ring-2 focus:ring-blue-500/40 [&>svg]:text-blue-400">
                       <SelectValue placeholder={translate("quotationSelectCountry")} />
                     </SelectTrigger>
-                    <SelectContent className="bg-[#121E2D] border border-blue-900/40">
+                    <SelectContent className="bg-[#121E2D] border border-gray-500">
                       {COUNTRY_OPTIONS.map((c) => (
                         <SelectItem key={c.code} value={c.name} className="text-slate-100 focus:bg-[#1f305e] focus:text-white">
                           <span className="flex items-center gap-2">
@@ -1198,7 +1170,7 @@ export function RequestQuotationView({ serviceSlug }: { serviceSlug: string }) {
                       if (errors.postalCode) setErrors((prev) => ({ ...prev, postalCode: "" }));
                     }}
                     placeholder={translate("quotationPostalCodePlaceholder")}
-                    className="h-11 rounded-lg border border-blue-900/40 bg-[#152243] text-slate-100 placeholder:text-slate-500 shadow-inner focus-visible:ring-2 focus-visible:ring-blue-500/40 focus-visible:border-blue-500/60"
+                    className="h-11 rounded-lg border border-gray-500 bg-[#152243] text-slate-100 placeholder:text-slate-500 shadow-inner focus-visible:ring-2 focus-visible:ring-blue-500/40 focus-visible:border-blue-500/60"
                   />
                   {errors.postalCode && <p className="text-xs text-red-400 flex items-center gap-1"><svg className="h-3 w-3" fill="currentColor" viewBox="0 0 20 20"><path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clipRule="evenodd" /></svg>{errors.postalCode}</p>}
                 </div>
@@ -1216,7 +1188,7 @@ export function RequestQuotationView({ serviceSlug }: { serviceSlug: string }) {
                       if (errors.city) setErrors((prev) => ({ ...prev, city: "" }));
                     }}
                     placeholder={translate("quotationCityPlaceholder")}
-                    className="h-11 rounded-lg border border-blue-900/40 bg-[#152243] text-slate-100 placeholder:text-slate-500 shadow-inner focus-visible:ring-2 focus-visible:ring-blue-500/40 focus-visible:border-blue-500/60"
+                    className="h-11 rounded-lg border border-gray-500 bg-[#152243] text-slate-100 placeholder:text-slate-500 shadow-inner focus-visible:ring-2 focus-visible:ring-blue-500/40 focus-visible:border-blue-500/60"
                   />
                   {errors.city && <p className="text-xs text-red-400 flex items-center gap-1"><svg className="h-3 w-3" fill="currentColor" viewBox="0 0 20 20"><path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clipRule="evenodd" /></svg>{errors.city}</p>}
                 </div>
@@ -1234,7 +1206,7 @@ export function RequestQuotationView({ serviceSlug }: { serviceSlug: string }) {
                       if (errors.province) setErrors((prev) => ({ ...prev, province: "" }));
                     }}
                     placeholder={translate("quotationProvincePlaceholder")}
-                    className="h-11 rounded-lg border border-blue-900/40 bg-[#152243] text-slate-100 placeholder:text-slate-500 shadow-inner focus-visible:ring-2 focus-visible:ring-blue-500/40 focus-visible:border-blue-500/60"
+                    className="h-11 rounded-lg border border-gray-500 bg-[#152243] text-slate-100 placeholder:text-slate-500 shadow-inner focus-visible:ring-2 focus-visible:ring-blue-500/40 focus-visible:border-blue-500/60"
                   />
                   {errors.province && <p className="text-xs text-red-400 flex items-center gap-1"><svg className="h-3 w-3" fill="currentColor" viewBox="0 0 20 20"><path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clipRule="evenodd" /></svg>{errors.province}</p>}
                 </div>
@@ -1252,7 +1224,7 @@ export function RequestQuotationView({ serviceSlug }: { serviceSlug: string }) {
                       if (errors.streetAddress) setErrors((prev) => ({ ...prev, streetAddress: "" }));
                     }}
                     placeholder={translate("quotationStreetPlaceholder")}
-                    className="h-11 rounded-lg border border-blue-900/40 bg-[#152243] text-slate-100 placeholder:text-slate-500 shadow-inner focus-visible:ring-2 focus-visible:ring-blue-500/40 focus-visible:border-blue-500/60"
+                    className="h-11 rounded-lg border border-gray-500 bg-[#152243] text-slate-100 placeholder:text-slate-500 shadow-inner focus-visible:ring-2 focus-visible:ring-blue-500/40 focus-visible:border-blue-500/60"
                   />
                   {errors.streetAddress && <p className="text-xs text-red-400 flex items-center gap-1"><svg className="h-3 w-3" fill="currentColor" viewBox="0 0 20 20"><path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clipRule="evenodd" /></svg>{errors.streetAddress}</p>}
                 </div>
@@ -1268,7 +1240,7 @@ export function RequestQuotationView({ serviceSlug }: { serviceSlug: string }) {
                     value={unit}
                     onChange={(e) => setUnit(e.target.value)}
                     placeholder={translate("quotationUnitPlaceholder")}
-                    className="h-11 rounded-lg border border-blue-900/40 bg-[#152243] text-slate-100 placeholder:text-slate-500 shadow-inner focus-visible:ring-2 focus-visible:ring-blue-500/40 focus-visible:border-blue-500/60"
+                    className="h-11 rounded-lg border border-gray-500 bg-[#152243] text-slate-100 placeholder:text-slate-500 shadow-inner focus-visible:ring-2 focus-visible:ring-blue-500/40 focus-visible:border-blue-500/60"
                   />
                 </div>
               </div>
@@ -1276,22 +1248,36 @@ export function RequestQuotationView({ serviceSlug }: { serviceSlug: string }) {
 
             {/* DELIVERY LOCATION SECTION (laundry-services / move-in-out-transport-service only) */}
             {isPickupDeliveryService && (
-              <div className="space-y-4 pt-2">
-                <h3 className="text-xs font-bold uppercase tracking-wider text-[#121E2D]">
-                  {translate("quotationDeliveryLocation")}
-                </h3>
-                <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+              <div className="overflow-hidden rounded-2xl border border-brand-gold bg-[#0c1628] shadow-xl">
+                {/* Section Header */}
+                <div className="flex items-center gap-3 border-b border-blue-900/40 bg-[#121E2D] px-5 py-3.5">
+                  <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-[#1f305e] border border-blue-900/40">
+                    <svg className="h-4 w-4 text-blue-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M13 16V6a1 1 0 00-1-1H4a1 1 0 00-1 1v10a1 1 0 001 1h1m8-1a1 1 0 01-1 1H9m4-1V8a1 1 0 011-1h2.586a1 1 0 01.707.293l3.414 3.414a1 1 0 01.293.707V16a1 1 0 01-1 1h-1m-6-1a1 1 0 001 1h1M5 17a2 2 0 104 0m-4 0a2 2 0 114 0m6 0a2 2 0 104 0m-4 0a2 2 0 114 0" />
+                    </svg>
+                  </div>
+                  <div>
+                    <p className="text-[10px] font-bold uppercase tracking-[0.18em] text-blue-400/80">Step</p>
+                    <h3 className="text-sm font-bold tracking-wide text-slate-100">
+                      {translate("quotationDeliveryLocation")}
+                    </h3>
+                  </div>
+                </div>
+
+                <div className="grid grid-cols-1 gap-4 p-5 sm:grid-cols-2">
+                  {/* Delivery Country */}
                   <div className="space-y-1.5">
-                    <Label className="text-xs font-medium text-brand-navy/90">
-                      {translate("quotationSelectCountry")} <span className="text-red-500">*</span>
-                    </Label>
+                    <label className="flex items-center gap-1.5 text-[10px] font-bold uppercase tracking-[0.15em] text-gray-400">
+                      <svg className="h-3 w-3 text-blue-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M3 21v-4m0 0V5a2 2 0 012-2h6.5l1 1H21l-3 6 3 6h-8.5l-1-1H5a2 2 0 00-2 2zm9-13.5V9" /></svg>
+                      {translate("quotationSelectCountry")} <span className="text-amber-400">*</span>
+                    </label>
                     <Select value={deliveryCountry} onValueChange={setDeliveryCountry}>
-                      <SelectTrigger className="h-11 w-full rounded-lg border border-[#A98B4B]/40 bg-[#FFFDF4] text-brand-navy shadow-inner focus:ring-2 focus:ring-[#A98B4B]">
+                      <SelectTrigger className="h-11 w-full rounded-lg border border-gray-500 bg-[#152243] text-slate-100 shadow-inner focus:ring-2 focus:ring-blue-500/40 [&>svg]:text-blue-400">
                         <SelectValue placeholder={translate("quotationSelectCountry")} />
                       </SelectTrigger>
-                      <SelectContent className="bg-white border-[#A98B4B]/30">
+                      <SelectContent className="bg-[#121E2D] border border-gray-500">
                         {COUNTRY_OPTIONS.map((c) => (
-                          <SelectItem key={c.code} value={c.name}>
+                          <SelectItem key={c.code} value={c.name} className="text-slate-100 focus:bg-[#1f305e] focus:text-white">
                             <span className="flex items-center gap-2">
                               <c.Flag className="h-3.5 w-5 shrink-0 object-cover" />
                               {c.name}
@@ -1302,10 +1288,12 @@ export function RequestQuotationView({ serviceSlug }: { serviceSlug: string }) {
                     </Select>
                   </div>
 
+                  {/* Delivery Postal Code */}
                   <div className="space-y-1.5">
-                    <Label className="text-xs font-medium text-brand-navy/90">
-                      {translate("quotationPostalCode")} <span className="text-red-500">*</span>
-                    </Label>
+                    <label className="flex items-center gap-1.5 text-[10px] font-bold uppercase tracking-[0.15em] text-gray-400">
+                      <svg className="h-3 w-3 text-blue-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M7 20l4-16m2 16l4-16M6 9h14M4 15h14" /></svg>
+                      {translate("quotationPostalCode")} <span className="text-amber-400">*</span>
+                    </label>
                     <Input
                       value={deliveryPostalCode}
                       onChange={(e) => {
@@ -1313,17 +1301,22 @@ export function RequestQuotationView({ serviceSlug }: { serviceSlug: string }) {
                         if (errors.deliveryPostalCode) setErrors((prev) => ({ ...prev, deliveryPostalCode: "" }));
                       }}
                       placeholder={translate("quotationPostalCodePlaceholder")}
-                      className="h-11 rounded-lg border border-[#A98B4B]/40 bg-[#FFFDF4] text-brand-navy placeholder:text-muted-foreground shadow-inner focus-visible:ring-2 focus-visible:ring-[#A98B4B]"
+                      className="h-11 rounded-lg border border-gray-500 bg-[#152243] text-slate-100 placeholder:text-slate-500 shadow-inner focus-visible:ring-2 focus-visible:ring-blue-500/40 focus-visible:border-blue-500/60"
                     />
-                    {errors.deliveryPostalCode && <p className="text-xs text-destructive">{errors.deliveryPostalCode}</p>}
+                    {errors.deliveryPostalCode && (
+                      <p className="text-xs text-red-400 flex items-center gap-1">
+                        <svg className="h-3 w-3" fill="currentColor" viewBox="0 0 20 20"><path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clipRule="evenodd" /></svg>
+                        {errors.deliveryPostalCode}
+                      </p>
+                    )}
                   </div>
-                </div>
 
-                <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+                  {/* Delivery City */}
                   <div className="space-y-1.5">
-                    <Label className="text-xs font-medium text-brand-navy/90">
-                      {translate("quotationCity")} <span className="text-red-500">*</span>
-                    </Label>
+                    <label className="flex items-center gap-1.5 text-[10px] font-bold uppercase tracking-[0.15em] text-gray-400">
+                      <svg className="h-3 w-3 text-blue-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" /></svg>
+                      {translate("quotationCity")} <span className="text-amber-400">*</span>
+                    </label>
                     <Input
                       value={deliveryCity}
                       onChange={(e) => {
@@ -1331,15 +1324,22 @@ export function RequestQuotationView({ serviceSlug }: { serviceSlug: string }) {
                         if (errors.deliveryCity) setErrors((prev) => ({ ...prev, deliveryCity: "" }));
                       }}
                       placeholder={translate("quotationCityPlaceholder")}
-                      className="h-11 rounded-lg border border-[#A98B4B]/40 bg-[#FFFDF4] text-brand-navy placeholder:text-muted-foreground shadow-inner focus-visible:ring-2 focus-visible:ring-[#A98B4B]"
+                      className="h-11 rounded-lg border border-gray-500 bg-[#152243] text-slate-100 placeholder:text-slate-500 shadow-inner focus-visible:ring-2 focus-visible:ring-blue-500/40 focus-visible:border-blue-500/60"
                     />
-                    {errors.deliveryCity && <p className="text-xs text-destructive">{errors.deliveryCity}</p>}
+                    {errors.deliveryCity && (
+                      <p className="text-xs text-red-400 flex items-center gap-1">
+                        <svg className="h-3 w-3" fill="currentColor" viewBox="0 0 20 20"><path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clipRule="evenodd" /></svg>
+                        {errors.deliveryCity}
+                      </p>
+                    )}
                   </div>
 
+                  {/* Delivery Province/State */}
                   <div className="space-y-1.5">
-                    <Label className="text-xs font-medium text-brand-navy/90">
-                      {translate("quotationProvinceState")} <span className="text-red-500">*</span>
-                    </Label>
+                    <label className="flex items-center gap-1.5 text-[10px] font-bold uppercase tracking-[0.15em] text-gray-400">
+                      <svg className="h-3 w-3 text-blue-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7" /></svg>
+                      {translate("quotationProvinceState")} <span className="text-amber-400">*</span>
+                    </label>
                     <Input
                       value={deliveryProvince}
                       onChange={(e) => {
@@ -1347,17 +1347,22 @@ export function RequestQuotationView({ serviceSlug }: { serviceSlug: string }) {
                         if (errors.deliveryProvince) setErrors((prev) => ({ ...prev, deliveryProvince: "" }));
                       }}
                       placeholder={translate("quotationProvincePlaceholder")}
-                      className="h-11 rounded-lg border border-[#A98B4B]/40 bg-[#FFFDF4] text-brand-navy placeholder:text-muted-foreground shadow-inner focus-visible:ring-2 focus-visible:ring-[#A98B4B]"
+                      className="h-11 rounded-lg border border-gray-500 bg-[#152243] text-slate-100 placeholder:text-slate-500 shadow-inner focus-visible:ring-2 focus-visible:ring-blue-500/40 focus-visible:border-blue-500/60"
                     />
-                    {errors.deliveryProvince && <p className="text-xs text-destructive">{errors.deliveryProvince}</p>}
+                    {errors.deliveryProvince && (
+                      <p className="text-xs text-red-400 flex items-center gap-1">
+                        <svg className="h-3 w-3" fill="currentColor" viewBox="0 0 20 20"><path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clipRule="evenodd" /></svg>
+                        {errors.deliveryProvince}
+                      </p>
+                    )}
                   </div>
-                </div>
 
-                <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+                  {/* Delivery Street Address */}
                   <div className="space-y-1.5 sm:col-span-2">
-                    <Label className="text-xs font-medium text-brand-navy/90">
-                      {translate("quotationStreetAddress")} <span className="text-red-500">*</span>
-                    </Label>
+                    <label className="flex items-center gap-1.5 text-[10px] font-bold uppercase tracking-[0.15em] text-gray-400">
+                      <svg className="h-3 w-3 text-blue-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" /><path strokeLinecap="round" strokeLinejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" /></svg>
+                      {translate("quotationStreetAddress")} <span className="text-amber-400">*</span>
+                    </label>
                     <Input
                       value={deliveryStreetAddress}
                       onChange={(e) => {
@@ -1365,18 +1370,28 @@ export function RequestQuotationView({ serviceSlug }: { serviceSlug: string }) {
                         if (errors.deliveryStreetAddress) setErrors((prev) => ({ ...prev, deliveryStreetAddress: "" }));
                       }}
                       placeholder={translate("quotationStreetPlaceholder")}
-                      className="h-11 rounded-lg border border-[#A98B4B]/40 bg-[#FFFDF4] text-brand-navy placeholder:text-muted-foreground shadow-inner focus-visible:ring-2 focus-visible:ring-[#A98B4B]"
+                      className="h-11 rounded-lg border border-gray-500 bg-[#152243] text-slate-100 placeholder:text-slate-500 shadow-inner focus-visible:ring-2 focus-visible:ring-blue-500/40 focus-visible:border-blue-500/60"
                     />
-                    {errors.deliveryStreetAddress && <p className="text-xs text-destructive">{errors.deliveryStreetAddress}</p>}
+                    {errors.deliveryStreetAddress && (
+                      <p className="text-xs text-red-400 flex items-center gap-1">
+                        <svg className="h-3 w-3" fill="currentColor" viewBox="0 0 20 20"><path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clipRule="evenodd" /></svg>
+                        {errors.deliveryStreetAddress}
+                      </p>
+                    )}
                   </div>
 
+                  {/* Delivery Unit/Apt/Suite */}
                   <div className="space-y-1.5 sm:col-span-2">
-                    <Label className="text-xs font-medium text-brand-navy/90">{translate("quotationUnit")}</Label>
+                    <label className="flex items-center gap-1.5 text-[10px] font-bold uppercase tracking-[0.15em] text-gray-400">
+                      <svg className="h-3 w-3 text-blue-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" /></svg>
+                      {translate("quotationUnit")}
+                      <span className="ml-1 rounded-full bg-[#1f305e] px-2 py-0.5 text-[9px] font-semibold text-blue-300">Optional</span>
+                    </label>
                     <Input
                       value={deliveryUnit}
                       onChange={(e) => setDeliveryUnit(e.target.value)}
                       placeholder={translate("quotationUnitPlaceholder")}
-                      className="h-11 rounded-lg border border-[#A98B4B]/40 bg-[#FFFDF4] text-brand-navy placeholder:text-muted-foreground shadow-inner focus-visible:ring-2 focus-visible:ring-[#A98B4B]"
+                      className="h-11 rounded-lg border border-gray-500 bg-[#152243] text-slate-100 placeholder:text-slate-500 shadow-inner focus-visible:ring-2 focus-visible:ring-blue-500/40 focus-visible:border-blue-500/60"
                     />
                   </div>
                 </div>
