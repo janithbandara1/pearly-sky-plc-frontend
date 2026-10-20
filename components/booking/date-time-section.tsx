@@ -3,6 +3,7 @@
 import { useMemo, useState } from "react";
 import { useLanguage } from "@/lib/i18n/language-context";
 import type { TranslationKey } from "@/lib/i18n/dictionaries/en";
+import { Calendar, Clock, ChevronLeft, ChevronRight, CalendarDays, Check, Sparkles, Calendar1Icon } from "lucide-react";
 
 const TIME_START = "05:30";
 const TIME_END = "17:30";
@@ -100,52 +101,96 @@ export function DateTimeSection({ date, onDateChange, time, onTimeChange }: Date
   }, [viewMonth]);
 
   return (
-    <section className="overflow-hidden rounded-[12px] border border-[#A98B4B] bg-[rgb(248,249,250)]">
-      <div className="px-5 py-4 text-center">
-        <h2 className="text-[1.4rem] font-bold text-[rgb(18, 30, 45)] sm:text-[1.3rem]">
-          {translate("dateTimeSelectTitle")}
-        </h2>
+    <section className="overflow-hidden rounded-2xl border border-brand-gold bg-[#0B1528] shadow-xl">
+      {/* Top Header Bar */}
+      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 border-b border-brand-gold/60 bg-[#05122b] px-5 py-4 sm:px-7">
+        <div className="flex items-center gap-3">
+          <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg border border-[#C6A868]/60 bg-[#152243] text-[#C5A253] shadow-sm">
+            <CalendarDays className="h-5 w-5" />
+          </div>
+          <div>
+            <h2 className="text-sm sm:text-base font-bold uppercase tracking-wider text-white">
+              {translate("dateTimeSelectTitle")}
+            </h2>
+            <p className="text-xs text-gray-400">
+              {translate("dateTimeSelectHelp")}
+            </p>
+          </div>
+        </div>
+
+        {/* Selected Slot Badge */}
+        {(date || time) && (
+          <div className="flex items-center gap-2">
+            <span className="inline-flex items-center gap-1.5 rounded-full border border-brand-gold/60 bg-[#152243] px-3.5 py-1 text-xs font-semibold text-[#C5A253] shadow-inner">
+              <Calendar1Icon className="h-3.5 w-3.5 text-[#C5A253]" />
+              {date ? date : "Date TBD"} {time ? `• ${formatAmPm(time)}` : ""}
+            </span>
+          </div>
+        )}
       </div>
 
-      <div className="grid grid-cols-1 gap-4 bg-[#F8F9FA] p-4 sm:p-5 md:grid-cols-2 md:gap-5">
-        {/* Date */}
-        <div className="overflow-hidden rounded-xl border border-[#A98B4B] bg-[#FFFDF4] shadow-sm">
-          <div className="bg-[#121E2D] py-3.5 text-center text-sm font-semibold text-white">
-            {translate("dateTimeSelectDate")}
+      {/* Date & Time Pickers Grid */}
+      <div className="grid grid-cols-1 gap-5 p-4 sm:p-6 md:grid-cols-2 md:gap-6 bg-[#0B1528]">
+        {/* Date Picker Card */}
+        <div className="overflow-hidden rounded-xl border border-gray-500 bg-[#0c1628] shadow-md flex flex-col">
+          {/* Card Header */}
+          <div className="flex items-center justify-between border-b border-blue-900/40 bg-[#121E2D] px-4 py-3">
+            <div className="flex items-center gap-2">
+              <div className="flex h-6 w-6 items-center justify-center rounded-md border border-blue-900/40 bg-[#1f305e] text-blue-400">
+                <Calendar className="h-3.5 w-3.5" />
+              </div>
+              <span className="text-xs sm:text-sm font-bold uppercase tracking-wider text-slate-100">
+                {translate("dateTimeSelectDate")}
+              </span>
+            </div>
+
+            {date && (
+              <span className="rounded-md border border-blue-900/40 bg-[#152243] px-2 py-0.5 text-[11px] font-semibold text-blue-300">
+                {date}
+              </span>
+            )}
           </div>
-          <div className="p-4">
-            <div className="mb-2 flex items-center justify-between">
+
+          <div className="p-4 flex-1 flex flex-col justify-between">
+            {/* Month & Year Navigator */}
+            <div className="mb-3 flex items-center justify-between px-1">
               <button
                 type="button"
                 disabled={!canGoPrevMonth}
                 onClick={() => setViewMonth(new Date(viewMonth.getFullYear(), viewMonth.getMonth() - 1, 1))}
-                className="rounded px-2 py-1 text-lg font-semibold text-[#002F6D] transition hover:text-[#A98B4B] disabled:opacity-30"
+                className="flex h-8 w-8 items-center justify-center rounded-lg border border-blue-900/40 bg-[#152243] text-blue-400 transition-colors hover:bg-[#1f305e] hover:text-white disabled:cursor-not-allowed disabled:opacity-30"
+                aria-label="Previous Month"
               >
-                ‹
+                <ChevronLeft className="h-4 w-4" />
               </button>
-              <span className="text-sm font-semibold text-[#002F6D]">
+
+              <span className="text-sm font-bold tracking-wider text-slate-100 uppercase">
                 {translate(MONTH_KEYS[viewMonth.getMonth()])} {viewMonth.getFullYear()}
               </span>
+
               <button
                 type="button"
                 onClick={() => setViewMonth(new Date(viewMonth.getFullYear(), viewMonth.getMonth() + 1, 1))}
-                className="rounded px-2 py-1 text-lg font-semibold text-[#002F6D] transition hover:text-[#A98B4B]"
+                className="flex h-8 w-8 items-center justify-center rounded-lg border border-blue-900/40 bg-[#152243] text-blue-400 transition-colors hover:bg-[#1f305e] hover:text-white"
+                aria-label="Next Month"
               >
-                ›
+                <ChevronRight className="h-4 w-4" />
               </button>
             </div>
 
-            <div className="grid grid-cols-7 gap-y-1 text-center">
+            {/* Weekday Labels */}
+            <div className="grid grid-cols-7 gap-1 text-center py-2 px-1 rounded-lg bg-[#0e1a2e]/60 border border-blue-900/30 mb-2">
               {WEEKDAY_KEYS.map((w) => (
-                <span key={w} className="text-xs font-semibold text-[#002F6D]">
+                <span key={w} className="text-[11px] font-bold uppercase tracking-wider text-gray-400">
                   {translate(w)}
                 </span>
               ))}
             </div>
 
-            <div className="grid grid-cols-7 gap-y-1 text-center">
+            {/* Calendar Days Grid */}
+            <div className="grid grid-cols-7 gap-1.5 text-center">
               {cells.map((cellDate, i) => {
-                if (!cellDate) return <span key={`blank-${i}`} />;
+                if (!cellDate) return <span key={`blank-${i}`} className="size-8 sm:size-9" />;
                 const key = toDateKey(cellDate);
                 const isPast = startOfDay(cellDate).getTime() < minSelectable.getTime();
                 const isToday = startOfDay(cellDate).getTime() === today.getTime();
@@ -156,14 +201,15 @@ export function DateTimeSection({ date, onDateChange, time, onTimeChange }: Date
                     type="button"
                     disabled={isPast}
                     onClick={() => onDateChange(key)}
-                    className={`mx-auto flex size-8 items-center justify-center rounded-full text-sm font-medium transition ${isSelected
-                      ? "bg-[#A98B4B] font-bold text-[#FFFDF4]"
-                      : isPast
-                        ? "cursor-not-allowed text-[#999] opacity-35"
-                        : isToday
-                          ? "border-2 border-dashed border-[#A98B4B] text-[#002F6D]"
-                          : "text-[#002F6D] hover:bg-[#D9D9D9] hover:text-[#121E2D]"
-                      }`}
+                    className={`mx-auto flex size-8 sm:size-9 items-center justify-center rounded-lg text-xs sm:text-sm transition-all cursor-pointer ${
+                      isSelected
+                        ? "bg-blue-600 text-white font-bold border-2 border-[#B89642] shadow-[0_0_12px_rgba(59,130,246,0.45)] scale-105"
+                        : isPast
+                          ? "cursor-not-allowed text-gray-600 opacity-30"
+                          : isToday
+                            ? "border border-dashed border-[#C6A868] text-[#C5A253] font-bold bg-[#152243]/70 hover:bg-[#1f305e]"
+                            : "text-slate-200 hover:bg-[#152243] hover:text-white hover:border border-blue-900/40 font-medium"
+                    }`}
                   >
                     {cellDate.getDate()}
                   </button>
@@ -173,12 +219,28 @@ export function DateTimeSection({ date, onDateChange, time, onTimeChange }: Date
           </div>
         </div>
 
-        {/* Time */}
-        <div className="overflow-hidden rounded-xl border border-[#A98B4B] bg-[#FFFDF4] shadow-sm">
-          <div className="bg-[#121E2D] py-3.5 text-center text-sm font-semibold text-white">
-            {translate("dateTimeSelectTime")}
+        {/* Time Slot Picker Card */}
+        <div className="overflow-hidden rounded-xl border border-gray-500 bg-[#0c1628] shadow-md flex flex-col">
+          {/* Card Header */}
+          <div className="flex items-center justify-between border-b border-blue-900/40 bg-[#121E2D] px-4 py-3">
+            <div className="flex items-center gap-2">
+              <div className="flex h-6 w-6 items-center justify-center rounded-md border border-blue-900/40 bg-[#1f305e] text-blue-400">
+                <Clock className="h-3.5 w-3.5" />
+              </div>
+              <span className="text-xs sm:text-sm font-bold uppercase tracking-wider text-slate-100">
+                {translate("dateTimeSelectTime")}
+              </span>
+            </div>
+
+            {time && (
+              <span className="rounded-md border border-blue-900/40 bg-[#152243] px-2 py-0.5 text-[11px] font-semibold text-[#C5A253]">
+                {formatAmPm(time)}
+              </span>
+            )}
           </div>
-          <div className="grid max-h-64 grid-cols-2 gap-2 overflow-y-auto p-3">
+
+          {/* Time Slots List */}
+          <div className="grid max-h-[310px] grid-cols-2 gap-2.5 overflow-y-auto p-4 [&::-webkit-scrollbar]:w-1.5 [&::-webkit-scrollbar-thumb]:rounded-full [&::-webkit-scrollbar-thumb]:bg-blue-900/60 hover:[&::-webkit-scrollbar-thumb]:bg-blue-700/80">
             {TIME_SLOTS.map((slot) => {
               const isSelected = slot === time;
               return (
@@ -186,12 +248,17 @@ export function DateTimeSection({ date, onDateChange, time, onTimeChange }: Date
                   key={slot}
                   type="button"
                   onClick={() => onTimeChange(slot)}
-                  className={`rounded-xl border-2 px-1.5 py-2.5 text-left pl-4 text-[13px] font-semibold whitespace-nowrap transition ${isSelected
-                    ? "border-[#121E2D] bg-[#A98B4B] text-[#FFFDF4]"
-                    : "border-[#121E2D] bg-[#FFFDF4] text-[#002F6D] hover:border-[#A98B4B] hover:bg-[#D9D9D9] hover:text-[#121E2D]"
-                    }`}
+                  className={`flex items-center justify-between px-3.5 py-2.5 rounded-xl text-xs sm:text-[13px] font-semibold transition-all cursor-pointer ${
+                    isSelected
+                      ? "border-2 border-[#B89642] bg-blue-600 text-white shadow-[0_0_12px_rgba(59,130,246,0.4)]"
+                      : "border border-blue-900/40 bg-[#152243] text-slate-200 hover:border-[#C6A868]/70 hover:bg-[#1f305e] hover:text-white"
+                  }`}
                 >
-                  {formatAmPm(slot)}
+                  <span className="flex items-center gap-2">
+                    <Clock className={`h-3.5 w-3.5 ${isSelected ? "text-white" : "text-blue-400"}`} />
+                    <span>{formatAmPm(slot)}</span>
+                  </span>
+                  {isSelected && <Check className="h-4 w-4 text-white stroke-[2.5]" />}
                 </button>
               );
             })}
@@ -201,3 +268,4 @@ export function DateTimeSection({ date, onDateChange, time, onTimeChange }: Date
     </section>
   );
 }
+
