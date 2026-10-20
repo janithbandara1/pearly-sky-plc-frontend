@@ -625,6 +625,9 @@ const HIGH_SECURITY_RESIDENTIAL_CATEGORIES: PropertyCategory[] = [
   }
 ];
 
+
+
+
 const HIGH_SECURITY_COMMERCIAL_CATEGORIES: PropertyCategory[] = [
   {
     id: "security-cleaning",
@@ -741,6 +744,29 @@ const PREMIUM_RENTAL_MANAGEMENT_PROPERTY:PropertyCategory[]=[
   { id: "property_managers", label: "propPropertyManagers", icon: "🏗️", min: 200, max: 500, step: 1, locked: false },
 ]
 
+const POOL_DEFAULT_TYPES:PropertyCategory[]=[
+  
+  { id: "pool_kiddies", label: "poolTypeKiddies", icon: "🏗️", min: 20, max: 500, step: 1, locked: false }, 
+  { id: "above_ground_pools", label: "poolTypeAboveGroundSwimmingPools", icon: "🏊‍♂️", min: 20, max: 500, step: 1, locked: false },
+  { id: "lap_pools", label: "poolTypeLapPools", icon: "🏊‍♀️", min: 20, max: 500, step: 1, locked: false },
+  { id: "in_ground_pools", label: "poolTypeInGroundPools", icon: "🏊", min: 20, max: 500, step: 1, locked: false },
+  
+  { id: "family_swimming_pools", label: "poolTypeFamilySwimmingPools", icon: "👨‍👩‍👧‍👦", min: 20, max: 500, step: 1, locked: false },
+  { id: "indoor_pools", label: "poolTypeIndoorPools", icon: "🏛️", min: 20, max: 500, step: 1, locked: false },
+  { id: "olympic_size_pools", label: "poolTypeOlympicSizePools", icon: "🥇", min: 20, max: 500, step: 1, locked: false },
+  { id: "architectural_pools", label: "poolTypeArchitecturalPools", icon: "📐", min: 20, max: 500, step: 1, locked: false },
+  
+  { id: "infinity_pools", label: "poolTypeInfinityPools", icon: "🌅", min: 20, max: 500, step: 1, locked: false },
+  { id: "natural_pools", label: "poolTypeNaturalPools", icon: "🌿", min: 20, max: 500, step: 1, locked: false },
+  { id: "spool_small_pool", label: "poolTypeSpoolSmallPool", icon: "💧", min: 20, max: 500, step: 1, locked: false },
+  { id: "saltwater_pools", label: "poolTypeSaltwaterPools", icon: "🧂", min: 20, max: 500, step: 1, locked: false },
+  { id: "plunge_pools", label: "poolTypePlungePools", icon: "🧊", min: 20, max: 500, step: 1, locked: false },
+  { id: "jacuzzi_cleaning", label: "poolAddonJacuzziCleaning", icon: "🫧", min: 20, max: 500, step: 1, locked: false },
+  { id: "steam_room_cleaning", label: "poolAddonSteamRoomCleaning", icon: "💨", min: 20, max: 500, step: 1, locked: false },
+  { id: "sauna_room_cleaning", label: "poolAddonSaunaRoomCleaning", icon: "🧖‍♂️", min: 20, max: 500, step: 1, locked: false }
+  
+]
+
 export interface ServiceCategoryTab {
   id: string;
   label: string;
@@ -853,7 +879,24 @@ export const SERVICE_CATEGORY_TABS_MAP: Record<string, [ServiceCategoryTab, Serv
       icon: "🏭",
       categories: HIGH_SECURITY_COMMERCIAL_CATEGORIES,
     },
+    
   ],
+  "pool-cleaning":[
+    {
+      id: "residential",
+      label: "Residential",
+      translationKey: "propCatResidential",
+      icon: "🏠",
+      categories: POOL_DEFAULT_TYPES,
+    },
+    {
+      id: "industrial",
+      label: "Industrial",
+      translationKey: "propCatIndustrial",
+      icon: "🏭",
+      categories: POOL_DEFAULT_TYPES, 
+    },
+  ]
 };
 
 /** Translation key for a Service Category tab id (e.g. "yatch-cleaning" -> "yachtCleaning"), for summaries. */
@@ -1497,6 +1540,7 @@ export function PropertyTypeSizeSelectorCommonFlowOfServices({
     "post-event-cleaning",
     "luxury-yacht-cleaning",
     "healthguard-sanitization",
+    "pool-cleaning",
   ]);
   const isFrequencyService = frequencyServiceSlugsSet.has(serviceSlug);
 
@@ -1658,10 +1702,16 @@ export function PropertyTypeSizeSelectorCommonFlowOfServices({
     return cat.label;
   };
 
+  const isPool = serviceSlug === "pool-cleaning";
+
   return (
     <section className="w-full flex flex-col justify-center items-center">
       {/* Dynamic Size & Area Floorplan Visualization Component */}
-      {isYachtSlug ? (
+      {isPool ? 
+        (
+          <PoolBlueprintDiagram />
+        ) :
+      isYachtSlug ? (
         <YatchSizeVisualization
           value={value}
           activeCategory={activeCategory ?? undefined}
@@ -1683,7 +1733,7 @@ export function PropertyTypeSizeSelectorCommonFlowOfServices({
         />
       )}
 
-      <div className={`  rounded-b-2xl py-4 border border-[#C6A868] bg-brand-navy pb-5 sm:pb-6 px-5 sm:px-6 shadow-sm w-full`}>
+      <div className={`  rounded-b-2xl py-4  ${isQuote ? "border border-cyan-500/40 " : "border border-[#C6A868]"}  bg-brand-navy pb-5 sm:pb-6 px-5 sm:px-6 shadow-sm w-full`}>
         {!ROOM_COMPONENTS_SERVICES && (
           <div className="w-full">
             <h2 className="text-base sm:text-lg font-bold text-gray-300 mb-3">{translate("propServiceCatagory")}</h2>
@@ -1871,7 +1921,7 @@ export function PropertyTypeSizeSelectorCommonFlowOfServices({
           </div>
 
           {/* Disinfection & Deep Clean Selectable Cards */}
-          {!isQuote &&isSanitizeService && (
+          {isSanitizeService && (
             <div className="grid grid-cols-2 gap-3 items-center mt-4 h-full w-full">
               {/* Disinfection Card */}
               <button
@@ -1933,11 +1983,11 @@ export function PropertyTypeSizeSelectorCommonFlowOfServices({
         </div>
 
         {/* Room selector for services types */}
-        <RoomSelector 
+        {!isPool &&  (<RoomSelector 
             value={rooms} 
             onChange={(next) => onRoomsChange?.(next)} 
             serviceSlug={serviceSlug}
-        />
+        />)}
 
         {/* Right Column: Property Size */}
         <div className="flex flex-col w-full mt-8">
@@ -2264,3 +2314,194 @@ function YatchSizeVisualization({
 
 
 //Quotation matrix flow with 
+
+
+export const PoolBlueprintDiagram = () => {
+  return (
+    <div
+      className="w-full rounded-2xl bg-[#070D1B] border border-cyan-500/40 p-4 sm:p-8 shadow-2xl relative overflow-hidden select-none font-mono flex justify-center"
+      style={{
+        backgroundImage: `
+          linear-gradient(to right, rgba(0, 180, 255, 0.05) 1px, transparent 1px),
+          linear-gradient(to bottom, rgba(0, 180, 255, 0.05) 1px, transparent 1px)
+        `,
+        backgroundSize: "32px 32px",
+      }}
+    >
+      {/* Main Architectural SVG Blueprint Stage */}
+      <div className="relative w-full max-w-5xl bg-[#050914] border border-cyan-500/40 rounded-xl p-2 sm:p-4 shadow-inner flex items-center justify-center overflow-x-auto">
+        
+        <svg
+          viewBox="-80 -60 1160 760"
+          className="w-full h-auto max-h-[600px] drop-shadow-[0_0_16px_rgba(0,210,255,0.25)]"
+        >
+          {/* ================= DIMENSION LINES & LABELS ================= */}
+          <g stroke="#00e1ff" strokeWidth="1.5" fill="none" opacity="0.85">
+            {/* Top Span Width Dimension */}
+            <path d="M 20 -25 L 20 -40 L 490 -40 L 510 -40 L 980 -40 L 980 -25" />
+            <path d="M 20 -40 L 30 -35 M 20 -40 L 30 -45" fill="#00e1ff" />
+            <path d="M 980 -40 L 970 -35 M 980 -40 L 970 -45" fill="#00e1ff" />
+
+            {/* Left Depth Dimension */}
+            <path d="M -25 20 L -40 20 L -40 310 L -40 600 L -25 600" />
+            <path d="M -40 20 L -35 30 M -40 20 L -45 30" fill="#00e1ff" />
+            <path d="M -40 600 L -35 590 M -40 600 L -45 590" fill="#00e1ff" />
+          </g>
+
+          {/* Dimension Text Labels */}
+          <g fontFamily="monospace" fontSize="13" fill="#67e8f9" letterSpacing="2" textAnchor="middle">
+            <text x="500" y="-30" dominantBaseline="central">15.0 m SPAN WIDTH</text>
+            <text x="-50" y="320" transform="rotate(-90, -40, 310)" dominantBaseline="central">10.0 m DEPTH</text>
+          </g>
+
+          {/* Blueprint Outer Frame */}
+          <rect
+            x="20"
+            y="20"
+            width="960"
+            height="580"
+            rx="8"
+            fill="rgba(0, 160, 255, 0.03)"
+            stroke="#00e1ff"
+            strokeWidth="3.5"
+            opacity="0.9"
+          />
+
+          {/* Grid lines inside blueprint */}
+          <g stroke="rgba(0, 225, 255, 0.1)" strokeWidth="1">
+            {Array.from({ length: 19 }).map((_, i) => (
+              <line key={`v-${i}`} x1={(i + 1) * 50} y1="20" x2={(i + 1) * 50} y2="600" />
+            ))}
+            {Array.from({ length: 11 }).map((_, i) => (
+              <line key={`h-${i}`} x1="20" y1={(i + 1) * 50} x2="980" y2={(i + 1) * 50} />
+            ))}
+          </g>
+
+          {/* ================= MAIN ZONES & WALLS ================= */}
+          <g stroke="#00b4ff" strokeWidth="3" fill="none">
+            {/* Horizontal dividing line under Pool */}
+            <line x1="20" y1="280" x2="620" y2="280" />
+
+            {/* Vertical dividing line between main area & Right Service Block */}
+            <line x1="620" y1="20" x2="620" y2="600" />
+
+            {/* Cedar Sauna boundaries (Top Right) */}
+            <line x1="740" y1="20" x2="740" y2="200" />
+            <line x1="740" y1="200" x2="980" y2="200" />
+
+            {/* Steam Room boundaries (Middle Right) */}
+            <line x1="800" y1="200" x2="800" y2="420" />
+            <line x1="800" y1="420" x2="980" y2="420" />
+
+            {/* Change & Showers lower boundary */}
+            <line x1="620" y1="480" x2="980" y2="480" />
+          </g>
+
+          {/* ================= INFINITE POOL ================= */}
+          <g>
+            <rect
+              x="40"
+              y="40"
+              width="540"
+              height="220"
+              fill="rgba(0, 180, 255, 0.08)"
+              stroke="#00f0ff"
+              strokeWidth="2.5"
+            />
+            {/* Pool steps graphic */}
+            <line x1="510" y1="40" x2="510" y2="260" stroke="#00e1ff" strokeWidth="1.5" />
+            <line x1="530" y1="40" x2="530" y2="260" stroke="#00e1ff" strokeWidth="1.5" strokeDasharray="4 2" />
+            <line x1="550" y1="40" x2="550" y2="260" stroke="#00e1ff" strokeWidth="1.5" strokeDasharray="4 2" />
+
+            {/* Integrated Pool Jet Circle */}
+            <circle cx="560" cy="150" r="50" fill="#041e3a" stroke="#00f0ff" strokeWidth="2.5" />
+            <circle cx="560" cy="150" r="38" fill="none" stroke="#67e8f9" strokeWidth="1.5" strokeDasharray="3 3" />
+            <circle cx="560" cy="150" r="26" fill="none" stroke="#00f0ff" strokeWidth="1" />
+          </g>
+
+          {/* ================= JACUZZI (Bottom Left) ================= */}
+          <g>
+            <path
+              d="M 40 400 L 260 400 L 260 600 L 40 600 Z"
+              fill="rgba(0, 180, 255, 0.05)"
+              stroke="#00b4ff"
+              strokeWidth="2"
+            />
+            <circle cx="150" cy="500" r="75" fill="#041a30" stroke="#00f0ff" strokeWidth="3" />
+            <rect
+              x="100"
+              y="450"
+              width="100"
+              height="100"
+              rx="25"
+              fill="rgba(0, 240, 255, 0.12)"
+              stroke="#38bdf8"
+              strokeWidth="2"
+            />
+            <circle cx="115" cy="465" r="3" fill="#67e8f9" />
+            <circle cx="185" cy="465" r="3" fill="#67e8f9" />
+            <circle cx="115" cy="535" r="3" fill="#67e8f9" />
+            <circle cx="185" cy="535" r="3" fill="#67e8f9" />
+          </g>
+
+          {/* ================= LOUNGE AREA SOFA ================= */}
+          <g stroke="#38bdf8" strokeWidth="2" fill="rgba(0, 180, 255, 0.1)">
+            <rect x="390" y="525" width="150" height="45" rx="6" />
+            <line x1="440" y1="525" x2="440" y2="570" stroke="#00b4ff" strokeWidth="1.5" />
+            <line x1="490" y1="525" x2="490" y2="570" stroke="#00b4ff" strokeWidth="1.5" />
+            <rect x="420" y="490" width="90" height="20" rx="4" fill="none" stroke="#67e8f9" strokeWidth="1.5" strokeDasharray="3 2" />
+          </g>
+
+          {/* ================= CEDAR SAUNA BENCHES ================= */}
+          <g stroke="#38bdf8" strokeWidth="1.5" fill="none">
+            <rect x="870" y="35" width="85" height="150" rx="2" />
+            <line x1="900" y1="35" x2="900" y2="185" />
+            <line x1="930" y1="35" x2="930" y2="185" />
+          </g>
+
+          {/* ================= DOORS & ARCS ================= */}
+          <g stroke="#67e8f9" strokeWidth="1.5" fill="none">
+            <path d="M 740 200 A 35 35 0 0 1 775 165" strokeDasharray="3 2" />
+            <line x1="740" y1="200" x2="740" y2="165" />
+
+            <path d="M 800 300 A 35 35 0 0 1 765 335" strokeDasharray="3 2" />
+            <line x1="800" y1="300" x2="765" y2="300" />
+
+            <path d="M 620 330 A 35 35 0 0 1 655 365" strokeDasharray="3 2" />
+            <line x1="620" y1="330" x2="655" y2="330" />
+
+            <path d="M 800 480 A 35 35 0 0 1 835 515" strokeDasharray="3 2" />
+            <line x1="800" y1="480" x2="835" y2="480" />
+          </g>
+
+          {/* ================= FIXTURES ================= */}
+          <g stroke="#38bdf8" strokeWidth="1.5" fill="none">
+            <circle cx="715" cy="545" r="7" fill="rgba(56, 189, 248, 0.2)" />
+            <line x1="715" y1="545" x2="700" y2="560" strokeDasharray="2 2" />
+            <line x1="715" y1="545" x2="695" y2="545" strokeDasharray="2 2" />
+            <line x1="715" y1="545" x2="700" y2="530" strokeDasharray="2 2" />
+
+            <rect x="710" y="435" width="30" height="22" rx="4" />
+            <circle cx="725" cy="446" r="3" />
+
+            <rect x="635" y="535" width="28" height="18" rx="3" />
+            <path d="M 640 553 C 640 570, 658 570, 658 553 Z" />
+          </g>
+
+          {/* ================= LABELS ================= */}
+          <g fontFamily="monospace" textAnchor="middle">
+            <text x="300" y="135" fill="#e0f2fe" fontSize="17" fontWeight="bold" letterSpacing="3">INFINITE POOL</text>
+            <text x="860" y="105" fill="#e0f2fe" fontSize="13" fontWeight="bold" letterSpacing="1">CEDAR SAUNA</text>
+            <text x="150" y="375" fill="#e0f2fe" fontSize="14" fontWeight="bold" letterSpacing="2">JACUZZI</text>
+            <text x="465" y="455" fill="#e0f2fe" fontSize="16" fontWeight="bold" letterSpacing="2">LOUNGE AREA</text>
+            <text x="890" y="305" fill="#e0f2fe" fontSize="13" fontWeight="bold" letterSpacing="1">STEAM ROOM</text>
+            <text x="710" y="360" fill="#e0f2fe" fontSize="12" fontWeight="bold" letterSpacing="1">CHANGE & SHOWERS</text>
+            <text x="870" y="535" fill="#e0f2fe" fontSize="12" fontWeight="bold" letterSpacing="1">OUTDOOR SHOWER</text>
+          </g>
+        </svg>
+
+      </div>
+    </div>
+  );
+};
+

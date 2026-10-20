@@ -4,7 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import Link from "@/components/locale-link";
 import { usePathname } from "next/navigation";
-import { CalendarDays, ChevronDown, FileText, LogOut, Menu, UserRound, XIcon } from "lucide-react";
+import { CalendarDays, ChevronDown, FileText, LogOut, Menu, UserRound, XIcon, Sun, Moon } from "lucide-react";
 import { useAuth } from "@/lib/auth-context";
 import { useLanguage } from "@/lib/i18n/language-context";
 import { IS_GLOBAL_SITE } from "@/lib/countries/config";
@@ -13,6 +13,7 @@ import { cn } from "@/lib/utils";
 import { ServicesNavList } from "@/components/services-nav-list";
 import { LanguageSelect } from "@/components/language-select";
 import { Button } from "@/components/ui/button";
+import { usePoolTheme } from "@/lib/pool-theme-context";
 import {
   Sheet,
   SheetClose,
@@ -52,6 +53,8 @@ export function SiteHeader({ navLinks: navLinksProp, showServicesMenu: showServi
   const localeHref = (href: string) => buildLocalePath(href, language);
   const { status, logout } = useAuth();
   const pathname = usePathname();
+  const isPoolPage = Boolean(pathname && (pathname.includes("pool-cleaning") || pathname.includes("pool") || pathname.includes("precision-pressure")));
+  const { theme: poolTheme, toggleTheme: togglePoolTheme } = usePoolTheme();
   const [mobileOpen, setMobileOpen] = useState(false);
   const [servicesOpen, setServicesOpen] = useState(false);
   const [mobileServicesOpen, setMobileServicesOpen] = useState(false);
@@ -286,6 +289,34 @@ export function SiteHeader({ navLinks: navLinksProp, showServicesMenu: showServi
 
 
         <div className="flex items-center gap-2 sm:gap-3 ">
+          {/* Light Mode / Dark Mode Toggle on Site Header strictly for pool-cleaning */}
+          {isPoolPage && (
+            <button
+              type="button"
+              onClick={togglePoolTheme}
+              className={cn(
+                "flex items-center gap-1.5 rounded-full px-3 py-1.5 text-xs font-semibold shadow-md transition-all border cursor-pointer",
+                poolTheme === "dark"
+                  ? "bg-[#121e2d] text-[#c9a858] border-[#c9a858]/60 hover:bg-[#121e2d]/80 hover:border-[#c9a858]"
+                  : "bg-white text-[#1B2E4B] border-[#C5A059] hover:bg-[#F5F5DC]"
+              )}
+              title={poolTheme === "dark" ? "Switch to Light Mode" : "Switch to Dark Mode"}
+              aria-label="Toggle dark/light mode"
+            >
+              {poolTheme === "dark" ? (
+                <>
+                  <Sun className="h-4 w-4 text-[#c9a858]" />
+                  <span className="hidden sm:inline">Light Mode</span>
+                </>
+              ) : (
+                <>
+                  <Moon className="h-4 w-4 text-[#C5A059]" />
+                  <span className="hidden sm:inline">Dark Mode</span>
+                </>
+              )}
+            </button>
+          )}
+
           <div className="flex items-center gap-1.5 ">
             <LanguageSelect className="h-8  min-h-[48px] py-3 gap-1.5 border-brand-gold/70 bg-transparent  text-xs" />
           </div>
@@ -436,6 +467,31 @@ export function SiteHeader({ navLinks: navLinksProp, showServicesMenu: showServi
                     {link.label}
                   </Link>
                 ))}
+
+                {isPoolPage && (
+                  <div className="my-2 border-t border-brand-gold/20 pt-2">
+                    <button
+                      type="button"
+                      onClick={() => {
+                        togglePoolTheme();
+                        setMobileOpen(false);
+                      }}
+                      className={cn(
+                        "flex w-full items-center justify-between rounded-lg px-3 py-2.5 text-xs font-semibold border transition-all",
+                        poolTheme === "dark"
+                          ? "bg-[#121e2d] text-[#c9a858] border-[#c9a858]/40"
+                          : "bg-white text-[#1B2E4B] border-[#C5A059]"
+                      )}
+                    >
+                      <span>{poolTheme === "dark" ? "Theme: Dark Mode" : "Theme: Light Mode"}</span>
+                      {poolTheme === "dark" ? (
+                        <Sun className="h-4 w-4 text-[#c9a858]" />
+                      ) : (
+                        <Moon className="h-4 w-4 text-[#C5A059]" />
+                      )}
+                    </button>
+                  </div>
+                )}
 
                 {!IS_GLOBAL_SITE && status !== "authenticated" && (
                   <div className="mt-2 flex flex-col gap-2">

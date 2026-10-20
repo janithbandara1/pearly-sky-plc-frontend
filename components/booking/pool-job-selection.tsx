@@ -14,7 +14,8 @@ import {
   type QuoteItem,
   type QuoteItemOption,
 } from "@/lib/content/quote-items";
-import { useLanguage } from "@/lib/i18n/language-context";
+import { useLanguage } from "@/lib/i18n/language-context"; 
+import { PoolBlueprintDiagram } from "./common-flows-propertis-and-equipments/common-property-types";
 
 const POOL_TYPE_OPTIONS = POOL_ITEM_OPTIONS.filter((o) => o.group === "Pool Type");
 const ADDITIONAL_SERVICE_OPTIONS = POOL_ITEM_OPTIONS.filter((o) => o.group === "Additional Services");
@@ -94,6 +95,7 @@ export function PoolJobSelection({ items, onItemsChange }: PoolJobSelectionProps
           {translate("poolSectionTitle")}</h1>
         <p className="text-white">{translate("poolSelectingJob")}</p>
       </div>
+      
 
       <div className="flex flex-col gap-4 bg-[#121E2D] p-4 sm:p-5">
         <div className="grid grid-cols-1 gap-4 md:grid-cols-[1fr_1.1fr_1fr]">
@@ -210,3 +212,4 @@ export function PoolJobSelection({ items, onItemsChange }: PoolJobSelectionProps
     </section>
   );
 }
+

@@ -16,6 +16,8 @@ import PaymentMarquee from "@/components/payment-method-services";
 import { CookieConsentBanner } from "@/components/cookie/cookie-consent-banner";
 import { CrispChat } from "@/components/cookie/crisp-chat";
 
+import { PoolThemeProvider } from "@/lib/pool-theme-context";
+
 export default async function SiteLayout({
   children,
 }: Readonly<{
@@ -33,15 +35,17 @@ export default async function SiteLayout({
     <CountryProvider country={country} countries={countries}>
       <CurrencyProvider currencies={currencies}>
         <LanguageProvider language={language}>
-          <JsonLd data={buildLocalBusinessJsonLd(office, country ?? "fr")} />
-          <SiteHeader />
-          <div className="flex flex-1 flex-col">{children}</div>
-          {/* <JoinWithUsSection />
-          <RelatedServices />
-          <PaymentMarquee /> */}
-          <SiteFooter />
-          <CookieConsentBanner />
-          <CrispChat />
+          <PoolThemeProvider>
+            <JsonLd data={buildLocalBusinessJsonLd(office, country ?? "fr")} />
+            <SiteHeader />
+            <div className="flex flex-1 flex-col">{children}</div>
+            {/* <JoinWithUsSection />
+            <RelatedServices />
+            <PaymentMarquee /> */}
+            <SiteFooter />
+            <CookieConsentBanner />
+            <CrispChat />
+          </PoolThemeProvider>
         </LanguageProvider>
       </CurrencyProvider>
     </CountryProvider>

@@ -4,7 +4,7 @@ import Link from "@/components/locale-link";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useEffect, useMemo, useState } from "react";
-import { CheckCircle2, Minus, Plus } from "lucide-react";
+import { CheckCircle2, Minus, Plus, Sun, Moon } from "lucide-react";
 import { DateTimeSection } from "@/components/booking/date-time-section";
 import type { SupplySource } from "@/components/booking/equipment-section";
 import {
@@ -61,6 +61,8 @@ import { EquipmentSectionOfCommonServicesSlugs } from "@/components/booking/comm
 import { DISINFECTION_LEVELS } from "@/components/booking/disinfection-level-section";
 import { HeroPriceSelector } from "@/components/hero-price-selector";
 import { PageHero } from "@/components/page-hero";
+import { PoolScheduleSection } from "@/components/booking/pool/pool-schedule-section";
+import { usePoolTheme } from "@/lib/pool-theme-context";
 
 
 const CUSTOM_QUOTE_ITEMS: Record<
@@ -373,6 +375,11 @@ export function RequestQuotationView({ serviceSlug }: { serviceSlug: string }) {
   const customQuote = CUSTOM_QUOTE_ITEMS[serviceSlug];
   const isPickupDeliveryService = PICKUP_DELIVERY_SLUGS.has(serviceSlug) || false;
   const hideChemEquip = HIDE_CHEM_EQUIP_SLUGS.has(serviceSlug);
+  const isPoolCleaning =
+    serviceSlug === "pool-cleaning" ||
+    serviceSlug === "pool-cleaning-maintenance" ||
+    serviceSlug.includes("pool");
+  const { theme: poolTheme, setTheme: setPoolTheme, toggleTheme: togglePoolTheme } = usePoolTheme();
 
   const serviceContent =
     SERVICE_CONTENT[serviceSlug] ??
@@ -760,8 +767,25 @@ export function RequestQuotationView({ serviceSlug }: { serviceSlug: string }) {
       setDurationHours((prev) => Math.min(24, prev + 1))
     }
 
+  const EXCLIST = new Set(["laundry-service"])
+
+  //
+  const STEP_NAVIAGTION_SERVICES= new Set(
+    ["pool-cleaning",
+    "pool-cleaning-maintenance",
+    ])
+
   return (
-    <main className="flex-1 bg-[#f5f5fa] pb-16 font-sans">
+    <main
+      className={`flex-1 min-h-screen pb-16 font-sans transition-colors duration-300 ${
+        isPoolCleaning
+          ? poolTheme === "dark"
+            ? "bg-[#0B132B] text-white"
+            : "bg-[#F8F9FA] text-[#1B2E4B]"
+          : "bg-[#f5f5fa]"
+      }`}
+    >
+
       {/* Floating Success Toast Matching Image 3 */}
       {showSuccessToast && (
         <div className="fixed bottom-8 left-1/2 -translate-x-1/2 z-50 animate-in fade-in slide-in-from-bottom-5 duration-300">
@@ -781,6 +805,7 @@ export function RequestQuotationView({ serviceSlug }: { serviceSlug: string }) {
         subtitle={service?.description ?? currentServiceDescription}
         servicePrices={service?.prices}
         serviceId={service?.id}
+        theme={isPoolCleaning ? poolTheme : undefined}
         hidePriceSelector={
           serviceSlug === "pool-cleaning" ||
           serviceSlug === "pool-cleaning-maintenance" ||
@@ -795,6 +820,7 @@ export function RequestQuotationView({ serviceSlug }: { serviceSlug: string }) {
             ? "hourPerProfessional"
             : undefined
         }
+        serviceSlug={serviceSlug}
       />
 
       {/* Introduction & Highlights Sections Matching Image 2 */}
@@ -819,13 +845,24 @@ export function RequestQuotationView({ serviceSlug }: { serviceSlug: string }) {
           />
         ))}
 
-        {/* MAIN SERVICE REQUEST DETAILS FORM BOX */}
-        <div className="mx-auto w-full max-w-7xl rounded-2xl sm:rounded-3xl border-2 border-[#A98B4B] bg-[#070d1b] p-5 sm:p-8 md:p-10 shadow-sm">
-          <h2 className="mb-6 text-center sm:text-left text-base sm:text-lg font-bold uppercase tracking-wider text-gray-300">
-            {translate("quotationFormTitle")}
-          </h2>
+        {isPoolCleaning ? (
+          <div className="w-full rounded-[15px]">
+            <PoolScheduleSection
+              serviceId={service?.id ?? 13}
+              serviceSlug={serviceSlug}
+              serviceLabel={currentServiceLabel}
+              theme={poolTheme}
+              onThemeChange={setPoolTheme}
+            />
+          </div>
+        ) : (
+          /* MAIN SERVICE REQUEST DETAILS FORM BOX */
+          <div className="mx-auto w-full max-w-7xl rounded-2xl sm:rounded-3xl border-2 border-[#A98B4B] bg-[#070d1b] p-5 sm:p-8 md:p-10 shadow-sm">
+            <h2 className="mb-6 text-center sm:text-left text-base sm:text-lg font-bold uppercase tracking-wider text-gray-300">
+              {translate("quotationFormTitle")}
+            </h2>
 
-          <form onSubmit={handleSubmit} className="flex flex-col gap-6" noValidate>
+            <form onSubmit={handleSubmit} className="flex flex-col gap-6" noValidate>
             {/* 1. Date & Time */}
             <div className="space-y-2">
               <p className="text-xs font-semibold text-gray-400">{translate("quotationStep1DateTime")}</p>
@@ -845,164 +882,10 @@ export function RequestQuotationView({ serviceSlug }: { serviceSlug: string }) {
               {errors.time && <p className="text-xs text-destructive">{errors.time}</p>}
             </div>
 
-            {/* 2. Chemical and Equipment */}
-            {!hideChemEquip && (
-              <div className="space-y-2 hidden">
-                <Label className="text-xs font-semibold text-brand-navy">
-                  {translate("quotationStep2ChemEquip")}
-                </Label>
-                <Select
-                  value={supplySource}
-                  onValueChange={(val) => setSupplySource(val as SupplySource)}
-                >
-                  <SelectTrigger className="h-11 w-full rounded-lg border border-[#A98B4B]/40 bg-[#FFFDF4] text-brand-navy shadow-inner focus:ring-2 focus:ring-[#A98B4B]">
-                    <SelectValue placeholder={translate("quotationChemEquipPlaceholder")} />
-                  </SelectTrigger>
-                  <SelectContent className="bg-white border-[#A98B4B]/30">
-                    <SelectItem value="customer">{translate("quotationChemCustomer")}</SelectItem>
-                    <SelectItem value="company">{translate("quotationChemCompany")}</SelectItem>
-                  </SelectContent>
-                </Select>
-
-                {/* Equipment Items Toggle when Request the Company is selected */}
-                {supplySource === "company" && service?.serviceItems && service.serviceItems.length > 0 && (
-                  <div className="mt-3 rounded-xl border border-[#A98B4B]/30 bg-white p-4 space-y-2.5">
-                    <p className="text-xs font-semibold text-[#121E2D]">{translate("quotationSelectEquipMaterials")}</p>
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
-                      {service.serviceItems.map(({ item }) => {
-                        const isChecked = selectedItemIds.has(item.id);
-                        return (
-                          <label
-                            key={item.id}
-                            className="flex cursor-pointer items-center justify-between gap-2 rounded-lg border border-gray-200 p-2.5 hover:bg-gray-50 text-xs text-[#121E2D]"
-                          >
-                            <span className="font-medium">{item.name}</span>
-                            <Checkbox
-                              checked={isChecked}
-                              onCheckedChange={() => toggleEquipmentItem(item.id)}
-                              className="border-[#A98B4B] data-[state=checked]:bg-[#A98B4B]"
-                            />
-                          </label>
-                        );
-                      })}
-                    </div>
-                  </div>
-                )}
-              </div>
-            )}
-
-            {/* 3. Property Scale / Service Specific Details */}
-            {!isPickupDeliveryService && (
-            <div className="space-y-2 hidden">
-              <p className="text-xs font-semibold text-brand-navy">{translate("quotationStep3PropertyScale")}</p>
-              {serviceSlug === "carpet-upholstery-cleaning" ? (
-                <CarpetItemCards items={quoteItems} onItemsChange={setQuoteItems} />
-              ) : serviceSlug === "pool-cleaning" ? (
-                <PoolJobSelection items={quoteItems} onItemsChange={setQuoteItems} />
-              ) : serviceSlug === "precision-pressure-washing" ? (
-                <PressureWashingJobSelection items={quoteItems} onItemsChange={setQuoteItems} />
-              ) : customQuote ? (
-                <QuoteItemsSection
-                  title={customQuote.title}
-                  itemLabel={customQuote.itemLabel}
-                  itemOptions={customQuote.options}
-                  items={quoteItems}
-                  onItemsChange={setQuoteItems}
-                />
-              ) : (
-                <PropertyTypeSizeSelector
-                  value={propertySizeSqm}
-                  onChange={setPropertySizeSqm}
-                  categories={sizeCategories}
-                  onCategoryChange={(cat: PropertyCategory) =>
-                    setPropertyType(cat.dropdownLabel ?? cat.label)
-                  }
-                />
-              )}
-            </div>
-            )}
-
-            {/* 4 & 5. Allocated professionals & Cleaner duration */}
-            {!isPickupDeliveryService && (
-            <div className="grid grid-cols-1 hidden gap-4 sm:grid-cols-2">
-              {/* 4. Allocated professionals */}
-              <div className="space-y-1.5">
-                <Label className="text-xs font-semibold text-brand-navy">
-                  {translate("quotationStep4AllocatedPros")}
-                </Label>
-                <div className="flex h-11 items-center justify-between rounded-lg border border-[#A98B4B]/40 bg-[#FFFDF4] px-4 shadow-inner">
-                  <button
-                    type="button"
-                    onClick={handleNumCleanersChangeDecrement}
-                    disabled={numCleaners <= 1}
-                    className="flex h-6 w-6 items-center justify-center rounded-full bg-[#A98B4B] text-white transition hover:brightness-110 disabled:opacity-40"
-                  >
-                    <Minus className="h-3.5 w-3.5" />
-                  </button>
-                  <span className="text-sm font-bold text-brand-navy">{numCleaners}</span>
-                  <button
-                    type="button"
-                    onClick={handleCleanersChangeIncrement}
-                    className="flex h-6 w-6 items-center justify-center rounded-full bg-[#A98B4B] text-white transition hover:brightness-110"
-                  >
-                    <Plus className="h-3.5 w-3.5" />
-                  </button>
-                </div>
-              </div>
-
-              {/* 5. Cleaner duration */}
-              <div className="space-y-1.5">
-                <Label className="text-xs font-semibold text-brand-navy">
-                  {translate("quotationStep5CleanerDuration")}
-                </Label>
-                <div className="flex h-11 items-center justify-between rounded-lg border border-[#A98B4B]/40 bg-[#FFFDF4] px-4 shadow-inner">
-                  <button
-                    type="button"
-                    onClick={() => setDurationHours((prev) => Math.max(1, prev - 1))}
-                    disabled={durationHours <= 1}
-                    className="flex h-6 w-6 items-center justify-center rounded-full bg-[#A98B4B] text-white transition hover:brightness-110 disabled:opacity-40"
-                  >
-                    <Minus className="h-3.5 w-3.5" />
-                  </button>
-                  <span className="text-sm font-bold text-brand-navy">{durationHours}h</span>
-                  <button
-                    type="button"
-                    onClick={() => setDurationHours((prev) => Math.min(12, prev + 1))}
-                    className="flex h-6 w-6 items-center justify-center rounded-full bg-[#A98B4B] text-white transition hover:brightness-110"
-                  >
-                    <Plus className="h-3.5 w-3.5" />
-                  </button>
-                </div>
-              </div>
-            </div>
-            )}
-
-            
-
-            {/* Service Requirements & Specifics */}
-            <div className="space-y-1.5 hidden">
-              <Label className="text-xs font-semibold text-brand-navy">
-                {hideChemEquip ? "4." : isPickupDeliveryService ? "5." : "8."} {translate("quotationStepRequirements")}
-              </Label>
-              <textarea
-                value={requirements}
-                onChange={(e) => setRequirements(e.target.value)}
-                placeholder={translate("quotationRequirementsPlaceholder")}
-                className="h-24 w-full rounded-lg border border-[#A98B4B]/40 bg-[#FFFDF4] p-3 text-xs sm:text-sm text-brand-navy shadow-inner placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#A98B4B]"
-              />
-            </div>
-
-            {/* Photos */}
-            <div className="hidden">
-              <CheckoutAttachmentUpload
-                attachments={attachments}
-                onAttachmentsChange={setAttachments}
-                tone="light"
-                labelPrefix={hideChemEquip ? "5." : isPickupDeliveryService ? "6." : "9."}
-              />
-            </div> 
+          
 
             {/**Structure of property type selector ,allows maximun 5000m and no price calculation */}
+            {!EXCLIST.has(serviceSlug) && (
             <PropertyTypeSizeSelectorCommonFlowOfServices 
               value={propertySizeSqm}
               onChange={setPropertySizeSqm}
@@ -1020,9 +903,9 @@ export function RequestQuotationView({ serviceSlug }: { serviceSlug: string }) {
               selectServiceFrequency={selectServiceFrequency}
               setSelectServiceFrequency={setSelectServiceFrequency}
               isQuote={true}
-            />
+            />)}
 
-            {(() => {
+            {!EXCLIST.has(serviceSlug) && (() => {
               const categories = getPropertyCategoriesForServiceOfSanitize(serviceSlug);
               const pTypeLower = (propertyType || "").toLowerCase();
               const activeCategory =
@@ -1180,15 +1063,16 @@ export function RequestQuotationView({ serviceSlug }: { serviceSlug: string }) {
                     {translate("quotationSelectCountry")} <span className="text-amber-400">*</span>
                   </label>
                   <Select value={selectedCountry} onValueChange={setSelectedCountry}>
-                    <SelectTrigger className="h-11 w-full rounded-lg border border-blue-900/40 bg-[#152243] text-slate-100 shadow-inner focus:ring-2 focus:ring-blue-500/40 [&>svg]:text-blue-400">
+                    <SelectTrigger className="h-11 w-full rounded-lg border hover:text-white border-blue-900/40 bg-[#152243] text-slate-100 shadow-inner focus:ring-2 focus:ring-blue-500/40 [&>svg]:text-blue-400">
                       <SelectValue placeholder={translate("quotationSelectCountry")} />
                     </SelectTrigger>
-                    <SelectContent className="bg-[#121E2D] border border-blue-900/40">
+                    <SelectContent className="bg-[#121E2D] border border-blue-900/40 text-white">
                       {COUNTRY_OPTIONS.map((c) => (
-                        <SelectItem key={c.code} value={c.name} className="text-slate-100 focus:bg-[#1f305e] focus:text-white">
+                        <SelectItem key={c.code} value={c.name} 
+                        className=" focus:bg-[#1f305e] text-white text-white">
                           <span className="flex items-center gap-2">
                             <c.Flag className="h-3.5 w-5 shrink-0 object-cover" />
-                            {c.name}
+                            {c.name} 
                           </span>
                         </SelectItem>
                       ))}
@@ -1478,16 +1362,19 @@ export function RequestQuotationView({ serviceSlug }: { serviceSlug: string }) {
             </Button>
           </form>
         </div>
+        )}
 
         {/* Back Link */}
-        <div className="mt-4 flex justify-center">
-          <Link
-            href="/"
-            className="inline-flex items-center justify-center rounded-[8px] border border-[#C5A253] bg-white px-10 py-2 text-md font-semibold text-[#0B1528] shadow-sm transition hover:bg-[#F8F9FA]"
-          >
-            {translate("quotationBack")}
-          </Link>
-        </div>
+        {!isPoolCleaning && (
+          <div className="mt-4 flex justify-center">
+            <Link
+              href="/"
+              className="inline-flex items-center justify-center rounded-[8px] border border-[#C5A253] bg-white px-10 py-2 text-md font-semibold text-[#0B1528] shadow-sm transition hover:bg-[#F8F9FA]"
+            >
+              {translate("quotationBack")}
+            </Link>
+          </div>
+        )}
       </div>
 
       <TermsAndConditions

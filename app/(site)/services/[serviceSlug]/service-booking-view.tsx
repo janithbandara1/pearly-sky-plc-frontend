@@ -23,6 +23,7 @@ import {
 import { ServiceIntroduction } from "@/components/booking/service-introduction";
 import { ServiceHighlights } from "@/components/booking/service-highlights";
 import { PageHero } from "@/components/page-hero";
+import { usePoolTheme } from "@/lib/pool-theme-context";
 import { SERVICE_CONTENT } from "@/lib/content/service-details";
 import { ApiError } from "@/lib/auth-context";
 import { saveBookingDraft, ServicePropertyCategoriesEnums } from "@/lib/booking-draft";
@@ -96,7 +97,7 @@ const FALLBACK_SERVICES: Record<string, CatalogServiceDetail> = {
     status: "active",
     category: "care_and_concierge",
     description: "Trusted support for families.",
-    imageUrl: "/images/services/updated-care-support-services-1-child-care-service.webp",
+    imageUrl: "/images/services/updated-images/Child-Care-Service.webp",
     isBookable: true,
     isQuotable: true,
     servicePackages: [],
@@ -111,7 +112,7 @@ const FALLBACK_SERVICES: Record<string, CatalogServiceDetail> = {
     status: "active",
     category: "care_and_concierge",
     description: "Respectful support for elderly clients.",
-    imageUrl: "/images/services/updated-care-support-services-2-elder-care-service.webp",
+    imageUrl: "/images/services/updated-images/Elder Care Service.webp",
     isBookable: true,
     isQuotable: true,
     servicePackages: [],
@@ -126,7 +127,7 @@ const FALLBACK_SERVICES: Record<string, CatalogServiceDetail> = {
     status: "active",
     category: "premium_add_ons",
     description: "Professional Restoration for Your Home & Interiors",
-    imageUrl: "/images/services/updated-home-property-cleaning-services-10-carpet-upholstery-cleaning.webp",
+    imageUrl: "/images/services/updated-images/Carpet & Upholstery Cleaning.webp",
     isBookable: true,
     isQuotable: true,
     servicePackages: [],
@@ -141,7 +142,7 @@ const FALLBACK_SERVICES: Record<string, CatalogServiceDetail> = {
     status: "active",
     category: "premium_add_ons",
     description: "Expert pool cleaning and water sanitation services.",
-    imageUrl: "/images/services/updated-home-property-cleaning-services-13-pool-cleaning.webp",
+    imageUrl: "/images/services/updated-images/Pool Cleaning.webp",
     isBookable: true,
     isQuotable: true,
     servicePackages: [],
@@ -156,7 +157,7 @@ const FALLBACK_SERVICES: Record<string, CatalogServiceDetail> = {
     status: "active",
     category: "premium_add_ons",
     description: "High-pressure exterior surface restoration.",
-    imageUrl: "/images/services/updated-home-property-cleaning-services-14-precision-pressure-washing.webp",
+    imageUrl: "/images/services/updated-images/Precision Pressure Washing.webp",
     isBookable: true,
     isQuotable: true,
     servicePackages: [],
@@ -171,7 +172,7 @@ const FALLBACK_SERVICES: Record<string, CatalogServiceDetail> = {
     status: "active",
     category: "commercial_and_specialized_cleaning",
     description: "Premium marine detailing and yacht interior care.",
-    imageUrl: "/images/services/updated-home-property-cleaning-services-16-luxury-yacht-cleaning.webp",
+    imageUrl: "/images/services/updated-images/Luxury Yacht Cleaning.webp",
     isBookable: true,
     isQuotable: true,
     servicePackages: [],
@@ -186,7 +187,7 @@ const FALLBACK_SERVICES: Record<string, CatalogServiceDetail> = {
     status: "active",
     category: "residential_cleaning",
     description: "Routine home care for a fresh, tidy space.",
-    imageUrl: "/images/services/updated-home-property-cleaning-services-1-standard-residential-cleaning.webp",
+    imageUrl: "/images/services/updated-images/Regular Home Cleaning.webp",
     isBookable: true,
     isQuotable: true,
     servicePackages: DEFAULT_PACKAGES.map((p) => ({ package: p })),
@@ -248,6 +249,7 @@ export function ServiceBookingView({
   const { country } = useCountry();
   const { registerServiceSlugs, translate } = useLanguage();
   const { symbol } = useCurrency();
+  const { theme: poolTheme, setTheme: setPoolTheme } = usePoolTheme();
   const isSanitization = serviceSlug === SANITIZATION_SLUG;
   const isSteam = serviceSlug === STEAM_SLUG;
   const isEvent = serviceSlug === EVENT_SLUG;
@@ -258,10 +260,11 @@ export function ServiceBookingView({
   const isChildCare = serviceSlug === CHILD_CARE_SLUG;
   const isElderCare = serviceSlug === ELDER_CARE_SLUG;
   const isCarpetService = serviceSlug === CARPET_UPHOLSTERY_SLUG;
-  const isPoolCleaning = serviceSlug === POOL_CLEANING_SLUG;
+  
   const isPressureWashing = serviceSlug === PRESSURE_WASHING_SLUG;
   const isYachtService = serviceSlug === YACHT_SLUG && isDedicatedFlowService(serviceSlug);
-  
+  const isPoolCleaning = serviceSlug === POOL_CLEANING_SLUG;
+
   const isCareService = isChildCare || isElderCare;
   const isFlowService = isDedicatedFlowService(serviceSlug);
   const serviceContent = SERVICE_CONTENT[serviceSlug];
@@ -620,7 +623,15 @@ export function ServiceBookingView({
 
 
   return (
-    <div className={`${poppins.className}  bg-[rgb(199,209,217)]`}>
+    <div
+      className={`${poppins.className} transition-colors duration-300 ${
+        isPoolCleaning || isPressureWashing
+          ? poolTheme === "dark"
+            ? "bg-[#0B132B] text-white"
+            : "bg-[#ededee] text-[#1B2E4B]"
+          : "bg-[rgb(199,209,217)]"
+      }`}
+    >
       <PageHero
         image={service.imageUrl ?? "/images/services/updated-home-property-cleaning-services-1-standard-residential-cleaning.webp"}
         eyebrow="Book a service"
@@ -628,11 +639,13 @@ export function ServiceBookingView({
         subtitle={service.description ?? undefined}
         servicePrices={service.prices}
         serviceId={service.id}
+        theme={isPoolCleaning || isPressureWashing ? poolTheme : undefined}
         hidePriceSelector={isPoolCleaning || isCarpetService || isPressureWashing}
         unitLabelKey={isChildCare || isElderCare ? "hourPerProfessional" : undefined}
+        serviceSlug={serviceSlug}
       />
 
-      <div className="mx-auto flex w-full  max-w-[1250px]  flex-col gap-6 px-6 md:px-2">
+      <div className="mx-auto flex w-full max-w-[1250px] flex-col gap-6 px-6 md:px-2">
         {/* <Link
           href="/"
           className="mb-2 inline-flex items-center gap-1 self-start text-sm text-brand-gold-dark hover:underline"
@@ -667,16 +680,20 @@ export function ServiceBookingView({
             serviceLabel={service.label}
           />
         ) : isPoolCleaning ? (
-          <PoolScheduleSection
+          <PoolScheduleSection 
             serviceId={service.id}
             serviceSlug={serviceSlug}
             serviceLabel={service.label}
+            theme={poolTheme}
+            onThemeChange={setPoolTheme}
           />
         ) : isPressureWashing ? (
           <PressureWashingScheduleSection
             serviceId={service.id}
             serviceSlug={serviceSlug}
             serviceLabel={service.label}
+            themeProp={poolTheme}
+            onThemeChange={setPoolTheme}
           />
         ) : isYachtService ? (
           <YachtScheduleSection

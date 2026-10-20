@@ -297,6 +297,31 @@ const cleaningServices: ServiceOption[] = [
          },
     ],
   },
+  {
+    slug: "pool-cleaning",
+    title: "serviceLablePoolCleaning",
+    icon: <ShieldCheck className="w-6 h-6 text-emerald-400" />,
+    frequencies: [
+      { id: "one-time", name: "freqOneTimeName", subtitle: "freqWeeklySubtitle", 
+        //priceTag: "(+0%)"
+         },
+      { id: "weekly", name: "freqWeeklyName", subtitle: "freqOneTimeSubtitle", 
+        //priceTag: "(+10%)"
+         },
+      { id: "bi-weekly", name: "freqBiWeeklyName", subtitle: "freqBiWeeklySubtitle", 
+        //priceTag: "(+5%)"
+         },
+      { id: "monthly", name: "freqMonthlyName", subtitle: "freqMonthlySubtitle", 
+        //priceTag: "(+0%)"
+         },
+      { id: "weekend", name: "freqWeekendName", subtitle: "freqWeekendSubtitle", 
+        //priceTag: "(+15%)"
+         },
+      { id: "professional-disinfection", name: "freqProDisinfectionName", subtitle: "freqProDisinfectionSubtitle", 
+        //priceTag: "(+40%)"
+         },
+    ],
+  },
 ];
 
 /** Translation key for a frequency id's display name (e.g. "bi-weekly" -> "freqBiWeeklyName"), for summaries. */
