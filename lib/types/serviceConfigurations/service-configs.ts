@@ -2,6 +2,16 @@ import { ServiceConfig } from "@/lib/booking";
 
 
 
+export const scrollToSection=()=>{
+    const serviceSection = document.getElementById("section-pressure-schedule");
+
+    
+    serviceSection?.scrollTop
+    /* ({ 
+      behavior: 'smooth', // Animates the scroll instead of a sudden jump
+      
+    }); */
+}
 
 export const SERVICE_CONFIGS: Record<string, ServiceConfig> = {
   pool: {
@@ -273,43 +283,189 @@ export const SERVICE_CONFIGS: Record<string, ServiceConfig> = {
   }, 
 
   carpet: {
-    type: "carpet",
-   categories: [
-      { id: "all", label: "All" },
-      { id: "Wall-to-Wall Carpets", label: "Wall-to-Wall Carpets" },
-      { id: "Upholstery & Sofas", label: "Upholstery & Sofas" },
-    ],
-    catalog: [
-      { id: "c1", category: "Wall-to-Wall Carpets", badge: "POPULAR", title: "Living Room Wall-to-Wall", description: "Deep steam extraction and pre-spray conditioning for high-traffic zones.", price: 0.75, unit: "sq.ft" },
-      { id: "c2", category: "Upholstery & Sofas", title: "Sofa & Sectional Steam Clean", description: "Gentle fabric shampooing, stain removal, and fiber deodorizing.", price: 150, unit: "unit" },
-    ],
-    conditions: [
-      { id: "standard", title: "Standard Light Refresh", price: 0, desc: "Maintenance hot-water extraction vacuum" },
-      { id: "moderate", title: "Moderate Traffic Soil & Odor", price: 0, desc: "Pre-spray agitation and enzyme treatment" },
-    ],
-    addons: [
-      { id: "scotchguard", title: "Advanced Stain Guard Protection", price: 55, desc: "Fluorochemical polymer shield repelling future liquid spills and dirt binding." },
-      { id: "deodorizer", title: "Medical-Grade Odor Neutralizer", price: 40, desc: "Neutralizes volatile organic compounds and smoke/pet odors." },
-    ],
-    promoCodeDefault: "CLEANGOLD10",
-    taxRate: 0.10,
-    serviceStepDetails: {
-      step1Header: "Select Cleaning Services & Dimensions",
-      step1Description: "Select from our 14 specialist pressure washing services and enter your estimated dimensions or quantities.",
-      step2Header: "Wash Intensity Profile & Surface Add-ons",
-      step2Description: "Choose pressure intensity and optional sealing or chemical bio-shield treatments.",
-      step3Header: "Appointment Date & Crew Window",
-      step3Description: "Pick your preferred service date and technician crew arrival window.",
-      step4Header: "Property & Water Source Access",
-      step4Description: "Enter address and site setup conditions for pressure rigging equipment.",
-      step5Header: "Review Order & Secure Payment Option",
-      step5Description: "Finalize your surface washing job details and select payment method.",
-      confirmedServiceBookin:"Pressure Wash Service Scheduled"
+  type: "carpet",
+  categories: [
+    { id: "all", label: "All" },
+    { id: "residential", label: "Residential & Commercial" },
+    { id: "fine-textiles", label: "Fine Textiles" },
+    { id: "furniture", label: "Furniture Care" },
+    { id: "sanitization", label: "Sanitization" },
+    { id: "window-treatments", label: "Window Treatments" },
+    { id: "hard-surfaces", label: "Hard Surfaces" },
+    { id: "specialist-care", label: "Specialist Care" },
+    { id: "commercial", label: "Commercial" },
+    { id: "emergency", label: "Emergency Response" }
+  ],
+  catalog: [
+    { 
+      id: "c1", 
+      category: "residential", 
+      badge: "POPULAR", 
+      title: "Carpet Cleaning", 
+      description: "Deep steam extraction for wall-to-wall carpets removing dirt, allergens, and revitalizing fibers.", 
+      price: 45, 
+      unit: "room" 
     },
+    { 
+      id: "c2", 
+      category: "fine-textiles", 
+      title: "Rug Cleaning", 
+      description: "Specialized care for Persian, Oriental, wool, and synthetic area rugs with delicate fiber protection.", 
+      price: 35, 
+      unit: "rug" 
+    },
+    { 
+      id: "c3", 
+      category: "furniture", 
+      badge: "POPULAR", 
+      title: "Sofa & Upholstery Cleaning", 
+      description: "Deep stain removal, fabric refresh, and deep foam extraction for armchairs, sofas, and sectionals.", 
+      price: 60, 
+      unit: "seat" 
+    },
+    { 
+      id: "c4", 
+      category: "sanitization", 
+      title: "Mattress Cleaning", 
+      description: "Hygienic deep cleaning eliminating dust mites, allergens, dead skin cells, and stubborn stains.", 
+      price: 50, 
+      unit: "mattress" 
+    },
+    { 
+      id: "c5", 
+      category: "window-treatments", 
+      title: "Curtains & Drapes Cleaning", 
+      description: "In-situ steam revitalization or off-site dry restoration for delicate drapes and heavy curtains.", 
+      price: 40, 
+      unit: "pair" 
+    },
+    { 
+      id: "c6", 
+      category: "hard-surfaces", 
+      title: "Tile & Grout Cleaning", 
+      description: "High-pressure rotary extraction restoring discolored grout lines and mineral-built tile surfaces.", 
+      price: 3.5, 
+      unit: "sq. meter" 
+    },
+    { 
+      id: "c7", 
+      category: "specialist-care", 
+      badge: "POPULAR", 
+      title: "Pet Stain & Odour Removal", 
+      description: "Enzymatic treatment neutralizing deep pet urine deposits, organic scents, and dark stains.", 
+      price: 55, 
+      unit: "treated area" 
+    },
+    { 
+      id: "c8", 
+      category: "furniture", 
+      title: "Leather Cleaning & Conditioning", 
+      description: "Gentle pH-balanced leather wash followed by rich essential oil conditioning to prevent cracking.", 
+      price: 75, 
+      unit: "seat" 
+    },
+    { 
+      id: "c9", 
+      category: "commercial", 
+      title: "Commercial Floor Maintenance", 
+      description: "Scheduled scrubbing, buffing, and protective sealants for high-traffic office and retail spaces.", 
+      price: 2.8, 
+      unit: "sq. meter" 
+    },
+    { 
+      id: "c10", 
+      category: "hard-surfaces", 
+      title: "Hard Floor Cleaning & Polishing", 
+      description: "Diamond pad grinding, wax polishing, and sealing for marble, granite, wood, and terrazzo floors.", 
+      price: 4.5, 
+      unit: "sq. meter" 
+    },
+    { 
+      id: "c11", 
+      category: "specialist-care", 
+      title: "Specialist Stain Removal", 
+      description: "Targeted chemical spot treatment for red wine, coffee, ink, cosmetics, paint, and chemical burns.", 
+      price: 65, 
+      unit: "spot area" 
+    },
+    { 
+      id: "c12", 
+      category: "emergency", 
+      badge: "POPULAR", 
+      title: "Flooded Floor Cleaning", 
+      description: "Rapid water extraction, industrial dehumidification, structural drying, and antimicrobial wash.", 
+      price: 120, 
+      unit: "emergency response" 
+    }
+  ],
+  
+  addons: [
+    { 
+      id: "eco", 
+      title: "100% Eco-Friendly Organic Solution", 
+      price: 25, 
+      desc: "Zero chemical residue, hypoallergenic, 100% safe for babies, pets, and sensitive skin." 
+    },
+    { 
+      id: "turbo-drying", 
+      title: "Express Turbo-Drying Service", 
+      price: 35, 
+      desc: "Industrial axial air-movers dry your carpets & upholstery within 1-2 hours instead of 6-8 hrs." 
+    },
+    { 
+      id: "nano-shield", 
+      title: "Nano-Shield Fabric Guard Protection", 
+      price: 45, 
+      desc: "Invisible repellent barrier preventing spills, oil, and liquid from penetrating deep fibers." 
+    },
+    { 
+      id: "antimicrobial", 
+      title: "Medical-Grade UV & Antimicrobial Sanitization", 
+      price: 30, 
+      desc: "Eliminates 99.9% of bacteria, viruses, and mold spores embedded deep within padding." 
+    }
+  ],
+  propertyOptions: {
+    propertyType: [
+      { id: "residential", label: "Residential Home / Flat" },
+      { id: "commercial", label: "Commercial / Office Space" }
+    ],
+    parkingAccess: [
+      { id: "free-driveway", label: "Free Driveway / Dedicated Bay" },
+      { id: "pay-display", label: "Pay & Display / Meter Parking" },
+      { id: "restricted", label: "Restricted / Permit Required" }
+    ],
+    floorAccess: [
+      { id: "elevator", label: "Elevator Available" },
+      { id: "ground-floor", label: "Ground Floor / Level Access" },
+      { id: "stairs-only", label: "Stairs Only (No Lift)" }
+    ]
   },
+  promoCodeDefault: "GOLD20",
+  taxRate: 0.10,
+  serviceStepDetails: {
+    step1Header: "Select Premium Services",
+    step1Description: "Choose from our 12 specialized master cleaning & restoration treatments.",
+    step2Header: "Schedule Preferred Appointment",
+    step2Description: "Choose your convenient date and dedicated time slot for our master technicians.",
+    step2title1: "Recommended Treatments & Enhancements",
+    step2title2: "Special Instructions or Specific Stain Details",
+    /* step2title3: "",
+    step2title1desc1: "",
+    step2title1desc2: "",
+    step2title1desc3: "", */
+    step3Header: "Property & Luxury Add-ons",
+    step3Description: "Customize property specifics and enhance your deep-clean treatment.",
+    step4Header: "Contact Details",
+    step4Description: "Enter your contact and booking verification information.",
+    step5Header: "Review & Checkout",
+    step5Description: "Finalize your master cleaning appointment details and securely complete your order.",
+    confirmedServiceBookin: "Aureus Luxury Clean Scheduled"
+  }
+}
 };
 
 // Aliases for slug-based lookups
 SERVICE_CONFIGS["precision-pressure-washing"] = SERVICE_CONFIGS.pressure;
 SERVICE_CONFIGS["pool-cleaning"] = SERVICE_CONFIGS.pool;
-SERVICE_CONFIGS["carpet-upholstery-cleaning"] = SERVICE_CONFIGS.carpet;
+SERVICE_CONFIGS["carpet-upholstery-cleaning"] = SERVICE_CONFIGS.carpet;

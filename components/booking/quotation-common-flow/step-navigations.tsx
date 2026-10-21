@@ -32,7 +32,7 @@ export default function StepNavigation({
       className={`w-full overflow-hidden rounded-t-2xl py-5 md:py-6 px-4 md:px-12 transition-colors duration-300 border-b ${
         isLight
           ? "bg-[#F8F9FA] border-[#C7D1D9]"
-          : "bg-[#0B132B]/50 backdrop-blur-md border-[#c9a858]/20"
+          : "bg-[#0B132B]/5 backdrop-blur-md border-[#c9a858]/20"
       }`}
     >
       <div className="max-w-7xl mx-auto flex items-start justify-between relative">

@@ -769,6 +769,8 @@ export function RequestQuotationView({ serviceSlug }: { serviceSlug: string }) {
 
   const EXCLIST = new Set(["laundry-service"])
 
+ 
+
   //
   const STEP_NAVIAGTION_SERVICES= new Set(
     ["pool-cleaning",
@@ -842,6 +844,7 @@ export function RequestQuotationView({ serviceSlug }: { serviceSlug: string }) {
             key={index}
             title={group.title}
             cards={group.cards}
+            theme={poolTheme}
           />
         ))}
 

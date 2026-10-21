@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useCallback, useMemo, useState } from "react";
 import { useRouter, useParams } from "next/navigation";
 import { AlertCircle, ArrowLeft, ArrowRight, Check } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -18,6 +18,7 @@ import ReviewCheckoutSection from "../quotation-common-flow/ReviewCheckoutSectio
 import ConditionAddonsSection from "../quotation-common-flow/ConditionAddonsSection";
 import BookingConfirmationSection from "../quotation-common-flow/BookingConfirmationSection";
 import { usePoolTheme } from "@/lib/pool-theme-context";
+import { useLocationAccessForm } from "../quotation-common-flow/useLocationAccessForm";
 
 export interface PoolScheduleSectionProps {
   serviceId: number;
@@ -62,12 +63,17 @@ export function PoolScheduleSection({
   const [selectedDate, setSelectedDate] = useState<string>("");
   const [selectedWindow, setSelectedWindow] = useState<string>("");
 
-  // Step 4 State (Client & Location Details)
-  const [clientTitle, setClientTitle] = useState<string | null >("");
-  const [clientName, setClientName] = useState<string | null >("");
-  const [clientEmail, setClientEmail] = useState<string | null >("");
-  const [clientAddress, setClientAddress] = useState<string | null >("");
-  const [clientPhone, setClientPhone] = useState<string | null >("");
+  // Step 4 State (Client & Location Details) — managed by hook
+  const clearValidation = useCallback(() => {
+    if (validationError) setValidationError(null);
+  }, [validationError]);
+
+  const {
+    bindings: locationBindings,
+    formData: locationFormData,
+    validateContactFields,
+    reset: resetLocationForm,
+  } = useLocationAccessForm(clearValidation);
 
   // Handler to toggle add-on items
   const toggleAddon = (id: string) => {
@@ -139,32 +145,7 @@ export function PoolScheduleSection({
         };
       }
     } else if (stepNumber === 4) {
-      if (!clientName || clientName.trim().length < 2) {
-        return {
-          valid: false,
-          message: "Please provide your full legal name or property manager name.",
-        };
-      }
-      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-      if (!clientEmail || !emailRegex.test(clientEmail.trim())) {
-        return {
-          valid: false,
-          message: "Please provide a valid email address for receiving your booking confirmation and dispatch alerts.",
-        };
-      }
-      const cleanedPhone = clientPhone?.replace(/\D/g, "") || "";
-      if (!clientPhone || cleanedPhone?.length < 7) {
-        return {
-          valid: false,
-          message: "Please enter a valid phone number with area code for arrival notifications.",
-        };
-      }
-      if (!clientAddress || clientAddress.trim().length < 5) {
-        return {
-          valid: false,
-          message: "Please enter a complete property street address where pool service will take place.",
-        };
-      }
+      return validateContactFields();
     }
     return { valid: true };
   };
@@ -178,7 +159,7 @@ export function PoolScheduleSection({
     setValidationError(null);
     setCurrentStep((prev) => Math.min(prev + 1, 5));
     window.location.href="#section-pool-schedule";
-  };
+  }; 
 
   const handlePrevStep = () => {
     setValidationError(null);
@@ -222,6 +203,7 @@ export function PoolScheduleSection({
     setIsConfirmed(false);
     setCurrentStep(1);
     setValidationError(null);
+    resetLocationForm();
   };
 
   return (
@@ -258,10 +240,10 @@ export function PoolScheduleSection({
                 cart={cartItems}
                 selectedDate={selectedDate}
                 selectedWindow={selectedWindow}
-                clientTitle={clientTitle}
-                clientName={clientName}
-                clientEmail={clientEmail}
-                clientAddress={clientAddress}
+                clientTitle={locationFormData.titlePrefix}
+                clientName={locationFormData.fullName}
+                clientEmail={locationFormData.email}
+                clientAddress={locationFormData.address}
                 theme={activeTheme}
                 onBookAnother={handleResetBooking}
               />
@@ -279,6 +261,7 @@ export function PoolScheduleSection({
                       }
                     }}
                     onProceedNext={handleNextStep}
+                    
                   />
                 )}
 
@@ -320,31 +303,11 @@ export function PoolScheduleSection({
                 {currentStep === 4 && (
                   <LocationAccessSection
                     config={config}
-                    titlePrefix={clientTitle}
-                    setTitlePrefix={setClientTitle}
-                    fullName={clientName}
-                    setFullName={(n) => {
-                      setClientName(n);
-                      if (validationError) setValidationError(null);
-                    }}
-                    email={clientEmail}
-                    setEmail={(e) => {
-                      setClientEmail(e);
-                      if (validationError) setValidationError(null);
-                    }}
-                    address={clientAddress}
-                    setAddress={(a) => {
-                      setClientAddress(a);
-                      if (validationError) setValidationError(null);
-                    }}
-                    phone={clientPhone}
-                    setPhone={(p) => {
-                      setClientPhone(p);
-                      if (validationError) setValidationError(null);
-                    }}
+                    {...locationBindings}
                     theme={activeTheme}
                     onProceedNext={handleNextStep}
                     onPrevStep={handlePrevStep}
+                    serviceSlug={serviceSlug}
                   />
                 )}
 
@@ -354,7 +317,7 @@ export function PoolScheduleSection({
                     cart={cartItems}
                     selectedDate={selectedDate}
                     selectedWindow={selectedWindow}
-                    clientName={clientName}
+                    clientName={locationFormData.fullName}
                     theme={activeTheme}
                     onPrevStep={handlePrevStep}
                     onConfirmReservation={handleConfirmReservation}

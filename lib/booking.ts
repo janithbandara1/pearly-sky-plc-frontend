@@ -38,6 +38,12 @@ export interface ServiceStepsHeaders{
   step1Description:string,
   step2Header:string,
   step2Description:string,
+  step2title1?:string,
+  step2title2?:string,
+  step2title3?:string,
+  step2title1desc1?:string,
+  step2title1desc2?:string,
+  step2title1desc3?:string,
   step3Header:string,
   step3Description:string,
   step4Header:string,
@@ -45,6 +51,18 @@ export interface ServiceStepsHeaders{
   step5Header:string,
   step5Description:string,
   confirmedServiceBookin:string,
+}
+
+
+export interface OptionItem {
+  id: string;
+  label: string;
+}
+
+export interface PropertyOptions {
+  propertyType: OptionItem[];
+  parkingAccess: OptionItem[];
+  floorAccess: OptionItem[];
 }
 
 export interface ServiceConfig {
@@ -58,6 +76,8 @@ export interface ServiceConfig {
   taxRate: number;
   conditionsLabel?: string;
   addonsLabel?: string;
+  propertyOptions?:PropertyOptions; //this is included in carpet service 
+                                      // to show the property type options in step 4 of booking
 }
 
 export interface BookingSchedule {

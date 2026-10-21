@@ -13,6 +13,7 @@ interface ConditionAddonsSectionProps {
   onProceedNext: () => void;
   onPrevStep: () => void;
   theme?: "dark" | "light";
+  serviceSlug?:string;
 }
 
 export default function ConditionAddonsSection({
@@ -24,12 +25,15 @@ export default function ConditionAddonsSection({
   onProceedNext,
   onPrevStep,
   theme = "dark",
+  serviceSlug,
 }: ConditionAddonsSectionProps) {
   const isLight = theme === "light";
 
+  const isCarpetService = serviceSlug==="carpet-upholstery-cleaning";
+
   return (
     <div className={`space-y-8 transition-colors duration-300 ${isLight ? "text-[#1B2E4B]" : "text-white"}`}>
-      <div>
+      <div className="space-y-2 border-b border-gray-700 py-3">
         <h3
           className={`text-2xl font-bold tracking-wide mb-2 font-serif ${
             isLight ? "text-[#C5A059]" : "text-[#c9a858]"
@@ -42,8 +46,82 @@ export default function ConditionAddonsSection({
         </p>
       </div>
 
-      {/* 1. Current Pool Water Condition */}
-      <div className="space-y-4">
+      {/**Carpet cleaning options Selecting */}
+      {isCarpetService && config.propertyOptions?.propertyType && (
+        <div className="flex justify-between max-w-full gap-4">
+          
+          {/**property categories */}
+          <div className="flex flex-col gap-2 max-w-full">
+            <label htmlFor="propertyType" className={`text-sm font-medium ${isLight ? "text-[#1B2E4B]" : "text-brand-gold"}`}>
+             PROPERTY TYPE:
+            </label>
+            <select
+              id="propertyType"
+              className={`p-2 w-full rounded-lg border border-[#788010f3] focus:border-brand-gold focus:ring-1 focus:ring-brand-gold focus:outline-none ${
+                isLight
+                  ? "bg-white border-brand-gold text-[#1B2E4B]"
+                  : "bg-[#0e1826]/80 border-brand-gold text-white"
+              }`}
+              onChange={(e) => setSelectedCondition(e.target.value)}
+            >
+              <option value="">-- Select --</option>
+              {config.propertyOptions?.propertyType.map((option) => (
+                <option key={option.id} value={option.id}>
+                  {option.label}
+                </option>
+              ))}
+            </select>
+          </div>
+          {/**PARKING ACCESS */}
+          <div className="flex flex-col gap-2 max-w-full">
+            <label htmlFor="propertyType" className={`text-sm font-medium ${isLight ? "text-[#1B2E4B]" : "text-brand-gold"}`}>
+             PARKING ACCESS:
+            </label>
+            <select
+              id="propertyType"
+              className={`p-2 w-full rounded-lg border border-[#788010f3] focus:border-brand-gold focus:ring-1 focus:ring-brand-gold focus:outline-none ${
+                isLight
+                  ? "bg-white border-brand-gold text-[#1B2E4B]"
+                  : "bg-[#0e1826]/80 border-brand-gold text-white"
+              }`}
+              onChange={(e) => setSelectedCondition(e.target.value)}
+            >
+              <option value="">-- Select --</option>
+              {config.propertyOptions?.parkingAccess.map((option) => (
+                <option key={option.id} value={option.id}>
+                  {option.label}
+                </option>
+              ))}
+            </select>
+          </div>
+          {/**FLOOR ACCESS */}
+          <div className="flex flex-col gap-2 max-w-full">
+            <label htmlFor="propertyType" className={`text-sm font-medium ${isLight ? "text-[#1B2E4B]" : "text-brand-gold"}`}>
+             FLOOR ACCESS:
+            </label>
+            <select
+              id="propertyType"
+              className={`p-2 w-full rounded-lg border border-[#788010f3] focus:border-brand-gold focus:ring-1 focus:ring-brand-gold focus:outline-none ${
+                isLight
+                  ? "bg-white border-brand-gold text-[#1B2E4B]"
+                  : "bg-[#0e1826]/80 border-brand-gold text-white"
+              }`}
+              onChange={(e) => setSelectedCondition(e.target.value)}
+            >
+              <option value="">-- Select --</option>
+              {config.propertyOptions?.floorAccess.map((option) => (
+                <option key={option.id} value={option.id}>
+                  {option.label}
+                </option>
+              ))}
+            </select>
+          </div>
+          
+        </div>
+      )}
+
+      {/* Conditions */}
+      {!isCarpetService && (<div className="space-y-4">
         <div className={`border-b pb-2 ${isLight ? "border-gray-200" : "border-white/10"}`}>
           <h4
             className={`text-sm font-bold tracking-wider uppercase ${
@@ -90,7 +168,7 @@ export default function ConditionAddonsSection({
             );
           })}
         </div>
-      </div>
+      </div>)}
 
       {/* 2. Recommended Specialty Add-on Services */}
       <div className="space-y-4 pt-4">
@@ -100,7 +178,7 @@ export default function ConditionAddonsSection({
               isLight ? "text-[#1B2E4B]" : "text-[#c9a858]"
             }`}
           >
-            2. Recommended Specialty Add-on Services
+            {isCarpetService ? config.serviceStepDetails.step2title1 : "2. Recommended Specialty Add-on Services"}
           </h4>
           <p className={`text-xs ${isLight ? "text-gray-500" : "text-gray-400"}`}>
             {config.addonsLabel || "Enhance your pool care package"}
@@ -154,6 +232,23 @@ export default function ConditionAddonsSection({
           })}
         </div>
       </div>
+
+      {isCarpetService && (
+        <div className="space-y-2 pt-4">
+          <label htmlFor="specialInstructions" className={`text-sm font-medium ${isLight ? "text-[#1B2E4B]" : "text-brand-gold"}`}>
+            {config.serviceStepDetails.step2title2}
+          </label>
+          <textarea
+            id="specialInstructions"
+            placeholder="Enter any specific instructions or details about the carpet cleaning needs..."
+            className={`w-full p-3 rounded-lg border focus:ring-2 focus:ring-brand-gold focus:outline-none ${
+              isLight
+                ? "bg-white border-gray-300 text-[#1B2E4B]"
+                : "bg-[#0e1826] border-white/20 text-white"
+            }`}
+          />
+        </div>
+      )}
 
       {/* Action Buttons */}
       <div className={`flex gap-4 pt-4 border-t ${isLight ? "border-gray-200" : "border-white/10"}`}>

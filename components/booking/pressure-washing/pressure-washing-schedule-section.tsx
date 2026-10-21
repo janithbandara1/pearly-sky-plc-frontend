@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useCallback, useMemo, useState } from "react";
 import { useParams, useRouter } from "next/navigation";
 import { PressureWashingJobSelection } from "@/components/booking/pressure-washing-job-selection";
 import { DateTimeSection } from "@/components/booking/date-time-section";
@@ -9,7 +9,7 @@ import { saveBookingDraft, loadBookingDraft } from "@/lib/booking-draft";
 import type { QuoteItem } from "@/lib/content/quote-items";
 import { useLanguage } from "@/lib/i18n/language-context";
 import { CartItem, ServiceConfig } from "@/lib/booking";
-import { SERVICE_CONFIGS } from "@/lib/types/serviceConfigurations/service-configs";
+import { scrollToSection, SERVICE_CONFIGS } from "@/lib/types/serviceConfigurations/service-configs";
 import { usePoolTheme } from "@/lib/pool-theme-context";
 import StepNavigation from "../quotation-common-flow/step-navigations";
 import LiveEstimateSummary from "../quotation-common-flow/live-estimate";
@@ -20,6 +20,7 @@ import ConditionAddonsSection from "../quotation-common-flow/ConditionAddonsSect
 import ServiceSelectionSection from "../quotation-common-flow/ServiceSelectionSection";
 import BookingConfirmationSection from "../quotation-common-flow/BookingConfirmationSection";
 import { AlertCircle, ArrowLeft, ArrowRight } from "lucide-react";
+import { useLocationAccessForm } from "../quotation-common-flow/useLocationAccessForm";
 
 export interface PressureWashingScheduleSectionProps {
   serviceId: number;
@@ -156,12 +157,31 @@ export function PressureWashingScheduleSection({
   const [selectedDate, setSelectedDate] = useState<string>("");
   const [selectedWindow, setSelectedWindow] = useState<string>("");
 
-  // Step 4 State (Client & Location Details)
-  const [clientTitle, setClientTitle] = useState<string | null >("");
-  const [clientName, setClientName] = useState<string | null >("");
-  const [clientEmail, setClientEmail] = useState<string | null >("");
-  const [clientAddress, setClientAddress] = useState<string | null >("");
-  const [clientPhone, setClientPhone] = useState<string | null >("");
+  // Step 4 State (Client & Location Details) — managed by hook
+  const clearValidation = useCallback(() => {
+    if (validationError) setValidationError(null);
+  }, [validationError]);
+
+  const {
+    bindings: locationBindings,
+    formData: locationFormData,
+    validateContactFields,
+    reset: resetLocationForm,
+  } = useLocationAccessForm(clearValidation);
+
+  // Destructure bindings for the LocationAccessSection JSX (kept as-is per requirement)
+  const {
+    titlePrefix: clientTitle,
+    setTitlePrefix: setClientTitle,
+    fullName: clientName,
+    setFullName: setClientName, 
+    email: clientEmail,
+    setEmail: setClientEmail,
+    phone: clientPhone,
+    setPhone: setClientPhone,
+    address: clientAddress,
+    setAddress: setClientAddress,
+  } = locationBindings;
 
   // Handler to toggle add-on items
   const toggleAddon = (id: string) => {
@@ -233,35 +253,12 @@ export function PressureWashingScheduleSection({
         };
       }
     } else if (stepNumber === 4) {
-      if (!clientName || clientName.trim().length < 2) {
-        return {
-          valid: false,
-          message: "Please provide your full legal name or property manager name.",
-        };
-      }
-      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-      if (!clientEmail || !emailRegex.test(clientEmail.trim())) {
-        return {
-          valid: false,
-          message: "Please provide a valid email address for receiving your booking confirmation and dispatch alerts.",
-        };
-      }
-      const cleanedPhone = clientPhone?.replace(/\D/g, "") || "";
-      if (!clientPhone || cleanedPhone?.length < 7) {
-        return {
-          valid: false,
-          message: "Please enter a valid phone number with area code for arrival notifications.",
-        };
-      }
-      if (!clientAddress || clientAddress.trim().length < 5) {
-        return {
-          valid: false,
-          message: "Please enter a complete property street address where service will take place.",
-        };
-      }
+      return validateContactFields();
     }
     return { valid: true };
   };
+
+  
 
   const handleNextStep = () => {
     const result = validateStep(currentStep);
@@ -271,12 +268,17 @@ export function PressureWashingScheduleSection({
     }
     setValidationError(null);
     setCurrentStep((prev) => Math.min(prev + 1, 5));
+
+    //scrollToSection()
+    
     window.location.href="#section-pressure-schedule";
   };
 
   const handlePrevStep = () => {
     setValidationError(null);
     setCurrentStep((prev) => Math.max(prev - 1, 1));
+    //scrollToSection()
+    window.location.href="#section-pressure-schedule";
   };
 
   const handleStepClick = (targetStep: number) => {
@@ -316,6 +318,7 @@ export function PressureWashingScheduleSection({
     setIsConfirmed(false);
     setCurrentStep(1);
     setValidationError(null);
+    resetLocationForm();
   };
 
 
@@ -426,32 +429,13 @@ export function PressureWashingScheduleSection({
     
                     {currentStep === 4 && (
                       <LocationAccessSection
-                        config={config}
-                        titlePrefix={clientTitle}
-                        setTitlePrefix={setClientTitle}
-                        fullName={clientName}
-                        setFullName={(n) => {
-                          setClientName(n);
-                          if (validationError) setValidationError(null);
-                        }}
-                        email={clientEmail}
-                        setEmail={(e) => {
-                          setClientEmail(e);
-                          if (validationError) setValidationError(null);
-                        }}
-                        address={clientAddress}
-                        setAddress={(a) => {
-                          setClientAddress(a);
-                          if (validationError) setValidationError(null);
-                        }}
-                        phone={clientPhone}
-                        setPhone={(p) => {
-                          setClientPhone(p);
-                          if (validationError) setValidationError(null);
-                        }}
-                        theme={activeTheme}
-                        onProceedNext={handleNextStep}
-                        onPrevStep={handlePrevStep}
+                          config={config}
+                          {...locationBindings}
+                          theme={activeTheme}
+                          onProceedNext={handleNextStep}
+                          onPrevStep={handlePrevStep}
+                          serviceSlug={serviceSlug}
+                                          
                       />
                     )}
     

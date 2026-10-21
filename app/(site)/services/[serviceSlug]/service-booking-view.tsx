@@ -625,7 +625,7 @@ export function ServiceBookingView({
   return (
     <div
       className={`${poppins.className} transition-colors duration-300 ${
-        isPoolCleaning || isPressureWashing
+        isPoolCleaning || isPressureWashing || isCarpetService
           ? poolTheme === "dark"
             ? "bg-[#0B132B] text-white"
             : "bg-[#ededee] text-[#1B2E4B]"
@@ -670,7 +670,12 @@ export function ServiceBookingView({
         )}
 
         {serviceContent?.highlights?.map((group, index) => (
-          <ServiceHighlights key={index} cards={group.cards} />
+          <ServiceHighlights 
+            key={index} 
+            cards={group.cards} 
+            theme={poolTheme}
+            onThemeChange={setPoolTheme} 
+          />
         ))}
 
         {isCarpetService ? (
@@ -678,6 +683,8 @@ export function ServiceBookingView({
             serviceId={service.id}
             serviceSlug={serviceSlug}
             serviceLabel={service.label}
+            theme={poolTheme}
+            onThemeChange={setPoolTheme}
           />
         ) : isPoolCleaning ? (
           <PoolScheduleSection 
