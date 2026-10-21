@@ -44,11 +44,6 @@ export default function ScheduleDispatchSection({
       </div>
 
       <div
-        className={`p-4 sm:p-6 rounded-2xl border transition-colors ${
-          isLight
-            ? "bg-[#F8F9FA] border-[#C7D1D9]"
-            : "bg-[#0e1826]/70 border-white/10"
-        }`}
       >
         <DateTimeSection
           date={selectedDate}

@@ -101,7 +101,7 @@ export function DateTimeSection({ date, onDateChange, time, onTimeChange }: Date
   }, [viewMonth]);
 
   return (
-    <section className="overflow-hidden rounded-2xl border border-brand-gold bg-[#0B1528] shadow-xl">
+    <section className="overflow-hidden rounded-2xl border border-brand-gold  shadow-xl">
       {/* Top Header Bar */}
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 border-b border-brand-gold/60 bg-[#05122b] px-5 py-4 sm:px-7">
         <div className="flex items-center gap-3">
