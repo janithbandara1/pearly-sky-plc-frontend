@@ -9,6 +9,7 @@ import { TranslationKey } from "@/lib/i18n/dictionaries/en";
 import { useLanguage } from "@/lib/i18n/language-context";
 
 export interface ServicePreferencesSectionProps {
+  theme?: "dark" | "light";
   gender: string;
   onGenderChange: (value: string) => void;
   language: string;
@@ -21,6 +22,7 @@ export interface ServicePreferencesSectionProps {
 }
 
 export function ServicePreferencesSection({
+  theme = "dark",
   gender,
   onGenderChange,
   language,
@@ -31,23 +33,56 @@ export function ServicePreferencesSection({
   onAttachmentsChange,
 }: ServicePreferencesSectionProps) {
   const { translate } = useLanguage();
-  return (
-    <Card className="bg-brand-navy text-brand-navy-foreground">
-      <CardContent className="flex flex-col gap-0 p-0">
-        <div className="px-4 py-3">
-          <h3 className="text-base font-bold text-brand-gold">{translate("quoteDetailPreferences")}</h3>
-        </div>
+  const isLight = theme === "light";
 
-        <div className="grid grid-cols-1 gap-5 border-t border-brand-gold/20 p-4 sm:grid-cols-2">
+  const containerClasses = isLight
+    ? "bg-white border-[#C5A059]/40 text-[#1B2E4B]"
+    : "bg-[#121e2d]/95 backdrop-blur-xl border-white/10 text-white";
+
+  const dividerClasses = isLight ? "border-gray-200" : "border-white/10";
+  const stepLabelClasses = isLight ? "text-[#A88238]" : "text-[#DFB96C]";
+  const titleClasses = isLight ? "text-[#1B2E4B]" : "text-white";
+  const labelClasses = isLight
+    ? "text-[11px] font-semibold tracking-wider text-[#1B2E4B]/80 uppercase mb-2 block"
+    : "text-[11px] font-semibold tracking-wider text-slate-300 uppercase mb-2 block";
+
+  const selectTriggerClasses = isLight
+    ? "w-full bg-[#FBF9F4] border border-[#C5A059]/35 hover:border-[#C5A059]/70 focus:border-[#A88238] focus:ring-1 focus:ring-[#A88238] text-[#1B2E4B] rounded-lg px-4 py-3 h-auto text-sm outline-none transition-colors"
+    : "w-full bg-[#0B1524] border border-white/15 hover:border-white/25 focus:border-[#DFB96C] focus:ring-1 focus:ring-[#DFB96C] text-white rounded-lg px-4 py-3 h-auto text-sm outline-none transition-colors";
+
+  const selectContentClasses = isLight
+    ? "bg-white border border-[#C5A059]/30 text-[#1B2E4B]"
+    : "bg-[#0B1524] border border-white/15 text-white";
+
+  const textareaClasses = isLight
+    ? "w-full bg-[#FBF9F4] border border-[#C5A059]/35 hover:border-[#C5A059]/70 focus:border-[#A88238] focus:ring-1 focus:ring-[#A88238] text-[#1B2E4B] placeholder:text-slate-400 rounded-lg p-3.5 text-sm outline-none transition-colors resize-y min-h-[90px]"
+    : "w-full bg-[#0B1524] border border-white/15 hover:border-white/25 focus:border-[#DFB96C] focus:ring-1 focus:ring-[#DFB96C] text-white placeholder:text-slate-500 rounded-lg p-3.5 text-sm outline-none transition-colors resize-y min-h-[90px]";
+
+  return (
+    <div className={`rounded-2xl p-6 sm:p-8 shadow-2xl border transition-all duration-300 ${containerClasses}`}>
+      {/* Top Header */}
+      <div className={`pb-6 border-b ${dividerClasses}`}>
+        <span className={`text-[11px] font-bold tracking-[0.2em] uppercase block mb-2 ${stepLabelClasses}`}>
+          STEP 6 OF 6
+        </span>
+        <h2 className={`font-serif text-2xl sm:text-3xl font-medium tracking-tight ${titleClasses}`}>
+          Preferences, Layout Upload & Client Information
+        </h2>
+      </div>
+
+      <div className="pt-6 space-y-6">
+        <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
           <div>
-            <p className="mb-2 text-sm font-semibold text-brand-cream/90">{translate("preferencesGender")}</p>
+            <label className={labelClasses}>
+              STAFF GENDER PREFERENCE
+            </label>
             <Select value={gender} onValueChange={onGenderChange}>
-              <SelectTrigger className="w-full bg-brand-cream text-brand-navy">
+              <SelectTrigger className={selectTriggerClasses}>
                 <SelectValue placeholder="No preference" />
               </SelectTrigger>
-              <SelectContent>
+              <SelectContent className={selectContentClasses}>
                 {GENDER_OPTIONS.map((opt) => (
-                  <SelectItem key={opt.value} value={opt.value}>
+                  <SelectItem key={opt.value} value={opt.value} className={isLight ? "focus:bg-[#F5F0E6] focus:text-[#1B2E4B]" : "focus:bg-[#16253b] focus:text-white"}>
                     {translate(opt.label as TranslationKey)}
                   </SelectItem>
                 ))}
@@ -56,14 +91,16 @@ export function ServicePreferencesSection({
           </div>
 
           <div>
-            <p className="mb-2 text-sm font-semibold text-brand-cream/90">{translate("preferencesLanguage")}</p>
+            <label className={labelClasses}>
+              STAFF LANGUAGE PREFERENCE
+            </label>
             <Select value={language} onValueChange={onLanguageChange}>
-              <SelectTrigger className="w-full bg-brand-cream text-brand-navy">
+              <SelectTrigger className={selectTriggerClasses}>
                 <SelectValue placeholder="No preference" />
               </SelectTrigger>
-              <SelectContent>
+              <SelectContent className={selectContentClasses}>
                 {LANGUAGE_OPTIONS.map((opt) => (
-                  <SelectItem key={opt.value} value={opt.value}>
+                  <SelectItem key={opt.value} value={opt.value} className={isLight ? "focus:bg-[#F5F0E6] focus:text-[#1B2E4B]" : "focus:bg-[#16253b] focus:text-white"}>
                     {opt.label}
                   </SelectItem>
                 ))}
@@ -72,22 +109,28 @@ export function ServicePreferencesSection({
           </div>
 
           <div className="sm:col-span-2">
-            <p className="mb-2 text-sm font-semibold text-brand-cream/90">{translate("preferencesSpecialRequirements")}</p>
+            <label className={labelClasses}>
+              SPECIAL REQUIREMENTS / SECURITY / PET PROTOCOLS
+            </label>
             <Textarea
-              rows={4}
+              rows={3}
               value={requirements}
               onChange={(e) => onRequirementsChange(e.target.value)}
-              className="bg-brand-cream text-brand-navy"
+              placeholder="e.g. Alarm code #4092, gate access instructions, friendly Golden Retriever in laundry room..."
+              className={textareaClasses}
             />
           </div>
 
           {attachments && onAttachmentsChange && (
             <div className="sm:col-span-2">
-              <CheckoutAttachmentUpload attachments={attachments} onAttachmentsChange={onAttachmentsChange} />
+              <label className={labelClasses}>
+                LAYOUT BLUEPRINT / SITE PHOTOS UPLOAD (MAX 5 FILES, 5MB EACH)
+              </label>
+              <CheckoutAttachmentUpload attachments={attachments} onAttachmentsChange={onAttachmentsChange} tone={isLight ? "light" : "dark"} />
             </div>
           )}
         </div>
-      </CardContent>
-    </Card>
+      </div>
+    </div>
   );
 }

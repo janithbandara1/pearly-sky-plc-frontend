@@ -13,6 +13,8 @@ import { ServiceBookingView } from "./service-booking-view";
 import JoinWithUsSection from "@/components/booking/join-with-us-section";
 import RelatedServices from "@/components/services-links";
 import PaymentMarquee from "@/components/payment-method-services";
+import GoldStandardSection from "@/components/booking/booking new flow/gold-standard-section";
+import { usePoolTheme } from "@/lib/pool-theme-context";
 
 const pathFor = (slug: string) => `/services/${slug}`;
 
@@ -94,7 +96,7 @@ export default async function ServiceDetailPage({
   if (localizedSlug && localizedSlug !== serviceSlug) {
     permanentRedirect(buildLocalePath(`/services/${localizedSlug}`, language ?? "en"));
   }
-
+  
   return (
     <>
       <BreadcrumbJsonLd items={[
@@ -102,9 +104,11 @@ export default async function ServiceDetailPage({
           { name: label, path: `/services/${serviceSlug}` },
         ]} />
       <ServiceBookingView serviceSlug={canonicalSlug} locales={locales} initialService={service} />
+      <GoldStandardSection/>
       <JoinWithUsSection />
       <RelatedServices slugs={await getServiceSlugMap(country, language)} />
       <PaymentMarquee />
+      
     </>
   );
 }

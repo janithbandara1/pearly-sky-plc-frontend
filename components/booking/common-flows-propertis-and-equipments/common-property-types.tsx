@@ -1448,6 +1448,7 @@ export interface PropertyTypeSizeSelectorProps {
   selectServiceFrequency?: string | null;
   setSelectServiceFrequency?: (frequency: string | null) => void;
   isQuote?: boolean ; 
+  theme?:string;
 }
 
 export function PropertyTypeSizeSelectorCommonFlowOfServices({
@@ -1469,7 +1470,9 @@ export function PropertyTypeSizeSelectorCommonFlowOfServices({
   selectServiceFrequency,
   setSelectServiceFrequency,
   isQuote,
+  theme : themeProp="dark"
 }: PropertyTypeSizeSelectorProps) {
+  const isLight = themeProp === "light";
   const [internalDisinfection, setInternalDisinfection] = useState(false);
   const [internalDeepClean, setInternalDeepClean] = useState(false);
 
@@ -1742,11 +1745,23 @@ export function PropertyTypeSizeSelectorCommonFlowOfServices({
         />
       )}
 
-      <div className={`  rounded-b-2xl py-4 mt-5 rounded-2xl border border-cyan-500/40   bg-brand-navy pb-5 sm:pb-6 px-5 sm:px-6 shadow-sm w-full`}>
+      <div
+        className={`rounded-2xl py-4 mt-5 border pb-5 sm:pb-6 px-5 sm:px-6 shadow-xl w-full transition-all duration-300 ${
+          isLight
+            ? "bg-white border-[#C5A059]/40 text-[#1B2E4B]"
+            : "bg-brand-navy border-cyan-500/40 text-slate-100"
+        }`}
+      >
         {!ROOM_COMPONENTS_SERVICES && (
           <div className="w-full">
-            <h2 className="text-base sm:text-lg font-bold text-gray-300 mb-3">{translate("propServiceCatagory")}</h2>
-            <div className="w-full p-1 flex justify-between items-center mb-6 bg-white/5 backdrop-blur-md rounded-[27px]">
+            <h2 className={`text-base sm:text-lg font-bold mb-3 ${isLight ? "text-[#1B2E4B]" : "text-gray-300"}`}>
+              {translate("propServiceCatagory")}
+            </h2>
+            <div
+              className={`w-full p-1 flex justify-between items-center mb-6 rounded-[27px] border transition-colors ${
+                isLight ? "bg-[#F5F1E6] border-[#C5A059]/30" : "bg-white/5 border-white/5 backdrop-blur-md"
+              }`}
+            >
               {categoryTabs.map((tab) => {
                 const isActive = isActiveCategorySwitch === tab.id;
                 const tabLabel = tab.translationKey ? translate(tab.translationKey) : translate(tab.label as TranslationKey);
@@ -1754,8 +1769,15 @@ export function PropertyTypeSizeSelectorCommonFlowOfServices({
                   <button
                     key={tab.id}
                     type="button"
-                    className={`md:w-[49.5%]  w-[48%] py-3 sm:py-4 px-3 rounded-4xl transition-colors ${isActive ? "bg-blue-500 border-[#C6A868]/60" : "bg-transparent"
-                      } cursor-pointer text-[13px] md:text-[15px] text-white font-bold flex items-center justify-center gap-1.5`}
+                    className={`md:w-[49.5%] w-[48%] py-3 sm:py-4 px-3 rounded-4xl transition-all cursor-pointer text-[13px] md:text-[15px] font-bold flex items-center justify-center gap-1.5 ${
+                      isActive
+                        ? isLight
+                          ? "bg-[#C5A059] text-white shadow-md border border-[#C5A059]"
+                          : "bg-blue-500 border-[#C6A868]/60 text-white shadow-md"
+                        : isLight
+                        ? "bg-transparent text-[#1B2E4B]/70 hover:text-[#1B2E4B] hover:bg-black/5"
+                        : "bg-transparent text-gray-300 hover:text-white hover:bg-white/5"
+                    }`}
                     onClick={() => handleCategorySwitch(tab.id)}
                   >
                     <span>{tab.icon}</span> <span>{tabLabel}</span>
@@ -1769,14 +1791,22 @@ export function PropertyTypeSizeSelectorCommonFlowOfServices({
         <div className="grid grid-cols-1 gap-6 items-start h-full">
           {/* Left Column: Property Type */}
           <div className="flex flex-col min-w-0">
-            <span className="text-[10px] sm:text-xs py-1 font-sans font-bold tracking-[0.2em] sm:tracking-[0.25em] text-[#D9B75B] uppercase">
-                Step 1 of 6
+            <span
+              className={`text-[10px] sm:text-xs py-1 font-sans font-bold tracking-[0.2em] sm:tracking-[0.25em] uppercase ${
+                isLight ? "text-[#A88238]" : "text-[#D9B75B]"
+              }`}
+            >
+              Step 1 of 6
             </span>
-            <div className="flex justify-between mt-3 border-b  border-[#3d3d3d]">
-              <h3 className="text-xl sm:text-2xl md:text-3xl font-serif text-gray-300 mb-3">
+            <div className={`flex justify-between mt-3 border-b pb-3 ${isLight ? "border-gray-200" : "border-[#3d3d3d]"}`}>
+              <h3 className={`text-xl sm:text-2xl md:text-3xl font-serif mb-0 ${isLight ? "text-[#1B2E4B]" : "text-gray-300"}`}>
                 {translate("propTypeTitle")}
               </h3>
-              <p className="text-[11px] text-[#94A3B8] text-center mt-1.5 font-medium tracking-wide select-none">
+              <p
+                className={`text-[11px] text-center mt-1.5 font-medium tracking-wide select-none ${
+                  isLight ? "text-gray-500" : "text-[#94A3B8]"
+                }`}
+              >
                 {translate("propTypeSwipe")}
               </p>
             </div>
@@ -1794,20 +1824,39 @@ export function PropertyTypeSizeSelectorCommonFlowOfServices({
                     type="button"
                     onClick={() => handleCardClick(cat.id)}
                     style={{ scrollSnapAlign: "start" }}
-                    className={`shrink-0 w-[110px] h-[110px] sm:w-[118px] shadow-lg sm:h-[118px] rounded-xl border-2 flex flex-col items-center justify-center p-2.5 cursor-pointer transition-colors select-none ${isSelected
-                        ? "bg-blue-600 border-[#B89642]"
+                    className={`shrink-0 w-[110px] h-[110px] sm:w-[118px] shadow-lg sm:h-[118px] rounded-xl border-2 flex flex-col items-center justify-center p-2.5 cursor-pointer transition-all select-none ${
+                      isSelected
+                        ? isLight
+                          ? "bg-[#FFFDF7] border-[#C5A059] shadow-[0_4px_16px_rgba(197,160,89,0.25)] ring-1 ring-[#C5A059]/30"
+                          : "bg-blue-600 border-[#B89642] shadow-[0_0_15px_rgba(37,99,235,0.3)]"
+                        : isLight
+                        ? "bg-[#FBF9F4] border-[#C5A059]/30 hover:border-[#C5A059]/70 hover:bg-[#F5F0E4]"
                         : "bg-brand-navy/50 border-[#C6A868]/60 hover:border-[#B89642]"
-                      }`}
+                    }`}
                   >
                     <div
-                      className={`w-9 h-9 rounded-lg flex items-center justify-center text-xl mb-1.5 transition-colors ${isSelected ? "bg-white/10" : "bg-[#F1F3F5]"
-                        }`}
+                      className={`w-9 h-9 rounded-lg flex items-center justify-center text-xl mb-1.5 transition-colors ${
+                        isSelected
+                          ? isLight
+                            ? "bg-[#C5A059]/15 text-[#A88238]"
+                            : "bg-white/10 text-white"
+                          : isLight
+                          ? "bg-[#F1EADA] text-[#1B2E4B]"
+                          : "bg-[#F1F3F5] text-slate-800"
+                      }`}
                     >
                       <span>{cat.icon}</span>
                     </div>
                     <span
-                      className={`text-xs text-center leading-tight line-clamp-2 px-1 ${isSelected ? "font-bold text-white" : "font-semibold text-white"
-                        }`}
+                      className={`text-xs text-center leading-tight line-clamp-2 px-1 ${
+                        isSelected
+                          ? isLight
+                            ? "font-bold text-[#1B2E4B]"
+                            : "font-bold text-white"
+                          : isLight
+                          ? "font-semibold text-[#1B2E4B]/80"
+                          : "font-semibold text-white"
+                      }`}
                     >
                       {translate(getCategoryDisplayLabel(cat) as TranslationKey)}
                     </span>
@@ -1821,27 +1870,41 @@ export function PropertyTypeSizeSelectorCommonFlowOfServices({
             {/* Property Size Selector (Matching Reference Design 100%) */}
             <div
               ref={wheelContainerRef}
-              className="flex flex-col w-full mt-8 rounded-[28px] bg-[#0c121e] border border-white/5 p-6 sm:p-8 gap-6 shadow-2xl select-none"
+              className={`flex flex-col w-full mt-8 rounded-[28px] p-6 sm:p-8 gap-6 shadow-2xl select-none border transition-all duration-300 ${
+                isLight
+                  ? "bg-[#FBF9F4] border-[#C5A059]/30 text-[#1B2E4B]"
+                  : "bg-[#0c121e] border-white/5 text-slate-100"
+              }`}
             >
               {/* Header: Title + Subtitle on Left, Unit Switcher Pill on Right */}
               <div className="flex items-start justify-between w-full gap-4">
                 <div className="flex flex-col">
-                  <h3 className="font-serif text-2xl sm:text-3xl font-bold text-white tracking-tight">
+                  <h3
+                    className={`font-serif text-2xl sm:text-3xl font-bold tracking-tight ${
+                      isLight ? "text-[#1B2E4B]" : "text-white"
+                    }`}
+                  >
                     {translate("propSizeTitle")}
                   </h3>
-                  <p className="text-xs sm:text-sm text-gray-400 mt-1">
+                  <p className={`text-xs sm:text-sm mt-1 ${isLight ? "text-gray-500" : "text-gray-400"}`}>
                     Select the total size of your property
                   </p>
                 </div>
 
                 {/* Unit Switcher Pill (m² / ft²) */}
-                <div className="bg-[#141b2a] p-1 rounded-full border border-white/5 flex items-center shrink-0">
+                <div
+                  className={`p-1 rounded-full border flex items-center shrink-0 transition-colors ${
+                    isLight ? "bg-[#EDE7DA] border-[#C5A059]/20" : "bg-[#141b2a] border-white/5"
+                  }`}
+                >
                   <button
                     type="button"
                     onClick={() => setSizeUnit("m2")}
                     className={`px-3.5 py-1 rounded-full text-xs font-bold transition-all cursor-pointer ${
                       sizeUnit === "m2"
                         ? "bg-[#e5b842] text-black shadow-md"
+                        : isLight
+                        ? "text-gray-600 hover:text-black"
                         : "text-gray-400 hover:text-white"
                     }`}
                   >
@@ -1853,6 +1916,8 @@ export function PropertyTypeSizeSelectorCommonFlowOfServices({
                     className={`px-3.5 py-1 rounded-full text-xs font-bold transition-all cursor-pointer ${
                       sizeUnit === "ft2"
                         ? "bg-[#e5b842] text-black shadow-md"
+                        : isLight
+                        ? "text-gray-600 hover:text-black"
                         : "text-gray-400 hover:text-white"
                     }`}
                   >
@@ -1862,14 +1927,26 @@ export function PropertyTypeSizeSelectorCommonFlowOfServices({
               </div>
 
               {/* Display & Quick-Control Card */}
-              <div className="w-full rounded-2xl bg-[#111726] border border-white/5 p-4 sm:p-5 flex items-center justify-between gap-3">
+              <div
+                className={`w-full rounded-2xl p-4 sm:p-5 flex items-center justify-between gap-3 border transition-colors ${
+                  isLight ? "bg-white border-[#C5A059]/25 shadow-sm" : "bg-[#111726] border-white/5"
+                }`}
+              >
                 {/* Left: House Icon & Size Values */}
                 <div className="flex items-center gap-3.5 sm:gap-4 min-w-0">
-                  <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-2xl bg-[#182033] border border-[#e5b842]/30 flex items-center justify-center shrink-0 shadow-[0_0_15px_rgba(229,184,66,0.15)]">
+                  <div
+                    className={`w-12 h-12 sm:w-14 sm:h-14 rounded-2xl flex items-center justify-center shrink-0 shadow-[0_0_15px_rgba(229,184,66,0.15)] border ${
+                      isLight ? "bg-[#F6EEDC] border-[#C5A059]/40" : "bg-[#182033] border-[#e5b842]/30"
+                    }`}
+                  >
                     <Home className="w-6 h-6 sm:w-7 sm:h-7 text-[#e5b842]" />
                   </div>
                   <div className="flex flex-col min-w-0">
-                    <span className="text-2xl sm:text-3xl font-bold text-white tracking-tight leading-none truncate">
+                    <span
+                      className={`text-2xl sm:text-3xl font-bold tracking-tight leading-none truncate ${
+                        isLight ? "text-[#1B2E4B]" : "text-white"
+                      }`}
+                    >
                       {sizeUnit === "m2" ? `${value} m²` : `${formatFt2(value)} ft²`}
                     </span>
                     <span className="text-xs sm:text-sm font-semibold text-[#e5b842] mt-1 truncate">
@@ -1885,29 +1962,49 @@ export function PropertyTypeSizeSelectorCommonFlowOfServices({
                     type="button"
                     onClick={() => handleStepChange(-1)}
                     disabled={value <= MIN_SIZE}
-                    className="w-10 h-10 sm:w-11 sm:h-11 rounded-full bg-[#1c2438] hover:bg-[#25304a] text-white flex items-center justify-center font-bold text-lg cursor-pointer transition-all disabled:opacity-30 disabled:cursor-not-allowed shadow-md active:scale-95"
+                    className={`w-10 h-10 sm:w-11 sm:h-11 rounded-full flex items-center justify-center font-bold text-lg cursor-pointer transition-all disabled:opacity-30 disabled:cursor-not-allowed shadow-md active:scale-95 ${
+                      isLight
+                        ? "bg-[#EDE7DA] hover:bg-[#dfd7c5] text-[#1B2E4B]"
+                        : "bg-[#1c2438] hover:bg-[#25304a] text-white"
+                    }`}
                     aria-label="Decrease size"
                   >
-                    <Minus className="w-4 h-4 sm:w-5 sm:h-5 text-white" />
+                    <Minus className={`w-4 h-4 sm:w-5 sm:h-5 ${isLight ? "text-[#1B2E4B]" : "text-white"}`} />
                   </button>
 
                   {/* Size Pill with integrated select */}
-                  <div className="relative rounded-xl border border-white/10 bg-[#161e31] hover:border-white/20 transition-colors">
+                  <div
+                    className={`relative rounded-xl border transition-colors ${
+                      isLight
+                        ? "border-[#C5A059]/30 bg-[#F4EFE6] hover:border-[#C5A059]/60"
+                        : "border-white/10 bg-[#161e31] hover:border-white/20"
+                    }`}
+                  >
                     <select
                       value={value}
                       onChange={(e) => {
                         const selectedVal = Number(e.target.value);
                         handleDirectSizeChange(selectedVal);
                       }}
-                      className="appearance-none px-3.5 py-2 sm:py-2.5 text-white font-semibold text-xs sm:text-sm bg-transparent cursor-pointer focus:outline-none pr-8"
+                      className={`appearance-none px-3.5 py-2 sm:py-2.5 font-semibold text-xs sm:text-sm bg-transparent cursor-pointer focus:outline-none pr-8 ${
+                        isLight ? "text-[#1B2E4B]" : "text-white"
+                      }`}
                     >
                       {dropdownOptions.map((val) => (
-                        <option key={val} value={val} className="bg-[#111726] text-white">
+                        <option
+                          key={val}
+                          value={val}
+                          className={isLight ? "bg-[#FBF9F4] text-[#1B2E4B]" : "bg-[#111726] text-white"}
+                        >
                           {sizeUnit === "m2" ? `${val} m²` : `${formatFt2(val)} ft²`}
                         </option>
                       ))}
                     </select>
-                    <ChevronDown className="pointer-events-none absolute right-2.5 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-gray-400" />
+                    <ChevronDown
+                      className={`pointer-events-none absolute right-2.5 top-1/2 -translate-y-1/2 w-3.5 h-3.5 ${
+                        isLight ? "text-gray-500" : "text-gray-400"
+                      }`}
+                    />
                   </div>
 
                   {/* Plus button */}
@@ -1929,7 +2026,11 @@ export function PropertyTypeSizeSelectorCommonFlowOfServices({
                 {(() => {
                   const sliderPercent = Math.min(100, Math.max(0, ((value - MIN_SIZE) / (MAX_SIZE - MIN_SIZE)) * 100));
                   return (
-                    <div className="relative w-full h-1.5 bg-[#1b2438] rounded-full my-3 flex items-center">
+                    <div
+                      className={`relative w-full h-1.5 rounded-full my-3 flex items-center ${
+                        isLight ? "bg-[#E5DFD3]" : "bg-[#1b2438]"
+                      }`}
+                    >
                       {/* Active Gradient Track */}
                       <div
                         className="absolute top-0 left-0 h-full bg-gradient-to-r from-[#e5b842] to-[#f5d061] rounded-full"
@@ -1979,7 +2080,11 @@ export function PropertyTypeSizeSelectorCommonFlowOfServices({
                         <span
                           className={`text-xs sm:text-sm font-bold transition-colors ${
                             isCurrent
-                              ? "text-white"
+                              ? isLight
+                                ? "text-[#1B2E4B]"
+                                : "text-white"
+                              : isLight
+                              ? "text-gray-500 group-hover:text-[#1B2E4B]"
                               : "text-gray-300 group-hover:text-white"
                           }`}
                         >
@@ -1989,6 +2094,8 @@ export function PropertyTypeSizeSelectorCommonFlowOfServices({
                           className={`text-[10px] sm:text-xs font-semibold transition-colors mt-0.5 ${
                             isCurrent
                               ? "text-[#e5b842]"
+                              : isLight
+                              ? "text-gray-400 group-hover:text-gray-600"
                               : "text-gray-500 group-hover:text-gray-400"
                           }`}
                         >
@@ -2007,16 +2114,28 @@ export function PropertyTypeSizeSelectorCommonFlowOfServices({
                   type="button"
                   onClick={() => handleStepChange(5)}
                   disabled={value >= MAX_SIZE}
-                  className="rounded-2xl bg-[#111726] border border-white/5 hover:border-[#e5b842]/40 p-4 sm:p-5 flex items-center gap-3.5 transition-all text-left cursor-pointer disabled:opacity-40 disabled:cursor-not-allowed group active:scale-[0.98]"
+                  className={`rounded-2xl border p-4 sm:p-5 flex items-center gap-3.5 transition-all text-left cursor-pointer disabled:opacity-40 disabled:cursor-not-allowed group active:scale-[0.98] ${
+                    isLight
+                      ? "bg-white border-[#C5A059]/25 hover:border-[#e5b842] shadow-sm"
+                      : "bg-[#111726] border-white/5 hover:border-[#e5b842]/40"
+                  }`}
                 >
-                  <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-full bg-[#1b2337] flex items-center justify-center text-[#e5b842] group-hover:bg-[#e5b842] group-hover:text-black transition-colors shrink-0">
+                  <div
+                    className={`w-10 h-10 sm:w-11 sm:h-11 rounded-full flex items-center justify-center text-[#e5b842] group-hover:bg-[#e5b842] group-hover:text-black transition-colors shrink-0 ${
+                      isLight ? "bg-[#F6EEDC]" : "bg-[#1b2337]"
+                    }`}
+                  >
                     <ArrowUp className="w-4 h-4 sm:w-5 sm:h-5 stroke-[2.5]" />
                   </div>
                   <div className="flex flex-col">
-                    <span className="text-sm sm:text-base font-bold text-white leading-tight">
+                    <span
+                      className={`text-sm sm:text-base font-bold leading-tight ${
+                        isLight ? "text-[#1B2E4B]" : "text-white"
+                      }`}
+                    >
                       {translate("propSizeUp" as TranslationKey) || "Increase Size"}
                     </span>
-                    <span className="text-xs text-gray-400 mt-1 font-medium">
+                    <span className={`text-xs mt-1 font-medium ${isLight ? "text-gray-500" : "text-gray-400"}`}>
                       + 5 m²
                     </span>
                   </div>
@@ -2027,16 +2146,28 @@ export function PropertyTypeSizeSelectorCommonFlowOfServices({
                   type="button"
                   onClick={() => handleStepChange(-5)}
                   disabled={value <= MIN_SIZE}
-                  className="rounded-2xl bg-[#111726] border border-white/5 hover:border-[#e5b842]/40 p-4 sm:p-5 flex items-center gap-3.5 transition-all text-left cursor-pointer disabled:opacity-40 disabled:cursor-not-allowed group active:scale-[0.98]"
+                  className={`rounded-2xl border p-4 sm:p-5 flex items-center gap-3.5 transition-all text-left cursor-pointer disabled:opacity-40 disabled:cursor-not-allowed group active:scale-[0.98] ${
+                    isLight
+                      ? "bg-white border-[#C5A059]/25 hover:border-[#e5b842] shadow-sm"
+                      : "bg-[#111726] border-white/5 hover:border-[#e5b842]/40"
+                  }`}
                 >
-                  <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-full bg-[#1b2337] flex items-center justify-center text-[#e5b842] group-hover:bg-[#e5b842] group-hover:text-black transition-colors shrink-0">
+                  <div
+                    className={`w-10 h-10 sm:w-11 sm:h-11 rounded-full flex items-center justify-center text-[#e5b842] group-hover:bg-[#e5b842] group-hover:text-black transition-colors shrink-0 ${
+                      isLight ? "bg-[#F6EEDC]" : "bg-[#1b2337]"
+                    }`}
+                  >
                     <ArrowDown className="w-4 h-4 sm:w-5 sm:h-5 stroke-[2.5]" />
                   </div>
                   <div className="flex flex-col">
-                    <span className="text-sm sm:text-base font-bold text-white leading-tight">
+                    <span
+                      className={`text-sm sm:text-base font-bold leading-tight ${
+                        isLight ? "text-[#1B2E4B]" : "text-white"
+                      }`}
+                    >
                       {translate("propSizeDown" as TranslationKey) || "Decrease Size"}
                     </span>
-                    <span className="text-xs text-gray-400 mt-1 font-medium">
+                    <span className={`text-xs mt-1 font-medium ${isLight ? "text-gray-500" : "text-gray-400"}`}>
                       - 5 m²
                     </span>
                   </div>
@@ -2054,25 +2185,47 @@ export function PropertyTypeSizeSelectorCommonFlowOfServices({
               <button
                 type="button"
                 onClick={handleToggleDisinfection}
-                className={`flex items-center justify-between p-4.5 sm:p-5 rounded-xl border transition-all cursor-pointer select-none text-left ${isDisinfection
-                    ? "bg-[#1E2E4A] border-2 border-blue-500 shadow-[0_0_15px_rgba(59,130,246,0.25)]"
+                className={`flex items-center justify-between p-4.5 sm:p-5 rounded-xl border transition-all cursor-pointer select-none text-left ${
+                  isDisinfection
+                    ? isLight
+                      ? "bg-[#FFFDF7] border-2 border-[#C5A059] shadow-[0_4px_16px_rgba(197,160,89,0.25)]"
+                      : "bg-[#1E2E4A] border-2 border-blue-500 shadow-[0_0_15px_rgba(59,130,246,0.25)]"
+                    : isLight
+                    ? "bg-[#FBF9F4] border-[#C5A059]/30 hover:border-[#C5A059]/70 hover:bg-[#F5F0E4]"
                     : "bg-white/5 border-white/10 hover:border-white/20 hover:bg-white/[0.08]"
-                  }`}
+                }`}
               >
                 <div className="flex items-center gap-3 min-w-0">
-                  <DisinfectionSprayIcon className="w-5 h-5 sm:w-6 sm:h-6 shrink-0 text-gray-300" />
+                  <DisinfectionSprayIcon
+                    className={`w-5 h-5 sm:w-6 sm:h-6 shrink-0 ${isLight ? "text-[#A88238]" : "text-gray-300"}`}
+                  />
                   <div className="flex flex-col min-w-0">
-                    <span className="text-sm sm:text-[15px] font-bold text-white leading-tight">
+                    <span
+                      className={`text-sm sm:text-[15px] font-bold leading-tight ${
+                        isLight ? "text-[#1B2E4B]" : "text-white"
+                      }`}
+                    >
                       {translate("DisinfectionName")}
                     </span>
-                    <span className="text-xs text-[#94A3B8] font-medium leading-tight mt-0.5">
+                    <span
+                      className={`text-xs font-medium leading-tight mt-0.5 ${
+                        isLight ? "text-gray-500" : "text-[#94A3B8]"
+                      }`}
+                    >
                       {translate("HospitalGradeName")} (+0%)
                     </span>
                   </div>
                 </div>
                 <div
-                  className={`w-5 h-5 rounded-[6px] border flex items-center justify-center transition-colors shrink-0 ml-2 ${isDisinfection ? "border-blue-500 bg-blue-500 text-white" : "border-white/20 bg-white/5"
-                    }`}
+                  className={`w-5 h-5 rounded-[6px] border flex items-center justify-center transition-colors shrink-0 ml-2 ${
+                    isDisinfection
+                      ? isLight
+                        ? "border-[#C5A059] bg-[#C5A059] text-white"
+                        : "border-blue-500 bg-blue-500 text-white"
+                      : isLight
+                      ? "border-[#C5A059]/30 bg-white"
+                      : "border-white/20 bg-white/5"
+                  }`}
                 >
                   {isDisinfection && <Check className="w-3.5 h-3.5 stroke-[3]" />}
                 </div>
@@ -2082,25 +2235,47 @@ export function PropertyTypeSizeSelectorCommonFlowOfServices({
               <button
                 type="button"
                 onClick={handleToggleDeepClean}
-                className={`flex items-center justify-between p-4.5 sm:p-5 rounded-xl border transition-all cursor-pointer select-none text-left ${isDeepClean
-                    ? "bg-[#1E2E4A] border-2 border-blue-500 shadow-[0_0_15px_rgba(59,130,246,0.25)]"
+                className={`flex items-center justify-between p-4.5 sm:p-5 rounded-xl border transition-all cursor-pointer select-none text-left ${
+                  isDeepClean
+                    ? isLight
+                      ? "bg-[#FFFDF7] border-2 border-[#C5A059] shadow-[0_4px_16px_rgba(197,160,89,0.25)]"
+                      : "bg-[#1E2E4A] border-2 border-blue-500 shadow-[0_0_15px_rgba(59,130,246,0.25)]"
+                    : isLight
+                    ? "bg-[#FBF9F4] border-[#C5A059]/30 hover:border-[#C5A059]/70 hover:bg-[#F5F0E4]"
                     : "bg-white/5 border-white/10 hover:border-white/20 hover:bg-white/[0.08]"
-                  }`}
+                }`}
               >
                 <div className="flex items-center gap-3 min-w-0">
-                  <Sparkles className="w-5 h-5 sm:w-6 sm:h-6 shrink-0 text-blue-400" />
+                  <Sparkles
+                    className={`w-5 h-5 sm:w-6 sm:h-6 shrink-0 ${isLight ? "text-[#A88238]" : "text-blue-400"}`}
+                  />
                   <div className="flex flex-col min-w-0">
-                    <span className="text-sm sm:text-[15px] font-bold text-white leading-tight">
+                    <span
+                      className={`text-sm sm:text-[15px] font-bold leading-tight ${
+                        isLight ? "text-[#1B2E4B]" : "text-white"
+                      }`}
+                    >
                       {translate("deepCleanName")}
                     </span>
-                    <span className="text-xs text-[#94A3B8] font-medium leading-tight mt-0.5">
+                    <span
+                      className={`text-xs font-medium leading-tight mt-0.5 ${
+                        isLight ? "text-gray-500" : "text-[#94A3B8]"
+                      }`}
+                    >
                       {translate("deepCleanNameIntensive")} (+40%)
                     </span>
                   </div>
                 </div>
                 <div
-                  className={`w-5 h-5 rounded-[6px] border flex items-center justify-center transition-colors shrink-0 ml-2 ${isDeepClean ? "border-blue-500 bg-blue-500 text-white" : "border-white/20 bg-white/5"
-                    }`}
+                  className={`w-5 h-5 rounded-[6px] border flex items-center justify-center transition-colors shrink-0 ml-2 ${
+                    isDeepClean
+                      ? isLight
+                        ? "border-[#C5A059] bg-[#C5A059] text-white"
+                        : "border-blue-500 bg-blue-500 text-white"
+                      : isLight
+                      ? "border-[#C5A059]/30 bg-white"
+                      : "border-white/20 bg-white/5"
+                  }`}
                 >
                   {isDeepClean && <Check className="w-3.5 h-3.5 stroke-[3]" />}
                 </div>
@@ -2110,15 +2285,17 @@ export function PropertyTypeSizeSelectorCommonFlowOfServices({
         </div>
 
         {/* Room selector for services types */}
-        {!isPool &&  (<RoomSelector 
+        {!isPool &&  (
+          <RoomSelector 
             value={rooms} 
-            onChange={(next) => onRoomsChange?.(next)} 
-            serviceSlug={serviceSlug}
+            onChange={(next) => onRoomsChange?.(next)}  
+            serviceSlug={serviceSlug} 
+            theme={isLight ? "light" : "dark"}
         />)}
 
-        {/* Right Column: Property Size */}
-        <div className="flex flex-col w-full mt-8">
-          {/* Services frequencies */}
+        {/* Services frequencies */}
+        {/* <div className="flex flex-col w-full mt-8">
+          
           { isFrequencyService && (
             <ServiceFrequencySelector
               selectedServiceSlug={serviceSlug}
@@ -2133,7 +2310,7 @@ export function PropertyTypeSizeSelectorCommonFlowOfServices({
             isSanitizeService={isSanitizeService}
             isYatch={isYachtSlug}
           />)}
-        </div>
+        </div> */}
       </div>
     </section>
   );

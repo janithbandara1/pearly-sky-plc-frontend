@@ -87,14 +87,16 @@ export function JobCardSection({
   };
 
   return (
-    <section className="w-full md:px-6  px-2 py-6
-    bg-[#030712] border border-[#111927] rounded-2xl sm:rounded-3xl  shadow-2xl
-    ">
+    <section className={`w-full md:px-6  px-2 py-6
+    rounded-2xl sm:rounded-3xl  shadow-2xl
+    ${isLight ? "bg-[#F8FAFC] border-[#E2E8F0]" : "bg-[#030712] border-[#111927]"}
+    `}>
       <span className="text-[10px] sm:text-xs font-sans font-bold tracking-[0.2em] sm:tracking-[0.25em] text-[#D9B75B] uppercase">
           Step 3 of 6
       </span>
       {/* Component Header Title */}
-      <h2 className={`text-xl sm:text-2xl md:text-3xl mb-3 font-serif mt-1 font-normal tracking-wide leading-tight ${isLight ? "text-[#0F172A]" : "text-white"}`}>
+      <h2 className={`text-xl sm:text-2xl md:text-3xl mb-3 font-serif mt-1 font-normal tracking-wide leading-tight 
+        ${isLight ? "text-[#0F172A]" : "text-white"}`}>
         {translate("jobCardSectionTitle")}
       </h2>
 

@@ -15,6 +15,7 @@ import { CURRENT_COUNTRY } from "@/lib/countries/config";
 import { useLanguage } from "@/lib/i18n/language-context";
 import type { UseLocationAccessFormReturn } from "./useLocationAccessForm";
 import { TranslationKey } from "@/lib/i18n/dictionaries/en";
+import { isCommonPropertyTypeFlow } from "@/lib/service-flows";
 
 export interface LocationAccessSectionProps {
   config: ServiceConfig;
@@ -437,6 +438,11 @@ export default function LocationAccessSection({
     ? "text-[10px] font-semibold tracking-wider text-[#C5A059] uppercase block mb-1.5 font-bold"
     : "text-[10px] font-semibold tracking-wider text-[#c9a858] uppercase block mb-1.5 font-bold";
 
+    //const isCommonPropertyTypeServices = isCommonPropertyTypeFlow(serviceSlug);
+
+    const showStep = serviceSlug === "pool-cleaning" || serviceSlug === "precision-pressure-washing" || 
+                      serviceSlug === "carpet-upholstery-cleaning"
+
   return (
     <div className={`space-y-6 transition-colors duration-300 ${isLight ? "text-[#1B2E4B]" : "text-white"}`}>
       {/* Title & Description */}
@@ -839,7 +845,7 @@ export default function LocationAccessSection({
       </div>
 
       {/* Action Buttons */}
-      <div className={`flex gap-4 pt-4 border-t ${isLight ? "border-gray-200" : "border-white/10"}`}>
+      {showStep && (<div className={`flex gap-4 pt-4 border-t ${isLight ? "border-gray-200" : "border-white/10"}`}>
         <button
           type="button"
           onClick={onPrevStep}
@@ -862,7 +868,7 @@ export default function LocationAccessSection({
         >
           Proceed to Step 5
         </button>
-      </div>
+      </div>)}
     </div>
   );
 }

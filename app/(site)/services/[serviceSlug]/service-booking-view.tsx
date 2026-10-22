@@ -4,7 +4,7 @@ import Link from "@/components/locale-link";
 import { isCommonFlowOfNewBookingSectionView, isCommonPropertyTypeFlow, isCommonPropertyTypeWithRoomComponents, isDedicatedFlowService } from "@/lib/service-flows";
 import { Poppins } from "next/font/google";
 import { useRouter } from "next/navigation";
-import { useEffect, useState, type Dispatch, type SetStateAction } from "react";
+import { useEffect, useState, useMemo, type Dispatch, type SetStateAction } from "react";
 import { ArrowLeft } from "lucide-react";
 import { DateTimeSection } from "@/components/booking/date-time-section";
 import { DISINFECTION_LEVELS, DisinfectionLevelSection } from "@/components/booking/disinfection-level-section";
@@ -25,7 +25,10 @@ import { ServiceHighlights } from "@/components/booking/service-highlights";
 import { PageHero } from "@/components/page-hero";
 import { usePoolTheme } from "@/lib/pool-theme-context";
 import { SERVICE_CONTENT } from "@/lib/content/service-details";
-import { ApiError } from "@/lib/auth-context";
+import { ApiError, useAuth } from "@/lib/auth-context";
+import { AddressPayload, getMyProfile } from "@/lib/customers-api";
+import CustomerContactsPreference, { type ContactFormData } from "@/components/booking/booking new flow/CustomerContactsPreference";
+import type { CheckoutAttachment } from "@/components/booking/checkout-attachment-upload";
 import { saveBookingDraft, ServicePropertyCategoriesEnums } from "@/lib/booking-draft";
 import { calculateEquipmentItemPrice, EQUIPMENT_MAX_QTY } from "@/lib/equipment-pricing";
 import { applyDeepCleanToQuote, applyDeepCleanToRate } from "@/lib/deep-clean";
@@ -52,12 +55,14 @@ import { YachtScheduleSection } from "@/components/booking/yacht/yacht-schedule-
 import { getPropertyCategoriesForServiceOfSanitize, PropertyTypeSizeSelectorCommonFlowOfServices }
   from "@/components/booking/common-flows-propertis-and-equipments/common-property-types";
 import { roomCountsToList, type RoomCounts } from "@/components/booking/room-components-counter";
-import { EquipmentSectionOfCommonServicesSlugs } from "@/components/booking/common-flows-propertis-and-equipments/common-equipment-flow-section";
+import { EquipmentSectionOfCommonServicesSlugs, FALLBACK_EQUIPMENT_ITEMS } from "@/components/booking/common-flows-propertis-and-equipments/common-equipment-flow-section";
 import type { TranslationKey } from "@/lib/i18n/dictionaries/en";
 import HeaderNavigation from "@/components/booking/booking new flow/HeaderNavigation";
 import LiveEstimateSummary from "@/components/booking/quotation-common-flow/live-estimate";
-import BookingLogisticsSummary from "@/components/booking/booking new flow/BookingLogisticsSummary";
+import BookingLogisticsSummary, { type SelectedAddonItem } from "@/components/booking/booking new flow/BookingLogisticsSummary";
 import Equipments from "@/components/booking/booking new flow/equipments";
+import LocationAccessSection from "@/components/booking/quotation-common-flow/LocationAccessSection";
+import ServiceFrequencySelector from "@/components/booking/common-flows-propertis-and-equipments/service-frequency";
 
 const poppins = Poppins({ subsets: ["latin"], weight: ["400", "500", "600", "700", "800"], adjustFontFallback: false });
 
@@ -304,6 +309,39 @@ export function ServiceBookingView({
   const [selectedFacilityIds, setSelectedFacilityIds] = useState<Set<string>>(new Set());
   const [disinfectionLevelId, setDisinfectionLevelId] = useState("");
 
+  const [attachments, setAttachments] = useState<CheckoutAttachment[]>([]);
+  const [contactForm, setContactForm] = useState<ContactFormData>({
+    firstName: "",
+    lastName: "",
+    email: "",
+    contact: "",
+  });
+  const [addressForm, setAddressForm] = useState<AddressPayload>({
+    streetAddress: "",
+    unit: "",
+    city: "",
+    state: "",
+    country: "",
+    postalCode: "",
+  });
+  const [howGetIn, setHowGetIn] = useState<string>("someone_home");
+  const [howHeard, setHowHeard] = useState<string>("Google");
+
+  const { accessToken } = useAuth();
+  useEffect(() => {
+    if (!accessToken) return;
+    getMyProfile(accessToken)
+      .then((profileData) => {
+        setContactForm((prev) => ({
+          firstName: profileData.firstName || prev.firstName,
+          lastName: profileData.lastName ?? prev.lastName,
+          email: profileData.email || prev.email,
+          contact: profileData.contact ?? prev.contact,
+        }));
+      })
+      .catch(() => undefined);
+  }, [accessToken]);
+
 
   /** Shared by High-Security Property Care and Luxury Yacht Cleaning's single-select category pickers. */
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
@@ -453,7 +491,8 @@ export function ServiceBookingView({
 
   const allPackages = (service?.servicePackages ?? []).map((sp) => sp.package);
   const selectedPackages = allPackages.filter((pkg) => selectedPackageIds.has(pkg.id));
-  const items = (service?.serviceItems ?? []).map((si) => si.item);
+  const rawItems = (service?.serviceItems ?? []).map((si) => si.item);
+  const items = rawItems.length > 0 ? rawItems : FALLBACK_EQUIPMENT_ITEMS;
   const selectedItems = items.filter((item) => selectedItemIds.has(item.id));
   // Customer-supplied equipment is disclosed in full (no picking, no charge);
   // company-supplied equipment is whatever the customer has actually added.
@@ -468,14 +507,73 @@ export function ServiceBookingView({
   // Equipment is priced off the property size everywhere; steam/sanitization/
   // post-construction also let the customer pick a quantity of each item.
   const equipmentQty = (id: number) => itemQuantities[id] ?? 1;
+  const equipmentUnitPrice = (item: (typeof items)[number]) =>
+    calculateEquipmentItemPrice(item, propertySizeSqm);
   const equipmentLinePrice = (item: (typeof items)[number]) =>
-    calculateEquipmentItemPrice(item, propertySizeSqm) * (isCommonPropertyTypeServices ? equipmentQty(item.id) : 1);
+    equipmentUnitPrice(item) * (isCommonPropertyTypeServices ? equipmentQty(item.id) : 1);
   const equipmentLineName = (item: (typeof items)[number]) =>
     isCommonPropertyTypeServices && selectedItemIds.has(item.id) && equipmentQty(item.id) > 1
       ? `${item.name} × ${equipmentQty(item.id)}`
       : item.name;
 
   const addOnsTotal = selectedItems.reduce((sum, entry) => sum + equipmentLinePrice(entry), 0);
+
+  const selectedAddonsList: SelectedAddonItem[] = useMemo(() => {
+    if (supplySource !== "company") return [];
+    return selectedItems.map((item) => {
+      const qty = isCommonPropertyTypeServices ? equipmentQty(item.id) : 1;
+      const unitPrice = equipmentUnitPrice(item);
+      const totalPrice = unitPrice * qty;
+      return {
+        id: item.id,
+        name: item.name,
+        quantity: qty,
+        unitPrice,
+        totalPrice,
+      };
+    });
+  }, [supplySource, selectedItems, itemQuantities, propertySizeSqm, isCommonPropertyTypeServices]);
+
+  const selectedRoomsSummary = useMemo(() => {
+    if (!isCommonPropertyTypeWithRoomComponents(serviceSlug)) return "Standard Layout";
+    const roomList = roomCountsToList(rooms);
+    if (roomList.length === 0) return "None selected";
+    return roomList
+      .map((r) => `${r.count} ${translate(r.key as TranslationKey) || r.key}`)
+      .join(", ");
+  }, [serviceSlug, rooms, translate]);
+
+  const scheduleWindow = useMemo(() => {
+    if (!date && !time) return "Not selected yet";
+    if (!date) return `@ ${time}`;
+    try {
+      const [y, m, d] = date.split("-").map(Number);
+      const dateObj = new Date(y, m - 1, d);
+      const dateFormatted = dateObj.toLocaleDateString("en-US", {
+        month: "short",
+        day: "numeric",
+        year: "numeric",
+      });
+      return time ? `${dateFormatted} @ ${time}` : dateFormatted;
+    } catch {
+      return time ? `${date} @ ${time}` : date;
+    }
+  }, [date, time]);
+
+  const frequencyDiscountRate = selectServiceFrequency === "weekly" ? 0.20 : selectServiceFrequency === "bi-weekly" ? 0.10 : 0.00;
+  const frequencyDiscountLabel = useMemo(() => {
+    switch (selectServiceFrequency) {
+      case "weekly":
+        return "Weekly (20% Off)";
+      case "bi-weekly":
+        return "Bi-Weekly (10% Off)";
+      case "monthly":
+        return "Monthly (0% Off)";
+      case "one-time":
+      default:
+        return "One-Time (0% Off)";
+    }
+  }, [selectServiceFrequency]);
 
   // Deep Clean (+40%) is only offered on the common property-type flow
   const appliedDeepClean = isCommonPropertyTypeServices && deepClean;
@@ -547,6 +645,18 @@ export function ServiceBookingView({
         : undefined,
       frequency: selectServiceFrequency ?? undefined,
       category: isCategoryQuote ? selectedCategory ?? undefined : undefined,
+      howGetIn,
+      howHeard,
+      firstName: contactForm.firstName.trim() || undefined,
+      lastName: contactForm.lastName.trim() || undefined,
+      email: contactForm.email.trim() || undefined,
+      contact: contactForm.contact.trim() || undefined,
+      streetAddress: addressForm.streetAddress.trim() || undefined,
+      unit: addressForm.unit?.trim() || undefined,
+      city: addressForm.city.trim() || undefined,
+      state: addressForm.state?.trim() || undefined,
+      postalCode: addressForm.postalCode?.trim() || undefined,
+      country: addressForm.country || undefined,
     });
     router.push(`/services/${serviceSlug}/checkout`);
   }
@@ -619,6 +729,25 @@ export function ServiceBookingView({
     if (serviceSlug === "same-day-priority-cleaning") return "serviceSameDayPriorityCleaning"
     return service.label
   }
+
+  // services which have service frequency options
+  const frequencyServiceSlugsSet = new Set([
+    "regular-home-cleaning",
+    "essential-touch-up-cleaning",
+    "deep-cleaning",
+    "end-of-tenancy-cleaning",
+    "post-construction-renovation-cleaning",
+    "same-day-priority-cleaning",
+    "high-security-property-care",
+    "premium-rental-concierge-cleaning",
+    "commercial-office-cleaning",
+    "steam-cleaning",
+    "post-event-cleaning",
+    "luxury-yacht-cleaning",
+    "healthguard-sanitization",
+    "pool-cleaning",
+  ]);
+  const isFrequencyService = frequencyServiceSlugsSet.has(serviceSlug);
 
   return (
     <div
@@ -757,6 +886,7 @@ export function ServiceBookingView({
                     selectServiceFrequency={selectServiceFrequency}
                     setSelectServiceFrequency={setSelectServiceFrequency}
                     isQuote={false}
+                    theme={poolTheme}
                   />
                 ) : (
                   <PropertyTypeSizeSelector
@@ -767,15 +897,28 @@ export function ServiceBookingView({
                   />
                 )}
 
+                {/* Services frequencies */}
+                <div className="flex flex-col w-full mt-8">
+                          
+                    { isFrequencyService && (
+                      <ServiceFrequencySelector 
+                        selectedServiceSlug={serviceSlug}
+                        value={selectServiceFrequency}
+                        onSelectionChange={setSelectServiceFrequency}
+                        theme={poolTheme}
+                      />
+                    )}
+                </div>
+
                 {!isSanitization && serviceSlug !== YACHT_SLUG && !isSteam && !isEvent && !isCategoryQuote && (
-                  <div className="bg-brand-navy p-6 border border-cyan-500/40    rounded-2xl">
+                  
                     <JobCardSection
                       packages={allPackages}
                       selectedIds={selectedPackageIds}
                       onToggle={togglePackage}
                       theme={poolTheme}
                     />
-                  </div>
+                  
                 )}
 
                 <DateTimeSection date={date} onDateChange={setDate} time={time} onTimeChange={setTime} />
@@ -788,9 +931,30 @@ export function ServiceBookingView({
                   selectedItemIds={selectedItemIds}
                   onQuantityChange={setItemQuantity}
                   propertySizeSqm={propertySizeSqm}
+                  theme={poolTheme}
                 />
 
-                
+                {/**Contact details form */}
+                <CustomerContactsPreference
+                  theme={poolTheme}
+                  gender={gender}
+                  onGenderChange={setGender}
+                  language={language}
+                  onLanguageChange={setLanguage}
+                  requirements={requirements}
+                  onRequirementsChange={setRequirements}
+                  attachments={attachments}
+                  onAttachmentsChange={setAttachments}
+                  contactForm={contactForm}
+                  onContactFormChange={setContactForm}
+                  addressForm={addressForm}
+                  onAddressFormChange={setAddressForm}
+                  howGetIn={howGetIn}
+                  onHowGetInChange={setHowGetIn}
+                  howHeard={howHeard}
+                  onHowHeardChange={setHowHeard}
+                />
+                {/** */}
               </div>
               
               {/**Right section of Live Estimation generation */}
@@ -808,14 +972,21 @@ export function ServiceBookingView({
                   return (
                     <BookingLogisticsSummary
                       theme={poolTheme}
-                      servicePlanName="Regular Home Cleaning"
-                      propertyType={propertyType || activeCategory.label}
+                      servicePlanName={service?.label ?? "Regular Home Cleaning"}
+                      propertyType={propertyType || (activeCategory ? (activeCategory.dropdownLabel ?? activeCategory.label) : "Studio")}
                       propertySizeSqm={propertySizeSqm}
-                      selectedRoomsSummary="2 Bed, 2 Bath, 1 Living"
-                      scheduleWindow="Oct 22, 2026 @ 09:00 AM"
-                      frequencyDiscountLabel="One-Time (0% Off)"
+                      selectedRoomsSummary={selectedRoomsSummary}
+                      scheduleWindow={scheduleWindow}
+                      frequencyDiscountLabel={frequencyDiscountLabel}
+                      frequencyDiscountRate={frequencyDiscountRate}
                       addOnsTotal={addOnsTotal + (selectedDisinfectionLevel?.priceAdder ?? 0)}
+                      selectedAddons={selectedAddonsList}
                       supplySource={supplySource}
+                      baseRate={Number(pricedRate ?? service?.price ?? 29)}
+                      cleanerCount={pricedQuote?.cleanerCount ?? (propertySizeSqm > 150 ? 2 : 1)}
+                      estimatedHours={pricedQuote?.minHours ?? Math.max(2, Math.ceil(propertySizeSqm / 30))}
+                      laborTotal={pricedQuote?.priceMin ?? ((pricedQuote?.cleanerCount ?? (propertySizeSqm > 150 ? 2 : 1)) * (pricedQuote?.minHours ?? Math.max(2, Math.ceil(propertySizeSqm / 30))) * Number(pricedRate ?? service?.price ?? 29))}
+                      currencySymbol={symbol || "€"}
                       onNextStep={handleBookNow}
                     />
                   );

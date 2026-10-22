@@ -461,6 +461,7 @@ export function CarpetScheduleSection({
                     theme={activeTheme}
                     onProceedNext={handleNextStep}
                     onPrevStep={handlePrevStep}
+                    serviceSlug={serviceSlug}
                   />
                 )}
 

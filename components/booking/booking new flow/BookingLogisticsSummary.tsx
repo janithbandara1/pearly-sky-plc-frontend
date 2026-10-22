@@ -5,15 +5,18 @@ import { Crown, Lock, CalendarDays } from "lucide-react";
 import { SupplySource } from "../common-flows-propertis-and-equipments/common-equipment-flow-section";
 import { useLanguage } from "@/lib/i18n/language-context";
 import { TranslationKey } from "@/lib/i18n/dictionaries/en";
+import { useCurrency } from "@/lib/currency-context";
 
 export interface SelectedAddonItem {
   id: string | number;
   name: string;
   quantity: number;
+  unitPrice?: number;
   price?: number;
+  totalPrice?: number;
 }
 
-interface BookingLogisticsSummaryProps {
+export interface BookingLogisticsSummaryProps {
   onNextStep?: () => void;
   theme?: "dark" | "light";
 
@@ -22,11 +25,19 @@ interface BookingLogisticsSummaryProps {
   propertySizeSqm?: number;
   scheduleWindow?: string;
   frequencyDiscountLabel?: string;
+  frequencyDiscountRate?: number;
   addOnsTotal?: number;
+  solventsCost?: number;
   supplySource?: SupplySource;
   servicePlanName?: string;
   selectedRoomsSummary?: string;
   selectedAddons?: SelectedAddonItem[];
+  currencySymbol?: string;
+  baseRate?: number;
+  cleanerCount?: number;
+  estimatedHours?: number;
+  laborTotal?: number;
+  advanceDeposit?: number;
 }
 
 export default function BookingLogisticsSummary({
@@ -34,29 +45,59 @@ export default function BookingLogisticsSummary({
   theme = "dark",
   propertyType = "Studio",
   propertySizeSqm = 225,
-  scheduleWindow = "Oct 22, 2026 @ 09:00 AM",
+  scheduleWindow = "Not selected yet",
   frequencyDiscountLabel = "One-Time (0% Off)",
+  frequencyDiscountRate = 0,
   addOnsTotal = 0,
+  solventsCost,
   supplySource = "company",
   servicePlanName = "Regular Home Cleaning",
-  selectedRoomsSummary = "2 Bed, 2 Bath, 1 Living",
+  selectedRoomsSummary = "None selected",
   selectedAddons = [],
+  currencySymbol: customCurrencySymbol,
+  baseRate,
+  cleanerCount,
+  estimatedHours,
+  laborTotal,
+  advanceDeposit,
 }: BookingLogisticsSummaryProps) {
   const { translate } = useLanguage();
+  const { symbol } = useCurrency();
+  const currencySymbol = customCurrencySymbol || symbol || "€";
   const isLight = theme === "light";
 
   // Dynamic calculations based on state
-  const solventsText = supplySource === "company" ? "By Company (€39.20)" : "By Client (€0.00)";
-  const propertyScaleText = `${translate(propertyType as TranslationKey)} (${propertySizeSqm} m²)`;
+  const rate = baseRate ?? 29.0;
+  const cleaners = cleanerCount ?? (propertySizeSqm > 150 ? 2 : 1);
+  const hours = estimatedHours ?? Math.max(2, Math.ceil(propertySizeSqm / 30));
+  const labor = laborTotal ?? cleaners * hours * rate;
+  const discountRate = frequencyDiscountRate ?? 0;
+  const frequencySavings = labor * discountRate;
   
-  const estimatedTotal = 232.00 + addOnsTotal + (supplySource === "company" ? 39.20 : 0);
+  // Real solvents & equipment pricing
+  const equipmentSolventsCost =
+    solventsCost !== undefined
+      ? solventsCost
+      : supplySource === "company"
+      ? addOnsTotal
+      : 0;
+
+  const estimatedTotal = Math.max(0, labor - frequencySavings + equipmentSolventsCost);
+  const deposit = advanceDeposit ?? Math.min(rate, estimatedTotal > 0 ? estimatedTotal : rate);
+
+  const solventsText =
+    supplySource === "company"
+      ? `By Company (${currencySymbol}${equipmentSolventsCost.toFixed(2)})`
+      : `By Client (${currencySymbol}0.00)`;
+
+  const propertyScaleText = `${translate(propertyType as TranslationKey) || propertyType} (${propertySizeSqm} m²)`;
 
   const logisticsItems = [
     { title: "Service Plan:", value: servicePlanName, highlight: true },
     { title: "Property Scale:", value: propertyScaleText, highlight: false },
     { title: "Selected Rooms:", value: selectedRoomsSummary, highlight: false },
     { title: "Schedule Window:", value: scheduleWindow, highlight: true },
-    { title: "Frequency Discount:", value: frequencyDiscountLabel, customColor: "text-emerald-400" },
+    { title: "Frequency Discount:", value: frequencyDiscountLabel.split("(")[0], customColor: "text-emerald-400" },
     { title: "Solvents & Equipment:", value: solventsText, highlight: true },
   ];
 
@@ -125,44 +166,52 @@ export default function BookingLogisticsSummary({
                   : "text-white"
               }`}
             >
-              {translate(item.value as TranslationKey)}
+              {translate(item.value as TranslationKey) || item.value}
             </span>
           </div>
         ))}
 
         {/* Dynamic Upgrades / Add-ons Breakdown Section */}
-        <div className="flex flex-col space-y-1 pt-1">
+        <div className="flex flex-col space-y-1.5 pt-2 border-t border-white/5">
           <div className="flex justify-between items-center">
             <span
               className={`text-xs font-medium tracking-wide ${
                 isLight ? "text-gray-500" : "text-gray-400"
               }`}
             >
-              Upgrades Selected:
+              Add-on Items Selected ({selectedAddons.length}):
             </span>
-            <span className={`text-xs font-semibold ${isLight ? "text-[#1B2E4B]" : "text-white"}`}>
-              €{addOnsTotal.toFixed(2)}
+            <span className={`text-xs font-bold ${isLight ? "text-[#C5A059]" : "text-[#c9a858]"}`}>
+              {currencySymbol}{equipmentSolventsCost.toFixed(2)}
             </span>
           </div>
 
           {selectedAddons && selectedAddons.length > 0 ? (
-            <div className={`mt-1.5 pl-3 border-l-2 space-y-1 ${isLight ? "border-[#C5A059]/40" : "border-[#c9a858]/40"}`}>
-              {selectedAddons.map((addon) => (
-                <div key={addon.id} className="flex justify-between items-center text-xs">
-                  <span className={`${isLight ? "text-gray-700" : "text-gray-300"}`}>
-                    • {translate(addon.name as TranslationKey)} <span className="text-[11px] opacity-70">(Qty: {addon.quantity})</span>
-                  </span>
-                  {addon.price !== undefined && (
-                    <span className={`font-mono ${isLight ? "text-gray-600" : "text-gray-400"}`}>
-                      €{(addon.price * addon.quantity).toFixed(2)}
+            <div className={`mt-1.5 pl-3 border-l-2 space-y-2.5 ${isLight ? "border-[#C5A059]/40" : "border-[#c9a858]/40"}`}>
+              {selectedAddons.map((addon) => {
+                const uPrice = addon.unitPrice ?? addon.price ?? 0;
+                const lineTotal = addon.totalPrice ?? uPrice * addon.quantity;
+                const displayName = translate(addon.name as TranslationKey) || addon.name;
+                return (
+                  <div key={addon.id} className="flex justify-between items-start text-xs gap-2">
+                    <div className="flex flex-col">
+                      <span className={`font-semibold ${isLight ? "text-gray-800" : "text-gray-200"}`}>
+                        • {displayName}
+                      </span>
+                      <span className={`text-[11px] ${isLight ? "text-gray-500" : "text-gray-400"}`}>
+                        Qty: <strong className={isLight ? "text-gray-800" : "text-white"}>{addon.quantity}</strong> × {currencySymbol}{uPrice.toFixed(2)} unit price
+                      </span>
+                    </div>
+                    <span className={`font-mono font-bold shrink-0 ${isLight ? "text-[#1B2E4B]" : "text-emerald-400"}`}>
+                      {currencySymbol}{lineTotal.toFixed(2)}
                     </span>
-                  )}
-                </div>
-              ))}
+                  </div>
+                );
+              })}
             </div>
           ) : (
             <span className={`text-xs italic ${isLight ? "text-gray-400" : "text-gray-500"}`}>
-              No upgrades selected
+              {supplySource === "customer" ? "Client providing own equipment" : "No add-on items selected"}
             </span>
           )}
         </div>
@@ -172,16 +221,24 @@ export default function BookingLogisticsSummary({
       <div className={`py-4 space-y-2 border-t text-xs ${isLight ? "border-gray-200 text-gray-600" : "border-white/10 text-gray-300"}`}>
         <div className="flex justify-between items-center">
           <span>Base Rate:</span>
-          <span className="font-mono">€29.00 / hr per staff</span>
+          <span className="font-mono">{currencySymbol}{rate.toFixed(2)} / hr per staff</span>
         </div>
         <div className="flex justify-between items-center">
           <span>Est. Staff & Labor:</span>
-          <span className="font-mono">2 Staff × 4.0h = €232.00</span>
+          <span className="font-mono">{cleaners} Staff × {hours.toFixed(1)}h = {currencySymbol}{labor.toFixed(2)}</span>
         </div>
         <div className="flex justify-between items-center">
           <span>Frequency Savings:</span>
-          <span className="font-mono text-emerald-400">-€0.00</span>
+          <span className={`font-mono ${frequencySavings > 0 ? "text-emerald-400 font-semibold" : ""}`}>
+            -{currencySymbol}{frequencySavings.toFixed(2)}
+          </span>
         </div>
+        {equipmentSolventsCost > 0 && (
+          <div className="flex justify-between items-center">
+            <span>Solvents & Equipment:</span>
+            <span className="font-mono font-semibold text-emerald-400">+{currencySymbol}{equipmentSolventsCost.toFixed(2)}</span>
+          </div>
+        )}
       </div>
 
       {/* Estimated Total Block */}
@@ -191,7 +248,7 @@ export default function BookingLogisticsSummary({
             ESTIMATED TOTAL
           </span>
           <span className={`text-2xl font-serif font-bold ${isLight ? "text-[#C5A059]" : "text-[#c9a858]"}`}>
-            €{estimatedTotal.toFixed(2)}
+            {currencySymbol}{estimatedTotal.toFixed(2)}
           </span>
         </div>
         <p className={`text-[11px] ${isLight ? "text-gray-500" : "text-gray-400"}`}>
@@ -216,7 +273,7 @@ export default function BookingLogisticsSummary({
           </span>
         </div>
         <span className={`font-serif font-bold text-base ${isLight ? "text-[#C5A059]" : "text-[#c9a858]"}`}>
-          €29.00
+          {currencySymbol}{deposit.toFixed(2)}
         </span>
       </div>
 

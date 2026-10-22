@@ -286,12 +286,14 @@ interface ServiceFrequencySelectorProps {
   selectedServiceSlug?: string;
   value?: string | null;
   onSelectionChange?: (frequencyId: string | null) => void;
+  theme?: string;
 }
 
 export default function ServiceFrequencySelector({
   selectedServiceSlug = "regular-home-cleaning",
   value = null,
   onSelectionChange,
+  theme: themeProp = "dark",
 }: ServiceFrequencySelectorProps) {
   const currentService =
     cleaningServices.find((s) => s.slug === selectedServiceSlug) || cleaningServices[0];
@@ -303,20 +305,35 @@ export default function ServiceFrequencySelector({
   };
 
   const { translate } = useLanguage();
+  const isLight = themeProp === "light";
 
   return (
-    <div className="w-full bg-[#030712] border border-[#111927] rounded-2xl sm:rounded-3xl p-4 sm:p-8 md:p-10 font-serif text-slate-100 shadow-2xl">
+    <div
+      className={`w-full rounded-2xl sm:rounded-3xl p-4 sm:p-8 md:p-10 font-serif shadow-2xl border transition-all duration-300 ${
+        isLight
+          ? "bg-white border-[#C5A059]/40 text-[#1B2E4B]"
+          : "bg-[#030712] border-[#111927] text-slate-100"
+      }`}
+    >
       {/* Step Indicator Header */}
       <div className="mb-4 sm:mb-6">
-        <span className="text-[10px] sm:text-xs font-sans font-bold tracking-[0.2em] sm:tracking-[0.25em] text-[#D9B75B] uppercase">
+        <span
+          className={`text-[10px] sm:text-xs font-sans font-bold tracking-[0.2em] sm:tracking-[0.25em] uppercase ${
+            isLight ? "text-[#A88238]" : "text-[#D9B75B]"
+          }`}
+        >
           Step 2 of 6
         </span>
-        <h2 className="text-xl sm:text-2xl md:text-3xl font-serif text-white mt-1 font-normal tracking-wide leading-tight">
+        <h2
+          className={`text-xl sm:text-2xl md:text-3xl font-serif mt-1 font-normal tracking-wide leading-tight ${
+            isLight ? "text-[#1B2E4B]" : "text-white"
+          }`}
+        >
           Service Frequency & Privilege Savings
         </h2>
       </div>
 
-      <div className="border-t border-[#111927] pt-5 sm:pt-8">
+      <div className={`border-t pt-5 sm:pt-8 ${isLight ? "border-gray-200" : "border-[#111927]"}`}>
         {/* Responsive Grid: 1 col on mobile, 2 cols on small tablet, 4 cols on desktop */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 md:gap-5">
           {currentService.frequencies.map((freq) => {
@@ -328,16 +345,24 @@ export default function ServiceFrequencySelector({
                 onClick={() => handleFrequencySelect(freq.id)}
                 className={`relative flex flex-col justify-between p-4 sm:p-5 md:p-6 rounded-xl sm:rounded-2xl transition-all duration-300 cursor-pointer text-left min-h-[170px] sm:min-h-[220px] ${
                   isSelected
-                    ? "bg-[#131713] border-2 border-[#E5C365] shadow-[0_0_20px_rgba(229,195,101,0.18)]"
+                    ? isLight
+                      ? "bg-[#FFFDF7] border-2 border-[#C5A059] shadow-[0_6px_22px_rgba(197,160,89,0.25)] ring-1 ring-[#C5A059]/25"
+                      : "bg-[#131713] border-2 border-[#E5C365] shadow-[0_0_20px_rgba(229,195,101,0.18)]"
+                    : isLight
+                    ? "bg-[#FBF9F4] border border-[#C5A059]/30 hover:border-[#C5A059]/70 hover:bg-[#F5F0E4]"
                     : "bg-[#0B101C] border border-[#172238] hover:border-slate-700 hover:bg-[#0f1626]"
                 }`}
               >
                 {/* Top Badge Slot */}
                 <div className="min-h-[24px] sm:min-h-[28px] mb-2 sm:mb-4">
                   <span
-                    className={`inline-block px-2.5 sm:px-3 py-0.5 sm:py-1 text-[10px] sm:text-[11px] font-sans font-semibold tracking-wider rounded-md ${
+                    className={`inline-block px-2.5 sm:px-3 py-0.5 sm:py-1 text-[10px] sm:text-[11px] font-sans font-semibold tracking-wider rounded-md transition-colors ${
                       isSelected
-                        ? "bg-[#E5C365] text-[#0A0D08]"
+                        ? isLight
+                          ? "bg-[#C5A059] text-white shadow-sm"
+                          : "bg-[#E5C365] text-[#0A0D08]"
+                        : isLight
+                        ? "bg-[#EDE7DA] text-[#6E5B3D]"
                         : "bg-[#182338] text-[#8091B0]"
                     }`}
                   >
@@ -347,10 +372,18 @@ export default function ServiceFrequencySelector({
 
                 {/* Main Card Content */}
                 <div className="flex-1 flex flex-col justify-center my-1 sm:my-2">
-                  <h3 className="text-lg sm:text-xl md:text-2xl font-serif font-normal text-white mb-1 tracking-wide">
+                  <h3
+                    className={`text-lg sm:text-xl md:text-2xl font-serif font-normal mb-1 tracking-wide ${
+                      isLight ? "text-[#1B2E4B]" : "text-white"
+                    }`}
+                  >
                     {translate(freq.name as TranslationKey)}
                   </h3>
-                  <p className="text-xs sm:text-sm font-sans text-[#7082A0] font-light leading-relaxed">
+                  <p
+                    className={`text-xs sm:text-sm font-sans font-light leading-relaxed ${
+                      isLight ? "text-[#5A6E85]" : "text-[#7082A0]"
+                    }`}
+                  >
                     {translate(freq.subtitle as TranslationKey)}
                   </p>
                 </div>
@@ -359,7 +392,13 @@ export default function ServiceFrequencySelector({
                 <div className="pt-2 sm:pt-4 hidden">
                   <p
                     className={`text-xs sm:text-sm font-sans font-medium ${
-                      isSelected ? "text-[#E5C365]" : "text-[#586A8A]"
+                      isSelected
+                        ? isLight
+                          ? "text-[#C5A059]"
+                          : "text-[#E5C365]"
+                        : isLight
+                        ? "text-[#8C7A58]"
+                        : "text-[#586A8A]"
                     }`}
                   >
                     {translate(freq.subtitle as TranslationKey)}
