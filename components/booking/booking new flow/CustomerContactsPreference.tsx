@@ -181,7 +181,7 @@ export default function CustomerContactsPreference({
   // Dynamic Theme Styling Classes
   const containerClasses = isLight
     ? "bg-white border-[#C5A059]/40 text-[#1B2E4B]"
-    : "bg-[#121e2d]/95 backdrop-blur-xl border-white/10 text-white";
+    : "bg-[rgba(13,20,36,0.7)] backdrop-blur-xl border-white/10 text-white";
 
   const dividerClasses = isLight ? "border-gray-200" : "border-white/10";
   const stepLabelClasses = isLight ? "text-[#A88238]" : "text-[#DFB96C]";

@@ -754,7 +754,7 @@ export function ServiceBookingView({
       className={`${poppins.className} transition-colors duration-300 ${
         isPoolCleaning || isPressureWashing || !isCarpetService
           ? poolTheme === "dark"
-            ? "bg-[#0B132B] text-white"
+            ? "bg-[#070b14]  text-white"
             : "bg-[#ededee] text-[#1B2E4B]"
           : "bg-[rgb(199,209,217)]"
       }`}

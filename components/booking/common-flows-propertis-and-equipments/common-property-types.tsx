@@ -1100,7 +1100,7 @@ const WALL = { left: 50, right: 900, top: 50, bottom: 680 };
 const DIM_OFFSET = 75;
 const DIM_TICK = 10;
 const DIM_STROKE = "rgba(6, 182, 212, 0.7)";
-const DIM_TEXT = "#67e8f9";
+const DIM_TEXT = "#fff";
 const DIM_BG = "#091122";
 
 function BlueprintDimensions({ span, depth }: { span: number; depth: number }) {
@@ -1198,7 +1198,7 @@ export function SanitizeSizeVisualization({
   const estimatedCost = hasPrice
     ? range(`${symbol}${quote!.priceMin!.toFixed(2)}`, `${symbol}${quote!.priceMax!.toFixed(2)}`)
     : "—";
-  // Price is hours × the hourly rate per cleaner (Deep Clean already applied), so this recovers that rate.
+  
   const serviceRate = hasPrice && quote!.minHours
     ? `${symbol}${(quote!.priceMin! / quote!.minHours).toFixed(2)} ${translate("servicesRatePerCleanerHour")}`
     : "—";
@@ -1222,49 +1222,49 @@ export function SanitizeSizeVisualization({
 
   return (
     <div
-      className="w-full rounded-2xl  bg-[#070D1B] border border-cyan-500/40 md:p-3 p-5 shadow-2xl relative overflow-hidden select-none"
+      className="w-full rounded-2xl bg-[#030303] border-2 border-[#C5A059] md:p-3 p-5 shadow-[0_6px_22px_rgba(197,160,89,0.25)] ring-1 ring-[#C5A059]/25 relative overflow-hidden select-none"
       style={{
         backgroundImage: `
-          linear-gradient(to right, rgba(0, 180, 255, 0.06) 1px, transparent 1px),
-          linear-gradient(to bottom, rgba(0, 180, 255, 0.06) 1px, transparent 1px)
+          linear-gradient(to right, rgba(197, 160, 89, 0.07) 1px, transparent 1px),
+          linear-gradient(to bottom, rgba(197, 160, 89, 0.07) 1px, transparent 1px)
         `,
         backgroundSize: "24px 24px",
       }}
     >
-      <div className="w-full flex items-center justify-between border-b border-cyan-900/50 pb-2.5 mb-3 gap-2 flex-wrap">
+      <div className="w-full flex items-center justify-between border-b border-[#C5A059]/40 pb-2.5 mb-3 gap-2 flex-wrap">
         <div className="flex items-center space-x-2.5 min-w-0">
-          <div className="w-2.5 h-2.5 bg-cyan-400 rounded-full shadow-[0_0_10px_#00ffff] shrink-0" />
+          <div className="w-2.5 h-2.5 bg-[#C5A059] rounded-full shadow-[0_0_10px_#C5A059] shrink-0" />
           <div className="min-w-0">
-            <h4 className="text-[11px] sm:text-xs font-bold tracking-widest text-cyan-200 uppercase truncate">
+            <h4 className="text-[11px] sm:text-xs font-bold tracking-widest text-[#E6D5B8] uppercase truncate">
               {activeCategory ? (CATEGORY_LABEL_KEYS[activeCategory.label] ? translate(CATEGORY_LABEL_KEYS[activeCategory.label] as TranslationKey) : translate(activeCategory.label as TranslationKey)) : (isResidential ? "RESIDENTIAL" : "INDUSTRIAL")} BLUEPRINT
             </h4>
-            <p className="text-[9px] sm:text-[10px] text-cyan-400/80 tracking-wider truncate">
+            <p className="text-[9px] sm:text-[10px] text-[#C5A059]/80 tracking-wider truncate">
               {value} m² • {formatFt2(value)} ft² | GRID: {span}m × {depth}m
             </p>
           </div>
         </div>
 
         <div className="flex items-center gap-2 shrink-0">
-          <span className="text-[9px] sm:text-[10px] px-2 py-0.5 bg-cyan-950/80 border border-cyan-500/40 rounded-md text-cyan-300 font-semibold tracking-wide">
+          <span className="text-[9px] sm:text-[10px] px-2.5 py-1 bg-[#C5A059]/30 border-2 border-[#C5A059] rounded-md text-[#E6D5B8] font-bold tracking-wide shadow-[0_6px_22px_rgba(197,160,89,0.25)] ring-1 ring-[#C5A059]/25">
             {translate(surfaceTitle as TranslationKey)}
           </span>
-          <span className="hidden sm:inline-block text-[9px] px-2 py-0.5 bg-blue-900/40 border border-blue-500/30 rounded-md text-blue-200 font-mono">
+          <span className="hidden sm:inline-block text-[9px] px-2 py-0.5 bg-[#C5A059]/20 border border-[#C5A059]/40 rounded-md text-[#E6D5B8] font-mono">
             CAD SCALE 1:50
           </span>
         </div>
       </div>
 
-      <div className="relative w-full bg-[#091122]/90 border border-cyan-500/50 rounded-xl shadow-[0_0_25px_rgba(0,180,255,0.15)] p-2 sm:p-4 overflow-hidden">
+      <div className="relative w-full bg-[#050505]/95 border-2 border-[#C5A059]/60 rounded-xl shadow-[0_6px_22px_rgba(197,160,89,0.2)] p-2 sm:p-4 overflow-hidden">
         <div className="flex items-center w-full">
           <div className="flex-1 min-w-0 max-h-[250px] sm:max-h-[270px] md:max-h-[420px] flex items-center justify-center">
             {isResidential ? (
               <svg
                 viewBox={BLUEPRINT_VIEWBOX}
-                className="w-full h-full max-h-[220px] sm:max-h-[260px] md:max-h-[420px] drop-shadow-[0_0_12px_rgba(0,210,255,0.3)] object-contain"
+                className="w-full h-full max-h-[220px] sm:max-h-[260px] md:max-h-[420px] drop-shadow-[0_0_12px_rgba(197,160,89,0.25)] object-contain"
               >
                 <BlueprintDimensions span={span} depth={depth} />
-                <rect x="50" y="50" width="850" height="630" rx="12" fill="none" stroke="#00e1ff" strokeWidth="5" />
-                <g stroke="#00b4ff" strokeWidth="3.5" fill="none">
+                <rect x="50" y="50" width="850" height="630" rx="12" fill="none" stroke="#C5A059" strokeWidth="3" strokeDasharray="6 4" />
+                <g stroke="#C5A059" strokeWidth="2.5" fill="none" strokeDasharray="5 3">
                   <line x1="50" y1="310" x2="360" y2="310" />
                   <line x1="360" y1="50" x2="360" y2="310" />
                   <line x1="360" y1="310" x2="620" y2="310" />
@@ -1279,7 +1279,7 @@ export function SanitizeSizeVisualization({
                   <line x1="520" y1="480" x2="520" y2="680" />
                   <path d="M 420 680 L 420 730 L 530 730 L 530 680" />
                 </g>
-                <g fill="rgba(0, 180, 255, 0.08)">
+                <g fill="rgba(197, 160, 89, 0.05)">
                   <rect x="54" y="54" width="304" height="254" />
                   <rect x="364" y="54" width="254" height="254" />
                   <rect x="624" y="54" width="274" height="254" />
@@ -1288,7 +1288,7 @@ export function SanitizeSizeVisualization({
                   <rect x="624" y="464" width="274" height="212" />
                   <rect x="734" y="314" width="164" height="144" />
                 </g>
-                <g stroke="#00d2ff" strokeWidth="1.8" fill="none">
+                <g stroke="#C5A059" strokeWidth="1.8" fill="none" strokeDasharray="4 3">
                   <rect x="80" y="80" width="110" height="130" rx="6" strokeDasharray="4 2" />
                   <rect x="75" y="240" width="180" height="35" rx="4" />
                   <circle cx="310" cy="80" r="12" strokeWidth="1.5" />
@@ -1309,7 +1309,7 @@ export function SanitizeSizeVisualization({
                   <ellipse cx="780" cy="365" rx="15" ry="10" strokeWidth="1.5" />
                   <rect x="830" y="355" width="25" height="35" rx="4" strokeWidth="1.5" />
                 </g>
-                <g stroke="#00e1ff" strokeWidth="1.8" fill="none" opacity="0.85">
+                <g stroke="#C5A059" strokeWidth="1.5" fill="none" opacity="0.85" strokeDasharray="3 3">
                   <path d="M 360 260 A 40 40 0 0 1 320 220" />
                   <line x1="360" y1="260" x2="360" y2="220" />
                   <path d="M 520 310 A 40 40 0 0 1 480 270" />
@@ -1318,54 +1318,54 @@ export function SanitizeSizeVisualization({
                   <path d="M 450 680 A 30 30 0 0 1 480 650" />
                 </g>
                 <g fontFamily="monospace">
-                  <text x="200" y="170" fill="#e0f2fe" fontSize="16" fontWeight="bold" textAnchor="middle">MASTER BEDROOM</text>
-                  <text x="200" y="195" fill="#38bdf8" fontSize="13" fontWeight="600" textAnchor="middle">{masterBedArea} m²</text>
-                  <text x="490" y="170" fill="#e0f2fe" fontSize="15" fontWeight="bold" textAnchor="middle">NORTH BEDROOM</text>
-                  <text x="490" y="195" fill="#38bdf8" fontSize="13" fontWeight="600" textAnchor="middle">{northBedArea} m²</text>
-                  <text x="760" y="170" fill="#e0f2fe" fontSize="15" fontWeight="bold" textAnchor="middle">EAST BEDROOM</text>
-                  <text x="760" y="195" fill="#38bdf8" fontSize="13" fontWeight="600" textAnchor="middle">{eastBedArea} m²</text>
-                  <text x="200" y="430" fill="#e0f2fe" fontSize="17" fontWeight="bold" textAnchor="middle">LIVING & LOUNGE</text>
-                  <text x="200" y="455" fill="#38bdf8" fontSize="14" fontWeight="600" textAnchor="middle">{livingArea} m²</text>
-                  <text x="440" y="465" fill="#e0f2fe" fontSize="15" fontWeight="bold" textAnchor="middle">DINING SPACE</text>
-                  <text x="440" y="488" fill="#38bdf8" fontSize="13" fontWeight="600" textAnchor="middle">{diningArea} m²</text>
-                  <text x="760" y="515" fill="#e0f2fe" fontSize="16" fontWeight="bold" textAnchor="middle">KITCHEN & ISLAND</text>
-                  <text x="760" y="540" fill="#38bdf8" fontSize="13" fontWeight="600" textAnchor="middle">{kitchenArea} m²</text>
-                  <text x="815" y="410" fill="#e0f2fe" fontSize="14" fontWeight="bold" textAnchor="middle">BATH & WC</text>
-                  <text x="815" y="432" fill="#38bdf8" fontSize="12" fontWeight="600" textAnchor="middle">{bathArea} m²</text>
+                  <text x="200" y="170" fill="#FFF3D6" fontSize="16" fontWeight="bold" textAnchor="middle">MASTER BEDROOM</text>
+                  <text x="200" y="195" fill="#C5A059" fontSize="13" fontWeight="600" textAnchor="middle">{masterBedArea} m²</text>
+                  <text x="490" y="170" fill="#FFF3D6" fontSize="15" fontWeight="bold" textAnchor="middle">NORTH BEDROOM</text>
+                  <text x="490" y="195" fill="#C5A059" fontSize="13" fontWeight="600" textAnchor="middle">{northBedArea} m²</text>
+                  <text x="760" y="170" fill="#FFF3D6" fontSize="15" fontWeight="bold" textAnchor="middle">EAST BEDROOM</text>
+                  <text x="760" y="195" fill="#C5A059" fontSize="13" fontWeight="600" textAnchor="middle">{eastBedArea} m²</text>
+                  <text x="200" y="430" fill="#FFF3D6" fontSize="17" fontWeight="bold" textAnchor="middle">LIVING & LOUNGE</text>
+                  <text x="200" y="455" fill="#C5A059" fontSize="14" fontWeight="600" textAnchor="middle">{livingArea} m²</text>
+                  <text x="440" y="465" fill="#FFF3D6" fontSize="15" fontWeight="bold" textAnchor="middle">DINING SPACE</text>
+                  <text x="440" y="488" fill="#C5A059" fontSize="13" fontWeight="600" textAnchor="middle">{diningArea} m²</text>
+                  <text x="760" y="515" fill="#FFF3D6" fontSize="16" fontWeight="bold" textAnchor="middle">KITCHEN & ISLAND</text>
+                  <text x="760" y="540" fill="#C5A059" fontSize="13" fontWeight="600" textAnchor="middle">{kitchenArea} m²</text>
+                  <text x="815" y="410" fill="#FFF3D6" fontSize="14" fontWeight="bold" textAnchor="middle">BATH & WC</text>
+                  <text x="815" y="432" fill="#C5A059" fontSize="12" fontWeight="600" textAnchor="middle">{bathArea} m²</text>
                 </g>
                 <g transform="translate(100, 630)">
-                  <circle cx="0" cy="0" r="20" fill="none" stroke="#00d2ff" strokeWidth="1.5" strokeDasharray="3 2" />
-                  <polygon points="0,-16 4,-4 0,0 -4,-4" fill="#00d2ff" />
-                  <text x="0" y="30" fill="#00d2ff" fontSize="10" textAnchor="middle" fontFamily="monospace">N // CAD-04</text>
+                  <circle cx="0" cy="0" r="20" fill="none" stroke="#C5A059" strokeWidth="1.5" strokeDasharray="3 2" />
+                  <polygon points="0,-16 4,-4 0,0 -4,-4" fill="#C5A059" />
+                  <text x="0" y="30" fill="#C5A059" fontSize="10" textAnchor="middle" fontFamily="monospace">N // CAD-04</text>
                 </g>
               </svg>
             ) : (
               <svg
                 viewBox={BLUEPRINT_VIEWBOX}
-                className="w-full h-full max-h-[250px] sm:max-h-[270px] md:max-h-[420px] drop-shadow-[0_0_12px_rgba(0,210,255,0.3)] object-contain"
+                className="w-full h-full max-h-[250px] sm:max-h-[270px] md:max-h-[420px] drop-shadow-[0_0_12px_rgba(197,160,89,0.25)] object-contain"
               >
                 <BlueprintDimensions span={span} depth={depth} />
-                <rect x="50" y="50" width="850" height="630" rx="12" fill="none" stroke="#00e1ff" strokeWidth="5" />
-                <g stroke="#00b4ff" strokeWidth="3.5" fill="none">
+                <rect x="50" y="50" width="850" height="630" rx="12" fill="none" stroke="#C5A059" strokeWidth="3" strokeDasharray="6 4" />
+                <g stroke="#C5A059" strokeWidth="2.5" fill="none" strokeDasharray="5 3">
                   <line x1="50" y1="530" x2="350" y2="530" />
                   <line x1="350" y1="50" x2="350" y2="530" />
                   <line x1="570" y1="530" x2="900" y2="530" />
                   <line x1="570" y1="530" x2="570" y2="680" />
                   <rect x="420" y="230" width="210" height="270" rx="4" strokeWidth="2.5" />
                 </g>
-                <g fill="rgba(0, 180, 255, 0.08)">
+                <g fill="rgba(197, 160, 89, 0.05)">
                   <rect x="54" y="54" width="292" height="472" />
                   <rect x="354" y="54" width="222" height="172" />
                   <rect x="578" y="54" width="318" height="472" />
                   <rect x="54" y="534" width="292" height="142" />
                   <rect x="574" y="534" width="322" height="142" />
-                  <rect x="424" y="234" width="202" height="262" fill="rgba(0, 220, 255, 0.12)" />
+                  <rect x="424" y="234" width="202" height="262" fill="rgba(197, 160, 89, 0.1)" />
                 </g>
-                <g stroke="#00d2ff" strokeWidth="1.8" fill="none">
-                  <line x1="80" y1="120" x2="260" y2="120" strokeWidth="3.5" />
-                  <line x1="80" y1="180" x2="260" y2="180" strokeWidth="3.5" />
-                  <line x1="80" y1="240" x2="260" y2="240" strokeWidth="3.5" />
-                  <line x1="80" y1="300" x2="260" y2="300" strokeWidth="3.5" />
+                <g stroke="#C5A059" strokeWidth="1.8" fill="none" strokeDasharray="4 3">
+                  <line x1="80" y1="120" x2="260" y2="120" strokeWidth="3" />
+                  <line x1="80" y1="180" x2="260" y2="180" strokeWidth="3" />
+                  <line x1="80" y1="240" x2="260" y2="240" strokeWidth="3" />
+                  <line x1="80" y1="300" x2="260" y2="300" strokeWidth="3" />
                   <rect x="90" y="360" width="180" height="70" rx="4" />
                   <rect x="120" y="380" width="40" height="30" rx="2" />
                   <line x1="450" y1="260" x2="590" y2="260" strokeWidth="2.5" />
@@ -1375,36 +1375,36 @@ export function SanitizeSizeVisualization({
                   <line x1="450" y1="420" x2="590" y2="420" strokeWidth="2.5" />
                   <rect x="500" y="90" width="260" height="40" rx="4" />
                   <rect x="370" y="90" width="40" height="30" rx="2" />
-                  <line x1="720" y1="260" x2="720" y2="420" strokeWidth="3.5" />
+                  <line x1="720" y1="260" x2="720" y2="420" strokeWidth="3" />
                   <rect x="780" y="260" width="50" height="140" rx="4" />
                   <rect x="90" y="580" width="140" height="60" rx="6" />
                   <path d="M 610 570 L 860 570 L 860 650 L 610 650" strokeWidth="2.5" strokeDasharray="6 3" />
                   <rect x="650" y="590" width="80" height="40" rx="4" />
                 </g>
-                <g stroke="#00e1ff" strokeWidth="1.8" fill="none" opacity="0.85">
+                <g stroke="#C5A059" strokeWidth="1.5" fill="none" opacity="0.85" strokeDasharray="3 3">
                   <path d="M 350 630 A 30 30 0 0 1 380 600" />
                   <path d="M 570 630 A 30 30 0 0 0 540 600" />
                   <path d="M 200 530 A 30 30 0 0 1 230 500" />
                 </g>
                 <g fontFamily="monospace">
-                  <text x="200" y="225" fill="#e0f2fe" fontSize="15" fontWeight="bold" textAnchor="middle">STORAGE & INVENTORY</text>
-                  <text x="200" y="248" fill="#38bdf8" fontSize="13" fontWeight="600" textAnchor="middle">{storageArea} m²</text>
-                  <text x="465" y="145" fill="#e0f2fe" fontSize="13" fontWeight="bold" textAnchor="middle">BACK OFFICE</text>
-                  <text x="465" y="165" fill="#38bdf8" fontSize="11" fontWeight="600" textAnchor="middle">{backOfficeArea} m²</text>
-                  <text x="730" y="225" fill="#e0f2fe" fontSize="15" fontWeight="bold" textAnchor="middle">DISPLAY & MERCHANDISE</text>
-                  <text x="730" y="248" fill="#38bdf8" fontSize="13" fontWeight="600" textAnchor="middle">{displayArea} m²</text>
-                  <text x="525" y="210" fill="#38bdf8" fontSize="11" fontWeight="bold" textAnchor="middle">CENTRAL SHOWROOM FLOOR</text>
-                  <text x="525" y="380" fill="#e0f2fe" fontSize="16" fontWeight="bold" textAnchor="middle">MAIN FLOOR</text>
-                  <text x="525" y="405" fill="#38bdf8" fontSize="14" fontWeight="600" textAnchor="middle">{showroomArea} m²</text>
-                  <text x="160" y="565" fill="#e0f2fe" fontSize="13" fontWeight="bold" textAnchor="middle">CONSULTATION LOUNGE</text>
-                  <text x="160" y="588" fill="#38bdf8" fontSize="12" fontWeight="600" textAnchor="middle">{loungeArea} m²</text>
-                  <text x="735" y="555" fill="#e0f2fe" fontSize="14" fontWeight="bold" textAnchor="middle">CHECKOUT & SERVICE</text>
-                  <text x="735" y="578" fill="#38bdf8" fontSize="12" fontWeight="600" textAnchor="middle">{checkoutArea} m²</text>
+                  <text x="200" y="225" fill="#FFF3D6" fontSize="15" fontWeight="bold" textAnchor="middle">STORAGE & INVENTORY</text>
+                  <text x="200" y="248" fill="#C5A059" fontSize="13" fontWeight="600" textAnchor="middle">{storageArea} m²</text>
+                  <text x="465" y="145" fill="#FFF3D6" fontSize="13" fontWeight="bold" textAnchor="middle">BACK OFFICE</text>
+                  <text x="465" y="165" fill="#C5A059" fontSize="11" fontWeight="600" textAnchor="middle">{backOfficeArea} m²</text>
+                  <text x="730" y="225" fill="#FFF3D6" fontSize="15" fontWeight="bold" textAnchor="middle">DISPLAY & MERCHANDISE</text>
+                  <text x="730" y="248" fill="#C5A059" fontSize="13" fontWeight="600" textAnchor="middle">{displayArea} m²</text>
+                  <text x="525" y="210" fill="#C5A059" fontSize="11" fontWeight="bold" textAnchor="middle">CENTRAL SHOWROOM FLOOR</text>
+                  <text x="525" y="380" fill="#FFF3D6" fontSize="16" fontWeight="bold" textAnchor="middle">MAIN FLOOR</text>
+                  <text x="525" y="405" fill="#C5A059" fontSize="14" fontWeight="600" textAnchor="middle">{showroomArea} m²</text>
+                  <text x="160" y="565" fill="#FFF3D6" fontSize="13" fontWeight="bold" textAnchor="middle">CONSULTATION LOUNGE</text>
+                  <text x="160" y="588" fill="#C5A059" fontSize="12" fontWeight="600" textAnchor="middle">{loungeArea} m²</text>
+                  <text x="735" y="555" fill="#FFF3D6" fontSize="14" fontWeight="bold" textAnchor="middle">CHECKOUT & SERVICE</text>
+                  <text x="735" y="578" fill="#C5A059" fontSize="12" fontWeight="600" textAnchor="middle">{checkoutArea} m²</text>
                 </g>
                 <g transform="translate(100, 600)">
-                  <circle cx="0" cy="0" r="20" fill="none" stroke="#00d2ff" strokeWidth="1.5" strokeDasharray="3 2" />
-                  <polygon points="0,-16 4,-4 0,0 -4,-4" fill="#00d2ff" />
-                  <text x="0" y="30" fill="#00d2ff" fontSize="10" textAnchor="middle" fontFamily="monospace">N // RETAIL-01</text>
+                  <circle cx="0" cy="0" r="20" fill="none" stroke="#C5A059" strokeWidth="1.5" strokeDasharray="3 2" />
+                  <polygon points="0,-16 4,-4 0,0 -4,-4" fill="#C5A059" />
+                  <text x="0" y="30" fill="#C5A059" fontSize="10" textAnchor="middle" fontFamily="monospace">N // RETAIL-01</text>
                 </g>
               </svg>
             )}
@@ -1412,20 +1412,22 @@ export function SanitizeSizeVisualization({
         </div>
       </div>
 
-      {!isQuote && (<div className="grid grid-cols-3 gap-2 sm:gap-6 pt-3.5 mt-3 border-t border-cyan-900/40 w-full text-center">
-        <div>
-          <p className="text-[11px] sm:text-xs text-gray-400 font-medium mb-0.5">{translate("EstimatedCost")}</p>
-          <p className="text-[10px] sm:text-lg font-bold text-[#38BDF8]">{estimatedCost}</p>
+      {!isQuote && (
+        <div className="grid grid-cols-3 gap-2 sm:gap-6 pt-3.5 mt-3 border-t border-[#C5A059]/40 w-full text-center">
+          <div>
+            <p className="text-[11px] sm:text-xs text-gray-400 font-medium mb-0.5">{translate("EstimatedCost")}</p>
+            <p className="text-[10px] sm:text-lg font-bold text-[#C5A059]">{estimatedCost}</p>
+          </div>
+          <div>
+            <p className="text-[11px] sm:text-xs text-gray-400 font-medium mb-0.5">{translate("ServiceRate")}</p>
+            <p className="text-[10px] sm:text-lg font-bold text-white">{serviceRate}</p>
+          </div>
+          <div>
+            <p className="text-[11px] sm:text-xs text-gray-400 font-medium mb-0.5">{translate("EstLabor")}</p>
+            <p className="text-[10px] sm:text-lg font-bold text-white">{labor}</p>
+          </div>
         </div>
-        <div>
-          <p className="text-[11px] sm:text-xs text-gray-400 font-medium mb-0.5">{translate("ServiceRate")}</p>
-          <p className="text-[10px] sm:text-lg font-bold text-white">{serviceRate}</p>
-        </div>
-        <div>
-          <p className="text-[11px] sm:text-xs text-gray-400 font-medium mb-0.5">{translate("EstLabor")}</p>
-          <p className="text-[10px] sm:text-lg font-bold text-white">{labor}</p>
-        </div>
-      </div>)}
+      )}
     </div>
   );
 }
@@ -1746,10 +1748,10 @@ export function PropertyTypeSizeSelectorCommonFlowOfServices({
       )}
 
       <div
-        className={`rounded-2xl py-4 mt-5 border pb-5 sm:pb-6 px-5 sm:px-6 shadow-xl w-full transition-all duration-300 ${
+        className={`rounded-2xl py-4 mt-5 border pb-5 sm:pb-6 px-5 sm:px-6  transition-all duration-300 ${
           isLight
             ? "bg-white border-[#C5A059]/40 text-[#1B2E4B]"
-            : "bg-brand-navy border-cyan-500/40 text-slate-100"
+            : "bg-[rgba(13,20,36,0.7)] border-[rgba(212,175,55,0.18)] text-slate-100"
         }`}
       >
         {!ROOM_COMPONENTS_SERVICES && (
@@ -1827,11 +1829,11 @@ export function PropertyTypeSizeSelectorCommonFlowOfServices({
                     className={`shrink-0 w-[110px] h-[110px] sm:w-[118px] shadow-lg sm:h-[118px] rounded-xl border-2 flex flex-col items-center justify-center p-2.5 cursor-pointer transition-all select-none ${
                       isSelected
                         ? isLight
-                          ? "bg-[#FFFDF7] border-[#C5A059] shadow-[0_4px_16px_rgba(197,160,89,0.25)] ring-1 ring-[#C5A059]/30"
-                          : "bg-blue-600 border-[#B89642] shadow-[0_0_15px_rgba(37,99,235,0.3)]"
-                        : isLight
-                        ? "bg-[#FBF9F4] border-[#C5A059]/30 hover:border-[#C5A059]/70 hover:bg-[#F5F0E4]"
-                        : "bg-brand-navy/50 border-[#C6A868]/60 hover:border-[#B89642]"
+                      ? "bg-[#C5A059]/30 border-2 border-[#C5A059] shadow-[0_6px_22px_rgba(197,160,89,0.25)] ring-1 ring-[#C5A059]/25"
+                      : "bg-[#131713] border-2 border-[#E5C365] shadow-[0_0_20px_rgba(229,195,101,0.18)]"
+                    : isLight
+                    ? "bg-[#FBF9F4] border border-[#C5A059]/30 hover:border-[#C5A059]/70 hover:bg-[#F5F0E4]"
+                    : "bg-[#0B101C] border border-[#172238] hover:border-slate-700 hover:bg-[#0f1626]"
                     }`}
                   >
                     <div

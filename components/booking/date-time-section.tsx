@@ -105,13 +105,14 @@ export function DateTimeSection({ date, onDateChange, time, onTimeChange, theme:
     const list: (Date | null)[] = Array.from({ length: firstWeekday }, () => null);
     for (let day = 1; day <= daysInMonth; day++) list.push(new Date(year, month, day));
     return list;
-  }, [viewMonth]);
+  }, [viewMonth]); 
 
   return (
-    <section className={`overflow-hidden rounded-2xl border shadow-xl ${isLight ? "border-slate-200 bg-white" : "border-brand-gold bg-[#05122b]"}`}>
+    <section className={`overflow-hidden rounded-2xl border shadow-xl 
+    ${isLight ? "border-slate-200 bg-white" : "bg-[rgba(13,20,36,0.7)] backdrop-blur-xl border-[rgba(212,175,55,0.18)]"}`}>
       {/* Top Header Bar */}
       <div className={`flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 border-b px-5 py-4 sm:px-7 ${
-        isLight ? "border-slate-200 bg-[#F9FAFB]" : "border-brand-gold/60 bg-[#030712]"
+        isLight ? "border-slate-200 bg-[#F9FAFB]" : "border-brand-gold/60 "
       }`}>
         <div className="flex items-center gap-3">
           <div className={`flex h-9 w-9 shrink-0 items-center justify-center rounded-lg border shadow-sm ${
@@ -143,7 +144,8 @@ export function DateTimeSection({ date, onDateChange, time, onTimeChange, theme:
       </div>
 
       {/* Date & Time Pickers Grid */}
-      <div className={`grid grid-cols-1 gap-5 p-4 sm:p-6 md:grid-cols-2 md:gap-6 ${isLight ? "bg-[#F9FAFB]" : "bg-[#030712]"}`}>
+      <div className={`grid grid-cols-1 gap-5 p-4 sm:p-6 md:grid-cols-2 md:gap-6
+         ${isLight ? "bg-[#F9FAFB]" : "bg-[rgba(13,20,36,0.7)]"}`}>
         
         {/* Date Picker Card */}
         <div className={`overflow-hidden rounded-xl border shadow-sm flex flex-col ${

@@ -106,10 +106,10 @@ export default function Equipments({
 
   return (
     <div
-      className={`w-full rounded-2xl sm:rounded-3xl p-4 sm:p-8 md:p-10 font-sans shadow-2xl border transition-all duration-300 ${
+      className={`w-full rounded-2xl sm:rounded-3xl p-4  md:p-5 font-sans shadow-2xl border transition-all duration-300 ${
         isLight
           ? "bg-white border-[#C5A059]/40 text-[#1B2E4B]"
-          : "bg-[#030712] border-[#111927] text-slate-100"
+          : "bg-[rgba(13,20,36,0.7)] backdrop-blur-xl border-[rgba(212,175,55,0.18)] text-white"
       }`}
     >
       {/* Top Header & Toggle Section */}
@@ -172,13 +172,14 @@ export default function Equipments({
         </div>
       </div>
 
-      <div className={`border-t pt-4 sm:pt-6 ${isLight ? "border-gray-200" : "border-[#111927]"}`}>
+      <div className={`border-t pt-4 sm:pt-6 ${isLight ? "border-gray-200" : "border-gray-700"}`}>
         <p
           className={`text-xs sm:text-sm font-sans mb-6 sm:mb-8 leading-relaxed max-w-4xl ${
             isLight ? "text-[#5A6E85]" : "text-[#7082A0]"
           }`}
         >
-          {translate("curated_engagement_default")}
+          When provided by Pearly Sky, all supplies are hospital-grade, non-toxic, allergen-free
+           botanical concentrates brought in sealed, sanitized canisters.
         </p>
 
         {/* BY CLIENT STATE DISPLAY */}
@@ -222,7 +223,7 @@ export default function Equipments({
               return (
                 <div
                   key={item.id}
-                  className={`relative flex flex-row items-center justify-between p-4 sm:p-6 border rounded-xl sm:rounded-2xl transition-all duration-200 gap-3 ${
+                  className={`relative flex flex-row items-center justify-between p-3 border rounded-xl sm:rounded-2xl transition-all duration-200 gap-3 ${
                     qty > 0
                       ? isLight
                         ? "bg-[#FFFDF7] border-2 border-[#C5A059] shadow-[0_4px_16px_rgba(197,160,89,0.2)]"
@@ -233,7 +234,7 @@ export default function Equipments({
                   }`}
                 >
                   {/* Left Side: Icon & Details */}
-                  <div className="flex items-start gap-3 sm:gap-4 min-w-0 flex-1">
+                  <div className="flex items-center gap-3 sm:gap-4 min-w-0 flex-1">
                     <div
                       className={`w-9 h-9 sm:w-10 sm:h-10 rounded-xl border flex items-center justify-center shrink-0 mt-0.5 ${
                         isLight
@@ -245,15 +246,16 @@ export default function Equipments({
                     </div>
                     <div className="flex flex-col min-w-0">
                       <h4
-                        className={`text-xs sm:text-base font-bold tracking-wide leading-snug ${
+                        className={`text-xs md:text-base font-bold tracking-wide leading-snug ${
                           isLight ? "text-[#1B2E4B]" : "text-white"
                         }`}
                       >
                         {translate(meta.displayName as TranslationKey)}
-                        <span className={`font-normal ml-1 ${isLight ? "text-[#6A7E96]" : "text-slate-400"}`}>
-                          ({translate(meta.subtitle as TranslationKey)})
-                        </span>
+                        
                       </h4>
+                      <span className={`font-normal md:text-[13px] ml-1 ${isLight ? "text-[#6A7E96]" : "text-slate-400"}`}>
+                          ({translate(meta.subtitle as TranslationKey)})
+                      </span>
                       
                       {/* Price Section */}
                       <p

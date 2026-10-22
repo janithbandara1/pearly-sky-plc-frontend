@@ -309,10 +309,10 @@ export default function ServiceFrequencySelector({
 
   return (
     <div
-      className={`w-full rounded-2xl sm:rounded-3xl p-4 sm:p-8 md:p-10 font-serif shadow-2xl border transition-all duration-300 ${
+      className={`w-full rounded-2xl sm:rounded-3xl p-4 md:p-5 font-serif shadow-2xl border transition-all duration-300 ${
         isLight
           ? "bg-white border-[#C5A059]/40 text-[#1B2E4B]"
-          : "bg-[#030712] border-[#111927] text-slate-100"
+          : "bg-[rgba(13,20,36,0.7)] border-[rgba(212,175,55,0.18)] text-slate-100"
       }`}
     >
       {/* Step Indicator Header */}
@@ -333,7 +333,7 @@ export default function ServiceFrequencySelector({
         </h2>
       </div>
 
-      <div className={`border-t pt-5 sm:pt-8 ${isLight ? "border-gray-200" : "border-[#111927]"}`}>
+      <div className={`border-t pt-5 sm:pt-8 ${isLight ? "border-gray-200" : "border-gray-800"}`}>
         {/* Responsive Grid: 1 col on mobile, 2 cols on small tablet, 4 cols on desktop */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 md:gap-5">
           {currentService.frequencies.map((freq) => {
@@ -343,10 +343,10 @@ export default function ServiceFrequencySelector({
               <div
                 key={freq.id}
                 onClick={() => handleFrequencySelect(freq.id)}
-                className={`relative flex flex-col justify-between p-4 sm:p-5 md:p-6 rounded-xl sm:rounded-2xl transition-all duration-300 cursor-pointer text-left min-h-[170px] sm:min-h-[220px] ${
+                className={`relative flex flex-col justify-between p-4 md:p-3 rounded-xl sm:rounded-2xl transition-all duration-300 cursor-pointer text-left min-h-[150px]  ${
                   isSelected
                     ? isLight
-                      ? "bg-[#FFFDF7] border-2 border-[#C5A059] shadow-[0_6px_22px_rgba(197,160,89,0.25)] ring-1 ring-[#C5A059]/25"
+                      ? "bg-[#C5A059]/30 border-2 border-[#C5A059] shadow-[0_6px_22px_rgba(197,160,89,0.25)] ring-1 ring-[#C5A059]/25"
                       : "bg-[#131713] border-2 border-[#E5C365] shadow-[0_0_20px_rgba(229,195,101,0.18)]"
                     : isLight
                     ? "bg-[#FBF9F4] border border-[#C5A059]/30 hover:border-[#C5A059]/70 hover:bg-[#F5F0E4]"
@@ -354,9 +354,9 @@ export default function ServiceFrequencySelector({
                 }`}
               >
                 {/* Top Badge Slot */}
-                <div className="min-h-[24px] sm:min-h-[28px] mb-2 sm:mb-4">
+                <div className="min-h-[24px] sm:min-h-[28px] mb-2 ">
                   <span
-                    className={`inline-block px-2.5 sm:px-3 py-0.5 sm:py-1 text-[10px] sm:text-[11px] font-sans font-semibold tracking-wider rounded-md transition-colors ${
+                    className={`inline-block px-2.5 sm:px-3 py-0.5 sm:py-1 text-[10px] md:text-[11px] font-sans font-semibold tracking-wider rounded-md transition-colors ${
                       isSelected
                         ? isLight
                           ? "bg-[#C5A059] text-white shadow-sm"
@@ -371,9 +371,9 @@ export default function ServiceFrequencySelector({
                 </div>
 
                 {/* Main Card Content */}
-                <div className="flex-1 flex flex-col justify-center my-1 sm:my-2">
+                <div className="flex-1 flex flex-col justify-center my-1 ">
                   <h3
-                    className={`text-lg sm:text-xl md:text-2xl font-serif font-normal mb-1 tracking-wide ${
+                    className={`text-[15px]  md:text-[18px] font-serif font-normal mb-1 tracking-wide ${
                       isLight ? "text-[#1B2E4B]" : "text-white"
                     }`}
                   >
