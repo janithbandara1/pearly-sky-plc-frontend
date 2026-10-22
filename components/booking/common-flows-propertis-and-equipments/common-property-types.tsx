@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState, useRef } from "react";
-import { Check, ChevronDown, Sparkles } from "lucide-react";
+import { Check, ChevronDown, Sparkles, Home, Minus, Plus, ArrowUp, ArrowDown } from "lucide-react";
 import { YACHT_PROPERTY_TYPES } from "@/components/booking/Yatchpropertytypes";
 import { useLanguage } from "@/lib/i18n/language-context";
 import { useCurrency } from "@/lib/currency-context";
@@ -1222,7 +1222,7 @@ export function SanitizeSizeVisualization({
 
   return (
     <div
-      className="w-full rounded-t-2xl rounded-r-2xl rounded-b-none rounded-l-2xl bg-[#070D1B] border border-cyan-500/40 md:p-3 p-5 shadow-2xl relative overflow-hidden select-none"
+      className="w-full rounded-2xl  bg-[#070D1B] border border-cyan-500/40 md:p-3 p-5 shadow-2xl relative overflow-hidden select-none"
       style={{
         backgroundImage: `
           linear-gradient(to right, rgba(0, 180, 255, 0.06) 1px, transparent 1px),
@@ -1628,39 +1628,48 @@ export function PropertyTypeSizeSelectorCommonFlowOfServices({
 
   const MIN_SIZE = 20;
   const MAX_SIZE = 500;
+  const SIZE_MILESTONES = [20, 50, 100, 200, 300, 500];
+  const [sizeUnit, setSizeUnit] = useState<"m2" | "ft2">("m2");
 
   const prevSize = value > MIN_SIZE ? value - 1 : null;
   const nextSize = value < MAX_SIZE ? value + 1 : null;
 
-  function handleNext() {
-    if (value < MAX_SIZE) {
-      const nextVal = value + 1;
+  function handleStepChange(step: number) {
+    const nextVal = Math.min(MAX_SIZE, Math.max(MIN_SIZE, value + step));
+    if (nextVal === value) return;
 
-      if(!quoteStatus){
-
-        const nextCat = findAppropriateCategory(nextVal, activeCategoryId, selectableCategories, "up");
-        const nextId = nextCat ? nextCat.id : null;
-        if (nextId && nextId !== activeCategoryId) {
-          setActiveCategoryId(nextId);
-        }
-        
+    if (!quoteStatus) {
+      const direction = step > 0 ? "up" : "down";
+      const nextCat = findAppropriateCategory(nextVal, activeCategoryId, selectableCategories, direction);
+      const nextId = nextCat ? nextCat.id : null;
+      if (nextId && nextId !== activeCategoryId) {
+        setActiveCategoryId(nextId);
       }
-      onChange(nextVal);
     }
+    onChange(nextVal);
+  }
+
+  function handleDirectSizeChange(newVal: number) {
+    const clamped = Math.min(MAX_SIZE, Math.max(MIN_SIZE, newVal));
+    if (clamped === value) return;
+
+    if (!quoteStatus) {
+      const direction = clamped > value ? "up" : "down";
+      const nextCat = findAppropriateCategory(clamped, activeCategoryId, selectableCategories, direction);
+      const nextId = nextCat ? nextCat.id : null;
+      if (nextId && nextId !== activeCategoryId) {
+        setActiveCategoryId(nextId);
+      }
+    }
+    onChange(clamped);
+  }
+
+  function handleNext() {
+    handleStepChange(1);
   }
 
   function handlePrev() {
-    if (value > MIN_SIZE) {
-      const prevVal = value - 1;
-      if(!quoteStatus){
-        const prevCat = findAppropriateCategory(prevVal, activeCategoryId, selectableCategories, "down");
-        const prevId = prevCat ? prevCat.id : null;
-        if (prevId && prevId !== activeCategoryId) {
-          setActiveCategoryId(prevId);
-        }
-      }
-      onChange(prevVal);
-    }
+    handleStepChange(-1);
   }
 
   const wheelContainerRef = useRef<HTMLDivElement>(null);
@@ -1733,7 +1742,7 @@ export function PropertyTypeSizeSelectorCommonFlowOfServices({
         />
       )}
 
-      <div className={`  rounded-b-2xl py-4  ${isQuote ? "border border-cyan-500/40 " : "border border-[#C6A868]"}  bg-brand-navy pb-5 sm:pb-6 px-5 sm:px-6 shadow-sm w-full`}>
+      <div className={`  rounded-b-2xl py-4 mt-5 rounded-2xl border border-cyan-500/40   bg-brand-navy pb-5 sm:pb-6 px-5 sm:px-6 shadow-sm w-full`}>
         {!ROOM_COMPONENTS_SERVICES && (
           <div className="w-full">
             <h2 className="text-base sm:text-lg font-bold text-gray-300 mb-3">{translate("propServiceCatagory")}</h2>
@@ -1760,8 +1769,11 @@ export function PropertyTypeSizeSelectorCommonFlowOfServices({
         <div className="grid grid-cols-1 gap-6 items-start h-full">
           {/* Left Column: Property Type */}
           <div className="flex flex-col min-w-0">
-            <div className="flex justify-between">
-              <h3 className="text-base sm:text-lg font-bold text-gray-300 mb-3">
+            <span className="text-[10px] sm:text-xs py-1 font-sans font-bold tracking-[0.2em] sm:tracking-[0.25em] text-[#D9B75B] uppercase">
+                Step 1 of 6
+            </span>
+            <div className="flex justify-between mt-3 border-b  border-[#3d3d3d]">
+              <h3 className="text-xl sm:text-2xl md:text-3xl font-serif text-gray-300 mb-3">
                 {translate("propTypeTitle")}
               </h3>
               <p className="text-[11px] text-[#94A3B8] text-center mt-1.5 font-medium tracking-wide select-none">
@@ -1770,7 +1782,7 @@ export function PropertyTypeSizeSelectorCommonFlowOfServices({
             </div>
           
             <div
-              className="flex flex-nowrap gap-3 overflow-x-auto overflow-y-hidden -mx-1 px-1 [&>*:first-child]:ml-auto [&>*:last-child]:mr-auto [&::-webkit-scrollbar]:hidden"
+              className="flex flex-nowrap gap-3 pt-3 overflow-x-auto overflow-y-hidden -mx-1 px-1 [&>*:first-child]:ml-auto [&>*:last-child]:mr-auto [&::-webkit-scrollbar]:hidden"
               style={{ scrollbarWidth: "none", scrollSnapType: "x proximity" }}
             >
               {/* Display categories */}
@@ -1806,114 +1818,229 @@ export function PropertyTypeSizeSelectorCommonFlowOfServices({
             </div>
             
 
-            {/* Property Size Selector */}
-            <div className="flex flex-col w-full mt-8">
-              <h3 className="text-base sm:text-lg font-bold text-white mb-3">{translate("propSizeTitle")}</h3>
+            {/* Property Size Selector (Matching Reference Design 100%) */}
+            <div
+              ref={wheelContainerRef}
+              className="flex flex-col w-full mt-8 rounded-[28px] bg-[#0c121e] border border-white/5 p-6 sm:p-8 gap-6 shadow-2xl select-none"
+            >
+              {/* Header: Title + Subtitle on Left, Unit Switcher Pill on Right */}
+              <div className="flex items-start justify-between w-full gap-4">
+                <div className="flex flex-col">
+                  <h3 className="font-serif text-2xl sm:text-3xl font-bold text-white tracking-tight">
+                    {translate("propSizeTitle")}
+                  </h3>
+                  <p className="text-xs sm:text-sm text-gray-400 mt-1">
+                    Select the total size of your property
+                  </p>
+                </div>
 
-              <div className="flex flex-col md:flex-row items-center w-full mt-5 gap-3">
-                {/* Wheel Display Container */}
-                <div
-                  ref={wheelContainerRef}
-                  className="flex-1 h-[110px] sm:h-[118px] w-full rounded-xl border-2 border-[#C6A868]/60 bg-gray-800 overflow-hidden shadow-sm flex flex-col justify-between select-none"
-                >
-                  {/* Top Row: Previous size preview */}
+                {/* Unit Switcher Pill (m² / ft²) */}
+                <div className="bg-[#141b2a] p-1 rounded-full border border-white/5 flex items-center shrink-0">
                   <button
                     type="button"
-                    onClick={handlePrev}
-                    disabled={prevSize === null}
-                    className="flex-1 hidden md:flex items-center justify-center text-xs text-[#94A3B8] font-medium cursor-pointer hover:bg-slate-700 transition-colors disabled:opacity-30 disabled:cursor-default w-full"
+                    onClick={() => setSizeUnit("m2")}
+                    className={`px-3.5 py-1 rounded-full text-xs font-bold transition-all cursor-pointer ${
+                      sizeUnit === "m2"
+                        ? "bg-[#e5b842] text-black shadow-md"
+                        : "text-gray-400 hover:text-white"
+                    }`}
                   >
-                    {prevSize !== null ? `${formatFt2(prevSize)} ft²` : "\u00A0"}
+                    m²
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => setSizeUnit("ft2")}
+                    className={`px-3.5 py-1 rounded-full text-xs font-bold transition-all cursor-pointer ${
+                      sizeUnit === "ft2"
+                        ? "bg-[#e5b842] text-black shadow-md"
+                        : "text-gray-400 hover:text-white"
+                    }`}
+                  >
+                    ft²
+                  </button>
+                </div>
+              </div>
+
+              {/* Display & Quick-Control Card */}
+              <div className="w-full rounded-2xl bg-[#111726] border border-white/5 p-4 sm:p-5 flex items-center justify-between gap-3">
+                {/* Left: House Icon & Size Values */}
+                <div className="flex items-center gap-3.5 sm:gap-4 min-w-0">
+                  <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-2xl bg-[#182033] border border-[#e5b842]/30 flex items-center justify-center shrink-0 shadow-[0_0_15px_rgba(229,184,66,0.15)]">
+                    <Home className="w-6 h-6 sm:w-7 sm:h-7 text-[#e5b842]" />
+                  </div>
+                  <div className="flex flex-col min-w-0">
+                    <span className="text-2xl sm:text-3xl font-bold text-white tracking-tight leading-none truncate">
+                      {sizeUnit === "m2" ? `${value} m²` : `${formatFt2(value)} ft²`}
+                    </span>
+                    <span className="text-xs sm:text-sm font-semibold text-[#e5b842] mt-1 truncate">
+                      {sizeUnit === "m2" ? `${formatFt2(value)} ft²` : `${value} m²`}
+                    </span>
+                  </div>
+                </div>
+
+                {/* Right: Minus Button, Size Dropdown Pill, Plus Button */}
+                <div className="flex items-center gap-2 sm:gap-3 shrink-0">
+                  {/* Minus button */}
+                  <button
+                    type="button"
+                    onClick={() => handleStepChange(-1)}
+                    disabled={value <= MIN_SIZE}
+                    className="w-10 h-10 sm:w-11 sm:h-11 rounded-full bg-[#1c2438] hover:bg-[#25304a] text-white flex items-center justify-center font-bold text-lg cursor-pointer transition-all disabled:opacity-30 disabled:cursor-not-allowed shadow-md active:scale-95"
+                    aria-label="Decrease size"
+                  >
+                    <Minus className="w-4 h-4 sm:w-5 sm:h-5 text-white" />
                   </button>
 
-                  {/* Middle Row: Active selected size */}
-                  <div className="relative flex-[1.6] bg-gray-700 text-white flex flex-col md:items-center px-4 items-start justify-center py-2 border-y border-[#C6A868]/40 shadow-inner">
-                    <span className="text-xl sm:text-2xl font-bold leading-tight">
-                      {value} m²
-                    </span>
-                    <span className="text-xs font-semibold text-[#B89642] leading-none mt-0.5">
-                      {formatFt2(value)} ft²
-                    </span>
-                    <div className="absolute right-4">
-                      <select
-                        value={value}
-                        onChange={(e) => {
-                          const selectedVal = Number(e.target.value);
-                          onChange(selectedVal);
-                        }}
-                        className="appearance-none py-2 pl-2 pr-9 block border border-gray-600 focus:border-gray-500 rounded-[10px] bg-gray-800 text-white cursor-pointer"
-                      >
-                        {dropdownOptions.map((Val) => (
-                          <option key={Val} value={Val} className="bg-gray-700 text-white">
-                            {Val} m²
-                          </option>
-                        ))}
-                      </select>
-                      <ChevronDown className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-300" />
-                    </div>
+                  {/* Size Pill with integrated select */}
+                  <div className="relative rounded-xl border border-white/10 bg-[#161e31] hover:border-white/20 transition-colors">
+                    <select
+                      value={value}
+                      onChange={(e) => {
+                        const selectedVal = Number(e.target.value);
+                        handleDirectSizeChange(selectedVal);
+                      }}
+                      className="appearance-none px-3.5 py-2 sm:py-2.5 text-white font-semibold text-xs sm:text-sm bg-transparent cursor-pointer focus:outline-none pr-8"
+                    >
+                      {dropdownOptions.map((val) => (
+                        <option key={val} value={val} className="bg-[#111726] text-white">
+                          {sizeUnit === "m2" ? `${val} m²` : `${formatFt2(val)} ft²`}
+                        </option>
+                      ))}
+                    </select>
+                    <ChevronDown className="pointer-events-none absolute right-2.5 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-gray-400" />
                   </div>
 
-                  {/* Bottom Row: Next size preview */}
+                  {/* Plus button */}
                   <button
                     type="button"
-                    onClick={handleNext}
-                    disabled={nextSize === null}
-                    className="flex-1 hidden md:flex items-center justify-center text-xs text-[#94A3B8] font-medium cursor-pointer hover:bg-slate-500 transition-colors disabled:opacity-30 disabled:cursor-default w-full"
+                    onClick={() => handleStepChange(1)}
+                    disabled={value >= MAX_SIZE}
+                    className="w-10 h-10 sm:w-11 sm:h-11 rounded-full bg-[#e5b842] hover:bg-[#d4a732] text-black flex items-center justify-center font-bold text-lg cursor-pointer transition-all disabled:opacity-30 disabled:cursor-not-allowed shadow-[0_0_12px_rgba(229,184,66,0.35)] active:scale-95"
+                    aria-label="Increase size"
                   >
-                    {nextSize !== null ? `${nextSize} m²` : "\u00A0"}
+                    <Plus className="w-4 h-4 sm:w-5 sm:h-5 text-black stroke-[3]" />
                   </button>
                 </div>
+              </div>
 
-                {/* Right Buttons Stack */}
-                {/* Desktop view */}
-                <div className="md:flex hidden w-[30%] h-[110px] sm:h-[118px] flex-col gap-2 shrink-0">
-                  <button
-                    type="button"
-                    onClick={handleNext}
-                    disabled={nextSize === null}
-                    className="flex-1 w-[100%] rounded-xl border-2 hover:bg-blue-600 border-[#C6A868]/60 bg-gray-800 text-white active:bg-gray-700 active:scale-95 transition-all shadow-sm flex flex-col items-center justify-center cursor-pointer disabled:opacity-40 disabled:cursor-not-allowed"
-                    aria-label="Increase Property Size"
-                  >
-                    <span className="text-sm leading-none font-bold">↑</span>
-                    <span className="text-[9px] font-bold tracking-wider mt-1">{translate("propSizeUp")}</span>
-                  </button>
+              {/* Slider Track and Milestones */}
+              <div className="flex flex-col w-full px-1">
+                {/* Interactive Slider Bar */}
+                {(() => {
+                  const sliderPercent = Math.min(100, Math.max(0, ((value - MIN_SIZE) / (MAX_SIZE - MIN_SIZE)) * 100));
+                  return (
+                    <div className="relative w-full h-1.5 bg-[#1b2438] rounded-full my-3 flex items-center">
+                      {/* Active Gradient Track */}
+                      <div
+                        className="absolute top-0 left-0 h-full bg-gradient-to-r from-[#e5b842] to-[#f5d061] rounded-full"
+                        style={{ width: `${sliderPercent}%` }}
+                      />
 
-                  <button
-                    type="button"
-                    onClick={handlePrev}
-                    disabled={prevSize === null}
-                    className="flex-1 rounded-xl w-[100%] hover:bg-blue-600 border-2 border-[#C6A868]/60 bg-gray-800 text-white active:bg-gray-700 active:scale-95 transition-all shadow-sm flex flex-col items-center justify-center cursor-pointer disabled:opacity-40 disabled:cursor-not-allowed"
-                    aria-label="Decrease Property Size"
-                  >
-                    <span className="text-sm leading-none font-bold">↓</span>
-                    <span className="text-[9px] font-bold tracking-wider mt-1">{translate("propSizeDown")}</span>
-                  </button>
+                      {/* Glowing Thumb Handle */}
+                      <div
+                        className="absolute top-1/2 -translate-y-1/2 -translate-x-1/2 w-6 h-6 rounded-full bg-gradient-to-b from-[#fff8cb] via-[#e5b842] to-[#ab7c18] shadow-[0_0_20px_rgba(234,179,8,0.95),0_0_8px_rgba(255,255,255,0.8)] border border-white pointer-events-none transition-all duration-75"
+                        style={{ left: `${sliderPercent}%` }}
+                      />
+
+                      {/* Invisible Range Input for Full Touch/Mouse Interactivity */}
+                      <input
+                        type="range"
+                        min={MIN_SIZE}
+                        max={MAX_SIZE}
+                        step={1}
+                        value={value}
+                        onChange={(e) => handleDirectSizeChange(Number(e.target.value))}
+                        className="absolute inset-0 w-full h-8 -top-3 opacity-0 cursor-pointer z-10"
+                        aria-label="Property size slider"
+                      />
+                    </div>
+                  );
+                })()}
+
+                {/* Milestone Indicators below Slider */}
+                <div className="flex justify-between items-center w-full mt-3 select-none">
+                  {SIZE_MILESTONES.map((m, idx) => {
+                    const isFirst = idx === 0;
+                    const isLast = idx === SIZE_MILESTONES.length - 1;
+                    const isCurrent = value === m;
+                    return (
+                      <button
+                        key={m}
+                        type="button"
+                        onClick={() => handleDirectSizeChange(m)}
+                        className={`flex flex-col cursor-pointer transition-colors group ${
+                          isFirst
+                            ? "items-start text-left"
+                            : isLast
+                            ? "items-end text-right"
+                            : "items-center text-center"
+                        }`}
+                      >
+                        <span
+                          className={`text-xs sm:text-sm font-bold transition-colors ${
+                            isCurrent
+                              ? "text-white"
+                              : "text-gray-300 group-hover:text-white"
+                          }`}
+                        >
+                          {m} m²
+                        </span>
+                        <span
+                          className={`text-[10px] sm:text-xs font-semibold transition-colors mt-0.5 ${
+                            isCurrent
+                              ? "text-[#e5b842]"
+                              : "text-gray-500 group-hover:text-gray-400"
+                          }`}
+                        >
+                          {formatFt2(m)} ft²
+                        </span>
+                      </button>
+                    );
+                  })}
                 </div>
+              </div>
 
-                {/* Mobile view */}
-                <div className="flex md:hidden w-full h-[110px] sm:h-[118px] flex-col gap-2 shrink-0">
-                  <button
-                    type="button"
-                    onClick={handleNext}
-                    disabled={nextSize === null}
-                    className="flex-1 rounded-xl bg-gray-800 text-white border-2 border-[#C6A868]/60 hover:bg-blue-600 active:scale-95 transition-all shadow-sm flex flex-col items-center justify-center text-[#1E293B] cursor-pointer disabled:opacity-40 disabled:cursor-not-allowed"
-                    aria-label="Increase Property Size"
-                  >
-                    <span className="text-sm leading-none font-bold">↑</span>
-                    <span className="text-[9px] font-bold tracking-wider mt-1">{translate("propSizeUp")}</span>
-                  </button>
+              {/* Bottom Action Buttons: Increase Size (+5) & Decrease Size (-5) */}
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5 w-full mt-1">
+                {/* Increase Size Card */}
+                <button
+                  type="button"
+                  onClick={() => handleStepChange(5)}
+                  disabled={value >= MAX_SIZE}
+                  className="rounded-2xl bg-[#111726] border border-white/5 hover:border-[#e5b842]/40 p-4 sm:p-5 flex items-center gap-3.5 transition-all text-left cursor-pointer disabled:opacity-40 disabled:cursor-not-allowed group active:scale-[0.98]"
+                >
+                  <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-full bg-[#1b2337] flex items-center justify-center text-[#e5b842] group-hover:bg-[#e5b842] group-hover:text-black transition-colors shrink-0">
+                    <ArrowUp className="w-4 h-4 sm:w-5 sm:h-5 stroke-[2.5]" />
+                  </div>
+                  <div className="flex flex-col">
+                    <span className="text-sm sm:text-base font-bold text-white leading-tight">
+                      {translate("propSizeUp" as TranslationKey) || "Increase Size"}
+                    </span>
+                    <span className="text-xs text-gray-400 mt-1 font-medium">
+                      + 5 m²
+                    </span>
+                  </div>
+                </button>
 
-                  <button
-                    type="button"
-                    onClick={handlePrev}
-                    disabled={prevSize === null}
-                    className="flex-1 rounded-xl border-2 bg-gray-800 text-white border-[#C6A868]/60 hover:bg-blue-600 active:scale-95 transition-all shadow-sm flex flex-col items-center justify-center cursor-pointer disabled:opacity-40 disabled:cursor-not-allowed"
-                    aria-label="Decrease Property Size"
-                  >
-                    <span className="text-sm leading-none font-bold">↓</span>
-                    <span className="text-[9px] font-bold tracking-wider mt-1">{translate("propSizeDown")}</span>
-                  </button>
-                </div>
+                {/* Decrease Size Card */}
+                <button
+                  type="button"
+                  onClick={() => handleStepChange(-5)}
+                  disabled={value <= MIN_SIZE}
+                  className="rounded-2xl bg-[#111726] border border-white/5 hover:border-[#e5b842]/40 p-4 sm:p-5 flex items-center gap-3.5 transition-all text-left cursor-pointer disabled:opacity-40 disabled:cursor-not-allowed group active:scale-[0.98]"
+                >
+                  <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-full bg-[#1b2337] flex items-center justify-center text-[#e5b842] group-hover:bg-[#e5b842] group-hover:text-black transition-colors shrink-0">
+                    <ArrowDown className="w-4 h-4 sm:w-5 sm:h-5 stroke-[2.5]" />
+                  </div>
+                  <div className="flex flex-col">
+                    <span className="text-sm sm:text-base font-bold text-white leading-tight">
+                      {translate("propSizeDown" as TranslationKey) || "Decrease Size"}
+                    </span>
+                    <span className="text-xs text-gray-400 mt-1 font-medium">
+                      - 5 m²
+                    </span>
+                  </div>
+                </button>
               </div>
             </div>
 

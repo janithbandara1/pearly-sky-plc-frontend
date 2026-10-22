@@ -54,6 +54,10 @@ import { getPropertyCategoriesForServiceOfSanitize, PropertyTypeSizeSelectorComm
 import { roomCountsToList, type RoomCounts } from "@/components/booking/room-components-counter";
 import { EquipmentSectionOfCommonServicesSlugs } from "@/components/booking/common-flows-propertis-and-equipments/common-equipment-flow-section";
 import type { TranslationKey } from "@/lib/i18n/dictionaries/en";
+import HeaderNavigation from "@/components/booking/booking new flow/HeaderNavigation";
+import LiveEstimateSummary from "@/components/booking/quotation-common-flow/live-estimate";
+import BookingLogisticsSummary from "@/components/booking/booking new flow/BookingLogisticsSummary";
+import Equipments from "@/components/booking/booking new flow/equipments";
 
 const poppins = Poppins({ subsets: ["latin"], weight: ["400", "500", "600", "700", "800"], adjustFontFallback: false });
 
@@ -616,16 +620,10 @@ export function ServiceBookingView({
     return service.label
   }
 
-
-
-
-
-
-
   return (
     <div
       className={`${poppins.className} transition-colors duration-300 ${
-        isPoolCleaning || isPressureWashing || isCarpetService
+        isPoolCleaning || isPressureWashing || !isCarpetService
           ? poolTheme === "dark"
             ? "bg-[#0B132B] text-white"
             : "bg-[#ededee] text-[#1B2E4B]"
@@ -733,113 +731,71 @@ export function ServiceBookingView({
               </div>
             )}
 
-            {/* {isSecurityCategory && (
-              <SecurityCategorySelection selected={selectedCategory} onSelect={setSelectedCategory} />
-            )} */}
 
-            {!isSanitization && serviceSlug !== YACHT_SLUG && !isSteam && !isEvent && !isCategoryQuote &&(
-              <JobCardSection
-                packages={allPackages}
-                selectedIds={selectedPackageIds}
-                onToggle={togglePackage}
-              />
+            {isCommonPropertyTypeServices && (
+              <HeaderNavigation />
             )}
 
-            <DateTimeSection date={date} onDateChange={setDate} time={time} onTimeChange={setTime} />
-
-            {isCommonPropertyTypeServices ?
-
-              (<PropertyTypeSizeSelectorCommonFlowOfServices
-                value={propertySizeSqm}
-                onChange={setPropertySizeSqm}
-                serviceSlug={serviceSlug}
-                categories={getPropertyCategoriesForServiceOfSanitize(serviceSlug)}
-                onCategoryChange={(cat: PropertyCategory) => setPropertyType(cat.dropdownLabel ?? cat.label)}
-                quote={pricedQuote}
-                deepClean={deepClean}
-                onDeepCleanChange={setDeepClean}
-                disinfection={disinfection}
-                onDisinfectionChange={setDisinfection}
-                onServiceCategoryChange={setServiceCategory}
-                rooms={rooms}
-                onRoomsChange={setRooms}
-                selectServiceFrequency={selectServiceFrequency}
-                setSelectServiceFrequency={setSelectServiceFrequency}
-                isQuote={false}
-              />)
-              : (<PropertyTypeSizeSelector
-                value={propertySizeSqm}
-                onChange={setPropertySizeSqm}
-                categories={getPropertyCategoriesForService(serviceSlug)}
-                onCategoryChange={(cat: PropertyCategory) => setPropertyType(cat.dropdownLabel ?? cat.label)}
-              />)}
-
-
-
-            {
-              /* isEvent ? ((() => {
-                const categories = getPropertyCategoriesForService(serviceSlug);
-                const pTypeLower = (propertyType || "").toLowerCase();
-                const activeCategory =
-                  categories.find(
-                    (c: PropertyCategory) =>
-                      pTypeLower.includes(c.id.toLowerCase()) ||
-                      pTypeLower.includes(c.label.toLowerCase()),
-                  ) ?? categories[0];
-  
-                return (
-                  <EventbookSection
-                    propertyType={propertyType || activeCategory.label}
-                    categoryIcon={activeCategory.icon}
-                    propertySizeSqm={propertySizeSqm}
+            {/* Reorganized flex container matching the top-level side-by-side layout */}
+            <div className="flex flex-col gap-4 md:flex-row w-full items-start mb-4">
+              <div className="md:w-[80%] flex flex-col gap-4 w-full">
+                {isCommonPropertyTypeServices ? (
+                  <PropertyTypeSizeSelectorCommonFlowOfServices
+                    value={propertySizeSqm}
+                    onChange={setPropertySizeSqm}
+                    serviceSlug={serviceSlug}
+                    categories={getPropertyCategoriesForServiceOfSanitize(serviceSlug)}
+                    onCategoryChange={(cat: PropertyCategory) => setPropertyType(cat.dropdownLabel ?? cat.label)}
                     quote={pricedQuote}
-                    hourlyRate={pricedRate}
-                    supplySource={supplySource}
-                    onSupplySourceChange={handleSupplySourceChange}
-                    items={items}
-                    selectedItemIds={selectedItemIds}
-                    onToggleItem={toggleItem}
-                    addOnsTotal={addOnsTotal + (selectedDisinfectionLevel?.priceAdder ?? 0)}
-                    onBookNow={handleBookNow}
-                    submitting={submitting}
-                    bookDisabledReason={bookDisabledReason}
+                    deepClean={deepClean}
+                    onDeepCleanChange={setDeepClean}
+                    disinfection={disinfection}
+                    onDisinfectionChange={setDisinfection}
+                    onServiceCategoryChange={setServiceCategory}
+                    rooms={rooms}
+                    onRoomsChange={setRooms}
+                    selectServiceFrequency={selectServiceFrequency}
+                    setSelectServiceFrequency={setSelectServiceFrequency}
+                    isQuote={false}
                   />
-                );
-              })()) : */
-              isCommonBookingSectionView ? (
-                (() => {
-                  const categories = getPropertyCategoriesForServiceOfSanitize(serviceSlug);
-                  const pTypeLower = (propertyType || "").toLowerCase();
-                  const activeCategory =
-                    categories.find(
-                      (c: PropertyCategory) =>
-                        pTypeLower.includes(c.id.toLowerCase()) ||
-                        pTypeLower.includes(c.label.toLowerCase()),
-                    ) ?? categories[0];
+                ) : (
+                  <PropertyTypeSizeSelector
+                    value={propertySizeSqm}
+                    onChange={setPropertySizeSqm}
+                    categories={getPropertyCategoriesForService(serviceSlug)}
+                    onCategoryChange={(cat: PropertyCategory) => setPropertyType(cat.dropdownLabel ?? cat.label)}
+                  />
+                )}
 
-                  return (
-                    <EquipmentSectionOfCommonServicesSlugs
-                      propertyType={propertyType || activeCategory.label}
-                      categoryIcon={activeCategory.icon}
-                      propertySizeSqm={propertySizeSqm}
-                      quote={pricedQuote}
-                      hourlyRate={pricedRate}
-                      supplySource={supplySource}
-                      onSupplySourceChange={handleSupplySourceChange}
-                      items={items}
-                      selectedItemIds={selectedItemIds}
-                      itemQuantities={itemQuantities}
-                      onQuantityChange={setItemQuantity}
-                      addOnsTotal={addOnsTotal + (selectedDisinfectionLevel?.priceAdder ?? 0)}
-                      onBookNow={handleBookNow}
-                      submitting={submitting}
-                      bookDisabledReason={bookDisabledReason}
-                      isQuote={false}
+                {!isSanitization && serviceSlug !== YACHT_SLUG && !isSteam && !isEvent && !isCategoryQuote && (
+                  <div className="bg-brand-navy p-6 border border-cyan-500/40    rounded-2xl">
+                    <JobCardSection
+                      packages={allPackages}
+                      selectedIds={selectedPackageIds}
+                      onToggle={togglePackage}
+                      theme={poolTheme}
                     />
-                  );
-                })()
-              ) :
-                (() => {
+                  </div>
+                )}
+
+                <DateTimeSection date={date} onDateChange={setDate} time={time} onTimeChange={setTime} />
+
+                <Equipments
+                  supplySource={supplySource}
+                  onSupplySourceChange={handleSupplySourceChange}
+                  items={items}
+                  itemQuantities={itemQuantities}
+                  selectedItemIds={selectedItemIds}
+                  onQuantityChange={setItemQuantity}
+                  propertySizeSqm={propertySizeSqm}
+                />
+
+                
+              </div>
+              
+              {/**Right section of Live Estimation generation */}
+              <div className="sticky top-20 md:w-[50%] w-full">
+                {isCommonBookingSectionView && (() => {
                   const categories = getPropertyCategoriesForService(serviceSlug);
                   const pTypeLower = (propertyType || "").toLowerCase();
                   const activeCategory =
@@ -848,26 +804,24 @@ export function ServiceBookingView({
                         pTypeLower.includes(c.id.toLowerCase()) ||
                         pTypeLower.includes(c.label.toLowerCase()),
                     ) ?? categories[0];
-
+      
                   return (
-                    <EquipmentSection
+                    <BookingLogisticsSummary
+                      theme={poolTheme}
+                      servicePlanName="Regular Home Cleaning"
                       propertyType={propertyType || activeCategory.label}
-                      categoryIcon={activeCategory.icon}
                       propertySizeSqm={propertySizeSqm}
-                      quote={pricedQuote}
-                      hourlyRate={pricedRate}
-                      supplySource={supplySource}
-                      onSupplySourceChange={handleSupplySourceChange}
-                      items={items}
-                      selectedItemIds={selectedItemIds}
-                      onToggleItem={toggleItem}
+                      selectedRoomsSummary="2 Bed, 2 Bath, 1 Living"
+                      scheduleWindow="Oct 22, 2026 @ 09:00 AM"
+                      frequencyDiscountLabel="One-Time (0% Off)"
                       addOnsTotal={addOnsTotal + (selectedDisinfectionLevel?.priceAdder ?? 0)}
-                      onBookNow={handleBookNow}
-                      submitting={submitting}
-                      bookDisabledReason={bookDisabledReason}
+                      supplySource={supplySource}
+                      onNextStep={handleBookNow}
                     />
                   );
                 })()}
+              </div>     
+            </div>
 
             {error && <p className="text-sm text-destructive">{error}</p>}
           </>

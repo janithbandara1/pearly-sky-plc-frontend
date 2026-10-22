@@ -54,6 +54,7 @@ export default function ScheduleDispatchSection({
           onTimeChange={(t) => {
             setSelectedWindow(t);
           }}
+          theme={theme}
         />
       </div>
 

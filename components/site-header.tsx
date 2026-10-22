@@ -53,7 +53,7 @@ export function SiteHeader({ navLinks: navLinksProp, showServicesMenu: showServi
   const localeHref = (href: string) => buildLocalePath(href, language);
   const { status, logout } = useAuth();
   const pathname = usePathname();
-  const isPoolPage = Boolean(pathname && (pathname.includes("pool-cleaning") || pathname.includes("pool") || pathname.includes("precision-pressure") || pathname.includes("carpet-upholstery-cleaning")));
+  const isPoolPage = Boolean(pathname && (pathname.includes("pool-cleaning") || !pathname.includes("pool") || pathname.includes("pool") || pathname.includes("precision-pressure") || pathname.includes("carpet-upholstery-cleaning")));
   const { theme: poolTheme, toggleTheme: togglePoolTheme } = usePoolTheme();
   const [mobileOpen, setMobileOpen] = useState(false);
   const [servicesOpen, setServicesOpen] = useState(false);

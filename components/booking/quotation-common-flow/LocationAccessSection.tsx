@@ -430,7 +430,7 @@ export default function LocationAccessSection({
     if (hasError) {
       return `${inputBaseClass} border-red-500 ring-1 ring-red-500/40 focus-visible:border-red-500 focus-visible:ring-red-500/50`;
     }
-    return `${inputBaseClass} ${isLight ? "border-[#C7D1D9]" : "border-blue-900/40"}`;
+    return `${inputBaseClass} ${isLight ? "border-[#C7D1D9] bg-gray-200 " : "border-blue-900/40"}`;
   };
 
   const goldLabelClass = isLight
@@ -440,7 +440,7 @@ export default function LocationAccessSection({
   return (
     <div className={`space-y-6 transition-colors duration-300 ${isLight ? "text-[#1B2E4B]" : "text-white"}`}>
       {/* Title & Description */}
-      <div>
+      <div className="">
         <h3
           className={`text-2xl font-bold tracking-wide mb-1 font-serif ${
             isLight ? "text-[#C5A059]" : "text-[#c9a858]"
@@ -455,16 +455,12 @@ export default function LocationAccessSection({
 
       {/* 1. CONTACT PROFILE SECTION */}
       <div
-        className={`overflow-hidden rounded-2xl border shadow-xl ${
-          isLight
-            ? "border-[#C5A059]/30 bg-white"
-            : "border-brand-gold bg-[#0c1628]"
-        }`}
+        className={`overflow-hidden `}
       >
         {/* Header */}
         <div
-          className={`flex items-center gap-3 border-b px-5 py-3.5 ${
-            isLight ? "border-gray-200 bg-gray-50" : "border-blue-900/40 bg-[#121E2D]"
+          className={`flex items-center gap-3 border-b px-3 py-3.5 ${
+            isLight ? "border-gray-200 " : "border-blue-900/40 bg-[#121E2D]"
           }`}
         >
           <div
@@ -479,9 +475,7 @@ export default function LocationAccessSection({
             </svg>
           </div>
           <div>
-            <p className={`text-[10px] font-bold uppercase tracking-[0.18em] ${isLight ? "text-[#C5A059]" : "text-blue-400/80"}`}>
-              Step 4
-            </p>
+            
             <h3 className={`text-sm font-bold tracking-wide ${isLight ? "text-[#1B2E4B]" : "text-slate-100"}`}>
               {translate("quotationContactProfile")}
             </h3>
@@ -489,51 +483,54 @@ export default function LocationAccessSection({
         </div>
 
         {/* Content */}
-        <div className="grid grid-cols-1 gap-4 p-5 sm:grid-cols-2">
-          {/* Title Prefix */}
-          <div className="space-y-1.5 sm:col-span-2 md:col-span-1">
-            <label className="flex items-center gap-1.5 text-[10px] font-bold uppercase tracking-[0.15em] text-gray-400">
-              Title Prefix
-            </label>
-            <Select value={activeTitlePrefix} onValueChange={handleTitlePrefixChange}>
-              <SelectTrigger className={getInputClass()}>
-                <SelectValue placeholder="Title" />
-              </SelectTrigger>
-              <SelectContent className={isLight ? "bg-white text-[#1B2E4B] border-gray-200" : "bg-[#121E2D] border-blue-900/40 text-white"}>
-                <SelectItem value="Mr.">Mr.</SelectItem>
-                <SelectItem value="Mrs.">Mrs.</SelectItem>
-                <SelectItem value="Ms.">Ms.</SelectItem>
-                <SelectItem value="Dr.">Dr.</SelectItem>
-                <SelectItem value="Estate Manager">Estate Manager</SelectItem>
-              </SelectContent>
-            </Select>
-          </div>
+        <div className="grid grid-cols-1 gap-4 py-5 px-3 sm:grid-cols-2 w-full">
+          
 
-          <div className="hidden md:block md:col-span-1" />
-
-          {/* First Name */}
-          <div className="space-y-1.5">
-            <label className="flex items-center gap-1.5 text-[10px] font-bold uppercase tracking-[0.15em] text-gray-400">
-              <svg className="h-3 w-3 text-blue-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                <path strokeLinecap="round" strokeLinejoin="round" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
-              </svg>
-              {translate("quotationFirstName")} <span className="text-amber-400">*</span>
-            </label>
-            <Input
-              value={activeFirstName || ""}
-              onChange={(e) => handleFirstNameChange(e.target.value)}
-              placeholder={translate("quotationFirstNamePlaceholder")}
-              className={getInputClass(!!activeErrors.firstName)}
-            />
-            {activeErrors.firstName && (
-              <p className="text-xs text-red-400 flex items-center gap-1 mt-1 animate-in fade-in duration-200">
-                <svg className="h-3.5 w-3.5 shrink-0" fill="currentColor" viewBox="0 0 20 20">
-                  <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clipRule="evenodd" />
-                </svg>
-                <span>{activeErrors.firstName}</span>
-              </p>
-            )}
+          
+          <div className="flex w-full justify-between">
+            {/* Title Prefix */}
+              <div className="space-y-1.5  ">
+                <label className="flex items-center gap-1.5 text-[10px] font-bold uppercase tracking-[0.15em] text-gray-400">
+                  Title Prefix
+                </label>
+                <Select value={activeTitlePrefix} onValueChange={handleTitlePrefixChange}>
+                  <SelectTrigger className={getInputClass()}>
+                    <SelectValue placeholder="Title" />
+                  </SelectTrigger>
+                  <SelectContent className={isLight ? "bg-white text-[#1B2E4B] border-gray-200" : "bg-[#121E2D] border-blue-900/40 text-white"}>
+                    <SelectItem value="Mr.">Mr.</SelectItem>
+                    <SelectItem value="Mrs.">Mrs.</SelectItem>
+                    <SelectItem value="Ms.">Ms.</SelectItem>
+                    <SelectItem value="Dr.">Dr.</SelectItem>
+                    <SelectItem value="Estate Manager">Estate Manager</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+              {/* First Name */}
+              <div className="space-y-1.5 w-[75%]">
+                <label className="flex items-center gap-1.5 text-[10px] font-bold uppercase tracking-[0.15em] text-gray-400">
+                  <svg className="h-3 w-3 text-blue-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                  </svg>
+                  {translate("quotationFirstName")} <span className="text-amber-400">*</span>
+                </label>
+                <Input
+                  value={activeFirstName || ""}
+                  onChange={(e) => handleFirstNameChange(e.target.value)}
+                  placeholder={translate("quotationFirstNamePlaceholder")}
+                  className={getInputClass(!!activeErrors.firstName)}
+                />
+                {activeErrors.firstName && (
+                  <p className="text-xs text-red-400 flex items-center gap-1 mt-1 animate-in fade-in duration-200">
+                    <svg className="h-3.5 w-3.5 shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                      <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clipRule="evenodd" />
+                    </svg>
+                    <span>{activeErrors.firstName}</span>
+                  </p>
+                )}
+              </div>
           </div>
+          
 
           {/* Last Name */}
           <div className="space-y-1.5">
@@ -613,15 +610,11 @@ export default function LocationAccessSection({
 
       {/* 2. LOCATION OF RESIDENCE SECTION */}
       <div
-        className={`overflow-hidden rounded-2xl border shadow-xl ${
-          isLight
-            ? "border-[#C5A059]/30 bg-white"
-            : "border-brand-gold bg-[#0c1628]"
-        }`}
+        className={`overflow-hidden `}
       >
         {/* Header */}
         <div
-          className={`flex items-center gap-3 border-b px-5 py-3.5 ${
+          className={`flex items-center gap-3 border-b px-3 py-3.5 ${
             isLight ? "border-gray-200 bg-gray-50" : "border-blue-900/40 bg-[#121E2D]"
           }`}
         >
@@ -638,9 +631,7 @@ export default function LocationAccessSection({
             </svg>
           </div>
           <div>
-            <p className={`text-[10px] font-bold uppercase tracking-[0.18em] ${isLight ? "text-[#C5A059]" : "text-blue-400/80"}`}>
-              Step 4
-            </p>
+            
             <h3 className={`text-sm font-bold tracking-wide ${isLight ? "text-[#1B2E4B]" : "text-slate-100"}`}>
               {translate("quotationLocationResidence")}
             </h3>
@@ -648,7 +639,7 @@ export default function LocationAccessSection({
         </div>
 
         {/* Content */}
-        <div className="grid grid-cols-1 gap-4 p-5 sm:grid-cols-2">
+        <div className="grid grid-cols-1 gap-4 py-5 px-3 sm:grid-cols-2">
           {/* Country */}
           <div className="space-y-1.5">
             <label className="flex items-center gap-1.5 text-[10px] font-bold uppercase tracking-[0.15em] text-gray-400">
@@ -663,7 +654,7 @@ export default function LocationAccessSection({
               </SelectTrigger>
               <SelectContent className={isLight ? "bg-white text-[#1B2E4B] border-gray-200" : "bg-[#121E2D] border-blue-900/40 text-white"}>
                 {COUNTRY_OPTIONS.map((c) => (
-                  <SelectItem key={c.code} value={c.name} className="focus:bg-[#1f305e] text-slate-100">
+                  <SelectItem key={c.code} value={c.name} className="focus:bg-[#b3b0b0] text-slate-600">
                     <span className="flex items-center gap-2">
                       <c.Flag className="h-3.5 w-5 shrink-0 object-cover" />
                       {c.name}
