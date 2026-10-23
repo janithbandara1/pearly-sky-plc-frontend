@@ -3,6 +3,7 @@
 import React from "react";
 import { SERVICE_CONTENT_MAP } from "./hero-content";
 import ScheduleServiceButton from "../Schedule-service-button";
+import {Star, StarCheck} from "lucide-react";
 
 export interface DynamicHeroOverlayProps {
   /** The slug corresponding to the service */
@@ -31,20 +32,8 @@ export default function DynamicHeroOverlay({
         {/* Eco/Service Badge */}
         {content.badgeText && (
           <div className="mb-4 inline-flex items-center gap-2 rounded-full border border-emerald-500/40 bg-emerald-950/50 px-3.5 py-1.5 backdrop-blur-md transition-colors duration-300 hover:border-emerald-500/60 sm:mb-6 sm:px-4 sm:py-2">
-            <svg
-              className="h-3.5 w-3.5 text-emerald-400 sm:h-4 sm:w-4"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"
-              />
-            </svg>
+            
+            <StarCheck className="text-green-500 w-4 h-4"  />
             <span className="text-[10px] font-semibold tracking-[0.18em] text-emerald-300 uppercase sm:text-xs">
               {content.badgeText}
             </span>

@@ -102,6 +102,9 @@ PartyPopper,
   CloudFog,
   Wind,
   Flame,
+  Maximize2,
+  Clock,
+  Calendar,
   
    } from "lucide-react";
 
@@ -2099,7 +2102,8 @@ export function PropertyTypeSizeSelectorCommonFlowOfServices({
   const isPool = serviceSlug === "pool-cleaning";
 
   return (
-    <section id="pricing-engine" className="w-full flex flex-col justify-center items-center">
+    <section id="pricing-engine"
+     className="w-full flex flex-col justify-center items-center">
       {/* Dynamic Size & Area Floorplan Visualization Component */}
       {isPool ? 
         (
@@ -2128,7 +2132,7 @@ export function PropertyTypeSizeSelectorCommonFlowOfServices({
           theme={isLight ? "light" : "dark"}
         />
       )}
-
+ 
       <div
       
         className={`rounded-2xl py-4 mt-5 border pb-5 sm:pb-6 px-5 sm:px-6  transition-all duration-300 ${
@@ -2707,6 +2711,15 @@ export function PropertyTypeSizeSelectorCommonFlowOfServices({
             theme={isLight ? "light" : "dark"}
         />)}
 
+        { (
+            <EstimatioMatrixBottom
+              activeCategory={activeCategory || null} 
+              isSanitizeService={isSanitizeService}
+              isYatch={isYachtSlug}
+              theme={isLight ? "light" : "dark"}
+        />)}
+        
+
         {/* Services frequencies */}
         {/* <div className="flex flex-col w-full mt-8">
           
@@ -2734,54 +2747,109 @@ export function PropertyTypeSizeSelectorCommonFlowOfServices({
 export function EstimatioMatrixBottom({
   activeCategory,
   isSanitizeService,
-  isYatch
+  isYatch,
+  theme
 }: {
   activeCategory: PropertyCategory | null,
-  isSanitizeService?: boolean
-  isYatch?:boolean
+  isSanitizeService?: boolean,
+  isYatch?: boolean,
+  theme?: string
 }) {
   const { translate } = useLanguage();
+  const isLight = theme === "light";
 
   return (
-    <div className="grid grid-cols-3 items-center py-4  align-items-center px-[3px] bg-[#132238]/90 border
-     border-blue-500/20 
-    rounded-xl gap-2 sm:gap-6 pt-2 mt-4 border-t w-full text-center">
-      <div className="">
-        <p className="text-xs text-gray-400 font-medium mb-1">{translate("EstimatedCost")}</p>
-        <p className=" text-[10px] md:text-2xl font-bold text-[#38BDF8]">
-          {surfaceMatrixes.costOFEstimation}
+    <div className={`w-full rounded-2xl border border-[#C5A059]/40 p-4 md:p-6 shadow-[0_6px_22px_rgba(197,160,89,0.25)] ring-1 ring-[#C5A059]/25 relative overflow-hidden select-none font-mono transition-colors duration-300 ${
+      isLight ? "bg-white text-slate-900" : "bg-[#030303] text-white"
+    }`}>
+      {/* Header Section */}
+      <div className="mb-4 pb-3 border-b border-[#C5A059]/30">
+        <h3 className={`text-base md:text-xl font-bold tracking-tight font-serif ${isLight ? "text-slate-900" : "text-white"}`}>
+          Service Estimate
+        </h3>
+        <p className={`text-[11px] md:text-xs mt-0.5 font-sans ${isLight ? "text-slate-600" : "text-gray-400"}`}>
+          Based on the selected property type and size
         </p>
       </div>
 
-      <div>
-        <p className="text-[11px] text-gray-400 font-medium mb-1">{translate("serviceTargetArea")}</p>
-        {activeCategory && (
-          <p className="text-[11px]  md:text-base text-gray-200 font-medium mb-1">
-            {CATEGORY_LABEL_KEYS[activeCategory.label]
-              ? translate(CATEGORY_LABEL_KEYS[activeCategory.label] as TranslationKey)
-              : activeCategory.label.startsWith("prop") || activeCategory.label.startsWith("yacht") || activeCategory.label.startsWith("sec")
-                ? translate(activeCategory.label as TranslationKey)
+      {/* Grid Cards Container: 2 columns on mobile, 4 columns on desktop */}
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4">
+        
+        {/* Card 1: Property Scale / Target Area */}
+        <div className={`flex flex-col items-center justify-center p-3.5 md:p-4 rounded-xl border 
+        border-[#C5A059]/40 shadow-[inset_0_0_12px_rgba(197,160,89,0.1)] text-center transition-colors
+         duration-300 ${
+          isLight ? "bg-amber-100" : "bg-[#050505]"
+        }`}>
+          <Maximize2 className="w-4 h-4 text-[#C5A059] mb-2" />
+          <p className="text-[10px] md:text-[11px] font-bold tracking-widest text-[#C5A059] uppercase mb-1">
+            PROPERTY SCALE
+          </p>
+          <p className={`text-xs md:text-base font-bold tracking-wide ${isLight ? "text-slate-900" : "text-white"}`}>
+            {surfaceMatrixes.serviceTargetArea}
+          </p>
+          {activeCategory && (
+            <p className="text-[10px] text-[#D4AF37] mt-0.5 truncate max-w-full">
+              {CATEGORY_LABEL_KEYS[activeCategory.label]
+                ? translate(CATEGORY_LABEL_KEYS[activeCategory.label] as TranslationKey)
                 : translate(activeCategory.label as TranslationKey)}
+            </p>
+          )}
+        </div>
+
+        {/* Card 2: Total Duration / Est Labor */}
+        <div className={`flex flex-col items-center justify-center p-3.5 md:p-4 rounded-xl border border-[#C5A059]/40 shadow-[inset_0_0_12px_rgba(197,160,89,0.1)] text-center transition-colors duration-300 ${
+          isLight ? "bg-amber-100" : "bg-[#050505]"
+        }`}>
+          <Clock className="w-4 h-4 text-[#C5A059] mb-2" />
+          <p className="text-[10px] md:text-[11px] font-bold tracking-widest text-[#C5A059] uppercase mb-1">
+            {translate("EstLabor")}
           </p>
-        )}
-        <p className="text-[10px] md:text-[16px]  font-bold text-white">
-          {surfaceMatrixes.serviceTargetArea}
-        </p>
-        {isSanitizeService && (
-          <p className="text-[10px] md:text-[14px] font-medium text-green-400">
-            Included Full santization
+          <p className={`text-xs md:text-base font-bold tracking-wide ${isLight ? "text-slate-900" : "text-white"}`}>
+            {labourData}
           </p>
-        )}
-        {isYatch && (
-          <p className="text-[10px] md:text-[14px] font-medium text-green-400">
-            Yatch Service
+          <p className={`text-[10px] mt-0.5 ${isLight ? "text-slate-600" : "text-gray-400"}`}>Estimated</p>
+        </div>
+
+        {/* Card 3: Allocated Staff */}
+        <div className={`flex flex-col items-center justify-center p-3.5 md:p-4 rounded-xl border border-[#C5A059]/40 shadow-[inset_0_0_12px_rgba(197,160,89,0.1)] text-center transition-colors duration-300 ${
+          isLight ? "bg-amber-100" : "bg-[#050505]"
+        }`}>
+          <Users className="w-4 h-4 text-[#C5A059] mb-2" />
+          <p className="text-[10px] md:text-[11px] font-bold tracking-widest text-[#C5A059] uppercase mb-1">
+            ALLOCATED STAFF
           </p>
-        )}
+          <p className={`text-sm md:text-lg font-bold tracking-wide ${isLight ? "text-slate-900" : "text-white"}`}>
+            1
+          </p>
+          <p className="text-[9px] md:text-[10px] font-bold tracking-wider text-[#D4AF37] uppercase mt-0.5">
+            SENIOR CLEANER
+          </p>
+        </div>
+
+        {/* Card 4: On-Site Window / Estimated Cost */}
+        <div className={`flex flex-col items-center justify-center p-3.5 md:p-4 rounded-xl border border-[#C5A059]/40 shadow-[inset_0_0_12px_rgba(197,160,89,0.1)] text-center transition-colors duration-300 ${
+          isLight ? "bg-amber-100" : "bg-[#050505]"
+        }`}>
+          <Calendar className="w-4 h-4 text-[#C5A059] mb-2" />
+          <p className="text-[10px] md:text-[11px] font-bold tracking-widest text-[#C5A059] uppercase mb-1">
+            {translate("EstimatedCost")}
+          </p>
+          <p className="text-xs md:text-base font-bold text-[#D4AF37] tracking-wide">
+            {surfaceMatrixes.costOFEstimation}
+          </p>
+          <p className={`text-[10px] mt-0.5 ${isLight ? "text-slate-600" : "text-gray-400"}`}>Price range</p>
+        </div>
+
       </div>
-      <div>
-        <p className="text-xs text-gray-400 font-medium mb-1">{translate("EstLabor")}</p>
-        <p className="text-[10px] md:text-xl font-bold text-white">{labourData}</p>
-      </div>
+
+      {/* Optional Service Badges */}
+      {(isSanitizeService || isYatch) && (
+        <div className="flex items-center justify-center gap-3 mt-3 pt-3 border-t border-[#C5A059]/20 text-[11px] font-medium text-emerald-400">
+          {isSanitizeService && <span>✓ Included Full Sanitization</span>}
+          {isYatch && <span>✓ Specialized Yacht Protocol</span>}
+        </div>
+      )}
     </div>
   );
 }

@@ -421,6 +421,64 @@ export default function CustomerContactsPreference({
         </h3>
 
         <div className="space-y-4">
+
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4"> 
+              <div>
+                <label className={labelClasses}>
+                  COUNTRY
+                </label>
+                <div className="relative">
+                  <select
+                    value={addressForm.country || COUNTRY_OPTIONS[0]?.name || "France"}
+                    onChange={(e) =>
+                      onAddressFormChange((f) => ({ ...f, country: e.target.value }))
+                    }
+                    className={selectClasses}
+                  >
+                    {COUNTRY_OPTIONS.map((c) => (
+                      <option key={c.code} value={c.name} className={selectOptionClasses}>
+                        {c.name}
+                      </option>
+                    ))}
+                  </select>
+                  <ChevronDown className={`absolute right-3.5 top-1/2 -translate-y-1/2 size-4 pointer-events-none ${chevronClasses}`} />
+                </div>
+              </div>
+              <div> 
+              <label className={labelClasses}>
+                POSTAL CODE *
+              </label>
+              <input
+                required
+                type="text"
+                value={addressForm.postalCode || ""}
+                onChange={(e) =>
+                  onAddressFormChange((f) => ({ ...f, postalCode: e.target.value }))
+                }
+                placeholder="75001"
+                className={inputClasses}
+              />
+            </div>
+
+            <div>
+              <label className={labelClasses}>
+                CITY *
+              </label>
+              <input
+                required
+                type="text"
+                value={addressForm.city}
+                onChange={(e) =>
+                  onAddressFormChange((f) => ({ ...f, city: e.target.value }))
+                }
+                placeholder="Paris"
+                className={inputClasses}
+              />
+            </div>
+
+            
+          </div>
           {/* Row 1: First Name & Last Name */}
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div>
@@ -507,57 +565,6 @@ export default function CustomerContactsPreference({
                 className={inputClasses}
               />
             </div>
-
-            <div>
-              <label className={labelClasses}>
-                APT / VILLA / SUITE
-              </label>
-              <input
-                type="text"
-                value={addressForm.unit || ""}
-                onChange={(e) =>
-                  onAddressFormChange((f) => ({ ...f, unit: e.target.value }))
-                }
-                placeholder="Penthouse 4B"
-                className={inputClasses}
-              />
-            </div>
-          </div>
-
-          {/* Row 4: Postal Code, City, Province / Region */}
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-            <div>
-              <label className={labelClasses}>
-                POSTAL CODE *
-              </label>
-              <input
-                required
-                type="text"
-                value={addressForm.postalCode || ""}
-                onChange={(e) =>
-                  onAddressFormChange((f) => ({ ...f, postalCode: e.target.value }))
-                }
-                placeholder="75001"
-                className={inputClasses}
-              />
-            </div>
-
-            <div>
-              <label className={labelClasses}>
-                CITY *
-              </label>
-              <input
-                required
-                type="text"
-                value={addressForm.city}
-                onChange={(e) =>
-                  onAddressFormChange((f) => ({ ...f, city: e.target.value }))
-                }
-                placeholder="Paris"
-                className={inputClasses}
-              />
-            </div>
-
             <div>
               <label className={labelClasses}>
                 PROVINCE / REGION
@@ -572,30 +579,30 @@ export default function CustomerContactsPreference({
                 className={inputClasses}
               />
             </div>
+            
           </div>
+
+          {/* Row 4: Postal Code, City, Province / Region */}
+          {/* <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+          </div> */}
 
           {/* Row 5: Country & Access / Marketing Logistics */}
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-2">
+            
+
             <div>
               <label className={labelClasses}>
-                COUNTRY
+                APT / VILLA / SUITE
               </label>
-              <div className="relative">
-                <select
-                  value={addressForm.country || COUNTRY_OPTIONS[0]?.name || "France"}
-                  onChange={(e) =>
-                    onAddressFormChange((f) => ({ ...f, country: e.target.value }))
-                  }
-                  className={selectClasses}
-                >
-                  {COUNTRY_OPTIONS.map((c) => (
-                    <option key={c.code} value={c.name} className={selectOptionClasses}>
-                      {c.name}
-                    </option>
-                  ))}
-                </select>
-                <ChevronDown className={`absolute right-3.5 top-1/2 -translate-y-1/2 size-4 pointer-events-none ${chevronClasses}`} />
-              </div>
+              <input
+                type="text"
+                value={addressForm.unit || ""}
+                onChange={(e) =>
+                  onAddressFormChange((f) => ({ ...f, unit: e.target.value }))
+                }
+                placeholder="Penthouse 4B"
+                className={inputClasses}
+              />
             </div>
 
             {onHowGetInChange && (
