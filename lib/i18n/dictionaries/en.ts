@@ -2336,7 +2336,7 @@ serviceLuxuryYachtCleaningTitleFiveFeatureTwo:"Complete linen turnover, sanitati
     freqProDisinfectionSubtitle: "Bio-hazard standard",
 
     freqStandardCleanSubtitle: "Standard clean",
-    freqWeeklyPopularSubtitle: "Most popular save 20%",
+    freqWeeklyPopularSubtitle: "Most popular ",
     freqRegularUpkeepSubtitle: "Regular upkeep",
     freqLightMaintenanceSubtitle: "Light maintenance",
 

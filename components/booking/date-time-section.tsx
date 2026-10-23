@@ -115,18 +115,20 @@ export function DateTimeSection({ date, onDateChange, time, onTimeChange, theme:
         isLight ? "border-slate-200 bg-[#F9FAFB]" : "border-brand-gold/60 "
       }`}>
         <div className="flex items-center gap-3">
-          <div className={`flex h-9 w-9 shrink-0 items-center justify-center rounded-lg border shadow-sm ${
-            isLight ? "border-slate-200 bg-white text-[#B89642]" : "border-[#C6A868]/60 bg-[#152243] text-[#C5A253]"
-          }`}>
-            <CalendarDays className="h-5 w-5" />
-          </div>
+          
           <div>
-            <h2 className={`text-sm sm:text-base font-bold uppercase tracking-wider ${isLight ? "text-slate-900" : "text-white"}`}>
+            <span
+              className={`text-[10px] sm:text-xs font-sans font-bold tracking-[0.2em] sm:tracking-[0.25em] uppercase ${
+                isLight ? "text-[#A88238]" : "text-[#D9B75B]"
+              }`}
+            >
+              Step 2 of 6
+            </span>
+            <h2 className={`text-xl md:text-2xl font-serif mt-1 font-normal tracking-wide leading-tight
+               ${isLight ? "text-slate-900" : "text-white"}`}>
               {translate("dateTimeSelectTitle")}
             </h2>
-            <p className={`text-xs ${isLight ? "text-slate-500" : "text-gray-400"}`}>
-              {translate("dateTimeSelectHelp")}
-            </p>
+            
           </div>
         </div>
 

@@ -95,13 +95,13 @@ export function JobCardSection({
           Step 3 of 6
       </span>
       {/* Component Header Title */}
-      <h2 className={`text-xl sm:text-2xl md:text-3xl mb-3 font-serif mt-1 font-normal tracking-wide leading-tight 
+      <h2 className={`text-xl md:text-2xl mb-3 font-serif mt-1 font-normal tracking-wide leading-tight 
         ${isLight ? "text-[#0F172A]" : "text-white"}`}>
         {translate("jobCardSectionTitle")}
       </h2>
 
       {/* Mobile View Layout (< md) */}
-      <div className="flex flex-col gap-3 md:hidden border-t  py-6 border-[#111927]">
+      <div className={`flex flex-col gap-3 md:hidden border-t  py-6 ${isLight ? "border-t-gray-300": "border-t-gray-800"}`}>
         {categories.map((category) => {
           const isSelectedCategory = category.id === activeCategoryId;
           const selectedInCatCount = category.items.filter((item) => selectedIds.has(item.id)).length;
@@ -208,9 +208,10 @@ export function JobCardSection({
       </div>
 
       {/* Desktop View Layout (≥ md) */}
-      <div className="hidden md:block border-t py-6  border-[#111927]">
+      <div className={`hidden md:block border-t py-6 ${isLight ? "border-t-gray-300": "border-t-gray-800"}  `}>
         {/* Category Tabs Header */}
-        <div className="grid grid-cols-4 gap-2 mb-6">
+        <div className={`grid grid-cols-4 gap-2 mb-6 border-b 
+          ${isLight ? "border-b-gray-300":"border-b-gray-800"}  pb-2`}>
           {categories.map((category) => {
             const isActive = category.id === activeCategory.id;
             return (
@@ -218,10 +219,11 @@ export function JobCardSection({
                 key={category.id}
                 type="button"
                 onClick={() => setActiveCategoryId(category.id)}
-                className={`py-3.5 px-4 rounded-[7px] text-[12px] sm:text-sm font-normal transition-all duration-200 text-center select-none ${
+                className={`py-2 px-2 rounded-[7px] text-[13px]  font-normal  text-center select-none ${
                   isActive
-                    ? `bg-[#B89642] border-2 border-[#B89642] ring-1 ring-[#B89642] font-bold shadow-md ${isLight ? "text-white" : "text-[#0B1527]"}`
-                    : `${isLight ? "bg-white border-[#C6A868]/60 text-[#1E293B] hover:bg-slate-50" : "bg-[#0B1527] border-[#B89642]/40 text-slate-200 hover:bg-[#111C2E]"} border hover:border-[#B89642] shadow-sm`
+                    ? `bg-[#B89642] border-2 border-[#B89642] ring-1 ring-[#B89642] font-bold 
+                      ${isLight ? "text-white" : "text-[#0B1527]"}`
+                    : `${isLight ? "  text-[#1E293B] hover:bg-slate-50" : "  text-slate-200 hover:bg-[#111C2E]"}  hover:border-[#B89642] active:border-[#B89642] `
                 }`}
               >
                 {translate(category.label as TranslationKey)}
@@ -266,11 +268,11 @@ export function JobCardSection({
                         // eslint-disable-next-line @next/next/no-img-element
                         <img src={item.image} alt="" className="h-full w-full object-cover" />
                       ) : (
-                        <PackageIcon className="h-5 w-5 text-slate-400" />
+                        <PackageIcon className="h-5 w-5 text-slate-100" />
                       )}
                     </div>
                     <span
-                      className={`text-sm sm:text-[15px] leading-snug font-semibold ${
+                      className={`text-[14px] leading-snug font-semibold ${
                         isLight ? "text-[#1E293B]" : "text-white"
                       } ${isDisabled ? (isLight ? "text-slate-400" : "text-slate-500") : ""}`}
                     >
@@ -280,12 +282,12 @@ export function JobCardSection({
 
                   {/* Right Action Icon Button */}
                   {isSelected ? (
-                    <div className={`w-7 h-7 rounded-full bg-[#B89642] border border-[#B89642] flex items-center justify-center shrink-0 shadow-sm ${isLight ? "text-white" : "text-[#0B1527]"}`}>
+                    <div className={`w-8 h-8 rounded-[10px] bg-[#B89642] border border-[#B89642] flex items-center justify-center shrink-0 shadow-sm ${isLight ? "text-white" : "text-[#0B1527]"}`}>
                       <Check className="h-3.5 w-3.5" strokeWidth={3} />
                     </div>
                   ) : (
                     <div
-                      className={`w-7 h-7 rounded-full border border-[#B89642] flex items-center justify-center text-[#B89642] shrink-0 transition-transform ${
+                      className={`w-8 h-8 rounded-[10px] border border-[#B89642] flex items-center justify-center text-[#B89642] shrink-0 transition-transform ${
                         isDisabled ? (isLight ? "border-gray-300 text-gray-300" : "border-slate-700 text-slate-700") : "group-hover:scale-105"
                       }`}
                     >

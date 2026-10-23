@@ -325,7 +325,7 @@ export default function ServiceFrequencySelector({
           Step 2 of 6
         </span>
         <h2
-          className={`text-xl sm:text-2xl md:text-3xl font-serif mt-1 font-normal tracking-wide leading-tight ${
+          className={`text-xl md:text-2xl font-serif mt-1 font-normal tracking-wide leading-tight ${
             isLight ? "text-[#1B2E4B]" : "text-white"
           }`}
         >

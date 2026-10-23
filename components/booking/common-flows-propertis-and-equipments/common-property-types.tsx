@@ -1,7 +1,110 @@
 "use client";
 
-import { useEffect, useState, useRef } from "react";
-import { Check, ChevronDown, Sparkles, Home, Minus, Plus, ArrowUp, ArrowDown } from "lucide-react";
+import { useEffect, useState, useRef, JSXElementConstructor } from "react";
+import { Check, 
+  ChevronDown, 
+  Sparkles, 
+  Home,
+   Minus,
+   Plus, 
+  ArrowUp, 
+  ArrowDown,
+  Square, 
+  Building,
+  Building2,
+  House,
+  Castle,
+  Crown,
+Briefcase,
+  Warehouse,
+  Factory,
+  Hospital,
+  Hotel,
+  Utensils,
+  School,
+  Store,
+  Bus,
+  Construction,
+  Package,
+Ship,
+  Anchor,
+  Sailboat,
+  Compass,
+  Waves,
+  Navigation,
+  LifeBuoy,
+  Globe,
+  Boxes,
+PartyPopper,
+  Heart,
+  GlassWater,
+  Users,
+  GraduationCap,
+  Gift,
+  Wine,
+  Star,
+  Award,
+  Ticket,
+  Rocket,
+  Trophy,
+  Handshake,
+  ShieldCheck,
+  AlertTriangle,
+  Brush,
+  FolderArchive,
+  BellRing,
+  Sparkle,
+  Droplets,
+  Moon,
+  BarChart3,
+  UserCheck,
+  Lock,
+  Gem,
+  Trees,
+  
+  Hammer,
+  Cross,
+  
+  Cog,
+  KeyRound,
+  FileLock2,
+  Biohazard,
+  Toolbox,
+  Zap,
+  SquareTerminal,
+  LayoutGrid,
+  
+  HousePlus,
+  Sunset,
+  Landmark,
+  Palmtree,
+  KeySquare,
+  CalendarCheck2,
+  BedDouble,
+  CalendarRange,
+  
+  HomeIcon,
+  Globe2,
+  HardHat,
+  Baby,
+  Layers,
+  Timer,
+  Maximize,
+  Users2,
+  
+  Medal,
+  DraftingCompass,
+  Sunrise,
+  Sprout,
+  Droplet,
+  TestTube2,
+  Snowflake,
+  CloudFog,
+  Wind,
+  Flame,
+  
+   } from "lucide-react";
+
 import { YACHT_PROPERTY_TYPES } from "@/components/booking/Yatchpropertytypes";
 import { useLanguage } from "@/lib/i18n/language-context";
 import { useCurrency } from "@/lib/currency-context";
@@ -138,7 +241,7 @@ export interface PropertyCategory {
   id: string;
   label: string;
   sublabel?: string;
-  icon: string;
+  icon: string | React.ReactNode;
   min: number;
   max: number;
   step: number;
@@ -158,38 +261,176 @@ export interface PropertyCategory {
  */
 //service=>healthguard-sanitization,display two categoies as "residential","industrial"
 
-const SANITIZE_OTHER_PROPERTY_CATEGORY: PropertyCategory = {
+const GOLD_COLOR = "#D4AF37";
+
+export const SANITIZE_OTHER_PROPERTY_CATEGORY: PropertyCategory = {
   id: "other",
   label: "propOther",
-  icon: "📐",
+  icon: <Square size={20} color={GOLD_COLOR} />,
   min: 20,
   max: 500,
   step: 1,
   locked: false,
-};
+}; 
 
-const SANITIZE_RESIDENTIAL_CATEGORYIES: PropertyCategory[] = [
-  { id: "studio", label: "propStudio", icon: "🏢", min: 20, max: 40, step: 1, locked: false },
-  { id: "apartment", label: "propApartment", icon: "🏬", min: 45, max: 120, step: 1, locked: false },
-  { id: "townhouse", label: "propTownhouse", icon: "🏘️", min: 90, max: 220, step: 1, locked: false },
-  { id: "home", label: "propHome", icon: "🏡", min: 100, max: 350, step: 1, locked: false },
-  { id: "penthouse", label: "propPenthouse", icon: "🏙️", min: 120, max: 400, step: 1, locked: false },
-  { id: "luxury-villa", label: "propLuxuryVilla", icon: "🏰", min: 200, max: 500, step: 1, locked: false },
-  { ...SANITIZE_OTHER_PROPERTY_CATEGORY }
+export const SANITIZE_RESIDENTIAL_CATEGORYIES: PropertyCategory[] = [
+  {
+    id: "studio",
+    label: "propStudio",
+    icon: <Building size={20} color={GOLD_COLOR} />,
+    min: 20,
+    max: 40,
+    step: 1,
+    locked: false,
+  },
+  {
+    id: "apartment",
+    label: "propApartment",
+    icon: <Building2 size={20} color={GOLD_COLOR} />,
+    min: 45,
+    max: 120,
+    step: 1,
+    locked: false,
+  },
+  {
+    id: "townhouse",
+    label: "propTownhouse",
+    icon: <Home size={20} color={GOLD_COLOR} />,
+    min: 90,
+    max: 220,
+    step: 1,
+    locked: false,
+  },
+  {
+    id: "home",
+    label: "propHome",
+    icon: <House size={20} color={GOLD_COLOR} />,
+    min: 100,
+    max: 350,
+    step: 1,
+    locked: false,
+  },
+  {
+    id: "penthouse",
+    label: "propPenthouse",
+    icon: <Castle size={20} color={GOLD_COLOR} />,
+    min: 120,
+    max: 400,
+    step: 1,
+    locked: false,
+  },
+  {
+    id: "luxury-villa",
+    label: "propLuxuryVilla",
+    icon: <Crown size={20} color={GOLD_COLOR} />,
+    min: 200,
+    max: 500,
+    step: 1,
+    locked: false,
+  },
+  { ...SANITIZE_OTHER_PROPERTY_CATEGORY },
 ];
 
-const SANITIZE_INDUSTRIAL_CATEGORYIES: PropertyCategory[] = [
-  { id: "offices", label: "propOffices", icon: "💼", min: 50, max: 500, step: 1, locked: false },
-  { id: "warehouses", label: "propWarehouses", icon: "🏭", min: 200, max: 500, step: 1, locked: false },
-  { id: "factories", label: "propFactories", icon: "🏗️", min: 250, max: 500, step: 1, locked: false },
-  { id: "healthcare", label: "propHealthcare", icon: "🏥", min: 50, max: 500, step: 1, locked: false },
-  { id: "hotels", label: "propHotels", icon: "🏨", min: 250, max: 500, step: 1, locked: false },
-  { id: "restaurants", label: "propRestaurants", icon: "🍽️", min: 60, max: 300, step: 1, locked: false },
-  { id: "schools", label: "propSchools", icon: "🏫", min: 300, max: 500, step: 1, locked: false },
-  { id: "retail", label: "propRetail", icon: "🛍️", min: 25, max: 500, step: 1, locked: false },
-  { id: "transport", label: "propTransport", icon: "🚌", min: 100, max: 500, step: 1, locked: false },
-  { id: "construction-sites", label: "propConstructionSites", icon: "🚧", min: 100, max: 500, step: 1, locked: false },
-  { id: "otheri", label: "propOther", icon: "📦", min: 20, max: 500, step: 1, locked: false }
+export const SANITIZE_INDUSTRIAL_CATEGORYIES: PropertyCategory[] = [
+  { 
+    id: "offices", 
+    label: "propOffices", 
+    icon: <Briefcase size={20} color={GOLD_COLOR} />, 
+    min: 50, 
+    max: 500, 
+    step: 1, 
+    locked: false 
+  },
+  { 
+    id: "warehouses", 
+    label: "propWarehouses", 
+    icon: <Warehouse size={20} color={GOLD_COLOR} />, 
+    min: 200, 
+    max: 500, 
+    step: 1, 
+    locked: false 
+  },
+  { 
+    id: "factories", 
+    label: "propFactories", 
+    icon: <Factory size={20} color={GOLD_COLOR} />, 
+    min: 250, 
+    max: 500, 
+    step: 1, 
+    locked: false 
+  },
+  { 
+    id: "healthcare", 
+    label: "propHealthcare", 
+    icon: <Hospital size={20} color={GOLD_COLOR} />, 
+    min: 50, 
+    max: 500, 
+    step: 1, 
+    locked: false 
+  },
+  { 
+    id: "hotels", 
+    label: "propHotels", 
+    icon: <Hotel size={20} color={GOLD_COLOR} />, 
+    min: 250, 
+    max: 500, 
+    step: 1, 
+    locked: false 
+  },
+  { 
+    id: "restaurants", 
+    label: "propRestaurants", 
+    icon: <Utensils size={20} color={GOLD_COLOR} />, 
+    min: 60, 
+    max: 300, 
+    step: 1, 
+    locked: false 
+  },
+  { 
+    id: "schools", 
+    label: "propSchools", 
+    icon: <School size={20} color={GOLD_COLOR} />, 
+    min: 300, 
+    max: 500, 
+    step: 1, 
+    locked: false 
+  },
+  { 
+    id: "retail", 
+    label: "propRetail", 
+    icon: <Store size={20} color={GOLD_COLOR} />, 
+    min: 25, 
+    max: 500, 
+    step: 1, 
+    locked: false 
+  },
+  { 
+    id: "transport", 
+    label: "propTransport", 
+    icon: <Bus size={20} color={GOLD_COLOR} />, 
+    min: 100, 
+    max: 500, 
+    step: 1, 
+    locked: false 
+  },
+  { 
+    id: "construction-sites", 
+    label: "propConstructionSites", 
+    icon: <Construction size={20} color={GOLD_COLOR} />, 
+    min: 100, 
+    max: 500, 
+    step: 1, 
+    locked: false 
+  },
+  { 
+    id: "otheri", 
+    label: "propOther", 
+    icon: <Package size={20} color={GOLD_COLOR} className="bg-gray-800" />, 
+    min: 20, 
+    max: 500, 
+    step: 1, 
+    locked: false 
+  }
 ];
 
 
@@ -199,18 +440,99 @@ const SANITIZE_INDUSTRIAL_CATEGORYIES: PropertyCategory[] = [
  */
 //service=>luxury-yacht-cleaning,display two categoies as "yatch-cleaning","passenger-ship-cleaning"
 const YACHT_CLEANING_CATEGORIES: PropertyCategory[] = [
-  { id: "small-yacht", label: "propSmallYacht", icon: "🚤", min: 20, max: 500, step: 5, locked: false },
-  { id: "motor-yacht", label: "propMotorYacht", icon: "🛥️", min: 20, max: 500, step: 5, locked: false },
-  { id: "sailing-yacht", label: "propSailingYacht", icon: "⛵", min: 20, max: 500, step: 5, locked: false },
-  { id: "luxury-superyacht", label: "propLuxurySuperyacht", icon: "🛥️", min: 20, max: 500, step: 5, locked: false },
-  { id: "mega-yacht", label: "propMegaYacht", icon: "🛳️", min: 20, max: 500, step: 5, locked: false },
+  { 
+    id: "small-yacht", 
+    label: "propSmallYacht", 
+    icon: <Ship size={20} color={GOLD_COLOR} />, 
+    min: 20, 
+    max: 500, 
+    step: 5, 
+    locked: false 
+  },
+  { 
+    id: "motor-yacht", 
+    label: "propMotorYacht", 
+    icon: <Anchor size={20} color={GOLD_COLOR} />, 
+    min: 20, 
+    max: 500, 
+    step: 5, 
+    locked: false 
+  },
+  { 
+    id: "sailing-yacht", 
+    label: "propSailingYacht", 
+    icon: <Sailboat size={20} color={GOLD_COLOR} />, 
+    min: 20, 
+    max: 500, 
+    step: 5, 
+    locked: false 
+  },
+  { 
+    id: "luxury-superyacht", 
+    label: "propLuxurySuperyacht", 
+    icon: <Crown size={20} color={GOLD_COLOR} />, 
+    min: 20, 
+    max: 500, 
+    step: 5, 
+    locked: false 
+  },
+  { 
+    id: "mega-yacht", 
+    label: "propMegaYacht", 
+    icon: <Compass size={20} color={GOLD_COLOR} />, 
+    min: 20, 
+    max: 500, 
+    step: 5, 
+    locked: false 
+  },
 ];
+
 const PASSENGER_SHIP_CLEANING_CATEGORIES: PropertyCategory[] = [
-  { id: "cruise-ships", label: "propCruiseShips", icon: "🛳️", min: 20, max: 500, step: 5, locked: false },
-  { id: "passenger-ferries", label: "propPassengerFerries", icon: "🚢", min: 20, max: 500, step: 5, locked: false },
-  { id: "river-cruise-ships", label: "propRiverCruiseShips", icon: "🛳️", min: 20, max: 500, step: 5, locked: false },
-  { id: "expedition-ships", label: "propExpeditionShips", icon: "🚢", min: 20, max: 500, step: 5, locked: false },
-  { id: "commercial-cargo-ships", label: "propCommercialCargoShips", icon: "🚢", min: 20, max: 500, step: 5, locked: false },
+  { 
+    id: "cruise-ships", 
+    label: "propCruiseShips", 
+    icon: <Waves size={20} color={GOLD_COLOR} />, 
+    min: 20, 
+    max: 500, 
+    step: 5, 
+    locked: false 
+  },
+  { 
+    id: "passenger-ferries", 
+    label: "propPassengerFerries", 
+    icon: <Navigation size={20} color={GOLD_COLOR} />, 
+    min: 20, 
+    max: 500, 
+    step: 5, 
+    locked: false 
+  },
+  { 
+    id: "river-cruise-ships", 
+    label: "propRiverCruiseShips", 
+    icon: <LifeBuoy size={20} color={GOLD_COLOR} />, 
+    min: 20, 
+    max: 500, 
+    step: 5, 
+    locked: false 
+  },
+  { 
+    id: "expedition-ships", 
+    label: "propExpeditionShips", 
+    icon: <Globe size={20} color={GOLD_COLOR} />, 
+    min: 20, 
+    max: 500, 
+    step: 5, 
+    locked: false 
+  },
+  { 
+    id: "commercial-cargo-ships", 
+    label: "propCommercialCargoShips", 
+    icon: <Boxes size={20} color={GOLD_COLOR} />, 
+    min: 20, 
+    max: 500, 
+    step: 5, 
+    locked: false 
+  },
 ];
 
 
@@ -222,7 +544,7 @@ const PRIVATE_SOCIAL_EVENTS: PropertyCategory[] = [
   {
     id: "birthday-parties",
     label: "birthday_parties",
-    icon: "🎈",
+    icon: <PartyPopper size={20} color={GOLD_COLOR} />,
     min: 20,
     max: 500,
     step: 1,
@@ -231,7 +553,7 @@ const PRIVATE_SOCIAL_EVENTS: PropertyCategory[] = [
   {
     id: "wedding-events",
     label: "wedding_events",
-    icon: "💒",
+    icon: <Heart size={20} color={GOLD_COLOR} />,
     min: 20,
     max: 500,
     step: 1,
@@ -240,7 +562,7 @@ const PRIVATE_SOCIAL_EVENTS: PropertyCategory[] = [
   {
     id: "anniversary-events",
     label: "anniversary_events",
-    icon: "🥂",
+    icon: <GlassWater size={20} color={GOLD_COLOR} />,
     min: 20,
     max: 500,
     step: 1,
@@ -249,7 +571,7 @@ const PRIVATE_SOCIAL_EVENTS: PropertyCategory[] = [
   {
     id: "engagement-parties",
     label: "engagement_parties",
-    icon: "💍",
+    icon: <Sparkles size={20} color={GOLD_COLOR} />,
     min: 20,
     max: 500,
     step: 1,
@@ -258,7 +580,7 @@ const PRIVATE_SOCIAL_EVENTS: PropertyCategory[] = [
   {
     id: "family-celebrations",
     label: "family_celebrations",
-    icon: "👨‍👩‍👧‍👦",
+    icon: <Users size={20} color={GOLD_COLOR} />,
     min: 20,
     max: 500,
     step: 1,
@@ -267,7 +589,7 @@ const PRIVATE_SOCIAL_EVENTS: PropertyCategory[] = [
   {
     id: "graduation-parties",
     label: "graduation_parties",
-    icon: "🎓",
+    icon: <GraduationCap size={20} color={GOLD_COLOR} />,
     min: 20,
     max: 500,
     step: 1,
@@ -276,7 +598,7 @@ const PRIVATE_SOCIAL_EVENTS: PropertyCategory[] = [
   {
     id: "dinner-parties",
     label: "dinner_parties",
-    icon: "🍽️",
+    icon: <Utensils size={20} color={GOLD_COLOR} />,
     min: 20,
     max: 500,
     step: 1,
@@ -285,7 +607,7 @@ const PRIVATE_SOCIAL_EVENTS: PropertyCategory[] = [
   {
     id: "holiday-parties",
     label: "holiday_parties",
-    icon: "🎄",
+    icon: <Gift size={20} color={GOLD_COLOR} />,
     min: 20,
     max: 500,
     step: 1,
@@ -294,7 +616,7 @@ const PRIVATE_SOCIAL_EVENTS: PropertyCategory[] = [
   {
     id: "private-gatherings",
     label: "private_gatherings",
-    icon: "🍸",
+    icon: <Wine size={20} color={GOLD_COLOR} />,
     min: 20,
     max: 500,
     step: 1,
@@ -303,7 +625,7 @@ const PRIVATE_SOCIAL_EVENTS: PropertyCategory[] = [
   {
     id: "luxury-parties",
     label: "luxury_parties",
-    icon: "✨",
+    icon: <Star size={20} color={GOLD_COLOR} />,
     min: 20,
     max: 500,
     step: 1,
@@ -315,7 +637,7 @@ const VIP_AND_COPORATE_EVENTS: PropertyCategory[] = [
   {
     id: "vip-events",
     label: "vip_events",
-    icon: "🌟",
+    icon: <Award size={20} color={GOLD_COLOR} />,
     min: 20,
     max: 500,
     step: 1,
@@ -324,7 +646,7 @@ const VIP_AND_COPORATE_EVENTS: PropertyCategory[] = [
   {
     id: "executive-events",
     label: "executive_events",
-    icon: "👔",
+    icon: <UserCheck size={20} color={GOLD_COLOR} />,
     min: 20,
     max: 500,
     step: 1,
@@ -333,7 +655,7 @@ const VIP_AND_COPORATE_EVENTS: PropertyCategory[] = [
   {
     id: "corporate-events",
     label: "corporate_events",
-    icon: "💼",
+    icon: <Briefcase size={20} color={GOLD_COLOR} />,
     min: 20,
     max: 500,
     step: 1,
@@ -342,7 +664,7 @@ const VIP_AND_COPORATE_EVENTS: PropertyCategory[] = [
   {
     id: "gala-events",
     label: "gala_events",
-    icon: "🎭",
+    icon: <PartyPopper size={20} color={GOLD_COLOR} />,
     min: 20,
     max: 500,
     step: 1,
@@ -351,7 +673,7 @@ const VIP_AND_COPORATE_EVENTS: PropertyCategory[] = [
   {
     id: "red-carpet-events",
     label: "red_carpet_events",
-    icon: "🎟️",
+    icon: <Ticket size={20} color={GOLD_COLOR} />,
     min: 20,
     max: 500,
     step: 1,
@@ -360,7 +682,7 @@ const VIP_AND_COPORATE_EVENTS: PropertyCategory[] = [
   {
     id: "product-launches",
     label: "product_launches",
-    icon: "🚀",
+    icon: <Rocket size={20} color={GOLD_COLOR} />,
     min: 20,
     max: 500,
     step: 1,
@@ -369,7 +691,7 @@ const VIP_AND_COPORATE_EVENTS: PropertyCategory[] = [
   {
     id: "award-ceremonies",
     label: "award_ceremonies",
-    icon: "🏆",
+    icon: <Trophy size={20} color={GOLD_COLOR} />,
     min: 20,
     max: 500,
     step: 1,
@@ -378,7 +700,7 @@ const VIP_AND_COPORATE_EVENTS: PropertyCategory[] = [
   {
     id: "conference-events",
     label: "conference_events",
-    icon: "📊",
+    icon: <BarChart3 size={20} color={GOLD_COLOR} />,
     min: 20,
     max: 500,
     step: 1,
@@ -387,7 +709,7 @@ const VIP_AND_COPORATE_EVENTS: PropertyCategory[] = [
   {
     id: "charity-events",
     label: "charity_events",
-    icon: "🤝",
+    icon: <Handshake size={20} color={GOLD_COLOR} />,
     min: 20,
     max: 500,
     step: 1,
@@ -396,7 +718,7 @@ const VIP_AND_COPORATE_EVENTS: PropertyCategory[] = [
   {
     id: "high-profile-events",
     label: "high_profile_events",
-    icon: "👑",
+    icon: <Crown size={20} color={GOLD_COLOR} />,
     min: 20,
     max: 500,
     step: 1,
@@ -414,7 +736,7 @@ const COMMERCIAL_AND_OFFICE_CLEANING_CATEGORIES: PropertyCategory[] = [
   {
     id: "commercial-cleaning",
     label: "commercial_cleaning",
-    icon: "🏢",
+    icon: <Building2 size={20} color={GOLD_COLOR} />,
     min: 20,
     max: 500,
     step: 1,
@@ -423,7 +745,7 @@ const COMMERCIAL_AND_OFFICE_CLEANING_CATEGORIES: PropertyCategory[] = [
   {
     id: "high-security-cleaning",
     label: "high_security_cleaning",
-    icon: "🔐",
+    icon: <ShieldCheck size={20} color={GOLD_COLOR} />,
     min: 20,
     max: 500,
     step: 1,
@@ -432,7 +754,7 @@ const COMMERCIAL_AND_OFFICE_CLEANING_CATEGORIES: PropertyCategory[] = [
   {
     id: "industrial-cleaning",
     label: "industrial_cleaning",
-    icon: "🏭",
+    icon: <Factory size={20} color={GOLD_COLOR} />,
     min: 20,
     max: 500,
     step: 1,
@@ -441,7 +763,7 @@ const COMMERCIAL_AND_OFFICE_CLEANING_CATEGORIES: PropertyCategory[] = [
   {
     id: "medical-cleaning",
     label: "medical_cleaning",
-    icon: "🏥",
+    icon: <Hospital size={20} color={GOLD_COLOR} />,
     min: 20,
     max: 500,
     step: 1,
@@ -450,7 +772,7 @@ const COMMERCIAL_AND_OFFICE_CLEANING_CATEGORIES: PropertyCategory[] = [
   {
     id: "post-construction-cleaning",
     label: "post_construction_cleaning",
-    icon: "🏗️",
+    icon: <Construction size={20} color={GOLD_COLOR} />,
     min: 20,
     max: 500,
     step: 1,
@@ -459,7 +781,7 @@ const COMMERCIAL_AND_OFFICE_CLEANING_CATEGORIES: PropertyCategory[] = [
   {
     id: "deep-cleaning",
     label: "deep_cleaning",
-    icon: "✨",
+    icon: <Sparkles size={20} color={GOLD_COLOR} />,
     min: 20,
     max: 500,
     step: 1,
@@ -468,7 +790,7 @@ const COMMERCIAL_AND_OFFICE_CLEANING_CATEGORIES: PropertyCategory[] = [
   {
     id: "emergency-cleaning",
     label: "emergency_cleaning",
-    icon: "🚨",
+    icon: <AlertTriangle size={20} color={GOLD_COLOR} />,
     min: 20,
     max: 500,
     step: 1,
@@ -477,7 +799,7 @@ const COMMERCIAL_AND_OFFICE_CLEANING_CATEGORIES: PropertyCategory[] = [
   {
     id: "event-cleaning",
     label: "event_cleaning",
-    icon: "🧹",
+    icon: <Brush size={20} color={GOLD_COLOR} />,
     min: 20,
     max: 500,
     step: 1,
@@ -489,7 +811,7 @@ const OFFICE_CLEANING_CATEGORIES: PropertyCategory[] = [
   {
     id: "office-cleaning",
     label: "office_cleaning",
-    icon: "🗄️",
+    icon: <FolderArchive size={20} color={GOLD_COLOR} />,
     min: 20,
     max: 500,
     step: 1,
@@ -498,7 +820,7 @@ const OFFICE_CLEANING_CATEGORIES: PropertyCategory[] = [
   {
     id: "corporate-cleaning",
     label: "corporate_cleaning",
-    icon: "🏢",
+    icon: <Building size={20} color={GOLD_COLOR} />,
     min: 20,
     max: 500,
     step: 1,
@@ -507,7 +829,7 @@ const OFFICE_CLEANING_CATEGORIES: PropertyCategory[] = [
   {
     id: "executive-office-cleaning",
     label: "executive_office_cleaning",
-    icon: "👔",
+    icon: <UserCheck size={20} color={GOLD_COLOR} />,
     min: 20,
     max: 500,
     step: 1,
@@ -516,7 +838,7 @@ const OFFICE_CLEANING_CATEGORIES: PropertyCategory[] = [
   {
     id: "reception-cleaning",
     label: "reception_cleaning",
-    icon: "🛎️",
+    icon: <BellRing size={20} color={GOLD_COLOR} />,
     min: 20,
     max: 500,
     step: 1,
@@ -525,7 +847,7 @@ const OFFICE_CLEANING_CATEGORIES: PropertyCategory[] = [
   {
     id: "meeting-room-cleaning",
     label: "meeting_room_cleaning",
-    icon: "📊",
+    icon: <BarChart3 size={20} color={GOLD_COLOR} />,
     min: 20,
     max: 500,
     step: 1,
@@ -534,7 +856,7 @@ const OFFICE_CLEANING_CATEGORIES: PropertyCategory[] = [
   {
     id: "floor-cleaning",
     label: "floor_cleaning",
-    icon: "🧹",
+    icon: <Sparkle size={20} color={GOLD_COLOR} />,
     min: 20,
     max: 500,
     step: 1,
@@ -543,7 +865,7 @@ const OFFICE_CLEANING_CATEGORIES: PropertyCategory[] = [
   {
     id: "washroom-cleaning",
     label: "washroom_cleaning",
-    icon: "🧻",
+    icon: <Droplets size={20} color={GOLD_COLOR} />,
     min: 20,
     max: 500,
     step: 1,
@@ -552,7 +874,7 @@ const OFFICE_CLEANING_CATEGORIES: PropertyCategory[] = [
   {
     id: "after-hours-cleaning",
     label: "after_hours_cleaning",
-    icon: "🌙",
+    icon: <Moon size={20} color={GOLD_COLOR} />,
     min: 20,
     max: 500,
     step: 1,
@@ -572,7 +894,7 @@ const HIGH_SECURITY_RESIDENTIAL_CATEGORIES: PropertyCategory[] = [
   {
     id: "vip-home-cleaning",
     label: "vip_home_cleaning",
-    icon: "🏡",
+    icon: <Crown size={20} color={GOLD_COLOR} />,
     min: 20,
     max: 500,
     step: 1,
@@ -581,7 +903,7 @@ const HIGH_SECURITY_RESIDENTIAL_CATEGORIES: PropertyCategory[] = [
   {
     id: "secure-home-cleaning",
     label: "secure_home_cleaning",
-    icon: "🛡️",
+    icon: <Lock size={20} color={GOLD_COLOR} />,
     min: 20,
     max: 500,
     step: 1,
@@ -590,7 +912,7 @@ const HIGH_SECURITY_RESIDENTIAL_CATEGORIES: PropertyCategory[] = [
   {
     id: "luxury-property-care",
     label: "luxury_property_care",
-    icon: "🏰",
+    icon: <Gem size={20} color={GOLD_COLOR} />,
     min: 20,
     max: 500,
     step: 1,
@@ -599,7 +921,7 @@ const HIGH_SECURITY_RESIDENTIAL_CATEGORIES: PropertyCategory[] = [
   {
     id: "private-estate-cleaning",
     label: "private_estate_cleaning",
-    icon: "🌳",
+    icon: <Trees size={20} color={GOLD_COLOR} />,
     min: 20,
     max: 500,
     step: 1,
@@ -608,7 +930,7 @@ const HIGH_SECURITY_RESIDENTIAL_CATEGORIES: PropertyCategory[] = [
   {
     id: "emergency-home-cleaning",
     label: "emergency_home_cleaning",
-    icon: "⚡",
+    icon: <Flame size={20} color={GOLD_COLOR} />,
     min: 20,
     max: 500,
     step: 1,
@@ -617,7 +939,7 @@ const HIGH_SECURITY_RESIDENTIAL_CATEGORIES: PropertyCategory[] = [
   {
     id: "residential-restoration",
     label: "residential_restoration",
-    icon: "🔨",
+    icon: <Hammer size={20} color={GOLD_COLOR} />,
     min: 20,
     max: 500,
     step: 1,
@@ -625,14 +947,11 @@ const HIGH_SECURITY_RESIDENTIAL_CATEGORIES: PropertyCategory[] = [
   }
 ];
 
-
-
-
 const HIGH_SECURITY_COMMERCIAL_CATEGORIES: PropertyCategory[] = [
   {
     id: "security-cleaning",
     label: "security_cleaning",
-    icon: "🔒",
+    icon: <KeyRound size={20} color={GOLD_COLOR} />,
     min: 20,
     max: 500,
     step: 1,
@@ -641,7 +960,7 @@ const HIGH_SECURITY_COMMERCIAL_CATEGORIES: PropertyCategory[] = [
   {
     id: "high-security-cleaning",
     label: "high_security_cleaning", 
-    icon: "🛡️",
+    icon: <ShieldCheck size={20} color={GOLD_COLOR} />,
     min: 20,
     max: 500,
     step: 1,
@@ -650,7 +969,7 @@ const HIGH_SECURITY_COMMERCIAL_CATEGORIES: PropertyCategory[] = [
   {
     id: "scif-cleaning",
     label: "scif_cleaning",
-    icon: "🏢",
+    icon: <FileLock2 size={20} color={GOLD_COLOR} />,
     min: 20,
     max: 500,
     step: 1,
@@ -659,7 +978,7 @@ const HIGH_SECURITY_COMMERCIAL_CATEGORIES: PropertyCategory[] = [
   {
     id: "medical-sanitation",
     label: "medical_sanitation",
-    icon: "🏥",
+    icon: <Cross size={20} color={GOLD_COLOR} />,
     min: 20,
     max: 500,
     step: 1,
@@ -668,7 +987,7 @@ const HIGH_SECURITY_COMMERCIAL_CATEGORIES: PropertyCategory[] = [
   {
     id: "post-construction-cleaning",
     label: "post_construction_cleaning",
-    icon: "🏗️",
+    icon: <HardHat size={20} color={GOLD_COLOR} />,
     min: 20,
     max: 500,
     step: 1,
@@ -677,7 +996,7 @@ const HIGH_SECURITY_COMMERCIAL_CATEGORIES: PropertyCategory[] = [
   {
     id: "hazmat-biohazard",
     label: "hazmat_biohazard",
-    icon: "⚠️",
+    icon: <Biohazard size={20} color={GOLD_COLOR} />,
     min: 20,
     max: 500,
     step: 1,
@@ -686,7 +1005,7 @@ const HIGH_SECURITY_COMMERCIAL_CATEGORIES: PropertyCategory[] = [
   {
     id: "incident-restoration",
     label: "incident_restoration",
-    icon: "🛠️",
+    icon: <Toolbox size={20} color={GOLD_COLOR} />,
     min: 20,
     max: 500,
     step: 1,
@@ -695,7 +1014,7 @@ const HIGH_SECURITY_COMMERCIAL_CATEGORIES: PropertyCategory[] = [
   {
     id: "event-rapid-cleaning",
     label: "event_rapid_cleaning",
-    icon: "⚡",
+    icon: <Zap size={20} color={GOLD_COLOR} />,
     min: 20,
     max: 500,
     step: 1,
@@ -704,7 +1023,7 @@ const HIGH_SECURITY_COMMERCIAL_CATEGORIES: PropertyCategory[] = [
   {
     id: "industrial-cleaning",
     label: "industrial_cleaning",
-    icon: "🏭",
+    icon: <Cog size={20} color={GOLD_COLOR} />,
     min: 20,
     max: 500,
     step: 1,
@@ -713,7 +1032,7 @@ const HIGH_SECURITY_COMMERCIAL_CATEGORIES: PropertyCategory[] = [
   {
     id: "executive-facility-care",
     label: "executive_facility_care",
-    icon: "🏢",
+    icon: <Briefcase size={20} color={GOLD_COLOR} />,
     min: 20,
     max: 500,
     step: 1,
@@ -721,57 +1040,53 @@ const HIGH_SECURITY_COMMERCIAL_CATEGORIES: PropertyCategory[] = [
   }
 ];
 
+//hhhhh
+const PREMIUM_RENTAL_PRIVATE_PROPERTY: PropertyCategory[] = [
+  { id: "studio", label: "propStudio", icon: <SquareTerminal size={20} color={GOLD_COLOR} />, min: 20, max: 40, step: 1, locked: false },
+  { id: "apartment", label: "propApartment", icon: <LayoutGrid size={20} color={GOLD_COLOR} />, min: 45, max: 120, step: 1, locked: false },
+  { id: "townhouse", label: "propTownhouse", icon: <Home size={20} color={GOLD_COLOR} />, min: 90, max: 220, step: 1, locked: false },
+  { id: "home", label: "propHome", icon: <HousePlus size={20} color={GOLD_COLOR} />, min: 100, max: 350, step: 1, locked: false },
+  { id: "penthouse", label: "propPenthouse", icon: <Sunset size={20} color={GOLD_COLOR} />, min: 120, max: 400, step: 1, locked: false },
+  { id: "villa", label: "propVilla", icon: <Landmark size={20} color={GOLD_COLOR} />, min: 200, max: 500, step: 1, locked: false },
+  { id: "holiday-home", label: "propHolidayHome", icon: <Palmtree size={20} color={GOLD_COLOR} />, min: 60, max: 400, step: 1, locked: false },
+  { id: "second-home", label: "propSecondHome", icon: <KeySquare size={20} color={GOLD_COLOR} />, min: 45, max: 400, step: 1, locked: false },
+];
 
-const PREMIUM_RENTAL_PRIVATE_PROPERTY:PropertyCategory[]=[
-  { id: "studio", label: "propStudio", icon: "🏢", min: 20, max: 40, step: 1, locked: false },
-  { id: "apartment", label: "propApartment", icon: "🏠", min: 45, max: 120, step: 1, locked: false },
-  { id: "townhouse", label: "propTownhouse", icon: "🏘️", min: 90, max: 220, step: 1, locked: false },
-  { id: "home", label: "propHome", icon: "🏡", min: 100, max: 350, step: 1, locked: false },
-  { id: "penthouse", label: "propPenthouse", icon: "🌇", min: 120, max: 400, step: 1, locked: false },
-  { id: "villa", label: "propVilla", icon: "🏰", min: 200, max: 500, step: 1, locked: false },
-  { id: "holiday-home", label: "propHolidayHome", icon: "🌴", min: 60, max: 400, step: 1, locked: false },
-  { id: "second-home", label: "propSecondHome", icon: "🔑", min: 45, max: 400, step: 1, locked: false },
-]
+const PREMIUM_RENTAL_MANAGEMENT_PROPERTY: PropertyCategory[] = [
+  { id: "airbnb", label: "propAirbnb", icon: <CalendarCheck2 size={20} color={GOLD_COLOR} />, min: 200, max: 500, step: 1, locked: false },
+  { id: "guest_ready", label: "propGuestReady", icon: <BedDouble size={20} color={GOLD_COLOR} />, min: 200, max: 500, step: 1, locked: false },
+  { id: "booking_com", label: "propBookingCom", icon: <CalendarRange size={20} color={GOLD_COLOR} />, min: 200, max: 500, step: 1, locked: false },
+  { id: "hotels", label: "propHotels", icon: <Building size={20} color={GOLD_COLOR} />, min: 200, max: 500, step: 1, locked: false },
+  { id: "serviced_apartments", label: "propServicedApartments", icon: <Building2 size={20} color={GOLD_COLOR} />, min: 200, max: 500, step: 1, locked: false },
+  { id: "guesthouses", label: "propGuesthouses", icon: <HomeIcon size={20} color={GOLD_COLOR} />, min: 200, max: 500, step: 1, locked: false },
+  { id: "holiday_rentals", label: "propHolidayRentals", icon: <Globe2 size={20} color={GOLD_COLOR} />, min: 200, max: 500, step: 1, locked: false },
+  { id: "property_managers", label: "propPropertyManagers", icon: <HardHat size={20} color={GOLD_COLOR} />, min: 200, max: 500, step: 1, locked: false },
+];
 
-const PREMIUM_RENTAL_MANAGEMENT_PROPERTY:PropertyCategory[]=[
-  { id: "airbnb", label: "propAirbnb", icon: "🛎️", min: 200, max: 500, step: 1, locked: false },
-  { id: "guest_ready", label: "propGuestReady", icon: "🛏️", min: 200, max: 500, step: 1, locked: false },
-  { id: "booking_com", label: "propBookingCom", icon: "📅", min: 200, max: 500, step: 1, locked: false },
-  { id: "hotels", label: "propHotels", icon: "🏨", min: 200, max: 500, step: 1, locked: false },
-  { id: "serviced_apartments", label: "propServicedApartments", icon: "🏢", min: 200, max: 500, step: 1, locked: false },
-  { id: "guesthouses", label: "propGuesthouses", icon: "🏡", min: 200, max: 500, step: 1, locked: false },
-  { id: "holiday_rentals", label: "propHolidayRentals", icon: "🌍", min: 200, max: 500, step: 1, locked: false },
-  { id: "property_managers", label: "propPropertyManagers", icon: "🏗️", min: 200, max: 500, step: 1, locked: false },
-]
-
-const POOL_DEFAULT_TYPES:PropertyCategory[]=[
-  
-  { id: "pool_kiddies", label: "poolTypeKiddies", icon: "🏗️", min: 20, max: 500, step: 1, locked: false }, 
-  { id: "above_ground_pools", label: "poolTypeAboveGroundSwimmingPools", icon: "🏊‍♂️", min: 20, max: 500, step: 1, locked: false },
-  { id: "lap_pools", label: "poolTypeLapPools", icon: "🏊‍♀️", min: 20, max: 500, step: 1, locked: false },
-  { id: "in_ground_pools", label: "poolTypeInGroundPools", icon: "🏊", min: 20, max: 500, step: 1, locked: false },
-  
-  { id: "family_swimming_pools", label: "poolTypeFamilySwimmingPools", icon: "👨‍👩‍👧‍👦", min: 20, max: 500, step: 1, locked: false },
-  { id: "indoor_pools", label: "poolTypeIndoorPools", icon: "🏛️", min: 20, max: 500, step: 1, locked: false },
-  { id: "olympic_size_pools", label: "poolTypeOlympicSizePools", icon: "🥇", min: 20, max: 500, step: 1, locked: false },
-  { id: "architectural_pools", label: "poolTypeArchitecturalPools", icon: "📐", min: 20, max: 500, step: 1, locked: false },
-  
-  { id: "infinity_pools", label: "poolTypeInfinityPools", icon: "🌅", min: 20, max: 500, step: 1, locked: false },
-  { id: "natural_pools", label: "poolTypeNaturalPools", icon: "🌿", min: 20, max: 500, step: 1, locked: false },
-  { id: "spool_small_pool", label: "poolTypeSpoolSmallPool", icon: "💧", min: 20, max: 500, step: 1, locked: false },
-  { id: "saltwater_pools", label: "poolTypeSaltwaterPools", icon: "🧂", min: 20, max: 500, step: 1, locked: false },
-  { id: "plunge_pools", label: "poolTypePlungePools", icon: "🧊", min: 20, max: 500, step: 1, locked: false },
-  { id: "jacuzzi_cleaning", label: "poolAddonJacuzziCleaning", icon: "🫧", min: 20, max: 500, step: 1, locked: false },
-  { id: "steam_room_cleaning", label: "poolAddonSteamRoomCleaning", icon: "💨", min: 20, max: 500, step: 1, locked: false },
-  { id: "sauna_room_cleaning", label: "poolAddonSaunaRoomCleaning", icon: "🧖‍♂️", min: 20, max: 500, step: 1, locked: false }
-  
-]
+const POOL_DEFAULT_TYPES: PropertyCategory[] = [
+  { id: "pool_kiddies", label: "poolTypeKiddies", icon: <Baby size={20} color={GOLD_COLOR} />, min: 20, max: 500, step: 1, locked: false }, 
+  { id: "above_ground_pools", label: "poolTypeAboveGroundSwimmingPools", icon: <Layers size={20} color={GOLD_COLOR} />, min: 20, max: 500, step: 1, locked: false },
+  { id: "lap_pools", label: "poolTypeLapPools", icon: <Timer size={20} color={GOLD_COLOR} />, min: 20, max: 500, step: 1, locked: false },
+  { id: "in_ground_pools", label: "poolTypeInGroundPools", icon: <Maximize size={20} color={GOLD_COLOR} />, min: 20, max: 500, step: 1, locked: false },
+  { id: "family_swimming_pools", label: "poolTypeFamilySwimmingPools", icon: <Users2 size={20} color={GOLD_COLOR} />, min: 20, max: 500, step: 1, locked: false },
+  { id: "indoor_pools", label: "poolTypeIndoorPools", icon: <Warehouse size={20} color={GOLD_COLOR} />, min: 20, max: 500, step: 1, locked: false },
+  { id: "olympic_size_pools", label: "poolTypeOlympicSizePools", icon: <Medal size={20} color={GOLD_COLOR} />, min: 20, max: 500, step: 1, locked: false },
+  { id: "architectural_pools", label: "poolTypeArchitecturalPools", icon: <DraftingCompass size={20} color={GOLD_COLOR} />, min: 20, max: 500, step: 1, locked: false },
+  { id: "infinity_pools", label: "poolTypeInfinityPools", icon: <Sunrise size={20} color={GOLD_COLOR} />, min: 20, max: 500, step: 1, locked: false },
+  { id: "natural_pools", label: "poolTypeNaturalPools", icon: <Sprout size={20} color={GOLD_COLOR} />, min: 20, max: 500, step: 1, locked: false },
+  { id: "spool_small_pool", label: "poolTypeSpoolSmallPool", icon: <Droplet size={20} color={GOLD_COLOR} />, min: 20, max: 500, step: 1, locked: false },
+  { id: "saltwater_pools", label: "poolTypeSaltwaterPools", icon: <TestTube2 size={20} color={GOLD_COLOR} />, min: 20, max: 500, step: 1, locked: false },
+  { id: "plunge_pools", label: "poolTypePlungePools", icon: <Snowflake size={20} color={GOLD_COLOR} />, min: 20, max: 500, step: 1, locked: false },
+  { id: "jacuzzi_cleaning", label: "poolAddonJacuzziCleaning", icon: <CloudFog size={20} color={GOLD_COLOR} />, min: 20, max: 500, step: 1, locked: false },
+  { id: "steam_room_cleaning", label: "poolAddonSteamRoomCleaning", icon: <Wind size={20} color={GOLD_COLOR} />, min: 20, max: 500, step: 1, locked: false },
+  { id: "sauna_room_cleaning", label: "poolAddonSaunaRoomCleaning", icon: <Flame size={20} color={GOLD_COLOR} />, min: 20, max: 500, step: 1, locked: false }
+];
 
 export interface ServiceCategoryTab {
   id: string;
   label: string;
   translationKey?: TranslationKey;
-  icon: string;
+  icon: string | React.ReactNode;
   categories: PropertyCategory[];
 }
 
@@ -780,14 +1095,14 @@ export const DEFAULT_CATEGORY_TABS: [ServiceCategoryTab, ServiceCategoryTab] = [
     id: "residential",
     label: "Residential",
     translationKey: "propCatResidential",
-    icon: "🏠",
+    icon: <Compass size={20} color={GOLD_COLOR} />,
     categories: SANITIZE_RESIDENTIAL_CATEGORYIES,
   },
   {
     id: "industrial",
     label: "Industrial",
     translationKey: "propCatIndustrial",
-    icon: "🏭",
+    icon: <Cog size={20} color={GOLD_COLOR} />,
     categories: SANITIZE_INDUSTRIAL_CATEGORYIES,
   },
 ];
@@ -822,13 +1137,13 @@ export const SERVICE_CATEGORY_TABS_MAP: Record<string, [ServiceCategoryTab, Serv
     {
       id: "residential",
       label: "premiumRentalPrivateProperty",
-      icon: "🏠",
+      icon: <Compass size={20} color={GOLD_COLOR} />,
       categories: PREMIUM_RENTAL_PRIVATE_PROPERTY,
     },
     {
       id: "industrial",
       label: "premiumRentalManagementProperty",
-      icon: "🏢",
+      icon: <Cog size={20} color={GOLD_COLOR} />,
       categories: PREMIUM_RENTAL_MANAGEMENT_PROPERTY,
     }
   ],
@@ -837,14 +1152,14 @@ export const SERVICE_CATEGORY_TABS_MAP: Record<string, [ServiceCategoryTab, Serv
       id: "residential",
       label: "Residential",
       translationKey: "propCatResidential",
-      icon: "🏠",
+      icon: <Compass size={20} color={GOLD_COLOR} />,
       categories: PRIVATE_SOCIAL_EVENTS,
     },
     {
       id: "industrial",
       label: "Industrial",
       translationKey: "propCatIndustrial",
-      icon: "🏭",
+      icon: <Cog size={20} color={GOLD_COLOR} />,
       categories: VIP_AND_COPORATE_EVENTS,
     },
   ],
@@ -853,14 +1168,14 @@ export const SERVICE_CATEGORY_TABS_MAP: Record<string, [ServiceCategoryTab, Serv
       id: "residential",
       label: "Residential",
       translationKey: "propCatResidential",
-      icon: "🏠",
+      icon: <Compass size={20} color={GOLD_COLOR} />,
       categories: COMMERCIAL_AND_OFFICE_CLEANING_CATEGORIES,
     },
     {
       id: "industrial",
       label: "Industrial",
       translationKey: "propCatIndustrial",
-      icon: "🏭",
+      icon: <Cog size={20} color={GOLD_COLOR} />,
       categories: OFFICE_CLEANING_CATEGORIES,
     },
   ],
@@ -869,14 +1184,14 @@ export const SERVICE_CATEGORY_TABS_MAP: Record<string, [ServiceCategoryTab, Serv
       id: "residential",
       label: "Residential",
       translationKey: "propCatResidential",
-      icon: "🏠",
+      icon: <Compass size={20} color={GOLD_COLOR} />,
       categories: HIGH_SECURITY_RESIDENTIAL_CATEGORIES,
     },
     {
       id: "industrial",
       label: "Industrial",
       translationKey: "propCatIndustrial",
-      icon: "🏭",
+      icon: <Cog size={20} color={GOLD_COLOR} />,
       categories: HIGH_SECURITY_COMMERCIAL_CATEGORIES,
     },
     
@@ -886,14 +1201,14 @@ export const SERVICE_CATEGORY_TABS_MAP: Record<string, [ServiceCategoryTab, Serv
       id: "residential",
       label: "Residential",
       translationKey: "propCatResidential",
-      icon: "🏠",
+      icon: <Compass size={20} color={GOLD_COLOR} />,
       categories: POOL_DEFAULT_TYPES,
     },
     {
       id: "industrial",
       label: "Industrial",
       translationKey: "propCatIndustrial",
-      icon: "🏭",
+      icon: <Cog size={20} color={GOLD_COLOR} />,
       categories: POOL_DEFAULT_TYPES, 
     },
   ]
@@ -1148,6 +1463,7 @@ interface visualizationProps {
   quote?: SizeQuote | null;
   serviceCategory?: "residential" | "industrial" | "yatch-cleaning" | "passenger-ship-cleaning";
   isQuote?: boolean;
+  theme?:string;
 }
 
 interface SurfaceBottomMatrix {
@@ -1170,10 +1486,13 @@ export function SanitizeSizeVisualization({
   quote,
   serviceCategory = "residential",
   isQuote,
+  theme,
 }: visualizationProps) {
   const { symbol } = useCurrency();
   const { translate } = useLanguage();
-
+ 
+  const isLight = theme === "light";
+  
   const span = Number(Math.sqrt(value * 1.33).toFixed(1));
   const depth = Number((value / span).toFixed(1));
 
@@ -1222,146 +1541,192 @@ export function SanitizeSizeVisualization({
 
   return (
     <div
-      className="w-full rounded-2xl bg-[#030303] border-2 border-[#C5A059] md:p-3 p-5 shadow-[0_6px_22px_rgba(197,160,89,0.25)] ring-1 ring-[#C5A059]/25 relative overflow-hidden select-none"
+      className={`w-full rounded-2xl border-2 border-[#C5A059] md:p-3 p-5 transition-colors duration-300 relative overflow-hidden select-none ${
+        isLight
+          ? "bg-[#FAF8F5] text-slate-900 shadow-[0_10px_35px_rgba(197,160,89,0.22)] ring-1 ring-[#C5A059]/30"
+          : "bg-[#030303] text-white shadow-[0_6px_22px_rgba(197,160,89,0.25)] ring-1 ring-[#C5A059]/25"
+      }`}
       style={{
-        backgroundImage: `
-          linear-gradient(to right, rgba(197, 160, 89, 0.07) 1px, transparent 1px),
-          linear-gradient(to bottom, rgba(197, 160, 89, 0.07) 1px, transparent 1px)
-        `,
+        backgroundImage: isLight
+          ? `
+            linear-gradient(to right, rgba(197, 160, 89, 0.12) 1px, transparent 1px),
+            linear-gradient(to bottom, rgba(197, 160, 89, 0.12) 1px, transparent 1px)
+          `
+          : `
+            linear-gradient(to right, rgba(197, 160, 89, 0.07) 1px, transparent 1px),
+            linear-gradient(to bottom, rgba(197, 160, 89, 0.07) 1px, transparent 1px)
+          `,
         backgroundSize: "24px 24px",
       }}
     >
-      <div className="w-full flex items-center justify-between border-b border-[#C5A059]/40 pb-2.5 mb-3 gap-2 flex-wrap">
+      <div className={`w-full flex items-center justify-between border-b pb-2.5 mb-3 gap-2 flex-wrap ${
+        isLight ? "border-[#C5A059]/30" : "border-[#C5A059]/40"
+      }`}>
         <div className="flex items-center space-x-2.5 min-w-0">
           <div className="w-2.5 h-2.5 bg-[#C5A059] rounded-full shadow-[0_0_10px_#C5A059] shrink-0" />
           <div className="min-w-0">
-            <h4 className="text-[11px] sm:text-xs font-bold tracking-widest text-[#E6D5B8] uppercase truncate">
+            <h4 className={`text-[11px] sm:text-xs font-bold tracking-widest uppercase truncate ${
+              isLight ? "text-[#8C6D2D]" : "text-[#E6D5B8]"
+            }`}>
               {activeCategory ? (CATEGORY_LABEL_KEYS[activeCategory.label] ? translate(CATEGORY_LABEL_KEYS[activeCategory.label] as TranslationKey) : translate(activeCategory.label as TranslationKey)) : (isResidential ? "RESIDENTIAL" : "INDUSTRIAL")} BLUEPRINT
             </h4>
-            <p className="text-[9px] sm:text-[10px] text-[#C5A059]/80 tracking-wider truncate">
+            <p className={`text-[9px] sm:text-[10px] tracking-wider truncate ${
+              isLight ? "text-[#A37F38]" : "text-[#C5A059]/80"
+            }`}>
               {value} m² • {formatFt2(value)} ft² | GRID: {span}m × {depth}m
             </p>
           </div>
         </div>
 
         <div className="flex items-center gap-2 shrink-0">
-          <span className="text-[9px] sm:text-[10px] px-2.5 py-1 bg-[#C5A059]/30 border-2 border-[#C5A059] rounded-md text-[#E6D5B8] font-bold tracking-wide shadow-[0_6px_22px_rgba(197,160,89,0.25)] ring-1 ring-[#C5A059]/25">
+          <span className={`text-[9px] sm:text-[10px] px-2.5 py-1 bg-[#C5A059]/30 border-2 border-[#C5A059] rounded-md font-bold tracking-wide shadow-[0_6px_22px_rgba(197,160,89,0.25)] ring-1 ring-[#C5A059]/25 ${
+            isLight ? "text-[#7A5C20]" : "text-[#E6D5B8]"
+          }`}>
             {translate(surfaceTitle as TranslationKey)}
           </span>
-          <span className="hidden sm:inline-block text-[9px] px-2 py-0.5 bg-[#C5A059]/20 border border-[#C5A059]/40 rounded-md text-[#E6D5B8] font-mono">
+          <span className={`hidden sm:inline-block text-[9px] px-2 py-0.5 border rounded-md font-mono ${
+            isLight ? "bg-[#C5A059]/10 border-[#C5A059]/30 text-[#8C6D2D]" : "bg-[#C5A059]/20 border-[#C5A059]/40 text-[#E6D5B8]"
+          }`}>
             CAD SCALE 1:50
           </span>
         </div>
       </div>
 
-      <div className="relative w-full bg-[#050505]/95 border-2 border-[#C5A059]/60 rounded-xl shadow-[0_6px_22px_rgba(197,160,89,0.2)] p-2 sm:p-4 overflow-hidden">
+      <div className={`relative w-full border-2 border-[#C5A059] rounded-xl p-2 sm:p-4 overflow-hidden transition-all duration-300 ${
+        isLight
+          ? "bg-white/90 backdrop-blur-md shadow-[inset_0_0_20px_rgba(197,160,89,0.2),0_10px_35px_rgba(197,160,89,0.35)] ring-2 ring-[#C5A059]/30"
+          : "bg-[#050505]/95 backdrop-blur-sm shadow-[inset_0_0_25px_rgba(197,160,89,0.25),0_8px_25px_rgba(197,160,89,0.3)]"
+      }`}>
         <div className="flex items-center w-full">
           <div className="flex-1 min-w-0 max-h-[250px] sm:max-h-[270px] md:max-h-[420px] flex items-center justify-center">
             {isResidential ? (
               <svg
-                viewBox={BLUEPRINT_VIEWBOX}
-                className="w-full h-full max-h-[220px] sm:max-h-[260px] md:max-h-[420px] drop-shadow-[0_0_12px_rgba(197,160,89,0.25)] object-contain"
-              >
-                <BlueprintDimensions span={span} depth={depth} />
-                <rect x="50" y="50" width="850" height="630" rx="12" fill="none" stroke="#C5A059" strokeWidth="3" strokeDasharray="6 4" />
-                <g stroke="#C5A059" strokeWidth="2.5" fill="none" strokeDasharray="5 3">
-                  <line x1="50" y1="310" x2="360" y2="310" />
-                  <line x1="360" y1="50" x2="360" y2="310" />
-                  <line x1="360" y1="310" x2="620" y2="310" />
-                  <line x1="620" y1="50" x2="620" y2="310" />
-                  <line x1="730" y1="310" x2="900" y2="310" />
-                  <line x1="730" y1="310" x2="730" y2="460" />
-                  <line x1="620" y1="460" x2="900" y2="460" />
-                  <line x1="620" y1="590" x2="900" y2="590" />
-                  <line x1="620" y1="460" x2="620" y2="590" />
-                  <line x1="360" y1="410" x2="520" y2="410" />
-                  <line x1="360" y1="410" x2="360" y2="680" />
-                  <line x1="520" y1="480" x2="520" y2="680" />
-                  <path d="M 420 680 L 420 730 L 530 730 L 530 680" />
-                </g>
-                <g fill="rgba(197, 160, 89, 0.05)">
-                  <rect x="54" y="54" width="304" height="254" />
-                  <rect x="364" y="54" width="254" height="254" />
-                  <rect x="624" y="54" width="274" height="254" />
-                  <rect x="54" y="314" width="304" height="362" />
-                  <rect x="364" y="414" width="154" height="262" />
-                  <rect x="624" y="464" width="274" height="212" />
-                  <rect x="734" y="314" width="164" height="144" />
-                </g>
-                <g stroke="#C5A059" strokeWidth="1.8" fill="none" strokeDasharray="4 3">
-                  <rect x="80" y="80" width="110" height="130" rx="6" strokeDasharray="4 2" />
-                  <rect x="75" y="240" width="180" height="35" rx="4" />
-                  <circle cx="310" cy="80" r="12" strokeWidth="1.5" />
-                  <rect x="390" y="85" width="100" height="120" rx="6" />
-                  <rect x="520" y="70" width="35" height="40" rx="4" />
-                  <rect x="660" y="85" width="110" height="120" rx="6" />
-                  <rect x="800" y="220" width="80" height="45" rx="4" />
-                  <path d="M 80 500 L 80 620 L 280 620 L 280 560 L 130 560 L 130 500 Z" />
-                  <rect x="150" y="580" width="50" height="30" rx="4" />
-                  <rect x="150" y="350" width="120" height="20" rx="3" />
-                  <rect x="400" y="500" width="80" height="120" rx="6" />
-                  <rect x="380" y="515" width="15" height="25" rx="2" />
-                  <rect x="380" y="575" width="15" height="25" rx="2" />
-                  <rect x="485" y="515" width="15" height="25" rx="2" />
-                  <rect x="485" y="575" width="15" height="25" rx="2" />
-                  <path d="M 640 480 L 870 480 L 870 650 L 640 650" strokeDasharray="6 3" />
-                  <rect x="700" y="530" width="90" height="60" rx="4" />
-                  <ellipse cx="780" cy="365" rx="15" ry="10" strokeWidth="1.5" />
-                  <rect x="830" y="355" width="25" height="35" rx="4" strokeWidth="1.5" />
-                </g>
-                <g stroke="#C5A059" strokeWidth="1.5" fill="none" opacity="0.85" strokeDasharray="3 3">
-                  <path d="M 360 260 A 40 40 0 0 1 320 220" />
-                  <line x1="360" y1="260" x2="360" y2="220" />
-                  <path d="M 520 310 A 40 40 0 0 1 480 270" />
-                  <path d="M 680 310 A 40 40 0 0 0 720 270" />
-                  <path d="M 730 380 A 35 35 0 0 1 765 345" />
-                  <path d="M 450 680 A 30 30 0 0 1 480 650" />
-                </g>
-                <g fontFamily="monospace">
-                  <text x="200" y="170" fill="#FFF3D6" fontSize="16" fontWeight="bold" textAnchor="middle">MASTER BEDROOM</text>
-                  <text x="200" y="195" fill="#C5A059" fontSize="13" fontWeight="600" textAnchor="middle">{masterBedArea} m²</text>
-                  <text x="490" y="170" fill="#FFF3D6" fontSize="15" fontWeight="bold" textAnchor="middle">NORTH BEDROOM</text>
-                  <text x="490" y="195" fill="#C5A059" fontSize="13" fontWeight="600" textAnchor="middle">{northBedArea} m²</text>
-                  <text x="760" y="170" fill="#FFF3D6" fontSize="15" fontWeight="bold" textAnchor="middle">EAST BEDROOM</text>
-                  <text x="760" y="195" fill="#C5A059" fontSize="13" fontWeight="600" textAnchor="middle">{eastBedArea} m²</text>
-                  <text x="200" y="430" fill="#FFF3D6" fontSize="17" fontWeight="bold" textAnchor="middle">LIVING & LOUNGE</text>
-                  <text x="200" y="455" fill="#C5A059" fontSize="14" fontWeight="600" textAnchor="middle">{livingArea} m²</text>
-                  <text x="440" y="465" fill="#FFF3D6" fontSize="15" fontWeight="bold" textAnchor="middle">DINING SPACE</text>
-                  <text x="440" y="488" fill="#C5A059" fontSize="13" fontWeight="600" textAnchor="middle">{diningArea} m²</text>
-                  <text x="760" y="515" fill="#FFF3D6" fontSize="16" fontWeight="bold" textAnchor="middle">KITCHEN & ISLAND</text>
-                  <text x="760" y="540" fill="#C5A059" fontSize="13" fontWeight="600" textAnchor="middle">{kitchenArea} m²</text>
-                  <text x="815" y="410" fill="#FFF3D6" fontSize="14" fontWeight="bold" textAnchor="middle">BATH & WC</text>
-                  <text x="815" y="432" fill="#C5A059" fontSize="12" fontWeight="600" textAnchor="middle">{bathArea} m²</text>
-                </g>
-                <g transform="translate(100, 630)">
-                  <circle cx="0" cy="0" r="20" fill="none" stroke="#C5A059" strokeWidth="1.5" strokeDasharray="3 2" />
-                  <polygon points="0,-16 4,-4 0,0 -4,-4" fill="#C5A059" />
-                  <text x="0" y="30" fill="#C5A059" fontSize="10" textAnchor="middle" fontFamily="monospace">N // CAD-04</text>
-                </g>
+  viewBox={BLUEPRINT_VIEWBOX}
+  className="w-full h-full max-h-[220px] sm:max-h-[260px] md:max-h-[420px] drop-shadow-[0_0_18px_rgba(197,160,89,0.4)] object-contain"
+>
+  <defs>
+    <pattern id="dotGridRes" x="0" y="0" width="32" height="32" patternUnits="userSpaceOnUse">
+      <circle cx="4" cy="4" r="1.6" fill="#C5A059" opacity={isLight ? "0.75" : "0.65"} />
+    </pattern>
+  </defs>
+
+  {/* Full background coverage for the dot matrix */}
+  <rect x="-50" y="-50" width="1100" height="800" fill="url(#dotGridRes)" />
+  
+  <BlueprintDimensions span={span} depth={depth} />
+  <rect x="50" y="50" width="850" height="630" rx="12" fill={isLight ? "rgba(255, 255, 255, 0.4)" : "rgba(5, 5, 5, 0.6)"} stroke="#C5A059" strokeWidth="3.5" strokeDasharray="6 4" opacity="0.85" />
+  
+  <g stroke="#C5A059" strokeWidth="2.8" fill="none" strokeDasharray="5 3">
+    <line x1="50" y1="310" x2="360" y2="310" />
+    <line x1="360" y1="50" x2="360" y2="310" />
+    <line x1="360" y1="310" x2="620" y2="310" />
+    <line x1="620" y1="50" x2="620" y2="310" />
+    <line x1="730" y1="310" x2="900" y2="310" />
+    <line x1="730" y1="310" x2="730" y2="460" />
+    <line x1="620" y1="460" x2="900" y2="460" />
+    <line x1="620" y1="590" x2="900" y2="590" />
+    <line x1="620" y1="460" x2="620" y2="590" />
+    <line x1="360" y1="410" x2="520" y2="410" />
+    <line x1="360" y1="410" x2="360" y2="680" />
+    <line x1="520" y1="480" x2="520" y2="680" />
+    <path d="M 420 680 L 420 730 L 530 730 L 530 680" />
+  </g>
+  
+  <g fill={isLight ? "rgba(197, 160, 89, 0.12)" : "rgba(197, 160, 89, 0.05)"}>
+    <rect x="54" y="54" width="304" height="254" />
+    <rect x="364" y="54" width="254" height="254" />
+    <rect x="624" y="54" width="274" height="254" />
+    <rect x="54" y="314" width="304" height="362" />
+    <rect x="364" y="414" width="154" height="262" />
+    <rect x="624" y="464" width="274" height="212" />
+    <rect x="734" y="314" width="164" height="144" />
+  </g>
+
+  <g stroke="#C5A059" strokeWidth="1.8" fill="none" opacity="0.95" strokeDasharray="4 3">
+    <rect x="80" y="80" width="110" height="130" rx="6" strokeDasharray="4 2" />
+    <rect x="75" y="240" width="180" height="35" rx="4" />
+    <circle cx="310" cy="80" r="12" strokeWidth="1.5" />
+    <rect x="390" y="85" width="100" height="120" rx="6" />
+    <rect x="520" y="70" width="35" height="40" rx="4" />
+    <rect x="660" y="85" width="110" height="120" rx="6" />
+    <rect x="800" y="220" width="80" height="45" rx="4" />
+    <path d="M 80 500 L 80 620 L 280 620 L 280 560 L 130 560 L 130 500 Z" />
+    <rect x="150" y="580" width="50" height="30" rx="4" />
+    <rect x="150" y="350" width="120" height="20" rx="3" />
+    <rect x="400" y="500" width="80" height="120" rx="6" />
+    <rect x="380" y="515" width="15" height="25" rx="2" />
+    <rect x="380" y="575" width="15" height="25" rx="2" />
+    <rect x="485" y="515" width="15" height="25" rx="2" />
+    <rect x="485" y="575" width="15" height="25" rx="2" />
+    <path d="M 640 480 L 870 480 L 870 650 L 640 650" strokeDasharray="6 3" />
+    <rect x="700" y="530" width="90" height="60" rx="4" />
+    <ellipse cx="780" cy="365" rx="15" ry="10" strokeWidth="1.5" />
+    <rect x="830" y="355" width="25" height="35" rx="4" strokeWidth="1.5" />
+  </g>
+
+  <g stroke="#C5A059" strokeWidth="1.5" fill="none" opacity="0.85" strokeDasharray="3 3">
+    <path d="M 360 260 A 40 40 0 0 1 320 220" />
+    <line x1="360" y1="260" x2="360" y2="220" />
+    <path d="M 520 310 A 40 40 0 0 1 480 270" />
+    <path d="M 680 310 A 40 40 0 0 0 720 270" />
+    <path d="M 730 380 A 35 35 0 0 1 765 345" />
+    <path d="M 450 680 A 30 30 0 0 1 480 650" />
+  </g>
+
+  <g fontFamily="monospace">
+    <text x="200" y="170" fill={isLight ? "#594211" : "#FFF3D6"} fontSize="16" fontWeight="bold" textAnchor="middle">MASTER BEDROOM</text>
+    <text x="200" y="195" fill={isLight ? "#9E7A32" : "#C5A059"} fontSize="13" fontWeight="600" textAnchor="middle">{masterBedArea} m²</text>
+    <text x="490" y="170" fill={isLight ? "#594211" : "#FFF3D6"} fontSize="15" fontWeight="bold" textAnchor="middle">NORTH BEDROOM</text>
+    <text x="490" y="195" fill={isLight ? "#9E7A32" : "#C5A059"} fontSize="13" fontWeight="600" textAnchor="middle">{northBedArea} m²</text>
+    <text x="760" y="170" fill={isLight ? "#594211" : "#FFF3D6"} fontSize="15" fontWeight="bold" textAnchor="middle">EAST BEDROOM</text>
+    <text x="760" y="195" fill={isLight ? "#9E7A32" : "#C5A059"} fontSize="13" fontWeight="600" textAnchor="middle">{eastBedArea} m²</text>
+    <text x="200" y="430" fill={isLight ? "#594211" : "#FFF3D6"} fontSize="17" fontWeight="bold" textAnchor="middle">LIVING & LOUNGE</text>
+    <text x="200" y="455" fill={isLight ? "#9E7A32" : "#C5A059"} fontSize="14" fontWeight="600" textAnchor="middle">{livingArea} m²</text>
+    <text x="440" y="465" fill={isLight ? "#594211" : "#FFF3D6"} fontSize="15" fontWeight="bold" textAnchor="middle">DINING SPACE</text>
+    <text x="440" y="488" fill={isLight ? "#9E7A32" : "#C5A059"} fontSize="13" fontWeight="600" textAnchor="middle">{diningArea} m²</text>
+    <text x="760" y="515" fill={isLight ? "#594211" : "#FFF3D6"} fontSize="16" fontWeight="bold" textAnchor="middle">KITCHEN & ISLAND</text>
+    <text x="760" y="540" fill={isLight ? "#9E7A32" : "#C5A059"} fontSize="13" fontWeight="600" textAnchor="middle">{kitchenArea} m²</text>
+    <text x="815" y="410" fill={isLight ? "#594211" : "#FFF3D6"} fontSize="14" fontWeight="bold" textAnchor="middle">BATH & WC</text>
+    <text x="815" y="432" fill={isLight ? "#9E7A32" : "#C5A059"} fontSize="12" fontWeight="600" textAnchor="middle">{bathArea} m²</text>
+  </g>
+
+  <g transform="translate(100, 630)">
+    <circle cx="0" cy="0" r="20" fill="none" stroke="#C5A059" strokeWidth="1.5" strokeDasharray="3 2" />
+    <polygon points="0,-16 4,-4 0,0 -4,-4" fill="#C5A059" />
+    <text x="0" y="30" fill="#C5A059" fontSize="10" textAnchor="middle" fontFamily="monospace">N // CAD-04</text>
+  </g>
               </svg>
             ) : (
               <svg
                 viewBox={BLUEPRINT_VIEWBOX}
-                className="w-full h-full max-h-[250px] sm:max-h-[270px] md:max-h-[420px] drop-shadow-[0_0_12px_rgba(197,160,89,0.25)] object-contain"
+                className="w-full h-full max-h-[250px] sm:max-h-[270px] md:max-h-[420px] drop-shadow-[0_0_18px_rgba(197,160,89,0.4)] object-contain"
               >
+                <defs>
+                  {/* Increase width, height, and circle spacing to fit the main square better */}
+                  <pattern id="dotGridCom" x="0" y="0" width="40" height="40" patternUnits="userSpaceOnUse">
+                    <circle cx="4" cy="4" r="1.8" fill="#C5A059" opacity={isLight ? "0.75" : "0.65"} />
+                  </pattern>
+                </defs>
+
+                <rect x="0" y="0" width="1000" height="700" fill="url(#dotGridCom)" />
                 <BlueprintDimensions span={span} depth={depth} />
-                <rect x="50" y="50" width="850" height="630" rx="12" fill="none" stroke="#C5A059" strokeWidth="3" strokeDasharray="6 4" />
-                <g stroke="#C5A059" strokeWidth="2.5" fill="none" strokeDasharray="5 3">
+                <rect x="50" y="50" width="850" height="630" rx="12" fill="none" stroke="#C5A059" strokeWidth="3.5" strokeDasharray="6 4" opacity="0.85" />
+                <g stroke="#C5A059" strokeWidth="2.8" fill="none" strokeDasharray="5 3">
                   <line x1="50" y1="530" x2="350" y2="530" />
                   <line x1="350" y1="50" x2="350" y2="530" />
                   <line x1="570" y1="530" x2="900" y2="530" />
                   <line x1="570" y1="530" x2="570" y2="680" />
                   <rect x="420" y="230" width="210" height="270" rx="4" strokeWidth="2.5" />
                 </g>
-                <g fill="rgba(197, 160, 89, 0.05)">
+                <g fill={isLight ? "rgba(197, 160, 89, 0.12)" : "rgba(197, 160, 89, 0.05)"}>
                   <rect x="54" y="54" width="292" height="472" />
                   <rect x="354" y="54" width="222" height="172" />
                   <rect x="578" y="54" width="318" height="472" />
                   <rect x="54" y="534" width="292" height="142" />
                   <rect x="574" y="534" width="322" height="142" />
-                  <rect x="424" y="234" width="202" height="262" fill="rgba(197, 160, 89, 0.1)" />
+                  <rect x="424" y="234" width="202" height="262" fill={isLight ? "rgba(197, 160, 89, 0.18)" : "rgba(197, 160, 89, 0.1)"} />
                 </g>
-                <g stroke="#C5A059" strokeWidth="1.8" fill="none" strokeDasharray="4 3">
+                <g stroke="#C5A059" strokeWidth="1.8" fill="none" opacity="0.95" strokeDasharray="4 3">
                   <line x1="80" y1="120" x2="260" y2="120" strokeWidth="3" />
                   <line x1="80" y1="180" x2="260" y2="180" strokeWidth="3" />
                   <line x1="80" y1="240" x2="260" y2="240" strokeWidth="3" />
@@ -1387,19 +1752,19 @@ export function SanitizeSizeVisualization({
                   <path d="M 200 530 A 30 30 0 0 1 230 500" />
                 </g>
                 <g fontFamily="monospace">
-                  <text x="200" y="225" fill="#FFF3D6" fontSize="15" fontWeight="bold" textAnchor="middle">STORAGE & INVENTORY</text>
-                  <text x="200" y="248" fill="#C5A059" fontSize="13" fontWeight="600" textAnchor="middle">{storageArea} m²</text>
-                  <text x="465" y="145" fill="#FFF3D6" fontSize="13" fontWeight="bold" textAnchor="middle">BACK OFFICE</text>
-                  <text x="465" y="165" fill="#C5A059" fontSize="11" fontWeight="600" textAnchor="middle">{backOfficeArea} m²</text>
-                  <text x="730" y="225" fill="#FFF3D6" fontSize="15" fontWeight="bold" textAnchor="middle">DISPLAY & MERCHANDISE</text>
-                  <text x="730" y="248" fill="#C5A059" fontSize="13" fontWeight="600" textAnchor="middle">{displayArea} m²</text>
-                  <text x="525" y="210" fill="#C5A059" fontSize="11" fontWeight="bold" textAnchor="middle">CENTRAL SHOWROOM FLOOR</text>
-                  <text x="525" y="380" fill="#FFF3D6" fontSize="16" fontWeight="bold" textAnchor="middle">MAIN FLOOR</text>
-                  <text x="525" y="405" fill="#C5A059" fontSize="14" fontWeight="600" textAnchor="middle">{showroomArea} m²</text>
-                  <text x="160" y="565" fill="#FFF3D6" fontSize="13" fontWeight="bold" textAnchor="middle">CONSULTATION LOUNGE</text>
-                  <text x="160" y="588" fill="#C5A059" fontSize="12" fontWeight="600" textAnchor="middle">{loungeArea} m²</text>
-                  <text x="735" y="555" fill="#FFF3D6" fontSize="14" fontWeight="bold" textAnchor="middle">CHECKOUT & SERVICE</text>
-                  <text x="735" y="578" fill="#C5A059" fontSize="12" fontWeight="600" textAnchor="middle">{checkoutArea} m²</text>
+                  <text x="200" y="225" fill={isLight ? "#594211" : "#FFF3D6"} fontSize="15" fontWeight="bold" textAnchor="middle">STORAGE & INVENTORY</text>
+                  <text x="200" y="248" fill={isLight ? "#9E7A32" : "#C5A059"} fontSize="13" fontWeight="600" textAnchor="middle">{storageArea} m²</text>
+                  <text x="465" y="145" fill={isLight ? "#594211" : "#FFF3D6"} fontSize="13" fontWeight="bold" textAnchor="middle">BACK OFFICE</text>
+                  <text x="465" y="165" fill={isLight ? "#9E7A32" : "#C5A059"} fontSize="11" fontWeight="600" textAnchor="middle">{backOfficeArea} m²</text>
+                  <text x="730" y="225" fill={isLight ? "#594211" : "#FFF3D6"} fontSize="15" fontWeight="bold" textAnchor="middle">DISPLAY & MERCHANDISE</text>
+                  <text x="730" y="248" fill={isLight ? "#9E7A32" : "#C5A059"} fontSize="13" fontWeight="600" textAnchor="middle">{displayArea} m²</text>
+                  <text x="525" y="210" fill={isLight ? "#9E7A32" : "#C5A059"} fontSize="11" fontWeight="bold" textAnchor="middle">CENTRAL SHOWROOM FLOOR</text>
+                  <text x="525" y="380" fill={isLight ? "#594211" : "#FFF3D6"} fontSize="16" fontWeight="bold" textAnchor="middle">MAIN FLOOR</text>
+                  <text x="525" y="405" fill={isLight ? "#9E7A32" : "#C5A059"} fontSize="14" fontWeight="600" textAnchor="middle">{showroomArea} m²</text>
+                  <text x="160" y="565" fill={isLight ? "#594211" : "#FFF3D6"} fontSize="13" fontWeight="bold" textAnchor="middle">CONSULTATION LOUNGE</text>
+                  <text x="160" y="588" fill={isLight ? "#9E7A32" : "#C5A059"} fontSize="12" fontWeight="600" textAnchor="middle">{loungeArea} m²</text>
+                  <text x="735" y="555" fill={isLight ? "#594211" : "#FFF3D6"} fontSize="14" fontWeight="bold" textAnchor="middle">CHECKOUT & SERVICE</text>
+                  <text x="735" y="578" fill={isLight ? "#9E7A32" : "#C5A059"} fontSize="12" fontWeight="600" textAnchor="middle">{checkoutArea} m²</text>
                 </g>
                 <g transform="translate(100, 600)">
                   <circle cx="0" cy="0" r="20" fill="none" stroke="#C5A059" strokeWidth="1.5" strokeDasharray="3 2" />
@@ -1413,18 +1778,32 @@ export function SanitizeSizeVisualization({
       </div>
 
       {!isQuote && (
-        <div className="grid grid-cols-3 gap-2 sm:gap-6 pt-3.5 mt-3 border-t border-[#C5A059]/40 w-full text-center">
+        <div className={`grid grid-cols-3 gap-2 sm:gap-6 pt-3.5 mt-3 border-t w-full text-center ${
+          isLight ? "border-[#C5A059]/30" : "border-[#C5A059]/40"
+        }`}>
           <div>
-            <p className="text-[11px] sm:text-xs text-gray-400 font-medium mb-0.5">{translate("EstimatedCost")}</p>
-            <p className="text-[10px] sm:text-lg font-bold text-[#C5A059]">{estimatedCost}</p>
+            <p className={`text-[11px] sm:text-xs font-medium mb-0.5 ${isLight ? "text-slate-500" : "text-gray-400"}`}>
+              {translate("EstimatedCost")}
+            </p>
+            <p className={`text-[10px] sm:text-lg font-bold ${isLight ? "text-[#8C6D2D]" : "text-[#C5A059]"}`}>
+              {estimatedCost}
+            </p>
           </div>
           <div>
-            <p className="text-[11px] sm:text-xs text-gray-400 font-medium mb-0.5">{translate("ServiceRate")}</p>
-            <p className="text-[10px] sm:text-lg font-bold text-white">{serviceRate}</p>
+            <p className={`text-[11px] sm:text-xs font-medium mb-0.5 ${isLight ? "text-slate-500" : "text-gray-400"}`}>
+              {translate("ServiceRate")}
+            </p>
+            <p className={`text-[10px] sm:text-lg font-bold ${isLight ? "text-slate-900" : "text-white"}`}>
+              {serviceRate}
+            </p>
           </div>
           <div>
-            <p className="text-[11px] sm:text-xs text-gray-400 font-medium mb-0.5">{translate("EstLabor")}</p>
-            <p className="text-[10px] sm:text-lg font-bold text-white">{labor}</p>
+            <p className={`text-[11px] sm:text-xs font-medium mb-0.5 ${isLight ? "text-slate-500" : "text-gray-400"}`}>
+              {translate("EstLabor")}
+            </p>
+            <p className={`text-[10px] sm:text-lg font-bold ${isLight ? "text-slate-900" : "text-white"}`}>
+              {labor}
+            </p>
           </div>
         </div>
       )}
@@ -1734,6 +2113,7 @@ export function PropertyTypeSizeSelectorCommonFlowOfServices({
           quote={quote}
           serviceCategory={isActiveCategorySwitch as "yatch-cleaning" | "passenger-ship-cleaning"}
           isQuote={isQuote}
+          theme={isLight ? "light" : "dark"}
         />
       ) :  (
         <SanitizeSizeVisualization
@@ -1744,6 +2124,7 @@ export function PropertyTypeSizeSelectorCommonFlowOfServices({
           quote={quote}
           serviceCategory={ROOM_COMPONENTS_SERVICES ? "residential" : (isActiveCategorySwitch as "residential" | "industrial")}
           isQuote={isQuote}
+          theme={isLight ? "light" : "dark"}
         />
       )}
 
@@ -1760,29 +2141,58 @@ export function PropertyTypeSizeSelectorCommonFlowOfServices({
               {translate("propServiceCatagory")}
             </h2>
             <div
-              className={`w-full p-1 flex justify-between items-center mb-6 rounded-[27px] border transition-colors ${
-                isLight ? "bg-[#F5F1E6] border-[#C5A059]/30" : "bg-white/5 border-white/5 backdrop-blur-md"
+              className={`w-full p-1 flex justify-between items-center mb-6 rounded-[17px] border transition-colors ${
+                isLight ? "bg-[#F5F1E6] border-[#C5A059]/30" : "bg-white/5 border-[#C5A059] backdrop-blur-md"
               }`}
             >
               {categoryTabs.map((tab) => {
                 const isActive = isActiveCategorySwitch === tab.id;
                 const tabLabel = tab.translationKey ? translate(tab.translationKey) : translate(tab.label as TranslationKey);
-                return (
+                
+                // Cast as a React component 
+                 const iconColor = isActive
+                            ? isLight
+                              ? "#000000" // Active Light: Dark text on Gold button
+                              : "#000000" // Active Dark: Dark text on Gold button
+                            : isLight
+                              ? "#4B5563" // Inactive Light: Gray-600
+                              : "#D1D5DB"; // Inactive Dark: Gray-300 / Silver
+                
+                  return (
                   <button
                     key={tab.id}
                     type="button"
-                    className={`md:w-[49.5%] w-[48%] py-3 sm:py-4 px-3 rounded-4xl transition-all cursor-pointer text-[13px] md:text-[15px] font-bold flex items-center justify-center gap-1.5 ${
+                    className={`md:w-[49.5%] w-[48%] py-3 md:py-2 px-3 rounded-[14px] transition-all cursor-pointer text-[13px] md:text-[15px] font-bold flex items-center justify-center gap-1.5 ${
                       isActive
                         ? isLight
                           ? "bg-[#C5A059] text-white shadow-md border border-[#C5A059]"
-                          : "bg-blue-500 border-[#C6A868]/60 text-white shadow-md"
+                          : "  hover:bg-[#d4a732]   border-[#C6A868]/60   bg-[#d4af37] text-black shadow-lg shadow-[#d4af37]/20"
                         : isLight
                         ? "bg-transparent text-[#1B2E4B]/70 hover:text-[#1B2E4B] hover:bg-black/5"
                         : "bg-transparent text-gray-300 hover:text-white hover:bg-white/5"
                     }`}
                     onClick={() => handleCategorySwitch(tab.id)}
                   >
-                    <span>{tab.icon}</span> <span>{tabLabel}</span>
+                    <div
+                        className={`w-9 h-9 rounded-lg flex items-center justify-center text-xl transition-colors ${
+                          isActive
+                            ? "bg-transparent" // Active tab inherits button gold background
+                            : isLight
+                              ? "bg-gray-100/50"
+                              : "bg-white/5"
+                        }`}
+                      >
+                        {tab.id === "residential" ? (
+                          <Compass size={20} color={iconColor} />
+                        ) : tab.id === "industrial" ? (
+                          <Cog size={20} color={iconColor} />
+                        ) : tab.id === "yatch-cleaning" ? (
+                          <Anchor size={20} color={iconColor} />
+                        ) : (
+                          <Navigation size={20} color={iconColor} />
+                        )}
+                      </div>
+                    <span>{tabLabel}</span>
                   </button>
                 );
               })}
@@ -1840,14 +2250,14 @@ export function PropertyTypeSizeSelectorCommonFlowOfServices({
                       className={`w-9 h-9 rounded-lg flex items-center justify-center text-xl mb-1.5 transition-colors ${
                         isSelected
                           ? isLight
-                            ? "bg-[#C5A059]/15 text-[#A88238]"
-                            : "bg-white/10 text-white"
+                            ? "bg-[#C5A059]/15 border-[#C5A059]/40 text-[#A88238]"
+                            : "bg-[#C5A059]/15 text-white"
                           : isLight
-                          ? "bg-[#F1EADA] text-[#1B2E4B]"
-                          : "bg-[#F1F3F5] text-slate-800"
+                          ? "bg-[#F6EEDC] border-[#C5A059]/40 text-[#1B2E4B]"
+                          : "bg-[#C5A059]/15 text-slate-800"
                       }`}
                     >
-                      <span>{cat.icon}</span>
+                      <span>{cat.icon}</span> 
                     </div>
                     <span
                       className={`text-xs text-center leading-tight line-clamp-2 px-1 ${
@@ -1914,8 +2324,8 @@ export function PropertyTypeSizeSelectorCommonFlowOfServices({
                   </button>
                   <button
                     type="button"
-                    onClick={() => setSizeUnit("ft2")}
-                    className={`px-3.5 py-1 rounded-full text-xs font-bold transition-all cursor-pointer ${
+                    disabled
+                    className={`px-3.5 py-1 rounded-full text-xs font-bold transition-all cursor-not-allowed ${
                       sizeUnit === "ft2"
                         ? "bg-[#e5b842] text-black shadow-md"
                         : isLight
@@ -2377,7 +2787,7 @@ export function EstimatioMatrixBottom({
 //visualization of Yatches
 
 
-function YatchSizeVisualization({ 
+export function YatchSizeVisualization({ 
   value,
   activeCategory,
   isDisinfection,
@@ -2385,10 +2795,12 @@ function YatchSizeVisualization({
   quote,
   serviceCategory = "yatch-cleaning",
   isQuote,
+  theme,
 }: visualizationProps) {
   const { symbol } = useCurrency();
   const { translate } = useLanguage();
 
+  const isLight = theme === "light";
 
   const span = Number(Math.sqrt(value * 1.33).toFixed(1));
   const depth = Number((value / span).toFixed(1));
@@ -2397,72 +2809,96 @@ function YatchSizeVisualization({
   const range = (min: string, max: string) => (min === max ? min : `${min} – ${max}`);
   const hasPrice = !!quote?.bookable && quote.priceMin != null && quote.priceMax != null;
   const estimatedCost = hasPrice ? range(`${symbol}${quote!.priceMin!.toFixed(2)}`, `${symbol}${quote!.priceMax!.toFixed(2)}`) : "—";
-  // Price is hours × the hourly rate per cleaner (Deep Clean already applied), so this recovers that rate.
+  
   const serviceRate = hasPrice && quote!.minHours
     ? `${symbol}${(quote!.priceMin! / quote!.minHours).toFixed(2)} ${translate("servicesRatePerCleanerHour")}`
     : "—";
 
   const hasHours = !!quote?.bookable && quote.minHours != null && quote.maxHours != null;
   
-  
   const labor = hasHours
     ? `${range(String(quote!.minHours), String(quote!.maxHours))}h (${quote!.cleanerCount ?? 1} ${translate("CrewWord")})`
     : "—";
 
-  labourData = labor
-
-  surfaceMatrixes.costOFEstimation = estimatedCost
+  labourData = labor;
+  surfaceMatrixes.costOFEstimation = estimatedCost;
 
   return (
     <div
-      className="w-full rounded-t-2xl bg-[#070D1B] border border-cyan-500/40 p-4 sm:p-6 shadow-2xl relative overflow-hidden select-none font-mono"
+      className={`w-full rounded-t-2xl border-2 border-[#C5A059] p-4 sm:p-6 transition-colors duration-300 relative overflow-hidden select-none font-mono ${
+        isLight
+          ? "bg-[#FAF8F5] text-slate-900 shadow-[0_10px_35px_rgba(197,160,89,0.22)] ring-1 ring-[#C5A059]/30"
+          : "bg-[#030303] text-white shadow-[0_6px_22px_rgba(197,160,89,0.25)] ring-1 ring-[#C5A059]/25"
+      }`}
       style={{
-        backgroundImage: `
-          linear-gradient(to right, rgba(0, 180, 255, 0.05) 1px, transparent 1px),
-          linear-gradient(to bottom, rgba(0, 180, 255, 0.05) 1px, transparent 1px)
-        `,
+        backgroundImage: isLight
+          ? `
+            linear-gradient(to right, rgba(197, 160, 89, 0.12) 1px, transparent 1px),
+            linear-gradient(to bottom, rgba(197, 160, 89, 0.12) 1px, transparent 1px)
+          `
+          : `
+            linear-gradient(to right, rgba(197, 160, 89, 0.07) 1px, transparent 1px),
+            linear-gradient(to bottom, rgba(197, 160, 89, 0.07) 1px, transparent 1px)
+          `,
         backgroundSize: "32px 32px",
       }}
     >
       {/* Top Header & Blueprint Toggle */}
-      <div className="w-full flex flex-col sm:flex-row items-center justify-between border-b border-cyan-900/60 pb-3 mb-4 gap-3">
+      <div className={`w-full flex flex-col sm:flex-row items-center justify-between pb-3 mb-4 gap-3 border-b ${
+        isLight ? "border-[#C5A059]/30" : "border-[#C5A059]/40"
+      }`}>
         <div className="flex items-center space-x-3">
-          <div className="w-3 h-3 bg-cyan-400 rounded-full shadow-[0_0_12px_#00ffff]" />
+          <div className="w-3 h-3 bg-[#C5A059] rounded-full shadow-[0_0_12px_#C5A059]" />
           <div>
-            <h3 className="text-xs sm:text-sm font-bold tracking-widest text-cyan-200 uppercase">
+            <h3 className={`text-xs sm:text-sm font-bold tracking-widest uppercase ${
+              isLight ? "text-[#8C6D2D]" : "text-[#E6D5B8]"
+            }`}>
               VESSEL DECK PLAN TEMPLATES
             </h3>
-            <p className="text-[10px] text-cyan-400/80 tracking-wider">
+            <p className={`text-[10px] tracking-wider ${
+              isLight ? "text-[#A37F38]" : "text-[#C5A059]/80"
+            }`}>
               {value} m² • {formatFt2(value)} ft² | GRID DIMENSIONS: {span}m × {depth}m
             </p>
           </div>
         </div>
-
-  
-        
       </div>
 
-      {/* Main Architectural SVG Blueprint Stage */}
-      <div className="relative w-full bg-[#060B18] border border-cyan-500/40 rounded-xl p-2 sm:p-4 shadow-inner overflow-hidden flex items-center justify-center">
+      {/* Main Architectural SVG Blueprint Stage with Enhanced Golden Dotted Matrix */}
+      <div className={`relative w-full border-2 border-[#C5A059] rounded-xl p-2 sm:p-4 overflow-hidden flex items-center justify-center transition-all duration-300 ${
+        isLight
+          ? "bg-white/90 backdrop-blur-md shadow-[inset_0_0_20px_rgba(197,160,89,0.2),0_10px_35px_rgba(197,160,89,0.35)] ring-2 ring-[#C5A059]/30"
+          : "bg-[#050505]/95 backdrop-blur-sm shadow-[inset_0_0_25px_rgba(197,160,89,0.25),0_8px_25px_rgba(197,160,89,0.3)]"
+      }`}>
         {serviceCategory === "yatch-cleaning" ? (
           /* ================= LUXURY YACHT ARCHITECTURE ================= */
-          <svg viewBox="-20 -20 1040 680" className="w-full h-auto max-h-[460px] drop-shadow-[0_0_16px_rgba(0,210,255,0.25)]">
+          <svg viewBox="-20 -20 1040 680" className="w-full h-auto max-h-[460px] drop-shadow-[0_0_18px_rgba(197,160,89,0.4)]">
+            <defs>
+              <pattern id="dotGrid" x="0" y="0" width="24" height="24" patternUnits="userSpaceOnUse">
+                <circle cx="3" cy="3" r="1.6" fill="#C5A059" opacity={isLight ? "0.75" : "0.65"} />
+              </pattern>
+            </defs>
+            
+            {/* Background Dotted Matrix Fill with Richer Presence */}
+            <rect x="0" y="0" width="1000" height="640" rx="12" fill="url(#dotGrid)" />
+
             {/* Blueprint Outer Frame & Title Label */}
-            <rect x="0" y="0" width="1000" height="640" rx="12" fill="none" stroke="#00e1ff" strokeWidth="3" opacity="0.4" />
-            <text x="500" y="28" fill="#67e8f9" fontSize="16" fontWeight="bold" textAnchor="middle" letterSpacing="2">
+            <rect x="0" y="0" width="1000" height="640" rx="12" fill="none" stroke="#C5A059" strokeWidth="3.5" strokeDasharray="6 4" opacity="0.85" />
+            <text x="500" y="28" fill={isLight ? "#7A5C20" : "#FFF3D6"} fontSize="16" fontWeight="bold" textAnchor="middle" letterSpacing="2">
               LUXURY YACHT - UPPER DECK
             </text>
 
             {/* Hull Outer Contour */}
             <path
               d="M 100 60 L 880 60 C 950 60, 990 120, 990 190 C 990 260, 950 320, 880 320 L 100 320 C 50 320, 30 260, 30 190 C 30 120, 50 60, 100 60 Z"
-              fill="rgba(0, 160, 255, 0.03)"
-              stroke="#00f0ff"
+              fill={isLight ? "rgba(197, 160, 89, 0.12)" : "rgba(197, 160, 89, 0.08)"}
+              stroke="#C5A059"
               strokeWidth="4"
+              strokeDasharray="5 3"
             />
 
             {/* Internal Compartment Walls & Bulkheads */}
-            <g stroke="#00b4ff" strokeWidth="2.5" fill="none">
+            <g stroke="#C5A059" strokeWidth="2.8" fill="none" strokeDasharray="4 2">
               <line x1="320" y1="60" x2="320" y2="320" />
               <line x1="680" y1="60" x2="680" y2="320" />
               <line x1="320" y1="190" x2="680" y2="190" />
@@ -2474,11 +2910,12 @@ function YatchSizeVisualization({
             {/* Aft Deck Lower Extension */}
             <path
               d="M 160 320 L 840 320 L 860 520 L 140 520 Z"
-              fill="rgba(0, 160, 255, 0.04)"
-              stroke="#00f0ff"
-              strokeWidth="3.5"
+              fill={isLight ? "rgba(197, 160, 89, 0.15)" : "rgba(197, 160, 89, 0.1)"}
+              stroke="#C5A059"
+              strokeWidth="4"
+              strokeDasharray="5 3"
             />
-            <g stroke="#00b4ff" strokeWidth="2.5" fill="none">
+            <g stroke="#C5A059" strokeWidth="2.8" fill="none" strokeDasharray="4 2">
               <line x1="360" y1="320" x2="360" y2="520" />
               <line x1="640" y1="320" x2="640" y2="520" />
               <rect x="180" y="360" width="140" height="120" rx="6" />
@@ -2487,58 +2924,61 @@ function YatchSizeVisualization({
             </g>
 
             {/* Detailed Furniture & Fixture Symbols */}
-            <g stroke="#38bdf8" strokeWidth="1.5" fill="none" opacity="0.8">
-              {/* Master Bed & Closet */}
+            <g stroke="#C5A059" strokeWidth="1.8" fill="none" opacity="0.95" strokeDasharray="3 2">
               <rect x="120" y="80" width="90" height="70" rx="4" />
               <circle cx="150" cy="115" r="12" />
               <line x1="240" y1="80" x2="290" y2="180" strokeDasharray="2 2" />
-              {/* Main Saloon Couch & Table */}
               <path d="M 380 220 L 520 220 L 520 290 L 380 290 Z" />
               <rect x="425" y="240" width="50" height="30" rx="3" />
-              {/* Galley Dining Table */}
               <rect x="750" y="110" width="110" height="50" rx="4" />
               <rect x="770" y="85" width="20" height="15" />
               <rect x="810" y="85" width="20" height="15" />
-              {/* Aft Deck Table */}
               <rect x="450" y="430" width="100" height="40" rx="4" />
             </g>
 
             {/* Compartment Labels */}
             <g fontFamily="monospace" textAnchor="middle">
-              <text x="170" y="220" fill="#e0f2fe" fontSize="14" fontWeight="bold">MASTER SUITE</text>
-              <text x="170" y="240" fill="#38bdf8" fontSize="11">{(value * 0.28).toFixed(1)} m²</text>
+              <text x="170" y="220" fill={isLight ? "#594211" : "#FFF3D6"} fontSize="14" fontWeight="bold">MASTER SUITE</text>
+              <text x="170" y="240" fill={isLight ? "#9E7A32" : "#C5A059"} fontSize="11">{(value * 0.28).toFixed(1)} m²</text>
 
-              <text x="500" y="140" fill="#e0f2fe" fontSize="14" fontWeight="bold">WALK-IN CLOSET</text>
+              <text x="500" y="140" fill={isLight ? "#594211" : "#FFF3D6"} fontSize="14" fontWeight="bold">WALK-IN CLOSET</text>
 
-              <text x="825" y="140" fill="#e0f2fe" fontSize="14" fontWeight="bold">PRIVATE LOUNGE</text>
+              <text x="825" y="140" fill={isLight ? "#594211" : "#FFF3D6"} fontSize="14" fontWeight="bold">PRIVATE LOUNGE</text>
 
-              <text x="500" y="215" fill="#e0f2fe" fontSize="15" fontWeight="bold">MAIN SALOON</text>
-              <text x="500" y="235" fill="#38bdf8" fontSize="12">{(value * 0.32).toFixed(1)} m²</text>
+              <text x="500" y="215" fill={isLight ? "#594211" : "#FFF3D6"} fontSize="15" fontWeight="bold">MAIN SALOON</text>
+              <text x="500" y="235" fill={isLight ? "#9E7A32" : "#C5A059"} fontSize="12">{(value * 0.32).toFixed(1)} m²</text>
 
-              <text x="735" y="235" fill="#e0f2fe" fontSize="14" fontWeight="bold">GALLEY</text>
+              <text x="735" y="235" fill={isLight ? "#594211" : "#FFF3D6"} fontSize="14" fontWeight="bold">GALLEY</text>
 
-              <text x="250" y="420" fill="#e0f2fe" fontSize="14" fontWeight="bold">GUEST SUITE</text>
-              <text x="750" y="420" fill="#e0f2fe" fontSize="14" fontWeight="bold">GUEST SUITE</text>
+              <text x="250" y="420" fill={isLight ? "#594211" : "#FFF3D6"} fontSize="14" fontWeight="bold">GUEST SUITE</text>
+              <text x="750" y="420" fill={isLight ? "#594211" : "#FFF3D6"} fontSize="14" fontWeight="bold">GUEST SUITE</text>
 
-              <text x="500" y="375" fill="#e0f2fe" fontSize="16" fontWeight="bold">AFT DECK</text>
-              <text x="500" y="395" fill="#38bdf8" fontSize="13">{(value * 0.22).toFixed(1)} m²</text>
+              <text x="500" y="375" fill={isLight ? "#594211" : "#FFF3D6"} fontSize="16" fontWeight="bold">AFT DECK</text>
+              <text x="500" y="395" fill={isLight ? "#9E7A32" : "#C5A059"} fontSize="13">{(value * 0.22).toFixed(1)} m²</text>
             </g>
           </svg>
         ) : (
           /* ================= PASSENGER SHIP ARCHITECTURE ================= */
-          <svg viewBox="-20 -20 1040 680" className="w-full h-auto max-h-[460px] drop-shadow-[0_0_16px_rgba(0,210,255,0.25)]">
-            <rect x="0" y="0" width="1000" height="640" rx="12" fill="none" stroke="#00e1ff" strokeWidth="3" opacity="0.4" />
-            <text x="500" y="28" fill="#67e8f9" fontSize="16" fontWeight="bold" textAnchor="middle" letterSpacing="2">
+          <svg viewBox="-20 -20 1040 680" className="w-full h-auto max-h-[460px] drop-shadow-[0_0_18px_rgba(197,160,89,0.4)]">
+            <defs>
+              <pattern id="dotGrid" x="0" y="0" width="24" height="24" patternUnits="userSpaceOnUse">
+                <circle cx="3" cy="3" r="1.6" fill="#C5A059" opacity={isLight ? "0.75" : "0.65"} />
+              </pattern>
+            </defs>
+
+            {/* Background Dotted Matrix Fill with Richer Presence */}
+            <rect x="0" y="0" width="1000" height="640" rx="12" fill="url(#dotGrid)" />
+
+            <rect x="0" y="0" width="1000" height="640" rx="12" fill="none" stroke="#C5A059" strokeWidth="3.5" strokeDasharray="6 4" opacity="0.85" />
+            <text x="500" y="28" fill={isLight ? "#7A5C20" : "#FFF3D6"} fontSize="16" fontWeight="bold" textAnchor="middle" letterSpacing="2">
               PASSENGER SHIP - PROMENADE DECK
             </text>
 
-            {/* Three Parallel Hull Decks */}
-            <rect x="60" y="50" width="880" height="160" rx="80" fill="rgba(0, 160, 255, 0.03)" stroke="#00f0ff" strokeWidth="3.5" />
-            <rect x="60" y="240" width="880" height="160" rx="80" fill="rgba(0, 160, 255, 0.03)" stroke="#00f0ff" strokeWidth="3.5" />
-            <rect x="60" y="430" width="880" height="160" rx="80" fill="rgba(0, 160, 255, 0.03)" stroke="#00f0ff" strokeWidth="3.5" />
+            <rect x="60" y="50" width="880" height="160" rx="80" fill={isLight ? "rgba(197, 160, 89, 0.12)" : "rgba(197, 160, 89, 0.08)"} stroke="#C5A059" strokeWidth="4" strokeDasharray="5 3" />
+            <rect x="60" y="240" width="880" height="160" rx="80" fill={isLight ? "rgba(197, 160, 89, 0.12)" : "rgba(197, 160, 89, 0.08)"} stroke="#C5A059" strokeWidth="4" strokeDasharray="5 3" />
+            <rect x="60" y="430" width="880" height="160" rx="80" fill={isLight ? "rgba(197, 160, 89, 0.12)" : "rgba(197, 160, 89, 0.08)"} stroke="#C5A059" strokeWidth="4" strokeDasharray="5 3" />
 
-            {/* Deck Internal Dividers & Corridors */}
-            <g stroke="#00b4ff" strokeWidth="2" fill="none">
+            <g stroke="#C5A059" strokeWidth="2.5" fill="none" strokeDasharray="4 2">
               <line x1="350" y1="50" x2="350" y2="210" />
               <line x1="680" y1="50" x2="680" y2="210" />
               <line x1="350" y1="240" x2="350" y2="400" />
@@ -2547,9 +2987,7 @@ function YatchSizeVisualization({
               <line x1="680" y1="430" x2="680" y2="590" />
             </g>
 
-            {/* Detailed Seating, Tables & Retail Arcade Fixtures */}
-            <g stroke="#38bdf8" strokeWidth="1.2" fill="none" opacity="0.75">
-              {/* Restaurant Tables */}
+            <g stroke="#C5A059" strokeWidth="1.5" fill="none" opacity="0.95" strokeDasharray="3 2">
               <circle cx="120" cy="90" r="12" />
               <circle cx="160" cy="90" r="12" />
               <circle cx="120" cy="130" r="12" />
@@ -2560,7 +2998,6 @@ function YatchSizeVisualization({
               <circle cx="820" cy="130" r="12" />
               <circle cx="860" cy="130" r="12" />
 
-              {/* Theater Seating Rows */}
               <line x1="100" y1="270" x2="280" y2="270" />
               <line x1="100" y1="290" x2="280" y2="290" />
               <line x1="100" y1="310" x2="280" y2="310" />
@@ -2568,57 +3005,68 @@ function YatchSizeVisualization({
               <line x1="100" y1="350" x2="280" y2="350" />
               <line x1="100" y1="370" x2="280" y2="370" />
 
-              {/* Atrium Grand Staircases */}
               <rect x="480" y="270" width="40" height="100" rx="4" />
               <line x1="480" y1="300" x2="520" y2="300" />
               <line x1="480" y1="340" x2="520" y2="340" />
 
-              {/* Casino & Lounge Tables */}
               <circle cx="150" cy="490" r="18" />
               <circle cx="210" cy="490" r="18" />
               <rect x="750" y="470" width="120" height="80" rx="6" />
             </g>
 
-            {/* Deck Compartment Labels */}
             <g fontFamily="monospace" textAnchor="middle">
-              <text x="200" y="130" fill="#e0f2fe" fontSize="13" fontWeight="bold">RESTAURANT</text>
-              <text x="515" y="120" fill="#e0f2fe" fontSize="13" fontWeight="bold">PASSAGES & CORRIDORS</text>
-              <text x="800" y="130" fill="#e0f2fe" fontSize="13" fontWeight="bold">RESTAURANT</text>
+              <text x="200" y="130" fill={isLight ? "#594211" : "#FFF3D6"} fontSize="13" fontWeight="bold">RESTAURANT</text>
+              <text x="515" y="120" fill={isLight ? "#594211" : "#FFF3D6"} fontSize="13" fontWeight="bold">PASSAGES & CORRIDORS</text>
+              <text x="800" y="130" fill={isLight ? "#594211" : "#FFF3D6"} fontSize="13" fontWeight="bold">RESTAURANT</text>
 
-              <text x="190" y="325" fill="#e0f2fe" fontSize="15" fontWeight="bold">THEATER</text>
-              <text x="500" y="325" fill="#e0f2fe" fontSize="15" fontWeight="bold">ATRIUM</text>
-              <text x="800" y="325" fill="#e0f2fe" fontSize="15" fontWeight="bold">LUXURY SUITES</text>
+              <text x="190" y="325" fill={isLight ? "#594211" : "#FFF3D6"} fontSize="15" fontWeight="bold">THEATER</text>
+              <text x="500" y="325" fill={isLight ? "#594211" : "#FFF3D6"} fontSize="15" fontWeight="bold">ATRIUM</text>
+              <text x="800" y="325" fill={isLight ? "#594211" : "#FFF3D6"} fontSize="15" fontWeight="bold">LUXURY SUITES</text>
 
-              <text x="200" y="520" fill="#e0f2fe" fontSize="13" fontWeight="bold">CASINO LOUNGE</text>
-              <text x="515" y="520" fill="#e0f2fe" fontSize="13" fontWeight="bold">CASINO & GAMING</text>
-              <text x="810" y="520" fill="#e0f2fe" fontSize="13" fontWeight="bold">PASSENGER LOUNGE</text>
+              <text x="200" y="520" fill={isLight ? "#594211" : "#FFF3D6"} fontSize="13" fontWeight="bold">CASINO LOUNGE</text>
+              <text x="515" y="520" fill={isLight ? "#594211" : "#FFF3D6"} fontSize="13" fontWeight="bold">CASINO & GAMING</text>
+              <text x="810" y="520" fill={isLight ? "#594211" : "#FFF3D6"} fontSize="13" fontWeight="bold">PASSENGER LOUNGE</text>
             </g>
           </svg>
         )}
       </div>
- 
+
       {/* Bottom Estimation Summary Bar */}
-      {!isQuote && (<div className="grid grid-cols-3 gap-2 sm:gap-4 pt-3 mt-4 border-t border-cyan-900/50 text-center">
-        <div>
-          <p className="text-[11px] text-gray-400 font-medium mb-0.5">{translate("EstimatedCost")}</p>
-          <p className="text-xs sm:text-base font-bold text-[#38BDF8]">{estimatedCost}</p>
-        </div>
-        <div>
-          <p className="text-[11px] text-gray-400 font-medium mb-0.5">{translate("ServiceRate")}</p>
-          <p className="text-xs sm:text-base font-bold text-white">{serviceRate}</p>
-        </div>
-        <div>
+      {!isQuote && (
+        <div className={`grid grid-cols-3 gap-2 sm:gap-4 pt-3 mt-4 border-t text-center ${
+          isLight ? "border-[#C5A059]/30" : "border-[#C5A059]/40"
+        }`}>
           <div>
-            <p className="text-[11px] sm:text-xs text-gray-400 font-medium mb-0.5">{translate("EstLabor")}</p>
-            <p className="text-[10px] sm:text-lg font-bold text-white">{labor}</p>
+            <p className={`text-[11px] font-medium mb-0.5 ${isLight ? "text-slate-500" : "text-gray-400"}`}>
+              {translate("EstimatedCost")}
+            </p>
+            <p className={`text-xs sm:text-base font-bold ${isLight ? "text-[#8C6D2D]" : "text-[#C5A059]"}`}>
+              {estimatedCost}
+            </p>
+          </div>
+          <div>
+            <p className={`text-[11px] font-medium mb-0.5 ${isLight ? "text-slate-500" : "text-gray-400"}`}>
+              {translate("ServiceRate")}
+            </p>
+            <p className={`text-xs sm:text-base font-bold ${isLight ? "text-slate-900" : "text-white"}`}>
+              {serviceRate}
+            </p>
+          </div>
+          <div>
+            <div>
+              <p className={`text-[11px] sm:text-xs font-medium mb-0.5 ${isLight ? "text-slate-500" : "text-gray-400"}`}>
+                {translate("EstLabor")}
+              </p>
+              <p className={`text-[10px] sm:text-lg font-bold ${isLight ? "text-slate-900" : "text-white"}`}>
+                {labor}
+              </p>
+            </div>
           </div>
         </div>
-      </div>)}
+      )}
     </div>
   );
 }
-
-
 //Quotation matrix flow with 
 
 

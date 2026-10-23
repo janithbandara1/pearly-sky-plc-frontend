@@ -123,7 +123,7 @@ export default function Equipments({
             STEP 5 OF 6
           </span>
           <h2
-            className={`text-xl sm:text-2xl md:text-3xl font-serif mt-1 tracking-wide font-normal ${
+            className={`text-xl md:text-2xl font-serif mt-1 tracking-wide font-normal ${
               isLight ? "text-[#1B2E4B]" : "text-white"
             }`}
           >
