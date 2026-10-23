@@ -958,7 +958,8 @@ export function ServiceBookingView({
               </div>
               
               {/**Right section of Live Estimation generation */}
-              <div className="sticky top-20 md:w-[50%] w-full">
+              <div className="sticky top-35 md:w-[50%] w-full">
+                
                 {isCommonBookingSectionView && (() => {
                   const categories = getPropertyCategoriesForService(serviceSlug);
                   const pTypeLower = (propertyType || "").toLowerCase();

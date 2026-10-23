@@ -58,6 +58,7 @@ export default function GoldStandardSection({
 
   return (
     <section
+    id="quality-assurance"
       className={`w-full py-12 sm:py-16 px-4 sm:px-8 transition-colors duration-300 font-sans ${
         isLight
           ? "bg-[#FBF9F5] text-[#1B2E4B]"

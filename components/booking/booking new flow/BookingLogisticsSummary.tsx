@@ -106,8 +106,9 @@ export default function BookingLogisticsSummary({
       className={`rounded-2xl p-6 shadow-2xl border transition-all duration-300 ${
         isLight
           ? "bg-white border-[#C5A059]/40 text-[#1B2E4B]"
-          : "bg-[#121e2d]/95 backdrop-blur-xl border-[#c9a858]/35 text-white"
+          : "bg-[#121e2d]/95 backdrop-blur-xl border-t-4 border-t-luxegold border-[#C5A059]/40 text-white"
       }`}
+      
     >
       {/* Header Section */}
       <div

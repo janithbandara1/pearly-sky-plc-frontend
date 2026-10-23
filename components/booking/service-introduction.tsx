@@ -32,7 +32,7 @@ export function ServiceIntroduction({
   
 
   return (
-    <section className="w-full p-0 my-10 md:my-14 transition-colors duration-300">
+    <section className="w-full p-0 my-1 md:my-6 transition-colors duration-300">
       <div className="relative w-full flex flex-col md:flex-row items-center gap-8 lg:gap-12">
         {/* Overlapping Double-Frame Images Section */}
         <div className="relative w-full md:w-[45%] lg:w-[46%] flex items-center justify-start h-[280px] xs:h-[320px] sm:h-[360px] md:h-[400px]">

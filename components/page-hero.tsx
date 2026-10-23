@@ -11,6 +11,7 @@ import { HeroPriceSelector, type HeroPriceOption } from "@/components/hero-price
 import { useLanguage } from "@/lib/i18n/language-context";
 import type { TranslationKey } from "@/lib/i18n/dictionaries/en";
 import ScheduleServiceButton from "./booking/Schedule-service-button";
+import DynamicHeroOverlay from "./booking/booking new flow/hero-bg-overlays";
 
 /** Same country-flag-icons set the navbar's CountrySwitcher/LocaleSwitcher use. */
 function getFlagComponent(code: string) {
@@ -108,19 +109,39 @@ export function PageHero({
   const {translate} =useLanguage()
 
   return (
-    <section className="relative flex h-auto justify-center bg-transparent text-center mb-16 md:mb-12">
-      <div className="lg:min-h-[75vh] lg:max-h-[80vh] md:min-h-[45vh] md:max-h-[80vh] h-[15vh] w-full overflow-hidden">
+    <section className="relative flex flex-col h-auto justify-center bg-transparent text-center mb-5 md:mb-12">
+      <div className="lg:min-h-[75vh] lg:max-h-[80vh] md:min-h-[45vh] md:max-h-[80vh] h-[90vh] w-full overflow-hidden">
         <Image
           src={image}
           alt={title}
           fill
           priority
           sizes="120vw"
-          className="object-cover h-[25vh] md:h-[100vh] rounded-none md:rounded-b-[100px] border border-[rgb(169,139,75)]"
+          className="object-cover h-[90vh] md:h-[100vh] rounded-none  border border-[rgb(169,139,75)]"
         />
+        {/* Dynamic Overlay containing the new centered text content */}
+        <div className="absolute  inset-0  flex flex-col justify-end">
+          <DynamicHeroOverlay serviceSlug={serviceSlug} />
+          {/*  Price Selector Bar positioned cleanly */}
+          {!hidePriceSelector && (
+            <div className="px-4 z-20">
+              <HeroPriceSelector
+                activePrices={activePrices}
+                selectedCountryCode={selectedCountryCode}
+                selectedData={selectedData}
+                selectedFlag={SelectedFlag}
+                getFlagComponent={getFlagComponent}
+                onCountryChange={() => {}}
+                unitLabelKey={unitLabelKey}
+              />
+            </div>
+          )}
+        </div>
       </div>
 
-      <div className="absolute top-1/2 -translate-y-1/2 flex items-center gap-2.5 md:block md:left-8 left-3 z-10 mx-auto max-w-lg md:max-w-3xl py-4 px-5 md:py-5 md:px-7 bg-[rgb(18,30,45)] border-2 border-[rgb(169,139,75)] md:border-0 md:border-transparent md:rounded-[20px]">
+      
+
+      {/* <div className="absolute top-1/2 -translate-y-1/2 flex items-center gap-2.5 md:block md:left-8 left-3 z-10 mx-auto max-w-lg md:max-w-3xl py-4 px-5 md:py-5 md:px-7 bg-[rgb(18,30,45)] border-2 border-[rgb(169,139,75)] md:border-0 md:border-transparent md:rounded-[20px]">
         <Link href={"/"}
           className="inline-flex md:hidden shrink-0 items-center gap-2">
           <Image
@@ -183,7 +204,7 @@ export function PageHero({
             unitLabelKey={unitLabelKey}
           />
         )}
-      </div>
+      </div> */}
     </section>
   );
 }

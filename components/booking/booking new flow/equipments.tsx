@@ -106,6 +106,7 @@ export default function Equipments({
 
   return (
     <div
+      id="eco-protocol"
       className={`w-full rounded-2xl sm:rounded-3xl p-4  md:p-5 font-sans shadow-2xl border transition-all duration-300 ${
         isLight
           ? "bg-white border-[#C5A059]/40 text-[#1B2E4B]"
@@ -116,8 +117,10 @@ export default function Equipments({
       <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-5 sm:mb-6">
         <div>
           <span
-            className={`text-[10px] sm:text-xs font-bold tracking-[0.2em] uppercase ${
-              isLight ? "text-[#059669]" : "text-[#34D399]"
+            className={`
+              text-[10px] sm:text-xs font-sans font-bold tracking-[0.2em] sm:tracking-[0.25em] uppercase 
+              ${
+              isLight ? "text-[#D9B75B]" : "text-[#D9B75B]"
             }`}
           >
             STEP 5 OF 6

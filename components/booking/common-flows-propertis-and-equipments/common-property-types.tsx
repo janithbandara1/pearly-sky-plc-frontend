@@ -1541,6 +1541,7 @@ export function SanitizeSizeVisualization({
 
   return (
     <div
+
       className={`w-full rounded-2xl border-2 border-[#C5A059] md:p-3 p-5 transition-colors duration-300 relative overflow-hidden select-none ${
         isLight
           ? "bg-[#FAF8F5] text-slate-900 shadow-[0_10px_35px_rgba(197,160,89,0.22)] ring-1 ring-[#C5A059]/30"
@@ -2098,7 +2099,7 @@ export function PropertyTypeSizeSelectorCommonFlowOfServices({
   const isPool = serviceSlug === "pool-cleaning";
 
   return (
-    <section className="w-full flex flex-col justify-center items-center">
+    <section id="pricing-engine" className="w-full flex flex-col justify-center items-center">
       {/* Dynamic Size & Area Floorplan Visualization Component */}
       {isPool ? 
         (
@@ -2129,6 +2130,7 @@ export function PropertyTypeSizeSelectorCommonFlowOfServices({
       )}
 
       <div
+      
         className={`rounded-2xl py-4 mt-5 border pb-5 sm:pb-6 px-5 sm:px-6  transition-all duration-300 ${
           isLight
             ? "bg-white border-[#C5A059]/40 text-[#1B2E4B]"

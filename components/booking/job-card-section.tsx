@@ -87,7 +87,7 @@ export function JobCardSection({
   };
 
   return (
-    <section className={`w-full md:px-6  px-2 py-6
+    <section id="upgrades" className={`w-full md:px-6  px-2 py-6
     rounded-2xl sm:rounded-3xl  shadow-2xl border
     ${isLight ? "bg-[#F8FAFC] border-[#E2E8F0]" : "bg-[rgba(13,20,36,0.7)] border-[rgba(212,175,55,0.18)]"}
     `}>
