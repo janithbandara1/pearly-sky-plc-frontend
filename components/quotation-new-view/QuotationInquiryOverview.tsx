@@ -207,7 +207,7 @@ export default function QuotationInquiryOverview({
         </div>
 
         {/* Row 7: Destination */}
-        <div className="flex items-center justify-between gap-3">
+        <div className="flex hidden items-center justify-between gap-3">
           <span className={isLight ? "text-slate-500 font-medium" : "text-[#8E9CAE] font-medium"}>
             Destination:
           </span>

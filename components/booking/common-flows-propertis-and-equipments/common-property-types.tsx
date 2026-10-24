@@ -2493,6 +2493,59 @@ export function PropertySizeSelector({
     ? [20, 1000, 25000, 100000, 250000, 500000]
     : [20, 50, 100, 200, 300, 500];
 
+  function valueToSliderPercent(val: number, milestones: number[]): number {
+    if (val <= milestones[0]) return 0;
+    const n = milestones.length;
+    if (val >= milestones[n - 1]) return 100;
+
+    for (let i = 0; i < n - 1; i++) {
+      const low = milestones[i];
+      const high = milestones[i + 1];
+      if (val >= low && val <= high) {
+        const segmentFraction = (val - low) / (high - low);
+        return ((i + segmentFraction) / (n - 1)) * 100;
+      }
+    }
+    return 100;
+  }
+
+  function sliderPercentToValue(percent: number, milestones: number[], quoteMode: boolean): number {
+    const p = Math.max(0, Math.min(100, percent));
+    const n = milestones.length;
+    if (p <= 0) return milestones[0];
+    if (p >= 100) return milestones[n - 1];
+
+    const totalSegments = n - 1;
+    const pos = (p / 100) * totalSegments;
+    const i = Math.min(Math.floor(pos), totalSegments - 1);
+    const fraction = pos - i;
+    const raw = milestones[i] + fraction * (milestones[i + 1] - milestones[i]);
+
+    if (quoteMode) {
+      if (raw < 100) {
+        return Math.round(raw / 5) * 5;
+      } else if (raw < 1000) {
+        return Math.round(raw / 25) * 25;
+      } else if (raw < 10000) {
+        return Math.round(raw / 100) * 100;
+      } else if (raw < 100000) {
+        return Math.round(raw / 500) * 500;
+      } else if (raw < 250000) {
+        return Math.round(raw / 1000) * 1000;
+      } else {
+        return Math.round(raw / 2500) * 2500;
+      }
+    } else {
+      if (raw < 100) {
+        return Math.round(raw / 5) * 5;
+      } else if (raw < 200) {
+        return Math.round(raw / 10) * 10;
+      } else {
+        return Math.round(raw / 25) * 25;
+      }
+    }
+  }
+
   const [sizeUnit, setSizeUnit] = useState<"m2" | "ft2">("m2");
 
   const sizeOptions = isQuote
@@ -2511,19 +2564,29 @@ export function PropertySizeSelector({
   ).sort((a, b) => a - b);
 
   function getStepAmount(curr: number, isIncrease: boolean): number {
-    if (!isQuote) return isIncrease ? 1 : -1;
+    if (!isQuote) {
+      if (isIncrease) {
+        if (curr < 100) return 5;
+        if (curr < 200) return 10;
+        return 25;
+      } else {
+        if (curr <= 100) return -5;
+        if (curr <= 200) return -10;
+        return -25;
+      }
+    }
     if (isIncrease) {
       if (curr < 100) return 5;
       if (curr < 1000) return 50;
-      if (curr < 10000) return 500;
-      if (curr < 100000) return 5000;
-      return 25000;
+      if (curr < 25000) return 500;
+      if (curr < 100000) return 2500;
+      return 10000;
     } else {
       if (curr <= 100) return -5;
       if (curr <= 1000) return -50;
-      if (curr <= 10000) return -500;
-      if (curr <= 100000) return -5000;
-      return -25000;
+      if (curr <= 25000) return -500;
+      if (curr <= 100000) return -2500;
+      return -10000;
     }
   }
 
@@ -2732,7 +2795,7 @@ export function PropertySizeSelector({
       <div className="flex flex-col w-full px-1">
         {/* Interactive Slider Bar */}
         {(() => {
-          const sliderPercent = Math.min(100, Math.max(0, ((value - MIN_SIZE) / (MAX_SIZE - MIN_SIZE)) * 100));
+          const sliderPercent = valueToSliderPercent(value, SIZE_MILESTONES);
           return (
             <div
               className={`relative w-full h-1.5 rounded-full my-3 flex items-center ${
@@ -2754,11 +2817,14 @@ export function PropertySizeSelector({
               {/* Invisible Range Input for Full Touch/Mouse Interactivity */}
               <input
                 type="range"
-                min={MIN_SIZE}
-                max={MAX_SIZE}
-                step={isQuote ? 10 : 1}
-                value={value}
-                onChange={(e) => handleDirectSizeChange(Number(e.target.value))}
+                min={0}
+                max={100}
+                step={0.1}
+                value={sliderPercent}
+                onChange={(e) => {
+                  const nextVal = sliderPercentToValue(Number(e.target.value), SIZE_MILESTONES, isQuote);
+                  handleDirectSizeChange(nextVal);
+                }}
                 className="absolute inset-0 w-full h-8 -top-3 opacity-0 cursor-pointer z-10"
                 aria-label="Property size slider"
               />
