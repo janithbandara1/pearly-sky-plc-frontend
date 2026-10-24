@@ -90,4 +90,46 @@ export const SERVICE_CONTENT_MAP: Record<string, ServiceHeroContent> = {
     subtitle: '"Pristine Aquatic Retreats: Balanced Beauty Year-Round"',
     description: "Comprehensive chemical balancing, debris skimming, filter cleansing, and tile scrubbing to keep your luxury pool sparkling.",
   },
+  "laundry-service": {
+    badgeText: "FABRIC CARE & TEXTILE PRESERVATION",
+    title: "Luxury Laundry & Wardrobe Care",
+    subtitle: '"Couture Treatment: Delicate Fibers, Impeccably Handled"',
+    description: "Specialized garment laundering, artisanal pressing, and delicate textile care executed with hypoallergenic, eco-neutral botanicals.",
+  },
+  "carpet-upholstery-cleaning": {
+    badgeText: "DEEP FIBER REVITALIZATION",
+    title: "Carpet & Upholstery Detailing",
+    subtitle: '"Textile Renewal: Reclaiming Softness & Deep Hygiene"',
+    description: "Advanced hot-water extraction and low-moisture dry cleaning engineered to lift stubborn stains, restore textures, and eliminate hidden allergens.",
+  },
+  "precision-pressure-washing": {
+    badgeText: "HIGH-PSI SURFACE RESTORATION",
+    title: "Precision Pressure Washing",
+    subtitle: '"Exterior Perfection: Restoring Architectural Splendor"',
+    description: "Targeted exterior hydro-scrubbing and soft-wash restoration for stone, teak, concrete, and facades to eliminate organic buildup safely.",
+  },
+  "child-care-service": {
+    badgeText: "CERTIFIED DISCREET NANNY PROTOCOL",
+    title: "Exclusive Child Care Service",
+    subtitle: '"Nurturing Care: Trusted Support for Your Youngest Royals"',
+    description: "Vetted, hospitality-trained childcare specialists providing engaging, safe, and attentive care tailored to your family's routine.",
+  },
+  "elder-care-service": {
+    badgeText: "COMPASSIONATE ASSISTED WELLNESS",
+    title: "Premium Senior & Elder Care",
+    subtitle: '"Dignified Living: Attentive Comfort & Daily Assistance"',
+    description: "Respectful, high-touch personal assistance and companionship delivered by compassionate caregivers focused on senior well-being and home comfort.",
+  },
+  "move-in-out-transport-service": {
+    badgeText: "WHITE-GLOVE RELOCATION LOGISTICS",
+    title: "Move-In & Move-Out Transport",
+    subtitle: '"Seamless Transitions: Flawless Logistics & Estate Setup"',
+    description: "Comprehensive white-glove packing, secure transit, and post-move deep cleaning to ensure your new residence is turnkey ready.",
+  },
+  "request-a-detailed-quotation": {
+    badgeText: "Official Eco-Luxury Service Quote Request",
+    title: "Pearly Sky",
+    subtitle: '"Pure Spaces. Elevated Living."',
+    description: "Eco-Luxury Cleaning for Fine Homes, Estates & Commercial Workspaces. Please specify your requirements below for a bespoke quote consultation.",
+  },
 };

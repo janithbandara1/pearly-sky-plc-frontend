@@ -10,11 +10,13 @@ export interface DynamicHeroOverlayProps {
   serviceSlug?: string;
   /** Optional custom class names */
   className?: string;
+  isQuote?: boolean;
 }
 
 export default function DynamicHeroOverlay({
   serviceSlug = "regular-home-cleaning",
   className = "",
+  isQuote=false,
 }: DynamicHeroOverlayProps) {
   // Look up content safely with a fallback option
   const content =
@@ -60,7 +62,7 @@ export default function DynamicHeroOverlay({
             {content.description}
           </p>
         )}
-        <ScheduleServiceButton  />
+        {!isQuote && <ScheduleServiceButton  />}
       </div>
     </div>
   );

@@ -105,7 +105,6 @@ export default async function ServiceDetailPage({
         ]} />
       <ServiceBookingView serviceSlug={canonicalSlug} locales={locales} initialService={service} />
       <GoldStandardSection/>
-      <JoinWithUsSection />
       <RelatedServices slugs={await getServiceSlugMap(country, language)} />
       <PaymentMarquee />
       

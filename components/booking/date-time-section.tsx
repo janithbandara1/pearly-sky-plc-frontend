@@ -3,7 +3,7 @@
 import { useMemo, useState } from "react";
 import { useLanguage } from "@/lib/i18n/language-context";
 import type { TranslationKey } from "@/lib/i18n/dictionaries/en";
-import { Calendar, Clock, ChevronLeft, ChevronRight, CalendarDays, Check, Calendar1Icon } from "lucide-react";
+import { Calendar, Clock, ChevronLeft, ChevronRight, CalendarDays, Check, Calendar1Icon, Star } from "lucide-react";
 import { usePoolTheme } from "@/lib/pool-theme-context";
 
 const TIME_START = "05:30";
@@ -76,9 +76,11 @@ export interface DateTimeSectionProps {
   time: string;
   onTimeChange: (time: string) => void;
   theme?: string;
+  isQuote?: boolean;
 }
 
-export function DateTimeSection({ date, onDateChange, time, onTimeChange, theme: themeProp }: DateTimeSectionProps) {
+export function DateTimeSection(
+  { date, onDateChange, time, onTimeChange, theme: themeProp, isQuote=false }: DateTimeSectionProps) {
   const { theme: contextTheme } = usePoolTheme();
   const activeTheme = themeProp ?? contextTheme ?? "dark";
   const isLight = activeTheme === "light";
@@ -117,17 +119,38 @@ export function DateTimeSection({ date, onDateChange, time, onTimeChange, theme:
         <div className="flex items-center gap-3">
           
           <div>
-            <span
+            {!isQuote && (<span
               className={`text-[10px] sm:text-xs font-sans font-bold tracking-[0.2em] sm:tracking-[0.25em] uppercase ${
                 isLight ? "text-[#A88238]" : "text-[#D9B75B]"
               }`}
             >
               Step 2 of 6
-            </span>
+            </span>)}
+
+            {isQuote ? (
+            <div className="flex items-center space-x-3.5 ">
+              <div className="w-10 h-10 rounded-xl bg-[#e5c158]/10 border border-[#e5c158]/30 flex items-center justify-center text-[#e5c158] shrink-0">
+                <Calendar className="w-5 h-5" />
+              </div>
+            <div>
+              <h2
+                 className={`font-serif text-2xl font-bold tracking-tight ${
+                   isLight ? "text-slate-900" : "text-white"
+                 }`}
+                >
+                5. Service Schedule
+              </h2>
+              <p className={`text-xs ${isLight ? "text-slate-500" : "text-slate-400"}`}>
+                  Choose your preferred date and convenient arrival window
+              </p>
+            </div>
+            </div> ):(
             <h2 className={`text-xl md:text-2xl font-serif mt-1 font-normal tracking-wide leading-tight
                ${isLight ? "text-slate-900" : "text-white"}`}>
-              {translate("dateTimeSelectTitle")}
+                {translate("dateTimeSelectTitle")}
             </h2>
+            )}   
+            
             
           </div>
         </div>
@@ -315,8 +338,14 @@ export function DateTimeSection({ date, onDateChange, time, onTimeChange, theme:
               );
             })}
           </div>
+
+          {/**Arrival note */}
+          <div className="">
+            Staff arrives within a strict 15-minute window with electronic keycode verification.
+          </div>
         </div>
       </div>
+      
     </section>
   );
 }

@@ -63,8 +63,9 @@ import BookingLogisticsSummary, { type SelectedAddonItem } from "@/components/bo
 import Equipments from "@/components/booking/booking new flow/equipments";
 import LocationAccessSection from "@/components/booking/quotation-common-flow/LocationAccessSection";
 import ServiceFrequencySelector from "@/components/booking/common-flows-propertis-and-equipments/service-frequency";
+import BookingValidationModal from "@/components/booking/BookingValidationModal";
 
-const poppins = Poppins({ subsets: ["latin"], weight: ["400", "500", "600", "700", "800"], adjustFontFallback: false });
+export const poppins = Poppins({ subsets: ["latin"], weight: ["400", "500", "600", "700", "800"], adjustFontFallback: false });
 
 /** Only healthguard-sanitization collects facility type + disinfection level. */
 const SANITIZATION_SLUG = "healthguard-sanitization";
@@ -351,6 +352,8 @@ export function ServiceBookingView({
   const [selectServiceFrequency, setSelectServiceFrequency] = useState<string | null>(null);
 
   const [error, setError] = useState<string | null>(null);
+  const [validationErrors, setValidationErrors] = useState<string[]>([]);
+  const [isErrorModalOpen, setIsErrorModalOpen] = useState(false);
   const [submitting, setSubmitting] = useState(false);
 
   useEffect(() => {
@@ -582,32 +585,53 @@ export function ServiceBookingView({
 
   function handleBookNow() {
     if (!service) return;
-    /* if (isSanitization && selectedFacilityIds.size === 0 || selectedFacilityIds.size === 0 ) {
-      setError("Please select at least one facility to continue.");
-      return;
-    } */
+    const errors: string[] = [];
+
+    if (!propertyType) {
+      errors.push("Please select your property category or type above.");
+    }
+    if (!date) {
+      errors.push("Please select your preferred service date.");
+    }
+    if (!time) {
+      errors.push("Please select your convenient arrival time window.");
+    }
     if (isSanitization && !disinfectionLevelId) {
-      setError("Please select a package to continue.");
-      return;
+      errors.push("Please select a disinfection package to continue.");
     }
     if (isCategoryQuote && !selectedCategory) {
-      setError("Please select a security service category to continue.");
-      return;
-    }
-    if (!date || !time) {
-      setError("Please select a date and time above.");
-      return;
-    }
-    if (!propertyType) {
-      setError("Please select a property type above to continue.");
-      return;
+      errors.push("Please select a security service category to continue.");
     }
     if (items.length > 0 && !supplySource) {
-      setError("Please select a Cleaning Solvents & Equipment above to continue.");
-      return;
+      errors.push("Please select who provides Cleaning Solvents & Equipment.");
     }
     if (supplySource === "company" && selectedItemIds.size === 0) {
-      setError("Add at least one Cleaning Solvent & Equipment item above to continue.");
+      errors.push("Add at least one Cleaning Solvent & Equipment item above to continue.");
+    }
+
+    // Customer contact & address form validations
+    if (!contactForm.firstName.trim()) {
+      errors.push("Please enter your first name in the contact details form.");
+    }
+    if (!contactForm.email.trim()) {
+      errors.push("Please enter your email address in the contact details form.");
+    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(contactForm.email.trim())) {
+      errors.push("Please provide a valid email address (e.g. name@domain.com).");
+    }
+    if (!contactForm.contact.trim()) {
+      errors.push("Please provide your contact phone number.");
+    }
+    if (!addressForm.streetAddress.trim()) {
+      errors.push("Please enter your street address.");
+    }
+    if (!addressForm.city.trim()) {
+      errors.push("Please enter your city.");
+    }
+
+    if (errors.length > 0) {
+      setValidationErrors(errors);
+      setIsErrorModalOpen(true);
+      setError(errors[0]);
       return;
     }
     setError(null);
@@ -935,25 +959,27 @@ export function ServiceBookingView({
                 />
 
                 {/**Contact details form */}
-                <CustomerContactsPreference
-                  theme={poolTheme}
-                  gender={gender}
-                  onGenderChange={setGender}
-                  language={language}
-                  onLanguageChange={setLanguage}
-                  requirements={requirements}
-                  onRequirementsChange={setRequirements}
-                  attachments={attachments}
-                  onAttachmentsChange={setAttachments}
-                  contactForm={contactForm}
-                  onContactFormChange={setContactForm}
-                  addressForm={addressForm}
-                  onAddressFormChange={setAddressForm}
-                  howGetIn={howGetIn}
-                  onHowGetInChange={setHowGetIn}
-                  howHeard={howHeard}
-                  onHowHeardChange={setHowHeard}
-                />
+                <div id="customer-contacts-preference-section" className="w-full">
+                  <CustomerContactsPreference
+                    theme={poolTheme}
+                    gender={gender}
+                    onGenderChange={setGender}
+                    language={language}
+                    onLanguageChange={setLanguage}
+                    requirements={requirements}
+                    onRequirementsChange={setRequirements}
+                    attachments={attachments}
+                    onAttachmentsChange={setAttachments}
+                    contactForm={contactForm}
+                    onContactFormChange={setContactForm}
+                    addressForm={addressForm}
+                    onAddressFormChange={setAddressForm}
+                    howGetIn={howGetIn}
+                    onHowGetInChange={setHowGetIn}
+                    howHeard={howHeard}
+                    onHowHeardChange={setHowHeard}
+                  />
+                </div>
                 {/** */}
               </div>
               
@@ -999,6 +1025,21 @@ export function ServiceBookingView({
           </>
         )}
       </div>
+
+      {/* Interactive Booking Validation Modal */}
+      <BookingValidationModal
+        isOpen={isErrorModalOpen}
+        onClose={() => setIsErrorModalOpen(false)}
+        errors={validationErrors}
+        theme={poolTheme}
+        onActionClick={() => {
+          setIsErrorModalOpen(false);
+          const target = document.getElementById("customer-contacts-preference-section") || document.getElementById("pricing-engine");
+          if (target) {
+            target.scrollIntoView({ behavior: "smooth", block: "center" });
+          }
+        }}
+      />
     </div>
   );
 }

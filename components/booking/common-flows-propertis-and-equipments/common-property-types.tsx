@@ -1102,9 +1102,9 @@ export const DEFAULT_CATEGORY_TABS: [ServiceCategoryTab, ServiceCategoryTab] = [
     categories: SANITIZE_RESIDENTIAL_CATEGORYIES,
   },
   {
-    id: "industrial",
-    label: "Industrial",
-    translationKey: "propCatIndustrial",
+    id: "industrial",//actually the id must be literary "commercial",but kept without affecting types and functional processes
+    label: "Commercial",
+    translationKey: "classCommercial",
     icon: <Cog size={20} color={GOLD_COLOR} />,
     categories: SANITIZE_INDUSTRIAL_CATEGORYIES,
   },
@@ -1388,7 +1388,7 @@ function buildSizeOptions(cat: PropertyCategory): number[] {
 }
 
 function formatFt2(m2: number): string {
-  return Math.round(m2 * 10.7639).toLocaleString();
+  return Math.round(m2 * 10.76391041671).toLocaleString();
 }
 
 function DisinfectionSprayIcon({ className = "w-5 h-5" }: { className?: string }) {
@@ -1782,34 +1782,93 @@ export function SanitizeSizeVisualization({
       </div>
 
       {!isQuote && (
-        <div className={`grid grid-cols-3 gap-2 sm:gap-6 pt-3.5 mt-3 border-t w-full text-center ${
-          isLight ? "border-[#C5A059]/30" : "border-[#C5A059]/40"
+        <div className={`w-full rounded-2xl border border-[#C5A059]/40 p-4 md:p-6 shadow-[0_6px_22px_rgba(197,160,89,0.25)] ring-1 ring-[#C5A059]/25 relative overflow-hidden select-none font-mono transition-colors duration-300 ${
+      isLight ? "bg-white text-slate-900" : "bg-[#030303] text-white"
+    }`}>
+      {/* Header Section */}
+      <div className="mb-4 pb-3 border-b border-[#C5A059]/30">
+        <h3 className={`text-base md:text-xl font-bold tracking-tight font-serif ${isLight ? "text-slate-900" : "text-white"}`}>
+          Service Estimate
+        </h3>
+        <p className={`text-[11px] md:text-xs mt-0.5 font-sans ${isLight ? "text-slate-600" : "text-gray-400"}`}>
+          Based on the selected property type and size
+        </p>
+      </div>
+
+      {/* Grid Cards Container: 2 columns on mobile, 4 columns on desktop */}
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4">
+        
+        {/* Card 1: Property Scale / Target Area */}
+        <div className={`flex flex-col items-center justify-center p-3.5 md:p-4 rounded-xl border 
+        border-[#C5A059]/40 shadow-[inset_0_0_12px_rgba(197,160,89,0.1)] text-center transition-colors
+         duration-300 ${
+          isLight ? "bg-amber-100" : "bg-[#050505]"
         }`}>
-          <div>
-            <p className={`text-[11px] sm:text-xs font-medium mb-0.5 ${isLight ? "text-slate-500" : "text-gray-400"}`}>
-              {translate("EstimatedCost")}
+          <Maximize2 className="w-4 h-4 text-[#C5A059] mb-2" />
+          <p className="text-[10px] md:text-[11px] font-bold tracking-widest text-[#C5A059] uppercase mb-1">
+            PROPERTY SCALE
+          </p>
+          <p className={`text-xs md:text-base font-bold tracking-wide ${isLight ? "text-slate-900" : "text-white"}`}>
+            {surfaceMatrixes.serviceTargetArea}
+          </p>
+          {activeCategory && (
+            <p className="text-[10px] text-[#D4AF37] mt-0.5 truncate max-w-full">
+              {CATEGORY_LABEL_KEYS[activeCategory.label]
+                ? translate(CATEGORY_LABEL_KEYS[activeCategory.label] as TranslationKey)
+                : translate(activeCategory.label as TranslationKey)}
             </p>
-            <p className={`text-[10px] sm:text-lg font-bold ${isLight ? "text-[#8C6D2D]" : "text-[#C5A059]"}`}>
-              {estimatedCost}
-            </p>
-          </div>
-          <div>
-            <p className={`text-[11px] sm:text-xs font-medium mb-0.5 ${isLight ? "text-slate-500" : "text-gray-400"}`}>
-              {translate("ServiceRate")}
-            </p>
-            <p className={`text-[10px] sm:text-lg font-bold ${isLight ? "text-slate-900" : "text-white"}`}>
-              {serviceRate}
-            </p>
-          </div>
-          <div>
-            <p className={`text-[11px] sm:text-xs font-medium mb-0.5 ${isLight ? "text-slate-500" : "text-gray-400"}`}>
-              {translate("EstLabor")}
-            </p>
-            <p className={`text-[10px] sm:text-lg font-bold ${isLight ? "text-slate-900" : "text-white"}`}>
-              {labor}
-            </p>
-          </div>
+          )}
         </div>
+
+        {/* Card 2: Total Duration / Est Labor */}
+        <div className={`flex flex-col items-center justify-center p-3.5 md:p-4 rounded-xl border border-[#C5A059]/40 shadow-[inset_0_0_12px_rgba(197,160,89,0.1)] text-center transition-colors duration-300 ${
+          isLight ? "bg-amber-100" : "bg-[#050505]"
+        }`}>
+          <Clock className="w-4 h-4 text-[#C5A059] mb-2" />
+          <p className="text-[10px] md:text-[11px] font-bold tracking-widest text-[#C5A059] uppercase mb-1">
+            {translate("EstLabor")}
+          </p>
+          <p className={`text-xs md:text-base font-bold tracking-wide ${isLight ? "text-slate-900" : "text-white"}`}>
+            {labourData}
+          </p>
+          <p className={`text-[10px] mt-0.5 ${isLight ? "text-slate-600" : "text-gray-400"}`}>Estimated</p>
+        </div>
+
+        {/* Card 3: Allocated Staff */}
+        <div className={`flex flex-col items-center justify-center p-3.5 md:p-4 rounded-xl border border-[#C5A059]/40 shadow-[inset_0_0_12px_rgba(197,160,89,0.1)] text-center transition-colors duration-300 ${
+          isLight ? "bg-amber-100" : "bg-[#050505]"
+        }`}>
+          <Users className="w-4 h-4 text-[#C5A059] mb-2" />
+          <p className="text-[10px] md:text-[11px] font-bold tracking-widest text-[#C5A059] uppercase mb-1">
+            ALLOCATED STAFF
+          </p>
+          <p className={`text-sm md:text-lg font-bold tracking-wide ${isLight ? "text-slate-900" : "text-white"}`}>
+            1
+          </p>
+          <p className="text-[9px] md:text-[10px] font-bold tracking-wider text-[#D4AF37] uppercase mt-0.5">
+            SENIOR CLEANER
+          </p>
+        </div>
+
+        {/* Card 4: On-Site Window / Estimated Cost */}
+        <div className={`flex flex-col items-center justify-center p-3.5 md:p-4 rounded-xl border border-[#C5A059]/40 shadow-[inset_0_0_12px_rgba(197,160,89,0.1)] text-center transition-colors duration-300 ${
+          isLight ? "bg-amber-100" : "bg-[#050505]"
+        }`}>
+          <Calendar className="w-4 h-4 text-[#C5A059] mb-2" />
+          <p className="text-[10px] md:text-[11px] font-bold tracking-widest text-[#C5A059] uppercase mb-1">
+            {translate("EstimatedCost")}
+          </p>
+          <p className="text-xs md:text-base font-bold text-[#D4AF37] tracking-wide">
+            {surfaceMatrixes.costOFEstimation}
+          </p>
+          <p className={`text-[10px] mt-0.5 ${isLight ? "text-slate-600" : "text-gray-400"}`}>Price range</p>
+        </div>
+
+      </div>
+
+      {/* Optional Service Badges */}
+      
+    </div>
       )}
     </div>
   );
@@ -2014,64 +2073,7 @@ export function PropertyTypeSizeSelectorCommonFlowOfServices({
     }
   }
 
-  const MIN_SIZE = 20;
-  const MAX_SIZE = 500;
-  const SIZE_MILESTONES = [20, 50, 100, 200, 300, 500];
-  const [sizeUnit, setSizeUnit] = useState<"m2" | "ft2">("m2");
 
-  const prevSize = value > MIN_SIZE ? value - 1 : null;
-  const nextSize = value < MAX_SIZE ? value + 1 : null;
-
-  function handleStepChange(step: number) {
-    const nextVal = Math.min(MAX_SIZE, Math.max(MIN_SIZE, value + step));
-    if (nextVal === value) return;
-
-    if (!quoteStatus) {
-      const direction = step > 0 ? "up" : "down";
-      const nextCat = findAppropriateCategory(nextVal, activeCategoryId, selectableCategories, direction);
-      const nextId = nextCat ? nextCat.id : null;
-      if (nextId && nextId !== activeCategoryId) {
-        setActiveCategoryId(nextId);
-      }
-    }
-    onChange(nextVal);
-  }
-
-  function handleDirectSizeChange(newVal: number) {
-    const clamped = Math.min(MAX_SIZE, Math.max(MIN_SIZE, newVal));
-    if (clamped === value) return;
-
-    if (!quoteStatus) {
-      const direction = clamped > value ? "up" : "down";
-      const nextCat = findAppropriateCategory(clamped, activeCategoryId, selectableCategories, direction);
-      const nextId = nextCat ? nextCat.id : null;
-      if (nextId && nextId !== activeCategoryId) {
-        setActiveCategoryId(nextId);
-      }
-    }
-    onChange(clamped);
-  }
-
-  function handleNext() {
-    handleStepChange(1);
-  }
-
-  function handlePrev() {
-    handleStepChange(-1);
-  }
-
-  const wheelContainerRef = useRef<HTMLDivElement>(null);
-  useEffect(() => {
-    const el = wheelContainerRef.current;
-    if (!el) return;
-    function onWheel(e: WheelEvent) {
-      e.preventDefault();
-      if (e.deltaY > 0) handleNext();
-      else handlePrev();
-    }
-    el.addEventListener("wheel", onWheel, { passive: false });
-    return () => el.removeEventListener("wheel", onWheel);
-  });
 
   const handleCategorySwitch = (tabId: string): void => {
     setIsActiveCategorySwitch(tabId);
@@ -2285,316 +2287,30 @@ export function PropertyTypeSizeSelectorCommonFlowOfServices({
             </div>
             
 
-            {/* Property Size Selector (Matching Reference Design 100%) */}
-            <div
-              ref={wheelContainerRef}
-              className={`flex flex-col w-full mt-8 rounded-[28px] p-6 sm:p-8 gap-6 shadow-2xl select-none border transition-all duration-300 ${
-                isLight
-                  ? "bg-[#FBF9F4] border-[#C5A059]/30 text-[#1B2E4B]"
-                  : "bg-[#0c121e] border-white/5 text-slate-100"
-              }`}
-            >
-              {/* Header: Title + Subtitle on Left, Unit Switcher Pill on Right */}
-              <div className="flex items-start justify-between w-full gap-4">
-                <div className="flex flex-col">
-                  <h3
-                    className={`font-serif text-2xl sm:text-3xl font-bold tracking-tight ${
-                      isLight ? "text-[#1B2E4B]" : "text-white"
-                    }`}
-                  >
-                    {translate("propSizeTitle")}
-                  </h3>
-                  <p className={`text-xs sm:text-sm mt-1 ${isLight ? "text-gray-500" : "text-gray-400"}`}>
-                    Select the total size of your property
-                  </p>
-                </div>
-
-                {/* Unit Switcher Pill (m² / ft²) */}
-                <div
-                  className={`p-1 rounded-full border flex items-center shrink-0 transition-colors ${
-                    isLight ? "bg-[#EDE7DA] border-[#C5A059]/20" : "bg-[#141b2a] border-white/5"
-                  }`}
-                >
-                  <button
-                    type="button"
-                    onClick={() => setSizeUnit("m2")}
-                    className={`px-3.5 py-1 rounded-full text-xs font-bold transition-all cursor-pointer ${
-                      sizeUnit === "m2"
-                        ? "bg-[#e5b842] text-black shadow-md"
-                        : isLight
-                        ? "text-gray-600 hover:text-black"
-                        : "text-gray-400 hover:text-white"
-                    }`}
-                  >
-                    m²
-                  </button>
-                  <button
-                    type="button"
-                    disabled
-                    className={`px-3.5 py-1 rounded-full text-xs font-bold transition-all cursor-not-allowed ${
-                      sizeUnit === "ft2"
-                        ? "bg-[#e5b842] text-black shadow-md"
-                        : isLight
-                        ? "text-gray-600 hover:text-black"
-                        : "text-gray-400 hover:text-white"
-                    }`}
-                  >
-                    ft²
-                  </button>
-                </div>
-              </div>
-
-              {/* Display & Quick-Control Card */}
-              <div
-                className={`w-full rounded-2xl p-4 sm:p-5 flex items-center justify-between gap-3 border transition-colors ${
-                  isLight ? "bg-white border-[#C5A059]/25 shadow-sm" : "bg-[#111726] border-white/5"
-                }`}
-              >
-                {/* Left: House Icon & Size Values */}
-                <div className="flex items-center gap-3.5 sm:gap-4 min-w-0">
-                  <div
-                    className={`w-12 h-12 sm:w-14 sm:h-14 rounded-2xl flex items-center justify-center shrink-0 shadow-[0_0_15px_rgba(229,184,66,0.15)] border ${
-                      isLight ? "bg-[#F6EEDC] border-[#C5A059]/40" : "bg-[#182033] border-[#e5b842]/30"
-                    }`}
-                  >
-                    <Home className="w-6 h-6 sm:w-7 sm:h-7 text-[#e5b842]" />
-                  </div>
-                  <div className="flex flex-col min-w-0">
-                    <span
-                      className={`text-2xl sm:text-3xl font-bold tracking-tight leading-none truncate ${
-                        isLight ? "text-[#1B2E4B]" : "text-white"
-                      }`}
-                    >
-                      {sizeUnit === "m2" ? `${value} m²` : `${formatFt2(value)} ft²`}
-                    </span>
-                    <span className="text-xs sm:text-sm font-semibold text-[#e5b842] mt-1 truncate">
-                      {sizeUnit === "m2" ? `${formatFt2(value)} ft²` : `${value} m²`}
-                    </span>
-                  </div>
-                </div>
-
-                {/* Right: Minus Button, Size Dropdown Pill, Plus Button */}
-                <div className="flex items-center gap-2 sm:gap-3 shrink-0">
-                  {/* Minus button */}
-                  <button
-                    type="button"
-                    onClick={() => handleStepChange(-1)}
-                    disabled={value <= MIN_SIZE}
-                    className={`w-10 h-10 sm:w-11 sm:h-11 rounded-full flex items-center justify-center font-bold text-lg cursor-pointer transition-all disabled:opacity-30 disabled:cursor-not-allowed shadow-md active:scale-95 ${
-                      isLight
-                        ? "bg-[#EDE7DA] hover:bg-[#dfd7c5] text-[#1B2E4B]"
-                        : "bg-[#1c2438] hover:bg-[#25304a] text-white"
-                    }`}
-                    aria-label="Decrease size"
-                  >
-                    <Minus className={`w-4 h-4 sm:w-5 sm:h-5 ${isLight ? "text-[#1B2E4B]" : "text-white"}`} />
-                  </button>
-
-                  {/* Size Pill with integrated select */}
-                  <div
-                    className={`relative rounded-xl border transition-colors ${
-                      isLight
-                        ? "border-[#C5A059]/30 bg-[#F4EFE6] hover:border-[#C5A059]/60"
-                        : "border-white/10 bg-[#161e31] hover:border-white/20"
-                    }`}
-                  >
-                    <select
-                      value={value}
-                      onChange={(e) => {
-                        const selectedVal = Number(e.target.value);
-                        handleDirectSizeChange(selectedVal);
-                      }}
-                      className={`appearance-none px-3.5 py-2 sm:py-2.5 font-semibold text-xs sm:text-sm bg-transparent cursor-pointer focus:outline-none pr-8 ${
-                        isLight ? "text-[#1B2E4B]" : "text-white"
-                      }`}
-                    >
-                      {dropdownOptions.map((val) => (
-                        <option
-                          key={val}
-                          value={val}
-                          className={isLight ? "bg-[#FBF9F4] text-[#1B2E4B]" : "bg-[#111726] text-white"}
-                        >
-                          {sizeUnit === "m2" ? `${val} m²` : `${formatFt2(val)} ft²`}
-                        </option>
-                      ))}
-                    </select>
-                    <ChevronDown
-                      className={`pointer-events-none absolute right-2.5 top-1/2 -translate-y-1/2 w-3.5 h-3.5 ${
-                        isLight ? "text-gray-500" : "text-gray-400"
-                      }`}
-                    />
-                  </div>
-
-                  {/* Plus button */}
-                  <button
-                    type="button"
-                    onClick={() => handleStepChange(1)}
-                    disabled={value >= MAX_SIZE}
-                    className="w-10 h-10 sm:w-11 sm:h-11 rounded-full bg-[#e5b842] hover:bg-[#d4a732] text-black flex items-center justify-center font-bold text-lg cursor-pointer transition-all disabled:opacity-30 disabled:cursor-not-allowed shadow-[0_0_12px_rgba(229,184,66,0.35)] active:scale-95"
-                    aria-label="Increase size"
-                  >
-                    <Plus className="w-4 h-4 sm:w-5 sm:h-5 text-black stroke-[3]" />
-                  </button>
-                </div>
-              </div>
-
-              {/* Slider Track and Milestones */}
-              <div className="flex flex-col w-full px-1">
-                {/* Interactive Slider Bar */}
-                {(() => {
-                  const sliderPercent = Math.min(100, Math.max(0, ((value - MIN_SIZE) / (MAX_SIZE - MIN_SIZE)) * 100));
-                  return (
-                    <div
-                      className={`relative w-full h-1.5 rounded-full my-3 flex items-center ${
-                        isLight ? "bg-[#E5DFD3]" : "bg-[#1b2438]"
-                      }`}
-                    >
-                      {/* Active Gradient Track */}
-                      <div
-                        className="absolute top-0 left-0 h-full bg-gradient-to-r from-[#e5b842] to-[#f5d061] rounded-full"
-                        style={{ width: `${sliderPercent}%` }}
-                      />
-
-                      {/* Glowing Thumb Handle */}
-                      <div
-                        className="absolute top-1/2 -translate-y-1/2 -translate-x-1/2 w-6 h-6 rounded-full bg-gradient-to-b from-[#fff8cb] via-[#e5b842] to-[#ab7c18] shadow-[0_0_20px_rgba(234,179,8,0.95),0_0_8px_rgba(255,255,255,0.8)] border border-white pointer-events-none transition-all duration-75"
-                        style={{ left: `${sliderPercent}%` }}
-                      />
-
-                      {/* Invisible Range Input for Full Touch/Mouse Interactivity */}
-                      <input
-                        type="range"
-                        min={MIN_SIZE}
-                        max={MAX_SIZE}
-                        step={1}
-                        value={value}
-                        onChange={(e) => handleDirectSizeChange(Number(e.target.value))}
-                        className="absolute inset-0 w-full h-8 -top-3 opacity-0 cursor-pointer z-10"
-                        aria-label="Property size slider"
-                      />
-                    </div>
-                  );
-                })()}
-
-                {/* Milestone Indicators below Slider */}
-                <div className="flex justify-between items-center w-full mt-3 select-none">
-                  {SIZE_MILESTONES.map((m, idx) => {
-                    const isFirst = idx === 0;
-                    const isLast = idx === SIZE_MILESTONES.length - 1;
-                    const isCurrent = value === m;
-                    return (
-                      <button
-                        key={m}
-                        type="button"
-                        onClick={() => handleDirectSizeChange(m)}
-                        className={`flex flex-col cursor-pointer transition-colors group ${
-                          isFirst
-                            ? "items-start text-left"
-                            : isLast
-                            ? "items-end text-right"
-                            : "items-center text-center"
-                        }`}
-                      >
-                        <span
-                          className={`text-xs sm:text-sm font-bold transition-colors ${
-                            isCurrent
-                              ? isLight
-                                ? "text-[#1B2E4B]"
-                                : "text-white"
-                              : isLight
-                              ? "text-gray-500 group-hover:text-[#1B2E4B]"
-                              : "text-gray-300 group-hover:text-white"
-                          }`}
-                        >
-                          {m} m²
-                        </span>
-                        <span
-                          className={`text-[10px] sm:text-xs font-semibold transition-colors mt-0.5 ${
-                            isCurrent
-                              ? "text-[#e5b842]"
-                              : isLight
-                              ? "text-gray-400 group-hover:text-gray-600"
-                              : "text-gray-500 group-hover:text-gray-400"
-                          }`}
-                        >
-                          {formatFt2(m)} ft²
-                        </span>
-                      </button>
-                    );
-                  })}
-                </div>
-              </div>
-
-              {/* Bottom Action Buttons: Increase Size (+5) & Decrease Size (-5) */}
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5 w-full mt-1">
-                {/* Increase Size Card */}
-                <button
-                  type="button"
-                  onClick={() => handleStepChange(5)}
-                  disabled={value >= MAX_SIZE}
-                  className={`rounded-2xl border p-4 sm:p-5 flex items-center gap-3.5 transition-all text-left cursor-pointer disabled:opacity-40 disabled:cursor-not-allowed group active:scale-[0.98] ${
-                    isLight
-                      ? "bg-white border-[#C5A059]/25 hover:border-[#e5b842] shadow-sm"
-                      : "bg-[#111726] border-white/5 hover:border-[#e5b842]/40"
-                  }`}
-                >
-                  <div
-                    className={`w-10 h-10 sm:w-11 sm:h-11 rounded-full flex items-center justify-center text-[#e5b842] group-hover:bg-[#e5b842] group-hover:text-black transition-colors shrink-0 ${
-                      isLight ? "bg-[#F6EEDC]" : "bg-[#1b2337]"
-                    }`}
-                  >
-                    <ArrowUp className="w-4 h-4 sm:w-5 sm:h-5 stroke-[2.5]" />
-                  </div>
-                  <div className="flex flex-col">
-                    <span
-                      className={`text-sm sm:text-base font-bold leading-tight ${
-                        isLight ? "text-[#1B2E4B]" : "text-white"
-                      }`}
-                    >
-                      {translate("propSizeUp" as TranslationKey) || "Increase Size"}
-                    </span>
-                    <span className={`text-xs mt-1 font-medium ${isLight ? "text-gray-500" : "text-gray-400"}`}>
-                      + 5 m²
-                    </span>
-                  </div>
-                </button>
-
-                {/* Decrease Size Card */}
-                <button
-                  type="button"
-                  onClick={() => handleStepChange(-5)}
-                  disabled={value <= MIN_SIZE}
-                  className={`rounded-2xl border p-4 sm:p-5 flex items-center gap-3.5 transition-all text-left cursor-pointer disabled:opacity-40 disabled:cursor-not-allowed group active:scale-[0.98] ${
-                    isLight
-                      ? "bg-white border-[#C5A059]/25 hover:border-[#e5b842] shadow-sm"
-                      : "bg-[#111726] border-white/5 hover:border-[#e5b842]/40"
-                  }`}
-                >
-                  <div
-                    className={`w-10 h-10 sm:w-11 sm:h-11 rounded-full flex items-center justify-center text-[#e5b842] group-hover:bg-[#e5b842] group-hover:text-black transition-colors shrink-0 ${
-                      isLight ? "bg-[#F6EEDC]" : "bg-[#1b2337]"
-                    }`}
-                  >
-                    <ArrowDown className="w-4 h-4 sm:w-5 sm:h-5 stroke-[2.5]" />
-                  </div>
-                  <div className="flex flex-col">
-                    <span
-                      className={`text-sm sm:text-base font-bold leading-tight ${
-                        isLight ? "text-[#1B2E4B]" : "text-white"
-                      }`}
-                    >
-                      {translate("propSizeDown" as TranslationKey) || "Decrease Size"}
-                    </span>
-                    <span className={`text-xs mt-1 font-medium ${isLight ? "text-gray-500" : "text-gray-400"}`}>
-                      - 5 m²
-                    </span>
-                  </div>
-                </button>
-              </div>
-            </div>
+            {/* Property Size Selector */}
+            {/* Property Size Selector */}
+            <PropertySizeSelector
+              value={value}
+              onChange={onChange}
+              isQuote={isQuote || quoteStatus}
+              theme={themeProp}
+              activeCategory={activeCategory}
+              selectableCategories={selectableCategories}
+              onCategoryChange={(cat) => {
+                setActiveCategoryId(cat.id);
+                onCategoryChange?.(cat);
+              }}
+            />
 
             
           </div>
+
+          <EstimatioMatrixBottom
+              activeCategory={activeCategory || null} 
+              isSanitizeService={isSanitizeService}
+              isYatch={isYachtSlug}
+              theme={isLight ? "light" : "dark"}
+            />
 
           {/* Disinfection & Deep Clean Selectable Cards */}
           {isSanitizeService && (
@@ -2711,13 +2427,8 @@ export function PropertyTypeSizeSelectorCommonFlowOfServices({
             theme={isLight ? "light" : "dark"}
         />)}
 
-        { (
-            <EstimatioMatrixBottom
-              activeCategory={activeCategory || null} 
-              isSanitizeService={isSanitizeService}
-              isYatch={isYachtSlug}
-              theme={isLight ? "light" : "dark"}
-        />)}
+        
+            
         
 
         {/* Services frequencies */}
@@ -2743,6 +2454,436 @@ export function PropertyTypeSizeSelectorCommonFlowOfServices({
   );
 }
 
+
+export interface PropertySizeSelectorProps {
+  value?: number;
+  onChange?: (val: number) => void;
+  isQuote?: boolean;
+  theme?: "dark" | "light" | string;
+  className?: string;
+  activeCategory?: PropertyCategory | null;
+  selectableCategories?: PropertyCategory[];
+  onCategoryChange?: (category: PropertyCategory) => void;
+}
+
+export function PropertySizeSelector({
+  value: controlledValue,
+  onChange,
+  isQuote = false,
+  theme: themeProp = "dark",
+  className = "",
+  activeCategory = null,
+  selectableCategories = [],
+  onCategoryChange,
+}: PropertySizeSelectorProps) {
+  const isLight = themeProp === "light";
+  const [internalValue, setInternalValue] = useState<number>(isQuote ? 20 : 225);
+  const value = controlledValue !== undefined ? controlledValue : internalValue;
+
+  const setValue = (newVal: number) => {
+    if (controlledValue === undefined) {
+      setInternalValue(newVal);
+    }
+    onChange?.(newVal);
+  };
+
+  const MIN_SIZE = 20;
+  const MAX_SIZE = isQuote ? 500000 : 500;
+  const SIZE_MILESTONES = isQuote
+    ? [20, 1000, 25000, 100000, 250000, 500000]
+    : [20, 50, 100, 200, 300, 500];
+
+  const [sizeUnit, setSizeUnit] = useState<"m2" | "ft2">("m2");
+
+  const sizeOptions = isQuote
+    ? [20, 50, 100, 250, 500, 1000, 2500, 5000, 10000, 25000, 50000, 100000, 250000, 500000]
+    : activeCategory
+    ? buildSizeOptions(activeCategory)
+    : [value];
+
+  const dropdownOptions = Array.from(
+    new Set([
+      ...sizeOptions.filter(
+        (s, i) => isQuote || s % DROPDOWN_SIZE_STEP === 0 || i === 0 || i === sizeOptions.length - 1,
+      ),
+      value,
+    ]),
+  ).sort((a, b) => a - b);
+
+  function getStepAmount(curr: number, isIncrease: boolean): number {
+    if (!isQuote) return isIncrease ? 1 : -1;
+    if (isIncrease) {
+      if (curr < 100) return 5;
+      if (curr < 1000) return 50;
+      if (curr < 10000) return 500;
+      if (curr < 100000) return 5000;
+      return 25000;
+    } else {
+      if (curr <= 100) return -5;
+      if (curr <= 1000) return -50;
+      if (curr <= 10000) return -500;
+      if (curr <= 100000) return -5000;
+      return -25000;
+    }
+  }
+
+  function handleStepChange(stepDelta?: number) {
+    const delta = stepDelta !== undefined ? stepDelta : getStepAmount(value, true);
+    const nextVal = Math.min(MAX_SIZE, Math.max(MIN_SIZE, value + delta));
+    if (nextVal === value) return;
+
+    if (!isQuote && selectableCategories.length > 0) {
+      const direction = delta > 0 ? "up" : "down";
+      const nextCat = findAppropriateCategory(nextVal, activeCategory?.id ?? null, selectableCategories, direction);
+      if (nextCat && nextCat.id !== activeCategory?.id) {
+        onCategoryChange?.(nextCat);
+      }
+    }
+    setValue(nextVal);
+  }
+
+  function handleDirectSizeChange(newVal: number) {
+    const clamped = Math.min(MAX_SIZE, Math.max(MIN_SIZE, newVal));
+    if (clamped === value) return;
+
+    if (!isQuote && selectableCategories.length > 0) {
+      const direction = clamped > value ? "up" : "down";
+      const nextCat = findAppropriateCategory(clamped, activeCategory?.id ?? null, selectableCategories, direction);
+      if (nextCat && nextCat.id !== activeCategory?.id) {
+        onCategoryChange?.(nextCat);
+      }
+    }
+    setValue(clamped);
+  }
+
+  const wheelContainerRef = useRef<HTMLDivElement>(null);
+  useEffect(() => {
+    const el = wheelContainerRef.current;
+    if (!el) return;
+    function onWheel(e: WheelEvent) {
+      e.preventDefault();
+      if (e.deltaY > 0) handleStepChange(getStepAmount(value, true));
+      else handleStepChange(getStepAmount(value, false));
+    }
+    el.addEventListener("wheel", onWheel, { passive: false });
+    return () => el.removeEventListener("wheel", onWheel);
+  });
+
+  const { translate } = useLanguage();
+
+  const bottomStep = isQuote
+    ? value >= 10000 ? 5000 : value >= 1000 ? 500 : 50
+    : 5;
+
+  return (
+    <div
+      ref={wheelContainerRef}
+      className={`flex flex-col w-full mt-8 rounded-[28px] p-6 sm:p-8 gap-6 shadow-2xl select-none border transition-all duration-300 ${
+        isLight
+          ? "bg-[#FBF9F4] border-[#C5A059]/30 text-[#1B2E4B]"
+          : "bg-[#0c121e] border-white/5 text-slate-100"
+      } ${className}`}
+    >
+      {/* Header: Title + Subtitle on Left, Unit Switcher Pill on Right */}
+      <div className="flex items-start justify-between w-full gap-4">
+        <div className="flex flex-col">
+          <h3
+            className={`font-serif text-2xl sm:text-3xl font-bold tracking-tight ${
+              isLight ? "text-[#1B2E4B]" : "text-white"
+            }`}
+          >
+            {translate("propSizeTitle") || "Property Size"}
+          </h3>
+          <p className={`text-xs sm:text-sm mt-1 ${isLight ? "text-gray-500" : "text-gray-400"}`}>
+            Select the total size of your property
+          </p>
+        </div>
+
+        {/* Unit Switcher Pill (m² / ft²) */}
+        <div
+          className={`p-1 rounded-full border flex items-center shrink-0 transition-colors ${
+            isLight ? "bg-[#EDE7DA] border-[#C5A059]/20" : "bg-[#141b2a] border-white/5"
+          }`}
+        >
+          <button
+            type="button"
+            onClick={() => setSizeUnit("m2")}
+            className={`px-3.5 py-1 rounded-full text-xs font-bold transition-all cursor-pointer ${
+              sizeUnit === "m2"
+                ? "bg-[#e5b842] text-black shadow-md"
+                : isLight
+                ? "text-gray-600 hover:text-black"
+                : "text-gray-400 hover:text-white"
+            }`}
+          >
+            m²
+          </button>
+          <button
+            type="button"
+            disabled
+            className={`px-3.5 py-1 rounded-full text-xs font-bold transition-all cursor-not-allowed ${
+              sizeUnit === "ft2"
+                ? "bg-[#e5b842] text-black shadow-md"
+                : isLight
+                ? "text-gray-600 hover:text-black"
+                : "text-gray-400 hover:text-white"
+            }`}
+          >
+            ft²
+          </button>
+        </div>
+      </div>
+
+      {/* Display & Quick-Control Card */}
+      <div
+        className={`w-full rounded-2xl p-4 sm:p-5 flex items-center justify-between gap-3 border transition-colors ${
+          isLight ? "bg-white border-[#C5A059]/25 shadow-sm" : "bg-[#111726] border-white/5"
+        }`}
+      >
+        {/* Left: House Icon & Size Values */}
+        <div className="flex items-center gap-3.5 sm:gap-4 min-w-0">
+          <div
+            className={`w-12 h-12 sm:w-14 sm:h-14 rounded-2xl flex items-center justify-center shrink-0 shadow-[0_0_15px_rgba(229,184,66,0.15)] border ${
+              isLight ? "bg-[#F6EEDC] border-[#C5A059]/40" : "bg-[#182033] border-[#e5b842]/30"
+            }`}
+          >
+            <Home className="w-6 h-6 sm:w-7 sm:h-7 text-[#e5b842]" />
+          </div>
+          <div className="flex flex-col min-w-0">
+            <span
+              className={`text-2xl sm:text-3xl font-bold tracking-tight leading-none truncate ${
+                isLight ? "text-[#1B2E4B]" : "text-white"
+              }`}
+            >
+              {sizeUnit === "m2" ? `${value.toLocaleString()} m²` : `${formatFt2(value)} ft²`}
+            </span>
+            <span className="text-xs sm:text-sm font-semibold text-[#e5b842] mt-1 truncate">
+              {sizeUnit === "m2" ? `${formatFt2(value)} ft²` : `${value.toLocaleString()} m²`}
+            </span>
+          </div>
+        </div>
+
+        {/* Right: Minus Button, Size Dropdown Pill, Plus Button */}
+        <div className="flex items-center gap-2 sm:gap-3 shrink-0">
+          {/* Minus button */}
+          <button
+            type="button"
+            onClick={() => handleStepChange(getStepAmount(value, false))}
+            disabled={value <= MIN_SIZE}
+            className={`w-10 h-10 sm:w-11 sm:h-11 rounded-full flex items-center justify-center font-bold text-lg cursor-pointer transition-all disabled:opacity-30 disabled:cursor-not-allowed shadow-md active:scale-95 ${
+              isLight
+                ? "bg-[#EDE7DA] hover:bg-[#dfd7c5] text-[#1B2E4B]"
+                : "bg-[#1c2438] hover:bg-[#25304a] text-white"
+            }`}
+            aria-label="Decrease size"
+          >
+            <Minus className={`w-4 h-4 sm:w-5 sm:h-5 ${isLight ? "text-[#1B2E4B]" : "text-white"}`} />
+          </button>
+
+          {/* Size Pill with integrated select */}
+          <div
+            className={`relative rounded-xl border transition-colors ${
+              isLight
+                ? "border-[#C5A059]/30 bg-[#F4EFE6] hover:border-[#C5A059]/60"
+                : "border-white/10 bg-[#161e31] hover:border-white/20"
+            }`}
+          >
+            <select
+              value={value}
+              onChange={(e) => {
+                const selectedVal = Number(e.target.value);
+                handleDirectSizeChange(selectedVal);
+              }}
+              className={`appearance-none px-3.5 py-2 sm:py-2.5 font-semibold text-xs sm:text-sm bg-transparent cursor-pointer focus:outline-none pr-8 ${
+                isLight ? "text-[#1B2E4B]" : "text-white"
+              }`}
+            >
+              {dropdownOptions.map((val) => (
+                <option
+                  key={val}
+                  value={val}
+                  className={isLight ? "bg-[#FBF9F4] text-[#1B2E4B]" : "bg-[#111726] text-white"}
+                >
+                  {sizeUnit === "m2" ? `${val.toLocaleString()} m²` : `${formatFt2(val)} ft²`}
+                </option>
+              ))}
+            </select>
+            <ChevronDown
+              className={`pointer-events-none absolute right-2.5 top-1/2 -translate-y-1/2 w-3.5 h-3.5 ${
+                isLight ? "text-gray-500" : "text-gray-400"
+              }`}
+            />
+          </div>
+
+          {/* Plus button */}
+          <button
+            type="button"
+            onClick={() => handleStepChange(getStepAmount(value, true))}
+            disabled={value >= MAX_SIZE}
+            className="w-10 h-10 sm:w-11 sm:h-11 rounded-full bg-[#e5b842] hover:bg-[#d4a732] text-black flex items-center justify-center font-bold text-lg cursor-pointer transition-all disabled:opacity-30 disabled:cursor-not-allowed shadow-[0_0_12px_rgba(229,184,66,0.35)] active:scale-95"
+            aria-label="Increase size"
+          >
+            <Plus className="w-4 h-4 sm:w-5 sm:h-5 text-black stroke-[3]" />
+          </button>
+        </div>
+      </div>
+
+      {/* Slider Track and Milestones */}
+      <div className="flex flex-col w-full px-1">
+        {/* Interactive Slider Bar */}
+        {(() => {
+          const sliderPercent = Math.min(100, Math.max(0, ((value - MIN_SIZE) / (MAX_SIZE - MIN_SIZE)) * 100));
+          return (
+            <div
+              className={`relative w-full h-1.5 rounded-full my-3 flex items-center ${
+                isLight ? "bg-[#E5DFD3]" : "bg-[#1b2438]"
+              }`}
+            >
+              {/* Active Gradient Track */}
+              <div
+                className="absolute top-0 left-0 h-full bg-gradient-to-r from-[#e5b842] to-[#f5d061] rounded-full"
+                style={{ width: `${sliderPercent}%` }}
+              />
+
+              {/* Glowing Thumb Handle */}
+              <div
+                className="absolute top-1/2 -translate-y-1/2 -translate-x-1/2 w-6 h-6 rounded-full bg-gradient-to-b from-[#fff8cb] via-[#e5b842] to-[#ab7c18] shadow-[0_0_20px_rgba(234,179,8,0.95),0_0_8px_rgba(255,255,255,0.8)] border border-white pointer-events-none transition-all duration-75"
+                style={{ left: `${sliderPercent}%` }}
+              />
+
+              {/* Invisible Range Input for Full Touch/Mouse Interactivity */}
+              <input
+                type="range"
+                min={MIN_SIZE}
+                max={MAX_SIZE}
+                step={isQuote ? 10 : 1}
+                value={value}
+                onChange={(e) => handleDirectSizeChange(Number(e.target.value))}
+                className="absolute inset-0 w-full h-8 -top-3 opacity-0 cursor-pointer z-10"
+                aria-label="Property size slider"
+              />
+            </div>
+          );
+        })()}
+
+        {/* Milestone Indicators below Slider */}
+        <div className="flex justify-between items-center w-full mt-3 select-none">
+          {SIZE_MILESTONES.map((m, idx) => {
+            const isFirst = idx === 0;
+            const isLast = idx === SIZE_MILESTONES.length - 1;
+            const isCurrent = value === m;
+            return (
+              <button
+                key={m}
+                type="button"
+                onClick={() => handleDirectSizeChange(m)}
+                className={`flex flex-col cursor-pointer transition-colors group ${
+                  isFirst
+                    ? "items-start text-left"
+                    : isLast
+                    ? "items-end text-right"
+                    : "items-center text-center"
+                }`}
+              >
+                <span
+                  className={`text-xs sm:text-sm font-bold transition-colors ${
+                    isCurrent
+                      ? isLight
+                        ? "text-[#1B2E4B]"
+                        : "text-white"
+                      : isLight
+                      ? "text-gray-500 group-hover:text-[#1B2E4B]"
+                      : "text-gray-300 group-hover:text-white"
+                  }`}
+                >
+                  {m.toLocaleString()} m²
+                </span>
+                <span
+                  className={`text-[10px] sm:text-xs font-semibold transition-colors mt-0.5 ${
+                    isCurrent
+                      ? "text-[#e5b842]"
+                      : isLight
+                      ? "text-gray-400 group-hover:text-gray-600"
+                      : "text-gray-500 group-hover:text-gray-400"
+                  }`}
+                >
+                  {formatFt2(m)} ft²
+                </span>
+              </button>
+            );
+          })}
+        </div>
+      </div>
+
+      {/* Bottom Action Buttons: Increase Size & Decrease Size */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5 w-full mt-1">
+        {/* Increase Size Card */}
+        <button
+          type="button"
+          onClick={() => handleStepChange(bottomStep)}
+          disabled={value >= MAX_SIZE}
+          className={`rounded-2xl border p-4 sm:p-5 flex items-center gap-3.5 transition-all text-left cursor-pointer disabled:opacity-40 disabled:cursor-not-allowed group active:scale-[0.98] ${
+            isLight
+              ? "bg-white border-[#C5A059]/25 hover:border-[#e5b842] shadow-sm"
+              : "bg-[#111726] border-white/5 hover:border-[#e5b842]/40"
+          }`}
+        >
+          <div
+            className={`w-10 h-10 sm:w-11 sm:h-11 rounded-full flex items-center justify-center text-[#e5b842] group-hover:bg-[#e5b842] group-hover:text-black transition-colors shrink-0 ${
+              isLight ? "bg-[#F6EEDC]" : "bg-[#1b2337]"
+            }`}
+          >
+            <ArrowUp className="w-4 h-4 sm:w-5 sm:h-5 stroke-[2.5]" />
+          </div>
+          <div className="flex flex-col">
+            <span
+              className={`text-sm sm:text-base font-bold leading-tight ${
+                isLight ? "text-[#1B2E4B]" : "text-white"
+              }`}
+            >
+              {translate("propSizeUp" as TranslationKey) || "Increase Size"}
+            </span>
+            <span className={`text-xs mt-1 font-medium ${isLight ? "text-gray-500" : "text-gray-400"}`}>
+              + {bottomStep.toLocaleString()} m²
+            </span>
+          </div>
+        </button>
+
+        {/* Decrease Size Card */}
+        <button
+          type="button"
+          onClick={() => handleStepChange(-bottomStep)}
+          disabled={value <= MIN_SIZE}
+          className={`rounded-2xl border p-4 sm:p-5 flex items-center gap-3.5 transition-all text-left cursor-pointer disabled:opacity-40 disabled:cursor-not-allowed group active:scale-[0.98] ${
+            isLight
+              ? "bg-white border-[#C5A059]/25 hover:border-[#e5b842] shadow-sm"
+              : "bg-[#111726] border-white/5 hover:border-[#e5b842]/40"
+          }`}
+        >
+          <div
+            className={`w-10 h-10 sm:w-11 sm:h-11 rounded-full flex items-center justify-center text-[#e5b842] group-hover:bg-[#e5b842] group-hover:text-black transition-colors shrink-0 ${
+              isLight ? "bg-[#F6EEDC]" : "bg-[#1b2337]"
+            }`}
+          >
+            <ArrowDown className="w-4 h-4 sm:w-5 sm:h-5 stroke-[2.5]" />
+          </div>
+          <div className="flex flex-col">
+            <span
+              className={`text-sm sm:text-base font-bold leading-tight ${
+                isLight ? "text-[#1B2E4B]" : "text-white"
+              }`}
+            >
+              {translate("propSizeDown" as TranslationKey) || "Decrease Size"}
+            </span>
+            <span className={`text-xs mt-1 font-medium ${isLight ? "text-gray-500" : "text-gray-400"}`}>
+              - {bottomStep.toLocaleString()} m²
+            </span>
+          </div>
+        </button>
+      </div>
+    </div>
+  );
+}
 
 export function EstimatioMatrixBottom({
   activeCategory,

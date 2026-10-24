@@ -43,10 +43,11 @@ export function PageHero({
   unitLabelKey,
   serviceSlug,
   theme = "dark",
+  isQuote
 }: {
   image: string;
   eyebrow?: string;
-  title: string;
+  title?: string;
   subtitle?: string;
   servicePrices?: ServicePriceEntry[];
   serviceId?: number;
@@ -56,6 +57,7 @@ export function PageHero({
   unitLabelKey?: TranslationKey;
   serviceSlug?: string;
   theme?: "dark" | "light";
+  isQuote?: boolean;
 }) {
   /** This deployment's fixed country (see CURRENT_COUNTRY) — no picker anymore now that each country is its own site. */
   const { country, countries } = useCountry();
@@ -113,7 +115,7 @@ export function PageHero({
       <div className="lg:min-h-[75vh] lg:max-h-[80vh] md:min-h-[45vh] md:max-h-[80vh] h-[90vh] w-full overflow-hidden">
         <Image
           src={image}
-          alt={title}
+          alt={title || ""}
           fill
           priority
           sizes="120vw"
@@ -121,7 +123,7 @@ export function PageHero({
         />
         {/* Dynamic Overlay containing the new centered text content */}
         <div className="absolute  inset-0  flex flex-col justify-end">
-          <DynamicHeroOverlay serviceSlug={serviceSlug} />
+          <DynamicHeroOverlay serviceSlug={serviceSlug}  isQuote={isQuote} />
           {/*  Price Selector Bar positioned cleanly */}
           {!hidePriceSelector && (
             <div className="px-4 z-20">

@@ -38,6 +38,7 @@ export interface BookingLogisticsSummaryProps {
   estimatedHours?: number;
   laborTotal?: number;
   advanceDeposit?: number;
+  isQuote?:boolean
 }
 
 export default function BookingLogisticsSummary({
@@ -60,6 +61,7 @@ export default function BookingLogisticsSummary({
   estimatedHours,
   laborTotal,
   advanceDeposit,
+  isQuote=false,
 }: BookingLogisticsSummaryProps) {
   const { translate } = useLanguage();
   const { symbol } = useCurrency();
@@ -105,7 +107,7 @@ export default function BookingLogisticsSummary({
     <div
       className={`rounded-2xl p-6 shadow-2xl border transition-all duration-300 ${
         isLight
-          ? "bg-white border-[#C5A059]/40 text-[#1B2E4B]"
+          ? "bg-white border-[#C5A059]/40 border-t-4 border-t-luxegold  text-[#1B2E4B]"
           : "bg-[#121e2d]/95 backdrop-blur-xl border-t-4 border-t-luxegold border-[#C5A059]/40 text-white"
       }`}
       
@@ -129,7 +131,7 @@ export default function BookingLogisticsSummary({
               isLight ? "text-[#1B2E4B]" : "text-white"
             }`}
           >
-            Booking Logistics
+            {isQuote ? "Inquiry Overview" : "Booking Logistics"}
           </h3>
         </div>
         <div
@@ -173,7 +175,8 @@ export default function BookingLogisticsSummary({
         ))}
 
         {/* Dynamic Upgrades / Add-ons Breakdown Section */}
-        <div className="flex flex-col space-y-1.5 pt-2 border-t border-white/5">
+        {!isQuote && 
+        (<div className="flex flex-col space-y-1.5 pt-2 border-t border-white/5">
           <div className="flex justify-between items-center">
             <span
               className={`text-xs font-medium tracking-wide ${
@@ -187,7 +190,7 @@ export default function BookingLogisticsSummary({
             </span>
           </div>
 
-          {selectedAddons && selectedAddons.length > 0 ? (
+          { selectedAddons && selectedAddons.length > 0 ? (
             <div className={`mt-1.5 pl-3 border-l-2 space-y-2.5 ${isLight ? "border-[#C5A059]/40" : "border-[#c9a858]/40"}`}>
               {selectedAddons.map((addon) => {
                 const uPrice = addon.unitPrice ?? addon.price ?? 0;
@@ -215,9 +218,9 @@ export default function BookingLogisticsSummary({
               {supplySource === "customer" ? "Client providing own equipment" : "No add-on items selected"}
             </span>
           )}
-        </div>
+        </div>)}
       </div>
-
+ 
       {/* Financial Estimates Breakdown */}
       <div className={`py-4 space-y-2 border-t text-xs ${isLight ? "border-gray-200 text-gray-600" : "border-white/10 text-gray-300"}`}>
         <div className="flex justify-between items-center">
@@ -258,7 +261,7 @@ export default function BookingLogisticsSummary({
       </div>
 
       {/* Advance Deposit Box */}
-      <div
+      {!isQuote && (<div
         className={`my-3 p-3.5 rounded-xl border flex items-center justify-between ${
           isLight
             ? "bg-amber-50/60 border-[#C5A059]/40 text-[#1B2E4B]"
@@ -276,7 +279,7 @@ export default function BookingLogisticsSummary({
         <span className={`font-serif font-bold text-base ${isLight ? "text-[#C5A059]" : "text-[#c9a858]"}`}>
           {currencySymbol}{deposit.toFixed(2)}
         </span>
-      </div>
+      </div>)}
 
       {/* Action Button */}
       <div className="pt-2">
@@ -289,7 +292,7 @@ export default function BookingLogisticsSummary({
           }`}
         >
           <CalendarDays className="w-4 h-4 stroke-[2.5]" />
-          BOOK APPOINTMENT NOW
+          {isQuote ? "Submit Quotation Request" : "BOOK APPOINTMENT NOW"}
         </button>
       </div>
 

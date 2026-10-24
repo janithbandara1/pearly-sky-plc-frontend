@@ -287,6 +287,7 @@ interface ServiceFrequencySelectorProps {
   value?: string | null;
   onSelectionChange?: (frequencyId: string | null) => void;
   theme?: string;
+  isQuote?: boolean;
 }
 
 export default function ServiceFrequencySelector({
@@ -294,9 +295,10 @@ export default function ServiceFrequencySelector({
   value = null,
   onSelectionChange,
   theme: themeProp = "dark",
+  isQuote = false,
 }: ServiceFrequencySelectorProps) {
-  const currentService =
-    cleaningServices.find((s) => s.slug === selectedServiceSlug) || cleaningServices[0];
+  const currentService = !isQuote ?
+    cleaningServices.find((s) => s.slug === selectedServiceSlug) : cleaningServices[0] || cleaningServices[0] ;
 
   const currentFrequencyId = value ?? "";
 
@@ -317,13 +319,13 @@ export default function ServiceFrequencySelector({
     >
       {/* Step Indicator Header */}
       <div className="mb-4 sm:mb-6">
-        <span
+        {!isQuote && (<span
           className={`text-[10px] sm:text-xs font-sans font-bold tracking-[0.2em] sm:tracking-[0.25em] uppercase ${
             isLight ? "text-[#A88238]" : "text-[#D9B75B]"
           }`}
         >
           Step 2 of 6
-        </span>
+        </span>)}
         <h2
           className={`text-xl md:text-2xl font-serif mt-1 font-normal tracking-wide leading-tight ${
             isLight ? "text-[#1B2E4B]" : "text-white"
@@ -336,7 +338,7 @@ export default function ServiceFrequencySelector({
       <div className={`border-t pt-5 sm:pt-8 ${isLight ? "border-gray-200" : "border-gray-800"}`}>
         {/* Responsive Grid: 1 col on mobile, 2 cols on small tablet, 4 cols on desktop */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 md:gap-5">
-          {currentService.frequencies.map((freq) => {
+          {currentService?.frequencies.map((freq) => {
             const isSelected = currentFrequencyId === freq.id;
 
             return (

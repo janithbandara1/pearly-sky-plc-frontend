@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useRef, useState, useEffect } from "react";
-import { UploadCloud, FileText, Loader2, RotateCw, X, ChevronDown } from "lucide-react";
+import { UploadCloud, FileText, Loader2, RotateCw, X, ChevronDown, User } from "lucide-react";
 import { useLanguage } from "@/lib/i18n/language-context";
 import { TranslationKey } from "@/lib/i18n/dictionaries/en";
 import { AddressPayload } from "@/lib/customers-api";
@@ -52,6 +52,7 @@ export interface CustomerContactsPreferenceProps {
   onHowGetInChange?: (val: string) => void;
   howHeard?: string;
   onHowHeardChange?: (val: string) => void;
+  isQuote?:boolean
 }
 
 const PREVIEWABLE_TYPES = new Set(["image/jpeg", "image/png", "image/webp"]);
@@ -102,6 +103,7 @@ export default function CustomerContactsPreference({
   onHowGetInChange,
   howHeard,
   onHowHeardChange,
+  isQuote=false,
 }: CustomerContactsPreferenceProps) {
   const { translate } = useLanguage();
   const fileInputRef = useRef<HTMLInputElement>(null);
@@ -222,14 +224,35 @@ export default function CustomerContactsPreference({
   return (
     <div className={`rounded-2xl p-6 sm:p-8 shadow-2xl border transition-all duration-300 ${containerClasses}`}>
       {/* Top Header */}
-      <div className={`pb-6 border-b ${dividerClasses}`}>
+      {isQuote ? 
+      (
+            <div className="flex items-center space-x-3.5 ">
+              <div className="w-10 h-10 rounded-xl bg-[#e5c158]/10 border border-[#e5c158]/30 flex items-center justify-center text-[#e5c158] shrink-0">
+                <User className="w-5 h-5" />
+              </div>
+            <div>
+              <h2
+                 className={`font-serif text-2xl font-bold tracking-tight ${
+                   isLight ? "text-slate-900" : "text-white"
+                 }`}
+                >
+                6 & 7. Contact & Location Details
+              </h2>
+              <p className={`text-xs ${isLight ? "text-slate-500" : "text-slate-400"}`}>
+                  Provide client info and property address across 27 global destinations
+              </p>
+            </div>
+            </div> )
+      : (<div className={`pb-6 border-b ${dividerClasses}`}>
         <span className={`text-[11px] font-bold tracking-[0.2em] uppercase block mb-2 ${stepLabelClasses}`}>
           {stepLabel}
         </span>
         <h2 className={`font-serif text-2xl sm:text-3xl font-medium tracking-tight ${titleClasses}`}>
           {title}
         </h2>
-      </div>
+      </div>)}
+
+
 
       {/* Preferences & Layout Upload */}
       <div className="pt-6 space-y-6">

@@ -238,12 +238,14 @@ export default function RoomSelector({
   onChange,
   serviceSlug,
   theme: themeProp = "dark",
+  isQuote=false,
 }: {
   /** Room key → selected count; a missing key means not added. */
   value: RoomCounts;
   onChange: (next: RoomCounts) => void;
   serviceSlug: string;
   theme?: string;
+  isQuote?: boolean;
 }) {
   const isLight = themeProp === "light";
 
