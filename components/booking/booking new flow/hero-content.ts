@@ -44,7 +44,7 @@ export const SERVICE_CONTENT_MAP: Record<string, ServiceHeroContent> = {
   },
   "high-security-property-care": {
     badgeText: "CLEARED VVIP SECURITY PROTOCOLS",
-    title: "High-Security Property Care",
+    title: "VIP & High-Security Property Cleaning",
     subtitle: '"Absolute Discretion: Elite Protection & Pristine Maintenance"',
     description: "Specialized cleaning and estate upkeep conducted by top-tier, security-cleared personnel bound by strict non-disclosure and confidentiality.",
   },

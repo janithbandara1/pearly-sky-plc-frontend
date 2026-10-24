@@ -1,21 +1,22 @@
 "use client";
 
 import { useEffect, useState, useRef, JSXElementConstructor } from "react";
-import { Check, 
-  ChevronDown, 
-  Sparkles, 
+import {
+  Check,
+  ChevronDown,
+  Sparkles,
   Home,
-   Minus,
-   Plus, 
-  ArrowUp, 
+  Minus,
+  Plus,
+  ArrowUp,
   ArrowDown,
-  Square, 
+  Square,
   Building,
   Building2,
   House,
   Castle,
   Crown,
-Briefcase,
+  Briefcase,
   Warehouse,
   Factory,
   Hospital,
@@ -26,7 +27,7 @@ Briefcase,
   Bus,
   Construction,
   Package,
-Ship,
+  Ship,
   Anchor,
   Sailboat,
   Compass,
@@ -35,7 +36,7 @@ Ship,
   LifeBuoy,
   Globe,
   Boxes,
-PartyPopper,
+  PartyPopper,
   Heart,
   GlassWater,
   Users,
@@ -61,10 +62,10 @@ PartyPopper,
   Lock,
   Gem,
   Trees,
-  
+
   Hammer,
   Cross,
-  
+
   Cog,
   KeyRound,
   FileLock2,
@@ -73,7 +74,7 @@ PartyPopper,
   Zap,
   SquareTerminal,
   LayoutGrid,
-  
+
   HousePlus,
   Sunset,
   Landmark,
@@ -82,7 +83,7 @@ PartyPopper,
   CalendarCheck2,
   BedDouble,
   CalendarRange,
-  
+
   HomeIcon,
   Globe2,
   HardHat,
@@ -91,7 +92,7 @@ PartyPopper,
   Timer,
   Maximize,
   Users2,
-  
+
   Medal,
   DraftingCompass,
   Sunrise,
@@ -105,8 +106,8 @@ PartyPopper,
   Maximize2,
   Clock,
   Calendar,
-  
-   } from "lucide-react";
+
+} from "lucide-react";
 
 import { YACHT_PROPERTY_TYPES } from "@/components/booking/Yatchpropertytypes";
 import { useLanguage } from "@/lib/i18n/language-context";
@@ -198,13 +199,13 @@ export const CATEGORY_LABEL_KEYS: Record<string, TranslationKey> = {
   "School": "propSchool",
   "Nursery": "propNursery",
   "Airport": "propAirport",
-  "Guest-Ready":"propGuestReady",
-  "Booking.com":"propBookingCom",
-  "Hotels":"propHotels",
-  "Serviced Apartments":"propServicedApartments",
-  "Guesthouses":"propGuesthouses",
-  "Holiday Rentals":"propHolidayRentals",
-  "Property Managers":"propPropertyManagers",
+  "Guest-Ready": "propGuestReady",
+  "Booking.com": "propBookingCom",
+  "Hotels": "propHotels",
+  "Serviced Apartments": "propServicedApartments",
+  "Guesthouses": "propGuesthouses",
+  "Holiday Rentals": "propHolidayRentals",
+  "Property Managers": "propPropertyManagers",
   "Holiday Home": "propHolidayHome",
   "Second Home": "propSecondHome",
   "Offices": "propOffices",
@@ -274,7 +275,583 @@ export const SANITIZE_OTHER_PROPERTY_CATEGORY: PropertyCategory = {
   max: 500,
   step: 1,
   locked: false,
-}; 
+};
+
+
+//no tabs just these categories,this categories on;y must display without tabs name residential ,industrial or commmercial 
+//slug is "high-security-property-care"
+export const HIGHT_SECURITY_CATEGORYIES: PropertyCategory[] = [
+  {
+    id: "studio",
+    label: "propStudio",
+    icon: <Building size={20} color={GOLD_COLOR} />,
+    min: 20,
+    max: 40,
+    step: 1,
+    locked: false,
+  },
+  {
+    id: "apartment",
+    label: "propApartment",
+    icon: <Building2 size={20} color={GOLD_COLOR} />,
+    min: 45,
+    max: 120,
+    step: 1,
+    locked: false,
+  },
+  {
+    id: "townhouse",
+    label: "propTownhouse",
+    icon: <Home size={20} color={GOLD_COLOR} />,
+    min: 90,
+    max: 220,
+    step: 1,
+    locked: false,
+  },
+  {
+    id: "home",
+    label: "propHome",
+    icon: <House size={20} color={GOLD_COLOR} />,
+    min: 100,
+    max: 350,
+    step: 1,
+    locked: false,
+  },
+  {
+    id: "penthouse",
+    label: "propPenthouse",
+    icon: <Castle size={20} color={GOLD_COLOR} />,
+    min: 120,
+    max: 400,
+    step: 1,
+    locked: false,
+  },
+  {
+    id: "luxury-villa",
+    label: "propLuxuryVilla",
+    icon: <Crown size={20} color={GOLD_COLOR} />,
+    min: 200,
+    max: 500,
+    step: 1,
+    locked: false,
+  },
+  {
+    id: "offices",
+    label: "propOffices",
+    icon: <Briefcase size={20} color={GOLD_COLOR} />,
+    min: 50,
+    max: 500,
+    step: 1,
+    locked: false
+  },
+  {
+    id: "vip-building",
+    label: "propVipBuilding",
+    icon: <Castle size={20} color={GOLD_COLOR} />,
+    min: 120,
+    max: 400,
+    step: 1,
+    locked: false
+  },
+]
+
+
+
+
+/**categories for service of Yatch
+ * Types are yatch claening and Passenger Ship Cleaning
+ * 
+ */
+//service=>luxury-yacht-cleaning,display two categoies as "yatch-cleaning","passenger-ship-cleaning"
+const YACHT_CLEANING_CATEGORIES: PropertyCategory[] = [
+  {
+    id: "small-yacht",
+    label: "propSmallYacht",
+    icon: <Ship size={20} color={GOLD_COLOR} />,
+    min: 20,
+    max: 500,
+    step: 5,
+    locked: false
+  },
+  {
+    id: "motor-yacht",
+    label: "propMotorYacht",
+    icon: <Anchor size={20} color={GOLD_COLOR} />,
+    min: 20,
+    max: 500,
+    step: 5,
+    locked: false
+  },
+  {
+    id: "sailing-yacht",
+    label: "propSailingYacht",
+    icon: <Sailboat size={20} color={GOLD_COLOR} />,
+    min: 20,
+    max: 500,
+    step: 5,
+    locked: false
+  },
+  {
+    id: "luxury-superyacht",
+    label: "propLuxurySuperyacht",
+    icon: <Crown size={20} color={GOLD_COLOR} />,
+    min: 20,
+    max: 500,
+    step: 5,
+    locked: false
+  },
+  {
+    id: "mega-yacht",
+    label: "propMegaYacht",
+    icon: <Compass size={20} color={GOLD_COLOR} />,
+    min: 20,
+    max: 500,
+    step: 5,
+    locked: false
+  },
+];
+
+const PASSENGER_SHIP_CLEANING_CATEGORIES: PropertyCategory[] = [
+  {
+    id: "cruise-ships",
+    label: "propCruiseShips",
+    icon: <Waves size={20} color={GOLD_COLOR} />,
+    min: 20,
+    max: 500,
+    step: 5,
+    locked: false
+  },
+  {
+    id: "passenger-ferries",
+    label: "propPassengerFerries",
+    icon: <Navigation size={20} color={GOLD_COLOR} />,
+    min: 20,
+    max: 500,
+    step: 5,
+    locked: false
+  },
+  {
+    id: "river-cruise-ships",
+    label: "propRiverCruiseShips",
+    icon: <LifeBuoy size={20} color={GOLD_COLOR} />,
+    min: 20,
+    max: 500,
+    step: 5,
+    locked: false
+  },
+  {
+    id: "expedition-ships",
+    label: "propExpeditionShips",
+    icon: <Globe size={20} color={GOLD_COLOR} />,
+    min: 20,
+    max: 500,
+    step: 5,
+    locked: false
+  },
+  {
+    id: "commercial-cargo-ships",
+    label: "propCommercialCargoShips",
+    icon: <Boxes size={20} color={GOLD_COLOR} />,
+    min: 20,
+    max: 500,
+    step: 5,
+    locked: false
+  },
+];
+
+
+
+
+
+//no category switching 
+//just only these categories must diplay
+//slug is "commercial-office-cleaning"
+const COMMERCIAL_AND_OFFICE_CLEANING_PROPERTIES: PropertyCategory[] = [
+  {
+    id: "Micro-Office",
+    label: "propMicroOffice",
+    icon: <Boxes size={20} color={GOLD_COLOR} />,
+    min: 20,
+    max: 500,
+    step: 5,
+    locked: false
+  },
+  {
+    id: "Office",
+    label: "propOffice",
+    icon: <Boxes size={20} color={GOLD_COLOR} />,
+    min: 20,
+    max: 500,
+    step: 5,
+    locked: false,
+  },
+  {
+    id: "Coworking-Space",
+    label: "propCoWorkingSpace",
+    icon: <Boxes size={20} color={GOLD_COLOR} />,
+    min: 20,
+    max: 500,
+    step: 5,
+    locked: false,
+  },
+  {
+    id: "Retail-Shop",
+    label: "propRetailShop",
+    icon: <Boxes size={20} color={GOLD_COLOR} />,
+    min: 20,
+    max: 500,
+    step: 5,
+    locked: false,
+  },
+  {
+    id: "Shopping Centre",
+    label: "propShoppingCentre",
+    icon: <Boxes size={20} color={GOLD_COLOR} />,
+    min: 20,
+    max: 500,
+    step: 5,
+    locked: false,
+  },
+  {
+    id: "Supermarket / Grocery Store",
+    label: "propSupermarketGroceryStore",
+    icon: <Boxes size={20} color={GOLD_COLOR} />,
+    min: 20,
+    max: 500,
+    step: 5,
+    locked: false,
+  },
+  {
+    id: "Restaurant",
+    label: "propRestaurant",
+    icon: <Boxes size={20} color={GOLD_COLOR} />,
+    min: 20,
+    max: 500,
+    step: 5,
+    locked: false,
+  },
+  {
+    id: "Café",
+    label: "propCafe",
+    icon: <Boxes size={20} color={GOLD_COLOR} />,
+    min: 20,
+    max: 500,
+    step: 5,
+    locked: false,
+  },
+  {
+    id: "Hotel",
+    label: "propHotel",
+    icon: <Boxes size={20} color={GOLD_COLOR} />,
+    min: 20,
+    max: 500,
+    step: 5,
+    locked: false,
+  },
+  {
+    id: "Gym / Fitness Centre",
+    label: "propGymFitnessCentre",
+    icon: <Boxes size={20} color={GOLD_COLOR} />,
+    min: 20,
+    max: 500,
+    step: 5,
+    locked: false,
+  },
+  {
+    id: "Medical Clinic",
+    label: "propMedicalClinic",
+    icon: <Boxes size={20} color={GOLD_COLOR} />,
+    min: 20,
+    max: 500,
+    step: 5,
+    locked: false,
+  },
+  {
+    id: "Beauty Salon / Spa",
+    label: "propBeautySalonSpa",
+    icon: <Boxes size={20} color={GOLD_COLOR} />,
+    min: 20,
+    max: 500,
+    step: 5,
+    locked: false,
+  },
+  {
+    id: "Showroom",
+    label: "propShowroom",
+    icon: <Boxes size={20} color={GOLD_COLOR} />,
+    min: 20,
+    max: 500,
+    step: 5,
+    locked: false,
+  },
+  {
+    id: "Airport",
+    label: "propAirport",
+    icon: <Boxes size={20} color={GOLD_COLOR} />,
+    min: 20,
+    max: 500,
+    step: 5,
+    locked: false,
+  },
+  {
+    id: "Bank / Financial Office",
+    label: "propBankFinancialOffice",
+    icon: <Boxes size={20} color={GOLD_COLOR} />,
+    min: 20,
+    max: 500,
+    step: 5,
+    locked: false,
+  },
+  {
+    id: "School / Nursery",
+    label: "propSchoolNursery",
+    icon: <Boxes size={20} color={GOLD_COLOR} />,
+    min: 20,
+    max: 500,
+    step: 5,
+    locked: false,
+  },
+  {
+    id: "Warehouse",
+    label: "propWarehouse",
+    icon: <Boxes size={20} color={GOLD_COLOR} />,
+    min: 20,
+    max: 500,
+    step: 5,
+    locked: false,
+  },
+  {
+    id: "Distribution Centre",
+    label: "propDistributionCentre",
+    icon: <Boxes size={20} color={GOLD_COLOR} />,
+    min: 20,
+    max: 500,
+    step: 5,
+    locked: false,
+  },
+  {
+    id: "Factory",
+    label: "propFactory",
+    icon: <Boxes size={20} color={GOLD_COLOR} />,
+    min: 20,
+    max: 500,
+    step: 5,
+    locked: false,
+  },
+  {
+    id: "Hospital",
+    label: "propHospital",
+    icon: <Boxes size={20} color={GOLD_COLOR} />,
+    min: 20,
+    max: 500,
+    step: 5,
+    locked: false,
+  },
+  {
+    id: "Other Commercial Property",
+    label: "propOtherCommercialProperty",
+    icon: <Boxes size={20} color={GOLD_COLOR} />,
+    min: 20,
+    max: 500,
+    step: 5,
+    locked: false,
+  },
+]
+
+
+//steam cleaning must also has no tabs just only these categories must diplay
+//service slug is "steam-cleaning
+const STEAM_CLEANING_PROPERTIES: PropertyCategory[] = [
+  {
+    id: "Micro-Office",
+    label: "propMicroOffice",
+    icon: <Boxes size={20} color={GOLD_COLOR} />,
+    min: 20,
+    max: 500,
+    step: 5,
+    locked: false
+  },
+  {
+    id: "Office",
+    label: "propOffice",
+    icon: <Boxes size={20} color={GOLD_COLOR} />,
+    min: 20,
+    max: 500,
+    step: 5,
+    locked: false,
+  },
+  {
+    id: "Coworking-Space",
+    label: "propCoWorkingSpace",
+    icon: <Boxes size={20} color={GOLD_COLOR} />,
+    min: 20,
+    max: 500,
+    step: 5,
+    locked: false,
+  },
+  {
+    id: "Retail-Shop",
+    label: "propRetailShop",
+    icon: <Boxes size={20} color={GOLD_COLOR} />,
+    min: 20,
+    max: 500,
+    step: 5,
+    locked: false,
+  },
+  {
+    id: "Shopping Centre",
+    label: "propShoppingCentre",
+    icon: <Boxes size={20} color={GOLD_COLOR} />,
+    min: 20,
+    max: 500,
+    step: 5,
+    locked: false,
+  },
+  {
+    id: "Supermarket / Grocery Store",
+    label: "propSupermarketGroceryStore",
+    icon: <Boxes size={20} color={GOLD_COLOR} />,
+    min: 20,
+    max: 500,
+    step: 5,
+    locked: false,
+  },
+  {
+    id: "Restaurant",
+    label: "propRestaurant",
+    icon: <Boxes size={20} color={GOLD_COLOR} />,
+    min: 20,
+    max: 500,
+    step: 5,
+    locked: false,
+  },
+  {
+    id: "Café",
+    label: "propCafe",
+    icon: <Boxes size={20} color={GOLD_COLOR} />,
+    min: 20,
+    max: 500,
+    step: 5,
+    locked: false,
+  },
+  {
+    id: "Hotel",
+    label: "propHotel",
+    icon: <Boxes size={20} color={GOLD_COLOR} />,
+    min: 20,
+    max: 500,
+    step: 5,
+    locked: false,
+  },
+  {
+    id: "Gym / Fitness Centre",
+    label: "propGymFitnessCentre",
+    icon: <Boxes size={20} color={GOLD_COLOR} />,
+    min: 20,
+    max: 500,
+    step: 5,
+    locked: false,
+  },
+  {
+    id: "Medical Clinic",
+    label: "propMedicalClinic",
+    icon: <Boxes size={20} color={GOLD_COLOR} />,
+    min: 20,
+    max: 500,
+    step: 5,
+    locked: false,
+  },
+  {
+    id: "Beauty Salon / Spa",
+    label: "propBeautySalonSpa",
+    icon: <Boxes size={20} color={GOLD_COLOR} />,
+    min: 20,
+    max: 500,
+    step: 5,
+    locked: false,
+  },
+  {
+    id: "Showroom",
+    label: "propShowroom",
+    icon: <Boxes size={20} color={GOLD_COLOR} />,
+    min: 20,
+    max: 500,
+    step: 5,
+    locked: false,
+  },
+  {
+    id: "Airport",
+    label: "propAirport",
+    icon: <Boxes size={20} color={GOLD_COLOR} />,
+    min: 20,
+    max: 500,
+    step: 5,
+    locked: false,
+  },
+  {
+    id: "Bank / Financial Office",
+    label: "propBankFinancialOffice",
+    icon: <Boxes size={20} color={GOLD_COLOR} />,
+    min: 20,
+    max: 500,
+    step: 5,
+    locked: false,
+  },
+  {
+    id: "School / Nursery",
+    label: "propSchoolNursery",
+    icon: <Boxes size={20} color={GOLD_COLOR} />,
+    min: 20,
+    max: 500,
+    step: 5,
+    locked: false,
+  },
+  {
+    id: "Warehouse",
+    label: "propWarehouse",
+    icon: <Boxes size={20} color={GOLD_COLOR} />,
+    min: 20,
+    max: 500,
+    step: 5,
+    locked: false,
+  },
+  {
+    id: "Distribution Centre",
+    label: "propDistributionCentre",
+    icon: <Boxes size={20} color={GOLD_COLOR} />,
+    min: 20,
+    max: 500,
+    step: 5,
+    locked: false,
+  },
+  {
+    id: "Factory",
+    label: "propFactory",
+    icon: <Boxes size={20} color={GOLD_COLOR} />,
+    min: 20,
+    max: 500,
+    step: 5,
+    locked: false,
+  },
+  {
+    id: "Hospital",
+    label: "propHospital",
+    icon: <Boxes size={20} color={GOLD_COLOR} />,
+    min: 20,
+    max: 500,
+    step: 5,
+    locked: false,
+  },
+  {
+    id: "Other Commercial Property",
+    label: "propOtherCommercialProperty",
+    icon: <Boxes size={20} color={GOLD_COLOR} />,
+    min: 20,
+    max: 500,
+    step: 5,
+    locked: false,
+  },
+]
 
 export const SANITIZE_RESIDENTIAL_CATEGORYIES: PropertyCategory[] = [
   {
@@ -335,587 +912,80 @@ export const SANITIZE_RESIDENTIAL_CATEGORYIES: PropertyCategory[] = [
 ];
 
 export const SANITIZE_INDUSTRIAL_CATEGORYIES: PropertyCategory[] = [
-  { 
-    id: "offices", 
-    label: "propOffices", 
-    icon: <Briefcase size={20} color={GOLD_COLOR} />, 
-    min: 50, 
-    max: 500, 
-    step: 1, 
-    locked: false 
-  },
-  { 
-    id: "warehouses", 
-    label: "propWarehouses", 
-    icon: <Warehouse size={20} color={GOLD_COLOR} />, 
-    min: 200, 
-    max: 500, 
-    step: 1, 
-    locked: false 
-  },
-  { 
-    id: "factories", 
-    label: "propFactories", 
-    icon: <Factory size={20} color={GOLD_COLOR} />, 
-    min: 250, 
-    max: 500, 
-    step: 1, 
-    locked: false 
-  },
-  { 
-    id: "healthcare", 
-    label: "propHealthcare", 
-    icon: <Hospital size={20} color={GOLD_COLOR} />, 
-    min: 50, 
-    max: 500, 
-    step: 1, 
-    locked: false 
-  },
-  { 
-    id: "hotels", 
-    label: "propHotels", 
-    icon: <Hotel size={20} color={GOLD_COLOR} />, 
-    min: 250, 
-    max: 500, 
-    step: 1, 
-    locked: false 
-  },
-  { 
-    id: "restaurants", 
-    label: "propRestaurants", 
-    icon: <Utensils size={20} color={GOLD_COLOR} />, 
-    min: 60, 
-    max: 300, 
-    step: 1, 
-    locked: false 
-  },
-  { 
-    id: "schools", 
-    label: "propSchools", 
-    icon: <School size={20} color={GOLD_COLOR} />, 
-    min: 300, 
-    max: 500, 
-    step: 1, 
-    locked: false 
-  },
-  { 
-    id: "retail", 
-    label: "propRetail", 
-    icon: <Store size={20} color={GOLD_COLOR} />, 
-    min: 25, 
-    max: 500, 
-    step: 1, 
-    locked: false 
-  },
-  { 
-    id: "transport", 
-    label: "propTransport", 
-    icon: <Bus size={20} color={GOLD_COLOR} />, 
-    min: 100, 
-    max: 500, 
-    step: 1, 
-    locked: false 
-  },
-  { 
-    id: "construction-sites", 
-    label: "propConstructionSites", 
-    icon: <Construction size={20} color={GOLD_COLOR} />, 
-    min: 100, 
-    max: 500, 
-    step: 1, 
-    locked: false 
-  },
-  { 
-    id: "otheri", 
-    label: "propOther", 
-    icon: <Package size={20} color={GOLD_COLOR} className="bg-gray-800" />, 
-    min: 20, 
-    max: 500, 
-    step: 1, 
-    locked: false 
-  }
+  ...STEAM_CLEANING_PROPERTIES
 ];
 
 
-/**categories for service of Yatch
- * Types are yatch claening and Passenger Ship Cleaning
- * 
- */
-//service=>luxury-yacht-cleaning,display two categoies as "yatch-cleaning","passenger-ship-cleaning"
-const YACHT_CLEANING_CATEGORIES: PropertyCategory[] = [
-  { 
-    id: "small-yacht", 
-    label: "propSmallYacht", 
-    icon: <Ship size={20} color={GOLD_COLOR} />, 
-    min: 20, 
-    max: 500, 
-    step: 5, 
-    locked: false 
-  },
-  { 
-    id: "motor-yacht", 
-    label: "propMotorYacht", 
-    icon: <Anchor size={20} color={GOLD_COLOR} />, 
-    min: 20, 
-    max: 500, 
-    step: 5, 
-    locked: false 
-  },
-  { 
-    id: "sailing-yacht", 
-    label: "propSailingYacht", 
-    icon: <Sailboat size={20} color={GOLD_COLOR} />, 
-    min: 20, 
-    max: 500, 
-    step: 5, 
-    locked: false 
-  },
-  { 
-    id: "luxury-superyacht", 
-    label: "propLuxurySuperyacht", 
-    icon: <Crown size={20} color={GOLD_COLOR} />, 
-    min: 20, 
-    max: 500, 
-    step: 5, 
-    locked: false 
-  },
-  { 
-    id: "mega-yacht", 
-    label: "propMegaYacht", 
-    icon: <Compass size={20} color={GOLD_COLOR} />, 
-    min: 20, 
-    max: 500, 
-    step: 5, 
-    locked: false 
-  },
-];
-
-const PASSENGER_SHIP_CLEANING_CATEGORIES: PropertyCategory[] = [
-  { 
-    id: "cruise-ships", 
-    label: "propCruiseShips", 
-    icon: <Waves size={20} color={GOLD_COLOR} />, 
-    min: 20, 
-    max: 500, 
-    step: 5, 
-    locked: false 
-  },
-  { 
-    id: "passenger-ferries", 
-    label: "propPassengerFerries", 
-    icon: <Navigation size={20} color={GOLD_COLOR} />, 
-    min: 20, 
-    max: 500, 
-    step: 5, 
-    locked: false 
-  },
-  { 
-    id: "river-cruise-ships", 
-    label: "propRiverCruiseShips", 
-    icon: <LifeBuoy size={20} color={GOLD_COLOR} />, 
-    min: 20, 
-    max: 500, 
-    step: 5, 
-    locked: false 
-  },
-  { 
-    id: "expedition-ships", 
-    label: "propExpeditionShips", 
-    icon: <Globe size={20} color={GOLD_COLOR} />, 
-    min: 20, 
-    max: 500, 
-    step: 5, 
-    locked: false 
-  },
-  { 
-    id: "commercial-cargo-ships", 
-    label: "propCommercialCargoShips", 
-    icon: <Boxes size={20} color={GOLD_COLOR} />, 
-    min: 20, 
-    max: 500, 
-    step: 5, 
-    locked: false 
-  },
-];
-
-
-/**Post event cleaning categories
- * PRIVATE_SOCIAL_EVENTS and VIP & Corporate Events
- */
-//service=>post-event-cleaning,display two categoies as "private-social-events","vip-coporate-events"
-const PRIVATE_SOCIAL_EVENTS: PropertyCategory[] = [
+//slug is post-event-cleaning
+//no tabs,just these categories onbly
+const POST_EVENT_CLEANING_PROPERTIES: PropertyCategory[] = [
+  { id: "studio", label: "propStudio", icon: <SquareTerminal size={20} color={GOLD_COLOR} />, min: 20, max: 40, step: 1, locked: false },
+  { id: "apartment", label: "propApartment", icon: <LayoutGrid size={20} color={GOLD_COLOR} />, min: 45, max: 120, step: 1, locked: false },
+  { id: "townhouse", label: "propTownhouse", icon: <Home size={20} color={GOLD_COLOR} />, min: 90, max: 220, step: 1, locked: false },
+  { id: "home", label: "propHome", icon: <HousePlus size={20} color={GOLD_COLOR} />, min: 100, max: 350, step: 1, locked: false },
+  { id: "penthouse", label: "propPenthouse", icon: <Sunset size={20} color={GOLD_COLOR} />, min: 120, max: 400, step: 1, locked: false },
   {
-    id: "birthday-parties",
-    label: "birthday_parties",
-    icon: <PartyPopper size={20} color={GOLD_COLOR} />,
-    min: 20,
-    max: 500,
-    step: 1,
-    locked: false
-  },
-  {
-    id: "wedding-events",
-    label: "wedding_events",
-    icon: <Heart size={20} color={GOLD_COLOR} />,
-    min: 20,
-    max: 500,
-    step: 1,
-    locked: false
-  },
-  {
-    id: "anniversary-events",
-    label: "anniversary_events",
-    icon: <GlassWater size={20} color={GOLD_COLOR} />,
-    min: 20,
-    max: 500,
-    step: 1,
-    locked: false
-  },
-  {
-    id: "engagement-parties",
-    label: "engagement_parties",
-    icon: <Sparkles size={20} color={GOLD_COLOR} />,
-    min: 20,
-    max: 500,
-    step: 1,
-    locked: false
-  },
-  {
-    id: "family-celebrations",
-    label: "family_celebrations",
-    icon: <Users size={20} color={GOLD_COLOR} />,
-    min: 20,
-    max: 500,
-    step: 1,
-    locked: false
-  },
-  {
-    id: "graduation-parties",
-    label: "graduation_parties",
-    icon: <GraduationCap size={20} color={GOLD_COLOR} />,
-    min: 20,
-    max: 500,
-    step: 1,
-    locked: false
-  },
-  {
-    id: "dinner-parties",
-    label: "dinner_parties",
-    icon: <Utensils size={20} color={GOLD_COLOR} />,
-    min: 20,
-    max: 500,
-    step: 1,
-    locked: false
-  },
-  {
-    id: "holiday-parties",
-    label: "holiday_parties",
-    icon: <Gift size={20} color={GOLD_COLOR} />,
-    min: 20,
-    max: 500,
-    step: 1,
-    locked: false
-  },
-  {
-    id: "private-gatherings",
-    label: "private_gatherings",
-    icon: <Wine size={20} color={GOLD_COLOR} />,
-    min: 20,
-    max: 500,
-    step: 1,
-    locked: false
-  },
-  {
-    id: "luxury-parties",
-    label: "luxury_parties",
-    icon: <Star size={20} color={GOLD_COLOR} />,
-    min: 20,
-    max: 500,
-    step: 1,
-    locked: false
-  }
-];
-
-const VIP_AND_COPORATE_EVENTS: PropertyCategory[] = [
-  {
-    id: "vip-events",
-    label: "vip_events",
-    icon: <Award size={20} color={GOLD_COLOR} />,
-    min: 20,
-    max: 500,
-    step: 1,
-    locked: false
-  },
-  {
-    id: "executive-events",
-    label: "executive_events",
-    icon: <UserCheck size={20} color={GOLD_COLOR} />,
-    min: 20,
-    max: 500,
-    step: 1,
-    locked: false
-  },
-  {
-    id: "corporate-events",
-    label: "corporate_events",
-    icon: <Briefcase size={20} color={GOLD_COLOR} />,
-    min: 20,
-    max: 500,
-    step: 1,
-    locked: false
-  },
-  {
-    id: "gala-events",
-    label: "gala_events",
-    icon: <PartyPopper size={20} color={GOLD_COLOR} />,
-    min: 20,
-    max: 500,
-    step: 1,
-    locked: false
-  },
-  {
-    id: "red-carpet-events",
-    label: "red_carpet_events",
-    icon: <Ticket size={20} color={GOLD_COLOR} />,
-    min: 20,
-    max: 500,
-    step: 1,
-    locked: false
-  },
-  {
-    id: "product-launches",
-    label: "product_launches",
-    icon: <Rocket size={20} color={GOLD_COLOR} />,
-    min: 20,
-    max: 500,
-    step: 1,
-    locked: false
-  },
-  {
-    id: "award-ceremonies",
-    label: "award_ceremonies",
-    icon: <Trophy size={20} color={GOLD_COLOR} />,
-    min: 20,
-    max: 500,
-    step: 1,
-    locked: false
-  },
-  {
-    id: "conference-events",
-    label: "conference_events",
-    icon: <BarChart3 size={20} color={GOLD_COLOR} />,
-    min: 20,
-    max: 500,
-    step: 1,
-    locked: false
-  },
-  {
-    id: "charity-events",
-    label: "charity_events",
-    icon: <Handshake size={20} color={GOLD_COLOR} />,
-    min: 20,
-    max: 500,
-    step: 1,
-    locked: false
-  },
-  {
-    id: "high-profile-events",
-    label: "high_profile_events",
+    id: "luxury-villa",
+    label: "propLuxuryVilla",
     icon: <Crown size={20} color={GOLD_COLOR} />,
-    min: 20,
+    min: 200,
     max: 500,
     step: 1,
-    locked: false
-  }
-];
+    locked: false,
+  },
+  { id: "holiday-home", label: "propHolidayHome", icon: <Palmtree size={20} color={GOLD_COLOR} />, min: 60, max: 400, step: 1, locked: false },
+  { id: "holiday_rentals", label: "propHolidayRentals", icon: <Globe2 size={20} color={GOLD_COLOR} />, min: 200, max: 500, step: 1, locked: false },
 
-/**Commercial & Office Cleaning Services,
- * Commercial Cleaning
-    Office Cleaning
- */
+  {
+    id: "Office",
+    label: "propOffice",
+    icon: <Boxes size={20} color={GOLD_COLOR} />,
+    min: 20,
+    max: 500,
+    step: 5,
+    locked: false,
+  },
+  {
+    id: "Hotel",
+    label: "propHotel",
+    icon: <Boxes size={20} color={GOLD_COLOR} />,
+    min: 20,
+    max: 500,
+    step: 5,
+    locked: false,
+  },
+  {
+    id: "Restaurant / Café",
+    label: "propRestaurantCafe",
+    icon: <Trees size={20} color={GOLD_COLOR} />,
+    min: 20,
+    max: 500,
+    step: 1,
+    locked: false
+  },
+  {
+    id: "Banquet Hall",
+    label: "propBanquetHall",
+    icon: <Trees size={20} color={GOLD_COLOR} />,
+    min: 20,
+    max: 500,
+    step: 1,
+    locked: false
+  },
+  {
+    id: "Conference Centre",
+    label: "propConferenceCentre",
+    icon: <Trees size={20} color={GOLD_COLOR} />,
+    min: 20,
+    max: 500,
+    step: 1,
+    locked: false
+  },
 
-//service= commercial-office-cleaning,display two categoies as "commercial-cleaning","office-cleaning"
-const COMMERCIAL_AND_OFFICE_CLEANING_CATEGORIES: PropertyCategory[] = [
   {
-    id: "commercial-cleaning",
-    label: "commercial_cleaning",
-    icon: <Building2 size={20} color={GOLD_COLOR} />,
-    min: 20,
-    max: 500,
-    step: 1,
-    locked: false
-  },
-  {
-    id: "high-security-cleaning",
-    label: "high_security_cleaning",
-    icon: <ShieldCheck size={20} color={GOLD_COLOR} />,
-    min: 20,
-    max: 500,
-    step: 1,
-    locked: false
-  },
-  {
-    id: "industrial-cleaning",
-    label: "industrial_cleaning",
-    icon: <Factory size={20} color={GOLD_COLOR} />,
-    min: 20,
-    max: 500,
-    step: 1,
-    locked: false
-  },
-  {
-    id: "medical-cleaning",
-    label: "medical_cleaning",
-    icon: <Hospital size={20} color={GOLD_COLOR} />,
-    min: 20,
-    max: 500,
-    step: 1,
-    locked: false
-  },
-  {
-    id: "post-construction-cleaning",
-    label: "post_construction_cleaning",
-    icon: <Construction size={20} color={GOLD_COLOR} />,
-    min: 20,
-    max: 500,
-    step: 1,
-    locked: false
-  },
-  {
-    id: "deep-cleaning",
-    label: "deep_cleaning",
-    icon: <Sparkles size={20} color={GOLD_COLOR} />,
-    min: 20,
-    max: 500,
-    step: 1,
-    locked: false
-  },
-  {
-    id: "emergency-cleaning",
-    label: "emergency_cleaning",
-    icon: <AlertTriangle size={20} color={GOLD_COLOR} />,
-    min: 20,
-    max: 500,
-    step: 1,
-    locked: false
-  },
-  {
-    id: "event-cleaning",
-    label: "event_cleaning",
-    icon: <Brush size={20} color={GOLD_COLOR} />,
-    min: 20,
-    max: 500,
-    step: 1,
-    locked: false
-  }
-];
-
-const OFFICE_CLEANING_CATEGORIES: PropertyCategory[] = [
-  {
-    id: "office-cleaning",
-    label: "office_cleaning",
-    icon: <FolderArchive size={20} color={GOLD_COLOR} />,
-    min: 20,
-    max: 500,
-    step: 1,
-    locked: false
-  },
-  {
-    id: "corporate-cleaning",
-    label: "corporate_cleaning",
-    icon: <Building size={20} color={GOLD_COLOR} />,
-    min: 20,
-    max: 500,
-    step: 1,
-    locked: false
-  },
-  {
-    id: "executive-office-cleaning",
-    label: "executive_office_cleaning",
-    icon: <UserCheck size={20} color={GOLD_COLOR} />,
-    min: 20,
-    max: 500,
-    step: 1,
-    locked: false
-  },
-  {
-    id: "reception-cleaning",
-    label: "reception_cleaning",
-    icon: <BellRing size={20} color={GOLD_COLOR} />,
-    min: 20,
-    max: 500,
-    step: 1,
-    locked: false
-  },
-  {
-    id: "meeting-room-cleaning",
-    label: "meeting_room_cleaning",
-    icon: <BarChart3 size={20} color={GOLD_COLOR} />,
-    min: 20,
-    max: 500,
-    step: 1,
-    locked: false
-  },
-  {
-    id: "floor-cleaning",
-    label: "floor_cleaning",
-    icon: <Sparkle size={20} color={GOLD_COLOR} />,
-    min: 20,
-    max: 500,
-    step: 1,
-    locked: false
-  },
-  {
-    id: "washroom-cleaning",
-    label: "washroom_cleaning",
-    icon: <Droplets size={20} color={GOLD_COLOR} />,
-    min: 20,
-    max: 500,
-    step: 1,
-    locked: false
-  },
-  {
-    id: "after-hours-cleaning",
-    label: "after_hours_cleaning",
-    icon: <Moon size={20} color={GOLD_COLOR} />,
-    min: 20,
-    max: 500,
-    step: 1,
-    locked: false
-  }
-];
-
-
-/**
- * High-Security Property Care
- *  Residential
-    Commercial & Office
- */
-
-// service=>high-security-property-care,display two categoies as "security-residential","security-office-cleaning"
-const HIGH_SECURITY_RESIDENTIAL_CATEGORIES: PropertyCategory[] = [
-  {
-    id: "vip-home-cleaning",
-    label: "vip_home_cleaning",
-    icon: <Crown size={20} color={GOLD_COLOR} />,
-    min: 20,
-    max: 500,
-    step: 1,
-    locked: false
-  },
-  {
-    id: "secure-home-cleaning",
-    label: "secure_home_cleaning",
-    icon: <Lock size={20} color={GOLD_COLOR} />,
-    min: 20,
-    max: 500,
-    step: 1,
-    locked: false
-  },
-  {
-    id: "luxury-property-care",
-    label: "luxury_property_care",
-    icon: <Gem size={20} color={GOLD_COLOR} />,
+    id: "eventvenue",
+    label: "propEventVenue",
+    icon: <Trees size={20} color={GOLD_COLOR} />,
     min: 20,
     max: 500,
     step: 1,
@@ -931,143 +1001,81 @@ const HIGH_SECURITY_RESIDENTIAL_CATEGORIES: PropertyCategory[] = [
     locked: false
   },
   {
-    id: "emergency-home-cleaning",
-    label: "emergency_home_cleaning",
-    icon: <Flame size={20} color={GOLD_COLOR} />,
-    min: 20,
-    max: 500,
-    step: 1,
-    locked: false
-  },
-  {
-    id: "residential-restoration",
-    label: "residential_restoration",
-    icon: <Hammer size={20} color={GOLD_COLOR} />,
+    id: "otherii",
+    label: "propOther",
+    icon: <Package size={20} color={GOLD_COLOR} className="bg-gray-800" />,
     min: 20,
     max: 500,
     step: 1,
     locked: false
   }
-];
+]
 
-const HIGH_SECURITY_COMMERCIAL_CATEGORIES: PropertyCategory[] = [
-  {
-    id: "security-cleaning",
-    label: "security_cleaning",
-    icon: <KeyRound size={20} color={GOLD_COLOR} />,
-    min: 20,
-    max: 500,
-    step: 1,
-    locked: false
-  },
-  {
-    id: "high-security-cleaning",
-    label: "high_security_cleaning", 
-    icon: <ShieldCheck size={20} color={GOLD_COLOR} />,
-    min: 20,
-    max: 500,
-    step: 1,
-    locked: false
-  },
-  {
-    id: "scif-cleaning",
-    label: "scif_cleaning",
-    icon: <FileLock2 size={20} color={GOLD_COLOR} />,
-    min: 20,
-    max: 500,
-    step: 1,
-    locked: false
-  },
-  {
-    id: "medical-sanitation",
-    label: "medical_sanitation",
-    icon: <Cross size={20} color={GOLD_COLOR} />,
-    min: 20,
-    max: 500,
-    step: 1,
-    locked: false
-  },
-  {
-    id: "post-construction-cleaning",
-    label: "post_construction_cleaning",
-    icon: <HardHat size={20} color={GOLD_COLOR} />,
-    min: 20,
-    max: 500,
-    step: 1,
-    locked: false
-  },
-  {
-    id: "hazmat-biohazard",
-    label: "hazmat_biohazard",
-    icon: <Biohazard size={20} color={GOLD_COLOR} />,
-    min: 20,
-    max: 500,
-    step: 1,
-    locked: false
-  },
-  {
-    id: "incident-restoration",
-    label: "incident_restoration",
-    icon: <Toolbox size={20} color={GOLD_COLOR} />,
-    min: 20,
-    max: 500,
-    step: 1,
-    locked: false
-  },
-  {
-    id: "event-rapid-cleaning",
-    label: "event_rapid_cleaning",
-    icon: <Zap size={20} color={GOLD_COLOR} />,
-    min: 20,
-    max: 500,
-    step: 1,
-    locked: false
-  },
-  {
-    id: "industrial-cleaning",
-    label: "industrial_cleaning",
-    icon: <Cog size={20} color={GOLD_COLOR} />,
-    min: 20,
-    max: 500,
-    step: 1,
-    locked: false
-  },
-  {
-    id: "executive-facility-care",
-    label: "executive_facility_care",
-    icon: <Briefcase size={20} color={GOLD_COLOR} />,
-    min: 20,
-    max: 500,
-    step: 1,
-    locked: false
-  }
-];
 
-//hhhhh
-const PREMIUM_RENTAL_PRIVATE_PROPERTY: PropertyCategory[] = [
+
+
+//only property must appears without category tabs
+//slug is "premium-rental-concierge-cleaning" 
+const PREMIUM_RENTAL_PROPERTIES: PropertyCategory[] = [
   { id: "studio", label: "propStudio", icon: <SquareTerminal size={20} color={GOLD_COLOR} />, min: 20, max: 40, step: 1, locked: false },
   { id: "apartment", label: "propApartment", icon: <LayoutGrid size={20} color={GOLD_COLOR} />, min: 45, max: 120, step: 1, locked: false },
   { id: "townhouse", label: "propTownhouse", icon: <Home size={20} color={GOLD_COLOR} />, min: 90, max: 220, step: 1, locked: false },
   { id: "home", label: "propHome", icon: <HousePlus size={20} color={GOLD_COLOR} />, min: 100, max: 350, step: 1, locked: false },
   { id: "penthouse", label: "propPenthouse", icon: <Sunset size={20} color={GOLD_COLOR} />, min: 120, max: 400, step: 1, locked: false },
-  { id: "villa", label: "propVilla", icon: <Landmark size={20} color={GOLD_COLOR} />, min: 200, max: 500, step: 1, locked: false },
+  {
+    id: "luxury-villa",
+    label: "propLuxuryVilla",
+    icon: <Crown size={20} color={GOLD_COLOR} />,
+    min: 200,
+    max: 500,
+    step: 1,
+    locked: false,
+  },
   { id: "holiday-home", label: "propHolidayHome", icon: <Palmtree size={20} color={GOLD_COLOR} />, min: 60, max: 400, step: 1, locked: false },
-  { id: "second-home", label: "propSecondHome", icon: <KeySquare size={20} color={GOLD_COLOR} />, min: 45, max: 400, step: 1, locked: false },
+  { id: "holiday_rentals", label: "propHolidayRentals", icon: <Globe2 size={20} color={GOLD_COLOR} />, min: 200, max: 500, step: 1, locked: false },
+  {
+    id: "private-estate-cleaning",
+    label: "private_estate_cleaning",
+    icon: <Trees size={20} color={GOLD_COLOR} />,
+    min: 20,
+    max: 500,
+    step: 1,
+    locked: false
+  },
+  {
+    id: "Chalet",
+    label: "propChalet",
+    icon: <Trees size={20} color={GOLD_COLOR} />,
+    min: 20,
+    max: 500,
+    step: 1,
+    locked: false
+  },
+  {
+    id: "Duplex / Triplex",
+    label: "propDuplexTriplex",
+    icon: <Trees size={20} color={GOLD_COLOR} />,
+    min: 20,
+    max: 500,
+    step: 1,
+    locked: false
+  },
+  {
+    id: "Luxury Residence",
+    label: "propLuxuryResidence",
+    icon: <Trees size={20} color={GOLD_COLOR} />,
+    min: 20,
+    max: 500,
+    step: 1,
+    locked: false
+  },
+  { id: "hotels", label: "propHotels", icon: <Building size={20} color={GOLD_COLOR} />, min: 200, max: 500, step: 1, locked: false },
+
 ];
 
-const PREMIUM_RENTAL_MANAGEMENT_PROPERTY: PropertyCategory[] = [
-  { id: "airbnb", label: "propAirbnb", icon: <CalendarCheck2 size={20} color={GOLD_COLOR} />, min: 200, max: 500, step: 1, locked: false },
-  { id: "guest_ready", label: "propGuestReady", icon: <BedDouble size={20} color={GOLD_COLOR} />, min: 200, max: 500, step: 1, locked: false },
-  { id: "booking_com", label: "propBookingCom", icon: <CalendarRange size={20} color={GOLD_COLOR} />, min: 200, max: 500, step: 1, locked: false },
-  { id: "hotels", label: "propHotels", icon: <Building size={20} color={GOLD_COLOR} />, min: 200, max: 500, step: 1, locked: false },
-  { id: "serviced_apartments", label: "propServicedApartments", icon: <Building2 size={20} color={GOLD_COLOR} />, min: 200, max: 500, step: 1, locked: false },
-  { id: "guesthouses", label: "propGuesthouses", icon: <HomeIcon size={20} color={GOLD_COLOR} />, min: 200, max: 500, step: 1, locked: false },
-  { id: "holiday_rentals", label: "propHolidayRentals", icon: <Globe2 size={20} color={GOLD_COLOR} />, min: 200, max: 500, step: 1, locked: false },
-  { id: "property_managers", label: "propPropertyManagers", icon: <HardHat size={20} color={GOLD_COLOR} />, min: 200, max: 500, step: 1, locked: false },
-];
 
 const POOL_DEFAULT_TYPES: PropertyCategory[] = [
-  { id: "pool_kiddies", label: "poolTypeKiddies", icon: <Baby size={20} color={GOLD_COLOR} />, min: 20, max: 500, step: 1, locked: false }, 
+  { id: "pool_kiddies", label: "poolTypeKiddies", icon: <Baby size={20} color={GOLD_COLOR} />, min: 20, max: 500, step: 1, locked: false },
   { id: "above_ground_pools", label: "poolTypeAboveGroundSwimmingPools", icon: <Layers size={20} color={GOLD_COLOR} />, min: 20, max: 500, step: 1, locked: false },
   { id: "lap_pools", label: "poolTypeLapPools", icon: <Timer size={20} color={GOLD_COLOR} />, min: 20, max: 500, step: 1, locked: false },
   { id: "in_ground_pools", label: "poolTypeInGroundPools", icon: <Maximize size={20} color={GOLD_COLOR} />, min: 20, max: 500, step: 1, locked: false },
@@ -1084,6 +1092,198 @@ const POOL_DEFAULT_TYPES: PropertyCategory[] = [
   { id: "steam_room_cleaning", label: "poolAddonSteamRoomCleaning", icon: <Wind size={20} color={GOLD_COLOR} />, min: 20, max: 500, step: 1, locked: false },
   { id: "sauna_room_cleaning", label: "poolAddonSaunaRoomCleaning", icon: <Flame size={20} color={GOLD_COLOR} />, min: 20, max: 500, step: 1, locked: false }
 ];
+
+const POST_CONSTRUCTION_COMMERCIALTYPES: PropertyCategory[] = [
+  {
+    id: "Micro-Office",
+    label: "propMicroOffice",
+    icon: <Boxes size={20} color={GOLD_COLOR} />,
+    min: 20,
+    max: 500,
+    step: 5,
+    locked: false
+  },
+  {
+    id: "Office",
+    label: "propOffice",
+    icon: <Boxes size={20} color={GOLD_COLOR} />,
+    min: 20,
+    max: 500,
+    step: 5,
+    locked: false,
+  },
+  {
+    id: "Coworking-Space",
+    label: "propCoWorkingSpace",
+    icon: <Boxes size={20} color={GOLD_COLOR} />,
+    min: 20,
+    max: 500,
+    step: 5,
+    locked: false,
+  },
+  {
+    id: "Retail-Shop",
+    label: "propRetailShop",
+    icon: <Boxes size={20} color={GOLD_COLOR} />,
+    min: 20,
+    max: 500,
+    step: 5,
+    locked: false,
+  },
+  {
+    id: "Shopping Centre",
+    label: "propShoppingCentre",
+    icon: <Boxes size={20} color={GOLD_COLOR} />,
+    min: 20,
+    max: 500,
+    step: 5,
+    locked: false,
+  },
+  {
+    id: "Supermarket / Grocery Store",
+    label: "propSupermarketGroceryStore",
+    icon: <Boxes size={20} color={GOLD_COLOR} />,
+    min: 20,
+    max: 500,
+    step: 5,
+    locked: false,
+  },
+  {
+    id: "Restaurant",
+    label: "propRestaurant",
+    icon: <Boxes size={20} color={GOLD_COLOR} />,
+    min: 20,
+    max: 500,
+    step: 5,
+    locked: false,
+  },
+  {
+    id: "Café",
+    label: "propCafe",
+    icon: <Boxes size={20} color={GOLD_COLOR} />,
+    min: 20,
+    max: 500,
+    step: 5,
+    locked: false,
+  },
+  {
+    id: "Hotel",
+    label: "propHotel",
+    icon: <Boxes size={20} color={GOLD_COLOR} />,
+    min: 20,
+    max: 500,
+    step: 5,
+    locked: false,
+  },
+  {
+    id: "Gym / Fitness Centre",
+    label: "propGymFitnessCentre",
+    icon: <Boxes size={20} color={GOLD_COLOR} />,
+    min: 20,
+    max: 500,
+    step: 5,
+    locked: false,
+  },
+  {
+    id: "Medical Clinic",
+    label: "propMedicalClinic",
+    icon: <Boxes size={20} color={GOLD_COLOR} />,
+    min: 20,
+    max: 500,
+    step: 5,
+    locked: false,
+  },
+  {
+    id: "Beauty Salon / Spa",
+    label: "propBeautySalonSpa",
+    icon: <Boxes size={20} color={GOLD_COLOR} />,
+    min: 20,
+    max: 500,
+    step: 5,
+    locked: false,
+  },
+  {
+    id: "Showroom",
+    label: "propShowroom",
+    icon: <Boxes size={20} color={GOLD_COLOR} />,
+    min: 20,
+    max: 500,
+    step: 5,
+    locked: false,
+  },
+  {
+    id: "Airport",
+    label: "propAirport",
+    icon: <Boxes size={20} color={GOLD_COLOR} />,
+    min: 20,
+    max: 500,
+    step: 5,
+    locked: false,
+  },
+  {
+    id: "Bank / Financial Office",
+    label: "propBankFinancialOffice",
+    icon: <Boxes size={20} color={GOLD_COLOR} />,
+    min: 20,
+    max: 500,
+    step: 5,
+    locked: false,
+  },
+  {
+    id: "School / Nursery",
+    label: "propSchoolNursery",
+    icon: <Boxes size={20} color={GOLD_COLOR} />,
+    min: 20,
+    max: 500,
+    step: 5,
+    locked: false,
+  },
+  {
+    id: "Warehouse",
+    label: "propWarehouse",
+    icon: <Boxes size={20} color={GOLD_COLOR} />,
+    min: 20,
+    max: 500,
+    step: 5,
+    locked: false,
+  },
+  {
+    id: "Distribution Centre",
+    label: "propDistributionCentre",
+    icon: <Boxes size={20} color={GOLD_COLOR} />,
+    min: 20,
+    max: 500,
+    step: 5,
+    locked: false,
+  },
+  {
+    id: "Factory",
+    label: "propFactory",
+    icon: <Boxes size={20} color={GOLD_COLOR} />,
+    min: 20,
+    max: 500,
+    step: 5,
+    locked: false,
+  },
+  {
+    id: "Hospital",
+    label: "propHospital",
+    icon: <Boxes size={20} color={GOLD_COLOR} />,
+    min: 20,
+    max: 500,
+    step: 5,
+    locked: false,
+  },
+  {
+    id: "Other Commercial Property",
+    label: "propOtherCommercialProperty",
+    icon: <Boxes size={20} color={GOLD_COLOR} />,
+    min: 20,
+    max: 500,
+    step: 5,
+    locked: false,
+  },
+]
 
 export interface ServiceCategoryTab {
   id: string;
@@ -1136,70 +1336,9 @@ export const SERVICE_CATEGORY_TABS_MAP: Record<string, [ServiceCategoryTab, Serv
       categories: PASSENGER_SHIP_CLEANING_CATEGORIES,
     },
   ],
-  "premium-rental-concierge-cleaning":[
-    {
-      id: "residential",
-      label: "premiumRentalPrivateProperty",
-      icon: <Compass size={20} color={GOLD_COLOR} />,
-      categories: PREMIUM_RENTAL_PRIVATE_PROPERTY,
-    },
-    {
-      id: "industrial",
-      label: "premiumRentalManagementProperty",
-      icon: <Cog size={20} color={GOLD_COLOR} />,
-      categories: PREMIUM_RENTAL_MANAGEMENT_PROPERTY,
-    }
-  ],
-  "post-event-cleaning": [
-    {
-      id: "residential",
-      label: "Residential",
-      translationKey: "propCatResidential",
-      icon: <Compass size={20} color={GOLD_COLOR} />,
-      categories: PRIVATE_SOCIAL_EVENTS,
-    },
-    {
-      id: "industrial",
-      label: "Industrial",
-      translationKey: "propCatIndustrial",
-      icon: <Cog size={20} color={GOLD_COLOR} />,
-      categories: VIP_AND_COPORATE_EVENTS,
-    },
-  ],
-  "commercial-office-cleaning": [
-    {
-      id: "residential",
-      label: "Residential",
-      translationKey: "propCatResidential",
-      icon: <Compass size={20} color={GOLD_COLOR} />,
-      categories: COMMERCIAL_AND_OFFICE_CLEANING_CATEGORIES,
-    },
-    {
-      id: "industrial",
-      label: "Industrial",
-      translationKey: "propCatIndustrial",
-      icon: <Cog size={20} color={GOLD_COLOR} />,
-      categories: OFFICE_CLEANING_CATEGORIES,
-    },
-  ],
-  "high-security-property-care": [
-    {
-      id: "residential",
-      label: "Residential",
-      translationKey: "propCatResidential",
-      icon: <Compass size={20} color={GOLD_COLOR} />,
-      categories: HIGH_SECURITY_RESIDENTIAL_CATEGORIES,
-    },
-    {
-      id: "industrial",
-      label: "Industrial",
-      translationKey: "propCatIndustrial",
-      icon: <Cog size={20} color={GOLD_COLOR} />,
-      categories: HIGH_SECURITY_COMMERCIAL_CATEGORIES,
-    },
-    
-  ],
-  "pool-cleaning":[
+  
+  
+  "pool-cleaning": [
     {
       id: "residential",
       label: "Residential",
@@ -1212,9 +1351,38 @@ export const SERVICE_CATEGORY_TABS_MAP: Record<string, [ServiceCategoryTab, Serv
       label: "Industrial",
       translationKey: "propCatIndustrial",
       icon: <Cog size={20} color={GOLD_COLOR} />,
-      categories: POOL_DEFAULT_TYPES, 
+      categories: POOL_DEFAULT_TYPES,
+    },
+
+  ],
+  //new post contruction renovation cleaning service,display two categoies as "residential","commercial"
+  "post-construction-renovation-cleaning": [
+    DEFAULT_CATEGORY_TABS[0],
+    {
+      id: "industrial",//actually the id must be literary "commercial",but kept without affecting types and functional processes
+      label: "Commercial",
+      translationKey: "classCommercial",
+      icon: <Cog size={20} color={GOLD_COLOR} />,
+      categories: POST_CONSTRUCTION_COMMERCIALTYPES,
+    },
+  ],
+  "steam-cleaning": [
+    {
+      id: "residential",
+      label: "Residential",
+      translationKey: "propCatResidential",
+      icon: <Compass size={20} color={GOLD_COLOR} />,
+      categories: SANITIZE_RESIDENTIAL_CATEGORYIES,
+    },
+    {
+      id: "industrial",//actually the id must be literary "commercial",but kept without affecting types and functional processes
+      label: "Commercial",
+      translationKey: "classCommercial",
+      icon: <Cog size={20} color={GOLD_COLOR} />,
+      categories: STEAM_CLEANING_PROPERTIES,
     },
   ]
+
 };
 
 /** Translation key for a Service Category tab id (e.g. "yatch-cleaning" -> "yachtCleaning"), for summaries. */
@@ -1225,6 +1393,13 @@ export function serviceCategoryLabelKey(tabId: string): TranslationKey | undefin
   }
   return undefined;
 }
+
+const NO_CATEGORY_TABS = new Set([
+  "high-security-property-care",
+  "premium-rental-concierge-cleaning",
+  "commercial-office-cleaning",
+  "post-event-cleaning",
+])
 
 export function getCategoryTabsForService(serviceSlug?: string): [ServiceCategoryTab, ServiceCategoryTab] {
   if (serviceSlug && SERVICE_CATEGORY_TABS_MAP[serviceSlug]) {
@@ -1242,10 +1417,27 @@ export const NO_VISUALIZATION_SERVICES = new Set([
 
 //all categories of sanitization and common flow services
 export function getPropertyCategoriesForServiceOfSanitize(serviceSlug?: string): PropertyCategory[] {
+
+  if (serviceSlug === "high-security-property-care") {
+    return HIGHT_SECURITY_CATEGORYIES
+  }
+  if (serviceSlug === "premium-rental-concierge-cleaning") {
+    return PREMIUM_RENTAL_PROPERTIES
+  }
+  if (serviceSlug === "commercial-office-cleaning") {
+    return COMMERCIAL_AND_OFFICE_CLEANING_PROPERTIES
+  }
+  if (serviceSlug === "steam-cleaning") {
+    return STEAM_CLEANING_PROPERTIES
+  }
+  if (serviceSlug === "post-event-cleaning") {
+    return POST_EVENT_CLEANING_PROPERTIES
+  }
   if (serviceSlug && isCommonPropertyTypeWithRoomComponents(serviceSlug)) {
+
     return SANITIZE_RESIDENTIAL_CATEGORYIES;
   }
-  const tabs = getCategoryTabsForService(serviceSlug);
+  const tabs = getCategoryTabsForService(serviceSlug) || serviceSlug !== "high-security-property-care";
   return [...tabs[0].categories, ...tabs[1].categories];
 }
 
@@ -1466,7 +1658,7 @@ interface visualizationProps {
   quote?: SizeQuote | null;
   serviceCategory?: "residential" | "industrial" | "yatch-cleaning" | "passenger-ship-cleaning";
   isQuote?: boolean;
-  theme?:string;
+  theme?: string;
 }
 
 interface SurfaceBottomMatrix {
@@ -1479,7 +1671,7 @@ export let surfaceMatrixes: SurfaceBottomMatrix = {
   serviceTargetArea: "",
 };
 
-let labourData:string;
+let labourData: string;
 
 export function SanitizeSizeVisualization({
   value,
@@ -1493,9 +1685,9 @@ export function SanitizeSizeVisualization({
 }: visualizationProps) {
   const { symbol } = useCurrency();
   const { translate } = useLanguage();
- 
+
   const isLight = theme === "light";
-  
+
   const span = Number(Math.sqrt(value * 1.33).toFixed(1));
   const depth = Number((value / span).toFixed(1));
 
@@ -1520,7 +1712,7 @@ export function SanitizeSizeVisualization({
   const estimatedCost = hasPrice
     ? range(`${symbol}${quote!.priceMin!.toFixed(2)}`, `${symbol}${quote!.priceMax!.toFixed(2)}`)
     : "—";
-  
+
   const serviceRate = hasPrice && quote!.minHours
     ? `${symbol}${(quote!.priceMin! / quote!.minHours).toFixed(2)} ${translate("servicesRatePerCleanerHour")}`
     : "—";
@@ -1545,11 +1737,10 @@ export function SanitizeSizeVisualization({
   return (
     <div
 
-      className={`w-full rounded-2xl border-2 border-[#C5A059] md:p-3 p-5 transition-colors duration-300 relative overflow-hidden select-none ${
-        isLight
-          ? "bg-[#FAF8F5] text-slate-900 shadow-[0_10px_35px_rgba(197,160,89,0.22)] ring-1 ring-[#C5A059]/30"
-          : "bg-[#030303] text-white shadow-[0_6px_22px_rgba(197,160,89,0.25)] ring-1 ring-[#C5A059]/25"
-      }`}
+      className={`w-full rounded-2xl border-2 border-[#C5A059] md:p-3 p-5 transition-colors duration-300 relative overflow-hidden select-none ${isLight
+        ? "bg-[#FAF8F5] text-slate-900 shadow-[0_10px_35px_rgba(197,160,89,0.22)] ring-1 ring-[#C5A059]/30"
+        : "bg-[#030303] text-white shadow-[0_6px_22px_rgba(197,160,89,0.25)] ring-1 ring-[#C5A059]/25"
+        }`}
       style={{
         backgroundImage: isLight
           ? `
@@ -1563,142 +1754,136 @@ export function SanitizeSizeVisualization({
         backgroundSize: "24px 24px",
       }}
     >
-      <div className={`w-full flex items-center justify-between border-b pb-2.5 mb-3 gap-2 flex-wrap ${
-        isLight ? "border-[#C5A059]/30" : "border-[#C5A059]/40"
-      }`}>
+      <div className={`w-full flex items-center justify-between border-b pb-2.5 mb-3 gap-2 flex-wrap ${isLight ? "border-[#C5A059]/30" : "border-[#C5A059]/40"
+        }`}>
         <div className="flex items-center space-x-2.5 min-w-0">
           <div className="w-2.5 h-2.5 bg-[#C5A059] rounded-full shadow-[0_0_10px_#C5A059] shrink-0" />
           <div className="min-w-0">
-            <h4 className={`text-[11px] sm:text-xs font-bold tracking-widest uppercase truncate ${
-              isLight ? "text-[#8C6D2D]" : "text-[#E6D5B8]"
-            }`}>
+            <h4 className={`text-[11px] sm:text-xs font-bold tracking-widest uppercase truncate ${isLight ? "text-[#8C6D2D]" : "text-[#E6D5B8]"
+              }`}>
               {activeCategory ? (CATEGORY_LABEL_KEYS[activeCategory.label] ? translate(CATEGORY_LABEL_KEYS[activeCategory.label] as TranslationKey) : translate(activeCategory.label as TranslationKey)) : (isResidential ? "RESIDENTIAL" : "INDUSTRIAL")} BLUEPRINT
             </h4>
-            <p className={`text-[9px] sm:text-[10px] tracking-wider truncate ${
-              isLight ? "text-[#A37F38]" : "text-[#C5A059]/80"
-            }`}>
+            <p className={`text-[9px] sm:text-[10px] tracking-wider truncate ${isLight ? "text-[#A37F38]" : "text-[#C5A059]/80"
+              }`}>
               {value} m² • {formatFt2(value)} ft² | GRID: {span}m × {depth}m
             </p>
           </div>
         </div>
 
         <div className="flex items-center gap-2 shrink-0">
-          <span className={`text-[9px] sm:text-[10px] px-2.5 py-1 bg-[#C5A059]/30 border-2 border-[#C5A059] rounded-md font-bold tracking-wide shadow-[0_6px_22px_rgba(197,160,89,0.25)] ring-1 ring-[#C5A059]/25 ${
-            isLight ? "text-[#7A5C20]" : "text-[#E6D5B8]"
-          }`}>
+          <span className={`text-[9px] sm:text-[10px] px-2.5 py-1 bg-[#C5A059]/30 border-2 border-[#C5A059] rounded-md font-bold tracking-wide shadow-[0_6px_22px_rgba(197,160,89,0.25)] ring-1 ring-[#C5A059]/25 ${isLight ? "text-[#7A5C20]" : "text-[#E6D5B8]"
+            }`}>
             {translate(surfaceTitle as TranslationKey)}
           </span>
-          <span className={`hidden sm:inline-block text-[9px] px-2 py-0.5 border rounded-md font-mono ${
-            isLight ? "bg-[#C5A059]/10 border-[#C5A059]/30 text-[#8C6D2D]" : "bg-[#C5A059]/20 border-[#C5A059]/40 text-[#E6D5B8]"
-          }`}>
+          <span className={`hidden sm:inline-block text-[9px] px-2 py-0.5 border rounded-md font-mono ${isLight ? "bg-[#C5A059]/10 border-[#C5A059]/30 text-[#8C6D2D]" : "bg-[#C5A059]/20 border-[#C5A059]/40 text-[#E6D5B8]"
+            }`}>
             CAD SCALE 1:50
           </span>
         </div>
       </div>
 
-      <div className={`relative w-full border-2 border-[#C5A059] rounded-xl p-2 sm:p-4 overflow-hidden transition-all duration-300 ${
-        isLight
-          ? "bg-white/90 backdrop-blur-md shadow-[inset_0_0_20px_rgba(197,160,89,0.2),0_10px_35px_rgba(197,160,89,0.35)] ring-2 ring-[#C5A059]/30"
-          : "bg-[#050505]/95 backdrop-blur-sm shadow-[inset_0_0_25px_rgba(197,160,89,0.25),0_8px_25px_rgba(197,160,89,0.3)]"
-      }`}>
+      <div className={`relative w-full border-2 border-[#C5A059] rounded-xl p-2 sm:p-4 overflow-hidden transition-all duration-300 ${isLight
+        ? "bg-white/90 backdrop-blur-md shadow-[inset_0_0_20px_rgba(197,160,89,0.2),0_10px_35px_rgba(197,160,89,0.35)] ring-2 ring-[#C5A059]/30"
+        : "bg-[#050505]/95 backdrop-blur-sm shadow-[inset_0_0_25px_rgba(197,160,89,0.25),0_8px_25px_rgba(197,160,89,0.3)]"
+        }`}>
         <div className="flex items-center w-full">
           <div className="flex-1 min-w-0 max-h-[250px] sm:max-h-[270px] md:max-h-[420px] flex items-center justify-center">
             {isResidential ? (
               <svg
-  viewBox={BLUEPRINT_VIEWBOX}
-  className="w-full h-full max-h-[220px] sm:max-h-[260px] md:max-h-[420px] drop-shadow-[0_0_18px_rgba(197,160,89,0.4)] object-contain"
->
-  <defs>
-    <pattern id="dotGridRes" x="0" y="0" width="32" height="32" patternUnits="userSpaceOnUse">
-      <circle cx="4" cy="4" r="1.6" fill="#C5A059" opacity={isLight ? "0.75" : "0.65"} />
-    </pattern>
-  </defs>
+                viewBox={BLUEPRINT_VIEWBOX}
+                className="w-full h-full max-h-[220px] sm:max-h-[260px] md:max-h-[420px] drop-shadow-[0_0_18px_rgba(197,160,89,0.4)] object-contain"
+              >
+                <defs>
+                  <pattern id="dotGridRes" x="0" y="0" width="32" height="32" patternUnits="userSpaceOnUse">
+                    <circle cx="4" cy="4" r="1.6" fill="#C5A059" opacity={isLight ? "0.75" : "0.65"} />
+                  </pattern>
+                </defs>
 
-  {/* Full background coverage for the dot matrix */}
-  <rect x="-50" y="-50" width="1100" height="800" fill="url(#dotGridRes)" />
-  
-  <BlueprintDimensions span={span} depth={depth} />
-  <rect x="50" y="50" width="850" height="630" rx="12" fill={isLight ? "rgba(255, 255, 255, 0.4)" : "rgba(5, 5, 5, 0.6)"} stroke="#C5A059" strokeWidth="3.5" strokeDasharray="6 4" opacity="0.85" />
-  
-  <g stroke="#C5A059" strokeWidth="2.8" fill="none" strokeDasharray="5 3">
-    <line x1="50" y1="310" x2="360" y2="310" />
-    <line x1="360" y1="50" x2="360" y2="310" />
-    <line x1="360" y1="310" x2="620" y2="310" />
-    <line x1="620" y1="50" x2="620" y2="310" />
-    <line x1="730" y1="310" x2="900" y2="310" />
-    <line x1="730" y1="310" x2="730" y2="460" />
-    <line x1="620" y1="460" x2="900" y2="460" />
-    <line x1="620" y1="590" x2="900" y2="590" />
-    <line x1="620" y1="460" x2="620" y2="590" />
-    <line x1="360" y1="410" x2="520" y2="410" />
-    <line x1="360" y1="410" x2="360" y2="680" />
-    <line x1="520" y1="480" x2="520" y2="680" />
-    <path d="M 420 680 L 420 730 L 530 730 L 530 680" />
-  </g>
-  
-  <g fill={isLight ? "rgba(197, 160, 89, 0.12)" : "rgba(197, 160, 89, 0.05)"}>
-    <rect x="54" y="54" width="304" height="254" />
-    <rect x="364" y="54" width="254" height="254" />
-    <rect x="624" y="54" width="274" height="254" />
-    <rect x="54" y="314" width="304" height="362" />
-    <rect x="364" y="414" width="154" height="262" />
-    <rect x="624" y="464" width="274" height="212" />
-    <rect x="734" y="314" width="164" height="144" />
-  </g>
+                {/* Full background coverage for the dot matrix */}
+                <rect x="-50" y="-50" width="1100" height="800" fill="url(#dotGridRes)" />
 
-  <g stroke="#C5A059" strokeWidth="1.8" fill="none" opacity="0.95" strokeDasharray="4 3">
-    <rect x="80" y="80" width="110" height="130" rx="6" strokeDasharray="4 2" />
-    <rect x="75" y="240" width="180" height="35" rx="4" />
-    <circle cx="310" cy="80" r="12" strokeWidth="1.5" />
-    <rect x="390" y="85" width="100" height="120" rx="6" />
-    <rect x="520" y="70" width="35" height="40" rx="4" />
-    <rect x="660" y="85" width="110" height="120" rx="6" />
-    <rect x="800" y="220" width="80" height="45" rx="4" />
-    <path d="M 80 500 L 80 620 L 280 620 L 280 560 L 130 560 L 130 500 Z" />
-    <rect x="150" y="580" width="50" height="30" rx="4" />
-    <rect x="150" y="350" width="120" height="20" rx="3" />
-    <rect x="400" y="500" width="80" height="120" rx="6" />
-    <rect x="380" y="515" width="15" height="25" rx="2" />
-    <rect x="380" y="575" width="15" height="25" rx="2" />
-    <rect x="485" y="515" width="15" height="25" rx="2" />
-    <rect x="485" y="575" width="15" height="25" rx="2" />
-    <path d="M 640 480 L 870 480 L 870 650 L 640 650" strokeDasharray="6 3" />
-    <rect x="700" y="530" width="90" height="60" rx="4" />
-    <ellipse cx="780" cy="365" rx="15" ry="10" strokeWidth="1.5" />
-    <rect x="830" y="355" width="25" height="35" rx="4" strokeWidth="1.5" />
-  </g>
+                <BlueprintDimensions span={span} depth={depth} />
+                <rect x="50" y="50" width="850" height="630" rx="12" fill={isLight ? "rgba(255, 255, 255, 0.4)" : "rgba(5, 5, 5, 0.6)"} stroke="#C5A059" strokeWidth="3.5" strokeDasharray="6 4" opacity="0.85" />
 
-  <g stroke="#C5A059" strokeWidth="1.5" fill="none" opacity="0.85" strokeDasharray="3 3">
-    <path d="M 360 260 A 40 40 0 0 1 320 220" />
-    <line x1="360" y1="260" x2="360" y2="220" />
-    <path d="M 520 310 A 40 40 0 0 1 480 270" />
-    <path d="M 680 310 A 40 40 0 0 0 720 270" />
-    <path d="M 730 380 A 35 35 0 0 1 765 345" />
-    <path d="M 450 680 A 30 30 0 0 1 480 650" />
-  </g>
+                <g stroke="#C5A059" strokeWidth="2.8" fill="none" strokeDasharray="5 3">
+                  <line x1="50" y1="310" x2="360" y2="310" />
+                  <line x1="360" y1="50" x2="360" y2="310" />
+                  <line x1="360" y1="310" x2="620" y2="310" />
+                  <line x1="620" y1="50" x2="620" y2="310" />
+                  <line x1="730" y1="310" x2="900" y2="310" />
+                  <line x1="730" y1="310" x2="730" y2="460" />
+                  <line x1="620" y1="460" x2="900" y2="460" />
+                  <line x1="620" y1="590" x2="900" y2="590" />
+                  <line x1="620" y1="460" x2="620" y2="590" />
+                  <line x1="360" y1="410" x2="520" y2="410" />
+                  <line x1="360" y1="410" x2="360" y2="680" />
+                  <line x1="520" y1="480" x2="520" y2="680" />
+                  <path d="M 420 680 L 420 730 L 530 730 L 530 680" />
+                </g>
 
-  <g fontFamily="monospace">
-    <text x="200" y="170" fill={isLight ? "#594211" : "#FFF3D6"} fontSize="16" fontWeight="bold" textAnchor="middle">MASTER BEDROOM</text>
-    <text x="200" y="195" fill={isLight ? "#9E7A32" : "#C5A059"} fontSize="13" fontWeight="600" textAnchor="middle">{masterBedArea} m²</text>
-    <text x="490" y="170" fill={isLight ? "#594211" : "#FFF3D6"} fontSize="15" fontWeight="bold" textAnchor="middle">NORTH BEDROOM</text>
-    <text x="490" y="195" fill={isLight ? "#9E7A32" : "#C5A059"} fontSize="13" fontWeight="600" textAnchor="middle">{northBedArea} m²</text>
-    <text x="760" y="170" fill={isLight ? "#594211" : "#FFF3D6"} fontSize="15" fontWeight="bold" textAnchor="middle">EAST BEDROOM</text>
-    <text x="760" y="195" fill={isLight ? "#9E7A32" : "#C5A059"} fontSize="13" fontWeight="600" textAnchor="middle">{eastBedArea} m²</text>
-    <text x="200" y="430" fill={isLight ? "#594211" : "#FFF3D6"} fontSize="17" fontWeight="bold" textAnchor="middle">LIVING & LOUNGE</text>
-    <text x="200" y="455" fill={isLight ? "#9E7A32" : "#C5A059"} fontSize="14" fontWeight="600" textAnchor="middle">{livingArea} m²</text>
-    <text x="440" y="465" fill={isLight ? "#594211" : "#FFF3D6"} fontSize="15" fontWeight="bold" textAnchor="middle">DINING SPACE</text>
-    <text x="440" y="488" fill={isLight ? "#9E7A32" : "#C5A059"} fontSize="13" fontWeight="600" textAnchor="middle">{diningArea} m²</text>
-    <text x="760" y="515" fill={isLight ? "#594211" : "#FFF3D6"} fontSize="16" fontWeight="bold" textAnchor="middle">KITCHEN & ISLAND</text>
-    <text x="760" y="540" fill={isLight ? "#9E7A32" : "#C5A059"} fontSize="13" fontWeight="600" textAnchor="middle">{kitchenArea} m²</text>
-    <text x="815" y="410" fill={isLight ? "#594211" : "#FFF3D6"} fontSize="14" fontWeight="bold" textAnchor="middle">BATH & WC</text>
-    <text x="815" y="432" fill={isLight ? "#9E7A32" : "#C5A059"} fontSize="12" fontWeight="600" textAnchor="middle">{bathArea} m²</text>
-  </g>
+                <g fill={isLight ? "rgba(197, 160, 89, 0.12)" : "rgba(197, 160, 89, 0.05)"}>
+                  <rect x="54" y="54" width="304" height="254" />
+                  <rect x="364" y="54" width="254" height="254" />
+                  <rect x="624" y="54" width="274" height="254" />
+                  <rect x="54" y="314" width="304" height="362" />
+                  <rect x="364" y="414" width="154" height="262" />
+                  <rect x="624" y="464" width="274" height="212" />
+                  <rect x="734" y="314" width="164" height="144" />
+                </g>
 
-  <g transform="translate(100, 630)">
-    <circle cx="0" cy="0" r="20" fill="none" stroke="#C5A059" strokeWidth="1.5" strokeDasharray="3 2" />
-    <polygon points="0,-16 4,-4 0,0 -4,-4" fill="#C5A059" />
-    <text x="0" y="30" fill="#C5A059" fontSize="10" textAnchor="middle" fontFamily="monospace">N // CAD-04</text>
-  </g>
+                <g stroke="#C5A059" strokeWidth="1.8" fill="none" opacity="0.95" strokeDasharray="4 3">
+                  <rect x="80" y="80" width="110" height="130" rx="6" strokeDasharray="4 2" />
+                  <rect x="75" y="240" width="180" height="35" rx="4" />
+                  <circle cx="310" cy="80" r="12" strokeWidth="1.5" />
+                  <rect x="390" y="85" width="100" height="120" rx="6" />
+                  <rect x="520" y="70" width="35" height="40" rx="4" />
+                  <rect x="660" y="85" width="110" height="120" rx="6" />
+                  <rect x="800" y="220" width="80" height="45" rx="4" />
+                  <path d="M 80 500 L 80 620 L 280 620 L 280 560 L 130 560 L 130 500 Z" />
+                  <rect x="150" y="580" width="50" height="30" rx="4" />
+                  <rect x="150" y="350" width="120" height="20" rx="3" />
+                  <rect x="400" y="500" width="80" height="120" rx="6" />
+                  <rect x="380" y="515" width="15" height="25" rx="2" />
+                  <rect x="380" y="575" width="15" height="25" rx="2" />
+                  <rect x="485" y="515" width="15" height="25" rx="2" />
+                  <rect x="485" y="575" width="15" height="25" rx="2" />
+                  <path d="M 640 480 L 870 480 L 870 650 L 640 650" strokeDasharray="6 3" />
+                  <rect x="700" y="530" width="90" height="60" rx="4" />
+                  <ellipse cx="780" cy="365" rx="15" ry="10" strokeWidth="1.5" />
+                  <rect x="830" y="355" width="25" height="35" rx="4" strokeWidth="1.5" />
+                </g>
+
+                <g stroke="#C5A059" strokeWidth="1.5" fill="none" opacity="0.85" strokeDasharray="3 3">
+                  <path d="M 360 260 A 40 40 0 0 1 320 220" />
+                  <line x1="360" y1="260" x2="360" y2="220" />
+                  <path d="M 520 310 A 40 40 0 0 1 480 270" />
+                  <path d="M 680 310 A 40 40 0 0 0 720 270" />
+                  <path d="M 730 380 A 35 35 0 0 1 765 345" />
+                  <path d="M 450 680 A 30 30 0 0 1 480 650" />
+                </g>
+
+                <g fontFamily="monospace">
+                  <text x="200" y="170" fill={isLight ? "#594211" : "#FFF3D6"} fontSize="16" fontWeight="bold" textAnchor="middle">MASTER BEDROOM</text>
+                  <text x="200" y="195" fill={isLight ? "#9E7A32" : "#C5A059"} fontSize="13" fontWeight="600" textAnchor="middle">{masterBedArea} m²</text>
+                  <text x="490" y="170" fill={isLight ? "#594211" : "#FFF3D6"} fontSize="15" fontWeight="bold" textAnchor="middle">NORTH BEDROOM</text>
+                  <text x="490" y="195" fill={isLight ? "#9E7A32" : "#C5A059"} fontSize="13" fontWeight="600" textAnchor="middle">{northBedArea} m²</text>
+                  <text x="760" y="170" fill={isLight ? "#594211" : "#FFF3D6"} fontSize="15" fontWeight="bold" textAnchor="middle">EAST BEDROOM</text>
+                  <text x="760" y="195" fill={isLight ? "#9E7A32" : "#C5A059"} fontSize="13" fontWeight="600" textAnchor="middle">{eastBedArea} m²</text>
+                  <text x="200" y="430" fill={isLight ? "#594211" : "#FFF3D6"} fontSize="17" fontWeight="bold" textAnchor="middle">LIVING & LOUNGE</text>
+                  <text x="200" y="455" fill={isLight ? "#9E7A32" : "#C5A059"} fontSize="14" fontWeight="600" textAnchor="middle">{livingArea} m²</text>
+                  <text x="440" y="465" fill={isLight ? "#594211" : "#FFF3D6"} fontSize="15" fontWeight="bold" textAnchor="middle">DINING SPACE</text>
+                  <text x="440" y="488" fill={isLight ? "#9E7A32" : "#C5A059"} fontSize="13" fontWeight="600" textAnchor="middle">{diningArea} m²</text>
+                  <text x="760" y="515" fill={isLight ? "#594211" : "#FFF3D6"} fontSize="16" fontWeight="bold" textAnchor="middle">KITCHEN & ISLAND</text>
+                  <text x="760" y="540" fill={isLight ? "#9E7A32" : "#C5A059"} fontSize="13" fontWeight="600" textAnchor="middle">{kitchenArea} m²</text>
+                  <text x="815" y="410" fill={isLight ? "#594211" : "#FFF3D6"} fontSize="14" fontWeight="bold" textAnchor="middle">BATH & WC</text>
+                  <text x="815" y="432" fill={isLight ? "#9E7A32" : "#C5A059"} fontSize="12" fontWeight="600" textAnchor="middle">{bathArea} m²</text>
+                </g>
+
+                <g transform="translate(100, 630)">
+                  <circle cx="0" cy="0" r="20" fill="none" stroke="#C5A059" strokeWidth="1.5" strokeDasharray="3 2" />
+                  <polygon points="0,-16 4,-4 0,0 -4,-4" fill="#C5A059" />
+                  <text x="0" y="30" fill="#C5A059" fontSize="10" textAnchor="middle" fontFamily="monospace">N // CAD-04</text>
+                </g>
               </svg>
             ) : (
               <svg
@@ -1782,93 +1967,88 @@ export function SanitizeSizeVisualization({
       </div>
 
       {!isQuote && (
-        <div className={`w-full rounded-2xl border border-[#C5A059]/40 p-4 md:p-6 shadow-[0_6px_22px_rgba(197,160,89,0.25)] ring-1 ring-[#C5A059]/25 relative overflow-hidden select-none font-mono transition-colors duration-300 ${
-      isLight ? "bg-white text-slate-900" : "bg-[#030303] text-white"
-    }`}>
-      {/* Header Section */}
-      <div className="mb-4 pb-3 border-b border-[#C5A059]/30">
-        <h3 className={`text-base md:text-xl font-bold tracking-tight font-serif ${isLight ? "text-slate-900" : "text-white"}`}>
-          Service Estimate
-        </h3>
-        <p className={`text-[11px] md:text-xs mt-0.5 font-sans ${isLight ? "text-slate-600" : "text-gray-400"}`}>
-          Based on the selected property type and size
-        </p>
-      </div>
-
-      {/* Grid Cards Container: 2 columns on mobile, 4 columns on desktop */}
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4">
-        
-        {/* Card 1: Property Scale / Target Area */}
-        <div className={`flex flex-col items-center justify-center p-3.5 md:p-4 rounded-xl border 
-        border-[#C5A059]/40 shadow-[inset_0_0_12px_rgba(197,160,89,0.1)] text-center transition-colors
-         duration-300 ${
-          isLight ? "bg-amber-100" : "bg-[#050505]"
-        }`}>
-          <Maximize2 className="w-4 h-4 text-[#C5A059] mb-2" />
-          <p className="text-[10px] md:text-[11px] font-bold tracking-widest text-[#C5A059] uppercase mb-1">
-            PROPERTY SCALE
-          </p>
-          <p className={`text-xs md:text-base font-bold tracking-wide ${isLight ? "text-slate-900" : "text-white"}`}>
-            {surfaceMatrixes.serviceTargetArea}
-          </p>
-          {activeCategory && (
-            <p className="text-[10px] text-[#D4AF37] mt-0.5 truncate max-w-full">
-              {CATEGORY_LABEL_KEYS[activeCategory.label]
-                ? translate(CATEGORY_LABEL_KEYS[activeCategory.label] as TranslationKey)
-                : translate(activeCategory.label as TranslationKey)}
+        <div className={`w-full rounded-2xl border border-[#C5A059]/40 p-4 md:p-6 shadow-[0_6px_22px_rgba(197,160,89,0.25)] ring-1 ring-[#C5A059]/25 relative overflow-hidden select-none font-mono transition-colors duration-300 ${isLight ? "bg-white text-slate-900" : "bg-[#030303] text-white"
+          }`}>
+          {/* Header Section */}
+          <div className="mb-4 pb-3 border-b border-[#C5A059]/30">
+            <h3 className={`text-base md:text-xl font-bold tracking-tight font-serif ${isLight ? "text-slate-900" : "text-white"}`}>
+              Service Estimate
+            </h3>
+            <p className={`text-[11px] md:text-xs mt-0.5 font-sans ${isLight ? "text-slate-600" : "text-gray-400"}`}>
+              Based on the selected property type and size
             </p>
-          )}
+          </div>
+
+          {/* Grid Cards Container: 2 columns on mobile, 4 columns on desktop */}
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4">
+
+            {/* Card 1: Property Scale / Target Area */}
+            <div className={`flex flex-col items-center justify-center p-3.5 md:p-4 rounded-xl border 
+        border-[#C5A059]/40 shadow-[inset_0_0_12px_rgba(197,160,89,0.1)] text-center transition-colors
+         duration-300 ${isLight ? "bg-amber-100" : "bg-[#050505]"
+              }`}>
+              <Maximize2 className="w-4 h-4 text-[#C5A059] mb-2" />
+              <p className="text-[10px] md:text-[11px] font-bold tracking-widest text-[#C5A059] uppercase mb-1">
+                PROPERTY SCALE
+              </p>
+              <p className={`text-xs md:text-base font-bold tracking-wide ${isLight ? "text-slate-900" : "text-white"}`}>
+                {surfaceMatrixes.serviceTargetArea}
+              </p>
+              {activeCategory && (
+                <p className="text-[10px] text-[#D4AF37] mt-0.5 truncate max-w-full">
+                  {CATEGORY_LABEL_KEYS[activeCategory.label]
+                    ? translate(CATEGORY_LABEL_KEYS[activeCategory.label] as TranslationKey)
+                    : translate(activeCategory.label as TranslationKey)}
+                </p>
+              )}
+            </div>
+
+            {/* Card 2: Total Duration / Est Labor */}
+            <div className={`flex flex-col items-center justify-center p-3.5 md:p-4 rounded-xl border border-[#C5A059]/40 shadow-[inset_0_0_12px_rgba(197,160,89,0.1)] text-center transition-colors duration-300 ${isLight ? "bg-amber-100" : "bg-[#050505]"
+              }`}>
+              <Clock className="w-4 h-4 text-[#C5A059] mb-2" />
+              <p className="text-[10px] md:text-[11px] font-bold tracking-widest text-[#C5A059] uppercase mb-1">
+                {translate("EstLabor")}
+              </p>
+              <p className={`text-xs md:text-base font-bold tracking-wide ${isLight ? "text-slate-900" : "text-white"}`}>
+                {labourData}
+              </p>
+              <p className={`text-[10px] mt-0.5 ${isLight ? "text-slate-600" : "text-gray-400"}`}>Estimated</p>
+            </div>
+
+            {/* Card 3: Allocated Staff */}
+            <div className={`flex flex-col items-center justify-center p-3.5 md:p-4 rounded-xl border border-[#C5A059]/40 shadow-[inset_0_0_12px_rgba(197,160,89,0.1)] text-center transition-colors duration-300 ${isLight ? "bg-amber-100" : "bg-[#050505]"
+              }`}>
+              <Users className="w-4 h-4 text-[#C5A059] mb-2" />
+              <p className="text-[10px] md:text-[11px] font-bold tracking-widest text-[#C5A059] uppercase mb-1">
+                ALLOCATED STAFF
+              </p>
+              <p className={`text-sm md:text-lg font-bold tracking-wide ${isLight ? "text-slate-900" : "text-white"}`}>
+                1
+              </p>
+              <p className="text-[9px] md:text-[10px] font-bold tracking-wider text-[#D4AF37] uppercase mt-0.5">
+                SENIOR CLEANER
+              </p>
+            </div>
+
+            {/* Card 4: On-Site Window / Estimated Cost */}
+            <div className={`flex flex-col items-center justify-center p-3.5 md:p-4 rounded-xl border border-[#C5A059]/40 shadow-[inset_0_0_12px_rgba(197,160,89,0.1)] text-center transition-colors duration-300 ${isLight ? "bg-amber-100" : "bg-[#050505]"
+              }`}>
+              <Calendar className="w-4 h-4 text-[#C5A059] mb-2" />
+              <p className="text-[10px] md:text-[11px] font-bold tracking-widest text-[#C5A059] uppercase mb-1">
+                {translate("EstimatedCost")}
+              </p>
+              <p className="text-xs md:text-base font-bold text-[#D4AF37] tracking-wide">
+                {surfaceMatrixes.costOFEstimation}
+              </p>
+              <p className={`text-[10px] mt-0.5 ${isLight ? "text-slate-600" : "text-gray-400"}`}>Price range</p>
+            </div>
+
+          </div>
+
+          {/* Optional Service Badges */}
+
         </div>
-
-        {/* Card 2: Total Duration / Est Labor */}
-        <div className={`flex flex-col items-center justify-center p-3.5 md:p-4 rounded-xl border border-[#C5A059]/40 shadow-[inset_0_0_12px_rgba(197,160,89,0.1)] text-center transition-colors duration-300 ${
-          isLight ? "bg-amber-100" : "bg-[#050505]"
-        }`}>
-          <Clock className="w-4 h-4 text-[#C5A059] mb-2" />
-          <p className="text-[10px] md:text-[11px] font-bold tracking-widest text-[#C5A059] uppercase mb-1">
-            {translate("EstLabor")}
-          </p>
-          <p className={`text-xs md:text-base font-bold tracking-wide ${isLight ? "text-slate-900" : "text-white"}`}>
-            {labourData}
-          </p>
-          <p className={`text-[10px] mt-0.5 ${isLight ? "text-slate-600" : "text-gray-400"}`}>Estimated</p>
-        </div>
-
-        {/* Card 3: Allocated Staff */}
-        <div className={`flex flex-col items-center justify-center p-3.5 md:p-4 rounded-xl border border-[#C5A059]/40 shadow-[inset_0_0_12px_rgba(197,160,89,0.1)] text-center transition-colors duration-300 ${
-          isLight ? "bg-amber-100" : "bg-[#050505]"
-        }`}>
-          <Users className="w-4 h-4 text-[#C5A059] mb-2" />
-          <p className="text-[10px] md:text-[11px] font-bold tracking-widest text-[#C5A059] uppercase mb-1">
-            ALLOCATED STAFF
-          </p>
-          <p className={`text-sm md:text-lg font-bold tracking-wide ${isLight ? "text-slate-900" : "text-white"}`}>
-            1
-          </p>
-          <p className="text-[9px] md:text-[10px] font-bold tracking-wider text-[#D4AF37] uppercase mt-0.5">
-            SENIOR CLEANER
-          </p>
-        </div>
-
-        {/* Card 4: On-Site Window / Estimated Cost */}
-        <div className={`flex flex-col items-center justify-center p-3.5 md:p-4 rounded-xl border border-[#C5A059]/40 shadow-[inset_0_0_12px_rgba(197,160,89,0.1)] text-center transition-colors duration-300 ${
-          isLight ? "bg-amber-100" : "bg-[#050505]"
-        }`}>
-          <Calendar className="w-4 h-4 text-[#C5A059] mb-2" />
-          <p className="text-[10px] md:text-[11px] font-bold tracking-widest text-[#C5A059] uppercase mb-1">
-            {translate("EstimatedCost")}
-          </p>
-          <p className="text-xs md:text-base font-bold text-[#D4AF37] tracking-wide">
-            {surfaceMatrixes.costOFEstimation}
-          </p>
-          <p className={`text-[10px] mt-0.5 ${isLight ? "text-slate-600" : "text-gray-400"}`}>Price range</p>
-        </div>
-
-      </div>
-
-      {/* Optional Service Badges */}
-      
-    </div>
       )}
     </div>
   );
@@ -1885,14 +2065,14 @@ export interface PropertyTypeSizeSelectorProps {
   deepClean?: boolean;
   onDeepCleanChange?: (selected: boolean) => void;
   onServiceCategoryChange?: (category: ServicePropertyCategoriesEnums[keyof ServicePropertyCategoriesEnums] | string) => void;
-  quote?: SizeQuote | null; 
+  quote?: SizeQuote | null;
   /** Room-component services only (regular/touch-up/deep/end-of-tenancy/same-day/premium-rental). */
   rooms?: RoomCounts;
   onRoomsChange?: (rooms: RoomCounts) => void;
   selectServiceFrequency?: string | null;
   setSelectServiceFrequency?: (frequency: string | null) => void;
-  isQuote?: boolean ; 
-  theme?:string;
+  isQuote?: boolean;
+  theme?: string;
 }
 
 export function PropertyTypeSizeSelectorCommonFlowOfServices({
@@ -1914,21 +2094,21 @@ export function PropertyTypeSizeSelectorCommonFlowOfServices({
   selectServiceFrequency,
   setSelectServiceFrequency,
   isQuote,
-  theme : themeProp="dark"
+  theme: themeProp = "dark"
 }: PropertyTypeSizeSelectorProps) {
   const isLight = themeProp === "light";
   const [internalDisinfection, setInternalDisinfection] = useState(false);
   const [internalDeepClean, setInternalDeepClean] = useState(false);
 
-  const[quoteStatus,setQuoteStatus]=useState<boolean>(false);
+  const [quoteStatus, setQuoteStatus] = useState<boolean>(false);
 
-  useEffect(()=>{
-    if(isQuote){
+  useEffect(() => {
+    if (isQuote) {
       setQuoteStatus(true);
-    }else{
+    } else {
       setQuoteStatus(false);
     }
-  },[quoteStatus])
+  }, [quoteStatus])
 
   const isDisinfection = controlledDisinfection !== undefined ? controlledDisinfection : internalDisinfection;
   const isDeepClean = controlledDeepClean !== undefined ? controlledDeepClean : internalDeepClean;
@@ -1940,9 +2120,9 @@ export function PropertyTypeSizeSelectorCommonFlowOfServices({
     onDisinfectionChange?.(val);
   };
 
-  const ROOM_COMPONENTS_SERVICES = isCommonPropertyTypeWithRoomComponents(serviceSlug) 
-  
-  
+  const ROOM_COMPONENTS_SERVICES = isCommonPropertyTypeWithRoomComponents(serviceSlug)
+
+
   const isSanitizeService = serviceSlug === "healthguard-sanitization";
 
   const setDeepClean = (val: boolean) => {
@@ -1996,18 +2176,22 @@ export function PropertyTypeSizeSelectorCommonFlowOfServices({
   const activeTab = categoryTabs.find((t) => t.id === isActiveCategorySwitch) ?? categoryTabs[0];
 
   // Dynamically determine the selectable categories based on the service type and active category switch
-  
+
   /**
    * Adjust the maximum size of categories when a quote is active.
    * @param isQuote - Whether the current context is a quote.
    * 
    * @returns The adjusted list of categories.
    */
-  const MaxSizeChangeWhenQuote=(checkIsQuote:boolean):PropertyCategory[]=>{
+  const isNoCategoryTabService = NO_CATEGORY_TABS.has(serviceSlug);
+
+  const MaxSizeChangeWhenQuote = (checkIsQuote: boolean): PropertyCategory[] => {
 
     const baseCategories = ROOM_COMPONENTS_SERVICES
       ? SANITIZE_RESIDENTIAL_CATEGORYIES
-      : activeTab.categories;
+      : isNoCategoryTabService
+        ? getPropertyCategoriesForServiceOfSanitize(serviceSlug)
+        : activeTab.categories;
 
     if (checkIsQuote || quoteStatus) {
       return baseCategories.map(cat => ({ ...cat, max: 5000 }));
@@ -2015,9 +2199,9 @@ export function PropertyTypeSizeSelectorCommonFlowOfServices({
     return baseCategories;
   }
 
-  
-  const selectableCategories:PropertyCategory[] = MaxSizeChangeWhenQuote(quoteStatus);
-    
+
+  const selectableCategories: PropertyCategory[] = MaxSizeChangeWhenQuote(quoteStatus);
+
 
   // Tracked explicitly (not re-derived from `value` every render)
   const [activeCategoryId, setActiveCategoryId] = useState<string | null>(() => selectableCategories[0]?.id ?? null);
@@ -2049,20 +2233,20 @@ export function PropertyTypeSizeSelectorCommonFlowOfServices({
   }, [activeCategory, onCategoryChange]);
 
 
-  console.log("quoteStatus",quoteStatus);
+  console.log("quoteStatus", quoteStatus);
 
   // Sync active category when value changes externally or crosses category boundaries
   useEffect(() => {
-    if(quoteStatus){
+    if (quoteStatus) {
       return
     }
-      const nextCat = findAppropriateCategory(value, activeCategoryId, selectableCategories);
-      const nextId = nextCat ? nextCat.id : null;
-      if (nextId && nextId !== activeCategoryId) {
-        setActiveCategoryId(nextId);
-      } 
-    
-  }, [value, selectableCategories, activeCategoryId,quoteStatus]);
+    const nextCat = findAppropriateCategory(value, activeCategoryId, selectableCategories);
+    const nextId = nextCat ? nextCat.id : null;
+    if (nextId && nextId !== activeCategoryId) {
+      setActiveCategoryId(nextId);
+    }
+
+  }, [value, selectableCategories, activeCategoryId, quoteStatus]);
 
   function handleCardClick(id: string) {
     const nextCat = selectableCategories.find((c) => c.id === id);
@@ -2088,7 +2272,7 @@ export function PropertyTypeSizeSelectorCommonFlowOfServices({
     }
   };
 
-  const abortVisualization =  serviceSlug !== "luxury-yacht-cleaning";
+  const abortVisualization = serviceSlug !== "luxury-yacht-cleaning";
   const isYachtSlug = serviceSlug === "luxury-yacht-cleaning";
 
   const getCategoryDisplayLabel = (cat: PropertyCategory): string => {
@@ -2105,101 +2289,97 @@ export function PropertyTypeSizeSelectorCommonFlowOfServices({
 
   return (
     <section id="pricing-engine"
-     className="w-full flex flex-col justify-center items-center">
+      className="w-full flex flex-col justify-center items-center">
       {/* Dynamic Size & Area Floorplan Visualization Component */}
-      {isPool ? 
+      {isPool ?
         (
           <PoolBlueprintDiagram />
         ) :
-      isYachtSlug ? (
-        <YatchSizeVisualization
-          value={value}
-          activeCategory={activeCategory ?? undefined}
-          isDisinfection={isDisinfection}
-          isDeepClean={isDeepClean}
-          quote={quote}
-          serviceCategory={isActiveCategorySwitch as "yatch-cleaning" | "passenger-ship-cleaning"}
-          isQuote={isQuote}
-          theme={isLight ? "light" : "dark"}
-        />
-      ) :  (
-        <SanitizeSizeVisualization
-          value={value}
-          activeCategory={activeCategory ?? undefined}
-          isDisinfection={isDisinfection}
-          isDeepClean={isDeepClean}
-          quote={quote}
-          serviceCategory={ROOM_COMPONENTS_SERVICES ? "residential" : (isActiveCategorySwitch as "residential" | "industrial")}
-          isQuote={isQuote}
-          theme={isLight ? "light" : "dark"}
-        />
-      )}
- 
+        isYachtSlug ? (
+          <YatchSizeVisualization
+            value={value}
+            activeCategory={activeCategory ?? undefined}
+            isDisinfection={isDisinfection}
+            isDeepClean={isDeepClean}
+            quote={quote}
+            serviceCategory={isActiveCategorySwitch as "yatch-cleaning" | "passenger-ship-cleaning"}
+            isQuote={isQuote}
+            theme={isLight ? "light" : "dark"}
+          />
+        ) : (
+          <SanitizeSizeVisualization
+            value={value}
+            activeCategory={activeCategory ?? undefined}
+            isDisinfection={isDisinfection}
+            isDeepClean={isDeepClean}
+            quote={quote}
+            serviceCategory={ROOM_COMPONENTS_SERVICES ? "residential" : (isActiveCategorySwitch as "residential" | "industrial")}
+            isQuote={isQuote}
+            theme={isLight ? "light" : "dark"}
+          />
+        )}
+
       <div
-      
-        className={`rounded-2xl py-4 mt-5 border pb-5 sm:pb-6 px-5 sm:px-6  transition-all duration-300 ${
-          isLight
-            ? "bg-white border-[#C5A059]/40 text-[#1B2E4B]"
-            : "bg-[rgba(13,20,36,0.7)] border-[rgba(212,175,55,0.18)] text-slate-100"
-        }`}
+
+        className={`rounded-2xl py-4 mt-5 border pb-5 sm:pb-6 px-5 sm:px-6  transition-all duration-300 ${isLight
+          ? "bg-white border-[#C5A059]/40 text-[#1B2E4B]"
+          : "bg-[rgba(13,20,36,0.7)] border-[rgba(212,175,55,0.18)] text-slate-100"
+          }`}
       >
-        {!ROOM_COMPONENTS_SERVICES && (
+        {!ROOM_COMPONENTS_SERVICES && !NO_CATEGORY_TABS.has(serviceSlug) && (
           <div className="w-full">
             <h2 className={`text-base sm:text-lg font-bold mb-3 ${isLight ? "text-[#1B2E4B]" : "text-gray-300"}`}>
               {translate("propServiceCatagory")}
             </h2>
             <div
-              className={`w-full p-1 flex justify-between items-center mb-6 rounded-[17px] border transition-colors ${
-                isLight ? "bg-[#F5F1E6] border-[#C5A059]/30" : "bg-white/5 border-[#C5A059] backdrop-blur-md"
-              }`}
+              className={`w-full p-1 flex justify-between items-center mb-6 rounded-[17px] border transition-colors ${isLight ? "bg-[#F5F1E6] border-[#C5A059]/30" : "bg-white/5 border-[#C5A059] backdrop-blur-md"
+                }`}
             >
               {categoryTabs.map((tab) => {
                 const isActive = isActiveCategorySwitch === tab.id;
                 const tabLabel = tab.translationKey ? translate(tab.translationKey) : translate(tab.label as TranslationKey);
-                
+
                 // Cast as a React component 
-                 const iconColor = isActive
-                            ? isLight
-                              ? "#000000" // Active Light: Dark text on Gold button
-                              : "#000000" // Active Dark: Dark text on Gold button
-                            : isLight
-                              ? "#4B5563" // Inactive Light: Gray-600
-                              : "#D1D5DB"; // Inactive Dark: Gray-300 / Silver
-                
-                  return (
+                const iconColor = isActive
+                  ? isLight
+                    ? "#000000" // Active Light: Dark text on Gold button
+                    : "#000000" // Active Dark: Dark text on Gold button
+                  : isLight
+                    ? "#4B5563" // Inactive Light: Gray-600
+                    : "#D1D5DB"; // Inactive Dark: Gray-300 / Silver
+
+                return (
                   <button
                     key={tab.id}
                     type="button"
-                    className={`md:w-[49.5%] w-[48%] py-3 md:py-2 px-3 rounded-[14px] transition-all cursor-pointer text-[13px] md:text-[15px] font-bold flex items-center justify-center gap-1.5 ${
-                      isActive
-                        ? isLight
-                          ? "bg-[#C5A059] text-white shadow-md border border-[#C5A059]"
-                          : "  hover:bg-[#d4a732]   border-[#C6A868]/60   bg-[#d4af37] text-black shadow-lg shadow-[#d4af37]/20"
-                        : isLight
+                    className={`md:w-[49.5%] w-[48%] py-3 md:py-2 px-3 rounded-[14px] transition-all cursor-pointer text-[13px] md:text-[15px] font-bold flex items-center justify-center gap-1.5 ${isActive
+                      ? isLight
+                        ? "bg-[#C5A059] text-white shadow-md border border-[#C5A059]"
+                        : "  hover:bg-[#d4a732]   border-[#C6A868]/60   bg-[#d4af37] text-black shadow-lg shadow-[#d4af37]/20"
+                      : isLight
                         ? "bg-transparent text-[#1B2E4B]/70 hover:text-[#1B2E4B] hover:bg-black/5"
                         : "bg-transparent text-gray-300 hover:text-white hover:bg-white/5"
-                    }`}
+                      }`}
                     onClick={() => handleCategorySwitch(tab.id)}
                   >
                     <div
-                        className={`w-9 h-9 rounded-lg flex items-center justify-center text-xl transition-colors ${
-                          isActive
-                            ? "bg-transparent" // Active tab inherits button gold background
-                            : isLight
-                              ? "bg-gray-100/50"
-                              : "bg-white/5"
+                      className={`w-9 h-9 rounded-lg flex items-center justify-center text-xl transition-colors ${isActive
+                        ? "bg-transparent" // Active tab inherits button gold background
+                        : isLight
+                          ? "bg-gray-100/50"
+                          : "bg-white/5"
                         }`}
-                      >
-                        {tab.id === "residential" ? (
-                          <Compass size={20} color={iconColor} />
-                        ) : tab.id === "industrial" ? (
-                          <Cog size={20} color={iconColor} />
-                        ) : tab.id === "yatch-cleaning" ? (
-                          <Anchor size={20} color={iconColor} />
-                        ) : (
-                          <Navigation size={20} color={iconColor} />
-                        )}
-                      </div>
+                    >
+                      {tab.id === "residential" ? (
+                        <Compass size={20} color={iconColor} />
+                      ) : tab.id === "industrial" ? (
+                        <Cog size={20} color={iconColor} />
+                      ) : tab.id === "yatch-cleaning" ? (
+                        <Anchor size={20} color={iconColor} />
+                      ) : (
+                        <Navigation size={20} color={iconColor} />
+                      )}
+                    </div>
                     <span>{tabLabel}</span>
                   </button>
                 );
@@ -2212,9 +2392,8 @@ export function PropertyTypeSizeSelectorCommonFlowOfServices({
           {/* Left Column: Property Type */}
           <div className="flex flex-col min-w-0">
             <span
-              className={`text-[10px] sm:text-xs py-1 font-sans font-bold tracking-[0.2em] sm:tracking-[0.25em] uppercase ${
-                isLight ? "text-[#A88238]" : "text-[#D9B75B]"
-              }`}
+              className={`text-[10px] sm:text-xs py-1 font-sans font-bold tracking-[0.2em] sm:tracking-[0.25em] uppercase ${isLight ? "text-[#A88238]" : "text-[#D9B75B]"
+                }`}
             >
               Step 1 of 6
             </span>
@@ -2223,14 +2402,13 @@ export function PropertyTypeSizeSelectorCommonFlowOfServices({
                 {translate("propTypeTitle")}
               </h3>
               <p
-                className={`text-[11px] text-center mt-1.5 font-medium tracking-wide select-none ${
-                  isLight ? "text-gray-500" : "text-[#94A3B8]"
-                }`}
+                className={`text-[11px] text-center mt-1.5 font-medium tracking-wide select-none ${isLight ? "text-gray-500" : "text-[#94A3B8]"
+                  }`}
               >
                 {translate("propTypeSwipe")}
               </p>
             </div>
-          
+
             <div
               className="flex flex-nowrap gap-3 pt-3 overflow-x-auto overflow-y-hidden -mx-1 px-1 [&>*:first-child]:ml-auto [&>*:last-child]:mr-auto [&::-webkit-scrollbar]:hidden"
               style={{ scrollbarWidth: "none", scrollSnapType: "x proximity" }}
@@ -2244,48 +2422,45 @@ export function PropertyTypeSizeSelectorCommonFlowOfServices({
                     type="button"
                     onClick={() => handleCardClick(cat.id)}
                     style={{ scrollSnapAlign: "start" }}
-                    className={`shrink-0 w-[110px] h-[110px] sm:w-[118px] shadow-lg sm:h-[118px] rounded-xl border-2 flex flex-col items-center justify-center p-2.5 cursor-pointer transition-all select-none ${
-                      isSelected
-                        ? isLight
-                      ? "bg-[#C5A059]/30 border-2 border-[#C5A059] shadow-[0_6px_22px_rgba(197,160,89,0.25)] ring-1 ring-[#C5A059]/25"
-                      : "bg-[#131713] border-2 border-[#E5C365] shadow-[0_0_20px_rgba(229,195,101,0.18)]"
-                    : isLight
-                    ? "bg-[#FBF9F4] border border-[#C5A059]/30 hover:border-[#C5A059]/70 hover:bg-[#F5F0E4]"
-                    : "bg-[#0B101C] border border-[#172238] hover:border-slate-700 hover:bg-[#0f1626]"
-                    }`}
+                    className={`shrink-0 w-[110px] h-[110px] sm:w-[118px] shadow-lg sm:h-[118px] rounded-xl border-2 flex flex-col items-center justify-center p-2.5 cursor-pointer transition-all select-none ${isSelected
+                      ? isLight
+                        ? "bg-[#C5A059]/30 border-2 border-[#C5A059] shadow-[0_6px_22px_rgba(197,160,89,0.25)] ring-1 ring-[#C5A059]/25"
+                        : "bg-[#131713] border-2 border-[#E5C365] shadow-[0_0_20px_rgba(229,195,101,0.18)]"
+                      : isLight
+                        ? "bg-[#FBF9F4] border border-[#C5A059]/30 hover:border-[#C5A059]/70 hover:bg-[#F5F0E4]"
+                        : "bg-[#0B101C] border border-[#172238] hover:border-slate-700 hover:bg-[#0f1626]"
+                      }`}
                   >
                     <div
-                      className={`w-9 h-9 rounded-lg flex items-center justify-center text-xl mb-1.5 transition-colors ${
-                        isSelected
-                          ? isLight
-                            ? "bg-[#C5A059]/15 border-[#C5A059]/40 text-[#A88238]"
-                            : "bg-[#C5A059]/15 text-white"
-                          : isLight
+                      className={`w-9 h-9 rounded-lg flex items-center justify-center text-xl mb-1.5 transition-colors ${isSelected
+                        ? isLight
+                          ? "bg-[#C5A059]/15 border-[#C5A059]/40 text-[#A88238]"
+                          : "bg-[#C5A059]/15 text-white"
+                        : isLight
                           ? "bg-[#F6EEDC] border-[#C5A059]/40 text-[#1B2E4B]"
                           : "bg-[#C5A059]/15 text-slate-800"
-                      }`}
+                        }`}
                     >
-                      <span>{cat.icon}</span> 
+                      <span>{cat.icon}</span>
                     </div>
                     <span
-                      className={`text-xs text-center leading-tight line-clamp-2 px-1 ${
-                        isSelected
-                          ? isLight
-                            ? "font-bold text-[#1B2E4B]"
-                            : "font-bold text-white"
-                          : isLight
+                      className={`text-xs text-center leading-tight line-clamp-2 px-1 ${isSelected
+                        ? isLight
+                          ? "font-bold text-[#1B2E4B]"
+                          : "font-bold text-white"
+                        : isLight
                           ? "font-semibold text-[#1B2E4B]/80"
                           : "font-semibold text-white"
-                      }`}
+                        }`}
                     >
                       {translate(getCategoryDisplayLabel(cat) as TranslationKey)}
                     </span>
                   </button>
                 );
               })}
-              
+
             </div>
-            
+
 
             {/* Property Size Selector */}
             {/* Property Size Selector */}
@@ -2302,15 +2477,15 @@ export function PropertyTypeSizeSelectorCommonFlowOfServices({
               }}
             />
 
-            
+
           </div>
 
           <EstimatioMatrixBottom
-              activeCategory={activeCategory || null} 
-              isSanitizeService={isSanitizeService}
-              isYatch={isYachtSlug}
-              theme={isLight ? "light" : "dark"}
-            />
+            activeCategory={activeCategory || null}
+            isSanitizeService={isSanitizeService}
+            isYatch={isYachtSlug}
+            theme={isLight ? "light" : "dark"}
+          />
 
           {/* Disinfection & Deep Clean Selectable Cards */}
           {isSanitizeService && (
@@ -2319,15 +2494,14 @@ export function PropertyTypeSizeSelectorCommonFlowOfServices({
               <button
                 type="button"
                 onClick={handleToggleDisinfection}
-                className={`flex items-center justify-between p-4.5 sm:p-5 rounded-xl border transition-all cursor-pointer select-none text-left ${
-                  isDisinfection
-                    ? isLight
-                      ? "bg-[#FFFDF7] border-2 border-[#C5A059] shadow-[0_4px_16px_rgba(197,160,89,0.25)]"
-                      : "bg-[#1E2E4A] border-2 border-blue-500 shadow-[0_0_15px_rgba(59,130,246,0.25)]"
-                    : isLight
+                className={`flex items-center justify-between p-4.5 sm:p-5 rounded-xl border transition-all cursor-pointer select-none text-left ${isDisinfection
+                  ? isLight
+                    ? "bg-[#FFFDF7] border-2 border-[#C5A059] shadow-[0_4px_16px_rgba(197,160,89,0.25)]"
+                    : "bg-[#1E2E4A] border-2 border-blue-500 shadow-[0_0_15px_rgba(59,130,246,0.25)]"
+                  : isLight
                     ? "bg-[#FBF9F4] border-[#C5A059]/30 hover:border-[#C5A059]/70 hover:bg-[#F5F0E4]"
                     : "bg-white/5 border-white/10 hover:border-white/20 hover:bg-white/[0.08]"
-                }`}
+                  }`}
               >
                 <div className="flex items-center gap-3 min-w-0">
                   <DisinfectionSprayIcon
@@ -2335,31 +2509,28 @@ export function PropertyTypeSizeSelectorCommonFlowOfServices({
                   />
                   <div className="flex flex-col min-w-0">
                     <span
-                      className={`text-sm sm:text-[15px] font-bold leading-tight ${
-                        isLight ? "text-[#1B2E4B]" : "text-white"
-                      }`}
+                      className={`text-sm sm:text-[15px] font-bold leading-tight ${isLight ? "text-[#1B2E4B]" : "text-white"
+                        }`}
                     >
                       {translate("DisinfectionName")}
                     </span>
                     <span
-                      className={`text-xs font-medium leading-tight mt-0.5 ${
-                        isLight ? "text-gray-500" : "text-[#94A3B8]"
-                      }`}
+                      className={`text-xs font-medium leading-tight mt-0.5 ${isLight ? "text-gray-500" : "text-[#94A3B8]"
+                        }`}
                     >
                       {translate("HospitalGradeName")} (+0%)
                     </span>
                   </div>
                 </div>
                 <div
-                  className={`w-5 h-5 rounded-[6px] border flex items-center justify-center transition-colors shrink-0 ml-2 ${
-                    isDisinfection
-                      ? isLight
-                        ? "border-[#C5A059] bg-[#C5A059] text-white"
-                        : "border-blue-500 bg-blue-500 text-white"
-                      : isLight
+                  className={`w-5 h-5 rounded-[6px] border flex items-center justify-center transition-colors shrink-0 ml-2 ${isDisinfection
+                    ? isLight
+                      ? "border-[#C5A059] bg-[#C5A059] text-white"
+                      : "border-blue-500 bg-blue-500 text-white"
+                    : isLight
                       ? "border-[#C5A059]/30 bg-white"
                       : "border-white/20 bg-white/5"
-                  }`}
+                    }`}
                 >
                   {isDisinfection && <Check className="w-3.5 h-3.5 stroke-[3]" />}
                 </div>
@@ -2369,15 +2540,14 @@ export function PropertyTypeSizeSelectorCommonFlowOfServices({
               <button
                 type="button"
                 onClick={handleToggleDeepClean}
-                className={`flex items-center justify-between p-4.5 sm:p-5 rounded-xl border transition-all cursor-pointer select-none text-left ${
-                  isDeepClean
-                    ? isLight
-                      ? "bg-[#FFFDF7] border-2 border-[#C5A059] shadow-[0_4px_16px_rgba(197,160,89,0.25)]"
-                      : "bg-[#1E2E4A] border-2 border-blue-500 shadow-[0_0_15px_rgba(59,130,246,0.25)]"
-                    : isLight
+                className={`flex items-center justify-between p-4.5 sm:p-5 rounded-xl border transition-all cursor-pointer select-none text-left ${isDeepClean
+                  ? isLight
+                    ? "bg-[#FFFDF7] border-2 border-[#C5A059] shadow-[0_4px_16px_rgba(197,160,89,0.25)]"
+                    : "bg-[#1E2E4A] border-2 border-blue-500 shadow-[0_0_15px_rgba(59,130,246,0.25)]"
+                  : isLight
                     ? "bg-[#FBF9F4] border-[#C5A059]/30 hover:border-[#C5A059]/70 hover:bg-[#F5F0E4]"
                     : "bg-white/5 border-white/10 hover:border-white/20 hover:bg-white/[0.08]"
-                }`}
+                  }`}
               >
                 <div className="flex items-center gap-3 min-w-0">
                   <Sparkles
@@ -2385,31 +2555,28 @@ export function PropertyTypeSizeSelectorCommonFlowOfServices({
                   />
                   <div className="flex flex-col min-w-0">
                     <span
-                      className={`text-sm sm:text-[15px] font-bold leading-tight ${
-                        isLight ? "text-[#1B2E4B]" : "text-white"
-                      }`}
+                      className={`text-sm sm:text-[15px] font-bold leading-tight ${isLight ? "text-[#1B2E4B]" : "text-white"
+                        }`}
                     >
                       {translate("deepCleanName")}
                     </span>
                     <span
-                      className={`text-xs font-medium leading-tight mt-0.5 ${
-                        isLight ? "text-gray-500" : "text-[#94A3B8]"
-                      }`}
+                      className={`text-xs font-medium leading-tight mt-0.5 ${isLight ? "text-gray-500" : "text-[#94A3B8]"
+                        }`}
                     >
                       {translate("deepCleanNameIntensive")} (+40%)
                     </span>
                   </div>
                 </div>
                 <div
-                  className={`w-5 h-5 rounded-[6px] border flex items-center justify-center transition-colors shrink-0 ml-2 ${
-                    isDeepClean
-                      ? isLight
-                        ? "border-[#C5A059] bg-[#C5A059] text-white"
-                        : "border-blue-500 bg-blue-500 text-white"
-                      : isLight
+                  className={`w-5 h-5 rounded-[6px] border flex items-center justify-center transition-colors shrink-0 ml-2 ${isDeepClean
+                    ? isLight
+                      ? "border-[#C5A059] bg-[#C5A059] text-white"
+                      : "border-blue-500 bg-blue-500 text-white"
+                    : isLight
                       ? "border-[#C5A059]/30 bg-white"
                       : "border-white/20 bg-white/5"
-                  }`}
+                    }`}
                 >
                   {isDeepClean && <Check className="w-3.5 h-3.5 stroke-[3]" />}
                 </div>
@@ -2419,17 +2586,17 @@ export function PropertyTypeSizeSelectorCommonFlowOfServices({
         </div>
 
         {/* Room selector for services types */}
-        {!isPool &&  (
-          <RoomSelector 
-            value={rooms} 
-            onChange={(next) => onRoomsChange?.(next)}  
-            serviceSlug={serviceSlug} 
+        {!isPool && (
+          <RoomSelector
+            value={rooms}
+            onChange={(next) => onRoomsChange?.(next)}
+            serviceSlug={serviceSlug}
             theme={isLight ? "light" : "dark"}
-        />)}
+          />)}
 
-        
-            
-        
+
+
+
 
         {/* Services frequencies */}
         {/* <div className="flex flex-col w-full mt-8">
@@ -2551,8 +2718,8 @@ export function PropertySizeSelector({
   const sizeOptions = isQuote
     ? [20, 50, 100, 250, 500, 1000, 2500, 5000, 10000, 25000, 50000, 100000, 250000, 500000]
     : activeCategory
-    ? buildSizeOptions(activeCategory)
-    : [value];
+      ? buildSizeOptions(activeCategory)
+      : [value];
 
   const dropdownOptions = Array.from(
     new Set([
@@ -2641,19 +2808,17 @@ export function PropertySizeSelector({
   return (
     <div
       ref={wheelContainerRef}
-      className={`flex flex-col w-full mt-8 rounded-[28px] p-6 sm:p-8 gap-6 shadow-2xl select-none border transition-all duration-300 ${
-        isLight
-          ? "bg-[#FBF9F4] border-[#C5A059]/30 text-[#1B2E4B]"
-          : "bg-[#0c121e] border-white/5 text-slate-100"
-      } ${className}`}
+      className={`flex flex-col w-full mt-8 rounded-[28px] p-6 sm:p-8 gap-6 shadow-2xl select-none border transition-all duration-300 ${isLight
+        ? "bg-[#FBF9F4] border-[#C5A059]/30 text-[#1B2E4B]"
+        : "bg-[#0c121e] border-white/5 text-slate-100"
+        } ${className}`}
     >
       {/* Header: Title + Subtitle on Left, Unit Switcher Pill on Right */}
       <div className="flex items-start justify-between w-full gap-4">
         <div className="flex flex-col">
           <h3
-            className={`font-serif text-2xl sm:text-3xl font-bold tracking-tight ${
-              isLight ? "text-[#1B2E4B]" : "text-white"
-            }`}
+            className={`font-serif text-2xl sm:text-3xl font-bold tracking-tight ${isLight ? "text-[#1B2E4B]" : "text-white"
+              }`}
           >
             {translate("propSizeTitle") || "Property Size"}
           </h3>
@@ -2664,33 +2829,30 @@ export function PropertySizeSelector({
 
         {/* Unit Switcher Pill (m² / ft²) */}
         <div
-          className={`p-1 rounded-full border flex items-center shrink-0 transition-colors ${
-            isLight ? "bg-[#EDE7DA] border-[#C5A059]/20" : "bg-[#141b2a] border-white/5"
-          }`}
+          className={`p-1 rounded-full border flex items-center shrink-0 transition-colors ${isLight ? "bg-[#EDE7DA] border-[#C5A059]/20" : "bg-[#141b2a] border-white/5"
+            }`}
         >
           <button
             type="button"
             onClick={() => setSizeUnit("m2")}
-            className={`px-3.5 py-1 rounded-full text-xs font-bold transition-all cursor-pointer ${
-              sizeUnit === "m2"
-                ? "bg-[#e5b842] text-black shadow-md"
-                : isLight
+            className={`px-3.5 py-1 rounded-full text-xs font-bold transition-all cursor-pointer ${sizeUnit === "m2"
+              ? "bg-[#e5b842] text-black shadow-md"
+              : isLight
                 ? "text-gray-600 hover:text-black"
                 : "text-gray-400 hover:text-white"
-            }`}
+              }`}
           >
             m²
           </button>
           <button
             type="button"
             disabled
-            className={`px-3.5 py-1 rounded-full text-xs font-bold transition-all cursor-not-allowed ${
-              sizeUnit === "ft2"
-                ? "bg-[#e5b842] text-black shadow-md"
-                : isLight
+            className={`px-3.5 py-1 rounded-full text-xs font-bold transition-all cursor-not-allowed ${sizeUnit === "ft2"
+              ? "bg-[#e5b842] text-black shadow-md"
+              : isLight
                 ? "text-gray-600 hover:text-black"
                 : "text-gray-400 hover:text-white"
-            }`}
+              }`}
           >
             ft²
           </button>
@@ -2699,24 +2861,21 @@ export function PropertySizeSelector({
 
       {/* Display & Quick-Control Card */}
       <div
-        className={`w-full rounded-2xl p-4 sm:p-5 flex items-center justify-between gap-3 border transition-colors ${
-          isLight ? "bg-white border-[#C5A059]/25 shadow-sm" : "bg-[#111726] border-white/5"
-        }`}
+        className={`w-full rounded-2xl p-4 sm:p-5 flex items-center justify-between gap-3 border transition-colors ${isLight ? "bg-white border-[#C5A059]/25 shadow-sm" : "bg-[#111726] border-white/5"
+          }`}
       >
         {/* Left: House Icon & Size Values */}
         <div className="flex items-center gap-3.5 sm:gap-4 min-w-0">
           <div
-            className={`w-12 h-12 sm:w-14 sm:h-14 rounded-2xl flex items-center justify-center shrink-0 shadow-[0_0_15px_rgba(229,184,66,0.15)] border ${
-              isLight ? "bg-[#F6EEDC] border-[#C5A059]/40" : "bg-[#182033] border-[#e5b842]/30"
-            }`}
+            className={`w-12 h-12 sm:w-14 sm:h-14 rounded-2xl flex items-center justify-center shrink-0 shadow-[0_0_15px_rgba(229,184,66,0.15)] border ${isLight ? "bg-[#F6EEDC] border-[#C5A059]/40" : "bg-[#182033] border-[#e5b842]/30"
+              }`}
           >
             <Home className="w-6 h-6 sm:w-7 sm:h-7 text-[#e5b842]" />
           </div>
           <div className="flex flex-col min-w-0">
             <span
-              className={`text-2xl sm:text-3xl font-bold tracking-tight leading-none truncate ${
-                isLight ? "text-[#1B2E4B]" : "text-white"
-              }`}
+              className={`text-2xl sm:text-3xl font-bold tracking-tight leading-none truncate ${isLight ? "text-[#1B2E4B]" : "text-white"
+                }`}
             >
               {sizeUnit === "m2" ? `${value.toLocaleString()} m²` : `${formatFt2(value)} ft²`}
             </span>
@@ -2733,11 +2892,10 @@ export function PropertySizeSelector({
             type="button"
             onClick={() => handleStepChange(getStepAmount(value, false))}
             disabled={value <= MIN_SIZE}
-            className={`w-10 h-10 sm:w-11 sm:h-11 rounded-full flex items-center justify-center font-bold text-lg cursor-pointer transition-all disabled:opacity-30 disabled:cursor-not-allowed shadow-md active:scale-95 ${
-              isLight
-                ? "bg-[#EDE7DA] hover:bg-[#dfd7c5] text-[#1B2E4B]"
-                : "bg-[#1c2438] hover:bg-[#25304a] text-white"
-            }`}
+            className={`w-10 h-10 sm:w-11 sm:h-11 rounded-full flex items-center justify-center font-bold text-lg cursor-pointer transition-all disabled:opacity-30 disabled:cursor-not-allowed shadow-md active:scale-95 ${isLight
+              ? "bg-[#EDE7DA] hover:bg-[#dfd7c5] text-[#1B2E4B]"
+              : "bg-[#1c2438] hover:bg-[#25304a] text-white"
+              }`}
             aria-label="Decrease size"
           >
             <Minus className={`w-4 h-4 sm:w-5 sm:h-5 ${isLight ? "text-[#1B2E4B]" : "text-white"}`} />
@@ -2745,11 +2903,10 @@ export function PropertySizeSelector({
 
           {/* Size Pill with integrated select */}
           <div
-            className={`relative rounded-xl border transition-colors ${
-              isLight
-                ? "border-[#C5A059]/30 bg-[#F4EFE6] hover:border-[#C5A059]/60"
-                : "border-white/10 bg-[#161e31] hover:border-white/20"
-            }`}
+            className={`relative rounded-xl border transition-colors ${isLight
+              ? "border-[#C5A059]/30 bg-[#F4EFE6] hover:border-[#C5A059]/60"
+              : "border-white/10 bg-[#161e31] hover:border-white/20"
+              }`}
           >
             <select
               value={value}
@@ -2757,9 +2914,8 @@ export function PropertySizeSelector({
                 const selectedVal = Number(e.target.value);
                 handleDirectSizeChange(selectedVal);
               }}
-              className={`appearance-none px-3.5 py-2 sm:py-2.5 font-semibold text-xs sm:text-sm bg-transparent cursor-pointer focus:outline-none pr-8 ${
-                isLight ? "text-[#1B2E4B]" : "text-white"
-              }`}
+              className={`appearance-none px-3.5 py-2 sm:py-2.5 font-semibold text-xs sm:text-sm bg-transparent cursor-pointer focus:outline-none pr-8 ${isLight ? "text-[#1B2E4B]" : "text-white"
+                }`}
             >
               {dropdownOptions.map((val) => (
                 <option
@@ -2772,9 +2928,8 @@ export function PropertySizeSelector({
               ))}
             </select>
             <ChevronDown
-              className={`pointer-events-none absolute right-2.5 top-1/2 -translate-y-1/2 w-3.5 h-3.5 ${
-                isLight ? "text-gray-500" : "text-gray-400"
-              }`}
+              className={`pointer-events-none absolute right-2.5 top-1/2 -translate-y-1/2 w-3.5 h-3.5 ${isLight ? "text-gray-500" : "text-gray-400"
+                }`}
             />
           </div>
 
@@ -2798,9 +2953,8 @@ export function PropertySizeSelector({
           const sliderPercent = valueToSliderPercent(value, SIZE_MILESTONES);
           return (
             <div
-              className={`relative w-full h-1.5 rounded-full my-3 flex items-center ${
-                isLight ? "bg-[#E5DFD3]" : "bg-[#1b2438]"
-              }`}
+              className={`relative w-full h-1.5 rounded-full my-3 flex items-center ${isLight ? "bg-[#E5DFD3]" : "bg-[#1b2438]"
+                }`}
             >
               {/* Active Gradient Track */}
               <div
@@ -2843,35 +2997,32 @@ export function PropertySizeSelector({
                 key={m}
                 type="button"
                 onClick={() => handleDirectSizeChange(m)}
-                className={`flex flex-col cursor-pointer transition-colors group ${
-                  isFirst
-                    ? "items-start text-left"
-                    : isLast
+                className={`flex flex-col cursor-pointer transition-colors group ${isFirst
+                  ? "items-start text-left"
+                  : isLast
                     ? "items-end text-right"
                     : "items-center text-center"
-                }`}
+                  }`}
               >
                 <span
-                  className={`text-xs sm:text-sm font-bold transition-colors ${
-                    isCurrent
-                      ? isLight
-                        ? "text-[#1B2E4B]"
-                        : "text-white"
-                      : isLight
+                  className={`text-xs sm:text-sm font-bold transition-colors ${isCurrent
+                    ? isLight
+                      ? "text-[#1B2E4B]"
+                      : "text-white"
+                    : isLight
                       ? "text-gray-500 group-hover:text-[#1B2E4B]"
                       : "text-gray-300 group-hover:text-white"
-                  }`}
+                    }`}
                 >
                   {m.toLocaleString()} m²
                 </span>
                 <span
-                  className={`text-[10px] sm:text-xs font-semibold transition-colors mt-0.5 ${
-                    isCurrent
-                      ? "text-[#e5b842]"
-                      : isLight
+                  className={`text-[10px] sm:text-xs font-semibold transition-colors mt-0.5 ${isCurrent
+                    ? "text-[#e5b842]"
+                    : isLight
                       ? "text-gray-400 group-hover:text-gray-600"
                       : "text-gray-500 group-hover:text-gray-400"
-                  }`}
+                    }`}
                 >
                   {formatFt2(m)} ft²
                 </span>
@@ -2888,24 +3039,21 @@ export function PropertySizeSelector({
           type="button"
           onClick={() => handleStepChange(bottomStep)}
           disabled={value >= MAX_SIZE}
-          className={`rounded-2xl border p-4 sm:p-5 flex items-center gap-3.5 transition-all text-left cursor-pointer disabled:opacity-40 disabled:cursor-not-allowed group active:scale-[0.98] ${
-            isLight
-              ? "bg-white border-[#C5A059]/25 hover:border-[#e5b842] shadow-sm"
-              : "bg-[#111726] border-white/5 hover:border-[#e5b842]/40"
-          }`}
+          className={`rounded-2xl border p-4 sm:p-5 flex items-center gap-3.5 transition-all text-left cursor-pointer disabled:opacity-40 disabled:cursor-not-allowed group active:scale-[0.98] ${isLight
+            ? "bg-white border-[#C5A059]/25 hover:border-[#e5b842] shadow-sm"
+            : "bg-[#111726] border-white/5 hover:border-[#e5b842]/40"
+            }`}
         >
           <div
-            className={`w-10 h-10 sm:w-11 sm:h-11 rounded-full flex items-center justify-center text-[#e5b842] group-hover:bg-[#e5b842] group-hover:text-black transition-colors shrink-0 ${
-              isLight ? "bg-[#F6EEDC]" : "bg-[#1b2337]"
-            }`}
+            className={`w-10 h-10 sm:w-11 sm:h-11 rounded-full flex items-center justify-center text-[#e5b842] group-hover:bg-[#e5b842] group-hover:text-black transition-colors shrink-0 ${isLight ? "bg-[#F6EEDC]" : "bg-[#1b2337]"
+              }`}
           >
             <ArrowUp className="w-4 h-4 sm:w-5 sm:h-5 stroke-[2.5]" />
           </div>
           <div className="flex flex-col">
             <span
-              className={`text-sm sm:text-base font-bold leading-tight ${
-                isLight ? "text-[#1B2E4B]" : "text-white"
-              }`}
+              className={`text-sm sm:text-base font-bold leading-tight ${isLight ? "text-[#1B2E4B]" : "text-white"
+                }`}
             >
               {translate("propSizeUp" as TranslationKey) || "Increase Size"}
             </span>
@@ -2920,24 +3068,21 @@ export function PropertySizeSelector({
           type="button"
           onClick={() => handleStepChange(-bottomStep)}
           disabled={value <= MIN_SIZE}
-          className={`rounded-2xl border p-4 sm:p-5 flex items-center gap-3.5 transition-all text-left cursor-pointer disabled:opacity-40 disabled:cursor-not-allowed group active:scale-[0.98] ${
-            isLight
-              ? "bg-white border-[#C5A059]/25 hover:border-[#e5b842] shadow-sm"
-              : "bg-[#111726] border-white/5 hover:border-[#e5b842]/40"
-          }`}
+          className={`rounded-2xl border p-4 sm:p-5 flex items-center gap-3.5 transition-all text-left cursor-pointer disabled:opacity-40 disabled:cursor-not-allowed group active:scale-[0.98] ${isLight
+            ? "bg-white border-[#C5A059]/25 hover:border-[#e5b842] shadow-sm"
+            : "bg-[#111726] border-white/5 hover:border-[#e5b842]/40"
+            }`}
         >
           <div
-            className={`w-10 h-10 sm:w-11 sm:h-11 rounded-full flex items-center justify-center text-[#e5b842] group-hover:bg-[#e5b842] group-hover:text-black transition-colors shrink-0 ${
-              isLight ? "bg-[#F6EEDC]" : "bg-[#1b2337]"
-            }`}
+            className={`w-10 h-10 sm:w-11 sm:h-11 rounded-full flex items-center justify-center text-[#e5b842] group-hover:bg-[#e5b842] group-hover:text-black transition-colors shrink-0 ${isLight ? "bg-[#F6EEDC]" : "bg-[#1b2337]"
+              }`}
           >
             <ArrowDown className="w-4 h-4 sm:w-5 sm:h-5 stroke-[2.5]" />
           </div>
           <div className="flex flex-col">
             <span
-              className={`text-sm sm:text-base font-bold leading-tight ${
-                isLight ? "text-[#1B2E4B]" : "text-white"
-              }`}
+              className={`text-sm sm:text-base font-bold leading-tight ${isLight ? "text-[#1B2E4B]" : "text-white"
+                }`}
             >
               {translate("propSizeDown" as TranslationKey) || "Decrease Size"}
             </span>
@@ -2966,9 +3111,8 @@ export function EstimatioMatrixBottom({
   const isLight = theme === "light";
 
   return (
-    <div className={`w-full rounded-2xl border border-[#C5A059]/40 p-4 md:p-6 shadow-[0_6px_22px_rgba(197,160,89,0.25)] ring-1 ring-[#C5A059]/25 relative overflow-hidden select-none font-mono transition-colors duration-300 ${
-      isLight ? "bg-white text-slate-900" : "bg-[#030303] text-white"
-    }`}>
+    <div className={`w-full rounded-2xl border border-[#C5A059]/40 p-4 md:p-6 shadow-[0_6px_22px_rgba(197,160,89,0.25)] ring-1 ring-[#C5A059]/25 relative overflow-hidden select-none font-mono transition-colors duration-300 ${isLight ? "bg-white text-slate-900" : "bg-[#030303] text-white"
+      }`}>
       {/* Header Section */}
       <div className="mb-4 pb-3 border-b border-[#C5A059]/30">
         <h3 className={`text-base md:text-xl font-bold tracking-tight font-serif ${isLight ? "text-slate-900" : "text-white"}`}>
@@ -2981,13 +3125,12 @@ export function EstimatioMatrixBottom({
 
       {/* Grid Cards Container: 2 columns on mobile, 4 columns on desktop */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4">
-        
+
         {/* Card 1: Property Scale / Target Area */}
         <div className={`flex flex-col items-center justify-center p-3.5 md:p-4 rounded-xl border 
         border-[#C5A059]/40 shadow-[inset_0_0_12px_rgba(197,160,89,0.1)] text-center transition-colors
-         duration-300 ${
-          isLight ? "bg-amber-100" : "bg-[#050505]"
-        }`}>
+         duration-300 ${isLight ? "bg-amber-100" : "bg-[#050505]"
+          }`}>
           <Maximize2 className="w-4 h-4 text-[#C5A059] mb-2" />
           <p className="text-[10px] md:text-[11px] font-bold tracking-widest text-[#C5A059] uppercase mb-1">
             PROPERTY SCALE
@@ -3005,9 +3148,8 @@ export function EstimatioMatrixBottom({
         </div>
 
         {/* Card 2: Total Duration / Est Labor */}
-        <div className={`flex flex-col items-center justify-center p-3.5 md:p-4 rounded-xl border border-[#C5A059]/40 shadow-[inset_0_0_12px_rgba(197,160,89,0.1)] text-center transition-colors duration-300 ${
-          isLight ? "bg-amber-100" : "bg-[#050505]"
-        }`}>
+        <div className={`flex flex-col items-center justify-center p-3.5 md:p-4 rounded-xl border border-[#C5A059]/40 shadow-[inset_0_0_12px_rgba(197,160,89,0.1)] text-center transition-colors duration-300 ${isLight ? "bg-amber-100" : "bg-[#050505]"
+          }`}>
           <Clock className="w-4 h-4 text-[#C5A059] mb-2" />
           <p className="text-[10px] md:text-[11px] font-bold tracking-widest text-[#C5A059] uppercase mb-1">
             {translate("EstLabor")}
@@ -3019,9 +3161,8 @@ export function EstimatioMatrixBottom({
         </div>
 
         {/* Card 3: Allocated Staff */}
-        <div className={`flex flex-col items-center justify-center p-3.5 md:p-4 rounded-xl border border-[#C5A059]/40 shadow-[inset_0_0_12px_rgba(197,160,89,0.1)] text-center transition-colors duration-300 ${
-          isLight ? "bg-amber-100" : "bg-[#050505]"
-        }`}>
+        <div className={`flex flex-col items-center justify-center p-3.5 md:p-4 rounded-xl border border-[#C5A059]/40 shadow-[inset_0_0_12px_rgba(197,160,89,0.1)] text-center transition-colors duration-300 ${isLight ? "bg-amber-100" : "bg-[#050505]"
+          }`}>
           <Users className="w-4 h-4 text-[#C5A059] mb-2" />
           <p className="text-[10px] md:text-[11px] font-bold tracking-widest text-[#C5A059] uppercase mb-1">
             ALLOCATED STAFF
@@ -3035,9 +3176,8 @@ export function EstimatioMatrixBottom({
         </div>
 
         {/* Card 4: On-Site Window / Estimated Cost */}
-        <div className={`flex flex-col items-center justify-center p-3.5 md:p-4 rounded-xl border border-[#C5A059]/40 shadow-[inset_0_0_12px_rgba(197,160,89,0.1)] text-center transition-colors duration-300 ${
-          isLight ? "bg-amber-100" : "bg-[#050505]"
-        }`}>
+        <div className={`flex flex-col items-center justify-center p-3.5 md:p-4 rounded-xl border border-[#C5A059]/40 shadow-[inset_0_0_12px_rgba(197,160,89,0.1)] text-center transition-colors duration-300 ${isLight ? "bg-amber-100" : "bg-[#050505]"
+          }`}>
           <Calendar className="w-4 h-4 text-[#C5A059] mb-2" />
           <p className="text-[10px] md:text-[11px] font-bold tracking-widest text-[#C5A059] uppercase mb-1">
             {translate("EstimatedCost")}
@@ -3064,7 +3204,7 @@ export function EstimatioMatrixBottom({
 //visualization of Yatches
 
 
-export function YatchSizeVisualization({ 
+export function YatchSizeVisualization({
   value,
   activeCategory,
   isDisinfection,
@@ -3086,13 +3226,13 @@ export function YatchSizeVisualization({
   const range = (min: string, max: string) => (min === max ? min : `${min} – ${max}`);
   const hasPrice = !!quote?.bookable && quote.priceMin != null && quote.priceMax != null;
   const estimatedCost = hasPrice ? range(`${symbol}${quote!.priceMin!.toFixed(2)}`, `${symbol}${quote!.priceMax!.toFixed(2)}`) : "—";
-  
+
   const serviceRate = hasPrice && quote!.minHours
     ? `${symbol}${(quote!.priceMin! / quote!.minHours).toFixed(2)} ${translate("servicesRatePerCleanerHour")}`
     : "—";
 
   const hasHours = !!quote?.bookable && quote.minHours != null && quote.maxHours != null;
-  
+
   const labor = hasHours
     ? `${range(String(quote!.minHours), String(quote!.maxHours))}h (${quote!.cleanerCount ?? 1} ${translate("CrewWord")})`
     : "—";
@@ -3102,11 +3242,10 @@ export function YatchSizeVisualization({
 
   return (
     <div
-      className={`w-full rounded-t-2xl border-2 border-[#C5A059] p-4 sm:p-6 transition-colors duration-300 relative overflow-hidden select-none font-mono ${
-        isLight
-          ? "bg-[#FAF8F5] text-slate-900 shadow-[0_10px_35px_rgba(197,160,89,0.22)] ring-1 ring-[#C5A059]/30"
-          : "bg-[#030303] text-white shadow-[0_6px_22px_rgba(197,160,89,0.25)] ring-1 ring-[#C5A059]/25"
-      }`}
+      className={`w-full rounded-t-2xl border-2 border-[#C5A059] p-4 sm:p-6 transition-colors duration-300 relative overflow-hidden select-none font-mono ${isLight
+        ? "bg-[#FAF8F5] text-slate-900 shadow-[0_10px_35px_rgba(197,160,89,0.22)] ring-1 ring-[#C5A059]/30"
+        : "bg-[#030303] text-white shadow-[0_6px_22px_rgba(197,160,89,0.25)] ring-1 ring-[#C5A059]/25"
+        }`}
       style={{
         backgroundImage: isLight
           ? `
@@ -3121,20 +3260,17 @@ export function YatchSizeVisualization({
       }}
     >
       {/* Top Header & Blueprint Toggle */}
-      <div className={`w-full flex flex-col sm:flex-row items-center justify-between pb-3 mb-4 gap-3 border-b ${
-        isLight ? "border-[#C5A059]/30" : "border-[#C5A059]/40"
-      }`}>
+      <div className={`w-full flex flex-col sm:flex-row items-center justify-between pb-3 mb-4 gap-3 border-b ${isLight ? "border-[#C5A059]/30" : "border-[#C5A059]/40"
+        }`}>
         <div className="flex items-center space-x-3">
           <div className="w-3 h-3 bg-[#C5A059] rounded-full shadow-[0_0_12px_#C5A059]" />
           <div>
-            <h3 className={`text-xs sm:text-sm font-bold tracking-widest uppercase ${
-              isLight ? "text-[#8C6D2D]" : "text-[#E6D5B8]"
-            }`}>
+            <h3 className={`text-xs sm:text-sm font-bold tracking-widest uppercase ${isLight ? "text-[#8C6D2D]" : "text-[#E6D5B8]"
+              }`}>
               VESSEL DECK PLAN TEMPLATES
             </h3>
-            <p className={`text-[10px] tracking-wider ${
-              isLight ? "text-[#A37F38]" : "text-[#C5A059]/80"
-            }`}>
+            <p className={`text-[10px] tracking-wider ${isLight ? "text-[#A37F38]" : "text-[#C5A059]/80"
+              }`}>
               {value} m² • {formatFt2(value)} ft² | GRID DIMENSIONS: {span}m × {depth}m
             </p>
           </div>
@@ -3142,11 +3278,10 @@ export function YatchSizeVisualization({
       </div>
 
       {/* Main Architectural SVG Blueprint Stage with Enhanced Golden Dotted Matrix */}
-      <div className={`relative w-full border-2 border-[#C5A059] rounded-xl p-2 sm:p-4 overflow-hidden flex items-center justify-center transition-all duration-300 ${
-        isLight
-          ? "bg-white/90 backdrop-blur-md shadow-[inset_0_0_20px_rgba(197,160,89,0.2),0_10px_35px_rgba(197,160,89,0.35)] ring-2 ring-[#C5A059]/30"
-          : "bg-[#050505]/95 backdrop-blur-sm shadow-[inset_0_0_25px_rgba(197,160,89,0.25),0_8px_25px_rgba(197,160,89,0.3)]"
-      }`}>
+      <div className={`relative w-full border-2 border-[#C5A059] rounded-xl p-2 sm:p-4 overflow-hidden flex items-center justify-center transition-all duration-300 ${isLight
+        ? "bg-white/90 backdrop-blur-md shadow-[inset_0_0_20px_rgba(197,160,89,0.2),0_10px_35px_rgba(197,160,89,0.35)] ring-2 ring-[#C5A059]/30"
+        : "bg-[#050505]/95 backdrop-blur-sm shadow-[inset_0_0_25px_rgba(197,160,89,0.25),0_8px_25px_rgba(197,160,89,0.3)]"
+        }`}>
         {serviceCategory === "yatch-cleaning" ? (
           /* ================= LUXURY YACHT ARCHITECTURE ================= */
           <svg viewBox="-20 -20 1040 680" className="w-full h-auto max-h-[460px] drop-shadow-[0_0_18px_rgba(197,160,89,0.4)]">
@@ -3155,7 +3290,7 @@ export function YatchSizeVisualization({
                 <circle cx="3" cy="3" r="1.6" fill="#C5A059" opacity={isLight ? "0.75" : "0.65"} />
               </pattern>
             </defs>
-            
+
             {/* Background Dotted Matrix Fill with Richer Presence */}
             <rect x="0" y="0" width="1000" height="640" rx="12" fill="url(#dotGrid)" />
 
@@ -3310,9 +3445,8 @@ export function YatchSizeVisualization({
 
       {/* Bottom Estimation Summary Bar */}
       {!isQuote && (
-        <div className={`grid grid-cols-3 gap-2 sm:gap-4 pt-3 mt-4 border-t text-center ${
-          isLight ? "border-[#C5A059]/30" : "border-[#C5A059]/40"
-        }`}>
+        <div className={`grid grid-cols-3 gap-2 sm:gap-4 pt-3 mt-4 border-t text-center ${isLight ? "border-[#C5A059]/30" : "border-[#C5A059]/40"
+          }`}>
           <div>
             <p className={`text-[11px] font-medium mb-0.5 ${isLight ? "text-slate-500" : "text-gray-400"}`}>
               {translate("EstimatedCost")}
@@ -3361,7 +3495,7 @@ export const PoolBlueprintDiagram = () => {
     >
       {/* Main Architectural SVG Blueprint Stage */}
       <div className="relative w-full max-w-5xl bg-[#050914] border border-cyan-500/40 rounded-xl p-2 sm:p-4 shadow-inner flex items-center justify-center overflow-x-auto">
-        
+
         <svg
           viewBox="-80 -60 1160 760"
           className="w-full h-auto max-h-[600px] drop-shadow-[0_0_16px_rgba(0,210,255,0.25)]"

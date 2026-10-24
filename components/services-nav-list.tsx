@@ -33,7 +33,7 @@ const serviceTranslationKeyMap: Record<string, TranslationKey> = {
   "end-of-tenancy-cleaning": "serviceLableEndOfTenancyCleaning",
   "post-construction-renovation-cleaning": "serviceLablePostConstructionRenovationCleaning",
   "same-day-priority-cleaning": "serviceLableSameDayPriorityCleaning",
-  "high-security-property-care": "serviceLableHighSecurityPropertyCare",
+  "high-security-property-care": "serviceVIPHighSecurityCleaning",
   "premium-rental-concierge-cleaning": "serviceLablePremiumRentalConciergeCleaning",
   "laundry-service": "serviceLableLaundryService",
   "carpet-upholstery-cleaning": "serviceLableCarpetUpholsteryCleaning",

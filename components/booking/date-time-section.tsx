@@ -3,7 +3,7 @@
 import { useMemo, useState } from "react";
 import { useLanguage } from "@/lib/i18n/language-context";
 import type { TranslationKey } from "@/lib/i18n/dictionaries/en";
-import { Calendar, Clock, ChevronLeft, ChevronRight, CalendarDays, Check, Calendar1Icon, Star } from "lucide-react";
+import { Calendar, Clock, ChevronLeft, ChevronRight, CalendarDays, Check, Calendar1Icon, Star, ShieldCheck } from "lucide-react";
 import { usePoolTheme } from "@/lib/pool-theme-context";
 
 const TIME_START = "05:30";
@@ -340,9 +340,24 @@ export function DateTimeSection(
           </div>
 
           {/**Arrival note */}
-          <div className="">
-            Staff arrives within a strict 15-minute window with electronic keycode verification.
-          </div>
+          <div
+      className={`flex m-2 items-center gap-3.5 rounded-xl border p-4 shadow-lg backdrop-blur-sm sm:p-5 transition-colors ${
+        isLight
+          ? "border-[#00e699]/60 bg-[#e6f9f0] text-[#006633]"
+          : "border-[#00e699]/40 bg-[#071226]/80 text-[#00e699]"
+      } mt-3`}
+          > 
+            <div
+              className={`flex h-10  w-10 shrink-0 items-center justify-center rounded-lg ${
+                isLight ? "text-[#006633]" : "text-[#00e699]"
+              }`}
+            >
+              <ShieldCheck className="h-6 w-6" />
+            </div>
+            <p className="text-xs sm:text-sm font-medium leading-relaxed">
+              Staff arrives within a strict 15-minute window with electronic keycode verification.
+            </p>
+          </div> 
         </div>
       </div>
       

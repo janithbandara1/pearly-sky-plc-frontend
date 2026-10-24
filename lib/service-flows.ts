@@ -45,7 +45,6 @@ const commonPropertyTypesWithRoomComponents = new Set([
   "same-day-priority-cleaning",
   
   
-  
 ]);
 
 const DedicatedRooms = new Set([
