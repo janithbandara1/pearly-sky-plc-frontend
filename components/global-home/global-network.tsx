@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import { ArrowRight, ChevronLeft, ChevronRight } from "lucide-react";
-import { CountryFlag } from "@/components/ui/country-wise-domains";
+import { CountryFlagIcon } from "./country-flags";
 import { REGIONAL_DATA, TOTAL_COUNTRIES } from "@/lib/content/global-countries";
 import { cn } from "@/lib/utils";
 
@@ -85,12 +85,13 @@ export function GlobalNetwork() {
           })}
         </div>
 
-        <div className="relative">
+        {/* Side gutters on sm+ hold the arrows, so they never sit on top of a card. */}
+        <div className="relative sm:px-14">
           <button
             type="button"
             aria-label="Scroll countries left"
             onClick={() => scrollBy(-1)}
-            className="glass-panel absolute left-0 top-1/2 z-10 hidden h-10 w-10 -translate-x-3 -translate-y-1/2 items-center justify-center rounded-full border-gold-500/40! text-gold-400 shadow-lg transition-all hover:bg-gold-500 hover:text-navy-900 sm:flex"
+            className="glass-panel absolute left-0 top-1/2 z-10 hidden h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full border-gold-500/40! text-gold-400 shadow-lg transition-all hover:bg-gold-500 hover:text-navy-900 sm:flex"
           >
             <ChevronLeft className="h-4 w-4" />
           </button>
@@ -98,7 +99,7 @@ export function GlobalNetwork() {
             type="button"
             aria-label="Scroll countries right"
             onClick={() => scrollBy(1)}
-            className="glass-panel absolute right-0 top-1/2 z-10 hidden h-10 w-10 -translate-y-1/2 translate-x-3 items-center justify-center rounded-full border-gold-500/40! text-gold-400 shadow-lg transition-all hover:bg-gold-500 hover:text-navy-900 sm:flex"
+            className="glass-panel absolute right-0 top-1/2 z-10 hidden h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full border-gold-500/40! text-gold-400 shadow-lg transition-all hover:bg-gold-500 hover:text-navy-900 sm:flex"
           >
             <ChevronRight className="h-4 w-4" />
           </button>
@@ -113,12 +114,12 @@ export function GlobalNetwork() {
                 key={country.id}
                 className="flex min-w-[200px] snap-start flex-col items-center rounded-2xl border border-slate-700/60 bg-navy-700/40 p-5 text-center transition-all hover:-translate-y-1 hover:border-gold-500/50 sm:min-w-[220px]"
               >
-                <CountryFlag
-                  code={country.flagCode}
-                  className="mb-3 h-9 w-12 rounded-md object-cover shadow-md"
-                />
-                <h3 className="font-display text-base font-bold text-white">{country.name}</h3>
-                <p className="mb-4 text-[11px] text-slate-400">
+                <CountryFlagIcon code={country.flagCode} className="mb-3 h-8 w-12 rounded-md shadow-md" />
+                {/* Two-line slot, so long names ("United States of America") don't make the shorter cards' gaps uneven. */}
+                <h3 className="flex min-h-10 items-center font-display text-base font-bold leading-tight text-white">
+                  {country.name}
+                </h3>
+                <p className="mb-3 mt-1 text-[11px] text-slate-400">
                   {country.isLive ? country.domain.toLowerCase() : country.region}
                 </p>
                 {country.isLive ? (
@@ -126,13 +127,13 @@ export function GlobalNetwork() {
                     href={`https://${country.domain.toLowerCase()}`}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="mt-auto flex min-h-0! items-center gap-1.5 rounded-full border border-emerald-500/40 bg-emerald-600/20 px-3.5 py-1.5 text-xs font-medium text-emerald-400 transition-all hover:bg-emerald-600 hover:text-white"
+                    className="flex min-h-0! items-center gap-1.5 rounded-full border border-emerald-500/40 bg-emerald-600/20 px-3.5 py-1.5 text-xs font-medium text-emerald-400 transition-all hover:bg-emerald-600 hover:text-white"
                   >
                     <span>Live Website</span>
                     <ArrowRight className="h-3 w-3" />
                   </a>
                 ) : (
-                  <span className="mt-auto rounded-full border border-slate-700 bg-slate-800/80 px-3.5 py-1.5 text-xs font-medium text-slate-400">
+                  <span className="rounded-full border border-slate-700 bg-slate-800/80 px-3.5 py-1.5 text-xs font-medium text-slate-400">
                     Coming Soon
                   </span>
                 )}

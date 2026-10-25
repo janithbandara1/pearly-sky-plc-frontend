@@ -1,6 +1,7 @@
 import Image from "next/image";
 import { ArrowRight, Crown, Gem, Globe, Leaf, ShieldCheck, Sprout } from "lucide-react";
 import Link from "@/components/locale-link";
+import { WatchVideoButton } from "./watch-video";
 
 const FEATURES = [
   { Icon: Sprout, label: "Eco Friendly Solutions" },
@@ -59,6 +60,7 @@ export function GlobalHero() {
             >
               About Us
             </Link>
+            <WatchVideoButton />
           </div>
         </div>
 

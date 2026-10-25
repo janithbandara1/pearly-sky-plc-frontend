@@ -35,8 +35,9 @@ const securityHeaders = [
       // "https:" in production, listed explicitly in the dev allow-list.
      `connect-src ${connectSrc}`,// Added THIS LINE – allows Google Maps iframes. challenges.cloudflare.com
       // renders Turnstile's interactive-challenge iframe; client.crisp.chat
-      // renders the chat widget's iframe.
-      "frame-src 'self' https://www.google.com https://maps.google.com https://www.google.com/maps/ https://challenges.cloudflare.com https://client.crisp.chat",
+      // renders the chat widget's iframe; youtube-nocookie.com plays the
+      // global home hero's "Watch Video" film (components/global-home/watch-video.tsx).
+      "frame-src 'self' https://www.google.com https://maps.google.com https://www.google.com/maps/ https://challenges.cloudflare.com https://client.crisp.chat https://www.youtube-nocookie.com",
       "frame-ancestors 'none'",
       "base-uri 'self'",
       "form-action 'self'",

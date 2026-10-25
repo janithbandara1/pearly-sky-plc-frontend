@@ -3,9 +3,8 @@ import { notFound } from "next/navigation";
 import { getRequestLanguage } from "@/lib/i18n/server";
 import { buildGlobalAlternates, buildSocialMeta } from "@/lib/countries/seo";
 import { BreadcrumbJsonLd } from "@/components/json-ld";
-import PaymentMarquee from "@/components/payment-method-services";
 import { IS_GLOBAL_SITE } from "@/lib/countries/config";
-import ServicesDetailsPage from "./our-services-section";
+import { GlobalServicesPage } from "@/components/global-home/global-services-page";
 import { getOurServicesContent } from "@/lib/content/our-services";
 
 // Global-gateway-only page: the country sites redirect it to their home page
@@ -36,10 +35,7 @@ export default async function OurServicesPage() {
           { name: "Home", path: "/" },
           { name: "Our Services", path: "/our-services" },
         ]} />
-      <div className="overflow-hidden">
-            <ServicesDetailsPage content={content} />
-      </div>
-      <PaymentMarquee />
+      <GlobalServicesPage content={content} />
     </>
   );
 }

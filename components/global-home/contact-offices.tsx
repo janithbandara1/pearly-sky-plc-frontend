@@ -1,13 +1,15 @@
-"use client";
-
-import { useState } from "react";
 import Image from "next/image";
 import { ArrowRight, Building, Building2, MapPin, Phone } from "lucide-react";
 import { officeLocations } from "@/lib/content/locations";
-import { COVERAGE_CITIES } from "@/lib/countries/home-content";
-import { COUNTRY_HERO_IMAGES } from "@/lib/countries/config";
+import { COUNTRY_HERO_IMAGES, type CountryCode } from "@/lib/countries/config";
+import { CountryFlagIcon } from "./country-flags";
 
-const PREVIEW_CITIES = 17;
+/** The nine featured service cities each office card lists (the country sites carry the full coverage lists). */
+const FEATURED_CITIES: Record<CountryCode, string[]> = {
+  fr: ["Paris", "Nice", "Antibes", "Cannes", "Monaco", "Normandy", "Deauville", "Dieppe", "Saint-Tropez"],
+  gb: ["London", "Windsor", "Richmond upon Thames", "Oxford", "Cambridge", "Bath", "Brighton and Hove", "Edinburgh", "Manchester"],
+  lk: ["Colombo", "Kandy", "Galle", "Negombo", "Anuradhapura", "Badulla", "Sigiriya", "Nuwara Eliya", "Ella"],
+};
 
 /** One card per real country office — France is the head office. */
 export function ContactOffices() {
@@ -24,9 +26,7 @@ export function ContactOffices() {
 }
 
 function OfficeCard({ office }: { office: (typeof officeLocations)[number] }) {
-  const [showAll, setShowAll] = useState(false);
-  const cities = office.country ? COVERAGE_CITIES[office.country] : office.serviceCities;
-  const visibleCities = showAll ? cities : cities.slice(0, PREVIEW_CITIES);
+  const cities = office.country ? FEATURED_CITIES[office.country] : office.serviceCities;
   const image = office.country ? COUNTRY_HERO_IMAGES[office.country] : null;
   const mapUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(office.address ?? office.name)}`;
 
@@ -35,9 +35,7 @@ function OfficeCard({ office }: { office: (typeof officeLocations)[number] }) {
       <div>
         <div className="flex items-center justify-between gap-3 border-b border-slate-800 bg-navy-700 p-4">
           <div className="flex items-center gap-3">
-            {office.flag && (
-              <Image src={office.flag} alt="" width={32} height={24} className="h-6 w-8 rounded object-cover shadow-sm" />
-            )}
+            {office.country && <CountryFlagIcon code={office.country} className="h-6 w-8 shrink-0 rounded shadow-sm" />}
             <div>
               <h3 className="font-display text-base font-bold leading-snug text-white">{office.name}</h3>
               <p className="text-[11px] text-slate-400">{office.country === "fr" ? "Head Office" : "Office"}</p>
@@ -91,19 +89,9 @@ function OfficeCard({ office }: { office: (typeof officeLocations)[number] }) {
             <Building2 className="h-3.5 w-3.5 text-gold-400" />
             <h4 className="font-display text-xs font-bold text-white">Service Cities</h4>
           </div>
-          {cities.length > PREVIEW_CITIES && (
-            <button
-              type="button"
-              onClick={() => setShowAll((open) => !open)}
-              aria-expanded={showAll}
-              className="gold-gradient-bg rounded px-2.5 py-1 text-[10px] font-semibold text-navy-900 transition-all hover:brightness-110"
-            >
-              {showAll ? "Show Fewer" : `View All ${cities.length} Cities →`}
-            </button>
-          )}
         </div>
         <ul className="grid grid-cols-2 gap-x-1 gap-y-1.5 text-[11px] text-slate-300 sm:grid-cols-3">
-          {visibleCities.map((city) => (
+          {cities.map((city) => (
             <li key={city} className="flex items-center gap-1">
               <MapPin className="h-2.5 w-2.5 shrink-0 text-gold-500" />
               <span className="truncate">{city}</span>

@@ -5,6 +5,7 @@ import { IS_GLOBAL_SITE } from "@/lib/countries/config";
 import { buildCountryAlternates, buildGlobalAlternates, buildSocialMeta } from "@/lib/countries/seo";
 import { BreadcrumbJsonLd } from "@/components/json-ld";
 import { AboutUsView } from "./about-us-view";
+import { GlobalAbout } from "@/components/global-home/global-about";
 
 export async function generateMetadata(): Promise<Metadata> {
   const language = await getRequestLanguage();
@@ -30,8 +31,8 @@ export default function AboutUsPage() {
           { name: "Home", path: "/" },
           { name: "About Us", path: "/about-us" },
         ]} />
-      <AboutUsView />
-      
+      {IS_GLOBAL_SITE ? <GlobalAbout /> : <AboutUsView />}
+
     </>
   );
 }

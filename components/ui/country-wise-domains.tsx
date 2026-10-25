@@ -52,6 +52,9 @@ export const CountryFlag: React.FC<CountryFlagProps> = ({
     lk: "/images/flags/srilanka.webp",
   };
 
+  // Countries added since these image files were made (Iceland, Liechtenstein, Malta…) have no file.
+  if (!flags[code]) return null;
+
   return (
     <Image
       height={15}

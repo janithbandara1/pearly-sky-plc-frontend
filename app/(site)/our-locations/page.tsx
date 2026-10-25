@@ -6,6 +6,8 @@ import { getCountryPageMeta } from "@/lib/countries/meta-data";
 import { IS_GLOBAL_SITE } from "@/lib/countries/config";
 import { OurLocationsView } from "./our-locations-view";
 import PaymentMarquee from "@/components/payment-method-services";
+import { GlobalLocations } from "@/components/global-home/global-locations";
+import { WorldMap } from "@/components/global-home/world-map";
 
 export async function generateMetadata(): Promise<Metadata> {
   const language = await getRequestLanguage();
@@ -31,8 +33,14 @@ export default function OurLocationsPage() {
           { name: "Home", path: "/" },
           { name: "Our Locations", path: "/our-locations" },
         ]} />
-      <OurLocationsView />
-      <PaymentMarquee />
+      {IS_GLOBAL_SITE ? (
+        <GlobalLocations worldMap={<WorldMap />} />
+      ) : (
+        <>
+          <OurLocationsView />
+          <PaymentMarquee />
+        </>
+      )}
     </>
   );
 }

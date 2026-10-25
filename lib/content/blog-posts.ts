@@ -1,4 +1,5 @@
 import type { LanguageCode } from "@/lib/i18n/config";
+import { IS_GLOBAL_SITE } from "@/lib/countries/config";
 
 interface BlogPostCopy {
   title: string;
@@ -13,13 +14,15 @@ export interface BlogPost extends BlogPostCopy {
   date: string;
   /** Topic the global gateway's blog page filters by — not translated, since that site is English-only. */
   category: BlogCategory;
+  /** Only the global gateway lists/serves this post — the country sites' blogs and sitemaps skip it. */
+  globalOnly?: boolean;
+  /** 1-based position in the global blog's hand-picked "Most Popular" list (not analytics). */
+  popularRank?: number;
 }
 
 export const BLOG_CATEGORIES = [
   "Home Cleaning",
   "Eco-Friendly Living",
-  "Deep Cleaning",
-  "Office Cleaning",
   "Property Care",
   "Health & Wellness",
 ] as const;
@@ -266,14 +269,181 @@ const posts: BlogPostSource[] = [
       },
     },
   },
+  // The global gateway's extra articles (globalOnly) — English-only, so no translations.
+  {
+    slug: "luxury-villa-cleaning-french-riviera",
+    title: "Luxury Villa Cleaning in the French Riviera: What You Need to Know",
+    description:
+      "Discover how professional eco-luxury cleaning keeps your villa spotless, safe and welcoming for family, guests and rentals.",
+    image: "/images/services/updated-home-property-cleaning-services-16-luxury-yacht-cleaning.webp",
+    date: "18 October 2026",
+    category: "Property Care",
+    globalOnly: true,
+    body: [
+      "A villa on the Riviera asks more of a cleaning team than a typical home. Marble floors, teak terraces, delicate glass and sea air all need different products and techniques, and a single wrong choice can leave a mark that is expensive to put right.",
+      "Professional eco-luxury cleaning starts with understanding each surface. Micro-fibre techniques and gentle, plant-based solutions lift dirt without etching stone or stripping finishes, while a clear room-by-room routine keeps the whole property consistent from one visit to the next.",
+      "For owners who rent their villa or host family and friends, reliable turnaround matters just as much as the finish. Pearly Sky schedules around your arrivals and departures so the property is spotless, safe and welcoming whenever guests walk in.",
+    ],
+    translations: {},
+  },
+  {
+    slug: "ten-expert-tips-cleaner-healthier-home",
+    title: "10 Expert Tips for a Cleaner and Healthier Home",
+    description: "Simple yet effective tips to keep your home fresh, hygienic and beautifully clean all year round.",
+    image: "/images/services/updated-home-property-cleaning-services-1-standard-residential-cleaning.webp",
+    date: "15 October 2026",
+    category: "Home Cleaning",
+    globalOnly: true,
+    popularRank: 1,
+    body: [
+      "A cleaner home does not need hours of effort every day. Work from top to bottom so dust falls onto surfaces you have yet to clean, wipe high-touch points such as handles and switches often, and let fresh air in daily to keep the home from feeling stale.",
+      "Keep a small set of reliable tools within reach: microfibre cloths, a good vacuum with a sealed filter, and a few gentle, plant-based cleaners. Wash bedding and soft furnishings regularly, and clear clutter so surfaces are quick to wipe.",
+      "When life gets busy, a recurring professional visit keeps the routine going. Pearly Sky's residential teams use eco-safe products, so your home stays fresh and healthy for everyone in it.",
+    ],
+    translations: {},
+  },
+  {
+    slug: "why-eco-friendly-cleaning-matters-for-your-health",
+    title: "Why Eco-Friendly Cleaning Matters for Your Health",
+    description:
+      "Discover the benefits of non-toxic, plant-based cleaning products for your family and the environment.",
+    image: "/images/blog/eco-friendly-cleaning.jpg",
+    date: "12 October 2026",
+    category: "Eco-Friendly Living",
+    globalOnly: true,
+    popularRank: 5,
+    body: [
+      "Many conventional cleaners leave behind fumes and residues that linger in the air and on surfaces long after the job is done. For children, pets and anyone with allergies or sensitive skin, that is worth thinking about.",
+      "Non-toxic, plant-based products clean effectively without the harsh chemical load. They are kinder to your lungs and skin, safer around food preparation areas, and better for the water systems they eventually reach.",
+      "Choosing eco-friendly cleaning is not a trade-off on results. With the right products and technique, surfaces come up spotless, which is exactly how Pearly Sky approaches every service.",
+    ],
+    translations: {},
+  },
+  {
+    slug: "deep-cleaning-checklist-room-by-room",
+    title: "Deep Cleaning Checklist: Room by Room Guide",
+    description: "A complete checklist to help you achieve a spotless and healthier living space.",
+    image: "/images/services/updated-home-property-cleaning-services-4-deep-cleaning.webp",
+    date: "10 October 2026",
+    category: "Home Cleaning",
+    globalOnly: true,
+    popularRank: 2,
+    body: [
+      "A deep clean goes beyond the weekly routine. In the kitchen, that means degreasing the hob and extractor, cleaning inside the oven and fridge, and descaling taps. In the bathroom, it means grout, shower screens, drains and behind the toilet.",
+      "In living areas and bedrooms, move furniture to vacuum underneath, wipe skirting boards and door frames, wash curtains, and steam or shampoo upholstery and carpets. Do not forget windows, light fittings and the tops of wardrobes, where dust quietly collects.",
+      "Working through one room at a time keeps the job manageable. If you would rather hand it over, Pearly Sky's deep cleaning teams follow a detailed checklist like this one in every home.",
+    ],
+    translations: {},
+  },
+  {
+    slug: "clean-workspace-boosts-productivity",
+    title: "How a Clean Workspace Boosts Productivity",
+    description: "Learn how a clean and organised office environment can improve focus, health and performance.",
+    image: "/images/services/updated-home-property-cleaning-services-8-commercial-office-cleaning.webp",
+    date: "8 October 2026",
+    category: "Property Care",
+    globalOnly: true,
+    popularRank: 4,
+    body: [
+      "People notice their surroundings, even when they do not realise it. A tidy, fresh-smelling office signals care, reduces distraction and makes it easier to concentrate, while visible clutter and dust do the opposite.",
+      "Cleanliness also affects health. Shared desks, keyboards, kitchens and washrooms are high-touch areas, and regular, thorough cleaning helps cut the spread of everyday illnesses and the days of work they cost.",
+      "A professional commercial cleaning schedule, planned around your working hours, keeps standards steady without disrupting the team. Pearly Sky tailors each plan to the size and use of your space.",
+    ],
+    translations: {},
+  },
+  {
+    slug: "maintaining-your-holiday-property-in-france",
+    title: "Maintaining Your Holiday Property in France",
+    description: "Professional cleaning and maintenance tips for luxury rentals, villas and holiday homes.",
+    image: "/images/services/updated-home-property-cleaning-services-5-move-in-out-cleaning.webp",
+    date: "5 October 2026",
+    category: "Property Care",
+    globalOnly: true,
+    body: [
+      "A holiday home that sits empty for weeks can quietly gather dust, damp and stale air. A regular check-in routine, with windows opened, taps run and surfaces wiped, prevents small problems from becoming costly ones.",
+      "Before each season, schedule a deeper clean: linens and mattresses refreshed, terraces and outdoor furniture washed, kitchens and bathrooms descaled. After each stay, a quick reset keeps the property ready for the next arrival.",
+      "If you are not nearby, a trusted local team makes all the difference. Pearly Sky looks after holiday properties across France so they are always clean, safe and ready when you or your guests arrive.",
+    ],
+    translations: {},
+  },
+  {
+    slug: "pet-friendly-cleaning-tips-for-a-fresher-home",
+    title: "Pet-Friendly Cleaning Tips for a Fresher Home",
+    description:
+      "Keep your home clean and odour-free while ensuring a safe, comfortable space for your pets.",
+    image: "/images/services/updated-home-property-cleaning-services-2-express-refresh-cleaning.webp",
+    date: "2 October 2026",
+    category: "Health & Wellness",
+    globalOnly: true,
+    popularRank: 3,
+    body: [
+      "Pets bring joy, and also hair, dander and the occasional accident. Vacuum often with a good filter, wash pet bedding weekly, and brush your animals regularly to keep loose hair off the furniture.",
+      "Choose cleaning products that are gentle and free from harsh fumes, since pets walk on, and lick, the surfaces we clean. For accidents, blot first, then use an enzyme-based cleaner so the odour is removed rather than masked.",
+      "Pearly Sky's non-toxic, pet-safe products keep your home fresh without worrying about the animals who share it.",
+    ],
+    translations: {},
+  },
+  {
+    slug: "the-future-of-sustainable-cleaning-in-europe",
+    title: "The Future of Sustainable Cleaning in Europe",
+    description:
+      "How eco-certified cleaning services are shaping a cleaner, greener and healthier tomorrow.",
+    image: "/images/services/updated-home-property-cleaning-services-11-steam-cleaning.webp",
+    date: "28 September 2026",
+    category: "Eco-Friendly Living",
+    globalOnly: true,
+    body: [
+      "Across Europe, households and businesses are asking more of the services they hire. Clients want to know what is in the products, how water and waste are handled, and whether a provider can show it with credible certification.",
+      "The result is a shift toward plant-based formulations, steam and microfibre methods that use less chemistry, and reusable equipment in place of single-use items. Cleaning is becoming a visible part of how organisations meet their sustainability goals.",
+      "Pearly Sky is part of that shift, building its eco-luxury standard into every service so a cleaner space does not come at the planet's expense.",
+    ],
+    translations: {},
+  },
+  {
+    slug: "professional-cleaning-for-luxury-rentals",
+    title: "The Importance of Professional Cleaning for Luxury Rentals",
+    description:
+      "Create unforgettable guest experiences with consistently clean and well-maintained properties.",
+    image: "/images/services/updated-home-property-cleaning-services-7-airbnb-short-term-rental-cleaning.webp",
+    date: "25 September 2026",
+    category: "Property Care",
+    globalOnly: true,
+    body: [
+      "For a luxury rental, cleanliness is the product. Guests judge a stay in the first few minutes, and reviews quickly reflect any missed detail, from a stray hair to a smudged mirror.",
+      "A professional turnaround team works to a repeatable standard: fresh linens, polished fittings, restocked amenities and a final inspection before check-in. That consistency protects your ratings and your property.",
+      "Pearly Sky's rental cleaning is built around tight changeover windows, so every guest arrives to a property that feels as good as the photos.",
+    ],
+    translations: {},
+  },
+  {
+    slug: "creating-a-safer-home-for-your-family",
+    title: "Creating a Safer Home for Your Family",
+    description:
+      "Practical cleaning tips to reduce allergens, improve indoor air quality and protect your loved ones.",
+    image: "/images/services/updated-home-property-cleaning-services-9-healthguard-sanitization-medical-grade-eco-disinfection.webp",
+    date: "20 September 2026",
+    category: "Health & Wellness",
+    globalOnly: true,
+    body: [
+      "A safer home starts with the air and surfaces your family touches most. Dust, pollen and pet dander gather in carpets, soft furnishings and bedding, so frequent vacuuming and regular washing make a real difference.",
+      "Focus disinfecting on high-touch points such as handles, switches, remote controls and kitchen worktops, and store cleaning products safely out of reach of children. Good ventilation helps keep indoor air fresh and moisture under control.",
+      "For extra reassurance, Pearly Sky offers eco-disinfection that is effective without the harsh residues, so your loved ones are protected and the home stays gentle on them.",
+    ],
+    translations: {},
+  },
 ];
 
-function stripTranslations({ slug, title, description, image, date, category, body }: BlogPostSource): BlogPost {
-  return { slug, title, description, image, date, category, body };
+function stripTranslations({
+  slug, title, description, image, date, category, body, globalOnly, popularRank,
+}: BlogPostSource): BlogPost {
+  return { slug, title, description, image, date, category, body, globalOnly, popularRank };
 }
 
+/** The posts this deployment may show — global-only posts stay off the country sites. */
+const visiblePosts = IS_GLOBAL_SITE ? posts : posts.filter((post) => !post.globalOnly);
+
 /** All posts in English — use getBlogPosts(language) for anything rendered to a visitor. */
-export const blogPosts: BlogPost[] = posts.map(stripTranslations);
+export const blogPosts: BlogPost[] = visiblePosts.map(stripTranslations);
 
 /** The post's title/description/body in `language`, falling back to English when no translation exists. */
 function localize(post: BlogPostSource, language: LanguageCode | null): BlogPost {
@@ -282,11 +452,11 @@ function localize(post: BlogPostSource, language: LanguageCode | null): BlogPost
 }
 
 export function getBlogPosts(language: LanguageCode | null): BlogPost[] {
-  return posts.map((post) => localize(post, language));
+  return visiblePosts.map((post) => localize(post, language));
 }
 
 export function getBlogPost(slug: string, language: LanguageCode | null = null): BlogPost | undefined {
-  const post = posts.find((p) => p.slug === slug);
+  const post = visiblePosts.find((p) => p.slug === slug);
   return post && localize(post, language);
 }
 

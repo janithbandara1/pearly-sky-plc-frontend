@@ -4,8 +4,6 @@ import { useMemo, useRef, useState } from "react";
 import Image from "next/image";
 import {
   ArrowRight,
-  BrushCleaning,
-  Building2,
   ChevronLeft,
   ChevronRight,
   FolderOpen,
@@ -26,8 +24,6 @@ import { greatVibes, playfair } from "./fonts";
 const CATEGORY_ICONS: Record<BlogCategory, typeof House> = {
   "Home Cleaning": House,
   "Eco-Friendly Living": Leaf,
-  "Deep Cleaning": BrushCleaning,
-  "Office Cleaning": Building2,
   "Property Care": KeyRound,
   "Health & Wellness": HeartPulse,
 };
@@ -35,14 +31,19 @@ const CATEGORY_ICONS: Record<BlogCategory, typeof House> = {
 const PAGE_SIZE = 6;
 
 // The gateway is English-only (CURRENT_COUNTRY_LANGUAGES), so no language lookup.
-const POSTS = getBlogPosts("en");
+/** This page lists the newest articles only, up to this many. */
+const MAX_POSTS = 10;
+const GRID_POSTS = getBlogPosts("en")
+  .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
+  .slice(0, MAX_POSTS);
+const POPULAR = GRID_POSTS.filter((post) => post.popularRank).sort((a, b) => a.popularRank! - b.popularRank!);
+const RECENT = GRID_POSTS.slice(0, 3);
 // Only offer the topics that actually have posts, so no filter leads to an empty grid.
-const CATEGORIES = BLOG_CATEGORIES.filter((category) => POSTS.some((post) => post.category === category));
-const FEATURED = POSTS[0];
+const CATEGORIES = BLOG_CATEGORIES.filter((category) => GRID_POSTS.some((post) => post.category === category));
 
 const postDate = (post: BlogPost) => formatBlogDate(post.date, "en");
 
-/** The global gateway's blog index (IS_GLOBAL_SITE) — search, topic filter, and a featured/recent sidebar. */
+/** The global gateway's blog index (IS_GLOBAL_SITE) — search, topic filter, and a popular/recent sidebar. */
 export function GlobalBlog() {
   const [category, setCategory] = useState<BlogCategory | "All">("All");
   const [query, setQuery] = useState("");
@@ -52,7 +53,7 @@ export function GlobalBlog() {
 
   const filtered = useMemo(() => {
     const needle = query.trim().toLowerCase();
-    return POSTS.filter(
+    return GRID_POSTS.filter(
       (post) =>
         (category === "All" || post.category === category) &&
         (!needle || post.title.toLowerCase().includes(needle) || post.description.toLowerCase().includes(needle)),
@@ -199,41 +200,28 @@ export function GlobalBlog() {
           </div>
 
           <aside className="space-y-8">
-            {FEATURED && (
-              <div className="overflow-hidden rounded-2xl border border-slate-800 bg-navy-800 shadow-xl">
-                <div className="flex items-center justify-between border-b border-slate-800 p-4">
-                  <h2 className="font-display text-sm font-bold tracking-wide text-white">Featured Article</h2>
-                  <span className="rounded-full bg-gold-500/10 px-2.5 py-1 text-[10px] font-semibold uppercase text-gold-400">
-                    Spotlight
-                  </span>
-                </div>
-                <div className="relative h-48 overflow-hidden">
-                  <Image
-                    src={FEATURED.image}
-                    alt=""
-                    fill
-                    sizes="(min-width: 1024px) 33vw, 100vw"
-                    className="object-cover transition duration-500 hover:scale-105"
-                  />
-                  <div className="absolute inset-0 bg-linear-to-t from-navy-800 via-transparent to-transparent" />
-                  <span className="absolute bottom-3 left-3 rounded-full bg-gold-500 px-2.5 py-0.5 text-[10px] font-bold text-navy-900">
-                    Featured
-                  </span>
-                  <span className="absolute bottom-3 right-3 rounded bg-navy-900/80 px-2 py-0.5 text-[11px] font-medium text-white backdrop-blur">
-                    {postDate(FEATURED)}
-                  </span>
-                </div>
-                <div className="p-5">
-                  <h3 className="mb-2 font-display text-base font-bold leading-snug text-white">{FEATURED.title}</h3>
-                  <p className="mb-4 text-xs leading-relaxed text-slate-300">{FEATURED.description}</p>
-                  <Link
-                    href={`/blog/${FEATURED.slug}`}
-                    className="gold-gradient-bg flex w-full items-center justify-center gap-2 rounded-xl px-4 py-2.5 text-xs font-bold uppercase tracking-wider text-navy-900 shadow transition-all hover:brightness-110"
-                  >
-                    <span>Read Article</span>
-                    <ArrowRight className="h-3 w-3" />
-                  </Link>
-                </div>
+            {POPULAR.length > 0 && (
+              <div className="rounded-2xl border border-slate-800 bg-navy-800 p-5 shadow-xl">
+                <h2 className="mb-4 border-b border-slate-800 pb-3 font-display text-sm font-bold tracking-wide text-white">
+                  Most Popular
+                </h2>
+                <ol className="space-y-4">
+                  {POPULAR.map((post, index) => (
+                    <li key={post.slug}>
+                      <Link href={`/blog/${post.slug}`} className="group flex items-start gap-3">
+                        <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-xl bg-gold-500/10 text-xs font-bold text-gold-400 transition group-hover:bg-gold-500 group-hover:text-navy-900">
+                          {index + 1}
+                        </span>
+                        <span>
+                          <span className="block text-xs font-semibold leading-snug text-slate-200 transition group-hover:text-gold-400">
+                            {post.title}
+                          </span>
+                          <span className="text-[10px] text-slate-500">{post.category}</span>
+                        </span>
+                      </Link>
+                    </li>
+                  ))}
+                </ol>
               </div>
             )}
 
@@ -242,7 +230,7 @@ export function GlobalBlog() {
                 Recent Articles
               </h2>
               <ul className="space-y-4">
-                {POSTS.slice(0, 5).map((post) => (
+                {RECENT.map((post) => (
                   <li key={post.slug}>
                     <Link href={`/blog/${post.slug}`} className="group flex items-center gap-3">
                       <Image
@@ -419,9 +407,11 @@ function Newsletter() {
             autoComplete="email"
             className="w-full min-w-0 bg-transparent px-3 py-2.5 text-xs text-white placeholder:text-slate-400 focus:outline-none"
           />
+          {/* Disabled for now — signups aren't open yet (see the note above Newsletter). */}
           <button
             type="submit"
-            className="gold-gradient-bg flex shrink-0 items-center gap-1 rounded-xl px-5 py-2.5 text-xs font-bold uppercase tracking-wider text-navy-900 shadow transition-all hover:brightness-110"
+            disabled
+            className="gold-gradient-bg flex shrink-0 cursor-not-allowed items-center gap-1 rounded-xl px-5 py-2.5 text-xs font-bold uppercase tracking-wider text-navy-900 opacity-50 shadow"
           >
             Subscribe
             <ArrowRight className="h-3 w-3" />
