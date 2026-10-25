@@ -43,7 +43,7 @@ export default function ServiceSelectionSection({
     return cart.reduce((sum, item) => sum + item.quantity, 0);
   }, [cart]);
  
-  const handleQuantityChange = (item: (typeof config.catalog)[0], newQty: number) => {
+  const handleQuantityChange = (item: NonNullable<ServiceConfig["catalog"]>[number], newQty: number) => {
     if (newQty <= 0) {
       onUpdateCart(cart.filter((c) => c.id !== item?.id));
     } else {

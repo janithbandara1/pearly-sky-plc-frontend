@@ -1,5 +1,6 @@
 "use client";
 
+import type { ReactNode } from "react";
 import Link from "@/components/locale-link";
 import { User, Briefcase, KeyRound, ArrowRight, Folder, Ruler, Clock, Users, CalendarClock, Check, UserCircle, Languages } from "lucide-react";
 import type { CatalogItem, SizeQuote } from "@/lib/catalog-api";
@@ -97,7 +98,7 @@ export const FALLBACK_EQUIPMENT_ITEMS: CatalogItem[] = [
 
 export interface EquipmentSectionProps {
   propertyType?: string;
-  categoryIcon?: string;
+  categoryIcon?: string | ReactNode;
   propertySizeSqm: number;
   quote: SizeQuote | null;
   hourlyRate: string | null;
