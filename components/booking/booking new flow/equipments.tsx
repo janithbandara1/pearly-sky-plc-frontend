@@ -107,27 +107,25 @@ export default function Equipments({
   return (
     <div
       id="eco-protocol"
-      className={`w-full rounded-2xl sm:rounded-3xl p-4  md:p-5 font-sans shadow-2xl border transition-all duration-300 ${
+      className={`w-full rounded-2xl sm:rounded-3xl p-4 md:p-5 font-sans shadow-2xl border transition-all duration-300 ${
         isLight
-          ? "bg-white border-[#C5A059]/40 text-[#1B2E4B]"
-          : "bg-[rgba(13,20,36,0.7)] backdrop-blur-xl border-[rgba(212,175,55,0.18)] text-white"
+          ? "bg-white border-[#D9DDE5] text-[#1A2238]"
+          : "bg-[#1B2A40]/80 backdrop-blur-xl border-[#718096]/30 text-white"
       }`}
     >
       {/* Top Header & Toggle Section */}
       <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-5 sm:mb-6">
         <div>
           <span
-            className={`
-              text-[10px] sm:text-xs font-sans font-bold tracking-[0.2em] sm:tracking-[0.25em] uppercase 
-              ${
-              isLight ? "text-[#D9B75B]" : "text-[#D9B75B]"
+            className={`text-[10px] sm:text-xs font-sans font-bold tracking-[0.2em] sm:tracking-[0.25em] uppercase ${
+              isLight ? "text-[#002F6D]" : "text-[#FFD766]"
             }`}
           >
             STEP 5 OF 6
           </span>
           <h2
             className={`text-xl md:text-2xl font-serif mt-1 tracking-wide font-normal ${
-              isLight ? "text-[#1B2E4B]" : "text-white"
+              isLight ? "text-[#1A2238]" : "text-white"
             }`}
           >
             Eco-Solvents & Equipment Protocol
@@ -138,8 +136,8 @@ export default function Equipments({
         <div
           className={`inline-flex items-center p-1 rounded-xl sm:rounded-2xl shrink-0 w-full sm:w-auto justify-center border transition-colors ${
             isLight
-              ? "bg-[#F5F1E6] border-[#C5A059]/30"
-              : "bg-[#0A0F1D] border-[#172238]"
+              ? "bg-[#F7F5F0] border-[#D9DDE5]"
+              : "bg-[#111C2E] border-[#718096]/40"
           }`}
         >
           <button
@@ -148,11 +146,11 @@ export default function Equipments({
             className={`flex-1 sm:flex-none px-4 sm:px-5 py-2 sm:py-2.5 rounded-lg sm:rounded-xl text-[11px] sm:text-xs font-bold tracking-wider uppercase transition-all duration-200 cursor-pointer ${
               isClient
                 ? isLight
-                  ? "bg-[#C5A059] text-white shadow-md font-bold"
-                  : "bg-[#E5C365] text-[#0A0D08] shadow-md"
+                  ? "bg-[#002F6D] text-white shadow-xs font-bold"
+                  : "bg-[#FFD766] text-[#002F6D] font-bold shadow-xs"
                 : isLight
-                ? "text-slate-600 hover:text-[#1B2E4B]"
-                : "text-slate-400 hover:text-white"
+                ? "text-[#687386] hover:text-[#1A2238]"
+                : "text-[#C3CDDC] hover:text-white"
             }`}
           >
             {translate("equipByClient")}
@@ -163,11 +161,11 @@ export default function Equipments({
             className={`flex-1 sm:flex-none px-4 sm:px-5 py-2 sm:py-2.5 rounded-lg sm:rounded-xl text-[11px] sm:text-xs font-bold tracking-wider uppercase transition-all duration-200 cursor-pointer ${
               isCompany
                 ? isLight
-                  ? "bg-[#C5A059] text-white shadow-md font-bold"
-                  : "bg-[#E5C365] text-[#0A0D08] shadow-md"
+                  ? "bg-[#002F6D] text-white shadow-xs font-bold"
+                  : "bg-[#FFD766] text-[#002F6D] font-bold shadow-xs"
                 : isLight
-                ? "text-slate-600 hover:text-[#1B2E4B]"
-                : "text-slate-400 hover:text-white"
+                ? "text-[#687386] hover:text-[#1A2238]"
+                : "text-[#C3CDDC] hover:text-white"
             }`}
           >
             {translate("equipByCompany")}
@@ -175,14 +173,14 @@ export default function Equipments({
         </div>
       </div>
 
-      <div className={`border-t pt-4 sm:pt-6 ${isLight ? "border-gray-200" : "border-gray-700"}`}>
+      <div className={`border-t pt-4 sm:pt-6 ${isLight ? "border-[#D9DDE5]" : "border-[#718096]/30"}`}>
         <p
           className={`text-xs sm:text-sm font-sans mb-6 sm:mb-8 leading-relaxed max-w-4xl ${
-            isLight ? "text-[#5A6E85]" : "text-[#7082A0]"
+            isLight ? "text-[#687386]" : "text-[#C3CDDC]"
           }`}
         >
           When provided by Pearly Sky, all supplies are hospital-grade, non-toxic, allergen-free
-           botanical concentrates brought in sealed, sanitized canisters.
+          botanical concentrates brought in sealed, sanitized canisters.
         </p>
 
         {/* BY CLIENT STATE DISPLAY */}
@@ -190,20 +188,22 @@ export default function Equipments({
           <div
             className={`w-full rounded-2xl p-6 sm:p-14 flex flex-col items-center justify-center text-center border transition-all ${
               isLight
-                ? "bg-[#FBF9F4] border-[#C5A059]/30"
-                : "bg-[#0B101C] border-[#172238]"
+                ? "bg-[#F7F5F0] border-[#D9DDE5]"
+                : "bg-[#152238] border-[#718096]/30"
             }`}
           >
             <div
-              className={`w-10 h-10 sm:w-12 sm:h-12 rounded-xl flex items-center justify-center mb-3 sm:mb-4 ${
-                isLight ? "bg-[#EDE7DA] text-[#9E7B36]" : "bg-[#1A253B]/50 text-[#E5C365]"
+              className={`w-10 h-10 sm:w-12 sm:h-12 rounded-xl flex items-center justify-center mb-3 sm:mb-4 border ${
+                isLight
+                  ? "bg-white border-[#D9DDE5] text-[#002F6D]"
+                  : "bg-[#111C2E] border-[#718096]/40 text-[#FFD766]"
               }`}
             >
               <Package className="w-5 h-5 sm:w-6 sm:h-6" />
             </div>
             <p
               className={`text-xs sm:text-base font-sans max-w-md leading-relaxed font-light ${
-                isLight ? "text-[#1B2E4B]/80" : "text-slate-300"
+                isLight ? "text-[#1A2238]" : "text-[#C3CDDC]"
               }`}
             >
               You have chosen to provide your own solvents & equipment. Staff will use non-abrasive tools provided on-site.
@@ -229,11 +229,11 @@ export default function Equipments({
                   className={`relative flex flex-row items-center justify-between p-3 border rounded-xl sm:rounded-2xl transition-all duration-200 gap-3 ${
                     qty > 0
                       ? isLight
-                        ? "bg-[#FFFDF7] border-2 border-[#C5A059] shadow-[0_4px_16px_rgba(197,160,89,0.2)]"
-                        : "bg-[#111827]/40 border-[#E5C365] shadow-[0_0_15px_rgba(229,195,101,0.08)]"
+                        ? "bg-[#F7F5F0] border-2 border-[#D8B63F] shadow-[0_4px_16px_rgba(216,182,63,0.2)] ring-1 ring-[#D8B63F]/30"
+                        : "bg-[#1B2A40] border-2 border-[#FFD766] shadow-[0_0_15px_rgba(255,215,102,0.15)] ring-1 ring-[#FFD766]/30"
                       : isLight
-                      ? "bg-[#FBF9F4] border-[#C5A059]/30 hover:border-[#C5A059]/70 hover:bg-[#F7F3E8]"
-                      : "bg-[#0B101C] border-[#172238] hover:border-slate-700"
+                      ? "bg-white border border-[#D9DDE5] hover:border-[#D8B63F] hover:bg-[#F7F5F0]"
+                      : "bg-[#152238] border border-[#718096]/30 hover:border-[#FFD766]/50 hover:bg-[#1B2A40]"
                   }`}
                 >
                   {/* Left Side: Icon & Details */}
@@ -241,8 +241,8 @@ export default function Equipments({
                     <div
                       className={`w-9 h-9 sm:w-10 sm:h-10 rounded-xl border flex items-center justify-center shrink-0 mt-0.5 ${
                         isLight
-                          ? "bg-[#E6F4EA] border-[#A7D7B5]"
-                          : "bg-[#081F1A] border-[#113C32]"
+                          ? "bg-emerald-50 border-emerald-200 text-emerald-700"
+                          : "bg-emerald-950/40 border-emerald-500/30 text-emerald-400"
                       }`}
                     >
                       {getItemIcon(item.sku || meta.displayName)}
@@ -250,26 +250,25 @@ export default function Equipments({
                     <div className="flex flex-col min-w-0">
                       <h4
                         className={`text-xs md:text-base font-bold tracking-wide leading-snug ${
-                          isLight ? "text-[#1B2E4B]" : "text-white"
+                          isLight ? "text-[#1A2238]" : "text-white"
                         }`}
                       >
                         {translate(meta.displayName as TranslationKey)}
-                        
                       </h4>
-                      <span className={`font-normal md:text-[13px] ml-1 ${isLight ? "text-[#6A7E96]" : "text-slate-400"}`}>
-                          ({translate(meta.subtitle as TranslationKey)})
+                      <span className={`font-normal md:text-[13px] ml-1 ${isLight ? "text-[#687386]" : "text-[#C3CDDC]"}`}>
+                        ({translate(meta.subtitle as TranslationKey)})
                       </span>
                       
                       {/* Price Section */}
                       <p
                         className={`text-xs sm:text-sm font-sans font-semibold mt-0.5 sm:mt-1 ${
-                          isLight ? "text-[#A88238]" : "text-[#E5C365]"
+                          isLight ? "text-[#002F6D]" : "text-[#FFD766]"
                         }`}
                       >
                         {money(unitPrice * Math.max(qty, 1))}{" "}
                         <span
                           className={`text-[10px] sm:text-xs font-normal uppercase ml-1 ${
-                            isLight ? "text-[#8F6D27]" : "text-[#E5C365]/80"
+                            isLight ? "text-[#687386]" : "text-[#C3CDDC]"
                           }`}
                         >
                           {qty > 1 ? `(${money(unitPrice)} × ${qty})` : translate("PERUNIT")}
@@ -284,10 +283,10 @@ export default function Equipments({
                       <button
                         type="button"
                         onClick={() => handleAdd(item.id)}
-                        className={`font-bold text-[11px] sm:text-xs px-3.5 sm:px-5 py-2 sm:py-2.5 rounded-lg sm:rounded-xl uppercase tracking-wider shadow-sm transition-all cursor-pointer whitespace-nowrap active:scale-95 ${
+                        className={`font-bold text-[11px] sm:text-xs px-3.5 sm:px-5 py-2 sm:py-2.5 rounded-lg sm:rounded-xl uppercase tracking-wider shadow-xs transition-all cursor-pointer whitespace-nowrap active:scale-95 ${
                           isLight
-                            ? "bg-[#C5A059] hover:bg-[#B38F46] text-white shadow-sm"
-                            : "bg-[#E5C365] hover:bg-[#d6b357] text-[#0A0D08]"
+                            ? "bg-[#002F6D] hover:bg-[#002F6D]/90 text-white shadow-xs font-bold"
+                            : "bg-[#FFD766] hover:bg-[#FFD766]/90 text-[#002F6D] font-bold shadow-xs"
                         }`}
                       >
                         {translate("equipmentAddButton")}
@@ -296,8 +295,8 @@ export default function Equipments({
                       <div
                         className={`flex items-center gap-2 sm:gap-3 rounded-lg sm:rounded-xl p-1 border transition-colors ${
                           isLight
-                            ? "bg-[#F4EFE6] border-[#C5A059]"
-                            : "bg-[#0A0F1D] border-[#E5C365]/50"
+                            ? "bg-[#F7F5F0] border-[#D9DDE5]"
+                            : "bg-[#111C2E] border-[#718096]/40"
                         }`}
                       >
                         <button
@@ -305,15 +304,15 @@ export default function Equipments({
                           onClick={() => handleDecrement(item.id)}
                           className={`w-6 h-6 sm:w-7 sm:h-7 flex items-center justify-center rounded-md sm:rounded-lg font-bold text-sm sm:text-base transition-all cursor-pointer ${
                             isLight
-                              ? "text-slate-700 hover:text-[#1B2E4B] hover:bg-[#E8DFC8]"
-                              : "text-slate-300 hover:text-white hover:bg-[#182338]"
+                              ? "text-[#1A2238] hover:bg-white"
+                              : "text-[#C3CDDC] hover:text-white hover:bg-[#1B2A40]"
                           }`}
                         >
                           -
                         </button>
                         <span
                           className={`w-4 sm:w-5 text-center text-xs sm:text-sm font-bold select-none ${
-                            isLight ? "text-[#1B2E4B]" : "text-white"
+                            isLight ? "text-[#1A2238]" : "text-white"
                           }`}
                         >
                           {qty}
@@ -324,8 +323,8 @@ export default function Equipments({
                           disabled={qty >= EQUIPMENT_MAX_QTY}
                           className={`w-6 h-6 sm:w-7 sm:h-7 flex items-center justify-center rounded-md sm:rounded-lg font-bold text-sm sm:text-base transition-all cursor-pointer ${
                             isLight
-                              ? "text-slate-700 hover:text-[#1B2E4B] hover:bg-[#E8DFC8] disabled:opacity-30 disabled:hover:bg-transparent"
-                              : "text-slate-300 hover:text-white hover:bg-[#182338] disabled:opacity-30 disabled:hover:bg-transparent"
+                              ? "text-[#1A2238] hover:bg-white disabled:opacity-30 disabled:hover:bg-transparent"
+                              : "text-[#C3CDDC] hover:text-white hover:bg-[#1B2A40] disabled:opacity-30 disabled:hover:bg-transparent"
                           }`}
                         >
                           +

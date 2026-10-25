@@ -47,18 +47,18 @@ export default function LiveEstimateSummary({
     <div
       className={`rounded-2xl p-6 shadow-2xl sticky top-20 border transition-all duration-300 ${
         isLight
-          ? "bg-white border-[#C5A059]/40 text-[#1B2E4B]"
-          : "bg-[#121e2d]/95 backdrop-blur-xl border-[#c9a858]/35 text-white"
+          ? "bg-white border-[#D9DDE5] text-[#1A2238]"
+          : "bg-[#1B2A40] border-[#718096]/50 text-white"
       }`}
     >
       <div
         className={`flex items-center justify-between pb-4 border-b ${
-          isLight ? "border-gray-200" : "border-white/10"
+          isLight ? "border-[#D9DDE5]" : "border-[#718096]/30"
         }`}
       >
         <h3
           className={`text-lg font-bold tracking-wide font-serif ${
-            isLight ? "text-[#C5A059]" : "text-[#c9a858]"
+            isLight ? "text-[#002F6D]" : "text-[#FFD766]"
           }`}
         >
           Live Estimate Summary
@@ -66,8 +66,8 @@ export default function LiveEstimateSummary({
         <span
           className={`text-xs px-2.5 py-1 rounded-full border font-medium ${
             isLight
-              ? "bg-[#C5A059]/10 text-[#C5A059] border-[#C5A059]/30"
-              : "bg-[#c9a858]/15 text-[#c9a858] border-[#c9a858]/30"
+              ? "bg-[#002F6D]/10 text-[#002F6D] border-[#002F6D]/20"
+              : "bg-[#FFD766]/15 text-[#FFD766] border-[#FFD766]/30"
           }`}
         >
           Real-time
@@ -77,17 +77,17 @@ export default function LiveEstimateSummary({
       {/* Itemized Cart Breakdown */}
       <div className="py-4 space-y-3 text-sm max-h-[280px] overflow-y-auto pr-1">
         {cart.length === 0 ? (
-          <p className={`text-xs text-center py-6 ${isLight ? "text-gray-500" : "text-gray-400"}`}>
+          <p className={`text-xs text-center py-6 ${isLight ? "text-[#687386]" : "text-[#C3CDDC]"}`}>
             No services selected yet. Click &apos;Select&apos; on any card.
           </p>
         ) : (
           cart.map((item) => (
             <div key={item.id} className="flex justify-between items-center">
               <div>
-                <p className={`font-medium ${isLight ? "text-[#1B2E4B]" : "text-white"}`}>{item.name}</p>
-                <p className={`text-xs ${isLight ? "text-gray-500" : "text-gray-400"}`}>{item.detail}</p>
+                <p className={`font-medium ${isLight ? "text-[#1A2238]" : "text-white"}`}>{item.name}</p>
+                <p className={`text-xs ${isLight ? "text-[#687386]" : "text-[#C3CDDC]"}`}>{item.detail}</p>
               </div>
-              <span className={`font-semibold ${isLight ? "text-[#C5A059]" : "text-[#c9a858]"}`}>
+              <span className={`font-semibold ${isLight ? "text-[#002F6D]" : "text-[#FFD766]"}`}>
                 ${(item.quantity * item.unitPrice).toFixed(2)}
               </span>
             </div>
@@ -99,12 +99,12 @@ export default function LiveEstimateSummary({
       <div
         className={`py-3 border-t border-b flex justify-between items-center text-xs ${
           isLight
-            ? "border-gray-200 text-gray-600"
-            : "border-white/10 text-gray-300"
+            ? "border-[#D9DDE5] text-[#687386]"
+            : "border-[#718096]/30 text-[#C3CDDC]"
         }`}
       >
         <span>Estimated On-Site Labor</span>
-        <span className={`font-mono font-bold ${isLight ? "text-[#C5A059]" : "text-[#c9a858]"}`}>
+        <span className={`font-mono font-bold ${isLight ? "text-[#002F6D]" : "text-[#FFD766]"}`}>
           {estimatedLaborHours}
         </span>
       </div>
@@ -113,7 +113,7 @@ export default function LiveEstimateSummary({
       <div className="py-4">
         <div className="flex gap-2">
           <div className="relative flex-1">
-            <Tag className={`absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 ${isLight ? "text-gray-400" : "text-gray-400"}`} />
+            <Tag className={`absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 ${isLight ? "text-[#687386]" : "text-[#C3CDDC]"}`} />
             <input
               type="text"
               value={""}
@@ -121,17 +121,17 @@ export default function LiveEstimateSummary({
               placeholder="Promo Code"
               className={`w-full rounded-lg pl-9 pr-3 py-2 text-sm focus:outline-none transition-colors ${
                 isLight
-                  ? "bg-[#F8F9FA] border border-[#C7D1D9] text-[#1B2E4B] placeholder-gray-400 focus:border-[#C5A059]"
-                  : "bg-[#0B132B] border border-white/10 text-white placeholder-gray-500 focus:border-[#c9a858]"
+                  ? "bg-[#FFFFFF] border border-[#D9DDE5] text-[#1A2238] placeholder-gray-400 focus:border-[#002F6D]"
+                  : "bg-[#152238] border border-[#718096] text-white placeholder-gray-500 focus:border-[#FFD766]"
               }`}
             />
           </div>
           <button
             onClick={() => setDiscountApplied(true)}
-            className={`px-4 py-2 font-semibold text-sm rounded-lg transition-colors ${
+            className={`px-4 py-2 font-semibold text-sm rounded-lg transition-colors cursor-pointer ${
               isLight
-                ? "bg-[#C5A059] text-white hover:bg-[#b08e4d]"
-                : "bg-[#c9a858] text-[#121e2d] hover:bg-[#b59549] font-bold"
+                ? "bg-[#002F6D] text-white hover:bg-[#002F6D]/90"
+                : "bg-[#FFD766] text-[#002F6D] hover:bg-[#FFD766]/90 font-bold"
             }`}
           >
             Apply
@@ -140,26 +140,26 @@ export default function LiveEstimateSummary({
       </div>
 
       {/* Totals Summary */}
-      <div className={`space-y-2 pt-2 border-t ${isLight ? "border-gray-200" : "border-white/10"}`}>
-        <div className={`flex justify-between text-sm ${isLight ? "text-gray-600" : "text-gray-300"}`}>
+      <div className={`space-y-2 pt-2 border-t ${isLight ? "border-[#D9DDE5]" : "border-[#718096]/30"}`}>
+        <div className={`flex justify-between text-sm ${isLight ? "text-[#687386]" : "text-[#C3CDDC]"}`}>
           <span>Subtotal</span>
           <span>${subtotal.toFixed(2)}</span>
         </div>
-        <div className={`flex justify-between text-sm ${isLight ? "text-gray-600" : "text-gray-300"}`}>
+        <div className={`flex justify-between text-sm ${isLight ? "text-[#687386]" : "text-[#C3CDDC]"}`}>
           <span>Estimated Taxes (10% VAT)</span>
           <span>${tax.toFixed(2)}</span>
         </div>
         <div
           className={`flex justify-between text-base font-bold pt-2 border-t ${
             isLight
-              ? "border-gray-200 text-[#1B2E4B]"
-              : "border-white/10 text-white"
+              ? "border-[#D9DDE5] text-[#1A2238]"
+              : "border-[#718096]/30 text-white"
           }`}
         >
           <span>Total Service Amount</span>
-          <span className={isLight ? "text-[#C5A059]" : "text-[#c9a858]"}>${total.toFixed(2)}</span>
+          <span className={isLight ? "text-[#002F6D]" : "text-[#FFD766]"}>${total.toFixed(2)}</span>
         </div>
-        <p className={`text-[10px] text-right ${isLight ? "text-gray-500" : "text-gray-400"}`}>
+        <p className={`text-[10px] text-right ${isLight ? "text-[#687386]" : "text-[#C3CDDC]"}`}>
           Inclusive of chemical supplies
         </p>
       </div>

@@ -73,30 +73,30 @@ export default function ServiceSelectionSection({
 
   return (
     <div className={`space-y-6 transition-colors duration-300 
-          ${isLight ? "text-[#1B2E4B]" : "text-white"}`}>
+          ${isLight ? "text-[#1A2238]" : "text-white"}`}>
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
         <div>
           <div className="flex items-center gap-2 mb-1">
-            <Waves className={`w-5 h-5 ${isLight ? "text-[#C5A059]" : "text-[#c9a858]"}`} />
+            <Waves className={`w-5 h-5 ${isLight ? "text-[#002F6D]" : "text-[#FFD766]"}`} />
             <h3
               className={`text-2xl font-bold tracking-wide font-serif ${
-                isLight ? "text-[#1B2E4B]" : "text-white"
+                isLight ? "text-[#1A2238]" : "text-white"
               }`}
             >
              {config.serviceStepDetails.step1Header}
             </h3>
           </div>
-          <p className={`text-sm ${isLight ? "text-gray-600" : "text-gray-300"}`}>
+          <p className={`text-sm ${isLight ? "text-[#687386]" : "text-[#C3CDDC]"}`}>
             {config.serviceStepDetails.step1Description}
           </p>
         </div>
 
         {totalSelectedCount > 0 && (
           <div
-            className={`text-center sm:self-auto px-2 w-[140px] py-1.5 rounded-full text-xs font-semibold  border transition-all ${
+            className={`text-center sm:self-auto px-2 w-[140px] py-1.5 rounded-full text-xs font-semibold border transition-all ${
               isLight
-                ? "bg-[#F5F5DC] border-[#C5A059] text-[#1B2E4B]"
-                : "bg-[#121e2d] border-[#c9a858]/50 text-[#c9a858]"
+                ? "bg-[#002F6D]/10 border-[#002F6D]/30 text-[#002F6D]"
+                : "bg-[#152238] border-[#FFD766]/50 text-[#FFD766]"
             }`}
           >
             <p>{totalSelectedCount} {totalSelectedCount === 1 ? "Service" : "Services"} Selected</p>
@@ -114,14 +114,14 @@ export default function ServiceSelectionSection({
               <button
                 key={cat.id}
                 onClick={() => setActiveCategory(cat.id)}
-                className={`px-4 py-2 rounded-full text-xs font-semibold transition-all border ${
+                className={`px-4 py-2 rounded-full text-xs font-semibold transition-all border cursor-pointer ${
                   isLight
                     ? isActive
-                      ? "bg-[#C5A059] text-white border-[#C5A059] shadow-sm shadow-[#C5A059]/20"
-                      : "bg-white text-[#1B2E4B] border-[#C7D1D9] hover:bg-[#F8F9FA]"
+                      ? "bg-[#002F6D] text-white border-[#002F6D] shadow-sm shadow-[#002F6D]/20"
+                      : "bg-white text-[#1A2238] border-[#D9DDE5] hover:bg-[#F7F5F0]"
                     : isActive
-                    ? "bg-[#c9a858] text-[#121e2d] border-[#c9a858] shadow-md shadow-[#c9a858]/20 font-bold"
-                    : "bg-[#121e2d] text-gray-300 border-white/10 hover:border-white/30"
+                    ? "bg-[#FFD766] text-[#002F6D] border-[#FFD766] shadow-md shadow-[#FFD766]/20 font-bold"
+                    : "bg-[#152238] text-[#C3CDDC] border-[#718096]/60 hover:border-[#FFD766]/60"
                 }`}
               >
                 {cat.label}
@@ -132,7 +132,7 @@ export default function ServiceSelectionSection({
 
         {/* Search Input */}
         <div className="relative w-full md:w-full ">
-          <Search className={`absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 ${isLight ? "text-gray-400" : "text-gray-400"}`} />
+          <Search className={`absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 ${isLight ? "text-[#687386]" : "text-[#C3CDDC]"}`} />
           <input
             type="text"
             value={searchQuery}
@@ -140,8 +140,8 @@ export default function ServiceSelectionSection({
             placeholder="Search pool types, Jacuzzis, Saunas..."
             className={`w-full rounded-xl pl-9 pr-4 py-3 text-xs transition-colors duration-200 focus:outline-none ${
               isLight
-                ? "bg-white border border-[#C7D1D9] text-[#1B2E4B] placeholder-gray-400 focus:border-[#C5A059]"
-                : "bg-[#121e2d] border border-white/10 text-white placeholder-gray-400 focus:border-[#c9a858]"
+                ? "bg-white border border-[#D9DDE5] text-[#1A2238] placeholder-gray-400 focus:border-[#002F6D]"
+                : "bg-[#152238] border border-[#718096] text-white placeholder-gray-400 focus:border-[#FFD766]"
             }`}
           />
         </div>
@@ -159,11 +159,11 @@ export default function ServiceSelectionSection({
               className={`p-5 rounded-2xl border transition-all flex flex-col justify-between relative ${
                 isLight
                   ? isSelected
-                    ? "bg-[#F5F5DC] border-[#C5A059] shadow-md ring-1 ring-[#C5A059]/30"
-                    : "bg-white border-[#C7D1D9] hover:border-[#C5A059]/50 shadow-sm"
+                    ? "bg-amber-50/50 border-2 border-[#D8B63F] shadow-sm"
+                    : "bg-white border border-[#D9DDE5] hover:border-[#D8B63F] shadow-sm"
                   : isSelected
-                  ? "bg-[#16253b] border-[#c9a858] shadow-lg shadow-[#c9a858]/10 ring-1 ring-[#c9a858]/30"
-                  : "bg-[#0e1826]/80 border-white/10 hover:border-white/20"
+                  ? "bg-[#3A3423] border-2 border-[#FFD766] shadow-[0_0_12px_rgba(255,215,102,0.2)]"
+                  : "bg-[#152238] border border-[#718096]/60 hover:border-[#FFD766]/50"
               }`}
             >
               <div>
@@ -173,15 +173,15 @@ export default function ServiceSelectionSection({
                     <span
                       className={`text-[10px] font-mono px-2 py-0.5 rounded border ${
                         isLight
-                          ? "bg-[#F8F9FA] text-[#C5A059] border-[#C7D1D9]"
-                          : "bg-[#070D1F] text-[#c9a858] border-[#c9a858]/20"
+                          ? "bg-[#F7F5F0] text-[#002F6D] border-[#D9DDE5]"
+                          : "bg-[#1B2A40] text-[#FFD766] border-[#FFD766]/30"
                       }`}
                     >
                       #{index + 1}
                     </span>
                     <span
                       className={`text-[10px] tracking-wider uppercase font-medium ${
-                        isLight ? "text-gray-500" : "text-gray-400"
+                        isLight ? "text-[#687386]" : "text-[#C3CDDC]"
                       }`}
                     >
                       {item.category}
@@ -191,8 +191,8 @@ export default function ServiceSelectionSection({
                     <span
                       className={`text-[9px] font-bold px-2 py-0.5 rounded-full border ${
                         isLight
-                          ? "bg-[#C5A059]/15 text-[#1B2E4B] border-[#C5A059]/30"
-                          : "bg-[#c9a858]/20 text-[#c9a858] border-[#c9a858]/30"
+                          ? "bg-[#002F6D]/10 text-[#002F6D] border-[#002F6D]/20"
+                          : "bg-[#FFD766]/20 text-[#FFD766] border-[#FFD766]/40"
                       }`}
                     >
                       {item.badge}
@@ -202,14 +202,14 @@ export default function ServiceSelectionSection({
 
                 <h4
                   className={`font-bold text-base mb-1 font-serif ${
-                    isLight ? "text-[#1B2E4B]" : "text-white"
+                    isLight ? "text-[#1A2238]" : "text-white"
                   }`}
                 >
                   {item.title}
                 </h4>
                 <p
                   className={`text-xs line-clamp-2 leading-relaxed mb-4 ${
-                    isLight ? "text-gray-600" : "text-gray-400"
+                    isLight ? "text-[#687386]" : "text-[#C3CDDC]"
                   }`}
                 >
                   {item.description}
@@ -219,18 +219,18 @@ export default function ServiceSelectionSection({
               {/* Price & Interactive Counter / Select Button */}
               <div
                 className={`flex items-center justify-between pt-3 border-t ${
-                  isLight ? "border-gray-200" : "border-white/5"
+                  isLight ? "border-[#D9DDE5]" : "border-[#718096]/30"
                 }`}
               >
                 <div>
                   <span
                     className={`text-base font-extrabold ${
-                      isLight ? "text-[#C5A059]" : "text-[#c9a858]"
+                      isLight ? "text-[#002F6D]" : "text-[#FFD766]"
                     }`}
                   >
                     ${item.price}
                   </span>
-                  <span className={`text-xs ${isLight ? "text-gray-500" : "text-gray-400"}`}>
+                  <span className={`text-xs ${isLight ? "text-[#687386]" : "text-[#C3CDDC]"}`}>
                     {" "}
                     /{item.unit}
                   </span>
@@ -240,16 +240,16 @@ export default function ServiceSelectionSection({
                   <div
                     className={`flex items-center gap-2 px-2 py-1 rounded-xl border ${
                       isLight
-                        ? "bg-white border-[#C5A059]"
-                        : "bg-[#070D1F] border-[#c9a858]/40"
+                        ? "bg-white border-2 border-[#D8B63F]"
+                        : "bg-[#1B2A40] border-2 border-[#FFD766]"
                     }`}
                   >
                     <button
                       onClick={() => handleQuantityChange(item, qty - 1)}
-                      className={`w-7 h-7 rounded-lg flex items-center justify-center transition-colors ${
+                      className={`w-7 h-7 rounded-lg flex items-center justify-center transition-colors cursor-pointer ${
                         isLight
-                          ? "bg-[#F8F9FA] hover:bg-red-50 text-gray-700 hover:text-red-600"
-                          : "bg-[#121e2d] hover:bg-red-950/40 text-gray-300 hover:text-red-400"
+                          ? "bg-[#F7F5F0] hover:bg-red-50 text-gray-700 hover:text-red-600"
+                          : "bg-[#152238] hover:bg-red-950/40 text-gray-300 hover:text-red-400"
                       }`}
                       title="Decrease"
                     >
@@ -257,17 +257,17 @@ export default function ServiceSelectionSection({
                     </button>
                     <span
                       className={`w-6 text-center text-xs font-bold font-mono ${
-                        isLight ? "text-[#1B2E4B]" : "text-white"
+                        isLight ? "text-[#1A2238]" : "text-white"
                       }`}
                     >
                       {qty}
                     </span>
                     <button
                       onClick={() => handleQuantityChange(item, qty + 1)}
-                      className={`w-7 h-7 rounded-lg flex items-center justify-center transition-colors font-bold ${
+                      className={`w-7 h-7 rounded-lg flex items-center justify-center transition-colors font-bold cursor-pointer ${
                         isLight
-                          ? "bg-[#C5A059] text-white hover:bg-[#b08e4d]"
-                          : "bg-[#c9a858] text-[#121e2d] hover:bg-[#b59549]"
+                          ? "bg-[#002F6D] text-white hover:bg-[#002F6D]/90"
+                          : "bg-[#FFD766] text-[#002F6D] hover:bg-[#FFD766]/90"
                       }`}
                       title="Increase"
                     >
@@ -277,10 +277,10 @@ export default function ServiceSelectionSection({
                 ) : (
                   <button
                     onClick={() => handleQuantityChange(item, 1)}
-                    className={`flex items-center gap-1.5 px-4 py-2 rounded-xl text-xs font-semibold transition-all shadow-sm ${
+                    className={`flex items-center gap-1.5 px-4 py-2 rounded-xl text-xs font-semibold transition-all shadow-sm cursor-pointer ${
                       isLight
-                        ? "bg-[#F8F9FA] hover:bg-[#C5A059] hover:text-white text-[#1B2E4B] border border-[#C7D1D9]"
-                        : "bg-[#121e2d] hover:bg-[#c9a858] hover:text-[#121e2d] text-gray-200 border border-white/10"
+                        ? "bg-[#F7F5F0] hover:bg-[#002F6D] hover:text-white text-[#1A2238] border border-[#D9DDE5]"
+                        : "bg-[#1B2A40] hover:bg-[#FFD766] hover:text-[#002F6D] text-[#C3CDDC] border border-[#718096]"
                     }`}
                   >
                     <Plus className="w-3.5 h-3.5" />
@@ -297,10 +297,10 @@ export default function ServiceSelectionSection({
       <div className="pt-6 flex justify-end">
         <button
           onClick={onProceedNext}
-          className={`px-8 py-3.5 rounded-xl font-bold text-sm shadow-xl transition-all flex items-center gap-2 ${
+          className={`px-8 py-3.5 rounded-xl font-bold text-sm shadow-xl transition-all flex items-center gap-2 cursor-pointer ${
             isLight
-              ? "bg-[#C5A059] hover:bg-[#b08e4d] text-white shadow-[#C5A059]/20"
-              : "bg-gradient-to-r from-[#c9a858] to-[#e4cc8c] text-[#121e2d] shadow-[#c9a858]/20 hover:brightness-105"
+              ? "bg-[#002F6D] hover:bg-[#002F6D]/90 text-white shadow-[#002F6D]/20"
+              : "bg-[#FFD766] text-[#002F6D] hover:bg-[#FFD766]/90 shadow-[#FFD766]/20 font-bold"
           }`}
         >
           Proceed to Step 2

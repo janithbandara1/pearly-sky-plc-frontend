@@ -31,6 +31,19 @@ export function PoolThemeProvider({ children }: { children: React.ReactNode }) {
     }
   }, []);
 
+  useEffect(() => {
+    if (typeof document !== "undefined") {
+      const root = document.documentElement;
+      if (theme === "dark") {
+        root.classList.add("dark");
+        root.classList.remove("light");
+      } else {
+        root.classList.add("light");
+        root.classList.remove("dark");
+      }
+    }
+  }, [theme]);
+
   const handleSetTheme = (newTheme: ThemeMode) => {
     setTheme(newTheme);
     try {

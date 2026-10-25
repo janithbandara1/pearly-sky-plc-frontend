@@ -32,16 +32,16 @@ export default function ConditionAddonsSection({
   const isCarpetService = serviceSlug==="carpet-upholstery-cleaning";
 
   return (
-    <div className={`space-y-8 transition-colors duration-300 ${isLight ? "text-[#1B2E4B]" : "text-white"}`}>
-      <div className="space-y-2 border-b border-gray-700 py-3">
+    <div className={`space-y-8 transition-colors duration-300 ${isLight ? "text-[#1A2238]" : "text-white"}`}>
+      <div className={`space-y-2 border-b py-3 ${isLight ? "border-[#D9DDE5]" : "border-[#718096]/40"}`}>
         <h3
           className={`text-2xl font-bold tracking-wide mb-2 font-serif ${
-            isLight ? "text-[#C5A059]" : "text-[#c9a858]"
+            isLight ? "text-[#1A2238]" : "text-white"
           }`}
         >
           {config.serviceStepDetails.step2Header}
         </h3>
-        <p className={`text-sm ${isLight ? "text-gray-600" : "text-gray-300"}`}>
+        <p className={`text-sm ${isLight ? "text-[#687386]" : "text-[#C3CDDC]"}`}>
           {config.serviceStepDetails.step2Description}
         </p>
       </div>
@@ -52,15 +52,15 @@ export default function ConditionAddonsSection({
           
           {/**property categories */}
           <div className="flex flex-col gap-2 max-w-full">
-            <label htmlFor="propertyType" className={`text-sm font-medium ${isLight ? "text-[#1B2E4B]" : "text-brand-gold"}`}>
+            <label htmlFor="propertyType" className={`text-xs font-bold uppercase tracking-wider ${isLight ? "text-[#1A2238]" : "text-[#FFD766]"}`}>
              PROPERTY TYPE:
             </label>
             <select
               id="propertyType"
-              className={`p-2 w-full rounded-lg border border-[#788010f3] focus:border-brand-gold focus:ring-1 focus:ring-brand-gold focus:outline-none ${
+              className={`p-2.5 w-full rounded-lg border text-sm transition-colors focus:outline-none ${
                 isLight
-                  ? "bg-white border-brand-gold text-[#1B2E4B]"
-                  : "bg-[#0e1826]/80 border-brand-gold text-white"
+                  ? "bg-white border-[#D9DDE5] text-[#1A2238] focus:border-[#002F6D]"
+                  : "bg-[#152238] border-[#718096] text-white focus:border-[#FFD766]"
               }`}
               onChange={(e) => setSelectedCondition(e.target.value)}
             >
@@ -74,15 +74,15 @@ export default function ConditionAddonsSection({
           </div>
           {/**PARKING ACCESS */}
           <div className="flex flex-col gap-2 max-w-full">
-            <label htmlFor="propertyType" className={`text-sm font-medium ${isLight ? "text-[#1B2E4B]" : "text-brand-gold"}`}>
+            <label htmlFor="parkingAccess" className={`text-xs font-bold uppercase tracking-wider ${isLight ? "text-[#1A2238]" : "text-[#FFD766]"}`}>
              PARKING ACCESS:
             </label>
             <select
-              id="propertyType"
-              className={`p-2 w-full rounded-lg border border-[#788010f3] focus:border-brand-gold focus:ring-1 focus:ring-brand-gold focus:outline-none ${
+              id="parkingAccess"
+              className={`p-2.5 w-full rounded-lg border text-sm transition-colors focus:outline-none ${
                 isLight
-                  ? "bg-white border-brand-gold text-[#1B2E4B]"
-                  : "bg-[#0e1826]/80 border-brand-gold text-white"
+                  ? "bg-white border-[#D9DDE5] text-[#1A2238] focus:border-[#002F6D]"
+                  : "bg-[#152238] border-[#718096] text-white focus:border-[#FFD766]"
               }`}
               onChange={(e) => setSelectedCondition(e.target.value)}
             >
@@ -96,15 +96,15 @@ export default function ConditionAddonsSection({
           </div>
           {/**FLOOR ACCESS */}
           <div className="flex flex-col gap-2 max-w-full">
-            <label htmlFor="propertyType" className={`text-sm font-medium ${isLight ? "text-[#1B2E4B]" : "text-brand-gold"}`}>
+            <label htmlFor="floorAccess" className={`text-xs font-bold uppercase tracking-wider ${isLight ? "text-[#1A2238]" : "text-[#FFD766]"}`}>
              FLOOR ACCESS:
             </label>
             <select
-              id="propertyType"
-              className={`p-2 w-full rounded-lg border border-[#788010f3] focus:border-brand-gold focus:ring-1 focus:ring-brand-gold focus:outline-none ${
+              id="floorAccess"
+              className={`p-2.5 w-full rounded-lg border text-sm transition-colors focus:outline-none ${
                 isLight
-                  ? "bg-white border-brand-gold text-[#1B2E4B]"
-                  : "bg-[#0e1826]/80 border-brand-gold text-white"
+                  ? "bg-white border-[#D9DDE5] text-[#1A2238] focus:border-[#002F6D]"
+                  : "bg-[#152238] border-[#718096] text-white focus:border-[#FFD766]"
               }`}
               onChange={(e) => setSelectedCondition(e.target.value)}
             >
@@ -122,15 +122,15 @@ export default function ConditionAddonsSection({
 
       {/* Conditions */}
       {!isCarpetService && (<div className="space-y-4">
-        <div className={`border-b pb-2 ${isLight ? "border-gray-200" : "border-white/10"}`}>
+        <div className={`border-b pb-2 ${isLight ? "border-[#D9DDE5]" : "border-[#718096]/30"}`}>
           <h4
             className={`text-sm font-bold tracking-wider uppercase ${
-              isLight ? "text-[#1B2E4B]" : "text-[#c9a858]"
+              isLight ? "text-[#002F6D]" : "text-[#FFD766]"
             }`}
           >
             1. Current Pool Water Condition
           </h4>
-          <p className={`text-xs ${isLight ? "text-gray-500" : "text-gray-400"}`}>
+          <p className={`text-xs ${isLight ? "text-[#687386]" : "text-[#C3CDDC]"}`}>
             {config.conditionsLabel || "Select your current water state"}
           </p>
         </div>
@@ -144,23 +144,23 @@ export default function ConditionAddonsSection({
                 className={`p-4 rounded-xl border cursor-pointer transition-all flex items-start justify-between ${
                   isLight
                     ? isSelected
-                      ? "bg-[#F5F5DC] border-[#C5A059] shadow-md ring-1 ring-[#C5A059]/30"
-                      : "bg-white border-[#C7D1D9] hover:border-[#C5A059]/40 shadow-sm"
+                      ? "bg-amber-50/50 border-2 border-[#D8B63F] shadow-sm"
+                      : "bg-white border border-[#D9DDE5] hover:border-[#D8B63F] shadow-sm"
                     : isSelected
-                    ? "bg-[#16253b] border-[#c9a858] shadow-lg shadow-[#c9a858]/10 ring-1 ring-[#c9a858]/30"
-                    : "bg-[#0e1826]/80 border-white/10 hover:border-white/20"
+                    ? "bg-[#3A3423] border-2 border-[#FFD766] shadow-[0_0_12px_rgba(255,215,102,0.2)]"
+                    : "bg-[#152238] border border-[#718096]/60 hover:border-[#FFD766]/50"
                 }`}
               >
                 <div className="space-y-1 pr-2">
-                  <h5 className={`font-semibold text-sm ${isLight ? "text-[#1B2E4B]" : "text-white"}`}>
+                  <h5 className={`font-semibold text-sm ${isLight ? "text-[#1A2238]" : "text-white"}`}>
                     {cond.title}
                   </h5>
-                  <p className={`text-xs leading-relaxed ${isLight ? "text-gray-600" : "text-gray-400"}`}>
+                  <p className={`text-xs leading-relaxed ${isLight ? "text-[#687386]" : "text-[#C3CDDC]"}`}>
                     {cond.desc}
                   </p>
                 </div>
                 <div className="text-right shrink-0">
-                  <span className={`text-sm font-bold ${isLight ? "text-[#C5A059]" : "text-[#c9a858]"}`}>
+                  <span className={`text-sm font-bold ${isLight ? "text-[#002F6D]" : "text-[#FFD766]"}`}>
                     {cond.price === 0 ? "+$0" : `+$${cond.price}`}
                   </span>
                 </div>
@@ -172,15 +172,15 @@ export default function ConditionAddonsSection({
 
       {/* 2. Recommended Specialty Add-on Services */}
       <div className="space-y-4 pt-4">
-        <div className={`border-b pb-2 ${isLight ? "border-gray-200" : "border-white/10"}`}>
+        <div className={`border-b pb-2 ${isLight ? "border-[#D9DDE5]" : "border-[#718096]/30"}`}>
           <h4
             className={`text-sm font-bold tracking-wider uppercase ${
-              isLight ? "text-[#1B2E4B]" : "text-[#c9a858]"
+              isLight ? "text-[#002F6D]" : "text-[#FFD766]"
             }`}
           >
             {isCarpetService ? config.serviceStepDetails.step2title1 : "2. Recommended Specialty Add-on Services"}
           </h4>
-          <p className={`text-xs ${isLight ? "text-gray-500" : "text-gray-400"}`}>
+          <p className={`text-xs ${isLight ? "text-[#687386]" : "text-[#C3CDDC]"}`}>
             {config.addonsLabel || "Enhance your pool care package"}
           </p>
         </div>
@@ -194,37 +194,37 @@ export default function ConditionAddonsSection({
                 className={`p-4 rounded-xl border cursor-pointer transition-all flex items-start justify-between ${
                   isLight
                     ? isChecked
-                      ? "bg-[#F5F5DC] border-[#C5A059] shadow-md ring-1 ring-[#C5A059]/30"
-                      : "bg-white border-[#C7D1D9] hover:border-[#C5A059]/40 shadow-sm"
+                      ? "bg-amber-50/50 border-2 border-[#D8B63F] shadow-sm"
+                      : "bg-white border border-[#D9DDE5] hover:border-[#D8B63F] shadow-sm"
                     : isChecked
-                    ? "bg-[#16253b] border-[#c9a858] shadow-lg shadow-[#c9a858]/10 ring-1 ring-[#c9a858]/30"
-                    : "bg-[#0e1826]/80 border-white/10 hover:border-white/20"
+                    ? "bg-[#3A3423] border-2 border-[#FFD766] shadow-[0_0_12px_rgba(255,215,102,0.2)]"
+                    : "bg-[#152238] border border-[#718096]/60 hover:border-[#FFD766]/50"
                 }`}
               >
                 <div className="space-y-1 pr-4">
-                  <h5 className={`font-semibold text-sm ${isLight ? "text-[#1B2E4B]" : "text-white"}`}>
+                  <h5 className={`font-semibold text-sm ${isLight ? "text-[#1A2238]" : "text-white"}`}>
                     {addon.title}
                   </h5>
-                  <p className={`text-xs leading-relaxed ${isLight ? "text-gray-600" : "text-gray-400"}`}>
+                  <p className={`text-xs leading-relaxed ${isLight ? "text-[#687386]" : "text-[#C3CDDC]"}`}>
                     {addon.desc}
                   </p>
                 </div>
                 <div className="flex flex-col items-end shrink-0">
-                  <span className={`text-sm font-bold mb-2 ${isLight ? "text-[#C5A059]" : "text-[#c9a858]"}`}>
+                  <span className={`text-sm font-bold mb-2 ${isLight ? "text-[#002F6D]" : "text-[#FFD766]"}`}>
                     +${addon.price}
                   </span>
                   <div
                     className={`w-6 h-6 rounded-md flex items-center justify-center border transition-colors ${
                       isLight
                         ? isChecked
-                          ? "bg-[#C5A059] border-[#C5A059] text-white"
-                          : "border-[#C7D1D9]"
+                          ? "bg-[#002F6D] border-[#002F6D] text-white"
+                          : "border-[#D9DDE5] bg-white"
                         : isChecked
-                        ? "bg-[#c9a858] border-[#c9a858] text-[#121e2d]"
-                        : "border-white/20"
+                        ? "bg-[#FFD766] border-[#FFD766] text-[#002F6D]"
+                        : "border-[#718096] bg-[#152238]"
                     }`}
                   >
-                    {isChecked && <CheckCircle2 className={`w-4 h-4 ${isLight ? "text-white" : "text-[#121e2d]"}`} />}
+                    {isChecked && <CheckCircle2 className={`w-4 h-4 ${isLight ? "text-white" : "text-[#002F6D]"}`} />}
                   </div>
                 </div>
               </div>
@@ -235,39 +235,39 @@ export default function ConditionAddonsSection({
 
       {isCarpetService && (
         <div className="space-y-2 pt-4">
-          <label htmlFor="specialInstructions" className={`text-sm font-medium ${isLight ? "text-[#1B2E4B]" : "text-brand-gold"}`}>
+          <label htmlFor="specialInstructions" className={`text-xs font-bold uppercase tracking-wider ${isLight ? "text-[#1A2238]" : "text-[#FFD766]"}`}>
             {config.serviceStepDetails.step2title2}
           </label>
           <textarea
             id="specialInstructions"
             placeholder="Enter any specific instructions or details about the carpet cleaning needs..."
-            className={`w-full p-3 rounded-lg border focus:ring-2 focus:ring-brand-gold focus:outline-none ${
+            className={`w-full p-3 rounded-lg border text-sm transition-colors focus:outline-none ${
               isLight
-                ? "bg-white border-gray-300 text-[#1B2E4B]"
-                : "bg-[#0e1826] border-white/20 text-white"
+                ? "bg-white border-[#D9DDE5] text-[#1A2238] focus:border-[#002F6D]"
+                : "bg-[#152238] border-[#718096] text-white focus:border-[#FFD766]"
             }`}
           />
         </div>
       )}
 
       {/* Action Buttons */}
-      <div className={`flex gap-4 pt-4 border-t ${isLight ? "border-gray-200" : "border-white/10"}`}>
+      <div className={`flex gap-4 pt-4 border-t ${isLight ? "border-[#D9DDE5]" : "border-[#718096]/30"}`}>
         <button
           onClick={onPrevStep}
-          className={`px-6 py-3 rounded-xl border font-medium text-sm transition-colors ${
+          className={`px-6 py-3 rounded-xl border font-semibold text-sm transition-colors cursor-pointer ${
             isLight
-              ? "border-[#C7D1D9] text-[#1B2E4B] hover:bg-gray-100"
-              : "border-white/20 text-white hover:bg-white/5"
+              ? "border-[#D9DDE5] text-[#1A2238] hover:bg-[#F7F5F0]"
+              : "border-[#718096] text-[#C3CDDC] hover:bg-[#152238]"
           }`}
         >
           Back
         </button>
         <button
           onClick={onProceedNext}
-          className={`flex-1 py-3 px-6 rounded-xl font-bold text-sm shadow-xl transition-all flex items-center justify-center gap-2 ${
+          className={`flex-1 py-3 px-6 rounded-xl font-bold text-sm shadow-xl transition-all flex items-center justify-center gap-2 cursor-pointer ${
             isLight
-              ? "bg-[#C5A059] text-white hover:bg-[#b08e4d] shadow-[#C5A059]/20"
-              : "bg-gradient-to-r from-[#c9a858] to-[#e4cc8c] text-[#121e2d] shadow-[#c9a858]/20 hover:brightness-105"
+              ? "bg-[#002F6D] text-white hover:bg-[#002F6D]/90 shadow-[#002F6D]/20"
+              : "bg-[#FFD766] text-[#002F6D] hover:bg-[#FFD766]/90 shadow-[#FFD766]/20 font-bold"
           }`}
         >
           Proceed to Step 3

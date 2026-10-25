@@ -21,6 +21,7 @@ import ServiceSelectionSection from "../quotation-common-flow/ServiceSelectionSe
 import BookingConfirmationSection from "../quotation-common-flow/BookingConfirmationSection";
 import StepNavigation from "../quotation-common-flow/step-navigations";
 import { useLocationAccessForm } from "../quotation-common-flow/useLocationAccessForm";
+import { is } from "zod/v4/locales";
 
 export interface CarpetScheduleSectionProps {
   serviceId: number;
@@ -30,13 +31,15 @@ export interface CarpetScheduleSectionProps {
   onThemeChange?: (theme: "dark" | "light") => void;
 }
  
-export function CarpetScheduleSection({
+export function CarpetScheduleSection({ 
   serviceSlug,
   serviceLabel,
-  theme: themeProp,
+  theme: themeProp="dark",
   onThemeChange,
 }: CarpetScheduleSectionProps) {
   const router = useRouter();
+
+  
 /* 
   const [quoteItems, setQuoteItems] = useState<QuoteItem[]>(() => {
     const draft = loadBookingDraft();
@@ -133,6 +136,7 @@ export function CarpetScheduleSection({
     const { theme: contextTheme, setTheme: setContextTheme } = usePoolTheme();
     const activeTheme = themeProp ?? contextTheme ?? "dark";
     const isLight = activeTheme === "light";
+   
   
     // Step state - Start at Step 1 (Service Selection)
     const [currentStep, setCurrentStep] = useState<number>(1);
@@ -309,7 +313,7 @@ export function CarpetScheduleSection({
   return (
     <div  id="section-pool-schedule"
       className={`w-full transition-colors rounded-2xl mb-3 duration-300 ${
-        isLight ? "bg-[#F8F9FA] text-[#1B2E4B]" : "bg-[#101b3d] text-white"
+        isLight ? "bg-[#F7F5F0] text-[#1A2238]" : "bg-[#111C2E] text-white"
       }`}>
       {/* 1. CARPET & UPHOLSTERY DETAILS */}
       {/* <CarpetItemCards items={quoteItems} onItemsChange={setQuoteItems} />   */}
@@ -384,8 +388,8 @@ export function CarpetScheduleSection({
           <div
             className={`rounded-2xl p-6 md:p-8 backdrop-blur-sm border shadow-xl transition-all duration-300 ${
               isLight
-                ? "bg-white border-[#C7D1D9]"
-                : "bg-[#121e2d]/70 border-[#c9a858]/25"
+                ? "bg-white border-[#D9DDE5]"
+                : "bg-[#1B2A40] border-[#718096]/50 shadow-[0_4px_24px_rgba(0,0,0,0.3)]"
             }`}
           >
             {isConfirmed ? (
@@ -428,7 +432,7 @@ export function CarpetScheduleSection({
                     }}
                     activeAddons={activeAddons}
                     toggleAddon={toggleAddon}
-                    theme={activeTheme}
+                    theme={activeTheme} 
                     onProceedNext={handleNextStep}
                     onPrevStep={handlePrevStep}
                     serviceSlug={serviceSlug}
@@ -458,7 +462,7 @@ export function CarpetScheduleSection({
                   <LocationAccessSection
                     config={config}
                     {...locationBindings}
-                    theme={activeTheme}
+                    theme={isLight ? "light" : "dark"}
                     onProceedNext={handleNextStep}
                     onPrevStep={handlePrevStep}
                     serviceSlug={serviceSlug}
@@ -531,8 +535,8 @@ export function CarpetScheduleSection({
             }}
             className={`inline-flex h-[44px] min-w-[130px] items-center justify-center gap-2 rounded-xl border text-sm font-semibold shadow-sm transition-all ${
               isLight
-                ? "border-[#C5A059] bg-white text-[#1B2E4B] hover:bg-[#F5F5DC]"
-                : "border-[#c9a858]/60 bg-[#121e2d] text-white hover:bg-[#121e2d]/80"
+                ? "border-[#D8B63F] bg-white text-[#1A2238] hover:bg-amber-50/50"
+                : "border-[#FFD766]/60 bg-[#152238] text-white hover:bg-[#1B2A40]"
             }`}
           >
             <ArrowLeft className="w-4 h-4" />
@@ -548,10 +552,10 @@ export function CarpetScheduleSection({
                 handleConfirmReservation();
               }
             }}
-            className={`inline-flex h-[44px] min-w-[210px] items-center justify-center gap-2 rounded-xl px-8 text-center text-xs font-bold uppercase tracking-wider shadow-lg transition-all ${
+            className={`inline-flex h-[44px] min-w-[210px] items-center justify-center gap-2 rounded-xl px-8 text-center text-xs font-bold uppercase tracking-wider shadow-lg transition-all cursor-pointer ${
               isLight
-                ? "bg-[#C5A059] text-white hover:bg-[#b08d45] shadow-[#C5A059]/25"
-                : "bg-[#c9a858] text-[#121e2d] hover:bg-[#b89547] shadow-[#c9a858]/30 font-extrabold"
+                ? "bg-[#002F6D] text-white hover:bg-[#002F6D]/90 shadow-[#002F6D]/20"
+                : "bg-[#FFD766] text-[#002F6D] hover:bg-[#FFD766]/90 shadow-[#FFD766]/20 font-extrabold"
             }`}
           >
             {currentStep === 5 ? "Confirm & Finalize" : "Continue to Next Step"}

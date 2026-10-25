@@ -1,7 +1,7 @@
 "use client";
 
-import React from "react";
-import { Crown, Lock, CalendarDays } from "lucide-react";
+import React, { useState } from "react";
+import { Crown, Lock, CalendarDays, Sparkles, Clock, Tag, Percent, CheckCircle2, ChevronDown, ChevronUp } from "lucide-react";
 import { SupplySource } from "../common-flows-propertis-and-equipments/common-equipment-flow-section";
 import { useLanguage } from "@/lib/i18n/language-context";
 import { TranslationKey } from "@/lib/i18n/dictionaries/en";
@@ -38,7 +38,7 @@ export interface BookingLogisticsSummaryProps {
   estimatedHours?: number;
   laborTotal?: number;
   advanceDeposit?: number;
-  isQuote?:boolean
+  isQuote?: boolean;
 }
 
 export default function BookingLogisticsSummary({
@@ -61,12 +61,14 @@ export default function BookingLogisticsSummary({
   estimatedHours,
   laborTotal,
   advanceDeposit,
-  isQuote=false,
+  isQuote = false,
 }: BookingLogisticsSummaryProps) {
   const { translate } = useLanguage();
   const { symbol } = useCurrency();
   const currencySymbol = customCurrencySymbol || symbol || "€";
   const isLight = theme === "light";
+
+  const [isBreakdownOpen, setIsBreakdownOpen] = useState(true);
 
   // Dynamic calculations based on state
   const rate = baseRate ?? 29.0;
@@ -99,206 +101,214 @@ export default function BookingLogisticsSummary({
     { title: "Property Scale:", value: propertyScaleText, highlight: false },
     { title: "Selected Rooms:", value: selectedRoomsSummary, highlight: false },
     { title: "Schedule Window:", value: scheduleWindow, highlight: true },
-    { title: "Frequency Discount:", value: frequencyDiscountLabel.split("(")[0], customColor: "text-emerald-400" },
+    { title: "Frequency Discount:", value: frequencyDiscountLabel.split("(")[0], customColor: "text-emerald-400 font-semibold" },
     { title: "Solvents & Equipment:", value: solventsText, highlight: true },
   ];
 
   return (
     <div
-      className={`rounded-2xl p-6 shadow-2xl border transition-all duration-300 ${
+      className={`rounded-2xl p-6 shadow-2xl border transition-all duration-300 relative overflow-hidden ${
         isLight
-          ? "bg-white border-[#C5A059]/40 border-t-4 border-t-luxegold  text-[#1B2E4B]"
-          : "bg-[#121e2d]/95 backdrop-blur-xl border-t-4 border-t-luxegold border-[#C5A059]/40 text-white"
+          ? "bg-white border-t-4 border-t-[#002F6D] border-[#D9DDE5] text-[#1A2238] shadow-[0_10px_30px_rgba(0,47,109,0.08)]"
+          : "bg-[#1B2A40]/80 backdrop-blur-2xl border-t-4 border-t-[#FFD766] border-[#718096]/30 text-white shadow-2xl"
       }`}
-      
     >
+      {/* Decorative ambient background glow */}
+      <div className={`absolute -top-24 -right-24 w-48 h-48 rounded-full blur-3xl pointer-events-none opacity-20 ${isLight ? "bg-[#002F6D]" : "bg-[#FFD766]"}`} />
+
       {/* Header Section */}
-      <div
-        className={`flex items-start justify-between pb-4 border-b ${
-          isLight ? "border-gray-200" : "border-white/10"
-        }`}
-      >
+      <div className={`flex items-start justify-between pb-4 border-b ${isLight ? "border-[#D9DDE5]" : "border-[#718096]/30"}`}>
         <div>
-          <span
-            className={`text-[10px] font-bold tracking-widest uppercase block mb-1 ${
-              isLight ? "text-[#C5A059]" : "text-[#c9a858]"
-            }`}
-          >
-            EXECUTIVE SUMMARY
-          </span>
-          <h3
-            className={`text-xl font-serif font-bold tracking-wide ${
-              isLight ? "text-[#1B2E4B]" : "text-white"
-            }`}
-          >
+          <div className="flex items-center gap-1.5 mb-1">
+            <Sparkles className={`w-3.5 h-3.5 ${isLight ? "text-[#002F6D]" : "text-[#FFD766]"}`} />
+            <span className={`text-[10px] font-bold tracking-widest uppercase ${isLight ? "text-[#002F6D]" : "text-[#FFD766]"}`}>
+              EXECUTIVE SUMMARY
+            </span>
+          </div>
+          <h3 className={`text-xl font-serif font-bold tracking-wide ${isLight ? "text-[#1A2238]" : "text-white"}`}>
             {isQuote ? "Inquiry Overview" : "Booking Logistics"}
           </h3>
         </div>
-        <div
-          className={`flex h-9 w-9 shrink-0 items-center justify-center rounded-lg border ${
-            isLight
-              ? "border-[#C5A059]/40 bg-amber-50 text-[#C5A059]"
-              : "border-[#c9a858]/40 bg-[#1c2a40] text-[#c9a858]"
-          }`}
-        >
+        <div className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-xl border shadow-inner transition-transform hover:scale-105 ${
+          isLight
+            ? "border-[#D9DDE5] bg-[#F7F5F0] text-[#002F6D]"
+            : "border-[#718096]/40 bg-[#111C2E] text-[#FFD766]"
+        }`}>
           <Crown className="h-5 w-5" />
         </div>
       </div>
 
       {/* Categorized Logistics Content */}
-      <div className="py-4 space-y-3.5 text-sm">
+      <div className="py-4 space-y-3 text-sm">
         {logisticsItems.map((item, index) => (
-          <div key={index} className="flex flex-col space-y-0.5">
-            <span
-              className={`text-xs font-medium tracking-wide ${
-                isLight ? "text-gray-500" : "text-gray-400"
-              }`}
-            >
+          <div 
+            key={index} 
+            className={`flex flex-col space-y-0.5 p-2 rounded-xl transition-colors duration-200 ${
+              isLight ? "hover:bg-[#F7F5F0]" : "hover:bg-[#152238]/60"
+            }`}
+          >
+            <span className={`text-[11px] font-medium tracking-wide uppercase ${isLight ? "text-[#687386]" : "text-[#C3CDDC]"}`}>
               {item.title}
             </span>
-            <span
-              className={`text-sm font-semibold tracking-wide ${
-                item.customColor
-                  ? item.customColor
-                  : item.highlight
-                  ? isLight
-                    ? "text-[#C5A059]"
-                    : "text-[#c9a858]"
-                  : isLight
-                  ? "text-[#1B2E4B]"
-                  : "text-white"
-              }`}
-            >
+            <span className={`text-sm font-semibold tracking-wide ${
+              item.customColor
+                ? item.customColor
+                : item.highlight
+                ? isLight
+                  ? "text-[#002F6D] font-bold"
+                  : "text-[#FFD766] font-bold"
+                : isLight
+                ? "text-[#1A2238]"
+                : "text-white"
+            }`}>
               {translate(item.value as TranslationKey) || item.value}
             </span>
           </div>
         ))}
 
         {/* Dynamic Upgrades / Add-ons Breakdown Section */}
-        {!isQuote && 
-        (<div className="flex flex-col space-y-1.5 pt-2 border-t border-white/5">
-          <div className="flex justify-between items-center">
-            <span
-              className={`text-xs font-medium tracking-wide ${
-                isLight ? "text-gray-500" : "text-gray-400"
-              }`}
-            >
-              Add-on Items Selected ({selectedAddons.length}):
-            </span>
-            <span className={`text-xs font-bold ${isLight ? "text-[#C5A059]" : "text-[#c9a858]"}`}>
-              {currencySymbol}{equipmentSolventsCost.toFixed(2)}
-            </span>
-          </div>
+        {!isQuote && (
+          <div className={`flex flex-col space-y-2 pt-3 mt-2 border-t ${isLight ? "border-[#D9DDE5]" : "border-[#718096]/30"}`}>
+            <div className="flex justify-between items-center px-2">
+              <span className={`text-xs font-semibold tracking-wide ${isLight ? "text-[#1A2238]" : "text-[#C3CDDC]"}`}>
+                Add-on Items Selected ({selectedAddons.length})
+              </span>
+              <span className={`text-xs font-bold px-2 py-0.5 rounded-md border ${
+                isLight ? "bg-[#F7F5F0] text-[#002F6D] border-[#D9DDE5]" : "bg-[#111C2E] text-[#FFD766] border-[#718096]/40"
+              }`}>
+                {currencySymbol}{equipmentSolventsCost.toFixed(2)}
+              </span>
+            </div>
 
-          { selectedAddons && selectedAddons.length > 0 ? (
-            <div className={`mt-1.5 pl-3 border-l-2 space-y-2.5 ${isLight ? "border-[#C5A059]/40" : "border-[#c9a858]/40"}`}>
-              {selectedAddons.map((addon) => {
-                const uPrice = addon.unitPrice ?? addon.price ?? 0;
-                const lineTotal = addon.totalPrice ?? uPrice * addon.quantity;
-                const displayName = translate(addon.name as TranslationKey) || addon.name;
-                return (
-                  <div key={addon.id} className="flex justify-between items-start text-xs gap-2">
-                    <div className="flex flex-col">
-                      <span className={`font-semibold ${isLight ? "text-gray-800" : "text-gray-200"}`}>
-                        • {displayName}
-                      </span>
-                      <span className={`text-[11px] ${isLight ? "text-gray-500" : "text-gray-400"}`}>
-                        Qty: <strong className={isLight ? "text-gray-800" : "text-white"}>{addon.quantity}</strong> × {currencySymbol}{uPrice.toFixed(2)} unit price
+            {selectedAddons && selectedAddons.length > 0 ? (
+              <div className={`mt-1 ml-1 pl-3 border-l-2 space-y-2.5 ${isLight ? "border-[#002F6D]/40" : "border-[#FFD766]/40"}`}>
+                {selectedAddons.map((addon) => {
+                  const uPrice = addon.unitPrice ?? addon.price ?? 0;
+                  const lineTotal = addon.totalPrice ?? uPrice * addon.quantity;
+                  const displayName = translate(addon.name as TranslationKey) || addon.name;
+                  return (
+                    <div key={addon.id} className="flex justify-between items-start text-xs gap-2 p-1.5 rounded-lg transition-colors hover:bg-white/5">
+                      <div className="flex flex-col">
+                        <span className={`font-semibold ${isLight ? "text-[#1A2238]" : "text-white"}`}>
+                          • {displayName}
+                        </span>
+                        <span className={`text-[11px] ${isLight ? "text-[#687386]" : "text-[#C3CDDC]"}`}>
+                          Qty: <strong className={isLight ? "text-[#1A2238]" : "text-white"}>{addon.quantity}</strong> × {currencySymbol}{uPrice.toFixed(2)}
+                        </span>
+                      </div>
+                      <span className={`font-mono font-bold shrink-0 ${isLight ? "text-[#002F6D]" : "text-[#36D6A0]"}`}>
+                        {currencySymbol}{lineTotal.toFixed(2)}
                       </span>
                     </div>
-                    <span className={`font-mono font-bold shrink-0 ${isLight ? "text-[#1B2E4B]" : "text-emerald-400"}`}>
-                      {currencySymbol}{lineTotal.toFixed(2)}
-                    </span>
-                  </div>
-                );
-              })}
-            </div>
-          ) : (
-            <span className={`text-xs italic ${isLight ? "text-gray-400" : "text-gray-500"}`}>
-              {supplySource === "customer" ? "Client providing own equipment" : "No add-on items selected"}
-            </span>
-          )}
-        </div>)}
+                  );
+                })}
+              </div>
+            ) : (
+              <div className={`text-xs italic px-2 py-1 ${isLight ? "text-[#687386]" : "text-[#718096]"}`}>
+                {supplySource === "customer" ? "Client providing own equipment" : "No add-on items selected"}
+              </div>
+            )}
+          </div>
+        )}
       </div>
- 
-      {/* Financial Estimates Breakdown */}
-      <div className={`py-4 space-y-2 border-t text-xs ${isLight ? "border-gray-200 text-gray-600" : "border-white/10 text-gray-300"}`}>
-        <div className="flex justify-between items-center">
-          <span>Base Rate:</span>
-          <span className="font-mono">{currencySymbol}{rate.toFixed(2)} / hr per staff</span>
-        </div>
-        <div className="flex justify-between items-center">
-          <span>Est. Staff & Labor:</span>
-          <span className="font-mono">{cleaners} Staff × {hours.toFixed(1)}h = {currencySymbol}{labor.toFixed(2)}</span>
-        </div>
-        <div className="flex justify-between items-center">
-          <span>Frequency Savings:</span>
-          <span className={`font-mono ${frequencySavings > 0 ? "text-emerald-400 font-semibold" : ""}`}>
-            -{currencySymbol}{frequencySavings.toFixed(2)}
-          </span>
-        </div>
-        {equipmentSolventsCost > 0 && (
-          <div className="flex justify-between items-center">
-            <span>Solvents & Equipment:</span>
-            <span className="font-mono font-semibold text-emerald-400">+{currencySymbol}{equipmentSolventsCost.toFixed(2)}</span>
+
+      {/* Financial Estimates Breakdown Card */}
+      <div className={`p-3.5 rounded-xl border transition-all ${
+        isLight ? "bg-[#F7F5F0] border-[#D9DDE5] text-[#1A2238]" : "bg-[#152238] border-[#718096]/30 text-[#C3CDDC]"
+      }`}>
+        <button 
+          onClick={() => setIsBreakdownOpen(!isBreakdownOpen)}
+          className="w-full flex items-center justify-between text-xs font-bold uppercase tracking-wider mb-2 cursor-pointer focus:outline-none"
+        >
+          <span className={isLight ? "text-[#002F6D]" : "text-[#FFD766]"}>Financial Breakdown</span>
+          {isBreakdownOpen ? <ChevronUp className="w-4 h-4" /> : <ChevronDown className="w-4 h-4" />}
+        </button>
+
+        {isBreakdownOpen && (
+          <div className={`space-y-2 text-xs pt-2 border-t ${isLight ? "border-[#D9DDE5]" : "border-[#718096]/30"} animate-fadeIn`}>
+            <div className="flex justify-between items-center">
+              <span className="flex items-center gap-1.5"><Tag className="w-3 h-3 opacity-70" /> Base Rate:</span>
+              <span className="font-mono">{currencySymbol}{rate.toFixed(2)} / hr per staff</span>
+            </div>
+            <div className="flex justify-between items-center">
+              <span className="flex items-center gap-1.5"><Clock className="w-3 h-3 opacity-70" /> Est. Staff & Labor:</span>
+              <span className="font-mono">{cleaners} Staff × {hours.toFixed(1)}h = {currencySymbol}{labor.toFixed(2)}</span>
+            </div>
+            <div className="flex justify-between items-center">
+              <span className="flex items-center gap-1.5"><Percent className="w-3 h-3 opacity-70" /> Frequency Savings:</span>
+              <span className={`font-mono ${frequencySavings > 0 ? (isLight ? "text-emerald-700 font-semibold" : "text-[#36D6A0] font-semibold") : ""}`}>
+                -{currencySymbol}{frequencySavings.toFixed(2)}
+              </span>
+            </div>
+            {equipmentSolventsCost > 0 && (
+              <div className="flex justify-between items-center">
+                <span className="flex items-center gap-1.5"><Sparkles className="w-3 h-3 opacity-70" /> Solvents & Equipment:</span>
+                <span className={`font-mono font-semibold ${isLight ? "text-emerald-700" : "text-[#36D6A0]"}`}>+{currencySymbol}{equipmentSolventsCost.toFixed(2)}</span>
+              </div>
+            )}
           </div>
         )}
       </div>
 
       {/* Estimated Total Block */}
-      <div className={`pt-3 pb-4 border-t flex flex-col space-y-1 ${isLight ? "border-gray-200" : "border-white/10"}`}>
+      <div className={`pt-4 pb-3 mt-3 border-t flex flex-col space-y-1 ${isLight ? "border-[#D9DDE5]" : "border-[#718096]/30"}`}>
         <div className="flex justify-between items-baseline">
-          <span className={`text-xs font-bold uppercase tracking-wider ${isLight ? "text-gray-700" : "text-gray-300"}`}>
+          <span className={`text-xs font-bold uppercase tracking-wider ${isLight ? "text-[#1A2238]" : "text-[#C3CDDC]"}`}>
             ESTIMATED TOTAL
           </span>
-          <span className={`text-2xl font-serif font-bold ${isLight ? "text-[#C5A059]" : "text-[#c9a858]"}`}>
+          <span className={`text-2xl font-serif font-bold ${isLight ? "text-[#002F6D]" : "text-[#FFD766]"}`}>
             {currencySymbol}{estimatedTotal.toFixed(2)}
           </span>
         </div>
-        <p className={`text-[11px] ${isLight ? "text-gray-500" : "text-gray-400"}`}>
-          Includes all taxes & insurance
-        </p>
+        <div className="flex items-center gap-1 text-[11px] text-emerald-600 font-medium">
+          <CheckCircle2 className="w-3.5 h-3.5" />
+          <span>Includes all taxes & insurance</span>
+        </div>
       </div>
 
       {/* Advance Deposit Box */}
-      {!isQuote && (<div
-        className={`my-3 p-3.5 rounded-xl border flex items-center justify-between ${
+      {!isQuote && (
+        <div className={`my-3 p-3.5 rounded-xl border flex items-center justify-between shadow-inner ${
           isLight
-            ? "bg-amber-50/60 border-[#C5A059]/40 text-[#1B2E4B]"
-            : "bg-[#0b132b] border-[#c9a858]/40 text-white"
-        }`}
-      >
-        <div className="flex flex-col">
-          <span className={`text-xs font-bold ${isLight ? "text-[#C5A059]" : "text-[#c9a858]"}`}>
-            Advance Deposit Required
-          </span>
-          <span className={`text-[11px] ${isLight ? "text-gray-600" : "text-gray-400"}`}>
-            Locks staff schedule instantly
+            ? "bg-[#F7F5F0] border-[#D9DDE5] text-[#1A2238]"
+            : "bg-[#111C2E] border-[#718096]/40 text-white"
+        }`}>
+          <div className="flex flex-col">
+            <span className={`text-xs font-bold ${isLight ? "text-[#002F6D]" : "text-[#FFD766]"}`}>
+              Advance Deposit Required
+            </span>
+            <span className={`text-[11px] ${isLight ? "text-[#687386]" : "text-[#C3CDDC]"}`}>
+              Locks staff schedule instantly
+            </span>
+          </div>
+          <span className={`font-serif font-bold text-base px-2.5 py-1 rounded-lg border ${
+            isLight
+              ? "bg-white text-[#002F6D] border-[#D9DDE5] shadow-xs"
+              : "bg-[#1B2A40] text-[#FFD766] border-[#FFD766]/30"
+          }`}>
+            {currencySymbol}{deposit.toFixed(2)}
           </span>
         </div>
-        <span className={`font-serif font-bold text-base ${isLight ? "text-[#C5A059]" : "text-[#c9a858]"}`}>
-          {currencySymbol}{deposit.toFixed(2)}
-        </span>
-      </div>)}
+      )}
 
       {/* Action Button */}
       <div className="pt-2">
         <button
           onClick={onNextStep}
-          className={`w-full py-3.5 px-4 rounded-xl font-bold text-sm flex items-center justify-center gap-2 transition-all shadow-lg cursor-pointer ${
+          className={`group w-full py-3.5 px-4 rounded-xl font-bold text-sm flex items-center justify-center gap-2 transition-all duration-300 shadow-xl cursor-pointer hover:scale-[1.02] active:scale-[0.98] ${
             isLight
-              ? "bg-[#C5A059] text-white hover:bg-[#b08e4d] shadow-[#C5A059]/25"
-              : "bg-gradient-to-r from-[#d4b261] to-[#b08e4d] text-[#121e2d] hover:brightness-110 shadow-[#c9a858]/20"
+              ? "bg-[#002F6D] text-white hover:bg-[#002F6D]/90 shadow-[#002F6D]/20"
+              : "bg-[#FFD766] text-[#002F6D] hover:bg-[#FFD766]/90 shadow-[#FFD766]/20 font-bold"
           }`}
         >
-          <CalendarDays className="w-4 h-4 stroke-[2.5]" />
-          {isQuote ? "Submit Quotation Request" : "BOOK APPOINTMENT NOW"}
+          <CalendarDays className="w-4 h-4 stroke-[2.5] transition-transform group-hover:rotate-12" />
+          <span>{isQuote ? "Submit Quotation Request" : "BOOK APPOINTMENT NOW"}</span>
         </button>
       </div>
 
       {/* Security Footer Notice */}
-      <div className="flex items-center justify-center gap-1.5 pt-4 text-[11px] text-gray-400">
-        <Lock className="w-3.5 h-3.5 text-emerald-400" />
+      <div className={`flex items-center justify-center gap-1.5 pt-4 text-[11px] ${isLight ? "text-[#687386]" : "text-[#718096]"}`}>
+        <Lock className="w-3.5 h-3.5 text-emerald-400 animate-pulse" />
         <span>256–Bit SSL Encrypted & Confidential</span>
       </div>
     </div>

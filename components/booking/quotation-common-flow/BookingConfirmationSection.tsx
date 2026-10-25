@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { CheckCircle2, Download, RefreshCcw, Calendar, Clock, MapPin, FileText } from "lucide-react";
+import { CheckCircle2, Calendar, Clock, MapPin, FileText, X, ArrowRight } from "lucide-react";
 import { CartItem, ServiceConfig } from "@/lib/booking";
 
 interface BookingConfirmationSectionProps {
@@ -32,152 +32,149 @@ export default function BookingConfirmationSection({
   theme = "dark",
 }: BookingConfirmationSectionProps) {
   const isDark = theme === "dark";
-  // Calculate total invoice amount dynamically based on cart items
+
   const subtotal = cart.reduce((acc, item) => acc + item.quantity * item.unitPrice, 0);
   const tax = subtotal * config.taxRate;
   const total = subtotal + tax;
 
-  // Generate a dynamic booking reference ID (or receive it as a prop)
-  const bookingRef = "AQUA-" + Math.floor(100000 + Math.random() * 900000);
+  const confirmationItems = [
+    {
+      icon: Calendar,
+      title: "Service Date",
+      value: selectedDate || "Not Specified",
+      status: selectedDate ? "Confirmed" : "Missing",
+      isOk: !!selectedDate,
+    },
+    {
+      icon: Clock,
+      title: "Arrival Time Window",
+      value: selectedWindow || "Standard Window",
+      status: selectedWindow ? "Confirmed" : "Missing",
+      isOk: !!selectedWindow,
+    },
+    {
+      icon: MapPin,
+      title: "Location Address",
+      value: clientAddress || "No address provided",
+      status: clientAddress ? "Confirmed" : "Missing",
+      isOk: !!clientAddress,
+    },
+    {
+      icon: FileText,
+      title: "Estimated On-site Labor",
+      value: estimatedLaborHours,
+      status: "Calculated",
+      isOk: true,
+    },
+  ];
 
   return (
-    <div className={`space-y-8 text-center py-6 ${isDark ? "text-white" : "text-[#1B2E4B]"}`}>
-      {/* Success Badge */}
-      <div className={`inline-flex items-center gap-2 px-5 py-2 rounded-full border text-xs font-semibold tracking-wider uppercase shadow-md ${
-        isDark 
-          ? "bg-[#c9a858]/15 border-[#c9a858]/30 text-[#c9a858]" 
-          : "bg-[#F5F5DC] border-[#C5A059]/40 text-[#1B2E4B]"
-      }`}>
-        <CheckCircle2 className={`w-4 h-4 ${isDark ? "text-[#c9a858]" : "text-[#C5A059]"}`} />
-        {config.type === "pool" ? "Pool Cleaning Confirmed" : "Service Confirmed"}
-      </div>
-
-      <div className="space-y-2">
-        <h3 className={`text-3xl md:text-4xl font-extrabold tracking-wide font-serif ${
-          isDark ? "text-[#c9a858]" : "text-[#1B2E4B]"
-        }`}>
-          Thank You, {clientTitle} {clientName}
-        </h3>
-        <p className={`text-sm md:text-base max-w-xl mx-auto leading-relaxed ${
-          isDark ? "text-gray-300" : "text-[#1B2E4B]/80"
-        }`}>
-          Your service dispatch is officially scheduled. A confirmation email has been dispatched to{" "}
-          <span className={`font-medium underline ${isDark ? "text-white" : "text-[#1B2E4B] font-semibold"}`}>
-            {clientEmail}
-          </span>.
-        </p>
-      </div>
-
-      {/* Confirmation Details Card */}
-      <div className={`max-w-2xl mx-auto rounded-2xl p-6 md:p-8 backdrop-blur-xl text-left space-y-5 shadow-2xl border ${
-        isDark 
-          ? "bg-[#121e2d]/90 border-[#c9a858]/30 text-white" 
-          : "bg-white border-[#C7D1D9] text-[#1B2E4B]"
-      }`}>
-        <div className={`flex flex-col sm:flex-row justify-between items-start sm:items-center pb-4 border-b gap-2 ${
-          isDark ? "border-white/10" : "border-[#C7D1D9]/60"
-        }`}>
-          <span className={`text-xs uppercase tracking-widest font-bold ${
-            isDark ? "text-[#c9a858]" : "text-[#C5A059]"
+    <div className={`w-full max-w-xl mx-auto rounded-3xl p-5 sm:p-8 border shadow-2xl relative overflow-hidden transition-all duration-300 ${
+      isDark 
+        ? "bg-[#0B132B]/95 border-[#c9a858]/40 text-white shadow-black/60" 
+        : "bg-white border-[#C5A059]/40 text-[#1B2E4B] shadow-amber-500/10"
+    }`}>
+      
+      {/* Top Branding Header */}
+      <div className="flex items-center justify-between pb-6 mb-6 border-b border-[#c9a858]/20">
+        <div className="flex items-center gap-3">
+          <div className={`w-10 h-10 rounded-full border border-[#c9a858] flex items-center justify-center font-serif font-bold text-sm tracking-wider ${
+            isDark ? "bg-[#121e2d] text-[#c9a858]" : "bg-amber-50 text-[#C5A059]"
           }`}>
-            Booking Reference
-          </span>
-          <span className={`font-mono text-sm px-3 py-1 rounded-lg border font-bold ${
-            isDark 
-              ? "bg-[#0B132B] text-white border-[#c9a858]/30" 
-              : "bg-[#F5F5DC] text-[#1B2E4B] border-[#C7D1D9]"
-          }`}>
-            {bookingRef}
-          </span>
-        </div>
-
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-sm">
-          <div className="flex items-center gap-3">
-            <Calendar className={`w-4 h-4 shrink-0 ${isDark ? "text-[#c9a858]" : "text-[#C5A059]"}`} />
-            <div>
-              <span className={`text-[10px] uppercase tracking-wider block ${isDark ? "text-gray-400" : "text-[#1B2E4B]/60"}`}>
-                Scheduled Date
-              </span>
-              <span className={`font-semibold ${isDark ? "text-white" : "text-[#1B2E4B]"}`}>
-                {selectedDate || "Not Specified"}
-              </span>
-            </div>
+            PS
           </div>
-
-          <div className="flex items-center gap-3">
-            <Clock className={`w-4 h-4 shrink-0 ${isDark ? "text-[#c9a858]" : "text-[#C5A059]"}`} />
-            <div>
-              <span className={`text-[10px] uppercase tracking-wider block ${isDark ? "text-gray-400" : "text-[#1B2E4B]/60"}`}>
-                Arrival Window
-              </span>
-              <span className={`font-semibold ${isDark ? "text-white" : "text-[#1B2E4B]"}`}>
-                {selectedWindow || "Standard Window"}
-              </span>
-            </div>
-          </div>
-
-          <div className="flex items-center gap-3">
-            <MapPin className={`w-4 h-4 shrink-0 ${isDark ? "text-[#c9a858]" : "text-[#C5A059]"}`} />
-            <div>
-              <span className={`text-[10px] uppercase tracking-wider block ${isDark ? "text-gray-400" : "text-[#1B2E4B]/60"}`}>
-                Location
-              </span>
-              <span className={`font-semibold truncate max-w-[220px] block ${isDark ? "text-white" : "text-[#1B2E4B]"}`} title={clientAddress || ""}>
-                {clientAddress || "No address provided"}
-              </span>
-            </div>
-          </div>
-
-          <div className="flex items-center gap-3">
-            <FileText className={`w-4 h-4 shrink-0 ${isDark ? "text-[#c9a858]" : "text-[#C5A059]"}`} />
-            <div>
-              <span className={`text-[10px] uppercase tracking-wider block ${isDark ? "text-gray-400" : "text-[#1B2E4B]/60"}`}>
-                Estimated On-site
-              </span>
-              <span className={`font-semibold ${isDark ? "text-white" : "text-[#1B2E4B]"}`}>
-                {estimatedLaborHours}
-              </span>
-            </div>
+          <div className="flex flex-col text-left">
+            <span className={`text-xs font-serif font-bold tracking-[0.2em] uppercase ${isDark ? "text-[#c9a858]" : "text-[#C5A059]"}`}>
+              PEARLY SKY
+            </span>
+            <span className="text-[9px] tracking-[0.15em] text-gray-400 uppercase">
+              ECO LUXURY CLEANING
+            </span>
           </div>
         </div>
-
-        <div className={`pt-4 border-t flex justify-between items-center ${
-          isDark ? "border-white/10" : "border-[#C7D1D9]/60"
-        }`}>
-          <span className={`text-sm font-medium ${isDark ? "text-gray-300" : "text-[#1B2E4B]/70"}`}>
-            Final Invoice Total
-          </span>
-          <span className={`text-xl font-extrabold ${isDark ? "text-[#c9a858]" : "text-[#C5A059]"}`}>
-            ${total.toFixed(2)}
-          </span>
-        </div>
-      </div>
-
-      {/* Action Buttons */}
-      <div className="flex flex-col sm:flex-row justify-center gap-4 pt-2">
-        <button
-          onClick={() => window.print()}
-          className={`px-6 py-3.5 rounded-xl font-bold text-xs uppercase tracking-wider transition-all flex items-center justify-center gap-2 shadow-lg ${
-            isDark 
-              ? "bg-[#c9a858] text-[#121e2d] hover:bg-[#b89547] shadow-[#c9a858]/20" 
-              : "bg-[#C5A059] text-white hover:bg-[#b08d45] shadow-[#C5A059]/20"
+        <button 
+          onClick={onBookAnother}
+          className={`w-8 h-8 rounded-full border flex items-center justify-center transition-colors ${
+            isDark ? "border-white/10 hover:bg-white/10 text-gray-300" : "border-slate-200 hover:bg-slate-100 text-slate-700"
           }`}
+          aria-label="Close"
         >
-          <Download className="w-4 h-4" />
-          Print / Download Receipt
+          <X className="w-4 h-4" />
         </button>
+      </div>
+
+      {/* Warning / Error Header */}
+      <div className={`p-4 rounded-2xl border mb-6 flex items-center gap-3.5 ${
+        isDark 
+          ? "bg-rose-950/30 border-rose-500/40 text-rose-400" 
+          : "bg-rose-50 border-rose-300 text-rose-800"
+      }`}>
+        <div className="w-8 h-8 rounded-full bg-rose-500/20 flex items-center justify-center shrink-0">
+          <span className="font-bold">!</span>
+        </div>
+        <div className="flex flex-col text-left">
+          <span className="text-xs font-bold uppercase tracking-wider">
+            Please complete the required details before submitting:
+          </span>
+        </div>
+      </div>
+
+      {/* Confirmation & Missing Details Card List */}
+      <div className="space-y-3 mb-6">
+        {confirmationItems.map((item, idx) => {
+          const IconComponent = item.icon;
+          return (
+            <div 
+              key={idx}
+              className={`flex items-center justify-between p-3.5 rounded-xl border transition-all ${
+                item.isOk
+                  ? isDark ? "bg-[#121e2d]/80 border-emerald-500/30" : "bg-white border-emerald-200 shadow-sm"
+                  : isDark ? "bg-[#121e2d]/80 border-rose-500/30" : "bg-white border-rose-200 shadow-sm"
+              }`}
+            >
+              <div className="flex items-center gap-3 min-w-0 pr-2">
+                <div className={`w-8 h-8 rounded-lg flex items-center justify-center shrink-0 border ${
+                  item.isOk ? "bg-emerald-500/10 border-emerald-500/30 text-emerald-400" : "bg-rose-500/10 border-rose-500/30 text-rose-400"
+                }`}>
+                  <IconComponent className="w-4 h-4" />
+                </div>
+                <div className="flex flex-col text-left min-w-0">
+                  <span className={`text-[11px] font-bold tracking-wide truncate ${isDark ? "text-white" : "text-slate-900"}`}>
+                    {item.title}
+                  </span>
+                  <span className="text-[11px] text-gray-400 truncate">
+                    {item.value}
+                  </span>
+                </div>
+              </div>
+
+              <div className={`px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider shrink-0 border ${
+                item.isOk
+                  ? "bg-emerald-500/15 border-emerald-500/40 text-emerald-400"
+                  : "bg-rose-500/15 border-rose-500/40 text-rose-400"
+              }`}>
+                {item.status}
+              </div>
+            </div>
+          );
+        })}
+      </div>
+
+      {/* Single Action Button Matching Reference */}
+      <div className="pt-2">
         <button
           onClick={onBookAnother}
-          className={`px-6 py-3.5 rounded-xl font-semibold text-xs uppercase tracking-wider transition-all flex items-center justify-center gap-2 border ${
+          className={`w-full py-4 px-6 rounded-full font-bold text-xs uppercase tracking-wider transition-all flex items-center justify-between shadow-2xl cursor-pointer hover:scale-[1.01] active:scale-[0.99] ${
             isDark 
-              ? "border-white/20 text-white hover:bg-white/5" 
-              : "border-[#C7D1D9] text-[#1B2E4B] hover:bg-[#F5F5DC]/50"
+              ? "bg-gradient-to-r from-[#0d1b3a] via-[#122246] to-[#0d1b3a] text-white border border-[#c9a858]/60 shadow-[#c9a858]/25" 
+              : "bg-gradient-to-r from-[#1B2E4B] to-[#243B5E] text-white border border-[#C5A059]/60 shadow-amber-500/25"
           }`}
         >
-          <RefreshCcw className={`w-4 h-4 ${isDark ? "text-[#c9a858]" : "text-[#C5A059]"}`} />
-          Book Another Service
+          <span className="mx-auto pl-6">Review Missing Details</span>
+          <ArrowRight className="w-4 h-4 text-[#C5A059] shrink-0" />
         </button>
       </div>
+
     </div>
   );
 }

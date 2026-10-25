@@ -5,7 +5,7 @@ import { isCommonFlowOfNewBookingSectionView, isCommonPropertyTypeFlow, isCommon
 import { Poppins } from "next/font/google";
 import { useRouter } from "next/navigation";
 import { useEffect, useState, useMemo, type Dispatch, type SetStateAction } from "react";
-import { ArrowLeft } from "lucide-react";
+import { ArrowLeft, Calendar, Clock, User, Mail, Phone, MapPin, Building2, Home } from "lucide-react";
 import { DateTimeSection } from "@/components/booking/date-time-section";
 import { DISINFECTION_LEVELS, DisinfectionLevelSection } from "@/components/booking/disinfection-level-section";
 import { EquipmentSection, type SupplySource } from "@/components/booking/equipment-section";
@@ -63,7 +63,7 @@ import BookingLogisticsSummary, { type SelectedAddonItem } from "@/components/bo
 import Equipments from "@/components/booking/booking new flow/equipments";
 import LocationAccessSection from "@/components/booking/quotation-common-flow/LocationAccessSection";
 import ServiceFrequencySelector from "@/components/booking/common-flows-propertis-and-equipments/service-frequency";
-import BookingValidationModal from "@/components/booking/BookingValidationModal";
+import BookingValidationModal, { type ValidationModalItem } from "@/components/booking/BookingValidationModal";
 
 export const poppins = Poppins({ subsets: ["latin"], weight: ["400", "500", "600", "700", "800"], adjustFontFallback: false });
 
@@ -353,6 +353,7 @@ export function ServiceBookingView({
 
   const [error, setError] = useState<string | null>(null);
   const [validationErrors, setValidationErrors] = useState<string[]>([]);
+  const [validationItems, setValidationItems] = useState<ValidationModalItem[]>([]);
   const [isErrorModalOpen, setIsErrorModalOpen] = useState(false);
   const [submitting, setSubmitting] = useState(false);
 
@@ -586,15 +587,132 @@ export function ServiceBookingView({
   function handleBookNow() {
     if (!service) return;
     const errors: string[] = [];
+    const valItems: ValidationModalItem[] = [];
 
-    if (!propertyType) {
-      errors.push("Please select your property category or type above.");
-    }
+    // 1. Service Date
     if (!date) {
       errors.push("Please select your preferred service date.");
     }
+    valItems.push({
+      icon: Calendar,
+      title: "Service Date",
+      description: date ? "Your preferred service date has been selected." : "Please select your preferred service date.",
+      isConfirmed: !!date,
+      status: date ? "Confirmed" : "Missing",
+    });
+
+    // 2. Arrival Time Window
     if (!time) {
       errors.push("Please select your convenient arrival time window.");
+    }
+    valItems.push({
+      icon: Clock,
+      title: "Arrival Time Window",
+      description: time ? "Your arrival time window has been selected." : "Please select your convenient arrival time window.",
+      isConfirmed: !!time,
+      status: time ? "Confirmed" : "Missing",
+    });
+
+    // 3. Cleaning Solvent & Equipment
+    if (items.length > 0) {
+      const isSupplyConfirmed = supplySource === "company" ? selectedItemIds.size > 0 : !!supplySource;
+      let supplyDesc = "Cleaning solvent & equipment preference selected.";
+      if (!supplySource) {
+        supplyDesc = "Please select who provides Cleaning Solvents & Equipment.";
+        errors.push(supplyDesc);
+      } else if (supplySource === "company" && selectedItemIds.size === 0) {
+        supplyDesc = "Add at least one Cleaning Solvent & Equipment item above to continue.";
+        errors.push(supplyDesc);
+      }
+      valItems.push({
+        title: "Cleaning Solvent & Equipment",
+        description: supplyDesc,
+        isConfirmed: isSupplyConfirmed,
+        status: isSupplyConfirmed ? "Confirmed" : "Missing",
+      });
+    }
+
+    // 4. First Name
+    const isFirstNameOk = !!contactForm.firstName.trim();
+    if (!isFirstNameOk) {
+      errors.push("Please enter your first name in the contact details form.");
+    }
+    valItems.push({
+      icon: User,
+      title: "First Name",
+      description: isFirstNameOk ? "Your first name has been entered." : "Please enter your first name in the contact details form.",
+      isConfirmed: isFirstNameOk,
+      status: isFirstNameOk ? "Confirmed" : "Missing",
+    });
+
+    // 5. Email Address
+    const isEmailValid = !!contactForm.email.trim() && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(contactForm.email.trim());
+    if (!contactForm.email.trim()) {
+      errors.push("Please enter your email address in the contact details form.");
+    } else if (!isEmailValid) {
+      errors.push("Please provide a valid email address (e.g. name@domain.com).");
+    }
+    valItems.push({
+      icon: Mail,
+      title: "Email Address",
+      description: isEmailValid
+        ? "Your email address has been entered."
+        : !contactForm.email.trim()
+        ? "Please enter your email address."
+        : "Please provide a valid email address (e.g. name@domain.com).",
+      isConfirmed: isEmailValid,
+      status: isEmailValid ? "Confirmed" : "Missing",
+    });
+
+    // 6. Phone Number
+    const isPhoneOk = !!contactForm.contact.trim();
+    if (!isPhoneOk) {
+      errors.push("Please provide your contact phone number.");
+    }
+    valItems.push({
+      icon: Phone,
+      title: "Phone Number",
+      description: isPhoneOk ? "Your contact phone number has been entered." : "Please provide your contact phone number.",
+      isConfirmed: isPhoneOk,
+      status: isPhoneOk ? "Confirmed" : "Missing",
+    });
+
+    // 7. Street Address
+    const isStreetOk = !!addressForm.streetAddress.trim();
+    if (!isStreetOk) {
+      errors.push("Please enter your street address.");
+    }
+    valItems.push({
+      icon: MapPin,
+      title: "Street Address",
+      description: isStreetOk ? "Your street address has been entered." : "Please enter your street address.",
+      isConfirmed: isStreetOk,
+      status: isStreetOk ? "Confirmed" : "Missing",
+    });
+
+    // 8. City
+    const isCityOk = !!addressForm.city.trim();
+    if (!isCityOk) {
+      errors.push("Please enter your city.");
+    }
+    valItems.push({
+      icon: Building2,
+      title: "City",
+      description: isCityOk ? "Your city has been entered." : "Please enter your city.",
+      isConfirmed: isCityOk,
+      status: isCityOk ? "Confirmed" : "Missing",
+    });
+
+    // 9. Additional conditional checks
+    if (!propertyType) {
+      errors.push("Please select your property category or type above.");
+      valItems.unshift({
+        icon: Home,
+        title: "Property Type",
+        description: "Please select your property category or type above.",
+        isConfirmed: false,
+        status: "Missing",
+      });
     }
     if (isSanitization && !disinfectionLevelId) {
       errors.push("Please select a disinfection package to continue.");
@@ -602,34 +720,10 @@ export function ServiceBookingView({
     if (isCategoryQuote && !selectedCategory) {
       errors.push("Please select a security service category to continue.");
     }
-    if (items.length > 0 && !supplySource) {
-      errors.push("Please select who provides Cleaning Solvents & Equipment.");
-    }
-    if (supplySource === "company" && selectedItemIds.size === 0) {
-      errors.push("Add at least one Cleaning Solvent & Equipment item above to continue.");
-    }
-
-    // Customer contact & address form validations
-    if (!contactForm.firstName.trim()) {
-      errors.push("Please enter your first name in the contact details form.");
-    }
-    if (!contactForm.email.trim()) {
-      errors.push("Please enter your email address in the contact details form.");
-    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(contactForm.email.trim())) {
-      errors.push("Please provide a valid email address (e.g. name@domain.com).");
-    }
-    if (!contactForm.contact.trim()) {
-      errors.push("Please provide your contact phone number.");
-    }
-    if (!addressForm.streetAddress.trim()) {
-      errors.push("Please enter your street address.");
-    }
-    if (!addressForm.city.trim()) {
-      errors.push("Please enter your city.");
-    }
 
     if (errors.length > 0) {
       setValidationErrors(errors);
+      setValidationItems(valItems);
       setIsErrorModalOpen(true);
       setError(errors[0]);
       return;
@@ -776,11 +870,9 @@ export function ServiceBookingView({
   return (
     <div
       className={`${poppins.className} transition-colors duration-300 ${
-        isPoolCleaning || isPressureWashing || !isCarpetService
-          ? poolTheme === "dark"
-            ? "bg-[#070b14]  text-white"
-            : "bg-[#ededee] text-[#1B2E4B]"
-          : "bg-[rgb(199,209,217)]"
+        poolTheme === "dark"
+          ? "bg-[#111C2E] text-white"
+          : "bg-[#F7F5F0] text-[#1A2238]"
       }`}
     >
       <PageHero
@@ -1030,6 +1122,7 @@ export function ServiceBookingView({
       <BookingValidationModal
         isOpen={isErrorModalOpen}
         onClose={() => setIsErrorModalOpen(false)}
+        items={validationItems}
         errors={validationErrors}
         theme={poolTheme}
         onActionClick={() => {

@@ -79,8 +79,8 @@ export default function HeaderNavigation({
       id="section-service"
       className={`w-full sticky z-20 top-[10%] left-0 right-0 transition-colors rounded-t-[15px] shadow-sm duration-300 border-b ${
         isLight
-          ? "bg-white border-slate-200"
-          : "bg-[#050C1A] border-slate-800/80"
+          ? "bg-white border-[#D9DDE5]"
+          : "bg-[#1B2A40] border-[#718096]/50"
       }`}
     > 
       <div className="max-w-7xl mx-auto px-4 md:px-8 flex items-center justify-start sm:justify-center overflow-x-auto no-scrollbar scroll-smooth">
@@ -92,16 +92,16 @@ export default function HeaderNavigation({
 
             if (isLight) {
               if (isActive) {
-                tabClass = "text-[#B89642] font-bold border-b-2 border-[#B89642]";
+                tabClass = "text-[#D8B63F] font-bold border-b-2 border-[#D8B63F]";
               } else {
-                tabClass = "text-slate-600 hover:text-slate-900 border-b-2 border-transparent hover:border-slate-300";
+                tabClass = "text-[#687386] hover:text-[#1A2238] border-b-2 border-transparent hover:border-[#D9DDE5]";
               }
             } else {
               // Dark Mode Styling
               if (isActive) {
-                tabClass = "text-[#B89642] font-bold border-b-2 border-[#B89642]";
+                tabClass = "text-[#FFD766] font-bold border-b-2 border-[#FFD766]";
               } else {
-                tabClass = "text-slate-400 hover:text-slate-200 border-b-2 border-transparent hover:border-slate-700/60";
+                tabClass = "text-[#C3CDDC] hover:text-white border-b-2 border-transparent hover:border-[#718096]/60";
               }
             }
 

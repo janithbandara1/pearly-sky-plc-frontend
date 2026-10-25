@@ -83,6 +83,23 @@ const COUNTRY_OPTIONS = [
   },
 ];
 
+export const PREFERRED_CONTACT_OPTIONS = [
+  {
+    value: "WhatsApp Message",
+    labelKey: "contactMethodWhatsApp", // Optional i18n translation key
+  },
+  {
+    value: "Direct Phone Call",
+    labelKey: "contactMethodPhone",
+  },
+  {
+    value: "Email Consultation",
+    labelKey: "contactMethodEmail",
+  },
+] as const;
+
+export type PreferredContactMethod = typeof PREFERRED_CONTACT_OPTIONS[number]["value"];
+
 export default function CustomerContactsPreference({
   theme = "dark",
   stepLabel = "STEP 6 OF 6",
@@ -182,75 +199,82 @@ export default function CustomerContactsPreference({
 
   // Dynamic Theme Styling Classes
   const containerClasses = isLight
-    ? "bg-white border-[#C5A059]/40 text-[#1B2E4B]"
-    : "bg-[rgba(13,20,36,0.7)] backdrop-blur-xl border-white/10 text-white";
+    ? "bg-white border-[#D9DDE5] text-[#1A2238]"
+    : "bg-[#1B2A40]/80 backdrop-blur-xl border-[#718096]/30 text-white";
 
-  const dividerClasses = isLight ? "border-gray-200" : "border-white/10";
-  const stepLabelClasses = isLight ? "text-[#A88238]" : "text-[#DFB96C]";
-  const titleClasses = isLight ? "text-[#1B2E4B]" : "text-white";
+  const dividerClasses = isLight ? "border-[#D9DDE5]" : "border-[#718096]/30";
+  const stepLabelClasses = isLight ? "text-[#002F6D]" : "text-[#FFD766]";
+  const titleClasses = isLight ? "text-[#1A2238]" : "text-white";
   const labelClasses = isLight
-    ? "text-[11px] font-semibold tracking-wider text-[#1B2E4B]/80 uppercase mb-2 block"
-    : "text-[11px] font-semibold tracking-wider text-slate-300 uppercase mb-2 block";
+    ? "text-[11px] font-semibold tracking-wider text-[#1A2238] uppercase mb-2 block"
+    : "text-[11px] font-semibold tracking-wider text-[#C3CDDC] uppercase mb-2 block";
 
   const inputClasses = isLight
-    ? "w-full bg-[#FBF9F4] border border-[#C5A059]/35 hover:border-[#C5A059]/70 focus:border-[#A88238] focus:ring-1 focus:ring-[#A88238] text-[#1B2E4B] placeholder:text-slate-400 rounded-lg px-4 py-3 text-sm outline-none transition-colors"
-    : "w-full bg-[#0B1524] border border-white/15 hover:border-white/25 focus:border-[#DFB96C] focus:ring-1 focus:ring-[#DFB96C] text-white placeholder:text-slate-500 rounded-lg px-4 py-3 text-sm outline-none transition-colors";
+    ? "w-full bg-[#F7F5F0] border border-[#D9DDE5] hover:border-[#D8B63F] focus:border-[#002F6D] focus:ring-1 focus:ring-[#002F6D] text-[#1A2238] placeholder:text-[#687386]/60 rounded-lg px-4 py-3 text-sm outline-none transition-colors"
+    : "w-full bg-[#152238] border border-[#718096]/40 hover:border-[#FFD766]/50 focus:border-[#FFD766] focus:ring-1 focus:ring-[#FFD766] text-white placeholder:text-[#718096] rounded-lg px-4 py-3 text-sm outline-none transition-colors";
 
   const selectClasses = isLight
-    ? "w-full appearance-none bg-[#FBF9F4] border border-[#C5A059]/35 hover:border-[#C5A059]/70 focus:border-[#A88238] focus:ring-1 focus:ring-[#A88238] text-[#1B2E4B] rounded-lg px-4 py-3 text-sm outline-none transition-colors pr-10 cursor-pointer"
-    : "w-full appearance-none bg-[#0B1524] border border-white/15 hover:border-white/25 focus:border-[#DFB96C] focus:ring-1 focus:ring-[#DFB96C] text-white rounded-lg px-4 py-3 text-sm outline-none transition-colors pr-10 cursor-pointer";
+    ? "w-full appearance-none bg-[#F7F5F0] border border-[#D9DDE5] hover:border-[#D8B63F] focus:border-[#002F6D] focus:ring-1 focus:ring-[#002F6D] text-[#1A2238] rounded-lg px-4 py-3 text-sm outline-none transition-colors pr-10 cursor-pointer"
+    : "w-full appearance-none bg-[#152238] border border-[#718096]/40 hover:border-[#FFD766]/50 focus:border-[#FFD766] focus:ring-1 focus:ring-[#FFD766] text-white rounded-lg px-4 py-3 text-sm outline-none transition-colors pr-10 cursor-pointer";
 
-  const selectOptionClasses = isLight ? "bg-white text-[#1B2E4B]" : "bg-[#0B1524] text-white";
-  const chevronClasses = isLight ? "text-[#A88238]" : "text-slate-400";
+  const selectOptionClasses = isLight ? "bg-white text-[#1A2238]" : "bg-[#152238] text-white";
+  const chevronClasses = isLight ? "text-[#002F6D]" : "text-[#FFD766]";
 
   const textareaClasses = isLight
-    ? "w-full bg-[#FBF9F4] border border-[#C5A059]/35 hover:border-[#C5A059]/70 focus:border-[#A88238] focus:ring-1 focus:ring-[#A88238] text-[#1B2E4B] placeholder:text-slate-400 rounded-lg p-3.5 text-sm outline-none transition-colors resize-y min-h-[90px]"
-    : "w-full bg-[#0B1524] border border-white/15 hover:border-white/25 focus:border-[#DFB96C] focus:ring-1 focus:ring-[#DFB96C] text-white placeholder:text-slate-500 rounded-lg p-3.5 text-sm outline-none transition-colors resize-y min-h-[90px]";
+    ? "w-full bg-[#F7F5F0] border border-[#D9DDE5] hover:border-[#D8B63F] focus:border-[#002F6D] focus:ring-1 focus:ring-[#002F6D] text-[#1A2238] placeholder:text-[#687386]/60 rounded-lg p-3.5 text-sm outline-none transition-colors resize-y min-h-[90px]"
+    : "w-full bg-[#152238] border border-[#718096]/40 hover:border-[#FFD766]/50 focus:border-[#FFD766] focus:ring-1 focus:ring-[#FFD766] text-white placeholder:text-[#718096] rounded-lg p-3.5 text-sm outline-none transition-colors resize-y min-h-[90px]";
 
   const dropzoneClasses = isLight
     ? isDragging
-      ? "border-[#A88238] bg-[#A88238]/10"
-      : "border-[#C5A059]/50 hover:border-[#A88238] bg-[#FBF9F4] hover:bg-[#F7F3E8]"
+      ? "border-[#002F6D] bg-[#002F6D]/5"
+      : "border-[#D9DDE5] hover:border-[#D8B63F] bg-[#F7F5F0] hover:bg-white"
     : isDragging
-      ? "border-[#DFB96C] bg-[#DFB96C]/10"
-      : "border-[#DFB96C]/40 hover:border-[#DFB96C] bg-[#0B1524]/60 hover:bg-[#0B1524]/90";
+      ? "border-[#FFD766] bg-[#FFD766]/10"
+      : "border-[#718096]/40 hover:border-[#FFD766] bg-[#152238]/60 hover:bg-[#152238]";
 
-  const dropzoneTitleClasses = isLight ? "text-[#1B2E4B]" : "text-white";
-  const dropzoneSubtitleClasses = isLight ? "text-slate-500" : "text-slate-400";
+  const dropzoneTitleClasses = isLight ? "text-[#1A2238]" : "text-white";
+  const dropzoneSubtitleClasses = isLight ? "text-[#687386]" : "text-[#C3CDDC]";
   const tileClasses = isLight
-    ? "border-[#C5A059]/40 bg-[#FBF9F4] text-[#1B2E4B]"
-    : "border-[#DFB96C]/40 bg-[#0B1524] text-white";
+    ? "border-[#D9DDE5] bg-[#F7F5F0] text-[#1A2238]"
+    : "border-[#718096]/40 bg-[#152238] text-white";
 
   return (
     <div className={`rounded-2xl p-6 sm:p-8 shadow-2xl border transition-all duration-300 ${containerClasses}`}>
       {/* Top Header */}
-      {isQuote ? 
-      (
-            <div className="flex items-center space-x-3.5 ">
-              <div className="w-10 h-10 rounded-xl bg-[#e5c158]/10 border border-[#e5c158]/30 flex items-center justify-center text-[#e5c158] shrink-0">
-                <User className="w-5 h-5" />
-              </div>
-            <div>
-              <h2
-                 className={`font-serif text-2xl font-bold tracking-tight ${
-                   isLight ? "text-slate-900" : "text-white"
-                 }`}
-                >
-                6 & 7. Contact & Location Details
-              </h2>
-              <p className={`text-xs ${isLight ? "text-slate-500" : "text-slate-400"}`}>
-                  Provide client info and property address across 27 global destinations
-              </p>
-            </div>
-            </div> )
-      : (<div className={`pb-6 border-b ${dividerClasses}`}>
-        <span className={`text-[11px] font-bold tracking-[0.2em] uppercase block mb-2 ${stepLabelClasses}`}>
-          {stepLabel}
-        </span>
-        <h2 className={`font-serif text-2xl sm:text-3xl font-medium tracking-tight ${titleClasses}`}>
-          {title}
-        </h2>
-      </div>)}
+      {isQuote ? (
+        <div className="flex items-center space-x-3.5">
+          <div
+            className={`w-10 h-10 rounded-xl border flex items-center justify-center shrink-0 ${
+              isLight
+                ? "bg-[#002F6D]/10 border-[#002F6D]/30 text-[#002F6D]"
+                : "bg-[#FFD766]/10 border-[#FFD766]/30 text-[#FFD766]"
+            }`}
+          >
+            <User className="w-5 h-5" />
+          </div>
+          <div>
+            <h2
+              className={`font-serif text-2xl font-bold tracking-tight ${
+                isLight ? "text-[#1A2238]" : "text-white"
+              }`}
+            >
+              6 & 7. Contact & Location Details
+            </h2>
+            <p className={`text-xs ${isLight ? "text-[#687386]" : "text-[#C3CDDC]"}`}>
+              Provide client info and property address across 27 global destinations
+            </p>
+          </div>
+        </div>
+      ) : (
+        <div className={`pb-6 border-b ${dividerClasses}`}>
+          <span className={`text-[11px] font-bold tracking-[0.2em] uppercase block mb-2 ${stepLabelClasses}`}>
+            {stepLabel}
+          </span>
+          <h2 className={`font-serif text-2xl sm:text-3xl font-medium tracking-tight ${titleClasses}`}>
+            {title}
+          </h2>
+        </div>
+      )}
 
 
 
@@ -339,8 +363,10 @@ export default function CustomerContactsPreference({
             onClick={() => fileInputRef.current?.click()}
             className={`border border-dashed rounded-xl p-8 flex flex-col items-center justify-center cursor-pointer transition-all duration-200 text-center group ${dropzoneClasses}`}
           >
-            {/* Gold Cloud Icon with Up Arrow */}
-            <div className="flex items-center justify-center size-10 rounded-xl bg-[#DFB96C] text-[#0B1524] mb-3 shadow-lg shadow-[#DFB96C]/20 group-hover:scale-105 transition-transform">
+            {/* Upload Cloud Icon with Up Arrow */}
+            <div className={`flex items-center justify-center size-10 rounded-xl mb-3 shadow-lg group-hover:scale-105 transition-transform ${
+              isLight ? "bg-[#002F6D] text-white shadow-[#002F6D]/20" : "bg-[#FFD766] text-[#002F6D] shadow-[#FFD766]/20"
+            }`}>
               <UploadCloud className="size-5 stroke-[2.5]" />
             </div>
 
@@ -387,7 +413,7 @@ export default function CustomerContactsPreference({
                   ) : (
                     <div className="flex size-full flex-col items-center justify-center gap-1 p-1.5 text-center">
                       <FileText className={`size-6 shrink-0 ${isLight ? "text-slate-600" : "text-slate-300"}`} />
-                      <span className={`w-full truncate text-[10px] leading-tight ${isLight ? "text-slate-700" : "text-slate-300"}`}>
+                      <span className={`w-full truncate text-[10px] leading-tight ${isLight ? "text-[#1A2238]" : "text-[#C3CDDC]"}`}>
                         {attachment.file.name}
                       </span>
                     </div>
@@ -395,7 +421,7 @@ export default function CustomerContactsPreference({
 
                   {attachment.status === "uploading" && (
                     <div className="absolute inset-0 flex items-center justify-center bg-black/60">
-                      <Loader2 className="size-5 animate-spin text-[#DFB96C]" />
+                      <Loader2 className={`size-5 animate-spin ${isLight ? "text-[#002F6D]" : "text-[#FFD766]"}`} />
                     </div>
                   )}
 
@@ -446,62 +472,7 @@ export default function CustomerContactsPreference({
         <div className="space-y-4">
 
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4"> 
-              <div>
-                <label className={labelClasses}>
-                  COUNTRY
-                </label>
-                <div className="relative">
-                  <select
-                    value={addressForm.country || COUNTRY_OPTIONS[0]?.name || "France"}
-                    onChange={(e) =>
-                      onAddressFormChange((f) => ({ ...f, country: e.target.value }))
-                    }
-                    className={selectClasses}
-                  >
-                    {COUNTRY_OPTIONS.map((c) => (
-                      <option key={c.code} value={c.name} className={selectOptionClasses}>
-                        {c.name}
-                      </option>
-                    ))}
-                  </select>
-                  <ChevronDown className={`absolute right-3.5 top-1/2 -translate-y-1/2 size-4 pointer-events-none ${chevronClasses}`} />
-                </div>
-              </div>
-              <div> 
-              <label className={labelClasses}>
-                POSTAL CODE *
-              </label>
-              <input
-                required
-                type="text"
-                value={addressForm.postalCode || ""}
-                onChange={(e) =>
-                  onAddressFormChange((f) => ({ ...f, postalCode: e.target.value }))
-                }
-                placeholder="75001"
-                className={inputClasses}
-              />
-            </div>
-
-            <div>
-              <label className={labelClasses}>
-                CITY *
-              </label>
-              <input
-                required
-                type="text"
-                value={addressForm.city}
-                onChange={(e) =>
-                  onAddressFormChange((f) => ({ ...f, city: e.target.value }))
-                }
-                placeholder="Paris"
-                className={inputClasses}
-              />
-            </div>
-
-            
-          </div>
+          
           {/* Row 1: First Name & Last Name */}
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div>
@@ -537,7 +508,7 @@ export default function CustomerContactsPreference({
           </div>
 
           {/* Row 2: Email & Phone */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
             <div>
               <label className={labelClasses}>
                 EMAIL ADDRESS *
@@ -569,10 +540,78 @@ export default function CustomerContactsPreference({
                 className={inputClasses}
               />
             </div>
+            <div>
+              <label className={labelClasses}>
+                PREFERRED CONTACT METHOD *
+              </label>
+              <div className="relative">
+                <select
+                  className={selectClasses}
+                >
+                  {PREFERRED_CONTACT_OPTIONS.map((opt) => (
+                    <option key={opt.value} value={opt.value} className={selectOptionClasses}>
+                      {opt.value}
+                    </option>
+                  ))}
+                </select>
+                <ChevronDown className={`absolute right-3.5 top-1/2 -translate-y-1/2 size-4 pointer-events-none ${chevronClasses}`} />
+              </div>
+            </div>
           </div>
 
           {/* Row 3: Street Address & Apt / Villa / Suite */}
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+            <div>
+                <label className={labelClasses}>
+                  COUNTRY
+                </label>
+                <div className="relative">
+                  <select
+                    value={addressForm.country || COUNTRY_OPTIONS[0]?.name || "France"}
+                    onChange={(e) =>
+                      onAddressFormChange((f) => ({ ...f, country: e.target.value }))
+                    }
+                    className={selectClasses}
+                  >
+                    {COUNTRY_OPTIONS.map((c) => (
+                      <option key={c.code} value={c.name} className={selectOptionClasses}>
+                        {c.name}
+                      </option>
+                    ))}
+                  </select>
+                  <ChevronDown className={`absolute right-3.5 top-1/2 -translate-y-1/2 size-4 pointer-events-none ${chevronClasses}`} />
+                </div>
+              </div>
+              <div> 
+              <label className={labelClasses}>
+                POSTAL CODE *
+              </label>
+              <input
+                required
+                type="text"
+                value={addressForm.postalCode || ""}
+                onChange={(e) =>
+                  onAddressFormChange((f) => ({ ...f, postalCode: e.target.value }))
+                }
+                placeholder="75001"
+                className={inputClasses}
+              />
+            </div>
+            <div>
+              <label className={labelClasses}>
+                CITY *
+              </label>
+              <input
+                required
+                type="text"
+                value={addressForm.city}
+                onChange={(e) =>
+                  onAddressFormChange((f) => ({ ...f, city: e.target.value }))
+                }
+                placeholder="Paris"
+                className={inputClasses}
+              />
+            </div>
             <div className="sm:col-span-2">
               <label className={labelClasses}>
                 STREET ADDRESS *

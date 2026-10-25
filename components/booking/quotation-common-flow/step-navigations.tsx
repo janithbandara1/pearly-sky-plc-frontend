@@ -31,8 +31,8 @@ export default function StepNavigation({
     <div
       className={`w-full overflow-hidden rounded-t-2xl py-5 md:py-6 px-4 md:px-12 transition-colors duration-300 border-b ${
         isLight
-          ? "bg-[#F8F9FA] border-[#C7D1D9]"
-          : "bg-[#0B132B]/5 backdrop-blur-md border-[#c9a858]/20"
+          ? "bg-white border-[#D9DDE5]"
+          : "bg-[#1B2A40] border-[#718096]/40"
       }`}
     >
       <div className="max-w-7xl mx-auto flex items-start justify-between relative">
@@ -41,13 +41,13 @@ export default function StepNavigation({
           {/* Base gold/gray track line */}
           <div
             className={`w-full h-full transition-colors duration-300 ${
-              isLight ? "bg-[#C7D1D9]" : "bg-[#c9a858]/35"
+              isLight ? "bg-[#D9DDE5]" : "bg-[#718096]/40"
             }`}
           />
           {/* Completed/Active progress gold line */}
           <div
             className={`absolute left-0 top-0 h-full transition-all duration-500 ease-out ${
-              isLight ? "bg-[#C5A059]" : "bg-[#c9a858]"
+              isLight ? "bg-[#002F6D]" : "bg-[#FFD766]"
             }`}
             style={{ width: `${progressPercentage}%` }}
           />
@@ -62,26 +62,26 @@ export default function StepNavigation({
 
           if (isLight) {
             if (isCompleted) {
-              circleClass = "bg-[#C5A059] text-white shadow-md shadow-[#C5A059]/25";
-              labelClass = "text-[#1B2E4B]/80";
+              circleClass = "bg-[#002F6D] text-white shadow-md shadow-[#002F6D]/20";
+              labelClass = "text-[#1A2238]/80";
             } else if (isCurrent) {
-              circleClass = "bg-[#C5A059] text-white ring-4 ring-[#C5A059]/20 shadow-md shadow-[#C5A059]/30";
-              labelClass = "text-[#C5A059] font-bold";
+              circleClass = "bg-[#002F6D] text-white ring-4 ring-[#002F6D]/20 shadow-md shadow-[#002F6D]/25";
+              labelClass = "text-[#002F6D] font-bold";
             } else {
-              circleClass = "bg-white text-[#1B2E4B]/70 border border-[#C7D1D9] group-hover:border-[#C5A059]";
-              labelClass = "text-[#1B2E4B]/60";
+              circleClass = "bg-white text-[#687386] border border-[#D9DDE5] group-hover:border-[#002F6D]";
+              labelClass = "text-[#687386]";
             }
           } else {
             // Dark mode (Luxe Navy & Gold)
             if (isCompleted) {
-              circleClass = "bg-[#c9a858] text-[#121e2d] shadow-lg shadow-[#c9a858]/30 font-bold";
-              labelClass = "text-gray-300";
+              circleClass = "bg-[#FFD766] text-[#002F6D] shadow-lg shadow-[#FFD766]/20 font-bold";
+              labelClass = "text-[#C3CDDC]";
             } else if (isCurrent) {
-              circleClass = "bg-[#c9a858] text-[#121e2d] ring-4 ring-[#c9a858]/25 font-bold";
-              labelClass = "text-[#c9a858] font-bold";
+              circleClass = "bg-[#FFD766] text-[#002F6D] ring-4 ring-[#FFD766]/25 font-bold";
+              labelClass = "text-[#FFD766] font-bold";
             } else {
-              circleClass = "bg-[#121e2d] text-[#c9a858]/70 border border-[#c9a858]/30 group-hover:border-[#c9a858]/60";
-              labelClass = "text-gray-400";
+              circleClass = "bg-[#152238] text-[#C3CDDC] border border-[#718096] group-hover:border-[#FFD766]/60";
+              labelClass = "text-[#C3CDDC]/70";
             }
           }
 

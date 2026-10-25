@@ -325,7 +325,7 @@ export function PressureWashingScheduleSection({
   return (
     <div id="section-pressure-schedule"
       className={`w-full transition-colors rounded-2xl mb-3 duration-300 ${
-        isLight ? "bg-[#F8F9FA] text-[#1B2E4B]" : "bg-[#101b3d] text-white"
+        isLight ? "bg-[#F8F9FA] text-[#1B2E4B]" : "bg-[#121E2D]/90  text-white"
       }`}>
             {/* 1. Step Navigation Header */}
             {!isConfirmed && (

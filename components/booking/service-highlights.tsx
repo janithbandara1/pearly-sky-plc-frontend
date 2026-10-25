@@ -22,30 +22,35 @@ interface CardItemProps {
 }
 
 /** Individual modernized luxury highlight card */
-function HighlightCard({ card, theme="light" }: CardItemProps) {
+function HighlightCard({ card, theme = "light" }: CardItemProps) {
   const { translate } = useLanguage();
+  const isLight = theme === "light";
 
   return (
     <div
       className={`group relative h-full rounded-2xl sm:rounded-3xl p-[1.5px] transition-all duration-300 hover:-translate-y-1.5 ${
-        theme === "light"
-          ? "bg-gradient-to-b from-[#C5A059]/40 via-[#C5A059]/20 to-transparent shadow-[0_4px_25px_rgba(197,160,89,0.12)] hover:from-[#C5A059]/80 hover:shadow-[0_12px_35px_rgba(197,160,89,0.25)]"
-          : "bg-gradient-to-b from-[#c9a858]/40 via-[#c9a858]/15 to-[#c9a858]/5 shadow-[0_8px_32px_rgba(0,0,0,0.4)] hover:from-[#c9a858]/80 hover:shadow-[0_14px_40px_rgba(201,168,88,0.2)]"
+        isLight
+          ? "bg-gradient-to-b from-[#D8B63F]/40 via-[#D8B63F]/15 to-transparent shadow-[0_4px_25px_rgba(216,182,63,0.1)] hover:from-[#D8B63F]/70 hover:shadow-[0_10px_30px_rgba(216,182,63,0.2)]"
+          : "bg-gradient-to-b from-[#FFD766]/35 via-[#FFD766]/10 to-transparent shadow-[0_8px_32px_rgba(0,0,0,0.4)] hover:from-[#FFD766]/70 hover:shadow-[0_14px_40px_rgba(255,215,102,0.15)]"
       }`}
     >
       <div
         className={`h-full rounded-[22px] sm:rounded-[30px] p-6 sm:p-7 flex flex-col justify-between backdrop-blur-md min-h-[300px] sm:min-h-[340px] transition-colors duration-300 ${
-          theme === "light"
-            ? "bg-white/95 border border-[#C5A059]/20"
-            : "bg-[#121E2D]/90 border border-white/5"
+          isLight
+            ? "bg-white/95 border border-[#D9DDE5]"
+            : "bg-[#1B2A40]/90 border border-[#718096]/25"
         }`}
       >
         <div>
           {/* Card Title Header */}
-          <div className="flex items-center justify-center min-h-[48px] border-b pb-3.5 mb-4 text-center">
+          <div
+            className={`flex items-center justify-center min-h-[48px] border-b pb-3.5 mb-4 text-center ${
+              isLight ? "border-[#D9DDE5]" : "border-[#718096]/25"
+            }`}
+          >
             <h3
               className={`font-serif font-bold text-base sm:text-lg tracking-wide ${
-                theme === "light" ? "text-[#1B2E4B]" : "text-[#e4cc8c]"
+                isLight ? "text-[#1A2238]" : "text-[#FFD766]"
               }`}
             >
               {translate(card.title)}
@@ -58,9 +63,9 @@ function HighlightCard({ card, theme="light" }: CardItemProps) {
               <li key={featureIdx} className="flex items-start gap-2.5">
                 <span
                   className={`mt-1 flex h-4 w-4 shrink-0 items-center justify-center rounded-full ${
-                    theme === "light"
-                      ? "bg-[#C5A059]/15 text-[#C5A059]"
-                      : "bg-[#c9a858]/20 text-[#e4cc8c] shadow-[0_0_8px_rgba(201,168,88,0.4)]"
+                    isLight
+                      ? "bg-[#002F6D]/10 text-[#002F6D]"
+                      : "bg-[#FFD766]/20 text-[#FFD766] shadow-[0_0_8px_rgba(255,215,102,0.3)]"
                   }`}
                 >
                   <svg
@@ -79,7 +84,7 @@ function HighlightCard({ card, theme="light" }: CardItemProps) {
                 </span>
                 <span
                   className={`font-medium ${
-                    theme === "light" ? "text-[#2D3748]" : "text-slate-200"
+                    isLight ? "text-[#1A2238]" : "text-[#C3CDDC]"
                   }`}
                 >
                   {translate(feature)}
@@ -89,16 +94,16 @@ function HighlightCard({ card, theme="light" }: CardItemProps) {
           </ul>
         </div>
 
-        {/* Subtle Bottom Accent Glow */}
+        {/* Subtle Bottom Accent */}
         <div
           className={`mt-4 pt-3 border-t w-full flex items-center justify-between text-[11px] font-semibold tracking-wider uppercase ${
-            theme === "light"
-              ? "border-gray-100 text-gray-400"
-              : "border-white/5 text-slate-500"
+            isLight
+              ? "border-[#D9DDE5] text-[#687386]"
+              : "border-[#718096]/25 text-[#718096]"
           }`}
         >
           <span>Included</span>
-          <span className={theme === "light" ? "text-[#C5A059]" : "text-[#c9a858]"}>
+          <span className={isLight ? "text-[#002F6D]" : "text-[#FFD766]"}>
             PearlSky Standard
           </span>
         </div>
@@ -167,23 +172,26 @@ function HighlightsFullCarousel({
       {/* Modernized Luxury Pagination Indicator */}
       {scrollSnaps.length > 1 && (
         <div className="flex justify-center items-center gap-2 mt-4">
-          {scrollSnaps.map((_, index) => (
-            <button
-              key={index}
-              type="button"
-              aria-label={`Go to slide ${index + 1}`}
-              onClick={() => scrollTo(index)}
-              className={`transition-all duration-300 cursor-pointer ${
-                selectedIndex === index
-                  ? theme === "light"
-                    ? "w-7 h-2 rounded-full bg-[#C5A059] shadow-[0_0_8px_rgba(197,160,89,0.5)]"
-                    : "w-7 h-2 rounded-full bg-gradient-to-r from-[#c9a858] to-[#e4cc8c] shadow-[0_0_12px_rgba(201,168,88,0.7)]"
-                  : theme === "light"
-                  ? "w-2 h-2 rounded-full bg-gray-300 hover:bg-gray-400"
-                  : "w-2 h-2 rounded-full bg-white/20 hover:bg-white/40"
-              }`}
-            />
-          ))}
+          {scrollSnaps.map((_, index) => {
+            const isLight = theme === "light";
+            return (
+              <button
+                key={index}
+                type="button"
+                aria-label={`Go to slide ${index + 1}`}
+                onClick={() => scrollTo(index)}
+                className={`transition-all duration-300 cursor-pointer ${
+                  selectedIndex === index
+                    ? isLight
+                      ? "w-7 h-2 rounded-full bg-[#002F6D] shadow-[0_0_8px_rgba(0,47,109,0.3)]"
+                      : "w-7 h-2 rounded-full bg-gradient-to-r from-[#FFD766] to-[#D8B63F] shadow-[0_0_12px_rgba(255,215,102,0.5)]"
+                    : isLight
+                    ? "w-2 h-2 rounded-full bg-[#D9DDE5] hover:bg-[#687386]/40"
+                    : "w-2 h-2 rounded-full bg-[#718096]/40 hover:bg-[#718096]/70"
+                }`}
+              />
+            );
+          })}
         </div>
       )}
     </div>
@@ -225,6 +233,8 @@ function HighlightsMobileCarousel({
     [emblaApi]
   );
 
+  const isLight = theme === "light";
+
   return (
     <div className="block min-[542px]:hidden px-4">
       <div
@@ -254,12 +264,12 @@ function HighlightsMobileCarousel({
               onClick={() => scrollTo(index)}
               className={`transition-all duration-300 cursor-pointer ${
                 selectedIndex === index
-                  ? theme === "light"
-                    ? "w-6 h-2 rounded-full bg-[#C5A059]"
-                    : "w-6 h-2 rounded-full bg-gradient-to-r from-[#c9a858] to-[#e4cc8c]"
-                  : theme === "light"
-                  ? "w-2 h-2 rounded-full bg-gray-300"
-                  : "w-2 h-2 rounded-full bg-white/20"
+                  ? isLight
+                    ? "w-6 h-2 rounded-full bg-[#002F6D]"
+                    : "w-6 h-2 rounded-full bg-gradient-to-r from-[#FFD766] to-[#D8B63F]"
+                  : isLight
+                  ? "w-2 h-2 rounded-full bg-[#D9DDE5]"
+                  : "w-2 h-2 rounded-full bg-[#718096]/40"
               }`}
             />
           ))}
@@ -272,7 +282,7 @@ function HighlightsMobileCarousel({
 export function ServiceHighlights({
   title,
   cards,
-  theme ="light",
+  theme = "light",
 }: ServiceHighlightsProps) {
   const { translate } = useLanguage();
   const { theme: contextTheme } = usePoolTheme();
@@ -322,21 +332,21 @@ export function ServiceHighlights({
         <h2
           className={`font-serif font-bold text-2xl sm:text-3xl tracking-wide ${
             isLight
-              ? "text-[#1B2E4B]"
-              : "text-[#e4cc8c] drop-shadow-[0_2px_10px_rgba(201,168,88,0.25)]"
+              ? "text-[#1A2238]"
+              : "text-[#FFD766] drop-shadow-[0_2px_10px_rgba(255,215,102,0.25)]"
           }`}
         >
           {title ? translate(title) : translate("serviceHighlightSectionHeader")}
         </h2>
         <div
           className={`w-16 h-1 mx-auto mt-2.5 rounded-full ${
-            isLight ? "bg-[#C5A059]" : "bg-gradient-to-r from-[#c9a858] to-[#e4cc8c]"
+            isLight ? "bg-[#002F6D]" : "bg-gradient-to-r from-[#FFD766] to-[#D8B63F]"
           }`}
         />
       </div>
 
       {isCarousel ? (
-        <HighlightsFullCarousel cards={cards} theme={theme} />
+        <HighlightsFullCarousel cards={cards} theme={activeTheme} />
       ) : (
         <>
           {/* Desktop & Tablet Grid View */}
@@ -345,13 +355,13 @@ export function ServiceHighlights({
           >
             {cards.map((card, idx) => (
               <div key={idx} className={`${gridConfig.cardWidth} h-full`}>
-                <HighlightCard card={card} theme={theme} />
+                <HighlightCard card={card} theme={activeTheme} />
               </div>
             ))}
           </div>
 
           {/* Mobile Swipeable Embla Carousel */}
-          <HighlightsMobileCarousel cards={cards} theme={theme} />
+          <HighlightsMobileCarousel cards={cards} theme={activeTheme} />
         </>
       )}
     </section>

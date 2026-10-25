@@ -252,7 +252,7 @@ export default function RoomSelector({
   const renderIcon = (icon: React.ReactNode) => {
     if (React.isValidElement(icon)) {
       return React.cloneElement(icon as React.ReactElement<{ className?: string }>, {
-        className: `w-4 h-4 ${isLight ? "text-[#D4AF37]" : "text-[#F3C649]"}`,
+        className: `w-4 h-4 ${isLight ? "text-[#D8B63F]" : "text-[#FFD766]"}`,
       });
     }
     return icon;
@@ -305,7 +305,9 @@ export default function RoomSelector({
 
   return (
     <div
-      className={`w-full my-5 p-4 md:p-5 rounded-2xl font-sans transition-all duration-300`}
+      className={`w-full my-5 p-4 md:p-5 rounded-2xl font-sans transition-all duration-300 ${
+        isLight ? "text-[#1A2238]" : "text-white"
+      }`}
     >
       {/* Grid of Rooms */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-3">
@@ -319,11 +321,11 @@ export default function RoomSelector({
               className={`relative flex flex-row justify-between gap-[5px] items-center p-2.5 rounded-xl transition-all duration-300 border ${
                 isAdded 
                   ? isLight
-                    ? "bg-[#FFFDF7]/90 backdrop-blur-md border-[#D4AF37] shadow-[0_4px_20px_rgba(212,175,55,0.35)] ring-2 ring-[#D4AF37]/30"
-                    : "bg-[#0A101D] border-[#1C2C4E] shadow-[0_0_15px_rgba(0,0,0,0.5)]"
+                    ? "bg-white border-2 border-[#D8B63F] shadow-[0_4px_16px_rgba(216,182,63,0.2)] ring-1 ring-[#D8B63F]/30"
+                    : "bg-[#1B2A40] border-2 border-[#FFD766] shadow-[0_0_15px_rgba(255,215,102,0.15)] ring-1 ring-[#FFD766]/30"
                   : isLight
-                  ? "bg-[#FAF7EF]/80 backdrop-blur-sm border-[#D4AF37]/40 hover:border-[#D4AF37] hover:bg-[#F5EFE0]/90 hover:shadow-[0_2px_12px_rgba(212,175,55,0.2)]"
-                  : "bg-[#0d1424] border-[#15233E] hover:border-[#1E335C]"
+                  ? "bg-[#F7F5F0] border border-[#D9DDE5] hover:border-[#D8B63F] hover:bg-white hover:shadow-xs"
+                  : "bg-[#152238] border border-[#718096]/30 hover:border-[#FFD766]/50 hover:bg-[#1B2A40]"
               }`}
             >
               {/* Top Row: Icon & Name */}
@@ -332,16 +334,18 @@ export default function RoomSelector({
                   className={`md:p-2.5 p-1.5 rounded-lg border transition-colors ${
                     isLight
                       ? isAdded
-                        ? "bg-[#FDF8EB] border-[#D4AF37]/60 shadow-[0_0_8px_rgba(212,175,55,0.25)]"
-                        : "bg-[#F7EFE0] border-[#D4AF37]/40"
-                      : "bg-[#04060a] border-[#1E2E4A]"
+                        ? "bg-[#F7F5F0] border-[#D8B63F]/50 shadow-xs"
+                        : "bg-white border-[#D9DDE5]"
+                      : isAdded
+                        ? "bg-[#111C2E] border-[#FFD766]/50 shadow-[0_0_8px_rgba(255,215,102,0.2)]"
+                        : "bg-[#111C2E] border-[#718096]/30"
                   }`}
                 >
                   {renderIcon(room.icon)}
                 </div>
                 <h3
                   className={`font-semibold md:text-base text-[12px] tracking-wide ${
-                    isLight ? "text-[#1B2E4B]" : "text-white"
+                    isLight ? "text-[#1A2238]" : "text-white"
                   }`}
                 >
                   {translate(room.id)}
@@ -354,14 +358,14 @@ export default function RoomSelector({
                   <button
                       type="button"
                       onClick={() => handleAddClick(room.id)}
-                      className={`w-full py-1 px-2 rounded-[10px] font-medium text-sm transition-all duration-200 shadow-sm flex items-center justify-center gap-2 group cursor-pointer ${
+                      className={`w-full py-1 px-2.5 rounded-[10px] font-medium text-sm transition-all duration-200 shadow-xs flex items-center justify-center gap-2 group cursor-pointer ${
                         isLight
-                          ? "bg-[#F7EFE0] hover:bg-[#EFE4CC] text-[#B8860B] border border-[#D4AF37]/50 shadow-[0_2px_8px_rgba(212,175,55,0.15)]"
-                          : "bg-[#0A101D] hover:bg-[#121A2C] text-[#F3C649] border border-[#1A2A47]"
+                          ? "bg-white hover:bg-[#002F6D] text-[#002F6D] hover:text-white border border-[#D9DDE5] hover:border-[#002F6D]"
+                          : "bg-[#1B2A40] hover:bg-[#FFD766] text-[#FFD766] hover:text-[#002F6D] border border-[#FFD766]/40"
                       }`}
                     >
                     <Plus className="md:w-3 w-3 h-3 md:h-3 transition-transform group-hover:scale-110" />
-                    <span className="md:text-[13px] text-[11px]">{translate("equipmentAddButton")}</span>
+                    <span className="md:text-[13px] text-[11px] font-semibold">{translate("equipmentAddButton")}</span>
                   </button>
                 ) : (
                   <div className="flex flex-col gap-2">
@@ -369,17 +373,17 @@ export default function RoomSelector({
                     <div
                       className={`flex items-center justify-between rounded-xl p-1.5 border ${
                         isLight
-                          ? "bg-[#F7EFE0] border-[#D4AF37]/50 shadow-[0_2px_8px_rgba(212,175,55,0.2)]"
-                          : "bg-[#0A101D] border-[#1A2A47]"
+                          ? "bg-[#F7F5F0] border-[#D9DDE5]"
+                          : "bg-[#111C2E] border-[#718096]/40"
                       }`}
                     >
                       <button
                         type="button"
                         onClick={() => handleDecrement(room.id)}
-                        className={`w-5 md:w-6 h-5 md:h-6 flex items-center justify-center rounded-lg transition-colors shadow-sm cursor-pointer ${
+                        className={`w-5 md:w-6 h-5 md:h-6 flex items-center justify-center rounded-lg transition-colors shadow-xs cursor-pointer ${
                           isLight
-                            ? "bg-[#EFE4CC] hover:bg-[#E2D4B5] text-[#1B2E4B]"
-                            : "bg-[#0D1527] hover:bg-[#16233F] text-[#F3C649] border border-[#1C2C4E]"
+                            ? "bg-white hover:bg-[#D9DDE5] text-[#1A2238] border border-[#D9DDE5]"
+                            : "bg-[#1B2A40] hover:bg-[#152238] text-[#FFD766] border border-[#718096]/40"
                         }`}
                         aria-label="Decrement"
                       >
@@ -388,7 +392,7 @@ export default function RoomSelector({
 
                       <span
                         className={`font-bold md:text-[14px] text-[13px] px-2 ${
-                          isLight ? "text-[#1B2E4B]" : "text-[#F3C649]"
+                          isLight ? "text-[#1A2238]" : "text-[#FFD766]"
                         }`}
                       >
                         {count}
@@ -398,14 +402,14 @@ export default function RoomSelector({
                         type="button"
                         onClick={() => handleIncrement(room.id)}
                         disabled={count >= ROOM_MAX_COUNT}
-                        className={`w-5 md:w-6 h-5 md:h-6 flex items-center justify-center rounded-lg transition-colors shadow-sm cursor-pointer ${
+                        className={`w-5 md:w-6 h-5 md:h-6 flex items-center justify-center rounded-lg transition-colors shadow-xs cursor-pointer ${
                           count >= ROOM_MAX_COUNT
                             ? isLight
-                              ? "opacity-35 cursor-not-allowed bg-[#EFE4CC] text-gray-400"
-                              : "opacity-40 cursor-not-allowed bg-[#0D1527] text-gray-500"
+                              ? "opacity-35 cursor-not-allowed bg-gray-200 text-gray-400"
+                              : "opacity-40 cursor-not-allowed bg-[#152238] text-gray-500"
                             : isLight
-                            ? "bg-[#EFE4CC] hover:bg-[#E2D4B5] text-[#1B2E4B]"
-                            : "bg-[#0D1527] hover:bg-[#16233F] text-[#F3C649] border border-[#1C2C4E]"
+                            ? "bg-white hover:bg-[#D9DDE5] text-[#1A2238] border border-[#D9DDE5]"
+                            : "bg-[#1B2A40] hover:bg-[#152238] text-[#FFD766] border border-[#718096]/40"
                         }`}
                         aria-label="Increment"
                       >
@@ -417,11 +421,11 @@ export default function RoomSelector({
                     <div className="text-center">
                       <span
                         className={`md:text-xs text-[11px] font-medium ${
-                          isLight ? "text-gray-600" : "text-slate-400"
+                          isLight ? "text-[#687386]" : "text-[#C3CDDC]"
                         }`}
                       >
                         {translate("pressureSelectedBtn")}:{" "}
-                        <span className={`font-semibold ${isLight ? "text-[#B8860B]" : "text-[#F3C649]"}`}>
+                        <span className={`font-semibold ${isLight ? "text-[#002F6D]" : "text-[#FFD766]"}`}>
                           {count}
                         </span>{" "}
                         {count === 1 ? " room" : " rooms"}
@@ -438,17 +442,17 @@ export default function RoomSelector({
       {/* Bottom Summary Bar */}
       <div
         className={`mt-8 pt-6 border-t flex flex-col sm:flex-row items-center justify-between gap-4 ${
-          isLight ? "border-[#D4AF37]/30" : "border-[#15233E]"
+          isLight ? "border-[#D9DDE5]" : "border-[#718096]/30"
         }`}
       >
-        <div className={`text-sm font-medium ${isLight ? "text-[#1B2E4B]" : "text-slate-300"}`}>
+        <div className={`text-sm font-medium ${isLight ? "text-[#1A2238]" : "text-[#C3CDDC]"}`}>
           <p>
             {translate("TotalselectedRooms")}:{" "}
-            <span className={`font-bold text-base ml-1 ${isLight ? "text-[#B8860B]" : "text-[#F3C649]"}`}>
+            <span className={`font-bold text-base ml-1 ${isLight ? "text-[#002F6D]" : "text-[#FFD766]"}`}>
               {totalRooms}
             </span>
           </p> 
-          <span className={`text-xs ${isLight ? "text-gray-500" : "text-slate-500"}`}>
+          <span className={`text-xs ${isLight ? "text-[#687386]" : "text-[#718096]"}`}>
             {translate("maxOfCategory")}
           </span>
         </div>

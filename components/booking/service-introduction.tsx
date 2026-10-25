@@ -40,8 +40,8 @@ export function ServiceIntroduction({
           <div
             className={`absolute w-[85%] md:w-[82%] rounded-2xl md:rounded-tl-[50px] md:rounded-br-[50px] bottom-0 left-0 z-0 h-[92%] md:h-[78%] lg:h-[84%] overflow-hidden transition-all duration-300 ${
               isLight
-                ? "border-2 border-[#C5A059]/50 shadow-md"
-                : "border-2 border-[#c9a858]/40 shadow-[0_8px_32px_rgba(0,0,0,0.6)]"
+                ? "border-2 border-[#D8B63F]/50 shadow-md"
+                : "border-2 border-[#FFD766]/35 shadow-[0_8px_32px_rgba(0,0,0,0.6)]"
             }`}
           >
             <Image
@@ -55,7 +55,7 @@ export function ServiceIntroduction({
             />
             {/* Subtle Gradient Veil for Dark Mode */}
             {!isLight && (
-              <div className="absolute inset-0 bg-gradient-to-t from-[#0B132B]/80 via-transparent to-transparent pointer-events-none" />
+              <div className="absolute inset-0 bg-gradient-to-t from-[#111C2E]/80 via-transparent to-transparent pointer-events-none" />
             )}
           </div>
 
@@ -63,8 +63,8 @@ export function ServiceIntroduction({
           <div
             className={`absolute top-0 right-0 md:right-4 md:top-8 z-10 w-[78%] md:w-[78%] h-[84%] md:h-[58%] overflow-hidden rounded-[20px] md:rounded-[24px] transition-all duration-300 hover:scale-[1.02] ${
               isLight
-                ? "border-[2.5px] border-[#C5A059] shadow-xl ring-1 ring-black/5"
-                : "border-[2.5px] border-[#c9a858] shadow-[0_16px_40px_rgba(0,0,0,0.8)] ring-1 ring-white/10"
+                ? "border-[2.5px] border-[#D8B63F] shadow-xl ring-1 ring-black/5"
+                : "border-[2.5px] border-[#FFD766] shadow-[0_16px_40px_rgba(0,0,0,0.8)] ring-1 ring-[#FFD766]/20"
             }`}
           >
             <Image
@@ -82,8 +82,8 @@ export function ServiceIntroduction({
         <div
           className={`relative w-full md:w-[55%] lg:w-[54%] flex flex-col justify-center gap-5 rounded-2xl sm:rounded-3xl p-6 sm:p-8 md:p-9 transition-all duration-300 ${
             isLight
-              ? "bg-white/95 backdrop-blur-md border border-[#C5A059]/35 shadow-[0_12px_45px_rgba(197,160,89,0.12)] hover:border-[#C5A059]/60"
-              : "bg-[#121E2D]/90 backdrop-blur-md border border-[#c9a858]/35 shadow-[0_16px_50px_rgba(0,0,0,0.5)] hover:border-[#c9a858]/60"
+              ? "bg-white/95 backdrop-blur-md border border-[#D9DDE5] shadow-[0_12px_45px_rgba(0,47,109,0.06)] hover:border-[#D8B63F]/60"
+              : "bg-[#1B2A40]/90 backdrop-blur-md border border-[#718096]/30 shadow-[0_16px_50px_rgba(0,0,0,0.5)] hover:border-[#FFD766]/50"
           }`}
         >
           {/* Top Luxury Pill Indicator */}
@@ -91,13 +91,13 @@ export function ServiceIntroduction({
             <span
               className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-[0.2em] ${
                 isLight
-                  ? "border border-[#C5A059]/40 bg-[#C5A059]/10 text-[#C5A059]"
-                  : "border border-[#c9a858]/40 bg-[#c9a858]/10 text-[#e4cc8c]"
+                  ? "border border-[#002F6D]/20 bg-[#002F6D]/10 text-[#002F6D]"
+                  : "border border-[#FFD766]/40 bg-[#FFD766]/10 text-[#FFD766]"
               }`}
             >
               <span
                 className={`w-1.5 h-1.5 rounded-full ${
-                  isLight ? "bg-[#C5A059]" : "bg-[#c9a858] animate-pulse"
+                  isLight ? "bg-[#002F6D]" : "bg-[#FFD766] animate-pulse"
                 }`}
               />
               <span>PearlSky Distinction</span>
@@ -108,8 +108,8 @@ export function ServiceIntroduction({
           <h2
             className={`text-left text-2xl sm:text-3xl font-serif font-bold leading-snug sm:leading-snug md:leading-tight tracking-wide transition-colors ${
               isLight
-                ? "text-[#1B2E4B]"
-                : "text-[#e4cc8c] drop-shadow-[0_2px_10px_rgba(201,168,88,0.2)]"
+                ? "text-[#1A2238]"
+                : "text-[#FFD766] drop-shadow-[0_2px_10px_rgba(255,215,102,0.2)]"
             }`}
           >
             {translate(headline)}
@@ -121,7 +121,7 @@ export function ServiceIntroduction({
               <p
                 key={index}
                 className={`text-sm sm:text-base leading-relaxed text-justify font-normal transition-colors ${
-                  isLight ? "text-[#4A5568]" : "text-slate-300/90"
+                  isLight ? "text-[#687386]" : "text-[#C3CDDC]"
                 }`}
               >
                 {translate(paragraph)}
@@ -132,20 +132,20 @@ export function ServiceIntroduction({
           {/* Bottom Action / CTA Bar */}
           <div
             className={`mt-4 pt-5 border-t flex items-center justify-between flex-wrap gap-4 ${
-              isLight ? "border-gray-100" : "border-white/10"
+              isLight ? "border-[#D9DDE5]" : "border-[#718096]/30"
             }`}
           >
             <div className="flex items-center gap-2">
               <span
                 className={`w-2 h-2 rounded-full ${
                   isLight
-                    ? "bg-[#C5A059]"
-                    : "bg-[#c9a858] shadow-[0_0_8px_rgba(201,168,88,0.8)]"
+                    ? "bg-[#002F6D]"
+                    : "bg-[#FFD766] shadow-[0_0_8px_rgba(255,215,102,0.8)]"
                 }`}
               />
               <p
                 className={`font-serif font-semibold text-sm sm:text-base tracking-wide ${
-                  isLight ? "text-[#C5A059]" : "text-[#e4cc8c]"
+                  isLight ? "text-[#002F6D]" : "text-[#FFD766]"
                 }`}
               >
                 {translate("serviceIntroBottomText")}

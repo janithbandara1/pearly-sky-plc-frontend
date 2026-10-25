@@ -35,23 +35,23 @@ export function FieldInput({
   if (field.kind === "size") {
     return (
       <div className="space-y-1.5">
-        <Label>{display(field.label)}</Label>
+        <Label className="text-xs font-semibold text-[#1A2238] dark:text-white">{display(field.label)}</Label>
         <div className="flex gap-2">
           <Input
             type="number"
             min="0"
             value={values[field.key] ?? ""}
             onChange={(e) => onChange(field.key, e.target.value)}
-            className="bg-white"
+            className="bg-white dark:bg-[#152238] border border-[#D9DDE5] dark:border-[#718096] text-[#1A2238] dark:text-white"
           />
           <Select
             value={values[`${field.key}Unit`] ?? field.units[0]}
             onValueChange={(value) => onChange(`${field.key}Unit`, value)}
           >
-            <SelectTrigger className="w-28 bg-white">
+            <SelectTrigger className="w-28 bg-white dark:bg-[#152238] border border-[#D9DDE5] dark:border-[#718096] text-[#1A2238] dark:text-white">
               <SelectValue />
             </SelectTrigger>
-            <SelectContent>
+            <SelectContent className="bg-white dark:bg-[#1B2A40] border border-[#D9DDE5] dark:border-[#718096] text-[#1A2238] dark:text-white">
               {field.units.map((unit) => (
                 <SelectItem key={unit} value={unit}>
                   {unit}
@@ -67,7 +67,7 @@ export function FieldInput({
   if (field.kind === "dimensions") {
     return (
       <div className="space-y-1.5">
-        <Label>{display(field.label)}</Label>
+        <Label className="text-xs font-semibold text-[#1A2238] dark:text-white">{display(field.label)}</Label>
         <div className="flex items-center gap-2">
           {field.parts.map((part) => (
             <Input
@@ -77,10 +77,10 @@ export function FieldInput({
               placeholder={display(part[0].toUpperCase() + part.slice(1))}
               value={values[`${field.key}_${part}`] ?? ""}
               onChange={(e) => onChange(`${field.key}_${part}`, e.target.value)}
-              className="bg-white"
+              className="bg-white dark:bg-[#152238] border border-[#D9DDE5] dark:border-[#718096] text-[#1A2238] dark:text-white"
             />
           ))}
-          <span className="shrink-0 text-sm text-[#555]">{field.unit}</span>
+          <span className="shrink-0 text-sm text-[#687386] dark:text-[#C3CDDC]">{field.unit}</span>
         </div>
       </div>
     );
@@ -89,7 +89,7 @@ export function FieldInput({
   if (field.kind === "radio") {
     return (
       <div className="space-y-1.5">
-        <Label>{display(field.label)}</Label>
+        <Label className="text-xs font-semibold text-[#1A2238] dark:text-white">{display(field.label)}</Label>
         <div className="grid gap-2" style={{ gridTemplateColumns: `repeat(${field.options.length}, minmax(0, 1fr))` }}>
           {field.options.map((option) => {
             const checked = values[field.key] === option;
@@ -98,8 +98,11 @@ export function FieldInput({
                 key={option}
                 type="button"
                 onClick={() => onChange(field.key, option)}
-                className={`w-full rounded-[10px] bg-white px-3 py-2 text-xs font-medium text-[#121E2D] transition ${checked ? "border-2 border-[#A98B4B] shadow-[0_0_8px_rgba(169,139,75,0.3)]" : "border-[1.5px] border-[#A98B4B]"
-                  }`}
+                className={`w-full rounded-[10px] px-3 py-2 text-xs font-semibold transition cursor-pointer ${
+                  checked
+                    ? "bg-amber-50/70 dark:bg-[#3A3423] border-2 border-[#D8B63F] dark:border-[#FFD766] text-[#1A2238] dark:text-white shadow-sm"
+                    : "bg-white dark:bg-[#152238] border border-[#D9DDE5] dark:border-[#718096] text-[#687386] dark:text-[#C3CDDC] hover:border-[#D8B63F] dark:hover:border-[#FFD766]"
+                }`}
               >
                 {display(option)}
               </button>
@@ -112,12 +115,12 @@ export function FieldInput({
 
   return (
     <div className="space-y-1.5">
-      <Label>{field.label}</Label>
+      <Label className="text-xs font-semibold text-[#1A2238] dark:text-white">{field.label}</Label>
       <Input
         value={values[field.key] ?? ""}
         onChange={(e) => onChange(field.key, e.target.value)}
         placeholder={field.placeholder}
-        className="bg-white"
+        className="bg-white dark:bg-[#152238] border border-[#D9DDE5] dark:border-[#718096] text-[#1A2238] dark:text-white"
       />
     </div>
   );

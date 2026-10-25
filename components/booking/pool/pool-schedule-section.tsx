@@ -68,12 +68,13 @@ export function PoolScheduleSection({
     if (validationError) setValidationError(null);
   }, [validationError]);
 
+  const locationForm = useLocationAccessForm(clearValidation);
   const {
     bindings: locationBindings,
     formData: locationFormData,
     validateContactFields,
     reset: resetLocationForm,
-  } = useLocationAccessForm(clearValidation);
+  } = locationForm;
 
   // Handler to toggle add-on items
   const toggleAddon = (id: string) => {
@@ -210,7 +211,7 @@ export function PoolScheduleSection({
     <div
       id="section-pool-schedule"
       className={`w-full transition-colors rounded-2xl mb-3 duration-300 ${
-        isLight ? "bg-[#F8F9FA] text-[#1B2E4B]" : "bg-[#101b3d] text-white"
+        isLight ? "bg-[#F8F9FA] text-[#1B2E4B]" : "bg-[#121E2D]/90  text-white"
       }`}
     >
       {/* 1. Step Navigation Header */}
@@ -230,8 +231,8 @@ export function PoolScheduleSection({
           <div
             className={`rounded-2xl p-6 md:p-8 backdrop-blur-sm border shadow-xl transition-all duration-300 ${
               isLight
-                ? "bg-white border-[#C7D1D9]"
-                : "bg-[#121e2d]/70 border-[#c9a858]/25"
+                ? " border-[#C7D1D9]"
+                : " border-[#c9a858]/25"
             }`}
           >
             {isConfirmed ? (
@@ -303,7 +304,7 @@ export function PoolScheduleSection({
                 {currentStep === 4 && (
                   <LocationAccessSection
                     config={config}
-                    {...locationBindings}
+                    form={locationForm}
                     theme={activeTheme}
                     onProceedNext={handleNextStep}
                     onPrevStep={handlePrevStep}

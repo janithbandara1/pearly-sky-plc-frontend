@@ -78,6 +78,7 @@ export function JobCardSection({
 
   if (categories.length === 0) return null;
 
+  // Fallback to first category if none selected
   const activeCategory = categories.find((c) => c.id === activeCategoryId) ?? categories[0];
   
   const getPackageItemLabel = (name: string) => {
@@ -87,131 +88,28 @@ export function JobCardSection({
   };
 
   return (
-    <section id="upgrades" className={`w-full md:px-6  px-2 py-6
-    rounded-2xl sm:rounded-3xl  shadow-2xl border
-    ${isLight ? "bg-[#F8FAFC] border-[#E2E8F0]" : "bg-[rgba(13,20,36,0.7)] border-[rgba(212,175,55,0.18)]"}
-    `}>
-      <span className="text-[10px] sm:text-xs font-sans font-bold tracking-[0.2em] sm:tracking-[0.25em] text-[#D9B75B] uppercase">
-          Step 3 of 6
+    <section id="upgrades" className={`w-full md:px-6 px-2 py-6 rounded-2xl sm:rounded-3xl shadow-2xl border transition-all duration-300 ${
+      isLight ? "bg-white border-[#D9DDE5] text-[#1A2238]" : "bg-[#1B2A40]/80 backdrop-blur-xl border-[#718096]/30 text-white"
+    }`}>
+      <span className={`text-[10px] sm:text-xs font-sans font-bold tracking-[0.2em] sm:tracking-[0.25em] uppercase ${
+        isLight ? "text-[#002F6D]" : "text-[#FFD766]"
+      }`}>
+        Step 3 of 6
       </span>
       {/* Component Header Title */}
-      <h2 className={`text-xl md:text-2xl mb-3 font-serif mt-1 font-normal tracking-wide leading-tight 
-        ${isLight ? "text-[#0F172A]" : "text-white"}`}>
+      <h2 className={`text-xl md:text-2xl mb-3 font-serif mt-1 font-normal tracking-wide leading-tight ${
+        isLight ? "text-[#1A2238]" : "text-white"
+      }`}>
         {translate("jobCardSectionTitle")}
       </h2>
 
-      {/* Mobile View Layout (< md) */}
-      <div className={`flex flex-col gap-3 md:hidden border-t  py-6 ${isLight ? "border-t-gray-300": "border-t-gray-800"}`}>
-        {categories.map((category) => {
-          const isSelectedCategory = category.id === activeCategoryId;
-          const selectedInCatCount = category.items.filter((item) => selectedIds.has(item.id)).length;
-          const isCatMaxReached = selectedInCatCount >= maxSelectionsPerCategory;
-
-          return (
-            <div key={category.id} className="flex flex-col gap-3">
-              {/* Category Header Bar */}
-              <button
-                type="button"
-                onClick={() => setActiveCategoryId((prev) => (prev === category.id ? null : category.id))}
-                className={`w-full px-4 py-3.5 rounded-xl border-2 flex items-center justify-between transition-all select-none ${
-                  isLight
-                    ? "bg-white border-slate-200 hover:border-[#B89642]"
-                    : "bg-[#0B1527] border-[#B89642]"
-                } ${
-                  isSelectedCategory
-                    ? "ring-1 ring-[#B89642] shadow-md border-[#B89642]"
-                    : ""
-                }`}
-              >
-                <span className={`text-sm font-normal text-left leading-snug ${isLight ? "text-[#1E293B]" : "text-white"}`}>
-                  {translate(category.label as TranslationKey)}
-                </span>
-
-                {isSelectedCategory ? (
-                  <span className={`px-4 min-h-[48px] py-3 rounded-lg bg-[#B89642] font-bold text-[11px] flex items-center justify-center ${isLight ? "text-white" : "text-[#0B1527]"}`}>
-                    {translate("securitySelected")}
-                  </span>
-                ) : (
-                  <span className="px-4 min-h-[48px] py-3 rounded-lg border border-[#B89642] text-[#B89642] text-[11px] font-bold flex items-center justify-center">
-                    {translate("securitySelect")}
-                  </span>
-                )}
-              </button>
-
-              {/* Expanded Add-On List on Mobile (if selected) */}
-              {isSelectedCategory && (
-                <div className="flex flex-col gap-3 pt-1 pb-2">
-                  {category.items.map((item) => {
-                    const isSelected = selectedIds.has(item.id);
-                    const isDisabled = !isSelected && isCatMaxReached;
-
-                    return (
-                      <button
-                        key={item.id}
-                        type="button"
-                        disabled={isDisabled}
-                        onClick={() => onToggle(item.id)}
-                        aria-pressed={isSelected}
-                        className={`min-h-[48px] px-4 py-3 rounded-xl flex items-center justify-between text-left transition-all duration-200 select-none group ${
-                          isLight ? "bg-white" : "bg-[#0B1527]"
-                        } ${
-                          isSelected
-                            ? "border-2 border-[#B89642] ring-1 ring-[#B89642] shadow-sm"
-                            : isDisabled
-                            ? `border ${isLight ? "border-gray-200 bg-gray-50/60 text-slate-400" : "border-slate-800 bg-slate-900/40 text-slate-500"} opacity-50 cursor-not-allowed`
-                            : `border ${isLight ? "border-[#C6A868]/60 hover:border-[#B89642]" : "border-[#B89642]/40 hover:border-[#B89642]"} shadow-sm cursor-pointer`
-                        }`}
-                      >
-                        {/* Left soft badge icon + title */}
-                        <div className="flex items-center min-w-0 flex-1 pr-2">
-                          <div className={`w-10 h-10 rounded-lg flex items-center justify-center text-lg shrink-0 mr-3 border overflow-hidden ${
-                            isLight ? "bg-[#F4F5F7] border-slate-100" : "bg-[#111C2E] border-slate-800"
-                          }`}>
-                            {item.image ? (
-                              // eslint-disable-next-line @next/next/no-img-element
-                              <img src={item.image} alt="" className="h-full w-full object-cover" />
-                            ) : (
-                              <PackageIcon className="h-5 w-5 text-slate-400" />
-                            )}
-                          </div>
-                          <span
-                            className={`text-xs sm:text-sm leading-snug font-semibold ${
-                              isLight ? "text-[#1E293B]" : "text-white"
-                            } ${isDisabled ? (isLight ? "text-slate-400" : "text-slate-500") : ""}`}
-                          >
-                            {translate(getPackageItemLabel(item.name) as TranslationKey)}
-                          </span>
-                        </div>
-
-                        {/* Right Action Icon Button */}
-                        {isSelected ? (
-                          <div className={`w-7 h-7 rounded-full bg-[#B89642] border border-[#B89642] flex items-center justify-center shrink-0 shadow-sm ${isLight ? "text-white" : "text-[#0B1527]"}`}>
-                            <Check className="h-3.5 w-3.5" strokeWidth={3} />
-                          </div>
-                        ) : (
-                          <div
-                            className={`w-7 h-7 rounded-full border border-[#B89642] flex items-center justify-center text-[#B89642] shrink-0 ${
-                              isDisabled ? (isLight ? "border-gray-300 text-gray-300" : "border-slate-700 text-slate-700") : ""
-                            }`}
-                          >
-                            <Plus className="h-4 w-4" strokeWidth={2.5} />
-                          </div>
-                        )}
-                      </button>
-                    );
-                  })}
-                </div>
-              )}
-            </div>
-          );
-        })}
-      </div>
-
-      {/* Desktop View Layout (≥ md) */}
-      <div className={`hidden md:block border-t py-6 ${isLight ? "border-t-gray-300": "border-t-gray-800"}  `}>
-        {/* Category Tabs Header */}
-        <div className={`grid grid-cols-4 gap-2 mb-6 border-b 
-          ${isLight ? "border-b-gray-300":"border-b-gray-800"}  pb-2`}>
+      {/* Unified Category Tabs & Content Layout (Responsive across Mobile & Desktop) */}
+      <div className={`border-t py-6 ${isLight ? "border-t-[#D9DDE5]": "border-t-[#718096]/30"}`}>
+        
+        {/* Category Tabs Header: horizontally scrollable on mobile, grid/flex layout */}
+        <div className={`flex md:grid md:grid-cols-4 gap-2 mb-6 overflow-x-auto pb-2 scrollbar-none border-b ${
+          isLight ? "border-b-[#D9DDE5]" : "border-b-[#718096]/30"
+        }`}>
           {categories.map((category) => {
             const isActive = category.id === activeCategory.id;
             return (
@@ -219,11 +117,14 @@ export function JobCardSection({
                 key={category.id}
                 type="button"
                 onClick={() => setActiveCategoryId(category.id)}
-                className={`py-2 px-2 rounded-[7px] text-[13px]  font-normal  text-center select-none ${
+                className={`py-2.5 px-3 rounded-[9px] text-xs sm:text-[13px] font-normal text-center select-none shrink-0 md:shrink transition-all ${
                   isActive
-                    ? `bg-[#B89642] border-2 border-[#B89642] ring-1 ring-[#B89642] font-bold 
-                      ${isLight ? "text-white" : "text-[#0B1527]"}`
-                    : `${isLight ? "  text-[#1E293B] hover:bg-slate-50" : "  text-slate-200 hover:bg-[#111C2E]"}  hover:border-[#B89642] active:border-[#B89642] `
+                    ? isLight
+                      ? "bg-[#002F6D] border-2 border-[#002F6D] text-white font-bold ring-1 ring-[#002F6D]/30"
+                      : "bg-[#FFD766] border-2 border-[#FFD766] text-[#002F6D] font-bold ring-1 ring-[#FFD766]/30"
+                    : isLight
+                    ? "text-[#1A2238] hover:bg-[#F7F5F0] border border-transparent hover:border-[#D8B63F]"
+                    : "text-[#C3CDDC] hover:bg-[#152238] border border-transparent hover:border-[#FFD766]/50"
                 }`}
               >
                 {translate(category.label as TranslationKey)}
@@ -232,8 +133,8 @@ export function JobCardSection({
           })}
         </div>
 
-        {/* Add-Ons 2-Column Grid */}
-        <div className="grid grid-cols-2 gap-3.5 sm:gap-4 items-center md:mx-2">
+        {/* Add-Ons Grid (1 column on mobile, 2 columns on desktop) */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-3.5 sm:gap-4 items-center md:mx-2">
           {(() => {
             const selectedInCatCount = activeCategory.items.filter((item) => selectedIds.has(item.id)).length;
             const isCatMaxReached = selectedInCatCount >= maxSelectionsPerCategory;
@@ -249,31 +150,35 @@ export function JobCardSection({
                   disabled={isDisabled}
                   onClick={() => onToggle(item.id)}
                   aria-pressed={isSelected}
-                  className={`min-h-[72px] px-3 py-3.5 rounded-xl flex items-center justify-between text-left transition-all duration-200 select-none group ${
-                    isLight ? "bg-white" : "bg-[#0B1527]"
-                  } ${
+                  className={`min-h-[72px] px-3.5 py-3.5 rounded-xl flex items-center justify-between text-left transition-all duration-200 select-none group ${
                     isSelected
-                      ? "border-2 border-[#B89642] ring-1 ring-[#B89642] shadow-sm"
+                      ? isLight
+                        ? "bg-[#F7F5F0] border-2 border-[#D8B63F] ring-1 ring-[#D8B63F]/30 shadow-xs"
+                        : "bg-[#1B2A40] border-2 border-[#FFD766] ring-1 ring-[#FFD766]/30 shadow-[0_0_15px_rgba(255,215,102,0.15)]"
                       : isDisabled
-                      ? `border ${isLight ? "border-gray-200 bg-gray-50/60 text-slate-400" : "border-slate-800 bg-slate-900/40 text-slate-500"} opacity-50 cursor-not-allowed`
-                      : `border ${isLight ? "border-[#C6A868]/60 hover:border-[#B89642]" : "border-[#B89642]/40 hover:border-[#B89642]"} shadow-sm cursor-pointer hover:shadow`
+                      ? isLight
+                        ? "border border-[#D9DDE5] bg-gray-100 text-gray-400 opacity-50 cursor-not-allowed"
+                        : "border border-[#718096]/20 bg-[#111C2E]/50 text-slate-500 opacity-50 cursor-not-allowed"
+                      : isLight
+                      ? "bg-white border border-[#D9DDE5] hover:border-[#D8B63F] hover:bg-[#F7F5F0] shadow-xs cursor-pointer"
+                      : "bg-[#152238] border border-[#718096]/30 hover:border-[#FFD766]/50 hover:bg-[#1B2A40] shadow-xs cursor-pointer"
                   }`}
                 >
                   {/* Left soft badge icon + title */}
                   <div className="flex items-center min-w-0 flex-1 pr-2">
                     <div className={`w-11 h-11 rounded-lg flex items-center justify-center text-xl shrink-0 mr-3.5 border overflow-hidden ${
-                      isLight ? "bg-[#F4F5F7] border-slate-100" : "bg-[#111C2E] border-slate-800"
+                      isLight ? "bg-[#F7F5F0] border-[#D9DDE5]" : "bg-[#111C2E] border-[#718096]/30"
                     }`}>
                       {item.image ? (
                         // eslint-disable-next-line @next/next/no-img-element
                         <img src={item.image} alt="" className="h-full w-full object-cover" />
                       ) : (
-                        <PackageIcon className="h-5 w-5 text-slate-100" />
+                        <PackageIcon className={`h-5 w-5 ${isLight ? "text-[#002F6D]" : "text-[#FFD766]"}`} />
                       )}
                     </div>
                     <span
-                      className={`text-[14px] leading-snug font-semibold ${
-                        isLight ? "text-[#1E293B]" : "text-white"
+                      className={`text-[13px] sm:text-[14px] leading-snug font-semibold ${
+                        isLight ? "text-[#1A2238]" : "text-white"
                       } ${isDisabled ? (isLight ? "text-slate-400" : "text-slate-500") : ""}`}
                     >
                       {translate(getPackageItemLabel(item.name) as TranslationKey)}
@@ -282,13 +187,21 @@ export function JobCardSection({
 
                   {/* Right Action Icon Button */}
                   {isSelected ? (
-                    <div className={`w-8 h-8 rounded-[10px] bg-[#B89642] border border-[#B89642] flex items-center justify-center shrink-0 shadow-sm ${isLight ? "text-white" : "text-[#0B1527]"}`}>
+                    <div className={`w-8 h-8 rounded-[10px] flex items-center justify-center shrink-0 shadow-xs ${
+                      isLight ? "bg-[#002F6D] border border-[#002F6D] text-white" : "bg-[#FFD766] border border-[#FFD766] text-[#002F6D]"
+                    }`}>
                       <Check className="h-3.5 w-3.5" strokeWidth={3} />
                     </div>
                   ) : (
                     <div
-                      className={`w-8 h-8 rounded-[10px] border border-[#B89642] flex items-center justify-center text-[#B89642] shrink-0 transition-transform ${
-                        isDisabled ? (isLight ? "border-gray-300 text-gray-300" : "border-slate-700 text-slate-700") : "group-hover:scale-105"
+                      className={`w-8 h-8 rounded-[10px] border flex items-center justify-center shrink-0 transition-transform ${
+                        isDisabled
+                          ? isLight
+                            ? "border-gray-300 text-gray-300"
+                            : "border-slate-700 text-slate-700"
+                          : isLight
+                          ? "border-[#002F6D] text-[#002F6D] group-hover:scale-105"
+                          : "border-[#FFD766] text-[#FFD766] group-hover:scale-105"
                       }`}
                     >
                       <Plus className="h-4 w-4" strokeWidth={2.5} />

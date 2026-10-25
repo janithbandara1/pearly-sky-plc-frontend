@@ -313,29 +313,31 @@ export default function ServiceFrequencySelector({
     <div
       className={`w-full rounded-2xl sm:rounded-3xl p-4 md:p-5 font-serif shadow-2xl border transition-all duration-300 ${
         isLight
-          ? "bg-white border-[#C5A059]/40 text-[#1B2E4B]"
-          : "bg-[rgba(13,20,36,0.7)] border-[rgba(212,175,55,0.18)] text-slate-100"
+          ? "bg-white border-[#D9DDE5] text-[#1A2238]"
+          : "bg-[#1B2A40]/80 backdrop-blur-xl border-[#718096]/30 text-white"
       }`}
     >
       {/* Step Indicator Header */}
       <div className="mb-4 sm:mb-6">
-        {!isQuote && (<span
-          className={`text-[10px] sm:text-xs font-sans font-bold tracking-[0.2em] sm:tracking-[0.25em] uppercase ${
-            isLight ? "text-[#A88238]" : "text-[#D9B75B]"
-          }`}
-        >
-          Step 2 of 6
-        </span>)}
+        {!isQuote && (
+          <span
+            className={`text-[10px] sm:text-xs font-sans font-bold tracking-[0.2em] sm:tracking-[0.25em] uppercase ${
+              isLight ? "text-[#002F6D]" : "text-[#FFD766]"
+            }`}
+          >
+            Step 2 of 6
+          </span>
+        )}
         <h2
           className={`text-xl md:text-2xl font-serif mt-1 font-normal tracking-wide leading-tight ${
-            isLight ? "text-[#1B2E4B]" : "text-white"
+            isLight ? "text-[#1A2238]" : "text-white"
           }`}
         >
           Service Frequency & Privilege Savings
         </h2>
       </div>
 
-      <div className={`border-t pt-5 sm:pt-8 ${isLight ? "border-gray-200" : "border-gray-800"}`}>
+      <div className={`border-t pt-5 sm:pt-8 ${isLight ? "border-[#D9DDE5]" : "border-[#718096]/30"}`}>
         {/* Responsive Grid: 1 col on mobile, 2 cols on small tablet, 4 cols on desktop */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 md:gap-5">
           {currentService?.frequencies.map((freq) => {
@@ -345,14 +347,14 @@ export default function ServiceFrequencySelector({
               <div
                 key={freq.id}
                 onClick={() => handleFrequencySelect(freq.id)}
-                className={`relative flex flex-col justify-between p-4 md:p-3 rounded-xl sm:rounded-2xl transition-all duration-300 cursor-pointer text-left min-h-[150px]  ${
+                className={`relative flex flex-col justify-between p-4 md:p-3 rounded-xl sm:rounded-2xl transition-all duration-300 cursor-pointer text-left min-h-[150px] ${
                   isSelected
                     ? isLight
-                      ? "bg-[#C5A059]/30 border-2 border-[#C5A059] shadow-[0_6px_22px_rgba(197,160,89,0.25)] ring-1 ring-[#C5A059]/25"
-                      : "bg-[#131713] border-2 border-[#E5C365] shadow-[0_0_20px_rgba(229,195,101,0.18)]"
+                      ? "bg-[#F7F5F0] border-2 border-[#D8B63F] shadow-[0_4px_16px_rgba(216,182,63,0.2)] ring-1 ring-[#D8B63F]/30"
+                      : "bg-[#1B2A40] border-2 border-[#FFD766] shadow-[0_0_20px_rgba(255,215,102,0.18)] ring-1 ring-[#FFD766]/30"
                     : isLight
-                    ? "bg-[#FBF9F4] border border-[#C5A059]/30 hover:border-[#C5A059]/70 hover:bg-[#F5F0E4]"
-                    : "bg-[#0B101C] border border-[#172238] hover:border-slate-700 hover:bg-[#0f1626]"
+                    ? "bg-white border border-[#D9DDE5] hover:border-[#D8B63F] hover:bg-[#F7F5F0]"
+                    : "bg-[#152238] border border-[#718096]/30 hover:border-[#FFD766]/50 hover:bg-[#1B2A40]"
                 }`}
               >
                 {/* Top Badge Slot */}
@@ -361,11 +363,11 @@ export default function ServiceFrequencySelector({
                     className={`inline-block px-2.5 sm:px-3 py-0.5 sm:py-1 text-[10px] md:text-[11px] font-sans font-semibold tracking-wider rounded-md transition-colors ${
                       isSelected
                         ? isLight
-                          ? "bg-[#C5A059] text-white shadow-sm"
-                          : "bg-[#E5C365] text-[#0A0D08]"
+                          ? "bg-[#002F6D] text-white shadow-xs font-bold"
+                          : "bg-[#FFD766] text-[#002F6D] font-bold shadow-xs"
                         : isLight
-                        ? "bg-[#EDE7DA] text-[#6E5B3D]"
-                        : "bg-[#182338] text-[#8091B0]"
+                        ? "bg-[#F7F5F0] text-[#687386] border border-[#D9DDE5]"
+                        : "bg-[#111C2E] text-[#C3CDDC] border border-[#718096]/30"
                     }`}
                   >
                     {translate(freq.name as TranslationKey)}
@@ -375,15 +377,15 @@ export default function ServiceFrequencySelector({
                 {/* Main Card Content */}
                 <div className="flex-1 flex flex-col justify-center my-1 ">
                   <h3
-                    className={`text-[15px]  md:text-[18px] font-serif font-normal mb-1 tracking-wide ${
-                      isLight ? "text-[#1B2E4B]" : "text-white"
+                    className={`text-[15px] md:text-[18px] font-serif font-normal mb-1 tracking-wide ${
+                      isLight ? "text-[#1A2238]" : "text-white"
                     }`}
                   >
                     {translate(freq.name as TranslationKey)}
                   </h3>
                   <p
                     className={`text-xs sm:text-sm font-sans font-light leading-relaxed ${
-                      isLight ? "text-[#5A6E85]" : "text-[#7082A0]"
+                      isLight ? "text-[#687386]" : "text-[#C3CDDC]"
                     }`}
                   >
                     {translate(freq.subtitle as TranslationKey)}
@@ -396,11 +398,11 @@ export default function ServiceFrequencySelector({
                     className={`text-xs sm:text-sm font-sans font-medium ${
                       isSelected
                         ? isLight
-                          ? "text-[#C5A059]"
-                          : "text-[#E5C365]"
+                          ? "text-[#002F6D]"
+                          : "text-[#FFD766]"
                         : isLight
-                        ? "text-[#8C7A58]"
-                        : "text-[#586A8A]"
+                        ? "text-[#687386]"
+                        : "text-[#C3CDDC]"
                     }`}
                   >
                     {translate(freq.subtitle as TranslationKey)}

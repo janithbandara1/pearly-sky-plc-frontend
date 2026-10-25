@@ -16,6 +16,8 @@ import { useLanguage } from "@/lib/i18n/language-context";
 import type { UseLocationAccessFormReturn } from "./useLocationAccessForm";
 import { TranslationKey } from "@/lib/i18n/dictionaries/en";
 import { isCommonPropertyTypeFlow } from "@/lib/service-flows";
+import { User, Mail, Phone, MapPin, Building2 } from "lucide-react";
+import BookingValidationModal, { type ValidationModalItem } from "@/components/booking/BookingValidationModal";
 
 export interface LocationAccessSectionProps {
   config: ServiceConfig;
@@ -140,6 +142,11 @@ export default function LocationAccessSection({
   const [localWaterSource, setLocalWaterSource] = useState<string>("Outdoor Hose Spigot Ready");
   const [localEntryNotes, setLocalEntryNotes] = useState<string>("");
   const [localErrors, setLocalErrors] = useState<Record<string, string>>({});
+
+  // Validation modal state
+  const [isValidationModalOpen, setIsValidationModalOpen] = useState<boolean>(false);
+  const [validationModalErrors, setValidationModalErrors] = useState<string[]>([]);
+  const [validationModalItems, setValidationModalItems] = useState<ValidationModalItem[]>([]);
 
   // Synchronize initial prop values (like legacy fullName or address) into local state if needed
   useEffect(() => {
@@ -369,7 +376,7 @@ export default function LocationAccessSection({
   };
 
   // Local validation fallback
-  const runLocalValidation = (): boolean => {
+  const getLocalValidationErrors = (): Record<string, string> => {
     const next: Record<string, string> = {};
     if (!activeFirstName.trim()) next.firstName = translate("quotationErrFirstName");
     if (!activeLastName.trim()) next.lastName = translate("quotationErrLastName");
@@ -389,16 +396,115 @@ export default function LocationAccessSection({
       next.streetAddress = translate("quotationErrStreet");
     }
 
+    return next;
+  };
+
+  const runLocalValidation = (): boolean => {
+    const next = getLocalValidationErrors();
     setLocalErrors(next);
     return Object.keys(next).length === 0;
+  };
+
+  const buildValidationItems = (fieldErrors: Record<string, string>): ValidationModalItem[] => {
+    return [
+      {
+        icon: User,
+        title: "First Name",
+        description: !fieldErrors.firstName && activeFirstName.trim()
+          ? "Your first name has been entered."
+          : (fieldErrors.firstName || "Please enter your first name."),
+        isConfirmed: !fieldErrors.firstName && !!activeFirstName.trim(),
+        status: !fieldErrors.firstName && !!activeFirstName.trim() ? "Confirmed" : "Missing",
+      },
+      {
+        icon: User,
+        title: "Last Name",
+        description: !fieldErrors.lastName && activeLastName.trim()
+          ? "Your last name has been entered."
+          : (fieldErrors.lastName || "Please enter your last name."),
+        isConfirmed: !fieldErrors.lastName && !!activeLastName.trim(),
+        status: !fieldErrors.lastName && !!activeLastName.trim() ? "Confirmed" : "Missing",
+      },
+      {
+        icon: Mail,
+        title: "Email Address",
+        description: !fieldErrors.email && activeEmail.trim()
+          ? "Your email address has been entered."
+          : (fieldErrors.email || "Please enter your email address."),
+        isConfirmed: !fieldErrors.email && !!activeEmail.trim(),
+        status: !fieldErrors.email && !!activeEmail.trim() ? "Confirmed" : "Missing",
+      },
+      {
+        icon: Phone,
+        title: "Phone Number",
+        description: !fieldErrors.phoneNumber && activePhoneNumber.trim()
+          ? "Your contact phone number has been entered."
+          : (fieldErrors.phoneNumber || "Please enter your contact phone number."),
+        isConfirmed: !fieldErrors.phoneNumber && !!activePhoneNumber.trim(),
+        status: !fieldErrors.phoneNumber && !!activePhoneNumber.trim() ? "Confirmed" : "Missing",
+      },
+      {
+        icon: MapPin,
+        title: "Street Address",
+        description: !fieldErrors.streetAddress && activeStreetAddress.trim()
+          ? "Your street address has been entered."
+          : (fieldErrors.streetAddress || "Please enter your street address."),
+        isConfirmed: !fieldErrors.streetAddress && !!activeStreetAddress.trim(),
+        status: !fieldErrors.streetAddress && !!activeStreetAddress.trim() ? "Confirmed" : "Missing",
+      },
+      {
+        icon: Building2,
+        title: "City",
+        description: !fieldErrors.city && activeCity.trim()
+          ? "Your city has been entered."
+          : (fieldErrors.city || "Please enter your city."),
+        isConfirmed: !fieldErrors.city && !!activeCity.trim(),
+        status: !fieldErrors.city && !!activeCity.trim() ? "Confirmed" : "Missing",
+      },
+      {
+        icon: Building2,
+        title: "Province / State",
+        description: !fieldErrors.province && activeProvince.trim()
+          ? "Your province/state has been entered."
+          : (fieldErrors.province || "Please enter your province/state."),
+        isConfirmed: !fieldErrors.province && !!activeProvince.trim(),
+        status: !fieldErrors.province && !!activeProvince.trim() ? "Confirmed" : "Missing",
+      },
+      {
+        icon: MapPin,
+        title: "Postal Code",
+        description: !fieldErrors.postalCode && activePostalCode.trim()
+          ? "Your postal code has been entered."
+          : (fieldErrors.postalCode || "Please enter your postal code."),
+        isConfirmed: !fieldErrors.postalCode && !!activePostalCode.trim(),
+        status: !fieldErrors.postalCode && !!activePostalCode.trim() ? "Confirmed" : "Missing",
+      },
+    ];
   };
 
   const handleProceedClick = () => {
     if (form) {
       const result = form.validateContactFields((t) => translate(t as TranslationKey));
-      if (!result.valid) return;
-    } else if (!fb) {
-      if (!runLocalValidation()) return;
+      if (!result.valid) {
+        const errorList = Object.values(result.errors).filter(Boolean);
+        setValidationModalItems(buildValidationItems(result.errors));
+        setValidationModalErrors(
+          errorList.length > 0
+            ? errorList
+            : [result.message || "Please complete all required contact & location fields."]
+        );
+        setIsValidationModalOpen(true);
+        return;
+      }
+    } else {
+      const validationErrors = getLocalValidationErrors();
+      if (Object.keys(validationErrors).length > 0) {
+        setLocalErrors(validationErrors);
+        setValidationModalItems(buildValidationItems(validationErrors));
+        setValidationModalErrors(Object.values(validationErrors));
+        setIsValidationModalOpen(true);
+        return;
+      }
       syncCombinedAddress(activeStreetAddress, activeUnit, activeCity, activeProvince, activePostalCode, activeCountry);
       if (propSetFullName) {
         propSetFullName(`${activeFirstName} ${activeLastName}`.trim());
@@ -424,127 +530,117 @@ export default function LocationAccessSection({
   ];
 
   const inputBaseClass = isLight
-    ? "h-11 rounded-lg border bg-white text-[#1B2E4B] placeholder:text-gray-400 focus-visible:ring-2 focus-visible:ring-[#C5A059]/40 focus-visible:border-[#C5A059] shadow-sm transition-all"
-    : "h-11 rounded-lg border bg-[#152243] text-slate-100 placeholder:text-slate-500 shadow-inner focus-visible:ring-2 focus-visible:ring-blue-500/40 focus-visible:border-blue-500/60 transition-all";
+    ? "h-11 rounded-lg border border-[#D9DDE5] bg-white text-[#1A2238] placeholder:text-[#687386]/60 focus-visible:ring-2 focus-visible:ring-[#002F6D]/30 focus-visible:border-[#002F6D] shadow-sm transition-all"
+    : "h-11 rounded-lg border border-[#718096] bg-[#152238] text-white placeholder:text-[#C3CDDC]/50 shadow-inner focus-visible:ring-2 focus-visible:ring-[#FFD766]/30 focus-visible:border-[#FFD766] transition-all";
 
   const getInputClass = (hasError?: boolean) => {
     if (hasError) {
       return `${inputBaseClass} border-red-500 ring-1 ring-red-500/40 focus-visible:border-red-500 focus-visible:ring-red-500/50`;
     }
-    return `${inputBaseClass} ${isLight ? "border-[#C7D1D9] bg-gray-200 " : "border-blue-900/40"}`;
+    return inputBaseClass;
   };
 
   const goldLabelClass = isLight
-    ? "text-[10px] font-semibold tracking-wider text-[#C5A059] uppercase block mb-1.5 font-bold"
-    : "text-[10px] font-semibold tracking-wider text-[#c9a858] uppercase block mb-1.5 font-bold";
+    ? "text-[10px] font-bold tracking-wider text-[#002F6D] uppercase block mb-1.5"
+    : "text-[10px] font-bold tracking-wider text-[#FFD766] uppercase block mb-1.5";
 
     //const isCommonPropertyTypeServices = isCommonPropertyTypeFlow(serviceSlug);
 
     const showStep = serviceSlug === "pool-cleaning" || serviceSlug === "precision-pressure-washing" || 
                       serviceSlug === "carpet-upholstery-cleaning"
 
+  
   return (
-    <div className={`space-y-6 transition-colors duration-300 ${isLight ? "text-[#1B2E4B]" : "text-white"}`}>
+    <div className={`space-y-6 transition-colors duration-300 ${isLight ? "text-[#1A2238]" : "text-white"}`}>
       {/* Title & Description */}
-      <div className="">
+      <div>
         <h3
           className={`text-2xl font-bold tracking-wide mb-1 font-serif ${
-            isLight ? "text-[#C5A059]" : "text-[#c9a858]"
+            isLight ? "text-[#1A2238]" : "text-white"
           }`}
         >
           Contact & Service Location
         </h3>
-        <p className={`text-sm ${isLight ? "text-gray-600" : "text-gray-300"}`}>
+        <p className={`text-sm ${isLight ? "text-[#687386]" : "text-[#C3CDDC]"}`}>
           Enter service address and entry credentials for our technician team.
         </p>
       </div>
 
       {/* 1. CONTACT PROFILE SECTION */}
       <div
-        className={`overflow-hidden `}
+        className="rounded-2xl border border-[#D9DDE5] dark:border-[#718096]/50 bg-white dark:bg-[#1B2A40] shadow-sm overflow-hidden transition-colors"
       >
         {/* Header */}
         <div
-          className={`flex items-center gap-3 border-b px-3 py-3.5 ${
-            isLight ? "border-gray-200 " : "border-blue-900/40 bg-[#121E2D]"
-          }`}
+          className="flex items-center gap-3 border-b border-[#D9DDE5] dark:border-[#718096]/40 bg-[#F7F5F0] dark:bg-[#152238] px-4 py-3.5"
         >
           <div
-            className={`flex h-8 w-8 items-center justify-center rounded-lg border ${
-              isLight
-                ? "border-[#C5A059]/30 bg-[#C5A059]/10 text-[#C5A059]"
-                : "border-blue-900/40 bg-[#1f305e] text-blue-400"
-            }`}
+            className="flex h-8 w-8 items-center justify-center rounded-lg border border-[#002F6D]/20 bg-[#002F6D]/10 text-[#002F6D] dark:border-[#FFD766]/30 dark:bg-[#FFD766]/15 dark:text-[#FFD766]"
           >
             <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
               <path strokeLinecap="round" strokeLinejoin="round" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
             </svg>
           </div>
           <div>
-            
-            <h3 className={`text-sm font-bold tracking-wide ${isLight ? "text-[#1B2E4B]" : "text-slate-100"}`}>
+            <h3 className="text-sm font-bold tracking-wide text-[#1A2238] dark:text-white">
               {translate("quotationContactProfile")}
             </h3>
           </div>
         </div>
 
         {/* Content */}
-        <div className="grid grid-cols-1 gap-4 py-5 px-3 sm:grid-cols-2 w-full">
-          
-
-          
-          <div className="flex w-full justify-between">
+        <div className="grid grid-cols-1 gap-4 p-4 sm:p-5 sm:grid-cols-2 w-full bg-white dark:bg-[#1B2A40]">
+          <div className="flex w-full justify-between gap-3">
             {/* Title Prefix */}
-              <div className="space-y-1.5  ">
-                <label className="flex items-center gap-1.5 text-[10px] font-bold uppercase tracking-[0.15em] text-gray-400">
-                  Title Prefix
-                </label>
-                <Select value={activeTitlePrefix} onValueChange={handleTitlePrefixChange}>
-                  <SelectTrigger className={getInputClass()}>
-                    <SelectValue placeholder="Title" />
-                  </SelectTrigger>
-                  <SelectContent className={isLight ? "bg-white text-[#1B2E4B] border-gray-200" : "bg-[#121E2D] border-blue-900/40 text-white"}>
-                    <SelectItem value="Mr.">Mr.</SelectItem>
-                    <SelectItem value="Mrs.">Mrs.</SelectItem>
-                    <SelectItem value="Ms.">Ms.</SelectItem>
-                    <SelectItem value="Dr.">Dr.</SelectItem>
-                    <SelectItem value="Estate Manager">Estate Manager</SelectItem>
-                  </SelectContent>
-                </Select>
-              </div>
-              {/* First Name */}
-              <div className="space-y-1.5 w-[75%]">
-                <label className="flex items-center gap-1.5 text-[10px] font-bold uppercase tracking-[0.15em] text-gray-400">
-                  <svg className="h-3 w-3 text-blue-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+            <div className="space-y-1.5 w-[28%]">
+              <label className="flex items-center gap-1.5 text-[10px] font-bold uppercase tracking-[0.15em] text-[#687386] dark:text-[#C3CDDC]">
+                Title
+              </label>
+              <Select value={activeTitlePrefix} onValueChange={handleTitlePrefixChange}>
+                <SelectTrigger className={getInputClass()}>
+                  <SelectValue placeholder="Title" />
+                </SelectTrigger>
+                <SelectContent className={isLight ? "bg-white text-[#1A2238] border-[#D9DDE5]" : "bg-[#152238] border-[#718096] text-white"}>
+                  <SelectItem value="Mr.">Mr.</SelectItem>
+                  <SelectItem value="Mrs.">Mrs.</SelectItem>
+                  <SelectItem value="Ms.">Ms.</SelectItem>
+                  <SelectItem value="Dr.">Dr.</SelectItem>
+                  <SelectItem value="Estate Manager">Estate Manager</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
+            {/* First Name */}
+            <div className="space-y-1.5 flex-1">
+              <label className="flex items-center gap-1.5 text-[10px] font-bold uppercase tracking-[0.15em] text-[#687386] dark:text-[#C3CDDC]">
+                <svg className="h-3 w-3 text-[#002F6D] dark:text-[#FFD766]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                </svg>
+                {translate("quotationFirstName")} <span className="text-[#D8B63F] dark:text-[#FFD766]">*</span>
+              </label>
+              <Input
+                value={activeFirstName || ""}
+                onChange={(e) => handleFirstNameChange(e.target.value)}
+                placeholder={translate("quotationFirstNamePlaceholder")}
+                className={getInputClass(!!activeErrors.firstName)}
+              />
+              {activeErrors.firstName && (
+                <p className="text-xs text-red-500 dark:text-red-400 flex items-center gap-1 mt-1 animate-in fade-in duration-200">
+                  <svg className="h-3.5 w-3.5 shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                    <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clipRule="evenodd" />
                   </svg>
-                  {translate("quotationFirstName")} <span className="text-amber-400">*</span>
-                </label>
-                <Input
-                  value={activeFirstName || ""}
-                  onChange={(e) => handleFirstNameChange(e.target.value)}
-                  placeholder={translate("quotationFirstNamePlaceholder")}
-                  className={getInputClass(!!activeErrors.firstName)}
-                />
-                {activeErrors.firstName && (
-                  <p className="text-xs text-red-400 flex items-center gap-1 mt-1 animate-in fade-in duration-200">
-                    <svg className="h-3.5 w-3.5 shrink-0" fill="currentColor" viewBox="0 0 20 20">
-                      <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clipRule="evenodd" />
-                    </svg>
-                    <span>{activeErrors.firstName}</span>
-                  </p>
-                )}
-              </div>
+                  <span>{activeErrors.firstName}</span>
+                </p>
+              )}
+            </div>
           </div>
-          
 
           {/* Last Name */}
           <div className="space-y-1.5">
-            <label className="flex items-center gap-1.5 text-[10px] font-bold uppercase tracking-[0.15em] text-gray-400">
-              <svg className="h-3 w-3 text-blue-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+            <label className="flex items-center gap-1.5 text-[10px] font-bold uppercase tracking-[0.15em] text-[#687386] dark:text-[#C3CDDC]">
+              <svg className="h-3 w-3 text-[#002F6D] dark:text-[#FFD766]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                 <path strokeLinecap="round" strokeLinejoin="round" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
               </svg>
-              {translate("quotationLastName")} <span className="text-amber-400">*</span>
+              {translate("quotationLastName")} <span className="text-[#D8B63F] dark:text-[#FFD766]">*</span>
             </label>
             <Input
               value={activeLastName}
@@ -553,7 +649,7 @@ export default function LocationAccessSection({
               className={getInputClass(!!activeErrors.lastName)}
             />
             {activeErrors.lastName && (
-              <p className="text-xs text-red-400 flex items-center gap-1 mt-1 animate-in fade-in duration-200">
+              <p className="text-xs text-red-500 dark:text-red-400 flex items-center gap-1 mt-1 animate-in fade-in duration-200">
                 <svg className="h-3.5 w-3.5 shrink-0" fill="currentColor" viewBox="0 0 20 20">
                   <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clipRule="evenodd" />
                 </svg>
@@ -564,11 +660,11 @@ export default function LocationAccessSection({
 
           {/* Email */}
           <div className="space-y-1.5">
-            <label className="flex items-center gap-1.5 text-[10px] font-bold uppercase tracking-[0.15em] text-gray-400">
-              <svg className="h-3 w-3 text-blue-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+            <label className="flex items-center gap-1.5 text-[10px] font-bold uppercase tracking-[0.15em] text-[#687386] dark:text-[#C3CDDC]">
+              <svg className="h-3 w-3 text-[#002F6D] dark:text-[#FFD766]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                 <path strokeLinecap="round" strokeLinejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
               </svg>
-              {translate("quotationEmail")} <span className="text-amber-400">*</span>
+              {translate("quotationEmail")} <span className="text-[#D8B63F] dark:text-[#FFD766]">*</span>
             </label>
             <Input
               type="email"
@@ -578,7 +674,7 @@ export default function LocationAccessSection({
               className={getInputClass(!!activeErrors.email)}
             />
             {activeErrors.email && (
-              <p className="text-xs text-red-400 flex items-center gap-1 mt-1 animate-in fade-in duration-200">
+              <p className="text-xs text-red-500 dark:text-red-400 flex items-center gap-1 mt-1 animate-in fade-in duration-200">
                 <svg className="h-3.5 w-3.5 shrink-0" fill="currentColor" viewBox="0 0 20 20">
                   <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clipRule="evenodd" />
                 </svg>
@@ -589,11 +685,11 @@ export default function LocationAccessSection({
 
           {/* Phone */}
           <div className="space-y-1.5">
-            <label className="flex items-center gap-1.5 text-[10px] font-bold uppercase tracking-[0.15em] text-gray-400">
-              <svg className="h-3 w-3 text-blue-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+            <label className="flex items-center gap-1.5 text-[10px] font-bold uppercase tracking-[0.15em] text-[#687386] dark:text-[#C3CDDC]">
+              <svg className="h-3 w-3 text-[#002F6D] dark:text-[#FFD766]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                 <path strokeLinecap="round" strokeLinejoin="round" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
               </svg>
-              {translate("quotationPhoneNumber")} <span className="text-amber-400">*</span>
+              {translate("quotationPhoneNumber")} <span className="text-[#D8B63F] dark:text-[#FFD766]">*</span>
             </label>
             <Input
               type="tel"
@@ -603,7 +699,7 @@ export default function LocationAccessSection({
               className={getInputClass(!!activeErrors.phoneNumber || !!activeErrors.phone)}
             />
             {(activeErrors.phoneNumber || activeErrors.phone) && (
-              <p className="text-xs text-red-400 flex items-center gap-1 mt-1 animate-in fade-in duration-200">
+              <p className="text-xs text-red-500 dark:text-red-400 flex items-center gap-1 mt-1 animate-in fade-in duration-200">
                 <svg className="h-3.5 w-3.5 shrink-0" fill="currentColor" viewBox="0 0 20 20">
                   <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clipRule="evenodd" />
                 </svg>
@@ -616,20 +712,14 @@ export default function LocationAccessSection({
 
       {/* 2. LOCATION OF RESIDENCE SECTION */}
       <div
-        className={`overflow-hidden `}
+        className="rounded-2xl border border-[#D9DDE5] dark:border-[#718096]/50 bg-white dark:bg-[#1B2A40] shadow-sm overflow-hidden transition-colors"
       >
         {/* Header */}
         <div
-          className={`flex items-center gap-3 border-b px-3 py-3.5 ${
-            isLight ? "border-gray-200 bg-gray-50" : "border-blue-900/40 bg-[#121E2D]"
-          }`}
+          className="flex items-center gap-3 border-b border-[#D9DDE5] dark:border-[#718096]/40 bg-[#F7F5F0] dark:bg-[#152238] px-4 py-3.5"
         >
           <div
-            className={`flex h-8 w-8 items-center justify-center rounded-lg border ${
-              isLight
-                ? "border-[#C5A059]/30 bg-[#C5A059]/10 text-[#C5A059]"
-                : "border-blue-900/40 bg-[#1f305e] text-blue-400"
-            }`}
+            className="flex h-8 w-8 items-center justify-center rounded-lg border border-[#002F6D]/20 bg-[#002F6D]/10 text-[#002F6D] dark:border-[#FFD766]/30 dark:bg-[#FFD766]/15 dark:text-[#FFD766]"
           >
             <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
               <path strokeLinecap="round" strokeLinejoin="round" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
@@ -637,30 +727,29 @@ export default function LocationAccessSection({
             </svg>
           </div>
           <div>
-            
-            <h3 className={`text-sm font-bold tracking-wide ${isLight ? "text-[#1B2E4B]" : "text-slate-100"}`}>
+            <h3 className="text-sm font-bold tracking-wide text-[#1A2238] dark:text-white">
               {translate("quotationLocationResidence")}
             </h3>
           </div>
         </div>
 
         {/* Content */}
-        <div className="grid grid-cols-1 gap-4 py-5 px-3 sm:grid-cols-2">
+        <div className="grid grid-cols-1 gap-4 p-4 sm:p-5 sm:grid-cols-2 bg-white dark:bg-[#1B2A40]">
           {/* Country */}
           <div className="space-y-1.5">
-            <label className="flex items-center gap-1.5 text-[10px] font-bold uppercase tracking-[0.15em] text-gray-400">
-              <svg className="h-3 w-3 text-blue-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+            <label className="flex items-center gap-1.5 text-[10px] font-bold uppercase tracking-[0.15em] text-[#687386] dark:text-[#C3CDDC]">
+              <svg className="h-3 w-3 text-[#002F6D] dark:text-[#FFD766]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                 <path strokeLinecap="round" strokeLinejoin="round" d="M3 21v-4m0 0V5a2 2 0 012-2h6.5l1 1H21l-3 6 3 6h-8.5l-1-1H5a2 2 0 00-2 2zm9-13.5V9" />
               </svg>
-              {translate("quotationSelectCountry")} <span className="text-amber-400">*</span>
+              {translate("quotationSelectCountry")} <span className="text-[#D8B63F] dark:text-[#FFD766]">*</span>
             </label>
             <Select value={activeCountry} onValueChange={handleCountryChange}>
               <SelectTrigger className={getInputClass(!!activeErrors.selectedCountry)}>
                 <SelectValue placeholder={translate("quotationSelectCountry")} />
               </SelectTrigger>
-              <SelectContent className={isLight ? "bg-white text-[#1B2E4B] border-gray-200" : "bg-[#121E2D] border-blue-900/40 text-white"}>
+              <SelectContent className={isLight ? "bg-white text-[#1A2238] border-[#D9DDE5]" : "bg-[#152238] border-[#718096] text-white"}>
                 {COUNTRY_OPTIONS.map((c) => (
-                  <SelectItem key={c.code} value={c.name} className="focus:bg-[#b3b0b0] text-slate-600">
+                  <SelectItem key={c.code} value={c.name} className="focus:bg-[#002F6D]/10 dark:focus:bg-[#FFD766]/20 text-[#1A2238] dark:text-white cursor-pointer">
                     <span className="flex items-center gap-2">
                       <c.Flag className="h-3.5 w-5 shrink-0 object-cover" />
                       {c.name}
@@ -670,7 +759,7 @@ export default function LocationAccessSection({
               </SelectContent>
             </Select>
             {activeErrors.selectedCountry && (
-              <p className="text-xs text-red-400 flex items-center gap-1 mt-1 animate-in fade-in duration-200">
+              <p className="text-xs text-red-500 dark:text-red-400 flex items-center gap-1 mt-1 animate-in fade-in duration-200">
                 <svg className="h-3.5 w-3.5 shrink-0" fill="currentColor" viewBox="0 0 20 20">
                   <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clipRule="evenodd" />
                 </svg>
@@ -681,11 +770,11 @@ export default function LocationAccessSection({
 
           {/* Postal Code */}
           <div className="space-y-1.5">
-            <label className="flex items-center gap-1.5 text-[10px] font-bold uppercase tracking-[0.15em] text-gray-400">
-              <svg className="h-3 w-3 text-blue-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+            <label className="flex items-center gap-1.5 text-[10px] font-bold uppercase tracking-[0.15em] text-[#687386] dark:text-[#C3CDDC]">
+              <svg className="h-3 w-3 text-[#002F6D] dark:text-[#FFD766]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                 <path strokeLinecap="round" strokeLinejoin="round" d="M7 20l4-16m2 16l4-16M6 9h14M4 15h14" />
               </svg>
-              {translate("quotationPostalCode")} <span className="text-amber-400">*</span>
+              {translate("quotationPostalCode")} <span className="text-[#D8B63F] dark:text-[#FFD766]">*</span>
             </label>
             <Input
               value={activePostalCode || ""}
@@ -694,7 +783,7 @@ export default function LocationAccessSection({
               className={getInputClass(!!activeErrors.postalCode)}
             />
             {activeErrors.postalCode && (
-              <p className="text-xs text-red-400 flex items-center gap-1 mt-1 animate-in fade-in duration-200">
+              <p className="text-xs text-red-500 dark:text-red-400 flex items-center gap-1 mt-1 animate-in fade-in duration-200">
                 <svg className="h-3.5 w-3.5 shrink-0" fill="currentColor" viewBox="0 0 20 20">
                   <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clipRule="evenodd" />
                 </svg>
@@ -705,11 +794,11 @@ export default function LocationAccessSection({
 
           {/* City */}
           <div className="space-y-1.5">
-            <label className="flex items-center gap-1.5 text-[10px] font-bold uppercase tracking-[0.15em] text-gray-400">
-              <svg className="h-3 w-3 text-blue-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+            <label className="flex items-center gap-1.5 text-[10px] font-bold uppercase tracking-[0.15em] text-[#687386] dark:text-[#C3CDDC]">
+              <svg className="h-3 w-3 text-[#002F6D] dark:text-[#FFD766]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                 <path strokeLinecap="round" strokeLinejoin="round" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
               </svg>
-              {translate("quotationCity")} <span className="text-amber-400">*</span>
+              {translate("quotationCity")} <span className="text-[#D8B63F] dark:text-[#FFD766]">*</span>
             </label>
             <Input 
               value={activeCity || ""}
@@ -718,7 +807,7 @@ export default function LocationAccessSection({
               className={getInputClass(!!activeErrors.city)}
             />
             {activeErrors.city && (
-              <p className="text-xs text-red-400 flex items-center gap-1 mt-1 animate-in fade-in duration-200">
+              <p className="text-xs text-red-500 dark:text-red-400 flex items-center gap-1 mt-1 animate-in fade-in duration-200">
                 <svg className="h-3.5 w-3.5 shrink-0" fill="currentColor" viewBox="0 0 20 20">
                   <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clipRule="evenodd" />
                 </svg>
@@ -729,11 +818,11 @@ export default function LocationAccessSection({
 
           {/* Province / State */}
           <div className="space-y-1.5">
-            <label className="flex items-center gap-1.5 text-[10px] font-bold uppercase tracking-[0.15em] text-gray-400">
-              <svg className="h-3 w-3 text-blue-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+            <label className="flex items-center gap-1.5 text-[10px] font-bold uppercase tracking-[0.15em] text-[#687386] dark:text-[#C3CDDC]">
+              <svg className="h-3 w-3 text-[#002F6D] dark:text-[#FFD766]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                 <path strokeLinecap="round" strokeLinejoin="round" d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7" />
               </svg>
-              {translate("quotationProvinceState")} <span className="text-amber-400">*</span>
+              {translate("quotationProvinceState")} <span className="text-[#D8B63F] dark:text-[#FFD766]">*</span>
             </label>
             <Input
               value={activeProvince || ""}
@@ -742,7 +831,7 @@ export default function LocationAccessSection({
               className={getInputClass(!!activeErrors.province)}
             />
             {activeErrors.province && (
-              <p className="text-xs text-red-400 flex items-center gap-1 mt-1 animate-in fade-in duration-200">
+              <p className="text-xs text-red-500 dark:text-red-400 flex items-center gap-1 mt-1 animate-in fade-in duration-200">
                 <svg className="h-3.5 w-3.5 shrink-0" fill="currentColor" viewBox="0 0 20 20">
                   <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clipRule="evenodd" />
                 </svg>
@@ -753,12 +842,12 @@ export default function LocationAccessSection({
 
           {/* Street Address */}
           <div className="space-y-1.5 sm:col-span-2">
-            <label className="flex items-center gap-1.5 text-[10px] font-bold uppercase tracking-[0.15em] text-gray-400">
-              <svg className="h-3 w-3 text-blue-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+            <label className="flex items-center gap-1.5 text-[10px] font-bold uppercase tracking-[0.15em] text-[#687386] dark:text-[#C3CDDC]">
+              <svg className="h-3 w-3 text-[#002F6D] dark:text-[#FFD766]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                 <path strokeLinecap="round" strokeLinejoin="round" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
                 <path strokeLinecap="round" strokeLinejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
               </svg>
-              {translate("quotationStreetAddress")} <span className="text-amber-400">*</span>
+              {translate("quotationStreetAddress")} <span className="text-[#D8B63F] dark:text-[#FFD766]">*</span>
             </label>
             <Input
               value={activeStreetAddress || ""}
@@ -767,7 +856,7 @@ export default function LocationAccessSection({
               className={getInputClass(!!activeErrors.streetAddress || !!activeErrors.address)}
             />
             {(activeErrors.streetAddress || activeErrors.address) && (
-              <p className="text-xs text-red-400 flex items-center gap-1 mt-1 animate-in fade-in duration-200">
+              <p className="text-xs text-red-500 dark:text-red-400 flex items-center gap-1 mt-1 animate-in fade-in duration-200">
                 <svg className="h-3.5 w-3.5 shrink-0" fill="currentColor" viewBox="0 0 20 20">
                   <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clipRule="evenodd" />
                 </svg>
@@ -778,12 +867,12 @@ export default function LocationAccessSection({
 
           {/* Unit / Apt / Suite (Optional) */}
           <div className="space-y-1.5 sm:col-span-2">
-            <label className="flex items-center gap-1.5 text-[10px] font-bold uppercase tracking-[0.15em] text-gray-400">
-              <svg className="h-3 w-3 text-blue-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+            <label className="flex items-center gap-1.5 text-[10px] font-bold uppercase tracking-[0.15em] text-[#687386] dark:text-[#C3CDDC]">
+              <svg className="h-3 w-3 text-[#002F6D] dark:text-[#FFD766]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                 <path strokeLinecap="round" strokeLinejoin="round" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
               </svg>
               {translate("quotationUnit")}
-              <span className={`ml-1 rounded-full px-2 py-0.5 text-[9px] font-semibold ${isLight ? "bg-gray-100 text-gray-600" : "bg-[#1f305e] text-blue-300"}`}>
+              <span className={`ml-1 rounded-full px-2 py-0.5 text-[9px] font-semibold ${isLight ? "bg-[#002F6D]/10 text-[#002F6D]" : "bg-[#FFD766]/20 text-[#FFD766]"}`}>
                 Optional
               </span>
             </label>
@@ -799,13 +888,13 @@ export default function LocationAccessSection({
 
       {/* 3. CONDITIONAL SECTION: Water Source Access (e.g. pool cleaning) */}
       {shouldShowWaterSource && (
-        <div className="space-y-1.5">
+        <div className="rounded-2xl border border-[#D9DDE5] dark:border-[#718096]/50 bg-white dark:bg-[#1B2A40] p-4 sm:p-5 shadow-sm space-y-2">
           <label className={goldLabelClass}>Water Source Access</label>
           <Select value={activeWaterSource} onValueChange={handleWaterSourceChange}>
             <SelectTrigger className={getInputClass()}>
               <SelectValue placeholder="Select water source" />
             </SelectTrigger>
-            <SelectContent className={isLight ? "bg-white text-[#1B2E4B] border-gray-200" : "bg-[#121E2D] border-blue-900/40 text-white"}>
+            <SelectContent className={isLight ? "bg-white text-[#1A2238] border-[#D9DDE5]" : "bg-[#152238] border-[#718096] text-white"}>
               <SelectItem value="Outdoor Hose Spigot Ready">Outdoor Hose Spigot Ready</SelectItem>
               <SelectItem value="Technician Needs Own Hose Extension">Technician Needs Own Hose Extension</SelectItem>
               <SelectItem value="Well Water System">Well Water System</SelectItem>
@@ -815,7 +904,7 @@ export default function LocationAccessSection({
       )}
 
       {/* 4. ACCESS & ENTRY DETAILS */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <div className="rounded-2xl border border-[#D9DDE5] dark:border-[#718096]/50 bg-white dark:bg-[#1B2A40] p-4 sm:p-5 shadow-sm space-y-4">
         {/* Gate Code */}
         <div>
           <label className={goldLabelClass}>Side Gate Code / Access</label>
@@ -826,49 +915,62 @@ export default function LocationAccessSection({
             className={getInputClass()}
           />
         </div>
-      </div>
 
-      {/* Technician Entry Notes */}
-      <div>
-        <label className={goldLabelClass}>Technician Entry Notes</label>
-        <textarea
-          rows={3}
-          value={activeEntryNotes}
-          onChange={(e) => handleEntryNotesChange(e.target.value)}
-          placeholder="e.g. Friendly Golden Retriever in yard, beware of loose pavers near infinity pump..."
-          className={`w-full rounded-xl p-4 text-sm transition-colors focus:outline-none ${
-            isLight
-              ? "bg-white border border-[#C7D1D9] text-[#1B2E4B] placeholder-gray-400 focus:border-[#C5A059]"
-              : "bg-[#0B132B]/60 border border-white/20 text-white placeholder-gray-500 focus:border-[#c9a858]"
-          }`}
-        />
+        {/* Technician Entry Notes */}
+        <div>
+          <label className={goldLabelClass}>Technician Entry Notes</label>
+          <textarea
+            rows={3}
+            value={activeEntryNotes}
+            onChange={(e) => handleEntryNotesChange(e.target.value)}
+            placeholder="e.g. Friendly Golden Retriever in yard, beware of loose pavers near infinity pump..."
+            className={`w-full rounded-xl p-4 text-sm transition-colors focus:outline-none ${
+              isLight
+                ? "bg-white border border-[#D9DDE5] text-[#1A2238] placeholder-[#687386]/60 focus:border-[#002F6D]"
+                : "bg-[#152238] border border-[#718096] text-white placeholder-[#C3CDDC]/50 focus:border-[#FFD766]"
+            }`}
+          />
+        </div>
       </div>
 
       {/* Action Buttons */}
-      {showStep && (<div className={`flex gap-4 pt-4 border-t ${isLight ? "border-gray-200" : "border-white/10"}`}>
-        <button
-          type="button"
-          onClick={onPrevStep}
-          className={`px-6 py-3 rounded-xl border font-medium text-sm transition-colors ${
-            isLight
-              ? "border-[#C7D1D9] text-[#1B2E4B] hover:bg-gray-100"
-              : "border-white/20 text-white hover:bg-white/5"
-          }`}
-        >
-          Back
-        </button>
-        <button
-          type="button"
-          onClick={handleProceedClick}
-          className={`flex-1 py-3 px-6 rounded-xl font-bold text-sm shadow-xl transition-all flex items-center justify-center gap-2 ${
-            isLight
-              ? "bg-[#C5A059] text-white hover:bg-[#b08e4d] shadow-[#C5A059]/20"
-              : "bg-gradient-to-r from-[#c9a858] to-[#e4cc8c] text-[#121e2d] shadow-[#c9a858]/20 hover:brightness-105"
-          }`}
-        >
-          Proceed to Step 5
-        </button>
-      </div>)}
+      {showStep && (
+        <div className={`flex gap-4 pt-4 border-t ${isLight ? "border-[#D9DDE5]" : "border-[#718096]/30"}`}>
+          <button
+            type="button"
+            onClick={onPrevStep}
+            className={`px-6 py-3 rounded-xl border font-semibold text-sm transition-colors cursor-pointer ${
+              isLight
+                ? "border-[#D9DDE5] text-[#1A2238] hover:bg-[#F7F5F0]"
+                : "border-[#718096] text-[#C3CDDC] hover:bg-[#152238]"
+            }`}
+          >
+            Back
+          </button>
+          <button
+            type="button"
+            onClick={handleProceedClick}
+            className={`flex-1 py-3 px-6 rounded-xl font-bold text-sm shadow-xl transition-all flex items-center justify-center gap-2 cursor-pointer ${
+              isLight
+                ? "bg-[#002F6D] text-white hover:bg-[#002F6D]/90 shadow-[#002F6D]/20"
+                : "bg-[#FFD766] text-[#002F6D] hover:bg-[#FFD766]/90 shadow-[#FFD766]/20 font-bold"
+            }`}
+          >
+            Proceed to Step 5
+          </button>
+        </div>
+      )}
+
+      {/* Booking Validation Modal */}
+      <BookingValidationModal
+        isOpen={isValidationModalOpen}
+        onClose={() => setIsValidationModalOpen(false)}
+        items={validationModalItems}
+        errors={validationModalErrors}
+        theme={isLight ? "light" : "dark"}
+        title="Please complete the required details before submitting:"
+        actionText="Review Missing Details"
+      />
     </div>
   );
 }
