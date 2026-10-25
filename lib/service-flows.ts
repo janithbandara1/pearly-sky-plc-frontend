@@ -45,7 +45,6 @@ const commonPropertyTypesWithRoomComponents = new Set([
   "same-day-priority-cleaning",
   
   
-  
 ]);
 
 const DedicatedRooms = new Set([
@@ -100,7 +99,6 @@ const QUOTE_ON_SERVICE_PAGE = new Set([
   "child-care-service",
   "elder-care-service",
   "carpet-upholstery-cleaning",
-  "pool-cleaning",
   "precision-pressure-washing",
 ]);
 

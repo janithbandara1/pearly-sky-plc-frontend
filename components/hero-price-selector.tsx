@@ -137,7 +137,7 @@ export function HeroPriceSelector({
   const {translate} =useLanguage();
   return (
     <>
-      <div className="mt-4 hidden flex-col items-center justify-start gap-2 md:flex sm:flex-row">
+      <div className="border font-serif absolute bottom-5 left-115 border-[rgba(212_175_55/0.3)] px-5 py-2.5 rounded-xl  bg-brand-navy   hidden flex-col items-center justify-start gap-2 md:flex sm:flex-row">
         <PriceLabel
           selectedData={selectedData}
           className="text-medium font-semibold text-[#A98B4B] sm:text-2xl"
@@ -152,13 +152,13 @@ export function HeroPriceSelector({
             onCountryChange={onCountryChange}
             placement="desktop"
           />
-          <p className="m-0 font-[Poppins] pl-2 text-base font-extrabold leading-[1.5] text-[rgb(169,139,75)] [text-shadow:rgba(0,0,0,0.3)_0px_1px_4px]">
+          <p className="m-0 font-serif  pl-2 text-base  leading-[1.5] font-bold text-[#997A15] [text-shadow:rgba(0,0,0,0.3)_0px_1px_4px]">
             {translate(unitLabelKey)}
           </p>
         </div>
       </div>
 
-      <div className="absolute top-20 z-14 my-4 flex w-[320px] flex-row items-center gap-1 rounded-lg bg-[rgb(18,30,45)] px-2 py-4 md:hidden">
+      <div className="absolute border-[rgba(212_175_55/0.3)] bottom-30 left-8 z-14 my-4 flex w-[320px] flex-row items-center gap-1 rounded-lg bg-[rgb(18,30,45)] px-2 py-4 md:hidden">
         <PriceLabel
           selectedData={selectedData}
           className="w-[40%] text-[0.65rem] font-semibold text-[#A98B4B] max-[541px]:text-base max-[541px]:text-white"
@@ -173,7 +173,7 @@ export function HeroPriceSelector({
             onCountryChange={onCountryChange}
             placement="mobile"
           />
-          <p className="m-0 wrap-break-word font-[Poppins] text-[0.85rem] font-extrabold leading-[1.5] text-[rgb(233,233,233)] [text-shadow:rgba(0,0,0,0.3)_0px_1px_4px]">
+          <p className="m-0 wrap-break-word font-[Poppins] text-[0.85rem]  leading-[1.5] font-bold text-[#997A15] [text-shadow:rgba(0,0,0,0.3)_0px_1px_4px]">
             {translate(unitLabelKey)}
           </p>
         </div>

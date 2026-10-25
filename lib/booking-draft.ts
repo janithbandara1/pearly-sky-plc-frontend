@@ -95,6 +95,15 @@ export interface BookingDraft {
   howHeard?: string;
   province?: string;
   unit?: string;
+  firstName?: string;
+  lastName?: string;
+  email?: string;
+  contact?: string;
+  streetAddress?: string;
+  city?: string;
+  state?: string;
+  postalCode?: string;
+  country?: string;
 
   caregiverGender?: string;
   quoteItems?: QuoteItem[];

@@ -304,7 +304,7 @@ function ServiceCard({ service }: { service: HomeService }) {
         ) : service.isBookable ? (
           <>
             <Link
-              href={`/services/${service.slug}/request-quotation`}
+              href={`/request-a-detailed-quotation`}
               className="flex w-full items-center justify-center gap-2 rounded-xl border border-brand-gold/80 bg-transparent py-3 text-sm font-semibold uppercase tracking-wider text-white transition-colors hover:bg-brand-gold/10"
             >
               <Key className="h-4 w-4 text-brand-gold" />
@@ -379,7 +379,7 @@ function CategoryGrid({ services, limit }: { services: HomeService[]; limit?: nu
       )}
     </>
   );
-}
+} 
 
 export function ServicesSection({ services }: { services: HomeService[] }) {
   const { translate } = useLanguage();

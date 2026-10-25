@@ -8,7 +8,7 @@ export const fr = {
   navAbout: "À Propos",
   navCustomers: "Nos Clients",
   navLocations: "Nos Implantations",
-  navBlog: "Blog", 
+  navBlog: "Blog",
   navCareers: "Carrières",
   navLogin: "Connexion",
   navSignup: "Inscription",
@@ -20,585 +20,585 @@ export const fr = {
 
   heroCtaThird: "DEMANDER UN DEVIS",
 
-servicesCategoryResidentialCleaning:" 🏠 SERVICES DE NETTOYAGE RÉSIDENTIEL",
-servicesCategoryPremiumAddOns:" ➕ SERVICES SUPPLÉMENTAIRES PREMIUM",
-servicesCategoryCommercialSpecialised: "🏢 SERVICES DE NETTOYAGE COMMERCIAUX ET SPÉCIALISÉS",
-servicesCategoryCareConcierge:" 🤝 SERVICES D'ASSISTANCE ET DE CONCIERGERIE",
-  
-
-    /////////////////////////////////////////
-/////Service page All contents//////////
-//regular-home-cleaning///
-serviceRegularCleaningIntroHeadLine: "Le rafraîchissement hebdomadaire : une propreté constante, une sérénité durable.",
-serviceRegularCleaningIntroBody: "Arrêtez de stresser avec les tâches ménagères quotidiennes. Notre service de nettoyage résidentiel standard établit un planning récurrent fiable qui maintient votre maison impeccable sans effort. Nous utilisons exclusivement des produits verts certifiés écologiques pour offrir un nettoyage en profondeur étincelant, 100 % sûr pour les enfants et les animaux. Engagez-vous dans la régularité et profitez du luxe de rentrer chez vous dans un espace plus sain et toujours impeccable chaque semaine. Consultez nos tarifs transparents et réservez votre nettoyage dès aujourd’hui.​Définissez votre planning récurrent",
-
-serviceRegularCleaningHighlightTitleOne: "Points forts du nettoyage régulier à domicile",
-serviceRegularCleaningHighlightCardTitleOne: "Entretien général de la maison",
-serviceRegularCleaningHighlightCardTitleTwo: "Points de contact essentiels",
-serviceRegularCleaningHighlightCardTitleThree: "Cuisine et salle à manger",
-serviceRegularCleaningHighlightCardTitleFour: "Nettoyage des salles de bain",
-
-serviceRegularCleaningTitleOneFeatureOne: "Dépoussiérage",
-serviceRegularCleaningTitleOneFeatureTwo: "Nettoyage des surfaces (y compris le verre).",
-serviceRegularCleaningTitleOneFeatureThree: "Rangement léger.",
-serviceRegularCleaningTitleOneFeatureFour: "Évacuation des déchets et entretien des sols (aspirateur/serpillière).",
-
-serviceRegularCleaningTitleTwoFeatureOne: "Faire les lits, gestion du linge et désinfection ciblée des surfaces à fort contact pour la santé et l’entretien.",
-
-serviceRegularCleaningTitleThreeFeatureOne: "Entretien extérieur des appareils électroménagers.",
-serviceRegularCleaningTitleThreeFeatureTwo: "Désinfection des plans de travail et de l’évier.",
-serviceRegularCleaningTitleThreeFeatureThree: "Organisation de la vaisselle et nettoyage complet des sols.",
-
-serviceRegularCleaningTitleFourFeatureOne: "Désinfection complète et accent sur l’hygiène.",
-serviceRegularCleaningTitleFourFeatureTwo: "Nettoyage des toilettes, lavabo, douche et baignoire.",
-serviceRegularCleaningTitleFourFeatureThree: "Nettoyage des miroirs et placement de serviettes fraîches.",
-
-//quick-touch-up-cleaning///
-serviceQuickTouchUpCleaningIntroHeadLine: "Fraîcheur express pour les espaces à fort passage",
-serviceQuickTouchUpCleaningIntroBody: [
-  "Manque de temps mais besoin que votre maison soit impeccable ? Notre nettoyage de retouche essentiel est un service rapide et précis conçu pour redonner de l’éclat à vos pièces de vie principales. Idéal avant de recevoir des invités, après un événement ou entre deux passages réguliers, nous nous concentrons sur les zones à fort trafic — surfaces clés, cuisines et salles de bain — avec des produits 100 % écologiques certifiés. Profitez d’un environnement propre et accueillant sans vous engager dans un nettoyage complet. Consultez nos tarifs transparents et réservez votre rafraîchissement express dès aujourd’hui."
-],
-
-serviceQuickTouchUpCleaningHighlightTitleOne: "Points forts du nettoyage de retouche essentiel",
-serviceQuickTouchUpCleaningHighlightCardTitleTwo: "Cuisine",
-serviceQuickTouchUpCleaningHighlightCardTitleThree: "Salles de bain",
-serviceQuickTouchUpCleaningHighlightCardTitleFour: "Salon et chambres",
-serviceQuickTouchUpCleaningHighlightCardTitleFive: "Sols et poubelles",
-
-serviceQuickTouchUpCleaningTitleTwoFeatureOne: "Essuyage de l’extérieur de tous les gros électroménagers (frigo, four, lave-vaisselle).",
-serviceQuickTouchUpCleaningTitleTwoFeatureTwo: "Nettoyage et désinfection des plans de travail et de la crédence.",
-serviceQuickTouchUpCleaningTitleTwoFeatureThree: "Récurage et polissage de l’évier et du robinet.",
-serviceQuickTouchUpCleaningTitleTwoFeatureFour: "Essuyage de la plaque de cuisson (surface uniquement).",
-serviceQuickTouchUpCleaningTitleTwoFeatureFive: "Essuyage extérieur du micro-ondes.",
-
-serviceQuickTouchUpCleaningTitleThreeFeatureOne: "Désinfection des toilettes, de l’abattant et de la base.",
-serviceQuickTouchUpCleaningTitleThreeFeatureTwo: "Nettoyage des miroirs et des surfaces vitrées.",
-serviceQuickTouchUpCleaningTitleThreeFeatureThree: "Essuyage du meuble-lavabo et du lavabo.",
-serviceQuickTouchUpCleaningTitleThreeFeatureFour: "Rinçage rapide et essuyage de la douche/baignoire (sans récurage intensif des joints).",
-
-serviceQuickTouchUpCleaningTitleFourFeatureOne: "Dépoussiérage des surfaces planes (tables, tables de nuit, bureaux).",
-serviceQuickTouchUpCleaningTitleFourFeatureTwo: "Remise en place des coussins et oreillers.",
-serviceQuickTouchUpCleaningTitleFourFeatureThree: "Essuyage rapide des miroirs et cadres.",
-
-serviceQuickTouchUpCleaningTitleFiveFeatureOne: "Aspiration de tous les tapis et moquettes.",
-serviceQuickTouchUpCleaningTitleFiveFeatureTwo: "Lavage de tous les sols durs (serpillière humide standard).",
-serviceQuickTouchUpCleaningTitleFiveFeatureThree: "Vidage de toutes les poubelles et remplacement des sacs.",
-
-//same-day-priority-cleaning///
-serviceSameDayPriorityCleaningIntroHeadLine: "Intervention urgente, propreté sans compromis",
-serviceSameDayPriorityCleaningIntroBody: [
-  "Besoin d’un nettoyage immédiat au dernier moment ? Notre nettoyage prioritaire le jour même offre une intervention rapide pour des visiteurs inattendus, des événements de dernière minute ou des urgences soudaines. Nous priorisons votre réservation pour envoyer un professionnel chez vous le plus vite possible, avec des produits 100 % écologiques certifiés, non toxiques et sûrs pour votre famille et vos animaux. Obtenez un soulagement immédiat et une planification prioritaire garantie quand le temps presse. Consultez nos tarifs transparents et réservez votre soutien prioritaire immédiat dès maintenant."
-],
-
-serviceSameDayPriorityCleaningHighlightTitleOne: "Checklist après-soirée (Maximum de désordre, maximum d’impact)",
-serviceSameDayPriorityCleaningHighlightTitleTwo: "Checklist nettoyage instantané (Service standard – Nos priorités)",
-serviceSameDayPriorityCleaningHighlightCardTitleTwo: "Sols et entrée",
-serviceSameDayPriorityCleaningHighlightCardTitleThree: "Remise en ordre des espaces communs",
-serviceSameDayPriorityCleaningHighlightCardTitleFour: "Cuisine et coin bar",
-serviceSameDayPriorityCleaningHighlightCardTitleFive: "Checklist nettoyage instantané (Service standard – Nos priorités)",
-serviceSameDayPriorityCleaningHighlightCardTitleSix: "Nettoyage express de la cuisine",
-serviceSameDayPriorityCleaningHighlightCardTitleSeven: "Rafraîchissement des salles de bain",
-
-serviceSameDayPriorityCleaningTitleTwoFeatureOne: "Aspiration et balayage haute puissance des espaces de vie principaux.",
-serviceSameDayPriorityCleaningTitleTwoFeatureTwo: "Lavage localisé des zones à fort passage et des zones de déversement.",
-
-serviceSameDayPriorityCleaningTitleThreeFeatureOne: "Collecte des objets épars, verres et déchets.",
-serviceSameDayPriorityCleaningTitleThreeFeatureTwo: "Vidage et désinfection des poubelles.",
-serviceSameDayPriorityCleaningTitleThreeFeatureThree: "Dépoussiérage et nettoyage localisé des surfaces visibles.",
-serviceSameDayPriorityCleaningTitleThreeFeatureFour: "Remise en place du mobilier (canapés, chaises, coussins).",
-
-serviceSameDayPriorityCleaningTitleFourFeatureOne: "Élimination des bouteilles, canettes et vaisselle de service vides.",
-serviceSameDayPriorityCleaningTitleFourFeatureTwo: "Désinfection de tous les plans de travail et surfaces collantes.",
-serviceSameDayPriorityCleaningTitleFourFeatureThree: "Mise en marche du lave-vaisselle ; lavage de la vaisselle de base.",
-serviceSameDayPriorityCleaningTitleFourFeatureFour: "Nettoyage des taches de boissons sur les sols durs.",
-
-serviceSameDayPriorityCleaningTitleSixFeatureOne: "Essuyage des plans de travail.",
-serviceSameDayPriorityCleaningTitleSixFeatureTwo: "Nettoyage localisé des façades de placards.",
-serviceSameDayPriorityCleaningTitleSixFeatureThree: "Nettoyage de l’extérieur du micro-ondes et de la plaque de cuisson.",
-serviceSameDayPriorityCleaningTitleSixFeatureFour: "Lavage ou chargement d’un petit lot de vaisselle",
-serviceSameDayPriorityCleaningTitleSixFeatureFive: "Désinfection de l’évier et polissage des robinets",
-
-serviceSameDayPriorityCleaningTitleSevenFeatureOne: "Désinfection du lavabo et du meuble-lavabo.",
-serviceSameDayPriorityCleaningTitleSevenFeatureTwo: "Nettoyage des toilettes à l’intérieur et à l’extérieur.",
-serviceSameDayPriorityCleaningTitleSevenFeatureThree: "Essuyage rapide des miroirs.",
-serviceSameDayPriorityCleaningTitleSevenFeatureFour: "Changement de la serviette à mains.",
-serviceSameDayPriorityCleaningTitleSevenFeatureFive: "Remplacement des serviettes à mains usagées",
-serviceSameDayPriorityCleaningTitleSevenFeatureSix: "Vidage de la poubelle et désodorisation",
-
-//deep-cleaning///
-serviceDeepCleaningIntroHeadLine: "Au-delà de la surface : découvrez la différence d’un nettoyage en profondeur pour une maison vraiment remise à zéro.",
-serviceDeepCleaningIntroBody: [
-  "Si votre maison a besoin de plus qu’un simple coup de frais, notre Remise à zéro totale de la maison est la solution idéale. C’est notre forfait de nettoyage le plus approfondi et détaillé, conçu pour éliminer la saleté, la poussière et les accumulations que le nettoyage standard néglige. Nous consacrons le temps nécessaire pour nettoyer en profondeur chaque recoin et établir une base impeccable pour votre maison.",
-  "Quand le temps est compté, choisissez l’équipe qui garantit une différence visible rapidement."
-],
-
-serviceDeepCleaningHighlightTitleOne: "Points forts du nettoyage en profondeur",
-serviceDeepCleaningHighlightCardTitleTwo: "Détail cuisine",
-serviceDeepCleaningHighlightCardTitleThree: "Sanctuaire salle de bain",
-serviceDeepCleaningHighlightCardTitleFour: "Sols",
-serviceDeepCleaningHighlightCardTitleFive: "Focus sur toutes les zones",
-
-serviceDeepCleaningTitleTwoFeatureOne: "Récurage intensif des crédences.",
-serviceDeepCleaningTitleTwoFeatureTwo: "Nettoyage en profondeur de l’extérieur des appareils.",
-serviceDeepCleaningTitleTwoFeatureThree: "Dégraissage des hottes et plaques de cuisson.",
-
-serviceDeepCleaningTitleThreeFeatureOne: "Récurage approfondi des joints de douche et des murs carrelés.",
-serviceDeepCleaningTitleThreeFeatureTwo: "Désinfection des toilettes, baignoires et lavabos.",
-serviceDeepCleaningTitleThreeFeatureThree: "Détartrage des robinetteries et des portes de douche en verre.",
-
-serviceDeepCleaningTitleFourFeatureOne: "Aspiration haute puissance et nettoyage des bords de moquettes.",
-serviceDeepCleaningTitleFourFeatureTwo: "Lavage en profondeur et désinfection des sols durs.",
-serviceDeepCleaningTitleFourFeatureThree: "Nettoyage détaillé des plinthes et des coins de sols.",
-
-serviceDeepCleaningTitleFiveFeatureOne: "Essuyage et dépoussiérage de toutes les plinthes.",
-serviceDeepCleaningTitleFiveFeatureTwo: "Nettoyage détaillé des appuis de fenêtre et rebords.",
-serviceDeepCleaningTitleFiveFeatureThree: "Désinfection des cadres de portes, portes et poignées.",
-
-//end-of-tenancy-cleaning///
-serviceEndOfTenancyCleaningIntroHeadLine: "Maison vide, nettoyage complet : garantie de récupération de votre caution ou d’un nouveau départ étincelant.",
-serviceEndOfTenancyCleaningIntroBody: [
-  "Notre service de Transition Tidy / Spotless Turnover est un nettoyage hautement ciblé et complet, conçu spécialement pour les biens vides. Ce service va au-delà du nettoyage en profondeur standard, en se concentrant intensément sur les zones oubliées comme l’intérieur des placards, tiroirs et espaces utilitaires, afin de répondre aux normes strictes exigées pour un turnover.",
-  "Pour une transition sans accroc, faites confiance aux experts du turnover total de propriété."
-],
-
-serviceEndOfTenancyCleaningHighlightTitleOne: "Points forts du nettoyage de fin de location",
-serviceEndOfTenancyCleaningHighlightCardTitleTwo: "Détail cuisine et buanderie",
-serviceEndOfTenancyCleaningHighlightCardTitleThree: "Salle de bain intensive",
-serviceEndOfTenancyCleaningHighlightCardTitleFour: "Zones générales et murs",
-serviceEndOfTenancyCleaningHighlightCardTitleFive: "Sols",
-
-serviceEndOfTenancyCleaningTitleTwoFeatureOne: "Intérieur et extérieur de tous les placards et tiroirs essuyés.",
-serviceEndOfTenancyCleaningTitleTwoFeatureTwo: "Intérieur et extérieur de tous les gros électroménagers (four, frigo, lave-vaisselle) soigneusement nettoyés.",
-serviceEndOfTenancyCleaningTitleTwoFeatureThree: "Récurage en profondeur de la hotte et de la plaque de cuisson.",
-
-serviceEndOfTenancyCleaningTitleThreeFeatureOne: "Récurage intensif et détartrage des joints de douche, carrelage, baignoires et portes de douche.",
-serviceEndOfTenancyCleaningTitleThreeFeatureTwo: "Nettoyage de l’intérieur des tiroirs et placards du meuble-lavabo.",
-
-serviceEndOfTenancyCleaningTitleFourFeatureOne: "Essuyage de toutes les fenêtres intérieures.",
-serviceEndOfTenancyCleaningTitleFourFeatureTwo: "Rails de fenêtres, appuis, interrupteurs et cadres de portes.",
-serviceEndOfTenancyCleaningTitleFourFeatureThree: "Nettoyage localisé des marques visibles sur les murs.",
-
-serviceEndOfTenancyCleaningTitleFiveFeatureOne: "Aspiration haute puissance de toutes les zones carpetées.",
-serviceEndOfTenancyCleaningTitleFiveFeatureTwo: "Lavage / serpillière et brillantage de tous les sols durs.",
-
-//post-construction-renovation-cleaning///
-servicePostConstructionRenovationCleaningIntroHeadLine: "La transformation finale : éliminer la poussière de chantier et révéler l’éclat de votre nouvel espace.",
-servicePostConstructionRenovationCleaningIntroBody: [
-  "Notre service Construction Dust-Buster est essentiel pour retirer en toute sécurité et en profondeur les résidus de chantier, la fine poussière de plâtre, les projections de peinture et les traces d’adhésif. Ce processus en deux phases (nettoyage grossier et nettoyage final) se concentre sur l’élimination microscopique de la poussière de chaque surface à l’aide d’équipements spécialisés pour atteindre un état prêt à emménager.",
-  "Ne laissez pas la poussière de chantier s’attarder. Faites confiance à notre équipe spécialisée pour livrer un poli qui finalise vraiment votre projet."
-],
-
-servicePostConstructionRenovationCleaningHighlightTitleOne: "Points forts du nettoyage post-construction et rénovation",
-servicePostConstructionRenovationCleaningHighlightCardTitleTwo: "Poussière et qualité de l’air",
-servicePostConstructionRenovationCleaningHighlightCardTitleThree: "Détail des fenêtres",
-servicePostConstructionRenovationCleaningHighlightCardTitleFour: "Cuisine et salle de bain",
-servicePostConstructionRenovationCleaningHighlightCardTitleFive: "Sols",
-
-servicePostConstructionRenovationCleaningTitleTwoFeatureOne: "Essuyages multiples de toutes les surfaces avec des chiffons microfibres.",
-servicePostConstructionRenovationCleaningTitleTwoFeatureTwo: "Aspiration HEPA.",
-servicePostConstructionRenovationCleaningTitleTwoFeatureThree: "Nettoyage des bouches d’aération et des retours d’air.",
-
-servicePostConstructionRenovationCleaningTitleThreeFeatureOne: "Lavage du verre, des cadres et des rails.",
-servicePostConstructionRenovationCleaningTitleThreeFeatureTwo: "Retrait sécurisé de peinture, stickers ou résidus.",
-
-servicePostConstructionRenovationCleaningTitleFourFeatureOne: "Essuyage de tous les placards/tiroirs nouvellement installés.",
-servicePostConstructionRenovationCleaningTitleFourFeatureTwo: "Retrait du voile de ciment des carrelages.",
-servicePostConstructionRenovationCleaningTitleFourFeatureThree: "Nettoyage des robinetteries des traces de silicone/mastic/poussière.",
-
-servicePostConstructionRenovationCleaningTitleFiveFeatureOne: "Aspiration haute performance avec filtre HEPA.",
-servicePostConstructionRenovationCleaningTitleFiveFeatureTwo: "Nettoyage détaillé des bords, lavage et polissage des sols durs.",
-
-//premium-rental-concierge-cleaning///
-servicePremiumRentalConciergeCleaningIntroHeadLine: "Séjours fluides, avis cinq étoiles : un turnover parfait, à chaque fois.",
-servicePremiumRentalConciergeCleaningIntroBody: [
-  "Notre service Rental Ready Turnover est conçu sur mesure pour les exigences uniques des locations de courte durée. L’objectif est de maximiser l’efficacité tout en garantissant que chaque détail répond aux plus hauts standards d’hospitalité pour un check-in immédiat des voyageurs. Ce service est critique en termes de timing et inclut des tâches essentielles de réapprovisionnement et de présentation que les services de nettoyage standard ne couvrent pas.",
-  "Nous sommes la clé d’une propreté 5 étoiles constante et d’un hébergement sans stress."
-],
-
-servicePremiumRentalConciergeCleaningHighlightTitleOne: "Points forts du nettoyage conciergerie location premium",
-servicePremiumRentalConciergeCleaningHighlightCardTitleTwo: "Sanctuaire des voyageurs (Salles de bain)",
-servicePremiumRentalConciergeCleaningHighlightCardTitleThree: "Cuisine et rafraîchissements pour les voyageurs",
-servicePremiumRentalConciergeCleaningHighlightCardTitleFour: "Gestion du linge (Chambres)",
-servicePremiumRentalConciergeCleaningHighlightCardTitleFive: "Entretien et notes finales",
-
-servicePremiumRentalConciergeCleaningTitleTwoFeatureOne: "Savon pour les mains de luxe — distributeur plein ou nouveau savon présenté.",
-servicePremiumRentalConciergeCleaningTitleTwoFeatureTwo: "Soins capillaires — nouveau set shampooing & après-shampooing format voyage.",
-servicePremiumRentalConciergeCleaningTitleTwoFeatureThree: "Produits en papier — rouleau de papier toilette monté et scellé, rechanges stockés.",
-servicePremiumRentalConciergeCleaningTitleTwoFeatureFour: "Linge pour les voyageurs — serviettes fraîchement lavées et pliées.",
-servicePremiumRentalConciergeCleaningTitleTwoFeatureFive: "Tapis de bain — propre et placé.",
-
-servicePremiumRentalConciergeCleaningTitleThreeFeatureOne: "Boissons et édulcorants présentés soigneusement.",
-servicePremiumRentalConciergeCleaningTitleThreeFeatureTwo: "Essentiels de nettoyage prêts à l’usage des voyageurs.",
-servicePremiumRentalConciergeCleaningTitleThreeFeatureThree: "Nouveau sac poubelle et rouleau de papier essuie-tout complet.",
-servicePremiumRentalConciergeCleaningTitleThreeFeatureFour: "Cadeau de bienvenue en présentation scellée.",
-
-servicePremiumRentalConciergeCleaningTitleFourFeatureOne: "Inspection visuelle du matelas — aucune tache ni dommage.",
-servicePremiumRentalConciergeCleaningTitleFourFeatureTwo: "Draps de dessous et de dessus frais et bien tendus.",
-servicePremiumRentalConciergeCleaningTitleFourFeatureThree: "Taies d’oreiller et housse de couette fraîchement posées et mises en scène.",
-servicePremiumRentalConciergeCleaningTitleFourFeatureFour: "Essuyage détaillé et sans poussière des luminaires.",
-
-servicePremiumRentalConciergeCleaningTitleFiveFeatureOne: "Contrôle des murs, suppression des marques et empreintes.",
-servicePremiumRentalConciergeCleaningTitleFiveFeatureTwo: "Vérification que toutes les surfaces sont exemptes de poussière.",
-servicePremiumRentalConciergeCleaningTitleFiveFeatureThree: "Contrôle de sécurité pour éliminer tout danger.",
-servicePremiumRentalConciergeCleaningTitleFiveFeatureFour: "Visite finale complète et inspection de mise en scène.",
-
-//commercial-office-cleaning///
-serviceCommercialOfficeCleaningIntroHeadLine: "Améliorer la productivité grâce à des locaux impeccables et au bien-être au travail.",
-serviceCommercialOfficeCleaningIntroBody: [
-  "Notre service Professional Premises Polish est conçu pour les entreprises recherchant un nettoyage fiable et de haute qualité pour leurs espaces commerciaux, bureaux et environnements corporate. Nos équipes interviennent avec discrétion et efficacité, généralement en dehors des heures de bureau pour minimiser les perturbations. L’accent est mis sur le maintien d’une image professionnelle, l’amélioration du bien-être des collaborateurs grâce à l’hygiène, et le respect des normes sanitaires dans les zones à fort passage.",
-  "Un environnement propre est un environnement productif. Partenariez avec nous pour une excellence constante."
-],
-
-serviceCommercialOfficeCleaningHighlightTitleOne: "Checklist bien-être au travail (Focus commercial)",
-serviceCommercialOfficeCleaningHighlightTitleSeven: "Options de fréquence de service contractuelles",
-serviceCommercialOfficeCleaningHighlightCardTitleTwo: "Espaces communs et accueil",
-serviceCommercialOfficeCleaningHighlightCardTitleThree: "Kitchenette et salles de pause",
-serviceCommercialOfficeCleaningHighlightCardTitleFour: "Toilettes",
-serviceCommercialOfficeCleaningHighlightCardTitleFive: "Sols",
-serviceCommercialOfficeCleaningHighlightCardTitleSix: "Gestion des déchets",
-serviceCommercialOfficeCleaningHighlightCardTitleSeven: "Options de fréquence de service contractuelles",
-serviceCommercialOfficeCleaningHighlightCardTitleEight: "Nettoyage quotidien",
-serviceCommercialOfficeCleaningHighlightCardTitleNine: "Trois fois par semaine",
-serviceCommercialOfficeCleaningHighlightCardTitleTen: "Nettoyage hebdomadaire",
-serviceCommercialOfficeCleaningHighlightCardTitleEleven: "Nettoyage bi-hebdomadaire",
-
-serviceCommercialOfficeCleaningTitleTwoFeatureOne: "Dépoussiérage de toutes les surfaces horizontales visibles, bureaux et armoires de classement.",
-serviceCommercialOfficeCleaningTitleTwoFeatureTwo: "Polissage du mobilier de l’accueil et des éléments en verre/métal.",
-serviceCommercialOfficeCleaningTitleTwoFeatureThree: "Nettoyage détaillé de tous les vitrages intérieurs (portes, cloisons).",
-
-serviceCommercialOfficeCleaningTitleThreeFeatureOne: "Nettoyage et désinfection des plans de travail, éviers et extérieur des appareils (micro-ondes, réfrigérateurs).",
-serviceCommercialOfficeCleaningTitleThreeFeatureTwo: "Essuyage humide des tables et chaises.",
-
-serviceCommercialOfficeCleaningTitleFourFeatureOne: "Nettoyage et désinfection complets de toutes les toilettes, urinoirs, lavabos et robinetteries.",
-serviceCommercialOfficeCleaningTitleFourFeatureTwo: "Réapprovisionnement des produits en papier et des distributeurs de savon/désinfectant.",
-
-serviceCommercialOfficeCleaningTitleFiveFeatureOne: "Aspiration quotidienne de toutes les zones carpetées.",
-serviceCommercialOfficeCleaningTitleFiveFeatureTwo: "Balayage et lavage de tous les sols durs (carrelage, vinyle, bois).",
-
-serviceCommercialOfficeCleaningTitleSixFeatureOne: "Vidage de toutes les poubelles et remplacement des sacs.",
-serviceCommercialOfficeCleaningTitleSixFeatureTwo: "Centralisation des recyclables pour la collecte.",
-
-serviceCommercialOfficeCleaningTitleEightFeatureOne: "Pour les bureaux corporate à fort trafic et les établissements médicaux.",
-
-serviceCommercialOfficeCleaningTitleNineFeatureOne: "Le standard pour les bureaux de taille moyenne.",
-
-serviceCommercialOfficeCleaningTitleTenFeatureOne: "Adapté aux petits bureaux ou à ceux à faible fréquentation.",
-
-serviceCommercialOfficeCleaningTitleElevenFeatureOne: "Focus sur les toilettes, salles de pause et polissage des sols uniquement.",
-
-//healthguard-sanitization///
-serviceHealthguardSanitizationIntroHeadLine: "Au-delà du propre : une désinfection de niveau hospitalier pour un environnement HealthGuard authentique.",
-serviceHealthguardSanitizationIntroBody: [
-  "Notre service HealthGuard Sanitization se concentre exclusivement sur l’élimination des pathogènes, bactéries et virus des surfaces à fort contact et à fort trafic. Ce service utilise des désinfectants de niveau hospitalier enregistrés EPA/ECHA et des méthodes d’application spécialisées (telles que le brumisation ou la pulvérisation électrostatique, le cas échéant) pour atteindre une couverture maximale et des taux d’élimination microbienne élevés.",
-  "Ce service est idéal pour les clients exigeant des normes d’hygiène avancées, notamment les cabinets médicaux, salles de sport, écoles et foyers à forte vulnérabilité. Nous ne nous contentons pas de nettoyer — nous purifions cliniquement votre espace pour la santé et la tranquillité d’esprit."
-],
-
-serviceHealthguardSanitizationHighlightTitleOne: "Checklist désinfection Pure Space (Focus ciblé – Y compris résidentiel)",
-serviceHealthguardSanitizationHighlightCardTitleTwo: "Checklist désinfection Pure Space",
-serviceHealthguardSanitizationHighlightCardTitleThree: "Cuisine et zones de préparation alimentaire",
-serviceHealthguardSanitizationHighlightCardTitleFour: "Focus détail résidentiel",
-serviceHealthguardSanitizationHighlightCardTitleFive: "Focus détail bureau",
-serviceHealthguardSanitizationHighlightCardTitleSix: "Méthode d’application",
-
-serviceHealthguardSanitizationTitleTwoFeatureOne: "Nettoyage initial des surfaces suivi de l’application d’un désinfectant de niveau hospitalier.",
-serviceHealthguardSanitizationTitleTwoFeatureTwo: "Surfaces à fort contact : poignées de porte, interrupteurs, télécommandes, thermostats, rampes, téléphones.",
-serviceHealthguardSanitizationTitleTwoFeatureThree: "Toilettes : désinfection des robinetteries, lavabos, plans de travail, toilettes, poignées, zones douche/baignoire.",
-
-serviceHealthguardSanitizationTitleThreeFeatureOne: "Plans de travail, éviers, poignées de robinets.",
-serviceHealthguardSanitizationTitleThreeFeatureTwo: "Poignées extérieures du frigo, placards, micro-ondes.",
-serviceHealthguardSanitizationTitleThreeFeatureThree: "Intérieur des micro-ondes, claviers, boutons de machine à café.",
-
-serviceHealthguardSanitizationTitleFourFeatureOne: "Tables de nuit, poignées de tiroirs, jouets durs pour enfants.",
-serviceHealthguardSanitizationTitleFourFeatureTwo: "Manettes de jeux et boutons/cadrans d’appareils.",
-
-serviceHealthguardSanitizationTitleFiveFeatureOne: "Claviers, souris, surfaces de bureau.",
-serviceHealthguardSanitizationTitleFiveFeatureTwo: "Boutons des fontaines à eau communes.",
-
-serviceHealthguardSanitizationTitleSixFeatureOne: "Pulvérisation liquide / chiffons microfibres + pulvérisation électrostatique si nécessaire.",
-serviceHealthguardSanitizationTitleSixFeatureTwo: "Brumisation ou pulvérisation électrostatique si nécessaire.",
-
-//carpet-upholstery-cleaning///
-serviceCarpetUpholsteryCleaningIntroHeadLine: "Renouveau profond des fibres : restaurer la douceur, la couleur et la fraîcheur de chaque surface sur laquelle vous vous asseyez.",
-serviceCarpetUpholsteryCleaningIntroBody: [
-  "Notre service Fiber Renewal utilise l’extraction à l’eau chaude professionnelle et des traitements adaptés aux tissus pour éliminer la saleté incrustée, les allergènes et les odeurs des tapis, moquettes, meubles rembourrés, matelas et rideaux — bien plus en profondeur qu’un aspirateur standard. Chaque type de tissu est évalué avant traitement, afin que les tapis délicats et le mobilier raffiné reçoivent le soin doux dont ils ont besoin, tandis que les moquettes à fort trafic bénéficient du nettoyage en profondeur qu’elles exigent.",
-  "Le résultat : des tissus plus doux, plus lumineux et plus sains dans toute la maison — avec des temps de séchage plus rapides et aucun résidu de produits chimiques agressifs."
-],
-
-serviceCarpetUpholsteryCleaningHighlightTitleOne: "Points forts du nettoyage de tapis et d’ameublement",
-serviceCarpetUpholsteryCleaningHighlightCardTitleTwo: "Nettoyage de moquettes",
-serviceCarpetUpholsteryCleaningHighlightCardTitleThree: "Nettoyage de tapis",
-serviceCarpetUpholsteryCleaningHighlightCardTitleFour: "Nettoyage d’ameublement",
-serviceCarpetUpholsteryCleaningHighlightCardTitleFive: "Nettoyage de matelas",
-serviceCarpetUpholsteryCleaningHighlightCardTitleSix: "Nettoyage de rideaux",
-
-serviceCarpetUpholsteryCleaningTitleTwoFeatureOne: "Amélioration de la santé et de la qualité de l’air — élimine les allergènes.",
-serviceCarpetUpholsteryCleaningTitleTwoFeatureTwo: "Restauration et préservation de la valeur.",
-serviceCarpetUpholsteryCleaningTitleTwoFeatureThree: "Extraction professionnelle en profondeur à l’eau chaude.",
-serviceCarpetUpholsteryCleaningTitleTwoFeatureFour: "Solutions écologiques sûres et efficaces.",
-
-serviceCarpetUpholsteryCleaningTitleThreeFeatureOne: "Soin délicat pour tous les types de tapis.",
-serviceCarpetUpholsteryCleaningTitleThreeFeatureTwo: "Protection des couleurs et des textures.",
-serviceCarpetUpholsteryCleaningTitleThreeFeatureThree: "Finition manuelle détaillée.",
-
-serviceCarpetUpholsteryCleaningTitleFourFeatureOne: "Confort propre et frais qui prolonge la durée de vie des meubles.",
-serviceCarpetUpholsteryCleaningTitleFourFeatureTwo: "Élimination des taches et des odeurs.",
-serviceCarpetUpholsteryCleaningTitleFourFeatureThree: "Soin professionnel adapté aux tissus.",
-
-serviceCarpetUpholsteryCleaningTitleFiveFeatureOne: "Élimine les acariens et allergènes.",
-serviceCarpetUpholsteryCleaningTitleFiveFeatureTwo: "Améliore l’hygiène du sommeil.",
-serviceCarpetUpholsteryCleaningTitleFiveFeatureThree: "Processus de désinfection en profondeur.",
-
-serviceCarpetUpholsteryCleaningTitleSixFeatureOne: "Sans démontage nécessaire.",
-serviceCarpetUpholsteryCleaningTitleSixFeatureTwo: "Nettoyage à la vapeur adapté aux tissus.",
-serviceCarpetUpholsteryCleaningTitleSixFeatureThree: "Rafraîchit l’air intérieur.",
-
-//steam-cleaning///
-serviceSteamCleaningIntroHeadLine: "Exploiter la pure puissance de la vapeur pour un nettoyage en profondeur et une désinfection sans produits chimiques.",
-serviceSteamCleaningIntroBody: [
-  "Notre service Vapor Virtue Cleaning utilise de la vapeur haute température et à faible humidité pour désinfecter les surfaces, dissoudre les graisses, éliminer moisissures et mildiou, et tuer jusqu’à 99,9 % des bactéries, germes et acariens. Ce service est idéal pour les clients recherchant une méthode écologique, hypoallergénique et très efficace pour le nettoyage en profondeur des cuisines, toilettes, carrelages et joints, et des recoins difficiles d’accès.",
-  "La vapeur pure et sous pression pénètre plus profondément que les méthodes de nettoyage conventionnelles."
-],
-
-serviceSteamCleaningHighlightTitleOne: "Points forts du nettoyage à la vapeur",
-serviceSteamCleaningHighlightCardTitleTwo: "Détail cuisine",
-serviceSteamCleaningHighlightCardTitleThree: "Nettoyage en profondeur des toilettes",
-serviceSteamCleaningHighlightCardTitleFour: "Désinfection des surfaces",
-serviceSteamCleaningHighlightCardTitleFive: "Traitement des recoins et des taches",
-
-serviceSteamCleaningTitleTwoFeatureOne: "Vaporisation et désinfection des hottes et grilles de plaque de cuisson.",
-serviceSteamCleaningTitleTwoFeatureTwo: "Nettoyage à la vapeur en profondeur de l’intérieur des fours et des joints de réfrigérateur.",
-serviceSteamCleaningTitleTwoFeatureThree: "Désinfection des planches à découper à la vapeur haute température.",
-
-serviceSteamCleaningTitleThreeFeatureOne: "Nettoyage à la vapeur des joints et dissolution du savon incrusté.",
-serviceSteamCleaningTitleThreeFeatureTwo: "Nettoyage des bases de toilettes, charnières et zones difficiles d’accès.",
-
-serviceSteamCleaningTitleFourFeatureOne: "Désinfection à la vapeur des points de contact : poignées, interrupteurs.",
-serviceSteamCleaningTitleFourFeatureTwo: "Désinfection sans produits chimiques des claviers d’appareils.",
-
-serviceSteamCleaningTitleFiveFeatureOne: "Nettoyage à la vapeur par buse de précision pour les coins et plinthes.",
-serviceSteamCleaningTitleFiveFeatureTwo: "Nettoyage efficace des rails de fenêtres et joints de carrelage.",
-serviceSteamCleaningTitleFiveFeatureThree: "Traitement localisé léger des tissus et de l’ameublement.",
-
-//post-event-cleaning///
-servicePostEventCleaningIntroHeadLine: "La seule chose que nous laissons derrière nous, c’est un lieu impeccable.",
-servicePostEventCleaningIntroBody: [
-  "Notre service de nettoyage pour événements spéciaux est conçu pour que votre espace soit impeccable et prêt, vous permettant de vous concentrer sur le plaisir de l’occasion. De la préparation au post-événement, nos professionnels gèrent chaque détail pour créer un environnement propre et accueillant pour les invités.",
-  "Ce service complet garantit un espace bien entretenu et hygiénique, améliorant l’ambiance et laissant une impression positive durable aux invités — tout en vous faisant gagner du temps et des efforts."
-],
-
-servicePostEventCleaningHighlightTitleOne: "Points forts du nettoyage post-événement",
-servicePostEventCleaningHighlightCardTitleTwo: "Avant l’événement",
-servicePostEventCleaningHighlightCardTitleThree: "Juste avant l’arrivée des invités",
-servicePostEventCleaningHighlightCardTitleFour: "Pendant l’événement",
-servicePostEventCleaningHighlightCardTitleFive: "Après l’événement",
-
-servicePostEventCleaningTitleTwoFeatureOne: "Définir le périmètre de nettoyage nécessaire selon le type et la taille de l’événement.",
-servicePostEventCleaningTitleTwoFeatureTwo: "Désencombrer, dépoussiérer et organiser l’espace.",
-servicePostEventCleaningTitleTwoFeatureThree: "Aspirer les moquettes, balayer et laver les sols durs.",
-servicePostEventCleaningTitleTwoFeatureFour: "Nettoyer les fenêtres, surfaces vitrées, sièges et tables.",
-servicePostEventCleaningTitleTwoFeatureFive: "Désinfecter les surfaces à fort contact (poignées, interrupteurs, rampes).",
-
-servicePostEventCleaningTitleThreeFeatureOne: "Visite finale et retouches des traces ou marques.",
-servicePostEventCleaningTitleThreeFeatureTwo: "Revérifier les toilettes pour les consommables.",
-servicePostEventCleaningTitleThreeFeatureThree: "Confirmer que les décorations et la signalétique sont propres et en place.",
-servicePostEventCleaningTitleThreeFeatureFour: "Ranger le matériel de nettoyage hors de vue.",
-
-servicePostEventCleaningTitleFourFeatureOne: "Surveiller et vider les poubelles selon les besoins.",
-servicePostEventCleaningTitleFourFeatureTwo: "Nettoyer immédiatement les déversements et salissures.",
-servicePostEventCleaningTitleFourFeatureThree: "Réapprovisionner les consommables des toilettes.",
-servicePostEventCleaningTitleFourFeatureFour: "Garder le matériel de nettoyage localisé à portée de main mais discret.",
-
-servicePostEventCleaningTitleFiveFeatureOne: "Nettoyage post-événement complet (aspiration, lavage, essuyage des surfaces).",
-servicePostEventCleaningTitleFiveFeatureTwo: "Nettoyer et ranger le matériel de location.",
-servicePostEventCleaningTitleFiveFeatureThree: "Éliminer correctement les déchets et le recyclage.",
-servicePostEventCleaningTitleFiveFeatureFour: "Vérifier d’éventuels dommages ou usure excessive.",
-
-//pool-cleaning///
-servicePoolCleaningIntroHeadLine: "Maintenir une qualité d’eau impeccable et prolonger la durée de vie de votre équipement de piscine.",
-servicePoolCleaningIntroBody: [
-  "Notre service Aquatic Clarity propose un entretien spécialisé et récurrent pour les piscines résidentielles et commerciales. Ce service garantit une chimie de l’eau optimale, la longévité des équipements et un environnement de baignade propre et sûr. Nos passages sont complets, couvrant à la fois le nettoyage physique et la gestion de l’équilibre chimique.",
-  "Note tarifaire : Les prix sont indiqués par intervention (hebdomadaire/bi-hebdomadaire) selon la taille de la piscine (surface ou volume) et l’expertise chimique requise."
-],
-
-servicePoolCleaningHighlightTitleOne: "Points forts du nettoyage de piscine",
-servicePoolCleaningHighlightCardTitleTwo: "Élimination des débris",
-servicePoolCleaningHighlightCardTitleThree: "Entretien du filtre",
-servicePoolCleaningHighlightCardTitleFour: "Brossage des parois et du carrelage",
-servicePoolCleaningHighlightCardTitleFive: "Équilibre chimique",
-servicePoolCleaningHighlightCardTitleSix: "Contrôle des équipements",
-
-servicePoolCleaningTitleTwoFeatureOne: "Écumage de la surface de l’eau et aspiration du fond et des parois de la piscine.",
-
-servicePoolCleaningTitleThreeFeatureOne: "Rétro-lavage/nettoyage du filtre ; vidage des paniers d’écumeur et de pompe.",
-
-servicePoolCleaningTitleFourFeatureOne: "Brossage des parois de la piscine et des lignes de carrelage pour prévenir les algues et le tartre.",
-
-servicePoolCleaningTitleFiveFeatureOne: "Test et ajustement du chlore/désinfectant, pH, alcalinité et dureté calcique.",
-
-servicePoolCleaningTitleSixFeatureOne: "Inspection de la pompe, du chauffe-eau, du filtre et du programmateur pour un bon fonctionnement.",
-
-//precision-pressure-washing///
-servicePrecisionPressureWashingIntroHeadLine: "Restaurer l’éclat : le nettoyage le plus profond pour les extérieurs, allées et surfaces commerciales.",
-servicePrecisionPressureWashingIntroBody: [
-  "Notre service Exterior Blast & Brighten utilise des équipements professionnels haute pression, souvent avec capacité d’eau chaude (nettoyage à la haute pression), buses spécialisées et détergents biodégradables pour nettoyer en toute sécurité et efficacement les surfaces extérieures difficiles, larges ou d’accès élevé."
-],
-
-servicePrecisionPressureWashingHighlightTitleOne: "Points forts du nettoyage haute pression de précision",
-servicePrecisionPressureWashingHighlightCardTitleTwo: "Lavage doux (Soft Washing)",
-servicePrecisionPressureWashingHighlightCardTitleThree: "Allées et terrasses",
-servicePrecisionPressureWashingHighlightCardTitleFour: "Fenêtres et gouttières",
-
-servicePrecisionPressureWashingTitleTwoFeatureOne: "Une solution de nettoyage douce et écologique idéale pour les surfaces délicates — élimine la saleté, les moisissures et les accumulations organiques tout en préservant la peinture, le bardage et les finitions extérieures.",
-
-servicePrecisionPressureWashingTitleThreeFeatureOne: "Nettoyage haute performance pour éliminer les taches d’huile, les algues et la saleté incrustée des surfaces en béton et pavées.",
-
-servicePrecisionPressureWashingTitleFourFeatureOne: "Nettoyage professionnel pour retirer les débris, la poussière et les résidus, garantissant des vues claires, un bon drainage et une protection à long terme.",
-
-//child-care-service///
-serviceChildCareServiceIntroHeadLine: "Little Stars Nurturing / Garde d’enfants Family First",
-serviceChildCareServiceIntroBody: [
-  "Ce service propose une garde d’enfants hautement personnalisée et premium, souvent à domicile, spécialisée dans l’engagement éducatif, les horaires flexibles et un accompagnement complet — incluant repas, hygiène, transport et entretien léger."
-],
-
-serviceChildCareServiceHighlightTitleOne: "Points forts du service de garde d’enfants",
-serviceChildCareServiceHighlightCardTitleTwo: "Garde de bébés (3–18 mois)",
-serviceChildCareServiceHighlightCardTitleThree: "Apprentissage tout-petits (1,5–3 ans)",
-serviceChildCareServiceHighlightCardTitleFour: "Garde journalière",
-serviceChildCareServiceHighlightCardTitleFive: "Garde périscolaire",
-serviceChildCareServiceHighlightCardTitleSix: "Garde ponctuelle",
-serviceChildCareServiceHighlightCardTitleSeven: "Garde de dernière minute",
-
-serviceChildCareServiceTitleTwoFeatureOne: "Attention spécialisée et activités de développement sensoriel conçues pour les bébés.",
-
-serviceChildCareServiceTitleThreeFeatureOne: "Apprentissage par le jeu et développement des compétences sociales pour les tout-petits curieux.",
-
-serviceChildCareServiceTitleFourFeatureOne: "Garde à la journée pour les enfants, dans un environnement sûr et bienveillant.",
-
-serviceChildCareServiceTitleFiveFeatureOne: "Aide aux devoirs et activités créatives pour les enfants d’âge scolaire.",
-
-serviceChildCareServiceTitleSixFeatureOne: "Garde flexible et à la demande pour les soirées ou week-ends chargés.",
-
-serviceChildCareServiceTitleSevenFeatureOne: "Nous comprenons que la vie peut être imprévisible — obtenez une garde de dernière minute quand vous en avez le plus besoin.",
-
-//elder-care-service///
-serviceElderCareServiceIntroHeadLine: "Compagnonnage bienveillant pour seniors / Assistance Golden Age",
-serviceElderCareServiceIntroBody: [
-  "Ce service propose un accompagnement non médical hautement personnalisé pour les seniors, axé sur l’amélioration de la qualité de vie, la sécurité et l’autonomie grâce à un compagnonnage dédié, une aide à la mobilité, la préparation des repas et les courses essentielles."
-],
-
-serviceElderCareServiceHighlightTitleOne: "Points forts du service d’aide aux seniors",
-serviceElderCareServiceHighlightCardTitleTwo: "Soins de compagnie",
-serviceElderCareServiceHighlightCardTitleThree: "Soins personnels",
-serviceElderCareServiceHighlightCardTitleFour: "Soins quotidiens",
-
-serviceElderCareServiceTitleTwoFeatureOne: "Interaction sociale et compagnonnage.",
-serviceElderCareServiceTitleTwoFeatureTwo: "Aide aux activités quotidiennes.",
-
-serviceElderCareServiceTitleThreeFeatureOne: "Toilette et coiffure.",
-serviceElderCareServiceTitleThreeFeatureTwo: "Gestion des médicaments.",
-serviceElderCareServiceTitleThreeFeatureThree: "Soins d’incontinence.",
-
-serviceElderCareServiceTitleFourFeatureOne: "Soins de routine et soutien dans les tâches de la vie quotidienne.",
-serviceElderCareServiceTitleFourFeatureTwo: "Aide à la mobilité et aux transferts.",
-
-//laundry-service///
-serviceLaundryServiceIntroHeadLine: "Lessive sans effort, livrée propre",
-serviceLaundryServiceIntroBody: [
-  "Votre temps est précieux — laissez-nous gérer la lessive, de la collecte à la livraison propre et pliée."
-],
-
-serviceLaundryServiceHighlightTitleOne: "Points forts du service de blanchisserie",
-serviceLaundryServiceHighlightCardTitleTwo: "Lavage et pliage",
-serviceLaundryServiceHighlightCardTitleThree: "Nettoyage à sec premium",
-serviceLaundryServiceHighlightCardTitleFour: "Repassage à la vapeur professionnel",
-serviceLaundryServiceHighlightCardTitleFive: "Soin des tissus éco-luxe",
-serviceLaundryServiceHighlightCardTitleSix: "Literie et linge de maison",
-serviceLaundryServiceHighlightCardTitleSeven: "Collecte et livraison express",
-
-serviceLaundryServiceTitleTwoFeatureOne: "Lessive du quotidien expertement nettoyée, séchée et soigneusement pliée pour votre confort.",
-
-serviceLaundryServiceTitleThreeFeatureOne: "Nettoyage chimique spécialisé pour les tissus délicats, costumes et tenues de soirée haut de gamme.",
-
-serviceLaundryServiceTitleFourFeatureOne: "Repassage de précision et pressage à la vapeur pour une finition sans plis, professionnelle.",
-
-serviceLaundryServiceTitleFiveFeatureOne: "Nettoyage doux avec des détergents écologiques qui préservent la longévité des textiles de luxe.",
-
-serviceLaundryServiceTitleSixFeatureOne: "Nettoyage intensif pour les articles volumineux incluant couettes, rideaux et linge de lit.",
-
-serviceLaundryServiceTitleSevenFeatureOne: "Service porte-à-porte planifié qui s’intègre parfaitement à votre rythme de vie chargé.",
-
-//move-in-out-transport-service///
-serviceMoveInOutTransportServiceIntroHeadLine: "Logistique de déménagement fluide / Transport de transition domicile",
-serviceMoveInOutTransportServiceIntroBody: [
-  "Ce service propose un transport et une gestion de transition sur mesure pour une clientèle résidentielle et commerciale exigeante. Le tarif est déterminé via un devis complet basé sur la complexité logistique, le volume de l’inventaire et la distance de transit."
-],
-
-serviceMoveInOutTransportServiceHighlightTitleOne: "Points forts du service de transport emménagement / déménagement",
-serviceMoveInOutTransportServiceHighlightCardTitleTwo: "Emballage des biens",
-serviceMoveInOutTransportServiceHighlightCardTitleThree: "Déménagement des biens",
-serviceMoveInOutTransportServiceHighlightCardTitleFour: "Transport des biens",
-serviceMoveInOutTransportServiceHighlightCardTitleFive: "Commercial / Bureau",
-
-serviceMoveInOutTransportServiceTitleTwoFeatureOne: "Objets fragiles emballés et conditionnés en toute sécurité dans des contenants adaptés, avec étiquetage clair du contenu et de la destination.",
-
-serviceMoveInOutTransportServiceTitleThreeFeatureOne: "Biens soigneusement chargés et arrimés sur les véhicules de transport pour éviter tout déplacement, et déchargés efficacement à destination.",
-
-serviceMoveInOutTransportServiceTitleFourFeatureOne: "Biens chargés en toute sécurité avec une répartition correcte du poids, en respectant tous les protocoles de sécurité et le code de la route pendant le transit.",
-
-serviceMoveInOutTransportServiceTitleFiveFeatureOne: "Équipements de bureau emballés en sécurité, étiquetés clairement et transportés efficacement pour minimiser les perturbations.",
-
-//high-security-property-care///
-serviceHighSecurityPropertyCareIntroHeadLine: "Personnel contrôlé | Discrétion totale | Qualité sans compromis",
-serviceHighSecurityPropertyCareIntroBody: [
-  "Nettoyage spécialisé conçu pour les clients VVIP et VIP, les installations gouvernementales, les résidences privées et les biens hautement sensibles. Géré exclusivement par du personnel contrôlé sur le plan de la sécurité et travaillant sous accords de non-divulgation stricts, nous offrons une discrétion totale dans les zones à accès restreint. Avec des produits premium certifiés écologiques, sûrs pour les intérieurs de luxe et les espaces familiaux, nous livrons des résultats impeccables avec un maximum de confiance. Contactez-nous pour une consultation et un devis confidentiels."
-],
-
-serviceHighSecurityPropertyCareHighlightTitleOne: "Points forts de l’entretien de biens haute sécurité",
-serviceHighSecurityPropertyCareHighlightCardTitleTwo: "Personnel contrôlé et confidentialité",
-serviceHighSecurityPropertyCareHighlightCardTitleThree: "Installations haute sécurité",
-serviceHighSecurityPropertyCareHighlightCardTitleFour: "Intervention d’urgence et risques biologiques",
-serviceHighSecurityPropertyCareHighlightCardTitleFive: "Désinfection des appareils numériques",
-
-serviceHighSecurityPropertyCareTitleTwoFeatureOne: "Techniciens 100 % contrôlés, habilités et liés par NDA.",
-serviceHighSecurityPropertyCareTitleTwoFeatureTwo: "Protocoles stricts de non-divulgation pour protéger les données physiques et numériques.",
-
-serviceHighSecurityPropertyCareTitleThreeFeatureOne: "Nettoyage spécialisé pour SCIF, salles serveurs et bureaux confidentiels.",
-serviceHighSecurityPropertyCareTitleThreeFeatureTwo: "Extraction de poussière sub-micronique pour le matériel sensible et l’électronique.",
-
-serviceHighSecurityPropertyCareTitleFourFeatureOne: "Intervention rapide 24/7 pour cambriolages, déversements biologiques et scènes de crime.",
-serviceHighSecurityPropertyCareTitleFourFeatureTwo: "Sécurisation immédiate du site, obturation et documentation photo pour assurance.",
-
-serviceHighSecurityPropertyCareTitleFiveFeatureOne: "Purge de virus, logiciels malveillants et adware sur site ou à distance.",
-serviceHighSecurityPropertyCareTitleFiveFeatureTwo: "Effacement complet des données et restauration de la confidentialité pour les appareils infectés.",
-
-//luxury-yacht-cleaning///
-serviceLuxuryYachtCleaningIntroHeadLine: "Coque salée ou charter VIP en approche ? Obtenez la perfection standard yacht et un éclat instantané !",
-serviceLuxuryYachtCleaningIntroBody: [
-  "Entretenir un yacht de luxe de classe mondiale exige un soin constant et un détail sans compromis. Que vous prépariez votre yacht pour un charter exclusif, que vous récupériez d’une croisière de plusieurs jours ou que vous ayez besoin d’un entretien intérieur discret pour des invités de haut niveau, nos spécialistes du nettoyage marin sont prêts à intervenir.",
-  "Nous sommes spécialisés dans le detailing yacht haut de gamme, la restauration de coque de qualité marine, le traitement du teck et l’assainissement intérieur ultra-discret. Notre équipe est contrôlée, formée aux soins des surfaces de luxe et parfaitement familiarisée avec les protocoles de sécurité maritime — offrant un traitement white-glove tout en protégeant les finitions délicates de votre navire et votre totale confidentialité.",
-  "Quand le luxe et la précision marine comptent le plus, choisissez l’équipe de confiance sur l’eau."
-],
-
-serviceLuxuryYachtCleaningHighlightTitleOne: "Checklist d’entretien yacht de luxe (Précision maximale, finition irréprochable)",
-serviceLuxuryYachtCleaningHighlightCardTitleTwo: "Extérieur et superstructure",
-serviceLuxuryYachtCleaningHighlightCardTitleThree: "Cabines VIP intérieures",
-serviceLuxuryYachtCleaningHighlightCardTitleFour: "Salle des machines et zones techniques",
-serviceLuxuryYachtCleaningHighlightCardTitleFive: "Turnover rapide post-charter",
-
-serviceLuxuryYachtCleaningTitleTwoFeatureOne: "Lavage de qualité marine, neutralisation des dépôts de sel et séchage sans traces.",
-serviceLuxuryYachtCleaningTitleTwoFeatureTwo: "Polissage de l’acier inoxydable, traitement de clarté du verre et brossage des ponts en teck.",
-
-serviceLuxuryYachtCleaningTitleThreeFeatureOne: "Entretien white-glove des cabines VIP, suites principales et zones de cuisine.",
-serviceLuxuryYachtCleaningTitleThreeFeatureTwo: "Nettoyage en profondeur de l’ameublement délicat, cuir fin, marbre et boiseries sur mesure.",
-
-serviceLuxuryYachtCleaningTitleFourFeatureOne: "Dégraissage des cales de salle des machines, essuyage des machines et préparation des espaces mécaniques.",
-serviceLuxuryYachtCleaningTitleFourFeatureTwo: "Confinement écologique des résidus dangereux conforme aux normes environnementales maritimes.",
-
-serviceLuxuryYachtCleaningTitleFiveFeatureOne: "Nettoyage d’urgence 24/7 à réponse rapide entre les réservations de charter.",
-serviceLuxuryYachtCleaningTitleFiveFeatureTwo: "Turnover complet du linge, assainissement et préparation des provisions pour les prochains invités.",
-
-
-// Hero
+  servicesCategoryResidentialCleaning: " 🏠 SERVICES DE NETTOYAGE RÉSIDENTIEL",
+  servicesCategoryPremiumAddOns: " ➕ SERVICES SUPPLÉMENTAIRES PREMIUM",
+  servicesCategoryCommercialSpecialised: "🏢 SERVICES DE NETTOYAGE COMMERCIAUX ET SPÉCIALISÉS",
+  servicesCategoryCareConcierge: " 🤝 SERVICES D'ASSISTANCE ET DE CONCIERGERIE",
+
+
+  /////////////////////////////////////////
+  /////Service page All contents//////////
+  //regular-home-cleaning///
+  serviceRegularCleaningIntroHeadLine: "Le rafraîchissement hebdomadaire : une propreté constante, une sérénité durable.",
+  serviceRegularCleaningIntroBody: "Arrêtez de stresser avec les tâches ménagères quotidiennes. Notre service de nettoyage résidentiel standard établit un planning récurrent fiable qui maintient votre maison impeccable sans effort. Nous utilisons exclusivement des produits verts certifiés écologiques pour offrir un nettoyage en profondeur étincelant, 100 % sûr pour les enfants et les animaux. Engagez-vous dans la régularité et profitez du luxe de rentrer chez vous dans un espace plus sain et toujours impeccable chaque semaine. Consultez nos tarifs transparents et réservez votre nettoyage dès aujourd’hui.​Définissez votre planning récurrent",
+
+  serviceRegularCleaningHighlightTitleOne: "Points forts du nettoyage régulier à domicile",
+  serviceRegularCleaningHighlightCardTitleOne: "Entretien général de la maison",
+  serviceRegularCleaningHighlightCardTitleTwo: "Points de contact essentiels",
+  serviceRegularCleaningHighlightCardTitleThree: "Cuisine et salle à manger",
+  serviceRegularCleaningHighlightCardTitleFour: "Nettoyage des salles de bain",
+
+  serviceRegularCleaningTitleOneFeatureOne: "Dépoussiérage",
+  serviceRegularCleaningTitleOneFeatureTwo: "Nettoyage des surfaces (y compris le verre).",
+  serviceRegularCleaningTitleOneFeatureThree: "Rangement léger.",
+  serviceRegularCleaningTitleOneFeatureFour: "Évacuation des déchets et entretien des sols (aspirateur/serpillière).",
+
+  serviceRegularCleaningTitleTwoFeatureOne: "Faire les lits, gestion du linge et désinfection ciblée des surfaces à fort contact pour la santé et l’entretien.",
+
+  serviceRegularCleaningTitleThreeFeatureOne: "Entretien extérieur des appareils électroménagers.",
+  serviceRegularCleaningTitleThreeFeatureTwo: "Désinfection des plans de travail et de l’évier.",
+  serviceRegularCleaningTitleThreeFeatureThree: "Organisation de la vaisselle et nettoyage complet des sols.",
+
+  serviceRegularCleaningTitleFourFeatureOne: "Désinfection complète et accent sur l’hygiène.",
+  serviceRegularCleaningTitleFourFeatureTwo: "Nettoyage des toilettes, lavabo, douche et baignoire.",
+  serviceRegularCleaningTitleFourFeatureThree: "Nettoyage des miroirs et placement de serviettes fraîches.",
+
+  //quick-touch-up-cleaning///
+  serviceQuickTouchUpCleaningIntroHeadLine: "Fraîcheur express pour les espaces à fort passage",
+  serviceQuickTouchUpCleaningIntroBody: [
+    "Manque de temps mais besoin que votre maison soit impeccable ? Notre nettoyage de retouche essentiel est un service rapide et précis conçu pour redonner de l’éclat à vos pièces de vie principales. Idéal avant de recevoir des invités, après un événement ou entre deux passages réguliers, nous nous concentrons sur les zones à fort trafic — surfaces clés, cuisines et salles de bain — avec des produits 100 % écologiques certifiés. Profitez d’un environnement propre et accueillant sans vous engager dans un nettoyage complet. Consultez nos tarifs transparents et réservez votre rafraîchissement express dès aujourd’hui."
+  ],
+
+  serviceQuickTouchUpCleaningHighlightTitleOne: "Points forts du nettoyage de retouche essentiel",
+  serviceQuickTouchUpCleaningHighlightCardTitleTwo: "Cuisine",
+  serviceQuickTouchUpCleaningHighlightCardTitleThree: "Salles de bain",
+  serviceQuickTouchUpCleaningHighlightCardTitleFour: "Salon et chambres",
+  serviceQuickTouchUpCleaningHighlightCardTitleFive: "Sols et poubelles",
+
+  serviceQuickTouchUpCleaningTitleTwoFeatureOne: "Essuyage de l’extérieur de tous les gros électroménagers (frigo, four, lave-vaisselle).",
+  serviceQuickTouchUpCleaningTitleTwoFeatureTwo: "Nettoyage et désinfection des plans de travail et de la crédence.",
+  serviceQuickTouchUpCleaningTitleTwoFeatureThree: "Récurage et polissage de l’évier et du robinet.",
+  serviceQuickTouchUpCleaningTitleTwoFeatureFour: "Essuyage de la plaque de cuisson (surface uniquement).",
+  serviceQuickTouchUpCleaningTitleTwoFeatureFive: "Essuyage extérieur du micro-ondes.",
+
+  serviceQuickTouchUpCleaningTitleThreeFeatureOne: "Désinfection des toilettes, de l’abattant et de la base.",
+  serviceQuickTouchUpCleaningTitleThreeFeatureTwo: "Nettoyage des miroirs et des surfaces vitrées.",
+  serviceQuickTouchUpCleaningTitleThreeFeatureThree: "Essuyage du meuble-lavabo et du lavabo.",
+  serviceQuickTouchUpCleaningTitleThreeFeatureFour: "Rinçage rapide et essuyage de la douche/baignoire (sans récurage intensif des joints).",
+
+  serviceQuickTouchUpCleaningTitleFourFeatureOne: "Dépoussiérage des surfaces planes (tables, tables de nuit, bureaux).",
+  serviceQuickTouchUpCleaningTitleFourFeatureTwo: "Remise en place des coussins et oreillers.",
+  serviceQuickTouchUpCleaningTitleFourFeatureThree: "Essuyage rapide des miroirs et cadres.",
+
+  serviceQuickTouchUpCleaningTitleFiveFeatureOne: "Aspiration de tous les tapis et moquettes.",
+  serviceQuickTouchUpCleaningTitleFiveFeatureTwo: "Lavage de tous les sols durs (serpillière humide standard).",
+  serviceQuickTouchUpCleaningTitleFiveFeatureThree: "Vidage de toutes les poubelles et remplacement des sacs.",
+
+  //same-day-priority-cleaning///
+  serviceSameDayPriorityCleaningIntroHeadLine: "Intervention urgente, propreté sans compromis",
+  serviceSameDayPriorityCleaningIntroBody: [
+    "Besoin d’un nettoyage immédiat au dernier moment ? Notre nettoyage prioritaire le jour même offre une intervention rapide pour des visiteurs inattendus, des événements de dernière minute ou des urgences soudaines. Nous priorisons votre réservation pour envoyer un professionnel chez vous le plus vite possible, avec des produits 100 % écologiques certifiés, non toxiques et sûrs pour votre famille et vos animaux. Obtenez un soulagement immédiat et une planification prioritaire garantie quand le temps presse. Consultez nos tarifs transparents et réservez votre soutien prioritaire immédiat dès maintenant."
+  ],
+
+  serviceSameDayPriorityCleaningHighlightTitleOne: "Checklist après-soirée (Maximum de désordre, maximum d’impact)",
+  serviceSameDayPriorityCleaningHighlightTitleTwo: "Checklist nettoyage instantané (Service standard – Nos priorités)",
+  serviceSameDayPriorityCleaningHighlightCardTitleTwo: "Sols et entrée",
+  serviceSameDayPriorityCleaningHighlightCardTitleThree: "Remise en ordre des espaces communs",
+  serviceSameDayPriorityCleaningHighlightCardTitleFour: "Cuisine et coin bar",
+  serviceSameDayPriorityCleaningHighlightCardTitleFive: "Checklist nettoyage instantané (Service standard – Nos priorités)",
+  serviceSameDayPriorityCleaningHighlightCardTitleSix: "Nettoyage express de la cuisine",
+  serviceSameDayPriorityCleaningHighlightCardTitleSeven: "Rafraîchissement des salles de bain",
+
+  serviceSameDayPriorityCleaningTitleTwoFeatureOne: "Aspiration et balayage haute puissance des espaces de vie principaux.",
+  serviceSameDayPriorityCleaningTitleTwoFeatureTwo: "Lavage localisé des zones à fort passage et des zones de déversement.",
+
+  serviceSameDayPriorityCleaningTitleThreeFeatureOne: "Collecte des objets épars, verres et déchets.",
+  serviceSameDayPriorityCleaningTitleThreeFeatureTwo: "Vidage et désinfection des poubelles.",
+  serviceSameDayPriorityCleaningTitleThreeFeatureThree: "Dépoussiérage et nettoyage localisé des surfaces visibles.",
+  serviceSameDayPriorityCleaningTitleThreeFeatureFour: "Remise en place du mobilier (canapés, chaises, coussins).",
+
+  serviceSameDayPriorityCleaningTitleFourFeatureOne: "Élimination des bouteilles, canettes et vaisselle de service vides.",
+  serviceSameDayPriorityCleaningTitleFourFeatureTwo: "Désinfection de tous les plans de travail et surfaces collantes.",
+  serviceSameDayPriorityCleaningTitleFourFeatureThree: "Mise en marche du lave-vaisselle ; lavage de la vaisselle de base.",
+  serviceSameDayPriorityCleaningTitleFourFeatureFour: "Nettoyage des taches de boissons sur les sols durs.",
+
+  serviceSameDayPriorityCleaningTitleSixFeatureOne: "Essuyage des plans de travail.",
+  serviceSameDayPriorityCleaningTitleSixFeatureTwo: "Nettoyage localisé des façades de placards.",
+  serviceSameDayPriorityCleaningTitleSixFeatureThree: "Nettoyage de l’extérieur du micro-ondes et de la plaque de cuisson.",
+  serviceSameDayPriorityCleaningTitleSixFeatureFour: "Lavage ou chargement d’un petit lot de vaisselle",
+  serviceSameDayPriorityCleaningTitleSixFeatureFive: "Désinfection de l’évier et polissage des robinets",
+
+  serviceSameDayPriorityCleaningTitleSevenFeatureOne: "Désinfection du lavabo et du meuble-lavabo.",
+  serviceSameDayPriorityCleaningTitleSevenFeatureTwo: "Nettoyage des toilettes à l’intérieur et à l’extérieur.",
+  serviceSameDayPriorityCleaningTitleSevenFeatureThree: "Essuyage rapide des miroirs.",
+  serviceSameDayPriorityCleaningTitleSevenFeatureFour: "Changement de la serviette à mains.",
+  serviceSameDayPriorityCleaningTitleSevenFeatureFive: "Remplacement des serviettes à mains usagées",
+  serviceSameDayPriorityCleaningTitleSevenFeatureSix: "Vidage de la poubelle et désodorisation",
+
+  //deep-cleaning///
+  serviceDeepCleaningIntroHeadLine: "Au-delà de la surface : découvrez la différence d’un nettoyage en profondeur pour une maison vraiment remise à zéro.",
+  serviceDeepCleaningIntroBody: [
+    "Si votre maison a besoin de plus qu’un simple coup de frais, notre Remise à zéro totale de la maison est la solution idéale. C’est notre forfait de nettoyage le plus approfondi et détaillé, conçu pour éliminer la saleté, la poussière et les accumulations que le nettoyage standard néglige. Nous consacrons le temps nécessaire pour nettoyer en profondeur chaque recoin et établir une base impeccable pour votre maison.",
+    "Quand le temps est compté, choisissez l’équipe qui garantit une différence visible rapidement."
+  ],
+
+  serviceDeepCleaningHighlightTitleOne: "Points forts du nettoyage en profondeur",
+  serviceDeepCleaningHighlightCardTitleTwo: "Détail cuisine",
+  serviceDeepCleaningHighlightCardTitleThree: "Sanctuaire salle de bain",
+  serviceDeepCleaningHighlightCardTitleFour: "Sols",
+  serviceDeepCleaningHighlightCardTitleFive: "Focus sur toutes les zones",
+
+  serviceDeepCleaningTitleTwoFeatureOne: "Récurage intensif des crédences.",
+  serviceDeepCleaningTitleTwoFeatureTwo: "Nettoyage en profondeur de l’extérieur des appareils.",
+  serviceDeepCleaningTitleTwoFeatureThree: "Dégraissage des hottes et plaques de cuisson.",
+
+  serviceDeepCleaningTitleThreeFeatureOne: "Récurage approfondi des joints de douche et des murs carrelés.",
+  serviceDeepCleaningTitleThreeFeatureTwo: "Désinfection des toilettes, baignoires et lavabos.",
+  serviceDeepCleaningTitleThreeFeatureThree: "Détartrage des robinetteries et des portes de douche en verre.",
+
+  serviceDeepCleaningTitleFourFeatureOne: "Aspiration haute puissance et nettoyage des bords de moquettes.",
+  serviceDeepCleaningTitleFourFeatureTwo: "Lavage en profondeur et désinfection des sols durs.",
+  serviceDeepCleaningTitleFourFeatureThree: "Nettoyage détaillé des plinthes et des coins de sols.",
+
+  serviceDeepCleaningTitleFiveFeatureOne: "Essuyage et dépoussiérage de toutes les plinthes.",
+  serviceDeepCleaningTitleFiveFeatureTwo: "Nettoyage détaillé des appuis de fenêtre et rebords.",
+  serviceDeepCleaningTitleFiveFeatureThree: "Désinfection des cadres de portes, portes et poignées.",
+
+  //end-of-tenancy-cleaning///
+  serviceEndOfTenancyCleaningIntroHeadLine: "Maison vide, nettoyage complet : garantie de récupération de votre caution ou d’un nouveau départ étincelant.",
+  serviceEndOfTenancyCleaningIntroBody: [
+    "Notre service de Transition Tidy / Spotless Turnover est un nettoyage hautement ciblé et complet, conçu spécialement pour les biens vides. Ce service va au-delà du nettoyage en profondeur standard, en se concentrant intensément sur les zones oubliées comme l’intérieur des placards, tiroirs et espaces utilitaires, afin de répondre aux normes strictes exigées pour un turnover.",
+    "Pour une transition sans accroc, faites confiance aux experts du turnover total de propriété."
+  ],
+
+  serviceEndOfTenancyCleaningHighlightTitleOne: "Points forts du nettoyage de fin de location",
+  serviceEndOfTenancyCleaningHighlightCardTitleTwo: "Détail cuisine et buanderie",
+  serviceEndOfTenancyCleaningHighlightCardTitleThree: "Salle de bain intensive",
+  serviceEndOfTenancyCleaningHighlightCardTitleFour: "Zones générales et murs",
+  serviceEndOfTenancyCleaningHighlightCardTitleFive: "Sols",
+
+  serviceEndOfTenancyCleaningTitleTwoFeatureOne: "Intérieur et extérieur de tous les placards et tiroirs essuyés.",
+  serviceEndOfTenancyCleaningTitleTwoFeatureTwo: "Intérieur et extérieur de tous les gros électroménagers (four, frigo, lave-vaisselle) soigneusement nettoyés.",
+  serviceEndOfTenancyCleaningTitleTwoFeatureThree: "Récurage en profondeur de la hotte et de la plaque de cuisson.",
+
+  serviceEndOfTenancyCleaningTitleThreeFeatureOne: "Récurage intensif et détartrage des joints de douche, carrelage, baignoires et portes de douche.",
+  serviceEndOfTenancyCleaningTitleThreeFeatureTwo: "Nettoyage de l’intérieur des tiroirs et placards du meuble-lavabo.",
+
+  serviceEndOfTenancyCleaningTitleFourFeatureOne: "Essuyage de toutes les fenêtres intérieures.",
+  serviceEndOfTenancyCleaningTitleFourFeatureTwo: "Rails de fenêtres, appuis, interrupteurs et cadres de portes.",
+  serviceEndOfTenancyCleaningTitleFourFeatureThree: "Nettoyage localisé des marques visibles sur les murs.",
+
+  serviceEndOfTenancyCleaningTitleFiveFeatureOne: "Aspiration haute puissance de toutes les zones carpetées.",
+  serviceEndOfTenancyCleaningTitleFiveFeatureTwo: "Lavage / serpillière et brillantage de tous les sols durs.",
+
+  //post-construction-renovation-cleaning///
+  servicePostConstructionRenovationCleaningIntroHeadLine: "La transformation finale : éliminer la poussière de chantier et révéler l’éclat de votre nouvel espace.",
+  servicePostConstructionRenovationCleaningIntroBody: [
+    "Notre service Construction Dust-Buster est essentiel pour retirer en toute sécurité et en profondeur les résidus de chantier, la fine poussière de plâtre, les projections de peinture et les traces d’adhésif. Ce processus en deux phases (nettoyage grossier et nettoyage final) se concentre sur l’élimination microscopique de la poussière de chaque surface à l’aide d’équipements spécialisés pour atteindre un état prêt à emménager.",
+    "Ne laissez pas la poussière de chantier s’attarder. Faites confiance à notre équipe spécialisée pour livrer un poli qui finalise vraiment votre projet."
+  ],
+
+  servicePostConstructionRenovationCleaningHighlightTitleOne: "Points forts du nettoyage post-construction et rénovation",
+  servicePostConstructionRenovationCleaningHighlightCardTitleTwo: "Poussière et qualité de l’air",
+  servicePostConstructionRenovationCleaningHighlightCardTitleThree: "Détail des fenêtres",
+  servicePostConstructionRenovationCleaningHighlightCardTitleFour: "Cuisine et salle de bain",
+  servicePostConstructionRenovationCleaningHighlightCardTitleFive: "Sols",
+
+  servicePostConstructionRenovationCleaningTitleTwoFeatureOne: "Essuyages multiples de toutes les surfaces avec des chiffons microfibres.",
+  servicePostConstructionRenovationCleaningTitleTwoFeatureTwo: "Aspiration HEPA.",
+  servicePostConstructionRenovationCleaningTitleTwoFeatureThree: "Nettoyage des bouches d’aération et des retours d’air.",
+
+  servicePostConstructionRenovationCleaningTitleThreeFeatureOne: "Lavage du verre, des cadres et des rails.",
+  servicePostConstructionRenovationCleaningTitleThreeFeatureTwo: "Retrait sécurisé de peinture, stickers ou résidus.",
+
+  servicePostConstructionRenovationCleaningTitleFourFeatureOne: "Essuyage de tous les placards/tiroirs nouvellement installés.",
+  servicePostConstructionRenovationCleaningTitleFourFeatureTwo: "Retrait du voile de ciment des carrelages.",
+  servicePostConstructionRenovationCleaningTitleFourFeatureThree: "Nettoyage des robinetteries des traces de silicone/mastic/poussière.",
+
+  servicePostConstructionRenovationCleaningTitleFiveFeatureOne: "Aspiration haute performance avec filtre HEPA.",
+  servicePostConstructionRenovationCleaningTitleFiveFeatureTwo: "Nettoyage détaillé des bords, lavage et polissage des sols durs.",
+
+  //premium-rental-concierge-cleaning///
+  servicePremiumRentalConciergeCleaningIntroHeadLine: "Séjours fluides, avis cinq étoiles : un turnover parfait, à chaque fois.",
+  servicePremiumRentalConciergeCleaningIntroBody: [
+    "Notre service Rental Ready Turnover est conçu sur mesure pour les exigences uniques des locations de courte durée. L’objectif est de maximiser l’efficacité tout en garantissant que chaque détail répond aux plus hauts standards d’hospitalité pour un check-in immédiat des voyageurs. Ce service est critique en termes de timing et inclut des tâches essentielles de réapprovisionnement et de présentation que les services de nettoyage standard ne couvrent pas.",
+    "Nous sommes la clé d’une propreté 5 étoiles constante et d’un hébergement sans stress."
+  ],
+
+  servicePremiumRentalConciergeCleaningHighlightTitleOne: "Points forts du nettoyage conciergerie location premium",
+  servicePremiumRentalConciergeCleaningHighlightCardTitleTwo: "Sanctuaire des voyageurs (Salles de bain)",
+  servicePremiumRentalConciergeCleaningHighlightCardTitleThree: "Cuisine et rafraîchissements pour les voyageurs",
+  servicePremiumRentalConciergeCleaningHighlightCardTitleFour: "Gestion du linge (Chambres)",
+  servicePremiumRentalConciergeCleaningHighlightCardTitleFive: "Entretien et notes finales",
+
+  servicePremiumRentalConciergeCleaningTitleTwoFeatureOne: "Savon pour les mains de luxe — distributeur plein ou nouveau savon présenté.",
+  servicePremiumRentalConciergeCleaningTitleTwoFeatureTwo: "Soins capillaires — nouveau set shampooing & après-shampooing format voyage.",
+  servicePremiumRentalConciergeCleaningTitleTwoFeatureThree: "Produits en papier — rouleau de papier toilette monté et scellé, rechanges stockés.",
+  servicePremiumRentalConciergeCleaningTitleTwoFeatureFour: "Linge pour les voyageurs — serviettes fraîchement lavées et pliées.",
+  servicePremiumRentalConciergeCleaningTitleTwoFeatureFive: "Tapis de bain — propre et placé.",
+
+  servicePremiumRentalConciergeCleaningTitleThreeFeatureOne: "Boissons et édulcorants présentés soigneusement.",
+  servicePremiumRentalConciergeCleaningTitleThreeFeatureTwo: "Essentiels de nettoyage prêts à l’usage des voyageurs.",
+  servicePremiumRentalConciergeCleaningTitleThreeFeatureThree: "Nouveau sac poubelle et rouleau de papier essuie-tout complet.",
+  servicePremiumRentalConciergeCleaningTitleThreeFeatureFour: "Cadeau de bienvenue en présentation scellée.",
+
+  servicePremiumRentalConciergeCleaningTitleFourFeatureOne: "Inspection visuelle du matelas — aucune tache ni dommage.",
+  servicePremiumRentalConciergeCleaningTitleFourFeatureTwo: "Draps de dessous et de dessus frais et bien tendus.",
+  servicePremiumRentalConciergeCleaningTitleFourFeatureThree: "Taies d’oreiller et housse de couette fraîchement posées et mises en scène.",
+  servicePremiumRentalConciergeCleaningTitleFourFeatureFour: "Essuyage détaillé et sans poussière des luminaires.",
+
+  servicePremiumRentalConciergeCleaningTitleFiveFeatureOne: "Contrôle des murs, suppression des marques et empreintes.",
+  servicePremiumRentalConciergeCleaningTitleFiveFeatureTwo: "Vérification que toutes les surfaces sont exemptes de poussière.",
+  servicePremiumRentalConciergeCleaningTitleFiveFeatureThree: "Contrôle de sécurité pour éliminer tout danger.",
+  servicePremiumRentalConciergeCleaningTitleFiveFeatureFour: "Visite finale complète et inspection de mise en scène.",
+
+  //commercial-office-cleaning///
+  serviceCommercialOfficeCleaningIntroHeadLine: "Améliorer la productivité grâce à des locaux impeccables et au bien-être au travail.",
+  serviceCommercialOfficeCleaningIntroBody: [
+    "Notre service Professional Premises Polish est conçu pour les entreprises recherchant un nettoyage fiable et de haute qualité pour leurs espaces commerciaux, bureaux et environnements corporate. Nos équipes interviennent avec discrétion et efficacité, généralement en dehors des heures de bureau pour minimiser les perturbations. L’accent est mis sur le maintien d’une image professionnelle, l’amélioration du bien-être des collaborateurs grâce à l’hygiène, et le respect des normes sanitaires dans les zones à fort passage.",
+    "Un environnement propre est un environnement productif. Partenariez avec nous pour une excellence constante."
+  ],
+
+  serviceCommercialOfficeCleaningHighlightTitleOne: "Checklist bien-être au travail (Focus commercial)",
+  serviceCommercialOfficeCleaningHighlightTitleSeven: "Options de fréquence de service contractuelles",
+  serviceCommercialOfficeCleaningHighlightCardTitleTwo: "Espaces communs et accueil",
+  serviceCommercialOfficeCleaningHighlightCardTitleThree: "Kitchenette et salles de pause",
+  serviceCommercialOfficeCleaningHighlightCardTitleFour: "Toilettes",
+  serviceCommercialOfficeCleaningHighlightCardTitleFive: "Sols",
+  serviceCommercialOfficeCleaningHighlightCardTitleSix: "Gestion des déchets",
+  serviceCommercialOfficeCleaningHighlightCardTitleSeven: "Options de fréquence de service contractuelles",
+  serviceCommercialOfficeCleaningHighlightCardTitleEight: "Nettoyage quotidien",
+  serviceCommercialOfficeCleaningHighlightCardTitleNine: "Trois fois par semaine",
+  serviceCommercialOfficeCleaningHighlightCardTitleTen: "Nettoyage hebdomadaire",
+  serviceCommercialOfficeCleaningHighlightCardTitleEleven: "Nettoyage bi-hebdomadaire",
+
+  serviceCommercialOfficeCleaningTitleTwoFeatureOne: "Dépoussiérage de toutes les surfaces horizontales visibles, bureaux et armoires de classement.",
+  serviceCommercialOfficeCleaningTitleTwoFeatureTwo: "Polissage du mobilier de l’accueil et des éléments en verre/métal.",
+  serviceCommercialOfficeCleaningTitleTwoFeatureThree: "Nettoyage détaillé de tous les vitrages intérieurs (portes, cloisons).",
+
+  serviceCommercialOfficeCleaningTitleThreeFeatureOne: "Nettoyage et désinfection des plans de travail, éviers et extérieur des appareils (micro-ondes, réfrigérateurs).",
+  serviceCommercialOfficeCleaningTitleThreeFeatureTwo: "Essuyage humide des tables et chaises.",
+
+  serviceCommercialOfficeCleaningTitleFourFeatureOne: "Nettoyage et désinfection complets de toutes les toilettes, urinoirs, lavabos et robinetteries.",
+  serviceCommercialOfficeCleaningTitleFourFeatureTwo: "Réapprovisionnement des produits en papier et des distributeurs de savon/désinfectant.",
+
+  serviceCommercialOfficeCleaningTitleFiveFeatureOne: "Aspiration quotidienne de toutes les zones carpetées.",
+  serviceCommercialOfficeCleaningTitleFiveFeatureTwo: "Balayage et lavage de tous les sols durs (carrelage, vinyle, bois).",
+
+  serviceCommercialOfficeCleaningTitleSixFeatureOne: "Vidage de toutes les poubelles et remplacement des sacs.",
+  serviceCommercialOfficeCleaningTitleSixFeatureTwo: "Centralisation des recyclables pour la collecte.",
+
+  serviceCommercialOfficeCleaningTitleEightFeatureOne: "Pour les bureaux corporate à fort trafic et les établissements médicaux.",
+
+  serviceCommercialOfficeCleaningTitleNineFeatureOne: "Le standard pour les bureaux de taille moyenne.",
+
+  serviceCommercialOfficeCleaningTitleTenFeatureOne: "Adapté aux petits bureaux ou à ceux à faible fréquentation.",
+
+  serviceCommercialOfficeCleaningTitleElevenFeatureOne: "Focus sur les toilettes, salles de pause et polissage des sols uniquement.",
+
+  //healthguard-sanitization///
+  serviceHealthguardSanitizationIntroHeadLine: "Au-delà du propre : une désinfection de niveau hospitalier pour un environnement HealthGuard authentique.",
+  serviceHealthguardSanitizationIntroBody: [
+    "Notre service HealthGuard Sanitization se concentre exclusivement sur l’élimination des pathogènes, bactéries et virus des surfaces à fort contact et à fort trafic. Ce service utilise des désinfectants de niveau hospitalier enregistrés EPA/ECHA et des méthodes d’application spécialisées (telles que le brumisation ou la pulvérisation électrostatique, le cas échéant) pour atteindre une couverture maximale et des taux d’élimination microbienne élevés.",
+    "Ce service est idéal pour les clients exigeant des normes d’hygiène avancées, notamment les cabinets médicaux, salles de sport, écoles et foyers à forte vulnérabilité. Nous ne nous contentons pas de nettoyer — nous purifions cliniquement votre espace pour la santé et la tranquillité d’esprit."
+  ],
+
+  serviceHealthguardSanitizationHighlightTitleOne: "Checklist désinfection Pure Space (Focus ciblé – Y compris résidentiel)",
+  serviceHealthguardSanitizationHighlightCardTitleTwo: "Checklist désinfection Pure Space",
+  serviceHealthguardSanitizationHighlightCardTitleThree: "Cuisine et zones de préparation alimentaire",
+  serviceHealthguardSanitizationHighlightCardTitleFour: "Focus détail résidentiel",
+  serviceHealthguardSanitizationHighlightCardTitleFive: "Focus détail bureau",
+  serviceHealthguardSanitizationHighlightCardTitleSix: "Méthode d’application",
+
+  serviceHealthguardSanitizationTitleTwoFeatureOne: "Nettoyage initial des surfaces suivi de l’application d’un désinfectant de niveau hospitalier.",
+  serviceHealthguardSanitizationTitleTwoFeatureTwo: "Surfaces à fort contact : poignées de porte, interrupteurs, télécommandes, thermostats, rampes, téléphones.",
+  serviceHealthguardSanitizationTitleTwoFeatureThree: "Toilettes : désinfection des robinetteries, lavabos, plans de travail, toilettes, poignées, zones douche/baignoire.",
+
+  serviceHealthguardSanitizationTitleThreeFeatureOne: "Plans de travail, éviers, poignées de robinets.",
+  serviceHealthguardSanitizationTitleThreeFeatureTwo: "Poignées extérieures du frigo, placards, micro-ondes.",
+  serviceHealthguardSanitizationTitleThreeFeatureThree: "Intérieur des micro-ondes, claviers, boutons de machine à café.",
+
+  serviceHealthguardSanitizationTitleFourFeatureOne: "Tables de nuit, poignées de tiroirs, jouets durs pour enfants.",
+  serviceHealthguardSanitizationTitleFourFeatureTwo: "Manettes de jeux et boutons/cadrans d’appareils.",
+
+  serviceHealthguardSanitizationTitleFiveFeatureOne: "Claviers, souris, surfaces de bureau.",
+  serviceHealthguardSanitizationTitleFiveFeatureTwo: "Boutons des fontaines à eau communes.",
+
+  serviceHealthguardSanitizationTitleSixFeatureOne: "Pulvérisation liquide / chiffons microfibres + pulvérisation électrostatique si nécessaire.",
+  serviceHealthguardSanitizationTitleSixFeatureTwo: "Brumisation ou pulvérisation électrostatique si nécessaire.",
+
+  //carpet-upholstery-cleaning///
+  serviceCarpetUpholsteryCleaningIntroHeadLine: "Renouveau profond des fibres : restaurer la douceur, la couleur et la fraîcheur de chaque surface sur laquelle vous vous asseyez.",
+  serviceCarpetUpholsteryCleaningIntroBody: [
+    "Notre service Fiber Renewal utilise l’extraction à l’eau chaude professionnelle et des traitements adaptés aux tissus pour éliminer la saleté incrustée, les allergènes et les odeurs des tapis, moquettes, meubles rembourrés, matelas et rideaux — bien plus en profondeur qu’un aspirateur standard. Chaque type de tissu est évalué avant traitement, afin que les tapis délicats et le mobilier raffiné reçoivent le soin doux dont ils ont besoin, tandis que les moquettes à fort trafic bénéficient du nettoyage en profondeur qu’elles exigent.",
+    "Le résultat : des tissus plus doux, plus lumineux et plus sains dans toute la maison — avec des temps de séchage plus rapides et aucun résidu de produits chimiques agressifs."
+  ],
+
+  serviceCarpetUpholsteryCleaningHighlightTitleOne: "Points forts du nettoyage de tapis et d’ameublement",
+  serviceCarpetUpholsteryCleaningHighlightCardTitleTwo: "Nettoyage de moquettes",
+  serviceCarpetUpholsteryCleaningHighlightCardTitleThree: "Nettoyage de tapis",
+  serviceCarpetUpholsteryCleaningHighlightCardTitleFour: "Nettoyage d’ameublement",
+  serviceCarpetUpholsteryCleaningHighlightCardTitleFive: "Nettoyage de matelas",
+  serviceCarpetUpholsteryCleaningHighlightCardTitleSix: "Nettoyage de rideaux",
+
+  serviceCarpetUpholsteryCleaningTitleTwoFeatureOne: "Amélioration de la santé et de la qualité de l’air — élimine les allergènes.",
+  serviceCarpetUpholsteryCleaningTitleTwoFeatureTwo: "Restauration et préservation de la valeur.",
+  serviceCarpetUpholsteryCleaningTitleTwoFeatureThree: "Extraction professionnelle en profondeur à l’eau chaude.",
+  serviceCarpetUpholsteryCleaningTitleTwoFeatureFour: "Solutions écologiques sûres et efficaces.",
+
+  serviceCarpetUpholsteryCleaningTitleThreeFeatureOne: "Soin délicat pour tous les types de tapis.",
+  serviceCarpetUpholsteryCleaningTitleThreeFeatureTwo: "Protection des couleurs et des textures.",
+  serviceCarpetUpholsteryCleaningTitleThreeFeatureThree: "Finition manuelle détaillée.",
+
+  serviceCarpetUpholsteryCleaningTitleFourFeatureOne: "Confort propre et frais qui prolonge la durée de vie des meubles.",
+  serviceCarpetUpholsteryCleaningTitleFourFeatureTwo: "Élimination des taches et des odeurs.",
+  serviceCarpetUpholsteryCleaningTitleFourFeatureThree: "Soin professionnel adapté aux tissus.",
+
+  serviceCarpetUpholsteryCleaningTitleFiveFeatureOne: "Élimine les acariens et allergènes.",
+  serviceCarpetUpholsteryCleaningTitleFiveFeatureTwo: "Améliore l’hygiène du sommeil.",
+  serviceCarpetUpholsteryCleaningTitleFiveFeatureThree: "Processus de désinfection en profondeur.",
+
+  serviceCarpetUpholsteryCleaningTitleSixFeatureOne: "Sans démontage nécessaire.",
+  serviceCarpetUpholsteryCleaningTitleSixFeatureTwo: "Nettoyage à la vapeur adapté aux tissus.",
+  serviceCarpetUpholsteryCleaningTitleSixFeatureThree: "Rafraîchit l’air intérieur.",
+
+  //steam-cleaning///
+  serviceSteamCleaningIntroHeadLine: "Exploiter la pure puissance de la vapeur pour un nettoyage en profondeur et une désinfection sans produits chimiques.",
+  serviceSteamCleaningIntroBody: [
+    "Notre service Vapor Virtue Cleaning utilise de la vapeur haute température et à faible humidité pour désinfecter les surfaces, dissoudre les graisses, éliminer moisissures et mildiou, et tuer jusqu’à 99,9 % des bactéries, germes et acariens. Ce service est idéal pour les clients recherchant une méthode écologique, hypoallergénique et très efficace pour le nettoyage en profondeur des cuisines, toilettes, carrelages et joints, et des recoins difficiles d’accès.",
+    "La vapeur pure et sous pression pénètre plus profondément que les méthodes de nettoyage conventionnelles."
+  ],
+
+  serviceSteamCleaningHighlightTitleOne: "Points forts du nettoyage à la vapeur",
+  serviceSteamCleaningHighlightCardTitleTwo: "Détail cuisine",
+  serviceSteamCleaningHighlightCardTitleThree: "Nettoyage en profondeur des toilettes",
+  serviceSteamCleaningHighlightCardTitleFour: "Désinfection des surfaces",
+  serviceSteamCleaningHighlightCardTitleFive: "Traitement des recoins et des taches",
+
+  serviceSteamCleaningTitleTwoFeatureOne: "Vaporisation et désinfection des hottes et grilles de plaque de cuisson.",
+  serviceSteamCleaningTitleTwoFeatureTwo: "Nettoyage à la vapeur en profondeur de l’intérieur des fours et des joints de réfrigérateur.",
+  serviceSteamCleaningTitleTwoFeatureThree: "Désinfection des planches à découper à la vapeur haute température.",
+
+  serviceSteamCleaningTitleThreeFeatureOne: "Nettoyage à la vapeur des joints et dissolution du savon incrusté.",
+  serviceSteamCleaningTitleThreeFeatureTwo: "Nettoyage des bases de toilettes, charnières et zones difficiles d’accès.",
+
+  serviceSteamCleaningTitleFourFeatureOne: "Désinfection à la vapeur des points de contact : poignées, interrupteurs.",
+  serviceSteamCleaningTitleFourFeatureTwo: "Désinfection sans produits chimiques des claviers d’appareils.",
+
+  serviceSteamCleaningTitleFiveFeatureOne: "Nettoyage à la vapeur par buse de précision pour les coins et plinthes.",
+  serviceSteamCleaningTitleFiveFeatureTwo: "Nettoyage efficace des rails de fenêtres et joints de carrelage.",
+  serviceSteamCleaningTitleFiveFeatureThree: "Traitement localisé léger des tissus et de l’ameublement.",
+
+  //post-event-cleaning///
+  servicePostEventCleaningIntroHeadLine: "La seule chose que nous laissons derrière nous, c’est un lieu impeccable.",
+  servicePostEventCleaningIntroBody: [
+    "Notre service de nettoyage pour événements spéciaux est conçu pour que votre espace soit impeccable et prêt, vous permettant de vous concentrer sur le plaisir de l’occasion. De la préparation au post-événement, nos professionnels gèrent chaque détail pour créer un environnement propre et accueillant pour les invités.",
+    "Ce service complet garantit un espace bien entretenu et hygiénique, améliorant l’ambiance et laissant une impression positive durable aux invités — tout en vous faisant gagner du temps et des efforts."
+  ],
+
+  servicePostEventCleaningHighlightTitleOne: "Points forts du nettoyage post-événement",
+  servicePostEventCleaningHighlightCardTitleTwo: "Avant l’événement",
+  servicePostEventCleaningHighlightCardTitleThree: "Juste avant l’arrivée des invités",
+  servicePostEventCleaningHighlightCardTitleFour: "Pendant l’événement",
+  servicePostEventCleaningHighlightCardTitleFive: "Après l’événement",
+
+  servicePostEventCleaningTitleTwoFeatureOne: "Définir le périmètre de nettoyage nécessaire selon le type et la taille de l’événement.",
+  servicePostEventCleaningTitleTwoFeatureTwo: "Désencombrer, dépoussiérer et organiser l’espace.",
+  servicePostEventCleaningTitleTwoFeatureThree: "Aspirer les moquettes, balayer et laver les sols durs.",
+  servicePostEventCleaningTitleTwoFeatureFour: "Nettoyer les fenêtres, surfaces vitrées, sièges et tables.",
+  servicePostEventCleaningTitleTwoFeatureFive: "Désinfecter les surfaces à fort contact (poignées, interrupteurs, rampes).",
+
+  servicePostEventCleaningTitleThreeFeatureOne: "Visite finale et retouches des traces ou marques.",
+  servicePostEventCleaningTitleThreeFeatureTwo: "Revérifier les toilettes pour les consommables.",
+  servicePostEventCleaningTitleThreeFeatureThree: "Confirmer que les décorations et la signalétique sont propres et en place.",
+  servicePostEventCleaningTitleThreeFeatureFour: "Ranger le matériel de nettoyage hors de vue.",
+
+  servicePostEventCleaningTitleFourFeatureOne: "Surveiller et vider les poubelles selon les besoins.",
+  servicePostEventCleaningTitleFourFeatureTwo: "Nettoyer immédiatement les déversements et salissures.",
+  servicePostEventCleaningTitleFourFeatureThree: "Réapprovisionner les consommables des toilettes.",
+  servicePostEventCleaningTitleFourFeatureFour: "Garder le matériel de nettoyage localisé à portée de main mais discret.",
+
+  servicePostEventCleaningTitleFiveFeatureOne: "Nettoyage post-événement complet (aspiration, lavage, essuyage des surfaces).",
+  servicePostEventCleaningTitleFiveFeatureTwo: "Nettoyer et ranger le matériel de location.",
+  servicePostEventCleaningTitleFiveFeatureThree: "Éliminer correctement les déchets et le recyclage.",
+  servicePostEventCleaningTitleFiveFeatureFour: "Vérifier d’éventuels dommages ou usure excessive.",
+
+  //pool-cleaning///
+  servicePoolCleaningIntroHeadLine: "Maintenir une qualité d’eau impeccable et prolonger la durée de vie de votre équipement de piscine.",
+  servicePoolCleaningIntroBody: [
+    "Notre service Aquatic Clarity propose un entretien spécialisé et récurrent pour les piscines résidentielles et commerciales. Ce service garantit une chimie de l’eau optimale, la longévité des équipements et un environnement de baignade propre et sûr. Nos passages sont complets, couvrant à la fois le nettoyage physique et la gestion de l’équilibre chimique.",
+    "Note tarifaire : Les prix sont indiqués par intervention (hebdomadaire/bi-hebdomadaire) selon la taille de la piscine (surface ou volume) et l’expertise chimique requise."
+  ],
+
+  servicePoolCleaningHighlightTitleOne: "Points forts du nettoyage de piscine",
+  servicePoolCleaningHighlightCardTitleTwo: "Élimination des débris",
+  servicePoolCleaningHighlightCardTitleThree: "Entretien du filtre",
+  servicePoolCleaningHighlightCardTitleFour: "Brossage des parois et du carrelage",
+  servicePoolCleaningHighlightCardTitleFive: "Équilibre chimique",
+  servicePoolCleaningHighlightCardTitleSix: "Contrôle des équipements",
+
+  servicePoolCleaningTitleTwoFeatureOne: "Écumage de la surface de l’eau et aspiration du fond et des parois de la piscine.",
+
+  servicePoolCleaningTitleThreeFeatureOne: "Rétro-lavage/nettoyage du filtre ; vidage des paniers d’écumeur et de pompe.",
+
+  servicePoolCleaningTitleFourFeatureOne: "Brossage des parois de la piscine et des lignes de carrelage pour prévenir les algues et le tartre.",
+
+  servicePoolCleaningTitleFiveFeatureOne: "Test et ajustement du chlore/désinfectant, pH, alcalinité et dureté calcique.",
+
+  servicePoolCleaningTitleSixFeatureOne: "Inspection de la pompe, du chauffe-eau, du filtre et du programmateur pour un bon fonctionnement.",
+
+  //precision-pressure-washing///
+  servicePrecisionPressureWashingIntroHeadLine: "Restaurer l’éclat : le nettoyage le plus profond pour les extérieurs, allées et surfaces commerciales.",
+  servicePrecisionPressureWashingIntroBody: [
+    "Notre service Exterior Blast & Brighten utilise des équipements professionnels haute pression, souvent avec capacité d’eau chaude (nettoyage à la haute pression), buses spécialisées et détergents biodégradables pour nettoyer en toute sécurité et efficacement les surfaces extérieures difficiles, larges ou d’accès élevé."
+  ],
+
+  servicePrecisionPressureWashingHighlightTitleOne: "Points forts du nettoyage haute pression de précision",
+  servicePrecisionPressureWashingHighlightCardTitleTwo: "Lavage doux (Soft Washing)",
+  servicePrecisionPressureWashingHighlightCardTitleThree: "Allées et terrasses",
+  servicePrecisionPressureWashingHighlightCardTitleFour: "Fenêtres et gouttières",
+
+  servicePrecisionPressureWashingTitleTwoFeatureOne: "Une solution de nettoyage douce et écologique idéale pour les surfaces délicates — élimine la saleté, les moisissures et les accumulations organiques tout en préservant la peinture, le bardage et les finitions extérieures.",
+
+  servicePrecisionPressureWashingTitleThreeFeatureOne: "Nettoyage haute performance pour éliminer les taches d’huile, les algues et la saleté incrustée des surfaces en béton et pavées.",
+
+  servicePrecisionPressureWashingTitleFourFeatureOne: "Nettoyage professionnel pour retirer les débris, la poussière et les résidus, garantissant des vues claires, un bon drainage et une protection à long terme.",
+
+  //child-care-service///
+  serviceChildCareServiceIntroHeadLine: "Little Stars Nurturing / Garde d’enfants Family First",
+  serviceChildCareServiceIntroBody: [
+    "Ce service propose une garde d’enfants hautement personnalisée et premium, souvent à domicile, spécialisée dans l’engagement éducatif, les horaires flexibles et un accompagnement complet — incluant repas, hygiène, transport et entretien léger."
+  ],
+
+  serviceChildCareServiceHighlightTitleOne: "Points forts du service de garde d’enfants",
+  serviceChildCareServiceHighlightCardTitleTwo: "Garde de bébés (3–18 mois)",
+  serviceChildCareServiceHighlightCardTitleThree: "Apprentissage tout-petits (1,5–3 ans)",
+  serviceChildCareServiceHighlightCardTitleFour: "Garde journalière",
+  serviceChildCareServiceHighlightCardTitleFive: "Garde périscolaire",
+  serviceChildCareServiceHighlightCardTitleSix: "Garde ponctuelle",
+  serviceChildCareServiceHighlightCardTitleSeven: "Garde de dernière minute",
+
+  serviceChildCareServiceTitleTwoFeatureOne: "Attention spécialisée et activités de développement sensoriel conçues pour les bébés.",
+
+  serviceChildCareServiceTitleThreeFeatureOne: "Apprentissage par le jeu et développement des compétences sociales pour les tout-petits curieux.",
+
+  serviceChildCareServiceTitleFourFeatureOne: "Garde à la journée pour les enfants, dans un environnement sûr et bienveillant.",
+
+  serviceChildCareServiceTitleFiveFeatureOne: "Aide aux devoirs et activités créatives pour les enfants d’âge scolaire.",
+
+  serviceChildCareServiceTitleSixFeatureOne: "Garde flexible et à la demande pour les soirées ou week-ends chargés.",
+
+  serviceChildCareServiceTitleSevenFeatureOne: "Nous comprenons que la vie peut être imprévisible — obtenez une garde de dernière minute quand vous en avez le plus besoin.",
+
+  //elder-care-service///
+  serviceElderCareServiceIntroHeadLine: "Compagnonnage bienveillant pour seniors / Assistance Golden Age",
+  serviceElderCareServiceIntroBody: [
+    "Ce service propose un accompagnement non médical hautement personnalisé pour les seniors, axé sur l’amélioration de la qualité de vie, la sécurité et l’autonomie grâce à un compagnonnage dédié, une aide à la mobilité, la préparation des repas et les courses essentielles."
+  ],
+
+  serviceElderCareServiceHighlightTitleOne: "Points forts du service d’aide aux seniors",
+  serviceElderCareServiceHighlightCardTitleTwo: "Soins de compagnie",
+  serviceElderCareServiceHighlightCardTitleThree: "Soins personnels",
+  serviceElderCareServiceHighlightCardTitleFour: "Soins quotidiens",
+
+  serviceElderCareServiceTitleTwoFeatureOne: "Interaction sociale et compagnonnage.",
+  serviceElderCareServiceTitleTwoFeatureTwo: "Aide aux activités quotidiennes.",
+
+  serviceElderCareServiceTitleThreeFeatureOne: "Toilette et coiffure.",
+  serviceElderCareServiceTitleThreeFeatureTwo: "Gestion des médicaments.",
+  serviceElderCareServiceTitleThreeFeatureThree: "Soins d’incontinence.",
+
+  serviceElderCareServiceTitleFourFeatureOne: "Soins de routine et soutien dans les tâches de la vie quotidienne.",
+  serviceElderCareServiceTitleFourFeatureTwo: "Aide à la mobilité et aux transferts.",
+
+  //laundry-service///
+  serviceLaundryServiceIntroHeadLine: "Lessive sans effort, livrée propre",
+  serviceLaundryServiceIntroBody: [
+    "Votre temps est précieux — laissez-nous gérer la lessive, de la collecte à la livraison propre et pliée."
+  ],
+
+  serviceLaundryServiceHighlightTitleOne: "Points forts du service de blanchisserie",
+  serviceLaundryServiceHighlightCardTitleTwo: "Lavage et pliage",
+  serviceLaundryServiceHighlightCardTitleThree: "Nettoyage à sec premium",
+  serviceLaundryServiceHighlightCardTitleFour: "Repassage à la vapeur professionnel",
+  serviceLaundryServiceHighlightCardTitleFive: "Soin des tissus éco-luxe",
+  serviceLaundryServiceHighlightCardTitleSix: "Literie et linge de maison",
+  serviceLaundryServiceHighlightCardTitleSeven: "Collecte et livraison express",
+
+  serviceLaundryServiceTitleTwoFeatureOne: "Lessive du quotidien expertement nettoyée, séchée et soigneusement pliée pour votre confort.",
+
+  serviceLaundryServiceTitleThreeFeatureOne: "Nettoyage chimique spécialisé pour les tissus délicats, costumes et tenues de soirée haut de gamme.",
+
+  serviceLaundryServiceTitleFourFeatureOne: "Repassage de précision et pressage à la vapeur pour une finition sans plis, professionnelle.",
+
+  serviceLaundryServiceTitleFiveFeatureOne: "Nettoyage doux avec des détergents écologiques qui préservent la longévité des textiles de luxe.",
+
+  serviceLaundryServiceTitleSixFeatureOne: "Nettoyage intensif pour les articles volumineux incluant couettes, rideaux et linge de lit.",
+
+  serviceLaundryServiceTitleSevenFeatureOne: "Service porte-à-porte planifié qui s’intègre parfaitement à votre rythme de vie chargé.",
+
+  //move-in-out-transport-service///
+  serviceMoveInOutTransportServiceIntroHeadLine: "Logistique de déménagement fluide / Transport de transition domicile",
+  serviceMoveInOutTransportServiceIntroBody: [
+    "Ce service propose un transport et une gestion de transition sur mesure pour une clientèle résidentielle et commerciale exigeante. Le tarif est déterminé via un devis complet basé sur la complexité logistique, le volume de l’inventaire et la distance de transit."
+  ],
+
+  serviceMoveInOutTransportServiceHighlightTitleOne: "Points forts du service de transport emménagement / déménagement",
+  serviceMoveInOutTransportServiceHighlightCardTitleTwo: "Emballage des biens",
+  serviceMoveInOutTransportServiceHighlightCardTitleThree: "Déménagement des biens",
+  serviceMoveInOutTransportServiceHighlightCardTitleFour: "Transport des biens",
+  serviceMoveInOutTransportServiceHighlightCardTitleFive: "Commercial / Bureau",
+
+  serviceMoveInOutTransportServiceTitleTwoFeatureOne: "Objets fragiles emballés et conditionnés en toute sécurité dans des contenants adaptés, avec étiquetage clair du contenu et de la destination.",
+
+  serviceMoveInOutTransportServiceTitleThreeFeatureOne: "Biens soigneusement chargés et arrimés sur les véhicules de transport pour éviter tout déplacement, et déchargés efficacement à destination.",
+
+  serviceMoveInOutTransportServiceTitleFourFeatureOne: "Biens chargés en toute sécurité avec une répartition correcte du poids, en respectant tous les protocoles de sécurité et le code de la route pendant le transit.",
+
+  serviceMoveInOutTransportServiceTitleFiveFeatureOne: "Équipements de bureau emballés en sécurité, étiquetés clairement et transportés efficacement pour minimiser les perturbations.",
+
+  //high-security-property-care///
+  serviceHighSecurityPropertyCareIntroHeadLine: "Personnel contrôlé | Discrétion totale | Qualité sans compromis",
+  serviceHighSecurityPropertyCareIntroBody: [
+    "Nettoyage spécialisé conçu pour les clients VVIP et VIP, les installations gouvernementales, les résidences privées et les biens hautement sensibles. Géré exclusivement par du personnel contrôlé sur le plan de la sécurité et travaillant sous accords de non-divulgation stricts, nous offrons une discrétion totale dans les zones à accès restreint. Avec des produits premium certifiés écologiques, sûrs pour les intérieurs de luxe et les espaces familiaux, nous livrons des résultats impeccables avec un maximum de confiance. Contactez-nous pour une consultation et un devis confidentiels."
+  ],
+
+  serviceHighSecurityPropertyCareHighlightTitleOne: "Points forts de l’entretien de biens haute sécurité",
+  serviceHighSecurityPropertyCareHighlightCardTitleTwo: "Personnel contrôlé et confidentialité",
+  serviceHighSecurityPropertyCareHighlightCardTitleThree: "Installations haute sécurité",
+  serviceHighSecurityPropertyCareHighlightCardTitleFour: "Intervention d’urgence et risques biologiques",
+  serviceHighSecurityPropertyCareHighlightCardTitleFive: "Désinfection des appareils numériques",
+
+  serviceHighSecurityPropertyCareTitleTwoFeatureOne: "Techniciens 100 % contrôlés, habilités et liés par NDA.",
+  serviceHighSecurityPropertyCareTitleTwoFeatureTwo: "Protocoles stricts de non-divulgation pour protéger les données physiques et numériques.",
+
+  serviceHighSecurityPropertyCareTitleThreeFeatureOne: "Nettoyage spécialisé pour SCIF, salles serveurs et bureaux confidentiels.",
+  serviceHighSecurityPropertyCareTitleThreeFeatureTwo: "Extraction de poussière sub-micronique pour le matériel sensible et l’électronique.",
+
+  serviceHighSecurityPropertyCareTitleFourFeatureOne: "Intervention rapide 24/7 pour cambriolages, déversements biologiques et scènes de crime.",
+  serviceHighSecurityPropertyCareTitleFourFeatureTwo: "Sécurisation immédiate du site, obturation et documentation photo pour assurance.",
+
+  serviceHighSecurityPropertyCareTitleFiveFeatureOne: "Purge de virus, logiciels malveillants et adware sur site ou à distance.",
+  serviceHighSecurityPropertyCareTitleFiveFeatureTwo: "Effacement complet des données et restauration de la confidentialité pour les appareils infectés.",
+
+  //luxury-yacht-cleaning///
+  serviceLuxuryYachtCleaningIntroHeadLine: "Coque salée ou charter VIP en approche ? Obtenez la perfection standard yacht et un éclat instantané !",
+  serviceLuxuryYachtCleaningIntroBody: [
+    "Entretenir un yacht de luxe de classe mondiale exige un soin constant et un détail sans compromis. Que vous prépariez votre yacht pour un charter exclusif, que vous récupériez d’une croisière de plusieurs jours ou que vous ayez besoin d’un entretien intérieur discret pour des invités de haut niveau, nos spécialistes du nettoyage marin sont prêts à intervenir.",
+    "Nous sommes spécialisés dans le detailing yacht haut de gamme, la restauration de coque de qualité marine, le traitement du teck et l’assainissement intérieur ultra-discret. Notre équipe est contrôlée, formée aux soins des surfaces de luxe et parfaitement familiarisée avec les protocoles de sécurité maritime — offrant un traitement white-glove tout en protégeant les finitions délicates de votre navire et votre totale confidentialité.",
+    "Quand le luxe et la précision marine comptent le plus, choisissez l’équipe de confiance sur l’eau."
+  ],
+
+  serviceLuxuryYachtCleaningHighlightTitleOne: "Checklist d’entretien yacht de luxe (Précision maximale, finition irréprochable)",
+  serviceLuxuryYachtCleaningHighlightCardTitleTwo: "Extérieur et superstructure",
+  serviceLuxuryYachtCleaningHighlightCardTitleThree: "Cabines VIP intérieures",
+  serviceLuxuryYachtCleaningHighlightCardTitleFour: "Salle des machines et zones techniques",
+  serviceLuxuryYachtCleaningHighlightCardTitleFive: "Turnover rapide post-charter",
+
+  serviceLuxuryYachtCleaningTitleTwoFeatureOne: "Lavage de qualité marine, neutralisation des dépôts de sel et séchage sans traces.",
+  serviceLuxuryYachtCleaningTitleTwoFeatureTwo: "Polissage de l’acier inoxydable, traitement de clarté du verre et brossage des ponts en teck.",
+
+  serviceLuxuryYachtCleaningTitleThreeFeatureOne: "Entretien white-glove des cabines VIP, suites principales et zones de cuisine.",
+  serviceLuxuryYachtCleaningTitleThreeFeatureTwo: "Nettoyage en profondeur de l’ameublement délicat, cuir fin, marbre et boiseries sur mesure.",
+
+  serviceLuxuryYachtCleaningTitleFourFeatureOne: "Dégraissage des cales de salle des machines, essuyage des machines et préparation des espaces mécaniques.",
+  serviceLuxuryYachtCleaningTitleFourFeatureTwo: "Confinement écologique des résidus dangereux conforme aux normes environnementales maritimes.",
+
+  serviceLuxuryYachtCleaningTitleFiveFeatureOne: "Nettoyage d’urgence 24/7 à réponse rapide entre les réservations de charter.",
+  serviceLuxuryYachtCleaningTitleFiveFeatureTwo: "Turnover complet du linge, assainissement et préparation des provisions pour les prochains invités.",
+
+
+  // Hero
   heroTitle: "PEARLY SKY",
   heroCtaSecondary: "RÉSERVER EN LIGNE",
 
@@ -643,7 +643,7 @@ serviceLuxuryYachtCleaningTitleFiveFeatureTwo: "Turnover complet du linge, assai
   servicesSeeLess: "Voir moins",
 
 
-  
+
   serviceRegularHomeCleaning: "Nettoyage régulier de la maison",
   serviceRegularHomeCleaningDescription: "Un entretien régulier pour un intérieur frais et ordonné.",
   serviceEssentialTouchUpCleaning: "Nettoyage essentiel de rafraîchissement",
@@ -654,13 +654,13 @@ serviceLuxuryYachtCleaningTitleFiveFeatureTwo: "Turnover complet du linge, assai
   serviceEndOfTenancyCleaningDescription: "Idéal pour les emménagements, déménagements et états des lieux.",
   servicePremiumRentalConciergeCleaning: "Nettoyage de concierge de location premium",
   servicePremiumRentalConciergeCleaningDescription: "Un service de nettoyage haut de gamme pour les locations premium.",
-  servicePostConstructionRenovationCleaning:"Nettoyage Post-Construction & Renovation",
-  servicePostConstructionRenovationCleaningDescription:"Supprime la poussière et les débris après les travaux.",
-  serviceCommercialOfficeCleaning:"Nettoyage commercial et de bureaux",
-  serviceCommercialOfficeCleaningDescription:"Nettoyage professionnel des espaces commerciaux.",
+  servicePostConstructionRenovationCleaning: "Nettoyage Post-Construction & Renovation",
+  servicePostConstructionRenovationCleaningDescription: "Supprime la poussière et les débris après les travaux.",
+  serviceCommercialOfficeCleaning: "Nettoyage commercial et de bureaux",
+  serviceCommercialOfficeCleaningDescription: "Nettoyage professionnel des espaces commerciaux.",
 
-  servicePostConstructionCleaning:"Nettoyage après construction et rénovation",
-  serviceCommercialCleaningServices:"Services de nettoyage commercial",
+  servicePostConstructionCleaning: "Nettoyage après construction et rénovation",
+  serviceCommercialCleaningServices: "Services de nettoyage commercial",
   //service cards details in home page
   serviceHealthguardSanitization: "Désinfection HealthGuard",
   serviceHealthguardSanitizationDescription: "Désinfection ciblée des zones fréquemment touchées.",
@@ -705,127 +705,127 @@ serviceLuxuryYachtCleaningTitleFiveFeatureTwo: "Turnover complet du linge, assai
   servicesCategoryBespokeLifestyle: "CURATION BIEN-ÊTRE & STYLE DE VIE SUR MESURE",
 
   //carpet cleaning services
-  CarpetServiceSectionTitle:"Détails sur les tapis et tissus d'ameublement",
-  CarpetSchedulebackButtonText:"Retour",
-  CarpetScheduleContinueButtonText:"Continuer",
-  CarpetCardQuantityLabel:"Quantité",
-  CarpetCardSelectAddLable:"Ajouter",
-  CarpetCardSelectRemoveLable:"Retirer",
+  CarpetServiceSectionTitle: "Détails sur les tapis et tissus d'ameublement",
+  CarpetSchedulebackButtonText: "Retour",
+  CarpetScheduleContinueButtonText: "Continuer",
+  CarpetCardQuantityLabel: "Quantité",
+  CarpetCardSelectAddLable: "Ajouter",
+  CarpetCardSelectRemoveLable: "Retirer",
 
   CategoryDeepSpecialized: "Nettoyage profond et spécialisé",
-CategoryGeneralInterior: "Entretien intérieur général",
-CategoryLifeStyle: "Style de vie et soins à domicile",
-CategoryDeepOutDoor: "Espaces extérieurs et extérieurs",
+  CategoryGeneralInterior: "Entretien intérieur général",
+  CategoryLifeStyle: "Style de vie et soins à domicile",
+  CategoryDeepOutDoor: "Espaces extérieurs et extérieurs",
 
-AddOnsDefaultCatagoryDeep: "Nettoyage en profondeur du four et de la cuisinière",
-AddOnsDefaultCatagoryInteriorRefrigerator: "Assainissement intérieur du réfrigérateur",
-AddOnsDefaultCatagoryInteriorWindow: "Nettoyage intérieur des fenêtres et des rails",
-AddOnsDefaultCatagoryBalcony: "Nettoyage de balcon et de terrasse",
+  AddOnsDefaultCatagoryDeep: "Nettoyage en profondeur du four et de la cuisinière",
+  AddOnsDefaultCatagoryInteriorRefrigerator: "Assainissement intérieur du réfrigérateur",
+  AddOnsDefaultCatagoryInteriorWindow: "Nettoyage intérieur des fenêtres et des rails",
+  AddOnsDefaultCatagoryBalcony: "Nettoyage de balcon et de terrasse",
 
-AddsOnCategoryOvenFridgeRestoration: "Restauration professionnelle de four et réfrigérateur",
-    AddsOnCategoryLimescaleMoldRemediation: "Traitement anti-tartre et anti-moisissures",
-    AddsOnCategoryHighAltitudeWindowPolishing: "Nettoyage de vitres en hauteur",
-    AddsOnCategoryKitchenExhaustFilterSoak: "Dégraissage de hotte et filtres de cuisine",
-    AddsOnCategoryMicrowaveAppliancesCleaning: "Nettoyage intérieur du micro-ondes et petits appareils",
-    AddsOnCategoryWallSpotScuffRemoval: "Élimination des taches et traces murales",
-    AddsOnCategoryMirrorGlassPolishing: "Polissage de finition pour miroirs et vitres",
-    AddsOnCategoryCupboardDrawerDetail: "Nettoyage détaillé des placards et tiroirs",
-    AddsOnCategoryAcFilterGrilleWash: "Lavage des filtres AC et grilles d'aspiration",
-    AddsOnCategoryLightFixtureChandelierPolishing: "Polissage de luminaires et lustres",
-    AddsOnCategorySmartHomeDeviceSetup: "Configuration d'appareils domotiques",
-    AddsOnCategorySqueakHingeRepair: "Réparation des grincements et charnières",
-    AddsOnCategoryFlatPackFurnitureAssembly: "Montage de meubles en kit",
-    AddsOnCategoryVentAirRegisterVacuuming: "Aspiration des bouches d'aération",
-    AddsOnCategoryCurtainBlindTrackRepair: "Réparation de rails de rideaux et stores",
-    AddsOnCategoryHardwareFittingBuffing: "Polissage de la quincaillerie et des ferrures",
-    AddsOnCategoryHotelStyleBedMaking: "Lit fait style hôtel et mise en scène",
-    AddsOnCategoryPantryOrganizationLabeling: "Rangement et étiquetage du garde-manger",
-    AddsOnCategoryWardrobeColorCodingSorting: "Tri et rangement du dressing par couleur",
-    AddsOnCategoryShoeCleaningPolishing: "Nettoyage et cirage de chaussures",
-    AddsOnCategoryIndoorPlantWateringShining: "Arrosage et lustrage des plantes d'intérieur",
-    AddsOnCategoryGroceryRestockStorage: "Rangement des courses et réapprovisionnement",
-    AddsOnCategoryPetStationBeddingSanitization: "Désinfection du coin animal et de son couchage",
-    AddsOnCategoryLaundryFoldingIroning: "Lessive, pliage et repassage",
-    AddsOnCategoryTrashBinSanitization: "Désinfection des poubelles et bacs de recyclage",
-    AddsOnCategoryFrontDoorEntrywayPolishing: "Nettoyage et polissage de la porte d'entrée",
-    AddsOnCategoryPatioFurnitureDetailing: "Entretien détaillé du mobilier de jardin",
-    AddsOnCategoryBbqOutdoorGrillDeepClean: "Nettoyage en profondeur du barbecue",
-    AddsOnCategoryPoolDeckPerimeterClearing: "Nettoyage des abords de piscine",
-    AddsOnCategoryGarageThresholdCobwebSweep: "Dépoussiérage du garage et toiles d'araignée",
-    AddsOnCategoryExteriorWindowScreenWipe: "Nettoyage des vitres extérieures et moustiquaires",
-    AddsOnCategoryDrivewayOilSpotTreatment: "Traitement des taches d'huile sur l'allée",
+  AddsOnCategoryOvenFridgeRestoration: "Restauration professionnelle de four et réfrigérateur",
+  AddsOnCategoryLimescaleMoldRemediation: "Traitement anti-tartre et anti-moisissures",
+  AddsOnCategoryHighAltitudeWindowPolishing: "Nettoyage de vitres en hauteur",
+  AddsOnCategoryKitchenExhaustFilterSoak: "Dégraissage de hotte et filtres de cuisine",
+  AddsOnCategoryMicrowaveAppliancesCleaning: "Nettoyage intérieur du micro-ondes et petits appareils",
+  AddsOnCategoryWallSpotScuffRemoval: "Élimination des taches et traces murales",
+  AddsOnCategoryMirrorGlassPolishing: "Polissage de finition pour miroirs et vitres",
+  AddsOnCategoryCupboardDrawerDetail: "Nettoyage détaillé des placards et tiroirs",
+  AddsOnCategoryAcFilterGrilleWash: "Lavage des filtres AC et grilles d'aspiration",
+  AddsOnCategoryLightFixtureChandelierPolishing: "Polissage de luminaires et lustres",
+  AddsOnCategorySmartHomeDeviceSetup: "Configuration d'appareils domotiques",
+  AddsOnCategorySqueakHingeRepair: "Réparation des grincements et charnières",
+  AddsOnCategoryFlatPackFurnitureAssembly: "Montage de meubles en kit",
+  AddsOnCategoryVentAirRegisterVacuuming: "Aspiration des bouches d'aération",
+  AddsOnCategoryCurtainBlindTrackRepair: "Réparation de rails de rideaux et stores",
+  AddsOnCategoryHardwareFittingBuffing: "Polissage de la quincaillerie et des ferrures",
+  AddsOnCategoryHotelStyleBedMaking: "Lit fait style hôtel et mise en scène",
+  AddsOnCategoryPantryOrganizationLabeling: "Rangement et étiquetage du garde-manger",
+  AddsOnCategoryWardrobeColorCodingSorting: "Tri et rangement du dressing par couleur",
+  AddsOnCategoryShoeCleaningPolishing: "Nettoyage et cirage de chaussures",
+  AddsOnCategoryIndoorPlantWateringShining: "Arrosage et lustrage des plantes d'intérieur",
+  AddsOnCategoryGroceryRestockStorage: "Rangement des courses et réapprovisionnement",
+  AddsOnCategoryPetStationBeddingSanitization: "Désinfection du coin animal et de son couchage",
+  AddsOnCategoryLaundryFoldingIroning: "Lessive, pliage et repassage",
+  AddsOnCategoryTrashBinSanitization: "Désinfection des poubelles et bacs de recyclage",
+  AddsOnCategoryFrontDoorEntrywayPolishing: "Nettoyage et polissage de la porte d'entrée",
+  AddsOnCategoryPatioFurnitureDetailing: "Entretien détaillé du mobilier de jardin",
+  AddsOnCategoryBbqOutdoorGrillDeepClean: "Nettoyage en profondeur du barbecue",
+  AddsOnCategoryPoolDeckPerimeterClearing: "Nettoyage des abords de piscine",
+  AddsOnCategoryGarageThresholdCobwebSweep: "Dépoussiérage du garage et toiles d'araignée",
+  AddsOnCategoryExteriorWindowScreenWipe: "Nettoyage des vitres extérieures et moustiquaires",
+  AddsOnCategoryDrivewayOilSpotTreatment: "Traitement des taches d'huile sur l'allée",
 
-    popUpConditionsTitleMain: "Conditions Générales de Réservation en Ligne",
-    popUpConditionSectionOneTitle: "1. Confirmation de réservation et portée du service",
-    popUpConditionSectionOneOneTitle: "1.1 Base du service :",
-    popUpConditionSectionOneOneBody: "Le prix final du service et sa durée sont basés strictly sur les détails de la propriété et les options sélectionnées lors de la réservation.",
-    popUpConditionSectionOneTwoTitle: "1.2 Ajustements sur place :",
-    popUpConditionSectionOneTwoBody: "Si la taille ou l'état du bien diffère considérablement des détails de la réservation, l'agent d'entretien doit obtenir l'accord du client pour toute heure ou coût supplémentaire requis avant de procéder.",
-    popUpConditionSectionOneThreeTitle: "1.3 Accès pour le client :",
-    popUpConditionSectionOneThreeBody: "Vous devez vous assurer que l'accès (clés, codes, etc.) soit disponible pour l'intervenant à l'heure prévue. Tout défaut d'accès entraînera des frais d'incapacité d'accès (voir section 3.3).",
-    popUpConditionSectionTwoTitle: "2. Conditions de paiement",
-    popUpConditionSectionTwoOneTitle: "2.1 Frais de réservation / Autorisation :",
-    popUpConditionSectionTwoOneBody: "Vous autorisez Pearly Sky Company Private Ltd à pré-autoriser votre mode de paiement lors de la réservation afin de sécuriser le service avec un paiement non remboursable d'une heure (frais de réservation). Ces frais seront déduits du prix total.",
-    popUpConditionSectionTwoTwoTitle: "2.2 Traitement :",
-    popUpConditionSectionTwoTwoBody: "Le solde restant sera prélevé 24 heures avant le rendez-vous prévu ou immédiatement après l'achèvement de la prestation, comme indiqué lors du paiement.",
-    popUpConditionSectionTwoThreeTitle: "2.3 Soldes impayés :",
-    popUpConditionSectionTwoThreeBody: "Les services ne commenceront pas si un mode de paiement valide ne peut pas être débité avec succès pour le montant total avant le rendez-vous.",
-    popUpConditionSectionThreeTitle: "3. Politique d'annulation et de refus d'accès",
-    popUpConditionSectionThreeOneTitle: "3.1 Remboursement intégral / Report gratuit :",
-    popUpConditionSectionThreeOneBody: "Demande d'annulation ou de report reçue plus de 24 heures avant l'heure de début prévue. [0,00 $ (Remboursement intégral des frais de réservation d'une heure)]",
-    popUpConditionSectionThreeTwoTitle: "3.2 Frais d'annulation tardive :",
-    popUpConditionSectionThreeTwoBody: "Demande d'annulation ou de report reçue moins de 24 heures avant l'heure de début prévue. [Perte du paiement d'une heure (Frais de réservation)]",
-    popUpConditionSectionThreeThreeTitle: "3.3 Frais d'incapacité d'accès :",
-    popUpConditionSectionThreeThreeBody: "L'agent d'entretien arrive mais ne peut pas accéder à la propriété à l'heure prévue. [Perte du paiement d'une heure (Frais de réservation)]",
-    popUpConditionSectionFourTitle: "4. Heures de travail continues",
-    popUpConditionSectionFourOneTitle: "4.1 Efficacité :",
-    popUpConditionSectionFourOneBody: "La limite standard de travail continu pour un agent est de 5 heures. Les réservations nécessitant des périodes plus longues seront organisées avec du personnel supplémentaire ou des pauses appropriées.",
-    popUpConditionSectionFiveTitle: "5. Garantie de service et responsabilité",
-    popUpConditionSectionFiveOneTitle: "5.1 Garantie de service :",
-    popUpConditionSectionFiveOneBody: "Si vous n'êtes pas satisfait de la qualité du service, vous devez en informer Pearly Sky Company Private Ltd dans les 48 heures suivant l'intervention pour organiser un re-nettoyage gratuit.",
-    popUpConditionSectionFiveTwoTitle: "5.2 Réclamations pour dommages :",
-    popUpConditionSectionFiveTwoBody: "Toute réclamation pour dommage matériel causé par l'agent doit être signalée dans les 48 heures suivant l'intervention, accompagnée de preuves photographiques.",
-    popUpConditionSectionFiveThreeTitle: "5.3 Exclusions :",
-    popUpConditionSectionFiveThreeBody: "Pearly Sky n'est pas responsable des dommages préexistants, des objets précieux/fragiles non sécurisés ou de l'impossibilité d'éliminer des taches anciennes incrustées.",
-    popUpConditionSectionSixTitle: "6. Produits, équipements et animaux",
-    popUpConditionSectionSixOneTitle: "6.1 Exigence de fournitures :",
-    popUpConditionSectionSixOneBody: "Les clients peuvent commander le matériel de nettoyage nécessaire via le site web de Pearly Sky Company Private Ltd.",
-    popUpConditionSectionSixTwoTitle: "6.2 Fournitures fournies par le client :",
-    popUpConditionSectionSixTwoBody: "Si le matériel n'est pas commandé via notre site, le client est responsable de fournir tout l'équipement nécessaire (aspirateur, serpillière, produits nettoyants bio-chimiques approuvés).",
-    popUpConditionSectionSixThreeTitle: "6.3 Politique concernant les animaux :",
-    popUpConditionSectionSixThreeBody: "Tous les animaux doivent être sécurisés ou isolés de la zone de service pendant toute la durée de la prestation.",
-    popUpConditionSectionSevenTitle: "7. Gestion des clés et vérification du service",
-    popUpConditionSectionSevenOneTitle: "7.1 Exigence de supervision :",
-    popUpConditionSectionSevenOneBody: "Un adulte responsable doit être présent dans les locaux pendant toute la durée de la prestation de nettoyage.",
-    popUpConditionSectionSevenTwoTitle: "7.2 Validation du service :",
-    popUpConditionSectionSevenTwoBody: "Une fois le service terminé, la personne responsable doit vérifier les zones nettoyées et signer le rapport de prestation fourni par l'agent.",
-    popUpConditionCheckboxLabel: "En cochant ceci, j'accepte les conditions générales",
-    popUpConditionBtnAccept: "Accepter",
-    popUpConditionAcceptWarning: "Veuillez cocher la case ci-dessus pour confirmer que vous avez lu et acceptez les conditions avant de continuer.",
+  popUpConditionsTitleMain: "Conditions Générales de Réservation en Ligne",
+  popUpConditionSectionOneTitle: "1. Confirmation de réservation et portée du service",
+  popUpConditionSectionOneOneTitle: "1.1 Base du service :",
+  popUpConditionSectionOneOneBody: "Le prix final du service et sa durée sont basés strictly sur les détails de la propriété et les options sélectionnées lors de la réservation.",
+  popUpConditionSectionOneTwoTitle: "1.2 Ajustements sur place :",
+  popUpConditionSectionOneTwoBody: "Si la taille ou l'état du bien diffère considérablement des détails de la réservation, l'agent d'entretien doit obtenir l'accord du client pour toute heure ou coût supplémentaire requis avant de procéder.",
+  popUpConditionSectionOneThreeTitle: "1.3 Accès pour le client :",
+  popUpConditionSectionOneThreeBody: "Vous devez vous assurer que l'accès (clés, codes, etc.) soit disponible pour l'intervenant à l'heure prévue. Tout défaut d'accès entraînera des frais d'incapacité d'accès (voir section 3.3).",
+  popUpConditionSectionTwoTitle: "2. Conditions de paiement",
+  popUpConditionSectionTwoOneTitle: "2.1 Frais de réservation / Autorisation :",
+  popUpConditionSectionTwoOneBody: "Vous autorisez Pearly Sky Company Private Ltd à pré-autoriser votre mode de paiement lors de la réservation afin de sécuriser le service avec un paiement non remboursable d'une heure (frais de réservation). Ces frais seront déduits du prix total.",
+  popUpConditionSectionTwoTwoTitle: "2.2 Traitement :",
+  popUpConditionSectionTwoTwoBody: "Le solde restant sera prélevé 24 heures avant le rendez-vous prévu ou immédiatement après l'achèvement de la prestation, comme indiqué lors du paiement.",
+  popUpConditionSectionTwoThreeTitle: "2.3 Soldes impayés :",
+  popUpConditionSectionTwoThreeBody: "Les services ne commenceront pas si un mode de paiement valide ne peut pas être débité avec succès pour le montant total avant le rendez-vous.",
+  popUpConditionSectionThreeTitle: "3. Politique d'annulation et de refus d'accès",
+  popUpConditionSectionThreeOneTitle: "3.1 Remboursement intégral / Report gratuit :",
+  popUpConditionSectionThreeOneBody: "Demande d'annulation ou de report reçue plus de 24 heures avant l'heure de début prévue. [0,00 $ (Remboursement intégral des frais de réservation d'une heure)]",
+  popUpConditionSectionThreeTwoTitle: "3.2 Frais d'annulation tardive :",
+  popUpConditionSectionThreeTwoBody: "Demande d'annulation ou de report reçue moins de 24 heures avant l'heure de début prévue. [Perte du paiement d'une heure (Frais de réservation)]",
+  popUpConditionSectionThreeThreeTitle: "3.3 Frais d'incapacité d'accès :",
+  popUpConditionSectionThreeThreeBody: "L'agent d'entretien arrive mais ne peut pas accéder à la propriété à l'heure prévue. [Perte du paiement d'une heure (Frais de réservation)]",
+  popUpConditionSectionFourTitle: "4. Heures de travail continues",
+  popUpConditionSectionFourOneTitle: "4.1 Efficacité :",
+  popUpConditionSectionFourOneBody: "La limite standard de travail continu pour un agent est de 5 heures. Les réservations nécessitant des périodes plus longues seront organisées avec du personnel supplémentaire ou des pauses appropriées.",
+  popUpConditionSectionFiveTitle: "5. Garantie de service et responsabilité",
+  popUpConditionSectionFiveOneTitle: "5.1 Garantie de service :",
+  popUpConditionSectionFiveOneBody: "Si vous n'êtes pas satisfait de la qualité du service, vous devez en informer Pearly Sky Company Private Ltd dans les 48 heures suivant l'intervention pour organiser un re-nettoyage gratuit.",
+  popUpConditionSectionFiveTwoTitle: "5.2 Réclamations pour dommages :",
+  popUpConditionSectionFiveTwoBody: "Toute réclamation pour dommage matériel causé par l'agent doit être signalée dans les 48 heures suivant l'intervention, accompagnée de preuves photographiques.",
+  popUpConditionSectionFiveThreeTitle: "5.3 Exclusions :",
+  popUpConditionSectionFiveThreeBody: "Pearly Sky n'est pas responsable des dommages préexistants, des objets précieux/fragiles non sécurisés ou de l'impossibilité d'éliminer des taches anciennes incrustées.",
+  popUpConditionSectionSixTitle: "6. Produits, équipements et animaux",
+  popUpConditionSectionSixOneTitle: "6.1 Exigence de fournitures :",
+  popUpConditionSectionSixOneBody: "Les clients peuvent commander le matériel de nettoyage nécessaire via le site web de Pearly Sky Company Private Ltd.",
+  popUpConditionSectionSixTwoTitle: "6.2 Fournitures fournies par le client :",
+  popUpConditionSectionSixTwoBody: "Si le matériel n'est pas commandé via notre site, le client est responsable de fournir tout l'équipement nécessaire (aspirateur, serpillière, produits nettoyants bio-chimiques approuvés).",
+  popUpConditionSectionSixThreeTitle: "6.3 Politique concernant les animaux :",
+  popUpConditionSectionSixThreeBody: "Tous les animaux doivent être sécurisés ou isolés de la zone de service pendant toute la durée de la prestation.",
+  popUpConditionSectionSevenTitle: "7. Gestion des clés et vérification du service",
+  popUpConditionSectionSevenOneTitle: "7.1 Exigence de supervision :",
+  popUpConditionSectionSevenOneBody: "Un adulte responsable doit être présent dans les locaux pendant toute la durée de la prestation de nettoyage.",
+  popUpConditionSectionSevenTwoTitle: "7.2 Validation du service :",
+  popUpConditionSectionSevenTwoBody: "Une fois le service terminé, la personne responsable doit vérifier les zones nettoyées et signer le rapport de prestation fourni par l'agent.",
+  popUpConditionCheckboxLabel: "En cochant ceci, j'accepte les conditions générales",
+  popUpConditionBtnAccept: "Accepter",
+  popUpConditionAcceptWarning: "Veuillez cocher la case ci-dessus pour confirmer que vous avez lu et acceptez les conditions avant de continuer.",
 
-    ServiceLuxuryResidential:"Nettoyage résidentiel de luxe",
-    ServiceCommercial:"Gestion de propriétés commerciales",
-    ServiceLuxuryProperty:"Gestion de propriétés de luxe",
-    ServiceHospitality:"Nettoyage hôtelier et hôtelier",
-    ServiceSports:"Installations sportives et de bien-être",
-    ServicePublic:"Nettoyage public et institutionnel",
+  ServiceLuxuryResidential: "Nettoyage résidentiel de luxe",
+  ServiceCommercial: "Gestion de propriétés commerciales",
+  ServiceLuxuryProperty: "Gestion de propriétés de luxe",
+  ServiceHospitality: "Nettoyage hôtelier et hôtelier",
+  ServiceSports: "Installations sportives et de bien-être",
+  ServicePublic: "Nettoyage public et institutionnel",
 
   servicesSubHeaderResidentialCleaning: "Des soins méticuleux et durables conçus pour les résidences de luxe, les propriétés et les maisons urbaines contemporaines.",
   servicesSubHeaderPremiumAddOns: "Des finitions soignées pour une maison impeccablement entretenue",
   servicesSubHeaderCommercialSpecialised: "Soins discrets et performants pour les espaces professionnels et les propriétés d'exception",
   servicesSubHeaderCareConcierge: "Un soutien fiable et attentionné, conçu pour simplifier le quotidien.",
 
-  recentProjectTitle:"Nos projets récents",
-  projectBefore:"Avant",
-  projectAfter:"Après",
-  projectBeforeState:"État précédent",
-  projectAfteeState:"Notre résultat",
+  recentProjectTitle: "Nos projets récents",
+  projectBefore: "Avant",
+  projectAfter: "Après",
+  projectBeforeState: "État précédent",
+  projectAfteeState: "Notre résultat",
 
-  completedTestimonial:"Complété",
-  propertyType:"Nettoyage en profondeur d'un penthouse moderne",
+  completedTestimonial: "Complété",
+  propertyType: "Nettoyage en profondeur d'un penthouse moderne",
 
-  viewAllProjectButton:"Voir tous les projets",
-  clientFeedback:"Le ménage était impeccable et le personnel était très aimable et serviable. Nous nous sommes sentis parfaitement pris en charge. Je recommande.",
+  viewAllProjectButton: "Voir tous les projets",
+  clientFeedback: "Le ménage était impeccable et le personnel était très aimable et serviable. Nous nous sommes sentis parfaitement pris en charge. Je recommande.",
 
   // About / why choose us
   aboutWhyChooseUsTitle: "Pourquoi nous choisir",
@@ -877,20 +877,20 @@ AddsOnCategoryOvenFridgeRestoration: "Restauration professionnelle de four et r�
   serviceLableCommercialOfficeCleaning: "Nettoyage commercial et de bureaux",
   serviceLableSteamCleaning: "Nettoyage à la vapeur",
   serviceLablePostEventCleaning: "Nettoyage post-événement",
-  serviceLableLuxuryYachtCleaning: "Nettoyage de yacht de luxe",
+
   serviceLableChildCareService: "Service de garde d'enfants",
   serviceLableElderCareService: "Service de soins aux personnes âgées",
   serviceLableMoveInMoveOutTransportService: "Service de transport emménagement / déménagement",
   serviceLableHealthGuardSanitization: "Sanitisation HealthGuard",
 
-  exploreServicesRelated:"Découvrez des services connexes",
+  exploreServicesRelated: "Découvrez des services connexes",
 
   visionaryTeamTitle: "Notre équipe visionnaire",
 
-  visionarydesignationsHR:"Ressources humaines",
-  visionarydesignationsMK:"Équipe marketing",
-  visionarydesignationsCUS:"Service Client",
-  visionarydesignationsFIN:"Département Financier",
+  visionarydesignationsHR: "Ressources humaines",
+  visionarydesignationsMK: "Équipe marketing",
+  visionarydesignationsCUS: "Service Client",
+  visionarydesignationsFIN: "Département Financier",
 
   // Moments of Excellence
   momentsOfExcellenceTitle: "Moments d'Excellence",
@@ -937,19 +937,19 @@ AddsOnCategoryOvenFridgeRestoration: "Restauration professionnelle de four et r�
   cookieBannerAccept: "Accepter",
   cookieBannerReject: "Refuser",
 
-  serviceHighlightSectionHeader:"Checklist du Package Standard",
-  serviceIntroBottomText:"Définissez votre calendrier récurrent",
-  hourPerCleaner:"Heures Par Nettoyeur",
-  hourPerProfessional:"Heures Par Professionnel",
+  serviceHighlightSectionHeader: "Checklist du Package Standard",
+  serviceIntroBottomText: "Définissez votre calendrier récurrent",
+  hourPerCleaner: "Heures Par Nettoyeur",
+  hourPerProfessional: "Heures Par Professionnel",
 
   //
-  aboutOurServices : "Nos services",
-  aboutOurServicesContent : "Chez Pearly Sky, nous savons qu'un environnement impeccable est essentiel à la productivité et au bien-être. Que vous ayez besoin d'un nettoyage régulier de votre maison, d'un nettoyage en profondeur de vos bureaux ou de services spécialisés pour des propriétés haut de gamme, notre équipe vous offre une qualité inégalée. Nous utilisons des produits de nettoyage écologiques et de qualité supérieure, sans danger pour votre famille, vos animaux de compagnie et votre lieu de travail, pour un nettoyage impeccable sans produits chimiques nocifs. Notre personnel est rigoureusement formé, qualifié et s'engage à fournir un service fiable et efficace à chaque intervention. Nous sommes fiers de notre souci du détail et transformons chaque espace en un havre de paix, quelle que soit sa taille ou sa complexité.",
+  aboutOurServices: "Nos services",
+  aboutOurServicesContent: "Chez Pearly Sky, nous savons qu'un environnement impeccable est essentiel à la productivité et au bien-être. Que vous ayez besoin d'un nettoyage régulier de votre maison, d'un nettoyage en profondeur de vos bureaux ou de services spécialisés pour des propriétés haut de gamme, notre équipe vous offre une qualité inégalée. Nous utilisons des produits de nettoyage écologiques et de qualité supérieure, sans danger pour votre famille, vos animaux de compagnie et votre lieu de travail, pour un nettoyage impeccable sans produits chimiques nocifs. Notre personnel est rigoureusement formé, qualifié et s'engage à fournir un service fiable et efficace à chaque intervention. Nous sommes fiers de notre souci du détail et transformons chaque espace en un havre de paix, quelle que soit sa taille ou sa complexité.",
 
   // About Us page
 
-  aboutPageSectionHeader:"À PROPOS DE PEARLY SKY CLEANING SERVICES",
-  aboutPageSectionSubHeader:"VOTRE PARTENAIRE DE CONFIANCE EN MATIÈRE DE NETTOYAGE",
+  aboutPageSectionHeader: "À PROPOS DE PEARLY SKY CLEANING SERVICES",
+  aboutPageSectionSubHeader: "VOTRE PARTENAIRE DE CONFIANCE EN MATIÈRE DE NETTOYAGE",
 
   aboutPageEyebrow: "À PROPOS DE PEARLY SKY CLEANING SERVICES",
   aboutPageHeroTitle: "À propos de Pearly Sky",
@@ -1025,10 +1025,10 @@ AddsOnCategoryOvenFridgeRestoration: "Restauration professionnelle de four et r�
   customersGalleryTitle: "Moments d'Excellence",
   customersTestimonialsTitle: "Ce Que Disent Nos Clients",
 
-  customerComment1:"Le nettoyage était excellent et le personnel était vraiment aimable et sympathique. Nous nous sommes sentis très bien pris en charge. Je recommande !",
-  customerComment2:"J'ai réservé une prestation de ménage en septembre 2024. Deux agents d'entretien ont effectué un excellent travail sur une durée de 5 heures. Les vitres et le réfrigérateur ont également été nettoyés.",
-  customerComment3:"Équipe professionnelle, service ponctuel et résultats impeccables. Hautement recommandé.",
-  customerComment4:"Personnel très aimable et service fiable. La maison était fraîche et parfaitement nettoyée.",
+  customerComment1: "Le nettoyage était excellent et le personnel était vraiment aimable et sympathique. Nous nous sommes sentis très bien pris en charge. Je recommande !",
+  customerComment2: "J'ai réservé une prestation de ménage en septembre 2024. Deux agents d'entretien ont effectué un excellent travail sur une durée de 5 heures. Les vitres et le réfrigérateur ont également été nettoyés.",
+  customerComment3: "Équipe professionnelle, service ponctuel et résultats impeccables. Hautement recommandé.",
+  customerComment4: "Personnel très aimable et service fiable. La maison était fraîche et parfaitement nettoyée.",
 
 
   // Our Locations page
@@ -1141,16 +1141,16 @@ AddsOnCategoryOvenFridgeRestoration: "Restauration professionnelle de four et r�
   jobElderCareAssistantBen2: "Planning et horaires ajustables.",
   jobElderCareAssistantBen3: "Opportunité de valoriser la vie des seniors au quotidien.",
   jobElderCareAssistantBen4: "Cadre de travail respectueux et solidaire.",
- 
+
   // Contact Us page
   contactPageTitle: "Contacter Pearly Sky",
   contactOfficesTitle: "Nos Bureaux",
 
-  quickConnect:"Contactez-nous rapidement",
-  writeUs:"Contactez-nous rapidement",
-  connectWithUs:"Contactez-nous",
-  numberNow:"Numéro Pearly Sky maintenant", 
-  supportPayementMethods:"Modes de paiement pris en charge",
+  quickConnect: "Contactez-nous rapidement",
+  writeUs: "Contactez-nous rapidement",
+  connectWithUs: "Contactez-nous",
+  numberNow: "Numéro Pearly Sky maintenant",
+  supportPayementMethods: "Modes de paiement pris en charge",
 
   // Booking & Date/Time Section
   dateTimeSelectTitle: "Sélectionnez la date et l'heure pour réserver votre rendez-vous",
@@ -1997,120 +1997,120 @@ AddsOnCategoryOvenFridgeRestoration: "Restauration professionnelle de four et r�
   scanQrDesc: "Scannez ce code avec votre téléphone pour ouvrir tous les détails en ligne, à tout moment.",
 
   //customer feedbcks
-   CustomerFeedBack: "Retours clients",
-    ValuedCustomerReviews: "Avis clients précieux",
-    CustomerReview: "Avis client",
+  CustomerFeedBack: "Retours clients",
+  ValuedCustomerReviews: "Avis clients précieux",
+  CustomerReview: "Avis client",
 
-    propLuxuryVilla: "Villa de Luxe",
-    propAirbnb: "Airbnb",
-    propMicroOffice: "Micro-Bureau",
-    propOffice: "Bureau",
-    propCorporateOffice: "Bureau D'entreprise",
-    propCoWorkingSpace: "Espace de Co-working",
-    propHotel: "Hôtel",
-    propRestaurant: "Restaurant",
-    propCafe: "Café",
-    propBar: "Bar",
-    propClinic: "Clinique",
-    propHospital: "Hôpital",
-    propDentalClinic: "Cabinet Dentaire",
-    propPharmacy: "Pharmacie",
-    propLaboratory: "Laboratoire",
-    propBeautySalon: "Salon de Beauté",
-    propSpa: "Spa",
-    propBakery: "Boulangerie",
-    propFastFood: "Restauration Rapide",
-    propBoutiqueShop: "Boutique",
-    propSupermarket: "Supermarché",
-    propMall: "Centre Commercial",
-    propShowroom: "Showroom",
-    propGym: "Salle de Sport",
-    propYogaStudio: "Studio de Yoga",
-    propSchool: "École",
-    propHolidayHome: "Maison de vacances",
-    propSecondHome: "Résidence secondaire",
-    propSmallYacht: "Petit yacht",
-    propMotorYacht: "Yacht à moteur",
-    propSailingYacht: "Voilier",
-    propLuxurySuperyacht: "Superyacht de luxe",
-    propMegaYacht: "Mégayacht",
-    propCruiseShips: "Navires de croisière",
-    propPassengerFerries: "Ferries passagers",
-    propRiverCruiseShips: "Bateaux de croisière fluviale",
-    propExpeditionShips: "Navires d'expédition",
-    propCommercialCargoShips: "Cargos commerciaux",
-    propOffices: "Bureaux",
-    propWarehouses: "Entrepôts",
-    propFactories: "Usines",
-    propHealthcare: "Santé",
-    propRestaurants: "Restaurants",
-    propSchools: "Écoles",
-    propRetail: "Commerce de détail",
-    propTransport: "Transport",
-    propConstructionSites: "Chantiers",
-    propNursery: "Crèche",
-    propAirport: "Aéroport",
-    studioLeft: "Espace Vie & Coucher",
-    studioRight: "Kitchenette & Bain",
-    apartmentLeft: "Chambres & Suites",
-    apartmentRight: "Séjour & Coin Repas",
-    corporateOfficeLeft: "Direction & Postes de Travail",
-    corporateOfficeRight: "Conférence & Installations",
-    govermmentLeft: "Zone Stérile & Labs",
-    LaboratoryRight: "Réception & Zones Communes",
-    industrialLeft: "Zones de Production & Travaux Lourds",
-    industrialRight: "Espaces de Contrôle & Technique",
-    villaLeft: "Ailes Principales & Suites",
-    villaRight: "Grand Salon & Salle à Manger",
-    penthouseLeft: "Suite Panoramique & Terrasses",
-    penthouseRight: "Séjour Ouvert & Cuisine",
-    defaultLeft: "Niveaux Supérieurs",
-    defaultright: "Séjour Inférieur & Coin Repas",
-    deepCleanDisinfection: "NETTOYAGE EN PROFONDEUR & DÉSINFECTION HOSPITALIÈRE",
-    intensiveDeepClean: "NETTOYAGE EN PROFONDEUR INTENSIF",
-    hospitalGradeDisinfection: "DÉSINFECTION DE NIVEAU HOSPITALIER",
-    standardSurfaceClean: "NETTOYAGE DE SURFACE STANDARD",
-    serviceTargetArea: "Zone Cible du Service",
-    EstimatedCost: "Coût Estimé",
-    ServiceRate: "Tarif du Service",
-    EstLabor: "Main-d'œuvre Est.",
-    CrewWord: "équipe",
-    propServiceCatagory: "Catégorie de Service",
-    propCatResidential: "Résidentiel",
-    propCatIndustrial: "Industriel",
-    DisinfectionName: "Désinfection",
-    HospitalGradeName: "Qualité hospitalière",
-    deepCleanName: "Nettoyage en Profondeur",
-    deepCleanNameIntensive: "Intensif",
-    BIODisplayName: "SOLVANT BIO",
-    BIOSubtitle: "Formule botanique neutre",
-    BIODescription: "Solvant d'origine végétale formulé pour marbre rare, laiton vieilli & finitions naturelles.",
-    MOPDisplayName: "SERPILLIÈRE (1 UNITÉ)",
-    MOPSubtitle: "Microfibre triple densité",
-    MOPDescription: "Système microfibre insonorisé pour un polissage de haute brillance sans traces.",
-    MATERIALSDisplayName: "MATÉRIEL (1 KIT)",
-    MATERIALSSubtitle: "Coton biologique non pelucheux à usage unique",
-    MATERIALSDescription: "Fibres botaniques non blanchies, tampon en crin de cheval & peaux de chamois.",
-    VACUUMDisplayName: "ASPIRATEUR (1 APPAREIL)",
-    VACUUMSubtitle: "HEPA 114 de niveau hospitalier",
-    VACUUMDescription: "Filtration médicale ultra-silencieuse capturant les particules aériennes submicroniques.",
-    PRIVATECLIENTATELIERPEARLYSKY: "ATELIER CLIENT PRIVE • PEARLY SKY",
-    SANCTUARYMAINTENANCEBESPOKEPROTOCOL: "ENTRETIEN DU SANCTUAIRE • PROTOCOLE SUR MESURE",
-    totalDuration: "DURÉE TOTALE",
-    allocatedStaff: "PERSONNEL ALLOUÉ",
-    seniorname: "SÉNIOR",
-    onSiteWindow: "CRÉNEAU SUR PLACE",
-    onSiteEstimateOne: "Durée estimée sur place : {duration} avec 1 agent d'entretien professionnel.",
-    onSiteEstimateMany: "Durée estimée sur place : {duration} avec {count} agents d'entretien professionnels.",
-    onSiteEstimateNote: "La durée estimée correspond au temps nécessaire à un agent d'entretien pour réaliser la prestation de nettoyage prévue. La durée réelle peut varier selon l'état du bien et les exigences de la prestation.",
-    CLEANINGDURATION: "FOURCHETTE DE PRIX SELON LA DURÉE DE NETTOYAGE",
-    BaselineAppointment: "Rendez-vous de base respectant une méthodologie artisanale haut de gamme",
-    CleaningChemicalEquipments: "Produits chimiques de nettoyage et équipements",
-    CuratedOrganic: "Composés organiques sélectionnés et instrumentation spécialisée",
-    BespokeAdditions: "Ajouts sur mesure",
-    PERUNIT: "PAR UNITÉ",
-    eliteMaterialDescription: "Comprend des matériaux d'élite, des formulations éco-conservatrices et le transit",
-    curated_engagement_default: "Engagement Sur Mesure",
+  propLuxuryVilla: "Villa de Luxe",
+  propAirbnb: "Airbnb",
+  propMicroOffice: "Micro-Bureau",
+  propOffice: "Bureau",
+  propCorporateOffice: "Bureau D'entreprise",
+  propCoWorkingSpace: "Espace de Co-working",
+  propHotel: "Hôtel",
+  propRestaurant: "Restaurant",
+  propCafe: "Café",
+  propBar: "Bar",
+  propClinic: "Clinique",
+  propHospital: "Hôpital",
+  propDentalClinic: "Cabinet Dentaire",
+  propPharmacy: "Pharmacie",
+  propLaboratory: "Laboratoire",
+  propBeautySalon: "Salon de Beauté",
+  propSpa: "Spa",
+  propBakery: "Boulangerie",
+  propFastFood: "Restauration Rapide",
+  propBoutiqueShop: "Boutique",
+  propSupermarket: "Supermarché",
+  propMall: "Centre Commercial",
+  propShowroom: "Showroom",
+  propGym: "Salle de Sport",
+  propYogaStudio: "Studio de Yoga",
+  propSchool: "École",
+  propHolidayHome: "Maison de vacances",
+  propSecondHome: "Résidence secondaire",
+  propSmallYacht: "Petit yacht",
+  propMotorYacht: "Yacht à moteur",
+  propSailingYacht: "Voilier",
+  propLuxurySuperyacht: "Superyacht de luxe",
+  propMegaYacht: "Mégayacht",
+  propCruiseShips: "Navires de croisière",
+  propPassengerFerries: "Ferries passagers",
+  propRiverCruiseShips: "Bateaux de croisière fluviale",
+  propExpeditionShips: "Navires d'expédition",
+  propCommercialCargoShips: "Cargos commerciaux",
+  propOffices: "Bureaux",
+  propWarehouses: "Entrepôts",
+  propFactories: "Usines",
+  propHealthcare: "Santé",
+  propRestaurants: "Restaurants",
+  propSchools: "Écoles",
+  propRetail: "Commerce de détail",
+  propTransport: "Transport",
+  propConstructionSites: "Chantiers",
+  propNursery: "Crèche",
+  propAirport: "Aéroport",
+  studioLeft: "Espace Vie & Coucher",
+  studioRight: "Kitchenette & Bain",
+  apartmentLeft: "Chambres & Suites",
+  apartmentRight: "Séjour & Coin Repas",
+  corporateOfficeLeft: "Direction & Postes de Travail",
+  corporateOfficeRight: "Conférence & Installations",
+  govermmentLeft: "Zone Stérile & Labs",
+  LaboratoryRight: "Réception & Zones Communes",
+  industrialLeft: "Zones de Production & Travaux Lourds",
+  industrialRight: "Espaces de Contrôle & Technique",
+  villaLeft: "Ailes Principales & Suites",
+  villaRight: "Grand Salon & Salle à Manger",
+  penthouseLeft: "Suite Panoramique & Terrasses",
+  penthouseRight: "Séjour Ouvert & Cuisine",
+  defaultLeft: "Niveaux Supérieurs",
+  defaultright: "Séjour Inférieur & Coin Repas",
+  deepCleanDisinfection: "NETTOYAGE EN PROFONDEUR & DÉSINFECTION HOSPITALIÈRE",
+  intensiveDeepClean: "NETTOYAGE EN PROFONDEUR INTENSIF",
+  hospitalGradeDisinfection: "DÉSINFECTION DE NIVEAU HOSPITALIER",
+  standardSurfaceClean: "NETTOYAGE DE SURFACE STANDARD",
+  serviceTargetArea: "Zone Cible du Service",
+  EstimatedCost: "Coût Estimé",
+  ServiceRate: "Tarif du Service",
+  EstLabor: "Main-d'œuvre Est.",
+  CrewWord: "équipe",
+  propServiceCatagory: "Catégorie de Service",
+  propCatResidential: "Résidentiel",
+  propCatIndustrial: "Industriel",
+  DisinfectionName: "Désinfection",
+  HospitalGradeName: "Qualité hospitalière",
+  deepCleanName: "Nettoyage en Profondeur",
+  deepCleanNameIntensive: "Intensif",
+  BIODisplayName: "SOLVANT BIO",
+  BIOSubtitle: "Formule botanique neutre",
+  BIODescription: "Solvant d'origine végétale formulé pour marbre rare, laiton vieilli & finitions naturelles.",
+  MOPDisplayName: "SERPILLIÈRE (1 UNITÉ)",
+  MOPSubtitle: "Microfibre triple densité",
+  MOPDescription: "Système microfibre insonorisé pour un polissage de haute brillance sans traces.",
+  MATERIALSDisplayName: "MATÉRIEL (1 KIT)",
+  MATERIALSSubtitle: "Coton biologique non pelucheux à usage unique",
+  MATERIALSDescription: "Fibres botaniques non blanchies, tampon en crin de cheval & peaux de chamois.",
+  VACUUMDisplayName: "ASPIRATEUR (1 APPAREIL)",
+  VACUUMSubtitle: "HEPA 114 de niveau hospitalier",
+  VACUUMDescription: "Filtration médicale ultra-silencieuse capturant les particules aériennes submicroniques.",
+  PRIVATECLIENTATELIERPEARLYSKY: "ATELIER CLIENT PRIVE • PEARLY SKY",
+  SANCTUARYMAINTENANCEBESPOKEPROTOCOL: "ENTRETIEN DU SANCTUAIRE • PROTOCOLE SUR MESURE",
+  totalDuration: "DURÉE TOTALE",
+  allocatedStaff: "PERSONNEL ALLOUÉ",
+  seniorname: "SÉNIOR",
+  onSiteWindow: "CRÉNEAU SUR PLACE",
+  onSiteEstimateOne: "Durée estimée sur place : {duration} avec 1 agent d'entretien professionnel.",
+  onSiteEstimateMany: "Durée estimée sur place : {duration} avec {count} agents d'entretien professionnels.",
+  onSiteEstimateNote: "La durée estimée correspond au temps nécessaire à un agent d'entretien pour réaliser la prestation de nettoyage prévue. La durée réelle peut varier selon l'état du bien et les exigences de la prestation.",
+  CLEANINGDURATION: "FOURCHETTE DE PRIX SELON LA DURÉE DE NETTOYAGE",
+  BaselineAppointment: "Rendez-vous de base respectant une méthodologie artisanale haut de gamme",
+  CleaningChemicalEquipments: "Produits chimiques de nettoyage et équipements",
+  CuratedOrganic: "Composés organiques sélectionnés et instrumentation spécialisée",
+  BespokeAdditions: "Ajouts sur mesure",
+  PERUNIT: "PAR UNITÉ",
+  eliteMaterialDescription: "Comprend des matériaux d'élite, des formulations éco-conservatrices et le transit",
+  curated_engagement_default: "Engagement Sur Mesure",
 
   // Page copy: forgot password, about-us values, locations, tax labels, booking hints
   forgotPasswordTitle: "Réinitialiser le mot de passe",
@@ -2166,258 +2166,283 @@ AddsOnCategoryOvenFridgeRestoration: "Restauration professionnelle de four et r�
   locationsNoCountriesFound: "Aucun pays trouvé",
 
   bedrooms: "Chambres",
-    bathrooms: "Salles de Bain",
-    living_rooms: "Salles de Séjour",
-    kitchens: "Cuisines",
-    verandas_outdoor_spaces: "Vérandas & Espaces Extérieurs",
-    home_offices: "Bureaux à Domicile",
-    laundry_rooms: "Buanderies",
-    dining_areas: "Salles à Manger",
-    bookingDetailRooms: "Pièces & Espaces",
+  bathrooms: "Salles de Bain",
+  living_rooms: "Salles de Séjour",
+  kitchens: "Cuisines",
+  verandas_outdoor_spaces: "Vérandas & Espaces Extérieurs",
+  home_offices: "Bureaux à Domicile",
+  laundry_rooms: "Buanderies",
+  dining_areas: "Salles à Manger",
+  bookingDetailRooms: "Pièces & Espaces",
 
-    //
-    cabin_cleaning: "Nettoyage de Cabine",
-    salon_cleaning: "Nettoyage du Carré / Salon",
-    galley_cleaning: "Nettoyage de la Cuisine de Bord",
-    bathroom_cleaning: "Nettoyage des Salles de Bain",
-    deck_cleaning: "Nettoyage du Pont",
-    teak_care: "Entretien du Teck",
-    upholstery_care: "Entretien des Tissus & Cuirs",
-    glass_cleaning: "Nettoyage des Vitres",
-    yacht_detailing: "Detailing de Yacht",
-    deep_cleaning: "Nettoyage en Profondeur",
-    public_area_cleaning: "Nettoyage des Espaces Publics",
-    restaurant_cleaning: "Nettoyage de Restaurant",
-    carpet_cleaning: "Nettoyage de Moquettes",
-    waste_area_cleaning: "Nettoyage des Zones de Déchets",
-    birthday_parties: "Fêtes d'Anniversaire",
-    wedding_events: "Mariages",
-    anniversary_events: "Célébrations d'Anniversaire",
-    engagement_parties: "Fêtes de Fiançailles",
-    family_celebrations: "Fêtes de Famille",
-    graduation_parties: "Fêtes de Remise de Diplômes",
-    dinner_parties: "Dîners Privés",
-    holiday_parties: "Fêtes de Fin d'Année",
-    private_gatherings: "Réunions Privées",
-    luxury_parties: "Soirées de Luxe",
-    vip_events: "Événements VIP",
-    executive_events: "Événements Exécutifs",
-    corporate_events: "Événements d'Entreprise",
-    gala_events: "Galas",
-    red_carpet_events: "Événements Tapis Rouge",
-    product_launches: "Lancements de Produits",
-    award_ceremonies: "Cérémonies de Remise de Prix",
-    conference_events: "Conférences",
-    charity_events: "Événements de Charité",
-    high_profile_events: "Événements de Prestige",
-    commercial_cleaning: "Nettoyage Commercial",
-    high_security_cleaning: "Nettoyage Haute Sécurité",
-    industrial_cleaning: "Nettoyage Industriel",
-    medical_cleaning: "Nettoyage Médical",
-    post_construction_cleaning: "Nettoyage Fin de Chantier",
-    emergency_cleaning: "Nettoyage d'Urgence",
-    event_cleaning: "Nettoyage d'Événements",
-    office_cleaning: "Nettoyage de Bureaux",
-    corporate_cleaning: "Nettoyage d'Entreprises",
-    executive_office_cleaning: "Nettoyage de Bureaux de Direction",
-    reception_cleaning: "Nettoyage de la Réception",
-    meeting_room_cleaning: "Nettoyage de Salles de Réunion",
-    floor_cleaning: "Nettoyage des Sols",
-    washroom_cleaning: "Nettoyage des Sanitaires",
-    after_hours_cleaning: "Nettoyage en Horaires Décalés",
-    vip_home_cleaning: "Nettoyage Résidentiel VIP",
-    secure_home_cleaning: "Nettoyage de Résidences Sécurisées",
-    luxury_property_care: "Entretien de Propriétés de Luxe",
-    private_estate_cleaning: "Nettoyage de Domaines Privés",
-    emergency_home_cleaning: "Nettoyage Résidentiel d'Urgence",
-    residential_restoration: "Restauration Résidentielle",
-    security_cleaning: "Nettoyage Sécurisé",
-    scif_cleaning: "Nettoyage d'Espaces SCIF",
-    medical_sanitation: "Assainissement Médical",
-    hazmat_biohazard: "Gestion Hazmat & Risques Biologiques",
-    incident_restoration: "Restauration Après Incident",
-    event_rapid_cleaning: "Nettoyage Rapide d'Événements",
-    executive_facility_care: "Entretien d'Installations de Direction",
+  //
+  cabin_cleaning: "Nettoyage de Cabine",
+  salon_cleaning: "Nettoyage du Carré / Salon",
+  galley_cleaning: "Nettoyage de la Cuisine de Bord",
+  bathroom_cleaning: "Nettoyage des Salles de Bain",
+  deck_cleaning: "Nettoyage du Pont",
+  teak_care: "Entretien du Teck",
+  upholstery_care: "Entretien des Tissus & Cuirs",
+  glass_cleaning: "Nettoyage des Vitres",
+  yacht_detailing: "Detailing de Yacht",
+  deep_cleaning: "Nettoyage en Profondeur",
+  public_area_cleaning: "Nettoyage des Espaces Publics",
+  restaurant_cleaning: "Nettoyage de Restaurant",
+  carpet_cleaning: "Nettoyage de Moquettes",
+  waste_area_cleaning: "Nettoyage des Zones de Déchets",
+  birthday_parties: "Fêtes d'Anniversaire",
+  wedding_events: "Mariages",
+  anniversary_events: "Célébrations d'Anniversaire",
+  engagement_parties: "Fêtes de Fiançailles",
+  family_celebrations: "Fêtes de Famille",
+  graduation_parties: "Fêtes de Remise de Diplômes",
+  dinner_parties: "Dîners Privés",
+  holiday_parties: "Fêtes de Fin d'Année",
+  private_gatherings: "Réunions Privées",
+  luxury_parties: "Soirées de Luxe",
+  vip_events: "Événements VIP",
+  executive_events: "Événements Exécutifs",
+  corporate_events: "Événements d'Entreprise",
+  gala_events: "Galas",
+  red_carpet_events: "Événements Tapis Rouge",
+  product_launches: "Lancements de Produits",
+  award_ceremonies: "Cérémonies de Remise de Prix",
+  conference_events: "Conférences",
+  charity_events: "Événements de Charité",
+  high_profile_events: "Événements de Prestige",
+  commercial_cleaning: "Nettoyage Commercial",
+  high_security_cleaning: "Nettoyage Haute Sécurité",
+  industrial_cleaning: "Nettoyage Industriel",
+  medical_cleaning: "Nettoyage Médical",
+  post_construction_cleaning: "Nettoyage Fin de Chantier",
+  emergency_cleaning: "Nettoyage d'Urgence",
+  event_cleaning: "Nettoyage d'Événements",
+  office_cleaning: "Nettoyage de Bureaux",
+  corporate_cleaning: "Nettoyage d'Entreprises",
+  executive_office_cleaning: "Nettoyage de Bureaux de Direction",
+  reception_cleaning: "Nettoyage de la Réception",
+  meeting_room_cleaning: "Nettoyage de Salles de Réunion",
+  floor_cleaning: "Nettoyage des Sols",
+  washroom_cleaning: "Nettoyage des Sanitaires",
+  after_hours_cleaning: "Nettoyage en Horaires Décalés",
+  vip_home_cleaning: "Nettoyage Résidentiel VIP",
+  secure_home_cleaning: "Nettoyage de Résidences Sécurisées",
+  luxury_property_care: "Entretien de Propriétés de Luxe",
+  private_estate_cleaning: "Nettoyage de Domaines Privés",
+  emergency_home_cleaning: "Nettoyage Résidentiel d'Urgence",
+  residential_restoration: "Restauration Résidentielle",
+  security_cleaning: "Nettoyage Sécurisé",
+  scif_cleaning: "Nettoyage d'Espaces SCIF",
+  medical_sanitation: "Assainissement Médical",
+  hazmat_biohazard: "Gestion Hazmat & Risques Biologiques",
+  incident_restoration: "Restauration Après Incident",
+  event_rapid_cleaning: "Nettoyage Rapide d'Événements",
+  executive_facility_care: "Entretien d'Installations de Direction",
 
-    //
-    yachtCleaning: "Nettoyage de Yacht",
-    passengerShipCleaning: "Nettoyage de Navires de Passagers",
-    privateSocialEvents: "Événements Privés & Sociaux",
-    vipCorporateEvents: "Événements VIP & d'Entreprise",
-    commercialCleaning: "Nettoyage Commercial",
-    officeCleaning: "Nettoyage de Bureaux",
-    securityResidential: "Sécurité & Résidentiel",
-    securityOffice: "Commercial & Bureaux",
+  //
+  yachtCleaning: "Nettoyage de Yacht",
+  passengerShipCleaning: "Nettoyage de Navires de Passagers",
+  privateSocialEvents: "Événements Privés & Sociaux",
+  vipCorporateEvents: "Événements VIP & d'Entreprise",
+  commercialCleaning: "Nettoyage Commercial",
+  officeCleaning: "Nettoyage de Bureaux",
+  securityResidential: "Sécurité & Résidentiel",
+  securityOffice: "Commercial & Bureaux",
 
-    freqOneTimeName: "Ponctuel",
-    freqOneTimeSubtitle: "Niveau hospitalier",
-    freqWeeklyName: "Hebdomadaire",
-    freqWeeklySubtitle: "Stérile en continu",
-    freqBiWeeklyName: "Bihebdomadaire",
-    freqBiWeeklySubtitle: "Bouclier bihebdomadaire",
-    freqMonthlyName: "Mensuel",
-    freqMonthlySubtitle: "Protection mensuelle",
-    freqWeekendName: "Week-end",
-    freqWeekendSubtitle: "Désinfection du week-end",
-    freqProDisinfectionName: "Désinfection Professionnelle",
-    freqProDisinfectionSubtitle: "Norme risque biologique",
+  freqOneTimeName: "Ponctuel",
+  freqOneTimeSubtitle: "Niveau hospitalier",
+  freqWeeklyName: "Hebdomadaire",
+  freqWeeklySubtitle: "Stérile en continu",
+  freqBiWeeklyName: "Bihebdomadaire",
+  freqBiWeeklySubtitle: "Bouclier bihebdomadaire",
+  freqMonthlyName: "Mensuel",
+  freqMonthlySubtitle: "Protection mensuelle",
+  freqWeekendName: "Week-end",
+  freqWeekendSubtitle: "Désinfection du week-end",
+  freqProDisinfectionName: "Désinfection Professionnelle",
+  freqProDisinfectionSubtitle: "Norme risque biologique",
 
-    //
-    freqStandardCleanSubtitle: "Nettoyage standard",
-    freqWeeklyPopularSubtitle: "Le plus populaire économisez 20%",
-    freqRegularUpkeepSubtitle: "Entretien régulier",
-    freqLightMaintenanceSubtitle: "Maintenance légère",
-    freqQuickRefreshSubtitle: "Rafraîchissement rapide",
-    freqRegularTouchUpSubtitle: "Raccord régulier",
-    freqBiWeeklyUpkeepSubtitle: "Entretien bihebdomadaire",
-    freqMonthlyLightPassSubtitle: "Passage léger mensuel",
-    freqStandardCleanupSubtitle: "Grand nettoyage standard",
-    freqSameDayName: "Même Jour",
-    freqSameDaySubtitle: "Post-fête immédiat",
-    freqPrivateEventName: "Événement Privé",
-    freqPrivateEventSubtitle: "Rassemblement résidentiel",
-    freqCorporateEventName: "Événement d'Entreprise",
-    freqCorporateEventSubtitle: "Nettoyage de grands espaces",
-    freqMarineDetailingSubtitle: "Detailing marin",
-    freqPortMaintenanceSubtitle: "Maintenance portuaire",
-    freqMonthlyDeckCareSubtitle: "Entretien mensuel du pont",
-    freqPreCruisePolishSubtitle: "Polissage pré-croisière",
-    freqCharterTurnaroundName: "Escale de Charter",
-    freqCharterTurnaroundSubtitle: "Escale rapide de yacht",
+  //
+  freqStandardCleanSubtitle: "Nettoyage standard",
+  freqWeeklyPopularSubtitle: "Le plus populaire économisez 20%",
+  freqRegularUpkeepSubtitle: "Entretien régulier",
+  freqLightMaintenanceSubtitle: "Maintenance légère",
+  freqQuickRefreshSubtitle: "Rafraîchissement rapide",
+  freqRegularTouchUpSubtitle: "Raccord régulier",
+  freqBiWeeklyUpkeepSubtitle: "Entretien bihebdomadaire",
+  freqMonthlyLightPassSubtitle: "Passage léger mensuel",
+  freqStandardCleanupSubtitle: "Grand nettoyage standard",
+  freqSameDayName: "Même Jour",
+  freqSameDaySubtitle: "Post-fête immédiat",
+  freqPrivateEventName: "Événement Privé",
+  freqPrivateEventSubtitle: "Rassemblement résidentiel",
+  freqCorporateEventName: "Événement d'Entreprise",
+  freqCorporateEventSubtitle: "Nettoyage de grands espaces",
+  freqMarineDetailingSubtitle: "Detailing marin",
+  freqPortMaintenanceSubtitle: "Maintenance portuaire",
+  freqMonthlyDeckCareSubtitle: "Entretien mensuel du pont",
+  freqPreCruisePolishSubtitle: "Polissage pré-croisière",
+  freqCharterTurnaroundName: "Escale de Charter",
+  freqCharterTurnaroundSubtitle: "Escale rapide de yacht",
 
-    //
-    
+  //
 
-    freqIntensiveSubtitle: "Intensif",
-    freqDeepMaintenanceSubtitle: "Maintenance en profondeur",
-    freqThoroughUpkeepSubtitle: "Entretien minutieux",
-    freqDeepPeriodicCleanSubtitle: "Nettoyage périodique en profondeur",
 
-    freqIntenseSanitizeSubtitle: "Désinfection intense",
-    freqRegularSteamCareSubtitle: "Soin vapeur régulier",
-    freqBiWeeklyRefreshSubtitle: "Rafraîchissement bihebdomadaire",
-    freqMonthlyDeepSteamSubtitle: "Vapeur intense mensuelle",
+  freqIntensiveSubtitle: "Intensif",
+  freqDeepMaintenanceSubtitle: "Maintenance en profondeur",
+  freqThoroughUpkeepSubtitle: "Entretien minutieux",
+  freqDeepPeriodicCleanSubtitle: "Nettoyage périodique en profondeur",
 
-    freqConstructionName: "Chantier",
-    freqConstructionSubtitle: "Poussière & débris lourds",
-    freqRenovationName: "Rénovation",
-    freqRenovationSubtitle: "Rafraîchissement post-rénovation",
-    freqBuildersName: "Post-Chantier",
-    freqBuildersSubtitle: "Nettoyage initial du constructeur",
-    freqFinalHandoverName: "Livraison Finale",
-    freqFinalHandoverSubtitle: "Éclat impeccable",
-    freqImmediateDispatchSubtitle: "Intervention immédiate",
-    freqEmergencyName: "Urgence",
-    freqUrgentResponseSubtitle: "Intervention urgente",
-    freqPriorityName: "Prioritaire",
-    freqFrontOfQueueSubtitle: "Priorité absolue",
-    freqWeekendPrioritySubtitle: "Priorité le week-end",
-    freqSecureClearanceSubtitle: "Accès sécurisé",
-    freqVettedWeeklyCareSubtitle: "Entretien hebdomadaire vérifié",
-    freqScheduledSecureSubtitle: "Planification sécurisée",
-    freqMonthlyAuditCheckSubtitle: "Contrôle d'audit mensuel",
-    freqWeekendClearanceSubtitle: "Nettoyage du week-end",
-    freqDiscreetName: "Discret",
-    freqDiscreetSubtitle: "Agents en tenue neutre",
-    freqSingleTurnSubtitle: "Rotation unique",
-    freqMultiTurnPackageSubtitle: "Formule multi-rotations",
-    freqBiWeeklyChecksSubtitle: "Contrôles bihebdomadaires",
-    freqMonthlyOverviewSubtitle: "Aperçu mensuel",
-    freqPeakWeekendTurnSubtitle: "Rotation de pointe du week-end",
-    freqGuestTurnoverName: "Rotation Voyageurs",
-    freqGuestTurnoverSubtitle: "Nettoyage rapide Airbnb",
-    freqOfficeDeepRefreshSubtitle: "Rafraîchissement intense de bureau",
-    freqWeeklyCorporateSubtitle: "Hebdomadaire entreprise",
-    freqBiWeeklyMaintenanceSubtitle: "Entretien bihebdomadaire",
-    freqMonthlyDeepCleanSubtitle: "Grand nettoyage mensuel",
+  freqIntenseSanitizeSubtitle: "Désinfection intense",
+  freqRegularSteamCareSubtitle: "Soin vapeur régulier",
+  freqBiWeeklyRefreshSubtitle: "Rafraîchissement bihebdomadaire",
+  freqMonthlyDeepSteamSubtitle: "Vapeur intense mensuelle",
 
-    freqMoveInName: "Emménagement",
-    freqMoveInSubtitle: "Nettoyage avant occupation",
-    freqMoveOutName: "Déménagement",
-    freqMoveOutSubtitle: "Garantie récupération de caution",
-    freqPropertyHandoverName: "Remise des Clés",
-    freqPropertyHandoverSubtitle: "Standard propriétaire",
+  freqConstructionName: "Chantier",
+  freqConstructionSubtitle: "Poussière & débris lourds",
+  freqRenovationName: "Rénovation",
+  freqRenovationSubtitle: "Rafraîchissement post-rénovation",
+  freqBuildersName: "Post-Chantier",
+  freqBuildersSubtitle: "Nettoyage initial du constructeur",
+  freqFinalHandoverName: "Livraison Finale",
+  freqFinalHandoverSubtitle: "Éclat impeccable",
+  freqImmediateDispatchSubtitle: "Intervention immédiate",
+  freqEmergencyName: "Urgence",
+  freqUrgentResponseSubtitle: "Intervention urgente",
+  freqPriorityName: "Prioritaire",
+  freqFrontOfQueueSubtitle: "Priorité absolue",
+  freqWeekendPrioritySubtitle: "Priorité le week-end",
+  freqSecureClearanceSubtitle: "Accès sécurisé",
+  freqVettedWeeklyCareSubtitle: "Entretien hebdomadaire vérifié",
+  freqScheduledSecureSubtitle: "Planification sécurisée",
+  freqMonthlyAuditCheckSubtitle: "Contrôle d'audit mensuel",
+  freqWeekendClearanceSubtitle: "Nettoyage du week-end",
+  freqDiscreetName: "Discret",
+  freqDiscreetSubtitle: "Agents en tenue neutre",
+  freqSingleTurnSubtitle: "Rotation unique",
+  freqMultiTurnPackageSubtitle: "Formule multi-rotations",
+  freqBiWeeklyChecksSubtitle: "Contrôles bihebdomadaires",
+  freqMonthlyOverviewSubtitle: "Aperçu mensuel",
+  freqPeakWeekendTurnSubtitle: "Rotation de pointe du week-end",
+  freqGuestTurnoverName: "Rotation Voyageurs",
+  freqGuestTurnoverSubtitle: "Nettoyage rapide Airbnb",
+  freqOfficeDeepRefreshSubtitle: "Rafraîchissement intense de bureau",
+  freqWeeklyCorporateSubtitle: "Hebdomadaire entreprise",
+  freqBiWeeklyMaintenanceSubtitle: "Entretien bihebdomadaire",
+  freqMonthlyDeepCleanSubtitle: "Grand nettoyage mensuel",
 
-    TotalselectedRooms: "Nombre Total de Pièces Sélectionnées",
-    maxOfCategory: "(Max 10 par catégorie)",
-    frequencyHeader: "Choisissez votre fréquence de service préférée",
-    frequenciesTitle: "Fréquences",
+  freqMoveInName: "Emménagement",
+  freqMoveInSubtitle: "Nettoyage avant occupation",
+  freqMoveOutName: "Déménagement",
+  freqMoveOutSubtitle: "Garantie récupération de caution",
+  freqPropertyHandoverName: "Remise des Clés",
+  freqPropertyHandoverSubtitle: "Standard propriétaire",
 
-    bathroom_toilet_cleaning: "Nettoyage de la Salle de Bain & Toilettes",
-    dining_area_cleaning: "Nettoyage de la Salle à Manger",
-    lounge_cleaning: "Nettoyage du Salon",
-    vip_suite_cleaning: "Nettoyage de la Suite VIP",
-    crew_area_cleaning: "Nettoyage des Espaces Équipage",
-    floor_carpet_cleaning: "Nettoyage des Sols & Moquettes",
-    window_glass_cleaning: "Nettoyage des Vitres & Surfaces Vitrées",
+  TotalselectedRooms: "Nombre Total de Pièces Sélectionnées",
+  maxOfCategory: "(Max 10 par catégorie)",
+  frequencyHeader: "Choisissez votre fréquence de service préférée",
+  frequenciesTitle: "Fréquences",
 
-    hall_cleaning: "Nettoyage du Hall",
-    vip_area_cleaning: "Nettoyage de la Zone VIP",
-    toilet_cleaning: "Nettoyage des Toilettes",
-    entrance_cleaning: "Nettoyage de l'Entrée",
-    catering_area_cleaning: "Nettoyage de la Zone Traiteur",
-    stage_cleaning: "Nettoyage de la Scène",
-    seating_area_cleaning: "Nettoyage de la Zone d'Assise",
-    corridor_cleaning: "Nettoyage des Couloirs",
-    waste_removal: "Évacuation des Déchets",
-    table_desk_cleaning: "Nettoyage des Tables & Bureaux",
-    kitchen_cleaning: "Nettoyage de la Cuisine",
-    window_cleaning: "Nettoyage des Vitres",
-    bathroom_toilet: "Salle de Bain & Toilettes",
-    kitchen_surfaces: "Surfaces de Cuisine",
-    floors_tiles: "Sols & Carrelages",
-    carpets_rugs: "Tapis & Moquettes",
-    sofas_upholstery: "Canapés & Tissus d'Ameublement",
-    office_floors: "Sols de Bureaux",
-    desks_workstations: "Bureaux & Postes de Travail",
-    office_chairs: "Sièges de Bureau",
-    meeting_rooms: "Salles de Réunion",
-    commercial_kitchens: "Cuisines Commerciales",
-    hallways_staircases: "Couloirs & Escaliers",
-    windows_glass_area: "Vitres & Surfaces Vitrées",
-    cleaningBedrooms: "Nettoyage des Chambres",
-    bathroomsToilets: "Salles de Bain & Toilettes",
-    livingRooms: "Salons & Salles de Séjour",
-    windowsGlass: "Vitres & Surfaces Vitrées",
-    furnitureTables: "Meubles & Tables",
-    doorsFrames: "Portes & Encadrements",
-    wallsCeilings: "Murs & Plafonds",
-    floorsTiles: "Sols & Carrelages",
-    stairsCommonArea: "Escaliers & Zones Communes",
+  bathroom_toilet_cleaning: "Nettoyage de la Salle de Bain & Toilettes",
+  dining_area_cleaning: "Nettoyage de la Salle à Manger",
+  lounge_cleaning: "Nettoyage du Salon",
+  vip_suite_cleaning: "Nettoyage de la Suite VIP",
+  crew_area_cleaning: "Nettoyage des Espaces Équipage",
+  floor_carpet_cleaning: "Nettoyage des Sols & Moquettes",
+  window_glass_cleaning: "Nettoyage des Vitres & Surfaces Vitrées",
 
-    premiumRentalPrivateProperty: "Propriété privée",
-    premiumRentalManagementProperty: "Gestion locative",
-    propGuestReady: "Prêt pour les invités",
-    propBookingCom: "Booking.com",
-    propHotels: "Hôtels",
-    propServicedApartments: "Appartements meublés",
-    propGuesthouses: "Maisons d'hôtes",
-    propHolidayRentals: "Locations de vacances",
-    propPropertyManagers: "Gestionnaires immobiliers",
+  hall_cleaning: "Nettoyage du Hall",
+  vip_area_cleaning: "Nettoyage de la Zone VIP",
+  toilet_cleaning: "Nettoyage des Toilettes",
+  entrance_cleaning: "Nettoyage de l'Entrée",
+  catering_area_cleaning: "Nettoyage de la Zone Traiteur",
+  stage_cleaning: "Nettoyage de la Scène",
+  seating_area_cleaning: "Nettoyage de la Zone d'Assise",
+  corridor_cleaning: "Nettoyage des Couloirs",
+  waste_removal: "Évacuation des Déchets",
+  table_desk_cleaning: "Nettoyage des Tables & Bureaux",
+  kitchen_cleaning: "Nettoyage de la Cuisine",
+  window_cleaning: "Nettoyage des Vitres",
+  bathroom_toilet: "Salle de Bain & Toilettes",
+  kitchen_surfaces: "Surfaces de Cuisine",
+  floors_tiles: "Sols & Carrelages",
+  carpets_rugs: "Tapis & Moquettes",
+  sofas_upholstery: "Canapés & Tissus d'Ameublement",
+  office_floors: "Sols de Bureaux",
+  desks_workstations: "Bureaux & Postes de Travail",
+  office_chairs: "Sièges de Bureau",
+  meeting_rooms: "Salles de Réunion",
+  commercial_kitchens: "Cuisines Commerciales",
+  hallways_staircases: "Couloirs & Escaliers",
+  windows_glass_area: "Vitres & Surfaces Vitrées",
+  cleaningBedrooms: "Nettoyage des Chambres",
+  bathroomsToilets: "Salles de Bain & Toilettes",
+  livingRooms: "Salons & Salles de Séjour",
+  windowsGlass: "Vitres & Surfaces Vitrées",
+  furnitureTables: "Meubles & Tables",
+  doorsFrames: "Portes & Encadrements",
+  wallsCeilings: "Murs & Plafonds",
+  floorsTiles: "Sols & Carrelages",
+  stairsCommonArea: "Escaliers & Zones Communes",
 
-    // Labels
-    trustBooking60Sec: "Réservation en Ligne en 60 Secondes",
-    trustEcoFriendlyProducts: "Produits Écologiques",
-    trustEnglishFrenchTeams: "Équipes Anglophones & Francophones",
-    trustVettedProfessionalTeam: "Équipe Professionnelle Vérifiée",
-    trustResidentialCleaning: "Nettoyage Résidentiel",
-    trustCommercialCleaning: "Nettoyage Commercial",
-    trustYachtMarineCleaning: "Nettoyage de Yachts & Bateaux",
-    trustShortTermRentalConcierge: "Conciergerie pour Locations Saisonnières",
+  premiumRentalPrivateProperty: "Propriété privée",
+  premiumRentalManagementProperty: "Gestion locative",
+  propGuestReady: "Prêt pour les invités",
+  propBookingCom: "Booking.com",
+  propHotels: "Hôtels",
+  propServicedApartments: "Appartements meublés",
+  propGuesthouses: "Maisons d'hôtes",
+  propHolidayRentals: "Locations de vacances",
+  propPropertyManagers: "Gestionnaires immobiliers",
 
-    // Descriptions
-    trustBooking60SecDescription: "Réservez votre service de nettoyage rapidement et facilement en seulement 60 secondes.",
-    trustEcoFriendlyProductsDescription: "Profitez d'un espace impeccable grâce à des produits écologiques à base de plantes.",
-    trustEnglishFrenchTeamsDescription: "Assistance bilingue en anglais et en français pour une expérience client optimale.",
-    trustVettedProfessionalTeamDescription: "Des équipes de nettoyage professionnelles axées sur la qualité, le soin et la fiabilité.",
-    trustResidentialCleaningDescription: "Nettoyage haut de gamme pour demeures de luxe, appartements, villas et domaines.",
-    trustCommercialCleaningDescription: "Bureaux impeccables, espaces commerciaux et environnements professionnels.",
-    trustYachtMarineCleaningDescription: "Soin de nettoyage spécialisé pour yachts et intérieurs maritimes de luxe.",
-    trustShortTermRentalConciergeDescription: "Services de nettoyage et de rotation de voyageurs pour locations de vacances haut de gamme.",
-    trustOfficeFrance: "Bureau en France",
-    trustOfficeUnitedKingdom: "Bureau au Royaume-Uni",
-    trustOfficeSriLanka: "Bureau au Sri Lanka",
-    trustOfficeRegNo: "N° d'immatriculation",
+  // Labels
+  trustBooking60Sec: "Réservation en Ligne en 60 Secondes",
+  trustEcoFriendlyProducts: "Produits Écologiques",
+  trustEnglishFrenchTeams: "Équipes Anglophones & Francophones",
+  trustVettedProfessionalTeam: "Équipe Professionnelle Vérifiée",
+  trustResidentialCleaning: "Nettoyage Résidentiel",
+  trustCommercialCleaning: "Nettoyage Commercial",
+  trustYachtMarineCleaning: "Nettoyage de Yachts & Bateaux",
+  trustShortTermRentalConcierge: "Conciergerie pour Locations Saisonnières",
+
+  // Descriptions
+  trustBooking60SecDescription: "Réservez votre service de nettoyage rapidement et facilement en seulement 60 secondes.",
+  trustEcoFriendlyProductsDescription: "Profitez d'un espace impeccable grâce à des produits écologiques à base de plantes.",
+  trustEnglishFrenchTeamsDescription: "Assistance bilingue en anglais et en français pour une expérience client optimale.",
+  trustVettedProfessionalTeamDescription: "Des équipes de nettoyage professionnelles axées sur la qualité, le soin et la fiabilité.",
+  trustResidentialCleaningDescription: "Nettoyage haut de gamme pour demeures de luxe, appartements, villas et domaines.",
+  trustCommercialCleaningDescription: "Bureaux impeccables, espaces commerciaux et environnements professionnels.",
+  trustYachtMarineCleaningDescription: "Soin de nettoyage spécialisé pour yachts et intérieurs maritimes de luxe.",
+  trustShortTermRentalConciergeDescription: "Services de nettoyage et de rotation de voyageurs pour locations de vacances haut de gamme.",
+  trustOfficeFrance: "Bureau en France",
+  trustOfficeUnitedKingdom: "Bureau au Royaume-Uni",
+  trustOfficeSriLanka: "Bureau au Sri Lanka",
+  trustOfficeRegNo: "N° d'immatriculation",
+
+  propRetailShop: "Boutique / Commerce de Détail",
+  propShoppingCentre: "Centre Commercial",
+  propSupermarketGroceryStore: "Supermarché / Épicerie",
+  propGymFitnessCentre: "Salle de Sport / Centre de Remise en Forme",
+  propMedicalClinic: "Clinique Médicale",
+  propBeautySalonSpa: "Salon de Beauté / Spa",
+  propBankFinancialOffice: "Banque / Agence Financière",
+  propSchoolNursery: "École / Crèche",
+  propWarehouse: "Entrepôt",
+  propDistributionCentre: "Centre de Distribution",
+  propFactory: "Usine",
+  propOtherCommercialProperty: "Autre Propriété Commerciale",
+  serviceVIPHighSecurityCleaning: "Nettoyage de Propriétés VIP & Haute Sécurité",
+
+  propChalet: "Chalet",
+  propDuplexTriplex: "Duplex / Triplex",
+  propLuxuryResidence: "Résidence de Luxe",
+
+  propRestaurantCafe: "Restaurant / Café",
+  propBanquetHall: "Salle de Réception / Banquet",
+  propConferenceCentre: "Centre de Conférences",
+
+  propVipBuilding: "Bâtiment VIP",
+  serviceLableLuxuryYachtCleaning: "Nettoyage de Yachts & Navires de Passagers",
 } as Record<TranslationKey, TranslationValue>;
 
 

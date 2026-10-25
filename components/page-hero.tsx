@@ -8,9 +8,10 @@ import { COUNTRY_FLAGS } from "@/components/country-switcher";
 import { CURRENT_COUNTRY, SUPPORTED_COUNTRIES, type CountryCode } from "@/lib/countries/config";
 import { useCountry } from "@/lib/countries/country-context";
 import { HeroPriceSelector, type HeroPriceOption } from "@/components/hero-price-selector";
-import { transcode } from "buffer";
 import { useLanguage } from "@/lib/i18n/language-context";
 import type { TranslationKey } from "@/lib/i18n/dictionaries/en";
+import ScheduleServiceButton from "./booking/Schedule-service-button";
+import DynamicHeroOverlay from "./booking/booking new flow/hero-bg-overlays";
 
 /** Same country-flag-icons set the navbar's CountrySwitcher/LocaleSwitcher use. */
 function getFlagComponent(code: string) {
@@ -40,10 +41,13 @@ export function PageHero({
   serviceId,
   hidePriceSelector,
   unitLabelKey,
+  serviceSlug,
+  theme = "dark",
+  isQuote
 }: {
   image: string;
   eyebrow?: string;
-  title: string;
+  title?: string;
   subtitle?: string;
   servicePrices?: ServicePriceEntry[];
   serviceId?: number;
@@ -51,6 +55,9 @@ export function PageHero({
   hidePriceSelector?: boolean;
   /** "Hour Per Cleaner" by default — pass "hourPerProfessional" for Child/Elder Care. */
   unitLabelKey?: TranslationKey;
+  serviceSlug?: string;
+  theme?: "dark" | "light";
+  isQuote?: boolean;
 }) {
   /** This deployment's fixed country (see CURRENT_COUNTRY) — no picker anymore now that each country is its own site. */
   const { country, countries } = useCountry();
@@ -101,47 +108,42 @@ export function PageHero({
   const selectedData = activePrices[0];
   const SelectedFlag = getFlagComponent(selectedData.country);
 
-  /* const navigateToPreviousService = 
-                          [
-                            {slug:"regular-home-cleaning",label: "Regular Home Cleaning"},
-                            {slug:"quick-touch-up-cleaning",label: "Quick Touch-Up Cleaning"},
-                            {slug:"same-day-priority-cleaning",label: "Same-Day Priority Cleaning"},
-                            {slug:"deep-cleaning",label: "Deep Cleaning"},
-                            {slug:"end-of-tenancy-cleaning",label: "End of Tenancy Cleaning"},
-                            {slug:"post-construction-renovation-cleaning",label: "Post-Construction Renovation Cleaning"},
-                            {slug:"premium-rental-concierge-cleaning",label: "Premium Rental Concierge Cleaning"},
-                            {slug:"commercial-office-cleaning",label: "Commercial Office Cleaning"},
-                            {slug:"healthguard-sanitization",label: "Healthguard Sanitization"},
-                            {slug:"carpet-upholstery-cleaning",label: "Carpet and Upholstery Cleaning"},
-                            {slug:"steam-cleaning",label: "Steam Cleaning"},
-                            {slug:"post-event-cleaning",label: "Post-Event Cleaning"},
-                            {slug:"pool-cleaning",label: "Pool Cleaning"},
-                            {slug:"precision-pressure-washing",label: "Precision Pressure Washing"},
-                            {slug:"child-care-service",label: "Child Care Service"},
-                            {slug:"elder-care-service",label: "Elder Care Service"},
-                            {slug:"laundry-service",label: "Laundry Service"},
-                            {slug:"move-in-out-transport-service",label: "Move-In/Out Transport Service"},
-                            {slug:"high-security-property-care",label: "High Security Property Care"},
-                            {slug:"luxury-yacht-cleaning",label: "Luxury Yacht Cleaning"}
-                          ] */
-  
-
   const {translate} =useLanguage()
 
   return (
-    <section className="relative flex h-auto justify-center bg-transparent text-center mb-16 md:mb-12">
-      <div className="lg:min-h-[75vh] lg:max-h-[80vh] md:min-h-[45vh] md:max-h-[80vh] h-[15vh] w-full overflow-hidden">
+    <section className="relative flex flex-col h-auto justify-center bg-transparent text-center mb-5 md:mb-12">
+      <div className="lg:min-h-[75vh] lg:max-h-[80vh] md:min-h-[45vh] md:max-h-[80vh] h-[90vh] w-full overflow-hidden">
         <Image
           src={image}
-          alt={title}
+          alt={title || ""}
           fill
           priority
           sizes="120vw"
-          className="object-cover h-[25vh] md:h-[100vh] rounded-none md:rounded-b-[100px] border border-[rgb(169,139,75)]"
+          className="object-cover h-[90vh] md:h-[100vh] rounded-none  border border-[rgb(169,139,75)]"
         />
+        {/* Dynamic Overlay containing the new centered text content */}
+        <div className="absolute  inset-0  flex flex-col justify-end">
+          <DynamicHeroOverlay serviceSlug={serviceSlug}  isQuote={isQuote} />
+          {/*  Price Selector Bar positioned cleanly */}
+          {!hidePriceSelector && (
+            <div className="px-4 z-20">
+              <HeroPriceSelector
+                activePrices={activePrices}
+                selectedCountryCode={selectedCountryCode}
+                selectedData={selectedData}
+                selectedFlag={SelectedFlag}
+                getFlagComponent={getFlagComponent}
+                onCountryChange={() => {}}
+                unitLabelKey={unitLabelKey}
+              />
+            </div>
+          )}
+        </div>
       </div>
 
-      <div className="absolute top-1/2 -translate-y-1/2 flex items-center gap-2.5 md:block md:left-8 left-3 z-10 mx-auto max-w-lg md:max-w-3xl py-4 px-5 md:py-5 md:px-7 bg-[rgb(18,30,45)] border-2 border-[rgb(169,139,75)] md:border-0 md:border-transparent md:rounded-[20px]">
+      
+
+      {/* <div className="absolute top-1/2 -translate-y-1/2 flex items-center gap-2.5 md:block md:left-8 left-3 z-10 mx-auto max-w-lg md:max-w-3xl py-4 px-5 md:py-5 md:px-7 bg-[rgb(18,30,45)] border-2 border-[rgb(169,139,75)] md:border-0 md:border-transparent md:rounded-[20px]">
         <Link href={"/"}
           className="inline-flex md:hidden shrink-0 items-center gap-2">
           <Image
@@ -156,9 +158,41 @@ export function PageHero({
             {eyebrow}
           </p>
         )}
-        <h1 className="min-w-0 truncate md:overflow-visible max-w-[300px] md:max-w-3xl md:text-clip md:whitespace-normal text-base sm:text-3xl md:text-4xl font-bold text-[#c29b38] tracking-tight leading-tight">
-          {translate(title as TranslationKey)}
-        </h1>
+        
+
+        {serviceSlug === "pool-cleaning" || serviceSlug === "pool-cleaning-maintenance" || title === "servicePoolCleaning" ? (
+          <div className="flex-1 min-w-0 text-center bg-brand-navy md:p-4 p-2 mt-3 rounded-2xl">
+            <h1 className="font-serif text-lg sm:text-2xl md:text-3xl lg:text-4xl font-normal sm:font-medium tracking-tight leading-tight">
+              <span className= "text-white">Precision Pool &amp; Spa </span>
+              <span className="text-[#c9a858]">Maintenance</span>
+            </h1>
+            <p className={`mt-2 md:mt-3 text-gray-300 text-xs sm:text-sm md:text-base leading-relaxed font-sans max-w-2xl mx-auto 
+              
+            `}>
+              From residential plunge pools to commercial Olympic facilities, experience unmatched water clarity, chemistry balancing, and steam room hygiene.
+            </p>
+            <ScheduleServiceButton isLight={theme==="light" ? true :false} />
+          </div>
+        )  : 
+        serviceSlug ==="precision-pressure-washing" ? (
+        <div className="flex-1 min-w-0 text-center  rounded-2xl">
+          <h1 className="font-serif text-lg sm:text-2xl md:text-3xl lg:text-4xl font-normal sm:font-medium tracking-tight leading-tight">
+            <span className="text-white">Precision Pressure </span>
+            <span className="text-[#c9a858]">Washing</span>
+          </h1>
+          <p className="mt-2 md:mt-3 text-gray-100 text-xs sm:text-sm md:text-base leading-relaxed font-sans max-w-2xl mx-auto drop-shadow-md">
+            From delicate residential siding to heavy-duty commercial concrete, restore absolute curb appeal with deep surface cleaning, stain removal, and protective sealing.
+          </p>
+          <div className="mt-4">
+            <ScheduleServiceButton isLight={theme === "light" ? true : false} />
+          </div>
+        </div>
+        ): (
+          <h1 className="min-w-0 truncate md:overflow-visible max-w-[300px] md:max-w-3xl md:text-clip md:whitespace-normal text-base sm:text-3xl md:text-4xl font-bold text-[#c29b38] tracking-tight leading-tight">
+            {translate(title as TranslationKey)}
+          </h1>
+        )}
+
         {subtitle && <p className="mt-3 text-brand-cream/85 hidden">{subtitle}</p>}
 
         {!hidePriceSelector && (
@@ -172,7 +206,7 @@ export function PageHero({
             unitLabelKey={unitLabelKey}
           />
         )}
-      </div>
+      </div> */}
     </section>
   );
 }

@@ -57,7 +57,7 @@ export interface PropertyCategory {
   id: string;
   label: string;
   sublabel?: string;
-  icon: string;
+  icon: string | React.ReactNode;
   min: number;
   max: number;
   step: number;
