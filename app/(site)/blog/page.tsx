@@ -5,6 +5,7 @@ import { BreadcrumbJsonLd } from "@/components/json-ld";
 import { getCountryPageMeta } from "@/lib/countries/meta-data";
 import { IS_GLOBAL_SITE } from "@/lib/countries/config";
 import { BlogView } from "./blog-view";
+import { GlobalBlog } from "@/components/global-home/global-blog";
 
 export async function generateMetadata(): Promise<Metadata> {
   const language = await getRequestLanguage();
@@ -27,7 +28,7 @@ export default function BlogPage() {
   return (
     <>
       <BreadcrumbJsonLd items={[{ name: "Home", path: "/" }, { name: "Blog", path: "/blog" }]} />
-      <BlogView />
+      {IS_GLOBAL_SITE ? <GlobalBlog /> : <BlogView />}
     </>
   );
 }

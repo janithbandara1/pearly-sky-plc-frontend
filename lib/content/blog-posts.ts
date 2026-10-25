@@ -11,7 +11,20 @@ export interface BlogPost extends BlogPostCopy {
   image: string;
   /** English long-form date ("9 December 2025") — parsed for structured data; display it through formatBlogDate(). */
   date: string;
+  /** Topic the global gateway's blog page filters by — not translated, since that site is English-only. */
+  category: BlogCategory;
 }
+
+export const BLOG_CATEGORIES = [
+  "Home Cleaning",
+  "Eco-Friendly Living",
+  "Deep Cleaning",
+  "Office Cleaning",
+  "Property Care",
+  "Health & Wellness",
+] as const;
+
+export type BlogCategory = (typeof BLOG_CATEGORIES)[number];
 
 interface BlogPostSource extends BlogPost {
   /** Non-English copies of title/description/body; English lives on the post itself. */
@@ -26,6 +39,7 @@ const posts: BlogPostSource[] = [
       "Why a consistent cleaning routine does more for your home than just appearances — and how to keep it up without the effort.",
     image: "/images/blog/article-1.jpeg",
     date: "9 December 2025",
+    category: "Home Cleaning",
     body: [
       "A clean home is more than a nice-to-have — it's a foundation for wellbeing. Dust, allergens, and bacteria build up quickly in high-traffic areas like kitchens, bathrooms, and living rooms, and left unchecked they can affect air quality and everyday comfort.",
       "Regular cleaning breaks that cycle before it starts. Instead of a periodic deep clean fighting against months of buildup, a consistent routine keeps surfaces, floors, and fabrics in a state that's easy to maintain — and far more pleasant to live in day to day.",
@@ -81,6 +95,7 @@ const posts: BlogPostSource[] = [
       "Get expert advice on how to keep your space clean and organized, even on the busiest of days.",
     image: "/images/blog/article-2.jpeg",
     date: "9 December 2025",
+    category: "Home Cleaning",
     body: [
       "1. Clean in short, focused bursts. Ten minutes tidying a single room beats an occasional multi-hour marathon — it's easier to fit into a packed schedule and prevents mess from accumulating.",
       "2. Tackle high-touch surfaces first. Door handles, countertops, and remote controls collect the most daily grime and deserve priority over less-used areas.",
@@ -146,6 +161,7 @@ const posts: BlogPostSource[] = [
       "Learn about the advantages of choosing eco-friendly cleaning services for your home or business.",
     image: "/images/blog/article-3.jpeg",
     date: "9 December 2025",
+    category: "Eco-Friendly Living",
     body: [
       "Conventional cleaning products often trade effectiveness for harsh chemicals — leaving residues that affect indoor air quality and aren't always safe around children or pets.",
       "Eco-friendly cleaning flips that trade-off. Modern sustainable formulas clean just as thoroughly while being gentler on surfaces, safer for the people and animals who live in the space, and kinder to the environment once they're rinsed away.",
@@ -201,6 +217,7 @@ const posts: BlogPostSource[] = [
       "Find out what to look for when selecting a cleaning service that meets your specific requirements.",
     image: "/images/blog/choose-right-cleaning-service.jpg",
     date: "9 December 2025",
+    category: "Property Care",
     body: [
       "Not every cleaning need is the same — a weekly residential tidy, a post-construction deep clean, and a same-day Airbnb turnaround all call for different expertise, equipment, and turnaround time.",
       "Start by matching the service to the job: look for providers who specialize (not just generalize) in the type of clean you need, and who are transparent about pricing and what's included.",
@@ -251,8 +268,8 @@ const posts: BlogPostSource[] = [
   },
 ];
 
-function stripTranslations({ slug, title, description, image, date, body }: BlogPostSource): BlogPost {
-  return { slug, title, description, image, date, body };
+function stripTranslations({ slug, title, description, image, date, category, body }: BlogPostSource): BlogPost {
+  return { slug, title, description, image, date, category, body };
 }
 
 /** All posts in English — use getBlogPosts(language) for anything rendered to a visitor. */

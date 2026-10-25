@@ -18,8 +18,7 @@ import { getCountryPageMeta } from "@/lib/countries/meta-data";
 import { IS_GLOBAL_SITE } from "@/lib/countries/config";
 import { Welcome } from "@/components/home/welcome";
 import { VisionaryTeam } from "@/components/home/visionary-team";
-import GlobalHeroSection from "@/components/ui/global-hero";
-import CountryWiseDomains from "@/components/ui/country-wise-domains";
+import { GlobalHome } from "@/components/global-home/global-home";
 export const dynamic = "force-dynamic";
 
 export async function generateMetadata(): Promise<Metadata> {
@@ -58,19 +57,20 @@ const getCachedServices = unstable_cache(
 );
 
 export default async function Home() {
+  // The global gateway has no backend behind it at all — it gets its own
+  // static home page and never fetches the catalog.
+  if (IS_GLOBAL_SITE) return <GlobalHome />;
+
   const [country, language] = await Promise.all([getRequestCountry(), getRequestLanguage()]);
-  // The global gateway has no backend behind it at all — never fetch the
-  // catalog, and don't render the section that would show it.
-  const services = IS_GLOBAL_SITE ? [] : (await getCachedServices(country, language)).map(toHomeService);
+  const services = (await getCachedServices(country, language)).map(toHomeService);
 
   return (
     <main className="flex-1">
-      {IS_GLOBAL_SITE ? <GlobalHeroSection /> :<Hero />}
-      {!IS_GLOBAL_SITE && <TrustBar />}
-      {!IS_GLOBAL_SITE && <ServicesSection services={services} />}
+      <Hero />
+      <TrustBar />
+      <ServicesSection services={services} />
       <Welcome />
       <AboutSection />
-      {IS_GLOBAL_SITE && <CountryWiseDomains />  }
       <CoverageStrip />
       <VisionaryTeam />
       <SectorsMarquee />

@@ -6,6 +6,7 @@ import { buildCountryAlternates, buildGlobalAlternates, buildSocialMeta } from "
 import { BreadcrumbJsonLd } from "@/components/json-ld";
 import { ContactUsView } from "./contact-us-view";
 import PaymentMarquee from "@/components/payment-method-services";
+import { GlobalContact } from "@/components/global-home/global-contact";
 
 export async function generateMetadata(): Promise<Metadata> {
   const language = await getRequestLanguage();
@@ -31,9 +32,15 @@ export default function ContactUsPage() {
           { name: "Home", path: "/" },
           { name: "Contact Us", path: "/contact-us" },
         ]} />
-      <ContactUsView />
-      <h2 className="text-center mt-4 text-2xl font-semibold  text-[oklch(.379_.146_265.522)]">Support Payment Method</h2>
-      <PaymentMarquee />
+      {IS_GLOBAL_SITE ? (
+        <GlobalContact />
+      ) : (
+        <>
+          <ContactUsView />
+          <h2 className="text-center mt-4 text-2xl font-semibold  text-[oklch(.379_.146_265.522)]">Support Payment Method</h2>
+          <PaymentMarquee />
+        </>
+      )}
     </>
   );
 }

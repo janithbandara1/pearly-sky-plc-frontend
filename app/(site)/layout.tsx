@@ -15,6 +15,9 @@ import RelatedServices from "@/components/services-links";
 import PaymentMarquee from "@/components/payment-method-services";
 import { CookieConsentBanner } from "@/components/cookie/cookie-consent-banner";
 import { CrispChat } from "@/components/cookie/crisp-chat";
+import { IS_GLOBAL_SITE } from "@/lib/countries/config";
+import { GlobalHeader } from "@/components/global-home/global-header";
+import { GlobalFooter } from "@/components/global-home/global-footer";
 
 export default async function SiteLayout({
   children,
@@ -34,12 +37,12 @@ export default async function SiteLayout({
       <CurrencyProvider currencies={currencies}>
         <LanguageProvider language={language}>
           <JsonLd data={buildLocalBusinessJsonLd(office, country ?? "fr")} />
-          <SiteHeader />
+          {IS_GLOBAL_SITE ? <GlobalHeader /> : <SiteHeader />}
           <div className="flex flex-1 flex-col">{children}</div>
           {/* <JoinWithUsSection />
           <RelatedServices />
           <PaymentMarquee /> */}
-          <SiteFooter />
+          {IS_GLOBAL_SITE ? <GlobalFooter /> : <SiteFooter />}
           <CookieConsentBanner />
           <CrispChat />
         </LanguageProvider>
