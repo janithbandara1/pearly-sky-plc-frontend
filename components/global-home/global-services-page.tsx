@@ -21,6 +21,7 @@ import { useLanguage } from "@/lib/i18n/language-context";
 import type { GlobalKey } from "@/lib/i18n/global/en";
 import { cn } from "@/lib/utils";
 import { greatVibes, playfair } from "./fonts";
+import { SERVICE_ORDER } from "./services-order";
 import { ServicesQuoteForm } from "./services-quote-form";
 
 const IMAGE_DIR = "/images/services/updated-";
@@ -84,35 +85,6 @@ const CATEGORY_BY_SERVICE: Record<string, CategoryId> = {
   "laundry-service": "lifestyle",
   "move-in-out-transport-service": "lifestyle",
 };
-
-/**
- * The order (and so the card numbers) the design lists the services in. The
- * design's Floor Polishing, Window & Glass and Outdoor & Garden aren't services
- * we offer, so Pool Cleaning, Child Care and Laundry take slots 15, 17 and 18 and
- * every other service keeps the design's number.
- */
-const SERVICE_ORDER = [
-  "regular-home-cleaning",
-  "essential-touch-up-cleaning",
-  "deep-cleaning",
-  "end-of-tenancy-cleaning",
-  "post-construction-renovation-cleaning",
-  "same-day-priority-cleaning",
-  "high-security-property-care",
-  "premium-rental-concierge-cleaning",
-  "commercial-office-cleaning",
-  "steam-cleaning",
-  "post-event-cleaning",
-  "luxury-yacht-cleaning",
-  "healthguard-sanitization",
-  "carpet-upholstery-cleaning",
-  "pool-cleaning",
-  "precision-pressure-washing",
-  "child-care-service",
-  "laundry-service",
-  "move-in-out-transport-service",
-  "elder-care-service",
-];
 
 const HERO_FEATURES: { Icon: typeof Leaf; titleKey: GlobalKey; subtitleKey: GlobalKey }[] = [
   { Icon: Leaf, titleKey: "svc.feature.eco.title", subtitleKey: "svc.feature.eco.subtitle" },

@@ -159,7 +159,7 @@ export function ServicesQuoteForm({ services, englishTitles, serviceId, onServic
                     }}
                     aria-label={t("form.service")}
                     aria-invalid={serviceError}
-                    className={`${fieldClass} cursor-pointer appearance-none`}
+                    className={`${fieldClass} cursor-pointer appearance-none pr-10`}
                   >
                     <option value="" disabled>
                       {t("form.selectService")}
@@ -193,7 +193,7 @@ export function ServicesQuoteForm({ services, englishTitles, serviceId, onServic
                 <select
                   aria-label={t("form.propertySizeLabel")}
                   defaultValue=""
-                  className={`${fieldClass} cursor-pointer appearance-none`}
+                  className={`${fieldClass} cursor-pointer appearance-none pr-10`}
                   {...register("size")}
                 >
                   <option value="" disabled>

@@ -19,6 +19,8 @@ import { IS_GLOBAL_SITE } from "@/lib/countries/config";
 import { Welcome } from "@/components/home/welcome";
 import { VisionaryTeam } from "@/components/home/visionary-team";
 import { GlobalHome } from "@/components/global-home/global-home";
+import { SERVICE_ORDER } from "@/components/global-home/services-order";
+import { getOurServicesContent } from "@/lib/content/our-services";
 export const dynamic = "force-dynamic";
 
 export async function generateMetadata(): Promise<Metadata> {
@@ -59,7 +61,15 @@ const getCachedServices = unstable_cache(
 export default async function Home() {
   // The global gateway has no backend behind it at all — it gets its own
   // static home page and never fetches the catalog.
-  if (IS_GLOBAL_SITE) return <GlobalHome />;
+  if (IS_GLOBAL_SITE) {
+    // The quote form offers the same services as the Our Services page, in the visitor's language.
+    const { services } = getOurServicesContent(await getRequestLanguage());
+    const englishTitles = Object.fromEntries(getOurServicesContent("en").services.map(({ id, title }) => [id, title]));
+    const options = [...services]
+      .sort((a, b) => SERVICE_ORDER.indexOf(a.id) - SERVICE_ORDER.indexOf(b.id))
+      .map(({ id, title }) => ({ id, title }));
+    return <GlobalHome quoteServices={options} englishTitles={englishTitles} />;
+  }
 
   const [country, language] = await Promise.all([getRequestCountry(), getRequestLanguage()]);
   const services = (await getCachedServices(country, language)).map(toHomeService);

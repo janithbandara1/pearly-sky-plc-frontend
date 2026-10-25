@@ -6,7 +6,7 @@ import { Controller, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 // zod/mini, as in home-contact-us.tsx — the full build is ~70 KiB heavier.
 import * as z from "zod/mini";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, ChevronDown } from "lucide-react";
 import { toast } from "sonner";
 import { sendContactMessage } from "@/lib/contact-api";
 import { ApiError } from "@/lib/api";
@@ -14,7 +14,6 @@ import { PhoneInput } from "@/components/phone-input";
 import { TurnstileWidget, type TurnstileHandle } from "@/components/turnstile";
 import { useLanguage } from "@/lib/i18n/language-context";
 import type { GlobalKey } from "@/lib/i18n/global/en";
-import { GLOBAL_SERVICES } from "./services-data";
 
 type Translate = (key: GlobalKey, vars?: Record<string, string | number>) => string;
 
@@ -49,7 +48,15 @@ const fieldClass =
  * That message is written in English whatever language the visitor used: it is
  * read by the team, not the visitor.
  */
-export function GlobalQuote() {
+export function GlobalQuote({
+  services,
+  englishTitles,
+}: {
+  /** The services in the select, titled in the visitor's language. */
+  services: { id: string; title: string }[];
+  /** English title per service id, for the enquiry the team reads. */
+  englishTitles: Record<string, string>;
+}) {
   const { translateGlobal: t } = useLanguage();
   const [turnstileToken, setTurnstileToken] = useState("");
   const turnstileRef = useRef<TurnstileHandle>(null);
@@ -92,10 +99,10 @@ export function GlobalQuote() {
       return;
     }
     setSendError(null);
-    const selected = GLOBAL_SERVICES.find((s) => s.value === service);
+    const selected = services.find((s) => s.id === service);
     const body = [
       "Free quote request (global site)",
-      `Service: ${selected?.title ?? service}`,
+      `Service: ${englishTitles[service] ?? service}`,
       size && `Property size: ${size} m²`,
       date && `Preferred date: ${date}`,
       message.trim() && `Message: ${message.trim()}`,
@@ -106,7 +113,7 @@ export function GlobalQuote() {
     try {
       await sendContactMessage({ name, email, phone, message: body, turnstileToken });
       toast.success(t("form.successTitle"), {
-        description: t("form.successQuote", { service: selected ? t(selected.titleKey) : service }),
+        description: t("form.successQuote", { service: selected?.title ?? service }),
       });
       reset();
     } catch (err) {
@@ -141,16 +148,24 @@ export function GlobalQuote() {
         <div className="glass-panel rounded-3xl border-gold-500/30! p-6 sm:p-8 lg:col-span-5">
           <form onSubmit={handleSubmit(onSubmit)} className="space-y-4" noValidate>
             <div>
-              <select aria-label={t("form.service")} aria-invalid={!!errors.service} className={fieldClass} {...register("service")}>
-                <option value="" disabled>
-                  {t("form.selectService")}
-                </option>
-                {GLOBAL_SERVICES.map(({ value, titleKey }) => (
-                  <option key={value} value={value}>
-                    {t(titleKey)}
+              <div className="relative">
+                <select
+                  aria-label={t("form.service")}
+                  aria-invalid={!!errors.service}
+                  className={`${fieldClass} cursor-pointer appearance-none pr-10`}
+                  {...register("service")}
+                >
+                  <option value="" disabled>
+                    {t("form.selectService")}
                   </option>
-                ))}
-              </select>
+                  {services.map(({ id, title }, index) => (
+                    <option key={id} value={id}>
+                      {index + 1}. {title}
+                    </option>
+                  ))}
+                </select>
+                <ChevronDown className="pointer-events-none absolute right-4 top-1/2 h-3.5 w-3.5 -translate-y-1/2 text-slate-400" />
+              </div>
               {errors.service && <p className="mt-1 text-[11px] text-red-400">{errors.service.message}</p>}
             </div>
 
