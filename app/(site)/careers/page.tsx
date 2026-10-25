@@ -6,6 +6,7 @@ import { getCountryPageMeta } from "@/lib/countries/meta-data";
 import { IS_CAREERS_ENABLED, IS_GLOBAL_SITE } from "@/lib/countries/config";
 import { CareersView } from "./careers-view";
 import { NoCareersNotice } from "@/components/careers/no-careers-notice";
+import { GlobalCareers } from "@/components/global-home/global-careers";
 
 export async function generateMetadata(): Promise<Metadata> {
   const language = await getRequestLanguage();
@@ -28,7 +29,7 @@ export default function CareersPage() {
   return (
     <>
       <BreadcrumbJsonLd items={[{ name: "Home", path: "/" }, { name: "Careers", path: "/careers" }]} />
-      {IS_CAREERS_ENABLED ? <CareersView /> : <NoCareersNotice />}
+      {IS_GLOBAL_SITE ? <GlobalCareers /> : IS_CAREERS_ENABLED ? <CareersView /> : <NoCareersNotice />}
     </>
   );
 }
