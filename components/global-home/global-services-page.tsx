@@ -17,6 +17,8 @@ import {
 import Link from "@/components/locale-link";
 import type { OurServiceCopy, OurServicesContent } from "@/lib/content/our-services/types";
 import { TOTAL_COUNTRIES } from "@/lib/content/global-countries";
+import { useLanguage } from "@/lib/i18n/language-context";
+import type { GlobalKey } from "@/lib/i18n/global/en";
 import { cn } from "@/lib/utils";
 import { greatVibes, playfair } from "./fonts";
 import { ServicesQuoteForm } from "./services-quote-form";
@@ -50,15 +52,15 @@ const IMAGES: Record<string, string> = {
   "luxury-yacht-cleaning": "home-property-cleaning-services-16-luxury-yacht-cleaning-660w.webp",
 };
 
-const CATEGORIES = [
-  { id: "home", label: "Home Cleaning" },
-  { id: "specialist", label: "Specialist Cleaning" },
-  { id: "property", label: "Property Care" },
-  { id: "office", label: "Office & Commercial" },
-  { id: "lifestyle", label: "Lifestyle Services" },
-] as const;
+const CATEGORIES: { id: string; labelKey: GlobalKey }[] = [
+  { id: "home", labelKey: "svc.cat.home" },
+  { id: "specialist", labelKey: "svc.cat.specialist" },
+  { id: "property", labelKey: "svc.cat.property" },
+  { id: "office", labelKey: "svc.cat.office" },
+  { id: "lifestyle", labelKey: "svc.cat.lifestyle" },
+];
 
-type CategoryId = (typeof CATEGORIES)[number]["id"];
+type CategoryId = string;
 
 const CATEGORY_BY_SERVICE: Record<string, CategoryId> = {
   "regular-home-cleaning": "home",
@@ -112,33 +114,44 @@ const SERVICE_ORDER = [
   "elder-care-service",
 ];
 
-const HERO_FEATURES = [
-  { Icon: Leaf, title: "Eco-Friendly", subtitle: "Products" },
-  { Icon: Gem, title: "Luxury", subtitle: "Standards" },
-  { Icon: UserCheck, title: "Trusted", subtitle: "Professionals" },
-  { Icon: Globe, title: "Global", subtitle: "Service Network" },
+const HERO_FEATURES: { Icon: typeof Leaf; titleKey: GlobalKey; subtitleKey: GlobalKey }[] = [
+  { Icon: Leaf, titleKey: "svc.feature.eco.title", subtitleKey: "svc.feature.eco.subtitle" },
+  { Icon: Gem, titleKey: "svc.feature.luxury.title", subtitleKey: "svc.feature.luxury.subtitle" },
+  { Icon: UserCheck, titleKey: "svc.feature.trusted.title", subtitleKey: "svc.feature.trusted.subtitle" },
+  { Icon: Globe, titleKey: "svc.feature.global.title", subtitleKey: "svc.feature.global.subtitle" },
 ];
 
-const PROMISES = [
-  { Icon: Leaf, label: "100% Eco-Friendly Products" },
-  { Icon: UserCheck, label: "Vetted & Trained Professionals" },
-  { Icon: Gem, label: "Luxury Service Standards" },
-  { Icon: CalendarDays, label: "Flexible Booking & Scheduling" },
-  { Icon: Headset, label: "24/7 Customer Support" },
-  { Icon: Globe, label: `${TOTAL_COUNTRIES} Countries Global Network` },
+const PROMISES: { Icon: typeof Leaf; labelKey: GlobalKey }[] = [
+  { Icon: Leaf, labelKey: "svc.promise.eco" },
+  { Icon: UserCheck, labelKey: "svc.promise.vetted" },
+  { Icon: Gem, labelKey: "svc.promise.luxury" },
+  { Icon: CalendarDays, labelKey: "svc.promise.booking" },
+  { Icon: Headset, labelKey: "svc.promise.support" },
+  { Icon: Globe, labelKey: "svc.promise.network" },
 ];
 
 const bookNowClass =
   "gold-gradient-bg flex w-full items-center justify-center gap-1.5 rounded-xl py-2 text-xs font-semibold text-navy-900 shadow-md transition-opacity hover:opacity-90";
 
 /** The global gateway's Our Services page (IS_GLOBAL_SITE). */
-export function GlobalServicesPage({ content }: { content: OurServicesContent }) {
+/**
+ * `content` is in the visitor's language; `englishTitles` (by service id) are
+ * for the enquiry the team reads, which is always written in English.
+ */
+export function GlobalServicesPage({
+  content,
+  englishTitles,
+}: {
+  content: OurServicesContent;
+  englishTitles: Record<string, string>;
+}) {
+  const { translate, translateGlobal: t } = useLanguage();
   const services = useMemo(
     () => [...content.services].sort((a, b) => SERVICE_ORDER.indexOf(a.id) - SERVICE_ORDER.indexOf(b.id)),
     [content.services],
   );
   const [category, setCategory] = useState<CategoryId | "all">("all");
-  const [selectedService, setSelectedService] = useState("");
+  const [selectedServiceId, setSelectedServiceId] = useState("");
   const [details, setDetails] = useState<OurServiceCopy | null>(null);
   const dialogRef = useRef<HTMLDialogElement>(null);
 
@@ -146,10 +159,10 @@ export function GlobalServicesPage({ content }: { content: OurServicesContent })
     () => services.filter((service) => category === "all" || CATEGORY_BY_SERVICE[service.id] === category),
     [services, category],
   );
-  const titles = useMemo(() => services.map((service) => service.title), [services]);
+  const serviceOptions = useMemo(() => services.map(({ id, title }) => ({ id, title })), [services]);
 
-  const book = (title: string) => {
-    setSelectedService(title);
+  const book = (id: string) => {
+    setSelectedServiceId(id);
     dialogRef.current?.close();
     document.getElementById("quote-section")?.scrollIntoView({ behavior: "smooth" });
   };
@@ -160,10 +173,10 @@ export function GlobalServicesPage({ content }: { content: OurServicesContent })
   };
 
   const tabs = [
-    { id: "all" as const, label: "All Services", count: services.length },
-    ...CATEGORIES.map(({ id, label }) => ({
+    { id: "all" as const, label: t("svc.tabAll"), count: services.length },
+    ...CATEGORIES.map(({ id, labelKey }) => ({
       id,
-      label,
+      label: t(labelKey),
       count: services.filter((service) => CATEGORY_BY_SERVICE[service.id] === id).length,
     })),
   ];
@@ -174,47 +187,43 @@ export function GlobalServicesPage({ content }: { content: OurServicesContent })
         <Image src="/images/hero/hero-1.webp" alt="" fill priority sizes="100vw" className="object-cover" />
         <div className="absolute inset-0 bg-linear-to-b from-navy-900/60 to-navy-900/90" />
         <p className="pointer-events-none absolute right-10 top-10 z-10 hidden -rotate-3 font-script text-3xl text-gold-400/90 drop-shadow-md md:block lg:right-24 lg:text-4xl">
-          Cleaner Spaces, Brighter Days
+          {t("svc.script")}
         </p>
 
         <div className="relative z-10 mx-auto max-w-5xl px-4 py-16 text-center">
           <nav
-            aria-label="Breadcrumb"
+            aria-label={t("common.breadcrumb")}
             className="mb-4 inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/10 px-4 py-1.5 text-xs uppercase tracking-widest text-slate-300 backdrop-blur-md"
           >
             <Link href="/" className="min-h-0! hover:text-gold-400">
-              Home
+              {translate("navHome")}
             </Link>
             <ChevronRight className="h-3 w-3 text-gold-400" />
             <span aria-current="page" className="text-gold-400">
-              Our Services
+              {t("svc.title")}
             </span>
           </nav>
 
           <h1 className="mb-2 font-display text-4xl font-bold tracking-tight text-white sm:text-6xl lg:text-7xl">
-            Our Services
+            {t("svc.title")}
           </h1>
-          <p className="mb-6 font-display text-xl font-medium text-gold-400 sm:text-2xl">
-            Professional Cleaning Solutions for a Healthier, Brighter World
-          </p>
+          <p className="mb-6 font-display text-xl font-medium text-gold-400 sm:text-2xl">{t("svc.subtitle")}</p>
           <p className="mx-auto mb-12 max-w-2xl text-sm leading-relaxed text-slate-300 sm:text-base">
-            From homes and offices to yachts and specialized facilities, Pearly Sky delivers {services.length}{" "}
-            professional, eco-friendly cleaning services with exceptional quality, trusted teams and sustainable
-            solutions.
+            {t("svc.heroDescription", { count: services.length })}
           </p>
 
           <ul className="mx-auto grid max-w-4xl grid-cols-2 gap-4 md:grid-cols-4">
-            {HERO_FEATURES.map(({ Icon, title, subtitle }) => (
+            {HERO_FEATURES.map(({ Icon, titleKey, subtitleKey }) => (
               <li
-                key={title}
+                key={titleKey}
                 className="group flex items-center gap-3 rounded-2xl border border-white/10 bg-white/5 p-4 text-left backdrop-blur-md transition-all hover:border-gold-500/40"
               >
                 <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-gold-500/20 text-gold-400 transition-colors group-hover:bg-gold-500 group-hover:text-navy-900">
                   <Icon className="h-4 w-4" />
                 </span>
                 <span>
-                  <span className="block text-xs font-semibold text-white">{title}</span>
-                  <span className="text-[11px] text-slate-400">{subtitle}</span>
+                  <span className="block text-xs font-semibold text-white">{t(titleKey)}</span>
+                  <span className="text-[11px] text-slate-400">{t(subtitleKey)}</span>
                 </span>
               </li>
             ))}
@@ -227,24 +236,21 @@ export function GlobalServicesPage({ content }: { content: OurServicesContent })
           <div className="mb-10 flex flex-col justify-between gap-6 lg:flex-row lg:items-center">
             <div>
               <h2 className="font-display text-3xl font-bold text-white sm:text-4xl">
-                Our {services.length} Professional Cleaning Services
+                {t("svc.heading", { count: services.length })}
               </h2>
-              <p className="mt-2 max-w-2xl text-sm text-slate-400">
-                Choose from our comprehensive range of eco-friendly cleaning services, designed for homes, offices,
-                hotels and specialised facilities.
-              </p>
+              <p className="mt-2 max-w-2xl text-sm text-slate-400">{t("svc.headingText")}</p>
             </div>
             <a
               href="#quote-section"
               className="gold-gradient-bg inline-flex min-h-0! items-center gap-2 self-start rounded-xl px-6 py-3 text-sm font-semibold text-navy-900 shadow-lg transition-all hover:-translate-y-0.5 hover:brightness-110 lg:self-auto"
             >
-              <span>Get a Free Quote</span>
+              <span>{t("svc.quoteCta")}</span>
               <ArrowRight className="h-3.5 w-3.5" />
             </a>
           </div>
 
           <div className="scrollbar-hide mb-10 overflow-x-auto pb-4">
-            <div role="group" aria-label="Filter by category" className="flex min-w-max items-center gap-3">
+            <div role="group" aria-label={t("svc.filterAria")} className="flex min-w-max items-center gap-3">
               {tabs.map(({ id, label, count }) => (
                 <button
                   key={id}
@@ -289,17 +295,17 @@ export function GlobalServicesPage({ content }: { content: OurServicesContent })
                     <p className="line-clamp-3 text-[11px] leading-relaxed text-slate-400">{service.headline}</p>
                   </div>
                   <div className="space-y-2">
-                    <button type="button" onClick={() => book(service.title)} className={bookNowClass}>
-                      <span>Book Now</span>
+                    <button type="button" onClick={() => book(service.id)} className={bookNowClass}>
+                      <span>{t("common.bookNow")}</span>
                       <ArrowRight className="h-2.5 w-2.5" />
                     </button>
                     <button
                       type="button"
                       onClick={() => openDetails(service)}
-                      aria-label={`Details: ${service.title}`}
+                      aria-label={t("svc.detailsAria", { title: service.title })}
                       className="block w-full text-center text-[11px] font-semibold text-gold-400 transition-colors hover:text-gold-300"
                     >
-                      Details
+                      {t("svc.details")}
                     </button>
                   </div>
                 </div>
@@ -311,18 +317,23 @@ export function GlobalServicesPage({ content }: { content: OurServicesContent })
 
       <section className="border-y border-white/10 bg-navy-800 py-12">
         <ul className="mx-auto grid max-w-7xl grid-cols-2 gap-6 px-4 sm:grid-cols-3 sm:px-6 lg:grid-cols-6 lg:px-8">
-          {PROMISES.map(({ Icon, label }) => (
-            <li key={label} className="flex items-center gap-3 rounded-2xl border border-white/5 bg-white/5 p-4">
+          {PROMISES.map(({ Icon, labelKey }) => (
+            <li key={labelKey} className="flex items-center gap-3 rounded-2xl border border-white/5 bg-white/5 p-4">
               <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-gold-500/20 text-gold-400">
                 <Icon className="h-4 w-4" />
               </span>
-              <span className="text-xs font-medium text-slate-200">{label}</span>
+              <span className="text-xs font-medium text-slate-200">{t(labelKey, { count: TOTAL_COUNTRIES })}</span>
             </li>
           ))}
         </ul>
       </section>
 
-      <ServicesQuoteForm services={titles} service={selectedService} onServiceChange={setSelectedService} />
+      <ServicesQuoteForm
+        services={serviceOptions}
+        englishTitles={englishTitles}
+        serviceId={selectedServiceId}
+        onServiceChange={setSelectedServiceId}
+      />
 
       <dialog
         ref={dialogRef}
@@ -342,7 +353,7 @@ export function GlobalServicesPage({ content }: { content: OurServicesContent })
               </div>
               <button
                 type="button"
-                aria-label="Close"
+                aria-label={t("common.close")}
                 onClick={() => dialogRef.current?.close()}
                 className="shrink-0 text-slate-400 transition-colors hover:text-white"
               >
@@ -375,8 +386,8 @@ export function GlobalServicesPage({ content }: { content: OurServicesContent })
               ))}
             </div>
 
-            <button type="button" onClick={() => book(details.title)} className={`${bookNowClass} mt-6 py-3 text-sm`}>
-              <span>Book Now</span>
+            <button type="button" onClick={() => book(details.id)} className={`${bookNowClass} mt-6 py-3 text-sm`}>
+              <span>{t("common.bookNow")}</span>
               <ArrowRight className="h-3 w-3" />
             </button>
           </>

@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import Image from "next/image";
 import { Controller, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -12,27 +12,43 @@ import { sendContactMessage } from "@/lib/contact-api";
 import { ApiError } from "@/lib/api";
 import { PhoneInput } from "@/components/phone-input";
 import { TurnstileWidget, type TurnstileHandle } from "@/components/turnstile";
+import { useLanguage } from "@/lib/i18n/language-context";
+import type { GlobalKey } from "@/lib/i18n/global/en";
 
-const PROPERTY_SIZES = ["Under 50m²", "50m² - 100m²", "100m² - 200m²", "200m² - 400m²", "400m² + (Luxury Estate)"];
+type Translate = (key: GlobalKey, vars?: Record<string, string | number>) => string;
 
-const quoteSchema = z.object({
-  name: z.string().check(z.trim(), z.minLength(2, "Please enter your full name.")),
-  email: z.pipe(z.string().check(z.trim()), z.email("Please enter a valid email address.")),
-  phone: z.string().check(z.trim(), z.minLength(6, "Please enter a valid phone number.")),
-  size: z.string(),
-  date: z.string(),
-});
+/** `value` is the English wording that goes into the message the team reads; visitors see `labelKey`. */
+const PROPERTY_SIZES: { value: string; labelKey: GlobalKey }[] = [
+  { value: "Under 50m²", labelKey: "svc.form.size1" },
+  { value: "50m² - 100m²", labelKey: "svc.form.size2" },
+  { value: "100m² - 200m²", labelKey: "svc.form.size3" },
+  { value: "200m² - 400m²", labelKey: "svc.form.size4" },
+  { value: "400m² + (Luxury Estate)", labelKey: "svc.form.size5" },
+];
 
-type QuoteFormValues = z.infer<typeof quoteSchema>;
+/** Built per language so the validation messages are shown in it. */
+const makeQuoteSchema = (t: Translate) =>
+  z.object({
+    name: z.string().check(z.trim(), z.minLength(2, t("form.errorName"))),
+    email: z.pipe(z.string().check(z.trim()), z.email(t("form.errorEmail"))),
+    phone: z.string().check(z.trim(), z.minLength(6, t("form.errorPhone"))),
+    size: z.string(),
+    date: z.string(),
+  });
+
+type QuoteFormValues = z.infer<ReturnType<typeof makeQuoteSchema>>;
 
 const fieldClass =
   "w-full rounded-xl border border-white/20 bg-navy-900 px-4 py-3.5 text-sm text-white transition-colors placeholder:text-slate-500 focus:border-gold-500 focus:outline-none aria-invalid:border-red-400/70";
 
 interface ServicesQuoteFormProps {
-  /** Titles of the services on offer, in the order shown in the select. */
-  services: string[];
-  service: string;
-  onServiceChange: (service: string) => void;
+  /** The services on offer, in the order shown in the select, titled in the visitor's language. */
+  services: { id: string; title: string }[];
+  /** English title per service id, for the enquiry the team reads. */
+  englishTitles: Record<string, string>;
+  /** Id of the chosen service, or "". */
+  serviceId: string;
+  onServiceChange: (serviceId: string) => void;
 }
 
 /**
@@ -40,13 +56,15 @@ interface ServicesQuoteFormProps {
  * enquiry goes through the same /contact endpoint as the country sites'
  * contact form (see quote.tsx), with the details folded into the message.
  */
-export function ServicesQuoteForm({ services, service, onServiceChange }: ServicesQuoteFormProps) {
+export function ServicesQuoteForm({ services, englishTitles, serviceId, onServiceChange }: ServicesQuoteFormProps) {
+  const { translateGlobal: t } = useLanguage();
   const [turnstileToken, setTurnstileToken] = useState("");
   const turnstileRef = useRef<TurnstileHandle>(null);
   const sectionRef = useRef<HTMLElement>(null);
   const [turnstileVisible, setTurnstileVisible] = useState(false);
   const [sendError, setSendError] = useState<string | null>(null);
   const [serviceError, setServiceError] = useState(false);
+  const schema = useMemo(() => makeQuoteSchema(t), [t]);
 
   // Below the fold — defer Turnstile's script until the form is near view.
   useEffect(() => {
@@ -72,23 +90,23 @@ export function ServicesQuoteForm({ services, service, onServiceChange }: Servic
     reset,
     formState: { errors, isSubmitting },
   } = useForm<QuoteFormValues>({
-    resolver: zodResolver(quoteSchema),
+    resolver: zodResolver(schema),
     defaultValues: { name: "", email: "", phone: "", size: "", date: "" },
   });
 
   const onSubmit = async ({ name, email, phone, size, date }: QuoteFormValues) => {
-    if (!service) {
+    if (!serviceId) {
       setServiceError(true);
       return;
     }
     if (!turnstileToken) {
-      setSendError("Please complete the verification challenge.");
+      setSendError(t("form.verify"));
       return;
     }
     setSendError(null);
     const body = [
       "Free quote request (global site)",
-      `Service: ${service}`,
+      `Service: ${englishTitles[serviceId] ?? serviceId}`,
       size && `Property size: ${size}`,
       date && `Preferred date: ${date}`,
     ]
@@ -97,11 +115,12 @@ export function ServicesQuoteForm({ services, service, onServiceChange }: Servic
 
     try {
       await sendContactMessage({ name, email, phone, message: body, turnstileToken });
-      toast.success("Enquiry sent!", { description: `Thank you — your ${service} quote request is on its way.` });
+      const shown = services.find((service) => service.id === serviceId)?.title ?? serviceId;
+      toast.success(t("form.successTitle"), { description: t("form.successQuote", { service: shown }) });
       reset();
       onServiceChange("");
     } catch (err) {
-      setSendError(err instanceof ApiError ? err.message : "Failed to send your enquiry. Please try again.");
+      setSendError(err instanceof ApiError ? err.message : t("form.sendFailed"));
     } finally {
       turnstileRef.current?.reset();
       setTurnstileToken("");
@@ -118,13 +137,10 @@ export function ServicesQuoteForm({ services, service, onServiceChange }: Servic
         <div className="space-y-6 lg:col-span-7">
           <div>
             <span className="text-xs font-semibold uppercase tracking-[0.25em] text-gold-400">
-              Instant Booking Enquiry
+              {t("svc.form.eyebrow")}
             </span>
-            <h2 className="mb-2 mt-1 font-display text-3xl font-bold text-white sm:text-4xl">Get a Free Quote Today</h2>
-            <p className="text-sm text-slate-400">
-              Quick, easy and no obligation. Tell us what you need and we will provide a tailored quote for your
-              property.
-            </p>
+            <h2 className="mb-2 mt-1 font-display text-3xl font-bold text-white sm:text-4xl">{t("svc.form.title")}</h2>
+            <p className="text-sm text-slate-400">{t("svc.form.description")}</p>
           </div>
 
           <form
@@ -136,33 +152,33 @@ export function ServicesQuoteForm({ services, service, onServiceChange }: Servic
               <div>
                 <div className="relative">
                   <select
-                    value={service}
+                    value={serviceId}
                     onChange={(event) => {
                       onServiceChange(event.target.value);
                       setServiceError(false);
                     }}
-                    aria-label="Service"
+                    aria-label={t("form.service")}
                     aria-invalid={serviceError}
                     className={`${fieldClass} cursor-pointer appearance-none`}
                   >
                     <option value="" disabled>
-                      Select Service
+                      {t("form.selectService")}
                     </option>
-                    {services.map((title, index) => (
-                      <option key={title} value={title}>
+                    {services.map(({ id, title }, index) => (
+                      <option key={id} value={id}>
                         {index + 1}. {title}
                       </option>
                     ))}
                   </select>
                   <ChevronDown className="pointer-events-none absolute right-4 top-1/2 h-3.5 w-3.5 -translate-y-1/2 text-slate-400" />
                 </div>
-                {serviceError && <p className="mt-1 text-[11px] text-red-400">Please select a service.</p>}
+                {serviceError && <p className="mt-1 text-[11px] text-red-400">{t("form.errorService")}</p>}
               </div>
               <div>
                 <input
                   type="text"
-                  placeholder="Your Name"
-                  aria-label="Your name"
+                  placeholder={t("form.yourName")}
+                  aria-label={t("form.yourName")}
                   autoComplete="name"
                   aria-invalid={!!errors.name}
                   className={fieldClass}
@@ -175,17 +191,17 @@ export function ServicesQuoteForm({ services, service, onServiceChange }: Servic
             <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
               <div className="relative">
                 <select
-                  aria-label="Property size"
+                  aria-label={t("form.propertySizeLabel")}
                   defaultValue=""
                   className={`${fieldClass} cursor-pointer appearance-none`}
                   {...register("size")}
                 >
                   <option value="" disabled>
-                    Property Size (m²)
+                    {t("form.propertySize")}
                   </option>
-                  {PROPERTY_SIZES.map((size) => (
-                    <option key={size} value={size}>
-                      {size}
+                  {PROPERTY_SIZES.map(({ value, labelKey }) => (
+                    <option key={value} value={value}>
+                      {t(labelKey)}
                     </option>
                   ))}
                 </select>
@@ -194,8 +210,8 @@ export function ServicesQuoteForm({ services, service, onServiceChange }: Servic
               <div>
                 <input
                   type="email"
-                  placeholder="Email Address"
-                  aria-label="Email address"
+                  placeholder={t("form.emailAddress")}
+                  aria-label={t("form.emailAddress")}
                   autoComplete="email"
                   aria-invalid={!!errors.email}
                   className={fieldClass}
@@ -208,7 +224,7 @@ export function ServicesQuoteForm({ services, service, onServiceChange }: Servic
             <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
               <input
                 type="date"
-                aria-label="Preferred date"
+                aria-label={t("form.preferredDate")}
                 className={`${fieldClass} scheme-dark cursor-pointer`}
                 {...register("date")}
               />
@@ -222,7 +238,7 @@ export function ServicesQuoteForm({ services, service, onServiceChange }: Servic
                       value={field.value}
                       onChange={field.onChange}
                       onBlur={field.onBlur}
-                      placeholder="Phone Number"
+                      placeholder={t("form.phoneNumber")}
                       aria-invalid={!!errors.phone}
                       className="h-12 text-slate-200"
                     />
@@ -246,7 +262,7 @@ export function ServicesQuoteForm({ services, service, onServiceChange }: Servic
               disabled={isSubmitting || !turnstileToken}
               className="gold-gradient-bg flex w-full items-center justify-center gap-2 rounded-xl py-4 text-sm font-semibold text-navy-900 shadow-lg transition-all hover:-translate-y-0.5 hover:brightness-110 disabled:translate-y-0 disabled:cursor-not-allowed disabled:opacity-60"
             >
-              <span>{isSubmitting ? "Sending…" : "Send Enquiry"}</span>
+              <span>{isSubmitting ? t("common.sending") : t("form.send")}</span>
               <ArrowRight className="h-3.5 w-3.5" />
             </button>
 
@@ -258,15 +274,13 @@ export function ServicesQuoteForm({ services, service, onServiceChange }: Servic
           <div className="relative h-[420px] w-full overflow-hidden rounded-3xl border border-white/10 shadow-2xl">
             <Image
               src="/images/hero/hero-2.webp"
-              alt="Pearly Sky housekeeper preparing a luxury bedroom"
+              alt={t("quote.imageAlt")}
               fill
               sizes="(min-width: 1024px) 40vw, 100vw"
               className="object-cover"
             />
             <div className="absolute inset-0 bg-linear-to-t from-navy-900/90 via-navy-900/20 to-transparent" />
-            <p className="absolute bottom-8 left-8 right-8 font-script text-3xl text-gold-400">
-              Pure Spaces, Elevated Living
-            </p>
+            <p className="absolute bottom-8 left-8 right-8 font-script text-3xl text-gold-400">{t("svc.form.script")}</p>
           </div>
         </div>
       </div>

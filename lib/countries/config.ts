@@ -83,11 +83,11 @@ export const CURRENT_COUNTRY: CountryCode = isSupportedCountry(process.env.NEXT_
 
 /**
  * Languages this deployment's portal offers — CURRENT_COUNTRY's languages,
- * or just English on the global gateway (IS_GLOBAL_SITE), which has no
- * country/content to offer a choice over.
+ * or every supported language on the global gateway (IS_GLOBAL_SITE), which
+ * has no country of its own to narrow them to.
  */
 export const CURRENT_COUNTRY_LANGUAGES: readonly LanguageCode[] = IS_GLOBAL_SITE
-  ? (["en"] as const)
+  ? SUPPORTED_LANGUAGES
   : COUNTRY_LANGUAGES[CURRENT_COUNTRY];
 
 /** Whether `language` is valid on *this* deployment — see CURRENT_COUNTRY_LANGUAGES. Use this (not isLanguageSupportedForCountry) for anything routing- or request-level, so it accounts for IS_GLOBAL_SITE. */

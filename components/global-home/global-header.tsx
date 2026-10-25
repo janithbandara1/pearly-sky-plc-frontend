@@ -10,6 +10,7 @@ import { buildLocalePath } from "@/lib/locale";
 import type { TranslationKey } from "@/lib/i18n/dictionaries/en";
 import { cn } from "@/lib/utils";
 import { greatVibes, playfair } from "./fonts";
+import { GlobalLanguageSwitcher } from "./global-language-switcher";
 
 const NAV_LINKS: { href: string; labelKey: TranslationKey }[] = [
   { href: "/", labelKey: "navHome" },
@@ -23,13 +24,12 @@ const NAV_LINKS: { href: string; labelKey: TranslationKey }[] = [
 ];
 
 /**
- * The global gateway's header (IS_GLOBAL_SITE) — no services menu, account
- * UI, or language choice (the gateway is English-only), just the nav and a
- * Book Now link to the home page's quote form. Built without shadcn/ui, like
- * site-header.tsx.
+ * The global gateway's header (IS_GLOBAL_SITE) — no services menu or account
+ * UI, just the nav, a language dropdown and a Book Now link to the home page's
+ * quote form. Built without shadcn/ui, like site-header.tsx.
  */
 export function GlobalHeader() {
-  const { translate, language } = useLanguage();
+  const { translate, translateGlobal: t, language } = useLanguage();
   const pathname = usePathname();
   const [mobileOpen, setMobileOpen] = useState(false);
   const localeHref = (href: string) => buildLocalePath(href, language);
@@ -74,7 +74,7 @@ export function GlobalHeader() {
           </span>
         </Link>
 
-        <nav aria-label="Main" className="hidden items-center gap-5 text-sm font-medium text-slate-200 xl:flex">
+        <nav aria-label={t("common.mainNav")} className="hidden items-center gap-5 text-sm font-medium text-slate-200 xl:flex">
           {NAV_LINKS.map(({ href, labelKey }) => (
             <Link
               key={href}
@@ -91,11 +91,12 @@ export function GlobalHeader() {
         </nav>
 
         <div className="flex items-center gap-2">
+          <GlobalLanguageSwitcher className="hidden sm:block" />
           <Link
             href={bookNowHref}
-            className="gold-gradient-bg hidden min-h-0! items-center gap-2 rounded-full px-5 py-2.5 text-xs font-semibold text-navy-900 shadow-md shadow-gold-500/20 transition-all hover:-translate-y-0.5 hover:brightness-110 sm:flex"
+            className="gold-gradient-bg hidden h-9 min-h-0! items-center gap-2 rounded-full px-5 text-xs font-semibold text-navy-900 shadow-md shadow-gold-500/20 transition-all hover:-translate-y-0.5 hover:brightness-110 sm:flex"
           >
-            <span>Book Now</span>
+            <span>{t("common.bookNow")}</span>
             <ArrowRight className="h-3.5 w-3.5" />
           </Link>
 
@@ -115,7 +116,7 @@ export function GlobalHeader() {
       {mobileOpen && (
         <nav
           id="global-mobile-menu"
-          aria-label="Main"
+          aria-label={t("common.mainNav")}
           className="mx-auto mt-3 flex max-w-7xl flex-col gap-1 border-t border-slate-800 px-2 pb-4 pt-3 xl:hidden"
         >
           {NAV_LINKS.map(({ href, labelKey }) => (
@@ -132,14 +133,17 @@ export function GlobalHeader() {
               {translate(labelKey)}
             </Link>
           ))}
-          <Link
-            href={bookNowHref}
-            onClick={() => setMobileOpen(false)}
-            className="gold-gradient-bg mt-2 min-h-0! justify-center gap-2 self-start rounded-full px-5 py-2.5 text-xs font-semibold text-navy-900 sm:hidden"
-          >
-            <span>Book Now</span>
-            <ArrowRight className="h-3.5 w-3.5" />
-          </Link>
+          <div className="mt-2 flex items-center justify-between gap-3 sm:hidden">
+            <Link
+              href={bookNowHref}
+              onClick={() => setMobileOpen(false)}
+              className="gold-gradient-bg h-9 min-h-0! justify-center gap-2 rounded-full px-5 text-xs font-semibold text-navy-900"
+            >
+              <span>{t("common.bookNow")}</span>
+              <ArrowRight className="h-3.5 w-3.5" />
+            </Link>
+            <GlobalLanguageSwitcher />
+          </div>
         </nav>
       )}
     </header>

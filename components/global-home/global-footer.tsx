@@ -11,6 +11,8 @@ import { getCountryContactEmail, getCountryOffice, getWhatsappUrl } from "@/lib/
 import { SOCIAL_URLS } from "@/lib/content/social-links";
 import { officeLocations } from "@/lib/content/locations";
 import { TOTAL_COUNTRIES } from "@/lib/content/global-countries";
+import { localizedCountryName } from "@/lib/i18n/global/country-names";
+import type { GlobalKey } from "@/lib/i18n/global/en";
 import type { TranslationKey } from "@/lib/i18n/dictionaries/en";
 import { greatVibes, playfair } from "./fonts";
 
@@ -24,11 +26,11 @@ const NAV_LINKS: { href: string; labelKey: TranslationKey }[] = [
   { href: "/contact-us", labelKey: "navContact" },
 ];
 
-const ECO_BADGES = [
-  { Icon: Leaf, label: "Eco Friendly" },
-  { Icon: Sprout, label: "Sustainable" },
-  { Icon: ShieldCheck, label: "Non-Toxic" },
-  { Icon: PawPrint, label: "Pet Safe" },
+const ECO_BADGES: { Icon: typeof Leaf; labelKey: GlobalKey }[] = [
+  { Icon: Leaf, labelKey: "footer.ecoFriendly" },
+  { Icon: Sprout, labelKey: "footer.sustainable" },
+  { Icon: ShieldCheck, labelKey: "footer.nonToxic" },
+  { Icon: PawPrint, labelKey: "footer.petSafe" },
 ];
 
 // Each network's brand colour (TikTok's black is swapped for white to stay visible on navy).
@@ -42,7 +44,7 @@ const SOCIAL_LINKS = [
 
 /** The global gateway's footer (IS_GLOBAL_SITE). */
 export function GlobalFooter() {
-  const { translate, language } = useLanguage();
+  const { translate, translateGlobal: t, language } = useLanguage();
   const localeHref = (href: string) => buildLocalePath(href, language);
   const contactEmail = getCountryContactEmail(null);
   // WhatsApp goes to the Sri Lanka head office, the group's global office.
@@ -72,21 +74,20 @@ export function GlobalFooter() {
             </div>
 
             <p className="max-w-md text-xs leading-relaxed text-slate-300">
-              Professional cleaning services for homes, offices, hotels and specialised facilities across{" "}
-              {TOTAL_COUNTRIES} global destinations.
+              {t("footer.description", { count: TOTAL_COUNTRIES })}
             </p>
 
             <ul className="flex flex-wrap items-center gap-3 pt-2 text-[10px] uppercase text-slate-300">
-              {ECO_BADGES.map(({ Icon, label }) => (
-                <li key={label} className="flex items-center gap-1.5 rounded-full border border-slate-800 bg-navy-800 px-3 py-1.5">
+              {ECO_BADGES.map(({ Icon, labelKey }) => (
+                <li key={labelKey} className="flex items-center gap-1.5 rounded-full border border-slate-800 bg-navy-800 px-3 py-1.5">
                   <Icon className="h-3 w-3 text-emerald-400" />
-                  {label}
+                  {t(labelKey)}
                 </li>
               ))}
             </ul>
           </div>
 
-          <nav aria-label="Quick links" className="space-y-3 lg:col-span-4">
+          <nav aria-label={translate("footerQuickLinksTitle")} className="space-y-3 lg:col-span-4">
             <h2 className="border-b border-slate-800 pb-2 font-display text-sm font-bold text-white">
               {translate("footerQuickLinksTitle")}
             </h2>
@@ -103,7 +104,9 @@ export function GlobalFooter() {
           </nav>
 
           <div className="space-y-3 lg:col-span-3">
-            <h2 className="border-b border-slate-800 pb-2 font-display text-sm font-bold text-white">Connect With Us</h2>
+            <h2 className="border-b border-slate-800 pb-2 font-display text-sm font-bold text-white">
+              {t("footer.connectWithUs")}
+            </h2>
             <ul className="space-y-1 text-xs text-slate-400">
               {SOCIAL_LINKS.map(({ href, label, Icon, color }) => (
                 <li key={label}>
@@ -145,7 +148,11 @@ export function GlobalFooter() {
                   <Phone className="h-4 w-4 shrink-0 text-gold-400" />
                   <span>
                     <span className="block font-bold text-white">{location.contactNo}</span>
-                    <span className="text-[10px] text-slate-400">{location.name} Hotline</span>
+                    <span className="text-[10px] text-slate-400">
+                      {t("footer.hotline", {
+                        country: localizedCountryName({ name: location.name, flagCode: location.country ?? "" }, language),
+                      })}
+                    </span>
                   </span>
                 </a>
               </li>
@@ -158,7 +165,7 @@ export function GlobalFooter() {
               <Mail className="h-4 w-4 shrink-0 text-gold-400" />
               <span className="min-w-0">
                 <span className="block truncate font-bold text-white">{contactEmail}</span>
-                <span className="text-[10px] text-slate-400">General Enquiries</span>
+                <span className="text-[10px] text-slate-400">{t("footer.generalEnquiries")}</span>
               </span>
             </a>
           </li>

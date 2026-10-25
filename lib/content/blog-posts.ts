@@ -1,7 +1,9 @@
 import type { LanguageCode } from "@/lib/i18n/config";
 import { IS_GLOBAL_SITE } from "@/lib/countries/config";
+import { BLOG_CATEGORIES, formatBlogDate, type BlogCategory } from "./blog-meta";
+import { GLOBAL_POST_TRANSLATIONS } from "./blog-posts-global-translations";
 
-interface BlogPostCopy {
+export interface BlogPostCopy {
   title: string;
   description: string;
   body: string[];
@@ -12,7 +14,7 @@ export interface BlogPost extends BlogPostCopy {
   image: string;
   /** English long-form date ("9 December 2025") — parsed for structured data; display it through formatBlogDate(). */
   date: string;
-  /** Topic the global gateway's blog page filters by — not translated, since that site is English-only. */
+  /** Topic the global gateway's blog page filters by (its label is translated in lib/i18n/global/). */
   category: BlogCategory;
   /** Only the global gateway lists/serves this post — the country sites' blogs and sitemaps skip it. */
   globalOnly?: boolean;
@@ -20,14 +22,7 @@ export interface BlogPost extends BlogPostCopy {
   popularRank?: number;
 }
 
-export const BLOG_CATEGORIES = [
-  "Home Cleaning",
-  "Eco-Friendly Living",
-  "Property Care",
-  "Health & Wellness",
-] as const;
-
-export type BlogCategory = (typeof BLOG_CATEGORIES)[number];
+export { BLOG_CATEGORIES, formatBlogDate, type BlogCategory };
 
 interface BlogPostSource extends BlogPost {
   /** Non-English copies of title/description/body; English lives on the post itself. */
@@ -447,7 +442,7 @@ export const blogPosts: BlogPost[] = visiblePosts.map(stripTranslations);
 
 /** The post's title/description/body in `language`, falling back to English when no translation exists. */
 function localize(post: BlogPostSource, language: LanguageCode | null): BlogPost {
-  const copy = language ? post.translations[language] : undefined;
+  const copy = language ? (post.translations[language] ?? GLOBAL_POST_TRANSLATIONS[post.slug]?.[language]) : undefined;
   return { ...stripTranslations(post), ...copy };
 }
 
@@ -458,14 +453,4 @@ export function getBlogPosts(language: LanguageCode | null): BlogPost[] {
 export function getBlogPost(slug: string, language: LanguageCode | null = null): BlogPost | undefined {
   const post = visiblePosts.find((p) => p.slug === slug);
   return post && localize(post, language);
-}
-
-/** "9 December 2025" → "9 décembre 2025" etc.; returns the stored string unchanged if it can't be parsed. */
-export function formatBlogDate(date: string, language: LanguageCode | null): string {
-  const parsed = new Date(date);
-  if (Number.isNaN(parsed.getTime())) return date;
-  // en-GB keeps English as "9 December 2025", matching how dates are written in the content.
-  return new Intl.DateTimeFormat(!language || language === "en" ? "en-GB" : language, { day: "numeric", month: "long", year: "numeric", timeZone: "UTC" }).format(
-    new Date(Date.UTC(parsed.getFullYear(), parsed.getMonth(), parsed.getDate())),
-  );
 }

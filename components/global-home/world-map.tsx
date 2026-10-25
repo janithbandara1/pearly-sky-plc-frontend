@@ -1,4 +1,6 @@
 import { WORLD_MAP } from "@/lib/content/world-map";
+import { getRequestLanguage } from "@/lib/i18n/server";
+import { getGlobalTranslator } from "@/lib/i18n/global/server";
 
 const { width, top, height, land, points } = WORLD_MAP;
 
@@ -7,17 +9,19 @@ const { width, top, height, land, points } = WORLD_MAP;
  * (only ~10 map units apart) so the two never overlap.
  */
 const OFFICES = [
-  { id: "gb", label: "London, UK", labelClass: "bottom-2 right-2" },
-  { id: "fr", label: "Paris, France", labelClass: "left-2 top-2" },
-  { id: "lk", label: "Colombo, Sri Lanka", labelClass: "left-2 top-1" },
+  { id: "gb", labelKey: "map.london", labelClass: "bottom-2 right-2" },
+  { id: "fr", labelKey: "map.paris", labelClass: "left-2 top-2" },
+  { id: "lk", labelKey: "map.colombo", labelClass: "left-2 top-1" },
 ] as const;
 
 /** World map with a pulsing dot on each office country. A server component, so the map data never reaches the browser. */
-export function WorldMap() {
+export async function WorldMap() {
+  const t = getGlobalTranslator(await getRequestLanguage());
+
   return (
     <div
       role="img"
-      aria-label="World map with offices in France, the United Kingdom and Sri Lanka"
+      aria-label={t("map.aria")}
       className="flex aspect-video w-full items-center justify-center overflow-hidden rounded-3xl border border-white/10 bg-navy-800/50 p-6"
     >
       {/* The dots are positioned against this wrapper, which is exactly the map's size. */}
@@ -26,7 +30,7 @@ export function WorldMap() {
           <path d={land} fill="rgba(212,175,55,0.14)" stroke="rgba(212,175,55,0.4)" strokeWidth={0.5} strokeLinejoin="round" />
         </svg>
 
-        {OFFICES.map(({ id, label, labelClass }) => (
+        {OFFICES.map(({ id, labelKey, labelClass }) => (
           <div
             key={id}
             aria-hidden="true"
@@ -38,7 +42,7 @@ export function WorldMap() {
             <span
               className={`absolute whitespace-nowrap rounded border border-gold-500/30 bg-navy-900/90 px-2 py-0.5 text-[10px] font-medium text-gold-400 ${labelClass}`}
             >
-              {label}
+              {t(labelKey)}
             </span>
           </div>
         ))}

@@ -4,12 +4,10 @@ import { useEffect, useRef, useState } from "react";
 import { ArrowRight, ChevronLeft, ChevronRight } from "lucide-react";
 import { CountryFlagIcon } from "./country-flags";
 import { REGIONAL_DATA, TOTAL_COUNTRIES } from "@/lib/content/global-countries";
+import { useLanguage } from "@/lib/i18n/language-context";
+import { localizedCountryName } from "@/lib/i18n/global/country-names";
+import { REGION_KEYS } from "@/lib/i18n/global/regions";
 import { cn } from "@/lib/utils";
-
-const FILTERS = [
-  { id: "all", label: "All Countries" },
-  ...REGIONAL_DATA.map((group) => ({ id: group.region, label: group.region })),
-];
 
 // Live sites first, so the countries a visitor can actually use lead the row.
 const ALL_COUNTRIES = REGIONAL_DATA.flatMap((group) =>
@@ -17,10 +15,15 @@ const ALL_COUNTRIES = REGIONAL_DATA.flatMap((group) =>
 ).sort((a, b) => Number(b.isLive) - Number(a.isLive));
 
 export function GlobalNetwork() {
+  const { translateGlobal: t, language } = useLanguage();
   const [filter, setFilter] = useState("all");
   const [page, setPage] = useState({ current: 0, count: 1 });
   const trackRef = useRef<HTMLDivElement>(null);
 
+  const filters = [
+    { id: "all", label: t("network.all") },
+    ...REGIONAL_DATA.map((group) => ({ id: group.region, label: t(REGION_KEYS[group.region]) })),
+  ];
   const countries = filter === "all" ? ALL_COUNTRIES : ALL_COUNTRIES.filter((c) => c.region === filter);
 
   const updatePage = () => {
@@ -55,15 +58,13 @@ export function GlobalNetwork() {
     <section id="locations" className="relative scroll-mt-20 bg-navy-800 px-4 py-16 sm:px-8">
       <div className="mx-auto max-w-7xl">
         <div className="mx-auto mb-8 max-w-3xl text-center">
-          <h2 className="mb-2 font-display text-3xl font-bold text-white sm:text-4xl">Our Global Network</h2>
-          <p className="mb-1 text-base font-medium text-gold-400">{TOTAL_COUNTRIES} Countries, One Premium Standard</p>
-          <p className="text-xs text-slate-400 sm:text-sm">
-            Choose your local Pearly Sky destination for tailored pricing, localized services, and currency options.
-          </p>
+          <h2 className="mb-2 font-display text-3xl font-bold text-white sm:text-4xl">{t("network.title")}</h2>
+          <p className="mb-1 text-base font-medium text-gold-400">{t("network.subtitle", { count: TOTAL_COUNTRIES })}</p>
+          <p className="text-xs text-slate-400 sm:text-sm">{t("network.description")}</p>
         </div>
 
         <div className="mb-10 flex flex-wrap items-center justify-center gap-2 text-xs font-medium sm:gap-3">
-          {FILTERS.map(({ id, label }) => {
+          {filters.map(({ id, label }) => {
             const count = id === "all" ? TOTAL_COUNTRIES : ALL_COUNTRIES.filter((c) => c.region === id).length;
             const active = filter === id;
             return (
@@ -89,7 +90,7 @@ export function GlobalNetwork() {
         <div className="relative sm:px-14">
           <button
             type="button"
-            aria-label="Scroll countries left"
+            aria-label={t("network.scrollLeft")}
             onClick={() => scrollBy(-1)}
             className="glass-panel absolute left-0 top-1/2 z-10 hidden h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full border-gold-500/40! text-gold-400 shadow-lg transition-all hover:bg-gold-500 hover:text-navy-900 sm:flex"
           >
@@ -97,7 +98,7 @@ export function GlobalNetwork() {
           </button>
           <button
             type="button"
-            aria-label="Scroll countries right"
+            aria-label={t("network.scrollRight")}
             onClick={() => scrollBy(1)}
             className="glass-panel absolute right-0 top-1/2 z-10 hidden h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full border-gold-500/40! text-gold-400 shadow-lg transition-all hover:bg-gold-500 hover:text-navy-900 sm:flex"
           >
@@ -117,10 +118,10 @@ export function GlobalNetwork() {
                 <CountryFlagIcon code={country.flagCode} className="mb-3 h-8 w-12 rounded-md shadow-md" />
                 {/* Two-line slot, so long names ("United States of America") don't make the shorter cards' gaps uneven. */}
                 <h3 className="flex min-h-10 items-center font-display text-base font-bold leading-tight text-white">
-                  {country.name}
+                  {localizedCountryName(country, language)}
                 </h3>
                 <p className="mb-3 mt-1 text-[11px] text-slate-400">
-                  {country.isLive ? country.domain.toLowerCase() : country.region}
+                  {country.isLive ? country.domain.toLowerCase() : t(REGION_KEYS[country.region])}
                 </p>
                 {country.isLive ? (
                   <a
@@ -129,12 +130,12 @@ export function GlobalNetwork() {
                     rel="noopener noreferrer"
                     className="flex min-h-0! items-center gap-1.5 rounded-full border border-emerald-500/40 bg-emerald-600/20 px-3.5 py-1.5 text-xs font-medium text-emerald-400 transition-all hover:bg-emerald-600 hover:text-white"
                   >
-                    <span>Live Website</span>
+                    <span>{t("common.liveWebsite")}</span>
                     <ArrowRight className="h-3 w-3" />
                   </a>
                 ) : (
                   <span className="rounded-full border border-slate-700 bg-slate-800/80 px-3.5 py-1.5 text-xs font-medium text-slate-400">
-                    Coming Soon
+                    {t("common.comingSoon")}
                   </span>
                 )}
               </div>
@@ -148,7 +149,7 @@ export function GlobalNetwork() {
               <button
                 key={index}
                 type="button"
-                aria-label={`Go to page ${index + 1}`}
+                aria-label={t("network.goToPage", { page: index + 1 })}
                 aria-current={index === page.current}
                 onClick={() => scrollToPage(index)}
                 className={cn(

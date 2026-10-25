@@ -2,12 +2,15 @@
 
 import { createContext, use, useContext, useMemo, useRef, type ReactNode } from "react";
 import { usePathname, useSearchParams } from "next/navigation";
-import { CURRENT_COUNTRY } from "@/lib/countries/config";
+import { CURRENT_COUNTRY, IS_GLOBAL_SITE } from "@/lib/countries/config";
 import { buildLocalePath, extractLocalePrefix } from "@/lib/locale";
 import { makeServiceSlugResolver } from "@/lib/countries/seo";
 import type { ServiceLocaleSlug } from "@/lib/catalog-api";
 import type { TranslationKey } from "./dictionaries/en";
 import { loadDictionary } from "./client-dictionary";
+import { loadGlobalDictionary } from "./global/client";
+import { formatTranslation } from "./global/format";
+import type { GlobalKey } from "./global/en";
 import { LANGUAGE_COOKIE_MAX_AGE, LANGUAGE_COOKIE_NAME, type LanguageCode } from "./config";
 
 export type SupportedLanguage = LanguageCode;
@@ -37,6 +40,12 @@ type LanguageContextType = {
   setLanguage: (language: SupportedLanguage) => void;
   translate: (key: TranslationKey) => string;
   /**
+   * Copy of the global gateway's own pages (lib/i18n/global/) — returns the key
+   * itself on the country sites, which never load that dictionary. `{name}`
+   * placeholders are filled from `vars`.
+   */
+  translateGlobal: (key: GlobalKey, vars?: Record<string, string | number>) => string;
+  /**
    * Lets a `/services/[serviceSlug]` page (and its `/checkout`,
    * `/request-quotation`, etc. subroutes) tell `setLanguage` how to
    * translate the slug segment of the URL, not just the `/{country}-{lang}`
@@ -52,6 +61,7 @@ const LanguageContext = createContext<LanguageContextType>({
   urlLanguage: null,
   setLanguage: () => {},
   translate: (key) => key,
+  translateGlobal: (key) => key,
   registerServiceSlugs: () => {},
 });
 
@@ -69,6 +79,8 @@ export function LanguageProvider({
   // Loaded as a cacheable chunk rather than passed as a prop — a prop would
   // inline the whole dictionary into every page's HTML (see client-dictionary.ts).
   const dictionary = use(loadDictionary(resolvedLanguage));
+  // Only the global gateway has pages that read it; the country sites skip the download.
+  const globalDictionary = IS_GLOBAL_SITE ? use(loadGlobalDictionary(resolvedLanguage)) : null;
 
   // A ref, not state — registering doesn't need to trigger a re-render, and
   // setLanguage (created fresh on every pathname change) must always see the
@@ -110,11 +122,12 @@ export function LanguageProvider({
         if (Array.isArray(value)) return value.filter(Boolean).join("\n\n");
         return String(value ?? "");
       },
+      translateGlobal: (key, vars) => formatTranslation(globalDictionary?.[key] ?? key, vars),
       registerServiceSlugs: (service) => {
         serviceSlugsRef.current = service;
       },
     }),
-    [resolvedLanguage, language, dictionary, pathname, searchParams],
+    [resolvedLanguage, language, dictionary, globalDictionary, pathname, searchParams],
   );
 
   return <LanguageContext.Provider value={value}>{children}</LanguageContext.Provider>;

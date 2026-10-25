@@ -1,16 +1,21 @@
 import Image from "next/image";
 import { ArrowRight, Crown, Gem, Globe, Leaf, ShieldCheck, Sprout } from "lucide-react";
 import Link from "@/components/locale-link";
+import { getRequestLanguage } from "@/lib/i18n/server";
+import { getGlobalTranslator } from "@/lib/i18n/global/server";
+import type { GlobalKey } from "@/lib/i18n/global/en";
 import { WatchVideoButton } from "./watch-video";
 
-const FEATURES = [
-  { Icon: Sprout, label: "Eco Friendly Solutions" },
-  { Icon: Gem, label: "Luxury Experience" },
-  { Icon: Globe, label: "Global Standards" },
-  { Icon: ShieldCheck, label: "Trusted Professionals" },
+const FEATURES: { Icon: typeof Sprout; labelKey: GlobalKey }[] = [
+  { Icon: Sprout, labelKey: "hero.feature.eco" },
+  { Icon: Gem, labelKey: "hero.feature.luxury" },
+  { Icon: Globe, labelKey: "hero.feature.global" },
+  { Icon: ShieldCheck, labelKey: "hero.feature.trusted" },
 ];
 
-export function GlobalHero() {
+export async function GlobalHero() {
+  const t = getGlobalTranslator(await getRequestLanguage());
+
   return (
     <section
       id="home"
@@ -18,7 +23,7 @@ export function GlobalHero() {
     >
       <Image
         src="/images/hero/hero-1.webp"
-        alt="Pearly Sky eco-luxury cleaning"
+        alt={t("hero.imageAlt")}
         fill
         priority
         sizes="100vw"
@@ -30,20 +35,18 @@ export function GlobalHero() {
         <div className="space-y-6 lg:col-span-8">
           <div className="inline-flex items-center gap-2 rounded-full border border-gold-500/30 bg-gold-500/10 px-3 py-1 text-xs font-semibold uppercase tracking-widest text-gold-400">
             <Crown className="h-3 w-3" />
-            <span>Welcome to Pearly Sky</span>
+            <span>{t("hero.welcome")}</span>
           </div>
 
+          {/* The brand name stays in English in every language. */}
           <h1 className="font-display text-4xl font-bold leading-tight text-white drop-shadow-md sm:text-6xl lg:text-7xl">
             Pearly Sky <br />
             <span className="gold-gradient-text font-normal italic">Eco-Luxury</span> Cleaning Global
           </h1>
 
-          <p className="text-lg font-light tracking-wide text-gold-300 sm:text-2xl">
-            Cleaner Spaces. Pure Conscience. Global Impact.
-          </p>
+          <p className="text-lg font-light tracking-wide text-gold-300 sm:text-2xl">{t("hero.tagline")}</p>
           <p className="max-w-2xl text-sm font-light leading-relaxed text-slate-300 sm:text-base">
-            Exceptional cleaning experiences worldwide with a commitment to sustainability, elegance, and global
-            well-being.
+            {t("hero.description")}
           </p>
 
           <div className="flex flex-wrap items-center gap-4 pt-2">
@@ -51,14 +54,14 @@ export function GlobalHero() {
               href="/our-services"
               className="gold-gradient-bg flex items-center gap-2 rounded-full px-6 py-3 text-sm font-semibold text-navy-900 shadow-lg shadow-gold-500/20 transition-all hover:brightness-110"
             >
-              <span>Our Services</span>
+              <span>{t("hero.ourServices")}</span>
               <ArrowRight className="h-4 w-4" />
             </Link>
             <Link
               href="/about-us"
               className="glass-panel rounded-full border-slate-600! px-6 py-3 text-sm font-medium text-slate-100 transition-all hover:border-gold-500/50! hover:bg-navy-700/80"
             >
-              About Us
+              {t("hero.aboutUs")}
             </Link>
             <WatchVideoButton />
           </div>
@@ -70,8 +73,8 @@ export function GlobalHero() {
               <Leaf className="h-6 w-6" />
             </div>
             <div>
-              <p className="text-sm font-semibold leading-snug text-gold-400">Green Compass Eco-Certified</p>
-              <p className="mt-0.5 text-xs text-slate-400">100% Non-Toxic &amp; Pet Safe</p>
+              <p className="text-sm font-semibold leading-snug text-gold-400">{t("hero.ecoCertified")}</p>
+              <p className="mt-0.5 text-xs text-slate-400">{t("hero.nonToxic")}</p>
             </div>
           </div>
         </div>
@@ -79,19 +82,19 @@ export function GlobalHero() {
 
       <div className="relative z-10 mx-auto mt-8 flex w-full max-w-7xl flex-col items-center justify-between gap-6 border-t border-slate-700/40 pt-8 md:flex-row">
         <ul className="grid w-full grid-cols-1 gap-3 min-[420px]:grid-cols-2 md:w-auto xl:grid-cols-4">
-          {FEATURES.map(({ Icon, label }) => (
+          {FEATURES.map(({ Icon, labelKey }) => (
             <li
-              key={label}
+              key={labelKey}
               className="glass-card flex items-center gap-2.5 rounded-full border-slate-700/60! px-4 py-2.5 text-xs font-medium text-slate-200 transition-colors hover:border-gold-500/40!"
             >
               <Icon className="h-4 w-4 shrink-0 text-gold-400" />
-              <span>{label}</span>
+              <span>{t(labelKey)}</span>
             </li>
           ))}
         </ul>
 
         <p className="text-center font-script text-2xl text-gold-300 opacity-90 sm:text-3xl md:whitespace-nowrap md:text-right">
-          A Cleaner World, Brighter Tomorrow
+          {t("hero.slogan")}
         </p>
       </div>
     </section>

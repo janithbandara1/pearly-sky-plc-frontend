@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { getRequestLanguage } from "@/lib/i18n/server";
+import { getGlobalTranslator } from "@/lib/i18n/global/server";
 import { buildGlobalAlternates, buildSocialMeta } from "@/lib/countries/seo";
 import { BreadcrumbJsonLd } from "@/components/json-ld";
 import { IS_GLOBAL_SITE } from "@/lib/countries/config";
@@ -12,9 +13,10 @@ import { getOurServicesContent } from "@/lib/content/our-services";
 // services menu instead.
 
 export async function generateMetadata(): Promise<Metadata> {
-  const title = "Our Services | Pearly Sky Eco-Luxury Cleaning";
-  const description = "Explore our comprehensive suite of residential, commercial, and specialty eco-luxury cleaning services.";
   const language = await getRequestLanguage();
+  const t = getGlobalTranslator(language);
+  const title = t("svc.metaTitle");
+  const description = t("svc.metaDescription");
 
   return {
     title,
@@ -28,6 +30,8 @@ export default async function OurServicesPage() {
   if (!IS_GLOBAL_SITE) notFound();
 
   const content = getOurServicesContent(await getRequestLanguage());
+  // The quote form's enquiry is read by the team, so it always carries the English service name.
+  const englishTitles = Object.fromEntries(getOurServicesContent("en").services.map(({ id, title }) => [id, title]));
 
   return (
     <>
@@ -35,7 +39,7 @@ export default async function OurServicesPage() {
           { name: "Home", path: "/" },
           { name: "Our Services", path: "/our-services" },
         ]} />
-      <GlobalServicesPage content={content} />
+      <GlobalServicesPage content={content} englishTitles={englishTitles} />
     </>
   );
 }

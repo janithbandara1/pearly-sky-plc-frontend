@@ -6,6 +6,7 @@ import { getCountryPageMeta } from "@/lib/countries/meta-data";
 import { IS_GLOBAL_SITE } from "@/lib/countries/config";
 import { BlogView } from "./blog-view";
 import { GlobalBlog } from "@/components/global-home/global-blog";
+import { getBlogPosts } from "@/lib/content/blog-posts";
 
 export async function generateMetadata(): Promise<Metadata> {
   const language = await getRequestLanguage();
@@ -24,11 +25,20 @@ export async function generateMetadata(): Promise<Metadata> {
   };
 }
 
-export default function BlogPage() {
+export default async function BlogPage() {
+  // The global blog gets its posts in the visitor's language, minus the article
+  // text (it only lists them), so the browser never downloads every article.
+  const posts = IS_GLOBAL_SITE
+    ? getBlogPosts(await getRequestLanguage()).map(({ body, ...listing }) => {
+        void body;
+        return listing;
+      })
+    : [];
+
   return (
     <>
       <BreadcrumbJsonLd items={[{ name: "Home", path: "/" }, { name: "Blog", path: "/blog" }]} />
-      {IS_GLOBAL_SITE ? <GlobalBlog /> : <BlogView />}
+      {IS_GLOBAL_SITE ? <GlobalBlog posts={posts} /> : <BlogView />}
     </>
   );
 }

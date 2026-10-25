@@ -14,19 +14,22 @@ import {
   Landmark,
   ShoppingBag,
 } from "lucide-react";
+import { useLanguage } from "@/lib/i18n/language-context";
+import type { GlobalKey } from "@/lib/i18n/global/en";
 
-const SECTORS = [
-  { title: "Luxury Residential", image: "residential", Icon: Crown },
-  { title: "Commercial Property", image: "commercial", Icon: Building },
-  { title: "Luxury Property Management", image: "private-properties", Icon: KeyRound },
-  { title: "Hospitality & Hotel Cleaning", image: "hospitality", Icon: Hotel },
-  { title: "Sports & Wellness Facilities", image: "sports", Icon: Dumbbell },
-  { title: "Public & Institutional Cleaning", image: "education", Icon: Landmark },
-  { title: "Healthcare Facilities", image: "healthcare", Icon: HeartPulse },
-  { title: "Retail Spaces", image: "retail", Icon: ShoppingBag },
+const SECTORS: { titleKey: GlobalKey; image: string; Icon: typeof Crown }[] = [
+  { titleKey: "sector.luxuryResidential", image: "residential", Icon: Crown },
+  { titleKey: "sector.commercial", image: "commercial", Icon: Building },
+  { titleKey: "sector.propertyManagement", image: "private-properties", Icon: KeyRound },
+  { titleKey: "sector.hospitality", image: "hospitality", Icon: Hotel },
+  { titleKey: "sector.sports", image: "sports", Icon: Dumbbell },
+  { titleKey: "sector.public", image: "education", Icon: Landmark },
+  { titleKey: "sector.healthcare", image: "healthcare", Icon: HeartPulse },
+  { titleKey: "sector.retail", image: "retail", Icon: ShoppingBag },
 ];
 
 export function GlobalSectors() {
+  const { translateGlobal: t } = useLanguage();
   const trackRef = useRef<HTMLDivElement>(null);
 
   const scrollBy = (direction: 1 | -1) => {
@@ -40,9 +43,9 @@ export function GlobalSectors() {
         <div className="mb-8 flex items-center justify-between gap-4">
           <div>
             <span className="mb-1 block text-xs font-semibold uppercase tracking-widest text-gold-400">
-              Our Service Sectors
+              {t("sectors.eyebrow")}
             </span>
-            <h2 className="font-display text-2xl font-bold text-white sm:text-4xl">Trusted Across Multiple Industries</h2>
+            <h2 className="font-display text-2xl font-bold text-white sm:text-4xl">{t("sectors.title")}</h2>
           </div>
           <div className="flex shrink-0 items-center gap-2">
             {([-1, 1] as const).map((direction) => {
@@ -51,7 +54,7 @@ export function GlobalSectors() {
                 <button
                   key={direction}
                   type="button"
-                  aria-label={direction === -1 ? "Previous sectors" : "Next sectors"}
+                  aria-label={direction === -1 ? t("sectors.previous") : t("sectors.next")}
                   onClick={() => scrollBy(direction)}
                   className="flex h-9 w-9 items-center justify-center rounded-full border border-slate-700 text-slate-300 transition-all hover:border-gold-500 hover:text-gold-400"
                 >
@@ -63,14 +66,14 @@ export function GlobalSectors() {
         </div>
 
         <div ref={trackRef} className="scrollbar-hide flex snap-x gap-3 overflow-x-auto scroll-smooth sm:gap-4">
-          {SECTORS.map(({ title, image, Icon }) => (
+          {SECTORS.map(({ titleKey, image, Icon }) => (
             <div
-              key={title}
+              key={titleKey}
               className="group relative flex h-44 w-[calc((100%-0.75rem)/2)] shrink-0 snap-start flex-col justify-end overflow-hidden rounded-xl border border-slate-700/50 bg-navy-900 p-3 text-center transition-all hover:border-gold-500 sm:w-[calc((100%-2rem)/3)] lg:w-[calc((100%-5rem)/6)]"
             >
               <Image
                 src={`/images/sectors/${image}.webp`}
-                alt={title}
+                alt={t(titleKey)}
                 fill
                 sizes="(min-width: 1024px) 16vw, (min-width: 640px) 33vw, 50vw"
                 className="object-cover opacity-40 transition-transform duration-500 group-hover:scale-110"
@@ -81,7 +84,7 @@ export function GlobalSectors() {
                   <Icon className="h-3.5 w-3.5" />
                 </div>
                 <h3 className="font-display text-xs font-bold leading-tight text-white group-hover:text-gold-300">
-                  {title}
+                  {t(titleKey)}
                 </h3>
               </div>
             </div>

@@ -1,6 +1,7 @@
 import { CURRENT_COUNTRY, IS_GLOBAL_SITE, type CountryCode } from "./config";
 import type { LanguageCode } from "@/lib/i18n/config";
 import { getTranslatedCountryPageMeta } from "./meta-templates";
+import { GLOBAL_META_TRANSLATIONS } from "./global-meta-translations";
 
 export interface PageMeta {
   title: string;
@@ -302,7 +303,7 @@ const GLOBAL_META_KEY: Record<CountryPageKey, string> = {
  * fallback.
  */
 export function getCountryPageMeta(page: CountryPageKey, language: LanguageCode): PageMeta {
-  if (IS_GLOBAL_SITE) return GLOBAL_META[GLOBAL_META_KEY[page]];
+  if (IS_GLOBAL_SITE) return GLOBAL_META_TRANSLATIONS[language]?.[page] ?? GLOBAL_META[GLOBAL_META_KEY[page]];
 
   const forCountry = COUNTRY_PAGE_META[CURRENT_COUNTRY];
   const handWritten = forCountry[language]?.[page];

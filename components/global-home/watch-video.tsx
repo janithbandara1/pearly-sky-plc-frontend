@@ -2,6 +2,7 @@
 
 import { useRef, useState } from "react";
 import { Clapperboard, Play, X } from "lucide-react";
+import { useLanguage } from "@/lib/i18n/language-context";
 
 /**
  * The hero's "Watch Video" film. Paste a YouTube link (watch, youtu.be or
@@ -16,6 +17,7 @@ function toEmbedUrl(url: string): string | null {
 }
 
 export function WatchVideoButton() {
+  const { translateGlobal: t } = useLanguage();
   const dialogRef = useRef<HTMLDialogElement>(null);
   // The iframe only mounts while the popup is open, so closing it stops playback.
   const [open, setOpen] = useState(false);
@@ -36,12 +38,12 @@ export function WatchVideoButton() {
         <span className="flex h-10 w-10 items-center justify-center rounded-full border border-gold-400 bg-gold-500/20 text-gold-400 transition-transform group-hover:scale-110">
           <Play className="ml-0.5 h-3.5 w-3.5 fill-current" />
         </span>
-        <span className="text-xs font-semibold uppercase tracking-wider">Watch Video</span>
+        <span className="text-xs font-semibold uppercase tracking-wider">{t("video.watch")}</span>
       </button>
 
       <dialog
         ref={dialogRef}
-        aria-label="Pearly Sky video"
+        aria-label={t("video.title")}
         onClose={() => setOpen(false)}
         onClick={(event) => event.target === dialogRef.current && dialogRef.current?.close()}
         className="m-auto w-[calc(100%-2rem)] max-w-3xl overflow-visible bg-transparent p-0 backdrop:bg-navy-900/90 backdrop:backdrop-blur-md"
@@ -53,13 +55,13 @@ export function WatchVideoButton() {
             className="absolute -top-10 right-0 flex items-center gap-1.5 text-sm font-bold text-white transition-colors hover:text-gold-400"
           >
             <X className="h-5 w-5" />
-            Close
+            {t("common.close")}
           </button>
           <div className="flex aspect-video w-full items-center justify-center overflow-hidden rounded-xl bg-black">
             {open && embedUrl ? (
               <iframe
                 src={embedUrl}
-                title="Pearly Sky video"
+                title={t("video.title")}
                 className="h-full w-full"
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                 allowFullScreen
@@ -67,8 +69,8 @@ export function WatchVideoButton() {
             ) : (
               <div className="space-y-2 text-center text-slate-300">
                 <Clapperboard className="mx-auto h-10 w-10 text-gold-400" />
-                <p className="font-display text-lg font-bold text-white">Our film is coming soon</p>
-                <p className="text-xs">Check back shortly to see Pearly Sky in action.</p>
+                <p className="font-display text-lg font-bold text-white">{t("video.soonTitle")}</p>
+                <p className="text-xs">{t("video.soonText")}</p>
               </div>
             )}
           </div>
