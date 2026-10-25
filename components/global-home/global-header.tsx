@@ -91,7 +91,7 @@ export function GlobalHeader() {
         </nav>
 
         <div className="flex items-center gap-2">
-          <GlobalLanguageSwitcher className="hidden sm:block" />
+          <GlobalLanguageSwitcher />
           <Link
             href={bookNowHref}
             className="gold-gradient-bg hidden h-9 min-h-0! items-center gap-2 rounded-full px-5 text-xs font-semibold text-navy-900 shadow-md shadow-gold-500/20 transition-all hover:-translate-y-0.5 hover:brightness-110 sm:flex"
@@ -133,7 +133,7 @@ export function GlobalHeader() {
               {translate(labelKey)}
             </Link>
           ))}
-          <div className="mt-2 flex items-center justify-between gap-3 sm:hidden">
+          <div className="mt-2 flex items-center gap-3 sm:hidden">
             <Link
               href={bookNowHref}
               onClick={() => setMobileOpen(false)}
@@ -142,7 +142,6 @@ export function GlobalHeader() {
               <span>{t("common.bookNow")}</span>
               <ArrowRight className="h-3.5 w-3.5" />
             </Link>
-            <GlobalLanguageSwitcher />
           </div>
         </nav>
       )}

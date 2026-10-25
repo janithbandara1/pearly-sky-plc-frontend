@@ -87,14 +87,14 @@ export function GlobalFooter() {
             </ul>
           </div>
 
-          <nav aria-label={translate("footerQuickLinksTitle")} className="space-y-3 lg:col-span-4">
+          <nav aria-label={translate("footerQuickLinksTitle")} className="space-y-3 text-center md:text-left lg:col-span-4">
             <h2 className="border-b border-slate-800 pb-2 font-display text-sm font-bold text-white">
               {translate("footerQuickLinksTitle")}
             </h2>
             <ul className="space-y-1 text-xs text-slate-400">
               {NAV_LINKS.map(({ href, labelKey }) => (
                 <li key={href}>
-                  <Link href={localeHref(href)} className="flex min-h-0! items-center gap-1.5 py-1 transition-colors hover:text-gold-400">
+                  <Link href={localeHref(href)} className="flex min-h-0! items-center justify-center gap-1.5 py-1 transition-colors hover:text-gold-400 md:justify-start">
                     <ChevronRight className="h-3 w-3 text-gold-500" />
                     {translate(labelKey)}
                   </Link>
@@ -103,7 +103,7 @@ export function GlobalFooter() {
             </ul>
           </nav>
 
-          <div className="space-y-3 lg:col-span-3">
+          <div className="space-y-3 text-center md:text-left lg:col-span-3">
             <h2 className="border-b border-slate-800 pb-2 font-display text-sm font-bold text-white">
               {t("footer.connectWithUs")}
             </h2>
@@ -114,7 +114,7 @@ export function GlobalFooter() {
                     href={href}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex min-h-0! items-center gap-2 py-1 transition-colors hover:text-white"
+                    className="flex min-h-0! items-center justify-center gap-2 py-1 transition-colors hover:text-white md:justify-start"
                   >
                     <Icon className={`h-3.5 w-4 ${color}`} aria-hidden="true" />
                     {label}
@@ -126,7 +126,7 @@ export function GlobalFooter() {
                   href={whatsappUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex min-h-0! items-center gap-2 py-1 transition-colors hover:text-white"
+                  className="flex min-h-0! items-center justify-center gap-2 py-1 transition-colors hover:text-white md:justify-start"
                 >
                   <FaWhatsapp className="h-3.5 w-4 text-[#25D366]" aria-hidden="true" />
                   WhatsApp
