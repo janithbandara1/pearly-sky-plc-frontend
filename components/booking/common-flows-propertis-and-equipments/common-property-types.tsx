@@ -2681,7 +2681,7 @@ export function PropertySizeSelector({
   return (
     <div
       ref={wheelContainerRef}
-      className={`flex flex-col w-full mt-8 rounded-[28px] p-6 sm:p-8 gap-6 shadow-2xl select-none border transition-all duration-300 ${isLight
+      className={`flex flex-col w-full mt-8 rounded-[28px] p-4 md:p-8 gap-6 shadow-2xl select-none border transition-all duration-300 ${isLight
         ? "bg-white border-[#D9DDE5] text-[#1A2238]"
         : "bg-[#1B2A40] border-[#718096]/60 text-white"
         } ${className}`}
@@ -2761,44 +2761,44 @@ export function PropertySizeSelector({
 
       {/* Display & Quick-Control Card */}
       <div
-        className={`w-full rounded-2xl p-4 sm:p-5 flex items-center justify-between gap-3 border transition-colors ${isLight ? "bg-[#F7F5F0] border-[#D9DDE5] shadow-sm" : "bg-[#152238] border-[#718096]/60"
+        className={`w-full py-5 rounded-2xl p-4 md:p-5 flex items-center justify-between gpa-2 md:gap-3 border transition-colors ${isLight ? "bg-[#F7F5F0] border-[#D9DDE5] shadow-sm" : "bg-[#152238] border-[#718096]/60"
           }`}
       >
         {/* Left: House Icon & Size Values */}
-        <div className="flex items-center gap-3.5 sm:gap-4 min-w-0">
+        <div className="flex items-center justify-between gap-3.5 md:gap-4 min-w-0">
           <div
-            className={`w-12 h-12 sm:w-14 sm:h-14 rounded-2xl flex items-center justify-center shrink-0 border ${isLight ? "bg-white border-[#D9DDE5]" : "bg-[#1B2A40] border-[#718096]/60"
+            className={`w-8 h-8 md:w-14 md:h-14 rounded-2xl flex items-center justify-center shrink-0 border ${isLight ? "bg-white border-[#D9DDE5]" : "bg-[#1B2A40] border-[#718096]/60"
               }`}
           >
-            <Home className={`w-6 h-6 sm:w-7 sm:h-7 ${isLight ? "text-[#D8B63F]" : "text-[#FFD766]"}`} />
+            <Home className={`w-4 h-4 md:w-7 md:h-7 ${isLight ? "text-[#D8B63F]" : "text-[#FFD766]"}`} />
           </div>
-          <div className="flex flex-col min-w-0">
+          <div className="flex flex-col min-w-0 w-full">
             <span
-              className={`text-2xl sm:text-3xl font-bold tracking-tight leading-none truncate ${isLight ? "text-[#1A2238]" : "text-white"
+              className={`text-[17px] md:text-3xl font-bold tracking-tight leading-none md:truncate ${isLight ? "text-[#1A2238]" : "text-white"
                 }`}
             >
               {sizeUnit === "m2" ? `${value.toLocaleString()} m²` : `${formatFt2(value)} ft²`}
             </span>
-            <span className={`text-xs sm:text-sm font-semibold mt-1 truncate ${isLight ? "text-[#D8B63F]" : "text-[#FFD766]"}`}>
+            <span className={`text-[10px] md:text-xs font-semibold mt-1 md:truncate ${isLight ? "text-[#D8B63F]" : "text-[#FFD766]"}`}>
               {sizeUnit === "m2" ? `${formatFt2(value)} ft²` : `${value.toLocaleString()} m²`}
             </span>
           </div>
         </div>
 
         {/* Right: Minus Button, Size Dropdown Pill, Plus Button */}
-        <div className="flex items-center gap-2 sm:gap-3 shrink-0">
+        <div className="flex items-center gap-2 md:gap-3 shrink-0">
           {/* Minus button */}
           <button
             type="button"
             onClick={() => handleStepChange(getStepAmount(value, false))}
             disabled={value <= MIN_SIZE}
-            className={`w-10 h-10 sm:w-11 sm:h-11 rounded-full flex items-center justify-center font-bold text-lg cursor-pointer transition-all disabled:opacity-30 disabled:cursor-not-allowed shadow-md active:scale-95 ${isLight
+            className={`w-7 h-7 md:w-11 md:h-11 rounded-full flex items-center justify-center font-bold text-lg cursor-pointer transition-all disabled:opacity-30 disabled:cursor-not-allowed shadow-md active:scale-95 ${isLight
               ? "bg-white hover:bg-[#D9DDE5] text-[#1A2238] border border-[#D9DDE5]"
               : "bg-[#1B2A40] hover:bg-[#253650] text-[#C3CDDC] border border-[#718096]/60"
               }`}
             aria-label="Decrease size"
           >
-            <Minus className="w-4 h-4 sm:w-5 sm:h-5 stroke-[2.5]" />
+            <Minus className="w-4 h-4 md:w-5 md:h-5 stroke-[2.5]" />
           </button>
 
           {/* Size Pill with integrated select */}
@@ -2814,7 +2814,7 @@ export function PropertySizeSelector({
                 const selectedVal = Number(e.target.value);
                 handleDirectSizeChange(selectedVal);
               }}
-              className={`appearance-none px-3.5 py-2 sm:py-2.5 font-semibold text-xs sm:text-sm bg-transparent cursor-pointer focus:outline-none pr-8 ${isLight ? "text-[#1A2238]" : "text-white"
+              className={`appearance-none md:px-3.5 px-2.5 py-2 md:py-2.5 font-semibold text-xs md:text-sm bg-transparent cursor-pointer focus:outline-none pr-4 md:pr-8 ${isLight ? "text-[#1A2238]" : "text-white"
                 }`}
             >
               {dropdownOptions.map((val) => (
@@ -2838,7 +2838,7 @@ export function PropertySizeSelector({
             type="button"
             onClick={() => handleStepChange(getStepAmount(value, true))}
             disabled={value >= MAX_SIZE}
-            className={`w-10 h-10 sm:w-11 sm:h-11 rounded-full flex items-center justify-center font-bold text-lg cursor-pointer transition-all disabled:opacity-30 disabled:cursor-not-allowed shadow-md active:scale-95 ${
+            className={`w-7 h-7 md:w-11 md:h-11 rounded-full flex items-center justify-center font-bold text-lg cursor-pointer transition-all disabled:opacity-30 disabled:cursor-not-allowed shadow-md active:scale-95 ${
               isLight
                 ? "bg-[#002F6D] hover:bg-[#002657] text-white"
                 : "bg-[#FFD766] hover:bg-[#f0c850] text-[#002F6D]"
@@ -2851,7 +2851,7 @@ export function PropertySizeSelector({
       </div>
 
       {/* Slider Track and Milestones */}
-      <div className="flex flex-col w-full px-1">
+      <div className="flex flex-col w-full ">
         {/* Interactive Slider Bar */}
         {(() => {
           const sliderPercent = valueToSliderPercent(value, SIZE_MILESTONES);
@@ -2917,7 +2917,7 @@ export function PropertySizeSelector({
                   }`}
               >
                 <span
-                  className={`text-xs sm:text-sm font-bold transition-colors ${isCurrent
+                  className={`text-[10px] md:text-sm font-bold transition-colors ${isCurrent
                     ? isLight
                       ? "text-[#1A2238]"
                       : "text-white"
@@ -2947,7 +2947,7 @@ export function PropertySizeSelector({
       </div>
 
       {/* Bottom Action Buttons: Increase Size & Decrease Size */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5 w-full mt-1">
+      <div className="grid grid-cols-2 gap-3.5 w-full mt-1">
         {/* Increase Size Card */}
         <button
           type="button"
@@ -2959,16 +2959,16 @@ export function PropertySizeSelector({
             }`}
         >
           <div
-            className={`w-10 h-10 sm:w-11 sm:h-11 rounded-full flex items-center justify-center transition-colors shrink-0 ${isLight
+            className={`w-7 h-7 md:w-11 md:h-11 rounded-full flex items-center justify-center transition-colors shrink-0 ${isLight
               ? "bg-white text-[#002F6D] group-hover:bg-[#002F6D] group-hover:text-white shadow-sm"
               : "bg-[#1B2A40] text-[#FFD766] group-hover:bg-[#FFD766] group-hover:text-[#002F6D]"
               }`}
           >
-            <ArrowUp className="w-4 h-4 sm:w-5 sm:h-5 stroke-[2.5]" />
+            <ArrowUp className="w-4 h-4 md:w-5 md:h-5 stroke-[2.5]" />
           </div>
-          <div className="flex flex-col">
+          <div className="flex flex-col max-w-full">
             <span
-              className={`text-sm sm:text-base font-bold leading-tight ${isLight ? "text-[#1A2238]" : "text-white"
+              className={`text-[10px] md:text-base font-bold leading-tight ${isLight ? "text-[#1A2238]" : "text-white"
                 }`}
             >
               {"Increase Size"}
@@ -2990,16 +2990,16 @@ export function PropertySizeSelector({
             }`}
         >
           <div
-            className={`w-10 h-10 sm:w-11 sm:h-11 rounded-full flex items-center justify-center transition-colors shrink-0 ${isLight
+            className={`w-7 h-7 md:w-11 md:h-11 rounded-full flex items-center justify-center transition-colors shrink-0 ${isLight
               ? "bg-white text-[#002F6D] group-hover:bg-[#002F6D] group-hover:text-white shadow-sm"
               : "bg-[#1B2A40] text-[#FFD766] group-hover:bg-[#FFD766] group-hover:text-[#002F6D]"
               }`}
           >
-            <ArrowDown className="w-4 h-4 sm:w-5 sm:h-5 stroke-[2.5]" />
+            <ArrowDown className="w-4 h-4 md:w-5 md:h-5 stroke-[2.5]" />
           </div>
           <div className="flex flex-col">
             <span
-              className={`text-sm sm:text-base font-bold leading-tight ${isLight ? "text-[#1A2238]" : "text-white"
+              className={`text-[10px] md:text-base font-bold leading-tight ${isLight ? "text-[#1A2238]" : "text-white"
                 }`}
             >
               {"Decrease Size"}
@@ -3126,16 +3126,16 @@ export function EstimatioMatrixBottom({
       <div className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4">
 
         {/* Card 1: Property Scale / Target Area */}
-        <div className={`flex flex-col items-center justify-center p-3.5 md:p-4 rounded-xl border transition-colors duration-300 ${
+        <div className={`flex w-full flex-col items-center justify-center p-3.5 md:p-4 rounded-xl border transition-colors duration-300 ${
           isLight 
             ? "bg-[#F7F5F0] border-[#D8B63F] text-[#1A2238]" 
-            : "bg-[#152238] border-[#FFD766]/60 text-white"
+            : "bg-[rgb(0_0_0/0.5)] border-[#FFD766]/60 text-white"
         }`}>
           <Maximize2 className={`w-4 h-4 mb-2 ${isLight ? "text-[#D8B63F]" : "text-[#FFD766]"}`} />
-          <p className={`text-[10px] md:text-[11px] font-bold tracking-widest uppercase mb-1 ${isLight ? "text-[#D8B63F]" : "text-[#FFD766]"}`}>
+          <p className={`text-[9px] md:text-[11px] font-bold tracking-widest uppercase mb-1 ${isLight ? "text-[#D8B63F]" : "text-[#FFD766]"}`}>
             PROPERTY SCALE
           </p>
-          <p className={`text-xs md:text-[18px] font-bold tracking-wide ${isLight ? "text-[#1A2238]" : "text-white"}`}>
+          <p className={`text-[10px] md:text-[18px] font-bold tracking-wide ${isLight ? "text-[#1A2238]" : "text-white"}`}>
             {surfaceMatrixes.serviceTargetArea.split(" ")[0]} m² 
           </p>
           <p className={`text-[10px] font-sans mt-0.5 ${isLight ? "text-[#687386]" : "text-[#C3CDDC]"}`}>
@@ -3144,13 +3144,13 @@ export function EstimatioMatrixBottom({
         </div>
 
         {/* Card 2: Total Duration / Est Labor */}
-        <div className={`flex flex-col items-center justify-center p-3.5 md:p-4 rounded-xl border transition-colors duration-300 ${
+        <div className={`flex  flex-col items-center justify-center p-3.5 md:p-4 rounded-xl border transition-colors duration-300 ${
           isLight 
             ? "bg-[#F7F5F0] border-[#D8B63F] text-[#1A2238]" 
-            : "bg-[#152238] border-[#FFD766]/60 text-white"
+            : "bg-[rgb(0_0_0/0.5)] border-[#FFD766]/60 text-white"
         }`}>
           <Clock className={`w-4 h-4 mb-2 ${isLight ? "text-[#D8B63F]" : "text-[#FFD766]"}`} />
-          <p className={`text-[10px] md:text-[11px] font-bold tracking-widest uppercase mb-1 ${isLight ? "text-[#D8B63F]" : "text-[#FFD766]"}`}>
+          <p className={`text-[9px] md:text-[11px] font-bold tracking-widest uppercase mb-1 ${isLight ? "text-[#D8B63F]" : "text-[#FFD766]"}`}>
             TOTAL DURATION
           </p>
           <p className={`text-xs md:text-base font-bold tracking-wide ${isLight ? "text-[#1A2238]" : "text-white"}`}>
@@ -3163,34 +3163,38 @@ export function EstimatioMatrixBottom({
         <div className={`flex flex-col items-center justify-center p-3.5 md:p-4 rounded-xl border transition-colors duration-300 ${
           isLight 
             ? "bg-[#F7F5F0] border-[#D8B63F] text-[#1A2238]" 
-            : "bg-[#152238] border-[#FFD766]/60 text-white"
+            : "bg-[rgb(0_0_0/0.5)] border-[#FFD766]/60 text-white"
         }`}>
           <Users className={`w-4 h-4 mb-2 ${isLight ? "text-[#D8B63F]" : "text-[#FFD766]"}`} />
-          <p className={`text-[10px] md:text-[11px] font-bold tracking-widest uppercase mb-1 ${isLight ? "text-[#D8B63F]" : "text-[#FFD766]"}`}>
+          <p className={`text-[9px] md:text-[11px] font-bold tracking-widest uppercase mb-1 ${isLight ? "text-[#D8B63F]" : "text-[#FFD766]"}`}>
             ALLOCATED STAFF
           </p>
-          <p className={`text-sm md:text-lg font-bold tracking-wide ${isLight ? "text-[#1A2238]" : "text-white"}`}>
+          <p className={`text-[9px] md:text-[11px] font-bold tracking-wide ${isLight ? "text-[#1A2238]" : "text-white"}`}>
             2
           </p>
-          <p className={`text-[9px] md:text-[10px] font-bold tracking-wider uppercase mt-0.5 ${isLight ? "text-[#D8B63F]" : "text-[#FFD766]"}`}>
+          
+          <p className={`text-[10px] font-sans mt-0.5 ${isLight ? "text-[#687386]" : "text-[#D8B63F]"}`}>
             SPECIALIST TEAM
           </p>
+        
         </div>
 
         {/* Card 4: On-Site Window */}
         <div className={`flex flex-col items-center justify-center p-3.5 md:p-4 rounded-xl border transition-colors duration-300 ${
           isLight 
             ? "bg-[#F7F5F0] border-[#D8B63F] text-[#1A2238]" 
-            : "bg-[#152238] border-[#FFD766]/60 text-white"
+            : "bg-[rgb(0_0_0/0.5)] border-[#FFD766]/60 text-white"
         }`}>
           <Calendar className={`w-4 h-4 mb-2 ${isLight ? "text-[#D8B63F]" : "text-[#FFD766]"}`} />
-          <p className={`text-[10px] md:text-[11px] font-bold tracking-widest uppercase mb-1 text-center ${isLight ? "text-[#D8B63F]" : "text-[#FFD766]"}`}>
+          <p className={`text-[9px] md:text-[11px] font-bold tracking-widest uppercase mb-1 text-center ${isLight ? "text-[#D8B63F]" : "text-[#FFD766]"}`}>
             ON–SITE WINDOW
           </p>
-          <p className={`text-xs md:text-sm font-bold text-center tracking-wide leading-tight ${isLight ? "text-[#1A2238]" : "text-white"}`}>
+          <p className={`text-[9px] md:text-[11px] font-bold text-center tracking-wide leading-tight ${isLight ? "text-[#1A2238]" : "text-white"}`}>
             9h 30m – 10h 30m
           </p>
-          <p className={`text-[10px] font-sans mt-0.5 ${isLight ? "text-[#687386]" : "text-[#C3CDDC]"}`}>Time frame</p>
+          <p className={`text-[9px] md:text-[10px] font-sans mt-0.5 ${isLight ? "text-[#687386]" : "text-[#C3CDDC]"}`}>
+            Time frame
+            </p>
         </div>
 
       </div>
