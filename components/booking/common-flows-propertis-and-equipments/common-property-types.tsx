@@ -2240,7 +2240,7 @@ export function PropertyTypeSizeSelectorCommonFlowOfServices({
                     type="button"
                     onClick={() => handleCardClick(cat.id)}
                     style={{ scrollSnapAlign: "start" }}
-                    className={`group shrink-0 w-[150px] sm:w-[170px] flex flex-col justify-start rounded-xl overflow-hidden cursor-pointer transition-all duration-300 select-none border-2 ${
+                    className={`group shrink-0 w-[150px] md:w-[220px] flex flex-col justify-start rounded-xl overflow-hidden cursor-pointer transition-all duration-300 select-none border-2 ${
                       isSelected
                         ? isLight
                           ? "border-[#D8B63F] scale-[1.02]"
@@ -2251,7 +2251,7 @@ export function PropertyTypeSizeSelectorCommonFlowOfServices({
                     }`}
                   >
                     {/* Image Section */}
-                    <div className="relative w-full h-[100px] md:h-[135px] overflow-hidden shrink-0">
+                    <div className="relative w-full h-[125px] md:h-[135px]  overflow-hidden shrink-0">
                       {cat.img ? (
                         <Image
                           src={cat.img}
@@ -2285,7 +2285,7 @@ export function PropertyTypeSizeSelectorCommonFlowOfServices({
                     </div>
 
                     {/* Label Section */}
-                    <div className={`flex-1 px-2.5 py-2.5 text-left transition-colors ${
+                    <div className={`flex-1 px-2 flex gap-4 py-2.5 text-left transition-colors ${
                       isSelected
                         ? isLight
                           ? "bg-white"
@@ -2307,7 +2307,8 @@ export function PropertyTypeSizeSelectorCommonFlowOfServices({
                         <span className="[&>svg]:w-4 [&>svg]:h-4">{cat.icon}</span>
                       </div>
                       {/* Title */}
-                      <span
+                      <div className="">
+                            <span
                         className={`text-[12px] sm:text-[13px] font-semibold leading-tight line-clamp-2 block ${
                           isSelected
                             ? isLight
@@ -2322,12 +2323,14 @@ export function PropertyTypeSizeSelectorCommonFlowOfServices({
                       </span>
                       {/* Sublabel */}
                       {cat.sublabel && (
-                        <span className={`text-[10px] mt-0.5 block leading-tight ${
+                        <span className={`text-[8px] mt-0.5 block leading-tight ${
                           isLight ? "text-[#687386]" : "text-[#C3CDDC]"
                         }`}>
                           {cat.sublabel}
                         </span>
                       )}
+                      </div>
+                      
                     </div>
                   </button>
                 );
