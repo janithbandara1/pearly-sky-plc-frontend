@@ -28,17 +28,15 @@ function HighlightCard({ card, theme = "light" }: CardItemProps) {
 
   return (
     <div
-      className={`group relative h-full rounded-2xl sm:rounded-3xl p-[1.5px] transition-all duration-300 hover:-translate-y-1.5 ${
+      className={`group relative h-full rounded-[16px] sm:rounded-[24px] p-[1.5px] transition-all duration-300 hover:-translate-y-1.5 ${
         isLight
-          ? "bg-gradient-to-b from-[#D8B63F]/40 via-[#D8B63F]/15 to-transparent shadow-[0_4px_25px_rgba(216,182,63,0.1)] hover:from-[#D8B63F]/70 hover:shadow-[0_10px_30px_rgba(216,182,63,0.2)]"
-          : "bg-gradient-to-b from-[#FFD766]/35 via-[#FFD766]/10 to-transparent shadow-[0_8px_32px_rgba(0,0,0,0.4)] hover:from-[#FFD766]/70 hover:shadow-[0_14px_40px_rgba(255,215,102,0.15)]"
+          ? "bg-gradient-to-b from-[#D8B63F]/40 via-[#D8B63F]/40 to-[#D8B63F]/40 shadow-[0_4px_25px_rgba(216,182,63,0.1)] hover:from-[#D8B63F]/70 hover:shadow-[0_10px_30px_rgba(216,182,63,0.2)]"
+          : "bg-gradient-to-b from-[#FFD766]/35 via-[#FFD766]/35 to-[#FFD766]/35 shadow-[0_8px_32px_rgba(0,0,0,0.4)] hover:from-[#FFD766]/70 hover:shadow-[0_14px_40px_rgba(255,215,102,0.15)]"
       }`}
     >
       <div
-        className={`h-full rounded-[22px] sm:rounded-[30px] p-6 sm:p-7 flex flex-col justify-between backdrop-blur-md min-h-[300px] sm:min-h-[340px] transition-colors duration-300 ${
-          isLight
-            ? "bg-white/95 border border-[#D9DDE5]"
-            : "bg-[#1B2A40]/90 border border-[#718096]/25"
+        className={`h-full rounded-[14.5px] sm:rounded-[22.5px] p-6 sm:p-7 flex flex-col justify-between min-h-[300px] sm:min-h-[340px] transition-colors duration-300 ${
+          isLight ? "bg-white" : "bg-[#1B2A40]"
         }`}
       >
         <div>

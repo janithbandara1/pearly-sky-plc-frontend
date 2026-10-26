@@ -204,22 +204,6 @@ export default function BookingValidationModal({
             : "bg-[#08101D]/98 backdrop-blur-2xl border-[#FFD766]/60 text-white shadow-[0_0_60px_rgba(0,0,0,0.9),0_0_25px_rgba(255,215,102,0.18)]"
         }`}
       >
-        {/* Top center sparkle ✦ */}
-        <div
-          aria-hidden="true"
-          className="absolute -top-1.5 left-1/2 -translate-x-1/2 text-[#FFD766] text-xs pointer-events-none select-none drop-shadow-[0_0_6px_rgba(255,215,102,0.9)]"
-        >
-          ✦
-        </div>
-
-        {/* Bottom center sparkle ✦ */}
-        <div
-          aria-hidden="true"
-          className="absolute -bottom-2 left-1/2 -translate-x-1/2 text-[#FFD766] text-xs pointer-events-none select-none drop-shadow-[0_0_6px_rgba(255,215,102,0.9)]"
-        >
-          ✦
-        </div>
-
         {/* Top Branding Header */}
         <div
           className={`flex items-center justify-between pb-4 mb-4 border-b ${

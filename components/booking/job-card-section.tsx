@@ -89,7 +89,7 @@ export function JobCardSection({
 
   return (
     <section id="upgrades" className={`w-full md:px-6 px-2 py-6 rounded-2xl sm:rounded-3xl shadow-2xl border transition-all duration-300 ${
-      isLight ? "bg-white border-[#D9DDE5] text-[#1A2238]" : "bg-[#1B2A40]/80 backdrop-blur-xl border-[#718096]/30 text-white"
+      isLight ? "bg-white border-[#C5A059] text-[#1A2238]" : "bg-[#1B2A40]/80 backdrop-blur-xl border-[#C5A059] text-white"
     }`}>
       <span className={`text-[10px] sm:text-xs font-sans font-bold tracking-[0.2em] sm:tracking-[0.25em] uppercase ${
         isLight ? "text-[#002F6D]" : "text-[#FFD766]"
@@ -166,9 +166,7 @@ export function JobCardSection({
                 >
                   {/* Left soft badge icon + title */}
                   <div className="flex items-center min-w-0 flex-1 pr-2">
-                    <div className={`w-11 h-11 rounded-lg flex items-center justify-center text-xl shrink-0 mr-3.5 border overflow-hidden ${
-                      isLight ? "bg-[#F7F5F0] border-[#D9DDE5]" : "bg-[#111C2E] border-[#718096]/30"
-                    }`}>
+                    <div className={`w-11 h-11 rounded-lg flex items-center justify-center text-xl shrink-0 mr-3.5 overflow-hidden`}>
                       {item.image ? (
                         // eslint-disable-next-line @next/next/no-img-element
                         <img src={item.image} alt="" className="h-full w-full object-cover" />

@@ -1113,7 +1113,7 @@ export function ServiceBookingView({
               </div>     
             </div>
 
-            {error && <p className="text-sm text-destructive">{error}</p>}
+            {error && <p className="text-sm text-destructive text-center pt-4 pb-8">{error}</p>}
           </>
         )}
       </div>

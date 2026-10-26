@@ -313,8 +313,8 @@ export default function ServiceFrequencySelector({
     <div
       className={`w-full rounded-2xl sm:rounded-3xl p-4 md:p-5 font-serif shadow-2xl border transition-all duration-300 ${
         isLight
-          ? "bg-white border-[#D9DDE5] text-[#1A2238]"
-          : "bg-[#1B2A40]/80 backdrop-blur-xl border-[#718096]/30 text-white"
+          ? "bg-white border-[#C5A059] text-[#1A2238]"
+          : "bg-[#1B2A40]/80 backdrop-blur-xl border-[#C5A059] text-white"
       }`}
     >
       {/* Step Indicator Header */}

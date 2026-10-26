@@ -111,7 +111,7 @@ export function DateTimeSection(
 
   return (
     <section className={`overflow-hidden rounded-2xl border shadow-xl transition-colors duration-300 ${
-      isLight ? "border-[#D9DDE5] bg-white text-[#1A2238]" : "bg-[#1B2A40] border-[#718096]/60 text-white"
+      isLight ? "border-[#C5A059] bg-white text-[#1A2238]" : "bg-[#1B2A40] border-[#C5A059] text-white"
     }`}>
       {/* Top Header Bar */}
       <div className={`flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 border-b px-5 py-4 sm:px-7 ${

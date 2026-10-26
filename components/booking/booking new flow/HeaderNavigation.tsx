@@ -77,10 +77,8 @@ export default function HeaderNavigation({
   return (
     <nav
       id="section-service"
-      className={`w-full sticky z-20 top-[10%] left-0 right-0 transition-colors rounded-t-[15px] shadow-sm duration-300 border-b ${
-        isLight
-          ? "bg-white border-[#D9DDE5]"
-          : "bg-[#1B2A40] border-[#718096]/50"
+      className={`w-full sticky z-20 top-[10%] left-0 right-0 transition-colors shadow-sm duration-300 ${
+        isLight ? "bg-white" : "bg-[#1B2A40]"
       }`}
     > 
       <div className="max-w-7xl mx-auto px-4 md:px-8 flex items-center justify-start sm:justify-center overflow-x-auto no-scrollbar scroll-smooth">

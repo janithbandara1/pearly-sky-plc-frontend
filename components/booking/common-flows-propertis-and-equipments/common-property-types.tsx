@@ -2088,8 +2088,8 @@ export function PropertyTypeSizeSelectorCommonFlowOfServices({
 
       <div
         className={`rounded-2xl py-4 mt-5 border pb-5 sm:pb-6 px-5 sm:px-6 transition-all duration-300 ${isLight
-          ? "bg-white border-[#D9DDE5] text-[#1A2238]"
-          : "bg-[#1B2A40] border-[#718096]/50 text-white"
+          ? "bg-white border-[#C5A059] text-[#1A2238]"
+          : "bg-[#1B2A40] border-[#C5A059] text-white"
           }`}
       >
         {!ROOM_COMPONENTS_SERVICES && !NO_CATEGORY_TABS.has(serviceSlug) && (
@@ -2240,18 +2240,18 @@ export function PropertyTypeSizeSelectorCommonFlowOfServices({
                     type="button"
                     onClick={() => handleCardClick(cat.id)}
                     style={{ scrollSnapAlign: "start" }}
-                    className={`group shrink-0 w-[150px] sm:w-[170px] rounded-xl overflow-hidden cursor-pointer transition-all duration-300 select-none border-2 ${
+                    className={`group shrink-0 w-[150px] sm:w-[170px] flex flex-col justify-start rounded-xl overflow-hidden cursor-pointer transition-all duration-300 select-none border-2 ${
                       isSelected
                         ? isLight
-                          ? "border-[#D8B63F] shadow-[0_6px_24px_rgba(216,182,63,0.3)] ring-1 ring-[#D8B63F]/40 scale-[1.02]"
-                          : "border-[#FFD766] shadow-[0_0_24px_rgba(255,215,102,0.25)] ring-1 ring-[#FFD766]/30 scale-[1.02]"
+                          ? "border-[#D8B63F] scale-[1.02]"
+                          : "border-[#FFD766] scale-[1.02]"
                         : isLight
                           ? "border-[#D9DDE5] hover:border-[#D8B63F]/50 shadow-sm hover:shadow-md hover:scale-[1.01]"
                           : "border-[#718096]/60 hover:border-[#FFD766]/40 shadow-md shadow-black/20 hover:shadow-lg hover:scale-[1.01]"
                     }`}
                   >
                     {/* Image Section */}
-                    <div className="relative w-full h-[100px] md:h-[135px] overflow-hidden">
+                    <div className="relative w-full h-[100px] md:h-[135px] overflow-hidden shrink-0">
                       {cat.img ? (
                         <Image
                           src={cat.img}
@@ -2285,7 +2285,7 @@ export function PropertyTypeSizeSelectorCommonFlowOfServices({
                     </div>
 
                     {/* Label Section */}
-                    <div className={`px-2.5 py-2.5 text-left transition-colors ${
+                    <div className={`flex-1 px-2.5 py-2.5 text-left transition-colors ${
                       isSelected
                         ? isLight
                           ? "bg-white"
@@ -3030,7 +3030,7 @@ export function EstimatioMatrixBottomDuplicated({
 
   return (
     <div className={`w-full rounded-2xl border p-4 md:p-6 relative overflow-hidden select-none font-mono transition-colors duration-300 ${
-      isLight ? "bg-white border-[#D9DDE5] text-[#1A2238] shadow-sm" : "bg-[#1B2A40] border-[#718096]/60 text-white"
+      isLight ? "bg-white border-[#D8B63F] text-[#1A2238] shadow-sm" : "bg-[#1B2A40] border-[#FFD766]/60 text-white"
     }`}>
       
       {/* Grid Cards Container: 1 column on mobile, 3 columns on desktop */}
@@ -3038,7 +3038,7 @@ export function EstimatioMatrixBottomDuplicated({
 
         {/* Card 1: Estimated Cost */}
         <div className={`flex flex-col justify-center p-4 md:p-5 rounded-xl border transition-colors duration-300 ${
-          isLight ? "bg-[#F7F5F0] border-[#D9DDE5]" : "bg-[#152238] border-[#718096]/60"
+          isLight ? "bg-[#F7F5F0] border-[#D8B63F]" : "bg-[#152238] border-[#FFD766]/60"
         }`}>
           <p className={`text-[10px] md:text-[11px] font-bold tracking-widest uppercase mb-1.5 ${isLight ? "text-[#D8B63F]" : "text-[#FFD766]"}`}>
             ESTIMATED COST
@@ -3050,7 +3050,7 @@ export function EstimatioMatrixBottomDuplicated({
 
         {/* Card 2: Effective Hourly Rate */}
         <div className={`flex flex-col justify-center p-4 md:p-5 rounded-xl border transition-colors duration-300 ${
-          isLight ? "bg-[#F7F5F0] border-[#D9DDE5]" : "bg-[#152238] border-[#718096]/60"
+          isLight ? "bg-[#F7F5F0] border-[#D8B63F]" : "bg-[#152238] border-[#FFD766]/60"
         }`}>
           <p className={`text-[10px] md:text-[11px] font-bold tracking-widest uppercase mb-1.5 ${isLight ? "text-[#687386]" : "text-[#C3CDDC]"}`}>
             EFFECTIVE HOURLY RATE
@@ -3067,7 +3067,7 @@ export function EstimatioMatrixBottomDuplicated({
 
         {/* Card 3: Estimated Duration */}
         <div className={`flex flex-col justify-center p-4 md:p-5 rounded-xl border transition-colors duration-300 ${
-          isLight ? "bg-[#F7F5F0] border-[#D9DDE5]" : "bg-[#152238] border-[#718096]/60"
+          isLight ? "bg-[#F7F5F0] border-[#D8B63F]" : "bg-[#152238] border-[#FFD766]/60"
         }`}>
           <p className={`text-[10px] md:text-[11px] font-bold tracking-widest uppercase mb-1.5 ${isLight ? "text-[#687386]" : "text-[#C3CDDC]"}`}>
             ESTIMATED DURATION
@@ -3109,8 +3109,8 @@ export function EstimatioMatrixBottom({
   return (
     <div className={`w-full rounded-2xl border p-4 md:p-6 relative overflow-hidden select-none font-mono transition-colors duration-300 ${
       isLight 
-        ? "bg-white border-[#D9DDE5] text-[#1A2238] shadow-sm" 
-        : "bg-[#1B2A40] border-[#718096]/60 text-white"
+        ? "bg-white border-[#D8B63F] text-[#1A2238] shadow-sm" 
+        : "bg-[#1B2A40] border-[#FFD766]/60 text-white"
     }`}>
       {/* Header Section */} 
       <div className={`mb-4 pb-3 border-b ${isLight ? "border-[#D9DDE5]" : "border-[#718096]/40"}`}>
@@ -3128,8 +3128,8 @@ export function EstimatioMatrixBottom({
         {/* Card 1: Property Scale / Target Area */}
         <div className={`flex flex-col items-center justify-center p-3.5 md:p-4 rounded-xl border transition-colors duration-300 ${
           isLight 
-            ? "bg-[#F7F5F0] border-[#D9DDE5] text-[#1A2238]" 
-            : "bg-[#152238] border-[#718096]/60 text-white"
+            ? "bg-[#F7F5F0] border-[#D8B63F] text-[#1A2238]" 
+            : "bg-[#152238] border-[#FFD766]/60 text-white"
         }`}>
           <Maximize2 className={`w-4 h-4 mb-2 ${isLight ? "text-[#D8B63F]" : "text-[#FFD766]"}`} />
           <p className={`text-[10px] md:text-[11px] font-bold tracking-widest uppercase mb-1 ${isLight ? "text-[#D8B63F]" : "text-[#FFD766]"}`}>
@@ -3146,8 +3146,8 @@ export function EstimatioMatrixBottom({
         {/* Card 2: Total Duration / Est Labor */}
         <div className={`flex flex-col items-center justify-center p-3.5 md:p-4 rounded-xl border transition-colors duration-300 ${
           isLight 
-            ? "bg-[#F7F5F0] border-[#D9DDE5] text-[#1A2238]" 
-            : "bg-[#152238] border-[#718096]/60 text-white"
+            ? "bg-[#F7F5F0] border-[#D8B63F] text-[#1A2238]" 
+            : "bg-[#152238] border-[#FFD766]/60 text-white"
         }`}>
           <Clock className={`w-4 h-4 mb-2 ${isLight ? "text-[#D8B63F]" : "text-[#FFD766]"}`} />
           <p className={`text-[10px] md:text-[11px] font-bold tracking-widest uppercase mb-1 ${isLight ? "text-[#D8B63F]" : "text-[#FFD766]"}`}>
@@ -3162,8 +3162,8 @@ export function EstimatioMatrixBottom({
         {/* Card 3: Allocated Staff */}
         <div className={`flex flex-col items-center justify-center p-3.5 md:p-4 rounded-xl border transition-colors duration-300 ${
           isLight 
-            ? "bg-[#F7F5F0] border-[#D9DDE5] text-[#1A2238]" 
-            : "bg-[#152238] border-[#718096]/60 text-white"
+            ? "bg-[#F7F5F0] border-[#D8B63F] text-[#1A2238]" 
+            : "bg-[#152238] border-[#FFD766]/60 text-white"
         }`}>
           <Users className={`w-4 h-4 mb-2 ${isLight ? "text-[#D8B63F]" : "text-[#FFD766]"}`} />
           <p className={`text-[10px] md:text-[11px] font-bold tracking-widest uppercase mb-1 ${isLight ? "text-[#D8B63F]" : "text-[#FFD766]"}`}>
@@ -3180,8 +3180,8 @@ export function EstimatioMatrixBottom({
         {/* Card 4: On-Site Window */}
         <div className={`flex flex-col items-center justify-center p-3.5 md:p-4 rounded-xl border transition-colors duration-300 ${
           isLight 
-            ? "bg-[#F7F5F0] border-[#D9DDE5] text-[#1A2238]" 
-            : "bg-[#152238] border-[#718096]/60 text-white"
+            ? "bg-[#F7F5F0] border-[#D8B63F] text-[#1A2238]" 
+            : "bg-[#152238] border-[#FFD766]/60 text-white"
         }`}>
           <Calendar className={`w-4 h-4 mb-2 ${isLight ? "text-[#D8B63F]" : "text-[#FFD766]"}`} />
           <p className={`text-[10px] md:text-[11px] font-bold tracking-widest uppercase mb-1 text-center ${isLight ? "text-[#D8B63F]" : "text-[#FFD766]"}`}>
@@ -3274,9 +3274,9 @@ export function SanitizeSizeVisualization({
   return (
     <div
 
-      className={`w-full rounded-2xl border-2 border-[#C5A059] md:p-3 p-5 transition-colors duration-300 relative overflow-hidden select-none ${isLight
-        ? "bg-[#FAF8F5] text-slate-900 shadow-[0_10px_35px_rgba(197,160,89,0.22)] ring-1 ring-[#C5A059]/30"
-        : "bg-[#030303] text-white shadow-[0_6px_22px_rgba(197,160,89,0.25)] ring-1 ring-[#C5A059]/25"
+      className={`w-full rounded-2xl border border-[#C5A059] md:p-3 p-5 transition-colors duration-300 relative overflow-hidden select-none ${isLight
+        ? "bg-[#FAF8F5] text-slate-900"
+        : "bg-[#1B2A40] text-white"
         }`}
       style={{
         backgroundImage: isLight
@@ -3292,7 +3292,7 @@ export function SanitizeSizeVisualization({
       }}
     >
       {/* Top Header & Blueprint Toggle */}
-      <div className={`w-full flex flex-col sm:flex-row items-center justify-between pb-3 mb-4 gap-3 border-b ${isLight ? "border-[#C5A059]/30" : "border-[#C5A059]/40"
+      <div className={`w-full flex flex-col sm:flex-row items-center justify-between pb-3 mb-4 gap-3 border-b ${isLight ? "border-[#D8B63F]" : "border-[#D8B63F]"
         }`}>
         <div className="flex w-full flex-col md:flex-row justify-between items-center space-x-3">
           {/* <div>
@@ -3337,16 +3337,16 @@ export function SanitizeSizeVisualization({
         </div>
       </div>
 
-      <div className={`relative w-full border-2 border-[#C5A059] rounded-xl p-2 sm:p-4 overflow-hidden transition-all duration-300 ${isLight
-        ? "bg-white/90 backdrop-blur-md shadow-[inset_0_0_20px_rgba(197,160,89,0.2),0_10px_35px_rgba(197,160,89,0.35)] ring-2 ring-[#C5A059]/30"
-        : "bg-[#050505]/95 backdrop-blur-sm shadow-[inset_0_0_25px_rgba(197,160,89,0.25),0_8px_25px_rgba(197,160,89,0.3)]"
+      <div className={`relative w-full border border-[#C5A059] rounded-xl p-2 sm:p-4 overflow-hidden transition-all duration-300 ${isLight
+        ? "bg-white/90 backdrop-blur-md"
+        : "bg-[#050505]/95 backdrop-blur-sm"
         }`}>
         <div className="flex items-center w-full">
           <div className="flex-1 min-w-0 max-h-[250px] sm:max-h-[270px] md:max-h-[420px] flex items-center justify-center">
             {isResidential ? (
               <svg
                 viewBox={BLUEPRINT_VIEWBOX}
-                className="w-full h-full max-h-[220px] sm:max-h-[260px] md:max-h-[420px] drop-shadow-[0_0_18px_rgba(197,160,89,0.4)] object-contain"
+                className="w-full h-full max-h-[220px] sm:max-h-[260px] md:max-h-[420px] object-contain"
               >
                 <defs>
                   <pattern id="dotGridRes" x="0" y="0" width="32" height="32" patternUnits="userSpaceOnUse">
@@ -3443,7 +3443,7 @@ export function SanitizeSizeVisualization({
             ) : (
               <svg
                 viewBox={BLUEPRINT_VIEWBOX}
-                className="w-full h-full max-h-[250px] sm:max-h-[270px] md:max-h-[420px] drop-shadow-[0_0_18px_rgba(197,160,89,0.4)] object-contain"
+                className="w-full h-full max-h-[250px] sm:max-h-[270px] md:max-h-[420px] object-contain"
               >
                 <defs>
                   {/* Increase width, height, and circle spacing to fit the main square better */}
@@ -3522,62 +3522,62 @@ export function SanitizeSizeVisualization({
       </div>
 
       {!isQuote && (
-        <div className={`w-full mt-2 rounded-2xl border border-[#C5A059]/40 p-4 md:p-6 shadow-[0_6px_22px_rgba(197,160,89,0.25)] ring-1 ring-[#C5A059]/25 relative overflow-hidden select-none font-mono transition-colors duration-300 ${
-      isLight ? "bg-white text-slate-900" : "bg-[#0b131a] text-white"
+        <div className={`w-full mt-2 rounded-2xl border p-4 md:p-6 relative overflow-hidden select-none font-mono transition-colors duration-300 ${
+      isLight ? "bg-white border-[#D8B63F] text-[#1A2238] shadow-sm" : "bg-[#1B2A40] border-[#FFD766]/60 text-white"
     }`}>
       
       {/* Grid Cards Container: 1 column on mobile, 3 columns on desktop */}
       <div className="grid grid-cols-1 md:grid-cols-4 gap-3 md:gap-4">
 
         {/* Card 1: Estimated Cost */}
-        <div className={`flex flex-col justify-center p-4 md:p-5 rounded-xl border border-[#C5A059]/30 shadow-[inset_0_0_12px_rgba(197,160,89,0.05)] transition-colors duration-300 ${
-          isLight ? "bg-amber-50/50" : "bg-[#050505]"
+        <div className={`flex flex-col justify-center p-4 md:p-5 rounded-xl border transition-colors duration-300 ${
+          isLight ? "bg-[#F7F5F0] border-[#D8B63F]" : "bg-[#152238] border-[#FFD766]/60"
         }`}>
-          <p className="text-[10px] md:text-[11px] font-bold tracking-widest text-[#C5A059] uppercase mb-1.5">
+          <p className={`text-[10px] md:text-[11px] font-bold tracking-widest uppercase mb-1.5 ${isLight ? "text-[#D8B63F]" : "text-[#FFD766]"}`}>
             ESTIMATED COST
           </p>
-          <p className="text-base md:text-xl font-bold font-serif text-[#C5A059] tracking-wide">
+          <p className={`text-base md:text-xl font-bold font-serif tracking-wide ${isLight ? "text-[#D8B63F]" : "text-[#FFD766]"}`}>
             €92.00 - €107.00
           </p>
         </div>
 
         {/* Card 2: Effective Hourly Rate */}
-        <div className={`flex flex-col justify-center p-4 md:p-5 rounded-xl border border-[#C5A059]/30 shadow-[inset_0_0_12px_rgba(197,160,89,0.05)] transition-colors duration-300 ${
-          isLight ? "bg-slate-50" : "bg-[#050505]"
+        <div className={`flex flex-col justify-center p-4 md:p-5 rounded-xl border transition-colors duration-300 ${
+          isLight ? "bg-[#F7F5F0] border-[#D8B63F]" : "bg-[#152238] border-[#FFD766]/60"
         }`}>
-          <p className="text-[10px] md:text-[11px] font-bold tracking-widest text-slate-400 uppercase mb-1.5">
+          <p className={`text-[10px] md:text-[11px] font-bold tracking-widest uppercase mb-1.5 ${isLight ? "text-[#687386]" : "text-[#C3CDDC]"}`}>
             EFFECTIVE HOURLY RATE
           </p>
           <div className="flex items-baseline gap-1.5">
-            <span className={`text-base md:text-xl font-bold tracking-wide ${isLight ? "text-slate-900" : "text-white"}`}>
+            <span className={`text-base md:text-xl font-bold tracking-wide ${isLight ? "text-[#1A2238]" : "text-white"}`}>
               €29.00
             </span>
-            <span className="text-xs text-slate-400 font-sans">
+            <span className={`text-xs font-sans ${isLight ? "text-[#687386]" : "text-[#C3CDDC]"}`}>
               / hr
             </span>
           </div>
         </div>
 
         {/* Card 3: Estimated Duration */}
-        <div className={`flex flex-col justify-center p-4 md:p-5 rounded-xl border border-[#C5A059]/30 shadow-[inset_0_0_12px_rgba(197,160,89,0.05)] transition-colors duration-300 ${
-          isLight ? "bg-slate-50" : "bg-[#050505]"
+        <div className={`flex flex-col justify-center p-4 md:p-5 rounded-xl border transition-colors duration-300 ${
+          isLight ? "bg-[#F7F5F0] border-[#D8B63F]" : "bg-[#152238] border-[#FFD766]/60"
         }`}>
-          <p className="text-[10px] md:text-[11px] font-bold tracking-widest text-slate-400 uppercase mb-1.5">
+          <p className={`text-[10px] md:text-[11px] font-bold tracking-widest uppercase mb-1.5 ${isLight ? "text-[#687386]" : "text-[#C3CDDC]"}`}>
             ESTIMATED DURATION
           </p>
-          <p className="text-base md:text-xl font-bold text-emerald-400 tracking-wide">
-            2.5 Hours <span className="text-xs font-sans font-normal text-slate-400">(1 Staff)</span>
+          <p className={`text-base md:text-xl font-bold tracking-wide ${isLight ? "text-[#167A57]" : "text-[#36D6A0]"}`}>
+            2.5 Hours <span className={`text-xs font-sans font-normal ${isLight ? "text-[#687386]" : "text-[#C3CDDC]"}`}>(1 Staff)</span>
           </p>
         </div>
 
-        <div className={`flex flex-col justify-center p-4 md:p-5 rounded-xl border border-[#C5A059]/30 shadow-[inset_0_0_12px_rgba(197,160,89,0.05)] transition-colors duration-300 ${
-          isLight ? "bg-slate-50" : "bg-[#050505]"
+        <div className={`flex flex-col justify-center p-4 md:p-5 rounded-xl border transition-colors duration-300 ${
+          isLight ? "bg-[#F7F5F0] border-[#D8B63F]" : "bg-[#152238] border-[#FFD766]/60"
         }`}>
-          <p className="text-[10px] md:text-[11px] font-bold tracking-widest text-slate-400 uppercase mb-1.5">
+          <p className={`text-[10px] md:text-[11px] font-bold tracking-widest uppercase mb-1.5 ${isLight ? "text-[#687386]" : "text-[#C3CDDC]"}`}>
             Staff
           </p>
-          <p className="text-base md:text-xl font-bold text-emerald-400 tracking-wide">
-            2  <span className="text-xs font-sans font-normal text-slate-400"> Staff</span>
+          <p className={`text-base md:text-xl font-bold tracking-wide ${isLight ? "text-[#167A57]" : "text-[#36D6A0]"}`}>
+            2  <span className={`text-xs font-sans font-normal ${isLight ? "text-[#687386]" : "text-[#C3CDDC]"}`}> Staff</span>
           </p>
         </div>
 
@@ -3630,9 +3630,9 @@ export function YatchSizeVisualization({
 
   return (
     <div
-      className={`w-full rounded-t-2xl border-2 border-[#C5A059] p-4 sm:p-6 transition-colors duration-300 relative overflow-hidden select-none font-mono ${isLight
-        ? "bg-[#FAF8F5] text-slate-900 shadow-[0_10px_35px_rgba(197,160,89,0.22)] ring-1 ring-[#C5A059]/30"
-        : "bg-[#030303] text-white shadow-[0_6px_22px_rgba(197,160,89,0.25)] ring-1 ring-[#C5A059]/25"
+      className={`w-full rounded-t-2xl border border-[#C5A059] p-4 sm:p-6 transition-colors duration-300 relative overflow-hidden select-none font-mono ${isLight
+        ? "bg-[#FAF8F5] text-slate-900"
+        : "bg-[#1B2A40] text-white"
         }`}
       style={{
         backgroundImage: isLight
@@ -3648,7 +3648,7 @@ export function YatchSizeVisualization({
       }}
     >
       {/* Top Header & Blueprint Toggle */}
-      <div className={`w-full flex flex-col sm:flex-row items-center justify-between pb-3 mb-4 gap-3 border-b ${isLight ? "border-[#C5A059]/30" : "border-[#C5A059]/40"
+      <div className={`w-full flex flex-col sm:flex-row items-center justify-between pb-3 mb-4 gap-3 border-b ${isLight ? "border-[#D8B63F]" : "border-[#D8B63F]"
         }`}>
         <div className="flex flex-col w-full md:flex-row justify-between items-center space-x-3">
           {/* <div>
@@ -3694,13 +3694,13 @@ export function YatchSizeVisualization({
       </div>
 
       {/* Main Architectural SVG Blueprint Stage with Enhanced Golden Dotted Matrix */}
-      <div className={`relative w-full border-2 border-[#C5A059] rounded-xl p-2 sm:p-4 overflow-hidden flex items-center justify-center transition-all duration-300 ${isLight
-        ? "bg-white/90 backdrop-blur-md shadow-[inset_0_0_20px_rgba(197,160,89,0.2),0_10px_35px_rgba(197,160,89,0.35)] ring-2 ring-[#C5A059]/30"
-        : "bg-[#050505]/95 backdrop-blur-sm shadow-[inset_0_0_25px_rgba(197,160,89,0.25),0_8px_25px_rgba(197,160,89,0.3)]"
+      <div className={`relative w-full border border-[#C5A059] rounded-xl p-2 sm:p-4 overflow-hidden flex items-center justify-center transition-all duration-300 ${isLight
+        ? "bg-white/90 backdrop-blur-md"
+        : "bg-[#050505]/95 backdrop-blur-sm"
         }`}>
         {serviceCategory === "yatch-cleaning" ? (
           /* ================= LUXURY YACHT ARCHITECTURE ================= */
-          <svg viewBox="-20 -20 1040 680" className="w-full h-auto max-h-[460px] drop-shadow-[0_0_18px_rgba(197,160,89,0.4)]">
+          <svg viewBox="-20 -20 1040 680" className="w-full h-auto max-h-[460px]">
             <defs>
               <pattern id="dotGrid" x="0" y="0" width="24" height="24" patternUnits="userSpaceOnUse">
                 <circle cx="3" cy="3" r="1.6" fill="#C5A059" opacity={isLight ? "0.75" : "0.65"} />
@@ -3787,7 +3787,7 @@ export function YatchSizeVisualization({
           </svg>
         ) : (
           /* ================= PASSENGER SHIP ARCHITECTURE ================= */
-          <svg viewBox="-20 -20 1040 680" className="w-full h-auto max-h-[460px] drop-shadow-[0_0_18px_rgba(197,160,89,0.4)]">
+          <svg viewBox="-20 -20 1040 680" className="w-full h-auto max-h-[460px]">
             <defs>
               <pattern id="dotGrid" x="0" y="0" width="24" height="24" patternUnits="userSpaceOnUse">
                 <circle cx="3" cy="3" r="1.6" fill="#C5A059" opacity={isLight ? "0.75" : "0.65"} />
@@ -3861,63 +3861,63 @@ export function YatchSizeVisualization({
 
       {/* Bottom Estimation Summary Bar */}
       {!isQuote && (
-        <div className={`w-full rounded-2xl border border-[#C5A059]/40 p-4 md:p-6 shadow-[0_6px_22px_rgba(197,160,89,0.25)] ring-1 ring-[#C5A059]/25 relative overflow-hidden select-none font-mono transition-colors duration-300 ${
-      isLight ? "bg-white text-slate-900" : "bg-[#0b131a] text-white"
+        <div className={`w-full rounded-2xl border p-4 md:p-6 relative overflow-hidden select-none font-mono transition-colors duration-300 ${
+      isLight ? "bg-white border-[#D8B63F] text-[#1A2238] shadow-sm" : "bg-[#1B2A40] border-[#FFD766]/60 text-white"
     }`}>
       
       {/* Grid Cards Container: 1 column on mobile, 3 columns on desktop */}
       <div className="grid grid-cols-1 md:grid-cols-4 gap-3 md:gap-4">
 
         {/* Card 1: Estimated Cost */}
-        <div className={`flex flex-col justify-center p-4 md:p-5 rounded-xl border border-[#C5A059]/30 shadow-[inset_0_0_12px_rgba(197,160,89,0.05)] transition-colors duration-300 ${
-          isLight ? "bg-amber-50/50" : "bg-[#050505]"
+        <div className={`flex flex-col justify-center p-4 md:p-5 rounded-xl border transition-colors duration-300 ${
+          isLight ? "bg-[#F7F5F0] border-[#D8B63F]" : "bg-[#152238] border-[#FFD766]/60"
         }`}>
-          <p className="text-[10px] md:text-[11px] font-bold tracking-widest text-[#C5A059] uppercase mb-1.5">
+          <p className={`text-[10px] md:text-[11px] font-bold tracking-widest uppercase mb-1.5 ${isLight ? "text-[#D8B63F]" : "text-[#FFD766]"}`}>
             ESTIMATED COST
           </p>
-          <p className="text-base md:text-xl font-bold font-serif text-[#C5A059] tracking-wide">
+          <p className={`text-base md:text-xl font-bold font-serif tracking-wide ${isLight ? "text-[#D8B63F]" : "text-[#FFD766]"}`}>
             €92.00 - €107.00
           </p>
         </div>
 
         {/* Card 2: Effective Hourly Rate */}
-        <div className={`flex flex-col justify-center p-4 md:p-5 rounded-xl border border-[#C5A059]/30 shadow-[inset_0_0_12px_rgba(197,160,89,0.05)] transition-colors duration-300 ${
-          isLight ? "bg-slate-50" : "bg-[#050505]"
+        <div className={`flex flex-col justify-center p-4 md:p-5 rounded-xl border transition-colors duration-300 ${
+          isLight ? "bg-[#F7F5F0] border-[#D8B63F]" : "bg-[#152238] border-[#FFD766]/60"
         }`}>
-          <p className="text-[10px] md:text-[11px] font-bold tracking-widest text-slate-400 uppercase mb-1.5">
+          <p className={`text-[10px] md:text-[11px] font-bold tracking-widest uppercase mb-1.5 ${isLight ? "text-[#687386]" : "text-[#C3CDDC]"}`}>
             EFFECTIVE HOURLY RATE
           </p>
           <div className="flex items-baseline gap-1.5">
-            <span className={`text-base md:text-xl font-bold tracking-wide ${isLight ? "text-slate-900" : "text-white"}`}>
+            <span className={`text-base md:text-xl font-bold tracking-wide ${isLight ? "text-[#1A2238]" : "text-white"}`}>
               €29.00
             </span>
-            <span className="text-xs text-slate-400 font-sans">
+            <span className={`text-xs font-sans ${isLight ? "text-[#687386]" : "text-[#C3CDDC]"}`}>
               / hr
             </span>
           </div>
         </div>
 
         {/* Card 3: Estimated Duration */}
-        <div className={`flex flex-col justify-center p-4 md:p-5 rounded-xl border border-[#C5A059]/30 shadow-[inset_0_0_12px_rgba(197,160,89,0.05)] transition-colors duration-300 ${
-          isLight ? "bg-slate-50" : "bg-[#050505]"
+        <div className={`flex flex-col justify-center p-4 md:p-5 rounded-xl border transition-colors duration-300 ${
+          isLight ? "bg-[#F7F5F0] border-[#D8B63F]" : "bg-[#152238] border-[#FFD766]/60"
         }`}>
-          <p className="text-[10px] md:text-[11px] font-bold tracking-widest text-slate-400 uppercase mb-1.5">
+          <p className={`text-[10px] md:text-[11px] font-bold tracking-widest uppercase mb-1.5 ${isLight ? "text-[#687386]" : "text-[#C3CDDC]"}`}>
             ESTIMATED DURATION
           </p>
-          <p className="text-base md:text-xl font-bold text-emerald-400 tracking-wide">
-            2.5 Hours <span className="text-xs font-sans font-normal text-slate-400">(1 Staff)</span>
+          <p className={`text-base md:text-xl font-bold tracking-wide ${isLight ? "text-[#167A57]" : "text-[#36D6A0]"}`}>
+            2.5 Hours <span className={`text-xs font-sans font-normal ${isLight ? "text-[#687386]" : "text-[#C3CDDC]"}`}>(1 Staff)</span>
           </p>
         </div>
 
         {/* Card 4: staff Duration */}
-        <div className={`flex flex-col justify-center p-4 md:p-5 rounded-xl border border-[#C5A059]/30 shadow-[inset_0_0_12px_rgba(197,160,89,0.05)] transition-colors duration-300 ${
-          isLight ? "bg-slate-50" : "bg-[#050505]"
+        <div className={`flex flex-col justify-center p-4 md:p-5 rounded-xl border transition-colors duration-300 ${
+          isLight ? "bg-[#F7F5F0] border-[#D8B63F]" : "bg-[#152238] border-[#FFD766]/60"
         }`}>
-          <p className="text-[10px] md:text-[11px] font-bold tracking-widest text-slate-400 uppercase mb-1.5">
+          <p className={`text-[10px] md:text-[11px] font-bold tracking-widest uppercase mb-1.5 ${isLight ? "text-[#687386]" : "text-[#C3CDDC]"}`}>
             Staff
           </p>
-          <p className="text-base md:text-xl font-bold text-emerald-400 tracking-wide">
-            2  <span className="text-xs font-sans font-normal text-slate-400"> Staff</span>
+          <p className={`text-base md:text-xl font-bold tracking-wide ${isLight ? "text-[#167A57]" : "text-[#36D6A0]"}`}>
+            2  <span className={`text-xs font-sans font-normal ${isLight ? "text-[#687386]" : "text-[#C3CDDC]"}`}> Staff</span>
           </p>
         </div>
 

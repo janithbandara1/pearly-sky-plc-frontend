@@ -107,15 +107,12 @@ export default function BookingLogisticsSummary({
 
   return (
     <div
-      className={`rounded-2xl p-6 shadow-2xl border transition-all duration-300 relative overflow-hidden ${
+      className={`rounded-2xl p-6 border transition-all duration-300 relative overflow-hidden ${
         isLight
-          ? "bg-white border-t-4 border-t-[#002F6D] border-[#D9DDE5] text-[#1A2238] shadow-[0_10px_30px_rgba(0,47,109,0.08)]"
-          : "bg-[#1B2A40]/80 backdrop-blur-2xl border-t-4 border-t-[#FFD766] border-[#718096]/30 text-white shadow-2xl"
+          ? "bg-white border-[#C5A059] text-[#1A2238]"
+          : "bg-[#1B2A40]/80 backdrop-blur-2xl border-[#C5A059] text-white"
       }`}
     >
-      {/* Decorative ambient background glow */}
-      <div className={`absolute -top-24 -right-24 w-48 h-48 rounded-full blur-3xl pointer-events-none opacity-20 ${isLight ? "bg-[#002F6D]" : "bg-[#FFD766]"}`} />
-
       {/* Header Section */}
       <div className={`flex items-start justify-between pb-4 border-b ${isLight ? "border-[#D9DDE5]" : "border-[#718096]/30"}`}>
         <div>
@@ -129,7 +126,7 @@ export default function BookingLogisticsSummary({
             {isQuote ? "Inquiry Overview" : "Booking Logistics"}
           </h3>
         </div>
-        <div className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-xl border shadow-inner transition-transform hover:scale-105 ${
+        <div className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-xl border transition-transform hover:scale-105 ${
           isLight
             ? "border-[#D9DDE5] bg-[#F7F5F0] text-[#002F6D]"
             : "border-[#718096]/40 bg-[#111C2E] text-[#FFD766]"
@@ -268,7 +265,7 @@ export default function BookingLogisticsSummary({
 
       {/* Advance Deposit Box */}
       {!isQuote && (
-        <div className={`my-3 p-3.5 rounded-xl border flex items-center justify-between shadow-inner ${
+        <div className={`my-3 p-3.5 rounded-xl border flex items-center justify-between ${
           isLight
             ? "bg-[#F7F5F0] border-[#D9DDE5] text-[#1A2238]"
             : "bg-[#111C2E] border-[#718096]/40 text-white"
@@ -295,10 +292,10 @@ export default function BookingLogisticsSummary({
       <div className="pt-2">
         <button
           onClick={onNextStep}
-          className={`group w-full py-3.5 px-4 rounded-xl font-bold text-sm flex items-center justify-center gap-2 transition-all duration-300 shadow-xl cursor-pointer hover:scale-[1.02] active:scale-[0.98] ${
+          className={`group w-full py-3.5 px-4 rounded-xl font-bold text-sm flex items-center justify-center gap-2 transition-all duration-300 cursor-pointer hover:scale-[1.02] active:scale-[0.98] ${
             isLight
-              ? "bg-[#002F6D] text-white hover:bg-[#002F6D]/90 shadow-[#002F6D]/20"
-              : "bg-[#FFD766] text-[#002F6D] hover:bg-[#FFD766]/90 shadow-[#FFD766]/20 font-bold"
+              ? "bg-[#002F6D] text-white hover:bg-[#002F6D]/90"
+              : "bg-[#FFD766] text-[#002F6D] hover:bg-[#FFD766]/90 font-bold"
           }`}
         >
           <CalendarDays className="w-4 h-4 stroke-[2.5] transition-transform group-hover:rotate-12" />
