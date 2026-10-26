@@ -4,7 +4,8 @@ import { TranslationKey } from "./i18n/dictionaries/en";
 
 export type ServiceCategory = "care_and_concierge" | "commercial_and_specialized_cleaning" | "premium_add_ons" | "residential_cleaning";
 
-export type PackageCategory =
+export type PackageCategory = 
+  | "all"
   | "deep_and_specialized_cleaning"
   | "general_interior_maintenance"
   | "lifestyle_and_home_care"
@@ -23,6 +24,7 @@ export const PACKAGE_CATEGORY_LABELS: Record<PackageCategory, TranslationKey> = 
   deep_and_specialized_cleaning: "CategoryDeepSpecialized",
   general_interior_maintenance: "CategoryGeneralInterior",
   lifestyle_and_home_care: "CategoryLifeStyle",
+  all: "CategoryAll",
   outdoor_and_exterior_spaces: "CategoryDeepOutDoor",
 
 };

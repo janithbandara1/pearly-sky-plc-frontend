@@ -2526,6 +2526,8 @@ export const en = {
   propVipBuilding: "VIP Building",
   serviceLableLuxuryYachtCleaning: "Yacht & Passenger Ship Cleaning",
 
+  CategoryAll:"All",
+
 
 } as const;
 

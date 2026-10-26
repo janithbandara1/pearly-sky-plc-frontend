@@ -76,10 +76,21 @@ export function JobCardSection({
     items: packages.filter((pkg) => pkg.category === id),
   })).filter((category) => category.items.length > 0);
 
-  if (categories.length === 0) return null;
+  const renderWithAllCategories = [
+    {
+    id: "all" as PackageCategory,
+    label: "All",
+    items: [...packages], // Fixed: correctly includes all packages instead of undefined item properties
+  },
+  ...categories,
+  
+];
+ console.log(renderWithAllCategories)
+
+  if (renderWithAllCategories.length === 0) return null;
 
   // Fallback to first category if none selected
-  const activeCategory = categories.find((c) => c.id === activeCategoryId) ?? categories[0];
+  const activeCategory = renderWithAllCategories.find((c) => c.id === activeCategoryId) ?? renderWithAllCategories[0];
   
   const getPackageItemLabel = (name: string) => {
     const mappedKey = categoryItemsMapping[name];
@@ -107,10 +118,10 @@ export function JobCardSection({
       <div className={`border-t py-6 ${isLight ? "border-t-[#D9DDE5]": "border-t-[#718096]/30"}`}>
         
         {/* Category Tabs Header: horizontally scrollable on mobile, grid/flex layout */}
-        <div className={`flex md:grid md:grid-cols-4 gap-2 mb-6 overflow-x-auto pb-2 scrollbar-none border-b ${
+        <div className={`flex md:grid md:grid-cols-5  gap-2 mb-6 overflow-x-auto pb-2 scrollbar-none border-b ${
           isLight ? "border-b-[#D9DDE5]" : "border-b-[#718096]/30"
         }`}>
-          {categories.map((category) => {
+          {renderWithAllCategories.map((category) => {
             const isActive = category.id === activeCategory.id;
             return (
               <button
