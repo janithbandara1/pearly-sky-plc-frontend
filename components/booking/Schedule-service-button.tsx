@@ -9,7 +9,7 @@ export default function ScheduleServiceButton({isLight}: {isLight?: boolean}){
         <button
               type="button"
               onClick={handleScrollToBooking}
-              className={`inline-flex items-center gap-2 px-5 mt-3 py-3 rounded-xl text-xs font-bold uppercase tracking-wider transition-all duration-300 ${
+              className={`inline-flex items-center justify-between gap-2 px-5 mt-3 py-3 rounded-xl text-xs font-bold uppercase tracking-wider transition-all duration-300 ${
                 isLight
                   ? "bg-[#002F6D] text-white hover:bg-[#002352] shadow-[0_4px_15px_rgba(0,47,109,0.25)] hover:shadow-[0_6px_20px_rgba(0,47,109,0.35)]"
                   : "bg-gradient-to-r from-[#FFD766] to-[#D8B63F] text-[#111C2E] hover:brightness-110 shadow-[0_4px_20px_rgba(255,215,102,0.3)] hover:shadow-[0_6px_25px_rgba(255,215,102,0.45)]"

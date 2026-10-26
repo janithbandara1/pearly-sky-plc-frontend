@@ -4,6 +4,9 @@ import { useLanguage } from "@/lib/i18n/language-context";
 import { useEffect, useRef, useState } from "react";
 import type { ComponentType } from "react";
 import type { TranslationKey } from "@/lib/i18n/dictionaries/en";
+import ScheduleServiceButton from "./booking/Schedule-service-button";
+import { COUNTRY_DISPLAY_NAMES } from "@/lib/countries/meta-templates";
+import { CountryCode } from "@/lib/countries/config";
 
 export interface HeroPriceOption {
   country: string;
@@ -84,15 +87,18 @@ function CountryPicker({
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
+  const {language} = useLanguage();
+
   return (
     <div className="relative text-left" ref={dropdownRef}>
       <button
         type="button"
         onClick={() => setIsOpen((previous) => !previous)}
-        className={`inline-flex items-center gap-2 rounded border-2 border-dashed border-[#A98B4B] bg-transparent p-1 px-2.5 text-xs font-semibold text-[rgb(169,139,75)] focus:outline-none ${placement === "mobile" ? "max-[541px]:border-white" : ""}`}
+        className={`inline-flex items-center gap-2 rounded border-2 border border-[#A98B4B] bg-transparent p-1 px-2.5 text-xs font-semibold text-gray-800 focus:outline-none ${placement === "mobile" ? "max-[541px]:border-white" : ""}`}
       >
         <SelectedFlag className="h-3.5 w-5 object-cover" />
-        <span className="ml-1 text-[10px] text-[rgb(169,139,75)]">▾</span>
+        <h2>{COUNTRY_DISPLAY_NAMES["fr"]?.[selectedCountryCode.toLowerCase() as CountryCode] || selectedCountryCode.toUpperCase()}</h2>
+        <span className="ml-1 text-[10px] text-black">▾</span>
       </button>
 
       {isOpen && (
@@ -109,7 +115,7 @@ function CountryPicker({
         </div>
       )}
       {isOpen && (
-        <div className="absolute block md:hidden -right-[150px] -top-28 max-h-[200px] z-50 mb-2 w-35 overflow-hidden rounded-l-lg border border-[rgb(169,139,75)]/40 bg-[rgb(18,30,45)] shadow-xl">
+        <div className="absolute block md:hidden -right-[50px] -top-10 max-h-[200px] z-50 mb-2 w-35 overflow-hidden rounded-l-lg border border-[rgb(169,139,75)]/40 bg-[rgb(18,30,45)] shadow-xl">
           <CountryOptions
             activePrices={activePrices}
             selectedCountryCode={selectedCountryCode}
@@ -137,12 +143,12 @@ export function HeroPriceSelector({
   const {translate} =useLanguage();
   return (
     <>
-      <div className="border font-serif absolute bottom-5 left-115 border-[rgba(212_175_55/0.3)] px-5 py-2.5 rounded-xl  bg-brand-navy   hidden flex-col items-center justify-start gap-2 md:flex sm:flex-row">
+      <div className="border font-serif absolute bottom-1 left-95 border-[rgba(212_175_55/0.3)] px-5 py-2.5 rounded-xl  bg-white   hidden flex-col items-center justify-center gap-2 md:flex sm:flex-row">
         <PriceLabel
           selectedData={selectedData}
-          className="text-medium font-semibold text-[#A98B4B] sm:text-2xl"
+          className="text-medium font-semibold text-gray-800 sm:text-2xl"
         />
-        <div className="flex gap-2">
+        <div className="flex gap-2 items-center justify-center">
           <CountryPicker
             activePrices={activePrices}
             selectedCountryCode={selectedCountryCode}
@@ -152,32 +158,45 @@ export function HeroPriceSelector({
             onCountryChange={onCountryChange}
             placement="desktop"
           />
-          <p className="m-0 font-serif  pl-2 text-base  leading-[1.5] font-bold text-[#997A15] [text-shadow:rgba(0,0,0,0.3)_0px_1px_4px]">
+          <p className="m-0 font-serif  pl-2 text-base  leading-[1.5] font-bold text-gray-800 [text-shadow:rgba(0,0,0,0.3)_0px_1px_4px]">
             {translate(unitLabelKey)}
           </p>
+          <div className="flex items-center justify-center mx-2">
+            <ScheduleServiceButton  />
+          </div>
         </div>
+        
       </div>
 
-      <div className="absolute border-[rgba(212_175_55/0.3)] bottom-30 left-8 z-14 my-4 flex w-[320px] flex-row items-center gap-1 rounded-lg bg-[rgb(18,30,45)] px-2 py-4 md:hidden">
-        <PriceLabel
-          selectedData={selectedData}
-          className="w-[40%] text-[0.65rem] font-semibold text-[#A98B4B] max-[541px]:text-base max-[541px]:text-white"
-        />
-        <div className="flex w-[80%] items-center justify-around gap-2 text-left">
-          <CountryPicker
-            activePrices={activePrices}
-            selectedCountryCode={selectedCountryCode}
-            selectedData={selectedData}
-            selectedFlag={selectedFlag}
-            getFlagComponent={getFlagComponent}
-            onCountryChange={onCountryChange}
-            placement="mobile"
-          />
-          <p className="m-0 wrap-break-word font-[Poppins] text-[0.85rem]  leading-[1.5] font-bold text-[#997A15] [text-shadow:rgba(0,0,0,0.3)_0px_1px_4px]">
-            {translate(unitLabelKey)}
-          </p>
+      <div className="absolute border-[rgba(212_175_55/0.3)] bottom-10 left-8 z-14 my-2 flex w-[330px] flex-col gap-1 rounded-lg bg-white px-2 py-1 md:hidden">
+        <div className="flex">
+          <div className="w-full">
+            <PriceLabel
+              selectedData={selectedData}
+              className="w-[100%] text-[0.65rem] font-semibold text-gray-800 max-[541px]:text-base "
+            />
+             <p className="m-0 wrap-break-word font-[Poppins] text-[11px]  leading-[1.5] font-bold text-gray-800 [text-shadow:rgba(0,0,0,0.3)_0px_1px_4px]">
+                {translate(unitLabelKey)}
+              </p>
+          </div>
+              
+          <div className="flex w-full items-center  text-left">
+              <CountryPicker
+                activePrices={activePrices}
+                selectedCountryCode={selectedCountryCode}
+                selectedData={selectedData}
+                selectedFlag={selectedFlag}
+                getFlagComponent={getFlagComponent}
+                onCountryChange={onCountryChange}
+                placement="mobile"
+              />
+          </div>
         </div>
+        
+          <ScheduleServiceButton  />
+        
       </div>
+      
     </>
   );
 }
