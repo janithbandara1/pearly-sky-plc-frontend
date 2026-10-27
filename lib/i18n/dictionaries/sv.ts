@@ -191,7 +191,8 @@ export const sv = {
   visionarydesignationsCUS: "Kundservice",
   visionarydesignationsFIN: "Finansavdelning",
 
-  serviceHighlightSectionHeader: "Checklista för standardpaketet",
+  serviceHighlightSectionHeader: "standardpaketet",
+  serviceChecklist:"Checklista för",
   serviceIntroBottomText: "Ställ in ditt återkommande schema",
   hourPerCleaner: "timme / per städare",
   hourPerProfessional: "timme / per yrkesperson",

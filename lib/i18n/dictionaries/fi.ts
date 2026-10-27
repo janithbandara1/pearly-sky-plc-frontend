@@ -192,6 +192,7 @@ export const fi = {
   visionarydesignationsFIN: "Talouden osasto",
 
   serviceHighlightSectionHeader: "Vakiopaketin tarkistuslista",
+  serviceChecklist:"tarkistuslista",
   serviceIntroBottomText: "Määritä toistuva aikataulusi",
   hourPerCleaner: "tuntia / siivooja",
   hourPerProfessional: "tuntia / ammattilainen",

@@ -937,7 +937,8 @@ export const fr = {
   cookieBannerAccept: "Accepter",
   cookieBannerReject: "Refuser",
 
-  serviceHighlightSectionHeader: "Checklist du Package Standard",
+  serviceHighlightSectionHeader: "Du Package Standard",
+  serviceChecklist:"Checklist ",
   serviceIntroBottomText: "Définissez votre calendrier récurrent",
   hourPerCleaner: "Heures Par Nettoyeur",
   hourPerProfessional: "Heures Par Professionnel",

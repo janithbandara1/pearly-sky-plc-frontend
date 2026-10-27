@@ -191,7 +191,8 @@ export const no = {
   visionarydesignationsCUS: "Kundeservice",
   visionarydesignationsFIN: "Finansavdeling",
 
-  serviceHighlightSectionHeader: "Sjekkliste for standardpakke",
+  serviceHighlightSectionHeader: " For standardpakke",
+   serviceChecklist:"Sjekkliste ",
   serviceIntroBottomText: "Sett opp din regelmessige timeplan",
   hourPerCleaner: "time / per renholder",
   hourPerProfessional: "time / per fagperson",

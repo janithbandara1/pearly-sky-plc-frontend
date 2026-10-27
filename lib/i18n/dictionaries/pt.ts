@@ -190,7 +190,8 @@ export const pt = {
   visionarydesignationsCUS: "Serviço ao Cliente",
   visionarydesignationsFIN: "Departamento Financeiro",
 
-  serviceHighlightSectionHeader: "Lista de Verificação do Pacote Padrão",
+  serviceHighlightSectionHeader: " Do Pacote Padrão",
+  serviceChecklist:"Lista de Verificação ",
   serviceIntroBottomText: "Defina o Seu Horário Recorrente",
   hourPerCleaner: "Hora Por Limpador",
   hourPerProfessional: "Hora Por Profissional",

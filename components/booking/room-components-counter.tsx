@@ -324,7 +324,7 @@ export default function RoomSelector({
                     ? "bg-white border-2 border-[#D8B63F] shadow-[0_4px_16px_rgba(216,182,63,0.2)] ring-1 ring-[#D8B63F]/30"
                     : "bg-[#1B2A40] border-2 border-[#FFD766] shadow-[0_0_15px_rgba(255,215,102,0.15)] ring-1 ring-[#FFD766]/30"
                   : isLight
-                  ? "bg-[#F7F5F0] border border-[#D9DDE5] hover:border-[#D8B63F] hover:bg-white hover:shadow-xs"
+                  ? " border border-[#D9DDE5] hover:border-[#D8B63F] hover:bg-white hover:shadow-xs"
                   : "bg-[#152238] border border-[#718096]/30 hover:border-[#FFD766]/50 hover:bg-[#1B2A40]"
               }`}
             >

@@ -191,7 +191,8 @@ export const pl = {
   visionarydesignationsCUS: "Obsługa klienta",
   visionarydesignationsFIN: "Dział finansowy",
 
-  serviceHighlightSectionHeader: "Lista kontrolna pakietu standardowego",
+  serviceHighlightSectionHeader: "pakietu standardowego",
+  serviceChecklist:"Lista kontrolna ",
   serviceIntroBottomText: "Ustaw swój regularny harmonogram",
   hourPerCleaner: "godzina / na sprzątacza",
   hourPerProfessional: "godzina / na specjalistę",

@@ -85,7 +85,7 @@ export function JobCardSection({
   ...categories,
   
 ];
- console.log(renderWithAllCategories)
+ 
 
   if (renderWithAllCategories.length === 0) return null;
 

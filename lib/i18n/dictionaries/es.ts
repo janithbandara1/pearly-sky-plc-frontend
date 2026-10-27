@@ -186,6 +186,7 @@ export const es = {
   visionarydesignationsFIN: "Departamento Financiero",
 
   serviceHighlightSectionHeader: "Lista de verificación del paquete estándar",
+  serviceChecklist:"Lista de verificación",
   serviceIntroBottomText: "Establezca su horario recurrente",
   hourPerCleaner: "Hora por limpiador",
   hourPerProfessional: "Hora por profesional",

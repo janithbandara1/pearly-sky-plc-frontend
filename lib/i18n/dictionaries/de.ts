@@ -194,6 +194,7 @@ export const de = {
   visionarydesignationsFIN: "Finanzabteilung",
 
   serviceHighlightSectionHeader: "Checkliste Standardpaket",
+  serviceChecklist:"Standardpaket",
   serviceIntroBottomText: "Legen Sie Ihren wiederkehrenden Zeitplan fest",
   hourPerCleaner: "Stunde pro Reinigungskraft",
   hourPerProfessional: "Stunde pro Fachkraft",

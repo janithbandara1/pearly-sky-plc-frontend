@@ -8,6 +8,7 @@ import {
   ServiceContentIntroBody,
 } from "@/lib/types/services-types/serives-content-types";
 import ScheduleServiceButton from "./Schedule-service-button";
+import { TranslationKey } from "@/lib/i18n/dictionaries/en";
 
 export interface ServiceIntroductionProps {
   headline: HeadLine;
@@ -97,18 +98,19 @@ export function ServiceIntroduction({
             >
               <span
                 className={`w-1.5 h-1.5 rounded-full ${
-                  isLight ? "bg-[#002F6D]" : "bg-[#FFD766] animate-pulse"
+                  isLight ? "bg-[#FFD766]" : "bg-[#FFD766] animate-pulse"
                 }`}
               />
               <span>PearlSky Distinction</span>
             </span>
           </div>
 
+              
           {/* Headline */}
           <h2
             className={`text-left text-2xl sm:text-3xl font-serif font-bold leading-snug sm:leading-snug md:leading-tight tracking-wide transition-colors ${
               isLight
-                ? "text-[#1A2238]"
+                ? "text-[#002F6D]"
                 : "text-[#FFD766] drop-shadow-[0_2px_10px_rgba(255,215,102,0.2)]"
             }`}
           >
@@ -139,20 +141,23 @@ export function ServiceIntroduction({
               <span
                 className={`w-2 h-2 rounded-full ${
                   isLight
-                    ? "bg-[#002F6D]"
+                    ? "bg-[#FFD766]"
                     : "bg-[#FFD766] shadow-[0_0_8px_rgba(255,215,102,0.8)]"
                 }`}
               />
               <p
                 className={`font-serif font-semibold text-sm sm:text-base tracking-wide ${
-                  isLight ? "text-[#002F6D]" : "text-[#FFD766]"
+                  isLight ? "text-[#d8b63f]" : "text-[#FFD766]"
                 }`}
               >
                 {translate("serviceIntroBottomText")}
               </p>
             </div>
-
-            <ScheduleServiceButton isLight={isLight} />
+            <div className="flex justify-center w-full">
+                <ScheduleServiceButton isLight={isLight} />
+            </div>
+                
+               
           </div>
         </div>
       </div>

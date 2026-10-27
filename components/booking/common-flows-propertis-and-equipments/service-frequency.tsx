@@ -335,6 +335,12 @@ export default function ServiceFrequencySelector({
         >
           Service Frequency & Privilege Savings
         </h2>
+        <div className="w-full flex md:justify-start justify-center">
+            <div className="h-1 w-7 bg-amber-400 flex justify-center"></div>
+        </div>
+        <p className={`text-[15px] md:text-[14px] font-serif mt-1 font-normal tracking-wide leading-tight ${
+            isLight ? "text-gray-400" : "text-white"
+          }`}>Choose How Often You would like your space cleaned and enjoy exclusive savings with our privilege plans.</p>
       </div>
 
       <div className={`border-t pt-5 sm:pt-8 ${isLight ? "border-[#D9DDE5]" : "border-[#718096]/30"}`}>

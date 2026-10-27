@@ -191,7 +191,8 @@ export const lb = {
   visionarydesignationsCUS: "Clientservice",
   visionarydesignationsFIN: "Finanze Departement",
 
-  serviceHighlightSectionHeader: "Standard-Pak Checklëscht",
+  serviceHighlightSectionHeader: "Standard-Pak ",
+  serviceChecklist:"Checklëscht ",
   serviceIntroBottomText: "Setzt Äre regelméissegen Zäitplang fest",
   hourPerCleaner: "Stonnen / pro Botzer",
   hourPerProfessional: "Stonnen / pro Fachpersonal",

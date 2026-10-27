@@ -191,7 +191,8 @@ export const ro = {
   visionarydesignationsCUS: "Serviciu clienți",
   visionarydesignationsFIN: "Departament financiar",
 
-  serviceHighlightSectionHeader: "Lista de verificare a pachetului standard",
+  serviceHighlightSectionHeader: " A pachetului standard",
+  serviceChecklist:"Lista de verificare ",
   serviceIntroBottomText: "Setează-ți programul regulat",
   hourPerCleaner: "oră / per curățător",
   hourPerProfessional: "oră / per profesionist",

@@ -119,6 +119,7 @@ import {
   CircleDot,
   Cpu,
   RotateCw,
+  Calculator,
 
 } from "lucide-react";
 
@@ -133,6 +134,8 @@ import { getPropertyCategoriesForService } from "../property-type-size-selector"
 import ServiceFrequencySelector from "./service-frequency";
 import { ServicePropertyCategoriesEnums } from "@/lib/booking-draft";
 import { set } from "zod";
+import { FaStopwatch } from "react-icons/fa";
+import { IoStopwatchOutline } from "react-icons/io5";
 
 export const CATEGORY_LABEL_KEYS: Record<string, TranslationKey> = {
   "Studio": "propStudio",
@@ -2186,7 +2189,7 @@ export function PropertyTypeSizeSelectorCommonFlowOfServices({
                         key={cat.id}
                         className={`rounded-full transition-all duration-300 ${
                           isActive
-                            ? `w-5 h-1.5 ${isLight ? "bg-[#D8B63F]" : "bg-[#FFD766]"}`
+                            ? `w-5 h-1.5 ${isLight ? "bg-[#D8B63F]" : "bg-[#FFD766]"} `
                             : `w-1.5 h-1.5 ${isLight ? "bg-[#D9DDE5]" : "bg-[#718096]"}`
                         }`}
                       />
@@ -2202,7 +2205,7 @@ export function PropertyTypeSizeSelectorCommonFlowOfServices({
                   }}
                   className={`w-8 h-8 rounded-full flex items-center justify-center transition-colors ${
                     isLight
-                      ? "bg-[#F7F5F0] hover:bg-[#D9DDE5] text-[#1A2238]"
+                      ? "bg-[#fff] hover:bg-[#fff] text-[#D8B63F] border border-[#D8B63F]"
                       : "bg-[#152238] hover:bg-[#1f3050] text-[#C3CDDC]"
                   }`}
                 >
@@ -2217,7 +2220,7 @@ export function PropertyTypeSizeSelectorCommonFlowOfServices({
                   }}
                   className={`w-8 h-8 rounded-full flex items-center justify-center transition-colors ${
                     isLight
-                      ? "bg-[#002F6D] hover:bg-[#002657] text-white"
+                      ? "bg-[#fff] hover:bg-[#fff] text-[#D8B63F] border border-[#D8B63F]"
                       : "bg-[#FFD766] hover:bg-[#f0c850] text-[#002F6D]"
                   }`}
                 >
@@ -2276,7 +2279,7 @@ export function PropertyTypeSizeSelectorCommonFlowOfServices({
                       {isSelected && (
                         <div className={`absolute top-2 right-2 w-6 h-6 rounded-full flex items-center justify-center ${
                           isLight
-                            ? "bg-[#D8B63F] text-white shadow-md"
+                            ? "bg-[#D8B63F] text-[#002F6D] shadow-md"
                             : "bg-[#FFD766] text-[#002F6D] shadow-md"
                         }`}>
                           <Check size={14} strokeWidth={3} />
@@ -2736,7 +2739,7 @@ export function PropertySizeSelector({
             onClick={() => setSizeUnit("m2")}
             className={`px-3.5 py-1 rounded-full text-xs font-bold transition-all cursor-pointer ${sizeUnit === "m2"
               ? isLight
-                ? "bg-[#002F6D] text-white shadow-md"
+                ? "bg-[#D8B63F] text-white shadow-md"
                 : "bg-[#FFD766] text-[#002F6D] font-bold shadow-md"
               : isLight
                 ? "text-[#687386] hover:text-[#1A2238]"
@@ -2762,257 +2765,260 @@ export function PropertySizeSelector({
         </div>
       </div>
 
-      {/* Display & Quick-Control Card */}
-      <div
-        className={`w-full py-5 rounded-2xl p-4 md:p-5 flex items-center justify-between gpa-2 md:gap-3 border transition-colors ${isLight ? "bg-[#F7F5F0] border-[#D9DDE5] shadow-sm" : "bg-[#152238] border-[#718096]/60"
-          }`}
-      >
-        {/* Left: House Icon & Size Values */}
-        <div className="flex items-center justify-between gap-3.5 md:gap-4 min-w-0">
-          <div
-            className={`w-8 h-8 md:w-14 md:h-14 rounded-2xl flex items-center justify-center shrink-0 border ${isLight ? "bg-white border-[#D9DDE5]" : "bg-[#1B2A40] border-[#718096]/60"
-              }`}
-          >
-            <Home className={`w-4 h-4 md:w-7 md:h-7 ${isLight ? "text-[#D8B63F]" : "text-[#FFD766]"}`} />
-          </div>
-          <div className="flex flex-col min-w-0 w-full">
-            <span
-              className={`text-[17px] md:text-3xl font-bold tracking-tight leading-none md:truncate ${isLight ? "text-[#1A2238]" : "text-white"
-                }`}
-            >
-              {sizeUnit === "m2" ? `${value.toLocaleString()} m²` : `${formatFt2(value)} ft²`}
-            </span>
-            <span className={`text-[10px] md:text-xs font-semibold mt-1 md:truncate ${isLight ? "text-[#D8B63F]" : "text-[#FFD766]"}`}>
-              {sizeUnit === "m2" ? `${formatFt2(value)} ft²` : `${value.toLocaleString()} m²`}
-            </span>
-          </div>
-        </div>
-
-        {/* Right: Minus Button, Size Dropdown Pill, Plus Button */}
-        <div className="flex items-center gap-2 md:gap-3 shrink-0">
-          {/* Minus button */}
-          <button
-            type="button"
-            onClick={() => handleStepChange(getStepAmount(value, false))}
-            disabled={value <= MIN_SIZE}
-            className={`w-7 h-7 md:w-11 md:h-11 rounded-full flex items-center justify-center font-bold text-lg cursor-pointer transition-all disabled:opacity-30 disabled:cursor-not-allowed shadow-md active:scale-95 ${isLight
-              ? "bg-white hover:bg-[#D9DDE5] text-[#1A2238] border border-[#D9DDE5]"
-              : "bg-[#1B2A40] hover:bg-[#253650] text-[#C3CDDC] border border-[#718096]/60"
-              }`}
-            aria-label="Decrease size"
-          >
-            <Minus className="w-4 h-4 md:w-5 md:h-5 stroke-[2.5]" />
-          </button>
-
-          {/* Size Pill with integrated select */}
-          <div
-            className={`relative rounded-xl border transition-colors ${isLight
-              ? "border-[#D9DDE5] bg-white hover:border-[#D8B63F]"
-              : "border-[#718096] bg-[#152238] hover:border-[#FFD766]"
-              }`}
-          >
-            <select
-              value={value}
-              onChange={(e) => {
-                const selectedVal = Number(e.target.value);
-                handleDirectSizeChange(selectedVal);
-              }}
-              className={`appearance-none md:px-3.5 px-2.5 py-2 md:py-2.5 font-semibold text-xs md:text-sm bg-transparent cursor-pointer focus:outline-none pr-4 md:pr-8 ${isLight ? "text-[#1A2238]" : "text-white"
-                }`}
-            >
-              {dropdownOptions.map((val) => (
-                <option
-                  key={val}
-                  value={val}
-                  className={isLight ? "bg-white text-[#1A2238]" : "bg-[#152238] text-white"}
-                >
-                  {sizeUnit === "m2" ? `${val.toLocaleString()} m²` : `${formatFt2(val)} ft²`}
-                </option>
-              ))}
-            </select>
-            <ChevronDown
-              className={`pointer-events-none absolute right-2.5 top-1/2 -translate-y-1/2 w-3.5 h-3.5 ${isLight ? "text-[#687386]" : "text-[#C3CDDC]"
-                }`}
-            />
-          </div>
-
-          {/* Plus button */}
-          <button
-            type="button"
-            onClick={() => handleStepChange(getStepAmount(value, true))}
-            disabled={value >= MAX_SIZE}
-            className={`w-7 h-7 md:w-11 md:h-11 rounded-full flex items-center justify-center font-bold text-lg cursor-pointer transition-all disabled:opacity-30 disabled:cursor-not-allowed shadow-md active:scale-95 ${
-              isLight
-                ? "bg-[#002F6D] hover:bg-[#002657] text-white"
-                : "bg-[#FFD766] hover:bg-[#f0c850] text-[#002F6D]"
+      <div className={`${isLight ? "border border-gray-300 p-3 rounded-xl":""}`}>        
+        {/* Display & Quick-Control Card */}
+        <div
+          className={`w-full py-5 rounded-2xl p-4 md:p-5 flex items-center justify-between gpa-2 md:gap-3  transition-colors 
+            ${isLight ? " " : "bg-[#152238] border border-[#718096]/60"
             }`}
-            aria-label="Increase size"
-          >
-            <Plus className="w-4 h-4 sm:w-5 sm:h-5 stroke-[3]" />
-          </button>
-        </div>
-      </div>
-
-      {/* Slider Track and Milestones */}
-      <div className="flex flex-col w-full ">
-        {/* Interactive Slider Bar */}
-        {(() => {
-          const sliderPercent = valueToSliderPercent(value, SIZE_MILESTONES);
-          return (
+        >
+          {/* Left: House Icon & Size Values */}
+          <div className="flex items-center justify-between gap-3.5 md:gap-4 min-w-0 ">
             <div
-              className={`relative w-full h-1.5 rounded-full my-3 flex items-center ${isLight ? "bg-[#D9DDE5]" : "bg-[#152238]"
+              className={`w-8 h-8 md:w-14 md:h-14 rounded-2xl flex items-center justify-center shrink-0 border ${isLight ? "bg-[#002657] border-[#D9DDE5]" : "bg-[#1B2A40] border-[#718096]/60"
                 }`}
             >
-              {/* Active Gradient Track */}
-              <div
-                className={`absolute top-0 left-0 h-full rounded-full ${
-                  isLight
-                    ? "bg-gradient-to-r from-[#D8B63F] to-[#edd06f]"
-                    : "bg-gradient-to-r from-[#e5b842] to-[#FFD766]"
-                }`}
-                style={{ width: `${sliderPercent}%` }}
-              />
-
-              {/* Glowing Thumb Handle */}
-              <div
-                className={`absolute top-1/2 -translate-y-1/2 -translate-x-1/2 w-6 h-6 rounded-full border border-white pointer-events-none transition-all duration-75 ${
-                  isLight
-                    ? "bg-gradient-to-b from-[#fff8cb] via-[#D8B63F] to-[#ab7c18] shadow-[0_0_14px_rgba(216,182,63,0.8)]"
-                    : "bg-gradient-to-b from-[#fff8cb] via-[#FFD766] to-[#ab7c18] shadow-[0_0_18px_rgba(255,215,102,0.95)]"
-                }`}
-                style={{ left: `${sliderPercent}%` }}
-              />
-
-              {/* Invisible Range Input for Full Touch/Mouse Interactivity */}
-              <input
-                type="range"
-                min={0}
-                max={100}
-                step={0.1}
-                value={sliderPercent}
-                onChange={(e) => {
-                  const nextVal = sliderPercentToValue(Number(e.target.value), SIZE_MILESTONES, isQuote);
-                  handleDirectSizeChange(nextVal);
-                }}
-                className="absolute inset-0 w-full h-8 -top-3 opacity-0 cursor-pointer z-10"
-                aria-label="Property size slider"
-              />
+              <Home className={`w-4 h-4 md:w-7 md:h-7 ${isLight ? "text-[#D8B63F] " : "text-[#FFD766]"}`} />
             </div>
-          );
-        })()}
-
-        {/* Milestone Indicators below Slider */}
-        <div className="flex justify-between items-center w-full mt-3 select-none">
-          {SIZE_MILESTONES.map((m, idx) => {
-            const isFirst = idx === 0;
-            const isLast = idx === SIZE_MILESTONES.length - 1;
-            const isCurrent = value === m;
-            return (
-              <button
-                key={m}
-                type="button"
-                onClick={() => handleDirectSizeChange(m)}
-                className={`flex flex-col cursor-pointer transition-colors group ${isFirst
-                  ? "items-start text-left"
-                  : isLast
-                    ? "items-end text-right"
-                    : "items-center text-center"
+            <div className="flex flex-col min-w-0 w-full">
+              <span
+                className={`text-[17px] md:text-3xl font-bold tracking-tight leading-none md:truncate ${isLight ? "text-[#1A2238]" : "text-white"
                   }`}
               >
-                <span
-                  className={`text-[10px] md:text-sm font-bold transition-colors ${isCurrent
-                    ? isLight
-                      ? "text-[#1A2238]"
-                      : "text-white"
-                    : isLight
-                      ? "text-[#687386] group-hover:text-[#1A2238]"
-                      : "text-[#C3CDDC] group-hover:text-white"
-                    }`}
-                >
-                  {m.toLocaleString()} m²
-                </span>
-                <span
-                  className={`text-[10px] sm:text-xs font-semibold transition-colors mt-0.5 ${isCurrent
-                    ? isLight
-                      ? "text-[#D8B63F]"
-                      : "text-[#FFD766]"
-                    : isLight
-                      ? "text-[#687386]/70 group-hover:text-[#1A2238]"
-                      : "text-[#C3CDDC]/70 group-hover:text-white"
-                    }`}
-                >
-                  {formatFt2(m)} ft²
-                </span>
-              </button>
-            );
-          })}
+                {sizeUnit === "m2" ? `${value.toLocaleString()} m²` : `${formatFt2(value)} ft²`}
+              </span>
+              <span className={`text-[10px] md:text-xs font-semibold mt-1 md:truncate ${isLight ? "text-[#D8B63F]" : "text-[#FFD766]"}`}>
+                {sizeUnit === "m2" ? `${formatFt2(value)} ft²` : `${value.toLocaleString()} m²`}
+              </span>
+            </div>
+          </div>
+
+          {/* Right: Minus Button, Size Dropdown Pill, Plus Button */}
+          <div className="flex items-center gap-2 md:gap-3 shrink-0">
+            {/* Minus button */}
+            <button
+              type="button"
+              onClick={() => handleStepChange(getStepAmount(value, false))}
+              disabled={value <= MIN_SIZE}
+              className={`w-7 h-7 md:w-11 md:h-11 rounded-full flex items-center justify-center font-bold text-lg cursor-pointer transition-all disabled:opacity-30 disabled:cursor-not-allowed shadow-md active:scale-95 ${isLight
+                ? "bg-white hover:bg-[#D9DDE5] text-[#1A2238] border border-[#D9DDE5]"
+                : "bg-[#1B2A40] hover:bg-[#253650] text-[#C3CDDC] border border-[#718096]/60"
+                }`}
+              aria-label="Decrease size"
+            >
+              <Minus className="w-4 h-4 md:w-5 md:h-5 stroke-[2.5]" />
+            </button>
+
+            {/* Size Pill with integrated select */}
+            <div
+              className={`relative rounded-xl border transition-colors ${isLight
+                ? "border-[#D9DDE5] bg-white hover:border-[#D8B63F]"
+                : "border-[#718096] bg-[#152238] hover:border-[#FFD766]"
+                }`}
+            >
+              <select
+                value={value}
+                onChange={(e) => {
+                  const selectedVal = Number(e.target.value);
+                  handleDirectSizeChange(selectedVal);
+                }}
+                className={`appearance-none md:px-3.5 px-2.5 py-2 md:py-2.5 font-semibold text-xs md:text-sm bg-transparent cursor-pointer focus:outline-none pr-4 md:pr-8 ${isLight ? "text-[#1A2238]" : "text-white"
+                  }`}
+              >
+                {dropdownOptions.map((val) => (
+                  <option
+                    key={val}
+                    value={val}
+                    className={isLight ? "bg-white text-[#1A2238]" : "bg-[#152238] text-white"}
+                  >
+                    {sizeUnit === "m2" ? `${val.toLocaleString()} m²` : `${formatFt2(val)} ft²`}
+                  </option>
+                ))}
+              </select>
+              <ChevronDown
+                className={`pointer-events-none absolute right-2.5 top-1/2 -translate-y-1/2 w-3.5 h-3.5 ${isLight ? "text-[#687386]" : "text-[#C3CDDC]"
+                  }`}
+              />
+            </div>
+
+            {/* Plus button */}
+            <button
+              type="button"
+              onClick={() => handleStepChange(getStepAmount(value, true))}
+              disabled={value >= MAX_SIZE}
+              className={`w-7 h-7 md:w-11 md:h-11 rounded-full flex items-center justify-center font-bold text-lg cursor-pointer transition-all disabled:opacity-30 disabled:cursor-not-allowed shadow-md active:scale-95 ${
+                isLight
+                  ? "bg-[#D8B63F] hover:bg-[#f0c850] text-white"
+                  : "bg-[#FFD766] hover:bg-[#f0c850] text-[#002F6D]"
+              }`}
+              aria-label="Increase size"
+            >
+              <Plus className="w-4 h-4 sm:w-5 sm:h-5 stroke-[3]" />
+            </button>
+          </div>
         </div>
-      </div>
 
-      {/* Bottom Action Buttons: Increase Size & Decrease Size */}
-      <div className="grid grid-cols-2 gap-3.5 w-full mt-1">
-        {/* Increase Size Card */}
-        <button
-          type="button"
-          onClick={() => handleStepChange(bottomStep)}
-          disabled={value >= MAX_SIZE}
-          className={`rounded-2xl border p-4 sm:p-5 flex items-center gap-3.5 transition-all text-left cursor-pointer disabled:opacity-40 disabled:cursor-not-allowed group active:scale-[0.98] ${isLight
-            ? "bg-[#F7F5F0] border-[#D9DDE5] hover:border-[#D8B63F] shadow-sm text-[#1A2238]"
-            : "bg-[#152238] border-[#718096]/60 hover:border-[#FFD766] text-white"
-            }`}
-        >
-          <div
-            className={`w-7 h-7 md:w-11 md:h-11 rounded-full flex items-center justify-center transition-colors shrink-0 ${isLight
-              ? "bg-white text-[#002F6D] group-hover:bg-[#002F6D] group-hover:text-white shadow-sm"
-              : "bg-[#1B2A40] text-[#FFD766] group-hover:bg-[#FFD766] group-hover:text-[#002F6D]"
+        {/* Slider Track and Milestones */}
+        <div className="flex flex-col w-full ">
+          {/* Interactive Slider Bar */}
+          {(() => {
+            const sliderPercent = valueToSliderPercent(value, SIZE_MILESTONES);
+            return (
+              <div
+                className={`relative w-full h-1.5 rounded-full my-3 flex items-center ${isLight ? "bg-[#D9DDE5]" : "bg-[#152238]"
+                  }`}
+              >
+                {/* Active Gradient Track */}
+                <div
+                  className={`absolute top-0 left-0 h-full rounded-full ${
+                    isLight
+                      ? "bg-gradient-to-r from-[#D8B63F] to-[#edd06f]"
+                      : "bg-gradient-to-r from-[#e5b842] to-[#FFD766]"
+                  }`}
+                  style={{ width: `${sliderPercent}%` }}
+                />
+
+                {/* Glowing Thumb Handle */}
+                <div
+                  className={`absolute top-1/2 -translate-y-1/2 -translate-x-1/2 w-6 h-6 rounded-full border border-white pointer-events-none transition-all duration-75 ${
+                    isLight
+                      ? "bg-gradient-to-b from-[#fff8cb] via-[#D8B63F] to-[#ab7c18] shadow-[0_0_14px_rgba(216,182,63,0.8)]"
+                      : "bg-gradient-to-b from-[#fff8cb] via-[#FFD766] to-[#ab7c18] shadow-[0_0_18px_rgba(255,215,102,0.95)]"
+                  }`}
+                  style={{ left: `${sliderPercent}%` }}
+                />
+
+                {/* Invisible Range Input for Full Touch/Mouse Interactivity */}
+                <input
+                  type="range"
+                  min={0}
+                  max={100}
+                  step={0.1}
+                  value={sliderPercent}
+                  onChange={(e) => {
+                    const nextVal = sliderPercentToValue(Number(e.target.value), SIZE_MILESTONES, isQuote);
+                    handleDirectSizeChange(nextVal);
+                  }}
+                  className="absolute inset-0 w-full h-8 -top-3 opacity-0 cursor-pointer z-10"
+                  aria-label="Property size slider"
+                />
+              </div>
+            );
+          })()}
+
+          {/* Milestone Indicators below Slider */}
+          <div className="flex justify-between items-center w-full mt-3 select-none">
+            {SIZE_MILESTONES.map((m, idx) => {
+              const isFirst = idx === 0;
+              const isLast = idx === SIZE_MILESTONES.length - 1;
+              const isCurrent = value === m;
+              return (
+                <button
+                  key={m}
+                  type="button"
+                  onClick={() => handleDirectSizeChange(m)}
+                  className={`flex flex-col cursor-pointer transition-colors group ${isFirst
+                    ? "items-start text-left"
+                    : isLast
+                      ? "items-end text-right"
+                      : "items-center text-center"
+                    }`}
+                >
+                  <span
+                    className={`text-[10px] md:text-sm font-bold transition-colors ${isCurrent
+                      ? isLight
+                        ? "text-[#1A2238]"
+                        : "text-white"
+                      : isLight
+                        ? "text-[#687386] group-hover:text-[#1A2238]"
+                        : "text-[#C3CDDC] group-hover:text-white"
+                      }`}
+                  >
+                    {m.toLocaleString()} m²
+                  </span>
+                  <span
+                    className={`text-[10px] sm:text-xs font-semibold transition-colors mt-0.5 ${isCurrent
+                      ? isLight
+                        ? "text-[#D8B63F]"
+                        : "text-[#FFD766]"
+                      : isLight
+                        ? "text-[#687386]/70 group-hover:text-[#1A2238]"
+                        : "text-[#C3CDDC]/70 group-hover:text-white"
+                      }`}
+                  >
+                    {formatFt2(m)} ft²
+                  </span>
+                </button>
+              );
+            })}
+          </div>
+        </div>
+
+        {/* Bottom Action Buttons: Increase Size & Decrease Size */}
+        <div className="grid grid-cols-2 gap-3.5 w-full mt-1">
+          {/* Increase Size Card */}
+          <button
+            type="button"
+            onClick={() => handleStepChange(bottomStep)}
+            disabled={value >= MAX_SIZE}
+            className={`rounded-2xl border p-4 sm:p-5 flex items-center gap-3.5 transition-all text-left cursor-pointer disabled:opacity-40 disabled:cursor-not-allowed group active:scale-[0.98] ${isLight
+              ? "bg-[#F7F5F0] border-[#D9DDE5] hover:border-[#D8B63F] shadow-sm text-[#1A2238]"
+              : "bg-[#152238] border-[#718096]/60 hover:border-[#FFD766] text-white"
               }`}
           >
-            <ArrowUp className="w-4 h-4 md:w-5 md:h-5 stroke-[2.5]" />
-          </div>
-          <div className="flex flex-col max-w-full">
-            <span
-              className={`text-[10px] md:text-base font-bold leading-tight ${isLight ? "text-[#1A2238]" : "text-white"
+            <div
+              className={`w-7 h-7 md:w-11 md:h-11 rounded-full flex items-center justify-center transition-colors shrink-0 ${isLight
+                ? "bg-white text-[#002F6D] group-hover:bg-[#002F6D] group-hover:text-white shadow-sm"
+                : "bg-[#1B2A40] text-[#FFD766] group-hover:bg-[#FFD766] group-hover:text-[#002F6D]"
                 }`}
             >
-              {"Increase Size"}
-            </span>
-            <span className={`text-xs mt-1 font-medium ${isLight ? "text-[#687386]" : "text-[#C3CDDC]"}`}>
-              + {bottomStep.toLocaleString()} m²
-            </span>
-          </div>
-        </button>
+              <ArrowUp className="w-4 h-4 md:w-5 md:h-5 stroke-[2.5]" />
+            </div>
+            <div className="flex flex-col max-w-full">
+              <span
+                className={`text-[10px] md:text-base font-bold leading-tight ${isLight ? "text-[#1A2238]" : "text-white"
+                  }`}
+              >
+                {"Increase Size"}
+              </span>
+              <span className={`text-xs mt-1 font-medium ${isLight ? "text-[#687386]" : "text-[#C3CDDC]"}`}>
+                + {bottomStep.toLocaleString()} m²
+              </span>
+            </div>
+          </button>
 
-        {/* Decrease Size Card */}
-        <button
-          type="button"
-          onClick={() => handleStepChange(-bottomStep)}
-          disabled={value <= MIN_SIZE}
-          className={`rounded-2xl border p-4 sm:p-5 flex items-center gap-3.5 transition-all text-left cursor-pointer disabled:opacity-40 disabled:cursor-not-allowed group active:scale-[0.98] ${isLight
-            ? "bg-[#F7F5F0] border-[#D9DDE5] hover:border-[#D8B63F] shadow-sm text-[#1A2238]"
-            : "bg-[#152238] border-[#718096]/60 hover:border-[#FFD766] text-white"
-            }`}
-        >
-          <div
-            className={`w-7 h-7 md:w-11 md:h-11 rounded-full flex items-center justify-center transition-colors shrink-0 ${isLight
-              ? "bg-white text-[#002F6D] group-hover:bg-[#002F6D] group-hover:text-white shadow-sm"
-              : "bg-[#1B2A40] text-[#FFD766] group-hover:bg-[#FFD766] group-hover:text-[#002F6D]"
+          {/* Decrease Size Card */}
+          <button
+            type="button"
+            onClick={() => handleStepChange(-bottomStep)}
+            disabled={value <= MIN_SIZE}
+            className={`rounded-2xl border p-4 sm:p-5 flex items-center gap-3.5 transition-all text-left cursor-pointer disabled:opacity-40 disabled:cursor-not-allowed group active:scale-[0.98] ${isLight
+              ? "bg-[#F7F5F0] border-[#D9DDE5] hover:border-[#D8B63F] shadow-sm text-[#1A2238]"
+              : "bg-[#152238] border-[#718096]/60 hover:border-[#FFD766] text-white"
               }`}
           >
-            <ArrowDown className="w-4 h-4 md:w-5 md:h-5 stroke-[2.5]" />
-          </div>
-          <div className="flex flex-col">
-            <span
-              className={`text-[10px] md:text-base font-bold leading-tight ${isLight ? "text-[#1A2238]" : "text-white"
+            <div
+              className={`w-7 h-7 md:w-11 md:h-11 rounded-full flex items-center justify-center transition-colors shrink-0 ${isLight
+                ? "bg-white text-[#002F6D] group-hover:bg-[#002F6D] group-hover:text-white shadow-sm"
+                : "bg-[#1B2A40] text-[#FFD766] group-hover:bg-[#FFD766] group-hover:text-[#002F6D]"
                 }`}
             >
-              {"Decrease Size"}
-            </span>
-            <span className={`text-xs mt-1 font-medium ${isLight ? "text-[#687386]" : "text-[#C3CDDC]"}`}>
-              - {bottomStep.toLocaleString()} m²
-            </span>
-          </div>
-        </button>
-      </div>
+              <ArrowDown className="w-4 h-4 md:w-5 md:h-5 stroke-[2.5]" />
+            </div>
+            <div className="flex flex-col">
+              <span
+                className={`text-[10px] md:text-base font-bold leading-tight ${isLight ? "text-[#1A2238]" : "text-white"
+                  }`}
+              >
+                {"Decrease Size"}
+              </span>
+              <span className={`text-xs mt-1 font-medium ${isLight ? "text-[#687386]" : "text-[#C3CDDC]"}`}>
+                - {bottomStep.toLocaleString()} m²
+              </span>
+            </div>
+          </button>
+        </div>
+      </div> 
     </div>
   );
 }
@@ -3131,7 +3137,7 @@ export function EstimatioMatrixBottom({
         {/* Card 1: Property Scale / Target Area */}
         <div className={`flex w-full flex-col items-center justify-center p-3.5 md:p-4 rounded-xl border transition-colors duration-300 ${
           isLight 
-            ? "bg-[#F7F5F0] border-[#D8B63F] text-[#1A2238]" 
+            ? "bg-[#fff] shadow-md border-gray-300 text-[#1A2238]" 
             : "bg-[rgb(0_0_0/0.5)] border-[#FFD766]/60 text-white"
         }`}>
           <Maximize2 className={`w-4 h-4 mb-2 ${isLight ? "text-[#D8B63F]" : "text-[#FFD766]"}`} />
@@ -3139,7 +3145,7 @@ export function EstimatioMatrixBottom({
             PROPERTY SCALE
           </p>
           <p className={`text-[10px] md:text-[18px] font-bold tracking-wide ${isLight ? "text-[#1A2238]" : "text-white"}`}>
-            {surfaceMatrixes.serviceTargetArea.split(" ")[0]} m² 
+            {surfaceMatrixes.serviceTargetArea} m² 
           </p>
           <p className={`text-[10px] font-sans mt-0.5 ${isLight ? "text-[#687386]" : "text-[#C3CDDC]"}`}>
             {surfaceMatrixes.serviceTargetArea}
@@ -3149,7 +3155,7 @@ export function EstimatioMatrixBottom({
         {/* Card 2: Total Duration / Est Labor */}
         <div className={`flex  flex-col items-center justify-center p-3.5 md:p-4 rounded-xl border transition-colors duration-300 ${
           isLight 
-            ? "bg-[#F7F5F0] border-[#D8B63F] text-[#1A2238]" 
+            ? "bg-[#fff] shadow-md border-gray-300 text-[#1A2238]" 
             : "bg-[rgb(0_0_0/0.5)] border-[#FFD766]/60 text-white"
         }`}>
           <Clock className={`w-4 h-4 mb-2 ${isLight ? "text-[#D8B63F]" : "text-[#FFD766]"}`} />
@@ -3165,7 +3171,7 @@ export function EstimatioMatrixBottom({
         {/* Card 3: Allocated Staff */}
         <div className={`flex flex-col items-center justify-center p-3.5 md:p-4 rounded-xl border transition-colors duration-300 ${
           isLight 
-            ? "bg-[#F7F5F0] border-[#D8B63F] text-[#1A2238]" 
+            ? "bg-[#fff] shadow-md border-gray-300 text-[#1A2238]" 
             : "bg-[rgb(0_0_0/0.5)] border-[#FFD766]/60 text-white"
         }`}>
           <Users className={`w-4 h-4 mb-2 ${isLight ? "text-[#D8B63F]" : "text-[#FFD766]"}`} />
@@ -3185,7 +3191,7 @@ export function EstimatioMatrixBottom({
         {/* Card 4: On-Site Window */}
         <div className={`flex flex-col items-center justify-center p-3.5 md:p-4 rounded-xl border transition-colors duration-300 ${
           isLight 
-            ? "bg-[#F7F5F0] border-[#D8B63F] text-[#1A2238]" 
+            ? "bg-[#fff] shadow-md border-gray-300 text-[#1A2238]" 
             : "bg-[rgb(0_0_0/0.5)] border-[#FFD766]/60 text-white"
         }`}>
           <Calendar className={`w-4 h-4 mb-2 ${isLight ? "text-[#D8B63F]" : "text-[#FFD766]"}`} />
@@ -3298,20 +3304,12 @@ export function SanitizeSizeVisualization({
         backgroundSize: "24px 24px",
       }}
     >
-      {/* Top Header & Blueprint Toggle */}
-      <div className={`w-full flex flex-col sm:flex-row items-center justify-between pb-3 mb-4 gap-3 border-b ${isLight ? "border-[#D8B63F]" : "border-[#D8B63F]"
-        }`}>
-        <div className="flex w-full flex-col md:flex-row justify-between items-center space-x-3">
-          {/* <div>
-            <h3 className={`text-xs sm:text-sm font-bold tracking-widest uppercase ${isLight ? "text-[#8C6D2D]" : "text-[#E6D5B8]"
-              }`}>
-              VESSEL DECK PLAN TEMPLATES
-            </h3>
-            <p className={`text-[10px] tracking-wider ${isLight ? "text-[#A37F38]" : "text-[#C5A059]/80"
-              }`}>
-              {value} m² • {formatFt2(value)} ft² | GRID DIMENSIONS: {span}m × {depth}m
-            </p>
-          </div> */}
+      <div className={`flex md:flex-row my-2 py-3 flex-col border-b ${isLight ? "border-[#D8B63F]" : "border-[#D8B63F]"
+          }`}>
+                {/* Top Header & Blueprint Toggle */}
+      <div className={`w-full flex flex-col  items-center justify-between pb-3 mb-4 gap-3 `}>
+        <div className="flex w-full flex-col  justify-between items-center space-x-3">
+          
           <div className={`p-2 transition-colors duration-200 ${isLight ? ' text-slate-900' : ' text-white'}`}>
       
             {/* Subtitle/Eyebrow with an icon and green accent */}
@@ -3329,269 +3327,598 @@ export function SanitizeSizeVisualization({
 
 
           </div>
-          <button
-          
-            className={`inline-flex max-w-full items-center gap-2.5 px-4 py-2 rounded-[12px] border text-sm font-medium transition-colors duration-200 ${
-              isLight
-                ? 'bg-slate-50 border-slate-200 text-slate-800 hover:bg-slate-100'
-                : 'bg-[#0f172a] border-slate-500 text-slate-200 hover:bg-slate-800/60'
-            }`}
-          > 
-            <RotateCw className="w-4 h-4 animate-spin text-amber-400" />
+           <button
             
-            <span>Live Spatial Projection</span>
-          </button>
+              className={`flex w-[97%] md:mr-2  gap-2.5 px-4 py-3 rounded-[12px] border text-sm font-medium transition-colors duration-200 ${
+                isLight
+                  ? 'bg-[#002F6D] border-slate-200 text-white '
+                  : 'bg-[#0f172a] border-slate-500 text-slate-200 hover:bg-slate-800/60'
+              }`}
+            > 
+              <RotateCw className="w-4 h-4 animate-spin text-amber-400" />
+              
+              <span>Live Spatial Projection</span>
+            </button>
         </div>
       </div>
 
-      <div className={`relative w-full border border-[#C5A059] rounded-xl p-2 sm:p-4 overflow-hidden transition-all duration-300 ${isLight
-        ? "bg-white/90 backdrop-blur-md"
-        : "bg-[#050505]/95 backdrop-blur-sm"
-        }`}>
-        <div className="flex items-center w-full">
-          <div className="flex-1 min-w-0 max-h-[250px] sm:max-h-[270px] md:max-h-[420px] flex items-center justify-center">
-            {isResidential ? (
+      {/* Architectural Blueprint Diagram */}
+          <div
+            className={`relative w-full overflow-hidden rounded-xl border p-2 transition-all duration-300 ${
+              isLight
+                ? "border-[#164D68] bg-[#061323]"
+                : "border-[#C5A059] bg-[#050505]/95 backdrop-blur-sm"
+            }`}
+          >
+            {isLight ? (
+              /* LIGHT MODE — APARTMENT BLUEPRINT */
               <svg
-                viewBox={BLUEPRINT_VIEWBOX}
-                className="w-full h-full max-h-[220px] sm:max-h-[260px] md:max-h-[420px] object-contain"
+                viewBox="0 0 550 390"
+                className="h-auto w-full"
+                role="img"
+                aria-label="Apartment floor plan blueprint"
               >
                 <defs>
-                  <pattern id="dotGridRes" x="0" y="0" width="32" height="32" patternUnits="userSpaceOnUse">
-                    <circle cx="4" cy="4" r="1.6" fill="#C5A059" opacity={isLight ? "0.75" : "0.65"} />
+                  <pattern
+                    id="apartmentGrid"
+                    width="20"
+                    height="20"
+                    patternUnits="userSpaceOnUse"
+                  >
+                    <path
+                      d="M 20 0 L 0 0 0 20"
+                      fill="none"
+                      stroke="#12344A"
+                      strokeWidth="0.7"
+                    />
+                    <circle cx="0" cy="0" r="1" fill="#16445B" />
                   </pattern>
+
+                  <filter id="cyanGlow">
+                    <feGaussianBlur stdDeviation="2" result="blur" />
+                    <feMerge>
+                      <feMergeNode in="blur" />
+                      <feMergeNode in="SourceGraphic" />
+                    </feMerge>
+                  </filter>
                 </defs>
 
-                {/* Full background coverage for the dot matrix */}
-                <rect x="-50" y="-50" width="1100" height="800" fill="url(#dotGridRes)" />
+                {/* Blueprint background */}
+                <rect width="550" height="390" fill="#061323" />
+                <rect width="550" height="390" fill="url(#apartmentGrid)" />
 
-                <BlueprintDimensions span={span} depth={depth} />
-                <rect x="50" y="50" width="850" height="630" rx="12" fill={isLight ? "rgba(255, 255, 255, 0.4)" : "rgba(5, 5, 5, 0.6)"} stroke="#C5A059" strokeWidth="3.5" strokeDasharray="6 4" opacity="0.85" />
+                {/* Frame */}
+                <rect
+                  x="16"
+                  y="12"
+                  width="518"
+                  height="366"
+                  rx="20"
+                  fill="none"
+                  stroke="#164D68"
+                  strokeWidth="1.5"
+                />
 
-                <g stroke="#C5A059" strokeWidth="2.8" fill="none" strokeDasharray="5 3">
-                  <line x1="50" y1="310" x2="360" y2="310" />
-                  <line x1="360" y1="50" x2="360" y2="310" />
-                  <line x1="360" y1="310" x2="620" y2="310" />
-                  <line x1="620" y1="50" x2="620" y2="310" />
-                  <line x1="730" y1="310" x2="900" y2="310" />
-                  <line x1="730" y1="310" x2="730" y2="460" />
-                  <line x1="620" y1="460" x2="900" y2="460" />
-                  <line x1="620" y1="590" x2="900" y2="590" />
-                  <line x1="620" y1="460" x2="620" y2="590" />
-                  <line x1="360" y1="410" x2="520" y2="410" />
-                  <line x1="360" y1="410" x2="360" y2="680" />
-                  <line x1="520" y1="480" x2="520" y2="680" />
-                  <path d="M 420 680 L 420 730 L 530 730 L 530 680" />
+                {/* Top dimension */}
+                <g
+                  stroke="#168DB5"
+                  strokeWidth="1"
+                  fill="none"
+                >
+                  <line x1="75" y1="36" x2="475" y2="36" />
+                  <line x1="75" y1="31" x2="75" y2="41" />
+                  <line x1="475" y1="31" x2="475" y2="41" />
                 </g>
 
-                <g fill={isLight ? "rgba(197, 160, 89, 0.12)" : "rgba(197, 160, 89, 0.05)"}>
-                  <rect x="54" y="54" width="304" height="254" />
-                  <rect x="364" y="54" width="254" height="254" />
-                  <rect x="624" y="54" width="274" height="254" />
-                  <rect x="54" y="314" width="304" height="362" />
-                  <rect x="364" y="414" width="154" height="262" />
-                  <rect x="624" y="464" width="274" height="212" />
-                  <rect x="734" y="314" width="164" height="144" />
+                <text
+                  x="275"
+                  y="29"
+                  fill="#75DDF5"
+                  fontSize="10"
+                  fontFamily="monospace"
+                  textAnchor="middle"
+                  letterSpacing="1"
+                >
+                  {(Math.sqrt(value) * 1.18).toFixed(1)} m SPAN WIDTH
+                </text>
+
+                {/* Left dimension */}
+                <g stroke="#168DB5" strokeWidth="1" fill="none">
+                  <line x1="43" y1="70" x2="43" y2="330" />
+                  <line x1="38" y1="70" x2="48" y2="70" />
+                  <line x1="38" y1="330" x2="48" y2="330" />
                 </g>
 
-                <g stroke="#C5A059" strokeWidth="1.8" fill="none" opacity="0.95" strokeDasharray="4 3">
-                  <rect x="80" y="80" width="110" height="130" rx="6" strokeDasharray="4 2" />
-                  <rect x="75" y="240" width="180" height="35" rx="4" />
-                  <circle cx="310" cy="80" r="12" strokeWidth="1.5" />
-                  <rect x="390" y="85" width="100" height="120" rx="6" />
-                  <rect x="520" y="70" width="35" height="40" rx="4" />
-                  <rect x="660" y="85" width="110" height="120" rx="6" />
-                  <rect x="800" y="220" width="80" height="45" rx="4" />
-                  <path d="M 80 500 L 80 620 L 280 620 L 280 560 L 130 560 L 130 500 Z" />
-                  <rect x="150" y="580" width="50" height="30" rx="4" />
-                  <rect x="150" y="350" width="120" height="20" rx="3" />
-                  <rect x="400" y="500" width="80" height="120" rx="6" />
-                  <rect x="380" y="515" width="15" height="25" rx="2" />
-                  <rect x="380" y="575" width="15" height="25" rx="2" />
-                  <rect x="485" y="515" width="15" height="25" rx="2" />
-                  <rect x="485" y="575" width="15" height="25" rx="2" />
-                  <path d="M 640 480 L 870 480 L 870 650 L 640 650" strokeDasharray="6 3" />
-                  <rect x="700" y="530" width="90" height="60" rx="4" />
-                  <ellipse cx="780" cy="365" rx="15" ry="10" strokeWidth="1.5" />
-                  <rect x="830" y="355" width="25" height="35" rx="4" strokeWidth="1.5" />
+                <text
+                  x="34"
+                  y="200"
+                  fill="#75DDF5"
+                  fontSize="10"
+                  fontFamily="monospace"
+                  textAnchor="middle"
+                  transform="rotate(-90 34 200)"
+                >
+                  {(Math.sqrt(value) * 0.82).toFixed(1)} m DEPTH
+                </text>
+
+                {/* Apartment floor area */}
+                <rect
+                  x="76"
+                  y="70"
+                  width="398"
+                  height="260"
+                  rx="5"
+                  fill="rgba(0, 190, 239, 0.035)"
+                  stroke="#00D9FF"
+                  strokeWidth="2.4"
+                  filter="url(#cyanGlow)"
+                />
+
+                {/* Room backgrounds */}
+                <g fill="rgba(0, 190, 239, 0.035)">
+                  <rect x="78" y="72" width="137" height="115" />
+                  <rect x="233" y="72" width="113" height="115" />
+                  <rect x="349" y="72" width="123" height="115" />
+                  <rect x="78" y="199" width="137" height="129" />
+                  <rect x="233" y="244" width="71" height="84" />
+                  <rect x="349" y="265" width="123" height="63" />
                 </g>
 
-                <g stroke="#C5A059" strokeWidth="1.5" fill="none" opacity="0.85" strokeDasharray="3 3">
-                  <path d="M 360 260 A 40 40 0 0 1 320 220" />
-                  <line x1="360" y1="260" x2="360" y2="220" />
-                  <path d="M 520 310 A 40 40 0 0 1 480 270" />
-                  <path d="M 680 310 A 40 40 0 0 0 720 270" />
-                  <path d="M 730 380 A 35 35 0 0 1 765 345" />
-                  <path d="M 450 680 A 30 30 0 0 1 480 650" />
+                {/* Main walls */}
+                <g
+                  stroke="#00BFEF"
+                  strokeWidth="2"
+                  fill="none"
+                  strokeLinecap="round"
+                >
+                  <path d="M 231 72 V 197" />
+                  <path d="M 348 72 V 197" />
+                  <path d="M 78 197 H 231" />
+                  <path d="M 231 197 H 348" />
+                  <path d="M 78 197 V 330" />
+                  <path d="M 231 244 H 303 V 330" />
+                  <path d="M 348 197 H 474" />
+                  <path d="M 397 197 V 265" />
+                  <path d="M 348 265 H 474" />
+                  <path d="M 348 265 V 330" />
                 </g>
 
-                <g fontFamily="monospace">
-                  <text x="200" y="170" fill={isLight ? "#594211" : "#FFF3D6"} fontSize="16" fontWeight="bold" textAnchor="middle">MASTER BEDROOM</text>
-                  <text x="200" y="195" fill={isLight ? "#9E7A32" : "#C5A059"} fontSize="13" fontWeight="600" textAnchor="middle">{masterBedArea} m²</text>
-                  <text x="490" y="170" fill={isLight ? "#594211" : "#FFF3D6"} fontSize="15" fontWeight="bold" textAnchor="middle">NORTH BEDROOM</text>
-                  <text x="490" y="195" fill={isLight ? "#9E7A32" : "#C5A059"} fontSize="13" fontWeight="600" textAnchor="middle">{northBedArea} m²</text>
-                  <text x="760" y="170" fill={isLight ? "#594211" : "#FFF3D6"} fontSize="15" fontWeight="bold" textAnchor="middle">EAST BEDROOM</text>
-                  <text x="760" y="195" fill={isLight ? "#9E7A32" : "#C5A059"} fontSize="13" fontWeight="600" textAnchor="middle">{eastBedArea} m²</text>
-                  <text x="200" y="430" fill={isLight ? "#594211" : "#FFF3D6"} fontSize="17" fontWeight="bold" textAnchor="middle">LIVING & LOUNGE</text>
-                  <text x="200" y="455" fill={isLight ? "#9E7A32" : "#C5A059"} fontSize="14" fontWeight="600" textAnchor="middle">{livingArea} m²</text>
-                  <text x="440" y="465" fill={isLight ? "#594211" : "#FFF3D6"} fontSize="15" fontWeight="bold" textAnchor="middle">DINING SPACE</text>
-                  <text x="440" y="488" fill={isLight ? "#9E7A32" : "#C5A059"} fontSize="13" fontWeight="600" textAnchor="middle">{diningArea} m²</text>
-                  <text x="760" y="515" fill={isLight ? "#594211" : "#FFF3D6"} fontSize="16" fontWeight="bold" textAnchor="middle">KITCHEN & ISLAND</text>
-                  <text x="760" y="540" fill={isLight ? "#9E7A32" : "#C5A059"} fontSize="13" fontWeight="600" textAnchor="middle">{kitchenArea} m²</text>
-                  <text x="815" y="410" fill={isLight ? "#594211" : "#FFF3D6"} fontSize="14" fontWeight="bold" textAnchor="middle">BATH & WC</text>
-                  <text x="815" y="432" fill={isLight ? "#9E7A32" : "#C5A059"} fontSize="12" fontWeight="600" textAnchor="middle">{bathArea} m²</text>
+                {/* Door openings and swing arcs */}
+                <g
+                  stroke="#168DB5"
+                  strokeWidth="1.2"
+                  fill="none"
+                >
+                  <path d="M 215 160 A 18 18 0 0 0 233 178" />
+                  <path d="M 286 197 A 18 18 0 0 0 304 215" />
+                  <path d="M 374 197 A 18 18 0 0 0 392 179" />
+                  <path d="M 397 227 A 15 15 0 0 1 412 242" />
+                  <path d="M 271 330 A 15 15 0 0 1 286 315" />
                 </g>
 
-                <g transform="translate(100, 630)">
-                  <circle cx="0" cy="0" r="20" fill="none" stroke="#C5A059" strokeWidth="1.5" strokeDasharray="3 2" />
-                  <polygon points="0,-16 4,-4 0,0 -4,-4" fill="#C5A059" />
-                  <text x="0" y="30" fill="#C5A059" fontSize="10" textAnchor="middle" fontFamily="monospace">N // CAD-04</text>
+                {/* Master bedroom furniture */}
+                <g
+                  stroke="#168DB5"
+                  strokeWidth="1.2"
+                  fill="none"
+                >
+                  <rect x="91" y="85" width="50" height="57" rx="3" strokeDasharray="2 2" />
+                  <rect x="89" y="155" width="91" height="16" rx="2" />
+                  <circle cx="193" cy="85" r="5" />
                 </g>
+
+                {/* North bedroom furniture */}
+                <g stroke="#168DB5" strokeWidth="1.2" fill="none">
+                  <rect x="245" y="87" width="44" height="39" rx="3" />
+                  <rect x="303" y="81" width="15" height="18" rx="2" />
+                </g>
+
+                {/* East bedroom furniture */}
+                <g stroke="#168DB5" strokeWidth="1.2" fill="none">
+                  <rect x="365" y="87" width="49" height="39" rx="3" />
+                  <rect x="429" y="149" width="36" height="20" rx="2" />
+                </g>
+
+                {/* Living room sofa */}
+                <g stroke="#168DB5" strokeWidth="1.2" fill="none">
+                  <path d="M 92 280 V 250 H 115 V 278 H 177 V 307 H 92 Z" />
+                  <rect x="125" y="287" width="22" height="13" rx="2" />
+                  <rect x="105" y="214" width="70" height="10" rx="2" />
+                  <circle cx="104" cy="310" r="8" strokeDasharray="2 2" />
+                </g>
+
+                {/* Dining table and chairs */}
+                <g stroke="#168DB5" strokeWidth="1.2" fill="none">
+                  <rect x="250" y="265" width="36" height="45" rx="3" />
+                  <rect x="241" y="270" width="6" height="12" rx="1" />
+                  <rect x="289" y="270" width="6" height="12" rx="1" />
+                  <rect x="241" y="291" width="6" height="12" rx="1" />
+                  <rect x="289" y="291" width="6" height="12" rx="1" />
+                </g>
+
+                {/* Bathroom fixtures */}
+                <g stroke="#168DB5" strokeWidth="1.2" fill="none">
+                  <rect x="409" y="214" width="32" height="23" rx="3" />
+                  <rect x="444" y="218" width="10" height="15" rx="2" />
+                  <path d="M 410 247 Q 419 237 428 247 Q 419 257 410 247 Z" />
+                </g>
+
+                {/* Kitchen island and cabinets */}
+                <g stroke="#168DB5" strokeWidth="1.2" fill="none">
+                  <rect x="356" y="273" width="108" height="43" rx="2" strokeDasharray="3 2" />
+                  <rect x="391" y="291" width="35" height="25" rx="2" />
+                  <line x1="356" y1="283" x2="464" y2="283" />
+                </g>
+
+                {/* Room labels */}
+                <g
+                  fill="#E2F7FF"
+                  fontFamily="monospace"
+                  textAnchor="middle"
+                >
+                  <text x="148" y="116" fontSize="7.5" fontWeight="bold">
+                    MASTER BEDROOM
+                  </text>
+                  <text x="148" y="129" fill="#75DDF5" fontSize="7">
+                    {(value * 0.2).toFixed(1)} m²
+                  </text>
+
+                  <text x="289" y="116" fontSize="7.5" fontWeight="bold">
+                    NORTH BEDROOM
+                  </text>
+                  <text x="289" y="129" fill="#75DDF5" fontSize="7">
+                    {(value * 0.12).toFixed(1)} m²
+                  </text>
+
+                  <text x="411" y="135" fontSize="7.5" fontWeight="bold">
+                    EAST BEDROOM
+                  </text>
+                  <text x="411" y="147" fill="#75DDF5" fontSize="7">
+                    {(value * 0.13).toFixed(1)} m²
+                  </text>
+
+                  <text x="147" y="244" fontSize="8" fontWeight="bold">
+                    LIVING &amp; LOUNGE
+                  </text>
+                  <text x="147" y="257" fill="#75DDF5" fontSize="7">
+                    {(value * 0.25).toFixed(1)} m²
+                  </text>
+
+                  <text x="268" y="256" fontSize="7" fontWeight="bold">
+                    DINING SPACE
+                  </text>
+                  <text x="268" y="267" fill="#75DDF5" fontSize="6.5">
+                    {(value * 0.08).toFixed(1)} m²
+                  </text>
+
+                  <text x="430" y="253" fontSize="7" fontWeight="bold">
+                    BATH &amp; WC
+                  </text>
+                  <text x="430" y="263" fill="#75DDF5" fontSize="6.5">
+                    {(value * 0.06).toFixed(1)} m²
+                  </text>
+
+                  <text x="410" y="290" fontSize="7.5" fontWeight="bold">
+                    KITCHEN &amp; ISLAND
+                  </text>
+                  <text x="410" y="300" fill="#75DDF5" fontSize="6.5">
+                    {(value * 0.16).toFixed(1)} m²
+                  </text>
+                </g>
+
+                {/* Entrance */}
+                <path
+                  d="M 258 330 V 352 H 307 V 330"
+                  fill="none"
+                  stroke="#00D9FF"
+                  strokeWidth="2"
+                />
+                <path
+                  d="M 258 330 A 22 22 0 0 1 280 352"
+                  fill="none"
+                  stroke="#168DB5"
+                  strokeWidth="1"
+                />
+
+                <text
+                  x="282"
+                  y="365"
+                  fill="#75DDF5"
+                  fontSize="7"
+                  fontFamily="monospace"
+                  textAnchor="middle"
+                >
+                  ENTRANCE
+                </text>
               </svg>
             ) : (
-              <svg
-                viewBox={BLUEPRINT_VIEWBOX}
-                className="w-full h-full max-h-[250px] sm:max-h-[270px] md:max-h-[420px] object-contain"
-              >
-                <defs>
-                  {/* Increase width, height, and circle spacing to fit the main square better */}
-                  <pattern id="dotGridCom" x="0" y="0" width="40" height="40" patternUnits="userSpaceOnUse">
-                    <circle cx="4" cy="4" r="1.8" fill="#C5A059" opacity={isLight ? "0.75" : "0.65"} />
-                  </pattern>
-                </defs>
+              /* DARK MODE — KEEP YOUR EXISTING DIAGRAM */
+              <>
+                {serviceCategory === "yatch-cleaning" ? (
+                  <svg
+                    viewBox="-20 -20 1040 680"
+                    className="h-auto w-full max-h-[460px]"
+                  >
+                    <defs>
+                      <pattern
+                        id="darkYachtGrid"
+                        x="0"
+                        y="0"
+                        width="24"
+                        height="24"
+                        patternUnits="userSpaceOnUse"
+                      >
+                        <circle
+                          cx="3"
+                          cy="3"
+                          r="1.6"
+                          fill="#C5A059"
+                          opacity="0.65"
+                        />
+                      </pattern>
+                    </defs>
 
-                <rect x="0" y="0" width="1000" height="700" fill="url(#dotGridCom)" />
-                <BlueprintDimensions span={span} depth={depth} />
-                <rect x="50" y="50" width="850" height="630" rx="12" fill="none" stroke="#C5A059" strokeWidth="3.5" strokeDasharray="6 4" opacity="0.85" />
-                <g stroke="#C5A059" strokeWidth="2.8" fill="none" strokeDasharray="5 3">
-                  <line x1="50" y1="530" x2="350" y2="530" />
-                  <line x1="350" y1="50" x2="350" y2="530" />
-                  <line x1="570" y1="530" x2="900" y2="530" />
-                  <line x1="570" y1="530" x2="570" y2="680" />
-                  <rect x="420" y="230" width="210" height="270" rx="4" strokeWidth="2.5" />
-                </g>
-                <g fill={isLight ? "rgba(197, 160, 89, 0.12)" : "rgba(197, 160, 89, 0.05)"}>
-                  <rect x="54" y="54" width="292" height="472" />
-                  <rect x="354" y="54" width="222" height="172" />
-                  <rect x="578" y="54" width="318" height="472" />
-                  <rect x="54" y="534" width="292" height="142" />
-                  <rect x="574" y="534" width="322" height="142" />
-                  <rect x="424" y="234" width="202" height="262" fill={isLight ? "rgba(197, 160, 89, 0.18)" : "rgba(197, 160, 89, 0.1)"} />
-                </g>
-                <g stroke="#C5A059" strokeWidth="1.8" fill="none" opacity="0.95" strokeDasharray="4 3">
-                  <line x1="80" y1="120" x2="260" y2="120" strokeWidth="3" />
-                  <line x1="80" y1="180" x2="260" y2="180" strokeWidth="3" />
-                  <line x1="80" y1="240" x2="260" y2="240" strokeWidth="3" />
-                  <line x1="80" y1="300" x2="260" y2="300" strokeWidth="3" />
-                  <rect x="90" y="360" width="180" height="70" rx="4" />
-                  <rect x="120" y="380" width="40" height="30" rx="2" />
-                  <line x1="450" y1="260" x2="590" y2="260" strokeWidth="2.5" />
-                  <line x1="450" y1="300" x2="590" y2="300" strokeWidth="2" />
-                  <rect x="470" y="330" width="60" height="40" rx="2" />
-                  <rect x="540" y="330" width="50" height="40" rx="2" />
-                  <line x1="450" y1="420" x2="590" y2="420" strokeWidth="2.5" />
-                  <rect x="500" y="90" width="260" height="40" rx="4" />
-                  <rect x="370" y="90" width="40" height="30" rx="2" />
-                  <line x1="720" y1="260" x2="720" y2="420" strokeWidth="3" />
-                  <rect x="780" y="260" width="50" height="140" rx="4" />
-                  <rect x="90" y="580" width="140" height="60" rx="6" />
-                  <path d="M 610 570 L 860 570 L 860 650 L 610 650" strokeWidth="2.5" strokeDasharray="6 3" />
-                  <rect x="650" y="590" width="80" height="40" rx="4" />
-                </g>
-                <g stroke="#C5A059" strokeWidth="1.5" fill="none" opacity="0.85" strokeDasharray="3 3">
-                  <path d="M 350 630 A 30 30 0 0 1 380 600" />
-                  <path d="M 570 630 A 30 30 0 0 0 540 600" />
-                  <path d="M 200 530 A 30 30 0 0 1 230 500" />
-                </g>
-                <g fontFamily="monospace">
-                  <text x="200" y="225" fill={isLight ? "#594211" : "#FFF3D6"} fontSize="15" fontWeight="bold" textAnchor="middle">STORAGE & INVENTORY</text>
-                  <text x="200" y="248" fill={isLight ? "#9E7A32" : "#C5A059"} fontSize="13" fontWeight="600" textAnchor="middle">{storageArea} m²</text>
-                  <text x="465" y="145" fill={isLight ? "#594211" : "#FFF3D6"} fontSize="13" fontWeight="bold" textAnchor="middle">BACK OFFICE</text>
-                  <text x="465" y="165" fill={isLight ? "#9E7A32" : "#C5A059"} fontSize="11" fontWeight="600" textAnchor="middle">{backOfficeArea} m²</text>
-                  <text x="730" y="225" fill={isLight ? "#594211" : "#FFF3D6"} fontSize="15" fontWeight="bold" textAnchor="middle">DISPLAY & MERCHANDISE</text>
-                  <text x="730" y="248" fill={isLight ? "#9E7A32" : "#C5A059"} fontSize="13" fontWeight="600" textAnchor="middle">{displayArea} m²</text>
-                  <text x="525" y="210" fill={isLight ? "#9E7A32" : "#C5A059"} fontSize="11" fontWeight="bold" textAnchor="middle">CENTRAL SHOWROOM FLOOR</text>
-                  <text x="525" y="380" fill={isLight ? "#594211" : "#FFF3D6"} fontSize="16" fontWeight="bold" textAnchor="middle">MAIN FLOOR</text>
-                  <text x="525" y="405" fill={isLight ? "#9E7A32" : "#C5A059"} fontSize="14" fontWeight="600" textAnchor="middle">{showroomArea} m²</text>
-                  <text x="160" y="565" fill={isLight ? "#594211" : "#FFF3D6"} fontSize="13" fontWeight="bold" textAnchor="middle">CONSULTATION LOUNGE</text>
-                  <text x="160" y="588" fill={isLight ? "#9E7A32" : "#C5A059"} fontSize="12" fontWeight="600" textAnchor="middle">{loungeArea} m²</text>
-                  <text x="735" y="555" fill={isLight ? "#594211" : "#FFF3D6"} fontSize="14" fontWeight="bold" textAnchor="middle">CHECKOUT & SERVICE</text>
-                  <text x="735" y="578" fill={isLight ? "#9E7A32" : "#C5A059"} fontSize="12" fontWeight="600" textAnchor="middle">{checkoutArea} m²</text>
-                </g>
-                <g transform="translate(100, 600)">
-                  <circle cx="0" cy="0" r="20" fill="none" stroke="#C5A059" strokeWidth="1.5" strokeDasharray="3 2" />
-                  <polygon points="0,-16 4,-4 0,0 -4,-4" fill="#C5A059" />
-                  <text x="0" y="30" fill="#C5A059" fontSize="10" textAnchor="middle" fontFamily="monospace">N // RETAIL-01</text>
-                </g>
-              </svg>
+                    <rect
+                      x="0"
+                      y="0"
+                      width="1000"
+                      height="640"
+                      rx="12"
+                      fill="url(#darkYachtGrid)"
+                    />
+
+                    <rect
+                      x="0"
+                      y="0"
+                      width="1000"
+                      height="640"
+                      rx="12"
+                      fill="none"
+                      stroke="#C5A059"
+                      strokeWidth="3.5"
+                      strokeDasharray="6 4"
+                    />
+
+                    <text
+                      x="500"
+                      y="28"
+                      fill="#FFF3D6"
+                      fontSize="16"
+                      fontWeight="bold"
+                      textAnchor="middle"
+                      letterSpacing="2"
+                    >
+                      LUXURY YACHT - UPPER DECK
+                    </text>
+
+                    <path
+                      d="M 100 60 L 880 60 C 950 60, 990 120, 990 190 C 990 260, 950 320, 880 320 L 100 320 C 50 320, 30 260, 30 190 C 30 120, 50 60, 100 60 Z"
+                      fill="rgba(197, 160, 89, 0.08)"
+                      stroke="#C5A059"
+                      strokeWidth="4"
+                      strokeDasharray="5 3"
+                    />
+
+                    <g
+                      stroke="#C5A059"
+                      strokeWidth="2.8"
+                      fill="none"
+                      strokeDasharray="4 2"
+                    >
+                      <line x1="320" y1="60" x2="320" y2="320" />
+                      <line x1="680" y1="60" x2="680" y2="320" />
+                      <line x1="320" y1="190" x2="680" y2="190" />
+                      <rect x="360" y="80" width="140" height="100" rx="4" />
+                      <rect x="520" y="80" width="130" height="100" rx="4" />
+                      <rect x="730" y="90" width="190" height="90" rx="8" />
+                    </g>
+
+                    <path
+                      d="M 160 320 L 840 320 L 860 520 L 140 520 Z"
+                      fill="rgba(197, 160, 89, 0.1)"
+                      stroke="#C5A059"
+                      strokeWidth="4"
+                      strokeDasharray="5 3"
+                    />
+
+                    <g
+                      stroke="#C5A059"
+                      strokeWidth="2.8"
+                      fill="none"
+                      strokeDasharray="4 2"
+                    >
+                      <line x1="360" y1="320" x2="360" y2="520" />
+                      <line x1="640" y1="320" x2="640" y2="520" />
+                      <rect x="180" y="360" width="140" height="120" rx="6" />
+                      <rect x="680" y="360" width="140" height="120" rx="6" />
+                      <rect x="390" y="400" width="220" height="90" rx="6" />
+                    </g>
+
+                    <g
+                      stroke="#C5A059"
+                      strokeWidth="1.8"
+                      fill="none"
+                      strokeDasharray="3 2"
+                    >
+                      <rect x="120" y="80" width="90" height="70" rx="4" />
+                      <circle cx="150" cy="115" r="12" />
+                      <line x1="240" y1="80" x2="290" y2="180" />
+                      <path d="M 380 220 L 520 220 L 520 290 L 380 290 Z" />
+                      <rect x="425" y="240" width="50" height="30" rx="3" />
+                      <rect x="750" y="110" width="110" height="50" rx="4" />
+                      <rect x="770" y="85" width="20" height="15" />
+                      <rect x="810" y="85" width="20" height="15" />
+                      <rect x="450" y="430" width="100" height="40" rx="4" />
+                    </g>
+
+                    <g fontFamily="monospace" textAnchor="middle">
+                      <text x="170" y="220" fill="#FFF3D6" fontSize="14" fontWeight="bold">
+                        MASTER SUITE
+                      </text>
+                      <text x="170" y="240" fill="#C5A059" fontSize="11">
+                        {(value * 0.28).toFixed(1)} m²
+                      </text>
+                      <text x="500" y="140" fill="#FFF3D6" fontSize="14" fontWeight="bold">
+                        WALK-IN CLOSET
+                      </text>
+                      <text x="825" y="140" fill="#FFF3D6" fontSize="14" fontWeight="bold">
+                        PRIVATE LOUNGE
+                      </text>
+                      <text x="500" y="215" fill="#FFF3D6" fontSize="15" fontWeight="bold">
+                        MAIN SALOON
+                      </text>
+                      <text x="500" y="235" fill="#C5A059" fontSize="12">
+                        {(value * 0.32).toFixed(1)} m²
+                      </text>
+                      <text x="735" y="235" fill="#FFF3D6" fontSize="14" fontWeight="bold">
+                        GALLEY
+                      </text>
+                      <text x="250" y="420" fill="#FFF3D6" fontSize="14" fontWeight="bold">
+                        GUEST SUITE
+                      </text>
+                      <text x="750" y="420" fill="#FFF3D6" fontSize="14" fontWeight="bold">
+                        GUEST SUITE
+                      </text>
+                      <text x="500" y="375" fill="#FFF3D6" fontSize="16" fontWeight="bold">
+                        AFT DECK
+                      </text>
+                      <text x="500" y="395" fill="#C5A059" fontSize="13">
+                        {(value * 0.22).toFixed(1)} m²
+                      </text>
+                    </g>
+                  </svg>
+                ) : (
+                  /* Passenger ship diagram */
+                  <svg
+                    viewBox="-20 -20 1040 680"
+                    className="h-auto w-full max-h-[460px]"
+                  >
+                    <defs>
+                      <pattern
+                        id="darkShipGrid"
+                        x="0"
+                        y="0"
+                        width="24"
+                        height="24"
+                        patternUnits="userSpaceOnUse"
+                      >
+                        <circle
+                          cx="3"
+                          cy="3"
+                          r="1.6"
+                          fill="#C5A059"
+                          opacity="0.65"
+                        />
+                      </pattern>
+                    </defs>
+
+                    <rect
+                      x="0"
+                      y="0"
+                      width="1000"
+                      height="640"
+                      rx="12"
+                      fill="url(#darkShipGrid)"
+                    />
+
+                    <rect
+                      x="0"
+                      y="0"
+                      width="1000"
+                      height="640"
+                      rx="12"
+                      fill="none"
+                      stroke="#C5A059"
+                      strokeWidth="3.5"
+                      strokeDasharray="6 4"
+                    />
+
+                    <text
+                      x="500"
+                      y="28"
+                      fill="#FFF3D6"
+                      fontSize="16"
+                      fontWeight="bold"
+                      textAnchor="middle"
+                      letterSpacing="2"
+                    >
+                      PASSENGER SHIP - PROMENADE DECK
+                    </text>
+
+                    <g
+                      fill="rgba(197, 160, 89, 0.08)"
+                      stroke="#C5A059"
+                      strokeWidth="4"
+                      strokeDasharray="5 3"
+                    >
+                      <rect x="60" y="50" width="880" height="160" rx="80" />
+                      <rect x="60" y="240" width="880" height="160" rx="80" />
+                      <rect x="60" y="430" width="880" height="160" rx="80" />
+                    </g>
+
+                    <g
+                      stroke="#C5A059"
+                      strokeWidth="2.5"
+                      fill="none"
+                      strokeDasharray="4 2"
+                    >
+                      <line x1="350" y1="50" x2="350" y2="210" />
+                      <line x1="680" y1="50" x2="680" y2="210" />
+                      <line x1="350" y1="240" x2="350" y2="400" />
+                      <line x1="680" y1="240" x2="680" y2="400" />
+                      <line x1="350" y1="430" x2="350" y2="590" />
+                      <line x1="680" y1="430" x2="680" y2="590" />
+                    </g>
+
+                    <g
+                      stroke="#C5A059"
+                      strokeWidth="1.5"
+                      fill="none"
+                      strokeDasharray="3 2"
+                    >
+                      <circle cx="120" cy="90" r="12" />
+                      <circle cx="160" cy="90" r="12" />
+                      <circle cx="120" cy="130" r="12" />
+                      <circle cx="160" cy="130" r="12" />
+                      <circle cx="820" cy="90" r="12" />
+                      <circle cx="860" cy="90" r="12" />
+                      <circle cx="820" cy="130" r="12" />
+                      <circle cx="860" cy="130" r="12" />
+                      <line x1="100" y1="270" x2="280" y2="270" />
+                      <line x1="100" y1="290" x2="280" y2="290" />
+                      <line x1="100" y1="310" x2="280" y2="310" />
+                      <line x1="100" y1="330" x2="280" y2="330" />
+                      <line x1="100" y1="350" x2="280" y2="350" />
+                      <line x1="100" y1="370" x2="280" y2="370" />
+                      <rect x="480" y="270" width="40" height="100" rx="4" />
+                      <line x1="480" y1="300" x2="520" y2="300" />
+                      <line x1="480" y1="340" x2="520" y2="340" />
+                      <circle cx="150" cy="490" r="18" />
+                      <circle cx="210" cy="490" r="18" />
+                      <rect x="750" y="470" width="120" height="80" rx="6" />
+                    </g>
+
+                    <g fontFamily="monospace" textAnchor="middle" fill="#FFF3D6">
+                      <text x="200" y="130" fontSize="13" fontWeight="bold">RESTAURANT</text>
+                      <text x="515" y="120" fontSize="13" fontWeight="bold">PASSAGES &amp; CORRIDORS</text>
+                      <text x="800" y="130" fontSize="13" fontWeight="bold">RESTAURANT</text>
+                      <text x="190" y="325" fontSize="15" fontWeight="bold">THEATER</text>
+                      <text x="500" y="325" fontSize="15" fontWeight="bold">ATRIUM</text>
+                      <text x="800" y="325" fontSize="15" fontWeight="bold">LUXURY SUITES</text>
+                      <text x="200" y="520" fontSize="13" fontWeight="bold">CASINO LOUNGE</text>
+                      <text x="515" y="520" fontSize="13" fontWeight="bold">CASINO &amp; GAMING</text>
+                      <text x="810" y="520" fontSize="13" fontWeight="bold">PASSENGER LOUNGE</text>
+                    </g>
+                  </svg>
+                )}
+              </>
             )}
           </div>
-        </div>
       </div>
+      
 
       {!isQuote && (
-        <div className={`w-full mt-2 rounded-2xl border p-4 md:p-6 relative overflow-hidden select-none font-mono transition-colors duration-300 ${
-      isLight ? "bg-white border-[#D8B63F] text-[#1A2238] shadow-sm" : "bg-[#1B2A40] border-[#FFD766]/60 text-white"
-    }`}>
-      
-      {/* Grid Cards Container: 1 column on mobile, 3 columns on desktop */}
-      <div className="grid grid-cols-1 md:grid-cols-4 gap-3 md:gap-4">
-
-        {/* Card 1: Estimated Cost */}
-        <div className={`flex flex-col justify-center p-4 md:p-5 rounded-xl border transition-colors duration-300 ${
-          isLight ? "bg-[#F7F5F0] border-[#D8B63F]" : "bg-[#152238] border-[#FFD766]/60"
-        }`}>
-          <p className={`text-[10px] md:text-[11px] font-bold tracking-widest uppercase mb-1.5 ${isLight ? "text-[#D8B63F]" : "text-[#FFD766]"}`}>
-            ESTIMATED COST
-          </p>
-          <p className={`text-base md:text-xl font-bold font-serif tracking-wide ${isLight ? "text-[#D8B63F]" : "text-[#FFD766]"}`}>
-            €92.00 - €107.00
-          </p>
-        </div>
-
-        {/* Card 2: Effective Hourly Rate */}
-        <div className={`flex flex-col justify-center p-4 md:p-5 rounded-xl border transition-colors duration-300 ${
-          isLight ? "bg-[#F7F5F0] border-[#D8B63F]" : "bg-[#152238] border-[#FFD766]/60"
-        }`}>
-          <p className={`text-[10px] md:text-[11px] font-bold tracking-widest uppercase mb-1.5 ${isLight ? "text-[#687386]" : "text-[#C3CDDC]"}`}>
-            EFFECTIVE HOURLY RATE
-          </p>
-          <div className="flex items-baseline gap-1.5">
-            <span className={`text-base md:text-xl font-bold tracking-wide ${isLight ? "text-[#1A2238]" : "text-white"}`}>
-              €29.00
-            </span>
-            <span className={`text-xs font-sans ${isLight ? "text-[#687386]" : "text-[#C3CDDC]"}`}>
-              / hr
-            </span>
-          </div>
-        </div>
-
-        {/* Card 3: Estimated Duration */}
-        <div className={`flex flex-col justify-center p-4 md:p-5 rounded-xl border transition-colors duration-300 ${
-          isLight ? "bg-[#F7F5F0] border-[#D8B63F]" : "bg-[#152238] border-[#FFD766]/60"
-        }`}>
-          <p className={`text-[10px] md:text-[11px] font-bold tracking-widest uppercase mb-1.5 ${isLight ? "text-[#687386]" : "text-[#C3CDDC]"}`}>
-            ESTIMATED DURATION
-          </p>
-          <p className={`text-base md:text-xl font-bold tracking-wide ${isLight ? "text-[#167A57]" : "text-[#36D6A0]"}`}>
-            2.5 Hours <span className={`text-xs font-sans font-normal ${isLight ? "text-[#687386]" : "text-[#C3CDDC]"}`}>(1 Staff)</span>
-          </p>
-        </div>
-
-        <div className={`flex flex-col justify-center p-4 md:p-5 rounded-xl border transition-colors duration-300 ${
-          isLight ? "bg-[#F7F5F0] border-[#D8B63F]" : "bg-[#152238] border-[#FFD766]/60"
-        }`}>
-          <p className={`text-[10px] md:text-[11px] font-bold tracking-widest uppercase mb-1.5 ${isLight ? "text-[#687386]" : "text-[#C3CDDC]"}`}>
-            Staff
-          </p>
-          <p className={`text-base md:text-xl font-bold tracking-wide ${isLight ? "text-[#167A57]" : "text-[#36D6A0]"}`}>
-            2  <span className={`text-xs font-sans font-normal ${isLight ? "text-[#687386]" : "text-[#C3CDDC]"}`}> Staff</span>
-          </p>
-        </div>
-
-      </div>
-
-      
-        </div>
+        <BottomMatrixDiagram isLight={isLight} />
       )}
     </div>
   );
@@ -3654,232 +3981,588 @@ export function YatchSizeVisualization({
         backgroundSize: "32px 32px",
       }}
     >
-      {/* Top Header & Blueprint Toggle */}
-      <div className={`w-full flex flex-col sm:flex-row items-center justify-between pb-3 mb-4 gap-3 border-b ${isLight ? "border-[#D8B63F]" : "border-[#D8B63F]"
-        }`}>
-        <div className="flex flex-col w-full md:flex-row justify-between items-center space-x-3">
-          {/* <div>
-            <h3 className={`text-xs sm:text-sm font-bold tracking-widest uppercase ${isLight ? "text-[#8C6D2D]" : "text-[#E6D5B8]"
-              }`}>
-              VESSEL DECK PLAN TEMPLATES
-            </h3>
-            <p className={`text-[10px] tracking-wider ${isLight ? "text-[#A37F38]" : "text-[#C5A059]/80"
-              }`}>
-              {value} m² • {formatFt2(value)} ft² | GRID DIMENSIONS: {span}m × {depth}m
-            </p>
-          </div> */}
-          <div className={`p-2 transition-colors duration-200 ${isLight ? ' text-slate-900' : ' text-white'}`}>
-      
-            {/* Subtitle/Eyebrow with an icon and green accent */}
-            <div className="flex items-center gap-2 mb-2">
-              <Cpu className="w-4 h-4 text-emerald-500" />
-              <span className="text-xs font-bold tracking-widest text-emerald-500 uppercase">
-                Architectural Engine
-              </span>
-            </div>
-
-            {/* Main Title with Serif styling */}
-            <h1 className={`text-2xl md:text-4xl font-serif tracking-tight ${isLight ? 'text-slate-900' : 'text-slate-100'}`}>
-              Interactive CAD Blueprint
-            </h1>
-
-
-          </div>
-          <button
-          
-            className={`inline-flex max-w-full items-center gap-2.5 px-4 py-2 rounded-[12px] border text-sm font-medium transition-colors duration-200 ${
-              isLight
-                ? 'bg-slate-50 border-slate-200 text-slate-800 hover:bg-slate-100'
-                : 'bg-[#0f172a] border-slate-500 text-slate-200 hover:bg-slate-800/60'
-            }`}
-          > 
-            <RotateCw className="w-4 h-4 animate-spin text-amber-400" />
+      <div className={`flex md:flex-row my-2 py-3 flex-col border-b ${isLight ? "border-[#D8B63F]" : "border-[#D8B63F]"
+          }`}>
+          {/* Top Header & Blueprint Toggle */}
+        <div className={`w-full flex flex-col md:flex-row items-center justify-between pb-5 mb-4 gap-3 `}>
+          <div className="flex flex-col w-full  justify-between items-center space-x-3">
             
-            <span>Live Spatial Projection</span>
-          </button>
+            <div className={`p-2 transition-colors duration-200 ${isLight ? ' text-slate-900' : ' text-white'}`}>
+        
+              {/* Subtitle/Eyebrow with an icon and green accent */}
+              <div className="flex items-center gap-2 mb-2">
+                <Cpu className="w-4 h-4 text-emerald-500" />
+                <span className="text-xs font-bold tracking-widest text-emerald-500 uppercase">
+                  Architectural Engine
+                </span>
+              </div>
+
+              {/* Main Title with Serif styling */}
+              <h1 className={`text-2xl md:text-4xl font-serif tracking-tight ${isLight ? 'text-slate-900' : 'text-slate-100'}`}>
+                Interactive CAD Blueprint
+              </h1>
+
+
+            </div>
+            <button
+            
+              className={`flex w-[97%] md:mr-2   gap-2.5 px-4 py-3 rounded-[12px] border text-sm font-medium transition-colors duration-200 ${
+                isLight
+                  ? 'bg-[#002F6D] border-slate-200 text-white '
+                  : 'bg-[#0f172a] border-slate-500 text-slate-200 hover:bg-slate-800/60'
+              }`}
+            > 
+              <RotateCw className="w-4 h-4 animate-spin text-amber-400" />
+              
+              <span>Live Spatial Projection</span>
+            </button>
+          </div>
         </div>
+
+        {/* Architectural Blueprint Diagram */}
+          <div
+            className={`relative w-full rounded-xl p-2 md:p-2 overflow-hidden flex items-center justify-center transition-all duration-300 ${
+              isLight
+                ? "border border-[#164D68] bg-[#061323]"
+                : "border border-[#C5A059] bg-[#050505]/95 backdrop-blur-sm"
+            }`}
+          >
+            {serviceCategory === "yatch-cleaning" ? (
+              /* ================= LUXURY YACHT ARCHITECTURE ================= */
+              <svg
+                viewBox="-20 -20 1040 680"
+                className="w-full h-auto max-h-[460px]"
+                preserveAspectRatio="xMidYMid meet"
+                role="img"
+                aria-label="Luxury yacht upper deck blueprint"
+              >
+                <defs>
+                  <pattern
+                    id="yachtDotGrid"
+                    x="0"
+                    y="0"
+                    width="24"
+                    height="24"
+                    patternUnits="userSpaceOnUse"
+                  >
+                    <circle
+                      cx="3"
+                      cy="3"
+                      r="1.4"
+                      fill={isLight ? "#16445B" : "#C5A059"}
+                      opacity={isLight ? "0.75" : "0.65"}
+                    />
+                  </pattern>
+                </defs>
+
+                {/* Blueprint background */}
+                <rect
+                  x="0"
+                  y="0"
+                  width="1000"
+                  height="640"
+                  rx="12"
+                  fill={isLight ? "#061323" : "#050505"}
+                />
+
+                <rect
+                  x="0"
+                  y="0"
+                  width="1000"
+                  height="640"
+                  rx="12"
+                  fill="url(#yachtDotGrid)"
+                />
+
+                {/* Outer frame */}
+                <rect
+                  x="0"
+                  y="0"
+                  width="1000"
+                  height="640"
+                  rx="12"
+                  fill="none"
+                  stroke={isLight ? "#087FA3" : "#C5A059"}
+                  strokeWidth="2.5"
+                  strokeDasharray="6 4"
+                  opacity="0.9"
+                />
+
+                {/* Diagram title */}
+                <text
+                  x="500"
+                  y="28"
+                  fill={isLight ? "#75DDF5" : "#FFF3D6"}
+                  fontSize="16"
+                  fontWeight="bold"
+                  textAnchor="middle"
+                  letterSpacing="2"
+                >
+                  LUXURY YACHT - UPPER DECK
+                </text>
+
+                {/* Hull contour */}
+                <path
+                  d="M 100 60 L 880 60 C 950 60, 990 120, 990 190 C 990 260, 950 320, 880 320 L 100 320 C 50 320, 30 260, 30 190 C 30 120, 50 60, 100 60 Z"
+                  fill={
+                    isLight
+                      ? "rgba(0, 190, 239, 0.06)"
+                      : "rgba(197, 160, 89, 0.08)"
+                  }
+                  stroke={isLight ? "#00D9FF" : "#C5A059"}
+                  strokeWidth="3.5"
+                  strokeDasharray="5 3"
+                />
+
+                {/* Internal compartments */}
+                <g
+                  stroke={isLight ? "#00BFEF" : "#C5A059"}
+                  strokeWidth="2.5"
+                  fill="none"
+                  strokeDasharray="4 2"
+                >
+                  <line x1="320" y1="60" x2="320" y2="320" />
+                  <line x1="680" y1="60" x2="680" y2="320" />
+                  <line x1="320" y1="190" x2="680" y2="190" />
+
+                  <rect x="360" y="80" width="140" height="100" rx="4" />
+                  <rect x="520" y="80" width="130" height="100" rx="4" />
+                  <rect x="730" y="90" width="190" height="90" rx="8" />
+                </g>
+
+                {/* Aft deck extension */}
+                <path
+                  d="M 160 320 L 840 320 L 860 520 L 140 520 Z"
+                  fill={
+                    isLight
+                      ? "rgba(0, 190, 239, 0.07)"
+                      : "rgba(197, 160, 89, 0.1)"
+                  }
+                  stroke={isLight ? "#00D9FF" : "#C5A059"}
+                  strokeWidth="3.5"
+                  strokeDasharray="5 3"
+                />
+
+                <g
+                  stroke={isLight ? "#00BFEF" : "#C5A059"}
+                  strokeWidth="2.5"
+                  fill="none"
+                  strokeDasharray="4 2"
+                >
+                  <line x1="360" y1="320" x2="360" y2="520" />
+                  <line x1="640" y1="320" x2="640" y2="520" />
+
+                  <rect x="180" y="360" width="140" height="120" rx="6" />
+                  <rect x="680" y="360" width="140" height="120" rx="6" />
+                  <rect x="390" y="400" width="220" height="90" rx="6" />
+                </g>
+
+                {/* Furniture and fixtures */}
+                <g
+                  stroke={isLight ? "#168DB5" : "#C5A059"}
+                  strokeWidth="1.8"
+                  fill="none"
+                  opacity="0.95"
+                  strokeDasharray="3 2"
+                >
+                  <rect x="120" y="80" width="90" height="70" rx="4" />
+                  <circle cx="150" cy="115" r="12" />
+                  <line
+                    x1="240"
+                    y1="80"
+                    x2="290"
+                    y2="180"
+                    strokeDasharray="2 2"
+                  />
+
+                  <path d="M 380 220 L 520 220 L 520 290 L 380 290 Z" />
+                  <rect x="425" y="240" width="50" height="30" rx="3" />
+
+                  <rect x="750" y="110" width="110" height="50" rx="4" />
+                  <rect x="770" y="85" width="20" height="15" />
+                  <rect x="810" y="85" width="20" height="15" />
+
+                  <rect x="450" y="430" width="100" height="40" rx="4" />
+                </g>
+
+                {/* Room labels */}
+                <g fontFamily="monospace" textAnchor="middle">
+                  <text
+                    x="170"
+                    y="220"
+                    fill={isLight ? "#E2F7FF" : "#FFF3D6"}
+                    fontSize="14"
+                    fontWeight="bold"
+                  >
+                    MASTER SUITE
+                  </text>
+
+                  <text
+                    x="170"
+                    y="240"
+                    fill={isLight ? "#75DDF5" : "#C5A059"}
+                    fontSize="11"
+                  >
+                    {(value * 0.28).toFixed(1)} m²
+                  </text>
+
+                  <text
+                    x="500"
+                    y="140"
+                    fill={isLight ? "#E2F7FF" : "#FFF3D6"}
+                    fontSize="14"
+                    fontWeight="bold"
+                  >
+                    WALK-IN CLOSET
+                  </text>
+
+                  <text
+                    x="825"
+                    y="140"
+                    fill={isLight ? "#E2F7FF" : "#FFF3D6"}
+                    fontSize="14"
+                    fontWeight="bold"
+                  >
+                    PRIVATE LOUNGE
+                  </text>
+
+                  <text
+                    x="500"
+                    y="215"
+                    fill={isLight ? "#E2F7FF" : "#FFF3D6"}
+                    fontSize="15"
+                    fontWeight="bold"
+                  >
+                    MAIN SALOON
+                  </text>
+
+                  <text
+                    x="500"
+                    y="235"
+                    fill={isLight ? "#75DDF5" : "#C5A059"}
+                    fontSize="12"
+                  >
+                    {(value * 0.32).toFixed(1)} m²
+                  </text>
+
+                  <text
+                    x="735"
+                    y="235"
+                    fill={isLight ? "#E2F7FF" : "#FFF3D6"}
+                    fontSize="14"
+                    fontWeight="bold"
+                  >
+                    GALLEY
+                  </text>
+
+                  <text
+                    x="250"
+                    y="420"
+                    fill={isLight ? "#E2F7FF" : "#FFF3D6"}
+                    fontSize="14"
+                    fontWeight="bold"
+                  >
+                    GUEST SUITE
+                  </text>
+
+                  <text
+                    x="750"
+                    y="420"
+                    fill={isLight ? "#E2F7FF" : "#FFF3D6"}
+                    fontSize="14"
+                    fontWeight="bold"
+                  >
+                    GUEST SUITE
+                  </text>
+
+                  <text
+                    x="500"
+                    y="375"
+                    fill={isLight ? "#E2F7FF" : "#FFF3D6"}
+                    fontSize="16"
+                    fontWeight="bold"
+                  >
+                    AFT DECK
+                  </text>
+
+                  <text
+                    x="500"
+                    y="395"
+                    fill={isLight ? "#75DDF5" : "#C5A059"}
+                    fontSize="13"
+                  >
+                    {(value * 0.22).toFixed(1)} m²
+                  </text>
+                </g>
+              </svg>
+            ) : (
+              /* ================= PASSENGER SHIP ARCHITECTURE ================= */
+              <svg
+                viewBox="-20 -20 1040 680"
+                className="w-full h-auto max-h-[460px]"
+                preserveAspectRatio="xMidYMid meet"
+                role="img"
+                aria-label="Passenger ship promenade deck blueprint"
+              >
+                <defs>
+                  <pattern
+                    id="passengerShipDotGrid"
+                    x="0"
+                    y="0"
+                    width="24"
+                    height="24"
+                    patternUnits="userSpaceOnUse"
+                  >
+                    <circle
+                      cx="3"
+                      cy="3"
+                      r="1.4"
+                      fill={isLight ? "#16445B" : "#C5A059"}
+                      opacity={isLight ? "0.75" : "0.65"}
+                    />
+                  </pattern>
+                </defs>
+
+                {/* Blueprint background */}
+                <rect
+                  x="0"
+                  y="0"
+                  width="1000"
+                  height="640"
+                  rx="12"
+                  fill={isLight ? "#061323" : "#050505"}
+                />
+
+                <rect
+                  x="0"
+                  y="0"
+                  width="1000"
+                  height="640"
+                  rx="12"
+                  fill="url(#passengerShipDotGrid)"
+                />
+
+                {/* Outer frame */}
+                <rect
+                  x="0"
+                  y="0"
+                  width="1000"
+                  height="640"
+                  rx="12"
+                  fill="none"
+                  stroke={isLight ? "#087FA3" : "#C5A059"}
+                  strokeWidth="2.5"
+                  strokeDasharray="6 4"
+                  opacity="0.9"
+                />
+
+                {/* Title */}
+                <text
+                  x="500"
+                  y="28"
+                  fill={isLight ? "#75DDF5" : "#FFF3D6"}
+                  fontSize="16"
+                  fontWeight="bold"
+                  textAnchor="middle"
+                  letterSpacing="2"
+                >
+                  PASSENGER SHIP - PROMENADE DECK
+                </text>
+
+                {/* Deck sections */}
+                <g
+                  fill={
+                    isLight
+                      ? "rgba(0, 190, 239, 0.06)"
+                      : "rgba(197, 160, 89, 0.08)"
+                  }
+                  stroke={isLight ? "#00D9FF" : "#C5A059"}
+                  strokeWidth="3.5"
+                  strokeDasharray="5 3"
+                >
+                  <rect x="60" y="50" width="880" height="160" rx="80" />
+                  <rect x="60" y="240" width="880" height="160" rx="80" />
+                  <rect x="60" y="430" width="880" height="160" rx="80" />
+                </g>
+
+                {/* Internal walls */}
+                <g
+                  stroke={isLight ? "#00BFEF" : "#C5A059"}
+                  strokeWidth="2.5"
+                  fill="none"
+                  strokeDasharray="4 2"
+                >
+                  <line x1="350" y1="50" x2="350" y2="210" />
+                  <line x1="680" y1="50" x2="680" y2="210" />
+
+                  <line x1="350" y1="240" x2="350" y2="400" />
+                  <line x1="680" y1="240" x2="680" y2="400" />
+
+                  <line x1="350" y1="430" x2="350" y2="590" />
+                  <line x1="680" y1="430" x2="680" y2="590" />
+                </g>
+
+                {/* Furniture and architectural details */}
+                <g
+                  stroke={isLight ? "#168DB5" : "#C5A059"}
+                  strokeWidth="1.5"
+                  fill="none"
+                  opacity="0.95"
+                  strokeDasharray="3 2"
+                >
+                  <circle cx="120" cy="90" r="12" />
+                  <circle cx="160" cy="90" r="12" />
+                  <circle cx="120" cy="130" r="12" />
+                  <circle cx="160" cy="130" r="12" />
+
+                  <circle cx="820" cy="90" r="12" />
+                  <circle cx="860" cy="90" r="12" />
+                  <circle cx="820" cy="130" r="12" />
+                  <circle cx="860" cy="130" r="12" />
+
+                  <line x1="100" y1="270" x2="280" y2="270" />
+                  <line x1="100" y1="290" x2="280" y2="290" />
+                  <line x1="100" y1="310" x2="280" y2="310" />
+                  <line x1="100" y1="330" x2="280" y2="330" />
+                  <line x1="100" y1="350" x2="280" y2="350" />
+                  <line x1="100" y1="370" x2="280" y2="370" />
+
+                  <rect x="480" y="270" width="40" height="100" rx="4" />
+                  <line x1="480" y1="300" x2="520" y2="300" />
+                  <line x1="480" y1="340" x2="520" y2="340" />
+
+                  <circle cx="150" cy="490" r="18" />
+                  <circle cx="210" cy="490" r="18" />
+                  <rect x="750" y="470" width="120" height="80" rx="6" />
+                </g>
+
+                {/* Passenger ship room labels */}
+                <g fontFamily="monospace" textAnchor="middle">
+                  <text
+                    x="200"
+                    y="130"
+                    fill={isLight ? "#E2F7FF" : "#FFF3D6"}
+                    fontSize="13"
+                    fontWeight="bold"
+                  >
+                    RESTAURANT
+                  </text>
+
+                  <text
+                    x="515"
+                    y="120"
+                    fill={isLight ? "#E2F7FF" : "#FFF3D6"}
+                    fontSize="13"
+                    fontWeight="bold"
+                  >
+                    PASSAGES &amp; CORRIDORS
+                  </text>
+
+                  <text
+                    x="800"
+                    y="130"
+                    fill={isLight ? "#E2F7FF" : "#FFF3D6"}
+                    fontSize="13"
+                    fontWeight="bold"
+                  >
+                    RESTAURANT
+                  </text>
+
+                  <text
+                    x="190"
+                    y="325"
+                    fill={isLight ? "#E2F7FF" : "#FFF3D6"}
+                    fontSize="15"
+                    fontWeight="bold"
+                  >
+                    THEATER
+                  </text>
+
+                  <text
+                    x="500"
+                    y="325"
+                    fill={isLight ? "#E2F7FF" : "#FFF3D6"}
+                    fontSize="15"
+                    fontWeight="bold"
+                  >
+                    ATRIUM
+                  </text>
+
+                  <text
+                    x="800"
+                    y="325"
+                    fill={isLight ? "#E2F7FF" : "#FFF3D6"}
+                    fontSize="15"
+                    fontWeight="bold"
+                  >
+                    LUXURY SUITES
+                  </text>
+
+                  <text
+                    x="200"
+                    y="520"
+                    fill={isLight ? "#E2F7FF" : "#FFF3D6"}
+                    fontSize="13"
+                    fontWeight="bold"
+                  >
+                    CASINO LOUNGE
+                  </text>
+
+                  <text
+                    x="515"
+                    y="520"
+                    fill={isLight ? "#E2F7FF" : "#FFF3D6"}
+                    fontSize="13"
+                    fontWeight="bold"
+                  >
+                    CASINO &amp; GAMING
+                  </text>
+
+                  <text
+                    x="810"
+                    y="520"
+                    fill={isLight ? "#E2F7FF" : "#FFF3D6"}
+                    fontSize="13"
+                    fontWeight="bold"
+                  >
+                    PASSENGER LOUNGE
+                  </text>
+                </g>
+              </svg>
+            )}
+          </div>
       </div>
-
-      {/* Main Architectural SVG Blueprint Stage with Enhanced Golden Dotted Matrix */}
-      <div className={`relative w-full border border-[#C5A059] rounded-xl p-2 sm:p-4 overflow-hidden flex items-center justify-center transition-all duration-300 ${isLight
-        ? "bg-white/90 backdrop-blur-md"
-        : "bg-[#050505]/95 backdrop-blur-sm"
-        }`}>
-        {serviceCategory === "yatch-cleaning" ? (
-          /* ================= LUXURY YACHT ARCHITECTURE ================= */
-          <svg viewBox="-20 -20 1040 680" className="w-full h-auto max-h-[460px]">
-            <defs>
-              <pattern id="dotGrid" x="0" y="0" width="24" height="24" patternUnits="userSpaceOnUse">
-                <circle cx="3" cy="3" r="1.6" fill="#C5A059" opacity={isLight ? "0.75" : "0.65"} />
-              </pattern>
-            </defs>
-
-            {/* Background Dotted Matrix Fill with Richer Presence */}
-            <rect x="0" y="0" width="1000" height="640" rx="12" fill="url(#dotGrid)" />
-
-            {/* Blueprint Outer Frame & Title Label */}
-            <rect x="0" y="0" width="1000" height="640" rx="12" fill="none" stroke="#C5A059" strokeWidth="3.5" strokeDasharray="6 4" opacity="0.85" />
-            <text x="500" y="28" fill={isLight ? "#7A5C20" : "#FFF3D6"} fontSize="16" fontWeight="bold" textAnchor="middle" letterSpacing="2">
-              LUXURY YACHT - UPPER DECK
-            </text>
-
-            {/* Hull Outer Contour */}
-            <path
-              d="M 100 60 L 880 60 C 950 60, 990 120, 990 190 C 990 260, 950 320, 880 320 L 100 320 C 50 320, 30 260, 30 190 C 30 120, 50 60, 100 60 Z"
-              fill={isLight ? "rgba(197, 160, 89, 0.12)" : "rgba(197, 160, 89, 0.08)"}
-              stroke="#C5A059"
-              strokeWidth="4"
-              strokeDasharray="5 3"
-            />
-
-            {/* Internal Compartment Walls & Bulkheads */}
-            <g stroke="#C5A059" strokeWidth="2.8" fill="none" strokeDasharray="4 2">
-              <line x1="320" y1="60" x2="320" y2="320" />
-              <line x1="680" y1="60" x2="680" y2="320" />
-              <line x1="320" y1="190" x2="680" y2="190" />
-              <rect x="360" y="80" width="140" height="100" rx="4" strokeDasharray="3 2" />
-              <rect x="520" y="80" width="130" height="100" rx="4" />
-              <rect x="730" y="90" width="190" height="90" rx="8" />
-            </g>
-
-            {/* Aft Deck Lower Extension */}
-            <path
-              d="M 160 320 L 840 320 L 860 520 L 140 520 Z"
-              fill={isLight ? "rgba(197, 160, 89, 0.15)" : "rgba(197, 160, 89, 0.1)"}
-              stroke="#C5A059"
-              strokeWidth="4"
-              strokeDasharray="5 3"
-            />
-            <g stroke="#C5A059" strokeWidth="2.8" fill="none" strokeDasharray="4 2">
-              <line x1="360" y1="320" x2="360" y2="520" />
-              <line x1="640" y1="320" x2="640" y2="520" />
-              <rect x="180" y="360" width="140" height="120" rx="6" />
-              <rect x="680" y="360" width="140" height="120" rx="6" />
-              <rect x="390" y="400" width="220" height="90" rx="6" />
-            </g>
-
-            {/* Detailed Furniture & Fixture Symbols */}
-            <g stroke="#C5A059" strokeWidth="1.8" fill="none" opacity="0.95" strokeDasharray="3 2">
-              <rect x="120" y="80" width="90" height="70" rx="4" />
-              <circle cx="150" cy="115" r="12" />
-              <line x1="240" y1="80" x2="290" y2="180" strokeDasharray="2 2" />
-              <path d="M 380 220 L 520 220 L 520 290 L 380 290 Z" />
-              <rect x="425" y="240" width="50" height="30" rx="3" />
-              <rect x="750" y="110" width="110" height="50" rx="4" />
-              <rect x="770" y="85" width="20" height="15" />
-              <rect x="810" y="85" width="20" height="15" />
-              <rect x="450" y="430" width="100" height="40" rx="4" />
-            </g>
-
-            {/* Compartment Labels */}
-            <g fontFamily="monospace" textAnchor="middle">
-              <text x="170" y="220" fill={isLight ? "#594211" : "#FFF3D6"} fontSize="14" fontWeight="bold">MASTER SUITE</text>
-              <text x="170" y="240" fill={isLight ? "#9E7A32" : "#C5A059"} fontSize="11">{(value * 0.28).toFixed(1)} m²</text>
-
-              <text x="500" y="140" fill={isLight ? "#594211" : "#FFF3D6"} fontSize="14" fontWeight="bold">WALK-IN CLOSET</text>
-
-              <text x="825" y="140" fill={isLight ? "#594211" : "#FFF3D6"} fontSize="14" fontWeight="bold">PRIVATE LOUNGE</text>
-
-              <text x="500" y="215" fill={isLight ? "#594211" : "#FFF3D6"} fontSize="15" fontWeight="bold">MAIN SALOON</text>
-              <text x="500" y="235" fill={isLight ? "#9E7A32" : "#C5A059"} fontSize="12">{(value * 0.32).toFixed(1)} m²</text>
-
-              <text x="735" y="235" fill={isLight ? "#594211" : "#FFF3D6"} fontSize="14" fontWeight="bold">GALLEY</text>
-
-              <text x="250" y="420" fill={isLight ? "#594211" : "#FFF3D6"} fontSize="14" fontWeight="bold">GUEST SUITE</text>
-              <text x="750" y="420" fill={isLight ? "#594211" : "#FFF3D6"} fontSize="14" fontWeight="bold">GUEST SUITE</text>
-
-              <text x="500" y="375" fill={isLight ? "#594211" : "#FFF3D6"} fontSize="16" fontWeight="bold">AFT DECK</text>
-              <text x="500" y="395" fill={isLight ? "#9E7A32" : "#C5A059"} fontSize="13">{(value * 0.22).toFixed(1)} m²</text>
-            </g>
-          </svg>
-        ) : (
-          /* ================= PASSENGER SHIP ARCHITECTURE ================= */
-          <svg viewBox="-20 -20 1040 680" className="w-full h-auto max-h-[460px]">
-            <defs>
-              <pattern id="dotGrid" x="0" y="0" width="24" height="24" patternUnits="userSpaceOnUse">
-                <circle cx="3" cy="3" r="1.6" fill="#C5A059" opacity={isLight ? "0.75" : "0.65"} />
-              </pattern>
-            </defs>
-
-            {/* Background Dotted Matrix Fill with Richer Presence */}
-            <rect x="0" y="0" width="1000" height="640" rx="12" fill="url(#dotGrid)" />
-
-            <rect x="0" y="0" width="1000" height="640" rx="12" fill="none" stroke="#C5A059" strokeWidth="3.5" strokeDasharray="6 4" opacity="0.85" />
-            <text x="500" y="28" fill={isLight ? "#7A5C20" : "#FFF3D6"} fontSize="16" fontWeight="bold" textAnchor="middle" letterSpacing="2">
-              PASSENGER SHIP - PROMENADE DECK
-            </text>
-
-            <rect x="60" y="50" width="880" height="160" rx="80" fill={isLight ? "rgba(197, 160, 89, 0.12)" : "rgba(197, 160, 89, 0.08)"} stroke="#C5A059" strokeWidth="4" strokeDasharray="5 3" />
-            <rect x="60" y="240" width="880" height="160" rx="80" fill={isLight ? "rgba(197, 160, 89, 0.12)" : "rgba(197, 160, 89, 0.08)"} stroke="#C5A059" strokeWidth="4" strokeDasharray="5 3" />
-            <rect x="60" y="430" width="880" height="160" rx="80" fill={isLight ? "rgba(197, 160, 89, 0.12)" : "rgba(197, 160, 89, 0.08)"} stroke="#C5A059" strokeWidth="4" strokeDasharray="5 3" />
-
-            <g stroke="#C5A059" strokeWidth="2.5" fill="none" strokeDasharray="4 2">
-              <line x1="350" y1="50" x2="350" y2="210" />
-              <line x1="680" y1="50" x2="680" y2="210" />
-              <line x1="350" y1="240" x2="350" y2="400" />
-              <line x1="680" y1="240" x2="680" y2="400" />
-              <line x1="350" y1="430" x2="350" y2="590" />
-              <line x1="680" y1="430" x2="680" y2="590" />
-            </g>
-
-            <g stroke="#C5A059" strokeWidth="1.5" fill="none" opacity="0.95" strokeDasharray="3 2">
-              <circle cx="120" cy="90" r="12" />
-              <circle cx="160" cy="90" r="12" />
-              <circle cx="120" cy="130" r="12" />
-              <circle cx="160" cy="130" r="12" />
-
-              <circle cx="820" cy="90" r="12" />
-              <circle cx="860" cy="90" r="12" />
-              <circle cx="820" cy="130" r="12" />
-              <circle cx="860" cy="130" r="12" />
-
-              <line x1="100" y1="270" x2="280" y2="270" />
-              <line x1="100" y1="290" x2="280" y2="290" />
-              <line x1="100" y1="310" x2="280" y2="310" />
-              <line x1="100" y1="330" x2="280" y2="330" />
-              <line x1="100" y1="350" x2="280" y2="350" />
-              <line x1="100" y1="370" x2="280" y2="370" />
-
-              <rect x="480" y="270" width="40" height="100" rx="4" />
-              <line x1="480" y1="300" x2="520" y2="300" />
-              <line x1="480" y1="340" x2="520" y2="340" />
-
-              <circle cx="150" cy="490" r="18" />
-              <circle cx="210" cy="490" r="18" />
-              <rect x="750" y="470" width="120" height="80" rx="6" />
-            </g>
-
-            <g fontFamily="monospace" textAnchor="middle">
-              <text x="200" y="130" fill={isLight ? "#594211" : "#FFF3D6"} fontSize="13" fontWeight="bold">RESTAURANT</text>
-              <text x="515" y="120" fill={isLight ? "#594211" : "#FFF3D6"} fontSize="13" fontWeight="bold">PASSAGES & CORRIDORS</text>
-              <text x="800" y="130" fill={isLight ? "#594211" : "#FFF3D6"} fontSize="13" fontWeight="bold">RESTAURANT</text>
-
-              <text x="190" y="325" fill={isLight ? "#594211" : "#FFF3D6"} fontSize="15" fontWeight="bold">THEATER</text>
-              <text x="500" y="325" fill={isLight ? "#594211" : "#FFF3D6"} fontSize="15" fontWeight="bold">ATRIUM</text>
-              <text x="800" y="325" fill={isLight ? "#594211" : "#FFF3D6"} fontSize="15" fontWeight="bold">LUXURY SUITES</text>
-
-              <text x="200" y="520" fill={isLight ? "#594211" : "#FFF3D6"} fontSize="13" fontWeight="bold">CASINO LOUNGE</text>
-              <text x="515" y="520" fill={isLight ? "#594211" : "#FFF3D6"} fontSize="13" fontWeight="bold">CASINO & GAMING</text>
-              <text x="810" y="520" fill={isLight ? "#594211" : "#FFF3D6"} fontSize="13" fontWeight="bold">PASSENGER LOUNGE</text>
-            </g>
-          </svg>
-        )}
-      </div>
+      
 
       {/* Bottom Estimation Summary Bar */}
       {!isQuote && (
-        <div className={`w-full rounded-2xl border p-4 md:p-6 relative overflow-hidden select-none font-mono transition-colors duration-300 ${
-      isLight ? "bg-white border-[#D8B63F] text-[#1A2238] shadow-sm" : "bg-[#1B2A40] border-[#FFD766]/60 text-white"
+        <BottomMatrixDiagram isLight={isLight} />
+      )}
+      
+    </div>
+  );
+}
+//Quotation matrix flow with 
+const BottomMatrixDiagram=({
+  isLight
+}:{
+  isLight:boolean
+})=>{
+  return(
+    
+    <div className={`w-full mt-2 rounded-2xl  p-4 md:p-2 relative overflow-hidden select-none font-mono transition-colors duration-300 ${
+      isLight ? "  text-[#1A2238] " : "bg-[#1B2A40] border border-[#FFD766]/60 text-white"
     }`}>
       
       {/* Grid Cards Container: 1 column on mobile, 3 columns on desktop */}
-      <div className="grid grid-cols-1 md:grid-cols-4 gap-3 md:gap-4">
+      <div className="grid grid-cols-1 md:grid-cols-4 gap-3 md:gap-2">
 
         {/* Card 1: Estimated Cost */}
-        <div className={`flex flex-col justify-center p-4 md:p-5 rounded-xl border transition-colors duration-300 ${
-          isLight ? "bg-[#F7F5F0] border-[#D8B63F]" : "bg-[#152238] border-[#FFD766]/60"
+        <div className={`flex flex-col justify-center p-4 md:p-2 rounded-xl shadow-md  transition-colors duration-300 ${
+          isLight ? "bg-[#fff] " : "bg-[#152238] border border-[#FFD766]/60"
         }`}>
-          <p className={`text-[10px] md:text-[11px] font-bold tracking-widest uppercase mb-1.5 ${isLight ? "text-[#D8B63F]" : "text-[#FFD766]"}`}>
+          <Calculator className={`w-5 h-5 ${isLight ? "text-[#002F6D]" : "text-[#FFD766]"} `} />
+          <p className={`text-[10px] md:text-[11px] font-bold tracking-widest uppercase mb-1.5 ${isLight ? "text-[#002F6D]" : "text-[#FFD766]"}`}>
             ESTIMATED COST
           </p>
           <p className={`text-base md:text-xl font-bold font-serif tracking-wide ${isLight ? "text-[#D8B63F]" : "text-[#FFD766]"}`}>
@@ -3888,10 +4571,11 @@ export function YatchSizeVisualization({
         </div>
 
         {/* Card 2: Effective Hourly Rate */}
-        <div className={`flex flex-col justify-center p-4 md:p-5 rounded-xl border transition-colors duration-300 ${
-          isLight ? "bg-[#F7F5F0] border-[#D8B63F]" : "bg-[#152238] border-[#FFD766]/60"
+        <div className={`flex flex-col justify-center p-4 md:p-2 rounded-xl  shadow-md transition-colors duration-300 ${
+          isLight ? "bg-[#fff] " : "bg-[#152238] border border-[#FFD766]/60"
         }`}>
-          <p className={`text-[10px] md:text-[11px] font-bold tracking-widest uppercase mb-1.5 ${isLight ? "text-[#687386]" : "text-[#C3CDDC]"}`}>
+          <Clock className={`w-5 h-5 ${isLight ? "text-[#002F6D]" : "text-[#FFD766]"} `} />
+          <p className={`text-[10px] md:text-[11px] font-bold  uppercase mb-1.5 ${isLight ? "text-[#002F6D]" : "text-[#FFD766]"}`}>
             EFFECTIVE HOURLY RATE
           </p>
           <div className="flex items-baseline gap-1.5">
@@ -3905,10 +4589,11 @@ export function YatchSizeVisualization({
         </div>
 
         {/* Card 3: Estimated Duration */}
-        <div className={`flex flex-col justify-center p-4 md:p-5 rounded-xl border transition-colors duration-300 ${
-          isLight ? "bg-[#F7F5F0] border-[#D8B63F]" : "bg-[#152238] border-[#FFD766]/60"
+        <div className={`flex flex-col justify-center p-4 md:p-2 rounded-xl  shadow-md transition-colors duration-300 ${
+          isLight ? " bg-[#fff]" : "bg-[#152238] border border-[#FFD766]/60"
         }`}>
-          <p className={`text-[10px] md:text-[11px] font-bold tracking-widest uppercase mb-1.5 ${isLight ? "text-[#687386]" : "text-[#C3CDDC]"}`}>
+          <IoStopwatchOutline className={`w-5 h-5 ${isLight ? "text-[#002F6D]" : "text-[#FFD766]"} `}  />
+          <p className={`text-[10px] md:text-[11px] font-bold tracking-widest uppercase mb-1.5 ${isLight ? "text-[#002F6D]" : "text-[#FFD766]"}`}>
             ESTIMATED DURATION
           </p>
           <p className={`text-base md:text-xl font-bold tracking-wide ${isLight ? "text-[#167A57]" : "text-[#36D6A0]"}`}>
@@ -3916,11 +4601,12 @@ export function YatchSizeVisualization({
           </p>
         </div>
 
-        {/* Card 4: staff Duration */}
-        <div className={`flex flex-col justify-center p-4 md:p-5 rounded-xl border transition-colors duration-300 ${
-          isLight ? "bg-[#F7F5F0] border-[#D8B63F]" : "bg-[#152238] border-[#FFD766]/60"
+        {/* Card 4: Staff */}
+        <div className={`flex flex-col justify-center p-4 md:p-2 rounded-xl  shadow-md transition-colors duration-300 ${
+          isLight ? "bg-[#fff] " : "bg-[#152238] border border-[#FFD766]/60"
         }`}>
-          <p className={`text-[10px] md:text-[11px] font-bold tracking-widest uppercase mb-1.5 ${isLight ? "text-[#687386]" : "text-[#C3CDDC]"}`}>
+          <Users2 className={`w-5 h-5 ${isLight ? "text-[#002F6D]" : "text-[#FFD766]"} `}/>
+          <p className={`text-[10px] md:text-[11px] font-bold tracking-widest uppercase mb-1.5 ${isLight ? "text-[#002F6D]" : "text-[#FFD766]"}`}>
             Staff
           </p>
           <p className={`text-base md:text-xl font-bold tracking-wide ${isLight ? "text-[#167A57]" : "text-[#36D6A0]"}`}>
@@ -3930,15 +4616,11 @@ export function YatchSizeVisualization({
 
       </div>
 
-      {/* Optional Service Badges */}
-       
-    </div>
-      )}
       
     </div>
-  );
+      
+  )
 }
-//Quotation matrix flow with 
 
 
 export const PoolBlueprintDiagram = () => {

@@ -191,7 +191,8 @@ export const nl = {
   visionarydesignationsCUS: "Klantenservice",
   visionarydesignationsFIN: "Financiële afdeling",
 
-  serviceHighlightSectionHeader: "Standaard pakket checklist",
+  serviceHighlightSectionHeader: "Standaard pakket ",
+  serviceChecklist:"checklist ",
   serviceIntroBottomText: "Stel uw regelmatige schema in",
   hourPerCleaner: "uur / per schoonmaker",
   hourPerProfessional: "uur / per professional",

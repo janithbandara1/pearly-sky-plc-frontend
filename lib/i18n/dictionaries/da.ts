@@ -190,6 +190,7 @@ export const da = {
   visionarydesignationsFIN: "Finansafdeling",
 
   serviceHighlightSectionHeader: "Tjekliste for standardpakke",
+  serviceChecklist:"standardpakke",
   serviceIntroBottomText: "Indstil din tilbagevendende tidsplan",
   hourPerCleaner: "Time pr. rengøringsassistent",
   hourPerProfessional: "Time pr. fagperson",

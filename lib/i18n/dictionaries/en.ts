@@ -192,7 +192,8 @@ export const en = {
   visionarydesignationsCUS: "Customer Service",
   visionarydesignationsFIN: "Finance Department",
 
-  serviceHighlightSectionHeader: "Standard Package Checklist",
+  serviceHighlightSectionHeader: "Standard Package ",
+  serviceChecklist:"Checklist",
   serviceIntroBottomText: "Set Your Recurring Schedule",
   hourPerCleaner: "Hour Per Cleaner",
   hourPerProfessional: "Hour Per Professional",

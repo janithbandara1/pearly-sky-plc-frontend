@@ -191,7 +191,8 @@ export const it = {
   visionarydesignationsCUS: "Servizio clienti",
   visionarydesignationsFIN: "Dipartimento finanziario",
 
-  serviceHighlightSectionHeader: "Checklist del pacchetto standard",
+  serviceHighlightSectionHeader: "Del pacchetto standard",
+  serviceChecklist:"Checklist ",
   serviceIntroBottomText: "Imposta il tuo programma ricorrente",
   hourPerCleaner: "ore / per addetto",
   hourPerProfessional: "ore / per professionista",

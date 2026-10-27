@@ -8,6 +8,7 @@ import {
 } from "@/lib/types/services-types/serives-content-types";
 import { useLanguage } from "@/lib/i18n/language-context";
 import { usePoolTheme } from "@/lib/pool-theme-context";
+import { Check, Home } from "lucide-react";
 
 export interface ServiceHighlightsProps {
   title?: ServiceContentHighlightTitles;
@@ -20,6 +21,10 @@ interface CardItemProps {
   card: ServiceHighlightCard;
   theme: string;
 }
+
+const titleIcons = [
+  { key: "home", icon: <Home /> }
+];
 
 /** Individual modernized luxury highlight card */
 function HighlightCard({ card, theme = "light" }: CardItemProps) {
@@ -62,11 +67,11 @@ function HighlightCard({ card, theme = "light" }: CardItemProps) {
                 <span
                   className={`mt-1 flex h-4 w-4 shrink-0 items-center justify-center rounded-full ${
                     isLight
-                      ? "bg-[#002F6D]/10 text-[#002F6D]"
+                      ? "bg-[#FFD766] text-[#fff]"
                       : "bg-[#FFD766]/20 text-[#FFD766] shadow-[0_0_8px_rgba(255,215,102,0.3)]"
                   }`}
                 >
-                  <svg
+                  {/* <svg
                     className="h-2.5 w-2.5"
                     fill="none"
                     viewBox="0 0 24 24"
@@ -78,7 +83,11 @@ function HighlightCard({ card, theme = "light" }: CardItemProps) {
                       strokeLinejoin="round"
                       d="M5 13l4 4L19 7"
                     />
-                  </svg>
+                  </svg> */}
+                  <Check  className={`h-3 w-3 ${
+                    isLight
+                      ? " text-[#fff]"
+                      : " text-[#FFD766]" } `} />
                 </span>
                 <span
                   className={`font-medium ${
@@ -101,7 +110,7 @@ function HighlightCard({ card, theme = "light" }: CardItemProps) {
           }`}
         >
           <span>Included</span>
-          <span className={isLight ? "text-[#002F6D]" : "text-[#FFD766]"}>
+          <span className={isLight ? "text-[#d8b63f] font-bold" : "text-[#FFD766]"}>
             PearlSky Standard
           </span>
         </div>
@@ -181,7 +190,7 @@ function HighlightsFullCarousel({
                 className={`transition-all duration-300 cursor-pointer ${
                   selectedIndex === index
                     ? isLight
-                      ? "w-7 h-2 rounded-full bg-[#002F6D] shadow-[0_0_8px_rgba(0,47,109,0.3)]"
+                      ? "w-7 h-2 rounded-full bg-[#d8b63f] shadow-[0_0_8px_rgba(0,47,109,0.3)]"
                       : "w-7 h-2 rounded-full bg-gradient-to-r from-[#FFD766] to-[#D8B63F] shadow-[0_0_12px_rgba(255,215,102,0.5)]"
                     : isLight
                     ? "w-2 h-2 rounded-full bg-[#D9DDE5] hover:bg-[#687386]/40"
@@ -263,7 +272,7 @@ function HighlightsMobileCarousel({
               className={`transition-all duration-300 cursor-pointer ${
                 selectedIndex === index
                   ? isLight
-                    ? "w-6 h-2 rounded-full bg-[#002F6D]"
+                    ? "w-6 h-2 rounded-full bg-[#d8b63f]"
                     : "w-6 h-2 rounded-full bg-gradient-to-r from-[#FFD766] to-[#D8B63F]"
                   : isLight
                   ? "w-2 h-2 rounded-full bg-[#D9DDE5]"
@@ -330,15 +339,20 @@ export function ServiceHighlights({
         <h2
           className={`font-serif font-bold text-2xl sm:text-3xl tracking-wide ${
             isLight
-              ? "text-[#1A2238]"
+              ? "text-[#002F6D]"
               : "text-[#FFD766] drop-shadow-[0_2px_10px_rgba(255,215,102,0.25)]"
           }`}
         >
           {title ? translate(title) : translate("serviceHighlightSectionHeader")}
         </h2>
+        <h2 className={`font-serif font-bold text-2xl md:text-3xl tracking-wide ${
+            isLight
+              ? "text-[#d8b63f]"
+              : "text-[#FFD766] drop-shadow-[0_2px_10px_rgba(255,215,102,0.25)]"
+          }`}>{translate("serviceChecklist")}</h2>
         <div
           className={`w-16 h-1 mx-auto mt-2.5 rounded-full ${
-            isLight ? "bg-[#002F6D]" : "bg-gradient-to-r from-[#FFD766] to-[#D8B63F]"
+            isLight ? "bg-[#d8b63f]" : "bg-gradient-to-r from-[#FFD766] to-[#D8B63F]"
           }`}
         />
       </div>
