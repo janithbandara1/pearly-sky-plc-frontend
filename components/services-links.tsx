@@ -30,8 +30,8 @@ const relatedServices: ServiceLink[] = [
 export default function RelatedServices({ slugs = {} }: { slugs?: Record<string, string> }) {
   const{translate}=useLanguage()
   return (
-    <section className="w-full bg-[#F8F9FA] px-4 py-8 font-poppins">
-      <h3 className="mb-4 text-center text-lg font-bold text-[#121E2D]">
+    <section className="w-full bg-[var(--ps-page-bg)] px-4 py-8 font-poppins">
+      <h3 className="mb-4 text-center text-lg font-bold text-[var(--ps-text-main)]">
         {translate("exploreServicesRelated")} 
       </h3>
       
@@ -40,7 +40,7 @@ export default function RelatedServices({ slugs = {} }: { slugs?: Record<string,
           <Link
             key={service.name}
             href={`/services/${slugs[service.name] ?? service.name}${service.suffix ?? ""}`}
-            className="rounded-lg border-[1.5px] border-[#A98B4B] bg-white px-[18px] py-2 text-sm font-medium text-[#121E2D] transition-colors duration-200 hover:bg-[#A98B4B] hover:text-white"
+            className="rounded-lg border-[1.5px] border-[var(--ps-gold-accent)] bg-[var(--ps-card-bg)] px-[18px] py-2 text-sm font-medium text-[var(--ps-text-main)] transition-colors duration-200 hover:bg-[var(--ps-gold-accent)] hover:text-[var(--ps-btn-primary-text)]"
           >
             {translate(service.title)}
           </Link>

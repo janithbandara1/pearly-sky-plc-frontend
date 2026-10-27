@@ -14,7 +14,8 @@ import {
   type QuoteItem,
   type QuoteItemOption,
 } from "@/lib/content/quote-items";
-import { useLanguage } from "@/lib/i18n/language-context";
+import { useLanguage } from "@/lib/i18n/language-context"; 
+import { PoolBlueprintDiagram } from "./common-flows-propertis-and-equipments/common-property-types";
 
 const POOL_TYPE_OPTIONS = POOL_ITEM_OPTIONS.filter((o) => o.group === "Pool Type");
 const ADDITIONAL_SERVICE_OPTIONS = POOL_ITEM_OPTIONS.filter((o) => o.group === "Additional Services");
@@ -33,16 +34,19 @@ function CheckRow({
   const { translate } = useLanguage();
   return (
     <label
-      className={`flex cursor-pointer items-center justify-between gap-3 rounded-[10px] bg-white px-3 py-2.5 transition ${checked ? "border-2 border-[#A98B4B] shadow-[0_0_8px_rgba(169,139,75,0.3)]" : "border-[1.5px] border-[#A98B4B]"
-        }`}
+      className={`flex cursor-pointer items-center justify-between gap-3 rounded-[10px] px-3 py-2.5 transition ${
+        checked
+          ? "border-2 border-[#D8B63F] bg-amber-50/50 text-[#1A2238] dark:border-[#FFD766] dark:bg-[#3A3423] dark:text-white shadow-[0_0_12px_rgba(255,215,102,0.25)]"
+          : "border border-[#D9DDE5] bg-white text-[#1A2238] hover:border-[#D8B63F] dark:border-[#718096]/60 dark:bg-[#152238] dark:text-[#C3CDDC] dark:hover:border-[#FFD766]/60 dark:hover:text-white"
+      }`}
     >
-      <span className="text-sm font-medium text-[#121E2D]">
+      <span className="text-sm font-medium">
         {translate(POOL_TRANSLATION_KEYS[option.label])}
       </span>
       <Checkbox
         checked={checked}
         onCheckedChange={onToggle}
-        className="border-[#A98B4B] data-checked:border-[#A98B4B] data-checked:bg-[#A98B4B]"
+        className="border-[#D9DDE5] dark:border-[#718096] data-checked:border-[#002F6D] dark:data-checked:border-[#FFD766] data-checked:bg-[#002F6D] dark:data-checked:bg-[#FFD766] data-checked:text-white dark:data-checked:text-[#002F6D]"
       />
     </label>
   );
@@ -88,14 +92,15 @@ export function PoolJobSelection({ items, onItemsChange }: PoolJobSelectionProps
   }
 
   return (
-    <section className="overflow-hidden rounded-[12px] border border-[#A98B4B]">
-      <div className="bg-[#121E2D] px-5 py-4 text-center">
-        <h1 className="md:text-[1.4rem] font-bold text-[#FFFDF4] text-[1.3rem]">
+    <section className="overflow-hidden rounded-[14px] border border-[#D9DDE5] dark:border-[#718096]/50 bg-white dark:bg-[#1B2A40] shadow-xl">
+      <div className="bg-white dark:bg-[#152238] border-b border-[#D9DDE5] dark:border-[#718096]/40 px-5 py-4 text-center">
+        <h1 className="md:text-[1.4rem] font-bold text-[#1A2238] dark:text-white text-[1.3rem]">
           {translate("poolSectionTitle")}</h1>
-        <p className="text-white">{translate("poolSelectingJob")}</p>
+        <p className="text-sm text-[#687386] dark:text-[#C3CDDC] mt-1">{translate("poolSelectingJob")}</p>
       </div>
+      
 
-      <div className="flex flex-col gap-4 bg-[#121E2D] p-4 sm:p-5">
+      <div className="flex flex-col gap-4 bg-[#F7F5F0]/60 dark:bg-[#1B2A40] p-4 sm:p-5">
         <div className="grid grid-cols-1 gap-4 md:grid-cols-[1fr_1.1fr_1fr]">
           <div className="flex flex-col gap-2.5">
             {LEFT_TYPES.map((option) => (
@@ -108,7 +113,7 @@ export function PoolJobSelection({ items, onItemsChange }: PoolJobSelectionProps
             ))}
           </div>
 
-          <div className="relative hidden min-h-[280px] overflow-hidden rounded-[12px] border border-[#A98B4B] md:block">
+          <div className="relative hidden min-h-[280px] overflow-hidden rounded-[12px] border border-[#D9DDE5] dark:border-[#718096]/50 md:block">
             <Image
               src="/images/services/updated-home-property-cleaning-services-13-pool-cleaning.webp"
               alt={translate("servicePoolCleaning")}
@@ -116,11 +121,11 @@ export function PoolJobSelection({ items, onItemsChange }: PoolJobSelectionProps
               className="object-cover"
             />
             {items.length > 0 && (
-              <div className="absolute inset-0 flex flex-col items-center justify-center gap-1.5 overflow-y-auto p-4">
+              <div className="absolute inset-0 flex flex-col items-center justify-center gap-1.5 overflow-y-auto p-4 bg-black/25 backdrop-blur-[2px]">
                 {items.map((item) => (
                   <div
                     key={item.id}
-                    className="rounded-lg px-3 py-1.5 text-center text-xs text-[#121E2D]"
+                    className="rounded-lg px-3 py-1.5 text-center text-xs font-semibold bg-white/95 dark:bg-[#152238]/95 border border-[#D9DDE5] dark:border-[#718096] text-[#1A2238] dark:text-[#C3CDDC] shadow-md"
                   >
                     {formatQuoteItem(item, POOL_ITEM_OPTIONS, (value) =>
                       POOL_TRANSLATION_KEYS[value] ? translate(POOL_TRANSLATION_KEYS[value]) : value,
@@ -153,15 +158,15 @@ export function PoolJobSelection({ items, onItemsChange }: PoolJobSelectionProps
       </div>
 
       <Dialog open={activeOption !== null} onOpenChange={(next) => !next && setActiveOption(null)}>
-        <DialogContent className="gap-0 overflow-hidden border-0 bg-[#F9F7F2] p-0 ring-0 sm:max-w-md">
-          <DialogHeader className="pt-4">
-            <DialogTitle className="text-center text-sm font-bold text-[#121E2D]">
+        <DialogContent className="gap-0 overflow-hidden border border-[#D8B63F]/50 dark:border-[#FFD766]/50 bg-white dark:bg-[#1B2A40] p-0 ring-0 sm:max-w-md shadow-2xl">
+          <DialogHeader className="pt-5 pb-3 border-b border-[#D9DDE5] dark:border-[#718096]/30">
+            <DialogTitle className="text-center text-base font-bold text-[#1A2238] dark:text-white">
               {activeOption && translate(POOL_TRANSLATION_KEYS[activeOption.label])}
             </DialogTitle>
             <DialogDescription className="sr-only">{translate("poolServiceDetails")}</DialogDescription>
           </DialogHeader>
 
-          <div className="flex flex-col gap-3 p-4">
+          <div className="flex flex-col gap-4 p-5 bg-[#F7F5F0]/40 dark:bg-[#152238]/50">
             {activeOption?.fields.map((field) => (
               <FieldInput
                 key={field.key}
@@ -175,22 +180,22 @@ export function PoolJobSelection({ items, onItemsChange }: PoolJobSelectionProps
             ))}
 
             <div className="space-y-1.5">
-              <span className="text-sm font-medium text-[#121E2D]">{translate("poolQuantity")}</span>
-              <div className="flex h-9 w-full items-center justify-between rounded-lg border border-[#A98B4B] bg-white px-1.5">
+              <span className="text-xs font-bold uppercase tracking-wider text-[#1A2238] dark:text-white">{translate("poolQuantity")}</span>
+              <div className="flex h-10 w-full items-center justify-between rounded-lg border border-[#D9DDE5] dark:border-[#718096] bg-white dark:bg-[#152238] px-2">
                 <button
                   type="button"
                   onClick={() => setQuantity((q) => Math.max(1, q - 1))}
-                  className="flex size-6 items-center justify-center rounded-full bg-[#A98B4B]/40 text-[#121E2D] transition hover:brightness-95"
+                  className="flex size-7 items-center justify-center rounded-full bg-[#002F6D]/10 dark:bg-[#718096]/30 text-[#002F6D] dark:text-[#C3CDDC] transition hover:brightness-95 cursor-pointer"
                 >
-                  <Minus className="size-3" />
+                  <Minus className="size-3.5" />
                 </button>
-                <span className="text-sm font-semibold text-[#121E2D]">{quantity}</span>
+                <span className="text-sm font-bold text-[#1A2238] dark:text-white">{quantity}</span>
                 <button
                   type="button"
                   onClick={() => setQuantity((q) => q + 1)}
-                  className="flex size-6 items-center justify-center rounded-full bg-[#A98B4B] text-white transition hover:brightness-95"
+                  className="flex size-7 items-center justify-center rounded-full bg-[#002F6D] dark:bg-[#FFD766] text-white dark:text-[#002F6D] transition hover:brightness-110 cursor-pointer"
                 >
-                  <Plus className="size-3" />
+                  <Plus className="size-3.5" />
                 </button>
               </div>
             </div>
@@ -199,8 +204,7 @@ export function PoolJobSelection({ items, onItemsChange }: PoolJobSelectionProps
               type="button"
               onClick={handleSaveDetails}
               size="lg"
-              variant="outline"
-              className="mt-2 w-full border-0 bg-[#A98B4B] text-sm font-semibold text-white hover:bg-[#A98B4B]/90"
+              className="mt-2 w-full bg-[#002F6D] text-white hover:bg-[#002F6D]/90 dark:bg-[#FFD766] dark:text-[#002F6D] dark:hover:bg-[#FFD766]/90 text-sm font-bold uppercase tracking-wider transition-all cursor-pointer shadow-md"
             >
               {translate("poolSave")}
             </Button>
@@ -210,3 +214,4 @@ export function PoolJobSelection({ items, onItemsChange }: PoolJobSelectionProps
     </section>
   );
 }
+

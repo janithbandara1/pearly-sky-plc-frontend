@@ -1,5 +1,6 @@
 "use client";
 
+import type { ReactNode } from "react";
 import Link from "@/components/locale-link";
 import { User, Briefcase, KeyRound, ArrowRight, Folder, Ruler, Clock, Users, CalendarClock, Check, UserCircle, Languages } from "lucide-react";
 import type { CatalogItem, SizeQuote } from "@/lib/catalog-api";
@@ -26,14 +27,14 @@ function formatHM(hours: number): string {
   return m === 0 ? `${h}h` : `${h}h ${m}m`;
 }
 
-interface ItemDetailMeta {
+export interface ItemDetailMeta {
   displayName: string;
   subtitle: string;
   description: string;
   defaultPrice: number;
 }
 
-const ITEM_DETAILS_MAP: Record<string, ItemDetailMeta> = {
+export const ITEM_DETAILS_MAP: Record<string, ItemDetailMeta> = {
   [EQUIPMENT_ITEM_SKU.BIO_SOLVENT]: {
     displayName: "BIODisplayName",
     subtitle: "BIOSubtitle",
@@ -60,7 +61,7 @@ const ITEM_DETAILS_MAP: Record<string, ItemDetailMeta> = {
   },
 };
 
-const FALLBACK_EQUIPMENT_ITEMS: CatalogItem[] = [
+export const FALLBACK_EQUIPMENT_ITEMS: CatalogItem[] = [
   {
     id: 1,
     name: "BIO - SOLVENT",
@@ -97,7 +98,7 @@ const FALLBACK_EQUIPMENT_ITEMS: CatalogItem[] = [
 
 export interface EquipmentSectionProps {
   propertyType?: string;
-  categoryIcon?: string;
+  categoryIcon?: string | ReactNode;
   propertySizeSqm: number;
   quote: SizeQuote | null;
   hourlyRate: string | null;

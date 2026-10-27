@@ -10,61 +10,65 @@ import {
 } from "@/lib/catalog-api";
 import { useLanguage } from "@/lib/i18n/language-context";
 import { TranslationKey } from "@/lib/i18n/dictionaries/en";
+import { usePoolTheme } from "@/lib/pool-theme-context";
 
 export interface JobCardSectionProps {
   packages?: ServiceAddOnPackage[];
   selectedIds: Set<number>;
   onToggle: (id: number) => void;
   maxSelectionsPerCategory?: number;
+  theme?: string;
 }
 
-
-const categoryItemsMapping:Record<string, TranslationKey>={
+const categoryItemsMapping: Record<string, TranslationKey> = {
   "Professional Oven & Fridge Restoration": "AddsOnCategoryOvenFridgeRestoration",
-"Heavy Limescale & Mold Remediation": "AddsOnCategoryLimescaleMoldRemediation",
-"High-Altitude Window Polishing": "AddsOnCategoryHighAltitudeWindowPolishing",
-"Kitchen Exhaust & Filter Soak": "AddsOnCategoryKitchenExhaustFilterSoak",
-"Inside Microwave & Small Appliances": "AddsOnCategoryMicrowaveAppliancesCleaning",
-"Wall Spot & Scuff Removal": "AddsOnCategoryWallSpotScuffRemoval",
-"Mirror & Glass Detail Polishing": "AddsOnCategoryWallSpotScuffRemoval",
-"Internal Cupboard & Drawer Detail": "AddsOnCategoryWallSpotScuffRemoval",
-"AC Filter & Intake Grille Wash": "AddsOnCategoryWallSpotScuffRemoval",
-"Light Fixture & Chandelier Polishing": "AddsOnCategoryLightFixtureChandelierPolishing",
-"Smart Home Device Setup": "AddsOnCategorySmartHomeDeviceSetup",
-"Squeak & Hinge Repair": "AddsOnCategorySqueakHingeRepair",
-"Flat-Pack Furniture Assembly": "AddsOnCategoryFlatPackFurnitureAssembly",
-"Vent & Air Register Vacuuming": "AddsOnCategoryVentAirRegisterVacuuming",
-"Curtain & Blind Track Repair": "AddsOnCategoryCurtainBlindTrackRepair",
-"Hardware & Fitting Buffing": "AddsOnCategoryHardwareFittingBuffing",
-"Hotel-Style Bed Making & Styling": "AddsOnCategoryHotelStyleBedMaking",
-"Pantry Organization & Labeling": "AddsOnCategoryPantryOrganizationLabeling",
-"Wardrobe Color-Coding & Sorting": "AddsOnCategoryWardrobeColorCodingSorting",
-"Shoe Cleaning & Polishing": "AddsOnCategoryShoeCleaningPolishing",
-"Indoor Plant Watering & Leaf Shining": "AddsOnCategoryIndoorPlantWateringShining",
-"Grocery Restock & Storage": "AddsOnCategoryGroceryRestockStorage",
-"Pet Station & Bedding Sanitization": "AddsOnCategoryPetStationBeddingSanitization",
-"Laundry, Folding & Ironing": "AddsOnCategoryLaundryFoldingIroning",
-"Trash & Recycling Bin Sanitization": "AddsOnCategoryTrashBinSanitization",
-"Front Door & Entryway Polishing": "AddsOnCategoryFrontDoorEntrywayPolishing",
-"Patio Furniture Detailing": "AddsOnCategoryPatioFurnitureDetailing",
-"BBQ & Outdoor Grill Deep Clean": "AddsOnCategoryBbqOutdoorGrillDeepClean",
-"Pool Deck & Perimeter Clearing": "AddsOnCategoryPoolDeckPerimeterClearing",
-"Garage Threshold & Cobweb Sweep": "AddsOnCategoryGarageThresholdCobwebSweep",
-"Exterior Window & Screen Wipe": "AddsOnCategoryExteriorWindowScreenWipe",
-"Driveway Oil Spot Treatment": "AddsOnCategoryDrivewayOilSpotTreatment",
-
-}
-
+  "Heavy Limescale & Mold Remediation": "AddsOnCategoryLimescaleMoldRemediation",
+  "High-Altitude Window Polishing": "AddsOnCategoryHighAltitudeWindowPolishing",
+  "Kitchen Exhaust & Filter Soak": "AddsOnCategoryKitchenExhaustFilterSoak",
+  "Inside Microwave & Small Appliances": "AddsOnCategoryMicrowaveAppliancesCleaning",
+  "Wall Spot & Scuff Removal": "AddsOnCategoryWallSpotScuffRemoval",
+  "Mirror & Glass Detail Polishing": "AddsOnCategoryWallSpotScuffRemoval",
+  "Internal Cupboard & Drawer Detail": "AddsOnCategoryWallSpotScuffRemoval",
+  "AC Filter & Intake Grille Wash": "AddsOnCategoryWallSpotScuffRemoval",
+  "Light Fixture & Chandelier Polishing": "AddsOnCategoryLightFixtureChandelierPolishing",
+  "Smart Home Device Setup": "AddsOnCategorySmartHomeDeviceSetup",
+  "Squeak & Hinge Repair": "AddsOnCategorySqueakHingeRepair",
+  "Flat-Pack Furniture Assembly": "AddsOnCategoryFlatPackFurnitureAssembly",
+  "Vent & Air Register Vacuuming": "AddsOnCategoryVentAirRegisterVacuuming",
+  "Curtain & Blind Track Repair": "AddsOnCategoryCurtainBlindTrackRepair",
+  "Hardware & Fitting Buffing": "AddsOnCategoryHardwareFittingBuffing",
+  "Hotel-Style Bed Making & Styling": "AddsOnCategoryHotelStyleBedMaking",
+  "Pantry Organization & Labeling": "AddsOnCategoryPantryOrganizationLabeling",
+  "Wardrobe Color-Coding & Sorting": "AddsOnCategoryWardrobeColorCodingSorting",
+  "Shoe Cleaning & Polishing": "AddsOnCategoryShoeCleaningPolishing",
+  "Indoor Plant Watering & Leaf Shining": "AddsOnCategoryIndoorPlantWateringShining",
+  "Grocery Restock & Storage": "AddsOnCategoryGroceryRestockStorage",
+  "Pet Station & Bedding Sanitization": "AddsOnCategoryPetStationBeddingSanitization",
+  "Laundry, Folding & Ironing": "AddsOnCategoryLaundryFoldingIroning",
+  "Trash & Recycling Bin Sanitization": "AddsOnCategoryTrashBinSanitization",
+  "Front Door & Entryway Polishing": "AddsOnCategoryFrontDoorEntrywayPolishing",
+  "Patio Furniture Detailing": "AddsOnCategoryPatioFurnitureDetailing",
+  "BBQ & Outdoor Grill Deep Clean": "AddsOnCategoryBbqOutdoorGrillDeepClean",
+  "Pool Deck & Perimeter Clearing": "AddsOnCategoryPoolDeckPerimeterClearing",
+  "Garage Threshold & Cobweb Sweep": "AddsOnCategoryGarageThresholdCobwebSweep",
+  "Exterior Window & Screen Wipe": "AddsOnCategoryExteriorWindowScreenWipe",
+  "Driveway Oil Spot Treatment": "AddsOnCategoryDrivewayOilSpotTreatment",
+};
 
 export function JobCardSection({
   packages = [],
   selectedIds,
   onToggle,
   maxSelectionsPerCategory = 2,
+  theme: themeProp,
 }: JobCardSectionProps) {
   const [activeCategoryId, setActiveCategoryId] = useState<PackageCategory | null>(null);
 
-  const {translate}=useLanguage()
+  const { theme: contextTheme } = usePoolTheme();
+  const activeTheme = themeProp ?? contextTheme ?? "dark";
+  const isLight = activeTheme === "light";
+
+  const { translate } = useLanguage();
 
   const categories = PACKAGE_CATEGORIES.map((id) => ({
     id,
@@ -74,7 +78,9 @@ export function JobCardSection({
 
   if (categories.length === 0) return null;
 
+  // Fallback to first category if none selected
   const activeCategory = categories.find((c) => c.id === activeCategoryId) ?? categories[0];
+  
   const getPackageItemLabel = (name: string) => {
     const mappedKey = categoryItemsMapping[name];
     if (mappedKey) return translate(mappedKey);
@@ -82,110 +88,28 @@ export function JobCardSection({
   };
 
   return (
-    <section className="w-full md:px-6 mt-10 px-1">
+    <section id="upgrades" className={`w-full md:px-6 px-2 py-6 rounded-2xl sm:rounded-3xl shadow-2xl border transition-all duration-300 ${
+      isLight ? "bg-white border-[#C5A059] text-[#1A2238]" : "bg-[#1B2A40]/80 backdrop-blur-xl border-[#C5A059] text-white"
+    }`}>
+      <span className={`text-[10px] sm:text-xs font-sans font-bold tracking-[0.2em] sm:tracking-[0.25em] uppercase ${
+        isLight ? "text-[#002F6D]" : "text-[#FFD766]"
+      }`}>
+        Step 3 of 6
+      </span>
       {/* Component Header Title */}
-      <h2 className="text-xl sm:text-2xl font-bold text-[#0F172A] text-center mb-6 tracking-tight">
+      <h2 className={`text-xl md:text-2xl mb-3 font-serif mt-1 font-normal tracking-wide leading-tight ${
+        isLight ? "text-[#1A2238]" : "text-white"
+      }`}>
         {translate("jobCardSectionTitle")}
       </h2>
 
-      {/* Mobile View Layout (< md) */}
-      <div className="flex flex-col gap-3 md:hidden">
-        {categories.map((category) => {
-          const isSelectedCategory = category.id === activeCategoryId;
-          const selectedInCatCount = category.items.filter((item) => selectedIds.has(item.id)).length;
-          const isCatMaxReached = selectedInCatCount >= maxSelectionsPerCategory;
-
-          return (
-            <div key={category.id} className="flex flex-col gap-3">
-              {/* Category Header Bar */}
-              <button
-                type="button"
-                onClick={() => setActiveCategoryId((prev) => (prev === category.id ? null : category.id))}
-                className={`w-full px-4 py-3.5 rounded-xl bg-[#0B1527] border-2 border-[#B89642] flex items-center justify-between transition-all select-none ${isSelectedCategory ? "ring-1 ring-[#B89642] shadow-md" : "hover:border-[#B89642]"
-                  }`}
-              >
-                <span className="text-sm font-normal text-white text-left leading-snug">
-                  {translate(category.label as TranslationKey)}
-                </span>
-
-                {isSelectedCategory ? (
-                  <span className="px-4 min-h-[48px] py-3  rounded-lg bg-[#B89642] text-white text-[11px] font-bold ">
-                    {translate("securitySelected")}
-                  </span>
-                ) : (
-                  <span className="px-4 min-h-[48px] py-3 rounded-lg border border-[#B89642] text-[#B89642] text-[11px] font-bold ">
-                    {translate("securitySelect")}
-                  </span>
-                )}
-              </button>
-
-              {/* Expanded Add-On List on Mobile (if selected) */}
-              {isSelectedCategory && (
-                <div className="flex flex-col gap-3 pt-1 pb-2">
-                  {category.items.map((item) => {
-                    const isSelected = selectedIds.has(item.id);
-                    const isDisabled = !isSelected && isCatMaxReached;
-
-                    return (
-                      <button
-                        key={item.id}
-                        type="button"
-                        disabled={isDisabled}
-                        onClick={() => onToggle(item.id)}
-                        aria-pressed={isSelected}
-                        className={`min-h-[48px] px-4 py-3 rounded-xl  bg-white flex items-center justify-between text-left transition-all duration-200 select-none group
-                          ${isSelected
-                            ? "border-2 border-[#B89642] ring-1 ring-[#B89642] shadow-sm"
-                            : isDisabled
-                              ? "border border-gray-200 bg-gray-50/60 opacity-50 cursor-not-allowed"
-                              : "border border-[#C6A868]/60 hover:border-[#B89642] shadow-sm cursor-pointer"
-                          }`}
-                      >
-                        {/* Left soft badge icon + title */}
-                        <div className="flex items-center min-w-0 flex-1 pr-2">
-                          <div className="w-10 h-10 rounded-lg bg-[#F4F5F7] flex items-center justify-center text-lg shrink-0 mr-3 border border-slate-100 overflow-hidden">
-                            {item.image ? (
-                              // eslint-disable-next-line @next/next/no-img-element
-                              <img src={item.image} alt="" className="h-full w-full object-cover" />
-                            ) : (
-                              <PackageIcon className="h-5 w-5 text-slate-400" />
-                            )}
-                          </div>
-                          <span
-                            className={`text-xs sm:text-sm leading-snug font-semibold text-[#1E293B] ${isDisabled ? "text-slate-400" : ""
-                              }`}
-                          >
-                            {translate(getPackageItemLabel(item.name) as TranslationKey)}
-                          </span>
-                        </div>
-
-                        {/* Right Action Icon Button */}
-                        {isSelected ? (
-                          <div className="w-7 h-7 rounded-full bg-[#B89642] border border-[#B89642] flex items-center justify-center text-white shrink-0 shadow-sm">
-                            <Check className="h-3.5 w-3.5" strokeWidth={3} />
-                          </div>
-                        ) : (
-                          <div
-                            className={`w-7 h-7 rounded-full border border-[#B89642] flex items-center justify-center text-[#B89642] shrink-0 ${isDisabled ? "border-gray-300 text-gray-300" : ""
-                              }`}
-                          >
-                            <Plus className="h-4 w-4" strokeWidth={2.5} />
-                          </div>
-                        )}
-                      </button>
-                    );
-                  })}
-                </div>
-              )}
-            </div>
-          );
-        })}
-      </div>
-
-      {/* Desktop View Layout (≥ md) */}
-      <div className="hidden md:block">
-        {/* Category Tabs Header */}
-        <div className="grid grid-cols-4 gap-2 mb-6">
+      {/* Unified Category Tabs & Content Layout (Responsive across Mobile & Desktop) */}
+      <div className={`border-t py-6 ${isLight ? "border-t-[#D9DDE5]": "border-t-[#718096]/30"}`}>
+        
+        {/* Category Tabs Header: horizontally scrollable on mobile, grid/flex layout */}
+        <div className={`flex md:grid md:grid-cols-4 gap-2 mb-6 overflow-x-auto pb-2 scrollbar-none border-b ${
+          isLight ? "border-b-[#D9DDE5]" : "border-b-[#718096]/30"
+        }`}>
           {categories.map((category) => {
             const isActive = category.id === activeCategory.id;
             return (
@@ -193,11 +117,15 @@ export function JobCardSection({
                 key={category.id}
                 type="button"
                 onClick={() => setActiveCategoryId(category.id)}
-                className={`py-3.5 px-4 rounded-[7px] text-[12px] sm:text-sm text-[rgb(85,85,85)] font-normal transition-all duration-200 text-center select-none
-                  ${isActive
-                    ? "bg-[#0B1527] border-2 border-[#B89642] ring-1 ring-[#B89642] text-white shadow-md"
-                    : "bg-white border border-[#C6A868]/60 hover:border-[#B89642] text-[#1E293B] hover:bg-slate-50 shadow-sm"
-                  }`}
+                className={`py-2.5 px-3 rounded-[9px] text-xs sm:text-[13px] font-normal text-center select-none shrink-0 md:shrink transition-all ${
+                  isActive
+                    ? isLight
+                      ? "bg-[#002F6D] border-2 border-[#002F6D] text-white font-bold ring-1 ring-[#002F6D]/30"
+                      : "bg-[#FFD766] border-2 border-[#FFD766] text-[#002F6D] font-bold ring-1 ring-[#FFD766]/30"
+                    : isLight
+                    ? "text-[#1A2238] hover:bg-[#F7F5F0] border border-transparent hover:border-[#D8B63F]"
+                    : "text-[#C3CDDC] hover:bg-[#152238] border border-transparent hover:border-[#FFD766]/50"
+                }`}
               >
                 {translate(category.label as TranslationKey)}
               </button>
@@ -205,8 +133,8 @@ export function JobCardSection({
           })}
         </div>
 
-        {/* Add-Ons 2-Column Grid */}
-        <div className="grid grid-cols-2 gap-3.5 sm:gap-4 items-center md:mx-2">
+        {/* Add-Ons Grid (1 column on mobile, 2 columns on desktop) */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-3.5 sm:gap-4 items-center md:mx-2">
           {(() => {
             const selectedInCatCount = activeCategory.items.filter((item) => selectedIds.has(item.id)).length;
             const isCatMaxReached = selectedInCatCount >= maxSelectionsPerCategory;
@@ -222,26 +150,34 @@ export function JobCardSection({
                   disabled={isDisabled}
                   onClick={() => onToggle(item.id)}
                   aria-pressed={isSelected}
-                  className={`min-h-[72px] border-[1.5px] border-[rgb(169,139,75)] px-3 py-3.5 rounded-xl bg-white flex items-center justify-between text-left transition-all duration-200 select-none group ${isSelected
-                    ? "border-2 border-[#B89642] ring-1 ring-[#B89642] shadow-sm"
-                    : isDisabled
-                      ? "border border-gray-200 bg-gray-50/60 opacity-50 cursor-not-allowed"
-                      : "border border-[#C6A868]/60 hover:border-[#B89642] shadow-sm cursor-pointer hover:shadow"
-                    }`}
+                  className={`min-h-[72px] px-3.5 py-3.5 rounded-xl flex items-center justify-between text-left transition-all duration-200 select-none group ${
+                    isSelected
+                      ? isLight
+                        ? "bg-[#F7F5F0] border-2 border-[#D8B63F] ring-1 ring-[#D8B63F]/30 shadow-xs"
+                        : "bg-[#1B2A40] border-2 border-[#FFD766] ring-1 ring-[#FFD766]/30 shadow-[0_0_15px_rgba(255,215,102,0.15)]"
+                      : isDisabled
+                      ? isLight
+                        ? "border border-[#D9DDE5] bg-gray-100 text-gray-400 opacity-50 cursor-not-allowed"
+                        : "border border-[#718096]/20 bg-[#111C2E]/50 text-slate-500 opacity-50 cursor-not-allowed"
+                      : isLight
+                      ? "bg-white border border-[#D9DDE5] hover:border-[#D8B63F] hover:bg-[#F7F5F0] shadow-xs cursor-pointer"
+                      : "bg-[#152238] border border-[#718096]/30 hover:border-[#FFD766]/50 hover:bg-[#1B2A40] shadow-xs cursor-pointer"
+                  }`}
                 >
                   {/* Left soft badge icon + title */}
                   <div className="flex items-center min-w-0 flex-1 pr-2">
-                    <div className="w-11 h-11 rounded-lg bg-[#F4F5F7] flex items-center justify-center text-xl shrink-0 mr-3.5 border border-slate-100 overflow-hidden">
+                    <div className={`w-11 h-11 rounded-lg flex items-center justify-center text-xl shrink-0 mr-3.5 overflow-hidden`}>
                       {item.image ? (
                         // eslint-disable-next-line @next/next/no-img-element
                         <img src={item.image} alt="" className="h-full w-full object-cover" />
                       ) : (
-                        <PackageIcon className="h-5 w-5 text-slate-400" />
+                        <PackageIcon className={`h-5 w-5 ${isLight ? "text-[#002F6D]" : "text-[#FFD766]"}`} />
                       )}
                     </div>
                     <span
-                      className={`text-sm sm:text-[15px] leading-snug font-semibold text-[#1E293B] ${isDisabled ? "text-slate-400" : ""
-                        }`}
+                      className={`text-[13px] sm:text-[14px] leading-snug font-semibold ${
+                        isLight ? "text-[#1A2238]" : "text-white"
+                      } ${isDisabled ? (isLight ? "text-slate-400" : "text-slate-500") : ""}`}
                     >
                       {translate(getPackageItemLabel(item.name) as TranslationKey)}
                     </span>
@@ -249,13 +185,22 @@ export function JobCardSection({
 
                   {/* Right Action Icon Button */}
                   {isSelected ? (
-                    <div className="w-7 h-7 rounded-full bg-[#B89642] border border-[#B89642] flex items-center justify-center text-white shrink-0 shadow-sm">
+                    <div className={`w-8 h-8 rounded-[10px] flex items-center justify-center shrink-0 shadow-xs ${
+                      isLight ? "bg-[#002F6D] border border-[#002F6D] text-white" : "bg-[#FFD766] border border-[#FFD766] text-[#002F6D]"
+                    }`}>
                       <Check className="h-3.5 w-3.5" strokeWidth={3} />
                     </div>
                   ) : (
                     <div
-                      className={`w-7 h-7 rounded-full border border-[#B89642] flex items-center justify-center text-[#B89642] shrink-0 transition-transform ${isDisabled ? "border-gray-300 text-gray-300" : "group-hover:scale-105"
-                        }`}
+                      className={`w-8 h-8 rounded-[10px] border flex items-center justify-center shrink-0 transition-transform ${
+                        isDisabled
+                          ? isLight
+                            ? "border-gray-300 text-gray-300"
+                            : "border-slate-700 text-slate-700"
+                          : isLight
+                          ? "border-[#002F6D] text-[#002F6D] group-hover:scale-105"
+                          : "border-[#FFD766] text-[#FFD766] group-hover:scale-105"
+                      }`}
                     >
                       <Plus className="h-4 w-4" strokeWidth={2.5} />
                     </div>

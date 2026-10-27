@@ -174,10 +174,10 @@ export function PressureWashingJobSelection({ items, onItemsChange }: PressureWa
   };
 
   return (
-    <section className="overflow-hidden rounded-[14px] border border-[#A98B4B] bg-[#101A26] p-4 sm:p-6 text-white shadow-xl">
+    <section className="overflow-hidden rounded-[16px] border border-[#D9DDE5] dark:border-[#718096]/60 bg-white dark:bg-[#1B2A40] p-4 sm:p-6 text-[#1A2238] dark:text-white shadow-xl">
       {/* Header */}
       <div className="mb-6 text-center">
-        <h2 className="text-xl font-bold uppercase tracking-wider text-white sm:text-2xl">
+        <h2 className="text-xl font-bold uppercase tracking-wider text-[#1A2238] dark:text-white sm:text-2xl">
           {translate("pressureSelectJobTitle")}
         </h2>
       </div>
@@ -193,14 +193,14 @@ export function PressureWashingJobSelection({ items, onItemsChange }: PressureWa
               type="button"
               onClick={() => handleCategoryActivation(cat.key)}
               className={`group flex flex-col w-[80%] h-full items-center justify-center gap-3.5 rounded-2xl p-4 sm:p-5 text-center transition-all duration-200 cursor-pointer ${isSelected
-                ? "bg-[#A98B4B] text-white shadow-lg scale-[1.02] border-2 border-[#A98B4B]"
-                : "bg-[#FFFDF4] text-[#121E2D] hover:bg-white border-2 border-[#A98B4B]/80 hover:border-[#A98B4B]"
+                ? "bg-amber-50/70 border-2 border-[#D8B63F] text-[#1A2238] dark:bg-[#3A3423] dark:border-[#FFD766] dark:text-white shadow-lg scale-[1.02]"
+                : "bg-white border border-[#D9DDE5] text-[#1A2238] hover:border-[#D8B63F] dark:bg-[#152238] dark:border-[#718096]/70 dark:text-[#C3CDDC] dark:hover:border-[#FFD766]/60 dark:hover:text-white"
                 }`}
             >
               <div
                 className={`flex size-14 items-center justify-center rounded-full transition-colors ${isSelected
-                  ? "bg-white/20 text-white"
-                  : "bg-[#F3EAD8] text-[#A98B4B]"
+                  ? "bg-[#002F6D]/10 text-[#002F6D] dark:bg-[#FFD766]/20 dark:text-[#FFD766]"
+                  : "bg-[#F7F5F0] text-[#687386] group-hover:text-[#002F6D] dark:bg-[#1B2A40] dark:text-[#C3CDDC] dark:group-hover:text-[#FFD766]"
                   }`}
               >
                 <CatIcon className="size-7" />
@@ -211,8 +211,8 @@ export function PressureWashingJobSelection({ items, onItemsChange }: PressureWa
               {/* Styled span, not a <button> — the whole card is already the button. */}
               <span
                 className={`mt-auto inline-flex items-center justify-center gap-1 rounded-lg px-4 py-1.5 text-xs font-bold uppercase tracking-wider transition-colors ${isSelected
-                  ? "bg-white text-[#A98B4B]"
-                  : "bg-[#A98B4B] text-white group-hover:bg-[#967A3E]"
+                  ? "bg-[#002F6D] text-white dark:bg-[#FFD766] dark:text-[#002F6D]"
+                  : "bg-white border border-[#D9DDE5] text-[#002F6D] group-hover:border-[#002F6D] dark:bg-[#1B2A40] dark:border-[#718096] dark:text-[#C3CDDC] dark:group-hover:border-[#FFD766]/60 dark:group-hover:text-[#FFD766]"
                   }`}
               >
                 {isSelected && <Check className="size-3.5" />}
@@ -226,7 +226,7 @@ export function PressureWashingJobSelection({ items, onItemsChange }: PressureWa
       {/* Dynamic Subcategories Section */}
       {isActiveCategory && (
         <div className="mt-8 text-center">
-          <h3 className="mb-5 text-base font-bold uppercase tracking-wider text-[#A98B4B] sm:text-lg">
+          <h3 className="mb-5 text-base font-bold uppercase tracking-wider text-[#002F6D] dark:text-[#FFD766] sm:text-lg">
             {(() => {
               const activeCatMeta = MAIN_CATEGORIES.find((c) => c.key === activeCategory);
               return activeCatMeta ? translate(activeCatMeta.labelKey).replace("\n", " ") : activeCategory;
@@ -243,24 +243,24 @@ export function PressureWashingJobSelection({ items, onItemsChange }: PressureWa
                   key={option.value}
                   type="button"
                   onClick={() => handleOpenDialog(option)}
-                  className={`group relative flex flex-col items-center justify-center gap-3 rounded-xl border-2 bg-[#FFFDF4] p-4 text-[#121E2D] transition-all duration-200 hover:border-[#A98B4B] hover:shadow-md cursor-pointer ${existingItem
-                    ? "border-[#A98B4B] ring-2 ring-[#A98B4B]/50"
-                    : "border-[#A98B4B]/80"
+                  className={`group relative flex flex-col items-center justify-center gap-3 rounded-xl border p-4 transition-all duration-200 cursor-pointer ${existingItem
+                    ? "border-2 border-[#D8B63F] bg-amber-50/50 text-[#1A2238] dark:border-[#FFD766] dark:bg-[#3A3423] dark:text-white shadow-[0_0_12px_rgba(255,215,102,0.2)]"
+                    : "border-[#D9DDE5] bg-white text-[#1A2238] hover:border-[#D8B63F] dark:border-[#718096]/60 dark:bg-[#152238] dark:text-[#C3CDDC] dark:hover:border-[#FFD766]/60 dark:hover:text-white"
                     }`}
                 >
                   {existingItem && (
-                    <span className="absolute top-2 right-2 flex size-6 items-center justify-center rounded-full bg-[#A98B4B] text-white">
+                    <span className="absolute top-2 right-2 flex size-6 items-center justify-center rounded-full bg-[#002F6D] text-white dark:bg-[#FFD766] dark:text-[#002F6D]">
                       <Check className="size-3.5" />
                     </span>
                   )}
-                  <div className="flex size-11 items-center justify-center rounded-full bg-[#F3EAD8] text-[#A98B4B] transition-transform group-hover:scale-110">
+                  <div className={`flex size-11 items-center justify-center rounded-full transition-transform group-hover:scale-110 ${existingItem ? "bg-[#002F6D]/15 text-[#002F6D] dark:bg-[#FFD766]/20 dark:text-[#FFD766]" : "bg-[#F7F5F0] text-[#002F6D] dark:bg-[#1B2A40] dark:text-[#FFD766]"}`}>
                     <IconComp className="size-5" />
                   </div>
-                  <span className="text-sm font-bold leading-snug text-[#121E2D]">
+                  <span className="text-sm font-bold leading-snug">
                     {getOptionLabel(option.value, option.label)}
                   </span>
                   {existingItem && (
-                    <span className="text-xs font-semibold text-[#A98B4B]">
+                    <span className="text-xs font-semibold text-[#002F6D] dark:text-[#FFD766]">
                       {existingItem.values.size
                         ? `${existingItem.values.size} ${existingItem.values.sizeUnit ?? "ft²"}`
                         : `Qty: ${existingItem.quantity}`}
@@ -268,8 +268,8 @@ export function PressureWashingJobSelection({ items, onItemsChange }: PressureWa
                   )}
                   <span
                     className={`mt-auto inline-flex items-center justify-center rounded-lg px-4 py-1.5 text-xs font-bold uppercase tracking-wider transition-colors ${existingItem
-                      ? "border-2 border-[#A98B4B] bg-white text-[#A98B4B]"
-                      : "bg-[#A98B4B] text-white group-hover:bg-[#967A3E]"
+                      ? "border border-[#002F6D] bg-[#002F6D] text-white dark:border-[#FFD766] dark:bg-[#FFD766] dark:text-[#002F6D]"
+                      : "bg-[#002F6D] text-white hover:bg-[#002F6D]/90 dark:bg-[#1B2A40] dark:border dark:border-[#718096] dark:text-[#C3CDDC] dark:group-hover:border-[#FFD766] dark:group-hover:text-[#FFD766]"
                       }`}
                   >
                     {translate(existingItem ? "pressureEditBtn" : "pressureSelectBtn")}
@@ -284,18 +284,18 @@ export function PressureWashingJobSelection({ items, onItemsChange }: PressureWa
 
       {/* Selected Items Summary List */}
       {items.length > 0 && (
-        <div className="mt-8 border-t border-[#A98B4B]/30 pt-4">
-          <h4 className="mb-3 text-xs font-semibold uppercase tracking-wider text-[#A98B4B]">
+        <div className="mt-8 border-t border-[#D9DDE5] dark:border-[#718096]/40 pt-4">
+          <h4 className="mb-3 text-xs font-bold uppercase tracking-wider text-[#002F6D] dark:text-[#FFD766]">
             {translate("pressureSelectedJobsTitle")} ({items.length})
           </h4>
           <ul className="flex flex-col gap-2">
             {items.map((item) => (
               <li
                 key={item.id}
-                className="flex items-center justify-between gap-3 rounded-lg border border-[#A98B4B] bg-[#FFFDF4] px-4 py-2.5 text-sm text-[#121E2D]"
+                className="flex items-center justify-between gap-3 rounded-lg border border-[#D9DDE5] dark:border-[#718096]/60 bg-white dark:bg-[#152238] px-4 py-2.5 text-sm text-[#1A2238] dark:text-white"
               >
                 <div className="flex items-center gap-2">
-                  <Check className="size-4 text-[#A98B4B] shrink-0" />
+                  <Check className="size-4 text-[#167A57] dark:text-[#36D6A0] shrink-0" />
                   <span className="font-medium">
                     {formatQuoteItem(item, PRESSURE_WASHING_ITEM_OPTIONS)}
                   </span>
@@ -304,7 +304,7 @@ export function PressureWashingJobSelection({ items, onItemsChange }: PressureWa
                   type="button"
                   onClick={() => handleRemoveItem(item.id)}
                   aria-label="Remove item"
-                  className="rounded-full p-1 text-[#555] hover:bg-[#F0E6D2] hover:text-destructive transition-colors"
+                  className="rounded-full p-1 text-[#687386] dark:text-[#C3CDDC] hover:bg-red-50 dark:hover:bg-red-950/40 hover:text-red-600 transition-colors cursor-pointer"
                 >
                   <X className="size-4" />
                 </button>
@@ -316,36 +316,36 @@ export function PressureWashingJobSelection({ items, onItemsChange }: PressureWa
 
       {/* Item Configuration Dialog Popup (Image 5) */}
       <Dialog open={activeOption !== null} onOpenChange={(open) => !open && setActiveOption(null)}>
-        <DialogContent className="gap-0 overflow-hidden border-2 border-[#A98B4B] bg-[#FFFDF4] p-0 text-[#121E2D] ring-0 sm:max-w-md rounded-2xl shadow-2xl">
-          <DialogHeader className="pt-6 pb-2 text-center">
-            <div className="mx-auto mb-2 flex size-12 items-center justify-center rounded-full bg-[#F3EAD8] text-[#A98B4B]">
+        <DialogContent className="gap-0 overflow-hidden border border-[#D8B63F]/50 dark:border-[#FFD766]/50 bg-white dark:bg-[#1B2A40] p-0 text-[#1A2238] dark:text-white ring-0 sm:max-w-md rounded-2xl shadow-2xl">
+          <DialogHeader className="pt-6 pb-2 text-center border-b border-[#D9DDE5] dark:border-[#718096]/30">
+            <div className="mx-auto mb-2 flex size-12 items-center justify-center rounded-full bg-[#002F6D]/10 dark:bg-[#FFD766]/20 text-[#002F6D] dark:text-[#FFD766]">
               <ActiveDialogIcon className="size-6" />
             </div>
-            <DialogTitle className="text-center text-lg font-bold text-[#121E2D]">
+            <DialogTitle className="text-center text-lg font-bold text-[#1A2238] dark:text-white">
               {activeOption ? getOptionLabel(activeOption.value, activeOption.label) : ""}
             </DialogTitle>
             <DialogDescription className="sr-only">Configure pressure washing job details</DialogDescription>
           </DialogHeader>
 
-          <div className="flex flex-col gap-5 p-6 pt-2">
+          <div className="flex flex-col gap-5 p-6 pt-3 bg-[#F7F5F0]/40 dark:bg-[#152238]/50">
             {/* Quantity and Size Input Fields Grid */}
             <div className="grid grid-cols-2 gap-4">
               {/* Quantity */}
               <div className="space-y-1.5">
-                <Label className="text-xs font-bold text-[#121E2D]">{translate("pressureDialogQuantity")}</Label>
-                <div className="flex h-10 w-full items-center justify-between rounded-lg border-2 border-[#A98B4B] bg-white px-2">
+                <Label className="text-xs font-bold text-[#1A2238] dark:text-white">{translate("pressureDialogQuantity")}</Label>
+                <div className="flex h-10 w-full items-center justify-between rounded-lg border border-[#D9DDE5] dark:border-[#718096] bg-white dark:bg-[#152238] px-2">
                   <button
                     type="button"
                     onClick={() => setQuantity((q) => Math.max(1, q - 1))}
-                    className="flex size-6 items-center justify-center rounded-full bg-[#A98B4B] text-white transition hover:bg-[#967A3E]"
+                    className="flex size-7 items-center justify-center rounded-full bg-[#002F6D]/10 dark:bg-[#718096]/30 text-[#002F6D] dark:text-[#C3CDDC] transition hover:brightness-95 cursor-pointer"
                   >
                     <Minus className="size-3.5" />
                   </button>
-                  <span className="text-sm font-bold text-[#121E2D]">{quantity}</span>
+                  <span className="text-sm font-bold text-[#1A2238] dark:text-white">{quantity}</span>
                   <button
                     type="button"
                     onClick={() => setQuantity((q) => q + 1)}
-                    className="flex size-6 items-center justify-center rounded-full bg-[#A98B4B] text-white transition hover:bg-[#967A3E]"
+                    className="flex size-7 items-center justify-center rounded-full bg-[#002F6D] dark:bg-[#FFD766] text-white dark:text-[#002F6D] transition hover:brightness-110 cursor-pointer"
                   >
                     <Plus className="size-3.5" />
                   </button>
@@ -354,7 +354,7 @@ export function PressureWashingJobSelection({ items, onItemsChange }: PressureWa
 
               {/* Size */}
               <div className="space-y-1.5">
-                <Label className="text-xs font-bold text-[#121E2D]">{translate("pressureDialogSize")}</Label>
+                <Label className="text-xs font-bold text-[#1A2238] dark:text-white">{translate("pressureDialogSize")}</Label>
                 <div className="flex gap-1.5">
                   <Input
                     type="number"
@@ -362,13 +362,13 @@ export function PressureWashingJobSelection({ items, onItemsChange }: PressureWa
                     placeholder={translate("pressureDialogSquarePlaceholder")}
                     value={sizeValue}
                     onChange={(e) => setSizeValue(e.target.value)}
-                    className="h-10 border-2 border-[#A98B4B] bg-white text-sm text-[#121E2D] placeholder:text-muted-foreground/60 focus-visible:ring-[#A98B4B]"
+                    className="h-10 border border-[#D9DDE5] dark:border-[#718096] bg-white dark:bg-[#152238] text-sm text-[#1A2238] dark:text-white placeholder:text-muted-foreground/60 focus-visible:ring-[#002F6D] dark:focus-visible:ring-[#FFD766]"
                   />
                   <Select value={sizeUnit} onValueChange={setSizeUnit}>
-                    <SelectTrigger className="h-10 w-24 border-2 border-[#A98B4B] bg-white text-xs font-semibold text-[#121E2D] focus:ring-[#A98B4B]">
+                    <SelectTrigger className="h-10 w-24 border border-[#D9DDE5] dark:border-[#718096] bg-white dark:bg-[#152238] text-xs font-semibold text-[#1A2238] dark:text-white focus:ring-[#002F6D] dark:focus:ring-[#FFD766]">
                       <SelectValue />
                     </SelectTrigger>
-                    <SelectContent className="bg-white border-2 border-[#A98B4B]">
+                    <SelectContent className="bg-white dark:bg-[#1B2A40] border border-[#D9DDE5] dark:border-[#718096] text-[#1A2238] dark:text-white">
                       <SelectItem value="ft²">ft²</SelectItem>
                       <SelectItem value="m²">m²</SelectItem>
                       <SelectItem value="cm²">cm²</SelectItem>
@@ -382,8 +382,8 @@ export function PressureWashingJobSelection({ items, onItemsChange }: PressureWa
 
             {/* Surface Condition Section */}
             <div className="space-y-2">
-              <Label className="text-xs font-bold text-[#121E2D]">{translate("pressureDialogSurfaceCondition")}</Label>
-              <p className="text-[11px] font-medium text-[#777]">{translate("pressureDialogSpecificReqs")}</p>
+              <Label className="text-xs font-bold text-[#1A2238] dark:text-white">{translate("pressureDialogSurfaceCondition")}</Label>
+              <p className="text-[11px] font-medium text-[#687386] dark:text-[#C3CDDC]">{translate("pressureDialogSpecificReqs")}</p>
 
               <div className="flex flex-wrap gap-4 pt-1">
                 {[
@@ -395,13 +395,13 @@ export function PressureWashingJobSelection({ items, onItemsChange }: PressureWa
                     <label
                       key={opt.value}
                       onClick={() => setCondition(opt.value)}
-                      className="flex cursor-pointer items-center gap-2 text-xs font-semibold text-[#121E2D]"
+                      className="flex cursor-pointer items-center gap-2 text-xs font-semibold text-[#1A2238] dark:text-white"
                     >
                       <div
-                        className={`flex size-4 items-center justify-center rounded-full border-2 border-[#A98B4B] transition ${isChecked ? "bg-[#A98B4B]" : "bg-white"
+                        className={`flex size-4 items-center justify-center rounded-full border-2 border-[#D9DDE5] dark:border-[#718096] transition ${isChecked ? "border-[#002F6D] dark:border-[#FFD766] bg-[#002F6D] dark:bg-[#FFD766]" : "bg-white dark:bg-[#152238]"
                           }`}
                       >
-                        {isChecked && <div className="size-1.5 rounded-full bg-white" />}
+                        {isChecked && <div className="size-1.5 rounded-full bg-white dark:bg-[#002F6D]" />}
                       </div>
                       <span>{opt.label}</span>
                     </label>
@@ -414,7 +414,7 @@ export function PressureWashingJobSelection({ items, onItemsChange }: PressureWa
             <Button
               type="button"
               onClick={handleSaveDetails}
-              className="mt-2 h-11 w-full rounded-xl bg-[#A98B4B] text-sm font-bold uppercase tracking-wider text-white hover:bg-[#967A3E] transition-colors cursor-pointer"
+              className="mt-2 h-11 w-full rounded-xl bg-[#002F6D] text-white hover:bg-[#002F6D]/90 dark:bg-[#FFD766] dark:text-[#002F6D] dark:hover:bg-[#FFD766]/90 text-sm font-bold uppercase tracking-wider transition-colors cursor-pointer shadow-md"
             >
               {translate("pressureDialogSave")}
             </Button>

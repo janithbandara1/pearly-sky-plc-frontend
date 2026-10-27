@@ -15,9 +15,8 @@ import RelatedServices from "@/components/services-links";
 import PaymentMarquee from "@/components/payment-method-services";
 import { CookieConsentBanner } from "@/components/cookie/cookie-consent-banner";
 import { CrispChat } from "@/components/cookie/crisp-chat";
-import { IS_GLOBAL_SITE } from "@/lib/countries/config";
-import { GlobalHeader } from "@/components/global-home/global-header";
-import { GlobalFooter } from "@/components/global-home/global-footer";
+
+import { PoolThemeProvider } from "@/lib/pool-theme-context";
 
 export default async function SiteLayout({
   children,
@@ -36,15 +35,17 @@ export default async function SiteLayout({
     <CountryProvider country={country} countries={countries}>
       <CurrencyProvider currencies={currencies}>
         <LanguageProvider language={language}>
-          <JsonLd data={buildLocalBusinessJsonLd(office, country ?? "fr")} />
-          {IS_GLOBAL_SITE ? <GlobalHeader /> : <SiteHeader />}
-          <div className="flex flex-1 flex-col">{children}</div>
-          {/* <JoinWithUsSection />
-          <RelatedServices />
-          <PaymentMarquee /> */}
-          {IS_GLOBAL_SITE ? <GlobalFooter /> : <SiteFooter />}
-          <CookieConsentBanner />
-          <CrispChat />
+          <PoolThemeProvider>
+            <JsonLd data={buildLocalBusinessJsonLd(office, country ?? "fr")} />
+            <SiteHeader />
+            <div className="flex flex-1 flex-col">{children}</div>
+            {/* <JoinWithUsSection />
+            <RelatedServices />
+            <PaymentMarquee /> */}
+            <SiteFooter />
+            <CookieConsentBanner />
+            <CrispChat />
+          </PoolThemeProvider>
         </LanguageProvider>
       </CurrencyProvider>
     </CountryProvider>

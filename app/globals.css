@@ -10,11 +10,55 @@
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
   --font-heading: var(--font-geist-sans);
+
+  /* Pearly Sky Semantic Colors */
+  --color-ps-page-bg: var(--ps-page-bg);
+  --color-ps-header-bg: var(--ps-header-bg);
+  --color-ps-card-bg: var(--ps-card-bg);
+  --color-ps-card-selected-bg: var(--ps-card-selected-bg);
+  --color-ps-card-selected-border: var(--ps-card-selected-border);
+  --color-ps-gold-accent: var(--ps-gold-accent);
+  --color-ps-gold: var(--ps-gold-accent);
+  --color-ps-btn-primary-bg: var(--ps-btn-primary-bg);
+  --color-ps-btn-primary-text: var(--ps-btn-primary-text);
+  --color-ps-text-main: var(--ps-text-main);
+  --color-ps-text-secondary: var(--ps-text-secondary);
+  --color-ps-input-bg: var(--ps-input-bg);
+  --color-ps-input-border: var(--ps-input-border);
+  --color-ps-success: var(--ps-success);
+
+  /* Pearly Sky Raw Palette Tokens */
+  /* Dark Mode Palette */
+  --color-pearly-midnight: #111C2E;
+  --color-pearly-deep-navy: #1B2A40;
+  --color-pearly-champagne: #FFD766;
+  --color-pearly-royal-navy: #002F6D;
+  --color-pearly-pure-white: #FFFFFF;
+  --color-pearly-silver-grey: #C3CDDC;
+  --color-pearly-dark-input: #152238;
+  --color-pearly-slate-grey: #718096;
+  --color-pearly-antique-gold: #3A3423;
+  --color-pearly-mint: #36D6A0;
+  --color-pearly-mint-green: #36D6A0;
+
+  /* Light Mode Palette */
+  --color-pearly-cream: #F7F5F0;
+  --color-pearly-gold: #D8B63F;
+  --color-pearly-input-border-light: #D9DDE5;
+  --color-pearly-text-main-light: #1A2238;
+  --color-pearly-text-sec-light: #687386;
+  --color-pearly-success-light: #167A57;
+
+  /* Legacy brand colors for backward compatibility */
   --color-brand-navy: var(--brand-navy);
   --color-brand-navy-foreground: var(--brand-navy-foreground);
   --color-brand-gold: var(--brand-gold);
   --color-brand-gold-dark: var(--brand-gold-dark);
   --color-brand-cream: var(--brand-cream);
+  --color-luxegold: #c9a858;
+  --color-luxenavy: #121e2d;
+  --color-luxecream: #fffdf4;
+
   --color-sidebar-ring: var(--sidebar-ring);
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
@@ -54,82 +98,126 @@
 }
 
 :root {
-  --brand-navy: #121e2d;
-  --brand-navy-foreground: #fffdf4;
-  --brand-gold: #c9a858;
-  --brand-gold-dark: #a98b4b;
-  --brand-cream: #fffdf4;
-  --background: oklch(1 0 0);
-  --foreground: oklch(0.145 0 0);
-  --card: oklch(1 0 0);
-  --card-foreground: oklch(0.145 0 0);
-  --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.145 0 0);
-  --primary: #121e2d;
-  --primary-foreground: #fffdf4;
-  --secondary: oklch(0.97 0 0);
-  --secondary-foreground: oklch(0.205 0 0);
-  --muted: oklch(0.97 0 0);
-  --muted-foreground: oklch(0.556 0 0);
-  --accent: oklch(0.97 0 0);
-  --accent-foreground: oklch(0.205 0 0);
-  --destructive: oklch(0.577 0.245 27.325);
-  --border: oklch(0.922 0 0);
-  --input: oklch(0.922 0 0);
-  --ring: #a98b4b;
-  --chart-1: oklch(0.87 0 0);
-  --chart-2: oklch(0.556 0 0);
-  --chart-3: oklch(0.439 0 0);
-  --chart-4: oklch(0.371 0 0);
-  --chart-5: oklch(0.269 0 0);
+  /* ========================================================
+     Pearly Sky - Light Mode Color Palette
+     Clean, modern & luxury aesthetics
+     ======================================================== */
+  --ps-page-bg: #F7F5F0;                /* Soft pearly cream - Main page background */
+  --ps-header-bg: #FFFFFF;              /* Navigation bar background */
+  --ps-card-bg: #FFFFFF;                /* Form container / card background */
+  --ps-card-selected-bg: #FFFFFF;       /* Selected card background */
+  --ps-card-selected-border: #D8B63F;   /* Selected card border */
+  --ps-btn-primary-bg: #002F6D;         /* Pearly Navy - Primary button background */
+  --ps-btn-primary-text: #FFFFFF;       /* Primary button text colour */
+  --ps-gold-accent: #D8B63F;            /* Borders, highlights and accents */
+  --ps-input-bg: #FFFFFF;               /* Form input background */
+  --ps-input-border: #D9DDE5;           /* Form input border colour */
+  --ps-text-main: #1A2238;              /* Headings and main text */
+  --ps-text-secondary: #687386;         /* Supporting text, labels and details */
+  --ps-success: #167A57;                /* Success alerts and confirmations */
+
+  /* Tailwind / Shadcn UI mappings */
+  --background: #F7F5F0;
+  --foreground: #1A2238;
+  --card: #FFFFFF;
+  --card-foreground: #1A2238;
+  --popover: #FFFFFF;
+  --popover-foreground: #1A2238;
+  --primary: #002F6D;
+  --primary-foreground: #FFFFFF;
+  --secondary: #FFFFFF;
+  --secondary-foreground: #1A2238;
+  --muted: #EFECE6;
+  --muted-foreground: #687386;
+  --accent: #D8B63F;
+  --accent-foreground: #FFFFFF;
+  --destructive: #DC2626;
+  --border: #D9DDE5;
+  --input: #D9DDE5;
+  --ring: #D8B63F;
+
+  /* Backward compatibility */
+  --brand-navy: #002F6D;
+  --brand-navy-foreground: #FFFFFF;
+  --brand-gold: #D8B63F;
+  --brand-gold-dark: #b8962f;
+  --brand-cream: #F7F5F0;
+
+  --chart-1: #002F6D;
+  --chart-2: #D8B63F;
+  --chart-3: #1A2238;
+  --chart-4: #687386;
+  --chart-5: #167A57;
   --radius: 0.625rem;
-  --sidebar: oklch(0.985 0 0);
-  --sidebar-foreground: oklch(0.145 0 0);
-  --sidebar-primary: oklch(0.205 0 0);
-  --sidebar-primary-foreground: oklch(0.985 0 0);
-  --sidebar-accent: oklch(0.97 0 0);
-  --sidebar-accent-foreground: oklch(0.205 0 0);
-  --sidebar-border: oklch(0.922 0 0);
-  --sidebar-ring: oklch(0.708 0 0);
+  --sidebar: #FFFFFF;
+  --sidebar-foreground: #1A2238;
+  --sidebar-primary: #002F6D;
+  --sidebar-primary-foreground: #FFFFFF;
+  --sidebar-accent: #F7F5F0;
+  --sidebar-accent-foreground: #1A2238;
+  --sidebar-border: #D9DDE5;
+  --sidebar-ring: #D8B63F;
 }
 
 .dark {
-  --brand-navy: #121e2d;
-  --brand-navy-foreground: #fffdf4;
-  --brand-gold: #c9a858;
-  --brand-gold-dark: #a98b4b;
-  --brand-cream: #fffdf4;
-  --background: oklch(0.145 0 0);
-  --foreground: oklch(0.985 0 0);
-  --card: oklch(0.205 0 0);
-  --card-foreground: oklch(0.985 0 0);
-  --popover: oklch(0.205 0 0);
-  --popover-foreground: oklch(0.985 0 0);
-  --primary: #c9a858;
-  --primary-foreground: #121e2d;
-  --secondary: oklch(0.269 0 0);
-  --secondary-foreground: oklch(0.985 0 0);
-  --muted: oklch(0.269 0 0);
-  --muted-foreground: oklch(0.708 0 0);
-  --accent: oklch(0.269 0 0);
-  --accent-foreground: oklch(0.985 0 0);
-  --destructive: oklch(0.704 0.191 22.216);
-  --border: oklch(1 0 0 / 10%);
-  --input: oklch(1 0 0 / 15%);
-  --ring: #a98b4b;
-  --chart-1: oklch(0.87 0 0);
-  --chart-2: oklch(0.556 0 0);
-  --chart-3: oklch(0.439 0 0);
-  --chart-4: oklch(0.371 0 0);
-  --chart-5: oklch(0.269 0 0);
-  --sidebar: oklch(0.205 0 0);
-  --sidebar-foreground: oklch(0.985 0 0);
-  --sidebar-primary: oklch(0.488 0.243 264.376);
-  --sidebar-primary-foreground: oklch(0.985 0 0);
-  --sidebar-accent: oklch(0.269 0 0);
-  --sidebar-accent-foreground: oklch(0.985 0 0);
-  --sidebar-border: oklch(1 0 0 / 10%);
-  --sidebar-ring: oklch(0.556 0 0);
+  /* ========================================================
+     Pearly Sky - Dark Mode Color Palette
+     Sunlight-readable navy-and-gold design reference
+     ======================================================== */
+  --ps-page-bg: #111C2E;                /* Midnight Navy Blue - Page background */
+  --ps-header-bg: #111C2E;              /* Header background */
+  --ps-card-bg: #1B2A40;                /* Deep Navy Panel Blue - Cards and panels */
+  --ps-card-selected-bg: #3A3423;       /* Antique Gold Brown - Selected card background */
+  --ps-card-selected-border: #FFD766;   /* Champagne Gold selected border */
+  --ps-btn-primary-bg: #FFD766;         /* Champagne Gold primary button */
+  --ps-btn-primary-text: #002F6D;       /* Royal Navy Blue - Main button text */
+  --ps-gold-accent: #FFD766;            /* Champagne Gold - Gold borders, icons & highlights */
+  --ps-input-bg: #152238;               /* Dark Input Navy - Input background */
+  --ps-input-border: #718096;           /* Slate Blue Grey - Input borders and separators */
+  --ps-text-main: #FFFFFF;              /* Pure White - Main headings and important text */
+  --ps-text-secondary: #C3CDDC;         /* Silver Blue Grey - Secondary text, descriptions & labels */
+  --ps-success: #36D6A0;                /* Mint Green - Success messages and booking confirmations */
+
+  /* Tailwind / Shadcn UI mappings */
+  --background: #111C2E;
+  --foreground: #FFFFFF;
+  --card: #1B2A40;
+  --card-foreground: #FFFFFF;
+  --popover: #1B2A40;
+  --popover-foreground: #FFFFFF;
+  --primary: #FFD766;
+  --primary-foreground: #002F6D;
+  --secondary: #1B2A40;
+  --secondary-foreground: #FFFFFF;
+  --muted: #152238;
+  --muted-foreground: #C3CDDC;
+  --accent: #FFD766;
+  --accent-foreground: #002F6D;
+  --destructive: #EF4444;
+  --border: #718096;
+  --input: #152238;
+  --ring: #FFD766;
+
+  /* Backward compatibility */
+  --brand-navy: #111C2E;
+  --brand-navy-foreground: #FFFFFF;
+  --brand-gold: #FFD766;
+  --brand-gold-dark: #e5be4a;
+  --brand-cream: #F7F5F0;
+
+  --chart-1: #FFD766;
+  --chart-2: #36D6A0;
+  --chart-3: #C3CDDC;
+  --chart-4: #718096;
+  --chart-5: #1B2A40;
+  --sidebar: #1B2A40;
+  --sidebar-foreground: #FFFFFF;
+  --sidebar-primary: #FFD766;
+  --sidebar-primary-foreground: #002F6D;
+  --sidebar-accent: #152238;
+  --sidebar-accent-foreground: #FFFFFF;
+  --sidebar-border: #718096;
+  --sidebar-ring: #FFD766;
 }
 
 @layer base {
@@ -270,4 +358,58 @@
 .scrollbar-hide {
   -ms-overflow-style: none;
   scrollbar-width: none;
+}
+
+/* ========================================================
+   Pearly Sky Reusable Design System Helper Utilities
+   ======================================================== */
+.ps-page-surface {
+  background-color: var(--ps-page-bg);
+  color: var(--ps-text-main);
+}
+
+.ps-card-panel {
+  background-color: var(--ps-card-bg);
+  border-color: var(--ps-input-border);
+  color: var(--ps-text-main);
+}
+
+.ps-card-selected {
+  background-color: var(--ps-card-selected-bg);
+  border-color: var(--ps-card-selected-border);
+}
+
+.ps-input-surface {
+  background-color: var(--ps-input-bg);
+  border-color: var(--ps-input-border);
+  color: var(--ps-text-main);
+}
+
+.ps-btn-primary {
+  background-color: var(--ps-btn-primary-bg);
+  color: var(--ps-btn-primary-text);
+}
+
+.ps-text-heading {
+  color: var(--ps-text-main);
+}
+
+.ps-text-muted {
+  color: var(--ps-text-secondary);
+}
+
+.ps-text-gold {
+  color: var(--ps-gold-accent);
+}
+
+.ps-border-gold {
+  border-color: var(--ps-gold-accent);
+}
+
+.ps-border-subtle {
+  border-color: var(--ps-input-border);
+}
+
+.ps-success-text {
+  color: var(--ps-success);
 }
