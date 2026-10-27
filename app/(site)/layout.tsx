@@ -1,5 +1,8 @@
 import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
+import { GlobalHeader } from "@/components/global-home/global-header";
+import { GlobalFooter } from "@/components/global-home/global-footer";
+import { IS_GLOBAL_SITE } from "@/lib/countries/config";
 import { JsonLd } from "@/components/json-ld";
 import { getRequestCountry } from "@/lib/countries/server";
 import { CountryProvider } from "@/lib/countries/country-context";
@@ -37,12 +40,12 @@ export default async function SiteLayout({
         <LanguageProvider language={language}>
           <PoolThemeProvider>
             <JsonLd data={buildLocalBusinessJsonLd(office, country ?? "fr")} />
-            <SiteHeader />
+            {IS_GLOBAL_SITE ? <GlobalHeader /> : <SiteHeader />}
             <div className="flex flex-1 flex-col">{children}</div>
             {/* <JoinWithUsSection />
             <RelatedServices />
             <PaymentMarquee /> */}
-            <SiteFooter />
+            {IS_GLOBAL_SITE ? <GlobalFooter /> : <SiteFooter />}
             <CookieConsentBanner />
             <CrispChat />
           </PoolThemeProvider>
