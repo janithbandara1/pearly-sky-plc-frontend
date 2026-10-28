@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-import { Crown, Lock, CalendarDays, Sparkles, Clock, Tag, Percent, CheckCircle2, ChevronDown, ChevronUp } from "lucide-react";
+import { Crown, Lock, CalendarDays, Sparkles, Clock, Tag, Percent, CheckCircle2, ChevronDown, ChevronUp, Home, Scale, BedDouble, Leaf, Square } from "lucide-react";
 import { SupplySource } from "../common-flows-propertis-and-equipments/common-equipment-flow-section";
 import { useLanguage } from "@/lib/i18n/language-context";
 import { TranslationKey } from "@/lib/i18n/dictionaries/en";
@@ -97,12 +97,12 @@ export default function BookingLogisticsSummary({
   const propertyScaleText = `${translate(propertyType as TranslationKey) || propertyType} (${propertySizeSqm} m²)`;
 
   const logisticsItems = [
-    { title: "Service Plan:", value: servicePlanName, highlight: true },
-    { title: "Property Scale:", value: propertyScaleText, highlight: false },
-    { title: "Selected Rooms:", value: selectedRoomsSummary, highlight: false },
-    { title: "Schedule Window:", value: scheduleWindow, highlight: true },
-    { title: "Frequency Discount:", value: frequencyDiscountLabel.split("(")[0], customColor: "text-emerald-400 font-semibold" },
-    { title: "Solvents & Equipment:", value: solventsText, highlight: true },
+    { title: "Service Plan:", value: servicePlanName, highlight: true,icon:<Home className={`w-5 h-5 ${isLight ? "text-[#002F6D]" : "text-[#FFD766]"}`} /> },
+    { title: "Property Scale:", value: propertyScaleText, highlight: false,icon:<Square className={`w-5 h-5 ${isLight ? "text-[#002F6D]" : "text-[#FFD766]"}`} /> },
+    { title: "Selected Rooms:", value: selectedRoomsSummary, highlight: false,icon:<BedDouble className={`w-5 h-5 ${isLight ? "text-[#002F6D]" : "text-[#FFD766]"}`} /> },
+    { title: "Schedule Window:", value: scheduleWindow, highlight: true ,icon:<CalendarDays className={`w-5 h-5 ${isLight ? "text-[#002F6D]" : "text-[#FFD766]"}`} />},
+    { title: "Frequency Discount:", value: frequencyDiscountLabel.split("(")[0], customColor: "text-emerald-400 font-semibold",icon:<Percent className={`w-5 h-5 ${isLight ? "text-[#0db423]" : "text-[#FFD766]"}`} /> },
+    { title: "Solvents & Equipment:", value: solventsText, highlight: true,icon:<Leaf className={`w-5 h-5 ${isLight ? "text-[#0db423]" : "text-[#FFD766]"}`} /> },
   ];
 
   return (
@@ -117,7 +117,7 @@ export default function BookingLogisticsSummary({
       <div className={`flex items-start justify-between pb-4 border-b ${isLight ? "border-[#D9DDE5]" : "border-[#718096]/30"}`}>
         <div>
           <div className="flex items-center gap-1.5 mb-1">
-            <Sparkles className={`w-3.5 h-3.5 ${isLight ? "text-[#002F6D]" : "text-[#FFD766]"}`} />
+            <Sparkles className={`w-5 h-5 ${isLight ? "text-[#002F6D]" : "text-[#FFD766]"}`} />
             <span className={`text-[10px] font-bold tracking-widest uppercase ${isLight ? "text-[#002F6D]" : "text-[#FFD766]"}`}>
               EXECUTIVE SUMMARY
             </span>
@@ -144,9 +144,15 @@ export default function BookingLogisticsSummary({
               isLight ? "hover:bg-[#F7F5F0]" : "hover:bg-[#152238]/60"
             }`}
           >
-            <span className={`text-[11px] font-medium tracking-wide uppercase ${isLight ? "text-[#687386]" : "text-[#C3CDDC]"}`}>
-              {item.title}
-            </span>
+            <div className="flex gap-2 items-center">
+              <div className={`${isLight ? "bg-[#F7F5F0]":"bg-[#1B2A40]  border  border-[#718096]/60"} w-8 h-8  rounded-[12px] flex items-center justify-center shrink-0`} >
+                {item.icon} 
+              </div>
+              <h1 className={`text-[11px] font-medium tracking-wide uppercase ${isLight ? "text-[#687386]" : "text-[#C3CDDC]"}`}>
+                {item.title}
+              </h1>
+            </div>
+            
             <span className={`text-sm font-semibold tracking-wide ${
               item.customColor
                 ? item.customColor
@@ -258,7 +264,7 @@ export default function BookingLogisticsSummary({
           </span>
         </div>
         <div className="flex items-center gap-1 text-[11px] text-emerald-600 font-medium">
-          <CheckCircle2 className="w-3.5 h-3.5" />
+          <CheckCircle2 className="w-5 h-5" />
           <span>Includes all taxes & insurance</span>
         </div>
       </div>
@@ -305,7 +311,7 @@ export default function BookingLogisticsSummary({
 
       {/* Security Footer Notice */}
       <div className={`flex items-center justify-center gap-1.5 pt-4 text-[11px] ${isLight ? "text-[#687386]" : "text-[#718096]"}`}>
-        <Lock className="w-3.5 h-3.5 text-emerald-400 animate-pulse" />
+        <Lock className="w-5 h-5 text-emerald-400 animate-pulse" />
         <span>256–Bit SSL Encrypted & Confidential</span>
       </div>
     </div>

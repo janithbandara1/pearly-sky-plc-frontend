@@ -250,7 +250,7 @@ export default function CustomerContactsPreference({
                 : "bg-[#FFD766]/10 border-[#FFD766]/30 text-[#FFD766]"
             }`}
           >
-            <User className="w-5 h-5" />
+            <User className="w-8 h-8" />
           </div>
           <div>
             <h2
@@ -286,12 +286,12 @@ export default function CustomerContactsPreference({
 
       {/* Preferences & Layout Upload */}
       <div className="pt-6 space-y-6">
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:gap-5 gap-2">
           {/* Gender Preference */} 
           <div className={`w-full flex ${isLight ? "md:border md:border-gray-300":"md:border md:border-gray-500"} rounded-xl p-4 sm:p-5 items-center gap-3 
               transition-colors duration-200  cursor-pointer`}>
             <div className="hidden md:flex items-center justify-center">
-                <User className={`w-5 h-5 mr-2 ${isLight ? "text-[#002F6D]" : "text-[#FFD766]"}`} />
+                <User className={`w-8 h-8 mr-2 ${isLight ? "text-[#002F6D]" : "text-[#FFD766]"}`} />
             </div>
             <div className="relative">
               <label className={labelClasses}>
@@ -299,7 +299,7 @@ export default function CustomerContactsPreference({
               </label>
               <div className="md:hidden w-full flex flex-row items-center">
                 <div className="md:hidden relative flex items-center justify-center">
-                  <User className={`w-5 h-5 mr-2 ${isLight ? "text-[#002F6D]" : "text-[#FFD766]"}`} />
+                  <User className={`w-8 h-8 mr-2 ${isLight ? "text-[#002F6D]" : "text-[#FFD766]"}`} />
                 </div>
                 <select
                   value={gender}
@@ -341,7 +341,7 @@ export default function CustomerContactsPreference({
           <div className={`w-full flex ${isLight ? "md:border md:border-gray-300":"md:border md:border-gray-500"} rounded-xl p-4 sm:p-5 items-center gap-3 
               transition-colors duration-200  cursor-pointer`}>
             <div className="hidden md:flex items-center justify-center">
-                <MessageSquareText className={`w-5 h-5 mr-2 ${isLight ? "text-[#002F6D]" : "text-[#FFD766]"}`} />
+                <MessageSquareText className={`w-8 h-8 mr-2 ${isLight ? "text-[#002F6D]" : "text-[#FFD766]"}`} />
             </div>   
 
             <div className="relative w-full">
@@ -350,7 +350,7 @@ export default function CustomerContactsPreference({
               </label>
               <div className="md:hidden w-full flex flex-row items-center">
                 <div className="md:hidden relative flex items-center justify-center">
-                  <MessageSquareText className={`w-5 h-5 mr-2 ${isLight ? "text-[#002F6D]" : "text-[#FFD766]"}`} />
+                  <MessageSquareText className={`w-8 h-8 mr-2 ${isLight ? "text-[#002F6D]" : "text-[#FFD766]"}`} />
                 </div>
                 <select
                   value={language}
@@ -387,7 +387,7 @@ export default function CustomerContactsPreference({
         <div className={`w-full flex flex-col ${isLight ? "md:border md:border-gray-300":"md:border md:border-gray-500"} rounded-xl p-4 sm:p-5  gap-3 
               transition-colors duration-200  cursor-pointer`}>
           <div className="hidden md:flex md:flex-col">
-            <FilePenLine className={`w-5 h-5 mr-2 ${isLight ? "text-[#002F6D]" : "text-[#FFD766]"}`} />
+            <FilePenLine className={`w-8 h-8 mr-2 ${isLight ? "text-[#002F6D]" : "text-[#FFD766]"}`} />
             <label className={labelClasses}>
               SPECIAL REQUIREMENTS / SECURITY / PET PROTOCOLS
             </label>
