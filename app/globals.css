@@ -371,3 +371,18 @@
 .ps-success-text {
   color: var(--ps-success);
 }
+
+/* Care Booking Wizard - Glowing Gold Input on Focus */
+.care-glow-input {
+  background: rgba(12, 21, 34, 0.85);
+  border: 1px solid rgba(201, 168, 88, 0.28);
+  color: #fffdf4;
+  outline: none;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.care-glow-input:focus,
+.care-glow-input:focus-within {
+  border-color: #e2b86b !important;
+  box-shadow: 0 0 14px rgba(226, 184, 107, 0.45) !important;
+}
