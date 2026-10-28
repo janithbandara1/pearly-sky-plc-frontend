@@ -7,13 +7,7 @@ import { GlobalWhyChoose } from "./why-choose";
 import { GlobalQuote } from "./quote";
 
 /** The global gateway's home page (IS_GLOBAL_SITE) — dark navy/gold, linking out to each country site. */
-export function GlobalHome({
-  quoteServices,
-  englishTitles,
-}: {
-  quoteServices: { id: string; title: string }[];
-  englishTitles: Record<string, string>;
-}) {
+export function GlobalHome({ quoteServices }: { quoteServices: { id: string; title: string }[] }) {
   return (
     <main className={`${playfair.variable} ${greatVibes.variable} flex-1 bg-navy-900 font-sans text-slate-100`}>
       <GlobalHero />
@@ -21,7 +15,7 @@ export function GlobalHome({
       <GlobalServices />
       <GlobalSectors />
       <GlobalWhyChoose />
-      <GlobalQuote services={quoteServices} englishTitles={englishTitles} />
+      <GlobalQuote services={quoteServices} />
     </main>
   );
 }

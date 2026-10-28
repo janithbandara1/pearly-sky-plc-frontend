@@ -44,7 +44,8 @@ export function GlobalHeader() {
     return () => document.removeEventListener("keydown", handleKeyDown);
   }, [mobileOpen]);
 
-  const bookNowHref = `${localeHref("/")}#quote`;
+  // The gateway takes no bookings — Book Now opens the request-quotation page.
+  const bookNowHref = localeHref("/request-quotation");
 
   return (
     <header

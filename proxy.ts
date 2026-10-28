@@ -13,14 +13,14 @@ import { buildLocalePath, extractLocalePrefix, isLocaleExcluded } from "@/lib/lo
 
 const CUSTOMER_PROTECTED_PREFIXES = ["/bookings", "/quotations", "/profile", "/addresses"];
 
-// The global gateway (IS_GLOBAL_SITE) has no backend behind it at all — no
-// catalog, no bookings, no accounts — so anything that would need one
-// (services/*, login/signup, bookings/quotations/profile, staff) is
-// blocked. The rest of the marketing site (nav pages + legal pages) is
-// content-only (static data, no API calls — see app/(site)/blog/[slug] and
-// app/(site)/careers/[jobId]) and stays reachable. Checked against the
-// *unprefixed* path; "/blog" and "/careers" are prefixes so their
-// [slug]/[jobId] detail pages are included too.
+// The global gateway (IS_GLOBAL_SITE) only takes quotation requests — no
+// bookings, no pricing, no customer accounts — so anything that would need
+// one (services/*, login/signup, bookings/quotations/profile) is blocked.
+// The marketing site (nav pages + legal pages) stays reachable, as do the
+// request-quotation page its Book Now buttons open plus its confirmation
+// page, and /staff, where the team manages the gateway's quotations (see
+// lib/staff-sections.ts). Checked against the *unprefixed* path; the
+// prefixes below include their detail pages too.
 const GLOBAL_SITE_ALLOWED_EXACT_PATHS = [
   "/",
   "/about-us",
@@ -31,8 +31,9 @@ const GLOBAL_SITE_ALLOWED_EXACT_PATHS = [
   "/privacy-policy",
   "/terms-and-conditions",
   "/cookie-policy",
+  "/request-quotation",
 ];
-const GLOBAL_SITE_ALLOWED_PREFIXES = ["/blog", "/careers"];
+const GLOBAL_SITE_ALLOWED_PREFIXES = ["/blog", "/careers", "/staff", "/quotation-confirmation"];
 
 // The reverse: pages that exist only on the global gateway. The country
 // sites list their services in the header's services menu instead.

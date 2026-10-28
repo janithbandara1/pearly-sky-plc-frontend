@@ -55,9 +55,8 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   // service is bookable or has a dedicated flow (which includes quote-only
   // services like pool-cleaning whose quote form lives there), and
   // /request-quotation only when it isn't just a redirect to that page.
-  // The global gateway has no backend behind it at all, and /services/* is
-  // blocked there anyway (see proxy.ts) — skip the fetch rather than let it
-  // fail against a backend that was never meant to exist.
+  // The global gateway has no service pages — /services/* is blocked there
+  // (see proxy.ts) — so skip the fetch.
   if (!IS_GLOBAL_SITE) {
     try {
       const services = await getServices();

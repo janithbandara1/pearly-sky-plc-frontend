@@ -433,7 +433,7 @@ function RequestService() {
             </button>
           ) : selected.url ? (
             <a
-              href={`${selected.url}/request-a-detailed-quotation`}
+              href={`${selected.url}/request-quotation`}
               target="_blank"
               rel="noopener noreferrer"
               className={buttonClass}

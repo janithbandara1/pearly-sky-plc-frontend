@@ -4,9 +4,9 @@ import { usePathname, useRouter } from "next/navigation";
 import { useEffect } from "react";
 import { StaffSidebar } from "@/components/staff/staff-sidebar";
 import { SidebarInset, SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
+import { IS_GLOBAL_SITE } from "@/lib/countries/config";
 import { useStaffAuth } from "@/lib/staff-auth-context";
-
-const CLEANER_HOME = "/staff/bookings";
+import { canViewStaffPath, STAFF_ADMIN_HOME, STAFF_CLEANER_HOME } from "@/lib/staff-sections";
 
 export default function AdminDashboardLayout({
   children,
@@ -17,6 +17,9 @@ export default function AdminDashboardLayout({
   const pathname = usePathname();
   const { status, staff } = useStaffAuth();
   const isAdmin = staff?.roles.includes("admin") ?? false;
+  // The global gateway has no bookings, so a cleaner has nothing to see there.
+  const noAccess = status === "authenticated" && IS_GLOBAL_SITE && !isAdmin;
+  const allowed = canViewStaffPath(pathname, isAdmin);
 
   useEffect(() => {
     if (status === "unauthenticated") {
@@ -25,12 +28,20 @@ export default function AdminDashboardLayout({
   }, [status, router]);
 
   useEffect(() => {
-    if (status === "authenticated" && !isAdmin && !pathname.startsWith(CLEANER_HOME)) {
-      router.replace(CLEANER_HOME);
+    if (status === "authenticated" && !noAccess && !allowed) {
+      router.replace(isAdmin ? STAFF_ADMIN_HOME : STAFF_CLEANER_HOME);
     }
-  }, [status, isAdmin, pathname, router]);
+  }, [status, noAccess, allowed, isAdmin, router]);
 
-  if (status !== "authenticated" || (!isAdmin && !pathname.startsWith(CLEANER_HOME))) {
+  if (noAccess) {
+    return (
+      <div className="flex flex-1 items-center justify-center p-6 text-sm text-muted-foreground">
+        This dashboard is for admins only.
+      </div>
+    );
+  }
+
+  if (status !== "authenticated" || !allowed) {
     return (
       <div className="flex flex-1 items-center justify-center p-6 text-sm text-muted-foreground">
         Loading…

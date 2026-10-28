@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useMemo, useState } from "react";
 import Image from "next/image";
 import { Controller, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -8,16 +8,15 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod/mini";
 import { ArrowRight, ChevronDown } from "lucide-react";
 import { toast } from "sonner";
-import { sendContactMessage } from "@/lib/contact-api";
 import { ApiError } from "@/lib/api";
 import { PhoneInput } from "@/components/phone-input";
-import { TurnstileWidget, type TurnstileHandle } from "@/components/turnstile";
 import { useLanguage } from "@/lib/i18n/language-context";
 import type { GlobalKey } from "@/lib/i18n/global/en";
+import { submitGlobalQuotation } from "./submit-global-quotation";
 
 type Translate = (key: GlobalKey, vars?: Record<string, string | number>) => string;
 
-/** `value` is the English wording that goes into the message the team reads; visitors see `labelKey`. */
+/** `value` is the English wording saved on the quotation the team reads; visitors see `labelKey`. */
 const PROPERTY_SIZES: { value: string; labelKey: GlobalKey }[] = [
   { value: "Under 50m²", labelKey: "svc.form.size1" },
   { value: "50m² - 100m²", labelKey: "svc.form.size2" },
@@ -32,6 +31,9 @@ const makeQuoteSchema = (t: Translate) =>
     name: z.string().check(z.trim(), z.minLength(2, t("form.errorName"))),
     email: z.pipe(z.string().check(z.trim()), z.email(t("form.errorEmail"))),
     phone: z.string().check(z.trim(), z.minLength(6, t("form.errorPhone"))),
+    streetAddress: z.string().check(z.trim(), z.minLength(3, t("form.errorStreetAddress"))),
+    city: z.string().check(z.trim(), z.minLength(2, t("form.errorCity"))),
+    country: z.string().check(z.trim(), z.minLength(2, t("form.errorCountry"))),
     size: z.string(),
     date: z.string(),
   });
@@ -44,44 +46,20 @@ const fieldClass =
 interface ServicesQuoteFormProps {
   /** The services on offer, in the order shown in the select, titled in the visitor's language. */
   services: { id: string; title: string }[];
-  /** English title per service id, for the enquiry the team reads. */
-  englishTitles: Record<string, string>;
   /** Id of the chosen service, or "". */
   serviceId: string;
   onServiceChange: (serviceId: string) => void;
 }
 
 /**
- * "Get a Free Quote Today". The gateway has no backend of its own, so the
- * enquiry goes through the same /contact endpoint as the country sites'
- * contact form (see quote.tsx), with the details folded into the message.
+ * "Get a Free Quote Today". Saved as a real quotation in the gateway's own
+ * backend, like quote.tsx (see submit-global-quotation.ts).
  */
-export function ServicesQuoteForm({ services, englishTitles, serviceId, onServiceChange }: ServicesQuoteFormProps) {
-  const { translateGlobal: t } = useLanguage();
-  const [turnstileToken, setTurnstileToken] = useState("");
-  const turnstileRef = useRef<TurnstileHandle>(null);
-  const sectionRef = useRef<HTMLElement>(null);
-  const [turnstileVisible, setTurnstileVisible] = useState(false);
+export function ServicesQuoteForm({ services, serviceId, onServiceChange }: ServicesQuoteFormProps) {
+  const { language, translateGlobal: t } = useLanguage();
   const [sendError, setSendError] = useState<string | null>(null);
   const [serviceError, setServiceError] = useState(false);
   const schema = useMemo(() => makeQuoteSchema(t), [t]);
-
-  // Below the fold — defer Turnstile's script until the form is near view.
-  useEffect(() => {
-    const node = sectionRef.current;
-    if (!node) return;
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setTurnstileVisible(true);
-          observer.disconnect();
-        }
-      },
-      { rootMargin: "300px" },
-    );
-    observer.observe(node);
-    return () => observer.disconnect();
-  }, []);
 
   const {
     register,
@@ -91,45 +69,36 @@ export function ServicesQuoteForm({ services, englishTitles, serviceId, onServic
     formState: { errors, isSubmitting },
   } = useForm<QuoteFormValues>({
     resolver: zodResolver(schema),
-    defaultValues: { name: "", email: "", phone: "", size: "", date: "" },
+    defaultValues: { name: "", email: "", phone: "", streetAddress: "", city: "", country: "", size: "", date: "" },
   });
 
-  const onSubmit = async ({ name, email, phone, size, date }: QuoteFormValues) => {
+  const onSubmit = async ({ size, ...contact }: QuoteFormValues) => {
     if (!serviceId) {
       setServiceError(true);
       return;
     }
-    if (!turnstileToken) {
-      setSendError(t("form.verify"));
-      return;
-    }
     setSendError(null);
-    const body = [
-      "Free quote request (global site)",
-      `Service: ${englishTitles[serviceId] ?? serviceId}`,
-      size && `Property size: ${size}`,
-      date && `Preferred date: ${date}`,
-    ]
-      .filter(Boolean)
-      .join("\n");
 
     try {
-      await sendContactMessage({ name, email, phone, message: body, turnstileToken });
+      const quotation = await submitGlobalQuotation({
+        ...contact,
+        serviceName: serviceId,
+        notes: size && `Property size: ${size}`,
+        language,
+      });
       const shown = services.find((service) => service.id === serviceId)?.title ?? serviceId;
-      toast.success(t("form.successTitle"), { description: t("form.successQuote", { service: shown }) });
+      toast.success(t("form.successTitle"), {
+        description: `${t("form.successQuote", { service: shown })} ${t("form.successReference", { reference: quotation.referenceNumber })}`,
+      });
       reset();
       onServiceChange("");
     } catch (err) {
       setSendError(err instanceof ApiError ? err.message : t("form.sendFailed"));
-    } finally {
-      turnstileRef.current?.reset();
-      setTurnstileToken("");
     }
   };
 
   return (
     <section
-      ref={sectionRef}
       id="quote-section"
       className="relative scroll-mt-20 overflow-hidden bg-linear-to-b from-navy-800 to-navy-900 py-20"
     >
@@ -248,18 +217,51 @@ export function ServicesQuoteForm({ services, englishTitles, serviceId, onServic
               </div>
             </div>
 
-            {turnstileVisible && (
-              <TurnstileWidget
-                ref={turnstileRef}
-                onVerify={setTurnstileToken}
-                onExpire={() => setTurnstileToken("")}
-                className="flex justify-center"
+            <div>
+              <input
+                type="text"
+                placeholder={t("form.streetAddress")}
+                aria-label={t("form.streetAddress")}
+                autoComplete="street-address"
+                aria-invalid={!!errors.streetAddress}
+                className={fieldClass}
+                {...register("streetAddress")}
               />
-            )}
+              {errors.streetAddress && (
+                <p className="mt-1 text-[11px] text-red-400">{errors.streetAddress.message}</p>
+              )}
+            </div>
+
+            <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+              <div>
+                <input
+                  type="text"
+                  placeholder={t("form.city")}
+                  aria-label={t("form.city")}
+                  autoComplete="address-level2"
+                  aria-invalid={!!errors.city}
+                  className={fieldClass}
+                  {...register("city")}
+                />
+                {errors.city && <p className="mt-1 text-[11px] text-red-400">{errors.city.message}</p>}
+              </div>
+              <div>
+                <input
+                  type="text"
+                  placeholder={t("form.country")}
+                  aria-label={t("form.country")}
+                  autoComplete="country-name"
+                  aria-invalid={!!errors.country}
+                  className={fieldClass}
+                  {...register("country")}
+                />
+                {errors.country && <p className="mt-1 text-[11px] text-red-400">{errors.country.message}</p>}
+              </div>
+            </div>
 
             <button
               type="submit"
-              disabled={isSubmitting || !turnstileToken}
+              disabled={isSubmitting}
               className="gold-gradient-bg flex w-full items-center justify-center gap-2 rounded-xl py-4 text-sm font-semibold text-navy-900 shadow-lg transition-all hover:-translate-y-0.5 hover:brightness-110 disabled:translate-y-0 disabled:cursor-not-allowed disabled:opacity-60"
             >
               <span>{isSubmitting ? t("common.sending") : t("form.send")}</span>

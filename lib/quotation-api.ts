@@ -4,6 +4,47 @@ import type { BookingLineItem, BookingRoom, BookingSupplySource } from "./bookin
 
 export type QuotationStatus = "new" | "contacted" | "closed";
 
+export type ContactChannel = "whatsapp" | "phone" | "email";
+
+/** One requested service on a multi-service quotation (global gateway). */
+export interface QuotationServiceLineInput {
+  serviceId: number;
+  numCleaners: number;
+  durationHours: number;
+  /** Omitted for personal-support services. */
+  propertySizeSqm?: number;
+  upholsteryPreset?: string;
+}
+
+/** As stored — with the service's name/label snapshotted at request time. */
+export interface QuotationServiceLine {
+  serviceId: number;
+  name: string;
+  label: string;
+  numCleaners: number;
+  durationHours: number;
+  propertySizeSqm: number | null;
+  upholsteryPreset: string | null;
+}
+
+export interface QuotationSupplyLineInput {
+  name: string;
+  quantity: number;
+  unit: string;
+  /** Chemicals only. */
+  concentration?: string;
+  msds: boolean;
+}
+
+/** One requested equipment/chemical supply — unpriced. */
+export interface QuotationSupplyLine {
+  name: string;
+  quantity: number;
+  unit: string;
+  concentration: string | null;
+  msds: boolean;
+}
+
 export interface CreateQuotationPayload {
   serviceId: number;
   date?: string;
@@ -34,6 +75,10 @@ export interface CreateQuotationPayload {
   language?: string;
   /** Files uploaded at checkout / on the quotation form (see lib/upload-api.ts). */
   attachments?: AttachmentRef[];
+  /** Several services at once (global gateway) — `serviceId` must be the first line's. */
+  serviceLines?: QuotationServiceLineInput[];
+  supplyLines?: QuotationSupplyLineInput[];
+  preferredContactChannel?: ContactChannel;
   specialRequirements?: string;
   howGetIn?: string;
   howHeard?: string;
@@ -99,6 +144,10 @@ export interface Quotation {
   durationHours: string | null;
   genderPreference: string | null;
   languagePreference: string | null;
+  /** Multi-service quotations only (global gateway); null otherwise. */
+  serviceLines: QuotationServiceLine[] | null;
+  supplyLines: QuotationSupplyLine[] | null;
+  preferredContactChannel: ContactChannel | null;
   specialRequirements: string | null;
   howGetIn: string | null;
   howHeard: string | null;

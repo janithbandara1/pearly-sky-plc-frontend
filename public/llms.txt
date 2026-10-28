@@ -17,7 +17,7 @@ Every page is served under a `/{country}-{language}/` prefix (e.g. `/fr-en/`, `/
 ## Services
 
 - Individual service pages live at `/services/{slug}` and are linked from the homepage — each one either supports direct booking (`/services/{slug}/checkout`) or a custom quotation request (`/services/{slug}/request-quotation`), depending on the service.
-- [Request a Detailed Quotation](https://pearlyskyglobalclean.com/request-a-detailed-quotation): General-purpose custom quote request, not tied to one service.
+- [Request a Detailed Quotation](https://pearlyskyglobalclean.com/request-quotation): General-purpose custom quote request, not tied to one service.
 
 ## Legal
 

@@ -27,7 +27,9 @@ import {
   SidebarMenuItem,
   SidebarRail,
 } from "@/components/ui/sidebar";
+import { IS_GLOBAL_SITE } from "@/lib/countries/config";
 import { useStaffAuth } from "@/lib/staff-auth-context";
+import { GLOBAL_STAFF_PREFIXES, STAFF_ADMIN_HOME } from "@/lib/staff-sections";
 
 interface NavItem {
   href: string;
@@ -56,10 +58,12 @@ export function StaffSidebar() {
   const router = useRouter();
   const { logout, staff } = useStaffAuth();
   const isAdmin = staff?.roles.includes("admin") ?? false;
-  const navItems = useMemo(
-    () => (isAdmin ? ADMIN_NAV_ITEMS : CLEANER_NAV_ITEMS),
-    [isAdmin],
-  );
+  const navItems = useMemo(() => {
+    if (!isAdmin) return CLEANER_NAV_ITEMS;
+    return IS_GLOBAL_SITE
+      ? ADMIN_NAV_ITEMS.filter((item) => GLOBAL_STAFF_PREFIXES.includes(item.href))
+      : ADMIN_NAV_ITEMS;
+  }, [isAdmin]);
 
   return (
     <Sidebar>
@@ -67,7 +71,7 @@ export function StaffSidebar() {
         <SidebarMenu>
           <SidebarMenuItem>
             <SidebarMenuButton asChild size="lg">
-              <Link href="/staff/dashboard">
+              <Link href={STAFF_ADMIN_HOME}>
                 <div className="relative aspect-square size-8 shrink-0 overflow-hidden rounded-full">
                   <Image
                     src="/images/brand/logo.webp"

@@ -6,6 +6,7 @@ import { useRouter } from "next/navigation";
 import { LoginForm } from "@/components/login-form";
 import { useStaffAuth } from "@/lib/staff-auth-context";
 import { useLanguage } from "@/lib/i18n/language-context";
+import { STAFF_ADMIN_HOME } from "@/lib/staff-sections";
 
 export default function AdminLoginPage() {
   const router = useRouter();
@@ -31,7 +32,7 @@ export default function AdminLoginPage() {
           showTurnstile={false}
           onLogin={async (email, password) => {
             await login(email, password);
-            router.push("/staff/dashboard");
+            router.push(STAFF_ADMIN_HOME);
           }}
         />
       </div>

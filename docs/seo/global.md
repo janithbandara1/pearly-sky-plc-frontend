@@ -203,7 +203,7 @@ Set in `app/layout.tsx` and `lib/countries/seo.ts` (`buildSocialMeta`), applied 
 
 ## Blocked routes
 
-The gateway has no backend, so `proxy.ts` only serves these paths (each under `/en`) and 308-redirects everything else — services,
+The gateway only takes quotation requests, so `proxy.ts` only serves these paths (each under `/en`) and 308-redirects everything else — services,
 login/sign-up, checkout, account and staff pages — to `/en`:
 
 `/`, `/about-us`, `/our-customers`, `/our-locations`, `/contact-us`, `/our-services`, `/privacy-policy`, `/terms-and-conditions`, `/cookie-policy`, `/blog/*`, `/careers/*`

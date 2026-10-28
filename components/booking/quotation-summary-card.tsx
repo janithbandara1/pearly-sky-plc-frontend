@@ -16,7 +16,12 @@ import {
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { GENDER_OPTIONS, LANGUAGE_OPTIONS } from "@/components/booking/quotation-preferences-section";
-import type { QuotationStatus } from "@/lib/quotation-api";
+import type {
+  ContactChannel,
+  QuotationServiceLine,
+  QuotationStatus,
+  QuotationSupplyLine,
+} from "@/lib/quotation-api";
 import { SummaryAttachments } from "@/components/booking/summary-attachments";
 import type { AttachmentLink } from "@/lib/upload-api";
 import type { TranslationKey } from "@/lib/i18n/dictionaries/en";
@@ -33,6 +38,12 @@ const HIDE_IF_EMPTY_QUOTE_TITLES = new Set([
   "Pool Details",
   "Job Details",
 ]);
+
+const CONTACT_CHANNEL_KEYS: Record<ContactChannel, TranslationKey> = {
+  whatsapp: "summaryContactWhatsapp",
+  phone: "summaryContactPhone",
+  email: "summaryContactEmail",
+};
 
 const STATUS_BADGE_VARIANT: Record<QuotationStatus, "default" | "secondary" | "outline"> = {
   contacted: "default",
@@ -130,6 +141,10 @@ export interface QuotationSummaryCardProps {
   footer?: ReactNode;
   /** Files attached at checkout, with short-lived open links. */
   attachmentLinks?: AttachmentLink[];
+  /** Multi-service quotations (global gateway) — replaces the single "Service" field with one row per service. */
+  serviceLines?: QuotationServiceLine[] | null;
+  supplyLines?: QuotationSupplyLine[] | null;
+  preferredContactChannel?: ContactChannel | null;
 }
 
 export function QuotationSummaryCard({
@@ -164,6 +179,9 @@ export function QuotationSummaryCard({
   deliveryAddress,
   footer,
   attachmentLinks,
+  serviceLines,
+  supplyLines,
+  preferredContactChannel,
 }: QuotationSummaryCardProps) {
   const { translate } = useLanguage();
   const hasContact = customerName !== undefined || customerEmail !== undefined || customerPhone !== undefined;
@@ -211,6 +229,12 @@ export function QuotationSummaryCard({
               {customerName && <Field label={translate("summaryName")} value={customerName} />}
               {customerEmail && <Field label={translate("summaryEmail")} value={customerEmail} />}
               {customerPhone && <Field label={translate("summaryPhone")} value={customerPhone} />}
+              {preferredContactChannel && (
+                <Field
+                  label={translate("summaryPreferredContact")}
+                  value={translate(CONTACT_CHANNEL_KEYS[preferredContactChannel] ?? preferredContactChannel)}
+                />
+              )}
             </div>
           </SectionCard>
         )}
@@ -243,7 +267,7 @@ export function QuotationSummaryCard({
       <div className="flex flex-col gap-6 lg:col-span-2 lg:col-start-1 lg:row-start-1">
         <SectionCard icon={ClipboardList} label={translate("summaryServiceDetails")}>
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-            <Field label={translate("summaryService")} value={serviceLabel} />
+            {!serviceLines?.length && <Field label={translate("summaryService")} value={serviceLabel} />}
             <Field label={translate("summaryDateTime")} value={date ? `${date}${time ? ` · ${time}` : ""}` : translate("summaryNotSpecified")} />
             {frequency && (
               <Field
@@ -276,6 +300,28 @@ export function QuotationSummaryCard({
             {numCleaners != null && <Field label={professionalsLabel} value={numCleaners} />}
           </div>
         </SectionCard>
+
+        {serviceLines?.length ? (
+          <SectionCard icon={ClipboardList} label={translate("summaryServicesRequested")}>
+            <ul className="flex flex-col gap-2 text-sm">
+              {serviceLines.map((line, index) => (
+                <li key={`${line.serviceId}-${index}`} className="flex flex-wrap items-baseline justify-between gap-x-4">
+                  <span className="font-medium">{line.label}</span>
+                  <span className="text-muted-foreground">
+                    {[
+                      `${line.numCleaners} ${translate("summaryCleaners")}`,
+                      `${line.durationHours} ${translate("summaryHours")}`,
+                      line.propertySizeSqm != null &&
+                        `${line.propertySizeSqm} m²${line.upholsteryPreset ? ` (${line.upholsteryPreset})` : ""}`,
+                    ]
+                      .filter(Boolean)
+                      .join(" · ")}
+                  </span>
+                </li>
+              ))}
+            </ul>
+          </SectionCard>
+        ) : null}
 
         {rooms?.length ? (
           <SectionCard icon={DoorOpen} label={translate("bookingDetailRooms")}>
@@ -356,6 +402,26 @@ export function QuotationSummaryCard({
                 ))}
               </ul>
             ) : null}
+          </SectionCard>
+        ) : null}
+
+        {supplyLines?.length ? (
+          <SectionCard icon={SprayCan} label={translate("summarySupplies")}>
+            <ul className="flex flex-col gap-2 text-sm">
+              {supplyLines.map((supply) => (
+                <KeyValueRow
+                  key={supply.name}
+                  label={supply.name}
+                  value={[
+                    `${supply.quantity} ${supply.unit}`,
+                    supply.concentration,
+                    supply.msds && translate("summaryMsdsRequired"),
+                  ]
+                    .filter(Boolean)
+                    .join(" · ")}
+                />
+              ))}
+            </ul>
           </SectionCard>
         ) : null}
 

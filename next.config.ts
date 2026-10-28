@@ -55,6 +55,20 @@ const nextConfig: NextConfig = {
   async headers() {
     return [{ source: "/:path*", headers: securityHeaders }];
   },
+  // The general quotation page moved from /request-a-detailed-quotation to
+  // /request-quotation — keep old links, bookmarks and indexed URLs working.
+  // Runs before proxy.ts, so the language-prefixed form needs its own rule;
+  // the query string (e.g. ?service=) carries over.
+  async redirects() {
+    return [
+      { source: "/request-a-detailed-quotation", destination: "/request-quotation", permanent: true },
+      {
+        source: "/:language(en|fr|de|es|it)/request-a-detailed-quotation",
+        destination: "/:language/request-quotation",
+        permanent: true,
+      },
+    ];
+  },
 };
 
 export default nextConfig;

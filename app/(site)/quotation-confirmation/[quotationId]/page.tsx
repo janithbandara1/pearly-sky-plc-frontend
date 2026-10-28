@@ -8,6 +8,7 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { ConfirmationCard, ConfirmationStatusRow } from "@/components/booking/confirmation-card";
 import { useAuth } from "@/lib/auth-context";
+import { IS_GLOBAL_SITE } from "@/lib/countries/config";
 import { useLanguage } from "@/lib/i18n/language-context";
 import { TranslationKey } from "@/lib/i18n/dictionaries/en";
 import {
@@ -116,8 +117,15 @@ function QuotationStatus({ quotationId }: { quotationId: number }) {
     { label: translate("quotConfirmDateLabel"), value: quotation.date ?? "—" },
   ];
 
-  const dashboardHref = authStatus === "authenticated" ? "/quotations" : "/signup";
-  const quotationDetailsUrl = `${SITE_URL}/quotations/${quotationId}`;
+  // The global gateway has no customer accounts, so neither the account pages
+  // nor a QR code pointing at one exist there — send the visitor home instead.
+  const primaryAction = IS_GLOBAL_SITE
+    ? { label: translate("confirmBackToHome"), href: "/" }
+    : {
+        label: translate("quotConfirmPrimaryAction"),
+        href: authStatus === "authenticated" ? "/quotations" : "/signup",
+      };
+  const quotationDetailsUrl = IS_GLOBAL_SITE ? undefined : `${SITE_URL}/quotations/${quotationId}`;
 
   const downloadAction = (
     <a
@@ -139,7 +147,7 @@ function QuotationStatus({ quotationId }: { quotationId: number }) {
       detailsRows={detailsRows}
       infoTitle={translate("quotConfirmInfoTitle")}
       infoBody={translate("quotConfirmInfoBody")}
-      primaryAction={{ label: translate("quotConfirmPrimaryAction"), href: dashboardHref }}
+      primaryAction={primaryAction}
       secondaryActions={downloadAction}
       qrCodeUrl={quotationDetailsUrl}
     />

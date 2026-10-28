@@ -384,7 +384,7 @@ function PageButton({
 }
 
 /**
- * No newsletter backend exists (and the gateway has no backend of its own),
+ * No newsletter backend exists,
  * so subscribing opens a pre-filled email to the team instead of pretending
  * to store the address.
  */

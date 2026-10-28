@@ -56,12 +56,12 @@ export function defaultLanguageForCountry(country: CountryCode): LanguageCode {
 /**
  * True when this deployment is the country-picker gateway
  * (NEXT_PUBLIC_COUNTRY=global) rather than one of the three real 
- * per-country sites. The gateway has no backend/database behind it at
- * all — no catalog, no bookings, no accounts — it's just the shared home
+ * per-country sites. The gateway only takes quotation requests — no
+ * bookings, no pricing, no customer accounts — it's just the shared home
  * page chrome with the services/login pieces hidden (see site-header.tsx,
  * site-footer.tsx, and app/(site)/page.tsx) plus a link to each real
- * country site. proxy.ts blocks every route except "/" and the static
- * legal pages on this mode.
+ * country site. proxy.ts blocks every route except the marketing/legal
+ * pages and /staff on this mode.
  */
 export const IS_GLOBAL_SITE = process.env.NEXT_PUBLIC_COUNTRY === "global";
 

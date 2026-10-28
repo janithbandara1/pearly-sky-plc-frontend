@@ -22,69 +22,8 @@ import type { GlobalKey } from "@/lib/i18n/global/en";
 import { cn } from "@/lib/utils";
 import { greatVibes, playfair } from "./fonts";
 import { SERVICE_ORDER } from "./services-order";
+import { CATEGORY_BY_SERVICE, SERVICE_CATEGORIES, serviceCardImage, type ServiceCategoryId } from "./services-catalog";
 import { ServicesQuoteForm } from "./services-quote-form";
-
-const IMAGE_DIR = "/images/services/updated-";
-
-/** Card photo per service id (the 660px variants). */
-const IMAGES: Record<string, string> = {
-  "regular-home-cleaning": "home-property-cleaning-services-1-standard-residential-cleaning-660w.webp",
-  "essential-touch-up-cleaning": "home-property-cleaning-services-2-express-refresh-cleaning-660w.webp",
-  "same-day-priority-cleaning": "home-property-cleaning-services-3-last-minute-cleaning-660w.webp",
-  "deep-cleaning": "home-property-cleaning-services-4-deep-cleaning-660w.webp",
-  "end-of-tenancy-cleaning": "home-property-cleaning-services-5-move-in-out-cleaning-660w.webp",
-  "post-construction-renovation-cleaning":
-    "home-property-cleaning-services-6-post-construction-renovation-cleaning-660w.webp",
-  "premium-rental-concierge-cleaning":
-    "home-property-cleaning-services-7-airbnb-short-term-rental-cleaning-660w.webp",
-  "commercial-office-cleaning": "home-property-cleaning-services-8-commercial-office-cleaning-660w.webp",
-  "healthguard-sanitization":
-    "home-property-cleaning-services-9-healthguard-sanitization-medical-grade-eco-disinfection-660w.webp",
-  "carpet-upholstery-cleaning": "home-property-cleaning-services-10-carpet-upholstery-cleaning-660w.webp",
-  "steam-cleaning": "home-property-cleaning-services-11-steam-cleaning-660w.webp",
-  "post-event-cleaning": "home-property-cleaning-services-12-post-event-cleaning-660w.webp",
-  "pool-cleaning": "home-property-cleaning-services-13-pool-cleaning-660w.webp",
-  "precision-pressure-washing": "home-property-cleaning-services-14-precision-pressure-washing-660w.webp",
-  "child-care-service": "care-support-services-1-child-care-service-660w.webp",
-  "elder-care-service": "care-support-services-2-elder-care-service-660w.webp",
-  "laundry-service": "care-support-services-3-laundry-services-660w.webp",
-  "move-in-out-transport-service": "care-support-services-4-move-in-out-transport-service-660w.webp",
-  "high-security-property-care": "home-property-cleaning-services-15-security-cleaning-660w.webp",
-  "luxury-yacht-cleaning": "home-property-cleaning-services-16-luxury-yacht-cleaning-660w.webp",
-};
-
-const CATEGORIES: { id: string; labelKey: GlobalKey }[] = [
-  { id: "home", labelKey: "svc.cat.home" },
-  { id: "specialist", labelKey: "svc.cat.specialist" },
-  { id: "property", labelKey: "svc.cat.property" },
-  { id: "office", labelKey: "svc.cat.office" },
-  { id: "lifestyle", labelKey: "svc.cat.lifestyle" },
-];
-
-type CategoryId = string;
-
-const CATEGORY_BY_SERVICE: Record<string, CategoryId> = {
-  "regular-home-cleaning": "home",
-  "essential-touch-up-cleaning": "home",
-  "same-day-priority-cleaning": "home",
-  "deep-cleaning": "home",
-  "steam-cleaning": "specialist",
-  "healthguard-sanitization": "specialist",
-  "carpet-upholstery-cleaning": "specialist",
-  "post-event-cleaning": "specialist",
-  "precision-pressure-washing": "specialist",
-  "pool-cleaning": "specialist",
-  "end-of-tenancy-cleaning": "property",
-  "high-security-property-care": "property",
-  "premium-rental-concierge-cleaning": "property",
-  "luxury-yacht-cleaning": "property",
-  "commercial-office-cleaning": "office",
-  "post-construction-renovation-cleaning": "office",
-  "child-care-service": "lifestyle",
-  "elder-care-service": "lifestyle",
-  "laundry-service": "lifestyle",
-  "move-in-out-transport-service": "lifestyle",
-};
 
 const HERO_FEATURES: { Icon: typeof Leaf; titleKey: GlobalKey; subtitleKey: GlobalKey }[] = [
   { Icon: Leaf, titleKey: "svc.feature.eco.title", subtitleKey: "svc.feature.eco.subtitle" },
@@ -105,24 +44,14 @@ const PROMISES: { Icon: typeof Leaf; labelKey: GlobalKey }[] = [
 const bookNowClass =
   "gold-gradient-bg flex w-full items-center justify-center gap-1.5 rounded-xl py-2 text-xs font-semibold text-navy-900 shadow-md transition-opacity hover:opacity-90";
 
-/** The global gateway's Our Services page (IS_GLOBAL_SITE). */
-/**
- * `content` is in the visitor's language; `englishTitles` (by service id) are
- * for the enquiry the team reads, which is always written in English.
- */
-export function GlobalServicesPage({
-  content,
-  englishTitles,
-}: {
-  content: OurServicesContent;
-  englishTitles: Record<string, string>;
-}) {
+/** The global gateway's Our Services page (IS_GLOBAL_SITE). `content` is in the visitor's language. */
+export function GlobalServicesPage({ content }: { content: OurServicesContent }) {
   const { translate, translateGlobal: t } = useLanguage();
   const services = useMemo(
     () => [...content.services].sort((a, b) => SERVICE_ORDER.indexOf(a.id) - SERVICE_ORDER.indexOf(b.id)),
     [content.services],
   );
-  const [category, setCategory] = useState<CategoryId | "all">("all");
+  const [category, setCategory] = useState<ServiceCategoryId | "all">("all");
   const [selectedServiceId, setSelectedServiceId] = useState("");
   const [details, setDetails] = useState<OurServiceCopy | null>(null);
   const dialogRef = useRef<HTMLDialogElement>(null);
@@ -133,11 +62,8 @@ export function GlobalServicesPage({
   );
   const serviceOptions = useMemo(() => services.map(({ id, title }) => ({ id, title })), [services]);
 
-  const book = (id: string) => {
-    setSelectedServiceId(id);
-    dialogRef.current?.close();
-    document.getElementById("quote-section")?.scrollIntoView({ behavior: "smooth" });
-  };
+  /** Book Now opens the full request-quotation page with this service preselected — the gateway takes no bookings. */
+  const bookHref = (id: string) => `/request-quotation?service=${encodeURIComponent(id)}`;
 
   const openDetails = (service: OurServiceCopy) => {
     setDetails(service);
@@ -146,7 +72,7 @@ export function GlobalServicesPage({
 
   const tabs = [
     { id: "all" as const, label: t("svc.tabAll"), count: services.length },
-    ...CATEGORIES.map(({ id, labelKey }) => ({
+    ...SERVICE_CATEGORIES.map(({ id, labelKey }) => ({
       id,
       label: t(labelKey),
       count: services.filter((service) => CATEGORY_BY_SERVICE[service.id] === id).length,
@@ -253,7 +179,7 @@ export function GlobalServicesPage({
                     {services.indexOf(service) + 1}
                   </span>
                   <Image
-                    src={`${IMAGE_DIR}${IMAGES[service.id]}`}
+                    src={serviceCardImage(service.id)}
                     alt=""
                     fill
                     sizes="(min-width: 1024px) 20vw, (min-width: 768px) 33vw, (min-width: 640px) 50vw, 100vw"
@@ -267,10 +193,10 @@ export function GlobalServicesPage({
                     <p className="line-clamp-3 text-[11px] leading-relaxed text-slate-400">{service.headline}</p>
                   </div>
                   <div className="space-y-2">
-                    <button type="button" onClick={() => book(service.id)} className={bookNowClass}>
+                    <Link href={bookHref(service.id)} className={bookNowClass}>
                       <span>{t("common.bookNow")}</span>
                       <ArrowRight className="h-2.5 w-2.5" />
-                    </button>
+                    </Link>
                     <button
                       type="button"
                       onClick={() => openDetails(service)}
@@ -302,7 +228,6 @@ export function GlobalServicesPage({
 
       <ServicesQuoteForm
         services={serviceOptions}
-        englishTitles={englishTitles}
         serviceId={selectedServiceId}
         onServiceChange={setSelectedServiceId}
       />
@@ -358,10 +283,10 @@ export function GlobalServicesPage({
               ))}
             </div>
 
-            <button type="button" onClick={() => book(details.id)} className={`${bookNowClass} mt-6 py-3 text-sm`}>
+            <Link href={bookHref(details.id)} className={`${bookNowClass} mt-6 py-3 text-sm`}>
               <span>{t("common.bookNow")}</span>
               <ArrowRight className="h-3 w-3" />
-            </button>
+            </Link>
           </>
         )}
       </dialog>

@@ -30,8 +30,6 @@ export default async function OurServicesPage() {
   if (!IS_GLOBAL_SITE) notFound();
 
   const content = getOurServicesContent(await getRequestLanguage());
-  // The quote form's enquiry is read by the team, so it always carries the English service name.
-  const englishTitles = Object.fromEntries(getOurServicesContent("en").services.map(({ id, title }) => [id, title]));
 
   return (
     <>
@@ -39,7 +37,7 @@ export default async function OurServicesPage() {
           { name: "Home", path: "/" },
           { name: "Our Services", path: "/our-services" },
         ]} />
-      <GlobalServicesPage content={content} englishTitles={englishTitles} />
+      <GlobalServicesPage content={content} />
     </>
   );
 }

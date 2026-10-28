@@ -24,8 +24,11 @@ import { AlertCircle, CheckCircle2, X } from "lucide-react";
 
 export default function RequestDetailedQuotationPage({
   services,
+  initialServiceId,
 }: {
   services: HomeService[];
+  /** Preselected service (from the page's `?service=` param), if any. */
+  initialServiceId?: number;
 }) {
   const router = useRouter();
   const { language: siteLanguage } = useLanguage();
@@ -43,7 +46,7 @@ export default function RequestDetailedQuotationPage({
   const [frequency, setFrequency] = useState<string | null>(null);
 
   // 4. Selected Eco-Luxury Service (single selection)
-  const [selectedServiceId, setSelectedServiceId] = useState<number>(1);
+  const [selectedServiceId, setSelectedServiceId] = useState<number>(initialServiceId ?? 1);
 
   // 5. Schedule
   const [date, setDate] = useState("2026-10-25");

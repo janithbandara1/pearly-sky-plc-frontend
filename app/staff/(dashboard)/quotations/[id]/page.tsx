@@ -134,6 +134,9 @@ export default function StaffQuotationDetailsPage() {
           serviceCategory={quotation.serviceCategory}
           deepClean={quotation.deepClean}
           disinfection={quotation.disinfection}
+          serviceLines={quotation.serviceLines}
+          supplyLines={quotation.supplyLines}
+          preferredContactChannel={quotation.preferredContactChannel}
           customerName={
             quotation.customer ? `${quotation.customer.firstName} ${quotation.customer.lastName ?? ""}`.trim() : undefined
           }
