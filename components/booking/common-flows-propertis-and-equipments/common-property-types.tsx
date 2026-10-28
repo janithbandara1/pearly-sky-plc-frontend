@@ -120,6 +120,7 @@ import {
   Cpu,
   RotateCw,
   Calculator,
+  Info,
 
 } from "lucide-react";
 
@@ -2536,7 +2537,7 @@ export function PropertySizeSelector({
   const MIN_SIZE = 20;
   const MAX_SIZE = isQuote ? 500000 : 500;
   const SIZE_MILESTONES = isQuote
-    ? [20, 1000, 25000, 100000, 250000, 500000]
+    ? [20, 1000, 10000,100000, 50000, 500000]
     : [20, 50, 100, 200, 300, 500];
 
   function valueToSliderPercent(val: number, milestones: number[]): number {
@@ -2706,7 +2707,7 @@ export function PropertySizeSelector({
                 <div>
                   <h2
                     className={`font-serif text-2xl font-bold tracking-tight ${
-                      isLight ? "text-[#1A2238]" : "text-white"
+                      isLight ? "text-[#002F6D]" : "text-white"
                     }`}
                   >
                     2. Property Size
@@ -2954,6 +2955,24 @@ export function PropertySizeSelector({
           </div>
         </div>
 
+            {/**User Guideline */}
+        <div
+          className={`flex items-start gap-3 p-4 my-3 rounded-xl border transition-colors ${
+            isLight
+              ? 'bg-slate-50 border-amber-400 text-slate-800'
+              : 'bg-[#0f172a] border-amber-400/80 text-white'
+          }`}
+        >
+          <Info className={`w-5 h-5 mt-0.5 shrink-0 ${isLight ? 'text-slate-700' : 'text-slate-200'}`} />
+          <div className="flex flex-col gap-1 text-sm">
+            <p className="font-semibold leading-none">
+              Range: 20 m² to 500,000 m²
+            </p>
+            <p className={`text-xs ${isLight ? 'text-slate-600' : 'text-slate-300'}`}>
+              Use the slider or enter the exact size of your property.
+            </p>
+          </div>
+        </div>
         {/* Bottom Action Buttons: Increase Size & Decrease Size */}
         <div className="grid grid-cols-2 gap-3.5 w-full mt-1">
           {/* Increase Size Card */}

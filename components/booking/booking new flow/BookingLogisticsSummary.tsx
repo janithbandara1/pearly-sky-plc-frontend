@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-import { Crown, Lock, CalendarDays, Sparkles, Clock, Tag, Percent, CheckCircle2, ChevronDown, ChevronUp, Home, Scale, BedDouble, Leaf, Square } from "lucide-react";
+import { Crown, Lock, CalendarDays, Sparkles, Clock, Tag, Percent, CheckCircle2, ChevronDown, ChevronUp, Home, Scale, BedDouble, Leaf, Square, CreditCard, Expand } from "lucide-react";
 import { SupplySource } from "../common-flows-propertis-and-equipments/common-equipment-flow-section";
 import { useLanguage } from "@/lib/i18n/language-context";
 import { TranslationKey } from "@/lib/i18n/dictionaries/en";
@@ -98,7 +98,7 @@ export default function BookingLogisticsSummary({
 
   const logisticsItems = [
     { title: "Service Plan:", value: servicePlanName, highlight: true,icon:<Home className={`w-5 h-5 ${isLight ? "text-[#002F6D]" : "text-[#FFD766]"}`} /> },
-    { title: "Property Scale:", value: propertyScaleText, highlight: false,icon:<Square className={`w-5 h-5 ${isLight ? "text-[#002F6D]" : "text-[#FFD766]"}`} /> },
+    { title: "Property Scale:", value: propertyScaleText, highlight: false,icon:<Expand className={`w-5 h-5 ${isLight ? "text-[#002F6D]" : "text-[#FFD766]"}`} /> },
     { title: "Selected Rooms:", value: selectedRoomsSummary, highlight: false,icon:<BedDouble className={`w-5 h-5 ${isLight ? "text-[#002F6D]" : "text-[#FFD766]"}`} /> },
     { title: "Schedule Window:", value: scheduleWindow, highlight: true ,icon:<CalendarDays className={`w-5 h-5 ${isLight ? "text-[#002F6D]" : "text-[#FFD766]"}`} />},
     { title: "Frequency Discount:", value: frequencyDiscountLabel.split("(")[0], customColor: "text-emerald-400 font-semibold",icon:<Percent className={`w-5 h-5 ${isLight ? "text-[#0db423]" : "text-[#FFD766]"}`} /> },
@@ -147,25 +147,27 @@ export default function BookingLogisticsSummary({
             <div className="flex gap-2 items-center">
               <div className={`${isLight ? "bg-[#F7F5F0]":"bg-[#1B2A40]  border  border-[#718096]/60"} w-8 h-8  rounded-[12px] flex items-center justify-center shrink-0`} >
                 {item.icon} 
+              </div> 
+              <div className="flex flex-col">
+                  <h1 className={`text-[11px] font-medium tracking-wide uppercase ${isLight ? "text-[#687386]" : "text-[#C3CDDC]"}`}>
+                  {item.title}
+                </h1>
+                <span className={`text-sm font-semibold tracking-wide ${
+                  item.customColor
+                    ? item.customColor
+                    : item.highlight
+                    ? isLight
+                      ? "text-[#002F6D] font-bold"
+                      : "text-[#FFD766] font-bold"
+                    : isLight
+                    ? "text-[#1A2238]"
+                    : "text-white"
+                }`}>
+                  {translate(item.value as TranslationKey) || item.value}
+                </span>
               </div>
-              <h1 className={`text-[11px] font-medium tracking-wide uppercase ${isLight ? "text-[#687386]" : "text-[#C3CDDC]"}`}>
-                {item.title}
-              </h1>
+              
             </div>
-            
-            <span className={`text-sm font-semibold tracking-wide ${
-              item.customColor
-                ? item.customColor
-                : item.highlight
-                ? isLight
-                  ? "text-[#002F6D] font-bold"
-                  : "text-[#FFD766] font-bold"
-                : isLight
-                ? "text-[#1A2238]"
-                : "text-white"
-            }`}>
-              {translate(item.value as TranslationKey) || item.value}
-            </span>
           </div>
         ))}
 
@@ -177,7 +179,7 @@ export default function BookingLogisticsSummary({
                 Add-on Items Selected ({selectedAddons.length})
               </span>
               <span className={`text-xs font-bold px-2 py-0.5 rounded-md border ${
-                isLight ? "bg-[#F7F5F0] text-[#002F6D] border-[#D9DDE5]" : "bg-[#111C2E] text-[#FFD766] border-[#718096]/40"
+                isLight ? "text-[#D8B63F] border-[#D9DDE5]" : "bg-[#111C2E] text-[#FFD766] border-[#718096]/40"
               }`}>
                 {currencySymbol}{equipmentSolventsCost.toFixed(2)}
               </span>
@@ -207,7 +209,7 @@ export default function BookingLogisticsSummary({
                 })}
               </div>
             ) : (
-              <div className={`text-xs italic px-2 py-1 ${isLight ? "text-[#687386]" : "text-[#718096]"}`}>
+              <div className={`text-xs italic px-2 py-1 ${isLight ? "text-[#D8B63F]" : "text-[#718096]"}`}>
                 {supplySource === "customer" ? "Client providing own equipment" : "No add-on items selected"}
               </div>
             )}
@@ -254,12 +256,13 @@ export default function BookingLogisticsSummary({
       </div>
 
       {/* Estimated Total Block */}
-      <div className={`pt-4 pb-3 mt-3 border-t flex flex-col space-y-1 ${isLight ? "border-[#D9DDE5]" : "border-[#718096]/30"}`}>
-        <div className="flex justify-between items-baseline">
+      <div className={`border-t w-full h-1 mt-3 ${isLight ? "border-[#D9DDE5] ":"border-[#718096]/30"}`}></div>
+      <div className={`pt-4 pb-3  rounded-[10px] p-2 flex flex-col space-y-1 ${isLight ? "border border-[#D9DDE5]  bg-[#F7F5F0]" : ""}`}>
+        <div className="flex justify-between items-baseline ">
           <span className={`text-xs font-bold uppercase tracking-wider ${isLight ? "text-[#1A2238]" : "text-[#C3CDDC]"}`}>
             ESTIMATED TOTAL
           </span>
-          <span className={`text-2xl font-serif font-bold ${isLight ? "text-[#002F6D]" : "text-[#FFD766]"}`}>
+          <span className={`text-2xl font-serif font-bold ${isLight ? "text-[#D8B63F]" : "text-[#FFD766]"}`}>
             {currencySymbol}{estimatedTotal.toFixed(2)}
           </span>
         </div>
@@ -276,17 +279,23 @@ export default function BookingLogisticsSummary({
             ? "bg-[#F7F5F0] border-[#D9DDE5] text-[#1A2238]"
             : "bg-[#111C2E] border-[#718096]/40 text-white"
         }`}>
-          <div className="flex flex-col">
-            <span className={`text-xs font-bold ${isLight ? "text-[#002F6D]" : "text-[#FFD766]"}`}>
-              Advance Deposit Required
-            </span>
-            <span className={`text-[11px] ${isLight ? "text-[#687386]" : "text-[#C3CDDC]"}`}>
-              Locks staff schedule instantly
-            </span>
+          <div className="flex flex-row">
+            <div className={`flex w-7 h-7 p-1rounded-[10px] items-center gap-1.5 mb-0.5 ${isLight ? "text-[#1A2238]" : "text-[#C3CDDC]"}`}>
+              <CreditCard className={`w-5 h-5 mr-1 ${isLight ? "text-[#002F6D]" : "text-[#FFD766]"}`} />
+            </div>
+            <div className="flex flex-col">
+                  <span className={`text-xs font-bold ${isLight ? "text-[#002F6D]" : "text-[#FFD766]"}`}>
+                  Advance Deposit Required
+                </span>
+                <span className={`text-[11px] ${isLight ? "text-[#687386]" : "text-[#C3CDDC]"}`}>
+                  Locks staff schedule instantly
+                </span>
+            </div>
+            
           </div>
           <span className={`font-serif font-bold text-base px-2.5 py-1 rounded-lg border ${
             isLight
-              ? "bg-white text-[#002F6D] border-[#D9DDE5] shadow-xs"
+              ? " text-[#D8B63F] border-[#D9DDE5] shadow-xs"
               : "bg-[#1B2A40] text-[#FFD766] border-[#FFD766]/30"
           }`}>
             {currencySymbol}{deposit.toFixed(2)}

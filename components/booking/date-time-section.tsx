@@ -138,7 +138,7 @@ export function DateTimeSection(
             <div>
               <h2
                  className={`font-serif text-2xl font-bold tracking-tight ${
-                   isLight ? "text-[#1A2238]" : "text-white"
+                   isLight ? "text-[#002F6D]" : "text-white"
                  }`}
                 >
                 5. Service Schedule
@@ -319,7 +319,7 @@ export function DateTimeSection(
           <div className={`p-4 flex-1 flex flex-col justify-between ${isLight ? "bg-white" : "bg-[#1B2A40]"}`}>
             
             {/* Scrollable Time Slots List */}
-            <div className={`grid max-h-[220px] grid-cols-2 gap-2.5 overflow-y-auto pr-1 ${
+            <div className={`grid max-h-[220px] grid-cols-3 gap-2.5 overflow-y-auto pr-1 ${
               isLight 
                 ? "[&::-webkit-scrollbar]:w-1.5 [&::-webkit-scrollbar-thumb]:rounded-full [&::-webkit-scrollbar-thumb]:bg-slate-200 hover:[&::-webkit-scrollbar-thumb]:bg-slate-300"
                 : "[&::-webkit-scrollbar]:w-1.5 [&::-webkit-scrollbar-thumb]:rounded-full [&::-webkit-scrollbar-thumb]:bg-[#718096]/50 hover:[&::-webkit-scrollbar-thumb]:bg-[#718096]"

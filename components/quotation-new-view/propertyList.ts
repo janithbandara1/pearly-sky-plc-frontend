@@ -58,3 +58,4 @@ export const QUOTE_PROPERTY_CATEGORIES :QuotePropertyCategory[]= [
                 ]
             }
         ];
+

@@ -287,6 +287,7 @@ export default function RequestDetailedQuotationPage({
             {/* Step 3: Service Crew Parameters */}
             <div id="quote-crew-section">
               <ServiceCrewParameters
+                value={propertySizeSqm}
                 cleaners={cleaners}
                 onCleanersChange={setCleaners}
                 hours={hours}

@@ -55,7 +55,7 @@ export default function QuotePropertyTypeSelector({
         <div>
           <h2
             className={`font-serif text-2xl font-bold tracking-tight ${
-              isLight ? "text-slate-900" : "text-white"
+              isLight ? "text-[#002F6D]" : "text-white"
             }`}
           >
             1. Property Type
@@ -68,7 +68,21 @@ export default function QuotePropertyTypeSelector({
 
       {/* Category Tabs Header */}
       <div className="relative mb-6">
-        <div className="flex items-center space-x-2 overflow-x-auto pb-3 no-scrollbar scroll-smooth">
+        
+
+        <div
+          className={`flex items-center space-x-2 overflow-x-auto pt-1 pb-2.5 mb-2 scroll-smooth [scrollbar-width:thin] [&::-webkit-scrollbar]:h-1.5 [&::-webkit-scrollbar-track]:rounded-full [&::-webkit-scrollbar-thumb]:rounded-full [&::-webkit-scrollbar-thumb]:bg-[#FFD766] hover:[&::-webkit-scrollbar-thumb]:bg-[#e5c158] ${
+            isLight
+              ? "[&::-webkit-scrollbar-track]:bg-slate-200/60"
+              : "[&::-webkit-scrollbar-track]:bg-slate-800/60"
+          }`}
+          style={{
+            scrollbarColor: isLight
+              ? "#FFD766 rgba(226, 232, 240, 0.6)"
+              : "#FFD766 rgba(30, 41, 59, 0.6)",
+            scrollbarWidth: "thin",
+          }}
+        >
           {categories.map((cat, idx) => {
             const isActive = idx === activeCategoryIndex;
             return (

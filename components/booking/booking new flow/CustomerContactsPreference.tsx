@@ -1,7 +1,28 @@
 "use client";
 
-import React, { useRef, useState, useEffect } from "react";
-import { UploadCloud, FileText, Loader2, RotateCw, X, ChevronDown, User, MessageCircleQuestion, MessageSquareText, Info, FilePenLine } from "lucide-react";
+import {
+  UploadCloud,
+  FileText,
+  Loader2,
+  RotateCw,
+  X,
+  ChevronDown,
+  User,
+  MessageCircleQuestion,
+  MessageSquareText,
+  Info,
+  FilePenLine,
+  Mail,
+  Phone,
+  Globe,
+  MapPin,
+  Building2,
+  Building,
+  Map,
+  Home,
+  Key,
+} from "lucide-react";
+import { FaWhatsapp } from "react-icons/fa";
 import { useLanguage } from "@/lib/i18n/language-context";
 import { TranslationKey } from "@/lib/i18n/dictionaries/en";
 import { AddressPayload } from "@/lib/customers-api";
@@ -16,7 +37,7 @@ import {
 import { CheckoutAttachment } from "@/components/booking/checkout-attachment-upload";
 import { CURRENT_COUNTRY } from "@/lib/countries/config";
 import { COUNTRY_FLAGS, FALLBACK_COUNTRY_NAMES } from "@/components/country-switcher";
-
+import { useRef, useState,useEffect } from "react";
 export interface ContactFormData {
   firstName: string;
   lastName: string;
@@ -126,6 +147,7 @@ export default function CustomerContactsPreference({
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [uploadError, setUploadError] = useState<string | null>(null);
   const [isDragging, setIsDragging] = useState(false);
+  const [preferredContact, setPreferredContact] = useState<string>("WhatsApp Message");
 
   const isLight = theme === "light";
 
@@ -204,7 +226,8 @@ export default function CustomerContactsPreference({
 
   const dividerClasses = isLight ? "border-[#D9DDE5]" : "border-[#718096]/30";
   const stepLabelClasses = isLight ? "text-[#D8B63F]" : "text-[#FFD766]";
-  const titleClasses = isLight ? "text-[#1A2238]" : "text-white";
+  const titleClasses = isLight ? "text-[#002F6D]" : "text-white";
+  const fieldIconClasses = isLight ? "text-[#002F6D]" : "text-[#FFD766]";
   const labelClasses = isLight
     ? "text-[11px] font-semibold tracking-wider text-[#002F6D] uppercase mb-2 block"
     : "text-[11px] font-semibold tracking-wider text-[#C3CDDC] uppercase mb-2 block";
@@ -213,9 +236,17 @@ export default function CustomerContactsPreference({
     ? "w-full bg-[#F7F5F0] border border-[#D9DDE5] hover:border-[#D8B63F] focus:border-[#002F6D] focus:ring-1 focus:ring-[#002F6D] text-[#1A2238] placeholder:text-[#687386]/60 rounded-lg px-4 py-3 text-sm outline-none transition-colors"
     : "w-full bg-[#152238] border border-[#718096]/40 hover:border-[#FFD766]/50 focus:border-[#FFD766] focus:ring-1 focus:ring-[#FFD766] text-white placeholder:text-[#718096] rounded-lg px-4 py-3 text-sm outline-none transition-colors";
 
+  const iconInputClasses = isLight
+    ? "w-full bg-[#F7F5F0] border border-[#D9DDE5] hover:border-[#D8B63F] focus:border-[#002F6D] focus:ring-1 focus:ring-[#002F6D] text-[#1A2238] placeholder:text-[#687386]/60 rounded-xl pl-11 pr-4 py-3 text-sm outline-none transition-colors"
+    : "w-full bg-[#152238] border border-[#718096]/40 hover:border-[#FFD766]/50 focus:border-[#FFD766] focus:ring-1 focus:ring-[#FFD766] text-white placeholder:text-[#718096] rounded-xl pl-11 pr-4 py-3 text-sm outline-none transition-colors";
+
   const selectClasses = isLight
     ? "w-full appearance-none bg-[#F7F5F0] border border-[#D9DDE5] hover:border-[#D8B63F] focus:border-[#002F6D] focus:ring-1 focus:ring-[#002F6D] text-[#1A2238] rounded-lg px-4 py-3 text-sm outline-none transition-colors pr-10 cursor-pointer"
     : "w-full appearance-none bg-[#152238] border border-[#718096]/40 hover:border-[#FFD766]/50 focus:border-[#FFD766] focus:ring-1 focus:ring-[#FFD766] text-white rounded-lg px-4 py-3 text-sm outline-none transition-colors pr-10 cursor-pointer";
+
+  const iconSelectClasses = isLight
+    ? "w-full appearance-none bg-[#F7F5F0] border border-[#D9DDE5] hover:border-[#D8B63F] focus:border-[#002F6D] focus:ring-1 focus:ring-[#002F6D] text-[#1A2238] rounded-xl pl-11 pr-10 py-3 text-sm outline-none transition-colors cursor-pointer"
+    : "w-full appearance-none bg-[#152238] border border-[#718096]/40 hover:border-[#FFD766]/50 focus:border-[#FFD766] focus:ring-1 focus:ring-[#FFD766] text-white rounded-xl pl-11 pr-10 py-3 text-sm outline-none transition-colors cursor-pointer";
 
   const selectOptionClasses = isLight ? "bg-white text-[#1A2238]" : "bg-[#152238] text-white";
   const chevronClasses = isLight ? "text-[#002F6D]" : "text-[#FFD766]";
@@ -255,7 +286,7 @@ export default function CustomerContactsPreference({
           <div>
             <h2
               className={`font-serif text-2xl font-bold tracking-tight ${
-                isLight ? "text-[#D8B63F]" : "text-white"
+                isLight ? "text-[#002F6D]" : "text-white"
               }`}
             >
               6 & 7. Contact & Location Details
@@ -536,90 +567,124 @@ export default function CustomerContactsPreference({
       {/* Divider */}
       <div className={`my-8 border-t ${dividerClasses}`} />
 
-      {/* Client Identity & Access Address */}
-      <div>
-        <h3 className={`font-serif text-xl sm:text-2xl font-medium tracking-tight mb-6 ${titleClasses}`}>
-          Client Identity & Access Address
-        </h3>
+      {/* Client Information & Property Address & Access */}
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-10">
+        {/* Left Column: Client Information */}
+        <div>
+          <div className="flex items-center space-x-2.5 mb-5 sm:mb-6">
+            <User className={`size-5 sm:size-6 ${fieldIconClasses}`} />
+            <h3 className={`font-serif text-xl sm:text-2xl font-bold tracking-tight ${titleClasses}`}>
+              Client Information
+            </h3>
+          </div>
 
-        <div className="space-y-4">
-
-
-          
-          {/* Row 1: First Name & Last Name */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div className="space-y-4">
+            {/* First Name */}
             <div>
               <label className={labelClasses}>
                 FIRST NAME *
               </label>
-              <input
-                required
-                type="text"
-                value={contactForm.firstName}
-                onChange={(e) =>
-                  onContactFormChange((f) => ({ ...f, firstName: e.target.value }))
-                }
-                placeholder="Lord / Lady / Mr. Alexandre"
-                className={inputClasses}
-              />
+              <div className="relative">
+                <div className={`absolute left-3.5 top-1/2 -translate-y-1/2 pointer-events-none ${fieldIconClasses}`}>
+                  <User className="size-5" />
+                </div>
+                <input
+                  required
+                  type="text"
+                  value={contactForm.firstName}
+                  onChange={(e) =>
+                    onContactFormChange((f) => ({ ...f, firstName: e.target.value }))
+                  }
+                  placeholder="Lord / Lady / Mr. Alexandre"
+                  className={iconInputClasses}
+                />
+              </div>
             </div>
 
+            {/* Last Name */}
             <div>
               <label className={labelClasses}>
                 LAST NAME *
               </label>
-              <input
-                type="text"
-                value={contactForm.lastName}
-                onChange={(e) =>
-                  onContactFormChange((f) => ({ ...f, lastName: e.target.value }))
-                }
-                placeholder="de Rothschild"
-                className={inputClasses}
-              />
+              <div className="relative">
+                <div className={`absolute left-3.5 top-1/2 -translate-y-1/2 pointer-events-none ${fieldIconClasses}`}>
+                  <User className="size-5" />
+                </div>
+                <input
+                  type="text"
+                  value={contactForm.lastName}
+                  onChange={(e) =>
+                    onContactFormChange((f) => ({ ...f, lastName: e.target.value }))
+                  }
+                  placeholder="de Rothschild"
+                  className={iconInputClasses}
+                />
+              </div>
             </div>
-          </div>
 
-          {/* Row 2: Email & Phone */}
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+            {/* Email Address */}
             <div>
               <label className={labelClasses}>
                 EMAIL ADDRESS *
               </label>
-              <input
-                required
-                type="email"
-                value={contactForm.email}
-                onChange={(e) =>
-                  onContactFormChange((f) => ({ ...f, email: e.target.value }))
-                }
-                placeholder="alexandre@concierge.com"
-                className={inputClasses}
-              />
+              <div className="relative">
+                <div className={`absolute left-3.5 top-1/2 -translate-y-1/2 pointer-events-none ${fieldIconClasses}`}>
+                  <Mail className="size-5" />
+                </div>
+                <input
+                  required
+                  type="email"
+                  value={contactForm.email}
+                  onChange={(e) =>
+                    onContactFormChange((f) => ({ ...f, email: e.target.value }))
+                  }
+                  placeholder="alexandre@concierge.com"
+                  className={iconInputClasses}
+                />
+              </div>
             </div>
 
+            {/* Phone Number */}
             <div>
               <label className={labelClasses}>
                 PHONE NUMBER *
               </label>
-              <input
-                required
-                type="tel"
-                value={contactForm.contact}
-                onChange={(e) =>
-                  onContactFormChange((f) => ({ ...f, contact: e.target.value }))
-                }
-                placeholder="+33 6 12 34 56 78"
-                className={inputClasses}
-              />
+              <div className="relative">
+                <div className={`absolute left-3.5 top-1/2 -translate-y-1/2 pointer-events-none ${fieldIconClasses}`}>
+                  <Phone className="size-5" />
+                </div>
+                <input
+                  required
+                  type="tel"
+                  value={contactForm.contact}
+                  onChange={(e) =>
+                    onContactFormChange((f) => ({ ...f, contact: e.target.value }))
+                  }
+                  placeholder="+33 6 12 34 56 78"
+                  className={iconInputClasses}
+                />
+              </div>
             </div>
+
+            {/* Preferred Contact Method */}
             <div>
               <label className={labelClasses}>
                 PREFERRED CONTACT METHOD *
               </label>
               <div className="relative">
+                <div className={`absolute left-3.5 top-1/2 -translate-y-1/2 pointer-events-none ${fieldIconClasses}`}>
+                  {preferredContact === "Direct Phone Call" ? (
+                    <Phone className="size-5" />
+                  ) : preferredContact === "Email Consultation" ? (
+                    <Mail className="size-5" />
+                  ) : (
+                    <FaWhatsapp className="size-5" />
+                  )}
+                </div>
                 <select
-                  className={selectClasses}
+                  value={preferredContact}
+                  onChange={(e) => setPreferredContact(e.target.value)}
+                  className={iconSelectClasses}
                 >
                   {PREFERRED_CONTACT_OPTIONS.map((opt) => (
                     <option key={opt.value} value={opt.value} className={selectOptionClasses}>
@@ -631,20 +696,34 @@ export default function CustomerContactsPreference({
               </div>
             </div>
           </div>
+        </div>
 
-          {/* Row 3: Street Address & Apt / Villa / Suite */}
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-            <div>
+        {/* Right Column: Property Address & Access */}
+        <div>
+          <div className="flex items-center space-x-2.5 mb-5 sm:mb-6">
+            <Home className={`size-5 sm:size-6 ${fieldIconClasses}`} />
+            <h3 className={`font-serif text-xl sm:text-2xl font-bold tracking-tight ${titleClasses}`}>
+              Property Address & Access
+            </h3>
+          </div>
+
+          <div className="space-y-4">
+            {/* Row 1: Country & Postal Code */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div>
                 <label className={labelClasses}>
                   COUNTRY
                 </label>
                 <div className="relative">
+                  <div className={`absolute left-3.5 top-1/2 -translate-y-1/2 pointer-events-none ${fieldIconClasses}`}>
+                    <Globe className="size-5" />
+                  </div>
                   <select
                     value={addressForm.country || COUNTRY_OPTIONS[0]?.name || "France"}
                     onChange={(e) =>
                       onAddressFormChange((f) => ({ ...f, country: e.target.value }))
                     }
-                    className={selectClasses}
+                    className={iconSelectClasses}
                   >
                     {COUNTRY_OPTIONS.map((c) => (
                       <option key={c.code} value={c.name} className={selectOptionClasses}>
@@ -655,127 +734,134 @@ export default function CustomerContactsPreference({
                   <ChevronDown className={`absolute right-3.5 top-1/2 -translate-y-1/2 size-4 pointer-events-none ${chevronClasses}`} />
                 </div>
               </div>
-              <div> 
-              <label className={labelClasses}>
-                POSTAL CODE *
-              </label>
-              <input
-                required
-                type="text"
-                value={addressForm.postalCode || ""}
-                onChange={(e) =>
-                  onAddressFormChange((f) => ({ ...f, postalCode: e.target.value }))
-                }
-                placeholder="75001"
-                className={inputClasses}
-              />
+
+              <div>
+                <label className={labelClasses}>
+                  POSTAL CODE *
+                </label>
+                <div className="relative">
+                  <div className={`absolute left-3.5 top-1/2 -translate-y-1/2 pointer-events-none ${fieldIconClasses}`}>
+                    <MapPin className="size-5" />
+                  </div>
+                  <input
+                    required
+                    type="text"
+                    value={addressForm.postalCode || ""}
+                    onChange={(e) =>
+                      onAddressFormChange((f) => ({ ...f, postalCode: e.target.value }))
+                    }
+                    placeholder="75001"
+                    className={iconInputClasses}
+                  />
+                </div>
+              </div>
             </div>
-            <div>
-              <label className={labelClasses}>
-                CITY *
-              </label>
-              <input
-                required
-                type="text"
-                value={addressForm.city}
-                onChange={(e) =>
-                  onAddressFormChange((f) => ({ ...f, city: e.target.value }))
-                }
-                placeholder="Paris"
-                className={inputClasses}
-              />
+
+            {/* Row 2: City & Street Address */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div>
+                <label className={labelClasses}>
+                  CITY *
+                </label>
+                <div className="relative">
+                  <div className={`absolute left-3.5 top-1/2 -translate-y-1/2 pointer-events-none ${fieldIconClasses}`}>
+                    <Building2 className="size-5" />
+                  </div>
+                  <input
+                    required
+                    type="text"
+                    value={addressForm.city}
+                    onChange={(e) =>
+                      onAddressFormChange((f) => ({ ...f, city: e.target.value }))
+                    }
+                    placeholder="Paris"
+                    className={iconInputClasses}
+                  />
+                </div>
+              </div>
+
+              <div>
+                <label className={labelClasses}>
+                  STREET ADDRESS *
+                </label>
+                <div className="relative">
+                  <div className={`absolute left-3.5 top-1/2 -translate-y-1/2 pointer-events-none ${fieldIconClasses}`}>
+                    <Building className="size-5" />
+                  </div>
+                  <input
+                    required
+                    type="text"
+                    value={addressForm.streetAddress}
+                    onChange={(e) =>
+                      onAddressFormChange((f) => ({ ...f, streetAddress: e.target.value }))
+                    }
+                    placeholder="15 Rue Des Halles"
+                    className={iconInputClasses}
+                  />
+                </div>
+              </div>
             </div>
-            <div className="sm:col-span-2">
-              <label className={labelClasses}>
-                STREET ADDRESS *
-              </label>
-              <input
-                required
-                type="text"
-                value={addressForm.streetAddress}
-                onChange={(e) =>
-                  onAddressFormChange((f) => ({ ...f, streetAddress: e.target.value }))
-                }
-                placeholder="15 Rue Des Halles"
-                className={inputClasses}
-              />
-            </div>
+
+            {/* Row 3: Province / Region */}
             <div>
               <label className={labelClasses}>
                 PROVINCE / REGION
               </label>
-              <input
-                type="text"
-                value={addressForm.state || ""}
-                onChange={(e) =>
-                  onAddressFormChange((f) => ({ ...f, state: e.target.value }))
-                }
-                placeholder="Île-de-France"
-                className={inputClasses}
-              />
+              <div className="relative">
+                <div className={`absolute left-3.5 top-1/2 -translate-y-1/2 pointer-events-none ${fieldIconClasses}`}>
+                  <Map className="size-5" />
+                </div>
+                <input
+                  type="text"
+                  value={addressForm.state || ""}
+                  onChange={(e) =>
+                    onAddressFormChange((f) => ({ ...f, state: e.target.value }))
+                  }
+                  placeholder="Île-de-France"
+                  className={iconInputClasses}
+                />
+              </div>
             </div>
-            
-          </div>
 
-          {/* Row 4: Postal Code, City, Province / Region */}
-          {/* <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-          </div> */}
-
-          {/* Row 5: Country & Access / Marketing Logistics */}
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-2">
-            
-
+            {/* Row 4: Apt / Villa / Suite */}
             <div>
               <label className={labelClasses}>
                 APT / VILLA / SUITE
               </label>
-              <input
-                type="text"
-                value={addressForm.unit || ""}
-                onChange={(e) =>
-                  onAddressFormChange((f) => ({ ...f, unit: e.target.value }))
-                }
-                placeholder="Penthouse 4B"
-                className={inputClasses}
-              />
+              <div className="relative">
+                <div className={`absolute left-3.5 top-1/2 -translate-y-1/2 pointer-events-none ${fieldIconClasses}`}>
+                  <Home className="size-5" />
+                </div>
+                <input
+                  type="text"
+                  value={addressForm.unit || ""}
+                  onChange={(e) =>
+                    onAddressFormChange((f) => ({ ...f, unit: e.target.value }))
+                  }
+                  placeholder="Penthouse 4B"
+                  className={iconInputClasses}
+                />
+              </div>
             </div>
 
+            {/* Row 5: Property Access */}
             {onHowGetInChange && (
               <div>
                 <label className={labelClasses}>
                   PROPERTY ACCESS *
                 </label>
                 <div className="relative">
+                  <div className={`absolute left-3.5 top-1/2 -translate-y-1/2 pointer-events-none ${fieldIconClasses}`}>
+                    <Key className="size-5" />
+                  </div>
                   <select
                     value={howGetIn || "someone_home"}
                     onChange={(e) => onHowGetInChange(e.target.value)}
-                    className={selectClasses}
+                    className={iconSelectClasses}
                   >
                     {HOW_GET_IN_OPTIONS.map((opt) => (
                       <option key={opt.value} value={opt.value} className={selectOptionClasses}>
                         {translate(opt.labelKey)}
-                      </option>
-                    ))}
-                  </select>
-                  <ChevronDown className={`absolute right-3.5 top-1/2 -translate-y-1/2 size-4 pointer-events-none ${chevronClasses}`} />
-                </div>
-              </div>
-            )}
-
-            {onHowHeardChange && (
-              <div>
-                <label className={labelClasses}>
-                  HOW HEARD ABOUT US *
-                </label>
-                <div className="relative">
-                  <select
-                    value={howHeard || "Google"}
-                    onChange={(e) => onHowHeardChange(e.target.value)}
-                    className={selectClasses}
-                  >
-                    {HOW_HEARD_OPTIONS.map((opt) => (
-                      <option key={opt.value} value={opt.value} className={selectOptionClasses}>
-                        {opt.labelKey ? translate(opt.labelKey) : opt.value}
                       </option>
                     ))}
                   </select>

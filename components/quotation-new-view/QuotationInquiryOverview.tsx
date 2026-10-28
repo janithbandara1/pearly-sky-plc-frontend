@@ -1,7 +1,13 @@
 "use client";
 
 import React from "react";
-import { FileEdit, Shield, Send, Loader2 } from "lucide-react";
+import { FileEdit, Shield, Send, Loader2 ,Home, 
+  Expand, 
+  Users, 
+  CalendarClock, 
+  Star, 
+  Calendar,
+  MapPin} from "lucide-react";
 
 export interface QuotationInquiryOverviewProps {
   propertyCategory?: string;
@@ -120,102 +126,165 @@ export default function QuotationInquiryOverview({
       </div>
 
       {/* Overview Attributes List */}
-      <div className="space-y-4 text-xs sm:text-sm">
-        {/* Row 1: Property Category */}
-        <div className="flex items-center justify-between gap-3">
-          <span className={isLight ? "text-slate-500 font-medium" : "text-[#8E9CAE] font-medium"}>
+    <div className="space-y-4 text-xs sm:text-sm">
+      {/* Row 1: Property Category */}
+      <div className="flex items-center justify-between gap-3">
+        <div className="flex items-center gap-3 min-w-0">
+          <div
+            className={`flex items-center justify-center w-8 h-8 rounded-lg shrink-0 ${
+              isLight ? "bg-[#FFF8EE] text-[#1E295D]" : "bg-[#1E293B] text-amber-400"
+            }`}
+          >
+            <Home className="w-4 h-4" />
+          </div>
+          <span className={isLight ? "text-slate-500 font-medium truncate" : "text-[#8E9CAE] font-medium truncate"}>
             Property Category:
           </span>
-          <span className={`font-bold truncate text-right ${isLight ? "text-slate-900" : "text-white"}`}>
-            {propertyCategory || "Townhouse"}
-          </span>
         </div>
+        <span className={`font-bold truncate text-right ${isLight ? "text-slate-900" : "text-white"}`}>
+          {propertyCategory || "Townhouse"}
+        </span>
+      </div>
 
-        {/* Row 2: Property Scale */}
-        <div className="flex items-center justify-between gap-3">
-          <span className={isLight ? "text-slate-500 font-medium" : "text-[#8E9CAE] font-medium"}>
+      {/* Row 2: Property Scale */}
+      <div className="flex items-center justify-between gap-3">
+        <div className="flex items-center gap-3 min-w-0">
+          <div
+            className={`flex items-center justify-center w-8 h-8 rounded-lg shrink-0 ${
+              isLight ? "bg-[#FFF8EE] text-[#1E295D]" : "bg-[#1E293B] text-amber-400"
+            }`}
+          >
+            <Expand className="w-4 h-4" />
+          </div>
+          <span className={isLight ? "text-slate-500 font-medium truncate" : "text-[#8E9CAE] font-medium truncate"}>
             Property Scale:
           </span>
-          <span
-            className={`font-bold text-right truncate ${
-              isLight ? "text-[#B88E38]" : "text-[#DFB756]"
+        </div>
+        <span
+          className={`font-bold text-right truncate ${
+            isLight ? "text-[#B88E38]" : "text-[#DFB756]"
+          }`}
+        >
+          {formattedScale}
+        </span>
+      </div>
+
+      {/* Row 3: Staffing & Time */}
+      <div className="flex items-center justify-between gap-3">
+        <div className="flex items-center gap-3 min-w-0">
+          <div
+            className={`flex items-center justify-center w-8 h-8 rounded-lg shrink-0 ${
+              isLight ? "bg-[#FFF8EE] text-[#1E295D]" : "bg-[#1E293B] text-amber-400"
             }`}
           >
-            {formattedScale}
-          </span>
-        </div>
-
-        {/* Row 3: Staffing & Time */}
-        <div className="flex items-center justify-between gap-3">
-          <span className={isLight ? "text-slate-500 font-medium" : "text-[#8E9CAE] font-medium"}>
+            <Users className="w-4 h-4" />
+          </div>
+          <span className={isLight ? "text-slate-500 font-medium truncate" : "text-[#8E9CAE] font-medium truncate"}>
             Staffing & Time:
           </span>
-          <span className={`font-bold truncate text-right ${isLight ? "text-slate-900" : "text-white"}`}>
-            {formattedStaffing}
-          </span>
         </div>
+        <span className={`font-bold truncate text-right ${isLight ? "text-slate-900" : "text-white"}`}>
+          {formattedStaffing}
+        </span>
+      </div>
 
-        {/* Row 4: Service Frequency */}
-        <div className="flex items-center justify-between gap-3">
-          <span className={isLight ? "text-slate-500 font-medium" : "text-[#8E9CAE] font-medium"}>
+      {/* Row 4: Service Frequency */}
+      <div className="flex items-center justify-between gap-3">
+        <div className="flex items-center gap-3 min-w-0">
+          <div
+            className={`flex items-center justify-center w-8 h-8 rounded-lg shrink-0 ${
+              isLight ? "bg-[#FFF8EE] text-[#1E295D]" : "bg-[#1E293B] text-amber-400"
+            }`}
+          >
+            <CalendarClock className="w-4 h-4" />
+          </div>
+          <span className={isLight ? "text-slate-500 font-medium truncate" : "text-[#8E9CAE] font-medium truncate"}>
             Service Frequency:
           </span>
-          <span
-            className={`font-bold text-right truncate ${
-              frequency
-                ? isLight
-                  ? "text-[#B88E38]"
-                  : "text-[#DFB756]"
-                : isLight
-                ? "text-slate-400 font-normal"
-                : "text-slate-500 font-normal"
+        </div>
+        <span
+          className={`font-bold text-right truncate ${
+            frequency
+              ? isLight
+                ? "text-[#B88E38]"
+                : "text-[#DFB756]"
+              : isLight
+              ? "text-slate-400 font-normal"
+              : "text-slate-500 font-normal"
+          }`}
+        >
+          {formattedFrequency}
+        </span>
+      </div>
+
+      {/* Row 5: Selected Service */}
+      <div className="flex items-center justify-between gap-3">
+        <div className="flex items-center gap-3 min-w-0">
+          <div
+            className={`flex items-center justify-center w-8 h-8 rounded-lg shrink-0 ${
+              isLight ? "bg-[#FFF8EE] text-[#1E295D]" : "bg-[#1E293B] text-amber-400"
             }`}
           >
-            {formattedFrequency}
-          </span>
-        </div>
-
-        {/* Row 5: Selected Service */}
-        <div className="flex items-center justify-between gap-3">
-          <span className={isLight ? "text-slate-500 font-medium" : "text-[#8E9CAE] font-medium"}>
+            <Star className="w-4 h-4" />
+          </div>
+          <span className={isLight ? "text-slate-500 font-medium truncate" : "text-[#8E9CAE] font-medium truncate"}>
             Selected Service:
           </span>
-          <span
-            className={`font-bold text-right truncate max-w-[65%] ${
-              selectedService
-                ? isLight
-                  ? "text-[#B88E38]"
-                  : "text-[#DFB756]"
-                : isLight
-                ? "text-slate-400 font-normal"
-                : "text-slate-500 font-normal"
-            }`}
-            title={selectedService || "Not selected"}
-          >
-            {selectedService || "Not selected"}
-          </span>
         </div>
+        <span
+          className={`font-bold text-right truncate max-w-[50%] ${
+            selectedService
+              ? isLight
+                ? "text-[#B88E38]"
+                : "text-[#DFB756]"
+              : isLight
+              ? "text-slate-400 font-normal"
+              : "text-slate-500 font-normal"
+          }`}
+          title={selectedService || "Not selected"}
+        >
+          {selectedService || "Not selected"}
+        </span>
+      </div>
 
-        {/* Row 6: Target Schedule */}
-        <div className="flex items-center justify-between gap-3">
-          <span className={isLight ? "text-slate-500 font-medium" : "text-[#8E9CAE] font-medium"}>
+      {/* Row 6: Target Schedule */}
+      <div className="flex items-center justify-between gap-3">
+        <div className="flex items-center gap-3 min-w-0">
+          <div
+            className={`flex items-center justify-center w-8 h-8 rounded-lg shrink-0 ${
+              isLight ? "bg-[#FFF8EE] text-[#1E295D]" : "bg-[#1E293B] text-amber-400"
+            }`}
+          >
+            <Calendar className="w-4 h-4" />
+          </div>
+          <span className={isLight ? "text-slate-500 font-medium truncate" : "text-[#8E9CAE] font-medium truncate"}>
             Target Schedule:
           </span>
-          <span className={`font-bold truncate text-right ${isLight ? "text-slate-900" : "text-white"}`}>
-            {formattedScheduleStr}
-          </span>
         </div>
+        <span className={`font-bold truncate text-right ${isLight ? "text-slate-900" : "text-white"}`}>
+          {formattedScheduleStr}
+        </span>
+      </div>
 
-        {/* Row 7: Destination */}
-        <div className="flex hidden items-center justify-between gap-3">
-          <span className={isLight ? "text-slate-500 font-medium" : "text-[#8E9CAE] font-medium"}>
+      {/* Row 7: Destination */}
+      <div className="hidden flex items-center justify-between gap-3">
+        <div className="flex items-center gap-3 min-w-0">
+          <div
+            className={`flex items-center justify-center w-8 h-8 rounded-lg shrink-0 ${
+              isLight ? "bg-[#FFF8EE] text-[#1E295D]" : "bg-[#1E293B] text-amber-400"
+            }`}
+          >
+            <MapPin className="w-4 h-4" />
+          </div>
+          <span className={isLight ? "text-slate-500 font-medium truncate" : "text-[#8E9CAE] font-medium truncate"}>
             Destination:
           </span>
-          <span className={`font-bold truncate text-right ${isLight ? "text-slate-900" : "text-white"}`}>
-            {destination || "United Arab Emirates"}
-          </span>
         </div>
+        <span className={`font-bold truncate text-right ${isLight ? "text-slate-900" : "text-white"}`}>
+          {destination || "United Arab Emirates"}
+        </span>
       </div>
+    </div>
 
       {/* Eco-Luxury Disclaimer / Concierge Callout */}
       <div
@@ -243,7 +312,7 @@ export default function QuotationInquiryOverview({
           disabled={isSubmitting}
           className={`w-full py-4 px-6 rounded-2xl font-bold text-sm sm:text-base flex items-center justify-center gap-2.5 transition-all shadow-lg active:scale-[0.98] cursor-pointer disabled:opacity-60 disabled:cursor-not-allowed ${
             isLight
-              ? "bg-[#C5A059] hover:bg-[#b08e4d] text-white shadow-[#C5A059]/25"
+              ? "bg-[#C5A059] hover:bg-[#b08e4d] text-[#002F6D] shadow-[#C5A059]/25"
               : "bg-[#DFB756] hover:bg-[#cfA342] text-black shadow-[#DFB756]/20"
           }`}
         >

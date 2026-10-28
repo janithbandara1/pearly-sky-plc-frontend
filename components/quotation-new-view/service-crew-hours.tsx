@@ -1,11 +1,15 @@
 "use client";
 
 import React, { useState } from "react";
-import { UserCheck, Minus, Plus } from "lucide-react";
+import { UserCheck, Minus, Plus ,Clock,
+Users,
+FileText,
+AlertCircle} from "lucide-react";
 import RoomSelector from "../booking/room-components-counter";
 import ServiceFrequencySelector from "../booking/common-flows-propertis-and-equipments/service-frequency";
 
 export interface ServiceCrewParametersProps {
+  value? : number;
   /** Current cleaner count */
   cleaners?: number;
   /** Minimum allowed cleaners */
@@ -38,7 +42,10 @@ export interface ServiceCrewParametersProps {
   className?: string;
 }
 
+
+
 export default function ServiceCrewParameters({
+  value,
   cleaners: cleanersProp,
   minCleaners = 1,
   maxCleaners = 20,
@@ -54,6 +61,48 @@ export default function ServiceCrewParameters({
   className = "",
 }: ServiceCrewParametersProps) {
   const isLight = theme === "light";
+
+  const noticeItems = [
+    {
+      id: 1,
+      icon: Clock,
+      content: (
+        <div className="text-sm leading-snug">
+          <span className={isLight ? 'text-slate-700' : 'text-slate-300'}>
+            Standard completion requires{' '}
+          </span>
+          <span className="font-bold text-amber-400">7–10 hours</span>{' '}
+          <span className={`text-xs block mt-1 ${isLight ? 'text-slate-500' : 'text-slate-400'}`}>
+            (or 4–5 hours with a 2-person team).
+          </span>
+        </div>
+      ),
+    },
+    {
+      id: 2,
+      icon: Users,
+      content: (
+        <div className="text-sm leading-snug">
+          <p className="font-bold mb-1">To shorten duration:</p>
+          <p className={`text-xs ${isLight ? 'text-slate-600' : 'text-slate-300'}`}>
+            Add a team member or adjust service scope.
+          </p>
+        </div>
+      ),
+    },
+    {
+      id: 3,
+      icon: FileText,
+      content: (
+        <div className="text-sm leading-snug">
+          <p className="font-bold mb-1">For reduced bookings:</p>
+          <p className={`text-xs ${isLight ? 'text-slate-600' : 'text-slate-300'}`}>
+            Please list priority tasks and skippable areas in the comments to guide our team.
+          </p>
+        </div>
+      ),
+    },
+  ];
 
   // Internal state fallback if uncontrolled
   const [internalCleaners, setInternalCleaners] = useState(3);
@@ -97,7 +146,7 @@ export default function ServiceCrewParameters({
         <div>
           <h2
             className={`font-serif text-2xl font-bold tracking-tight ${
-              isLight ? "text-slate-900" : "text-white"
+              isLight ? "text-[#002F6D]" : "text-white"
             }`}
           >
             3. Service & Crew Parameters
@@ -219,6 +268,48 @@ export default function ServiceCrewParameters({
           </div>
         </div>
 
+      </div>
+      
+      {/**Notice */}
+      <div
+      className={`rounded-2xl my-2 border p-4 sm:p-5 transition-colors ${
+        isLight
+          ? 'bg-amber-50/50 border-[#DFB756] text-slate-800'
+          : 'bg-[#0b1329] border-[#DFB756]/80 text-white'
+      }`}
+    >
+      {/* Header */}
+      <div className="flex items-center gap-3 mb-4">
+        <div className="flex items-center justify-center w-8 h-8 rounded-full bg-[#DFB756] text-slate-900 font-bold shrink-0">
+          <AlertCircle className="w-5 h-5 fill-[#DFB756] stroke-slate-900" />
+        </div>
+        <h3 className="text-lg font-bold text-[#DFB756] tracking-wide">
+          Deep Cleaning Notice ({130} m²)
+        </h3>
+      </div>
+
+      {/* Grid Content rendered via map() */}
+      <div
+        className={`grid grid-cols-1 md:grid-cols-3 rounded-xl p-3 sm:p-4 gap-4 md:gap-0 ${
+          isLight ? 'bg-[#fff]' : 'bg-[#0f1a3a]'
+        }`}
+      >
+        {noticeItems.map((item, index) => {
+          const IconComponent = item.icon;
+          return (
+            <div
+              key={item.id}
+              className={`flex items-start gap-3 md:px-4 border-slate-700/60 pb-4 md:pb-0 
+                ${index === 0 ? 'md:pl-0' : ''} 
+                ${index === noticeItems.length - 1 ? 'md:pr-0 border-b-0' : 'border-b md:border-b-0 md:border-r'}
+              `}
+            >
+              <IconComponent className="w-6 h-6 text-[#DFB756] shrink-0 mt-0.5" />
+              {item.content}
+            </div>
+          );
+        })}
+      </div>
       </div>
 
       <ServiceFrequencySelector

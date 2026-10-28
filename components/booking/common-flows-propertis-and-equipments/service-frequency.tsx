@@ -298,10 +298,15 @@ export default function ServiceFrequencySelector({
   theme: themeProp = "dark",
   isQuote = false,
 }: ServiceFrequencySelectorProps) {
+
+  const updatedFrequencyForQuote = [];
+
   const currentService = !isQuote ?
     cleaningServices.find((s) => s.slug === selectedServiceSlug) : cleaningServices[0] || cleaningServices[0] ;
 
-  const currentFrequencyId = value ?? "";
+  
+  
+    const currentFrequencyId = value ?? "";
 
   const handleFrequencySelect = (freqId: string) => {
     onSelectionChange?.(currentFrequencyId === freqId ? null : freqId);
