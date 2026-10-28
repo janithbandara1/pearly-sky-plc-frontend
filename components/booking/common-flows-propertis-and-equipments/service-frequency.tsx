@@ -15,6 +15,7 @@ import {
   Ship,
   ShieldCheck,
   StarIcon,
+  ChevronRight,
 } from "lucide-react";
 import { TranslationKey } from "@/lib/i18n/dictionaries/en";
 import { useLanguage } from "@/lib/i18n/language-context";
@@ -335,10 +336,10 @@ export default function ServiceFrequencySelector({
         >
           Service Frequency & Privilege Savings
         </h2>
-        <div className="w-full flex md:justify-start justify-center">
-            <div className="h-1 w-7 bg-amber-400 flex justify-center"></div>
+        <div className="w-full flex py-1 md:justify-start justify-center">
+            <div className="h-1 w-10  bg-[#D8B63F] flex justify-center"></div>
         </div>
-        <p className={`text-[15px] md:text-[14px] font-serif mt-1 font-normal tracking-wide leading-tight ${
+        <p className={`text-[12px] md:text-[12px] font-serif mt-1 font-normal tracking-wide leading-tight ${
             isLight ? "text-gray-400" : "text-white"
           }`}>Choose How Often You would like your space cleaned and enjoy exclusive savings with our privilege plans.</p>
       </div>
@@ -382,13 +383,19 @@ export default function ServiceFrequencySelector({
 
                 {/* Main Card Content */}
                 <div className="flex-1 flex flex-col justify-center my-1 ">
-                  <h3
-                    className={`text-[15px] md:text-[18px] font-serif font-normal mb-1 tracking-wide ${
-                      isLight ? "text-[#1A2238]" : "text-white"
-                    }`}
-                  >
-                    {translate(freq.name as TranslationKey)}
-                  </h3>
+                  <div className="flex justify-between items-center">
+                    <h3
+                      className={`text-[15px] md:text-[18px] font-serif font-normal mb-1 tracking-wide ${
+                        isLight ? "text-[#1A2238]" : "text-white"
+                      }`}
+                    >
+                      {translate(freq.name as TranslationKey)}
+                    </h3>
+                    <ChevronRight className={`w-4 h-4 text-gray-700 ${
+                        isLight ? "text-[#1A2238]" : "text-white"
+                      }`} />
+                  </div>
+                  
                   <p
                     className={`text-xs sm:text-sm font-sans font-light leading-relaxed ${
                       isLight ? "text-[#687386]" : "text-[#C3CDDC]"

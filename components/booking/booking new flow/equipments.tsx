@@ -118,7 +118,7 @@ export default function Equipments({
         <div>
           <span
             className={`text-[10px] sm:text-xs font-sans font-bold tracking-[0.2em] sm:tracking-[0.25em] uppercase ${
-              isLight ? "text-[#002F6D]" : "text-[#FFD766]"
+              isLight ? "text-[#D8B63F]" : "text-[#FFD766]"
             }`}
           >
             STEP 5 OF 6
@@ -141,7 +141,7 @@ export default function Equipments({
           }`}
         >
           <button
-            type="button"
+            type="button" 
             onClick={() => onSupplySourceChange("customer")}
             className={`flex-1 sm:flex-none px-4 sm:px-5 py-2 sm:py-2.5 rounded-lg sm:rounded-xl text-[11px] sm:text-xs font-bold tracking-wider uppercase transition-all duration-200 cursor-pointer ${
               isClient
@@ -262,7 +262,7 @@ export default function Equipments({
                       {/* Price Section */}
                       <p
                         className={`text-xs sm:text-sm font-sans font-semibold mt-0.5 sm:mt-1 ${
-                          isLight ? "text-[#002F6D]" : "text-[#FFD766]"
+                          isLight ? "text-[#D8B63F]" : "text-[#FFD766]"
                         }`}
                       >
                         {money(unitPrice * Math.max(qty, 1))}{" "}
@@ -285,7 +285,7 @@ export default function Equipments({
                         onClick={() => handleAdd(item.id)}
                         className={`font-bold text-[11px] sm:text-xs px-3.5 sm:px-5 py-2 sm:py-2.5 rounded-lg sm:rounded-xl uppercase tracking-wider shadow-xs transition-all cursor-pointer whitespace-nowrap active:scale-95 ${
                           isLight
-                            ? "bg-[#002F6D] hover:bg-[#002F6D]/90 text-white shadow-xs font-bold"
+                            ? "bg-[#D8B63F] hover:bg-[#FFD766]/90 text-[#002F6D] shadow-xs font-bold"
                             : "bg-[#FFD766] hover:bg-[#FFD766]/90 text-[#002F6D] font-bold shadow-xs"
                         }`}
                       >

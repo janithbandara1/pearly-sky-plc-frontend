@@ -178,199 +178,199 @@ export function DateTimeSection(
       }`}>
         
         {/* Date Picker Card */}
-<div className={`overflow-hidden rounded-xl border shadow-sm flex flex-col ${
-  isLight ? "border-[#D9DDE5] bg-white" : "border-[#718096]/60 bg-[#1B2A40]"
-}`}>
-  {/* Card Header */}
-  <div className={`flex items-center justify-between border-b px-4 py-3 ${
-    isLight ? "border-[#D9DDE5] bg-[#F7F5F0]" : "border-[#718096]/40 bg-[#152238]"
-  }`}>
-    <div className="flex items-center gap-2">
-      <div className={`flex h-6 w-6 items-center justify-center rounded-md border ${
-        isLight ? "border-[#D9DDE5] bg-white text-[#D8B63F]" : "border-[#718096]/50 bg-[#1B2A40] text-[#FFD766]"
-      }`}>
-        <Calendar className="h-3.5 w-3.5" />
-      </div>
-      <span className={`text-xs sm:text-sm font-bold uppercase tracking-wider ${isLight ? "text-[#1A2238]" : "text-white"}`}>
-        {translate("dateTimeSelectDate")}
-      </span>
-    </div>
+        <div className={`overflow-hidden rounded-xl border shadow-sm flex flex-col ${
+          isLight ? "border-[#D9DDE5] bg-white" : "border-[#718096]/60 bg-[#1B2A40]"
+        }`}>
+          {/* Card Header */}
+          <div className={`flex items-center justify-between border-b px-4 py-3 ${
+            isLight ? "border-[#D9DDE5] bg-[#F7F5F0]" : "border-[#718096]/40 bg-[#152238]"
+          }`}>
+            <div className="flex items-center gap-2">
+              <div className={`flex h-6 w-6 items-center justify-center rounded-md border ${
+                isLight ? "border-[#D9DDE5] bg-white text-[#D8B63F]" : "border-[#718096]/50 bg-[#1B2A40] text-[#FFD766]"
+              }`}>
+                <Calendar className="h-3.5 w-3.5" />
+              </div>
+              <span className={`text-xs sm:text-sm font-bold uppercase tracking-wider ${isLight ? "text-[#1A2238]" : "text-white"}`}>
+                {translate("dateTimeSelectDate")}
+              </span>
+            </div>
 
-    {date && (
-      <span className={`rounded-md border px-2 py-0.5 text-[11px] font-semibold ${
-        isLight ? "border-[#D8B63F]/40 bg-amber-50/60 text-[#D8B63F]" : "border-[#FFD766]/40 bg-[#152238] text-[#FFD766]"
-      }`}>
-        {date}
-      </span>
-    )}
-  </div>
+            {date && (
+              <span className={`rounded-md border px-2 py-0.5 text-[11px] font-semibold ${
+                isLight ? "border-[#D8B63F]/40 bg-amber-50/60 text-[#D8B63F]" : "border-[#FFD766]/40 bg-[#152238] text-[#FFD766]"
+              }`}>
+                {date}
+              </span>
+            )}
+          </div>
 
-  <div className={`p-4 flex-1 flex flex-col justify-between ${isLight ? "bg-white" : "bg-[#1B2A40]"}`}>
-    {/* Month & Year Navigator */}
-    <div className="mb-3 flex items-center justify-between px-1">
-      <button
-        type="button"
-        disabled={!canGoPrevMonth}
-        onClick={() => setViewMonth(new Date(viewMonth.getFullYear(), viewMonth.getMonth() - 1, 1))}
-        className={`flex h-8 w-8 items-center justify-center rounded-lg border transition-colors disabled:cursor-not-allowed disabled:opacity-30 ${
-          isLight 
-            ? "border-[#D9DDE5] bg-[#F7F5F0] text-[#1A2238] hover:bg-[#D9DDE5]" 
-            : "border-[#718096]/50 bg-[#152238] text-[#C3CDDC] hover:bg-[#1f3050] hover:text-white"
-        }`}
-        aria-label="Previous Month"
-      >
-        <ChevronLeft className="h-4 w-4" />
-      </button>
+          <div className={`p-4 flex-1 flex flex-col justify-between ${isLight ? "bg-white" : "bg-[#1B2A40]"}`}>
+            {/* Month & Year Navigator */}
+            <div className="mb-3 flex items-center justify-between px-1">
+              <button
+                type="button"
+                disabled={!canGoPrevMonth}
+                onClick={() => setViewMonth(new Date(viewMonth.getFullYear(), viewMonth.getMonth() - 1, 1))}
+                className={`flex h-8 w-8 items-center justify-center rounded-lg border transition-colors disabled:cursor-not-allowed disabled:opacity-30 ${
+                  isLight 
+                    ? "border-[#D9DDE5] bg-[#F7F5F0] text-[#1A2238] hover:bg-[#D9DDE5]" 
+                    : "border-[#718096]/50 bg-[#152238] text-[#C3CDDC] hover:bg-[#1f3050] hover:text-white"
+                }`}
+                aria-label="Previous Month"
+              >
+                <ChevronLeft className="h-4 w-4" />
+              </button>
 
-      <span className={`text-sm font-bold tracking-wider uppercase ${isLight ? "text-[#1A2238]" : "text-white"}`}>
-        {translate(MONTH_KEYS[viewMonth.getMonth()])} {viewMonth.getFullYear()}
-      </span>
+              <span className={`text-sm font-bold tracking-wider uppercase ${isLight ? "text-[#1A2238]" : "text-white"}`}>
+                {translate(MONTH_KEYS[viewMonth.getMonth()])} {viewMonth.getFullYear()}
+              </span>
 
-      <button
-        type="button"
-        onClick={() => setViewMonth(new Date(viewMonth.getFullYear(), viewMonth.getMonth() + 1, 1))}
-        className={`flex h-8 w-8 items-center justify-center rounded-lg border transition-colors ${
-          isLight 
-            ? "border-[#D9DDE5] bg-[#F7F5F0] text-[#1A2238] hover:bg-[#D9DDE5]" 
-            : "border-[#718096]/50 bg-[#152238] text-[#C3CDDC] hover:bg-[#1f3050] hover:text-white"
-        }`}
-        aria-label="Next Month"
-      >
-        <ChevronRight className="h-4 w-4" />
-      </button>
-    </div>
+              <button
+                type="button"
+                onClick={() => setViewMonth(new Date(viewMonth.getFullYear(), viewMonth.getMonth() + 1, 1))}
+                className={`flex h-8 w-8 items-center justify-center rounded-lg border transition-colors ${
+                  isLight 
+                    ? "border-[#D9DDE5] bg-[#F7F5F0] text-[#1A2238] hover:bg-[#D9DDE5]" 
+                    : "border-[#718096]/50 bg-[#152238] text-[#C3CDDC] hover:bg-[#1f3050] hover:text-white"
+                }`}
+                aria-label="Next Month"
+              >
+                <ChevronRight className="h-4 w-4" />
+              </button>
+            </div>
 
-    {/* Weekday Labels */}
-    <div className={`grid grid-cols-7 gap-1 text-center py-2 px-1 rounded-lg border mb-2 ${
-      isLight ? "bg-[#F7F5F0] border-[#D9DDE5]" : "bg-[#152238] border-[#718096]/40"
-    }`}>
-      {WEEKDAY_KEYS.map((w) => (
-        <span key={w} className={`text-[11px] font-bold uppercase tracking-wider ${isLight ? "text-[#687386]" : "text-[#C3CDDC]"}`}>
-          {translate(w)}
-        </span>
-      ))}
-    </div>
+            {/* Weekday Labels */}
+            <div className={`grid grid-cols-7 gap-1 text-center py-2 px-1 rounded-lg border mb-2 ${
+              isLight ? "bg-[#F7F5F0] border-[#D9DDE5]" : "bg-[#152238] border-[#718096]/40"
+            }`}>
+              {WEEKDAY_KEYS.map((w) => (
+                <span key={w} className={`text-[11px] font-bold uppercase tracking-wider ${isLight ? "text-[#687386]" : "text-[#C3CDDC]"}`}>
+                  {translate(w)}
+                </span>
+              ))}
+            </div>
 
-    {/* Calendar Days Grid */}
-    <div className="grid grid-cols-7 gap-1.5 text-center">
-      {cells.map((cellDate, i) => {
-        if (!cellDate) return <span key={`blank-${i}`} className="size-8 sm:size-9" />;
-        const key = toDateKey(cellDate);
-        const isPast = startOfDay(cellDate).getTime() < minSelectable.getTime();
-        const isToday = startOfDay(cellDate).getTime() === today.getTime();
-        const isSelected = key === date;
-        return (
-          <button
-            key={key}
-            type="button"
-            disabled={isPast}
-            onClick={() => onDateChange(key)}
-            className={`mx-auto flex size-8 sm:size-9 items-center justify-center rounded-lg text-xs sm:text-sm transition-all cursor-pointer ${
-              isSelected
-                ? isLight
-                  ? "bg-[#002F6D] text-white font-bold border-2 border-[#002F6D] shadow-md scale-105"
-                  : "bg-[#FFD766] text-[#002F6D] font-bold border-2 border-[#FFD766] shadow-[0_0_12px_rgba(255,215,102,0.4)] scale-105"
-                : isPast
-                  ? "cursor-not-allowed opacity-30 text-gray-400"
-                  : isToday
-                    ? `border border-dashed font-bold ${isLight ? "border-[#D8B63F] text-[#D8B63F] bg-amber-50/40" : "border-[#FFD766] text-[#FFD766] bg-[#152238]"}`
-                    : isLight
-                      ? "text-[#1A2238] hover:bg-[#F7F5F0] font-medium border border-transparent"
-                      : "text-white/90 hover:bg-[#152238] hover:text-white border border-transparent font-medium"
-            }`}
-          >
-            {cellDate.getDate()}
-          </button>
-        );
-      })}
-    </div>
-  </div>
-</div>
+            {/* Calendar Days Grid */}
+            <div className="grid grid-cols-7 gap-1.5 text-center">
+              {cells.map((cellDate, i) => {
+                if (!cellDate) return <span key={`blank-${i}`} className="size-8 sm:size-9" />;
+                const key = toDateKey(cellDate);
+                const isPast = startOfDay(cellDate).getTime() < minSelectable.getTime();
+                const isToday = startOfDay(cellDate).getTime() === today.getTime();
+                const isSelected = key === date;
+                return (
+                  <button
+                    key={key}
+                    type="button"
+                    disabled={isPast}
+                    onClick={() => onDateChange(key)}
+                    className={`mx-auto flex size-8 sm:size-9 items-center justify-center rounded-lg text-xs sm:text-sm transition-all cursor-pointer ${
+                      isSelected
+                        ? isLight
+                          ? "bg-[#D8B63F] text-white font-bold border-2 border-[#D9DDE5] shadow-md scale-105"
+                          : "bg-[#D8B63F] text-[#002F6D] font-bold border-2 border-[#D9DDE5] shadow-[0_0_12px_rgba(255,215,102,0.4)] scale-105"
+                        : isPast
+                          ? "cursor-not-allowed opacity-30 text-gray-400"
+                          : isToday
+                            ? `border border-dashed font-bold ${isLight ? "border-[#D8B63F] text-[#D8B63F] bg-amber-50/40" : "border-[#FFD766] text-[#FFD766] bg-[#152238]"}`
+                            : isLight
+                              ? "text-[#1A2238] hover:bg-[#F7F5F0] font-medium border border-transparent"
+                              : "text-white/90 hover:bg-[#152238] hover:text-white border border-transparent font-medium"
+                    }`}
+                  >
+                    {cellDate.getDate()}
+                  </button>
+                );
+              })}
+            </div>
+          </div>
+        </div>
 
-{/* Time Slot Picker Card */}
-<div className={`overflow-hidden rounded-xl border shadow-sm flex flex-col ${
-  isLight ? "border-[#D9DDE5] bg-white" : "border-[#718096]/60 bg-[#1B2A40]"
-}`}>
-  {/* Card Header */}
-  <div className={`flex items-center justify-between border-b px-4 py-3 ${
-    isLight ? "border-[#D9DDE5] bg-[#F7F5F0]" : "border-[#718096]/40 bg-[#152238]"
-  }`}>
-    <div className="flex items-center gap-2">
-      <div className={`flex h-6 w-6 items-center justify-center rounded-md border ${
-        isLight ? "border-[#D9DDE5] bg-white text-[#D8B63F]" : "border-[#718096]/50 bg-[#1B2A40] text-[#FFD766]"
-      }`}>
-        <Clock className="h-3.5 w-3.5" />
-      </div>
-      <span className={`text-xs sm:text-sm font-bold uppercase tracking-wider ${isLight ? "text-[#1A2238]" : "text-white"}`}>
-        {translate("dateTimeSelectTime")}
-      </span>
-    </div>
+        {/* Time Slot Picker Card */}
+        <div className={`overflow-hidden rounded-xl border shadow-sm flex flex-col ${
+          isLight ? "border-[#D9DDE5] bg-white" : "border-[#718096]/60 bg-[#1B2A40]"
+        }`}>
+          {/* Card Header */}
+          <div className={`flex items-center justify-between border-b px-4 py-3 ${
+            isLight ? "border-[#D9DDE5] bg-[#F7F5F0]" : "border-[#718096]/40 bg-[#152238]"
+          }`}>
+            <div className="flex items-center gap-2">
+              <div className={`flex h-6 w-6 items-center justify-center rounded-md border ${
+                isLight ? "border-[#D9DDE5] bg-white text-[#D8B63F]" : "border-[#718096]/50 bg-[#1B2A40] text-[#FFD766]"
+              }`}>
+                <Clock className="h-3.5 w-3.5" />
+              </div>
+              <span className={`text-xs sm:text-sm font-bold uppercase tracking-wider ${isLight ? "text-[#1A2238]" : "text-white"}`}>
+                {translate("dateTimeSelectTime")}
+              </span>
+            </div>
 
-    {time && (
-      <span className={`rounded-md border px-2 py-0.5 text-[11px] font-semibold ${
-        isLight ? "border-[#D8B63F]/40 bg-amber-50/60 text-[#D8B63F]" : "border-[#FFD766]/40 bg-[#152238] text-[#FFD766]"
-      }`}>
-        {formatAmPm(time)}
-      </span>
-    )}
-  </div>
+            {time && (
+              <span className={`rounded-md border px-2 py-0.5 text-[11px] font-semibold ${
+                isLight ? "border-[#D8B63F]/40 bg-amber-50/60 text-[#D8B63F]" : "border-[#FFD766]/40 bg-[#152238] text-[#FFD766]"
+              }`}>
+                {formatAmPm(time)}
+              </span>
+            )}
+          </div>
 
-  {/* Main Container for Time Slots & Notice */}
-  <div className={`p-4 flex-1 flex flex-col justify-between ${isLight ? "bg-white" : "bg-[#1B2A40]"}`}>
-    
-    {/* Scrollable Time Slots List */}
-    <div className={`grid max-h-[220px] grid-cols-2 gap-2.5 overflow-y-auto pr-1 ${
-      isLight 
-        ? "[&::-webkit-scrollbar]:w-1.5 [&::-webkit-scrollbar-thumb]:rounded-full [&::-webkit-scrollbar-thumb]:bg-slate-200 hover:[&::-webkit-scrollbar-thumb]:bg-slate-300"
-        : "[&::-webkit-scrollbar]:w-1.5 [&::-webkit-scrollbar-thumb]:rounded-full [&::-webkit-scrollbar-thumb]:bg-[#718096]/50 hover:[&::-webkit-scrollbar-thumb]:bg-[#718096]"
-    }`}>
-      {TIME_SLOTS.map((slot) => {
-        const isSelected = slot === time;
-        return (
-          <button
-            key={slot}
-            type="button"
-            onClick={() => onTimeChange(slot)}
-            className={`flex items-center justify-between px-3.5 py-2.5 rounded-xl text-xs sm:text-[13px] font-semibold transition-all cursor-pointer ${
-              isSelected
-                ? isLight
-                  ? "border-2 border-[#002F6D] bg-[#002F6D] text-white shadow-md"
-                  : "border-2 border-[#FFD766] bg-[#FFD766] text-[#002F6D] font-bold shadow-[0_0_10px_rgba(255,215,102,0.35)]"
-                : isLight
-                  ? "border border-[#D9DDE5] bg-white text-[#1A2238] hover:border-[#D8B63F] hover:bg-[#F7F5F0]"
-                  : "border border-[#718096]/60 bg-[#152238] text-white/90 hover:border-[#FFD766] hover:bg-[#1B2A40]"
-            }`}
-          >
-            <span className="flex items-center gap-2">
-              <Clock className={`h-3.5 w-3.5 ${isSelected ? (isLight ? "text-white" : "text-[#002F6D]") : isLight ? "text-[#D8B63F]" : "text-[#FFD766]"}`} />
-              <span>{formatAmPm(slot)}</span>
-            </span>
-            {isSelected && <Check className="h-4 w-4 stroke-[2.5]" />}
-          </button>
-        );
-      })}
-    </div>
+          {/* Main Container for Time Slots & Notice */}
+          <div className={`p-4 flex-1 flex flex-col justify-between ${isLight ? "bg-white" : "bg-[#1B2A40]"}`}>
+            
+            {/* Scrollable Time Slots List */}
+            <div className={`grid max-h-[220px] grid-cols-2 gap-2.5 overflow-y-auto pr-1 ${
+              isLight 
+                ? "[&::-webkit-scrollbar]:w-1.5 [&::-webkit-scrollbar-thumb]:rounded-full [&::-webkit-scrollbar-thumb]:bg-slate-200 hover:[&::-webkit-scrollbar-thumb]:bg-slate-300"
+                : "[&::-webkit-scrollbar]:w-1.5 [&::-webkit-scrollbar-thumb]:rounded-full [&::-webkit-scrollbar-thumb]:bg-[#718096]/50 hover:[&::-webkit-scrollbar-thumb]:bg-[#718096]"
+            }`}>
+              {TIME_SLOTS.map((slot) => {
+                const isSelected = slot === time;
+                return (
+                  <button
+                    key={slot}
+                    type="button"
+                    onClick={() => onTimeChange(slot)}
+                    className={`flex items-center justify-between px-3.5 py-2.5 rounded-xl text-xs sm:text-[13px] font-semibold transition-all cursor-pointer ${
+                      isSelected
+                        ? isLight
+                          ? "border-2 border-[#D9DDE5] bg-[#D8B63F] text-white shadow-md"
+                          : "border-2 border-[#FFD766] bg-[#FFD766] text-[#002F6D] font-bold shadow-[0_0_10px_rgba(255,215,102,0.35)]"
+                        : isLight
+                          ? "border border-[#D9DDE5] bg-white text-[#1A2238] hover:border-[#D8B63F] hover:bg-[#F7F5F0]"
+                          : "border border-[#718096]/60 bg-[#152238] text-white/90 hover:border-[#FFD766] hover:bg-[#1B2A40]"
+                    }`}
+                  >
+                    <span className="flex items-center gap-2">
+                      <Clock className={`h-3.5 w-3.5 ${isSelected ? (isLight ? "text-white" : "text-[#002F6D]") : isLight ? "text-[#D8B63F]" : "text-[#FFD766]"}`} />
+                      <span>{formatAmPm(slot)}</span>
+                    </span>
+                    {isSelected && <Check className="h-4 w-4 stroke-[2.5]" />}
+                  </button>
+                );
+              })}
+            </div>
 
-    {/* Arrival Note (Nicely stacked at the bottom without absolute overlapping) */}
-    <div
-      className={`flex items-center gap-3 rounded-xl border p-3.5 sm:p-4 shadow-sm backdrop-blur-sm mt-4 ${
-        isLight
-          ? "border-[#167A57]/30 bg-[#167A57]/10 text-[#167A57]"
-          : "border-[#36D6A0]/40 bg-[#36D6A0]/10 text-[#36D6A0]"
-      }`}
-    > 
-      <div className={`flex h-9 w-9 shrink-0 items-center justify-center rounded-lg ${
-        isLight ? "text-[#167A57]" : "text-[#36D6A0]"
-      }`}>
-        <ShieldCheck className="h-5 w-5" />
-      </div>
-      <p className="text-xs sm:text-[13px] font-medium leading-relaxed">
-        Staff arrives within a strict 15-minute window with electronic keycode verification.
-      </p>
-    </div> 
+            {/* Arrival Note (Nicely stacked at the bottom without absolute overlapping) */}
+            <div
+              className={`flex items-center gap-3 rounded-xl border p-3.5 sm:p-4 shadow-sm backdrop-blur-sm mt-4 ${
+                isLight
+                  ? "border-[#167A57]/30 bg-[#167A57]/10 text-[#167A57]"
+                  : "border-[#36D6A0]/40 bg-[#36D6A0]/10 text-[#36D6A0]"
+              }`}
+            > 
+              <div className={`flex h-9 w-9 shrink-0 items-center justify-center rounded-lg ${
+                isLight ? "text-[#167A57]" : "text-[#36D6A0]"
+              }`}>
+                <ShieldCheck className="h-5 w-5" />
+              </div>
+              <p className="text-xs sm:text-[13px] font-medium leading-relaxed">
+                Staff arrives within a strict 15-minute window with electronic keycode verification.
+              </p>
+            </div> 
 
-  </div> 
-</div>
+          </div> 
+        </div>
       </div>
       
     </section>

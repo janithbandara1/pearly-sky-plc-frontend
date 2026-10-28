@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useRef, useState, useEffect } from "react";
-import { UploadCloud, FileText, Loader2, RotateCw, X, ChevronDown, User } from "lucide-react";
+import { UploadCloud, FileText, Loader2, RotateCw, X, ChevronDown, User, MessageCircleQuestion, MessageSquareText, Info, FilePenLine } from "lucide-react";
 import { useLanguage } from "@/lib/i18n/language-context";
 import { TranslationKey } from "@/lib/i18n/dictionaries/en";
 import { AddressPayload } from "@/lib/customers-api";
@@ -203,10 +203,10 @@ export default function CustomerContactsPreference({
     : "bg-[#1B2A40]/80 backdrop-blur-xl border-[#718096]/30 text-white";
 
   const dividerClasses = isLight ? "border-[#D9DDE5]" : "border-[#718096]/30";
-  const stepLabelClasses = isLight ? "text-[#002F6D]" : "text-[#FFD766]";
+  const stepLabelClasses = isLight ? "text-[#D8B63F]" : "text-[#FFD766]";
   const titleClasses = isLight ? "text-[#1A2238]" : "text-white";
   const labelClasses = isLight
-    ? "text-[11px] font-semibold tracking-wider text-[#1A2238] uppercase mb-2 block"
+    ? "text-[11px] font-semibold tracking-wider text-[#002F6D] uppercase mb-2 block"
     : "text-[11px] font-semibold tracking-wider text-[#C3CDDC] uppercase mb-2 block";
 
   const inputClasses = isLight
@@ -255,7 +255,7 @@ export default function CustomerContactsPreference({
           <div>
             <h2
               className={`font-serif text-2xl font-bold tracking-tight ${
-                isLight ? "text-[#1A2238]" : "text-white"
+                isLight ? "text-[#D8B63F]" : "text-white"
               }`}
             >
               6 & 7. Contact & Location Details
@@ -273,6 +273,12 @@ export default function CustomerContactsPreference({
           <h2 className={`font-serif text-2xl sm:text-3xl font-medium tracking-tight ${titleClasses}`}>
             {title}
           </h2>
+          <div className="w-full flex py-1 md:justify-start justify-center">
+            <div className="h-1 w-10  bg-[#D8B63F] flex justify-center"></div>
+          </div>
+          <p className={`${isLight ? "text-[#687386]" : "text-[#C3CDDC]"} text-[12px] `}>
+            Help us personalize your service and ensure a smooth visit.
+          </p>
         </div>
       )}
 
@@ -281,41 +287,89 @@ export default function CustomerContactsPreference({
       {/* Preferences & Layout Upload */}
       <div className="pt-6 space-y-6">
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
-          {/* Gender Preference */}
-          <div>
-            <label className={labelClasses}>
-              STAFF GENDER PREFERENCE
-            </label>
+          {/* Gender Preference */} 
+          <div className={`w-full flex ${isLight ? "md:border md:border-gray-300":"md:border md:border-gray-500"} rounded-xl p-4 sm:p-5 items-center gap-3 
+              transition-colors duration-200  cursor-pointer`}>
+            <div className="hidden md:flex items-center justify-center">
+                <User className={`w-5 h-5 mr-2 ${isLight ? "text-[#002F6D]" : "text-[#FFD766]"}`} />
+            </div>
             <div className="relative">
+              <label className={labelClasses}>
+                STAFF GENDER PREFERENCE
+              </label>
+              <div className="md:hidden w-full flex flex-row items-center">
+                <div className="md:hidden relative flex items-center justify-center">
+                  <User className={`w-5 h-5 mr-2 ${isLight ? "text-[#002F6D]" : "text-[#FFD766]"}`} />
+                </div>
+                <select
+                  value={gender}
+                  onChange={(e) => onGenderChange(e.target.value)}
+                  className={selectClasses}
+                >
+                  <option value="none" className={selectOptionClasses}>
+                    No Preference (First Available Specialist)
+                  </option>
+                  <option value="female" className={selectOptionClasses}>
+                    Female Specialist Preferred
+                  </option>
+                  <option value="male" className={selectOptionClasses}>
+                    Male Specialist Preferred
+                  </option>
+                </select>
+                <ChevronDown className={`absolute right-3.5 top-[70%] -translate-y-1/2 size-4 pointer-events-none ${chevronClasses}`} />
+              </div>
               <select
-                value={gender}
-                onChange={(e) => onGenderChange(e.target.value)}
-                className={selectClasses}
-              >
-                <option value="none" className={selectOptionClasses}>
-                  No Preference (First Available Specialist)
-                </option>
-                <option value="female" className={selectOptionClasses}>
-                  Female Specialist Preferred
-                </option>
-                <option value="male" className={selectOptionClasses}>
-                  Male Specialist Preferred
-                </option>
-              </select>
-              <ChevronDown className={`absolute right-3.5 top-1/2 -translate-y-1/2 size-4 pointer-events-none ${chevronClasses}`} />
+                  value={gender}
+                  onChange={(e) => onGenderChange(e.target.value)}
+                  className={`${selectClasses} hidden md:block`}
+                >
+                  <option value="none" className={selectOptionClasses}>
+                    No Preference (First Available Specialist)
+                  </option>
+                  <option value="female" className={selectOptionClasses}>
+                    Female Specialist Preferred
+                  </option>
+                  <option value="male" className={selectOptionClasses}>
+                    Male Specialist Preferred
+                  </option>
+                </select>
+                <ChevronDown className={`absolute right-3.5 top-[70%] -translate-y-1/2 size-4 pointer-events-none ${chevronClasses}`} />
             </div>
           </div>
 
           {/* Language Preference */}
-          <div>
-            <label className={labelClasses}>
-              STAFF LANGUAGE PREFERENCE
-            </label>
-            <div className="relative">
+          <div className={`w-full flex ${isLight ? "md:border md:border-gray-300":"md:border md:border-gray-500"} rounded-xl p-4 sm:p-5 items-center gap-3 
+              transition-colors duration-200  cursor-pointer`}>
+            <div className="hidden md:flex items-center justify-center">
+                <MessageSquareText className={`w-5 h-5 mr-2 ${isLight ? "text-[#002F6D]" : "text-[#FFD766]"}`} />
+            </div>   
+
+            <div className="relative w-full">
+              <label className={labelClasses}>
+                STAFF LANGUAGE PREFERENCE
+              </label>
+              <div className="md:hidden w-full flex flex-row items-center">
+                <div className="md:hidden relative flex items-center justify-center">
+                  <MessageSquareText className={`w-5 h-5 mr-2 ${isLight ? "text-[#002F6D]" : "text-[#FFD766]"}`} />
+                </div>
+                <select
+                  value={language}
+                  onChange={(e) => onLanguageChange(e.target.value)}
+                  className={selectClasses}
+                >
+                  <option value="en" className={selectOptionClasses}>English Speaking</option>
+                  <option value="fr" className={selectOptionClasses}>French Speaking</option>
+                  <option value="de" className={selectOptionClasses}>German Speaking</option>
+                  <option value="it" className={selectOptionClasses}>Italian Speaking</option>
+                  <option value="es" className={selectOptionClasses}>Spanish Speaking</option>
+                  <option value="no-preference" className={selectOptionClasses}>No Preference</option>
+                </select>
+                <ChevronDown className={`absolute right-3.5 top-[70%] -translate-y-1/2 size-4 pointer-events-none ${chevronClasses}`} />
+              </div>
               <select
                 value={language}
                 onChange={(e) => onLanguageChange(e.target.value)}
-                className={selectClasses}
+                className={`${selectClasses} hidden md:block`}
               >
                 <option value="en" className={selectOptionClasses}>English Speaking</option>
                 <option value="fr" className={selectOptionClasses}>French Speaking</option>
@@ -324,14 +378,33 @@ export default function CustomerContactsPreference({
                 <option value="es" className={selectOptionClasses}>Spanish Speaking</option>
                 <option value="no-preference" className={selectOptionClasses}>No Preference</option>
               </select>
-              <ChevronDown className={`absolute right-3.5 top-1/2 -translate-y-1/2 size-4 pointer-events-none ${chevronClasses}`} />
+              <ChevronDown className={`absolute right-3.5 top-[70%] -translate-y-1/2 size-4 pointer-events-none ${chevronClasses}`} />
             </div>
           </div>
         </div>
 
         {/* Special Requirements */}
-        <div>
-          <label className={labelClasses}>
+        <div className={`w-full flex flex-col ${isLight ? "md:border md:border-gray-300":"md:border md:border-gray-500"} rounded-xl p-4 sm:p-5  gap-3 
+              transition-colors duration-200  cursor-pointer`}>
+          <div className="hidden md:flex md:flex-col">
+            <FilePenLine className={`w-5 h-5 mr-2 ${isLight ? "text-[#002F6D]" : "text-[#FFD766]"}`} />
+            <label className={labelClasses}>
+              SPECIAL REQUIREMENTS / SECURITY / PET PROTOCOLS
+            </label>
+          
+            <div className="w-full md:block hidden">
+              <label className={`${labelClasses} md:hidden `}>
+                SPECIAL REQUIREMENTS / SECURITY / PET PROTOCOLS
+              </label>
+              <textarea
+                rows={3}
+                value={requirements}
+                onChange={(e) => onRequirementsChange(e.target.value)}
+                placeholder="e.g. Alarm code #4092, gate access instructions, friendly Golden Retriever in laundry room..."
+                className={textareaClasses}
+              />
+            </div>
+          <label className={`${labelClasses} md:hidden`}>
             SPECIAL REQUIREMENTS / SECURITY / PET PROTOCOLS
           </label>
           <textarea
@@ -339,7 +412,7 @@ export default function CustomerContactsPreference({
             value={requirements}
             onChange={(e) => onRequirementsChange(e.target.value)}
             placeholder="e.g. Alarm code #4092, gate access instructions, friendly Golden Retriever in laundry room..."
-            className={textareaClasses}
+            className={`${textareaClasses} md:hidden`}
           />
         </div>
 
@@ -713,6 +786,7 @@ export default function CustomerContactsPreference({
           </div>
         </div>
       </div>
+    </div>
     </div>
   );
 }

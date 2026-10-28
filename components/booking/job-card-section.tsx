@@ -79,7 +79,7 @@ export function JobCardSection({
   const renderWithAllCategories = [
     {
     id: "all" as PackageCategory,
-    label: "All",
+    label: "All Categories",
     items: [...packages], // Fixed: correctly includes all packages instead of undefined item properties
   },
   ...categories,
@@ -118,7 +118,7 @@ export function JobCardSection({
       <div className={`border-t py-6 ${isLight ? "border-t-[#D9DDE5]": "border-t-[#718096]/30"}`}>
         
         {/* Category Tabs Header: horizontally scrollable on mobile, grid/flex layout */}
-        <div className={`flex md:grid md:grid-cols-5  gap-2 mb-6 overflow-x-auto pb-2 scrollbar-none border-b ${
+        <div className={`flex md:grid md:grid-cols-5  gap-2 mb-6 overflow-x-auto pb-2 scrollbar-thin scrollbar-thumb-brand-gold border-b ${
           isLight ? "border-b-[#D9DDE5]" : "border-b-[#718096]/30"
         }`}>
           {renderWithAllCategories.map((category) => {
@@ -128,14 +128,14 @@ export function JobCardSection({
                 key={category.id}
                 type="button"
                 onClick={() => setActiveCategoryId(category.id)}
-                className={`py-2.5 px-3 rounded-[9px] text-xs sm:text-[13px] font-normal text-center select-none shrink-0 md:shrink transition-all ${
+                className={`py-2.5 px-3 rounded-[9px] text-xs md:text-[13px] font-normal text-center select-none shrink-0 md:shrink transition-all ${
                   isActive
                     ? isLight
-                      ? "bg-[#002F6D] border-2 border-[#002F6D] text-white font-bold ring-1 ring-[#002F6D]/30"
-                      : "bg-[#FFD766] border-2 border-[#FFD766] text-[#002F6D] font-bold ring-1 ring-[#FFD766]/30"
+                      ? "bg-[#D8B63F] border-2 border-[#FFD766] text-[#002F6D] font-bold ring-1 ring-[#002F6D]/30"
+                      : "bg-[#FFD766] border-2 bg-[#0B1220] border-[#FFD766] text-[#002F6D] font-bold ring-1 ring-[#FFD766]/30"
                     : isLight
                     ? "text-[#1A2238] hover:bg-[#F7F5F0] border border-transparent hover:border-[#D8B63F]"
-                    : "text-[#C3CDDC] hover:bg-[#152238] border border-transparent hover:border-[#FFD766]/50"
+                    : "text-[#C3CDDC] bg-[#0B1220] hover:bg-[#152238] border border-transparent hover:border-[#FFD766]/50"
                 }`}
               >
                 {translate(category.label as TranslationKey)}
@@ -196,21 +196,21 @@ export function JobCardSection({
 
                   {/* Right Action Icon Button */}
                   {isSelected ? (
-                    <div className={`w-8 h-8 rounded-[10px] flex items-center justify-center shrink-0 shadow-xs ${
-                      isLight ? "bg-[#002F6D] border border-[#002F6D] text-white" : "bg-[#FFD766] border border-[#FFD766] text-[#002F6D]"
+                    <div className={`w-8 h-8 md:rounded-full rounded-[10px] flex items-center justify-center shrink-0 shadow-xs ${
+                      isLight ? "bg-[#D8B63F] border border-[#FFD766] text-white" : "bg-[#FFD766] border border-[#FFD766] text-[#002F6D]"
                     }`}>
                       <Check className="h-3.5 w-3.5" strokeWidth={3} />
                     </div>
                   ) : (
                     <div
-                      className={`w-8 h-8 rounded-[10px] border flex items-center justify-center shrink-0 transition-transform ${
+                      className={`w-8 h-8 md:rounded-full rounded-[10px] border flex items-center justify-center shrink-0 transition-transform ${
                         isDisabled
                           ? isLight
                             ? "border-gray-300 text-gray-300"
-                            : "border-slate-700 text-slate-700"
+                            : "border-slate-700 text-slate-700 "
                           : isLight
-                          ? "border-[#002F6D] text-[#002F6D] group-hover:scale-105"
-                          : "border-[#FFD766] text-[#FFD766] group-hover:scale-105"
+                          ? "border-[#D8B63F] text-[#D8B63F] group-hover:scale-105"
+                          : "border-[#0F172A] text-[#FFD766] bg-[#101B2D] group-hover:scale-105"
                       }`}
                     >
                       <Plus className="h-4 w-4" strokeWidth={2.5} />

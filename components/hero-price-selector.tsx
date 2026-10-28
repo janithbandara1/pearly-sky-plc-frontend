@@ -168,7 +168,7 @@ export function HeroPriceSelector({
         
       </div>
 
-      <div className="absolute border-[rgba(212_175_55/0.3)] bottom-10 left-8 z-14 my-2 flex w-[330px] flex-col gap-1 rounded-lg bg-white px-2 py-1 md:hidden">
+      <div className="absolute border-[rgba(212_175_55/0.3)] bottom-10  z-14 my-2 flex w-[330px] flex-col gap-1 rounded-lg bg-white px-2 py-1 md:hidden">
         <div className="flex">
           <div className="w-full">
             <PriceLabel

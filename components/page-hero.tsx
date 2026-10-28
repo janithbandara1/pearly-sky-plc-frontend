@@ -126,7 +126,7 @@ export function PageHero({
           <DynamicHeroOverlay serviceSlug={serviceSlug}  isQuote={isQuote} />
           {/*  Price Selector Bar positioned cleanly */}
           {!hidePriceSelector && (
-            <div className="px-4 z-20">
+            <div className="px-4 z-20 ">
               <HeroPriceSelector
                 activePrices={activePrices}
                 selectedCountryCode={selectedCountryCode}
