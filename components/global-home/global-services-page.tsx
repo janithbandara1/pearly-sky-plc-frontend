@@ -23,7 +23,7 @@ import { cn } from "@/lib/utils";
 import { greatVibes, playfair } from "./fonts";
 import { SERVICE_ORDER } from "./services-order";
 import { CATEGORY_BY_SERVICE, SERVICE_CATEGORIES, serviceCardImage, type ServiceCategoryId } from "./services-catalog";
-import { ServicesQuoteForm } from "./services-quote-form";
+import { ServicesContactForm } from "./services-contact-form";
 
 const HERO_FEATURES: { Icon: typeof Leaf; titleKey: GlobalKey; subtitleKey: GlobalKey }[] = [
   { Icon: Leaf, titleKey: "svc.feature.eco.title", subtitleKey: "svc.feature.eco.subtitle" },
@@ -52,7 +52,6 @@ export function GlobalServicesPage({ content }: { content: OurServicesContent })
     [content.services],
   );
   const [category, setCategory] = useState<ServiceCategoryId | "all">("all");
-  const [selectedServiceId, setSelectedServiceId] = useState("");
   const [details, setDetails] = useState<OurServiceCopy | null>(null);
   const dialogRef = useRef<HTMLDialogElement>(null);
 
@@ -60,7 +59,6 @@ export function GlobalServicesPage({ content }: { content: OurServicesContent })
     () => services.filter((service) => category === "all" || CATEGORY_BY_SERVICE[service.id] === category),
     [services, category],
   );
-  const serviceOptions = useMemo(() => services.map(({ id, title }) => ({ id, title })), [services]);
 
   /** Book Now opens the full request-quotation page with this service preselected — the gateway takes no bookings. */
   const bookHref = (id: string) => `/request-quotation?service=${encodeURIComponent(id)}`;
@@ -138,13 +136,13 @@ export function GlobalServicesPage({ content }: { content: OurServicesContent })
               </h2>
               <p className="mt-2 max-w-2xl text-sm text-slate-400">{t("svc.headingText")}</p>
             </div>
-            <a
-              href="#quote-section"
+            <Link
+              href="/request-quotation"
               className="gold-gradient-bg inline-flex min-h-0! items-center gap-2 self-start rounded-xl px-6 py-3 text-sm font-semibold text-navy-900 shadow-lg transition-all hover:-translate-y-0.5 hover:brightness-110 lg:self-auto"
             >
               <span>{t("svc.quoteCta")}</span>
               <ArrowRight className="h-3.5 w-3.5" />
-            </a>
+            </Link>
           </div>
 
           <div className="scrollbar-hide mb-10 overflow-x-auto pb-4">
@@ -226,11 +224,7 @@ export function GlobalServicesPage({ content }: { content: OurServicesContent })
         </ul>
       </section>
 
-      <ServicesQuoteForm
-        services={serviceOptions}
-        serviceId={selectedServiceId}
-        onServiceChange={setSelectedServiceId}
-      />
+      <ServicesContactForm />
 
       <dialog
         ref={dialogRef}

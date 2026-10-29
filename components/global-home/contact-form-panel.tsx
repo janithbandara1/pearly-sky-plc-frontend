@@ -26,14 +26,6 @@ import type { GlobalKey } from "@/lib/i18n/global/en";
 
 type Translate = (key: GlobalKey, vars?: Record<string, string | number>) => string;
 
-/** `label` is the English wording that goes into the message the team reads; visitors see `labelKey`. */
-const SUBJECTS: { value: string; label: string; labelKey: GlobalKey }[] = [
-  { value: "booking", label: "General Booking Enquiry", labelKey: "subject.booking" },
-  { value: "partnership", label: "Corporate Partnership", labelKey: "subject.partnership" },
-  { value: "concierge", label: "Concierge & Property Care", labelKey: "subject.concierge" },
-  { value: "feedback", label: "Feedback or Complaint", labelKey: "subject.feedback" },
-];
-
 const FAQS: { questionKey: GlobalKey; answerKey: GlobalKey }[] = [
   { questionKey: "faq.q1", answerKey: "faq.a1" },
   { questionKey: "faq.q2", answerKey: "faq.a2" },
@@ -53,7 +45,6 @@ const makeContactSchema = (t: Translate) =>
     name: z.string().check(z.trim(), z.minLength(2, t("form.errorName"))),
     email: z.pipe(z.string().check(z.trim()), z.email(t("form.errorEmail"))),
     phone: z.string().check(z.trim(), z.minLength(6, t("form.errorPhone"))),
-    subject: z.string().check(z.minLength(1, t("contactForm.errorSubject"))),
     message: z.string().check(z.trim(), z.minLength(10, t("contactForm.errorMessage"))),
   });
 
@@ -64,9 +55,9 @@ const inputClass =
 
 /**
  * The global gateway's contact form plus the partnership and FAQ cards beside
- * it. Sends through the same /contact endpoint as the country sites (see
- * quote.tsx), with the chosen subject prefixed to the message — in English,
- * since the team reads it, not the visitor.
+ * it. Sends through the same /contact endpoint as the country sites, with the
+ * origin prefixed to the message — in English, since the team reads it, not
+ * the visitor.
  */
 export function ContactFormPanel() {
   const { translateGlobal: t } = useLanguage();
@@ -101,33 +92,30 @@ export function ContactFormPanel() {
     control,
     handleSubmit,
     reset,
-    setValue,
     setFocus,
     formState: { errors, isSubmitting },
   } = useForm<ContactFormValues>({
     resolver: zodResolver(schema),
-    defaultValues: { name: "", email: "", phone: "", subject: "", message: "" },
+    defaultValues: { name: "", email: "", phone: "", message: "" },
   });
 
   const startPartnershipEnquiry = () => {
-    setValue("subject", "partnership", { shouldValidate: true });
     formRef.current?.scrollIntoView({ behavior: "smooth", block: "center" });
     setFocus("name");
   };
 
-  const onSubmit = async ({ name, email, phone, subject, message }: ContactFormValues) => {
+  const onSubmit = async ({ name, email, phone, message }: ContactFormValues) => {
     if (!turnstileToken) {
       setSendError(t("form.verify"));
       return;
     }
     setSendError(null);
-    const subjectLabel = SUBJECTS.find((s) => s.value === subject)?.label ?? subject;
     try {
       await sendContactMessage({
         name,
         email,
         phone,
-        message: `Subject: ${subjectLabel} (global site)\n\n${message.trim()}`,
+        message: `Subject: Contact page enquiry (global site)\n\n${message.trim()}`,
         turnstileToken,
       });
       toast.success(t("contactForm.successTitle"), { description: t("contactForm.successText") });
@@ -175,38 +163,24 @@ export function ContactFormPanel() {
               </Field>
             </div>
 
-            <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-              <Field id="gc-phone" label={t("form.phoneNumber")} error={errors.phone?.message}>
-                <Controller
-                  name="phone"
-                  control={control}
-                  render={({ field }) => (
-                    <PhoneInput
-                      id="gc-phone"
-                      name={field.name}
-                      value={field.value}
-                      onChange={field.onChange}
-                      onBlur={field.onBlur}
-                      placeholder={t("contactForm.phonePlaceholder")}
-                      aria-invalid={!!errors.phone}
-                      className="h-10 rounded-xl bg-white text-slate-800"
-                    />
-                  )}
-                />
-              </Field>
-              <Field id="gc-subject" label={t("contactForm.subject")} error={errors.subject?.message}>
-                <select id="gc-subject" aria-invalid={!!errors.subject} className={inputClass} {...register("subject")}>
-                  <option value="" disabled>
-                    {t("contactForm.subjectPlaceholder")}
-                  </option>
-                  {SUBJECTS.map(({ value, labelKey }) => (
-                    <option key={value} value={value}>
-                      {t(labelKey)}
-                    </option>
-                  ))}
-                </select>
-              </Field>
-            </div>
+            <Field id="gc-phone" label={t("form.phoneNumber")} error={errors.phone?.message}>
+              <Controller
+                name="phone"
+                control={control}
+                render={({ field }) => (
+                  <PhoneInput
+                    id="gc-phone"
+                    name={field.name}
+                    value={field.value}
+                    onChange={field.onChange}
+                    onBlur={field.onBlur}
+                    placeholder={t("contactForm.phonePlaceholder")}
+                    aria-invalid={!!errors.phone}
+                    className="h-10 rounded-xl bg-white text-slate-800"
+                  />
+                )}
+              />
+            </Field>
 
             <Field id="gc-message" label={t("form.message")} error={errors.message?.message}>
               <textarea

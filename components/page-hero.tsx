@@ -123,7 +123,8 @@ export function PageHero({
         />
         {/* Dynamic Overlay containing the new centered text content */}
         <div className="absolute  inset-0  flex flex-col justify-end">
-          <DynamicHeroOverlay serviceSlug={serviceSlug}  isQuote={isQuote} />
+          {/* Only service pages have overlay copy — without a slug it fell back to Regular Home Cleaning. */}
+          {serviceSlug && <DynamicHeroOverlay serviceSlug={serviceSlug} isQuote={isQuote} />}
           {/*  Price Selector Bar positioned cleanly */}
           {!hidePriceSelector && (
             <div className="px-4 z-20">

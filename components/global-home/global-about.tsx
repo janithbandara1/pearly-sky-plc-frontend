@@ -1,7 +1,6 @@
 import Image from "next/image";
 import {
   ArrowRight,
-  ChevronRight,
   Compass,
   Droplets,
   Feather,
@@ -95,19 +94,6 @@ export async function GlobalAbout() {
         </div>
 
         <div className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <nav
-            aria-label={t("common.breadcrumb")}
-            className="mb-6 flex items-center gap-2 text-xs font-medium text-gold-500/80 sm:text-sm"
-          >
-            <Link href="/" className="min-h-0! hover:text-gold-500">
-              {t("common.home")}
-            </Link>
-            <ChevronRight className="h-3 w-3" />
-            <span aria-current="page" className="text-white">
-              {t("about.title")}
-            </span>
-          </nav>
-
           <div className="max-w-3xl">
             <h1 className="mb-6 font-display text-4xl font-bold leading-tight tracking-tight sm:text-6xl lg:text-7xl">
               {t("about.title")}
