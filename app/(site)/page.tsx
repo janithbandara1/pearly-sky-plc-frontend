@@ -74,7 +74,7 @@ export default async function Home() {
       {!IS_GLOBAL_SITE && <FeaturesBar />}
       {!IS_GLOBAL_SITE && <LocationsTicker />}
       {!IS_GLOBAL_SITE && <SectorsSlider />}
-      <ServicesSection services={services} />
+      {!IS_GLOBAL_SITE && <ServicesSection services={services} />}
       {!IS_GLOBAL_SITE && <AboutSectionNew />} 
       {/* <Welcome />
       <AboutSection /> */}
