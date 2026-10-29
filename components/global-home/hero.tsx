@@ -81,14 +81,14 @@ export async function GlobalHero() {
       </div>
 
       <div className="relative z-10 mx-auto mt-8 flex w-full max-w-7xl flex-col items-center justify-between gap-6 border-t border-slate-700/40 pt-8 md:flex-row">
-        <ul className="grid w-full grid-cols-1 gap-3 min-[420px]:grid-cols-2 md:w-auto xl:grid-cols-4">
+        <ul className="grid w-full grid-cols-2 gap-3 md:flex md:w-auto md:flex-wrap md:gap-4">
           {FEATURES.map(({ Icon, labelKey }) => (
             <li
               key={labelKey}
-              className="glass-card flex items-center gap-2.5 rounded-full border-slate-700/60! px-4 py-2.5 text-xs font-medium text-slate-200 transition-colors hover:border-gold-500/40!"
+              className="flex min-h-14 items-center gap-3 md:min-h-0 md:py-3 rounded-full border border-slate-600/40 bg-navy-800/70 px-5 py-2.5 text-xs font-semibold leading-tight text-white shadow-lg backdrop-blur-md transition-colors hover:border-gold-500/40"
             >
               <Icon className="h-4 w-4 shrink-0 text-gold-400" />
-              <span>{t(labelKey)}</span>
+              <span className="max-w-[12ch] md:max-w-none md:whitespace-nowrap md:text-[13px]">{t(labelKey)}</span>
             </li>
           ))}
         </ul>
