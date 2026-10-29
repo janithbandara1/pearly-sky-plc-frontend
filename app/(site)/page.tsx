@@ -20,6 +20,11 @@ import { Welcome } from "@/components/home/welcome";
 import { VisionaryTeam } from "@/components/home/visionary-team";
 import GlobalHeroSection from "@/components/ui/global-hero";
 import CountryWiseDomains from "@/components/ui/country-wise-domains";
+import FeaturesBar from "@/components/home/feature-items-home";
+import LocationsTicker from "@/components/home/LocationsTicker";
+import SectorsSlider from "@/components/home/sector-slider";
+import AboutSectionNew from "@/components/home/about-section-new";
+import ContactUsCTAQuote from "@/components/home/contact-cta";
 export const dynamic = "force-dynamic";
 
 export async function generateMetadata(): Promise<Metadata> {
@@ -66,18 +71,22 @@ export default async function Home() {
   return (
     <main className="flex-1">
       {IS_GLOBAL_SITE ? <GlobalHeroSection /> :<Hero />}
-      {!IS_GLOBAL_SITE && <TrustBar />}
-      {!IS_GLOBAL_SITE && <ServicesSection services={services} />}
-      <Welcome />
-      <AboutSection />
+      {!IS_GLOBAL_SITE && <FeaturesBar />}
+      {!IS_GLOBAL_SITE && <LocationsTicker />}
+      {!IS_GLOBAL_SITE && <SectorsSlider />}
+      <ServicesSection services={services} />
+      {!IS_GLOBAL_SITE && <AboutSectionNew />} 
+      {/* <Welcome />
+      <AboutSection /> */}
       {IS_GLOBAL_SITE && <CountryWiseDomains />  }
-      <CoverageStrip />
+      {/* <CoverageStrip />
       <VisionaryTeam />
       <SectorsMarquee />
       <MomentsOfExcellence />
       <Testimonials />
-      <RecentArticles />
-      <ContactSection />
+      <RecentArticles /> 
+      <ContactSection />*/}
+      {!IS_GLOBAL_SITE && <ContactUsCTAQuote />}
     </main>
   );
 }

@@ -9,6 +9,7 @@ import { useCurrency } from "@/lib/currency-context";
 import { useCountry } from "@/lib/countries/country-context";
 import { useLanguage } from "@/lib/i18n/language-context";
 import type { TranslationKey } from "@/lib/i18n/dictionaries/en";
+import QuoteModal from "./quote-model";
 
 //2026-08-24=CATAGORIES UPDATED by adding 
 //Residential Cleaning Services,Premium Add-On Services,Commercial & Specialised Cleaning Services,Care & Concierge Services
@@ -150,6 +151,8 @@ const COUNTRY_TAX_WORDING: Record<string, TaxStatusWording> = {
 };
 
 /** e.g. "(Residential - VAT Included [TTC])" for regular-home-cleaning in France. */
+
+
 function getTaxStatusLabel(
   serviceName: string,
   country: string | null,
@@ -158,10 +161,11 @@ function getTaxStatusLabel(
   const bucket = SERVICE_TAX_BUCKET[serviceName];
   const wording = country ? COUNTRY_TAX_WORDING[country] : undefined;
   if (!bucket || !wording) return null;
-  return `(${translate(TAX_BUCKET_LABEL[bucket])} - ${translate(wording[bucket])})`;
+  return `(${translate(TAX_BUCKET_LABEL[bucket])}
+${translate(wording[bucket])})`;
 }
 
-function ServiceCard({ service }: { service: HomeService }) {
+function ServiceCard({ service, handleOpenModal }: { service: HomeService; handleOpenModal: (serviceName?: string) => void }) {
   const { translate } = useLanguage();
   const { symbol } = useCurrency();
   const { country } = useCountry();
@@ -176,17 +180,6 @@ function ServiceCard({ service }: { service: HomeService }) {
     service.name === "pool-cleaning" ||
     service.name === "precision-pressure-washing";
 
-  const showBookable= 
-    service.name === "child-care-service" ||
-    service.name === "elder-care-service" 
-
-  /**
-   * Carpet/pool/pressure-washing are quote-only (no configured hourly rate),
-   * and laundry/move-in-out transport aren't priced per cleaner-hour — so
-   * the rate line never applies to them. Child/elder care are booked
-   * on-flow like the rest (isDedicatedFlow) but do have a real hourly rate,
-   * so they still show it.
-   */
   const hidesHourlyRate =
     service.name === "carpet-upholstery-cleaning" ||
     service.name === "pool-cleaning" ||
@@ -199,159 +192,79 @@ function ServiceCard({ service }: { service: HomeService }) {
   const isCareService = service.name === "child-care-service" || service.name === "elder-care-service";
   const pricePerUnitKey = isCareService ? "servicesPricePerProfessional" : "servicesPricePerCleaner";
 
-  
+  const handleBookClick = (e: React.MouseEvent) => {
+    e.preventDefault();
+    alert(`Booking action triggered for: ${label}`);
+  };
+
   return (
-<div  className="relative w-full max-w-2xl  rounded-[1rem] bg-brand-navy  text-white shadow-2xl">
-  {/* Inner Double Border Frame */}
-  <div className="flex h-full flex-col overflow-hidden rounded-[1rem] border border-brand-gold p-2 pb-2 ring-1 ring-brand-gold/30">
-    
-    {/* Top Image Section with Corner Leaf Accents */}
-    <div className="relative -top-2 -left-2 -right-1 h-45 w-[calc(110%-0.1rem)]  overflow-hidden rounded-b-[75px] md:rounded-b-[80px]">
-      {service.imageUrl ? (
-        <Image
-          src={service.imageUrl}
-          alt={label}
-          fill
-          sizes="(max-width: 640px) 110vw, (max-width: 1024px) 60vw, 35vw"
-          className="object-cover"
-        />
-      ) : (
-        <div className="h-full w-full bg-transparent" />
-      )}
+    <div className="group relative flex flex-col justify-between overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm transition-all duration-300 hover:border-[#d4af37] hover:shadow-xl">
+      <div>
+        <div className="relative h-40 w-full overflow-hidden">
+          {service.imageUrl ? (
+            <Image
+              src={service.imageUrl}
+              alt={label}
+              fill
+              sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
+              className="object-cover transition-transform duration-500 group-hover:scale-110"
+            />
+          ) : (
+            <div className="h-full w-full bg-slate-100" />
+          )}
 
-      
-      {/* Top Left Leaf Decor Overlay */}
-      {/* A CSS background, not an <img> — purely decorative, so it shouldn't count as an image without alt text. */}
-      <div className="pointer-events-none rounded-t-[1rem] absolute -left-3.5 md:-left-4 top-5 md:top-4 rotate-y-[45deg] h-48 w-20 md:h-54 md:w-25 bg-[url(/images/decor/leaf-left.svg)] bg-size-[80px_185px] bg-left-top bg-no-repeat" />
+          <div className="absolute inset-0 bg-gradient-to-t from-[#0b121e]/70 via-transparent to-transparent" />
 
-      {/* Top Right Leaf Decor Overlay */}
-      <div className="pointer-events-none rounded-t-[1rem] absolute rotate-y-[45deg] -right-1 md:-right-6 top-5 md:top-4 h-48 w-20 md:h-54 md:w-25 bg-[url(/images/decor/leaf-right.svg)] bg-size-[80px_185px] bg-left-top bg-no-repeat" />
-    </div>
-
-      
-    {/* Content Body */}
-    <div className="flex flex-1 flex-col justify-between pt-5 text-center">
-      {/* Title */}
-      <h4 className="text-xl md:text-base font-bold tracking-wide text-white">
-        {label}
-      </h4>
-
-      {/* Description */}
-      {description && (
-        <p className="mt-1.5 line-clamp-2 text-sm text-slate-300">
-          {description}
-        </p>
-      )}
-
-      {/* Pricing Pill Container */}
-      {!hidesHourlyRate && (
-        <div className="mt-4 flex w-full items-center justify-center gap-3 rounded-xl bg-[#1e293b]/70 px-4 py-3 border border-slate-700/50">
-          {/* Clock / Service Icon */}
-          <div className="flex shrink-0 items-center justify-center text-slate-300">
-            <svg className="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <circle cx="12" cy="12" r="9" strokeWidth="1.5" />
-              <path strokeLinecap="round" strokeWidth="1.5" d="M12 7v5l3 3" />
-            </svg>
-          </div>
-
-          <div className="text-center">
-            <p className="text-base font-medium text-white">
-              {service.price ? (
-                <>
-                  {translate("servicesHourlyRateLabel")}{" "}
-                  <span className="font-bold">{symbol}{Number(service.price).toFixed(2)}</span>{" "}
-                  <span className="text-sm font-normal">{translate(pricePerUnitKey)}</span>
-                </>
-              ) : (
-                translate("servicesRequestQuotation")
-              )}
-            </p>
-            {service.price && taxStatusLabel && (
-              <p className="text-xs text-slate-400">{taxStatusLabel}</p>
-            )}
-          </div>
+          {!hidesHourlyRate && service.price && (
+            <span className="absolute bottom-2 left-3 rounded-full border border-[#d4af37]/30 bg-[#0b121e]/90 px-3 py-1 text-[11px] font-bold text-[#d4af37]">
+              {symbol}{Number(service.price).toFixed(2)} / {translate(pricePerUnitKey).replace(/^per\s+/i, '')}
+            </span>
+          )}
         </div>
-      )}
 
-      {/* Action Buttons */}
-      <div className="mt-4 flex w-full flex-col gap-3">
-        {service.name === "child-care-service" || service.name === "elder-care-service" ? (
-          <div className="relative">
-            <Link
-              href={`/services/${service.slug}`}
-              className="flex w-full items-center justify-center gap-2 rounded-xl bg-brand-gold py-3 text-sm font-bold uppercase tracking-wider text-slate-900 shadow-lg transition-transform hover:scale-[1.01]"
-            >
-              {translate("servicesBookNow")}
-              <span className="sr-only"> – {label}</span>
-              <ArrowRight className="h-4 w-4" />
-            </Link>
-            {/* Bottom Right Golden Leaf Icon Badge */}
-              <div className="pointer-events-none absolute -bottom-3.5 md:-bottom-1.5 -right-2 flex h-17 w-17 md:h-14 md:w-14 items-center justify-center rounded-full  bg-slate-900 text-brand-gold">
-                <svg className="h-12 w-12 md:h-10 md:w-10 border border-brand-gold rounded-full md:p-1 p-2" fill="currentColor" viewBox="0 0 24 24">
-                  <path d="M17,8C8,10 5,16 5,22C11.5,22 17,17 17,8Z" />
-                </svg>
-              </div>
-          </div>
-        ) : isDedicatedFlow ? (
-          <Link
+        <div className="p-4">
+          <h4 className="font-serif text-sm font-bold text-[#0b121e] transition-colors group-hover:text-[#c9a858]">
+            {label}
+          </h4>
+          {description && (
+            <p className="mt-1 line-clamp-2 text-xs text-slate-600">
+              {description}
+            </p>
+          )}
+          {taxStatusLabel && service.price && (
+            <p className="mt-1 text-[10px] text-slate-400">{taxStatusLabel}</p>
+          )}
+        </div>
+      </div>
+
+      <div className="px-4 pb-4">
+        {/* service.name === "child-care-service" || service.name === "elder-care-service" || service.isBookable ? */ }
+          <button
+            type="button"
+            onClick={() => handleOpenModal(label)}
+            className="w-full rounded-lg bg-[linear-gradient(135deg,#D4AF37_0%,#C5A059_50%,#A07A30_100%)] py-2 text-xs font-bold text-[#0b121e] shadow-sm transition-all hover:brightness-110"
+          >
+            {translate("servicesBookNow")} →
+          </button>
+        
+          {/* <Link
             href={`/services/${service.slug}`}
-            className="flex w-full items-center justify-center gap-2 rounded-xl border border-brand-gold/80 bg-transparent py-3 text-sm font-semibold uppercase tracking-wider text-white transition-colors hover:bg-brand-gold/10"
+            className="flex w-full items-center justify-center gap-2 rounded-lg border border-slate-300 bg-slate-50 py-2 text-xs font-bold text-[#0b121e] transition-colors hover:bg-slate-100"
           >
-            <Key className="h-4 w-4 text-brand-gold" />
             {translate("servicesGetFreeQuote")}
-            <span className="sr-only"> – {label}</span>
-          </Link>
-        ) : service.isBookable ? (
-          <>
-            <Link
-              href={`/request-a-detailed-quotation`}
-              className="flex w-full items-center justify-center gap-2 rounded-xl border border-brand-gold/80 bg-transparent py-3 text-sm font-semibold uppercase tracking-wider text-white transition-colors hover:bg-brand-gold/10"
-            >
-              <Key className="h-4 w-4 text-brand-gold" />
-              {translate("servicesGetFreeQuote")}
-              <span className="sr-only"> – {label}</span>
-            </Link>
-
-            <div className="relative">
-              <Link
-                href={`/services/${service.slug}`}
-                className="flex w-full items-center justify-center gap-2 rounded-xl bg-brand-gold py-3.5 text-sm font-bold uppercase tracking-wider text-slate-900 shadow-md transition-transform hover:scale-[1.01]"
-              >
-                {translate("servicesBookNow")}
-                <span className="sr-only"> – {label}</span>
-                <ArrowRight className="h-4 w-4" />
-              </Link>
-              {/* Bottom Right Golden Leaf Icon Badge */}
-              <div className="pointer-events-none absolute -bottom-3.5 md:-bottom-1.5 -right-2 flex h-17 w-17 md:h-14 md:w-14 items-center justify-center rounded-full  bg-slate-900 text-brand-gold">
-                <svg className="h-12 w-12 md:h-10 md:w-10 border border-brand-gold rounded-full md:p-1 p-2" fill="currentColor" viewBox="0 0 24 24">
-                  <path d="M17,8C8,10 5,16 5,22C11.5,22 17,17 17,8Z" />
-                </svg>
-              </div>
-            </div>
-          </>
-        ) : service.isQuotable ? (
-          <Link
-            href={`/services/${service.slug}/request-quotation`}
-            className="flex w-full items-center justify-center gap-2 rounded-xl border border-brand-gold/80 bg-transparent py-3 text-sm font-semibold uppercase tracking-wider text-white transition-colors hover:bg-brand-gold/10"
-          >
-            <Key className="h-4 w-4 text-brand-gold" />
-            {translate("servicesGetFreeQuote")}
-            <span className="sr-only"> – {label}</span>
-            <ArrowRight className="h-4 w-4" />
-          </Link>
-        ) : (
-          <span className="block w-full rounded-xl border border-slate-700 bg-slate-800/40 py-3 text-center text-xs font-medium text-slate-400">
+            <ArrowRight className="h-3 w-3" />
+          </Link> */}
+        
+          {/* <span className="block w-full rounded-lg border border-slate-200 bg-slate-100 py-2 text-center text-xs font-medium text-slate-400">
             {translate("servicesComingSoon")}
-          </span>
-        )}
+          </span> */}
+        
       </div>
     </div>
-  </div>
-</div>
   );
 }
 
-function CategoryGrid({ services, limit }: { services: HomeService[]; limit?: number }) {
+function CategoryGrid({ services, limit, handleOpenModal }: { services: HomeService[]; limit?: number; handleOpenModal: (serviceName?: string) => void }) {
   const { translate } = useLanguage();
   const [expanded, setExpanded] = useState(false);
 
@@ -360,9 +273,9 @@ function CategoryGrid({ services, limit }: { services: HomeService[]; limit?: nu
 
   return (
     <>
-      <div id="services" className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+      <div id="services" className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
         {visible.map((service) => (
-          <ServiceCard key={service.id} service={service} />
+          <ServiceCard handleOpenModal={handleOpenModal} key={service.id} service={service} />
         ))}
       </div>
       {canCollapse && (
@@ -370,7 +283,7 @@ function CategoryGrid({ services, limit }: { services: HomeService[]; limit?: nu
           <button
             type="button"
             onClick={() => setExpanded((prev) => !prev)}
-            className="flex items-center gap-1.5 rounded-lg border border-brand-gold px-5 py-2 text-sm font-semibold text-brand-gold transition-colors hover:bg-brand-gold/10"
+            className="flex items-center gap-1.5 rounded-lg border border-[#d4af37] px-5 py-2 text-sm font-semibold text-[#d4af37] transition-colors hover:bg-[#d4af37]/10"
           >
             {translate(expanded ? "servicesSeeLess" : "servicesSeeMore")}
             {expanded ? <ChevronUp className="h-4 w-4" /> : <ChevronDown className="h-4 w-4" />}
@@ -379,41 +292,65 @@ function CategoryGrid({ services, limit }: { services: HomeService[]; limit?: nu
       )}
     </>
   );
-} 
+}
 
 export function ServicesSection({ services }: { services: HomeService[] }) {
   const { translate } = useLanguage();
   const active = services.filter((service) => service.status === "active");
 
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [selectedService, setSelectedService] = useState<string>('');
+
+  const handleOpenModal = (serviceName?: string) => {
+    setSelectedService(serviceName || '');
+    setIsModalOpen(true);
+  };
+
   return (
-    <section className="scroll-mt-16 bg-brand-navy py-16 text-brand-navy-foreground">
-      <div className="mx-auto w-full max-w-6xl px-4 sm:px-6">
-        <div className="mb-10 text-center">
-          <h2 className="md:text-4xl font-bold tracking-tight text-3xl">
+    <section className="scroll-mt-16 bg-[#fff] shadow-lg border-t border-slate-200 py-16 text-[#0b121e]">
+      <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div className="mb-12 text-center">
+          <p className="text-xs font-bold uppercase tracking-widest text-[#d4af37]">
+            Complete Luxury Directory
+          </p>
+          <h2 className="mt-1 text-3xl font-serif font-bold tracking-tight text-[#0b121e] md:text-4xl">
             {translate("servicesHeading")}
           </h2>
-          
         </div>
 
-        {CATEGORIES.map(({ key, headingKey,subHeader, limit }) => {
+        {CATEGORIES.map(({ key, headingKey, subHeader, limit }) => {
           const categoryServices = active.filter((service) => service.category === key);
           if (categoryServices.length === 0) return null;
-          
-          const index = CATEGORIES.findIndex((cat) => cat.key === key);
 
           return (
-            <div key={key}  className="mt-12 first:mt-0">
-              <h3 className="letter-spacing-tight mb-1 text-center text-2xl break-words font-bold tracking-wider text-brand-navy-foreground md:text-3xl">
-                {translate(headingKey)}
-              </h3>
-              <p className="mb-6 mt-2 text-center mx-0 font-poppins font-normal text-base leading-normal text-[rgba(255,253,244,0.75)]">
-                {translate(subHeader)}
-              </p>
-              <CategoryGrid services={categoryServices} limit={limit} />
+            <div key={key} className="mt-12 first:mt-0 rounded-3xl border border-slate-200 bg-slate-50 p-6 shadow-sm sm:p-8">
+              <div className="mb-8 flex flex-col justify-between border-b border-slate-200 pb-6 gap-4 sm:flex-row sm:items-center">
+                <div>
+                  <div className="flex items-center space-x-3">
+                    <span className="flex h-10 w-10 items-center justify-center rounded-full bg-[#0b121e] text-lg text-[#d4af37]">
+                      🏠
+                    </span>
+                    <h3 className="font-serif text-2xl font-bold text-[#0b121e]">
+                      {translate(headingKey)}
+                    </h3>
+                  </div>
+                  <p className="mt-1 text-sm text-slate-600 sm:ml-13">
+                    {translate(subHeader)}
+                  </p>
+                </div>
+              </div>
+              <CategoryGrid handleOpenModal={handleOpenModal} services={categoryServices} limit={limit} />
             </div>
           );
         })}
       </div>
+
+      {/* Render the Modal */}
+      <QuoteModal 
+        isOpen={isModalOpen} 
+        onClose={() => setIsModalOpen(false)} 
+        serviceName={selectedService}
+      />
     </section>
   );
 }

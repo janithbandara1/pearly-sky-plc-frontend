@@ -17,6 +17,7 @@ import { CookieConsentBanner } from "@/components/cookie/cookie-consent-banner";
 import { CrispChat } from "@/components/cookie/crisp-chat";
 
 import { PoolThemeProvider } from "@/lib/pool-theme-context";
+import TopBar from "@/components/ui/topbar";
 
 export default async function SiteLayout({
   children,
@@ -37,6 +38,7 @@ export default async function SiteLayout({
         <LanguageProvider language={language}>
           <PoolThemeProvider>
             <JsonLd data={buildLocalBusinessJsonLd(office, country ?? "fr")} />
+            <TopBar />
             <SiteHeader />
             <div className="flex flex-1 flex-col">{children}</div>
             {/* <JoinWithUsSection />
