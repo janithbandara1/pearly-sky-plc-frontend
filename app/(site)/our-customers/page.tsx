@@ -4,7 +4,7 @@ import { getCountryPageMeta } from "@/lib/countries/meta-data";
 import { IS_GLOBAL_SITE } from "@/lib/countries/config";
 import { buildCountryAlternates, buildGlobalAlternates, buildSocialMeta } from "@/lib/countries/seo";
 import { BreadcrumbJsonLd } from "@/components/json-ld";
-import { OurCustomersView } from "./our-customers-view";
+import OurCustomersView from "./our-customers-view";
 
 export async function generateMetadata(): Promise<Metadata> {
   const language = await getRequestLanguage();

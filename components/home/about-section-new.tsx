@@ -25,7 +25,7 @@ const aboutData: Record<'fr' | 'uk' | 'lk', AboutContent> = {
       'We utilize eco-friendly, luxury-grade cleaning products that are safe for your family, pets, and workplace, ensuring a thorough clean without harsh chemicals.',
     bannerTitle: 'Bilingual French & English Teams',
     bannerSubtitle: 'Seamless communication across all 23 territories',
-    imageSrc: '/images/hero/about-fr.webp',
+    imageSrc: '/images/about-hero.webp',
   },
   uk: {
     regionTitle: 'Service Excellence Across United Kingdom',

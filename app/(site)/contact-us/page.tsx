@@ -32,8 +32,7 @@ export default function ContactUsPage() {
           { name: "Contact Us", path: "/contact-us" },
         ]} />
       <ContactUsView />
-      <h2 className="text-center mt-4 text-2xl font-semibold  text-[oklch(.379_.146_265.522)]">Support Payment Method</h2>
-      <PaymentMarquee />
+      
     </>
   );
 }

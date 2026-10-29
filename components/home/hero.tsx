@@ -69,8 +69,8 @@ const countryHeroContent: Record<string, HeroData> = {
       { label: 'Commercial', icon: 'commercial' },
       { label: 'Specialist Care', icon: 'specialist' },
     ],
-    ctaPrimary: 'RESERVER VOTRE SERVICE',
-    ctaSecondary: 'DEMANDER UN DEVIS',
+    ctaPrimary: 'BOOK YOUR CLEANING SERVICE',
+    ctaSecondary: 'GET A FREE QUOTE',
     trustBadges: [
       'Garantie 100% Satisfaction',
       'Équipes Qualifiées & Assurées',
@@ -186,7 +186,7 @@ export function Hero() {
         <div className="flex flex-col gap-3 pt-2 md:flex-row md:items-center">
           <button
             onClick={() => scrollToId("services")}
-            className="flex items-center justify-center gap-2 bg-[#d4af37] text-[#0b0f17] font-semibold text-xs tracking-wider uppercase px-6 py-3.5 rounded-md hover:bg-[#c5a028] transition-colors"
+            className="flex items-center justify-center gap-2 bg-[#d4af37] text-[#0b0f17] font-semibold text-xs tracking-wider uppercase px-6 py-4 rounded-md hover:bg-[#c5a028] transition-colors"
           >
             <span>{data.ctaPrimary}</span>
             <ArrowRight className="w-4 h-4 shrink-0" />
@@ -194,7 +194,7 @@ export function Hero() {
 
           <button
             onClick={() => scrollToId("services")}
-            className="flex items-center justify-center gap-2 bg-transparent border border-[#d4af37]/60 text-gray-200 font-semibold text-xs tracking-wider uppercase px-6 py-3.5 rounded-md hover:bg-[#d4af37]/10 transition-colors"
+            className="flex items-center justify-center gap-2 bg-transparent border border-[#d4af37]/60 text-gray-200 font-semibold text-xs tracking-wider uppercase px-6 py-4 rounded-md hover:bg-[#d4af37]/10 transition-colors"
           >
             <Calculator className="w-4 h-4 shrink-0 text-[#d4af37]" />
             <span>{data.ctaSecondary}</span>
