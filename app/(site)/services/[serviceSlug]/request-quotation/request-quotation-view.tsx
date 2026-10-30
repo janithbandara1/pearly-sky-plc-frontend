@@ -63,6 +63,8 @@ import { HeroPriceSelector } from "@/components/hero-price-selector";
 import { PageHero } from "@/components/page-hero";
 import { PoolScheduleSection } from "@/components/booking/pool/pool-schedule-section";
 import { usePoolTheme } from "@/lib/pool-theme-context";
+import LaundryDashboard from "@/components/laundry/main-dashbaord";
+import { MovingTransportDashboard } from "@/components/move-in-out-transport/main-transport-dashboard";
 
 
 const CUSTOM_QUOTE_ITEMS: Record<
@@ -379,6 +381,10 @@ export function RequestQuotationView({ serviceSlug }: { serviceSlug: string }) {
     serviceSlug === "pool-cleaning" ||
     serviceSlug === "pool-cleaning-maintenance" ||
     serviceSlug.includes("pool");
+    const isLaundry = serviceSlug === "laundry-service";
+    const isMovingService =
+      serviceSlug === "move-in-out-transport-service" ||
+      serviceSlug === "move-in-out-transport-health";
   const { theme: poolTheme, setTheme: setPoolTheme, toggleTheme: togglePoolTheme } = usePoolTheme();
 
   const serviceContent =
@@ -777,6 +783,10 @@ export function RequestQuotationView({ serviceSlug }: { serviceSlug: string }) {
     "pool-cleaning-maintenance",
     ])
 
+  if (isMovingService) {
+    return <MovingTransportDashboard service={service} serviceSlug={serviceSlug} />;
+  }
+
   return (
     <main
       className={`flex-1 min-h-screen pb-16 font-sans transition-colors duration-300 ${
@@ -848,9 +858,12 @@ export function RequestQuotationView({ serviceSlug }: { serviceSlug: string }) {
           />
         ))}
 
-        {isPoolCleaning ? (
+        {isLaundry ?
+          <LaundryDashboard 
+                    />
+        : isPoolCleaning ? (
           <div className="w-full rounded-[15px]">
-            <PoolScheduleSection
+            <PoolScheduleSection 
               serviceId={service?.id ?? 13}
               serviceSlug={serviceSlug}
               serviceLabel={currentServiceLabel}
@@ -858,7 +871,7 @@ export function RequestQuotationView({ serviceSlug }: { serviceSlug: string }) {
               onThemeChange={setPoolTheme}
             />
           </div>
-        ) : (
+        )  : (
           /* MAIN SERVICE REQUEST DETAILS FORM BOX */
           <div className="mx-auto w-full max-w-7xl rounded-2xl sm:rounded-3xl border-2 border-[#A98B4B] bg-[#070d1b] p-5 sm:p-8 md:p-10 shadow-sm">
             <h2 className="mb-6 text-center sm:text-left text-base sm:text-lg font-bold uppercase tracking-wider text-gray-300">

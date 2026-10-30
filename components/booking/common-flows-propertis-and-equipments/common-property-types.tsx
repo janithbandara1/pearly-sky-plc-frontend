@@ -2062,10 +2062,7 @@ export function PropertyTypeSizeSelectorCommonFlowOfServices({
     <section id="pricing-engine"
       className="w-full flex flex-col justify-center items-center">
       {/* Dynamic Size & Area Floorplan Visualization Component */}
-      {isPool ?
-        (
-          <PoolBlueprintDiagram />
-        ) :
+      {
         isYachtSlug ? (
           <YatchSizeVisualization
             value={value}
@@ -2511,6 +2508,7 @@ export interface PropertySizeSelectorProps {
   activeCategory?: PropertyCategory | null;
   selectableCategories?: PropertyCategory[];
   onCategoryChange?: (category: PropertyCategory) => void;
+  
 }
 
 export function PropertySizeSelector({
@@ -2522,6 +2520,7 @@ export function PropertySizeSelector({
   activeCategory = null,
   selectableCategories = [],
   onCategoryChange,
+  
 }: PropertySizeSelectorProps) {
   const isLight = themeProp === "light";
   const [internalValue, setInternalValue] = useState<number>(isQuote ? 20 : 225);
@@ -2956,7 +2955,7 @@ export function PropertySizeSelector({
         </div>
 
             {/**User Guideline */}
-        <div
+        {isQuote && (<div
           className={`flex items-start gap-3 p-4 my-3 rounded-xl border transition-colors ${
             isLight
               ? 'bg-slate-50 border-amber-400 text-slate-800'
@@ -2972,7 +2971,7 @@ export function PropertySizeSelector({
               Use the slider or enter the exact size of your property.
             </p>
           </div>
-        </div>
+        </div>)}
         {/* Bottom Action Buttons: Increase Size & Decrease Size */}
         <div className="grid grid-cols-2 gap-3.5 w-full mt-1">
           {/* Increase Size Card */}
@@ -3068,10 +3067,10 @@ export function EstimatioMatrixBottomDuplicated({
         <div className={`flex flex-col justify-center p-4 md:p-5 rounded-xl border transition-colors duration-300 ${
           isLight ? "bg-[#F7F5F0] border-[#D8B63F]" : "bg-[#152238] border-[#FFD766]/60"
         }`}>
-          <p className={`text-[10px] md:text-[11px] font-bold tracking-widest uppercase mb-1.5 ${isLight ? "text-[#D8B63F]" : "text-[#FFD766]"}`}>
+          <p className={`text-[10px] md:text-[13px] font-bold tracking-widest uppercase mb-1.5 ${isLight ? "text-[#D8B63F]" : "text-[#FFD766]"}`}>
             ESTIMATED COST
           </p>
-          <p className={`text-base md:text-xl font-bold font-serif tracking-wide ${isLight ? "text-[#D8B63F]" : "text-[#FFD766]"}`}>
+          <p className={`text-[9px] md:text-[11px]  font-bold font-serif tracking-wide ${isLight ? "text-[#D8B63F]" : "text-[#FFD766]"}`}>
             €92.00 - €107.00
           </p>
         </div>
@@ -3080,14 +3079,14 @@ export function EstimatioMatrixBottomDuplicated({
         <div className={`flex flex-col justify-center p-4 md:p-5 rounded-xl border transition-colors duration-300 ${
           isLight ? "bg-[#F7F5F0] border-[#D8B63F]" : "bg-[#152238] border-[#FFD766]/60"
         }`}>
-          <p className={`text-[10px] md:text-[11px] font-bold tracking-widest uppercase mb-1.5 ${isLight ? "text-[#687386]" : "text-[#C3CDDC]"}`}>
+          <p className={`text-[10px] md:text-[12px] font-bold tracking-widest uppercase mb-1.5 ${isLight ? "text-[#687386]" : "text-[#C3CDDC]"}`}>
             EFFECTIVE HOURLY RATE
           </p>
           <div className="flex items-baseline gap-1.5">
-            <span className={`text-base md:text-xl font-bold tracking-wide ${isLight ? "text-[#1A2238]" : "text-white"}`}>
+            <span className={`text-[9px]  font-bold tracking-wide ${isLight ? "text-[#1A2238]" : "text-white"}`}>
               €29.00
             </span>
-            <span className={`text-xs font-sans ${isLight ? "text-[#687386]" : "text-[#C3CDDC]"}`}>
+            <span className={`text-[9px]  font-sans ${isLight ? "text-[#687386]" : "text-[#C3CDDC]"}`}>
               / hr
             </span>
           </div>
@@ -3097,10 +3096,10 @@ export function EstimatioMatrixBottomDuplicated({
         <div className={`flex flex-col justify-center p-4 md:p-5 rounded-xl border transition-colors duration-300 ${
           isLight ? "bg-[#F7F5F0] border-[#D8B63F]" : "bg-[#152238] border-[#FFD766]/60"
         }`}>
-          <p className={`text-[10px] md:text-[11px] font-bold tracking-widest uppercase mb-1.5 ${isLight ? "text-[#687386]" : "text-[#C3CDDC]"}`}>
+          <p className={`text-[10px] md:text-[12px] font-bold tracking-widest uppercase mb-1.5 ${isLight ? "text-[#687386]" : "text-[#C3CDDC]"}`}>
             ESTIMATED DURATION
           </p>
-          <p className={`text-base md:text-xl font-bold tracking-wide ${isLight ? "text-[#167A57]" : "text-[#36D6A0]"}`}>
+          <p className={`text-[9px] font-bold tracking-wide ${isLight ? "text-[#167A57]" : "text-[#36D6A0]"}`}>
             2.5 Hours <span className={`text-xs font-sans font-normal ${isLight ? "text-[#687386]" : "text-[#C3CDDC]"}`}>(1 Staff)</span>
           </p>
         </div>
@@ -3160,13 +3159,13 @@ export function EstimatioMatrixBottom({
             : "bg-[rgb(0_0_0/0.5)] border-[#FFD766]/60 text-white"
         }`}>
           <Maximize2 className={`w-4 h-4 mb-2 ${isLight ? "text-[#D8B63F]" : "text-[#FFD766]"}`} />
-          <p className={`text-[9px] md:text-[11px] font-bold tracking-widest uppercase mb-1 ${isLight ? "text-[#D8B63F]" : "text-[#FFD766]"}`}>
+          <p className={`text-[10px] md:text-[12px] font-bold tracking-widest uppercase mb-1 ${isLight ? "text-[#D8B63F]" : "text-[#FFD766]"}`}>
             PROPERTY SCALE
           </p>
-          <p className={`text-[10px] md:text-[18px] font-bold tracking-wide ${isLight ? "text-[#1A2238]" : "text-white"}`}>
+          <p className={`text-[9px]  font-bold tracking-wide ${isLight ? "text-[#1A2238]" : "text-white"}`}>
             {surfaceMatrixes.serviceTargetArea} m² 
           </p>
-          <p className={`text-[10px] font-sans mt-0.5 ${isLight ? "text-[#687386]" : "text-[#C3CDDC]"}`}>
+          <p className={`text-[9px] font-sans mt-0.5 ${isLight ? "text-[#687386]" : "text-[#C3CDDC]"}`}>
             {surfaceMatrixes.serviceTargetArea}
           </p>
         </div>
@@ -3178,13 +3177,13 @@ export function EstimatioMatrixBottom({
             : "bg-[rgb(0_0_0/0.5)] border-[#FFD766]/60 text-white"
         }`}>
           <Clock className={`w-4 h-4 mb-2 ${isLight ? "text-[#D8B63F]" : "text-[#FFD766]"}`} />
-          <p className={`text-[9px] md:text-[11px] font-bold tracking-widest uppercase mb-1 ${isLight ? "text-[#D8B63F]" : "text-[#FFD766]"}`}>
+          <p className={`text-[10px] md:text-[12px] font-bold tracking-widest uppercase mb-1 ${isLight ? "text-[#D8B63F]" : "text-[#FFD766]"}`}>
             TOTAL DURATION
           </p>
-          <p className={`text-xs md:text-base font-bold tracking-wide ${isLight ? "text-[#1A2238]" : "text-white"}`}>
+          <p className={`text-[9px] font-bold tracking-wide ${isLight ? "text-[#1A2238]" : "text-white"}`}>
             {labourData.split("(")[0]}
           </p>
-          <p className={`text-[10px] font-sans mt-0.5 ${isLight ? "text-[#687386]" : "text-[#C3CDDC]"}`}>Estimated</p>
+          <p className={`text-[9px] font-sans mt-0.5 ${isLight ? "text-[#687386]" : "text-[#C3CDDC]"}`}>Estimated</p>
         </div>
 
         {/* Card 3: Allocated Staff */}
@@ -3194,14 +3193,14 @@ export function EstimatioMatrixBottom({
             : "bg-[rgb(0_0_0/0.5)] border-[#FFD766]/60 text-white"
         }`}>
           <Users className={`w-4 h-4 mb-2 ${isLight ? "text-[#D8B63F]" : "text-[#FFD766]"}`} />
-          <p className={`text-[9px] md:text-[11px] font-bold tracking-widest uppercase mb-1 ${isLight ? "text-[#D8B63F]" : "text-[#FFD766]"}`}>
+          <p className={`text-[10px] md:text-[12px] font-bold tracking-widest uppercase mb-1 ${isLight ? "text-[#D8B63F]" : "text-[#FFD766]"}`}>
             ALLOCATED STAFF
           </p>
-          <p className={`text-[9px] md:text-[11px] font-bold tracking-wide ${isLight ? "text-[#1A2238]" : "text-white"}`}>
+          <p className={`text-[9px] font-bold tracking-wide ${isLight ? "text-[#1A2238]" : "text-white"}`}>
             2
           </p>
           
-          <p className={`text-[10px] font-sans mt-0.5 ${isLight ? "text-[#687386]" : "text-[#D8B63F]"}`}>
+          <p className={`text-[9px] font-sans mt-0.5 ${isLight ? "text-[#687386]" : "text-[#D8B63F]"}`}>
             SPECIALIST TEAM
           </p>
         
@@ -3214,13 +3213,13 @@ export function EstimatioMatrixBottom({
             : "bg-[rgb(0_0_0/0.5)] border-[#FFD766]/60 text-white"
         }`}>
           <Calendar className={`w-4 h-4 mb-2 ${isLight ? "text-[#D8B63F]" : "text-[#FFD766]"}`} />
-          <p className={`text-[9px] md:text-[11px] font-bold tracking-widest uppercase mb-1 text-center ${isLight ? "text-[#D8B63F]" : "text-[#FFD766]"}`}>
+          <p className={`text-[10px] md:text-[12px] font-bold tracking-widest uppercase mb-1 text-center ${isLight ? "text-[#D8B63F]" : "text-[#FFD766]"}`}>
             ON–SITE WINDOW
           </p>
-          <p className={`text-[9px] md:text-[11px] font-bold text-center tracking-wide leading-tight ${isLight ? "text-[#1A2238]" : "text-white"}`}>
+          <p className={`text-[9px]  font-bold text-center tracking-wide leading-tight ${isLight ? "text-[#1A2238]" : "text-white"}`}>
             9h 30m – 10h 30m
           </p>
-          <p className={`text-[9px] md:text-[10px] font-sans mt-0.5 ${isLight ? "text-[#687386]" : "text-[#C3CDDC]"}`}>
+          <p className={`text-[9px]  font-sans mt-0.5 ${isLight ? "text-[#687386]" : "text-[#C3CDDC]"}`}>
             Time frame
             </p>
         </div>
@@ -3861,7 +3860,7 @@ export function SanitizeSizeVisualization({
                       textAnchor="middle"
                       letterSpacing="2"
                     >
-                      PASSENGER SHIP - PROMENADE DECK
+                      Residential
                     </text>
 
                     <g
@@ -4576,62 +4575,94 @@ const BottomMatrixDiagram=({
       {/* Grid Cards Container: 1 column on mobile, 3 columns on desktop */}
       <div className="grid grid-cols-1 md:grid-cols-4 gap-3 md:gap-2">
 
-        {/* Card 1: Estimated Cost */}
-        <div className={`flex flex-col justify-center p-4 md:p-2 rounded-xl shadow-md  transition-colors duration-300 ${
-          isLight ? "bg-[#fff] " : "bg-[#152238] border border-[#FFD766]/60"
-        }`}>
-          <Calculator className={`w-5 h-5 ${isLight ? "text-[#002F6D]" : "text-[#FFD766]"} `} />
-          <p className={`text-[10px] md:text-[11px] font-bold tracking-widest uppercase mb-1.5 ${isLight ? "text-[#002F6D]" : "text-[#FFD766]"}`}>
-            ESTIMATED COST
-          </p>
-          <p className={`text-base md:text-xl font-bold font-serif tracking-wide ${isLight ? "text-[#D8B63F]" : "text-[#FFD766]"}`}>
-            €92.00 - €107.00
-          </p>
-        </div>
+              
 
-        {/* Card 2: Effective Hourly Rate */}
-        <div className={`flex flex-col justify-center p-4 md:p-2 rounded-xl  shadow-md transition-colors duration-300 ${
-          isLight ? "bg-[#fff] " : "bg-[#152238] border border-[#FFD766]/60"
-        }`}>
-          <Clock className={`w-5 h-5 ${isLight ? "text-[#002F6D]" : "text-[#FFD766]"} `} />
-          <p className={`text-[10px] md:text-[11px] font-bold  uppercase mb-1.5 ${isLight ? "text-[#002F6D]" : "text-[#FFD766]"}`}>
-            EFFECTIVE HOURLY RATE
-          </p>
-          <div className="flex items-baseline gap-1.5">
-            <span className={`text-base md:text-xl font-bold tracking-wide ${isLight ? "text-[#1A2238]" : "text-white"}`}>
-              €29.00
-            </span>
-            <span className={`text-xs font-sans ${isLight ? "text-[#687386]" : "text-[#C3CDDC]"}`}>
-              / hr
+          {/* Card 1: Estimated Cost */}
+          <div className={`flex flex-col justify-center p-4 md:p-3 rounded-xl shadow-md transition-colors duration-300 ${
+            isLight ? "bg-[#fff]" : "bg-[#152238] border border-[#FFD766]/60"
+          }`}>
+            <Calculator className={`w-5 h-5 mb-2 ${isLight ? "text-[#002F6D]" : "text-[#FFD766]"}`} />
+            <p className={`text-[10px] md:text-[12px] font-bold tracking-widest uppercase mb-1 ${
+              isLight ? "text-[#002F6D]" : "text-[#FFD766]"
+            }`}>
+              ESTIMATED COST
+            </p>
+            <span className={`text-[9px] md:text-[10px] font-bold  tracking-wide ${
+              isLight ? "text-[#D8B63F]" : "text-[#FFD766]"
+            }`}>
+              €92.00 - €107.00
             </span>
           </div>
-        </div>
 
-        {/* Card 3: Estimated Duration */}
-        <div className={`flex flex-col justify-center p-4 md:p-2 rounded-xl  shadow-md transition-colors duration-300 ${
-          isLight ? " bg-[#fff]" : "bg-[#152238] border border-[#FFD766]/60"
-        }`}>
-          <IoStopwatchOutline className={`w-5 h-5 ${isLight ? "text-[#002F6D]" : "text-[#FFD766]"} `}  />
-          <p className={`text-[10px] md:text-[11px] font-bold tracking-widest uppercase mb-1.5 ${isLight ? "text-[#002F6D]" : "text-[#FFD766]"}`}>
-            ESTIMATED DURATION
-          </p>
-          <p className={`text-base md:text-xl font-bold tracking-wide ${isLight ? "text-[#167A57]" : "text-[#36D6A0]"}`}>
-            2.5 Hours <span className={`text-xs font-sans font-normal ${isLight ? "text-[#687386]" : "text-[#C3CDDC]"}`}>(1 Staff)</span>
-          </p>
-        </div>
+          {/* Card 2: Effective Hourly Rate */}
+          <div className={`flex flex-col justify-center p-4 md:p-3 rounded-xl shadow-md transition-colors duration-300 ${
+            isLight ? "bg-[#fff]" : "bg-[#152238] border border-[#FFD766]/60"
+          }`}>
+            <Clock className={`w-5 h-5 mb-2 ${isLight ? "text-[#002F6D]" : "text-[#FFD766]"}`} />
+            <p className={`text-[10px] md:text-[12px] font-bold tracking-widest uppercase mb-1 ${
+              isLight ? "text-[#002F6D]" : "text-[#FFD766]"
+            }`}>
+              EFFECTIVE HOURLY RATE
+            </p>
+            <div className="flex items-baseline gap-1.5">
+              <span className={`text-[9px] font-bold tracking-wide ${
+                isLight ? "text-[#1A2238]" : "text-white"
+              }`}>
+                €29.00
+              </span>
+              <span className={`text-[9px] font-sans ${
+                isLight ? "text-[#687386]" : "text-[#C3CDDC]"
+              }`}>
+                / hr
+              </span>
+            </div>
+          </div>
 
-        {/* Card 4: Staff */}
-        <div className={`flex flex-col justify-center p-4 md:p-2 rounded-xl  shadow-md transition-colors duration-300 ${
-          isLight ? "bg-[#fff] " : "bg-[#152238] border border-[#FFD766]/60"
-        }`}>
-          <Users2 className={`w-5 h-5 ${isLight ? "text-[#002F6D]" : "text-[#FFD766]"} `}/>
-          <p className={`text-[10px] md:text-[11px] font-bold tracking-widest uppercase mb-1.5 ${isLight ? "text-[#002F6D]" : "text-[#FFD766]"}`}>
-            Staff
-          </p>
-          <p className={`text-base md:text-xl font-bold tracking-wide ${isLight ? "text-[#167A57]" : "text-[#36D6A0]"}`}>
-            2  <span className={`text-xs font-sans font-normal ${isLight ? "text-[#687386]" : "text-[#C3CDDC]"}`}> Staff</span>
-          </p>
-        </div>
+          {/* Card 3: Estimated Duration */}
+          <div className={`flex flex-col justify-center p-4 md:p-3 rounded-xl shadow-md transition-colors duration-300 ${
+            isLight ? "bg-[#fff]" : "bg-[#152238] border border-[#FFD766]/60"
+          }`}>
+            <IoStopwatchOutline className={`w-5 h-5 mb-2 ${isLight ? "text-[#002F6D]" : "text-[#FFD766]"}`} />
+            <p className={`text-[10px] md:text-[12px] font-bold tracking-widest uppercase mb-1 ${
+              isLight ? "text-[#002F6D]" : "text-[#FFD766]"
+            }`}>
+              ESTIMATED DURATION
+            </p>
+            <p className={`text-[9px] font-bold tracking-wide ${
+              isLight ? "text-[#167A57]" : "text-[#36D6A0]"
+            }`}>
+              2.5 Hours{" "}
+              <span className={`text-[9px] font-sans font-normal ${
+                isLight ? "text-[#687386]" : "text-[#C3CDDC]"
+              }`}>
+                (1 Staff)
+              </span>
+            </p>
+          </div>
+
+          {/* Card 4: Staff */}
+          <div className={`flex flex-col justify-center p-4 md:p-3 rounded-xl shadow-md transition-colors duration-300 ${
+            isLight ? "bg-[#fff]" : "bg-[#152238] border border-[#FFD766]/60"
+          }`}>
+            <Users2 className={`w-5 h-5 mb-2 ${isLight ? "text-[#002F6D]" : "text-[#FFD766]"}`} />
+            <p className={`text-[10px] md:text-[12px] font-bold tracking-widest uppercase mb-1 ${
+              isLight ? "text-[#002F6D]" : "text-[#FFD766]"
+            }`}>
+              Staff
+            </p>
+            <p className={`text-[9px] font-bold tracking-wide ${
+              isLight ? "text-[#167A57]" : "text-[#36D6A0]"
+            }`}>
+              2{" "}
+              <span className={`text-[9px] font-sans font-normal ${
+                isLight ? "text-[#687386]" : "text-[#C3CDDC]"
+              }`}>
+                Staff
+              </span>
+            </p>
+          </div>
+
+
 
       </div>
 

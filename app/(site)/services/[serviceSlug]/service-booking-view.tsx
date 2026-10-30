@@ -64,6 +64,7 @@ import Equipments from "@/components/booking/booking new flow/equipments";
 import LocationAccessSection from "@/components/booking/quotation-common-flow/LocationAccessSection";
 import ServiceFrequencySelector from "@/components/booking/common-flows-propertis-and-equipments/service-frequency";
 import BookingValidationModal, { type ValidationModalItem } from "@/components/booking/BookingValidationModal";
+import LaundryDashboard from "@/components/laundry/main-dashbaord";
 
 export const poppins = Poppins({ subsets: ["latin"], weight: ["400", "500", "600", "700", "800"], adjustFontFallback: false });
 
@@ -274,7 +275,7 @@ export function ServiceBookingView({
   const isPressureWashing = serviceSlug === PRESSURE_WASHING_SLUG;
   const isYachtService = serviceSlug === YACHT_SLUG && isDedicatedFlowService(serviceSlug);
   const isPoolCleaning = serviceSlug === POOL_CLEANING_SLUG;
-
+  const isLaundry = serviceSlug === "laundry-service/request-quotation";
   const isCareService = isChildCare || isElderCare;
   const isFlowService = isDedicatedFlowService(serviceSlug);
   const serviceContent = SERVICE_CONTENT[serviceSlug];
@@ -952,6 +953,10 @@ export function ServiceBookingView({
             serviceLabel={service.label}
             items={items}
             hourlyRate={service.price}
+          />
+        ) : isLaundry ? (
+          <LaundryDashboard
+            
           />
         ) : isCareService ? (
           <CareScheduleSection

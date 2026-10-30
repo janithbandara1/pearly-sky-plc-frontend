@@ -115,7 +115,7 @@ function CountryPicker({
         </div>
       )}
       {isOpen && (
-        <div className="absolute block md:hidden -right-[50px] -top-10 max-h-[200px] z-50 mb-2 w-35 overflow-hidden rounded-l-lg border border-[rgb(169,139,75)]/40 bg-[rgb(18,30,45)] shadow-xl">
+        <div className="absolute block md:hidden -right-[50px] -top-10 max-h-[200px] z-50 mb-2 w-35 overflow-hidden rounded-l-lg border border-[#D4AF37] bg-[rgb(18,30,45)] shadow-xl">
           <CountryOptions
             activePrices={activePrices}
             selectedCountryCode={selectedCountryCode}
@@ -167,8 +167,8 @@ export function HeroPriceSelector({
         </div>
         
       </div>
-
-      <div className="absolute border-[rgba(212_175_55/0.3)] bottom-10  z-14 my-2 flex w-[330px] flex-col gap-1 rounded-lg bg-white px-2 py-1 md:hidden">
+    {/**Mobile */}
+      <div className="absolute border-[rgba(212_175_55/0.3)] bottom-10 left-8 z-14 my-2 flex w-[330px] flex-col gap-1 rounded-lg bg-white px-2 py-1 md:hidden">
         <div className="flex">
           <div className="w-full">
             <PriceLabel

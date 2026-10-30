@@ -54,7 +54,8 @@ export function SiteHeader({ navLinks: navLinksProp, showServicesMenu: showServi
   const { status, logout } = useAuth();
   const pathname = usePathname();
   const homeURIPaths=["/en","/fr","/uk","/lk"];
-  const isPoolPage = Boolean(pathname && !homeURIPaths.includes(pathname) &&(!pathname.includes("care")) || (pathname.includes("pool-cleaning") || pathname.includes("pool") || pathname.includes("pool") || pathname.includes("precision-pressure") || pathname.includes("carpet-upholstery-cleaning")));
+  const noThemeTogglePages = ["/privacy-policy", "/cookie-policy", "/quotation-policy", "/terms-of-service","/about-us","/our-customers","/our-locations","blog","/careers","/contact-us"];
+  const isPoolPage = Boolean(pathname && !noThemeTogglePages.includes(pathname) && !homeURIPaths.includes(pathname) &&(!pathname.includes("care")) || (pathname.includes("pool-cleaning") || pathname.includes("pool") || pathname.includes("pool") || pathname.includes("precision-pressure") || pathname.includes("carpet-upholstery-cleaning")));
   const { theme: poolTheme, toggleTheme: togglePoolTheme } = usePoolTheme();
   const [mobileOpen, setMobileOpen] = useState(false);
   const [servicesOpen, setServicesOpen] = useState(false);

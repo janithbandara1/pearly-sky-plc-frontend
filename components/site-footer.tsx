@@ -159,19 +159,19 @@ export function SiteFooter() {
               Quick Links
             </h3>
 
-            <ul className="space-y-1.5 text-xs text-slate-400">
+            <div className="space-y-1.5 text-xs text-slate-400">
               {QUICK_LINKS.map(({ href, labelKey }) => (
-                <li key={href}>
+                <div key={href}>
                   <Link
                     href={localeHref(href)}
-                    className="group inline-flex items-center gap-1.5 transition-colors hover:text-[#f6d87e]"
+                    className="group flex items-center gap-1.5 transition-colors hover:text-[#f6d87e]"
                   >
                     <ChevronRight className="h-3 w-3 shrink-0 text-[#D4AF37] transition-transform group-hover:translate-x-0.5" />
                     <span>{translate(labelKey)}</span>
                   </Link>
-                </li>
+                </div>
               ))}
-            </ul>
+            </div>
           </div>
 
           {/* Services */}

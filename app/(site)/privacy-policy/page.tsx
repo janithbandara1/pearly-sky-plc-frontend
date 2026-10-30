@@ -6,6 +6,7 @@ import { buildCountryAlternates, buildSocialMeta } from "@/lib/countries/seo";
 import { STATIC_PAGE_META } from "@/lib/countries/meta-data";
 import { PRIVACY_POLICY } from "@/lib/content/legal/privacy-policy";
 import { LegalDocumentView } from "@/components/legal/legal-document";
+import PolicyPageContent from "./policy-view";
 
 export async function generateMetadata(): Promise<Metadata> {
   const language = await getRequestLanguage();
@@ -29,11 +30,7 @@ export default async function PrivacyPolicyPage() {
           { name: "Home", path: "/" },
           { name: doc.title, path: "/privacy-policy" },
         ]} />
-      <PageHero image="/images/about/hero.webp" hidePriceSelector title={doc.title} />
-
-      <div className="mx-auto flex w-full max-w-3xl flex-col gap-8 px-4 py-16 sm:px-6">
-        <LegalDocumentView doc={doc} />
-      </div>
+      <PolicyPageContent />
     </main>
   );
 }

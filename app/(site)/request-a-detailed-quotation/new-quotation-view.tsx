@@ -201,6 +201,7 @@ export default function RequestDetailedQuotationPage({
         isLight ? "bg-[#ededee] text-[#1B2E4B]" : "bg-[#070b14] text-white"
       }`}
     >
+      
       <PageHero
         image={"/images/services/updated-images/request-quotation-hero-image.webp"}
         eyebrow="Book a service"
