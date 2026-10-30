@@ -244,12 +244,15 @@ const cardClass = "rounded-3xl border border-gold-600/30 bg-white p-6 shadow-xl 
 export function GlobalQuotationPage({
   services,
   initialServiceName,
+  initialLocation,
   defaultDate,
   minDate,
 }: {
   services: QuotationServiceOption[];
   /** Preselected from the page's `?service=` param (a Book Now button). */
   initialServiceName?: string;
+  /** Prefilled from the availability dialog's `country`, `city` and `postal` params. */
+  initialLocation?: { country?: string; city?: string; postalCode?: string };
   /** Tomorrow, as YYYY-MM-DD. */
   defaultDate: string;
   /** Today, as YYYY-MM-DD. */
@@ -285,9 +288,9 @@ export function GlobalQuotationPage({
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
 
-  const [country, setCountry] = useState("");
-  const [postalCode, setPostalCode] = useState("");
-  const [city, setCity] = useState("");
+  const [country, setCountry] = useState(initialLocation?.country ?? "");
+  const [postalCode, setPostalCode] = useState(initialLocation?.postalCode ?? "");
+  const [city, setCity] = useState(initialLocation?.city ?? "");
   const [province, setProvince] = useState("");
   const [street, setStreet] = useState("");
   const [unit, setUnit] = useState("");

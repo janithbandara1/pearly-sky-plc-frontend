@@ -24,6 +24,7 @@ import { greatVibes, playfair } from "./fonts";
 import { SERVICE_ORDER } from "./services-order";
 import { CATEGORY_BY_SERVICE, SERVICE_CATEGORIES, serviceCardImage, type ServiceCategoryId } from "./services-catalog";
 import { ServicesContactForm } from "./services-contact-form";
+import { ServiceAvailabilityDialog } from "./service-availability-dialog";
 
 const HERO_FEATURES: { Icon: typeof Leaf; titleKey: GlobalKey; subtitleKey: GlobalKey }[] = [
   { Icon: Leaf, titleKey: "svc.feature.eco.title", subtitleKey: "svc.feature.eco.subtitle" },
@@ -54,14 +55,23 @@ export function GlobalServicesPage({ content }: { content: OurServicesContent })
   const [category, setCategory] = useState<ServiceCategoryId | "all">("all");
   const [details, setDetails] = useState<OurServiceCopy | null>(null);
   const dialogRef = useRef<HTMLDialogElement>(null);
+  const availabilityRef = useRef<HTMLDialogElement>(null);
+  const [bookingService, setBookingService] = useState<string | null>(null);
 
   const visible = useMemo(
     () => services.filter((service) => category === "all" || CATEGORY_BY_SERVICE[service.id] === category),
     [services, category],
   );
 
-  /** Book Now opens the full request-quotation page with this service preselected — the gateway takes no bookings. */
-  const bookHref = (id: string) => `/request-quotation?service=${encodeURIComponent(id)}`;
+  /**
+   * Book Now first asks where the service is needed (availability dialog), which then
+   * continues to the request-quotation page with this service preselected — the gateway takes no bookings.
+   */
+  const openBooking = (id: string) => {
+    dialogRef.current?.close();
+    setBookingService(id);
+    availabilityRef.current?.showModal();
+  };
 
   const openDetails = (service: OurServiceCopy) => {
     setDetails(service);
@@ -191,10 +201,10 @@ export function GlobalServicesPage({ content }: { content: OurServicesContent })
                     <p className="line-clamp-3 text-[11px] leading-relaxed text-slate-400">{service.headline}</p>
                   </div>
                   <div className="space-y-2">
-                    <Link href={bookHref(service.id)} className={bookNowClass}>
+                    <button type="button" onClick={() => openBooking(service.id)} className={bookNowClass}>
                       <span>{t("common.bookNow")}</span>
                       <ArrowRight className="h-2.5 w-2.5" />
-                    </Link>
+                    </button>
                     <button
                       type="button"
                       onClick={() => openDetails(service)}
@@ -277,11 +287,27 @@ export function GlobalServicesPage({ content }: { content: OurServicesContent })
               ))}
             </div>
 
-            <Link href={bookHref(details.id)} className={`${bookNowClass} mt-6 py-3 text-sm`}>
+            <button type="button" onClick={() => openBooking(details.id)} className={`${bookNowClass} mt-6 py-3 text-sm`}>
               <span>{t("common.bookNow")}</span>
               <ArrowRight className="h-3 w-3" />
-            </Link>
+            </button>
           </>
+        )}
+      </dialog>
+
+      <dialog
+        ref={availabilityRef}
+        aria-labelledby="availability-title"
+        onClose={() => setBookingService(null)}
+        onClick={(event) => event.target === availabilityRef.current && availabilityRef.current?.close()}
+        className="m-auto max-h-[90vh] w-[calc(100%-2rem)] max-w-lg overflow-y-auto rounded-3xl border border-gold-500/30 bg-navy-800 p-6 text-slate-100 shadow-2xl backdrop:bg-navy-900/80 backdrop:backdrop-blur-md sm:p-8"
+      >
+        {bookingService && (
+          <ServiceAvailabilityDialog
+            key={bookingService}
+            serviceId={bookingService}
+            onClose={() => availabilityRef.current?.close()}
+          />
         )}
       </dialog>
     </main>

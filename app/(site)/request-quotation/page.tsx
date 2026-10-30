@@ -62,15 +62,15 @@ export default async function RequestDetailedQuotationPage({
 export default async function page({
   searchParams,
 }: {
-  /** `service` — a base service name (e.g. "deep-cleaning") to preselect, as the global site's Book Now buttons pass. */
-  searchParams: Promise<{ service?: string }>;
+  /** `service` — a base service name (e.g. "deep-cleaning") to preselect, as the global site's Book Now buttons pass; `country`/`city`/`postal` prefill the location the availability dialog collected. */
+  searchParams: Promise<{ service?: string; country?: string; city?: string; postal?: string }>;
 }){
   const getCachedServices = unstable_cache(
     (country: string | null, language: string | null) => getServices(country, language),
     ["home-services"],
     { revalidate: 60 },
   );
-  const [country, language, { service }] = await Promise.all([getRequestCountry(), getRequestLanguage(), searchParams]);
+  const [country, language, { service, country: initialCountry, city: initialCity, postal: initialPostal }] = await Promise.all([getRequestCountry(), getRequestLanguage(), searchParams]);
   const services =  (await getCachedServices(country, language)).map(toHomeService);
 
   // The global gateway's own multi-service quotation portal: every quotable
@@ -101,6 +101,7 @@ export default async function page({
         <GlobalQuotationPage
           services={options}
           initialServiceName={service}
+          initialLocation={{ country: initialCountry, city: initialCity, postalCode: initialPostal }}
           defaultDate={isoDate(1)}
           minDate={isoDate(0)}
         />
