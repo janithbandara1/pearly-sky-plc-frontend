@@ -2230,7 +2230,7 @@ export function PropertyTypeSizeSelectorCommonFlowOfServices({
             {/* Property Category Image Cards */}
             <div
               id="property-category-scroll"
-              className="flex flex-nowrap gap-3 sm:gap-4 pt-4 pb-2 overflow-x-auto overflow-y-hidden -mx-1 px-1 [&::-webkit-scrollbar]:hidden"
+              className="flex flex-nowrap gap-3 sm:gap-4 pt-4 pb-1 overflow-x-auto overflow-y-hidden -mx-1 px-1 [&::-webkit-scrollbar]:hidden"
               style={{ scrollbarWidth: "none", scrollSnapType: "x mandatory" }}
             >
               {selectableCategories.map((cat) => {
@@ -2241,7 +2241,7 @@ export function PropertyTypeSizeSelectorCommonFlowOfServices({
                     type="button"
                     onClick={() => handleCardClick(cat.id)}
                     style={{ scrollSnapAlign: "start" }}
-                    className={`group shrink-0 w-[150px] md:w-[220px] flex flex-col justify-start rounded-xl overflow-hidden cursor-pointer transition-all duration-300 select-none border-2 ${
+                    className={`group shrink-0 w-[170px] h-[130px] md:h-auto md:w-[220px] flex flex-col justify-start rounded-xl overflow-hidden cursor-pointer transition-all duration-300 select-none border-2 ${
                       isSelected
                         ? isLight
                           ? "border-[#D8B63F] scale-[1.02]"
@@ -2252,7 +2252,7 @@ export function PropertyTypeSizeSelectorCommonFlowOfServices({
                     }`}
                   >
                     {/* Image Section */}
-                    <div className="relative w-full h-[125px] md:h-[135px]  overflow-hidden shrink-0">
+                    <div className="relative w-full h-[85px] md:h-[135px]  overflow-hidden shrink-0">
                       {cat.img ? (
                         <Image
                           src={cat.img}
@@ -2310,7 +2310,7 @@ export function PropertyTypeSizeSelectorCommonFlowOfServices({
                       {/* Title */}
                       <div className="">
                             <span
-                        className={`text-[12px] sm:text-[13px] font-semibold leading-tight line-clamp-2 block ${
+                        className={`text-[10px] md:text-[13px] font-semibold leading-tight line-clamp-2 block ${
                           isSelected
                             ? isLight
                               ? "text-[#1A2238]"
@@ -2687,7 +2687,7 @@ export function PropertySizeSelector({
   return (
     <div
       ref={wheelContainerRef}
-      className={`flex flex-col w-full mt-8 rounded-[28px] p-4 md:p-8 gap-6 shadow-2xl select-none border transition-all duration-300 ${isLight
+      className={`flex flex-col w-full mt-2 md:mt-8 rounded-[28px] p-4 md:p-8 gap-6 shadow-2xl select-none border transition-all duration-300 ${isLight
         ? "bg-white border-[#D9DDE5] text-[#1A2238]"
         : "bg-[#1B2A40] border-[#718096]/60 text-white"
         } ${className}`}
@@ -2705,7 +2705,7 @@ export function PropertySizeSelector({
                 </div>
                 <div>
                   <h2
-                    className={`font-serif text-2xl font-bold tracking-tight ${
+                    className={`font-serif text-[17px] md:text-2xl font-bold tracking-tight ${
                       isLight ? "text-[#002F6D]" : "text-white"
                     }`}
                   >
@@ -2719,7 +2719,7 @@ export function PropertySizeSelector({
               :
          (<div className="flex flex-col">
           <h3
-            className={`font-serif text-2xl sm:text-3xl font-bold tracking-tight ${isLight ? "text-[#1A2238]" : "text-white"
+            className={`font-serif md:text-2xl text-[17px] font-bold tracking-tight ${isLight ? "text-[#1A2238]" : "text-white"
               }`}
           >
             {translate("propSizeTitle") || "Property Size"}
@@ -2973,13 +2973,13 @@ export function PropertySizeSelector({
           </div>
         </div>)}
         {/* Bottom Action Buttons: Increase Size & Decrease Size */}
-        <div className="grid grid-cols-2 gap-3.5 w-full mt-1">
+        <div className="grid grid-cols-2 md:gap-3.5 gap-1.5 w-full mt-2">
           {/* Increase Size Card */}
           <button
             type="button"
             onClick={() => handleStepChange(bottomStep)}
             disabled={value >= MAX_SIZE}
-            className={`rounded-2xl border p-4 sm:p-5 flex items-center gap-3.5 transition-all text-left cursor-pointer disabled:opacity-40 disabled:cursor-not-allowed group active:scale-[0.98] ${isLight
+            className={`rounded-2xl border py-2 px-1  md:p-4   flex items-center gap-3.5 transition-all text-left cursor-pointer disabled:opacity-40 disabled:cursor-not-allowed group active:scale-[0.98] ${isLight
               ? "bg-[#F7F5F0] border-[#D9DDE5] hover:border-[#D8B63F] shadow-sm text-[#1A2238]"
               : "bg-[#152238] border-[#718096]/60 hover:border-[#FFD766] text-white"
               }`}
@@ -2994,7 +2994,7 @@ export function PropertySizeSelector({
             </div>
             <div className="flex flex-col max-w-full">
               <span
-                className={`text-[10px] md:text-base font-bold leading-tight ${isLight ? "text-[#1A2238]" : "text-white"
+                className={`text-[9px] md:text-base font-bold leading-tight ${isLight ? "text-[#1A2238]" : "text-white"
                   }`}
               >
                 {"Increase Size"}
@@ -3010,7 +3010,7 @@ export function PropertySizeSelector({
             type="button"
             onClick={() => handleStepChange(-bottomStep)}
             disabled={value <= MIN_SIZE}
-            className={`rounded-2xl border p-4 sm:p-5 flex items-center gap-3.5 transition-all text-left cursor-pointer disabled:opacity-40 disabled:cursor-not-allowed group active:scale-[0.98] ${isLight
+            className={`rounded-2xl border py-2 px-1 md:p-4  flex items-center gap-3.5 transition-all text-left cursor-pointer disabled:opacity-40 disabled:cursor-not-allowed group active:scale-[0.98] ${isLight
               ? "bg-[#F7F5F0] border-[#D9DDE5] hover:border-[#D8B63F] shadow-sm text-[#1A2238]"
               : "bg-[#152238] border-[#718096]/60 hover:border-[#FFD766] text-white"
               }`}
@@ -3025,7 +3025,7 @@ export function PropertySizeSelector({
             </div>
             <div className="flex flex-col">
               <span
-                className={`text-[10px] md:text-base font-bold leading-tight ${isLight ? "text-[#1A2238]" : "text-white"
+                className={`text-[9px] md:text-base font-bold leading-tight ${isLight ? "text-[#1A2238]" : "text-white"
                   }`}
               >
                 {"Decrease Size"}
@@ -3134,13 +3134,13 @@ export function EstimatioMatrixBottom({
   const isLight = theme === "light";
 
   return (
-    <div className={`w-full rounded-2xl border p-4 md:p-6 relative overflow-hidden select-none font-mono transition-colors duration-300 ${
+    <div className={`w-full rounded-2xl border p-3 md:p-6 relative overflow-hidden select-none font-mono transition-colors duration-300 ${
       isLight 
         ? "bg-white border-[#D8B63F] text-[#1A2238] shadow-sm" 
         : "bg-[#1B2A40] border-[#FFD766]/60 text-white"
     }`}>
       {/* Header Section */} 
-      <div className={`mb-4 pb-3 border-b ${isLight ? "border-[#D9DDE5]" : "border-[#718096]/40"}`}>
+      <div className={`mb-3 pb-2 border-b ${isLight ? "border-[#D9DDE5]" : "border-[#718096]/40"}`}>
         <h3 className={`text-base md:text-xl font-bold tracking-tight font-serif ${isLight ? "text-[#1A2238]" : "text-[#FFD766]"}`}>
           Service Estimate
         </h3>
@@ -3153,73 +3153,73 @@ export function EstimatioMatrixBottom({
       <div className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4">
 
         {/* Card 1: Property Scale / Target Area */}
-        <div className={`flex w-full flex-col items-center justify-center p-3.5 md:p-4 rounded-xl border transition-colors duration-300 ${
+        <div className={`flex w-full flex-col items-center justify-between p-3.5 md:p-4 rounded-xl border transition-colors duration-300 ${
           isLight 
             ? "bg-[#fff] shadow-md border-gray-300 text-[#1A2238]" 
             : "bg-[rgb(0_0_0/0.5)] border-[#FFD766]/60 text-white"
         }`}>
-          <Maximize2 className={`w-4 h-4 mb-2 ${isLight ? "text-[#D8B63F]" : "text-[#FFD766]"}`} />
-          <p className={`text-[10px] md:text-[12px] font-bold tracking-widest uppercase mb-1 ${isLight ? "text-[#D8B63F]" : "text-[#FFD766]"}`}>
+          <Maximize2 className={`w-6 h-6 mb-2 ${isLight ? "text-[#D8B63F]" : "text-[#FFD766]"}`} />
+          <p className={`text-[10px] font-bold tracking-widest uppercase mb-1 ${isLight ? "text-[#D8B63F]" : "text-[#FFD766]"}`}>
             PROPERTY SCALE
           </p>
-          <p className={`text-[9px]  font-bold tracking-wide ${isLight ? "text-[#1A2238]" : "text-white"}`}>
+          <p className={`md:text-base text-[11px]  font-bold tracking-wide ${isLight ? "text-[#1A2238]" : "text-white"}`}>
             {surfaceMatrixes.serviceTargetArea} m² 
           </p>
-          <p className={`text-[9px] font-sans mt-0.5 ${isLight ? "text-[#687386]" : "text-[#C3CDDC]"}`}>
+          <p className={`text-[10px] font-sans mt-0.5 ${isLight ? "text-[#687386]" : "text-[#C3CDDC]"}`}>
             {surfaceMatrixes.serviceTargetArea}
           </p>
         </div>
 
         {/* Card 2: Total Duration / Est Labor */}
-        <div className={`flex  flex-col items-center justify-center p-3.5 md:p-4 rounded-xl border transition-colors duration-300 ${
+        <div className={`flex  flex-col items-center justify-between p-3.5 md:p-4 rounded-xl border transition-colors duration-300 ${
           isLight 
             ? "bg-[#fff] shadow-md border-gray-300 text-[#1A2238]" 
             : "bg-[rgb(0_0_0/0.5)] border-[#FFD766]/60 text-white"
         }`}>
-          <Clock className={`w-4 h-4 mb-2 ${isLight ? "text-[#D8B63F]" : "text-[#FFD766]"}`} />
-          <p className={`text-[10px] md:text-[12px] font-bold tracking-widest uppercase mb-1 ${isLight ? "text-[#D8B63F]" : "text-[#FFD766]"}`}>
+          <Clock className={`w-6 h-6 mb-2 ${isLight ? "text-[#D8B63F]" : "text-[#FFD766]"}`} />
+          <p className={`text-[10px]  font-bold tracking-widest uppercase mb-1 ${isLight ? "text-[#D8B63F]" : "text-[#FFD766]"}`}>
             TOTAL DURATION
           </p>
-          <p className={`text-[9px] font-bold tracking-wide ${isLight ? "text-[#1A2238]" : "text-white"}`}>
+          <p className={`md:text-base text-[11px] font-bold tracking-wide ${isLight ? "text-[#1A2238]" : "text-white"}`}>
             {labourData.split("(")[0]}
           </p>
-          <p className={`text-[9px] font-sans mt-0.5 ${isLight ? "text-[#687386]" : "text-[#C3CDDC]"}`}>Estimated</p>
+          <p className={`text-[10px] font-sans mt-0.5 ${isLight ? "text-[#687386]" : "text-[#C3CDDC]"}`}>Estimated</p>
         </div>
-
+ 
         {/* Card 3: Allocated Staff */}
-        <div className={`flex flex-col items-center justify-center p-3.5 md:p-4 rounded-xl border transition-colors duration-300 ${
+        <div className={`flex flex-col items-center justify-between p-3.5 md:p-4 rounded-xl border transition-colors duration-300 ${
           isLight 
             ? "bg-[#fff] shadow-md border-gray-300 text-[#1A2238]" 
             : "bg-[rgb(0_0_0/0.5)] border-[#FFD766]/60 text-white"
         }`}>
-          <Users className={`w-4 h-4 mb-2 ${isLight ? "text-[#D8B63F]" : "text-[#FFD766]"}`} />
-          <p className={`text-[10px] md:text-[12px] font-bold tracking-widest uppercase mb-1 ${isLight ? "text-[#D8B63F]" : "text-[#FFD766]"}`}>
+          <Users className={`w-6 h-6 mb-2 ${isLight ? "text-[#D8B63F]" : "text-[#FFD766]"}`} />
+          <p className={`text-[10px] font-bold tracking-widest uppercase mb-1 ${isLight ? "text-[#D8B63F]" : "text-[#FFD766]"}`}>
             ALLOCATED STAFF
           </p>
-          <p className={`text-[9px] font-bold tracking-wide ${isLight ? "text-[#1A2238]" : "text-white"}`}>
+          <p className={`md:text-base text-[11px] font-bold tracking-wide ${isLight ? "text-[#1A2238]" : "text-white"}`}>
             2
           </p>
           
-          <p className={`text-[9px] font-sans mt-0.5 ${isLight ? "text-[#687386]" : "text-[#D8B63F]"}`}>
+          <p className={`text-[10px] font-sans mt-0.5 ${isLight ? "text-[#687386]" : "text-[#D8B63F]"}`}>
             SPECIALIST TEAM
           </p>
         
         </div>
 
         {/* Card 4: On-Site Window */}
-        <div className={`flex flex-col items-center justify-center p-3.5 md:p-4 rounded-xl border transition-colors duration-300 ${
+        <div className={`flex flex-col items-center justify-between p-3.5 md:p-4 rounded-xl border transition-colors duration-300 ${
           isLight 
             ? "bg-[#fff] shadow-md border-gray-300 text-[#1A2238]" 
             : "bg-[rgb(0_0_0/0.5)] border-[#FFD766]/60 text-white"
         }`}>
-          <Calendar className={`w-4 h-4 mb-2 ${isLight ? "text-[#D8B63F]" : "text-[#FFD766]"}`} />
-          <p className={`text-[10px] md:text-[12px] font-bold tracking-widest uppercase mb-1 text-center ${isLight ? "text-[#D8B63F]" : "text-[#FFD766]"}`}>
+          <Calendar className={`w-6 h-6 mb-2 ${isLight ? "text-[#D8B63F]" : "text-[#FFD766]"}`} />
+          <p className={`text-[10px] font-bold tracking-widest uppercase mb-1 text-center ${isLight ? "text-[#D8B63F]" : "text-[#FFD766]"}`}>
             ON–SITE WINDOW
           </p>
-          <p className={`text-[9px]  font-bold text-center tracking-wide leading-tight ${isLight ? "text-[#1A2238]" : "text-white"}`}>
+          <p className={`md:text-base text-[11px]  font-bold text-center tracking-wide leading-tight ${isLight ? "text-[#1A2238]" : "text-white"}`}>
             9h 30m – 10h 30m
           </p>
-          <p className={`text-[9px]  font-sans mt-0.5 ${isLight ? "text-[#687386]" : "text-[#C3CDDC]"}`}>
+          <p className={`text-[10px]  font-sans mt-0.5 ${isLight ? "text-[#687386]" : "text-[#C3CDDC]"}`}>
             Time frame
             </p>
         </div>

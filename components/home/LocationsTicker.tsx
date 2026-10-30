@@ -9,8 +9,8 @@ interface LocationItem {
   name: string;
   bg: string;
 }
-
-const imgPath = "/images/hero/ticker-images/"
+ 
+const imgPath = "/images/hero/tikcer-images/" 
 
 const locationsList: LocationItem[] = [
   { 
@@ -84,9 +84,81 @@ const locationsList: LocationItem[] = [
     bg: `${imgPath}img7.webp` }
 ];
 
+
+const locationsListLK: LocationItem[]=[
+{
+  name:"Colombo",
+  bg:`${imgPath}img1.webp`
+},
+{
+  name:"Sigiriya",
+  bg:`${imgPath}img2.webp`
+},
+{
+  name:"Arugam",
+  bg:`${imgPath}img3.webp`
+},
+{
+  name:"Kandy",
+  bg:`${imgPath}img4.webp`
+},
+{
+  name:"Ella",
+  bg:`${imgPath}img5.webp`
+},
+{
+  name:"Jaffna",
+  bg:`${imgPath}img7.webp`
+},
+{
+  name:"Galle",
+  bg:`${imgPath}img1.webp`
+},
+{
+  name:"Bentota",
+  bg:`${imgPath}img2.webp`
+},
+{
+  name:"Trincomalee",
+  bg:`${imgPath}img1.webp`
+},
+{
+  name:"Negombo",
+  bg:`${imgPath}img2.webp`
+},
+{
+  name:"Hikkaduwa",
+  bg:`${imgPath}img3.webp`
+},
+{
+  name:"Polonnaruwa",
+  bg:`${imgPath}img4.webp`
+},
+{
+  name:"Anuradhapura",
+  bg:`${imgPath}img5.webp`
+},
+{
+  name:"Mirissa",
+  bg:`${imgPath}img6.webp`
+},
+{
+  name:"Matara",
+  bg:`${imgPath}img7.webp`
+},
+{
+  name:"Badulla",
+  bg:`${imgPath}img1.webp`
+},
+{
+  name:"Unawatuna",
+  bg:`${imgPath}img2.webp`
+},
+]
+
 const countryBasedLocationList:Record<string,LocationItem[]>={
     "fr":locationsList,
-    "lk":locationsList,
+    "lk":locationsListLK,
     "uk":locationsList
 }
 

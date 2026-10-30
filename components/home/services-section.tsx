@@ -264,7 +264,16 @@ function ServiceCard({ service, handleOpenModal }: { service: HomeService; handl
   );
 }
 
-function CategoryGrid({ services, limit, handleOpenModal }: { services: HomeService[]; limit?: number; handleOpenModal: (serviceName?: string) => void }) {
+function CategoryGrid({ 
+  services, 
+  limit, 
+  handleOpenModal ,
+  divID}: { 
+  services: HomeService[]; 
+  limit?: number; 
+  handleOpenModal: (serviceName?: string) => void ;
+  divID:string
+  }) {
   const { translate } = useLanguage();
   const [expanded, setExpanded] = useState(false);
 
@@ -273,7 +282,7 @@ function CategoryGrid({ services, limit, handleOpenModal }: { services: HomeServ
 
   return (
     <>
-      <div id="services" className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
+      <div id={divID} className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
         {visible.map((service) => (
           <ServiceCard handleOpenModal={handleOpenModal} key={service.id} service={service} />
         ))}
@@ -307,7 +316,7 @@ export function ServicesSection({ services }: { services: HomeService[] }) {
   };
 
   return (
-    <section className="scroll-mt-16 bg-[#fff] shadow-lg border-t border-slate-200 py-16 text-[#0b121e]">
+    <section id="servicesection" className="scroll-mt-16 bg-[#fff] shadow-lg border-t border-slate-200 py-16 text-[#0b121e]">
       <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="mb-12 text-center">
           <p className="text-xs font-bold uppercase tracking-widest text-[#d4af37]">
@@ -321,7 +330,7 @@ export function ServicesSection({ services }: { services: HomeService[] }) {
         {CATEGORIES.map(({ key, headingKey, subHeader, limit }) => {
           const categoryServices = active.filter((service) => service.category === key);
           if (categoryServices.length === 0) return null;
-
+          const IDName = headingKey.split("y")[1]
           return (
             <div key={key} className="mt-12 first:mt-0 rounded-3xl border border-slate-200 bg-slate-50 p-6 shadow-sm sm:p-8">
               <div className="mb-8 flex flex-col justify-between border-b border-slate-200 pb-6 gap-4 sm:flex-row sm:items-center">
@@ -339,7 +348,7 @@ export function ServicesSection({ services }: { services: HomeService[] }) {
                   </p>
                 </div>
               </div>
-              <CategoryGrid handleOpenModal={handleOpenModal} services={categoryServices} limit={limit} />
+              <CategoryGrid divID={IDName} handleOpenModal={handleOpenModal} services={categoryServices} limit={limit} />
             </div>
           );
         })}

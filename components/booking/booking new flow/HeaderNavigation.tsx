@@ -77,7 +77,7 @@ export default function HeaderNavigation({
   return (
     <nav
       id="section-service"
-      className={`w-full sticky z-20 top-[10%] left-0 right-0 transition-colors shadow-sm duration-300 ${
+      className={`w-full sticky z-20 md:top-[10%] top-[8%] left-0 right-0 transition-colors shadow-sm duration-300 ${
         isLight ? "bg-white" : "bg-[#1B2A40]"
       }`}
     > 

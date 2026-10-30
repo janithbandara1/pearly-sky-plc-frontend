@@ -17,6 +17,8 @@ import {
   ShieldCheck, 
   Headphones 
 } from 'lucide-react';
+import QuoteModal from "./quote-model";
+import { useState } from "react";
 
 interface HeroData {
   tagline: string;
@@ -28,6 +30,7 @@ interface HeroData {
   categories: Array<{
     label: string;
     icon: 'home' | 'commercial' | 'specialist';
+    gridId?:string,
   }>;
   ctaPrimary: string;
   ctaSecondary: string;
@@ -65,9 +68,9 @@ const countryHeroContent: Record<string, HeroData> = {
     description:
       'Thoughtful, professional cleaning for homes and workspaces across France & Monaco. Enjoy meticulous care, clear communication, and a service tailored to your space.',
     categories: [
-      { label: 'Residential', icon: 'home' },
-      { label: 'Commercial', icon: 'commercial' },
-      { label: 'Specialist Care', icon: 'specialist' },
+      { label: 'Residential', icon: 'home',gridId:"ResidentialCleaning" },
+      { label: 'Commercial', icon: 'commercial',gridId:"CommercialSpecialised" },
+      { label: 'Specialist Care', icon: 'specialist',gridId:"CommercialSpecialised" },
     ],
     ctaPrimary: 'BOOK YOUR CLEANING SERVICE',
     ctaSecondary: 'GET A FREE QUOTE',
@@ -113,7 +116,8 @@ function scrollToId(id: string) {
 export function Hero() {
   const { translate, language } = useLanguage();
   const { heroSubtitle, heroAvailability } =getCountryHomeContent(language);
-  
+  const [isModalOpen, setIsModalOpen] = useState(false);
+    const [selectedService, setSelectedService] = useState<string>('');
   const HeroImages :Record<string,string> ={
    
     "fr": "/images/hero/fr-lk-hero-image.webp",
@@ -121,7 +125,16 @@ export function Hero() {
     "lk": "/images/hero/fr-lk-hero-image.webp"
   };
 
-  const data = countryHeroContent[CURRENT_COUNTRY || 'fr'];
+  const handleOpenModal = (serviceName?: string) => {
+    setSelectedService(serviceName || '');
+    setIsModalOpen(true);
+  };
+
+  const data = countryHeroContent[CURRENT_COUNTRY];
+
+  const scrollToServices=()=>{
+    document.getElementById("servicesection")?.scrollTo({behavior:"smooth"})
+  }
 
   return (
     <section className="relative h-[100vh] min-h-[480px] w-full overflow-hidden bg-brand-navy md:h-[100vh]">
@@ -138,7 +151,7 @@ export function Hero() {
       <div className="absolute inset-0 bg-gradient-to-r from-slate-950 via-slate-950/95 to-slate-950/80 z-0 pointer-events-none" />
       <div className="absolute -top-40 -left-40 w-96 h-96 bg-[#d4af371a] z-0 rounded-full blur-3xl"></div>
       {/**content */}
-      <div className="relative z-10 max-w-7xl p-5 md:p-0 mx-auto flex flex-col justify-center h-full gap-6">
+      <div className="relative z-10 max-w-7xl p-5 md:p-0 md:mt-5 mx-auto flex flex-col justify-center h-full gap-6">
         
         {/* Top Tagline Badge */}
         <div className="flex items-center gap-2 self-start bg-[#161d2f]/80 border border-[#2b354d] px-3 py-1.5 rounded-full text-[10px] font-semibold tracking-wider text-[#d4af37] uppercase">
@@ -165,17 +178,19 @@ export function Hero() {
         <div className="flex flex-wrap items-center gap-2.5 pt-1">
           {data.categories.map((cat, idx) => (
             <div
+              
+            onClick={()=>location.href="#servicesection"}
               key={idx}
-              className="flex items-center gap-1.5 bg-[#121824]/90 border border-[#2a3449] px-3 py-1.5 rounded-full text-[11px] font-medium text-gray-200"
+              className="flex cursor-pointer items-center gap-1.5 bg-[#121824]/90 border border-[#2a3449] px-3 py-1.5 rounded-full text-[11px] font-medium text-gray-200"
             >
               {cat.icon === 'home' && (
                 <Home className="w-3.5 h-3.5 text-[#c9a858]" />
               )}
               {cat.icon === 'commercial' && (
-                <Building2 className="w-3.5 h-3.5 text-[#c9a858]" />
+                <Building2 className="w-3.5 h-3.5 text-[#c9a858]"  />
               )}
               {cat.icon === 'specialist' && (
-                <Sparkles className="w-3.5 h-3.5 text-[#c9a858]" />
+                <Sparkles className="w-3.5 h-3.5 text-[#c9a858]"  />
               )}
               <span>{cat.label}</span>
             </div>
@@ -185,7 +200,7 @@ export function Hero() {
         {/* CTA Buttons */}
         <div className="flex flex-col gap-3 pt-2 md:flex-row md:items-center">
           <button
-            onClick={() => scrollToId("services")}
+            onClick={() => handleOpenModal()}
             className="flex items-center justify-center gap-2 bg-[#d4af37] text-[#0b0f17] font-semibold text-xs tracking-wider uppercase px-6 py-4 rounded-md hover:bg-[#c5a028] transition-colors"
           >
             <span>{data.ctaPrimary}</span>
@@ -193,7 +208,7 @@ export function Hero() {
           </button>
 
           <button
-            onClick={() => scrollToId("services")}
+            onClick={() => handleOpenModal()}
             className="flex items-center justify-center gap-2 bg-transparent border border-[#d4af37]/60 text-gray-200 font-semibold text-xs tracking-wider uppercase px-6 py-4 rounded-md hover:bg-[#d4af37]/10 transition-colors"
           >
             <Calculator className="w-4 h-4 shrink-0 text-[#d4af37]" />
@@ -202,7 +217,7 @@ export function Hero() {
         </div>
 
         {/* Bottom Feature Badges / Trust Bar */}
-        <div className="border-t border-[#1e2738] pt-4 mt-2 flex p-4  gap-3 md:flex-row md:items-center md:gap-8">
+        <div className="border-t border-[#1e2738] py-4 my-2 flex p-4  gap-3 md:flex-row md:items-center md:gap-8">
           <div className="flex items-center gap-2 text-[11px] font-medium text-gray-300">
             <CheckCircle2 className="w-4 h-4 text-[#d4af37] shrink-0" />
             <span>{data.trustBadges[0]}</span>
@@ -218,8 +233,13 @@ export function Hero() {
             <span>{data.trustBadges[2]}</span>
           </div>
         </div>
-
+         
       </div>
+      <QuoteModal 
+          isOpen={isModalOpen} 
+        onClose={() => setIsModalOpen(false)} 
+        
+         /> 
     </section>
   );
 }

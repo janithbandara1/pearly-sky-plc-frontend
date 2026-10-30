@@ -120,7 +120,7 @@ export default function QuoteModal({ isOpen, onClose, serviceName }: QuoteModalP
               {/* Property Details */}
               <div className="flex flex-col gap-1.5">
                 <label className="text-xs font-semibold text-gray-200 uppercase tracking-wider">
-                  Property Type / Details
+                  Location / Villa Details in Sri Lanka
                 </label>
                 <textarea
                   required
