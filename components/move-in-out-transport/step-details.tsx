@@ -1,6 +1,7 @@
 "use client";
 
 import React from "react";
+import { DateTimeSection } from "../booking/date-time-section";
 
 interface StepDetailsProps {
   movingType: string;
@@ -162,7 +163,7 @@ export function StepDetails({
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4 pt-2">
           {/* Date */}
-          <div>
+          <div className="hidden">
             <label className="block text-xs font-semibold text-slate-700 mb-1">
               Preferred Date <span className="text-red-500">*</span>
             </label>
@@ -177,7 +178,7 @@ export function StepDetails({
           </div>
 
           {/* Time */}
-          <div>
+          <div className="hidden">
             <label className="block text-xs font-semibold text-slate-700 mb-1">
               Preferred Time <span className="text-red-500">*</span>
             </label>
@@ -193,6 +194,10 @@ export function StepDetails({
               <option value="16:00">04:00 PM</option>
             </select>
           </div>
+
+          
+
+           
 
           {/* Estimated Volume */}
           <div>
@@ -211,6 +216,8 @@ export function StepDetails({
             </select>
           </div>
         </div>
+        <DateTimeSection isTransport={true} date={moveDate} onDateChange={setMoveDate} time={moveTime} onTimeChange={setMoveTime} />
+          
       </div>
     </div>
   );

@@ -77,10 +77,11 @@ export interface DateTimeSectionProps {
   onTimeChange: (time: string) => void;
   theme?: string;
   isQuote?: boolean;
+  isTransport? :boolean
 }
 
 export function DateTimeSection(
-  { date, onDateChange, time, onTimeChange, theme: themeProp, isQuote=false }: DateTimeSectionProps) {
+  { date, onDateChange, time, onTimeChange, theme: themeProp, isQuote=false,isTransport=false }: DateTimeSectionProps) {
   const { theme: contextTheme } = usePoolTheme();
   const activeTheme = themeProp ?? contextTheme ?? "dark";
   const isLight = activeTheme === "light";
@@ -120,7 +121,10 @@ export function DateTimeSection(
         <div className="flex items-center gap-3">
           
           <div>
-            {!isQuote && (<span
+
+            
+
+            {!isQuote && !isTransport && (<span
               className={`text-[10px] sm:text-xs font-sans font-bold tracking-[0.2em] sm:tracking-[0.25em] uppercase ${
                 isLight ? "text-[#D8B63F]" : "text-[#FFD766]"
               }`}
@@ -128,7 +132,27 @@ export function DateTimeSection(
               Step 2 of 6
             </span>)}
 
-            {isQuote ? (
+
+
+            {isTransport ? 
+                (<div className="flex items-center space-x-3.5 ">
+              <div className={`w-10 h-10 rounded-xl border flex items-center justify-center shrink-0 ${
+                isLight ? "bg-[#D8B63F]/10 border-[#D8B63F]/30 text-[#D8B63F]" : "bg-[#FFD766]/10 border-[#FFD766]/30 text-[#FFD766]"
+              }`}>
+                <Calendar className="w-5 h-5" />
+              </div>
+            <div>
+              <h2
+                 className={`font-serif text-2xl font-bold tracking-tight 
+                  text-[#002F6D]
+                 }`}
+                >
+                Choose your preferred date and Time
+              </h2>
+              
+            </div>
+            </div>)
+            : isQuote ? (
             <div className="flex items-center space-x-3.5 ">
               <div className={`w-10 h-10 rounded-xl border flex items-center justify-center shrink-0 ${
                 isLight ? "bg-[#D8B63F]/10 border-[#D8B63F]/30 text-[#D8B63F]" : "bg-[#FFD766]/10 border-[#FFD766]/30 text-[#FFD766]"
@@ -352,7 +376,7 @@ export function DateTimeSection(
             </div>
 
             {/* Arrival Note (Nicely stacked at the bottom without absolute overlapping) */}
-            <div
+            {!isTransport && (<div
               className={`flex items-center gap-3 rounded-xl border p-3.5 sm:p-4 shadow-sm backdrop-blur-sm mt-4 ${
                 isLight
                   ? "border-[#167A57]/30 bg-[#167A57]/10 text-[#167A57]"
@@ -367,7 +391,7 @@ export function DateTimeSection(
               <p className="text-xs sm:text-[13px] font-medium leading-relaxed">
                 Staff arrives within a strict 15-minute window with electronic keycode verification.
               </p>
-            </div> 
+            </div> )}
 
           </div> 
         </div>
