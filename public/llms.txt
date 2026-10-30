@@ -8,7 +8,6 @@ Every page is served under a `/{country}-{language}/` prefix (e.g. `/fr-en/`, `/
 
 - [Home](https://pearlyskyglobalclean.com/): Overview of the service, brand positioning, and country coverage; also lists the bookable service catalog.
 - [About Us](https://pearlyskyglobalclean.com/about-us): Company story, standards, and values.
-- [Our Customers](https://pearlyskyglobalclean.com/our-customers): Verified client reviews and testimonials.
 - [Our Locations](https://pearlyskyglobalclean.com/our-locations): Countries and regional service clusters covered.
 - [Blog](https://pearlyskyglobalclean.com/blog): Cleaning tips, sustainability guides, and company news; individual posts are linked from here.
 - [Careers](https://pearlyskyglobalclean.com/careers): Open positions in luxury property care; individual listings are linked from here.

@@ -6,7 +6,7 @@ import { Controller, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 // zod/mini, as in home-contact-us.tsx — the full build is ~70 KiB heavier.
 import * as z from "zod/mini";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, ChevronDown } from "lucide-react";
 import { toast } from "sonner";
 import { sendContactMessage } from "@/lib/contact-api";
 import { ApiError } from "@/lib/api";
@@ -17,32 +17,57 @@ import type { GlobalKey } from "@/lib/i18n/global/en";
 
 type Translate = (key: GlobalKey, vars?: Record<string, string | number>) => string;
 
+export interface QuoteServiceOption {
+  /** The service id — the base English slug, e.g. "deep-cleaning". */
+  id: string;
+  /** In the visitor's language. */
+  title: string;
+}
+
+const SIZE_KEYS = [
+  "svc.form.size1",
+  "svc.form.size2",
+  "svc.form.size3",
+  "svc.form.size4",
+  "svc.form.size5",
+] as const satisfies readonly GlobalKey[];
+
+/** The same ranges in English, for the enquiry the team reads (same order as SIZE_KEYS). */
+const SIZE_ENGLISH = ["Under 50m²", "50m² - 100m²", "100m² - 200m²", "200m² - 400m²", "400m² + (Luxury Estate)"];
+
 /** Built per language so the validation messages are shown in it. */
-const makeContactSchema = (t: Translate) =>
+const makeQuoteSchema = (t: Translate) =>
   z.object({
+    service: z.string().check(z.minLength(1, t("form.errorService"))),
     name: z.string().check(z.trim(), z.minLength(2, t("form.errorName"))),
     email: z.pipe(z.string().check(z.trim()), z.email(t("form.errorEmail"))),
     phone: z.string().check(z.trim(), z.minLength(6, t("form.errorPhone"))),
-    message: z.string().check(z.trim(), z.minLength(10, t("contactForm.errorMessage"))),
+    size: z.string(),
+    date: z.string(),
   });
 
-type ContactFormValues = z.infer<ReturnType<typeof makeContactSchema>>;
+type QuoteFormValues = z.infer<ReturnType<typeof makeQuoteSchema>>;
 
 const fieldClass =
   "w-full rounded-xl border border-white/20 bg-navy-900 px-4 py-3.5 text-sm text-white transition-colors placeholder:text-slate-500 focus:border-gold-500 focus:outline-none aria-invalid:border-red-400/70";
 
 /**
- * "Get a Free Quote Today" on the services page: the contact us form, sent
- * through the same /contact endpoint as contact-form-panel.tsx.
+ * "Get a Free Quote Today" on the services page: a quote form (service,
+ * property size, preferred date) sent through the same /contact endpoint as
+ * contact-form-panel.tsx.
  */
-export function ServicesContactForm() {
+export function ServicesContactForm({ services }: { services: QuoteServiceOption[] }) {
   const { translateGlobal: t } = useLanguage();
   const [turnstileToken, setTurnstileToken] = useState("");
   const turnstileRef = useRef<TurnstileHandle>(null);
   const sectionRef = useRef<HTMLElement>(null);
   const [turnstileVisible, setTurnstileVisible] = useState(false);
   const [sendError, setSendError] = useState<string | null>(null);
-  const schema = useMemo(() => makeContactSchema(t), [t]);
+  const [minDate, setMinDate] = useState("");
+  const schema = useMemo(() => makeQuoteSchema(t), [t]);
+
+  // Set after mount so the server and client markup agree.
+  useEffect(() => setMinDate(new Date().toISOString().slice(0, 10)), []);
 
   // Below the fold — defer Turnstile's script until the form is near view.
   useEffect(() => {
@@ -67,29 +92,37 @@ export function ServicesContactForm() {
     handleSubmit,
     reset,
     formState: { errors, isSubmitting },
-  } = useForm<ContactFormValues>({
+  } = useForm<QuoteFormValues>({
     resolver: zodResolver(schema),
-    defaultValues: { name: "", email: "", phone: "", message: "" },
+    defaultValues: { service: "", name: "", email: "", phone: "", size: "", date: "" },
   });
 
-  const onSubmit = async ({ name, email, phone, message }: ContactFormValues) => {
+  const onSubmit = async ({ service, name, email, phone, size, date }: QuoteFormValues) => {
     if (!turnstileToken) {
       setSendError(t("form.verify"));
       return;
     }
     setSendError(null);
+    const selected = services.find(({ id }) => id === service);
+    const details = [
+      `Service: ${service}${selected ? ` (${selected.title})` : ""}`,
+      size && `Property size: ${size}`,
+      date && `Preferred date: ${date}`,
+    ].filter(Boolean);
     try {
       await sendContactMessage({
         name,
         email,
         phone,
-        message: `Subject: Services page enquiry (global site)\n\n${message.trim()}`,
+        message: `Subject: Free quote request (global services page)\n\n${details.join("\n")}`,
         turnstileToken,
       });
-      toast.success(t("contactForm.successTitle"), { description: t("contactForm.successText") });
+      toast.success(t("form.successTitle"), {
+        description: t("form.successQuote", { service: selected?.title ?? service }),
+      });
       reset();
     } catch (err) {
-      setSendError(err instanceof ApiError ? err.message : t("contactForm.sendFailed"));
+      setSendError(err instanceof ApiError ? err.message : t("form.sendFailed"));
     } finally {
       turnstileRef.current?.reset();
       setTurnstileToken("");
@@ -121,8 +154,8 @@ export function ServicesContactForm() {
               <div>
                 <input
                   type="text"
-                  placeholder={t("contactForm.namePlaceholder")}
-                  aria-label={t("contactForm.fullName")}
+                  placeholder={t("form.yourName")}
+                  aria-label={t("form.yourName")}
                   autoComplete="name"
                   aria-invalid={!!errors.name}
                   className={fieldClass}
@@ -133,7 +166,7 @@ export function ServicesContactForm() {
               <div>
                 <input
                   type="email"
-                  placeholder={t("contactForm.emailPlaceholder")}
+                  placeholder={t("form.emailAddress")}
                   aria-label={t("form.emailAddress")}
                   autoComplete="email"
                   aria-invalid={!!errors.email}
@@ -144,35 +177,76 @@ export function ServicesContactForm() {
               </div>
             </div>
 
-            <div>
-              <Controller
-                name="phone"
-                control={control}
-                render={({ field }) => (
-                  <PhoneInput
-                    name={field.name}
-                    value={field.value}
-                    onChange={field.onChange}
-                    onBlur={field.onBlur}
-                    placeholder={t("contactForm.phonePlaceholder")}
-                    aria-invalid={!!errors.phone}
-                    className="h-12 text-slate-200"
+            <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+              <div>
+                <Controller
+                  name="phone"
+                  control={control}
+                  render={({ field }) => (
+                    <PhoneInput
+                      name={field.name}
+                      value={field.value}
+                      onChange={field.onChange}
+                      onBlur={field.onBlur}
+                      placeholder={t("form.phoneNumber")}
+                      aria-invalid={!!errors.phone}
+                      className="h-12 text-slate-200"
+                    />
+                  )}
+                />
+                {errors.phone && <p className="mt-1 text-[11px] text-red-400">{errors.phone.message}</p>}
+              </div>
+
+              <div>
+                <div className="relative">
+                  <select
+                    aria-label={t("form.service")}
+                    aria-invalid={!!errors.service}
+                    className={`${fieldClass} cursor-pointer appearance-none pr-10`}
+                    {...register("service")}
+                  >
+                    <option value="">{t("form.selectService")}</option>
+                    {services.map(({ id, title }, index) => (
+                      <option key={id} value={id}>
+                        {index + 1}. {title}
+                      </option>
+                    ))}
+                  </select>
+                  <ChevronDown
+                    aria-hidden
+                    className="pointer-events-none absolute right-4 top-1/2 h-3.5 w-3.5 -translate-y-1/2 text-slate-400"
                   />
-                )}
-              />
-              {errors.phone && <p className="mt-1 text-[11px] text-red-400">{errors.phone.message}</p>}
+                </div>
+                {errors.service && <p className="mt-1 text-[11px] text-red-400">{errors.service.message}</p>}
+              </div>
             </div>
 
-            <div>
-              <textarea
-                rows={4}
-                placeholder={t("contactForm.messagePlaceholder")}
-                aria-label={t("form.message")}
-                aria-invalid={!!errors.message}
-                className={`${fieldClass} resize-none`}
-                {...register("message")}
+            <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+              <div className="relative">
+                <select
+                  aria-label={t("form.propertySizeLabel")}
+                  className={`${fieldClass} cursor-pointer appearance-none pr-10`}
+                  {...register("size")}
+                >
+                  <option value="">{t("form.propertySize")}</option>
+                  {SIZE_KEYS.map((key) => (
+                    <option key={key} value={SIZE_ENGLISH[SIZE_KEYS.indexOf(key)]}>
+                      {t(key)}
+                    </option>
+                  ))}
+                </select>
+                <ChevronDown
+                  aria-hidden
+                  className="pointer-events-none absolute right-4 top-1/2 h-3.5 w-3.5 -translate-y-1/2 text-slate-400"
+                />
+              </div>
+              <input
+                type="date"
+                min={minDate}
+                aria-label={t("form.preferredDate")}
+                className={`${fieldClass} cursor-pointer`}
+                {...register("date")}
               />
-              {errors.message && <p className="mt-1 text-[11px] text-red-400">{errors.message.message}</p>}
             </div>
 
             {turnstileVisible && (
@@ -189,7 +263,7 @@ export function ServicesContactForm() {
               disabled={isSubmitting || !turnstileToken}
               className="gold-gradient-bg flex w-full items-center justify-center gap-2 rounded-xl py-4 text-sm font-semibold text-navy-900 shadow-lg transition-all hover:-translate-y-0.5 hover:brightness-110 disabled:translate-y-0 disabled:cursor-not-allowed disabled:opacity-60"
             >
-              <span>{isSubmitting ? t("common.sending") : t("contactForm.send")}</span>
+              <span>{isSubmitting ? t("common.sending") : t("form.send")}</span>
               <ArrowRight className="h-3.5 w-3.5" />
             </button>
 

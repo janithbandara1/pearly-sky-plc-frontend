@@ -24,7 +24,6 @@ const CUSTOMER_PROTECTED_PREFIXES = ["/bookings", "/quotations", "/profile", "/a
 const GLOBAL_SITE_ALLOWED_EXACT_PATHS = [
   "/",
   "/about-us",
-  "/our-customers",
   "/our-locations",
   "/contact-us",
   "/our-services",

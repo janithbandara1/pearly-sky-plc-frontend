@@ -245,10 +245,10 @@ export const de: GlobalDictionary = {
   "svc.promise.booking": "Flexible Buchung und Terminplanung",
   "svc.promise.support": "Kundenservice rund um die Uhr",
   "svc.promise.network": "Weltweites Netzwerk in {count} Ländern",
-  "svc.form.eyebrow": "Kontakt aufnehmen",
-  "svc.form.title": "Kontaktieren Sie uns",
+  "svc.form.eyebrow": "Sofortige Buchungsanfrage",
+  "svc.form.title": "Jetzt kostenloses Angebot erhalten",
   "svc.form.description":
-    "Schnell und einfach. Sagen Sie uns, was Sie brauchen, und unser Team meldet sich in Kürze bei Ihnen.",
+    "Schnell, einfach und unverbindlich. Sagen Sie uns, was Sie brauchen, und wir erstellen ein maßgeschneidertes Angebot für Ihre Immobilie.",
   "svc.form.script": "Reine Räume, erhöhtes Wohnen",
   "svc.form.size1": "Unter 50 m²",
   "svc.form.size2": "50 m² - 100 m²",

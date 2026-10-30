@@ -224,7 +224,7 @@ export function GlobalServicesPage({ content }: { content: OurServicesContent })
         </ul>
       </section>
 
-      <ServicesContactForm />
+      <ServicesContactForm services={services.map(({ id, title }) => ({ id, title }))} />
 
       <dialog
         ref={dialogRef}

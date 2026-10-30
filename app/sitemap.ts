@@ -6,10 +6,16 @@ import { getServices } from "@/lib/catalog-api";
 import { IS_CAREERS_ENABLED, IS_GLOBAL_SITE } from "@/lib/countries/config";
 import { hasQuotationPage, hasServicePage } from "@/lib/service-flows";
 
-const STATIC_PAGES: { path: string; changeFrequency: MetadataRoute.Sitemap[number]["changeFrequency"]; priority: number }[] = [
+const STATIC_PAGES: {
+  path: string;
+  changeFrequency: MetadataRoute.Sitemap[number]["changeFrequency"];
+  priority: number;
+  countryOnly?: boolean;
+}[] = [
   { path: "/", changeFrequency: "weekly", priority: 1 },
   { path: "/about-us", changeFrequency: "monthly", priority: 0.8 },
-  { path: "/our-customers", changeFrequency: "monthly", priority: 0.7 },
+  // The global gateway has no Our Customers page (blocked in proxy.ts).
+  { path: "/our-customers", changeFrequency: "monthly", priority: 0.7, countryOnly: true },
   { path: "/our-locations", changeFrequency: "monthly", priority: 0.7 },
   { path: "/blog", changeFrequency: "weekly", priority: 0.7 },
   // /careers is a real, indexable page everywhere now — a job listing on
@@ -27,7 +33,8 @@ const STATIC_PAGES: { path: string; changeFrequency: MetadataRoute.Sitemap[numbe
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const entries: MetadataRoute.Sitemap = [];
 
-  for (const { path, changeFrequency, priority } of STATIC_PAGES) {
+  for (const { path, changeFrequency, priority, countryOnly } of STATIC_PAGES) {
+    if (countryOnly && IS_GLOBAL_SITE) continue;
     entries.push(...buildSitemapEntries(path, { changeFrequency, priority }));
   }
 

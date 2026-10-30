@@ -245,10 +245,10 @@ export const en = {
   "svc.promise.booking": "Flexible Booking & Scheduling",
   "svc.promise.support": "24/7 Customer Support",
   "svc.promise.network": "{count} Countries Global Network",
-  "svc.form.eyebrow": "Get in Touch",
-  "svc.form.title": "Contact Us",
+  "svc.form.eyebrow": "Instant Booking Enquiry",
+  "svc.form.title": "Get a Free Quote Today",
   "svc.form.description":
-    "Quick and easy. Tell us what you need and our team will get back to you shortly.",
+    "Quick, easy and no obligation. Tell us what you need and we will provide a tailored quote for your property.",
   "svc.form.script": "Pure Spaces, Elevated Living",
   "svc.form.size1": "Under 50m²",
   "svc.form.size2": "50m² - 100m²",

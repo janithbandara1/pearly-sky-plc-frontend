@@ -17,7 +17,6 @@ const NAV_LINKS: { href: string; labelKey: TranslationKey }[] = [
   { href: "/our-services", labelKey: "navServices" },
   { href: "/our-locations", labelKey: "navLocations" },
   { href: "/about-us", labelKey: "navAbout" },
-  { href: "/our-customers", labelKey: "navCustomers" },
   { href: "/blog", labelKey: "navBlog" },
   { href: "/careers", labelKey: "navCareers" },
   { href: "/contact-us", labelKey: "navContact" },

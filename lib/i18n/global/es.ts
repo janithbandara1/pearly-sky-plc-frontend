@@ -245,10 +245,10 @@ export const es: GlobalDictionary = {
   "svc.promise.booking": "Reservas y horarios flexibles",
   "svc.promise.support": "Atención al cliente 24/7",
   "svc.promise.network": "Red global en {count} países",
-  "svc.form.eyebrow": "Póngase en contacto",
-  "svc.form.title": "Contacto",
+  "svc.form.eyebrow": "Consulta de reserva inmediata",
+  "svc.form.title": "Solicite hoy un presupuesto gratuito",
   "svc.form.description":
-    "Rápido y sencillo. Cuéntenos lo que necesita y nuestro equipo le responderá en breve.",
+    "Rápido, sencillo y sin compromiso. Cuéntenos lo que necesita y le ofreceremos un presupuesto a medida para su propiedad.",
   "svc.form.script": "Espacios puros, vida elevada",
   "svc.form.size1": "Menos de 50 m²",
   "svc.form.size2": "50 m² - 100 m²",
