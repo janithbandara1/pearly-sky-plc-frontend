@@ -2517,6 +2517,24 @@ freeQuoteTitle: "Obtenez un Devis Gratuit Aujourd'hui",
 estimateDescription: "Découvrez un nettoyage éco-luxe conçu spécialement pour votre espace. Demandez votre devis sur mesure en quelques minutes.",
 bookServiceCta: "Réserver le Service Maintenant",
 
+aboutDescription: "Pearly Sky Cleaning propose des services de nettoyage professionnels et écologiques pour les résidences, bureaux et hôtels à travers la France. Axés sur la qualité et la satisfaction client, nous offrons des solutions sur mesure pour maintenir vos espaces impeccables.",
+companyName: "Nettoyage Éco-Luxe Mondial",
+
+ecoFriendlyTag: "ÉCOLOGIQUE",
+sustainableTag: "DURABLE",
+nonToxicTag: "NON TOXIQUE",
+petSafeTag: "SANS DANGER POUR LES ANIMAUX",
+
+homeCleaning: "Nettoyage Résidentiel",
+deepCleaning: "Nettoyage en Profondeur",
+officeCleaningT: "Nettoyage de Bureaux",
+propertyCare: "Entretien de Propriété",
+yachtCleaningT: "Nettoyage de Yachts",
+sanitization: "Désinfection & Assainissement",
+viewAllServices: "Voir Tous les Services",
+
+quickLinks: "Liens Rapides",
+
 } as Record<TranslationKey, TranslationValue>;
 
 

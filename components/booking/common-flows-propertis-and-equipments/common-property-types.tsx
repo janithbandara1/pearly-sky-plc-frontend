@@ -1454,6 +1454,7 @@ securityOffice
 export const SERVICE_CATEGORY_TABS_MAP: Record<string, [ServiceCategoryTab, ServiceCategoryTab]> = {
   "healthguard-sanitization": DEFAULT_CATEGORY_TABS,
   "high-security-property-care": DEFAULT_CATEGORY_TABS,
+  "commercial-office-cleaning": DEFAULT_CATEGORY_TABS,
   "luxury-yacht-cleaning": [
     {
       id: "yatch-cleaning",

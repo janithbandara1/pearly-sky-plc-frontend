@@ -43,13 +43,13 @@ const QUICK_LINKS: {
 ];
 
 const SERVICES = [
-  "Home Cleaning",
-  "Deep Cleaning",
-  "Office Cleaning",
-  "Property Care",
-  "Yacht Cleaning",
-  "Sanitization",
-  "View All Services",
+  {label:"homeCleaning",href:"regular-home-cleaning"},
+  {label:"deepCleaning",href:"deep-cleaning"},
+  {label:"officeCleaningT",href:"commercial-office-cleaning"},
+  {label:"propertyCare",href:"high-security-property-care"},
+  {label:"yachtCleaningT",href:"luxury-yacht-cleaning"},
+  {label:"sanitization",href:"healthguard-sanitization"},
+  {label:"viewAllServices",href:""},
 ];
 
 const SOCIAL_LINKS = [
@@ -119,36 +119,36 @@ export function SiteFooter() {
                   PEARLY SKY
                 </span>
                 <span className="block text-[9px] font-medium uppercase tracking-[0.13em] text-slate-300">
-                  Eco-Luxury Cleaning Global
+                  {translate("companyName")}
                 </span>
               </div>
             </Link>
 
             <p className="max-w-md text-xs leading-relaxed text-slate-300 sm:text-[13px]">
               {footerTagline ||
-                "Professional cleaning services for homes, offices, hotels and specialised facilities across 27 global destinations."}
+                translate("aboutDescription")}
             </p>
 
             {/* Sustainability badges */}
             <div className="flex flex-wrap items-center gap-2 pt-1">
               <span className="inline-flex items-center gap-1.5 rounded-full border border-slate-800 bg-[#0B1A28] px-3 py-2 text-[10px] font-medium text-slate-200">
                 <Leaf className="h-3 w-3 text-emerald-400" />
-                ECO FRIENDLY
+                {translate("ecoFriendlyTag")}
               </span>
 
               <span className="inline-flex items-center gap-1.5 rounded-full border border-slate-800 bg-[#0B1A28] px-3 py-2 text-[10px] font-medium text-slate-200">
                 <Sprout className="h-3 w-3 text-emerald-400" />
-                SUSTAINABLE
+                {translate("sustainableTag")}
               </span>
 
               <span className="inline-flex items-center gap-1.5 rounded-full border border-slate-800 bg-[#0B1A28] px-3 py-2 text-[10px] font-medium text-slate-200">
                 <ShieldCheck className="h-3 w-3 text-emerald-400" />
-                NON-TOXIC
+                {translate("nonToxicTag")}
               </span>
 
               <span className="inline-flex items-center gap-1.5 rounded-full border border-slate-800 bg-[#0B1A28] px-3 py-2 text-[10px] font-medium text-slate-200">
                 <PawPrint className="h-3 w-3 text-emerald-400" />
-                PET SAFE
+                {translate("petSafeTag")}
               </span>
             </div>
           </div>
@@ -156,7 +156,7 @@ export function SiteFooter() {
           {/* Quick links */}
           <div className="lg:col-span-3">
             <h3 className="mb-3 border-b border-slate-800 pb-2 font-serif text-sm font-bold text-white">
-              Quick Links
+              {translate("quickLinks")}
             </h3>
 
             <div className="space-y-1.5 text-xs text-slate-400">
@@ -177,18 +177,18 @@ export function SiteFooter() {
           {/* Services */}
           <div className="lg:col-span-2">
             <h3 className="mb-3 border-b border-slate-800 pb-2 font-serif text-sm font-bold text-white">
-              Our Services
+              {translate("servicesHeading")}
             </h3>
 
             <ul className="space-y-1.5 text-xs text-slate-400">
               {SERVICES.map((service) => (
-                <li key={service}>
+                <li key={service.label}>
                   <Link
-                    href={localeHref("/services")}
+                    href={localeHref(`/services/${service.href}`)}
                     className="group inline-flex items-center gap-1.5 transition-colors hover:text-[#f6d87e]"
                   >
                     <ChevronRight className="h-3 w-3 shrink-0 text-[#D4AF37] transition-transform group-hover:translate-x-0.5" />
-                    <span>{service}</span>
+                    <span>{translate(service.label as TranslationKey)}</span>
                   </Link>
                 </li>
               ))}
@@ -198,7 +198,7 @@ export function SiteFooter() {
           {/* Social links */}
           <div className="lg:col-span-2">
             <h3 className="mb-3 border-b border-slate-800 pb-2 font-serif text-sm font-bold text-white">
-              Connect With Us
+              {translate("contactConnect")}
             </h3>
 
             <div className="space-y-2 text-xs text-slate-400">

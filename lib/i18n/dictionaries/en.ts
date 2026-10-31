@@ -2600,6 +2600,23 @@ freeQuoteTitle: "Get a Free Quote Today",
 estimateDescription: "Experience eco-luxury cleaning tailored specifically to your space. Request your bespoke estimate in minutes.",
 bookServiceCta: "Book Service Now",
 
+aboutDescription: "Pearly Sky Cleaning offers professional, eco-friendly cleaning services for homes, offices, and hotels across France. We focus on quality and customer satisfaction, delivering tailored solutions to keep your space spotless.",
+companyName: "Eco-Luxury Cleaning Global",
+ecoFriendlyTag: "ECO FRIENDLY",
+sustainableTag: "SUSTAINABLE",
+nonToxicTag: "NON-TOXIC",
+petSafeTag: "PET SAFE",
+
+homeCleaning: "Home Cleaning",
+deepCleaning: "Deep Cleaning",
+officeCleaningT: "Office Cleaning",
+propertyCare: "Property Care",
+yachtCleaningT: "Yacht Cleaning",
+sanitization: "Sanitization",
+viewAllServices: "View All Services",
+
+quickLinks: "Quick Links"
+
 } as const;
 
 export type TranslationKey = keyof typeof en;
