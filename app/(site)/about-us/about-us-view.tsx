@@ -30,6 +30,8 @@ import {
 import { CURRENT_COUNTRY } from "@/lib/countries/config";
 import { useState } from "react";
 import QuoteModal from "@/components/home/quote-model";
+import { aboutData } from "@/lib/content/webpage contents/about-page-content";
+import { getTranslatedWord } from "@/lib/content/webpage contents/home-page-data";
 
 /* const CORE_IDENTITY: { labelKey: TranslationKey; textKey: TranslationKey }[] = [
   { labelKey: "aboutIdentity1Label", textKey: "aboutIdentity1Text" },
@@ -46,270 +48,7 @@ const WHY_CHOOSE_US: { Icon: typeof Users; titleKey: TranslationKey; textKey: Tr
   { Icon: Shield, titleKey: "aboutWhy6Title", textKey: "aboutWhy6Text" },
 ]; */
 
-/* const VISION_MISSION: { Icon: typeof Compass; titleKey: TranslationKey; textKey: TranslationKey }[] = [
-  { Icon: Compass, titleKey: "aboutPageVisionTitle", textKey: "aboutVisionText" },
-  { Icon: Sparkles, titleKey: "aboutPageMissionTitle", textKey: "aboutMissionText" },
-];
 
-const CORE_VALUES: { titleKey: TranslationKey; textKey: TranslationKey }[] = [
-  {
-    titleKey: "aboutValue1",
-    textKey: "aboutValue1Text",
-  },
-  {
-    titleKey: "aboutValue2",
-    textKey: "aboutValue2Text",
-  },
-  {
-    titleKey: "aboutValue3",
-    textKey: "aboutValue3Text",
-  },
-  {
-    titleKey: "aboutValue4",
-    textKey: "aboutValue4Text",
-  },
-  {
-    titleKey: "aboutValue5",
-    textKey: "aboutValue5Text",
-  },
-];
-const OBJECTIVES: TranslationKey[] = [
-  "aboutObjective1",
-  "aboutObjective2",
-  "aboutObjective3",
-  "aboutObjective4",
-  "aboutObjective5",
-];
- */
-interface AboutPageContent {
-  heroTagline: string;
-  heroTitlePart1: string;
-  heroTitleHighlight: string;
-  heroDescription: string;
-  stat1Value: string; stat1Label: string;
-  stat2Value: string; stat2Label: string;
-  stat3Value: string; stat3Label: string;
-  stat4Value: string; stat4Label: string;
-  storyTagline: string;
-  storyTitle: string;
-  storyP1: string;
-  storyP2: string;
-  promiseTitle: string;
-  promiseDesc: string;
-  storyImageBadgeTitle: string;
-  storyImageBadgeSub: string;
-  pillarsTagline: string;
-  pillarsTitle: string;
-  pillarsSubtitle: string;
-  pillar1Title: string; pillar1Desc: string; pillar1Tag: string;
-  pillar2Title: string; pillar2Desc: string; pillar2Tag: string;
-  pillar3Title: string; pillar3Desc: string; pillar3Tag: string;
-  pillar4Title: string; pillar4Desc: string; pillar4Tag: string;
-  locationsHeader: string;
-  locationsCount: string;
-  cities: string[];
-  teamTagline: string;
-  teamTitle: string;
-  teamSubtitle: string;
-  teamMembers: Array<{ name: string; role: string; desc: string; img: string }>;
-  sustainabilityTagline: string;
-  sustainabilityTitle: string;
-  sustainabilityDesc: string;
-  sustainabilityBullets: string[];
-  ctaTagline: string;
-  ctaTitle: string;
-  ctaDesc: string;
-  ctaBtnText: string;
-}
-
-const aboutData: Record<'fr' | 'uk' | 'lk', AboutPageContent> = {
-  fr: {
-    heroTagline: "A Legacy of Distinction in France",
-    heroTitlePart1: "Pure Spaces.",
-    heroTitleHighlight: "Elevated Living Across France.",
-    heroDescription: "Pearly Sky is France's premier eco-luxury cleaning partner. We serve distinguished residences, private estates, superyachts, corporate headquarters, and high-end hospitality venues from Paris to the French Riviera.",
-    stat1Value: "100%", stat1Label: "Eco-Certified",
-    stat2Value: "24/7", stat2Label: "VIP Concierge",
-    stat3Value: "100%", stat3Label: "FR & EN Bilingual",
-    stat4Value: "23+", stat4Label: "French Cities",
-    storyTagline: "Our Story & Heritage",
-    storyTitle: "Redefining Luxury Cleaning for Discerning Clients in France",
-    storyP1: "Founded on the belief that immaculate cleanliness should never cost the health of your sanctuary or our planet, Pearly Sky bridges five-star hotel hospitality standards with cutting-edge, non-toxic eco-biotechnology.",
-    storyP2: "From historic Haussmannian apartments in Paris and private estates in Courchevel to superyachts berthed in Monaco and Cannes, our discreet specialists ensure your environments radiate purity, peace, and health.",
-    promiseTitle: "Non-Toxic Luxury Promise",
-    promiseDesc: "Every formula used by Pearly Sky is 100% biodegradable, pet-safe, child-safe, and harmless to delicate marble, hardwood, and marine ecosystems.",
-    storyImageBadgeTitle: "Discretion & Precision",
-    storyImageBadgeSub: "Serving French VIPs, embassies, and private estates",
-    pillarsTagline: "Guiding Standards",
-    pillarsTitle: "The Four Pillars of Pearly Sky",
-    pillarsSubtitle: "Engineered to exceed expectations for the most discerning residential and corporate clients across France.",
-    pillar1Title: "Eco-Conscious Excellence",
-    pillar1Desc: "Green Compass Eco-Certified non-toxic products that eliminate 99.9% of pathogens without volatile organic compounds or chemical residue.",
-    pillar1Tag: "100% Biodegradable",
-    pillar2Title: "Security & Discretion",
-    pillar2Desc: "Rigorously vetted, background-checked, and security-cleared personnel bound by non-disclosure agreements for complete peace of mind.",
-    pillar2Tag: "Vetted Personnel",
-    pillar3Title: "Tailored VIP Protocols",
-    pillar3Desc: "Custom cleaning checklists engineered specifically for high-value artwork, silk carpets, rare stone, and yacht interiors.",
-    pillar3Tag: "Bespoke Standards",
-    pillar4Title: "Bilingual Fluency",
-    pillar4Desc: "Seamless communication in French and English across all client interactions, operations managers, and on-site specialists.",
-    pillar4Tag: "French & English",
-    locationsHeader: "Service Coverage Across France & Monaco",
-    locationsCount: "23 Key Destinations",
-    cities: [
-      "Paris", "Nice", "Saint-Tropez", "Antibes", "Cannes", "Monaco", 
-      "Normandy", "Deauville", "Dieppe", "La Rochelle", "Nantes", "Bordeaux", 
-      "Toulouse", "Toulon", "Montpellier", "Strasbourg", "Arcachon", "Annecy", 
-      "Biarritz", "Courchevel", "Megève", "Aix-en-Provence", "Mougins"
-    ],
-    teamTagline: "Our Experts",
-    teamTitle: "Leadership Behind the Brilliance",
-    teamSubtitle: "Seasoned hospitality and eco-cleaning leaders directing operations throughout France.",
-    teamMembers: [
-      { name: "Élodie de St. Germain", role: "Head of Luxury Operations — Paris", desc: "Former 5-star hotel director overseeing residential cleaning protocols across Île-de-France.", img: "/images/about/team-member1.webp" },
-      { name: "Jean-Luc Laurent", role: "Riviera & Yachting Director", desc: "Maritime sanitation specialist leading superyacht and estate care in Monaco, Cannes & Nice.", img: "/images/about/team-member2.webp" },
-      { name: "Dr. Claire Moreau", role: "Head of Eco-Sanitization", desc: "Environmental chemist formulating our proprietary non-toxic and hypoallergenic cleaning protocols.", img: "/images/about/team-member3.webp" },
-      { name: "Marc-Antoine Vaneau", role: "Head of Concierge Relations", desc: "Dedicated liaison for luxury property managers, private family offices, and estate managers.", img: "/images/about/team-member4.webp" }
-    ],
-    sustainabilityTagline: "Green Compass Standard",
-    sustainabilityTitle: "Our Environmental Commitments",
-    sustainabilityDesc: "Pearly Sky strictly adheres to European eco-label guidelines and Green Compass standards. We safeguard both internal living air quality and external marine ecosystems across France.",
-    sustainabilityBullets: [
-      "Zero Harsh Solvents, Ammonia, or Synthetic Chlorine Fragrances",
-      "100% Recyclable Packaging & Closed-Loop Refill Systems",
-      "Safe for Marine Environments — Compliant with Yachting Bio-Regulations",
-      "HEPA 14 Micro-Filtration Vacuuming for Allergen-Free Air Quality"
-    ],
-    ctaTagline: "Bespoke Cleaning Protocols",
-    ctaTitle: "Experience Eco-Luxury Living in France Today",
-    ctaDesc: "Contact our Paris or Riviera operations team to discuss customized care for your residence, estate, superyacht, or corporate workspace.",
-    ctaBtnText: "Request a Personalized Quote"
-  },
-  uk: {
-    heroTagline: "A Legacy of Distinction in the United Kingdom",
-    heroTitlePart1: "Pure Spaces.",
-    heroTitleHighlight: "Elevated Living Across London & UK.",
-    heroDescription: "Pearly Sky is the UK's premier eco-luxury cleaning partner. We serve distinguished residences, private estates, penthouses, corporate headquarters, and high-end hospitality venues from London to Edinburgh.",
-    stat1Value: "100%", stat1Label: "Eco-Certified",
-    stat2Value: "24/7", stat2Label: "VIP Concierge",
-    stat3Value: "100%", stat3Label: "DBS Vetted",
-    stat4Value: "15+", stat4Label: "UK Cities",
-    storyTagline: "Our Story & Heritage",
-    storyTitle: "Redefining Luxury Cleaning for Discerning Clients in the UK",
-    storyP1: "Founded on the belief that immaculate cleanliness should never cost the health of your sanctuary or our planet, Pearly Sky bridges five-star hotel hospitality standards with cutting-edge, non-toxic eco-biotechnology.",
-    storyP2: "From historic townhouses in Mayfair and private country estates in the Cotswolds to luxury penthouses in Canary Wharf, our discreet specialists ensure your environments radiate purity, peace, and health.",
-    promiseTitle: "Non-Toxic Luxury Promise",
-    promiseDesc: "Every formula used by Pearly Sky is 100% biodegradable, pet-safe, child-safe, and harmless to delicate marble, hardwood, and fine textiles.",
-    storyImageBadgeTitle: "Discretion & Precision",
-    storyImageBadgeSub: "Serving British VIPs, embassies, and private estates",
-    pillarsTagline: "Guiding Standards",
-    pillarsTitle: "The Four Pillars of Pearly Sky",
-    pillarsSubtitle: "Engineered to exceed expectations for the most discerning residential and corporate clients across the UK.",
-    pillar1Title: "Eco-Conscious Excellence",
-    pillar1Desc: "Green Compass Eco-Certified non-toxic products that eliminate 99.9% of pathogens without volatile organic compounds or chemical residue.",
-    pillar1Tag: "100% Biodegradable",
-    pillar2Title: "Security & Discretion",
-    pillar2Desc: "Rigorously vetted, background-checked, and security-cleared personnel bound by non-disclosure agreements for complete peace of mind.",
-    pillar2Tag: "Vetted Personnel",
-    pillar3Title: "Tailored VIP Protocols",
-    pillar3Desc: "Custom cleaning checklists engineered specifically for high-value artwork, silk carpets, rare stone, and bespoke luxury interiors.",
-    pillar3Tag: "Bespoke Standards",
-    pillar4Title: "English Proficiency",
-    pillar4Desc: "Seamless communication across all client interactions, operations managers, and elite on-site cleaning specialists.",
-    pillar4Tag: "Professional English",
-    locationsHeader: "Service Coverage Across London & UK",
-    locationsCount: "15 Key Destinations",
-    cities: [
-      "London", "Mayfair", "Kensington", "Chelsea", "Knightsbridge", "City of London",
-      "Canary Wharf", "Cotswolds", "Oxford", "Cambridge", "Edinburgh", "Manchester",
-      "Bristol", "Surrey", "Ascot", "Windsor", "Brighton", "Bath"
-    ],
-    teamTagline: "Our Experts",
-    teamTitle: "Leadership Behind the Brilliance",
-    teamSubtitle: "Seasoned hospitality and eco-cleaning leaders directing operations throughout the UK.",
-    teamMembers: [
-      { name: "Victoria Sterling", role: "Head of Luxury Operations — London", desc: "Former Mayfair hotel director overseeing residential cleaning protocols across Greater London.", img: "/images/about/team-member1.webp" },
-      { name: "Alistair Vance", role: "Country Estates Director", desc: "Private estate management specialist leading luxury care across the Cotswolds and home counties.", img: "/images/about/team-member2.webp" },
-      { name: "Dr. Evelyn Reed", role: "Head of Eco-Sanitization", desc: "Environmental scientist formulating our proprietary non-toxic and hypoallergenic cleaning protocols.", img: "/images/about/team-member3.webp" },
-      { name: "Julian Thorne", role: "Head of Concierge Relations", desc: "Dedicated liaison for luxury property managers, family offices, and elite estate managers.", img: "/images/about/team-member4.webp" }
-    ],
-    sustainabilityTagline: "Green Compass Standard",
-    sustainabilityTitle: "Our Environmental Commitments",
-    sustainabilityDesc: "Pearly Sky strictly adheres to UK eco-label guidelines and Green Compass standards, safeguarding both internal living air quality and natural British environments.",
-    sustainabilityBullets: [
-      "Zero Harsh Solvents, Ammonia, or Synthetic Chlorine Fragrances",
-      "100% Recyclable Packaging & Closed-Loop Refill Systems",
-      "Safe for Wildlife & Eco-Friendly Botanical Formulas",
-      "HEPA 14 Micro-Filtration Vacuuming for Allergen-Free Air Quality"
-    ],
-    ctaTagline: "Bespoke Cleaning Protocols",
-    ctaTitle: "Experience Eco-Luxury Living in the UK Today",
-    ctaDesc: "Contact our London operations team to discuss customized care for your residence, estate, penthouse, or corporate workspace.",
-    ctaBtnText: "Request a Personalized Quote"
-  },
-  lk: {
-    heroTagline: "A Legacy of Distinction in Sri Lanka",
-    heroTitlePart1: "Pure Spaces.",
-    heroTitleHighlight: "Elevated Living Across Colombo & Sri Lanka.",
-    heroDescription: "Pearly Sky is Sri Lanka's premier eco-luxury cleaning partner. We serve distinguished residences, luxury villas, corporate headquarters, and high-end hospitality venues from Colombo to Galle.",
-    stat1Value: "100%", stat1Label: "Eco-Certified",
-    stat2Value: "24/7", stat2Label: "VIP Concierge",
-    stat3Value: "100%", stat3Label: "Trained & Vetted",
-    stat4Value: "10+", stat4Label: "Sri Lankan Cities",
-    storyTagline: "Our Story & Heritage",
-    storyTitle: "Redefining Luxury Cleaning for Discerning Clients in Sri Lanka",
-    storyP1: "Founded on the belief that immaculate cleanliness should never cost the health of your sanctuary or our tropical environment, Pearly Sky bridges five-star hotel hospitality standards with cutting-edge, non-toxic eco-biotechnology.",
-    storyP2: "From luxury coastal villas in Galle and modern apartments in Colombo to private highland estates in Nuwara Eliya, our discreet specialists ensure your environments radiate purity, peace, and health.",
-    promiseTitle: "Non-Toxic Luxury Promise",
-    promiseDesc: "Every formula used by Pearly Sky is 100% biodegradable, pet-safe, child-safe, and harmless to delicate marble, hardwood, and fine tropical finishes.",
-    storyImageBadgeTitle: "Discretion & Precision",
-    storyImageBadgeSub: "Serving distinguished clients and luxury villas across Sri Lanka",
-    pillarsTagline: "Guiding Standards",
-    pillarsTitle: "The Four Pillars of Pearly Sky",
-    pillarsSubtitle: "Engineered to exceed expectations for the most discerning residential and corporate clients across Sri Lanka.",
-    pillar1Title: "Eco-Conscious Excellence",
-    pillar1Desc: "Green Compass Eco-Certified non-toxic products that eliminate 99.9% of pathogens without volatile organic compounds or chemical residue.",
-    pillar1Tag: "100% Biodegradable",
-    pillar2Title: "Security & Discretion",
-    pillar2Desc: "Rigorously vetted, background-checked, and security-cleared personnel bound by non-disclosure agreements for complete peace of mind.",
-    pillar2Tag: "Vetted Personnel",
-    pillar3Title: "Tailored VIP Protocols",
-    pillar3Desc: "Custom cleaning checklists engineered specifically for high-value artwork, teak timber, rare stone, and luxury tropical villa interiors.",
-    pillar3Tag: "Bespoke Standards",
-    pillar4Title: "Multilingual Fluency",
-    pillar4Desc: "Seamless communication in English, Sinhala, and Tamil across all client interactions and on-site specialists.",
-    pillar4Tag: "English, Sinhala & Tamil",
-    locationsHeader: "Service Coverage Across Sri Lanka",
-    locationsCount: "10 Key Destinations",
-    cities: [
-      "Colombo", "Mount Lavinia", "Dehiwala", "Battaramulla", "Rajagiriya", 
-      "Kotte", "Negombo", "Galle Fort", "Bentota", "Kandy", "Nuwara Eliya", "Trincomalee"
-    ],
-    teamTagline: "Our Experts",
-    teamTitle: "Leadership Behind the Brilliance",
-    teamSubtitle: "Seasoned hospitality and eco-cleaning leaders directing operations throughout Sri Lanka.",
-    teamMembers: [
-      { name: "Chathura Perera", role: "Head of Operations — Colombo", desc: "Former 5-star resort operations director overseeing luxury residential cleaning across the Western Province.", img: "/images/about/team-member1.webp" },
-      { name: "Dilshan Mendis", role: "Coastal & Villa Director", desc: "Hospitality sanitation specialist leading luxury villa and coastal estate care in Galle and Bentota.", img: "/images/about/team-member2.webp" },
-      { name: "Dr. Anoma Wickramasinghe", role: "Head of Eco-Sanitization", desc: "Environmental scientist formulating our proprietary non-toxic and hypoallergenic cleaning protocols.", img: "/images/about/team-member3.webp" },
-      { name: "Kasun Jayasuriya", role: "Head of Client Relations", desc: "Dedicated liaison for luxury property managers, private family offices, and upscale residential complexes.", img: "/images/about/team-member4.webp" }
-    ],
-    sustainabilityTagline: "Green Compass Standard",
-    sustainabilityTitle: "Our Environmental Commitments",
-    sustainabilityDesc: "Pearly Sky strictly adheres to eco-label guidelines and Green Compass standards, safeguarding both internal living air quality and tropical ecosystems across Sri Lanka.",
-    sustainabilityBullets: [
-      "Zero Harsh Solvents, Ammonia, or Synthetic Chlorine Fragrances",
-      "100% Recyclable Packaging & Closed-Loop Refill Systems",
-      "Safe for Tropical Gardens & Eco-Sensitive Environments",
-      "HEPA 14 Micro-Filtration Vacuuming for Allergen-Free Air Quality"
-    ],
-    ctaTagline: "Bespoke Cleaning Protocols",
-    ctaTitle: "Experience Eco-Luxury Living in Sri Lanka Today",
-    ctaDesc: "Contact our Colombo operations team to discuss customized care for your residence, luxury villa, or corporate workspace.",
-    ctaBtnText: "Request a Personalized Quote"
-  }
-};
 
 interface AboutPageProps {
   country?: 'fr' | 'uk' | 'lk';
@@ -320,8 +59,12 @@ interface AboutPageProps {
 export function AboutUsView() {
   const { translate, language } = useLanguage();
   const { aboutStoryParagraph2 } = getCountryPageContent(language);
-const [isModalOpen, setIsModalOpen] = useState(false);
+const [isModalOpen, setIsModalOpen] = useState(false); 
   const content = aboutData[CURRENT_COUNTRY as 'fr' | 'uk' | 'lk'];
+
+  const bullets = Array.isArray(content.sustainabilityBulletsList) 
+  ? content.sustainabilityBulletsList 
+  : [];
 
   return (
     <div className="bg-[#050914] text-slate-200 font-sans antialiased selection:bg-[#D4AF37] selection:text-[#050914]">
@@ -345,37 +88,49 @@ const [isModalOpen, setIsModalOpen] = useState(false);
             
             <div className="inline-flex items-center space-x-2 px-4 py-1.5 rounded-full bg-[#111827]/80 border border-[#D4AF37]/40 text-[#E5C985] text-xs font-semibold uppercase tracking-widest shadow-md">
               <Gem className="text-[#D4AF37] w-3.5 h-3.5" />
-              <span>{content.heroTagline}</span>
+              <span>{getTranslatedWord(CURRENT_COUNTRY, content.heroTagline, translate)}</span>
             </div>
 
             <h1 className="text-4xl sm:text-6xl font-serif font-bold text-white leading-tight">
-              {content.heroTitlePart1} <br />
+              {getTranslatedWord(CURRENT_COUNTRY, content.heroTitlePart1, translate)} <br />
               <span className="bg-gradient-to-r from-[#F3E5AB] via-[#D4AF37] to-[#B08B40] bg-clip-text text-transparent">
-                {content.heroTitleHighlight}
+                {getTranslatedWord(CURRENT_COUNTRY, content.heroTitleHighlight, translate)}
               </span>
             </h1>
 
             <p className="text-slate-300 text-base sm:text-lg font-light leading-relaxed">
-              {content.heroDescription}
+              {getTranslatedWord(CURRENT_COUNTRY, content.heroDescription, translate)}
             </p>
 
             {/* Hero Stats Grid */}
             <div className="pt-6 grid grid-cols-2 sm:grid-cols-4 gap-4 text-center">
               <div className="p-4 rounded-xl bg-[#0A1128]/75 backdrop-blur-md border border-[#D4AF37]/30">
-                <span className="block text-2xl font-serif font-bold text-[#E5C985]">{content.stat1Value}</span>
-                <span className="text-[11px] text-slate-300 uppercase tracking-wider">{content.stat1Label}</span>
-              </div>
+                <span className="block text-2xl font-serif font-bold text-[#E5C985]">
+                  {getTranslatedWord(CURRENT_COUNTRY, content.stat1Value, translate)}</span>
+                <span className="text-[11px] text-slate-300 uppercase tracking-wider">
+                  {getTranslatedWord(CURRENT_COUNTRY,content.stat1Label,translate)}</span>
+              </div> 
               <div className="p-4 rounded-xl bg-[#0A1128]/75 backdrop-blur-md border border-[#D4AF37]/30">
-                <span className="block text-2xl font-serif font-bold text-[#E5C985]">{content.stat2Value}</span>
-                <span className="text-[11px] text-slate-300 uppercase tracking-wider">{content.stat2Label}</span>
-              </div>
+                <span className="block text-2xl font-serif font-bold text-[#E5C985]">
+                  {getTranslatedWord(CURRENT_COUNTRY,content.stat2Value,translate)}</span>
+                <span className="text-[11px] text-slate-300 uppercase tracking-wider">
+                  {getTranslatedWord(CURRENT_COUNTRY,content.stat2Label,translate)}</span>
+              </div> 
               <div className="p-4 rounded-xl bg-[#0A1128]/75 backdrop-blur-md border border-[#D4AF37]/30">
-                <span className="block text-2xl font-serif font-bold text-[#E5C985]">{content.stat3Value}</span>
-                <span className="text-[11px] text-slate-300 uppercase tracking-wider">{content.stat3Label}</span>
-              </div>
+                <span className="block text-2xl font-serif font-bold text-[#E5C985]">
+                  {getTranslatedWord(CURRENT_COUNTRY,content.stat3Value,translate)}
+                </span>
+                <span className="text-[11px] text-slate-300 uppercase tracking-wider">
+                  {getTranslatedWord(CURRENT_COUNTRY,content.stat3Label,translate)}
+                </span>
+              </div> 
               <div className="p-4 rounded-xl bg-[#0A1128]/75 backdrop-blur-md border border-[#D4AF37]/30">
-                <span className="block text-2xl font-serif font-bold text-[#E5C985]">{content.stat4Value}</span>
-                <span className="text-[11px] text-slate-300 uppercase tracking-wider">{content.stat4Label}</span>
+                <span className="block text-2xl font-serif font-bold text-[#E5C985]">
+                  {getTranslatedWord(CURRENT_COUNTRY,content.stat4Value,translate)}
+                </span>
+                <span className="text-[11px] text-slate-300 uppercase tracking-wider">
+                  {getTranslatedWord(CURRENT_COUNTRY,content.stat4Label,translate)}
+                </span>
               </div>
             </div>
 
@@ -389,24 +144,24 @@ const [isModalOpen, setIsModalOpen] = useState(false);
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
             
             <div className="lg:col-span-6 space-y-6">
-              <span className="text-xs font-bold uppercase tracking-widest text-[#D4AF37]">{content.storyTagline}</span>
+              <span className="text-xs font-bold uppercase tracking-widest text-[#D4AF37]">{getTranslatedWord(CURRENT_COUNTRY,content.storyTagline,translate)}</span>
               <h2 className="text-3xl sm:text-4xl font-serif font-bold text-white leading-tight">
-                {content.storyTitle}
+                {getTranslatedWord(CURRENT_COUNTRY,content.storyTitle,translate)}
               </h2>
               <p className="text-slate-300 text-sm sm:text-base leading-relaxed font-light">
-                {content.storyP1}
+                {getTranslatedWord(CURRENT_COUNTRY,content.storyP1,translate)}
               </p>
               <p className="text-slate-300 text-sm sm:text-base leading-relaxed font-light">
-                {content.storyP2}
+                {getTranslatedWord(CURRENT_COUNTRY,content.storyP2,translate)}
               </p>
 
               <div className="p-6 rounded-2xl bg-[#0A1128]/75 backdrop-blur-md border border-[#D4AF37]/30 mt-4 space-y-3">
                 <div className="flex items-center space-x-3 text-[#E5C985] font-serif text-lg font-bold">
                   <Leaf className="text-emerald-400 w-5 h-5" />
-                  <span>{content.promiseTitle}</span>
+                  <span>{getTranslatedWord(CURRENT_COUNTRY,content.promiseTitle,translate)}</span>
                 </div>
                 <p className="text-xs text-slate-300 leading-relaxed">
-                  {content.promiseDesc}
+                  {getTranslatedWord(CURRENT_COUNTRY,content.promiseDesc,translate)} 
                 </p>
               </div>
             </div>
@@ -427,8 +182,8 @@ const [isModalOpen, setIsModalOpen] = useState(false);
                       PS
                     </div>
                     <div>
-                      <h4 className="text-white font-serif font-bold text-sm">{content.storyImageBadgeTitle}</h4>
-                      <p className="text-xs text-[#E5C985]">{content.storyImageBadgeSub}</p>
+                      <h4 className="text-white font-serif font-bold text-sm">{getTranslatedWord(CURRENT_COUNTRY,content.storyImageBadgeTitle,translate)}</h4>
+                      <p className="text-xs text-[#E5C985]">{getTranslatedWord(CURRENT_COUNTRY,content.storyImageBadgeSub,translate)}</p>
                     </div>
                   </div>
                 </div>
@@ -444,10 +199,10 @@ const [isModalOpen, setIsModalOpen] = useState(false);
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
             
           <div className="text-center max-w-3xl mx-auto space-y-3">
-            <span className="text-xs font-bold uppercase tracking-widest text-[#D4AF37]">{content.pillarsTagline}</span>
-            <h2 className="text-3xl sm:text-4xl font-serif font-bold text-white">{content.pillarsTitle}</h2>
-            <p className="text-slate-300 text-sm font-light">{content.pillarsSubtitle}</p>
-          </div>
+            <span className="text-xs font-bold uppercase tracking-widest text-[#D4AF37]">{getTranslatedWord(CURRENT_COUNTRY,content.pillarsTagline,translate)}</span>
+            <h2 className="text-3xl sm:text-4xl font-serif font-bold text-white">{getTranslatedWord(CURRENT_COUNTRY,content.pillarsTitle,translate)}</h2>
+            <p className="text-slate-300 text-sm font-light">{getTranslatedWord(CURRENT_COUNTRY,content.pillarsSubtitle,translate)}</p>
+          </div> 
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
                 
@@ -457,12 +212,14 @@ const [isModalOpen, setIsModalOpen] = useState(false);
                 <div className="w-14 h-14 rounded-2xl bg-[#D4AF37]/10 border border-[#D4AF37]/30 flex items-center justify-center text-[#D4AF37] text-2xl group-hover:scale-110 transition-transform">
                   <Leaf className="w-6 h-6" />
                 </div>
-                <h3 className="text-xl font-serif font-bold text-white">{content.pillar1Title}</h3>
+                <h3 className="text-xl font-serif font-bold text-white">{getTranslatedWord(CURRENT_COUNTRY,content.pillar1Title,translate)}</h3>
                 <p className="text-xs text-slate-300 leading-relaxed">
-                  {content.pillar1Desc}
+                  {getTranslatedWord(CURRENT_COUNTRY,content.pillar1Desc,translate)}
                 </p>
               </div>
-              <span className="text-[10px] text-[#D4AF37] uppercase tracking-widest pt-6 block font-semibold">{content.pillar1Tag}</span>
+              <span className="text-[10px] text-[#D4AF37] uppercase tracking-widest pt-6 block font-semibold">
+                 {getTranslatedWord(CURRENT_COUNTRY,content.pillar1Tag,translate)}
+                 </span>
             </div>
 
             {/* Pillar 2 */}
@@ -471,12 +228,14 @@ const [isModalOpen, setIsModalOpen] = useState(false);
                 <div className="w-14 h-14 rounded-2xl bg-[#D4AF37]/10 border border-[#D4AF37]/30 flex items-center justify-center text-[#D4AF37] text-2xl group-hover:scale-110 transition-transform">
                   <UserCheck className="w-6 h-6" />
                 </div>
-                <h3 className="text-xl font-serif font-bold text-white">{content.pillar2Title}</h3>
+                <h3 className="text-xl font-serif font-bold text-white">
+                  {getTranslatedWord(CURRENT_COUNTRY,content.pillar2Title,translate)}</h3>
                 <p className="text-xs text-slate-300 leading-relaxed">
-                  {content.pillar2Desc}
+                  {getTranslatedWord(CURRENT_COUNTRY,content.pillar2Desc,translate)}
                 </p>
               </div>
-              <span className="text-[10px] text-[#D4AF37] uppercase tracking-widest pt-6 block font-semibold">{content.pillar2Tag}</span>
+              <span className="text-[10px] text-[#D4AF37] uppercase tracking-widest pt-6 block font-semibold">
+                {getTranslatedWord(CURRENT_COUNTRY,content.pillar2Tag,translate)}</span>
             </div>
 
             {/* Pillar 3 */}
@@ -485,12 +244,14 @@ const [isModalOpen, setIsModalOpen] = useState(false);
                 <div className="w-14 h-14 rounded-2xl bg-[#D4AF37]/10 border border-[#D4AF37]/30 flex items-center justify-center text-[#D4AF37] text-2xl group-hover:scale-110 transition-transform">
                   <ConciergeBell className="w-6 h-6" />
                 </div>
-                <h3 className="text-xl font-serif font-bold text-white">{content.pillar3Title}</h3>
+                <h3 className="text-xl font-serif font-bold text-white">{getTranslatedWord(CURRENT_COUNTRY,content.pillar3Title,translate)}</h3>
                 <p className="text-xs text-slate-300 leading-relaxed">
-                  {content.pillar3Desc}
+                  {getTranslatedWord(CURRENT_COUNTRY,content.pillar3Desc,translate)}
                 </p>
               </div>
-              <span className="text-[10px] text-[#D4AF37] uppercase tracking-widest pt-6 block font-semibold">{content.pillar3Tag}</span>
+              <span className="text-[10px] text-[#D4AF37] uppercase tracking-widest pt-6 block font-semibold">
+                {getTranslatedWord(CURRENT_COUNTRY,content.pillar3Tag,translate)}
+              </span>
             </div>
 
             {/* Pillar 4 */}
@@ -499,12 +260,12 @@ const [isModalOpen, setIsModalOpen] = useState(false);
                 <div className="w-14 h-14 rounded-2xl bg-[#D4AF37]/10 border border-[#D4AF37]/30 flex items-center justify-center text-[#D4AF37] text-2xl group-hover:scale-110 transition-transform">
                   <MessageSquare className="w-6 h-6" />
                 </div>
-                <h3 className="text-xl font-serif font-bold text-white">{content.pillar4Title}</h3>
+                <h3 className="text-xl font-serif font-bold text-white">{getTranslatedWord(CURRENT_COUNTRY,content.pillar4Title,translate)}</h3>
                 <p className="text-xs text-slate-300 leading-relaxed">
-                  {content.pillar4Desc}
+                  {getTranslatedWord(CURRENT_COUNTRY,content.pillar4Desc,translate)}
                 </p>
               </div>
-              <span className="text-[10px] text-[#D4AF37] uppercase tracking-widest pt-6 block font-semibold">{content.pillar4Tag}</span>
+              <span className="text-[10px] text-[#D4AF37] uppercase tracking-widest pt-6 block font-semibold">{getTranslatedWord(CURRENT_COUNTRY,content.pillar4Tag,translate)}</span>
             </div>
 
           </div>
@@ -516,9 +277,9 @@ const [isModalOpen, setIsModalOpen] = useState(false);
         <div className="max-w-7xl mx-auto px-4 mb-4 flex items-center justify-between">
           <h2 className="text-xs font-bold uppercase tracking-widest text-[#D4AF37] flex items-center gap-2">
             <MapPin className="w-3.5 h-3.5 text-[#D4AF37]" />
-            <span>{content.locationsHeader}</span>
+            {getTranslatedWord(CURRENT_COUNTRY,content.locationsHeader,translate)}
           </h2>
-          <span className="text-[11px] text-slate-400">{content.locationsCount}</span>
+          <span className="text-[11px] text-slate-400">{getTranslatedWord(CURRENT_COUNTRY,content.locationsCount,translate)}</span>
         </div>
 
         <div className="relative w-full flex overflow-x-hidden group">
@@ -542,9 +303,9 @@ const [isModalOpen, setIsModalOpen] = useState(false);
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
             
           <div className="text-center max-w-3xl mx-auto space-y-3">
-            <span className="text-xs font-bold uppercase tracking-widest text-[#D4AF37]">{content.teamTagline}</span>
-            <h2 className="text-3xl sm:text-4xl font-serif font-bold text-white">{content.teamTitle}</h2>
-            <p className="text-slate-300 text-sm font-light">{content.teamSubtitle}</p>
+            <span className="text-xs font-bold uppercase tracking-widest text-[#D4AF37]">{getTranslatedWord(CURRENT_COUNTRY,content.teamTagline,translate)}</span>
+            <h2 className="text-3xl sm:text-4xl font-serif font-bold text-white">{getTranslatedWord(CURRENT_COUNTRY,content.teamTitle,translate)}</h2>
+            <p className="text-slate-300 text-sm font-light">{getTranslatedWord(CURRENT_COUNTRY,content.teamSubtitle,translate)}</p>
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
@@ -562,9 +323,9 @@ const [isModalOpen, setIsModalOpen] = useState(false);
                 </div>
                 <div className="p-6 space-y-2">
                   <h4 className="font-serif font-bold text-white text-lg">{member.name}</h4>
-                  <span className="text-xs text-[#D4AF37] block font-medium">{member.role}</span>
-                  <p className="text-[11px] text-slate-300 pt-2 font-light">{member.desc}</p>
-                </div>
+                  <span className="text-xs text-[#D4AF37] block font-medium">{getTranslatedWord(CURRENT_COUNTRY,member.role,translate)}</span>
+                  <p className="text-[11px] text-slate-300 pt-2 font-light">{getTranslatedWord(CURRENT_COUNTRY,member.desc,translate)}</p>
+                </div> 
               </div>
             ))}
           </div>
@@ -578,17 +339,17 @@ const [isModalOpen, setIsModalOpen] = useState(false);
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
             
             <div className="lg:col-span-5 space-y-6">
-              <span className="text-xs font-bold uppercase tracking-widest text-[#D4AF37]">{content.sustainabilityTagline}</span>
-              <h2 className="text-3xl sm:text-4xl font-serif font-bold text-white">{content.sustainabilityTitle}</h2>
+              <span className="text-xs font-bold uppercase tracking-widest text-[#D4AF37]">{getTranslatedWord(CURRENT_COUNTRY,content.sustainabilityTagline,translate)}</span>
+              <h2 className="text-3xl sm:text-4xl font-serif font-bold text-white">{getTranslatedWord(CURRENT_COUNTRY,content.sustainabilityTitle,translate)}</h2>
               <p className="text-slate-300 text-sm font-light leading-relaxed">
-                {content.sustainabilityDesc}
+                {getTranslatedWord(CURRENT_COUNTRY,content.sustainabilityDesc,translate)}
               </p>
 
               <ul className="space-y-4 text-xs text-slate-300">
-                {content.sustainabilityBullets.map((bullet, idx) => (
+                {bullets.map((bullet, idx) => (
                   <li key={idx} className="flex items-start">
                     <CheckCircle2 className="text-[#D4AF37] mr-3 mt-0.5 w-4 h-4 shrink-0" />
-                    <span>{bullet}</span>
+                    <span>{getTranslatedWord(CURRENT_COUNTRY,bullet,translate)}</span>
                   </li>
                 ))}
               </ul>
@@ -625,10 +386,10 @@ const [isModalOpen, setIsModalOpen] = useState(false);
       <section className="py-16 bg-[#0A1128] border-b border-[#D4AF37]/20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="relative rounded-3xl bg-[#0A1128]/75 backdrop-blur-md p-8 sm:p-12 border border-[#D4AF37]/40 overflow-hidden text-center max-w-4xl mx-auto space-y-6 shadow-2xl">
-            <span className="text-xs font-bold uppercase tracking-widest text-[#D4AF37]">{content.ctaTagline}</span>
-            <h2 className="text-3xl sm:text-4xl font-serif font-bold text-white">{content.ctaTitle}</h2>
+            <span className="text-xs font-bold uppercase tracking-widest text-[#D4AF37]">{getTranslatedWord(CURRENT_COUNTRY,content.ctaTagline,translate)}</span>
+            <h2 className="text-3xl sm:text-4xl font-serif font-bold text-white">{getTranslatedWord(CURRENT_COUNTRY,content.ctaTitle,translate)}</h2>
             <p className="text-slate-300 text-sm max-w-xl mx-auto font-light leading-relaxed">
-              {content.ctaDesc}
+              {getTranslatedWord(CURRENT_COUNTRY,content.ctaDesc,translate)}
             </p>
             <div className="flex flex-col sm:flex-row justify-center gap-4 pt-4">
               <button 
