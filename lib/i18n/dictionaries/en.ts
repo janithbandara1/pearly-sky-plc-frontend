@@ -2785,7 +2785,82 @@ CustPartnerStripeRatingType: "(Payment Partner)",
 CustPartnerTideRatingType: "(Banking Partner)",
 CustPartnerHnbRatingType: "(Banking Partner)",
 CustPartnerBrevoRatingType: "(CRM Partner)",
-CustPartnerSlackRatingType: "(Operations Partner)"
+CustPartnerSlackRatingType: "(Operations Partner)",
+
+//contact us 
+// General Fields
+ContactName: "France",
+ContactAddress: "15 Rue Des Halles, 75001 Paris, France",
+ContactHeroTitle: "Contact Us & Regional Hubs in",
+ContactHeroDescription: "Bespoke Eco-Luxury Cleaning Services Across Paris, the French Riviera, Normandy, and Exclusive Alpine Resorts. Uncompromising excellence, non-toxic formulations, and white-glove confidentiality.",
+
+// Regions
+ContactRegionParisName: "Paris & Île-de-France",
+ContactRegionRivieraName: "French Riviera & Nice",
+ContactRegionCannesName: "Cannes & Mougins",
+ContactRegionMonacoName: "Monaco & Menton",
+ContactRegionCourchevelName: "Courchevel & Alpine Resorts",
+ContactRegionBordeauxName: "Bordeaux & Wine Estates",
+
+// Service Types
+ContactServiceHaussmannName: "Haussmannian Residence Cleaning",
+ContactServiceYachtName: "Luxury Yacht & Superyacht Detailing",
+ContactServiceChaletName: "Alpine Chalet & Resort Maintenance",
+ContactServiceEstateName: "Château & Vineyard Estate Care",
+
+// Hubs
+ContactHub1Title: "Paris & Suburbs",
+ContactHub1Category: "Île-de-France",
+ContactHub1Address: "15 Rue Des Halles, 75001 Paris",
+ContactHub1RegionKey: "ile-de-france",
+ContactHub1Description: "Specialized in Haussmannian apartments, historic private mansions (Hôtels Particuliers), and luxury boutiques along Avenue Montaigne.",
+ContactHub1Spec1: "Haussmannian Care",
+ContactHub1Spec2: "Marble & Parquet",
+
+ContactHub2Title: "Cannes, Nice & Monaco",
+ContactHub2Category: "French Riviera",
+ContactHub2Address: "Promenade des Anglais, 06000 Nice",
+ContactHub2RegionKey: "riviera",
+ContactHub2Description: "Complete eco-cleaning solutions for coastal villas, superyachts docked at Port Vauban or Port Hercules, and luxury seaside estates.",
+ContactHub2Spec1: "Superyacht Detailing",
+ContactHub2Spec2: "Seaside Villas",
+
+ContactHub3Title: "Courchevel & Megève",
+ContactHub3Category: "French Alps",
+ContactHub3Address: "Rue du Rocher, 73120 Courchevel",
+ContactHub3RegionKey: "alps",
+ContactHub3Description: "Premium eco-care for ski-in ski-out chalets, timber restoration, eco-friendly fireplace residue removal, and pre-season turnarounds.",
+ContactHub3Spec1: "Alpine Chalets",
+ContactHub3Spec2: "Timber & Stone Care",
+
+ContactHub4Title: "Bordeaux & Biarritz",
+ContactHub4Category: "Atlantic & West",
+ContactHub4Address: "Place de la Bourse, 33000 Bordeaux",
+ContactHub4RegionKey: "atlantic",
+ContactHub4Description: "Eco-sanitization tailored for grand wine châteaux in Saint-Émilion, oceanfront Biarritz villas, and historical estates across Normandy & Deauville.",
+ContactHub4Spec1: "Vineyard Châteaux",
+ContactHub4Spec2: "Coastal Retreats",
+
+ContactHub5Title: "Strasbourg & Toulouse",
+ContactHub5Category: "East & South",
+ContactHub5Address: "Place Kléber, 67000 Strasbourg",
+ContactHub5RegionKey: "east-south",
+ContactHub5Description: "Eco-luxury sanitization for diplomatic residences in Alsace, technology headquarters in Toulouse, and historic townhouses in Montpellier.",
+ContactHub5Spec1: "Diplomatic Quarters",
+ContactHub5Spec2: "Executive Offices",
+
+ContactHub6Title: "Saint-Tropez & Mougins",
+ContactHub6Category: "French Riviera",
+ContactHub6Address: "Place des Lices, 83990 Saint-Tropez",
+ContactHub6RegionKey: "riviera",
+ContactHub6Description: "Discrete, high-security eco-cleaning for private compounds, celebrity retreats, and seasonal estate turnovers with non-toxic guarantee.",
+ContactHub6Spec1: "Private Compounds",
+ContactHub6Spec2: "Non-Toxic Care",
+
+ecoCertifiedProducts: "Eco-Certified Products",
+keyCitiesServed: "Key Cities Served",
+vipConciergeCare: "VIP Concierge Care",
+emergencyResponse: "Emergency Response",
 
 } as const;
 

@@ -2706,6 +2706,83 @@ CustPartnerTideRatingType: "(Partenaire Bancaire)",
 CustPartnerHnbRatingType: "(Partenaire Bancaire)",
 CustPartnerBrevoRatingType: "(Partenaire CRM)",
 CustPartnerSlackRatingType: "(Partenaire Opérations)",
+
+
+//contact us
+// General Fields
+ContactName: "France",
+ContactAddress: "15 Rue Des Halles, 75001 Paris, France",
+ContactHeroTitle: "Contactez-nous & Hubs Régionaux en",
+ContactHeroDescription: "Services de nettoyage éco-luxe sur mesure à Paris, sur la Côte d'Azur, en Normandie et dans les stations alpines exclusives. Excellence sans compromis, formulations non toxiques et confidentialité absolue.",
+
+// Regions
+ContactRegionParisName: "Paris & Île-de-France",
+ContactRegionRivieraName: "Côte d'Azur & Nice",
+ContactRegionCannesName: "Cannes & Mougins",
+ContactRegionMonacoName: "Monaco & Menton",
+ContactRegionCourchevelName: "Courchevel & Stations Alpines",
+ContactRegionBordeauxName: "Bordeaux & Domaines Viticoles",
+
+// Service Types
+ContactServiceHaussmannName: "Nettoyage de Résidences Haussmanniennes",
+ContactServiceYachtName: "Entretien de Yachts de Luxe & Superyachts",
+ContactServiceChaletName: "Entretien de Chalets Alpins & Stations",
+ContactServiceEstateName: "Entretien de Châteaux & Domaines Viticoles",
+
+// Hubs
+ContactHub1Title: "Paris & Banlieue",
+ContactHub1Category: "Île-de-France",
+ContactHub1Address: "15 Rue Des Halles, 75001 Paris",
+ContactHub1RegionKey: "ile-de-france",
+ContactHub1Description: "Spécialisé dans les appartements haussmanniens, les hôtels particuliers historiques et les boutiques de luxe de l'Avenue Montaigne.",
+ContactHub1Spec1: "Soin Haussmannien",
+ContactHub1Spec2: "Marbre & Parquet",
+
+ContactHub2Title: "Cannes, Nice & Monaco",
+ContactHub2Category: "Côte d'Azur",
+ContactHub2Address: "Promenade des Anglais, 06000 Nice",
+ContactHub2RegionKey: "riviera",
+ContactHub2Description: "Solutions complètes d'éco-nettoyage pour villas côtières, superyachts amarrés au Port Vauban ou au Port Hercule et propriétés de bord de mer.",
+ContactHub2Spec1: "Entretien Superyacht",
+ContactHub2Spec2: "Villas Côtieres",
+
+ContactHub3Title: "Courchevel & Megève",
+ContactHub3Category: "Alpes Françaises",
+ContactHub3Address: "Rue du Rocher, 73120 Courchevel",
+ContactHub3RegionKey: "alps",
+ContactHub3Description: "Éco-entretien haut de gamme pour chalets au pied des pistes, restauration du bois, nettoyage écologique de résidus de cheminée et préparation de saison.",
+ContactHub3Spec1: "Chalets Alpins",
+ContactHub3Spec2: "Soin Bois & Pierre",
+
+ContactHub4Title: "Bordeaux & Biarritz",
+ContactHub4Category: "Atlantique & Ouest",
+ContactHub4Address: "Place de la Bourse, 33000 Bordeaux",
+ContactHub4RegionKey: "atlantic",
+ContactHub4Description: "Éco-assainissement sur mesure pour grands châteaux viticoles à Saint-Émilion, villas en bord de mer à Biarritz et domaines historiques en Normandie & Deauville.",
+ContactHub4Spec1: "Châteaux Viticoles",
+ContactHub4Spec2: "Résidences Côtieres",
+
+ContactHub5Title: "Strasbourg & Toulouse",
+ContactHub5Category: "Est & Sud",
+ContactHub5Address: "Place Kléber, 67000 Strasbourg",
+ContactHub5RegionKey: "east-south",
+ContactHub5Description: "Éco-assainissement de luxe pour résidences diplomatiques en Alsace, sièges technologiques à Toulouse et demeures historiques à Montpellier.",
+ContactHub5Spec1: "Quartiers Diplomatiques",
+ContactHub5Spec2: "Bureaux de Direction",
+
+ContactHub6Title: "Saint-Tropez & Mougins",
+ContactHub6Category: "Côte d'Azur",
+ContactHub6Address: "Place des Lices, 83990 Saint-Tropez",
+ContactHub6RegionKey: "riviera",
+ContactHub6Description: "Éco-nettoyage discret et haute sécurité pour résidences privées, propriétés d'exception et transitions de saison avec garantie non toxique.",
+ContactHub6Spec1: "Propriétés Privées",
+ContactHub6Spec2: "Soins Non Toxiques",
+
+ecoCertifiedProducts: "Produits Certifiés Éco",
+keyCitiesServed: "Principales Villes Desservies",
+vipConciergeCare: "Service de Conciergerie VIP",
+emergencyResponse: "Intervention d'Urgence"
+
 } as Record<TranslationKey, TranslationValue>;
 
 
