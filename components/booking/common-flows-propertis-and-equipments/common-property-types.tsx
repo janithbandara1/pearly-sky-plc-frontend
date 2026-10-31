@@ -1453,6 +1453,7 @@ securityOffice
 
 export const SERVICE_CATEGORY_TABS_MAP: Record<string, [ServiceCategoryTab, ServiceCategoryTab]> = {
   "healthguard-sanitization": DEFAULT_CATEGORY_TABS,
+  "high-security-property-care": DEFAULT_CATEGORY_TABS,
   "luxury-yacht-cleaning": [
     {
       id: "yatch-cleaning",
@@ -2035,11 +2036,11 @@ export function PropertyTypeSizeSelectorCommonFlowOfServices({
           serviceSlug === "healthguard-sanitization" 
           
 
-    const sameType = 
-                    serviceSlug ===  "post-construction-renovation-cleaning"
+    const sameType = serviceSlug ===  "post-construction-renovation-cleaning"
 
-    const tabLabel =  ability && SERVICE_CATEGORY_TABS_MAP[serviceSlug][0] || sameType ? DEFAULT_CATEGORY_TABS[0] : null;
-    setShowSelectedTab(tabLabel ? tabLabel.label?.replace("-", " ").replace(/\b\w/g, (c) => c.toUpperCase())  :"");
+    const tabLabel =  (ability && SERVICE_CATEGORY_TABS_MAP[serviceSlug][0]) || sameType ? DEFAULT_CATEGORY_TABS[0] : null;
+    
+    (tabLabel ? tabLabel.label?.replace("-", " ").replace(/\b\w/g, (c) => c.toUpperCase())  :"");
   
   },[serviceSlug])
 
@@ -2099,7 +2100,7 @@ export function PropertyTypeSizeSelectorCommonFlowOfServices({
               {translate("propServiceCatagory")}
             </h2>
             <div
-              className={`w-full p-1 flex justify-between items-center mb-6 rounded-[17px] border transition-colors ${isLight ? "bg-[#F7F5F0] border-[#D9DDE5]" : "bg-[#152238] border-[#718096]/60"
+              className={`w-full p-1 flex justify-between items-center mb-2 rounded-[17px] border transition-colors ${isLight ? "bg-[#F7F5F0] border-[#D9DDE5]" : "bg-[#152238] border-[#718096]/60"
                 }`}
             >
               {categoryTabs.map((tab) => {
@@ -2119,7 +2120,7 @@ export function PropertyTypeSizeSelectorCommonFlowOfServices({
                   <button
                     key={tab.id}
                     type="button"
-                    className={`md:w-[49.5%] w-[48%] py-3 md:py-2 px-3 rounded-[14px] transition-all cursor-pointer text-[13px] md:text-[15px] font-bold flex items-center justify-center gap-1.5 ${isActive
+                    className={`md:w-[49.5%] w-[48%] py-1 md:py-2 px-3 rounded-[14px] transition-all cursor-pointer text-[13px] md:text-[15px] font-bold flex items-center justify-center gap-1.5 ${isActive
                       ? isLight
                         ? "bg-[#002F6D] text-white shadow-md border border-[#002F6D]"
                         : "bg-[#FFD766] text-[#002F6D] font-bold shadow-lg shadow-[#FFD766]/20 border border-[#FFD766]"
@@ -2130,7 +2131,7 @@ export function PropertyTypeSizeSelectorCommonFlowOfServices({
                     onClick={() => handleCategorySwitch(tab.id,tabLabel)}
                   >
                     <div
-                      className={`w-9 h-9 rounded-lg flex items-center justify-center text-xl transition-colors ${isActive
+                      className={`w-7 h-7 rounded-lg flex items-center justify-center text-xl transition-colors ${isActive
                         ? "bg-transparent"
                         : isLight
                           ? "bg-[#D9DDE5]/30"
@@ -2155,7 +2156,7 @@ export function PropertyTypeSizeSelectorCommonFlowOfServices({
           </div>
         )}
 
-        <div className="grid grid-cols-1 gap-6 items-start h-full">
+        <div className="grid grid-cols-1 gap-1 items-start h-full">
           {/* Left Column: Property Type */}
           <div className="flex flex-col min-w-0">
             <span
@@ -2724,7 +2725,7 @@ export function PropertySizeSelector({
           >
             {translate("propSizeTitle") || "Property Size"}
           </h3>
-          <p className={`text-xs sm:text-sm mt-1 ${isLight ? "text-[#687386]" : "text-[#C3CDDC]"}`}>
+          <p className={`text-[8px] md:text-sm mt-1 ${isLight ? "text-[#687386]" : "text-[#C3CDDC]"}`}>
             Select the total size of your property
           </p>
         </div>)}
@@ -2768,14 +2769,14 @@ export function PropertySizeSelector({
       <div className={`${isLight ? "border border-gray-300 p-3 rounded-xl":""}`}>        
         {/* Display & Quick-Control Card */}
         <div
-          className={`w-full py-5 rounded-2xl p-4 md:p-5 flex items-center justify-between gpa-2 md:gap-3  transition-colors 
+          className={`w-full py-3 rounded-2xl p-4 md:p-5 flex items-center justify-between gpa-2 md:gap-3  transition-colors 
             ${isLight ? " " : "bg-[#152238] border border-[#718096]/60"
             }`}
         >
           {/* Left: House Icon & Size Values */}
           <div className="flex items-center justify-between gap-3.5 md:gap-4 min-w-0 ">
             <div
-              className={`w-8 h-8 md:w-14 md:h-14 rounded-2xl flex items-center justify-center shrink-0 border ${isLight ? "bg-[#002657] border-[#D9DDE5]" : "bg-[#1B2A40] border-[#718096]/60"
+              className={`w-7 h-7 md:w-14 md:h-14 rounded-2xl flex items-center justify-center shrink-0 border ${isLight ? "bg-[#002657] border-[#D9DDE5]" : "bg-[#1B2A40] border-[#718096]/60"
                 }`}
             >
               <Home className={`w-4 h-4 md:w-7 md:h-7 ${isLight ? "text-[#D8B63F] " : "text-[#FFD766]"}`} />
@@ -2822,7 +2823,7 @@ export function PropertySizeSelector({
                   const selectedVal = Number(e.target.value);
                   handleDirectSizeChange(selectedVal);
                 }}
-                className={`appearance-none md:px-3.5 px-2.5 py-2 md:py-2.5 font-semibold text-xs md:text-sm bg-transparent cursor-pointer focus:outline-none pr-4 md:pr-8 ${isLight ? "text-[#1A2238]" : "text-white"
+                className={`appearance-none md:px-3.5 px-2.5 py-1 md:py-2.5 font-semibold text-xs md:text-sm bg-transparent cursor-pointer focus:outline-none pr-4 md:pr-8 ${isLight ? "text-[#1A2238]" : "text-white"
                   }`}
               >
                 {dropdownOptions.map((val) => (
@@ -2865,7 +2866,7 @@ export function PropertySizeSelector({
             const sliderPercent = valueToSliderPercent(value, SIZE_MILESTONES);
             return (
               <div
-                className={`relative w-full h-1.5 rounded-full my-3 flex items-center ${isLight ? "bg-[#D9DDE5]" : "bg-[#152238]"
+                className={`relative w-full h-1.5 rounded-full my-1 flex items-center ${isLight ? "bg-[#D9DDE5]" : "bg-[#152238]"
                   }`}
               >
                 {/* Active Gradient Track */}
@@ -2907,7 +2908,7 @@ export function PropertySizeSelector({
           })()}
 
           {/* Milestone Indicators below Slider */}
-          <div className="flex justify-between items-center w-full mt-3 select-none">
+          <div className="flex justify-between items-center w-full mt-2 select-none">
             {SIZE_MILESTONES.map((m, idx) => {
               const isFirst = idx === 0;
               const isLast = idx === SIZE_MILESTONES.length - 1;
@@ -2925,7 +2926,7 @@ export function PropertySizeSelector({
                     }`}
                 >
                   <span
-                    className={`text-[10px] md:text-sm font-bold transition-colors ${isCurrent
+                    className={`text-[8px] md:text-sm font-bold transition-colors ${isCurrent
                       ? isLight
                         ? "text-[#1A2238]"
                         : "text-white"
@@ -2937,7 +2938,7 @@ export function PropertySizeSelector({
                     {m.toLocaleString()} m²
                   </span>
                   <span
-                    className={`text-[10px] sm:text-xs font-semibold transition-colors mt-0.5 ${isCurrent
+                    className={`text-[7px] sm:text-xs font-semibold transition-colors mt-0.5 ${isCurrent
                       ? isLight
                         ? "text-[#D8B63F]"
                         : "text-[#FFD766]"
@@ -3119,22 +3120,55 @@ export function EstimatioMatrixBottomDuplicated({
   );
 }
 
+
 export function EstimatioMatrixBottom({
   activeCategory,
   isSanitizeService,
   isYatch,
   theme
 }: {
-  activeCategory: PropertyCategory | null,
-  isSanitizeService?: boolean,
-  isYatch?: boolean,
-  theme?: string
+  activeCategory: PropertyCategory | null;
+  isSanitizeService?: boolean;
+  isYatch?: boolean;
+  theme?: string;
 }) {
   const { translate } = useLanguage();
   const isLight = theme === "light";
 
+  // Data array for the estimate cards
+  const estimateCards = [
+    {
+      id: "scale",
+      icon: Maximize2,
+      title: "PROPERTY SCALE",
+      value: `${surfaceMatrixes.serviceTargetArea} m² `,
+      subtitle: `${surfaceMatrixes.serviceTargetArea} m²`,
+    },
+    {
+      id: "duration",
+      icon: Clock,
+      title: "TOTAL DURATION",
+      value: labourData.split("(")[0],
+      subtitle: "Estimated",
+    },
+    {
+      id: "staff",
+      icon: Users,
+      title: "ALLOCATED STAFF",
+      value: "2",
+      subtitle: "SPECIALIST TEAM",
+    },
+    {
+      id: "window",
+      icon: Calendar,
+      title: "ON–SITE WINDOW",
+      value: "9:30 am – 1:30 pm",
+      subtitle: "Time frame",
+    },
+  ];
+
   return (
-    <div className={`w-full rounded-2xl border p-3 md:p-6 relative overflow-hidden select-none font-mono transition-colors duration-300 ${
+    <div className={`w-full rounded-2xl border pt-0.5 pb-3 px-3 md:p-6 relative overflow-hidden select-none font-mono transition-colors duration-300 ${
       isLight 
         ? "bg-white border-[#D8B63F] text-[#1A2238] shadow-sm" 
         : "bg-[#1B2A40] border-[#FFD766]/60 text-white"
@@ -3150,80 +3184,31 @@ export function EstimatioMatrixBottom({
       </div>
 
       {/* Grid Cards Container: 2 columns on mobile, 4 columns on desktop */}
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4">
-
-        {/* Card 1: Property Scale / Target Area */}
-        <div className={`flex w-full flex-col items-center justify-between p-3.5 md:p-4 rounded-xl border transition-colors duration-300 ${
-          isLight 
-            ? "bg-[#fff] shadow-md border-gray-300 text-[#1A2238]" 
-            : "bg-[rgb(0_0_0/0.5)] border-[#FFD766]/60 text-white"
-        }`}>
-          <Maximize2 className={`w-6 h-6 mb-2 ${isLight ? "text-[#D8B63F]" : "text-[#FFD766]"}`} />
-          <p className={`text-[10px] font-bold tracking-widest uppercase mb-1 ${isLight ? "text-[#D8B63F]" : "text-[#FFD766]"}`}>
-            PROPERTY SCALE
-          </p>
-          <p className={`md:text-base text-[11px]  font-bold tracking-wide ${isLight ? "text-[#1A2238]" : "text-white"}`}>
-            {surfaceMatrixes.serviceTargetArea} m² 
-          </p>
-          <p className={`text-[10px] font-sans mt-0.5 ${isLight ? "text-[#687386]" : "text-[#C3CDDC]"}`}>
-            {surfaceMatrixes.serviceTargetArea}
-          </p>
-        </div>
-
-        {/* Card 2: Total Duration / Est Labor */}
-        <div className={`flex  flex-col items-center justify-between p-3.5 md:p-4 rounded-xl border transition-colors duration-300 ${
-          isLight 
-            ? "bg-[#fff] shadow-md border-gray-300 text-[#1A2238]" 
-            : "bg-[rgb(0_0_0/0.5)] border-[#FFD766]/60 text-white"
-        }`}>
-          <Clock className={`w-6 h-6 mb-2 ${isLight ? "text-[#D8B63F]" : "text-[#FFD766]"}`} />
-          <p className={`text-[10px]  font-bold tracking-widest uppercase mb-1 ${isLight ? "text-[#D8B63F]" : "text-[#FFD766]"}`}>
-            TOTAL DURATION
-          </p>
-          <p className={`md:text-base text-[11px] font-bold tracking-wide ${isLight ? "text-[#1A2238]" : "text-white"}`}>
-            {labourData.split("(")[0]}
-          </p>
-          <p className={`text-[10px] font-sans mt-0.5 ${isLight ? "text-[#687386]" : "text-[#C3CDDC]"}`}>Estimated</p>
-        </div>
- 
-        {/* Card 3: Allocated Staff */}
-        <div className={`flex flex-col items-center justify-between p-3.5 md:p-4 rounded-xl border transition-colors duration-300 ${
-          isLight 
-            ? "bg-[#fff] shadow-md border-gray-300 text-[#1A2238]" 
-            : "bg-[rgb(0_0_0/0.5)] border-[#FFD766]/60 text-white"
-        }`}>
-          <Users className={`w-6 h-6 mb-2 ${isLight ? "text-[#D8B63F]" : "text-[#FFD766]"}`} />
-          <p className={`text-[10px] font-bold tracking-widest uppercase mb-1 ${isLight ? "text-[#D8B63F]" : "text-[#FFD766]"}`}>
-            ALLOCATED STAFF
-          </p>
-          <p className={`md:text-base text-[11px] font-bold tracking-wide ${isLight ? "text-[#1A2238]" : "text-white"}`}>
-            2
-          </p>
-          
-          <p className={`text-[10px] font-sans mt-0.5 ${isLight ? "text-[#687386]" : "text-[#D8B63F]"}`}>
-            SPECIALIST TEAM
-          </p>
-        
-        </div>
-
-        {/* Card 4: On-Site Window */}
-        <div className={`flex flex-col items-center justify-between p-3.5 md:p-4 rounded-xl border transition-colors duration-300 ${
-          isLight 
-            ? "bg-[#fff] shadow-md border-gray-300 text-[#1A2238]" 
-            : "bg-[rgb(0_0_0/0.5)] border-[#FFD766]/60 text-white"
-        }`}>
-          <Calendar className={`w-6 h-6 mb-2 ${isLight ? "text-[#D8B63F]" : "text-[#FFD766]"}`} />
-          <p className={`text-[10px] font-bold tracking-widest uppercase mb-1 text-center ${isLight ? "text-[#D8B63F]" : "text-[#FFD766]"}`}>
-            ON–SITE WINDOW
-          </p>
-          <p className={`md:text-base text-[11px]  font-bold text-center tracking-wide leading-tight ${isLight ? "text-[#1A2238]" : "text-white"}`}>
-            9h 30m – 10h 30m
-          </p>
-          <p className={`text-[10px]  font-sans mt-0.5 ${isLight ? "text-[#687386]" : "text-[#C3CDDC]"}`}>
-            Time frame
-            </p>
-        </div>
-
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-2 md:gap-4">
+        {estimateCards.map(({ id, icon: Icon, title, value, subtitle, titleClassName = "", valueClassName = "", subtitleClassName = "" }) => (
+          <div 
+            key={id}
+            className={`flex flex-row items-center gap-3 p-3 md:p-4 rounded-xl border transition-colors duration-300 ${
+              isLight 
+                ? "bg-[#fff] shadow-md border-gray-300 text-[#1A2238]" 
+                : "bg-[rgb(0_0_0/0.5)] border-[#FFD766]/60 text-white"
+            }`}
+          >
+            <Icon className={`w-4 h-4 md:w-5 md:h-5 rounded-[5px] p-1 shrink-0 ${isLight ? "text-[#D8B63F] bg-[#FFF5D6]" : "text-[#FFD766]"}`} />
+            
+            <div className="flex flex-col min-w-0">
+              <p className={`text-[5px] md:text-[10px] font-bold tracking-widest uppercase mb-0.5  ${titleClassName} ${isLight ? "text-[#D8B63F]" : "text-[#FFD766]"}`}>
+                {title}
+              </p>
+              <p className={`md:text-[10px] text-[6px] font-bold tracking-wide  ${valueClassName} ${isLight ? "text-[#1A2238]" : "text-white"}`}>
+                {value}
+              </p>
+              <p className={`md:text-[10px] text-[6px] font-sans  ${subtitleClassName || (isLight ? "text-[#687386]" : "text-[#C3CDDC]")}`}>
+                {subtitle}
+              </p>
+            </div>
+          </div>
+        ))}
       </div>
 
       {/* Optional Service Badges */}
@@ -3368,8 +3353,9 @@ export function SanitizeSizeVisualization({
                 : "border-[#C5A059] bg-[#050505]/95 backdrop-blur-sm"
             }`}
           >
-            {isLight ? (
-              /* LIGHT MODE — APARTMENT BLUEPRINT */
+            {serviceCategory === "residential" ? ( 
+                isLight ? (
+                  /* LIGHT MODE — APARTMENT BLUEPRINT */
               <svg
                 viewBox="0 0 550 390"
                 className="h-auto w-full"
@@ -3649,288 +3635,280 @@ export function SanitizeSizeVisualization({
                   ENTRANCE
                 </text>
               </svg>
-            ) : (
-              /* DARK MODE — KEEP YOUR EXISTING DIAGRAM */
-              <>
-                {serviceCategory === "yatch-cleaning" ? (
+                ):(
                   <svg
-                    viewBox="-20 -20 1040 680"
-                    className="h-auto w-full max-h-[460px]"
-                  >
-                    <defs>
-                      <pattern
-                        id="darkYachtGrid"
-                        x="0"
-                        y="0"
-                        width="24"
-                        height="24"
-                        patternUnits="userSpaceOnUse"
-                      >
-                        <circle
-                          cx="3"
-                          cy="3"
-                          r="1.6"
-                          fill="#C5A059"
-                          opacity="0.65"
-                        />
-                      </pattern>
-                    </defs>
+  viewBox={BLUEPRINT_VIEWBOX}
+  className="w-full h-full max-h-[220px] sm:max-h-[260px] md:max-h-[420px] drop-shadow-[0_0_18px_rgba(197,160,89,0.4)] object-contain"
+>
+  <defs>
+    <pattern id="dotGridRes" x="0" y="0" width="32" height="32" patternUnits="userSpaceOnUse">
+      <circle cx="4" cy="4" r="1.6" fill="#C5A059" opacity={isLight ? "0.75" : "0.65"} />
+    </pattern>
+  </defs>
 
-                    <rect
-                      x="0"
-                      y="0"
-                      width="1000"
-                      height="640"
-                      rx="12"
-                      fill="url(#darkYachtGrid)"
-                    />
+  {/* Full background coverage for the dot matrix */}
+  <rect x="-50" y="-50" width="1100" height="800" fill="url(#dotGridRes)" />
+  
+  <BlueprintDimensions span={span} depth={depth} />
+  <rect x="50" y="50" width="850" height="630" rx="12" fill={isLight ? "rgba(255, 255, 255, 0.4)" : "rgba(5, 5, 5, 0.6)"} stroke="#C5A059" strokeWidth="3.5" strokeDasharray="6 4" opacity="0.85" />
+  
+  <g stroke="#C5A059" strokeWidth="2.8" fill="none" strokeDasharray="5 3">
+    <line x1="50" y1="310" x2="360" y2="310" />
+    <line x1="360" y1="50" x2="360" y2="310" />
+    <line x1="360" y1="310" x2="620" y2="310" />
+    <line x1="620" y1="50" x2="620" y2="310" />
+    <line x1="730" y1="310" x2="900" y2="310" />
+    <line x1="730" y1="310" x2="730" y2="460" />
+    <line x1="620" y1="460" x2="900" y2="460" />
+    <line x1="620" y1="590" x2="900" y2="590" />
+    <line x1="620" y1="460" x2="620" y2="590" />
+    <line x1="360" y1="410" x2="520" y2="410" />
+    <line x1="360" y1="410" x2="360" y2="680" />
+    <line x1="520" y1="480" x2="520" y2="680" />
+    <path d="M 420 680 L 420 730 L 530 730 L 530 680" />
+  </g>
+  
+  <g fill={isLight ? "rgba(197, 160, 89, 0.12)" : "rgba(197, 160, 89, 0.05)"}>
+    <rect x="54" y="54" width="304" height="254" />
+    <rect x="364" y="54" width="254" height="254" />
+    <rect x="624" y="54" width="274" height="254" />
+    <rect x="54" y="314" width="304" height="362" />
+    <rect x="364" y="414" width="154" height="262" />
+    <rect x="624" y="464" width="274" height="212" />
+    <rect x="734" y="314" width="164" height="144" />
+  </g>
 
-                    <rect
-                      x="0"
-                      y="0"
-                      width="1000"
-                      height="640"
-                      rx="12"
-                      fill="none"
-                      stroke="#C5A059"
-                      strokeWidth="3.5"
-                      strokeDasharray="6 4"
-                    />
+  <g stroke="#C5A059" strokeWidth="1.8" fill="none" opacity="0.95" strokeDasharray="4 3">
+    <rect x="80" y="80" width="110" height="130" rx="6" strokeDasharray="4 2" />
+    <rect x="75" y="240" width="180" height="35" rx="4" />
+    <circle cx="310" cy="80" r="12" strokeWidth="1.5" />
+    <rect x="390" y="85" width="100" height="120" rx="6" />
+    <rect x="520" y="70" width="35" height="40" rx="4" />
+    <rect x="660" y="85" width="110" height="120" rx="6" />
+    <rect x="800" y="220" width="80" height="45" rx="4" />
+    <path d="M 80 500 L 80 620 L 280 620 L 280 560 L 130 560 L 130 500 Z" />
+    <rect x="150" y="580" width="50" height="30" rx="4" />
+    <rect x="150" y="350" width="120" height="20" rx="3" />
+    <rect x="400" y="500" width="80" height="120" rx="6" />
+    <rect x="380" y="515" width="15" height="25" rx="2" />
+    <rect x="380" y="575" width="15" height="25" rx="2" />
+    <rect x="485" y="515" width="15" height="25" rx="2" />
+    <rect x="485" y="575" width="15" height="25" rx="2" />
+    <path d="M 640 480 L 870 480 L 870 650 L 640 650" strokeDasharray="6 3" />
+    <rect x="700" y="530" width="90" height="60" rx="4" />
+    <ellipse cx="780" cy="365" rx="15" ry="10" strokeWidth="1.5" />
+    <rect x="830" y="355" width="25" height="35" rx="4" strokeWidth="1.5" />
+  </g>
 
-                    <text
-                      x="500"
-                      y="28"
-                      fill="#FFF3D6"
-                      fontSize="16"
-                      fontWeight="bold"
-                      textAnchor="middle"
-                      letterSpacing="2"
-                    >
-                      LUXURY YACHT - UPPER DECK
-                    </text>
+  <g stroke="#C5A059" strokeWidth="1.5" fill="none" opacity="0.85" strokeDasharray="3 3">
+    <path d="M 360 260 A 40 40 0 0 1 320 220" />
+    <line x1="360" y1="260" x2="360" y2="220" />
+    <path d="M 520 310 A 40 40 0 0 1 480 270" />
+    <path d="M 680 310 A 40 40 0 0 0 720 270" />
+    <path d="M 730 380 A 35 35 0 0 1 765 345" />
+    <path d="M 450 680 A 30 30 0 0 1 480 650" />
+  </g>
 
-                    <path
-                      d="M 100 60 L 880 60 C 950 60, 990 120, 990 190 C 990 260, 950 320, 880 320 L 100 320 C 50 320, 30 260, 30 190 C 30 120, 50 60, 100 60 Z"
-                      fill="rgba(197, 160, 89, 0.08)"
-                      stroke="#C5A059"
-                      strokeWidth="4"
-                      strokeDasharray="5 3"
-                    />
+  <g fontFamily="monospace">
+    <text x="200" y="170" fill={isLight ? "#594211" : "#FFF3D6"} fontSize="16" fontWeight="bold" textAnchor="middle">MASTER BEDROOM</text>
+    <text x="200" y="195" fill={isLight ? "#9E7A32" : "#C5A059"} fontSize="13" fontWeight="600" textAnchor="middle">{masterBedArea} m²</text>
+    <text x="490" y="170" fill={isLight ? "#594211" : "#FFF3D6"} fontSize="15" fontWeight="bold" textAnchor="middle">NORTH BEDROOM</text>
+    <text x="490" y="195" fill={isLight ? "#9E7A32" : "#C5A059"} fontSize="13" fontWeight="600" textAnchor="middle">{northBedArea} m²</text>
+    <text x="760" y="170" fill={isLight ? "#594211" : "#FFF3D6"} fontSize="15" fontWeight="bold" textAnchor="middle">EAST BEDROOM</text>
+    <text x="760" y="195" fill={isLight ? "#9E7A32" : "#C5A059"} fontSize="13" fontWeight="600" textAnchor="middle">{eastBedArea} m²</text>
+    <text x="200" y="430" fill={isLight ? "#594211" : "#FFF3D6"} fontSize="17" fontWeight="bold" textAnchor="middle">LIVING & LOUNGE</text>
+    <text x="200" y="455" fill={isLight ? "#9E7A32" : "#C5A059"} fontSize="14" fontWeight="600" textAnchor="middle">{livingArea} m²</text>
+    <text x="440" y="465" fill={isLight ? "#594211" : "#FFF3D6"} fontSize="15" fontWeight="bold" textAnchor="middle">DINING SPACE</text>
+    <text x="440" y="488" fill={isLight ? "#9E7A32" : "#C5A059"} fontSize="13" fontWeight="600" textAnchor="middle">{diningArea} m²</text>
+    <text x="760" y="515" fill={isLight ? "#594211" : "#FFF3D6"} fontSize="16" fontWeight="bold" textAnchor="middle">KITCHEN & ISLAND</text>
+    <text x="760" y="540" fill={isLight ? "#9E7A32" : "#C5A059"} fontSize="13" fontWeight="600" textAnchor="middle">{kitchenArea} m²</text>
+    <text x="815" y="410" fill={isLight ? "#594211" : "#FFF3D6"} fontSize="14" fontWeight="bold" textAnchor="middle">BATH & WC</text>
+    <text x="815" y="432" fill={isLight ? "#9E7A32" : "#C5A059"} fontSize="12" fontWeight="600" textAnchor="middle">{bathArea} m²</text>
+  </g>
 
-                    <g
-                      stroke="#C5A059"
-                      strokeWidth="2.8"
-                      fill="none"
-                      strokeDasharray="4 2"
-                    >
-                      <line x1="320" y1="60" x2="320" y2="320" />
-                      <line x1="680" y1="60" x2="680" y2="320" />
-                      <line x1="320" y1="190" x2="680" y2="190" />
-                      <rect x="360" y="80" width="140" height="100" rx="4" />
-                      <rect x="520" y="80" width="130" height="100" rx="4" />
-                      <rect x="730" y="90" width="190" height="90" rx="8" />
-                    </g>
-
-                    <path
-                      d="M 160 320 L 840 320 L 860 520 L 140 520 Z"
-                      fill="rgba(197, 160, 89, 0.1)"
-                      stroke="#C5A059"
-                      strokeWidth="4"
-                      strokeDasharray="5 3"
-                    />
-
-                    <g
-                      stroke="#C5A059"
-                      strokeWidth="2.8"
-                      fill="none"
-                      strokeDasharray="4 2"
-                    >
-                      <line x1="360" y1="320" x2="360" y2="520" />
-                      <line x1="640" y1="320" x2="640" y2="520" />
-                      <rect x="180" y="360" width="140" height="120" rx="6" />
-                      <rect x="680" y="360" width="140" height="120" rx="6" />
-                      <rect x="390" y="400" width="220" height="90" rx="6" />
-                    </g>
-
-                    <g
-                      stroke="#C5A059"
-                      strokeWidth="1.8"
-                      fill="none"
-                      strokeDasharray="3 2"
-                    >
-                      <rect x="120" y="80" width="90" height="70" rx="4" />
-                      <circle cx="150" cy="115" r="12" />
-                      <line x1="240" y1="80" x2="290" y2="180" />
-                      <path d="M 380 220 L 520 220 L 520 290 L 380 290 Z" />
-                      <rect x="425" y="240" width="50" height="30" rx="3" />
-                      <rect x="750" y="110" width="110" height="50" rx="4" />
-                      <rect x="770" y="85" width="20" height="15" />
-                      <rect x="810" y="85" width="20" height="15" />
-                      <rect x="450" y="430" width="100" height="40" rx="4" />
-                    </g>
-
-                    <g fontFamily="monospace" textAnchor="middle">
-                      <text x="170" y="220" fill="#FFF3D6" fontSize="14" fontWeight="bold">
-                        MASTER SUITE
-                      </text>
-                      <text x="170" y="240" fill="#C5A059" fontSize="11">
-                        {(value * 0.28).toFixed(1)} m²
-                      </text>
-                      <text x="500" y="140" fill="#FFF3D6" fontSize="14" fontWeight="bold">
-                        WALK-IN CLOSET
-                      </text>
-                      <text x="825" y="140" fill="#FFF3D6" fontSize="14" fontWeight="bold">
-                        PRIVATE LOUNGE
-                      </text>
-                      <text x="500" y="215" fill="#FFF3D6" fontSize="15" fontWeight="bold">
-                        MAIN SALOON
-                      </text>
-                      <text x="500" y="235" fill="#C5A059" fontSize="12">
-                        {(value * 0.32).toFixed(1)} m²
-                      </text>
-                      <text x="735" y="235" fill="#FFF3D6" fontSize="14" fontWeight="bold">
-                        GALLEY
-                      </text>
-                      <text x="250" y="420" fill="#FFF3D6" fontSize="14" fontWeight="bold">
-                        GUEST SUITE
-                      </text>
-                      <text x="750" y="420" fill="#FFF3D6" fontSize="14" fontWeight="bold">
-                        GUEST SUITE
-                      </text>
-                      <text x="500" y="375" fill="#FFF3D6" fontSize="16" fontWeight="bold">
-                        AFT DECK
-                      </text>
-                      <text x="500" y="395" fill="#C5A059" fontSize="13">
-                        {(value * 0.22).toFixed(1)} m²
-                      </text>
-                    </g>
+  <g transform="translate(100, 630)">
+    <circle cx="0" cy="0" r="20" fill="none" stroke="#C5A059" strokeWidth="1.5" strokeDasharray="3 2" />
+    <polygon points="0,-16 4,-4 0,0 -4,-4" fill="#C5A059" />
+    <text x="0" y="30" fill="#C5A059" fontSize="10" textAnchor="middle" fontFamily="monospace">N // CAD-04</text>
+  </g>
                   </svg>
-                ) : (
-                  /* Passenger ship diagram */
-                  <svg
-                    viewBox="-20 -20 1040 680"
-                    className="h-auto w-full max-h-[460px]"
-                  >
-                    <defs>
-                      <pattern
-                        id="darkShipGrid"
-                        x="0"
-                        y="0"
-                        width="24"
-                        height="24"
-                        patternUnits="userSpaceOnUse"
-                      >
-                        <circle
-                          cx="3"
-                          cy="3"
-                          r="1.6"
-                          fill="#C5A059"
-                          opacity="0.65"
-                        />
-                      </pattern>
-                    </defs>
+                )
+            ):(
+              isLight ?( 
+              <svg
+  viewBox={BLUEPRINT_VIEWBOX}
+  className="w-full h-full max-h-[250px] sm:max-h-[270px] md:max-h-[420px] drop-shadow-[0_0_18px_rgba(0,243,255,0.4)] object-contain"
+>
+  <defs>
+    <pattern id="dotGridCom" x="0" y="0" width="24" height="24" patternUnits="userSpaceOnUse">
+      <circle cx="3" cy="3" r="1.6" fill="#00f3ff" opacity={isLight ? "0.75" : "0.55"} />
+    </pattern>
+  </defs>
 
-                    <rect
-                      x="0"
-                      y="0"
-                      width="1000"
-                      height="640"
-                      rx="12"
-                      fill="url(#darkShipGrid)"
-                    />
+  <rect x="0" y="0" width="1000" height="700" fill="url(#dotGridCom)" />
+  <BlueprintDimensions span={span} depth={depth} />
+  
+  {/* Outer Border */}
+  <rect x="50" y="50" width="850" height="630" rx="12" fill="none" stroke="#00f3ff" strokeWidth="3.5" strokeDasharray="6 4" opacity="0.85" />
+  
+  {/* Internal Room Partitions */}
+  <g stroke="#00f3ff" strokeWidth="2.8" fill="none" strokeDasharray="5 3">
+    <line x1="50" y1="530" x2="350" y2="530" />
+    <line x1="350" y1="50" x2="350" y2="530" />
+    <line x1="570" y1="530" x2="900" y2="530" />
+    <line x1="570" y1="530" x2="570" y2="680" />
+    <rect x="420" y="230" width="210" height="270" rx="4" strokeWidth="2.5" />
+  </g>
 
-                    <rect
-                      x="0"
-                      y="0"
-                      width="1000"
-                      height="640"
-                      rx="12"
-                      fill="none"
-                      stroke="#C5A059"
-                      strokeWidth="3.5"
-                      strokeDasharray="6 4"
-                    />
+  {/* Room Zone Background Fills */}
+  <g fill={isLight ? "rgba(0, 243, 255, 0.08)" : "rgba(0, 243, 255, 0.04)"}>
+    <rect x="54" y="54" width="292" height="472" />
+    <rect x="354" y="54" width="222" height="172" />
+    <rect x="578" y="54" width="318" height="472" />
+    <rect x="54" y="534" width="292" height="142" />
+    <rect x="574" y="534" width="322" height="142" />
+    <rect x="424" y="234" width="202" height="262" fill={isLight ? "rgba(0, 243, 255, 0.14)" : "rgba(0, 243, 255, 0.08)"} />
+  </g>
 
-                    <text
-                      x="500"
-                      y="28"
-                      fill="#FFF3D6"
-                      fontSize="16"
-                      fontWeight="bold"
-                      textAnchor="middle"
-                      letterSpacing="2"
-                    >
-                      Residential
-                    </text>
+  {/* Interior Details & Furniture Outlines */}
+  <g stroke="#38bdf8" strokeWidth="1.8" fill="none" opacity="0.95" strokeDasharray="4 3">
+    <line x1="80" y1="120" x2="260" y2="120" strokeWidth="3" />
+    <line x1="80" y1="180" x2="260" y2="180" strokeWidth="3" />
+    <line x1="80" y1="240" x2="260" y2="240" strokeWidth="3" />
+    <line x1="80" y1="300" x2="260" y2="300" strokeWidth="3" />
+    <rect x="90" y="360" width="180" height="70" rx="4" />
+    <rect x="120" y="380" width="40" height="30" rx="2" />
+    <line x1="450" y1="260" x2="590" y2="260" strokeWidth="2.5" />
+    <line x1="450" y1="300" x2="590" y2="300" strokeWidth="2" />
+    <rect x="470" y="330" width="60" height="40" rx="2" />
+    <rect x="540" y="330" width="50" height="40" rx="2" />
+    <line x1="450" y1="420" x2="590" y2="420" strokeWidth="2.5" />
+    <rect x="500" y="90" width="260" height="40" rx="4" />
+    <rect x="370" y="90" width="40" height="30" rx="2" />
+    <line x1="720" y1="260" x2="720" y2="420" strokeWidth="3" />
+    <rect x="780" y="260" width="50" height="140" rx="4" />
+    <rect x="90" y="580" width="140" height="60" rx="6" />
+    <path d="M 610 570 L 860 570 L 860 650 L 610 650" strokeWidth="2.5" strokeDasharray="6 3" />
+    <rect x="650" y="590" width="80" height="40" rx="4" />
+  </g>
 
-                    <g
-                      fill="rgba(197, 160, 89, 0.08)"
-                      stroke="#C5A059"
-                      strokeWidth="4"
-                      strokeDasharray="5 3"
-                    >
-                      <rect x="60" y="50" width="880" height="160" rx="80" />
-                      <rect x="60" y="240" width="880" height="160" rx="80" />
-                      <rect x="60" y="430" width="880" height="160" rx="80" />
-                    </g>
+  {/* Door Swings */}
+  <g stroke="#38bdf8" strokeWidth="1.5" fill="none" opacity="0.85" strokeDasharray="3 3">
+    <path d="M 350 630 A 30 30 0 0 1 380 600" />
+    <path d="M 570 630 A 30 30 0 0 0 540 600" />
+    <path d="M 200 530 A 30 30 0 0 1 230 500" />
+  </g>
 
-                    <g
-                      stroke="#C5A059"
-                      strokeWidth="2.5"
-                      fill="none"
-                      strokeDasharray="4 2"
-                    >
-                      <line x1="350" y1="50" x2="350" y2="210" />
-                      <line x1="680" y1="50" x2="680" y2="210" />
-                      <line x1="350" y1="240" x2="350" y2="400" />
-                      <line x1="680" y1="240" x2="680" y2="400" />
-                      <line x1="350" y1="430" x2="350" y2="590" />
-                      <line x1="680" y1="430" x2="680" y2="590" />
-                    </g>
+  {/* Room Labels & Measurements */}
+  <g fontFamily="monospace">
+    <text x="200" y="225" fill="#e0f2fe" fontSize="15" fontWeight="bold" textAnchor="middle">STORAGE & INVENTORY</text>
+    <text x="200" y="248" fill="#38bdf8" fontSize="13" fontWeight="600" textAnchor="middle">{storageArea} m²</text>
+    
+    <text x="465" y="145" fill="#e0f2fe" fontSize="13" fontWeight="bold" textAnchor="middle">BACK OFFICE</text>
+    <text x="465" y="165" fill="#38bdf8" fontSize="11" fontWeight="600" textAnchor="middle">{backOfficeArea} m²</text>
+    
+    <text x="730" y="225" fill="#e0f2fe" fontSize="15" fontWeight="bold" textAnchor="middle">DISPLAY & MERCHANDISE</text>
+    <text x="730" y="248" fill="#38bdf8" fontSize="13" fontWeight="600" textAnchor="middle">{displayArea} m²</text>
+    
+    <text x="525" y="210" fill="#38bdf8" fontSize="11" fontWeight="bold" textAnchor="middle">CENTRAL SHOWROOM FLOOR</text>
+    
+    <text x="525" y="380" fill="#e0f2fe" fontSize="16" fontWeight="bold" textAnchor="middle">MAIN FLOOR</text>
+    <text x="525" y="405" fill="#38bdf8" fontSize="14" fontWeight="600" textAnchor="middle">{showroomArea} m²</text>
+    
+    <text x="160" y="565" fill="#e0f2fe" fontSize="13" fontWeight="bold" textAnchor="middle">CONSULTATION LOUNGE</text>
+    <text x="160" y="588" fill="#38bdf8" fontSize="12" fontWeight="600" textAnchor="middle">{loungeArea} m²</text>
+    
+    <text x="735" y="555" fill="#e0f2fe" fontSize="14" fontWeight="bold" textAnchor="middle">CHECKOUT & SERVICE</text>
+    <text x="735" y="578" fill="#38bdf8" fontSize="12" fontWeight="600" textAnchor="middle">{checkoutArea} m²</text>
+  </g>
 
-                    <g
-                      stroke="#C5A059"
-                      strokeWidth="1.5"
-                      fill="none"
-                      strokeDasharray="3 2"
-                    >
-                      <circle cx="120" cy="90" r="12" />
-                      <circle cx="160" cy="90" r="12" />
-                      <circle cx="120" cy="130" r="12" />
-                      <circle cx="160" cy="130" r="12" />
-                      <circle cx="820" cy="90" r="12" />
-                      <circle cx="860" cy="90" r="12" />
-                      <circle cx="820" cy="130" r="12" />
-                      <circle cx="860" cy="130" r="12" />
-                      <line x1="100" y1="270" x2="280" y2="270" />
-                      <line x1="100" y1="290" x2="280" y2="290" />
-                      <line x1="100" y1="310" x2="280" y2="310" />
-                      <line x1="100" y1="330" x2="280" y2="330" />
-                      <line x1="100" y1="350" x2="280" y2="350" />
-                      <line x1="100" y1="370" x2="280" y2="370" />
-                      <rect x="480" y="270" width="40" height="100" rx="4" />
-                      <line x1="480" y1="300" x2="520" y2="300" />
-                      <line x1="480" y1="340" x2="520" y2="340" />
-                      <circle cx="150" cy="490" r="18" />
-                      <circle cx="210" cy="490" r="18" />
-                      <rect x="750" y="470" width="120" height="80" rx="6" />
-                    </g>
+  {/* Compass / Orientation Marker */}
+  <g transform="translate(100, 600)">
+    <circle cx="0" cy="0" r="20" fill="none" stroke="#00f3ff" strokeWidth="1.5" strokeDasharray="3 2" />
+    <polygon points="0,-16 4,-4 0,0 -4,-4" fill="#00f3ff" />
+    <text x="0" y="30" fill="#00f3ff" fontSize="10" textAnchor="middle" fontFamily="monospace">N // RETAIL-01</text>
+  </g>
+</svg> )
+              :(
+                
 
-                    <g fontFamily="monospace" textAnchor="middle" fill="#FFF3D6">
-                      <text x="200" y="130" fontSize="13" fontWeight="bold">RESTAURANT</text>
-                      <text x="515" y="120" fontSize="13" fontWeight="bold">PASSAGES &amp; CORRIDORS</text>
-                      <text x="800" y="130" fontSize="13" fontWeight="bold">RESTAURANT</text>
-                      <text x="190" y="325" fontSize="15" fontWeight="bold">THEATER</text>
-                      <text x="500" y="325" fontSize="15" fontWeight="bold">ATRIUM</text>
-                      <text x="800" y="325" fontSize="15" fontWeight="bold">LUXURY SUITES</text>
-                      <text x="200" y="520" fontSize="13" fontWeight="bold">CASINO LOUNGE</text>
-                      <text x="515" y="520" fontSize="13" fontWeight="bold">CASINO &amp; GAMING</text>
-                      <text x="810" y="520" fontSize="13" fontWeight="bold">PASSENGER LOUNGE</text>
-                    </g>
-                  </svg>
-                )}
-              </>
+              <svg
+                viewBox={BLUEPRINT_VIEWBOX}
+                className="w-full h-full max-h-[250px] sm:max-h-[270px] md:max-h-[420px] drop-shadow-[0_0_18px_rgba(197,160,89,0.4)] object-contain"
+              >
+                <defs>
+                  <pattern id="dotGridCom" x="0" y="0" width="24" height="24" patternUnits="userSpaceOnUse">
+                    <circle cx="3" cy="3" r="1.6" fill="#C5A059" opacity={isLight ? "0.75" : "0.65"} />
+                  </pattern>
+                </defs>
+
+                <rect x="0" y="0" width="1000" height="700" fill="url(#dotGridCom)" />
+                <BlueprintDimensions span={span} depth={depth} />
+                <rect x="50" y="50" width="850" height="630" rx="12" fill="none" stroke="#C5A059" strokeWidth="3.5" strokeDasharray="6 4" opacity="0.85" />
+                <g stroke="#C5A059" strokeWidth="2.8" fill="none" strokeDasharray="5 3">
+                  <line x1="50" y1="530" x2="350" y2="530" />
+                  <line x1="350" y1="50" x2="350" y2="530" />
+                  <line x1="570" y1="530" x2="900" y2="530" />
+                  <line x1="570" y1="530" x2="570" y2="680" />
+                  <rect x="420" y="230" width="210" height="270" rx="4" strokeWidth="2.5" />
+                </g>
+                <g fill={isLight ? "rgba(197, 160, 89, 0.12)" : "rgba(197, 160, 89, 0.05)"}>
+                  <rect x="54" y="54" width="292" height="472" />
+                  <rect x="354" y="54" width="222" height="172" />
+                  <rect x="578" y="54" width="318" height="472" />
+                  <rect x="54" y="534" width="292" height="142" />
+                  <rect x="574" y="534" width="322" height="142" />
+                  <rect x="424" y="234" width="202" height="262" fill={isLight ? "rgba(197, 160, 89, 0.18)" : "rgba(197, 160, 89, 0.1)"} />
+                </g>
+                <g stroke="#C5A059" strokeWidth="1.8" fill="none" opacity="0.95" strokeDasharray="4 3">
+                  <line x1="80" y1="120" x2="260" y2="120" strokeWidth="3" />
+                  <line x1="80" y1="180" x2="260" y2="180" strokeWidth="3" />
+                  <line x1="80" y1="240" x2="260" y2="240" strokeWidth="3" />
+                  <line x1="80" y1="300" x2="260" y2="300" strokeWidth="3" />
+                  <rect x="90" y="360" width="180" height="70" rx="4" />
+                  <rect x="120" y="380" width="40" height="30" rx="2" />
+                  <line x1="450" y1="260" x2="590" y2="260" strokeWidth="2.5" />
+                  <line x1="450" y1="300" x2="590" y2="300" strokeWidth="2" />
+                  <rect x="470" y="330" width="60" height="40" rx="2" />
+                  <rect x="540" y="330" width="50" height="40" rx="2" />
+                  <line x1="450" y1="420" x2="590" y2="420" strokeWidth="2.5" />
+                  <rect x="500" y="90" width="260" height="40" rx="4" />
+                  <rect x="370" y="90" width="40" height="30" rx="2" />
+                  <line x1="720" y1="260" x2="720" y2="420" strokeWidth="3" />
+                  <rect x="780" y="260" width="50" height="140" rx="4" />
+                  <rect x="90" y="580" width="140" height="60" rx="6" />
+                  <path d="M 610 570 L 860 570 L 860 650 L 610 650" strokeWidth="2.5" strokeDasharray="6 3" />
+                  <rect x="650" y="590" width="80" height="40" rx="4" />
+                </g>
+                <g stroke="#C5A059" strokeWidth="1.5" fill="none" opacity="0.85" strokeDasharray="3 3">
+                  <path d="M 350 630 A 30 30 0 0 1 380 600" />
+                  <path d="M 570 630 A 30 30 0 0 0 540 600" />
+                  <path d="M 200 530 A 30 30 0 0 1 230 500" />
+                </g>
+                <g fontFamily="monospace">
+                  <text x="200" y="225" fill={isLight ? "#594211" : "#FFF3D6"} fontSize="15" fontWeight="bold" textAnchor="middle">STORAGE & INVENTORY</text>
+                  <text x="200" y="248" fill={isLight ? "#9E7A32" : "#C5A059"} fontSize="13" fontWeight="600" textAnchor="middle">{storageArea} m²</text>
+                  <text x="465" y="145" fill={isLight ? "#594211" : "#FFF3D6"} fontSize="13" fontWeight="bold" textAnchor="middle">BACK OFFICE</text>
+                  <text x="465" y="165" fill={isLight ? "#9E7A32" : "#C5A059"} fontSize="11" fontWeight="600" textAnchor="middle">{backOfficeArea} m²</text>
+                  <text x="730" y="225" fill={isLight ? "#594211" : "#FFF3D6"} fontSize="15" fontWeight="bold" textAnchor="middle">DISPLAY & MERCHANDISE</text>
+                  <text x="730" y="248" fill={isLight ? "#9E7A32" : "#C5A059"} fontSize="13" fontWeight="600" textAnchor="middle">{displayArea} m²</text>
+                  <text x="525" y="210" fill={isLight ? "#9E7A32" : "#C5A059"} fontSize="11" fontWeight="bold" textAnchor="middle">CENTRAL SHOWROOM FLOOR</text>
+                  <text x="525" y="380" fill={isLight ? "#594211" : "#FFF3D6"} fontSize="16" fontWeight="bold" textAnchor="middle">MAIN FLOOR</text>
+                  <text x="525" y="405" fill={isLight ? "#9E7A32" : "#C5A059"} fontSize="14" fontWeight="600" textAnchor="middle">{showroomArea} m²</text>
+                  <text x="160" y="565" fill={isLight ? "#594211" : "#FFF3D6"} fontSize="13" fontWeight="bold" textAnchor="middle">CONSULTATION LOUNGE</text>
+                  <text x="160" y="588" fill={isLight ? "#9E7A32" : "#C5A059"} fontSize="12" fontWeight="600" textAnchor="middle">{loungeArea} m²</text>
+                  <text x="735" y="555" fill={isLight ? "#594211" : "#FFF3D6"} fontSize="14" fontWeight="bold" textAnchor="middle">CHECKOUT & SERVICE</text>
+                  <text x="735" y="578" fill={isLight ? "#9E7A32" : "#C5A059"} fontSize="12" fontWeight="600" textAnchor="middle">{checkoutArea} m²</text>
+                </g>
+                <g transform="translate(100, 600)">
+                  <circle cx="0" cy="0" r="20" fill="none" stroke="#C5A059" strokeWidth="1.5" strokeDasharray="3 2" />
+                  <polygon points="0,-16 4,-4 0,0 -4,-4" fill="#C5A059" />
+                  <text x="0" y="30" fill="#C5A059" fontSize="10" textAnchor="middle" fontFamily="monospace">N // RETAIL-01</text>
+                </g>
+              </svg>
+              )
             )}
+
           </div>
       </div>
       
