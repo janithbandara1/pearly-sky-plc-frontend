@@ -19,7 +19,7 @@ export async function GlobalHero() {
   return (
     <section
       id="home"
-      className="relative flex min-h-[90vh] flex-col justify-between overflow-hidden border-b border-gold-500/20 px-4 pb-8 pt-12 sm:px-8"
+      className="relative flex min-h-[90vh] flex-col justify-center overflow-hidden border-b border-gold-500/20 px-4 pb-8 pt-12 sm:px-8"
     >
       <Image
         src="/images/global-home/hero-villa.webp"
@@ -31,7 +31,7 @@ export async function GlobalHero() {
       />
       <div className="absolute inset-0 bg-[linear-gradient(to_right,rgba(2,12,27,0.9)_30%,rgba(2,12,27,0.45)_70%,rgba(2,12,27,0.75)_100%)]" />
 
-      <div className="relative z-10 mx-auto my-auto grid w-full max-w-7xl grid-cols-1 items-center gap-8 lg:grid-cols-12">
+      <div className="relative z-10 mx-auto grid w-full max-w-7xl grid-cols-1 items-center gap-8 lg:grid-cols-12">
         <div className="space-y-6 lg:col-span-8">
           <div className="inline-flex items-center gap-2 rounded-full border border-gold-500/30 bg-gold-500/10 px-3 py-1 text-xs font-semibold uppercase tracking-widest text-gold-400">
             <Crown className="h-3 w-3" />
@@ -80,7 +80,7 @@ export async function GlobalHero() {
         </div>
       </div>
 
-      <div className="relative z-10 mx-auto mt-8 flex w-full max-w-7xl flex-col items-center justify-between gap-6 border-t border-slate-700/40 pt-8 md:flex-row">
+      <div className="relative z-10 mx-auto mt-10 flex w-full max-w-7xl flex-col items-center justify-between gap-6 md:flex-row">
         <ul className="grid w-full grid-cols-2 gap-3 md:flex md:w-auto md:flex-wrap md:gap-4">
           {FEATURES.map(({ Icon, labelKey }) => (
             <li
