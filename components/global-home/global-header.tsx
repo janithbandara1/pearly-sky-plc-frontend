@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { ArrowRight, Menu, X } from "lucide-react";
@@ -11,6 +11,7 @@ import type { TranslationKey } from "@/lib/i18n/dictionaries/en";
 import { cn } from "@/lib/utils";
 import { greatVibes, playfair } from "./fonts";
 import { GlobalLanguageSwitcher } from "./global-language-switcher";
+import { ServiceAvailabilityDialog } from "./service-availability-dialog";
 
 const NAV_LINKS: { href: string; labelKey: TranslationKey }[] = [
   { href: "/", labelKey: "navHome" },
@@ -24,8 +25,8 @@ const NAV_LINKS: { href: string; labelKey: TranslationKey }[] = [
 
 /**
  * The global gateway's header (IS_GLOBAL_SITE) — no services menu or account
- * UI, just the nav, a language dropdown and a Book Now link to the home page's
- * quote form. Built without shadcn/ui, like site-header.tsx.
+ * UI, just the nav, a language dropdown and a Book Now button that asks where
+ * the service is needed before the quote form. Built without shadcn/ui, like site-header.tsx.
  */
 export function GlobalHeader() {
   const { translate, translateGlobal: t, language } = useLanguage();
@@ -43,8 +44,21 @@ export function GlobalHeader() {
     return () => document.removeEventListener("keydown", handleKeyDown);
   }, [mobileOpen]);
 
-  // The gateway takes no bookings — Book Now opens the request-quotation page.
-  const bookNowHref = localeHref("/request-quotation");
+  // The gateway takes no bookings — Book Now opens the availability check,
+  // which continues to the request-quotation page.
+  const availabilityRef = useRef<HTMLDialogElement>(null);
+  /** The form mounts only while open, so each opening starts empty. */
+  const [availabilityOpen, setAvailabilityOpen] = useState(false);
+  const openAvailability = () => {
+    setMobileOpen(false);
+    setAvailabilityOpen(true);
+    availabilityRef.current?.showModal();
+  };
+
+  // The header outlives page changes — close the dialog once its link navigates.
+  useEffect(() => {
+    availabilityRef.current?.close();
+  }, [pathname]);
 
   return (
     <header
@@ -92,13 +106,14 @@ export function GlobalHeader() {
 
         <div className="flex items-center gap-2">
           <GlobalLanguageSwitcher />
-          <Link
-            href={bookNowHref}
+          <button
+            type="button"
+            onClick={openAvailability}
             className="gold-gradient-bg hidden h-9 min-h-0! items-center gap-2 rounded-full px-5 text-xs font-semibold text-navy-900 shadow-md shadow-gold-500/20 transition-all hover:-translate-y-0.5 hover:brightness-110 sm:flex"
           >
             <span>{t("common.bookNow")}</span>
             <ArrowRight className="h-3.5 w-3.5" />
-          </Link>
+          </button>
 
           <button
             type="button"
@@ -134,17 +149,32 @@ export function GlobalHeader() {
             </Link>
           ))}
           <div className="mt-2 flex items-center gap-3 sm:hidden">
-            <Link
-              href={bookNowHref}
-              onClick={() => setMobileOpen(false)}
-              className="gold-gradient-bg h-9 min-h-0! justify-center gap-2 rounded-full px-5 text-xs font-semibold text-navy-900"
+            <button
+              type="button"
+              onClick={openAvailability}
+              className="gold-gradient-bg flex h-9 min-h-0! items-center justify-center gap-2 rounded-full px-5 text-xs font-semibold text-navy-900"
             >
               <span>{t("common.bookNow")}</span>
               <ArrowRight className="h-3.5 w-3.5" />
-            </Link>
+            </button>
           </div>
         </nav>
       )}
+
+      <dialog
+        ref={availabilityRef}
+        aria-labelledby="availability-title"
+        onClose={() => setAvailabilityOpen(false)}
+        onClick={(event) => event.target === availabilityRef.current && availabilityRef.current?.close()}
+        className="m-auto max-h-[90vh] w-[calc(100%-2rem)] max-w-lg overflow-y-auto rounded-3xl border border-gold-500/30 bg-navy-800 p-6 text-slate-100 shadow-2xl backdrop:bg-navy-900/80 backdrop:backdrop-blur-md sm:p-8"
+      >
+        {availabilityOpen && (
+          <ServiceAvailabilityDialog
+            serviceId={null}
+            onClose={() => availabilityRef.current?.close()}
+          />
+        )}
+      </dialog>
     </header>
   );
 }

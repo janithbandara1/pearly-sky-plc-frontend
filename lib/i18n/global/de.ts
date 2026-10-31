@@ -202,8 +202,6 @@ export const de: GlobalDictionary = {
   "locations.request.selectCountry": "Land auswählen",
   "locations.request.cta": "Angebot anfordern",
   "locations.request.hint": "Bitte wählen Sie zuerst ein Land aus.",
-  "locations.request.soon":
-    "{country} folgt in Kürze — schreiben Sie uns, und unser Team meldet sich bei Ihnen.",
 
   "map.aria": "Weltkarte mit Büros in Frankreich, im Vereinigten Königreich und in Sri Lanka",
   "map.london": "London, Vereinigtes Königreich",

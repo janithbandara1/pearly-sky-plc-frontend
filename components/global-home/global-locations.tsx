@@ -25,6 +25,7 @@ import { REGION_KEYS } from "@/lib/i18n/global/regions";
 import type { GlobalKey } from "@/lib/i18n/global/en";
 import { cn } from "@/lib/utils";
 import { CountryFlagIcon } from "./country-flags";
+import { BOOKABLE_COUNTRY_IDS } from "./service-availability-dialog";
 import { greatVibes, playfair } from "./fonts";
 
 /** Cities shown for each live country's card. */
@@ -389,9 +390,9 @@ function RequestService() {
   const [showHint, setShowHint] = useState(false);
   const options = useMemo(
     () =>
-      ALL_COUNTRIES.map((country) => ({ ...country, label: localizedCountryName(country, language) })).sort((a, b) =>
-        a.label.localeCompare(b.label, language),
-      ),
+      ALL_COUNTRIES.filter((country) => BOOKABLE_COUNTRY_IDS.includes(country.id))
+        .map((country) => ({ ...country, label: localizedCountryName(country, language) }))
+        .sort((a, b) => a.label.localeCompare(b.label, language)),
     [language],
   );
   const selected = options.find((country) => country.id === selectedId);
@@ -441,26 +442,15 @@ function RequestService() {
             <button type="button" onClick={() => setShowHint(true)} className={buttonClass}>
               {label}
             </button>
-          ) : selected.url ? (
-            <a
-              href={`${selected.url}/request-quotation`}
-              target="_blank"
-              rel="noopener noreferrer"
-              className={buttonClass}
-            >
-              {label}
-            </a>
           ) : (
-            <Link href="/contact-us" className={buttonClass}>
+            // The quotation page pre-fills its Country field from the English name.
+            <Link href={`/request-quotation?country=${encodeURIComponent(selected.name)}`} className={buttonClass}>
               {label}
             </Link>
           )}
         </div>
 
         {showHint && <p className="mt-4 text-sm text-gold-400">{t("locations.request.hint")}</p>}
-        {selected && !selected.url && (
-          <p className="mt-4 text-sm text-slate-400">{t("locations.request.soon", { country: selected.label })}</p>
-        )}
       </div>
     </section>
   );

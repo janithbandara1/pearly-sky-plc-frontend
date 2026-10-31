@@ -202,8 +202,6 @@ export const en = {
   "locations.request.selectCountry": "Select Country",
   "locations.request.cta": "Request a Quote",
   "locations.request.hint": "Please select a country first.",
-  "locations.request.soon":
-    "{country} is coming soon — send us a message and our team will get back to you.",
 
   "map.aria": "World map with offices in France, the United Kingdom and Sri Lanka",
   "map.london": "London, UK",
