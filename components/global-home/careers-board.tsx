@@ -143,7 +143,7 @@ export function CareersBoard() {
             >
               <div className="relative h-56 min-h-[220px] lg:col-span-5 lg:h-auto">
                 <Image
-                  src="/images/sectors/residential.webp"
+                  src="/images/global-home/careers-france.webp"
                   alt={t("careers.france.imageAlt")}
                   fill
                   sizes="(min-width: 1024px) 40vw, 100vw"

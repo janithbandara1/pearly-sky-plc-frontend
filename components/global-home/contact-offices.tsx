@@ -1,12 +1,19 @@
 import Image from "next/image";
 import { ArrowRight, Building, Building2, MapPin, Phone } from "lucide-react";
 import { officeLocations } from "@/lib/content/locations";
-import { COUNTRY_HERO_IMAGES, type CountryCode } from "@/lib/countries/config";
+import type { CountryCode } from "@/lib/countries/config";
 import { getRequestLanguage } from "@/lib/i18n/server";
 import { getGlobalTranslator, type GlobalTranslator } from "@/lib/i18n/global/server";
 import { localizedCountryName } from "@/lib/i18n/global/country-names";
 import type { LanguageCode } from "@/lib/i18n/config";
 import { CountryFlagIcon } from "./country-flags";
+
+/** Office photo per country, from the design. */
+export const OFFICE_IMAGES: Record<CountryCode, string> = {
+  fr: "/images/global-home/location-fr.webp",
+  gb: "/images/global-home/location-gb.webp",
+  lk: "/images/global-home/contact-lk.webp",
+};
 
 /** The nine featured service cities each office card lists (the country sites carry the full coverage lists). */
 const FEATURED_CITIES: Record<CountryCode, string[]> = {
@@ -42,7 +49,7 @@ function OfficeCard({
   language: LanguageCode | null;
 }) {
   const cities = office.country ? FEATURED_CITIES[office.country] : office.serviceCities;
-  const image = office.country ? COUNTRY_HERO_IMAGES[office.country] : null;
+  const image = office.country ? OFFICE_IMAGES[office.country] : null;
   const mapUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(office.address ?? office.name)}`;
   const name = localizedCountryName({ name: office.name, flagCode: office.country ?? "" }, language);
 

@@ -130,7 +130,7 @@ export function GlobalHomeContact({ services }: { services: QuoteServiceOption[]
       <div className="mx-auto grid max-w-7xl grid-cols-1 items-stretch gap-8 lg:grid-cols-12">
         <div className="relative flex min-h-[380px] flex-col justify-end overflow-hidden rounded-3xl border border-slate-700/60 p-6 shadow-2xl lg:col-span-4 lg:min-h-full">
           <Image
-            src="/images/hero/hero-2.webp"
+            src="/images/global-home/hero-villa.webp"
             alt={t("quote.imageAlt")}
             fill
             sizes="(min-width: 1024px) 33vw, 100vw"

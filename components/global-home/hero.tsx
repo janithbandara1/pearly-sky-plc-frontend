@@ -22,7 +22,7 @@ export async function GlobalHero() {
       className="relative flex min-h-[90vh] flex-col justify-between overflow-hidden border-b border-gold-500/20 px-4 pb-8 pt-12 sm:px-8"
     >
       <Image
-        src="/images/hero/hero-1.webp"
+        src="/images/global-home/hero-villa.webp"
         alt={t("hero.imageAlt")}
         fill
         priority

@@ -1,14 +1,13 @@
 import Image from "next/image";
 import { CalendarCheck, Globe, Headset, Send, UserCog } from "lucide-react";
 import { officeLocations } from "@/lib/content/locations";
-import { COUNTRY_HERO_IMAGES } from "@/lib/countries/config";
 import { TOTAL_COUNTRIES } from "@/lib/content/global-countries";
 import { getRequestLanguage } from "@/lib/i18n/server";
 import { getGlobalTranslator } from "@/lib/i18n/global/server";
 import { localizedCountryName } from "@/lib/i18n/global/country-names";
 import type { GlobalKey } from "@/lib/i18n/global/en";
 import { greatVibes, playfair } from "./fonts";
-import { ContactOffices } from "./contact-offices";
+import { ContactOffices, OFFICE_IMAGES } from "./contact-offices";
 import { ContactFormPanel } from "./contact-form-panel";
 
 const HERO_FEATURES: { Icon: typeof Headset; titleKey: GlobalKey; subtitleKey: GlobalKey }[] = [
@@ -28,7 +27,7 @@ export async function GlobalContact() {
     <main className={`${playfair.variable} ${greatVibes.variable} flex-1 bg-navy-900 font-sans text-slate-100`}>
       <section className="relative flex min-h-[460px] items-center overflow-hidden border-b border-gold-500/20 px-4 py-12 sm:px-8">
         <Image
-          src="/images/locations/contact-hero.webp"
+          src="/images/global-home/hero-villa.webp"
           alt=""
           fill
           priority
@@ -100,7 +99,7 @@ export async function GlobalContact() {
             {liveCountries.map((office) => (
               <li key={office.id} className="group shrink-0 text-center">
                 <div className="relative mx-auto h-14 w-14 overflow-hidden rounded-full border-2 border-gold-500 shadow-md transition-transform group-hover:scale-105">
-                  <Image src={COUNTRY_HERO_IMAGES[office.country!]} alt="" fill sizes="56px" className="object-cover" />
+                  <Image src={OFFICE_IMAGES[office.country!]} alt="" fill sizes="56px" className="object-cover" />
                 </div>
                 <span className="mt-1 block text-[11px] font-bold text-navy-900">
                   {localizedCountryName({ name: office.name, flagCode: office.country ?? "" }, language)}

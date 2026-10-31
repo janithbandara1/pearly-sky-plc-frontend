@@ -90,7 +90,7 @@ export function GlobalBlog({ posts }: { posts: BlogListPost[] }) {
   return (
     <main className={`${playfair.variable} ${greatVibes.variable} flex flex-1 flex-col bg-navy-900 font-sans text-slate-100`}>
       <section className="relative overflow-hidden border-b border-slate-800 py-16 md:py-24">
-        <Image src="/images/about/hero.webp" alt="" fill priority sizes="100vw" className="object-cover" />
+        <Image src="/images/global-home/about-hero.webp" alt="" fill priority sizes="100vw" className="object-cover" />
         <div className="absolute inset-0 bg-linear-to-b from-navy-900/75 to-navy-900/95" />
         <div className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="max-w-3xl">
@@ -395,7 +395,7 @@ function Newsletter() {
 
   return (
     <section className="relative overflow-hidden border-t border-slate-800 py-16">
-      <Image src="/images/about/welcome.webp" alt="" fill sizes="100vw" className="object-cover" />
+      <Image src="/images/global-home/blog-newsletter.webp" alt="" fill sizes="100vw" className="object-cover" />
       <div className="absolute inset-0 bg-linear-to-r from-navy-900/95 to-navy-900/85" />
       <div className="relative z-10 mx-auto max-w-7xl px-4 text-center sm:px-6 lg:px-8">
         <h2 className="mb-2 font-display text-2xl font-bold text-white sm:text-3xl">

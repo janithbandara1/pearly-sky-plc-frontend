@@ -274,7 +274,7 @@ export function ServicesContactForm({ services }: { services: QuoteServiceOption
         <div className="relative lg:col-span-5">
           <div className="relative h-[420px] w-full overflow-hidden rounded-3xl border border-white/10 shadow-2xl">
             <Image
-              src="/images/hero/hero-2.webp"
+              src="/images/global-home/services-quote.webp"
               alt={t("quote.imageAlt")}
               fill
               sizes="(min-width: 1024px) 40vw, 100vw"

@@ -22,7 +22,6 @@ import {
 import Link from "@/components/locale-link";
 import { REGIONAL_DATA, TOTAL_COUNTRIES } from "@/lib/content/global-countries";
 import { getOurServicesContent } from "@/lib/content/our-services";
-import { WORLD_MAP } from "@/lib/content/world-map";
 import { getRequestLanguage } from "@/lib/i18n/server";
 import { getGlobalTranslator } from "@/lib/i18n/global/server";
 import { REGION_KEYS } from "@/lib/i18n/global/regions";
@@ -89,7 +88,7 @@ export async function GlobalAbout() {
     <main className={`${playfair.variable} ${greatVibes.variable} flex-1 bg-gray-50 font-sans text-gray-800`}>
       <section className="relative overflow-hidden bg-navy-900 py-20 text-white lg:py-28">
         <div className="absolute inset-0 z-0 opacity-40">
-          <Image src="/images/about/hero.webp" alt="" fill priority sizes="100vw" className="object-cover" />
+          <Image src="/images/global-home/about-hero.webp" alt="" fill priority sizes="100vw" className="object-cover" />
           <div className="absolute inset-0 bg-linear-to-t from-navy-900 via-navy-900/70 to-transparent" />
         </div>
 
@@ -152,7 +151,7 @@ export async function GlobalAbout() {
               <div className="relative overflow-hidden rounded-2xl border border-gray-200 shadow-2xl">
                 <div className="relative h-[400px] sm:h-[480px]">
                   <Image
-                    src="/images/about/welcome.webp"
+                    src="/images/global-home/hero-villa.webp"
                     alt={t("about.story.imageAlt")}
                     fill
                     sizes="(min-width: 1024px) 58vw, 100vw"
@@ -233,14 +232,13 @@ export async function GlobalAbout() {
       </section>
 
       <section className="relative overflow-hidden bg-navy-900 py-20 text-white">
-        <svg
-          viewBox={`0 ${WORLD_MAP.top} ${WORLD_MAP.width} ${WORLD_MAP.height}`}
-          preserveAspectRatio="xMidYMid slice"
-          aria-hidden="true"
-          className="pointer-events-none absolute inset-0 h-full w-full opacity-15"
-        >
-          <path d={WORLD_MAP.land} fill="#d4af37" />
-        </svg>
+        <Image
+          src="/images/global-home/about-map.webp"
+          alt=""
+          fill
+          sizes="100vw"
+          className="pointer-events-none object-cover opacity-15 invert"
+        />
 
         <div className="relative z-10 mx-auto grid max-w-7xl grid-cols-1 items-center gap-12 px-4 sm:px-6 lg:grid-cols-12 lg:px-8">
           <div className="space-y-6 lg:col-span-6">

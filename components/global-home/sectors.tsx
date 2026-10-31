@@ -18,14 +18,14 @@ import { useLanguage } from "@/lib/i18n/language-context";
 import type { GlobalKey } from "@/lib/i18n/global/en";
 
 const SECTORS: { titleKey: GlobalKey; image: string; Icon: typeof Crown }[] = [
-  { titleKey: "sector.luxuryResidential", image: "residential", Icon: Crown },
-  { titleKey: "sector.commercial", image: "commercial", Icon: Building },
-  { titleKey: "sector.propertyManagement", image: "private-properties", Icon: KeyRound },
-  { titleKey: "sector.hospitality", image: "hospitality", Icon: Hotel },
-  { titleKey: "sector.sports", image: "sports", Icon: Dumbbell },
-  { titleKey: "sector.public", image: "education", Icon: Landmark },
-  { titleKey: "sector.healthcare", image: "healthcare", Icon: HeartPulse },
-  { titleKey: "sector.retail", image: "retail", Icon: ShoppingBag },
+  { titleKey: "sector.luxuryResidential", image: "/images/global-home/sector-luxury-residential.webp", Icon: Crown },
+  { titleKey: "sector.commercial", image: "/images/global-home/sector-commercial-property.webp", Icon: Building },
+  { titleKey: "sector.propertyManagement", image: "/images/global-home/sector-property-management.webp", Icon: KeyRound },
+  { titleKey: "sector.hospitality", image: "/images/global-home/sector-hospitality.webp", Icon: Hotel },
+  { titleKey: "sector.sports", image: "/images/global-home/sector-sports-wellness.webp", Icon: Dumbbell },
+  { titleKey: "sector.public", image: "/images/global-home/sector-public-institutional.webp", Icon: Landmark },
+  { titleKey: "sector.healthcare", image: "/images/sectors/healthcare.webp", Icon: HeartPulse },
+  { titleKey: "sector.retail", image: "/images/sectors/retail.webp", Icon: ShoppingBag },
 ];
 
 export function GlobalSectors() {
@@ -72,7 +72,7 @@ export function GlobalSectors() {
               className="group relative flex h-44 w-[calc((100%-0.75rem)/2)] shrink-0 snap-start flex-col justify-end overflow-hidden rounded-xl border border-slate-700/50 bg-navy-900 p-3 text-center transition-all hover:border-gold-500 sm:w-[calc((100%-2rem)/3)] lg:w-[calc((100%-5rem)/6)]"
             >
               <Image
-                src={`/images/sectors/${image}.webp`}
+                src={image}
                 alt={t(titleKey)}
                 fill
                 sizes="(min-width: 1024px) 16vw, (min-width: 640px) 33vw, 50vw"

@@ -17,8 +17,7 @@ import {
 } from "lucide-react";
 import Link from "@/components/locale-link";
 import { REGIONAL_DATA, TOTAL_COUNTRIES } from "@/lib/content/global-countries";
-import { COUNTRY_DOMAINS, COUNTRY_HERO_IMAGES, isSupportedCountry } from "@/lib/countries/config";
-import { COVERAGE_CITIES } from "@/lib/countries/home-content";
+import { COUNTRY_DOMAINS, isSupportedCountry } from "@/lib/countries/config";
 import { SUPPORTED_LANGUAGES } from "@/lib/i18n/config";
 import { useLanguage } from "@/lib/i18n/language-context";
 import { localizedCountryName } from "@/lib/i18n/global/country-names";
@@ -27,6 +26,9 @@ import type { GlobalKey } from "@/lib/i18n/global/en";
 import { cn } from "@/lib/utils";
 import { CountryFlagIcon } from "./country-flags";
 import { greatVibes, playfair } from "./fonts";
+
+/** Cities shown for each live country's card. */
+const LIVE_CITY_COUNT = 9;
 
 // Tab order, as in the design.
 const REGIONS = ["Europe Union", "Middle East & Asia", "Australia & New Zealand", "North America"];
@@ -48,7 +50,7 @@ const ALL_COUNTRIES = REGIONS.flatMap((region) => {
   return (group?.countries ?? []).map((country) => ({
     ...country,
     region,
-    cities: isSupportedCountry(country.id) ? COVERAGE_CITIES[country.id].length : null,
+    cities: isSupportedCountry(country.id) ? LIVE_CITY_COUNT : null,
     url: country.isLive ? `https://${country.domain.toLowerCase()}` : null,
   }));
 }).sort((a, b) => displayRank(a.id) - displayRank(b.id));
@@ -56,6 +58,14 @@ const ALL_COUNTRIES = REGIONS.flatMap((region) => {
 type Country = (typeof ALL_COUNTRIES)[number];
 
 const LIVE_COUNTRIES = ALL_COUNTRIES.filter((country) => country.isLive);
+
+/** Card photo per country, from the design. Countries without one show a gold name banner. */
+const LOCATION_IMAGES: Record<string, string> = Object.fromEntries(
+  ["fr", "gb", "de", "it", "nl", "be", "mc", "ca", "us", "ae", "au"].map((id) => [
+    id,
+    `/images/global-home/location-${id}.webp`,
+  ]),
+);
 const FEATURES: { Icon: typeof Gem; titleKey: GlobalKey; subtitleKey: GlobalKey }[] = [
   { Icon: UserCheck, titleKey: "locations.feature.experts.title", subtitleKey: "locations.feature.experts.subtitle" },
   { Icon: Gem, titleKey: "locations.feature.premium.title", subtitleKey: "locations.feature.premium.subtitle" },
@@ -113,7 +123,7 @@ export function GlobalLocations({ worldMap }: { worldMap: React.ReactNode }) {
   return (
     <main className={`${playfair.variable} ${greatVibes.variable} flex-1 bg-navy-900 font-sans text-slate-100`}>
       <section className="relative flex min-h-[560px] items-center justify-center overflow-hidden lg:min-h-[640px]">
-        <Image src="/images/locations/hero.webp" alt="" fill priority sizes="100vw" className="object-cover" />
+        <Image src="/images/global-home/services-hero.webp" alt="" fill priority sizes="100vw" className="object-cover" />
         <div className="absolute inset-0 bg-linear-to-b from-navy-900/65 to-navy-900/90" />
         <p className="pointer-events-none absolute right-10 top-10 z-10 hidden -rotate-3 font-script text-3xl text-gold-400/90 drop-shadow-md md:block lg:right-24 lg:text-4xl">
           {t("locations.script")}
@@ -265,7 +275,7 @@ export function GlobalLocations({ worldMap }: { worldMap: React.ReactNode }) {
 
 function LocationCard({ country }: { country: Country }) {
   const { translateGlobal: t, language } = useLanguage();
-  const heroImage = isSupportedCountry(country.id) ? COUNTRY_HERO_IMAGES[country.id] : null;
+  const heroImage = LOCATION_IMAGES[country.id] ?? null;
   const name = localizedCountryName(country, language);
 
   return (
@@ -325,7 +335,7 @@ function FeaturedParis() {
       <div className="mx-auto grid max-w-7xl grid-cols-1 overflow-hidden rounded-3xl border border-white/10 bg-linear-to-r from-navy-800 to-navy-900 shadow-2xl lg:grid-cols-12">
         <div className="relative min-h-[300px] lg:col-span-5 lg:min-h-[400px]">
           <Image
-            src={COUNTRY_HERO_IMAGES.fr}
+            src="/images/global-home/featured-paris.webp"
             alt={t("locations.paris.imageAlt")}
             fill
             sizes="(min-width: 1024px) 40vw, 100vw"

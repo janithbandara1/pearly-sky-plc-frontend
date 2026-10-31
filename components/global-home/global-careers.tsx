@@ -57,7 +57,7 @@ export async function GlobalCareers() {
     <main className={`${playfair.variable} ${greatVibes.variable} flex-1 bg-cream font-sans text-slate-800`}>
       <CareersApplyProvider>
         <section className="relative flex min-h-[440px] items-center overflow-hidden border-b border-gold-500/20 px-4 py-14 sm:px-8">
-          <Image src="/images/careers/hero.webp" alt="" fill priority sizes="100vw" className="object-cover object-center" />
+          <Image src="/images/global-home/hero-villa.webp" alt="" fill priority sizes="100vw" className="object-cover object-center" />
           <div className="absolute inset-0 bg-[linear-gradient(to_right,rgba(2,12,27,0.95)_35%,rgba(2,12,27,0.65)_70%,rgba(2,12,27,0.85)_100%)]" />
 
           <div className="relative z-10 mx-auto grid w-full max-w-7xl grid-cols-1 items-center gap-8 lg:grid-cols-12">
@@ -146,7 +146,7 @@ export async function GlobalCareers() {
             </div>
             <div className="relative h-48 min-h-[200px] lg:col-span-5 lg:h-full">
               <Image
-                src="/images/team/human-resources.webp"
+                src="/images/global-home/careers-apply.webp"
                 alt={t("careers.ready.imageAlt")}
                 fill
                 sizes="(min-width: 1024px) 40vw, 100vw"

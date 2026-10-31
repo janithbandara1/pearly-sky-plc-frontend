@@ -90,7 +90,7 @@ export function GlobalServicesPage({ content }: { content: OurServicesContent })
   return (
     <main className={`${playfair.variable} ${greatVibes.variable} flex-1 bg-navy-900 font-sans text-slate-100`}>
       <section className="relative flex min-h-[580px] items-center justify-center overflow-hidden lg:min-h-[640px]">
-        <Image src="/images/hero/hero-1.webp" alt="" fill priority sizes="100vw" className="object-cover" />
+        <Image src="/images/global-home/services-hero.webp" alt="" fill priority sizes="100vw" className="object-cover" />
         <div className="absolute inset-0 bg-linear-to-b from-navy-900/60 to-navy-900/90" />
         <p className="pointer-events-none absolute right-10 top-10 z-10 hidden -rotate-3 font-script text-3xl text-gold-400/90 drop-shadow-md md:block lg:right-24 lg:text-4xl">
           {t("svc.script")}
