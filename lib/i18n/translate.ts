@@ -1,8 +1,5 @@
 import { en, type TranslationKey } from "./dictionaries/en";
-import { de } from "./dictionaries/de";
-import { es } from "./dictionaries/es";
 import { fr } from "./dictionaries/fr";
-import { it } from "./dictionaries/it";
 import type { LanguageCode } from "./config";
 import type { Dictionary } from "./language-context";
 
@@ -15,9 +12,6 @@ import type { Dictionary } from "./language-context";
 const dictionaries: Record<LanguageCode, Dictionary> = {
   en,
   fr,
-  de,
-  es,
-  it,
 };
 
 /** Returns a `translate(key)` bound to `language`, falling back to English — same resolution order as useLanguage()'s translate. */

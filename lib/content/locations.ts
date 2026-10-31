@@ -112,7 +112,7 @@ const REGION_CODES: Record<string, string> = {
 };
 
 /** Scotland has no ISO country code of its own, so Intl can't name it. */
-const SCOTLAND: Record<LanguageCode, string> = { en: "Scotland", fr: "Écosse", de: "Schottland", es: "Escocia", it: "Scozia" };
+const SCOTLAND: Record<LanguageCode, string> = { en: "Scotland", fr: "Écosse" };
 
 /** `location.name` in `language` ("Germany" → "Allemagne"); falls back to the English name. */
 export function getLocationName(location: Location, language: LanguageCode): string {

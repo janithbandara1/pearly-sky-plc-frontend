@@ -44,27 +44,9 @@ export const OFFICE_ADDRESSES: Record<LanguageCode, LegalBlock> = {
     `Sri Lanka : ${LK_ADDRESS}, Sri Lanka`,
     `Royaume-Uni : ${UK_ADDRESS}, Royaume-Uni`,
   ),
-  de: ul(
-    `Hauptsitz (Frankreich): ${HQ_ADDRESS}, Frankreich`,
-    `Sri Lanka: ${LK_ADDRESS}, Sri Lanka`,
-    `Vereinigtes Königreich: ${UK_ADDRESS}, Vereinigtes Königreich`,
-  ),
-  es: ul(
-    `Sede central (Francia): ${HQ_ADDRESS}, Francia`,
-    `Sri Lanka: ${LK_ADDRESS}, Sri Lanka`,
-    `Reino Unido: ${UK_ADDRESS}, Reino Unido`,
-  ),
-  it: ul(
-    `Sede centrale (Francia): ${HQ_ADDRESS}, Francia`,
-    `Sri Lanka: ${LK_ADDRESS}, Sri Lanka`,
-    `Regno Unito: ${UK_ADDRESS}, Regno Unito`,
-  ),
 };
 
 export const LAST_UPDATED: Record<LanguageCode, string> = {
   en: "Last updated: August 8, 2026",
   fr: "Dernière mise à jour : 8 août 2026",
-  de: "Zuletzt aktualisiert: 8. August 2026",
-  es: "Última actualización: 8 de agosto de 2026",
-  it: "Ultimo aggiornamento: 8 agosto 2026",
 };

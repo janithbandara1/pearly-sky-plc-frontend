@@ -101,9 +101,6 @@ const emptyContactForm: ContactForm = {
 const DEFAULT_LANGUAGE_PREFERENCE: Record<SupportedLanguage, string> = {
   en: "english",
   fr: "french",
-  de: "german",
-  es: "spanish",
-  it: "italian",
 };
 
 // Values stay English (they're stored on the booking and shown to staff); only the labels are translated.

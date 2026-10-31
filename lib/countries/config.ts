@@ -32,7 +32,7 @@ export const COUNTRY_DOMAINS: Record<CountryCode, string> = {
 
 /**
  * Which of SUPPORTED_LANGUAGES each country's portal offers. Every country
- * currently offers all of them.
+ * currently offers all of them (English and French).
  */
 export const COUNTRY_LANGUAGES: Record<CountryCode, readonly LanguageCode[]> = {
   fr: SUPPORTED_LANGUAGES,

@@ -6,10 +6,13 @@ import {
   LANGUAGE_COOKIE_MAX_AGE,
   LANGUAGE_COOKIE_NAME,
   LANGUAGE_HEADER_NAME,
+  RETIRED_LANGUAGES,
   type LanguageCode,
 } from "@/lib/i18n/config";
 import { detectLanguageFromHeaders } from "@/lib/i18n/geo";
 import { buildLocalePath, extractLocalePrefix, isLocaleExcluded } from "@/lib/locale";
+
+const RETIRED_LANGUAGE_PREFIX = new RegExp(`^/(?:${RETIRED_LANGUAGES.join("|")})(/.*)?$`, "i");
 
 const CUSTOMER_PROTECTED_PREFIXES = ["/bookings", "/quotations", "/profile", "/addresses"];
 
@@ -106,6 +109,13 @@ export function proxy(request: NextRequest) {
   if (wwwRedirect) return wwwRedirect;
 
   const { pathname } = request.nextUrl;
+
+  const retired = pathname.match(RETIRED_LANGUAGE_PREFIX);
+  if (retired) {
+    const target = request.nextUrl.clone();
+    target.pathname = buildLocalePath(retired[1] || "/", CURRENT_COUNTRY_LANGUAGES[0]);
+    return NextResponse.redirect(target, 308);
+  }
 
   const locale = extractLocalePrefix(pathname);
   if (locale === "invalid") {

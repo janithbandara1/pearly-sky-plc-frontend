@@ -23,9 +23,6 @@ import { NoCareersNotice } from "@/components/careers/no-careers-notice";
 const CAREERS_TITLE_SUFFIX: Record<LanguageCode, string> = {
   en: "Careers at Pearly Sky",
   fr: "Carrières chez Pearly Sky",
-  de: "Karriere bei Pearly Sky",
-  es: "Empleo en Pearly Sky",
-  it: "Lavora con noi da Pearly Sky",
 };
 
 /**
@@ -46,21 +43,6 @@ const JOB_META: Record<string, Record<LanguageCode, { title: string; description
       description:
         "Rejoignez Pearly Sky en tant qu'agent d'entretien résidentiel et commercial en France. Des postes à temps plein, à temps partiel et flexibles peuvent être proposés selon le lieu.",
     },
-    de: {
-      title: "Reinigungskraft für Privat- & Gewerbeobjekte | Karriere bei Pearly Sky",
-      description:
-        "Werden Sie Teil von Pearly Sky als Reinigungskraft für Privat- und Gewerbeobjekte in Frankreich. Je nach Standort sind Vollzeit-, Teilzeit- und flexible Stellen möglich.",
-    },
-    es: {
-      title: "Limpiador/a residencial y comercial | Empleo en Pearly Sky",
-      description:
-        "Únase a Pearly Sky como limpiador/a residencial y comercial en Francia. Según la ubicación, puede haber oportunidades a tiempo completo, a tiempo parcial y flexibles.",
-    },
-    it: {
-      title: "Addetto/a alle pulizie residenziali e commerciali | Lavora con noi da Pearly Sky",
-      description:
-        "Unisciti a Pearly Sky come addetto/a alle pulizie residenziali e commerciali in Francia. In base alla località possono essere disponibili posizioni a tempo pieno, part-time e flessibili.",
-    },
   },
   "childcare-assistant": {
     en: {
@@ -73,21 +55,6 @@ const JOB_META: Record<string, Record<LanguageCode, { title: string; description
       description:
         "Découvrez les opportunités d'assistant(e) de garde d'enfants chez Pearly Sky en France. Des postes à temps partiel et à temps plein peuvent être proposés selon le lieu et les besoins.",
     },
-    de: {
-      title: "Kinderbetreuer/in | Karriere bei Pearly Sky",
-      description:
-        "Entdecken Sie Stellen als Kinderbetreuer/in bei Pearly Sky in Frankreich. Je nach Standort und Anforderungen sind Teilzeit- und Vollzeitstellen möglich.",
-    },
-    es: {
-      title: "Asistente de cuidado infantil | Empleo en Pearly Sky",
-      description:
-        "Descubra las oportunidades como asistente de cuidado infantil en Pearly Sky en Francia. Según la ubicación y las necesidades, puede haber puestos a tiempo parcial y a tiempo completo.",
-    },
-    it: {
-      title: "Assistente all'infanzia | Lavora con noi da Pearly Sky",
-      description:
-        "Scopri le opportunità come assistente all'infanzia con Pearly Sky in Francia. In base alla località e alle esigenze possono essere disponibili posizioni part-time e a tempo pieno.",
-    },
   },
   "elder-care-assistant": {
     en: {
@@ -99,21 +66,6 @@ const JOB_META: Record<string, Record<LanguageCode, { title: string; description
       title: "Auxiliaire d'aide aux personnes âgées | Carrières chez Pearly Sky",
       description:
         "Découvrez les opportunités d'auxiliaire d'aide aux personnes âgées chez Pearly Sky en France. Des postes à temps plein, à temps partiel et flexibles peuvent être proposés selon le lieu.",
-    },
-    de: {
-      title: "Seniorenbetreuer/in | Karriere bei Pearly Sky",
-      description:
-        "Entdecken Sie Stellen als Seniorenbetreuer/in bei Pearly Sky in Frankreich. Je nach Standort sind Vollzeit-, Teilzeit- und flexible Stellen möglich.",
-    },
-    es: {
-      title: "Asistente de cuidado de mayores | Empleo en Pearly Sky",
-      description:
-        "Descubra las oportunidades como asistente de cuidado de mayores en Pearly Sky en Francia. Según la ubicación, puede haber puestos a tiempo completo, a tiempo parcial y flexibles.",
-    },
-    it: {
-      title: "Assistente agli anziani | Lavora con noi da Pearly Sky",
-      description:
-        "Scopri le opportunità come assistente agli anziani con Pearly Sky in Francia. In base alla località possono essere disponibili posizioni a tempo pieno, part-time e flessibili.",
     },
   },
 };
@@ -131,12 +83,6 @@ function buildJobMetaDescription(
   switch (language) {
     case "fr":
       return `${jobTitle} — poste ${employmentType} chez Pearly Sky, ${location}.`;
-    case "de":
-      return `${jobTitle} — ${employmentType}-Stelle bei Pearly Sky, ${location}.`;
-    case "es":
-      return `${jobTitle} — puesto ${employmentType} en Pearly Sky, ${location}.`;
-    case "it":
-      return `${jobTitle} — posizione ${employmentType} presso Pearly Sky, ${location}.`;
     default:
       return `${jobTitle} — ${employmentType} role at Pearly Sky, ${location}.`;
   }

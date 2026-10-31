@@ -16,9 +16,6 @@ export type SupportedLanguage = LanguageCode;
 export const SUPPORTED_LANGUAGES: { code: SupportedLanguage; label: string }[] = [
   { code: "en", label: "English" },
   { code: "fr", label: "Français" },
-  { code: "de", label: "Deutsch" },
-  { code: "es", label: "Español" },
-  { code: "it", label: "Italiano" },
 ];
 
 export type TranslationValue = string | readonly string[];

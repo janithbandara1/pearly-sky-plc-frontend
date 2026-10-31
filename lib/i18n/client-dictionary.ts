@@ -9,9 +9,6 @@ import type { Dictionary } from "./language-context";
 const loaders: Record<LanguageCode, () => Promise<Dictionary>> = {
   en: () => import("./dictionaries/en").then((m) => m.en),
   fr: () => import("./dictionaries/fr").then((m) => m.fr),
-  de: () => import("./dictionaries/de").then((m) => m.de),
-  es: () => import("./dictionaries/es").then((m) => m.es),
-  it: () => import("./dictionaries/it").then((m) => m.it),
 };
 
 // One promise per language for the module's lifetime — React's use() needs a
