@@ -2529,6 +2529,76 @@ export const en = {
 
   CategoryAll:"All",
 
+  tagline: "PURE SPACES. ELEVATED FRENCH LIVING.",
+  titleHighlight: "Eco-Luxury Cleaning",
+  titleSuffix: "for Homes and Workspaces in",
+  countryName: "France",
+  description: "Thoughtful, professional cleaning for homes and workspaces across France & Monaco. Enjoy meticulous care, clear communication, and a service tailored to your space.",
+  ctaPrimary: "BOOK YOUR CLEANING SERVICE",
+  ctaSecondary: "GET A FREE QUOTE",
+  trustBadges: ["100% Satisfaction Guarantee", "Qualified & Insured Teams", "Dedicated 24/7 Customer Support"],
+    Residential: "Residential",
+Commercial: "Commercial",
+SpecialistCare: "Specialist Care",
+
+
+  greenCompassTitle: "Green Compass",
+  greenCompassSubtitle: "Eco-Certified",
+  fiveStarRatingTitle: "5-Star Service Rating",
+  fiveStarRatingSubtitle: "Luxury Standard",
+  globalPartnershipTitle: "Global Partnership",
+  globalPartnershipSubtitle: "Vetted Network",
+  ecoFriendlyProductsTitle: "Eco-Friendly Products",
+  ecoFriendlyProductsSubtitle: "Pet & Child Safe",
+  englishFrenchTitle: "English & French",
+  englishFrenchSubtitle: "Bilingual Teams",
+  vettedTeamTitle: "Vetted Team",
+  vettedTeamSubtitle: "Background Checked",
+
+  locationsTitle: "Service Locations Across France & Monaco",
+
+residentialName: "Residential",
+commercialName: "Commercial",
+privateEstateName: "Private Estate",
+hospitalityName: "Hospitality",
+eventAndSportName: "Event & Sport",
+hotelsAndResortsName: "Hotels & Resorts",
+restaurantsName: "Restaurants",
+schoolsAndAcademiesName: "Schools & Academies",
+luxuryRetailName: "Luxury Retail",
+transportAndLogisticsName: "Transport & Logistics",
+constructionAndRenovationName: "Construction & Renovation",
+shoppingMallName: "Shopping Mall",
+yachtAndShipCleaningName: "Yacht & Ship Cleaning",
+governmentSectorName: "Government Sector",
+privateSectorName: "Private Sector",
+shopsAndBoutiquesName: "Shops & Boutiques",
+cinemaAndEntertainmentName: "Cinema & Entertainment",
+
+
+
+tailoredSolutionsTitle: "Tailored Solutions for Every Field",
+industriesSectorsTitle: "Industries & Sectors We Serve",
+industriesDescription: "Providing bespoke, non-toxic eco-luxury cleaning standards across high-profile sectors in France & Monaco.",
+
+regionTitle: "Service Excellence Throughout France",
+headlineHighlight: "Service Excellence Throughout France",
+descriptionMain: "At Pearly Sky, we understand that maintaining a pristine environment is essential for productivity and well-being. Whether you require routine home cleaning, comprehensive office deep-cleaning, or specialized yacht concierge services, our team delivers unmatched quality across France & Monaco.",
+descriptionEco: "We utilize eco-friendly, luxury-grade cleaning products that are safe for your family, pets, and workplace, ensuring a thorough clean without harsh chemicals.",
+bannerTitle: "Bilingual French & English Teams",
+bannerSubtitle: "Seamless communication across all 23 territories",
+
+petChildSafeTitle: "Pet & Child Safe",
+petChildSafeSubtitle: "100% Organic non-toxic formulations",
+availabilityTitle: "24/7 Availability",
+availabilitySubtitle: "Dedicated support whenever you need",
+
+luxuryStandardTitle: "Pearly Sky Luxury Standard",
+
+instantEstimateTitle: "Instant Estimate",
+freeQuoteTitle: "Get a Free Quote Today",
+estimateDescription: "Experience eco-luxury cleaning tailored specifically to your space. Request your bespoke estimate in minutes.",
+bookServiceCta: "Book Service Now",
 
 } as const;
 

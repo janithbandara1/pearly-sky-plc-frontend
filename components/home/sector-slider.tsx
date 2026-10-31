@@ -21,6 +21,8 @@ import {
   Film,
   LucideIcon
 } from 'lucide-react';
+import { useLanguage } from '@/lib/i18n/language-context';
+import { TranslationKey } from '@/lib/i18n/dictionaries/en';
 
 interface SectorItem {
   name: string;
@@ -28,39 +30,40 @@ interface SectorItem {
 }
 
 const sectorsList: SectorItem[] = [
-  { name: 'Residential', icon: Home },
-  { name: 'Commercial', icon: Building },
-  { name: 'Private Estate', icon: Landmark },
-  { name: 'Hospitality', icon: ConciergeBell },
-  { name: 'Event & Sport', icon: Trophy },
-  { name: 'Hotels & Resorts', icon: Hotel },
-  { name: 'Restaurants', icon: Utensils },
-  { name: 'Schools & Academies', icon: GraduationCap },
-  { name: 'Luxury Retail', icon: ShoppingBag },
-  { name: 'Transport & Logistics', icon: Plane },
-  { name: 'Construction & Renovation', icon: HardHat },
-  { name: 'Shopping Mall', icon: Store },
-  { name: 'Yacht & Ship Cleaning', icon: Ship },
-  { name: 'Government Sector', icon: Building2 },
-  { name: 'Private Sector', icon: Briefcase },
-  { name: 'Shops & Boutiques', icon: ShopIcon },
-  { name: 'Cinema & Entertainment', icon: Film },
+  { name: 'residentialName', icon: Home },
+  { name: 'commercialName', icon: Building },
+  { name: 'privateEstateName', icon: Landmark },
+  { name: 'hospitalityName', icon: ConciergeBell },
+  { name: 'eventAndSportName', icon: Trophy },
+  { name: 'hotelsAndResortsName', icon: Hotel },
+  { name: 'restaurantsName', icon: Utensils },
+  { name: 'schoolsAndAcademiesName', icon: GraduationCap },
+  { name: 'luxuryRetailName', icon: ShoppingBag },
+  { name: 'transportAndLogisticsName', icon: Plane },
+  { name: 'constructionAndRenovationName', icon: HardHat },
+  { name: 'shoppingMallName', icon: Store },
+  { name: 'yachtAndShipCleaningName', icon: Ship },
+  { name: 'governmentSectorName', icon: Building2 },
+  { name: 'privateSectorName', icon: Briefcase },
+  { name: 'shopsAndBoutiquesName', icon: ShopIcon },
+  { name: 'cinemaAndEntertainmentName', icon: Film },
 ];
 
 export default function SectorsSlider() {
+  const {translate} =useLanguage(); // Ensure the language context is available
   return (
     <section id="sectors" className="py-16 bg-[#faf9f6]">
       {/* Header Section */}
       <div className="max-w-7xl mx-auto px-4 md:px-6 lg:px-8">
         <div className="text-center max-w-3xl mx-auto mb-10">
           <span className="text-xs font-bold uppercase tracking-widest text-[#d4af37]">
-            Tailored Solutions for Every Field
+            {translate("tailoredSolutionsTitle")}
           </span>
           <h2 className="text-3xl font-serif font-bold text-[#0b121e] mt-2 leading-tight">
-            Industries &amp; Sectors We Serve
+            {translate("industriesSectorsTitle")}
           </h2>
           <p className="text-slate-600 text-sm mt-3 leading-relaxed">
-            Providing bespoke, non-toxic eco-luxury cleaning standards across high-profile sectors in France &amp; Monaco.
+            {translate("industriesDescription")}
           </p>
         </div>
       </div>
@@ -77,7 +80,7 @@ export default function SectorsSlider() {
               >
                 <IconComponent className="w-4 h-4 text-[#d4af37] shrink-0" />
                 <span className="text-xs font-semibold text-white tracking-wide">
-                  {sec.name}
+                  {translate(sec.name as TranslationKey)}
                 </span>
               </div>
             );

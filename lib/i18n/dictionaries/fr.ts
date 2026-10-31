@@ -2444,6 +2444,79 @@ export const fr = {
 
   propVipBuilding: "Bâtiment VIP",
   serviceLableLuxuryYachtCleaning: "Nettoyage de Yachts & Navires de Passagers",
+
+  CategoryAll:"All",
+  
+tagline: "ESPACES PURS. ART DE VIVRE ÉLEVÉ.",
+titleHighlight: "Nettoyage Éco-Luxe",
+titleSuffix: "pour résidences et espaces de travail en",
+countryName: "France",
+description: "Un nettoyage attentionné et professionnel pour résidences et espaces de travail en France et à Monaco. Profitez d'un soin minutieux, d'une communication claire et d'un service sur mesure.",
+ctaPrimary: "RÉSERVEZ VOTRE SERVICE DE NETTOYAGE",
+ctaSecondary: "OBTENIR UN DEVIS GRATUIT",
+trustBadges: ["Garantie 100% Satisfaction", "Équipes Qualifiées & Assurées", "Service Client Dédié 24/7"],
+
+
+Residential: "Résidentiel",
+Commercial: "Commercial",
+SpecialistCare: "Soins Spécialisés",
+
+greenCompassTitle: "Boussole Écologique",
+greenCompassSubtitle: "Certifié Éco",
+fiveStarRatingTitle: "Service Évalué 5 Étoiles",
+fiveStarRatingSubtitle: "Standard de Luxe",
+globalPartnershipTitle: "Partenariat Global",
+globalPartnershipSubtitle: "Réseau Vérifié",
+ecoFriendlyProductsTitle: "Produits Écologiques",
+ecoFriendlyProductsSubtitle: "Sans Danger pour Animaux & Enfants",
+englishFrenchTitle: "Anglais & Français",
+englishFrenchSubtitle: "Équipes Bilingues",
+vettedTeamTitle: "Équipe Vérifiée",
+vettedTeamSubtitle: "Antécédents Vérifiés",
+
+residentialName: "Résidentiel",
+commercialName: "Commercial",
+privateEstateName: "Domaine Privé",
+hospitalityName: "Hôtellerie & Restauration",
+eventAndSportName: "Événementiel & Sport",
+hotelsAndResortsName: "Hôtels & Complexes",
+restaurantsName: "Restaurants",
+schoolsAndAcademiesName: "Écoles & Académies",
+luxuryRetailName: "Commerce de Luxe",
+transportAndLogisticsName: "Transport & Logistique",
+constructionAndRenovationName: "Construction & Rénovation",
+shoppingMallName: "Centre Commercial",
+yachtAndShipCleaningName: "Nettoyage de Yachts & Navires",
+governmentSectorName: "Secteur Public",
+privateSectorName: "Secteur Privé",
+shopsAndBoutiquesName: "Magasins & Boutiques",
+cinemaAndEntertainmentName: "Cinéma & Divertissement",
+
+locationsTitle: "Zones d'intervention en France & Monaco",
+
+tailoredSolutionsTitle: "Solutions Sur Mesure pour Chaque Domaine",
+industriesSectorsTitle: "Industries & Secteurs Desserbis",
+industriesDescription: "Offrant des normes de nettoyage éco-luxe non toxiques et sur mesure dans des secteurs de haut standing en France & Monaco.",
+
+regionTitle: "L'Excellence du Service à Travers la France",
+headlineHighlight: "L'Excellence du Service à Travers la France",
+descriptionMain: "Chez Pearly Sky, nous comprenons qu'un environnement impeccable est essentiel pour la productivité et le bien-être. Que vous ayez besoin d'un nettoyage à domicile régulier, d'un nettoyage en profondeur pour bureaux ou d'un service de conciergerie spécialisé pour yachts, notre équipe offre une qualité inégalée à travers la France et Monaco.",
+descriptionEco: "Nous utilisons des produits de nettoyage écologiques et haut de gamme, sans danger pour votre famille, vos animaux de compagnie et votre lieu de travail, garantissant un nettoyage en profondeur sans produits chimiques agressifs.",
+bannerTitle: "Équipes Bilingues Français & Anglais",
+bannerSubtitle: "Une communication fluide à travers les 23 territoires",
+
+petChildSafeTitle: "Sans Danger pour Animaux & Enfants",
+petChildSafeSubtitle: "Formulations 100% biologiques et non toxiques",
+availabilityTitle: "Disponibilité 24/7",
+availabilitySubtitle: "Un support dédié dès que vous en avez besoin",
+
+luxuryStandardTitle: "Standard de Luxe Pearly Sky",
+
+instantEstimateTitle: "Estimation Instantanée",
+freeQuoteTitle: "Obtenez un Devis Gratuit Aujourd'hui",
+estimateDescription: "Découvrez un nettoyage éco-luxe conçu spécialement pour votre espace. Demandez votre devis sur mesure en quelques minutes.",
+bookServiceCta: "Réserver le Service Maintenant",
+
 } as Record<TranslationKey, TranslationValue>;
 
 

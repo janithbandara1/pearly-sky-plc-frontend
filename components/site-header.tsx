@@ -140,7 +140,7 @@ export function SiteHeader({ navLinks: navLinksProp, showServicesMenu: showServi
 
         <Link href={localeHref("/")} className="min-w-0 flex-1 md:flex-none md:w-[30%] lg:w-[16%] flex items-center gap-3.5 overflow-hidden">
           <Image
-            src="/images/brand/logo.webp"
+            src="/images/brand/pearly-sky-logo.jpeg"
             alt="Pearly Sky"
             width={40}
             height={40}

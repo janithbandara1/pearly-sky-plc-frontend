@@ -6,6 +6,7 @@ import { Phone } from 'lucide-react';
 
 import { CURRENT_COUNTRY } from '@/lib/countries/config';
 import QuoteModal from './quote-model';
+import { useLanguage } from '@/lib/i18n/language-context';
 
 
 interface ContactData {
@@ -34,6 +35,8 @@ export default function ContactUsCTAQuote() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const contact = countryContactData[CURRENT_COUNTRY as 'fr' | 'uk' | 'lk'];
 
+  const {translate} = useLanguage();
+
   return (
     <section id="contact" className="py-16 bg-[#fffdf4]">
       <div className="max-w-7xl mx-auto px-4 md:px-6 lg:px-8">
@@ -54,18 +57,18 @@ export default function ContactUsCTAQuote() {
             <div className="absolute inset-0 bg-gradient-to-r from-[#0b121e] via-[#0b121e]/80 to-transparent" />
           </div>
 
-          {/* Text Content */}
+          {/* Text Content */} 
           <div className="relative z-10 max-w-2xl">
             <span className="text-xs font-bold uppercase tracking-widest text-[#d4af37]">
-              Instant Estimate
+              {translate("instantEstimateTitle")}
             </span>
             
             <h2 className="text-3xl font-serif font-bold text-white mt-1 leading-tight md:text-4xl">
-              Get a Free Quote Today
+              {translate("freeQuoteTitle")}
             </h2>
             
             <p className="text-slate-300 text-sm mt-3 leading-relaxed font-light">
-              Experience eco-luxury cleaning tailored specifically to your space. Request your bespoke estimate in minutes.
+              {translate("estimateDescription")}
             </p>
 
             {/* Action Buttons */}
@@ -75,7 +78,7 @@ export default function ContactUsCTAQuote() {
                 onClick={() => setIsModalOpen(true)}
                 className="rounded-xl bg-gradient-to-r from-[#d4af37] via-[#e5c158] to-[#c9a858] px-8 py-3.5 text-center text-sm font-bold text-[#0b121e] shadow-md transition-all hover:brightness-110"
               >
-                Book Service Now
+                {translate("bookServiceCta")}
               </button>
 
               <a

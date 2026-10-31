@@ -23,7 +23,7 @@ export default function LaundryDashboard() {
 
   return (
     <div className="min-h-screen  max-w-7xl flex items-center justify-center  font-sans antialiased text-slate-800">
-      <div className="w-full max-w-7xl  bg-white rounded-3xl shadow-2xl overflow-hidden border border-slate-100 flex flex-col min-h-[840px] relative">
+      <div className="w-full   bg-white rounded-3xl shadow-2xl overflow-hidden border border-slate-100 flex flex-col min-h-[840px] relative">
         
         {/* Header */}
         <Header 

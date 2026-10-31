@@ -19,89 +19,9 @@ import {
 } from 'lucide-react';
 import QuoteModal from "./quote-model";
 import { useState } from "react";
+import { countryHeroContent, getTranslatedWord } from "@/lib/content/webpage contents/home-page-data";
+import { TranslationKey } from "@/lib/i18n/dictionaries/en";
 
-interface HeroData {
-  tagline: string;
-  titlePrefix: string;
-  titleHighlight: string;
-  titleSuffix: string;
-  countryName: string;
-  description: string;
-  categories: Array<{
-    label: string;
-    icon: 'home' | 'commercial' | 'specialist';
-    gridId?:string,
-  }>;
-  ctaPrimary: string;
-  ctaSecondary: string;
-  trustBadges: [string, string, string];
-}
-
-const countryHeroContent: Record<string, HeroData> = {
-  "uk": {
-    tagline: 'PURE SPACES. ELEVATED UK LIVING.',
-    titlePrefix: 'Pearly Sky — ',
-    titleHighlight: 'Eco-Luxury Cleaning ',
-    titleSuffix: 'for Homes and Workspaces in ',
-    countryName: 'United Kingdom',
-    description:
-      'Thoughtful, professional cleaning for homes and workspaces across the UK. Enjoy meticulous care, clear communication, and a service tailored to your space.',
-    categories: [
-      { label: 'Residential', icon: 'home' },
-      { label: 'Commercial', icon: 'commercial' },
-      { label: 'Specialist Care', icon: 'specialist' },
-    ],
-    ctaPrimary: 'BOOK YOUR CLEANING SERVICE',
-    ctaSecondary: 'GET A FREE QUOTE',
-    trustBadges: [
-      '100% Satisfaction Guarantee',
-      'DBS Checked & Vetted Specialists',
-      '24/7 Dedicated UK Client Care',
-    ],
-  },
-  "fr": {
-    tagline: 'PURE SPACES. ELEVATED FRENCH LIVING.',
-    titlePrefix: 'Pearly Sky — ',
-    titleHighlight: 'Eco-Luxury Cleaning ',
-    titleSuffix: 'for Homes and Workspaces in ',
-    countryName: 'France',
-    description:
-      'Thoughtful, professional cleaning for homes and workspaces across France & Monaco. Enjoy meticulous care, clear communication, and a service tailored to your space.',
-    categories: [
-      { label: 'Residential', icon: 'home',gridId:"ResidentialCleaning" },
-      { label: 'Commercial', icon: 'commercial',gridId:"CommercialSpecialised" },
-      { label: 'Specialist Care', icon: 'specialist',gridId:"CommercialSpecialised" },
-    ],
-    ctaPrimary: 'BOOK YOUR CLEANING SERVICE',
-    ctaSecondary: 'GET A FREE QUOTE',
-    trustBadges: [
-      'Garantie 100% Satisfaction',
-      'Équipes Qualifiées & Assurées',
-      'Service Client Dedié 24/7',
-    ],
-  },
-  "lk": {
-    tagline: 'PURE SPACES. ELEVATED SRI LANKAN LIVING.',
-    titlePrefix: 'Pearly Sky — ',
-    titleHighlight: 'Eco-Luxury Cleaning ',
-    titleSuffix: 'for Homes and Workspaces in ',
-    countryName: 'Sri Lanka',
-    description:
-      'Thoughtful, professional cleaning for homes and workspaces across Colombo & Sri Lanka. Enjoy meticulous care, clear communication, and a service tailored to your space.',
-    categories: [
-      { label: 'Residential', icon: 'home' },
-      { label: 'Commercial', icon: 'commercial' },
-      { label: 'Specialist Care', icon: 'specialist' },
-    ],
-    ctaPrimary: 'BOOK YOUR CLEANING SERVICE',
-    ctaSecondary: 'GET A FREE QUOTE',
-    trustBadges: [
-      '100% Satisfaction Guarantee',
-      'Verified & Trained Specialists',
-      '24/7 Dedicated Client Care',
-    ],
-  },
-};
 
 interface HeroSectionProps {
   country?: 'uk' | 'fr' | 'lk';
@@ -122,7 +42,7 @@ export function Hero() {
    
     "fr": "/images/hero/fr-lk-hero-image.webp",
     "uk": "/images/hero/uk-hero.webp",
-    "lk": "/images/hero/fr-lk-hero-image.webp"
+    "lk": "/images/hero/about-lk.webp"
   };
 
   const handleOpenModal = (serviceName?: string) => {
@@ -132,8 +52,12 @@ export function Hero() {
 
   const data = countryHeroContent[CURRENT_COUNTRY];
 
+  
+  
+
   const scrollToServices=()=>{
-    document.getElementById("servicesection")?.scrollTo({behavior:"smooth"})
+    
+    document.getElementById("servicesection")?.scrollIntoView({ behavior: "smooth" });
   }
 
   return (
@@ -151,27 +75,27 @@ export function Hero() {
       <div className="absolute inset-0 bg-gradient-to-r from-slate-950 via-slate-950/95 to-slate-950/80 z-0 pointer-events-none" />
       <div className="absolute -top-40 -left-40 w-96 h-96 bg-[#d4af371a] z-0 rounded-full blur-3xl"></div>
       {/**content */}
-      <div className="relative z-10 max-w-7xl p-5 md:p-0 md:mt-5 mx-auto flex flex-col justify-center h-full gap-6">
+      <div className="relative z-10 max-w-7xl p-5 md:p-0 md:mt-10 mx-auto flex flex-col justify-center h-full gap-6">
         
         {/* Top Tagline Badge */}
         <div className="flex items-center gap-2 self-start bg-[#161d2f]/80 border border-[#2b354d] px-3 py-1.5 rounded-full text-[10px] font-semibold tracking-wider text-[#d4af37] uppercase">
           <Crown className="w-3.5 h-3.5 text-[#d4af37] shrink-0" />
-          <span>{data.tagline}</span>
+          <span>{getTranslatedWord(CURRENT_COUNTRY, data.tagline as string, translate)}</span>
         </div>
 
         {/* Hero Headline */}
         <h1 className="max-w-2xl text-3xl font-serif leading-tight text-white md:text-5xl lg:text-6xl">
-          {data.titlePrefix}
-          <span className="text-[#c9a858] font-normal">
-            {data.titleHighlight}
+          {getTranslatedWord(CURRENT_COUNTRY, data.titlePrefix as string,translate)}<br/>
+          <span className="text-[#c9a858] font-normal px-1 mr-0.5">
+            {getTranslatedWord(CURRENT_COUNTRY, data.titleHighlight as string,translate)}
           </span>
-          {data.titleSuffix}
-          <span className="font-normal">{data.countryName}</span>
+          {getTranslatedWord(CURRENT_COUNTRY, data.titleSuffix as string,translate)}
+          <span className="font-normal px-1">{getTranslatedWord(CURRENT_COUNTRY, data.countryName,translate)}</span>
         </h1>
 
         {/* Hero Paragraph */}
         <p className="max-w-xl text-xs md:text-sm text-gray-300 leading-relaxed">
-          {data.description}
+          {getTranslatedWord(CURRENT_COUNTRY, data.description as string,translate)}
         </p>
 
         {/* Category Pill Badges */}
@@ -179,7 +103,7 @@ export function Hero() {
           {data.categories.map((cat, idx) => (
             <div
               
-            onClick={()=>location.href="#servicesection"}
+            onClick={()=>scrollToServices()}
               key={idx}
               className="flex cursor-pointer items-center gap-1.5 bg-[#121824]/90 border border-[#2a3449] px-3 py-1.5 rounded-full text-[11px] font-medium text-gray-200"
             >
@@ -203,7 +127,7 @@ export function Hero() {
             onClick={() => handleOpenModal()}
             className="flex items-center justify-center gap-2 bg-[#d4af37] text-[#0b0f17] font-semibold text-xs tracking-wider uppercase px-6 py-4 rounded-md hover:bg-[#c5a028] transition-colors"
           >
-            <span>{data.ctaPrimary}</span>
+            <span>{getTranslatedWord(CURRENT_COUNTRY, data.ctaPrimary as string,translate)}</span>
             <ArrowRight className="w-4 h-4 shrink-0" />
           </button>
 
@@ -212,7 +136,7 @@ export function Hero() {
             className="flex items-center justify-center gap-2 bg-transparent border border-[#d4af37]/60 text-gray-200 font-semibold text-xs tracking-wider uppercase px-6 py-4 rounded-md hover:bg-[#d4af37]/10 transition-colors"
           >
             <Calculator className="w-4 h-4 shrink-0 text-[#d4af37]" />
-            <span>{data.ctaSecondary}</span>
+            <span>{getTranslatedWord(CURRENT_COUNTRY, data.ctaSecondary as string,translate)}</span>
           </button>
         </div>
 
@@ -220,17 +144,17 @@ export function Hero() {
         <div className="border-t border-[#1e2738] py-4 my-2 flex p-4  gap-3 md:flex-row md:items-center md:gap-8">
           <div className="flex items-center gap-2 text-[11px] font-medium text-gray-300">
             <CheckCircle2 className="w-4 h-4 text-[#d4af37] shrink-0" />
-            <span>{data.trustBadges[0]}</span>
+            <span>{getTranslatedWord(CURRENT_COUNTRY, data.trustBadges[0] as string,translate)}</span>
           </div>
 
           <div className="flex items-center gap-2 text-[11px] font-medium text-gray-300">
             <ShieldCheck className="w-4 h-4 text-[#d4af37] shrink-0" />
-            <span>{data.trustBadges[1]}</span>
+            <span>{getTranslatedWord(CURRENT_COUNTRY, data.trustBadges[1] as string,translate)}</span>
           </div>
 
           <div className="flex items-center gap-2 text-[11px] font-medium text-gray-300">
             <Headphones className="w-4 h-4 text-[#d4af37] shrink-0" />
-            <span>{data.trustBadges[2]}</span>
+            <span>{getTranslatedWord(CURRENT_COUNTRY, data.trustBadges[2] as string,translate)}</span>
           </div>
         </div>
          

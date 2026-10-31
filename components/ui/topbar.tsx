@@ -65,12 +65,12 @@ export default function TopBar() {
 
         {/* Left / Main info items */}
         <div className="flex flex-col items-center gap-2 md:flex-row md:gap-6">
-          <div className="flex items-center gap-2 text-center md:text-left">
+          <div className="flex items-center gap-2 text-center md:text-left text-[8px]  lg:text-[11px]">
             <Shield className="w-4 h-4 shrink-0 text-[#D4AF37]" />
             <span>{data.teamText}</span>
           </div>
 
-          <div className="hidden md:flex  items-center gap-2 text-center md:text-left">
+          <div className="hidden md:flex  items-center gap-2 text-center md:text-left text-[8px] lg:text-[11px]">
             <Leaf className="w-4 h-4 shrink-0 text-[#10b981]" />
             <span>{data.ecoText}</span>
           </div>
@@ -80,15 +80,15 @@ export default function TopBar() {
         <div className="flex flex-col items-center gap-2 md:flex-row md:gap-6">
           <a 
             href={`tel:${data.phone}`} 
-            className="flex items-center gap-2 hover:underline transition-colors"
+            className="flex items-center gap-2 hover:underline transition-colors text-[8px] lg:text-[11px]"
           >
-            <Phone className="w-4 h-4 shrink-0 text-[#D4AF37]" />
+            <Phone className="w-4 h-4 shrink-0 text-[#D4AF37] " />
             <span>{data.phoneDisplay}</span>
           </a>
 
           <a 
             href={`mailto:${data.email}`} 
-            className="hidden md:flex  items-center gap-2 hover:underline transition-colors"
+            className="hidden md:flex  items-center gap-2 hover:underline transition-colors text-[8px] md:text-[11px]"
           >
             <Mail className="w-4 h-4 shrink-0 text-[#D4AF37]" />
             <span>{data.email}</span>

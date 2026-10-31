@@ -4,6 +4,8 @@ import React from 'react';
 import Image from 'next/image';
 import { MapPin, ArrowRight } from 'lucide-react';
 import { CURRENT_COUNTRY } from '@/lib/countries/config';
+import { getTranslatedWord } from '@/lib/content/webpage contents/home-page-data';
+import { useLanguage } from '@/lib/i18n/language-context';
 
 interface LocationItem {
   name: string;
@@ -84,75 +86,75 @@ const locationsList: LocationItem[] = [
     bg: `${imgPath}img7.webp` }
 ];
 
-
+const lkImgPath = "/images/hero/tikcer-images/lk/img-lk-ticker-0"
 const locationsListLK: LocationItem[]=[
 {
   name:"Colombo",
-  bg:`${imgPath}img1.webp`
+  bg:`${lkImgPath}01.webp`
 },
 {
   name:"Sigiriya",
-  bg:`${imgPath}img2.webp`
+  bg:`${lkImgPath}02.webp`
 },
 {
   name:"Arugam",
-  bg:`${imgPath}img3.webp`
+  bg:`${lkImgPath}03.webp`
 },
 {
   name:"Kandy",
-  bg:`${imgPath}img4.webp`
+  bg:`${lkImgPath}04.webp`
 },
 {
   name:"Ella",
-  bg:`${imgPath}img5.webp`
+  bg:`${lkImgPath}05.webp`
 },
 {
   name:"Jaffna",
-  bg:`${imgPath}img7.webp`
+  bg:`${lkImgPath}06.webp`
 },
 {
   name:"Galle",
-  bg:`${imgPath}img1.webp`
+  bg:`${lkImgPath}07.webp`
 },
 {
   name:"Bentota",
-  bg:`${imgPath}img2.webp`
+  bg:`${lkImgPath}08.webp`
 },
 {
   name:"Trincomalee",
-  bg:`${imgPath}img1.webp`
+  bg:`${lkImgPath}09.webp`
 },
 {
   name:"Negombo",
-  bg:`${imgPath}img2.webp`
+  bg:`${lkImgPath}010.webp`
 },
 {
   name:"Hikkaduwa",
-  bg:`${imgPath}img3.webp`
+  bg:`${lkImgPath}011.webp`
 },
 {
   name:"Polonnaruwa",
-  bg:`${imgPath}img4.webp`
+  bg:`${lkImgPath}012.webp`
 },
 {
   name:"Anuradhapura",
-  bg:`${imgPath}img5.webp`
+  bg:`${lkImgPath}013.webp`
 },
 {
   name:"Mirissa",
-  bg:`${imgPath}img6.webp`
+  bg:`${imgPath}014.webp`
 },
 {
   name:"Matara",
-  bg:`${imgPath}img7.webp`
+  bg:`${imgPath}015.webp`
 },
 {
   name:"Badulla",
-  bg:`${imgPath}img1.webp`
+  bg:`${imgPath}016.webp`
 },
 {
   name:"Unawatuna",
-  bg:`${imgPath}img2.webp`
+  bg:`${imgPath}017.webp`
 },
 ]
 
@@ -162,10 +164,17 @@ const countryBasedLocationList:Record<string,LocationItem[]>={
     "uk":locationsList
 }
 
+const HeaderBar:Record<string,string>={
+  "fr":"locationsTitle",
+  "lk":"Service Locations Across Sri Lanka",
+  "uk":"Service Locations Across United Kingdom"
+}
+
 export default function LocationsTicker() {
 
     const dataList = countryBasedLocationList[CURRENT_COUNTRY]
-
+    const headerText = HeaderBar[CURRENT_COUNTRY]
+    const {translate}=useLanguage();
   return (
     <section id="locations" className="py-8 bg-[#0b121e] overflow-hidden border-t border-b border-[#38311d]">
       
@@ -173,7 +182,7 @@ export default function LocationsTicker() {
       <div className="max-w-7xl mx-auto px-4 mb-4 flex items-center justify-between">
         <h2 className="text-xs font-bold uppercase tracking-widest text-[#d4af37] flex items-center gap-2">
           <MapPin className="w-3.5 h-3.5 text-[#d4af37] shrink-0" />
-          <span>Service Locations Across France & Monaco</span>
+          <span>{getTranslatedWord(CURRENT_COUNTRY, headerText, translate)}</span>
         </h2>
         <span className="text-[11px] text-[#8e9eb5]">23 Key Luxury Destinations</span>
       </div>

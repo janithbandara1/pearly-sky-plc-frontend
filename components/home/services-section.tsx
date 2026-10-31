@@ -319,7 +319,7 @@ export function ServicesSection({ services }: { services: HomeService[] }) {
     <section id="servicesection" className="scroll-mt-16 bg-[#fff] shadow-lg border-t border-slate-200 py-16 text-[#0b121e]">
       <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="mb-12 text-center">
-          <p className="text-xs font-bold uppercase tracking-widest text-[#d4af37]">
+          <p className="text-xs font-bold uppercase tracking-widest text-[#B08B40]">
             Complete Luxury Directory
           </p>
           <h2 className="mt-1 text-3xl font-serif font-bold tracking-tight text-[#0b121e] md:text-4xl">

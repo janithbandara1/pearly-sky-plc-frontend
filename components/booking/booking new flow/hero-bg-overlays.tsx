@@ -43,7 +43,7 @@ export default function DynamicHeroOverlay({
 
         {/* Main Title */}
         {content.title && (
-          <h1 className="font-serif text-3xl font-normal tracking-tight text-white drop-shadow-md sm:text-5xl md:text-6xl lg:text-7xl">
+          <h1 className="font-serif text-3xl font-normal tracking-tight text-white drop-shadow-md sm:text-5xl md:text-6xl">
             {content.title}
           </h1>
         )}
