@@ -4,41 +4,54 @@ import { useEffect, useMemo, useRef, useState, type ReactNode } from "react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import {
-  BookMarked,
-  BriefcaseBusiness,
-  Brush,
+  ArrowDown,
+  ArrowLeft,
+  ArrowRight,
+  ArrowUp,
+  Building2,
+  CalendarCheck,
   CalendarDays,
+  Check,
+  ChevronDown,
   CircleAlert,
+  CircleCheck,
   Clock,
   CloudUpload,
+  Crown,
+  FileImage,
+  FilePen,
   FileText,
-  FlaskConical,
-  Gem,
-  Images,
+  Globe,
+  House,
   Info,
+  KeyRound,
   Loader2,
-  MapPinned,
+  Mail,
+  Map as MapIcon,
+  MapPin,
+  Megaphone,
+  MessageCircle,
+  MessageSquareText,
   Minus,
-  NotebookPen,
-  PackageOpen,
   Paperclip,
   Plus,
-  RotateCcw,
   Ruler,
-  Search,
   Send,
+  Shield,
   ShieldCheck,
-  SlidersHorizontal,
-  Sofa,
+  Sparkles,
+  Star,
   Trash2,
-  UserCheck,
-  Wind,
-  X,
+  UserRound,
+  Users,
+  UsersRound,
   type LucideIcon,
 } from "lucide-react";
 import { PhoneInput } from "@/components/phone-input";
 import { ApiError } from "@/lib/api";
+import { REGIONAL_DATA } from "@/lib/content/global-countries";
 import { useLanguage } from "@/lib/i18n/language-context";
+import { localizedCountryName } from "@/lib/i18n/global/country-names";
 import type { GlobalKey } from "@/lib/i18n/global/en";
 import { localizeHref } from "@/lib/locale";
 import { createQuotation } from "@/lib/quotation-api";
@@ -50,13 +63,30 @@ import {
 } from "@/lib/upload-api";
 import { cn } from "@/lib/utils";
 import { playfair } from "./fonts";
-import { SERVICE_CATEGORIES } from "./services-catalog";
+import {
+  ACCESS_OPTIONS,
+  CONTACT_OPTIONS,
+  FREQUENCIES,
+  FREQUENCY_SERVICES,
+  GENDER_OPTIONS,
+  INTENSIVE_SERVICES,
+  NO_AREA_SERVICES,
+  PROPERTY_CATEGORIES,
+  PROPERTY_COUNT,
+  SERVICE_ICONS,
+  STAFF_LANGUAGES,
+  SUPPLIES,
+  UPHOLSTERY_PRESETS,
+  UPHOLSTERY_SERVICE,
+  type SupplyOption,
+} from "./quotation-wizard-data";
+import { BOOKABLE_COUNTRY_IDS } from "./service-availability-dialog";
 
 type Translate = (key: GlobalKey, vars?: Record<string, string | number>) => string;
 
 /** A quotable service as this page shows it — built on the server from the catalog and the Our Services copy. */
 export interface QuotationServiceOption {
-  /** Catalog id, sent as the quotation line's serviceId. */
+  /** Catalog id, sent as the quotation's serviceId. */
   id: number;
   /** Base English slug (e.g. "deep-cleaning"). */
   name: string;
@@ -67,86 +97,34 @@ export interface QuotationServiceOption {
 }
 
 const AREA_MIN = 20;
-const AREA_MAX = 10000;
-const AREA_STEPS = [10, 50, 500];
+const AREA_MAX = 500_000;
 const DEFAULT_AREA = 100;
+const SQFT_PER_SQM = 10.7639;
+/**
+ * The slider's marks, evenly spaced along the track. Between two marks the area
+ * grows linearly, so 20 m² and 500,000 m² both stay reachable.
+ */
+const AREA_TICKS = [20, 1_000, 10_000, 50_000, 100_000, 500_000];
+const SEGMENT_STEPS = 200;
+const SLIDER_MAX = SEGMENT_STEPS * (AREA_TICKS.length - 1);
+/** What the −/+ buttons add or remove in each stretch between two marks (20–1,000 m², 1,000–10,000 m², …). */
+const SEGMENT_AREA_STEPS = [25, 250, 1_000, 2_500, 10_000];
 
-/** Personal-support services — priced by people and hours, never by area. */
-const NO_AREA_SERVICES = new Set(["child-care-service", "elder-care-service", "laundry-service"]);
-const UPHOLSTERY_SERVICE = "carpet-upholstery-cleaning";
-
-/** `value` is the English wording saved on the quotation the team reads. */
-const UPHOLSTERY_PRESETS: { id: string; area: number; labelKey: GlobalKey; value: string }[] = [
-  { id: "1seater", area: 2, labelKey: "gq.preset.1seater", value: "1-seater armchair" },
-  { id: "2seater", area: 4, labelKey: "gq.preset.2seater", value: "2-seater loveseat" },
-  { id: "3seater", area: 6, labelKey: "gq.preset.3seater", value: "3-seater sofa" },
-  { id: "lshape", area: 10, labelKey: "gq.preset.lshape", value: "L-shaped corner sofa" },
-  { id: "modular", area: 15, labelKey: "gq.preset.modular", value: "Modular sectional" },
-  { id: "mattress", area: 3, labelKey: "gq.preset.mattress", value: "Mattress" },
-  { id: "dining", area: 4, labelKey: "gq.preset.dining", value: "Dining chairs (x4)" },
-];
-
-interface UnitOption {
-  value: string;
-  labelKey: GlobalKey;
+/**
+ * The −/+ step at `area`: the stretch it is moving into sets the size, so at
+ * exactly 1,000 m² "+" adds 250 but "−" still removes 25.
+ */
+function areaStep(area: number, direction: 1 | -1): number {
+  const segment = AREA_TICKS.findLastIndex((tick) => (direction > 0 ? tick <= area : tick < area));
+  return SEGMENT_AREA_STEPS[clamp(segment, 0, SEGMENT_AREA_STEPS.length - 1)];
 }
 
-interface SupplyOption {
-  id: string;
-  /** The catalog's own item name — shown and saved on the quotation as-is. */
-  name: string;
-  badgeKey: GlobalKey;
-  descKey: GlobalKey;
-  icon: LucideIcon;
-  units: UnitOption[];
-}
-
-const UNIT = {
-  liters: { value: "Litres", labelKey: "gq.unit.liters" },
-  gallons: { value: "Gallons", labelKey: "gq.unit.gallons" },
-  bottles: { value: "Bottles", labelKey: "gq.unit.bottles" },
-  mops: { value: "Mops", labelKey: "gq.unit.mops" },
-  sets: { value: "Sets", labelKey: "gq.unit.sets" },
-  kits: { value: "Kits", labelKey: "gq.unit.kits" },
-  boxes: { value: "Boxes", labelKey: "gq.unit.boxes" },
-  vacuums: { value: "Vacuums", labelKey: "gq.unit.vacuums" },
-  units: { value: "Units", labelKey: "gq.unit.units" },
-} satisfies Record<string, UnitOption>;
-
-const SUPPLIES: SupplyOption[] = [
-  {
-    id: "bioSolvent",
-    name: "BIO - SOLVENT",
-    badgeKey: "gq.supply.bioSolvent.badge",
-    descKey: "gq.supply.bioSolvent.desc",
-    icon: FlaskConical,
-    units: [UNIT.liters, UNIT.gallons, UNIT.bottles],
-  },
-  {
-    id: "mop",
-    name: "MOP (1 MOP)",
-    badgeKey: "gq.supply.mop.badge",
-    descKey: "gq.supply.mop.desc",
-    icon: Brush,
-    units: [UNIT.mops, UNIT.sets],
-  },
-  {
-    id: "materials",
-    name: "MATERIALS (1 KIT)",
-    badgeKey: "gq.supply.materials.badge",
-    descKey: "gq.supply.materials.desc",
-    icon: PackageOpen,
-    units: [UNIT.kits, UNIT.boxes],
-  },
-  {
-    id: "vacuum",
-    name: "VACUUM (1 VAC)",
-    badgeKey: "gq.supply.vacuum.badge",
-    descKey: "gq.supply.vacuum.desc",
-    icon: Wind,
-    units: [UNIT.vacuums, UNIT.units],
-  },
-];
+const CLEANERS_MAX = 50;
+const HOURS_MIN = 2;
+const HOURS_MAX = 48;
+const REQUIREMENTS_MAX = 500;
+/** Supplies are requested by count only; the quotation still records a unit for each line. */
+const SUPPLY_UNIT = "Units";
 
 type SlotFilter = "all" | "morning" | "afternoon";
 
@@ -177,20 +155,23 @@ function slotPeriod(slot: string): Exclude<SlotFilter, "all"> {
 const IMAGE_EXTENSION = /\.(jpe?g|png|webp|heic|heif)$/i;
 const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-interface ServiceLineState {
-  serviceId: number;
-  cleaners: number;
-  hours: number;
-  /** Null for personal-support services. */
-  area: number | null;
-  /** Carpet & upholstery only — the chosen UPHOLSTERY_PRESETS id. */
-  presetId: string | null;
-}
+const COUNTRIES = REGIONAL_DATA.flatMap((group) => group.countries).filter((country) =>
+  BOOKABLE_COUNTRY_IDS.includes(country.id),
+);
+
+const STEPS: { navKey: GlobalKey; icon: LucideIcon }[] = [
+  { navKey: "gq.nav.service", icon: Star },
+  { navKey: "gq.nav.property", icon: Building2 },
+  { navKey: "gq.nav.size", icon: Ruler },
+  { navKey: "gq.nav.schedule", icon: UsersRound },
+  { navKey: "gq.nav.addons", icon: Sparkles },
+  { navKey: "gq.nav.details", icon: UserRound },
+  { navKey: "gq.nav.review", icon: FileText },
+];
+const REVIEW_STEP = STEPS.length - 1;
 
 interface SupplyState {
   quantity: number;
-  unit: string;
-  msds: boolean;
 }
 
 interface Attachment {
@@ -203,43 +184,45 @@ interface Attachment {
   status: "uploading" | "done" | "error";
 }
 
-const STEP_SECTIONS: { id: string; navKey: GlobalKey; icon: LucideIcon }[] = [
-  { id: "gq-schedule", navKey: "gq.nav.schedule", icon: CalendarDays },
-  { id: "gq-services", navKey: "gq.nav.services", icon: BriefcaseBusiness },
-  { id: "gq-supplies", navKey: "gq.nav.supplies", icon: FlaskConical },
-  { id: "gq-requirements", navKey: "gq.nav.requirements", icon: BookMarked },
-  { id: "gq-details", navKey: "gq.nav.details", icon: UserCheck },
-  { id: "gq-location", navKey: "gq.nav.location", icon: MapPinned },
-];
-
 const clamp = (value: number, min: number, max: number) => Math.min(max, Math.max(min, value));
+
+function areaToSlider(area: number): number {
+  const value = clamp(area, AREA_MIN, AREA_MAX);
+  const segment = Math.max(0, AREA_TICKS.findIndex((tick, i) => value <= AREA_TICKS[i + 1]));
+  const [from, to] = [AREA_TICKS[segment], AREA_TICKS[segment + 1]];
+  return Math.round((segment + (value - from) / (to - from)) * SEGMENT_STEPS);
+}
+
+/** The slider position's area, rounded to a step that suits its magnitude. */
+function sliderToArea(position: number): number {
+  const segment = Math.min(Math.floor(position / SEGMENT_STEPS), AREA_TICKS.length - 2);
+  const fraction = position / SEGMENT_STEPS - segment;
+  const raw = AREA_TICKS[segment] + fraction * (AREA_TICKS[segment + 1] - AREA_TICKS[segment]);
+  const step = raw < 1_000 ? 5 : raw < 10_000 ? 50 : raw < 100_000 ? 500 : 5_000;
+  return clamp(Math.round(raw / step) * step, AREA_MIN, AREA_MAX);
+}
+
+/** Solo and two-person completion estimates for the intensive-service notice. */
+function completionEstimate(area: number) {
+  const min = Math.max(2, Math.round(area / 18));
+  const max = Math.max(min + 1, Math.round(area / 13));
+  return { min, max, teamMin: Math.ceil(min / 2), teamMax: Math.ceil(max / 2) };
+}
 
 function revokePreview(attachment: Attachment) {
   if (attachment.previewUrl) URL.revokeObjectURL(attachment.previewUrl);
 }
 
-/** A freshly ticked service's defaults — 1 professional × 1 hour, 100 m² (a 3-seater sofa for upholstery). */
-function newLine(service: QuotationServiceOption): ServiceLineState {
-  const isUpholstery = service.name === UPHOLSTERY_SERVICE;
-  return {
-    serviceId: service.id,
-    cleaners: 1,
-    hours: 1,
-    area: NO_AREA_SERVICES.has(service.name) ? null : isUpholstery ? 6 : DEFAULT_AREA,
-    presetId: isUpholstery ? "3seater" : null,
-  };
-}
-
-const fieldClass =
-  "w-full rounded-xl border border-gold-600/40 bg-cream px-4 py-3 text-sm font-semibold text-navy-900 shadow-sm placeholder:font-normal placeholder:text-navy-900/40 focus:border-gold-600 focus:outline-none focus:ring-2 focus:ring-gold-500/50";
-const labelClass = "mb-2 block text-xs font-bold uppercase tracking-wider text-navy-900";
-const cardClass = "rounded-3xl border border-gold-600/30 bg-white p-6 shadow-xl shadow-navy-900/5 sm:p-8";
+const inputClass =
+  "h-12 w-full min-w-0 flex-1 bg-transparent px-4 text-sm font-medium text-slate-100 placeholder:text-slate-500 focus:outline-none";
+const labelClass = "mb-2 block text-[11px] font-bold uppercase tracking-wider text-slate-300";
+const panelClass = "rounded-2xl border border-white/10 bg-navy-900/70 p-5";
 
 /**
- * The global gateway's quotation request page (/request-quotation
- * on IS_GLOBAL_SITE): several services at once, each with its own crew, hours
- * and area, plus supplies, notes, reference photos and contact/location
- * details — sent as one multi-service quotation. No prices anywhere.
+ * The global gateway's quotation request page (/request-quotation on
+ * IS_GLOBAL_SITE): a step-by-step wizard for one service — property, size,
+ * crew and schedule, eco supplies and preferences, contact and address — that
+ * ends on an overview and sends a quotation. No prices anywhere.
  */
 export function GlobalQuotationPage({
   services,
@@ -261,19 +244,31 @@ export function GlobalQuotationPage({
   const { language, urlLanguage, translateGlobal: t } = useLanguage();
   const router = useRouter();
 
+  const [step, setStep] = useState(0);
+  const [visited, setVisited] = useState(0);
+  const [showErrors, setShowErrors] = useState(false);
+  const cardRef = useRef<HTMLDivElement>(null);
+  const firstRender = useRef(true);
+
+  const [serviceId, setServiceId] = useState<number | null>(
+    () => services.find((s) => s.name === initialServiceName)?.id ?? null,
+  );
+  const [categoryId, setCategoryId] = useState(PROPERTY_CATEGORIES[0].id);
+  const [propertyType, setPropertyType] = useState<string | null>(null);
+  const [area, setArea] = useState(DEFAULT_AREA);
+  const [areaUnit, setAreaUnit] = useState<"sqm" | "sqft">("sqm");
+  const [presetId, setPresetId] = useState<string | null>(null);
+
+  const [cleaners, setCleaners] = useState(1);
+  const [hours, setHours] = useState(HOURS_MIN);
+  const [frequency, setFrequency] = useState<string | null>(null);
   const [date, setDate] = useState(defaultDate);
   const [slot, setSlot] = useState<string | null>(null);
   const [slotFilter, setSlotFilter] = useState<SlotFilter>("all");
 
-  const [search, setSearch] = useState("");
-  const [category, setCategory] = useState("all");
-  const [lines, setLines] = useState<ServiceLineState[]>(() => {
-    const initial = services.find((s) => s.name === initialServiceName);
-    return initial ? [newLine(initial)] : [];
-  });
-
   const [supplies, setSupplies] = useState<Record<string, SupplyState>>({});
-
+  const [gender, setGender] = useState(GENDER_OPTIONS[0].value);
+  const [staffLanguage, setStaffLanguage] = useState("no-preference");
   const [requirements, setRequirements] = useState("");
   const [attachments, setAttachments] = useState<Attachment[]>([]);
   const [attachmentError, setAttachmentError] = useState<string | null>(null);
@@ -287,46 +282,80 @@ export function GlobalQuotationPage({
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
+  const [contactChannel, setContactChannel] = useState(CONTACT_OPTIONS[0].value);
 
-  const [country, setCountry] = useState(initialLocation?.country ?? "");
+  const [country, setCountry] = useState(
+    () => COUNTRIES.find((c) => c.name === initialLocation?.country)?.name ?? "",
+  );
   const [postalCode, setPostalCode] = useState(initialLocation?.postalCode ?? "");
   const [city, setCity] = useState(initialLocation?.city ?? "");
   const [province, setProvince] = useState("");
   const [street, setStreet] = useState("");
   const [unit, setUnit] = useState("");
+  const [access, setAccess] = useState(ACCESS_OPTIONS[0].value);
 
-  const reviewRef = useRef<HTMLDialogElement>(null);
   const [submitting, setSubmitting] = useState(false);
   const [submitError, setSubmitError] = useState<string | null>(null);
 
   // Revoke every image thumbnail's object URL when the page goes away.
   useEffect(() => () => attachmentsRef.current.forEach(revokePreview), []);
 
-  const servicesById = useMemo(() => new Map(services.map((s) => [s.id, s])), [services]);
+  // Bring the step card into view on every step change (not on first load).
+  useEffect(() => {
+    if (firstRender.current) {
+      firstRender.current = false;
+      return;
+    }
+    cardRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
+  }, [step]);
 
-  const visibleServices = useMemo(() => {
-    const query = search.trim().toLocaleLowerCase();
-    return services.filter(
-      (s) =>
-        (category === "all" || s.category === category) &&
-        (!query || s.title.toLocaleLowerCase().includes(query) || s.headline.toLocaleLowerCase().includes(query)),
-    );
-  }, [services, search, category]);
-
-  const visibleSlots = SLOTS.filter((s) => slotFilter === "all" || slotPeriod(s) === slotFilter);
+  const service = services.find((s) => s.id === serviceId) ?? null;
+  const hasArea = !!service && !NO_AREA_SERVICES.has(service.name);
+  const isUpholstery = service?.name === UPHOLSTERY_SERVICE;
+  const offersFrequency = !!service && FREQUENCY_SERVICES.has(service.name);
   const selectedSupplies = SUPPLIES.filter((s) => supplies[s.id]);
   const uploadedAttachments = attachments.filter((a) => a.status === "done" && a.key);
 
-  function toggleService(service: QuotationServiceOption) {
-    setLines((current) =>
-      current.some((line) => line.serviceId === service.id)
-        ? current.filter((line) => line.serviceId !== service.id)
-        : [...current, newLine(service)],
-    );
+  const propertyLabel = useMemo(() => {
+    for (const category of PROPERTY_CATEGORIES) {
+      const item = category.items.find((i) => i.value === propertyType);
+      if (item) return t(item.labelKey);
+    }
+    return null;
+  }, [propertyType, t]);
+
+  const languageNames = useMemo(() => {
+    try {
+      return new Intl.DisplayNames([language ?? "en"], { type: "language" });
+    } catch {
+      return null;
+    }
+  }, [language]);
+  const staffLanguageLabel = (value: string) => {
+    if (value === "no-preference") return t("gq.prefs.noPreference");
+    const option = STAFF_LANGUAGES.find((l) => l.value === value);
+    const name = option && languageNames?.of(option.code);
+    return name ? name.charAt(0).toLocaleUpperCase(language ?? "en") + name.slice(1) : value;
+  };
+
+  const formatNumber = (value: number) => value.toLocaleString(language ?? "en");
+  const areaText = (sqm: number) => `${formatNumber(sqm)} m² (${formatNumber(Math.round(sqm * SQFT_PER_SQM))} ft²)`;
+
+  function selectService(next: QuotationServiceOption) {
+    setServiceId(next.id);
+    if (next.name === UPHOLSTERY_SERVICE) {
+      setArea(6);
+      setPresetId("3seater");
+    } else if (presetId) {
+      setArea(DEFAULT_AREA);
+      setPresetId(null);
+    }
+    if (!FREQUENCY_SERVICES.has(next.name)) setFrequency(null);
   }
 
-  function updateLine(serviceId: number, patch: Partial<ServiceLineState>) {
-    setLines((current) => current.map((line) => (line.serviceId === serviceId ? { ...line, ...patch } : line)));
+  function changeArea(next: number) {
+    setArea(clamp(Math.round(next), isUpholstery ? 1 : AREA_MIN, AREA_MAX));
+    setPresetId(null);
   }
 
   function toggleSupply(supply: SupplyOption) {
@@ -336,14 +365,7 @@ export function GlobalQuotationPage({
         delete rest[supply.id];
         return rest;
       }
-      return {
-        ...current,
-        [supply.id]: {
-          quantity: 1,
-          unit: supply.units[0].value,
-          msds: true,
-        },
-      };
+      return { ...current, [supply.id]: { quantity: 1 } };
     });
   }
 
@@ -367,13 +389,7 @@ export function GlobalQuotationPage({
       const isImage = file.type.startsWith("image/") || IMAGE_EXTENSION.test(file.name);
       setAttachments((current) => [
         ...current,
-        {
-          id,
-          name: file.name,
-          previewUrl: isImage ? URL.createObjectURL(file) : null,
-          key: null,
-          status: "uploading",
-        },
+        { id, name: file.name, previewUrl: isImage ? URL.createObjectURL(file) : null, key: null, status: "uploading" },
       ]);
       uploadCheckoutAttachment(file)
         .then((key) =>
@@ -394,72 +410,76 @@ export function GlobalQuotationPage({
     });
   }
 
-  function resetForm() {
-    attachments.forEach(revokePreview);
-    setDate(defaultDate);
-    setSlot(null);
-    setSlotFilter("all");
-    setSearch("");
-    setCategory("all");
-    setLines([]);
-    setSupplies({});
-    setRequirements("");
-    setAttachments([]);
-    setAttachmentError(null);
-    setFirstName("");
-    setLastName("");
-    setEmail("");
-    setPhone("");
-    setCountry("");
-    setPostalCode("");
-    setCity("");
-    setProvince("");
-    setStreet("");
-    setUnit("");
+  /** What still blocks leaving each step, in the visitor's language. */
+  const missingByStep: string[][] = [
+    [!service && t("gq.error.service")],
+    [!propertyType && t("gq.error.propertyType")],
+    [],
+    [!date && t("gq.error.date")],
+    [attachments.some((a) => a.status === "uploading") && t("gq.error.uploading")],
+    [
+      !firstName.trim() && t("gq.error.firstName"),
+      !lastName.trim() && t("gq.error.lastName"),
+      !EMAIL_PATTERN.test(email.trim()) && t("gq.error.email"),
+      phone.trim().length < 6 && t("gq.error.phone"),
+      !country && t("gq.error.country"),
+      !postalCode.trim() && t("gq.error.postal"),
+      !city.trim() && t("gq.error.city"),
+      !street.trim() && t("gq.error.street"),
+    ],
+    [],
+  ].map((messages) => messages.filter((message): message is string => !!message));
+  const missingHere = missingByStep[step];
+  const missingAll = missingByStep.flat();
+
+  function goTo(next: number) {
+    setShowErrors(false);
     setSubmitError(null);
+    setStep(next);
+    setVisited((current) => Math.max(current, next));
   }
 
-  const missing: string[] = [
-    !lines.length && t("gq.error.service"),
-    !date && t("gq.error.date"),
-    !firstName.trim() && t("gq.error.firstName"),
-    !EMAIL_PATTERN.test(email.trim()) && t("gq.error.email"),
-    phone.trim().length < 6 && t("gq.error.phone"),
-    country.trim().length < 2 && t("gq.error.country"),
-    !city.trim() && t("gq.error.city"),
-    !street.trim() && t("gq.error.street"),
-    attachments.some((a) => a.status === "uploading") && t("gq.error.uploading"),
-  ].filter((message): message is string => !!message);
-
-  function openReview() {
-    setSubmitError(null);
-    reviewRef.current?.showModal();
+  function next() {
+    if (missingHere.length) {
+      setShowErrors(true);
+      return;
+    }
+    goTo(step + 1);
   }
 
   async function submit() {
-    if (missing.length || submitting) return;
+    if (!service || submitting) return;
+    if (missingAll.length) {
+      setShowErrors(true);
+      return;
+    }
     setSubmitting(true);
     setSubmitError(null);
 
     try {
       const quotation = await createQuotation({
-        serviceId: lines[0].serviceId,
-        serviceLines: lines.map((line) => ({
-          serviceId: line.serviceId,
-          numCleaners: line.cleaners,
-          durationHours: line.hours,
-          propertySizeSqm: line.area ?? undefined,
-          upholsteryPreset: UPHOLSTERY_PRESETS.find((p) => p.id === line.presetId)?.value,
+        serviceId: service.id,
+        serviceLines: [
+          {
+            serviceId: service.id,
+            numCleaners: cleaners,
+            durationHours: hours,
+            propertySizeSqm: hasArea ? area : undefined,
+            upholsteryPreset: isUpholstery ? UPHOLSTERY_PRESETS.find((p) => p.id === presetId)?.value : undefined,
+          },
+        ],
+        supplyLines: selectedSupplies.map((supply) => ({
+          name: supply.name,
+          quantity: supplies[supply.id].quantity,
+          unit: SUPPLY_UNIT,
+          msds: false,
         })),
-        supplyLines: selectedSupplies.map((supply) => {
-          const state = supplies[supply.id];
-          return {
-            name: supply.name,
-            quantity: state.quantity,
-            unit: state.unit,
-            msds: state.msds,
-          };
-        }),
+        propertyType: propertyType ?? undefined,
+        frequency: offersFrequency ? (frequency ?? undefined) : undefined,
+        genderPreference: gender,
+        languagePreference: staffLanguage,
+        preferredContactChannel: contactChannel,
+        howGetIn: access,
         date,
         time: slot ?? undefined,
         attachments: uploadedAttachments.map((a) => ({ key: a.key as string, name: a.name })),
@@ -469,7 +489,7 @@ export function GlobalQuotationPage({
         lastName: lastName.trim() || undefined,
         email: email.trim(),
         contact: phone.trim(),
-        country: country.trim(),
+        country,
         postalCode: postalCode.trim() || undefined,
         city: city.trim(),
         state: province.trim() || undefined,
@@ -484,790 +504,1096 @@ export function GlobalQuotationPage({
     }
   }
 
-  const unitLabel = (supply: SupplyOption, value: string) => {
-    const option = supply.units.find((u) => u.value === value);
-    return option ? t(option.labelKey) : value;
-  };
-  const areaText = (line: ServiceLineState) => {
-    if (line.area == null) return "—";
-    const preset = UPHOLSTERY_PRESETS.find((p) => p.id === line.presetId);
-    return preset ? `${line.area} m² (${t(preset.labelKey)})` : `${line.area} m²`;
-  };
+  const stepHeads: { title: string; subtitle: string; icon: LucideIcon }[] = [
+    { title: t("gq.service.title"), subtitle: t("gq.service.subtitle"), icon: Star },
+    { title: t("gq.property.title"), subtitle: t("gq.property.subtitle", { count: PROPERTY_COUNT }), icon: Building2 },
+    { title: t("gq.size.title"), subtitle: t("gq.size.subtitle"), icon: Ruler },
+    { title: t("gq.crew.title"), subtitle: t("gq.crew.subtitle"), icon: UsersRound },
+    { title: t("gq.addons.title"), subtitle: t("gq.addons.subtitle"), icon: Sparkles },
+    { title: t("gq.details.title"), subtitle: t("gq.details.subtitle"), icon: UserRound },
+    { title: t("gq.review.title"), subtitle: t("gq.review.subtitle"), icon: FilePen },
+  ];
+  const head = stepHeads[step];
 
   return (
-    <main className={cn(playfair.variable, "flex-1 bg-cream font-sans text-navy-900")}>
-      {/* 1. Hero */}
-      <section className="relative overflow-hidden border-b border-gold-500/30 bg-navy-700 px-4 py-20 text-white sm:px-6 sm:py-24 lg:px-8">
-        <div className="pointer-events-none absolute -left-32 -top-32 h-96 w-96 rounded-full bg-gold-500/15 blur-3xl" />
-        <div className="pointer-events-none absolute -bottom-32 -right-32 h-96 w-96 rounded-full bg-gold-500/15 blur-3xl" />
-        <div className="relative z-10 mx-auto max-w-5xl space-y-6 text-center">
-          <span className="inline-flex items-center gap-2 rounded-full border border-gold-500/30 bg-gold-500/10 px-4 py-1.5 text-xs font-bold uppercase tracking-[0.25em] text-gold-400">
-            <Gem className="h-3.5 w-3.5" aria-hidden />
+    <main className={cn(playfair.variable, "flex-1 bg-navy-900 font-sans text-slate-100")}>
+      {/* Hero */}
+      <section className="relative overflow-hidden">
+        <Image
+          src="/images/services/updated-images/request-quotation-hero-image.webp"
+          alt=""
+          fill
+          priority
+          sizes="100vw"
+          className="object-cover"
+        />
+        <div className="absolute inset-0 bg-linear-to-b from-navy-900/75 via-navy-900/80 to-navy-900" />
+        <div className="relative z-10 mx-auto max-w-4xl px-4 pb-28 pt-12 text-center sm:pb-32 sm:pt-16">
+          <span className="inline-flex items-center gap-2.5 rounded-full border border-gold-500/50 bg-navy-900/60 px-5 py-2 text-[11px] font-bold uppercase tracking-[0.18em] text-gold-400 backdrop-blur-md sm:text-xs">
+            <Crown className="h-4 w-4 shrink-0" aria-hidden />
             {t("gq.hero.badge")}
           </span>
-          <h1 className="font-display text-4xl font-bold leading-tight tracking-tight sm:text-6xl lg:text-7xl">
-            {t("gq.hero.title")}{" "}
-            <span className="bg-linear-to-br from-gold-300 via-gold-500 to-gold-700 bg-clip-text font-normal italic text-transparent">
-              {t("gq.hero.titleAccent")}
-            </span>
-          </h1>
-          <p className="mx-auto max-w-3xl text-base font-light leading-relaxed text-gold-300/90 sm:text-lg">
+          <h1 className="mt-5 font-display text-5xl font-bold tracking-tight text-white sm:text-7xl">Pearly Sky</h1>
+          <p className="mt-2 font-display text-xl italic text-gold-400 sm:text-3xl">{t("gq.hero.tagline")}</p>
+          <p className="mx-auto mt-4 max-w-2xl text-sm leading-relaxed text-slate-300 sm:text-base">
             {t("gq.hero.subtitle")}
           </p>
-          <ul className="flex flex-wrap items-center justify-center gap-3 pt-4 text-xs font-semibold sm:gap-6">
-            {(
-              [
-                [ShieldCheck, "gq.hero.pill1"],
-                [SlidersHorizontal, "gq.hero.pill2"],
-                [Images, "gq.hero.pill3"],
-              ] as const
-            ).map(([Icon, key]) => (
-              <li
-                key={key}
-                className="flex items-center gap-2 rounded-2xl border border-gold-500/20 bg-navy-600/80 px-4 py-2 shadow-inner"
-              >
-                <Icon className="h-4 w-4 text-gold-400" aria-hidden />
-                {t(key)}
-              </li>
-            ))}
-          </ul>
         </div>
       </section>
 
-      <div className="space-y-12 py-12 sm:space-y-16 sm:py-16">
-        {/* 2. Short description */}
-        <section className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
-          <div className="rounded-3xl border border-gold-600/40 bg-white p-6 shadow-xl shadow-navy-900/10 sm:p-8">
-            <div className="grid grid-cols-1 gap-6 divide-y divide-gold-600/20 text-center md:grid-cols-3 md:divide-x md:divide-y-0">
-              {(
-                [
-                  [BriefcaseBusiness, "gq.intro.pros.title", "gq.intro.pros.text"],
-                  [Ruler, "gq.intro.scale.title", "gq.intro.scale.text"],
-                  [BookMarked, "gq.intro.notes.title", "gq.intro.notes.text"],
-                ] as const
-              ).map(([Icon, titleKey, textKey]) => (
-                <div key={titleKey} className="px-4 pt-4 first:pt-0 md:pt-0">
-                  <IconTile icon={Icon} className="mx-auto mb-3" />
-                  <h2 className="font-display text-lg font-bold">{t(titleKey)}</h2>
-                  <p className="mt-1.5 text-xs leading-relaxed text-navy-900/70">{t(textKey)}</p>
-                </div>
-              ))}
-            </div>
-          </div>
+      <div className="relative z-10 mx-auto -mt-20 max-w-6xl px-3 pb-16 sm:px-6 lg:px-8">
+        <StepTracker step={step} visited={visited} onSelect={goTo} t={t} />
 
-          <nav aria-label={t("gq.nav.label")} className="mt-6">
-            <ol className="flex flex-wrap items-center justify-center gap-2 text-xs font-semibold">
-              {STEP_SECTIONS.map(({ id, navKey, icon: Icon }, index) => (
-                <li key={id}>
-                  <a
-                    href={`#${id}`}
-                    className="flex items-center gap-1.5 rounded-full border border-gold-600/30 bg-navy-700 px-3 py-1.5 text-gold-400 transition-colors hover:border-gold-500"
-                  >
-                    <Icon className="h-3 w-3" aria-hidden />
-                    {index + 1}. {t(navKey)}
-                  </a>
-                </li>
-              ))}
-            </ol>
-          </nav>
-        </section>
-
-        {/* 3. Date & time */}
-        <StepSection id="gq-schedule" step={1} icon={CalendarDays} title={t("gq.schedule.title")} t={t}>
-          <div className="grid grid-cols-1 gap-8 lg:grid-cols-3">
-            <div className="space-y-4">
-              <label htmlFor="gq-date" className={labelClass}>
-                {t("gq.schedule.date")} <Required t={t} />
-              </label>
-              <input
-                id="gq-date"
-                type="date"
-                min={minDate}
-                value={date}
-                onChange={(event) => setDate(event.target.value)}
-                className={cn(fieldClass, "cursor-pointer py-3.5")}
-              />
-              <p className="flex gap-1.5 text-[11px] italic leading-relaxed text-navy-900/60">
-                <Info className="mt-0.5 h-3 w-3 shrink-0 text-gold-600" aria-hidden />
-                {t("gq.schedule.dateHint")}
-              </p>
-            </div>
-
-            <div className="space-y-4 lg:col-span-2">
-              <div className="flex flex-col justify-between gap-2 sm:flex-row sm:items-center">
-                <p className="text-xs font-bold uppercase tracking-wider">
-                  <Clock className="mr-1.5 inline h-3.5 w-3.5 text-gold-600" aria-hidden />
-                  {t("gq.schedule.window")}
-                </p>
-                <span
-                  aria-live="polite"
-                  className="self-start rounded-full border border-gold-500/40 bg-navy-700 px-3.5 py-1 text-xs font-bold text-gold-400 sm:self-auto"
-                >
-                  {slot ? t("gq.schedule.selected", { time: slot }) : t("gq.schedule.none")}
-                </span>
-              </div>
-              <div className="flex flex-wrap gap-2 text-xs font-semibold">
-                {SLOT_FILTERS.map(({ id, labelKey }) => (
-                  <button
-                    key={id}
-                    type="button"
-                    aria-pressed={slotFilter === id}
-                    onClick={() => setSlotFilter(id)}
-                    className={cn(
-                      "rounded-xl border px-3.5 py-1.5 transition-colors",
-                      slotFilter === id
-                        ? "border-gold-500/40 bg-navy-700 text-gold-400"
-                        : "border-gold-600/20 bg-cream hover:bg-gold-500/15",
-                    )}
-                  >
-                    {t(labelKey)}
-                  </button>
-                ))}
-              </div>
-              <div className="grid max-h-52 grid-cols-4 gap-2.5 overflow-y-auto rounded-2xl border border-gold-600/25 bg-cream/60 p-3 sm:grid-cols-6 md:grid-cols-8">
-                {visibleSlots.map((time) => (
-                  <button
-                    key={time}
-                    type="button"
-                    aria-pressed={slot === time}
-                    onClick={() => setSlot(slot === time ? null : time)}
-                    className={cn(
-                      "rounded-xl border px-1 py-2 text-xs font-bold transition-all",
-                      slot === time
-                        ? "scale-105 border-gold-500 bg-gold-500 text-navy-900 shadow-md"
-                        : "border-gold-600/25 bg-white hover:bg-gold-500/20",
-                    )}
-                  >
-                    {time}
-                  </button>
-                ))}
-              </div>
-            </div>
-          </div>
-        </StepSection>
-
-        {/* 4. Services */}
-        <StepSection
-          id="gq-services"
-          step={2}
-          icon={BriefcaseBusiness}
-          title={t("gq.services.title", { count: services.length })}
-          t={t}
-          actions={
-            <div className="flex flex-col gap-3 sm:flex-row">
-              <div className="relative sm:min-w-60">
-                <Search
-                  className="absolute left-3.5 top-1/2 h-3.5 w-3.5 -translate-y-1/2 text-gold-600"
-                  aria-hidden
-                />
-                <input
-                  type="search"
-                  value={search}
-                  onChange={(event) => setSearch(event.target.value)}
-                  placeholder={t("gq.services.search")}
-                  aria-label={t("gq.services.search")}
-                  className={cn(fieldClass, "py-2.5 pl-9 pr-3 text-xs")}
-                />
-              </div>
-              <select
-                value={category}
-                onChange={(event) => setCategory(event.target.value)}
-                aria-label={t("gq.services.allCategories", { count: services.length })}
-                className={cn(fieldClass, "cursor-pointer py-2.5 text-xs font-bold")}
-              >
-                <option value="all">{t("gq.services.allCategories", { count: services.length })}</option>
-                {SERVICE_CATEGORIES.map(({ id, labelKey }) => (
-                  <option key={id} value={id}>
-                    {t(labelKey)}
-                  </option>
-                ))}
-              </select>
-            </div>
-          }
+        <div
+          ref={cardRef}
+          className="mt-5 scroll-mt-24 rounded-3xl border border-gold-500/25 bg-navy-800/95 p-5 shadow-2xl shadow-black/40 backdrop-blur-md sm:p-8"
         >
-          {visibleServices.length ? (
-            <ul className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
-              {visibleServices.map((service) => {
-                const line = lines.find((l) => l.serviceId === service.id);
+          <header className="mb-7 flex items-start gap-4">
+            <span className="hidden h-14 w-14 shrink-0 items-center justify-center rounded-2xl border border-gold-500/30 bg-navy-900 text-gold-400 shadow-lg sm:flex">
+              <head.icon className="h-6 w-6" aria-hidden />
+            </span>
+            <div className="min-w-0">
+              <p className="text-xs font-bold uppercase tracking-[0.2em] text-gold-400">
+                {t("gq.step", { n: step + 1, total: STEPS.length })}
+              </p>
+              <h2 className="mt-1 font-display text-3xl font-bold leading-tight text-white sm:text-4xl">{head.title}</h2>
+              <span className="mt-3 block h-0.5 w-16 rounded-full bg-gold-500" aria-hidden />
+              <p className="mt-3 text-sm text-slate-400">{head.subtitle}</p>
+            </div>
+          </header>
+
+          {step === 0 && (
+            <ul className="grid grid-cols-1 gap-2.5 md:grid-cols-2">
+              {services.map((option) => {
+                const Icon = SERVICE_ICONS[option.name] ?? Sparkles;
+                const selected = option.id === serviceId;
                 return (
-                  <li key={service.id}>
-                    <ServiceCard
-                      service={service}
-                      line={line}
-                      onToggle={() => toggleService(service)}
-                      onChange={(patch) => updateLine(service.id, patch)}
-                      t={t}
-                    />
+                  <li key={option.id}>
+                    <button
+                      type="button"
+                      aria-pressed={selected}
+                      onClick={() => selectService(option)}
+                      className={cn(
+                        "flex w-full items-center gap-4 rounded-xl border px-4 py-3 text-left transition-all",
+                        selected
+                          ? "border-gold-500 bg-gold-500/10 shadow-lg shadow-gold-500/10"
+                          : "border-white/10 bg-navy-900/60 hover:border-gold-500/40",
+                      )}
+                    >
+                      <span
+                        className={cn(
+                          "flex h-10 w-10 shrink-0 items-center justify-center rounded-lg",
+                          selected ? "bg-gold-500/20 text-gold-400" : "bg-white/5 text-gold-400",
+                        )}
+                      >
+                        <Icon className="h-5 w-5" aria-hidden />
+                      </span>
+                      <span className={cn("flex-1 text-sm font-semibold", selected ? "text-gold-300" : "text-slate-100")}>
+                        {option.title}
+                      </span>
+                      <span
+                        className={cn(
+                          "flex h-6 w-6 shrink-0 items-center justify-center rounded-full border-2",
+                          selected ? "border-gold-500 bg-gold-500 text-navy-900" : "border-slate-500",
+                        )}
+                        aria-hidden
+                      >
+                        {selected && <Check className="h-3.5 w-3.5" strokeWidth={3} />}
+                      </span>
+                    </button>
                   </li>
                 );
               })}
             </ul>
-          ) : (
-            <p className="py-12 text-center text-xs italic text-navy-900/50">{t("gq.services.empty")}</p>
           )}
-        </StepSection>
 
-        {/* 5. Supplies */}
-        <StepSection
-          id="gq-supplies"
-          step={3}
-          icon={FlaskConical}
-          title={t("gq.supplies.title")}
-          t={t}
-          actions={
-            <span className="inline-flex items-center gap-2 self-start rounded-full border border-gold-500/40 bg-navy-700 px-3.5 py-1.5 text-xs font-bold text-gold-400 sm:self-auto">
-              <ShieldCheck className="h-3.5 w-3.5" aria-hidden />
-              {t("gq.supplies.badge")}
-            </span>
-          }
-        >
-          <ul className="grid grid-cols-1 gap-6 md:grid-cols-2">
-            {SUPPLIES.map((supply) => {
-              const state = supplies[supply.id];
-              const name = supply.name;
-              return (
-                <li
-                  key={supply.id}
-                  className={cn(
-                    "flex flex-col justify-between rounded-2xl border border-l-4 border-l-gold-500 p-5 transition-all",
-                    state
-                      ? "border-gold-500 bg-gold-500/15 shadow-lg ring-1 ring-gold-500/60"
-                      : "border-gold-600/25 bg-white hover:border-gold-600/50",
-                  )}
-                >
-                  <label className="flex cursor-pointer items-start justify-between gap-3">
-                    <span className="flex items-center gap-3">
-                      <span
+          {step === 1 && (
+            <div>
+              <div className="scrollbar-hide -mx-1 overflow-x-auto px-1 pb-3">
+                <div role="tablist" aria-label={t("gq.property.title")} className="flex min-w-max gap-2">
+                  {PROPERTY_CATEGORIES.map((category) => (
+                    <button
+                      key={category.id}
+                      type="button"
+                      role="tab"
+                      aria-selected={categoryId === category.id}
+                      onClick={() => setCategoryId(category.id)}
+                      className={cn(
+                        "rounded-full px-5 py-2.5 text-sm font-semibold transition-colors",
+                        categoryId === category.id
+                          ? "gold-gradient-bg text-navy-900 shadow-md"
+                          : "border border-white/15 bg-white/5 text-slate-200 hover:border-gold-500/40",
+                      )}
+                    >
+                      {t(category.labelKey)}
+                    </button>
+                  ))}
+                </div>
+              </div>
+              <div className="mb-5 h-px bg-white/10" />
+              <ul className="grid grid-cols-2 gap-3 md:grid-cols-3">
+                {PROPERTY_CATEGORIES.find((c) => c.id === categoryId)?.items.map((item) => {
+                  const selected = propertyType === item.value;
+                  return (
+                    <li key={item.value}>
+                      <button
+                        type="button"
+                        aria-pressed={selected}
+                        onClick={() => setPropertyType(item.value)}
                         className={cn(
-                          "flex h-10 w-10 shrink-0 items-center justify-center rounded-xl border border-gold-600/30",
-                          state ? "bg-navy-700 text-gold-400 shadow-md" : "bg-gold-500/15",
+                          "flex min-h-12 w-full items-center justify-between gap-2 rounded-full border px-5 py-2.5 text-left text-sm font-medium transition-all",
+                          selected
+                            ? "border-gold-500 bg-gold-500/10 font-bold text-gold-300"
+                            : "border-white/15 bg-navy-900/60 text-slate-200 hover:border-gold-500/40",
                         )}
                       >
-                        <supply.icon className="h-4 w-4" aria-hidden />
-                      </span>
-                      <span>
-                        <span className="mb-1 inline-block rounded-md border border-gold-600/30 bg-navy-700 px-2 py-0.5 text-[9px] font-bold uppercase tracking-wider text-gold-400">
-                          {t(supply.badgeKey)}
-                        </span>
-                        <span className="block font-display text-base font-bold leading-tight">{name}</span>
-                      </span>
-                    </span>
-                    <input
-                      type="checkbox"
-                      checked={!!state}
-                      onChange={() => toggleSupply(supply)}
-                      aria-label={t("gq.supplies.select", { item: name })}
-                      className="mt-1 h-5 w-5 cursor-pointer accent-gold-500"
-                    />
-                  </label>
-                  <p className="mt-2.5 text-[11px] font-light leading-relaxed text-navy-900/70">{t(supply.descKey)}</p>
+                        {t(item.labelKey)}
+                        {selected && <Check className="h-4 w-4 shrink-0 text-gold-400" aria-hidden />}
+                      </button>
+                    </li>
+                  );
+                })}
+              </ul>
+              {propertyLabel && (
+                <p className="mt-5 text-xs text-slate-400">
+                  {t("gq.property.selected")} <strong className="text-gold-400">{propertyLabel}</strong>
+                </p>
+              )}
+            </div>
+          )}
 
-                  {state && (
-                    <div className="mt-4 space-y-3 border-t border-gold-600/30 pt-4 text-xs">
-                      <div className="rounded-xl border border-gold-600/30 bg-cream/90 p-3 shadow-inner">
+          {step === 2 && service && (
+            <>
+              {!hasArea ? (
+                <p className="flex items-start gap-3 rounded-2xl border border-gold-500/30 bg-gold-500/5 p-5 text-sm text-slate-300">
+                  <Info className="mt-0.5 h-5 w-5 shrink-0 text-gold-400" aria-hidden />
+                  {t("gq.services.noArea")}
+                </p>
+              ) : (
+                <div className="grid grid-cols-1 gap-5 lg:grid-cols-[1fr_22rem]">
+                  <div className="space-y-5">
+                    <div className={cn(panelClass, "space-y-6")}>
+                      <div className="flex items-center justify-between gap-4">
+                        <div className="flex items-center gap-4">
+                          <span className="flex h-16 w-16 shrink-0 items-center justify-center rounded-2xl border border-gold-500/20 bg-gold-500/10 text-gold-400">
+                            <House className="h-8 w-8" aria-hidden />
+                          </span>
+                          <div aria-live="polite">
+                            <p className="font-display text-4xl font-bold text-white sm:text-5xl">
+                              {areaUnit === "sqm"
+                                ? `${formatNumber(area)} m²`
+                                : `${formatNumber(Math.round(area * SQFT_PER_SQM))} ft²`}
+                            </p>
+                            <p className="mt-1 text-lg font-semibold text-gold-400">
+                              {areaUnit === "sqm"
+                                ? `${formatNumber(Math.round(area * SQFT_PER_SQM))} ft²`
+                                : `${formatNumber(area)} m²`}
+                            </p>
+                          </div>
+                        </div>
+                        <div role="group" aria-label={t("gq.size.unit")} className="flex shrink-0 rounded-full border border-white/15 bg-navy-900 p-1">
+                          {(["sqm", "sqft"] as const).map((u) => (
+                            <button
+                              key={u}
+                              type="button"
+                              aria-pressed={areaUnit === u}
+                              onClick={() => setAreaUnit(u)}
+                              className={cn(
+                                "rounded-full px-4 py-1.5 text-sm font-bold transition-colors",
+                                areaUnit === u ? "gold-gradient-bg text-navy-900" : "text-slate-300 hover:text-white",
+                              )}
+                            >
+                              {u === "sqm" ? "m²" : "ft²"}
+                            </button>
+                          ))}
+                        </div>
+                      </div>
+
+                      <div className="flex items-center gap-3">
+                        <StepButton
+                          kind="minus"
+                          label={t("gq.decrease", { label: t("gq.size.title") })}
+                          disabled={area <= (isUpholstery ? 1 : AREA_MIN)}
+                          onClick={() => changeArea(area - (isUpholstery ? 1 : areaStep(area, -1)))}
+                        />
+                        <label className="flex h-14 flex-1 items-center rounded-xl border border-white/15 bg-navy-900 focus-within:border-gold-500/60">
+                          <span className="sr-only">{t("gq.size.title")}</span>
+                          <input
+                            type="number"
+                            inputMode="numeric"
+                            min={1}
+                            value={areaUnit === "sqm" ? area : Math.round(area * SQFT_PER_SQM)}
+                            onChange={(event) => {
+                              const value = Number.parseInt(event.target.value, 10) || 1;
+                              changeArea(areaUnit === "sqm" ? value : value / SQFT_PER_SQM);
+                            }}
+                            className="h-full w-full min-w-0 bg-transparent text-center text-xl font-bold text-white focus:outline-none [appearance:textfield] [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none"
+                          />
+                          <span className="pr-4 text-sm font-semibold text-slate-400">{areaUnit === "sqm" ? "m²" : "ft²"}</span>
+                        </label>
+                        <StepButton
+                          kind="plus"
+                          label={t("gq.increase", { label: t("gq.size.title") })}
+                          disabled={area >= AREA_MAX}
+                          onClick={() => changeArea(area + (isUpholstery ? 1 : areaStep(area, 1)))}
+                        />
+                      </div>
+
+                      {isUpholstery ? (
                         <div>
-                          <p className="mb-1 text-[10px] font-bold uppercase tracking-wider">
-                            {t("gq.supplies.quantity")}
-                          </p>
-                          <div className="flex items-center gap-1.5">
-                            <NumberStepper
+                          <p className={labelClass}>{t("gq.services.upholstery")}</p>
+                          <div className="flex flex-wrap gap-2">
+                            {UPHOLSTERY_PRESETS.map((p) => (
+                              <button
+                                key={p.id}
+                                type="button"
+                                aria-pressed={presetId === p.id}
+                                onClick={() => {
+                                  setArea(p.area);
+                                  setPresetId(p.id);
+                                }}
+                                className={cn(
+                                  "rounded-full border px-3.5 py-1.5 text-xs font-semibold transition-colors",
+                                  presetId === p.id
+                                    ? "border-gold-500 bg-gold-500/15 text-gold-300"
+                                    : "border-white/15 bg-navy-900 text-slate-300 hover:border-gold-500/40",
+                                )}
+                              >
+                                {t(p.labelKey)} (~{p.area} m²)
+                              </button>
+                            ))}
+                          </div>
+                        </div>
+                      ) : (
+                        <div className="px-3 sm:px-5">
+                          <input
+                            type="range"
+                            min={0}
+                            max={SLIDER_MAX}
+                            value={areaToSlider(area)}
+                            onChange={(event) => {
+                              setArea(sliderToArea(Number(event.target.value)));
+                              setPresetId(null);
+                            }}
+                            aria-label={t("gq.size.title")}
+                            aria-valuetext={areaText(area)}
+                            style={{
+                              background: `linear-gradient(to right, var(--color-gold-500) ${(areaToSlider(area) / SLIDER_MAX) * 100}%, rgb(255 255 255 / 0.15) ${(areaToSlider(area) / SLIDER_MAX) * 100}%)`,
+                            }}
+                            className="h-2 w-full cursor-pointer appearance-none rounded-full [&::-moz-range-thumb]:h-6 [&::-moz-range-thumb]:w-6 [&::-moz-range-thumb]:rounded-full [&::-moz-range-thumb]:border-2 [&::-moz-range-thumb]:border-gold-300 [&::-moz-range-thumb]:bg-gold-500 [&::-webkit-slider-thumb]:h-6 [&::-webkit-slider-thumb]:w-6 [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:border-2 [&::-webkit-slider-thumb]:border-gold-300 [&::-webkit-slider-thumb]:bg-gold-500 [&::-webkit-slider-thumb]:shadow-lg [&::-webkit-slider-thumb]:shadow-gold-500/40"
+                          />
+                          {/* Marks sit under the thumb's centre: inset by half the 24px thumb at each end. */}
+                          <div className="relative mt-2 h-14 text-[8px] leading-tight text-slate-400 sm:text-[10px]" aria-hidden>
+                            {AREA_TICKS.map((tick, index) => (
+                              <span
+                                key={tick}
+                                className="absolute top-0 flex -translate-x-1/2 flex-col items-center whitespace-nowrap text-center"
+                                style={{ left: `calc(12px + ${index / (AREA_TICKS.length - 1)} * (100% - 24px))` }}
+                              >
+                                <span className="mb-1.5 h-2 w-px bg-slate-500" />
+                                <span className="text-[10px] font-bold text-slate-200 sm:text-xs">{formatNumber(tick)}</span>
+                                <span className="text-slate-300">m²</span>
+                                <span>{formatNumber(Math.round(tick * SQFT_PER_SQM))} ft²</span>
+                              </span>
+                            ))}
+                          </div>
+                        </div>
+                      )}
+                    </div>
+
+                    {!isUpholstery && (
+                      <>
+                        <p className="flex items-start gap-3 rounded-2xl border border-gold-500/40 bg-navy-900/60 p-4 text-sm">
+                          <Info className="mt-0.5 h-5 w-5 shrink-0 text-gold-400" aria-hidden />
+                          <span>
+                            <strong className="block text-white">
+                              {t("gq.size.range", { min: `${formatNumber(AREA_MIN)} m²`, max: `${formatNumber(AREA_MAX)} m²` })}
+                            </strong>
+                            <span className="text-slate-400">{t("gq.size.rangeText")}</span>
+                          </span>
+                        </p>
+                        <div className="grid grid-cols-2 gap-3">
+                          {([1, -1] as const).map((direction) => (
+                            <button
+                              key={direction}
+                              type="button"
+                              onClick={() => changeArea(area + direction * areaStep(area, direction))}
+                              disabled={direction > 0 ? area >= AREA_MAX : area <= AREA_MIN}
+                              className="flex items-center gap-3 rounded-2xl border border-gold-500/30 bg-navy-900/60 p-4 text-left transition-colors hover:border-gold-500 disabled:opacity-40"
+                            >
+                              <span
+                                className={cn(
+                                  "flex h-11 w-11 shrink-0 items-center justify-center rounded-xl",
+                                  direction > 0 ? "bg-gold-500/15 text-gold-400" : "bg-white/5 text-slate-300",
+                                )}
+                              >
+                                {direction > 0 ? <ArrowUp className="h-5 w-5" aria-hidden /> : <ArrowDown className="h-5 w-5" aria-hidden />}
+                              </span>
+                              <span>
+                                <span className="block text-sm font-bold text-white">
+                                  {direction > 0 ? t("gq.size.increase") : t("gq.size.decrease")}
+                                </span>
+                                <span className="text-xs text-slate-400">
+                                  {direction > 0 ? "+" : "−"}
+                                  {formatNumber(areaStep(area, direction))} m²
+                                </span>
+                              </span>
+                            </button>
+                          ))}
+                        </div>
+                      </>
+                    )}
+                  </div>
+
+                  <div className="relative hidden min-h-72 overflow-hidden rounded-2xl border border-white/10 lg:block">
+                    <Image src={service.image} alt="" fill sizes="22rem" className="object-cover" />
+                    <div className="absolute inset-0 bg-linear-to-t from-navy-900/70 to-transparent" />
+                    <div className="absolute bottom-4 left-4 flex items-center gap-3 rounded-xl border border-gold-500/40 bg-navy-900/85 px-4 py-2.5 backdrop-blur-md">
+                      <House className="h-6 w-6 text-gold-400" aria-hidden />
+                      <span>
+                        <span className="block text-sm font-bold text-white">{formatNumber(area)} m²</span>
+                        <span className="text-xs text-slate-400">{formatNumber(Math.round(area * SQFT_PER_SQM))} ft²</span>
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              )}
+            </>
+          )}
+
+          {step === 3 && service && (
+            <div className="space-y-8">
+              <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+                <CounterCard
+                  title={t("gq.crew.cleaners")}
+                  text={t("gq.crew.cleanersText")}
+                  unit={t("gq.crew.cleanersUnit")}
+                  value={cleaners}
+                  max={CLEANERS_MAX}
+                  onChange={setCleaners}
+                  t={t}
+                />
+                <CounterCard
+                  title={t("gq.crew.hours")}
+                  text={t("gq.crew.hoursText")}
+                  unit={t("gq.crew.hoursUnit")}
+                  value={hours}
+                  min={HOURS_MIN}
+                  max={HOURS_MAX}
+                  onChange={setHours}
+                  t={t}
+                />
+              </div>
+
+              {hasArea && INTENSIVE_SERVICES.has(service.name) && (
+                <CompletionNotice serviceTitle={service.title} area={area} formatNumber={formatNumber} t={t} />
+              )}
+
+              {offersFrequency && (
+                <section aria-labelledby="gq-frequency-title">
+                  <h3 id="gq-frequency-title" className="font-display text-2xl font-bold text-white">
+                    {t("gq.freq.title")}
+                  </h3>
+                  <p className="mb-4 mt-1 text-sm text-slate-400">{t("gq.freq.subtitle")}</p>
+                  <ul className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-4">
+                    {FREQUENCIES.map((option) => {
+                      const selected = frequency === option.value;
+                      return (
+                        <li key={option.value}>
+                          <button
+                            type="button"
+                            aria-pressed={selected}
+                            onClick={() => setFrequency(selected ? null : option.value)}
+                            className={cn(
+                              "relative flex h-full w-full flex-col rounded-2xl border p-5 text-left transition-all",
+                              selected
+                                ? "border-gold-500 bg-gold-500/5 shadow-lg shadow-gold-500/15"
+                                : "border-white/10 bg-navy-900/60 hover:border-gold-500/40",
+                            )}
+                          >
+                            {option.popular && (
+                              <span className="gold-gradient-bg absolute right-0 top-0 flex items-center gap-1 rounded-bl-xl rounded-tr-2xl px-3 py-1 text-[11px] font-bold text-navy-900">
+                                <Crown className="h-3 w-3" aria-hidden />
+                                {t("gq.freq.popular")}
+                              </span>
+                            )}
+                            <span className="flex items-center gap-3">
+                              <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl border border-white/10 bg-white/5 text-gold-400">
+                                <CalendarDays className="h-6 w-6" aria-hidden />
+                              </span>
+                              <span>
+                                <span className="block font-display text-xl font-bold text-white">{t(option.titleKey)}</span>
+                                <span className="text-xs text-slate-400">{t(option.tagKey)}</span>
+                              </span>
+                            </span>
+                            <ul className="mt-4 hidden space-y-2 text-xs text-slate-300 sm:block">
+                              {option.pointKeys.map((key) => (
+                                <li key={key} className="flex items-start gap-2">
+                                  <CircleCheck className="mt-0.5 h-3.5 w-3.5 shrink-0 text-gold-400" aria-hidden />
+                                  {t(key)}
+                                </li>
+                              ))}
+                            </ul>
+                            <span
+                              className={cn(
+                                "mt-auto flex h-9 w-9 items-center justify-center self-center rounded-full border pt-0 sm:mt-5",
+                                selected ? "gold-gradient-bg border-transparent text-navy-900" : "border-gold-500/50 text-gold-400",
+                              )}
+                              aria-hidden
+                            >
+                              {selected ? <Check className="h-4 w-4" strokeWidth={3} /> : <ArrowRight className="h-4 w-4" />}
+                            </span>
+                          </button>
+                        </li>
+                      );
+                    })}
+                  </ul>
+                </section>
+              )}
+
+              <section aria-labelledby="gq-schedule-title" className="grid grid-cols-1 gap-6 lg:grid-cols-3">
+                <div className="space-y-3">
+                  <h3 id="gq-schedule-title" className="font-display text-2xl font-bold text-white">
+                    {t("gq.schedule.title")}
+                  </h3>
+                  <label htmlFor="gq-date" className={labelClass}>
+                    {t("gq.schedule.date")} <Required t={t} />
+                  </label>
+                  <IconField icon={CalendarCheck}>
+                    <input
+                      id="gq-date"
+                      type="date"
+                      min={minDate}
+                      value={date}
+                      onChange={(event) => setDate(event.target.value)}
+                      className={cn(inputClass, "cursor-pointer [color-scheme:dark]")}
+                    />
+                  </IconField>
+                  <p className="flex gap-1.5 text-[11px] italic leading-relaxed text-slate-400">
+                    <Info className="mt-0.5 h-3 w-3 shrink-0 text-gold-400" aria-hidden />
+                    {t("gq.schedule.dateHint")}
+                  </p>
+                </div>
+
+                <div className="space-y-3 lg:col-span-2">
+                  <div className="flex flex-col justify-between gap-2 sm:flex-row sm:items-center">
+                    <p className="text-[11px] font-bold uppercase tracking-wider text-slate-300">
+                      <Clock className="mr-1.5 inline h-3.5 w-3.5 text-gold-400" aria-hidden />
+                      {t("gq.schedule.window")}
+                    </p>
+                    <span
+                      aria-live="polite"
+                      className="self-start rounded-full border border-gold-500/40 bg-navy-900 px-3.5 py-1 text-xs font-bold text-gold-400 sm:self-auto"
+                    >
+                      {slot ? t("gq.schedule.selected", { time: slot }) : t("gq.schedule.none")}
+                    </span>
+                  </div>
+                  <div className="flex flex-wrap gap-2 text-xs font-semibold">
+                    {SLOT_FILTERS.map(({ id, labelKey }) => (
+                      <button
+                        key={id}
+                        type="button"
+                        aria-pressed={slotFilter === id}
+                        onClick={() => setSlotFilter(id)}
+                        className={cn(
+                          "rounded-full border px-3.5 py-1.5 transition-colors",
+                          slotFilter === id
+                            ? "border-gold-500 bg-gold-500/15 text-gold-300"
+                            : "border-white/15 text-slate-300 hover:border-gold-500/40",
+                        )}
+                      >
+                        {t(labelKey)}
+                      </button>
+                    ))}
+                  </div>
+                  <div className="grid max-h-52 grid-cols-4 gap-2 overflow-y-auto rounded-2xl border border-white/10 bg-navy-900/60 p-3 sm:grid-cols-6 md:grid-cols-8">
+                    {SLOTS.filter((s) => slotFilter === "all" || slotPeriod(s) === slotFilter).map((time) => (
+                      <button
+                        key={time}
+                        type="button"
+                        aria-pressed={slot === time}
+                        onClick={() => setSlot(slot === time ? null : time)}
+                        className={cn(
+                          "rounded-lg border px-1 py-2 text-xs font-bold transition-all",
+                          slot === time
+                            ? "gold-gradient-bg border-transparent text-navy-900 shadow-md"
+                            : "border-white/10 bg-navy-800 text-slate-200 hover:border-gold-500/50",
+                        )}
+                      >
+                        {time}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+              </section>
+            </div>
+          )}
+
+          {step === 4 && (
+            <div className="space-y-10">
+              <section aria-labelledby="gq-eco-title">
+                <h3 id="gq-eco-title" className="font-display text-2xl font-bold text-white">
+                  {t("gq.eco.title")}
+                </h3>
+                <p className="mb-5 mt-1 max-w-3xl text-sm leading-relaxed text-slate-400">{t("gq.eco.text")}</p>
+                <ul className="grid grid-cols-1 gap-4 md:grid-cols-2">
+                  {SUPPLIES.map((supply) => {
+                    const state = supplies[supply.id];
+                    return (
+                      <li
+                        key={supply.id}
+                        className={cn(
+                          "rounded-2xl border p-5 transition-all",
+                          state ? "border-gold-500 bg-gold-500/5" : "border-white/10 bg-navy-900/60",
+                        )}
+                      >
+                        <div className="flex items-center gap-4">
+                          <span className="flex h-14 w-14 shrink-0 items-center justify-center rounded-full bg-emerald-500/10 text-emerald-400">
+                            <supply.icon className="h-7 w-7" aria-hidden />
+                          </span>
+                          <div className="min-w-0 flex-1">
+                            <p className="font-bold text-white">{supply.name}</p>
+                            <p className="text-sm text-slate-400">({t(supply.descKey)})</p>
+                          </div>
+                          <button
+                            type="button"
+                            aria-pressed={!!state}
+                            aria-label={state ? t("gq.eco.removeItem", { item: supply.name }) : t("gq.eco.addItem", { item: supply.name })}
+                            onClick={() => toggleSupply(supply)}
+                            className={cn(
+                              "shrink-0 rounded-xl px-5 py-2.5 text-xs font-bold uppercase tracking-wider transition",
+                              state
+                                ? "border border-gold-500/50 text-gold-400 hover:bg-gold-500/10"
+                                : "gold-gradient-bg text-navy-900 shadow-md hover:brightness-110",
+                            )}
+                          >
+                            {state ? t("gq.eco.remove") : t("gq.eco.add")}
+                          </button>
+                        </div>
+                        {state && (
+                          <div className="mt-4 flex flex-wrap items-center gap-3 border-t border-white/10 pt-4 text-xs">
+                            <span className="font-bold uppercase tracking-wider text-slate-300">{t("gq.supplies.quantity")}</span>
+                            <SmallStepper
                               value={state.quantity}
-                              min={1}
                               max={999}
                               label={t("gq.supplies.quantity")}
                               onChange={(quantity) => updateSupply(supply.id, { quantity })}
                               t={t}
                             />
-                            <select
-                              value={state.unit}
-                              onChange={(event) => updateSupply(supply.id, { unit: event.target.value })}
-                              aria-label={t("gq.supplies.unit")}
-                              className="cursor-pointer rounded-lg border border-gold-600/30 bg-white px-1.5 py-1 font-bold"
-                            >
-                              {supply.units.map((option) => (
-                                <option key={option.value} value={option.value}>
-                                  {t(option.labelKey)}
-                                </option>
-                              ))}
-                            </select>
                           </div>
-                        </div>
-                      </div>
-                      <label className="inline-flex cursor-pointer items-center gap-2 text-[11px] font-bold">
-                        <input
-                          type="checkbox"
-                          checked={state.msds}
-                          onChange={(event) => updateSupply(supply.id, { msds: event.target.checked })}
-                          className="h-4 w-4 accent-gold-500"
-                        />
-                        <FileText className="h-3.5 w-3.5 text-gold-600" aria-hidden />
-                        {t("gq.supplies.msds")}
-                      </label>
-                    </div>
-                  )}
-                </li>
-              );
-            })}
-          </ul>
-        </StepSection>
-
-        {/* 6. Special requirements & attachments */}
-        <StepSection id="gq-requirements" step={4} icon={BookMarked} title={t("gq.notes.title")} t={t}>
-          <div className="grid grid-cols-1 gap-8 lg:grid-cols-2">
-            <div className="space-y-4 rounded-2xl border border-gold-600/30 bg-cream/80 p-6">
-              <SubHeading icon={NotebookPen} title={t("gq.notebook.title")} />
-              <p className="text-xs leading-relaxed text-navy-900/70">{t("gq.notebook.text")}</p>
-              <textarea
-                id="gq-requirements-text"
-                rows={6}
-                value={requirements}
-                onChange={(event) => setRequirements(event.target.value)}
-                placeholder={t("gq.notebook.placeholder")}
-                aria-label={t("gq.notebook.title")}
-                className={cn(fieldClass, "bg-white text-xs shadow-inner")}
-              />
-            </div>
-
-            <div className="space-y-4 rounded-2xl border border-gold-600/30 bg-cream/80 p-6">
-              <SubHeading icon={Paperclip} title={t("gq.images.title")} />
-              <p className="text-xs leading-relaxed text-navy-900/70">{t("gq.images.text")}</p>
-              <button
-                type="button"
-                onClick={() => fileInputRef.current?.click()}
-                disabled={attachments.length >= CHECKOUT_ATTACHMENT_MAX_COUNT}
-                className="w-full rounded-2xl border-2 border-dashed border-gold-600/50 bg-white/80 p-4 text-center transition-colors hover:bg-gold-500/10 disabled:cursor-not-allowed disabled:opacity-60"
-              >
-                <CloudUpload className="mx-auto mb-2 h-8 w-8 text-gold-600" aria-hidden />
-                <span className="block text-xs font-bold">{t("gq.images.upload")}</span>
-                <span className="mt-1 block text-[10px] text-navy-900/60">
-                  {t("gq.images.hint", { max: CHECKOUT_ATTACHMENT_MAX_COUNT })}
-                </span>
-              </button>
-              <input
-                ref={fileInputRef}
-                type="file"
-                multiple
-                accept={CHECKOUT_ATTACHMENT_ACCEPT}
-                className="hidden"
-                onChange={(event) => {
-                  addAttachments(event.target.files);
-                  event.target.value = "";
-                }}
-              />
-              {attachmentError && (
-                <p role="alert" className="text-xs font-semibold text-red-700">
-                  {attachmentError}
+                        )}
+                      </li>
+                    );
+                  })}
+                </ul>
+                <p className="mt-4 flex items-start gap-3 rounded-2xl border border-emerald-500/30 bg-emerald-500/10 p-4 text-sm">
+                  <ShieldCheck className="mt-0.5 h-6 w-6 shrink-0 text-emerald-400" aria-hidden />
+                  <span>
+                    <strong className="block text-emerald-300">{t("gq.eco.noteTitle")}</strong>
+                    <span className="text-slate-300">{t("gq.eco.noteText")}</span>
+                  </span>
                 </p>
-              )}
-              {attachments.length > 0 && (
-                <ul className="grid grid-cols-3 gap-2.5 pt-2 sm:grid-cols-4">
-                  {attachments.map((attachment) => (
-                    <li
-                      key={attachment.id}
-                      className={cn(
-                        "group relative aspect-square overflow-hidden rounded-xl border bg-navy-700 shadow-sm",
-                        attachment.status === "error" ? "border-red-500" : "border-gold-600/40",
-                      )}
-                    >
-                      {attachment.previewUrl ? (
-                        // eslint-disable-next-line @next/next/no-img-element -- local object URL preview
-                        <img
-                          src={attachment.previewUrl}
-                          alt={attachment.name}
-                          className="h-full w-full object-cover transition duration-300 group-hover:scale-110"
+              </section>
+
+              <section aria-labelledby="gq-prefs-title">
+                <h3 id="gq-prefs-title" className="font-display text-2xl font-bold text-white">
+                  {t("gq.prefs.title")}
+                </h3>
+                <p className="mb-5 mt-1 text-sm text-slate-400">{t("gq.prefs.subtitle")}</p>
+                <div className="grid grid-cols-1 gap-4 lg:grid-cols-2">
+                  <div className="space-y-4">
+                    <PrefCard icon={Users} label={t("gq.prefs.gender")} htmlFor="gq-gender">
+                      <SelectField id="gq-gender" value={gender} onChange={setGender}>
+                        {GENDER_OPTIONS.map((option) => (
+                          <option key={option.value} value={option.value}>
+                            {t(option.labelKey)}
+                          </option>
+                        ))}
+                      </SelectField>
+                    </PrefCard>
+                    <PrefCard icon={MessageSquareText} label={t("gq.prefs.language")} htmlFor="gq-staff-language">
+                      <SelectField id="gq-staff-language" value={staffLanguage} onChange={setStaffLanguage}>
+                        {["no-preference", ...STAFF_LANGUAGES.map((l) => l.value)].map((value) => (
+                          <option key={value} value={value}>
+                            {staffLanguageLabel(value)}
+                          </option>
+                        ))}
+                      </SelectField>
+                    </PrefCard>
+                    <PrefCard icon={FilePen} label={t("gq.prefs.requirements")} htmlFor="gq-requirements">
+                      <div className="relative">
+                        <textarea
+                          id="gq-requirements"
+                          rows={5}
+                          maxLength={REQUIREMENTS_MAX}
+                          value={requirements}
+                          onChange={(event) => setRequirements(event.target.value)}
+                          placeholder={t("gq.prefs.requirementsPlaceholder")}
+                          className="w-full rounded-xl border border-white/15 bg-navy-900 px-4 py-3 pb-7 text-sm text-slate-100 placeholder:text-slate-500 focus:border-gold-500/60 focus:outline-none"
                         />
-                      ) : (
-                        <span className="flex h-full w-full items-center justify-center text-gold-400">
-                          <FileText className="h-8 w-8" aria-hidden />
+                        <span className="pointer-events-none absolute bottom-2.5 right-3 text-[11px] text-slate-500">
+                          {requirements.length}/{REQUIREMENTS_MAX}
                         </span>
-                      )}
-                      {attachment.status === "uploading" && (
-                        <span className="absolute inset-0 flex items-center justify-center bg-navy-900/60">
-                          <Loader2
-                            className="h-5 w-5 animate-spin text-gold-400"
-                            aria-label={t("gq.images.uploading")}
-                          />
-                        </span>
-                      )}
+                      </div>
+                    </PrefCard>
+                  </div>
+
+                  <div className="space-y-4">
+                    <div className={panelClass}>
+                      <p className="mb-3 flex items-center gap-2 text-sm font-bold text-white">
+                        <FileImage className="h-5 w-5 text-gold-400" aria-hidden />
+                        {t("gq.images.title")}
+                      </p>
                       <button
                         type="button"
-                        onClick={() => removeAttachment(attachment.id)}
-                        aria-label={t("gq.images.remove", { name: attachment.name })}
-                        className="absolute right-1 top-1 rounded-full bg-red-600 p-1.5 text-white opacity-90 transition hover:scale-110 sm:opacity-0 sm:group-hover:opacity-100 sm:focus-visible:opacity-100"
+                        onClick={() => fileInputRef.current?.click()}
+                        disabled={attachments.length >= CHECKOUT_ATTACHMENT_MAX_COUNT}
+                        className="w-full rounded-2xl border-2 border-dashed border-gold-500/40 bg-navy-800 p-6 text-center transition-colors hover:border-gold-500 hover:bg-gold-500/5 disabled:cursor-not-allowed disabled:opacity-60"
                       >
-                        <Trash2 className="h-3 w-3" aria-hidden />
+                        <CloudUpload className="mx-auto mb-2 h-9 w-9 text-gold-400" aria-hidden />
+                        <span className="block text-sm font-bold text-gold-300">{t("gq.images.upload")}</span>
+                        <span className="mt-1 block text-[11px] text-slate-400">
+                          {t("gq.images.hint", { max: CHECKOUT_ATTACHMENT_MAX_COUNT })}
+                        </span>
                       </button>
-                      <span className="absolute bottom-1 left-1 right-1 truncate rounded bg-navy-900/80 px-1 py-0.5 text-center text-[8px] font-bold text-gold-400">
-                        {attachment.name}
+                      <input
+                        ref={fileInputRef}
+                        type="file"
+                        multiple
+                        accept={CHECKOUT_ATTACHMENT_ACCEPT}
+                        className="hidden"
+                        onChange={(event) => {
+                          addAttachments(event.target.files);
+                          event.target.value = "";
+                        }}
+                      />
+                      {attachmentError && (
+                        <p role="alert" className="mt-3 text-xs font-semibold text-red-400">
+                          {attachmentError}
+                        </p>
+                      )}
+                      {attachments.length > 0 && (
+                        <ul className="mt-3 grid grid-cols-3 gap-2.5 sm:grid-cols-4">
+                          {attachments.map((attachment) => (
+                            <AttachmentTile
+                              key={attachment.id}
+                              attachment={attachment}
+                              onRemove={() => removeAttachment(attachment.id)}
+                              t={t}
+                            />
+                          ))}
+                        </ul>
+                      )}
+                    </div>
+                    <p className="flex items-start gap-3 rounded-2xl border border-sky-400/25 bg-sky-400/10 p-4 text-sm">
+                      <Info className="mt-0.5 h-5 w-5 shrink-0 text-sky-300" aria-hidden />
+                      <span>
+                        <strong className="block text-sky-200">{t("gq.prefs.formatsTitle")}</strong>
+                        <span className="text-slate-300">{t("gq.prefs.formatsText")}</span>
                       </span>
-                    </li>
-                  ))}
-                </ul>
+                    </p>
+                    <p className="flex items-start gap-3 rounded-2xl border border-emerald-500/30 bg-emerald-500/10 p-4 text-sm">
+                      <ShieldCheck className="mt-0.5 h-5 w-5 shrink-0 text-emerald-400" aria-hidden />
+                      <span>
+                        <strong className="block text-emerald-300">{t("gq.prefs.privacyTitle")}</strong>
+                        <span className="text-slate-300">{t("gq.prefs.privacyText")}</span>
+                      </span>
+                    </p>
+                  </div>
+                </div>
+              </section>
+            </div>
+          )}
+
+          {step === 5 && (
+            <div className="space-y-8">
+              <div className="grid grid-cols-1 gap-8 lg:grid-cols-2 lg:gap-0 lg:divide-x lg:divide-white/10">
+                <section aria-labelledby="gq-client-title" className="space-y-5 lg:pr-8">
+                  <h3 id="gq-client-title" className="flex items-center gap-2.5 font-display text-xl font-bold text-white">
+                    <UserRound className="h-5 w-5 text-gold-400" aria-hidden />
+                    {t("gq.details.client")}
+                  </h3>
+                  <TextField id="gq-first-name" icon={UserRound} label={t("gq.details.firstName")} required value={firstName} onChange={setFirstName} autoComplete="given-name" t={t} />
+                  <TextField id="gq-last-name" icon={UserRound} label={t("gq.details.lastName")} required value={lastName} onChange={setLastName} autoComplete="family-name" t={t} />
+                  <TextField
+                    id="gq-email"
+                    icon={Mail}
+                    type="email"
+                    label={t("gq.details.email")}
+                    required
+                    value={email}
+                    onChange={setEmail}
+                    placeholder={t("gq.details.emailPlaceholder")}
+                    autoComplete="email"
+                    t={t}
+                  />
+                  <div>
+                    <span className={labelClass}>
+                      {t("gq.details.phone")} <Required t={t} />
+                    </span>
+                    <PhoneInput name="phone" value={phone} onChange={setPhone} placeholder={t("gq.details.phone")} className="h-12 text-slate-100" />
+                  </div>
+                </section>
+
+                <section aria-labelledby="gq-address-title" className="space-y-5 lg:pl-8">
+                  <h3 id="gq-address-title" className="flex items-center gap-2.5 font-display text-xl font-bold text-white">
+                    <House className="h-5 w-5 text-gold-400" aria-hidden />
+                    {t("gq.details.address")}
+                  </h3>
+                  <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
+                    <div>
+                      <label htmlFor="gq-country" className={labelClass}>
+                        {t("gq.location.country")} <Required t={t} />
+                      </label>
+                      <IconField icon={Globe}>
+                        <SelectField id="gq-country" bare value={country} onChange={setCountry}>
+                          <option value="" disabled>
+                            {t("gq.location.countryPlaceholder")}
+                          </option>
+                          {COUNTRIES.map((option) => (
+                            <option key={option.id} value={option.name}>
+                              {localizedCountryName(option, language)}
+                            </option>
+                          ))}
+                        </SelectField>
+                      </IconField>
+                    </div>
+                    <TextField id="gq-postal" icon={MapPin} label={t("gq.location.postal")} required value={postalCode} onChange={setPostalCode} autoComplete="postal-code" t={t} />
+                    <TextField id="gq-city" icon={Building2} label={t("gq.location.city")} required value={city} onChange={setCity} autoComplete="address-level2" t={t} />
+                    <TextField id="gq-street" icon={Building2} label={t("gq.location.street")} required value={street} onChange={setStreet} autoComplete="address-line1" t={t} />
+                  </div>
+                  <TextField id="gq-province" icon={MapIcon} label={t("gq.location.state")} value={province} onChange={setProvince} autoComplete="address-level1" t={t} />
+                  <TextField id="gq-unit" icon={House} label={t("gq.location.unit")} value={unit} onChange={setUnit} autoComplete="address-line2" t={t} />
+                </section>
+              </div>
+
+              <section aria-labelledby="gq-logistics-title" className="space-y-5 border-t border-white/10 pt-6">
+                <h3 id="gq-logistics-title" className="flex items-center gap-2.5 font-display text-xl font-bold text-white">
+                  <Megaphone className="h-5 w-5 text-gold-400" aria-hidden />
+                  {t("gq.details.logistics")}
+                </h3>
+                <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
+                  <div>
+                    <label htmlFor="gq-contact" className={labelClass}>
+                      {t("gq.details.contactMethod")} <Required t={t} />
+                    </label>
+                    <IconField icon={MessageCircle}>
+                      <SelectField id="gq-contact" bare value={contactChannel} onChange={(value) => setContactChannel(value as typeof contactChannel)}>
+                        {CONTACT_OPTIONS.map((option) => (
+                          <option key={option.value} value={option.value}>
+                            {t(option.labelKey)}
+                          </option>
+                        ))}
+                      </SelectField>
+                    </IconField>
+                  </div>
+                  <div>
+                    <label htmlFor="gq-access" className={labelClass}>
+                      {t("gq.access.label")} <Required t={t} />
+                    </label>
+                    <IconField icon={KeyRound}>
+                      <SelectField id="gq-access" bare value={access} onChange={setAccess}>
+                        {ACCESS_OPTIONS.map((option) => (
+                          <option key={option.value} value={option.value}>
+                            {t(option.labelKey)}
+                          </option>
+                        ))}
+                      </SelectField>
+                    </IconField>
+                  </div>
+                </div>
+              </section>
+            </div>
+          )}
+
+          {step === REVIEW_STEP && service && (
+            <div className="mx-auto max-w-3xl">
+              <dl className="divide-y divide-white/10 rounded-2xl border border-gold-500/30 bg-navy-900/60 px-5">
+                <OverviewRow icon={Star} label={t("gq.review.service")} value={service.title} accent onEdit={() => goTo(0)} t={t} />
+                <OverviewRow icon={House} label={t("gq.review.category")} value={propertyLabel ?? t("gq.review.notSelected")} onEdit={() => goTo(1)} t={t} />
+                {hasArea && (
+                  <OverviewRow
+                    icon={Ruler}
+                    label={t("gq.review.scale")}
+                    value={
+                      isUpholstery && presetId
+                        ? `${areaText(area)} · ${t(UPHOLSTERY_PRESETS.find((p) => p.id === presetId)!.labelKey)}`
+                        : areaText(area)
+                    }
+                    accent
+                    onEdit={() => goTo(2)}
+                    t={t}
+                  />
+                )}
+                <OverviewRow
+                  icon={Users}
+                  label={t("gq.review.staffing")}
+                  value={t("gq.review.staffingValue", { cleaners, hours })}
+                  onEdit={() => goTo(3)}
+                  t={t}
+                />
+                {offersFrequency && (
+                  <OverviewRow
+                    icon={CalendarDays}
+                    label={t("gq.review.frequency")}
+                    value={
+                      frequency
+                        ? t(FREQUENCIES.find((f) => f.value === frequency)!.titleKey)
+                        : t("gq.review.notSelected")
+                    }
+                    muted={!frequency}
+                    onEdit={() => goTo(3)}
+                    t={t}
+                  />
+                )}
+                <OverviewRow
+                  icon={CalendarCheck}
+                  label={t("gq.review.schedule")}
+                  value={slot ? `${date} (${slot})` : `${date} (${t("gq.review.timeToArrange")})`}
+                  onEdit={() => goTo(3)}
+                  t={t}
+                />
+                <OverviewRow
+                  icon={Sparkles}
+                  label={t("gq.review.supplies")}
+                  value={
+                    selectedSupplies.length
+                      ? selectedSupplies
+                          .map((s) => `${s.name} × ${supplies[s.id].quantity}`)
+                          .join(", ")
+                      : t("gq.review.notSelected")
+                  }
+                  muted={!selectedSupplies.length}
+                  onEdit={() => goTo(4)}
+                  t={t}
+                />
+                <OverviewRow
+                  icon={MessageSquareText}
+                  label={t("gq.review.preferences")}
+                  value={`${t(GENDER_OPTIONS.find((g) => g.value === gender)!.labelKey)} · ${staffLanguageLabel(staffLanguage)}`}
+                  onEdit={() => goTo(4)}
+                  t={t}
+                />
+                <OverviewRow
+                  icon={Paperclip}
+                  label={t("gq.review.attachmentsLabel")}
+                  value={String(uploadedAttachments.length)}
+                  onEdit={() => goTo(4)}
+                  t={t}
+                />
+                <OverviewRow
+                  icon={UserRound}
+                  label={t("gq.review.contact")}
+                  value={[`${firstName} ${lastName}`.trim(), email, phone].filter(Boolean).join(" · ") || "—"}
+                  onEdit={() => goTo(5)}
+                  t={t}
+                />
+                <OverviewRow
+                  icon={MapPin}
+                  label={t("gq.review.address")}
+                  value={
+                    [street, unit, city, province, postalCode, country]
+                      .map((part) => part.trim())
+                      .filter(Boolean)
+                      .join(", ") || "—"
+                  }
+                  onEdit={() => goTo(5)}
+                  t={t}
+                />
+              </dl>
+
+              {requirements.trim() && (
+                <p className="mt-4 whitespace-pre-line rounded-2xl border border-white/10 bg-navy-900/60 p-4 text-sm text-slate-300">
+                  <strong className="mb-1 block text-xs uppercase tracking-wider text-gold-400">{t("gq.prefs.requirements")}</strong>
+                  {requirements.trim()}
+                </p>
               )}
-            </div>
-          </div>
-        </StepSection>
 
-        {/* 7. Customer details */}
-        <StepSection id="gq-details" step={5} icon={UserCheck} title={t("gq.details.title")} t={t}>
-          <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
-            <TextField
-              id="gq-first-name"
-              label={t("gq.details.firstName")}
-              required
-              value={firstName}
-              onChange={setFirstName}
-              autoComplete="given-name"
-              t={t}
-            />
-            <TextField
-              id="gq-last-name"
-              label={t("gq.details.lastName")}
-              value={lastName}
-              onChange={setLastName}
-              autoComplete="family-name"
-              t={t}
-            />
-            <TextField
-              id="gq-email"
-              type="email"
-              label={t("gq.details.email")}
-              required
-              value={email}
-              onChange={setEmail}
-              placeholder={t("gq.details.emailPlaceholder")}
-              autoComplete="email"
-              t={t}
-            />
-            <div>
-              <span className={labelClass}>
-                {t("gq.details.phone")} <Required t={t} />
-              </span>
-              <PhoneInput
-                name="phone"
-                value={phone}
-                onChange={setPhone}
-                placeholder={t("gq.details.phone")}
-                className="h-12 text-navy-900"
-              />
-            </div>
-          </div>
-        </StepSection>
-
-        {/* 8. Location */}
-        <StepSection id="gq-location" step={6} icon={MapPinned} title={t("gq.location.title")} t={t}>
-          <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
-            <TextField
-              id="gq-country"
-              label={t("gq.location.country")}
-              required
-              value={country}
-              onChange={setCountry}
-              placeholder={t("gq.location.countryPlaceholder")}
-              autoComplete="country-name"
-              t={t}
-            />
-            <TextField
-              id="gq-postal"
-              label={t("gq.location.postal")}
-              value={postalCode}
-              onChange={setPostalCode}
-              autoComplete="postal-code"
-              t={t}
-            />
-            <TextField
-              id="gq-city"
-              label={t("gq.location.city")}
-              required
-              value={city}
-              onChange={setCity}
-              autoComplete="address-level2"
-              t={t}
-            />
-            <TextField
-              id="gq-province"
-              label={t("gq.location.state")}
-              value={province}
-              onChange={setProvince}
-              autoComplete="address-level1"
-              t={t}
-            />
-            <TextField
-              id="gq-street"
-              label={t("gq.location.street")}
-              required
-              value={street}
-              onChange={setStreet}
-              autoComplete="address-line1"
-              t={t}
-            />
-            <TextField
-              id="gq-unit"
-              label={t("gq.location.unit")}
-              value={unit}
-              onChange={setUnit}
-              autoComplete="address-line2"
-              t={t}
-            />
-          </div>
-        </StepSection>
-      </div>
-
-      {/* Sticky summary bar */}
-      <div className="sticky bottom-0 z-40 border-t-2 border-gold-500 bg-navy-700 px-4 py-4 text-white shadow-2xl sm:px-8">
-        <div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-4 sm:flex-row">
-          <div className="flex items-center gap-4 text-center sm:text-left">
-            <span className="hidden h-12 w-12 shrink-0 items-center justify-center rounded-2xl border border-gold-500 bg-gold-500/20 text-gold-400 shadow-lg sm:flex">
-              <FileText className="h-5 w-5" aria-hidden />
-            </span>
-            <div aria-live="polite">
-              <p className="text-[10px] font-bold uppercase tracking-widest text-gold-400">{t("gq.bar.title")}</p>
-              <p className="mt-0.5 font-display text-xs font-bold sm:text-sm">
-                {t("gq.bar.summary", {
-                  services: lines.length,
-                  supplies: selectedSupplies.length,
-                  attachments: uploadedAttachments.length,
-                })}
-                {slot && ` · ${t("gq.schedule.selected", { time: slot })}`}
+              <p className="mt-5 flex items-start gap-4 rounded-2xl border border-sky-400/25 bg-sky-400/10 p-5 text-sm leading-relaxed text-slate-200">
+                <Shield className="mt-0.5 h-7 w-7 shrink-0 text-sky-300" aria-hidden />
+                {t("gq.review.note")}
               </p>
             </div>
-          </div>
-          <div className="flex w-full items-center gap-3 sm:w-auto">
-            <button
-              type="button"
-              onClick={resetForm}
-              className="flex w-1/2 items-center justify-center gap-2 rounded-xl border border-gold-500/30 bg-navy-600 px-4 py-3 text-xs font-bold text-white/80 transition hover:border-gold-500 hover:text-gold-400 sm:w-auto"
-            >
-              <RotateCcw className="h-3.5 w-3.5" aria-hidden />
-              {t("gq.bar.clear")}
-            </button>
-            <button
-              type="button"
-              onClick={openReview}
-              className="gold-gradient-bg flex w-1/2 items-center justify-center gap-2 rounded-xl px-7 py-3 text-xs font-bold uppercase tracking-wider text-navy-900 shadow-lg shadow-gold-500/30 transition hover:brightness-110 sm:w-auto"
-            >
-              <Send className="h-3.5 w-3.5" aria-hidden />
-              {t("gq.bar.review")}
-            </button>
-          </div>
-        </div>
-      </div>
+          )}
 
-      {/* Review & submit */}
-      <dialog
-        ref={reviewRef}
-        aria-labelledby="gq-review-title"
-        onClick={(event) => event.target === reviewRef.current && !submitting && reviewRef.current?.close()}
-        onCancel={(event) => submitting && event.preventDefault()}
-        className="m-auto max-h-[90vh] w-[calc(100%-2rem)] max-w-4xl overflow-y-auto rounded-3xl border border-gold-500 bg-white p-0 text-navy-900 shadow-2xl backdrop:bg-navy-900/85 backdrop:backdrop-blur-md"
-      >
-        <div className="flex items-center justify-between border-b border-gold-500/30 bg-navy-700 p-6 text-white">
-          <div className="flex items-center gap-3.5">
-            <span className="flex h-10 w-10 items-center justify-center rounded-xl border border-gold-500/30 bg-gold-500/20 text-gold-400">
-              <FileText className="h-5 w-5" aria-hidden />
-            </span>
-            <div>
-              <h2 id="gq-review-title" className="font-display text-lg font-bold">
-                {t("gq.review.title")}
-              </h2>
-              <p className="text-[11px] text-gold-400">{t("gq.review.subtitle")}</p>
-            </div>
-          </div>
-          <button
-            type="button"
-            onClick={() => reviewRef.current?.close()}
-            disabled={submitting}
-            aria-label={t("gq.review.close")}
-            className="text-white/60 transition hover:text-gold-400"
-          >
-            <X className="h-6 w-6" aria-hidden />
-          </button>
-        </div>
-
-        <div className="space-y-6 p-6 sm:p-10">
-          {missing.length > 0 && (
-            <div role="alert" className="rounded-2xl border-2 border-red-500/40 bg-red-50 p-5 text-red-900">
-              <p className="mb-2 flex items-center gap-2 text-sm font-bold">
+          {(showErrors && missingHere.length > 0) || (step === REVIEW_STEP && missingAll.length > 0) ? (
+            <div role="alert" className="mt-6 rounded-2xl border border-red-500/40 bg-red-500/10 p-4 text-red-200">
+              <p className="mb-1.5 flex items-center gap-2 text-sm font-bold">
                 <CircleAlert className="h-4 w-4" aria-hidden />
-                {t("gq.review.missing")}
+                {step === REVIEW_STEP ? t("gq.review.missing") : t("gq.stepMissing")}
               </p>
-              <ul className="list-inside list-disc space-y-1 text-xs">
-                {missing.map((message) => (
+              <ul className="list-inside list-disc space-y-0.5 text-xs">
+                {(step === REVIEW_STEP ? missingAll : missingHere).map((message) => (
                   <li key={message}>{message}</li>
                 ))}
               </ul>
             </div>
-          )}
-
-          <div className="grid grid-cols-1 gap-4 rounded-2xl border border-gold-600/30 bg-cream p-5 text-xs md:grid-cols-2">
-            <div className="space-y-1.5">
-              <h3 className="border-b border-gold-600/20 pb-1 text-[10px] font-bold uppercase tracking-wider text-gold-700">
-                {t("gq.review.customer")}
-              </h3>
-              <ReviewRow label={t("gq.details.firstName")} value={firstName} />
-              <ReviewRow label={t("gq.details.lastName")} value={lastName} />
-              <ReviewRow label={t("gq.details.email")} value={email} />
-              <ReviewRow label={t("gq.details.phone")} value={phone} />
-            </div>
-            <div className="space-y-1.5">
-              <h3 className="border-b border-gold-600/20 pb-1 text-[10px] font-bold uppercase tracking-wider text-gold-700">
-                {t("gq.review.schedule")}
-              </h3>
-              <ReviewRow label={t("gq.review.date")} value={date || t("gq.review.toArrange")} />
-              <ReviewRow label={t("gq.review.time")} value={slot ?? t("gq.review.toArrange")} />
-              <ReviewRow
-                label={t("gq.review.address")}
-                value={[street, unit, city, province, postalCode, country]
-                  .map((part) => part.trim())
-                  .filter(Boolean)
-                  .join(", ")}
-              />
-            </div>
-          </div>
-
-          {lines.length > 0 && (
-            <ReviewTable
-              title={t("gq.review.servicesTitle", { count: lines.length })}
-              headers={[t("gq.review.service"), t("gq.review.headcount"), t("gq.review.duration"), t("gq.review.area")]}
-              rows={lines.map((line, index) => [
-                `${index + 1}. ${servicesById.get(line.serviceId)?.title ?? ""}`,
-                String(line.cleaners),
-                String(line.hours),
-                areaText(line),
-              ])}
-            />
-          )}
-
-          {selectedSupplies.length > 0 && (
-            <ReviewTable
-              title={t("gq.review.suppliesTitle", { count: selectedSupplies.length })}
-              headers={[
-                t("gq.review.supply"),
-                t("gq.review.quantity"),
-              ]}
-              rows={selectedSupplies.map((supply, index) => {
-                const state = supplies[supply.id];
-                return [
-                  `${index + 1}. ${supply.name}`,
-                  `${state.quantity} ${unitLabel(supply, state.unit)}`,
-                ];
-              })}
-            />
-          )}
-
-          <div className="rounded-xl border border-gold-600/30 bg-cream/80 p-4 text-xs text-navy-900/80">
-            <strong className="mb-1 block text-gold-700">{t("gq.notebook.title")}</strong>
-            <span className="whitespace-pre-line">{requirements.trim() || "—"}</span>
-          </div>
-
-          <div className="flex flex-col justify-between gap-2 border-t border-gold-600/20 pt-3 text-xs font-bold sm:flex-row">
-            <span>{t("gq.review.attachments", { count: uploadedAttachments.length })}</span>
-            <span className="uppercase tracking-wider text-gold-700">{t("gq.review.noPrice")}</span>
-          </div>
+          ) : null}
 
           {submitError && (
-            <p role="alert" className="text-sm font-semibold text-red-700">
+            <p role="alert" className="mt-4 text-sm font-semibold text-red-400">
               {submitError}
             </p>
           )}
-        </div>
 
-        <div className="flex flex-wrap justify-end gap-3 border-t border-gold-600/30 bg-cream p-5">
-          <button
-            type="button"
-            onClick={() => reviewRef.current?.close()}
-            disabled={submitting}
-            className="rounded-xl bg-navy-900/10 px-5 py-2.5 text-xs font-bold transition hover:bg-navy-900/20 disabled:opacity-60"
-          >
-            {t("gq.review.edit")}
-          </button>
-          <button
-            type="button"
-            onClick={submit}
-            disabled={missing.length > 0 || submitting}
-            className="flex items-center gap-2 rounded-xl border border-gold-500/40 bg-navy-700 px-5 py-2.5 text-xs font-bold text-gold-400 shadow-sm transition hover:bg-navy-600 disabled:cursor-not-allowed disabled:opacity-60"
-          >
-            {submitting ? <Loader2 className="h-3.5 w-3.5 animate-spin" aria-hidden /> : <Send className="h-3.5 w-3.5" aria-hidden />}
-            {submitting ? t("gq.review.submitting") : t("gq.review.submit")}
-          </button>
+          <footer className="mt-8 flex items-center justify-between gap-3">
+            {step > 0 ? (
+              <button
+                type="button"
+                onClick={() => goTo(step - 1)}
+                disabled={submitting}
+                className="flex items-center gap-2 rounded-xl border border-gold-500/50 px-5 py-3 text-sm font-bold text-gold-400 transition hover:bg-gold-500/10 disabled:opacity-50 sm:px-7"
+              >
+                <ArrowLeft className="h-4 w-4" aria-hidden />
+                {t("gq.back")}
+              </button>
+            ) : (
+              <span />
+            )}
+            {step < REVIEW_STEP ? (
+              <button
+                type="button"
+                onClick={next}
+                className="gold-gradient-bg flex items-center gap-2 rounded-xl px-6 py-3 text-sm font-bold text-navy-900 shadow-lg shadow-gold-500/20 transition hover:brightness-110 sm:px-8"
+              >
+                {step === REVIEW_STEP - 1 ? t("gq.continueReview") : t("gq.continue")}
+                <ArrowRight className="h-4 w-4" aria-hidden />
+              </button>
+            ) : (
+              <button
+                type="button"
+                onClick={submit}
+                disabled={submitting || missingAll.length > 0}
+                className="gold-gradient-bg flex flex-1 items-center justify-center gap-2.5 rounded-2xl px-6 py-4 text-base font-bold text-navy-900 shadow-lg shadow-gold-500/20 transition hover:brightness-110 disabled:cursor-not-allowed disabled:opacity-60 sm:flex-none sm:px-10 sm:text-lg"
+              >
+                {submitting ? t("gq.review.submitting") : t("gq.review.submit")}
+                {submitting ? <Loader2 className="h-5 w-5 animate-spin" aria-hidden /> : <Send className="h-5 w-5" aria-hidden />}
+              </button>
+            )}
+          </footer>
         </div>
-      </dialog>
+      </div>
     </main>
   );
 }
 
-function IconTile({ icon: Icon, className }: { icon: LucideIcon; className?: string }) {
-  return (
-    <span
-      className={cn(
-        "flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl border border-gold-500/30 bg-navy-700 text-gold-400 shadow-lg",
-        className,
-      )}
-    >
-      <Icon className="h-5 w-5" aria-hidden />
-    </span>
-  );
-}
-
-function StepSection({
-  id,
+function StepTracker({
   step,
-  icon,
-  title,
-  actions,
+  visited,
+  onSelect,
   t,
-  children,
 }: {
-  id: string;
   step: number;
-  icon: LucideIcon;
-  title: string;
-  actions?: ReactNode;
+  visited: number;
+  onSelect: (step: number) => void;
   t: Translate;
-  children: ReactNode;
 }) {
   return (
-    <section id={id} aria-labelledby={`${id}-title`} className="mx-auto max-w-7xl scroll-mt-24 px-4 sm:px-6 lg:px-8">
-      <div className={cn(cardClass, "space-y-6")}>
-        <div className="flex flex-col justify-between gap-4 border-b border-gold-600/20 pb-5 lg:flex-row lg:items-center">
-          <div className="flex items-center gap-3.5">
-            <IconTile icon={icon} />
-            <div>
-              <span className="block text-[10px] font-bold uppercase tracking-widest text-gold-700">
-                {t("gq.step", { n: step, total: STEP_SECTIONS.length })}
-              </span>
-              <h2 id={`${id}-title`} className="font-display text-2xl font-bold sm:text-3xl">
-                {title}
-              </h2>
-            </div>
-          </div>
-          {actions}
-        </div>
-        {children}
-      </div>
-    </section>
-  );
-}
-
-function SubHeading({ icon: Icon, title }: { icon: LucideIcon; title: string }) {
-  return (
-    <h3 className="flex items-center gap-2 font-display text-lg font-bold">
-      <Icon className="h-4 w-4 text-gold-600" aria-hidden />
-      {title}
-    </h3>
+    <nav aria-label={t("gq.nav.label")} className="rounded-2xl border border-white/10 bg-navy-800/90 px-2 py-4 backdrop-blur-md sm:px-6">
+      <ol className="flex items-start">
+        {STEPS.map(({ navKey }, index) => {
+          const current = index === step;
+          const done = index < step;
+          const reachable = index <= visited && !current;
+          return (
+            <li key={navKey} className="relative flex flex-1 flex-col items-center">
+              {index > 0 && (
+                <span
+                  className={cn(
+                    "absolute right-1/2 top-4 h-px w-full -translate-y-1/2",
+                    index <= step ? "bg-gold-500/70" : "bg-white/15",
+                  )}
+                  aria-hidden
+                />
+              )}
+              <button
+                type="button"
+                onClick={() => onSelect(index)}
+                disabled={!reachable}
+                aria-current={current ? "step" : undefined}
+                className="relative z-10 flex flex-col items-center gap-1.5 disabled:cursor-default"
+              >
+                <span
+                  className={cn(
+                    "flex h-8 w-8 items-center justify-center rounded-full border text-xs font-bold transition-colors sm:h-9 sm:w-9 sm:text-sm",
+                    current
+                      ? "gold-gradient-bg border-transparent text-navy-900 shadow-lg shadow-gold-500/30"
+                      : done || reachable
+                        ? "border-gold-500 bg-navy-900 text-gold-400"
+                        : "border-white/20 bg-navy-900 text-slate-500",
+                  )}
+                >
+                  {done ? <Check className="h-4 w-4" strokeWidth={3} aria-hidden /> : index + 1}
+                </span>
+                <span
+                  className={cn(
+                    "hidden text-center text-[10px] leading-tight sm:block sm:text-xs",
+                    current ? "font-bold text-gold-400" : done || reachable ? "text-slate-200" : "text-slate-500",
+                  )}
+                >
+                  {t(navKey)}
+                </span>
+              </button>
+            </li>
+          );
+        })}
+      </ol>
+      <p className="mt-2 text-center text-xs font-bold text-gold-400 sm:hidden">{t(STEPS[step].navKey)}</p>
+    </nav>
   );
 }
 
 function Required({ t }: { t: Translate }) {
   return (
-    <span className="text-gold-600" aria-label={t("gq.required")}>
+    <span className="text-gold-400" aria-label={t("gq.required")}>
       *
     </span>
   );
 }
 
+function IconField({ icon: Icon, children }: { icon: LucideIcon; children: ReactNode }) {
+  return (
+    <div className="flex items-center overflow-hidden rounded-xl border border-white/15 bg-navy-900 transition-colors focus-within:border-gold-500/60">
+      <span className="flex h-12 w-12 shrink-0 items-center justify-center border-r border-white/10 text-slate-400">
+        <Icon className="h-4.5 w-4.5" aria-hidden />
+      </span>
+      {children}
+    </div>
+  );
+}
+
+function SelectField({
+  id,
+  value,
+  onChange,
+  bare,
+  children,
+}: {
+  id: string;
+  value: string;
+  onChange: (value: string) => void;
+  /** Inside an IconField — no border of its own. */
+  bare?: boolean;
+  children: ReactNode;
+}) {
+  return (
+    <div className={cn("relative min-w-0 flex-1", !bare && "rounded-xl border border-white/15 bg-navy-900 focus-within:border-gold-500/60")}>
+      <select
+        id={id}
+        value={value}
+        onChange={(event) => onChange(event.target.value)}
+        className={cn(inputClass, "cursor-pointer appearance-none pr-10 [&>option]:bg-navy-900")}
+      >
+        {children}
+      </select>
+      <ChevronDown className="pointer-events-none absolute right-3.5 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-400" aria-hidden />
+    </div>
+  );
+}
+
 function TextField({
   id,
+  icon,
   label,
   value,
   onChange,
@@ -1275,10 +1601,10 @@ function TextField({
   required,
   type = "text",
   autoComplete,
-  className,
   t,
 }: {
   id: string;
+  icon: LucideIcon;
   label: string;
   value: string;
   onChange: (value: string) => void;
@@ -1286,317 +1612,271 @@ function TextField({
   required?: boolean;
   type?: "text" | "email";
   autoComplete?: string;
-  className?: string;
   t: Translate;
 }) {
   return (
-    <div className={className}>
+    <div>
       <label htmlFor={id} className={labelClass}>
         {label} {required && <Required t={t} />}
       </label>
-      <input
-        id={id}
-        type={type}
-        value={value}
-        required={required}
-        onChange={(event) => onChange(event.target.value)}
-        placeholder={placeholder}
-        autoComplete={autoComplete}
-        className={fieldClass}
-      />
+      <IconField icon={icon}>
+        <input
+          id={id}
+          type={type}
+          value={value}
+          required={required}
+          onChange={(event) => onChange(event.target.value)}
+          placeholder={placeholder}
+          autoComplete={autoComplete}
+          className={inputClass}
+        />
+      </IconField>
     </div>
   );
 }
 
-function NumberStepper({
+function PrefCard({ icon: Icon, label, htmlFor, children }: { icon: LucideIcon; label: string; htmlFor: string; children: ReactNode }) {
+  return (
+    <div className={cn(panelClass, "flex gap-4")}>
+      <span className="mt-1 hidden h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-gold-500/10 text-gold-400 sm:flex">
+        <Icon className="h-5 w-5" aria-hidden />
+      </span>
+      <div className="min-w-0 flex-1">
+        <label htmlFor={htmlFor} className="mb-2 block text-sm font-bold text-white">
+          {label}
+        </label>
+        {children}
+      </div>
+    </div>
+  );
+}
+
+function StepButton({
+  kind,
+  label,
+  disabled,
+  onClick,
+}: {
+  kind: "plus" | "minus";
+  label: string;
+  disabled?: boolean;
+  onClick: () => void;
+}) {
+  return (
+    <button
+      type="button"
+      onClick={onClick}
+      disabled={disabled}
+      aria-label={label}
+      className={cn(
+        "flex h-14 w-14 shrink-0 items-center justify-center rounded-xl transition active:scale-95 disabled:cursor-not-allowed disabled:opacity-40",
+        kind === "plus"
+          ? "gold-gradient-bg text-navy-900 shadow-md hover:brightness-110"
+          : "border border-white/15 bg-navy-700 text-white hover:bg-navy-600",
+      )}
+    >
+      {kind === "plus" ? <Plus className="h-5 w-5" strokeWidth={3} aria-hidden /> : <Minus className="h-5 w-5" strokeWidth={3} aria-hidden />}
+    </button>
+  );
+}
+
+function CounterCard({
+  title,
+  text,
+  unit,
   value,
-  min,
+  min = 1,
+  max,
+  onChange,
+  t,
+}: {
+  title: string;
+  text: string;
+  unit: string;
+  value: number;
+  min?: number;
+  max: number;
+  onChange: (value: number) => void;
+  t: Translate;
+}) {
+  return (
+    <div className={panelClass}>
+      <p className="text-sm font-bold uppercase tracking-wider text-white">{title}</p>
+      <p className="mb-5 mt-1 text-sm text-slate-400">{text}</p>
+      <div className="flex items-center justify-between gap-3">
+        <StepButton kind="minus" label={t("gq.decrease", { label: title })} disabled={value <= min} onClick={() => onChange(clamp(value - 1, min, max))} />
+        <p className="text-center" aria-live="polite">
+          <span className="block font-display text-4xl font-bold leading-none text-gold-400">{value}</span>
+          <span className="mt-1 block text-sm text-slate-300">{unit}</span>
+        </p>
+        <StepButton kind="plus" label={t("gq.increase", { label: title })} disabled={value >= max} onClick={() => onChange(clamp(value + 1, min, max))} />
+      </div>
+    </div>
+  );
+}
+
+function SmallStepper({
+  value,
   max,
   label,
   onChange,
   t,
 }: {
   value: number;
-  min: number;
   max: number;
   label: string;
   onChange: (value: number) => void;
   t: Translate;
 }) {
   const buttonClass =
-    "flex h-7 w-7 items-center justify-center rounded-lg bg-gold-500/20 font-bold transition hover:bg-gold-500/30 disabled:opacity-40";
+    "flex h-8 w-8 items-center justify-center rounded-lg border border-white/15 bg-navy-700 text-white transition hover:bg-navy-600 disabled:opacity-40";
   return (
-    <div className="flex items-center gap-1.5">
-      <button
-        type="button"
-        onClick={() => onChange(clamp(value - 1, min, max))}
-        disabled={value <= min}
-        aria-label={t("gq.decrease", { label })}
-        className={buttonClass}
-      >
-        <Minus className="h-3 w-3" aria-hidden />
+    <span className="flex items-center gap-1.5">
+      <button type="button" onClick={() => onChange(clamp(value - 1, 1, max))} disabled={value <= 1} aria-label={t("gq.decrease", { label })} className={buttonClass}>
+        <Minus className="h-3.5 w-3.5" aria-hidden />
       </button>
       <input
         type="number"
         inputMode="numeric"
-        min={min}
+        min={1}
         max={max}
         value={value}
         aria-label={label}
-        onChange={(event) => onChange(clamp(Number.parseInt(event.target.value, 10) || min, min, max))}
-        className="w-12 rounded-lg border border-gold-600/30 bg-white py-1 text-center text-xs font-bold [appearance:textfield] [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none"
+        onChange={(event) => onChange(clamp(Number.parseInt(event.target.value, 10) || 1, 1, max))}
+        className="h-8 w-14 rounded-lg border border-white/15 bg-navy-900 text-center text-sm font-bold text-white [appearance:textfield] [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none"
       />
-      <button
-        type="button"
-        onClick={() => onChange(clamp(value + 1, min, max))}
-        disabled={value >= max}
-        aria-label={t("gq.increase", { label })}
-        className={buttonClass}
-      >
-        <Plus className="h-3 w-3" aria-hidden />
+      <button type="button" onClick={() => onChange(clamp(value + 1, 1, max))} disabled={value >= max} aria-label={t("gq.increase", { label })} className={buttonClass}>
+        <Plus className="h-3.5 w-3.5" aria-hidden />
       </button>
-    </div>
+    </span>
   );
 }
 
-function ServiceCard({
-  service,
-  line,
-  onToggle,
-  onChange,
+function CompletionNotice({
+  serviceTitle,
+  area,
+  formatNumber,
   t,
 }: {
-  service: QuotationServiceOption;
-  line: ServiceLineState | undefined;
-  onToggle: () => void;
-  onChange: (patch: Partial<ServiceLineState>) => void;
+  serviceTitle: string;
+  area: number;
+  formatNumber: (value: number) => string;
   t: Translate;
 }) {
-  const selected = !!line;
-  const isUpholstery = service.name === UPHOLSTERY_SERVICE;
-  const preset = UPHOLSTERY_PRESETS.find((p) => p.id === line?.presetId);
-
+  const estimate = completionEstimate(area);
   return (
-    <div
+    <section className="rounded-2xl border border-gold-500/60 bg-gold-500/5 shadow-lg shadow-gold-500/5">
+      <h3 className="flex items-center gap-3 border-b border-gold-500/20 px-5 py-4 font-display text-xl font-bold text-gold-400 sm:text-2xl">
+        <span className="gold-gradient-bg flex h-9 w-9 shrink-0 items-center justify-center rounded-full font-sans text-lg font-black text-navy-900" aria-hidden>
+          !
+        </span>
+        {t("gq.notice.title", { service: serviceTitle, area: formatNumber(area) })}
+      </h3>
+      <div className="grid grid-cols-1 divide-y divide-white/10 md:grid-cols-3 md:divide-x md:divide-y-0">
+        <div className="flex gap-3 p-5">
+          <Clock className="mt-0.5 h-6 w-6 shrink-0 text-gold-400" aria-hidden />
+          <p className="text-sm text-slate-300">
+            {t("gq.notice.standard")}
+            <strong className="my-0.5 block text-2xl font-bold text-gold-400">
+              {t("gq.notice.hours", { min: estimate.min, max: estimate.max })}
+            </strong>
+            {t("gq.notice.team", { min: estimate.teamMin, max: estimate.teamMax })}
+          </p>
+        </div>
+        <div className="flex gap-3 p-5">
+          <Users className="mt-0.5 h-6 w-6 shrink-0 text-gold-400" aria-hidden />
+          <p className="text-sm text-slate-300">
+            <strong className="block text-white">{t("gq.notice.shortenTitle")}</strong>
+            {t("gq.notice.shortenText")}
+          </p>
+        </div>
+        <div className="flex gap-3 p-5">
+          <FileText className="mt-0.5 h-6 w-6 shrink-0 text-gold-400" aria-hidden />
+          <p className="text-sm text-slate-300">
+            <strong className="block text-white">{t("gq.notice.reducedTitle")}</strong>
+            {t("gq.notice.reducedText")}
+          </p>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function AttachmentTile({ attachment, onRemove, t }: { attachment: Attachment; onRemove: () => void; t: Translate }) {
+  return (
+    <li
       className={cn(
-        "flex h-full flex-col overflow-hidden rounded-2xl border transition-all duration-300",
-        selected
-          ? "border-gold-500 bg-gold-500/15 shadow-lg ring-1 ring-gold-500/60"
-          : "border-gold-600/25 bg-white hover:border-gold-600/50",
+        "group relative aspect-square overflow-hidden rounded-xl border bg-navy-700",
+        attachment.status === "error" ? "border-red-500" : "border-gold-500/40",
       )}
     >
-      <label className="relative block h-36 w-full cursor-pointer overflow-hidden">
-        <Image
-          src={service.image}
-          alt=""
-          fill
-          sizes="(min-width: 1024px) 30vw, (min-width: 768px) 45vw, 100vw"
-          className="object-cover transition-transform duration-500 hover:scale-105"
-        />
-        <span className="absolute inset-0 bg-linear-to-t from-navy-900/90 via-navy-900/30 to-transparent" />
-        <span className="absolute left-2.5 top-2.5 flex items-center gap-1 rounded-md border border-gold-500/40 bg-navy-900/90 px-2.5 py-1 text-[9px] font-bold uppercase tracking-wider text-gold-400 backdrop-blur-md">
-          <ShieldCheck className="h-3 w-3" aria-hidden />
-          {t("gq.services.badge")}
+      {attachment.previewUrl ? (
+        // eslint-disable-next-line @next/next/no-img-element -- local object URL preview
+        <img src={attachment.previewUrl} alt={attachment.name} className="h-full w-full object-cover" />
+      ) : (
+        <span className="flex h-full w-full items-center justify-center text-gold-400">
+          <FileText className="h-8 w-8" aria-hidden />
         </span>
-        <span className="absolute bottom-2.5 left-2.5 right-2.5 flex items-center justify-between gap-2 text-white">
-          <span className="font-display text-base font-bold leading-tight">{service.title}</span>
-          <input
-            type="checkbox"
-            checked={selected}
-            onChange={onToggle}
-            aria-label={t("gq.services.select", { service: service.title })}
-            className="h-5 w-5 shrink-0 cursor-pointer accent-gold-500"
-          />
+      )}
+      {attachment.status === "uploading" && (
+        <span className="absolute inset-0 flex items-center justify-center bg-navy-900/60">
+          <Loader2 className="h-5 w-5 animate-spin text-gold-400" aria-label={t("gq.images.uploading")} />
         </span>
-      </label>
-      <div className="flex flex-1 flex-col p-4">
-        <p className="text-[11px] font-light leading-relaxed text-navy-900/70">{service.headline}</p>
+      )}
+      <button
+        type="button"
+        onClick={onRemove}
+        aria-label={t("gq.images.remove", { name: attachment.name })}
+        className="absolute right-1 top-1 rounded-full bg-red-600 p-1.5 text-white opacity-90 transition hover:scale-110 sm:opacity-0 sm:group-hover:opacity-100 sm:focus-visible:opacity-100"
+      >
+        <Trash2 className="h-3 w-3" aria-hidden />
+      </button>
+      <span className="absolute bottom-1 left-1 right-1 truncate rounded bg-navy-900/80 px-1 py-0.5 text-center text-[8px] font-bold text-gold-400">
+        {attachment.name}
+      </span>
+    </li>
+  );
+}
 
-        {line && (
-          <div className="mt-4 border-t border-gold-600/30 pt-4 text-xs">
-            <div className="grid grid-cols-2 gap-3 rounded-xl border border-gold-600/30 bg-cream/90 p-3.5 shadow-inner">
-              <div>
-                <p className="mb-1 text-[10px] font-bold uppercase tracking-wider">{t("gq.services.cleaners")}</p>
-                <NumberStepper
-                  value={line.cleaners}
-                  min={1}
-                  max={50}
-                  label={t("gq.services.cleaners")}
-                  onChange={(cleaners) => onChange({ cleaners })}
-                  t={t}
-                />
-              </div>
-              <div>
-                <p className="mb-1 text-[10px] font-bold uppercase tracking-wider">{t("gq.services.hours")}</p>
-                <NumberStepper
-                  value={line.hours}
-                  min={1}
-                  max={48}
-                  label={t("gq.services.hours")}
-                  onChange={(hours) => onChange({ hours })}
-                  t={t}
-                />
-              </div>
-
-              {line.area == null ? (
-                <p className="col-span-2 rounded-lg border border-gold-600/20 bg-cream/80 p-2 text-center text-[10px] italic text-navy-900/60">
-                  {t("gq.services.noArea")}
-                </p>
-              ) : (
-                <div className="col-span-2 space-y-2 pt-1">
-                  <div className="flex items-center justify-between gap-2">
-                    <span className="text-[10px] font-bold uppercase tracking-wider">{t("gq.services.area")}</span>
-                    <span className="rounded-md bg-gold-500/20 px-2 py-0.5 text-[10px] font-bold text-gold-700">
-                      {t("gq.services.areaRange")}
-                    </span>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <input
-                      type="range"
-                      min={AREA_MIN}
-                      max={AREA_MAX}
-                      step={10}
-                      value={Math.max(line.area, AREA_MIN)}
-                      aria-label={t("gq.services.area")}
-                      onChange={(event) => onChange({ area: Number(event.target.value), presetId: null })}
-                      className="w-full cursor-pointer accent-gold-500"
-                    />
-                    <span className="flex shrink-0 items-center gap-1">
-                      <input
-                        type="number"
-                        inputMode="numeric"
-                        min={1}
-                        max={AREA_MAX}
-                        value={line.area}
-                        aria-label={t("gq.services.area")}
-                        onChange={(event) =>
-                          onChange({
-                            area: clamp(Number.parseInt(event.target.value, 10) || 1, 1, AREA_MAX),
-                            presetId: null,
-                          })
-                        }
-                        className="w-20 rounded-lg border border-gold-600/40 bg-white px-2 py-1 text-center text-xs font-bold shadow-inner"
-                      />
-                      <span className="font-bold">m²</span>
-                    </span>
-                  </div>
-                  <div className="flex flex-wrap items-center justify-between gap-1 pt-1">
-                    {[-1, 1].map((direction) => (
-                      <div key={direction} className="flex items-center gap-1">
-                        {(direction < 0 ? [...AREA_STEPS].reverse() : AREA_STEPS).map((step) => (
-                          <button
-                            key={step}
-                            type="button"
-                            onClick={() =>
-                              onChange({
-                                area: clamp((line.area ?? DEFAULT_AREA) + direction * step, AREA_MIN, AREA_MAX),
-                                presetId: null,
-                              })
-                            }
-                            className={cn(
-                              "rounded-md border border-gold-600/30 px-2 py-0.5 text-[10px] font-bold transition",
-                              direction < 0
-                                ? "bg-navy-900/10 hover:bg-gold-500/30"
-                                : "bg-navy-700 text-gold-400 hover:bg-navy-600",
-                            )}
-                          >
-                            {direction < 0 ? "−" : "+"}
-                            {step} m²
-                          </button>
-                        ))}
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              )}
-
-              {isUpholstery && (
-                <div className="col-span-2 mt-2 border-t border-gold-600/25 pt-2">
-                  <p className="mb-1.5 flex items-center gap-1 text-[10px] font-bold uppercase tracking-wider">
-                    <Sofa className="h-3 w-3 text-gold-600" aria-hidden />
-                    {t("gq.services.upholstery")}
-                  </p>
-                  <div className="mb-2 flex flex-wrap gap-1">
-                    {UPHOLSTERY_PRESETS.map((p) => (
-                      <button
-                        key={p.id}
-                        type="button"
-                        aria-pressed={line.presetId === p.id}
-                        onClick={() => onChange({ area: p.area, presetId: p.id })}
-                        className={cn(
-                          "rounded-lg border px-2 py-1 text-[10px] font-semibold transition",
-                          line.presetId === p.id
-                            ? "border-gold-500 bg-gold-500/30"
-                            : "border-gold-600/30 bg-white hover:bg-gold-500/20",
-                        )}
-                      >
-                        {t(p.labelKey)} (~{p.area} m²)
-                      </button>
-                    ))}
-                  </div>
-                  <p className="rounded-lg border border-gold-600/30 bg-gold-500/15 p-2 text-[10px] italic">
-                    {t("gq.services.upholsteryCurrent", {
-                      label: preset ? t(preset.labelKey) : t("gq.services.upholsteryCustom"),
-                      area: line.area ?? 0,
-                    })}
-                  </p>
-                </div>
-              )}
-            </div>
-          </div>
+function OverviewRow({
+  icon: Icon,
+  label,
+  value,
+  accent,
+  muted,
+  onEdit,
+  t,
+}: {
+  icon: LucideIcon;
+  label: string;
+  value: string;
+  accent?: boolean;
+  muted?: boolean;
+  onEdit: () => void;
+  t: Translate;
+}) {
+  return (
+    <div className="flex items-center gap-4 py-3.5">
+      <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg border border-white/10 bg-navy-800 text-gold-400">
+        <Icon className="h-5 w-5" aria-hidden />
+      </span>
+      <dt className="w-32 shrink-0 text-sm text-slate-400 sm:w-44">{label}:</dt>
+      <dd
+        className={cn(
+          "min-w-0 flex-1 break-words text-right text-sm font-bold",
+          muted ? "font-normal text-slate-500" : accent ? "text-gold-400" : "text-white",
         )}
-      </div>
-    </div>
-  );
-}
-
-function ReviewRow({ label, value }: { label: string; value: string }) {
-  return (
-    <p>
-      <strong>{label}:</strong> {value.trim() || "—"}
-    </p>
-  );
-}
-
-function ReviewTable({ title, headers, rows }: { title: string; headers: string[]; rows: string[][] }) {
-  return (
-    <div>
-      <h3 className="mb-2 font-display text-sm font-bold uppercase tracking-wider text-gold-700">{title}</h3>
-      <div className="overflow-x-auto">
-        <table className="w-full border-collapse text-left text-xs">
-          <thead>
-            <tr className="border-b-2 border-gold-600/40 bg-cream text-[10px] uppercase tracking-wider">
-              {headers.map((header, index) => (
-                <th
-                  key={header}
-                  scope="col"
-                  className={cn("px-2 py-2.5 font-bold", index > 0 && "text-center", index === headers.length - 1 && "text-right")}
-                >
-                  {header}
-                </th>
-              ))}
-            </tr>
-          </thead>
-          <tbody>
-            {rows.map((row) => (
-              <tr key={row[0]} className="border-b border-gold-600/20">
-                {row.map((cell, index) => (
-                  <td
-                    key={index}
-                    className={cn(
-                      "px-2 py-3 font-bold",
-                      index > 0 && "text-center",
-                      index === row.length - 1 && "text-right text-gold-700",
-                    )}
-                  >
-                    {cell}
-                  </td>
-                ))}
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
+      >
+        {value}
+      </dd>
+      <button
+        type="button"
+        onClick={onEdit}
+        aria-label={t("gq.review.editItem", { item: label })}
+        className="shrink-0 rounded-lg p-1.5 text-slate-500 transition hover:bg-white/5 hover:text-gold-400"
+      >
+        <FilePen className="h-4 w-4" aria-hidden />
+      </button>
     </div>
   );
 }

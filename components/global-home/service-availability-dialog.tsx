@@ -9,7 +9,7 @@ import { localizedCountryName } from "@/lib/i18n/global/country-names";
 import { cn } from "@/lib/utils";
 
 // Only the countries with their own live site take bookings.
-const BOOKABLE_COUNTRY_IDS = ["fr", "gb", "lk"];
+export const BOOKABLE_COUNTRY_IDS = ["fr", "gb", "lk"];
 const COUNTRIES = REGIONAL_DATA.flatMap((group) => group.countries).filter((country) =>
   BOOKABLE_COUNTRY_IDS.includes(country.id),
 );
