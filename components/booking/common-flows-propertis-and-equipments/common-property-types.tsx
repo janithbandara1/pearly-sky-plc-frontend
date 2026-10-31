@@ -2089,7 +2089,7 @@ export function PropertyTypeSizeSelectorCommonFlowOfServices({
         )}
 
       <div
-        className={`rounded-2xl py-4 mt-5 border pb-5 sm:pb-6 px-5 sm:px-6 transition-all duration-300 ${isLight
+        className={`rounded-2xl py-4 mt-3 border pb-3 sm:pb-6 md:px-5 px-2 transition-all duration-300 ${isLight
           ? "bg-white border-[#C5A059] text-[#1A2238]"
           : "bg-[#1B2A40] border-[#C5A059] text-white"
           }`}
@@ -2165,7 +2165,7 @@ export function PropertyTypeSizeSelectorCommonFlowOfServices({
             >
               Step 1 of 6
             </span>
-            <div className={`flex justify-between items-end mt-3 border-b pb-3 ${isLight ? "border-[#D9DDE5]" : "border-[#718096]/40"}`}>
+            <div className={`flex justify-between items-end  border-b pb-1 ${isLight ? "border-[#D9DDE5]" : "border-[#718096]/40"}`}>
               <div>
                 <h3 className={`text-xl sm:text-2xl md:text-3xl font-serif mb-0 ${isLight ? "text-[#1A2238]" : "text-white"}`}>
                   {showSelectedTab} {translate("propTypeTitle")}
@@ -2231,7 +2231,7 @@ export function PropertyTypeSizeSelectorCommonFlowOfServices({
             {/* Property Category Image Cards */}
             <div
               id="property-category-scroll"
-              className="flex flex-nowrap gap-3 sm:gap-4 pt-4 pb-1 overflow-x-auto overflow-y-hidden -mx-1 px-1 [&::-webkit-scrollbar]:hidden"
+              className="flex flex-nowrap gap-3 sm:gap-4 pt-2 pb-1 overflow-x-auto overflow-y-hidden -mx-1 px-1 [&::-webkit-scrollbar]:hidden"
               style={{ scrollbarWidth: "none", scrollSnapType: "x mandatory" }}
             >
               {selectableCategories.map((cat) => {
@@ -2242,7 +2242,7 @@ export function PropertyTypeSizeSelectorCommonFlowOfServices({
                     type="button"
                     onClick={() => handleCardClick(cat.id)}
                     style={{ scrollSnapAlign: "start" }}
-                    className={`group shrink-0 w-[170px] h-[130px] md:h-auto md:w-[220px] flex flex-col justify-start rounded-xl overflow-hidden cursor-pointer transition-all duration-300 select-none border-2 ${
+                    className={`group shrink-0 w-[170px] h-[110px] md:h-auto md:w-[220px] flex flex-col justify-start rounded-xl overflow-hidden cursor-pointer transition-all duration-300 select-none border-2 ${
                       isSelected
                         ? isLight
                           ? "border-[#D8B63F] scale-[1.02]"
@@ -2253,7 +2253,7 @@ export function PropertyTypeSizeSelectorCommonFlowOfServices({
                     }`}
                   >
                     {/* Image Section */}
-                    <div className="relative w-full h-[85px] md:h-[135px]  overflow-hidden shrink-0">
+                    <div className="relative w-full h-[70px] md:h-[135px]  overflow-hidden shrink-0">
                       {cat.img ? (
                         <Image
                           src={cat.img}
@@ -2688,7 +2688,7 @@ export function PropertySizeSelector({
   return (
     <div
       ref={wheelContainerRef}
-      className={`flex flex-col w-full mt-2 md:mt-8 rounded-[28px] p-4 md:p-8 gap-6 shadow-2xl select-none border transition-all duration-300 ${isLight
+      className={`flex flex-col w-full mt-2 md:mt-8 rounded-[28px] py-1 px-3 md:p-8 gap-6 shadow-2xl select-none border transition-all duration-300 ${isLight
         ? "bg-white border-[#D9DDE5] text-[#1A2238]"
         : "bg-[#1B2A40] border-[#718096]/60 text-white"
         } ${className}`}
@@ -2766,10 +2766,10 @@ export function PropertySizeSelector({
         </div>
       </div>
 
-      <div className={`${isLight ? "border border-gray-300 p-3 rounded-xl":""}`}>        
+      <div className={`${isLight ? "border border-gray-300 py-1 px-3 rounded-xl":""}`}>        
         {/* Display & Quick-Control Card */}
         <div
-          className={`w-full py-3 rounded-2xl p-4 md:p-5 flex items-center justify-between gpa-2 md:gap-3  transition-colors 
+          className={`w-full py-3 rounded-2xl py-1 px-4 md:p-5 flex items-center justify-between gpa-2 md:gap-3  transition-colors 
             ${isLight ? " " : "bg-[#152238] border border-[#718096]/60"
             }`}
         >
@@ -3136,7 +3136,19 @@ export function EstimatioMatrixBottom({
   const isLight = theme === "light";
 
   // Data array for the estimate cards
-  const estimateCards = [
+
+  interface EstimateCard{
+    id: string;
+  icon?: any;
+  title: string;
+  value: string;
+  subtitle: string;
+      titleClassName?:string;
+  valueClassName?:string;
+  subtitleClassName?:string;
+  }
+
+  const estimateCards:EstimateCard[] = [
     {
       id: "scale",
       icon: Maximize2,

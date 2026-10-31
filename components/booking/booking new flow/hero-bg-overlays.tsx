@@ -24,7 +24,7 @@ export default function DynamicHeroOverlay({
 
   return (
     <div
-      className={`relative z-10 flex min-h-[680px]  md:min-h-[500px] w-full flex-col items-start justify-center bg-gradient-to-t from-[#030712] via-[#030712]/70 to-[#030712]/30 px-4 py-12 text-center sm:px-8 sm:py-16 md:px-12 ${className}`}
+      className={`relative z-10 flex min-h-[680px]  md:min-h-[680px] lg:min-h-[500px] w-full flex-col items-start justify-center bg-gradient-to-t from-[#030712] via-[#030712]/70 to-[#030712]/30 px-4 py-12 text-center sm:px-8 sm:py-16 md:px-12 ${className}`}
     >
       {/* Subtle radial vignette overlay for crisp readability without heavy boxes */}
       <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_left,_var(--tw-gradient-stops))] from-[#030712]/80 via-[#030712]/50 to-transparent" />

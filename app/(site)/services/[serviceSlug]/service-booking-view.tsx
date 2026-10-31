@@ -987,8 +987,8 @@ export function ServiceBookingView({
             )}
 
             {/* Reorganized flex container matching the top-level side-by-side layout */}
-            <div className="flex flex-col gap-4 md:flex-row w-full items-start mb-4">
-              <div className="md:w-[80%] flex flex-col gap-4 w-full">
+            <div className="flex flex-col gap-4 lg:flex-row w-full items-start mb-4">
+              <div className="lg:w-[80%] flex flex-col gap-4 w-full">
                 {isCommonPropertyTypeServices ? (
                   <PropertyTypeSizeSelectorCommonFlowOfServices
                     value={propertySizeSqm}

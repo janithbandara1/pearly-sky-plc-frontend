@@ -112,7 +112,7 @@ export function PageHero({
 
   return (
     <section className="relative flex flex-col h-auto justify-center bg-transparent text-center mb-5 md:mb-12">
-      <div className="lg:min-h-[75vh] lg:max-h-[80vh] md:min-h-[45vh] md:max-h-[80vh] h-[90vh] w-full overflow-hidden">
+      <div className="lg:min-h-[75vh] lg:max-h-[80vh] md:min-h-[45vh] md:max-h-[50vh] h-[90vh] w-full overflow-hidden">
         <Image
           src={image}
           alt={title || ""}
