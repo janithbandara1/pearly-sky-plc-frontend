@@ -5,33 +5,30 @@
  */
 import type { GlobalKey } from "@/lib/i18n/global/en";
 
-const IMAGE_DIR = "/images/services/updated-";
+const IMAGE_DIR = "/images/services/updated-images/";
 
-/** Card photo per service id (the 660px variants). */
+/** Card photo per service id — the same files the country sites' catalog seeds use. */
 const IMAGES: Record<string, string> = {
-  "regular-home-cleaning": "home-property-cleaning-services-1-standard-residential-cleaning-660w.webp",
-  "essential-touch-up-cleaning": "home-property-cleaning-services-2-express-refresh-cleaning-660w.webp",
-  "same-day-priority-cleaning": "home-property-cleaning-services-3-last-minute-cleaning-660w.webp",
-  "deep-cleaning": "home-property-cleaning-services-4-deep-cleaning-660w.webp",
-  "end-of-tenancy-cleaning": "home-property-cleaning-services-5-move-in-out-cleaning-660w.webp",
-  "post-construction-renovation-cleaning":
-    "home-property-cleaning-services-6-post-construction-renovation-cleaning-660w.webp",
-  "premium-rental-concierge-cleaning":
-    "home-property-cleaning-services-7-airbnb-short-term-rental-cleaning-660w.webp",
-  "commercial-office-cleaning": "home-property-cleaning-services-8-commercial-office-cleaning-660w.webp",
-  "healthguard-sanitization":
-    "home-property-cleaning-services-9-healthguard-sanitization-medical-grade-eco-disinfection-660w.webp",
-  "carpet-upholstery-cleaning": "home-property-cleaning-services-10-carpet-upholstery-cleaning-660w.webp",
-  "steam-cleaning": "home-property-cleaning-services-11-steam-cleaning-660w.webp",
-  "post-event-cleaning": "home-property-cleaning-services-12-post-event-cleaning-660w.webp",
-  "pool-cleaning": "home-property-cleaning-services-13-pool-cleaning-660w.webp",
-  "precision-pressure-washing": "home-property-cleaning-services-14-precision-pressure-washing-660w.webp",
-  "child-care-service": "care-support-services-1-child-care-service-660w.webp",
-  "elder-care-service": "care-support-services-2-elder-care-service-660w.webp",
-  "laundry-service": "care-support-services-3-laundry-services-660w.webp",
-  "move-in-out-transport-service": "care-support-services-4-move-in-out-transport-service-660w.webp",
-  "high-security-property-care": "home-property-cleaning-services-15-security-cleaning-660w.webp",
-  "luxury-yacht-cleaning": "home-property-cleaning-services-16-luxury-yacht-cleaning-660w.webp",
+  "regular-home-cleaning": "Regular-Home-Cleaning.webp",
+  "essential-touch-up-cleaning": "essential-touch-up-cleaning.webp",
+  "same-day-priority-cleaning": "Same-Day-Priority-Cleaning.webp",
+  "deep-cleaning": "deep-cleaning.webp",
+  "end-of-tenancy-cleaning": "end-of-tendancy.webp",
+  "post-construction-renovation-cleaning": "Post-Construction-&-Renovation-Cleaning.webp",
+  "premium-rental-concierge-cleaning": "Premium-Rental-Concierge-Cleaning.webp",
+  "commercial-office-cleaning": "Commercial-&-Office-Cleaning.webp",
+  "healthguard-sanitization": "HealthGuard-Sanitization.webp",
+  "carpet-upholstery-cleaning": "Carpet-&-Upholstery-Cleaning.webp",
+  "steam-cleaning": "Steam-Cleaning.webp",
+  "post-event-cleaning": "Post-Event-Cleaning.webp",
+  "pool-cleaning": "Pool-Cleaning.webp",
+  "precision-pressure-washing": "Precision-Pressure-Washing.webp",
+  "child-care-service": "Child-Care-Service.webp",
+  "elder-care-service": "Elder-Care-Service.webp",
+  "laundry-service": "Laundry-Service.webp",
+  "move-in-out-transport-service": "Move-In-Move-Out-Transport-Service.webp",
+  "high-security-property-care": "High-Security-Property-Cleaning .webp",
+  "luxury-yacht-cleaning": "Luxury-Yacht-Cleaning.webp",
 };
 
 export const SERVICE_CATEGORIES: { id: string; labelKey: GlobalKey }[] = [
@@ -67,7 +64,7 @@ export const CATEGORY_BY_SERVICE: Record<string, ServiceCategoryId> = {
   "move-in-out-transport-service": "lifestyle",
 };
 
-/** A service's card photo (660px variant). */
+/** A service's card photo. Encoded, since some file names contain spaces and "&". */
 export function serviceCardImage(id: string): string {
-  return `${IMAGE_DIR}${IMAGES[id]}`;
+  return encodeURI(`${IMAGE_DIR}${IMAGES[id]}`).replaceAll("&", "%26");
 }
